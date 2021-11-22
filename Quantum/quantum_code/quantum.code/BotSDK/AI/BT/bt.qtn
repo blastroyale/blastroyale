@@ -1,0 +1,26 @@
+﻿asset BTNode;
+asset BTService;
+
+component BTAgent {
+	asset_ref<BTNode> Tree;
+	asset_ref<BTNode> Current;
+	list<Byte> NodesStatus;
+	list<Int32> ServicesNextTicks;
+	list<BTDataValue> BTDataValues;
+	list<AssetRefBTService> ActiveServices;
+	list<AssetRefBTComposite> DynamicComposites;
+	AssetRefAIConfig Config;
+}
+
+struct BTDataIndex{
+	Int32 Index;
+}
+
+union BTDataValue{
+	FP FPValue;
+	Int32 IntValue;
+}
+
+asset import BTComposite;
+asset import BTDecorator;
+asset import BTRoot;

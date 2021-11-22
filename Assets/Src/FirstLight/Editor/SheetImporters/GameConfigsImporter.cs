@@ -1,0 +1,40 @@
+using System.Collections.Generic;
+using FirstLight.Editor.EditorTools;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Utils;
+using FirstLight.GoogleSheetImporter;
+using FirstLightEditor.GoogleSheetImporter;
+using Photon.Deterministic;
+using Quantum;
+using GameConfigs = FirstLight.Game.Configs.GameConfigs;
+
+namespace FirstLight.Editor.SheetImporters
+{
+	/// <inheritdoc />
+	public class GameConfigsImporter : GoogleSheetSingleConfigImporter<QuantumGameConfig, GameConfigs>
+	{
+		/// <inheritdoc />
+		public override string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1TZuc8gOMgrN6nJWRFJymxmf2SR2QNyQfx0x-STtIN-M/edit#gid=1302509779";
+
+		/// <inheritdoc />
+		protected override QuantumGameConfig Deserialize(List<Dictionary<string, string>> data)
+		{
+			var config = new QuantumGameConfig() as object;
+			var type = typeof(QuantumGameConfig);
+
+			foreach (var row in data)
+			{
+				var field = type.GetField(row["Key"]);
+
+				if (field == null)
+				{
+					continue;
+				}
+				
+				field.SetValue(config, CsvParser.DeserializeObject(row["Value"], field.FieldType, QuantumDeserializer.FpDeserializer));
+			}
+			
+			return (QuantumGameConfig) config;
+		}
+	}
+}

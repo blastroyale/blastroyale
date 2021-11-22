@@ -1,0 +1,31 @@
+﻿asset UTRoot;
+asset Consideration;
+
+component UTAgent
+{
+	UtilityReasoner UtilityReasoner;
+	AssetRefAIConfig Config;
+}
+
+struct UtilityReasoner
+{
+	AssetRefUTRoot UTRoot;
+	[HideInInspector] list<AssetRefConsideration> Considerations;
+	[HideInInspector] list<UTMomentumPack> MomentumList;
+	[HideInInspector] FP TimeToTick;
+	[HideInInspector] dictionary<AssetRefConsideration, FP> CooldownsDict;
+	[HideInInspector] list<AssetRefConsideration> PreviousExecution;
+}
+
+struct UTMomentumPack
+{
+	AssetRefConsideration ConsiderationRef;
+	UTMomentumData MomentumData;
+}
+
+[Serializable]
+struct UTMomentumData
+{
+	Int32 Value;
+	Byte DecayAmount;
+}

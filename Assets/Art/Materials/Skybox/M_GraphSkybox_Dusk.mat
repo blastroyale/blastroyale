@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_GraphSkybox_Dusk
+  m_Shader: {fileID: -6465566751694194690, guid: 49eb59d62e37c7b4181c9144044efa4f, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - Vector1_25ED908C: 25
+    - Vector1_35733DCC: 1
+    - Vector1_3D4E58FA: 1.73
+    - Vector1_3F7EACDD: 1
+    - Vector1_70D6C424: 0.07
+    - Vector1_910C4AAA: 0
+    - Vector1_A451679A: 20
+    - Vector1_D2C8878E: -0.03
+    - Vector1_D6B3B009: 3.02
+    - Vector1_DDEF11E3: 2
+    - Vector1_DEBD983F: 0.13
+    - Vector1_F8DFA3E9: 0.3
+    m_Colors:
+    - Color_49AC444C: {r: 3.9999995, g: 1.4004896, b: 0.6492144, a: 1}
+    - Color_A4C1483C: {r: 2, g: 1.529629, b: 0.7484275, a: 0}
+    - Color_CB580CB6: {r: 0.031372555, g: 0.040005602, b: 0.08235294, a: 1}
+    - Color_E46740D2: {r: 0.07594631, g: 0.13628164, b: 0.754717, a: 0}
+    - Color_F1A1AA80: {r: 1.7776468, g: 0.9670844, b: 1.4730184, a: 1}
+    - Vector3_75B35D82: {r: 0.5, g: 0.08, b: 3.39, a: 0}
+    - _SunDirection: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

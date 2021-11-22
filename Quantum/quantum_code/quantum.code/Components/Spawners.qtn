@@ -1,0 +1,22 @@
+component CollectablePlatformSpawner
+{
+	[HideInInspector] EntityRef Collectable;
+	[HideInInspector] FP NextSpawnTime;
+	[HideInInspector] UInt32 SpawnCount;
+	UInt32 RespawnTimeInSec;
+	UInt32 InitialSpawnDelayInSec;
+	GameId GameId;
+}
+
+component ConsumablePlatformSpawner
+{
+}
+
+component WeaponPlatformSpawner
+{
+}
+
+component PlayerSpawner
+{
+	[HideInInspector] FP ActivationTime;
+}

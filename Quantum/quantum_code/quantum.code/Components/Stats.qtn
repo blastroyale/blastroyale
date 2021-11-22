@@ -1,0 +1,69 @@
+#define TOTAL_STATS 5
+
+component Stats
+{
+	Int32 CurrentHealth;
+	Int32 CurrentInterimArmour;
+	bool IsImmune;
+	array<StatData>[TOTAL_STATS] Values;
+	list<Modifier> Modifiers;
+	StatusModifierType CurrentStatusModifierType;
+	FP CurrentStatusModifierDuration;
+	FP CurrentStatusModifierEndTime;
+}
+
+enum StatType
+{
+	Health,
+	Power,
+	Speed,
+	Armour,
+	InterimArmour,
+}
+
+struct StatData
+{
+	StatType Type;
+	FP BaseValue;
+	FP StatValue;
+}
+
+struct Modifier
+{
+	UInt32 Id;
+	StatType Type;
+	FP Power;
+	FP Duration;
+	FP EndTime;
+	bool IsNegative;
+}
+
+synced event OnHealthChanged
+{
+	entity_ref Entity;
+	entity_ref Attacker;
+	Int32 PreviousHealth;
+	Int32 CurrentHealth;
+	Int32 MaxHealth;
+}
+
+synced event OnInterimArmourChanged
+{
+	entity_ref Entity;
+	entity_ref Attacker;
+	Int32 PreviousInterimArmour;
+	Int32 CurrentInterimArmour;
+	Int32 MaxInterimArmour;
+}
+
+synced event OnHealthIsZero
+{
+	entity_ref Entity;
+	entity_ref Attacker;
+	FPVector3 DamageSourceDirection;
+	Int32 DamageAmount;
+}
+
+signal HealthChanged(entity_ref entity, entity_ref attacker, Int32 previousHealth);
+signal HealthIsZero(entity_ref entity, entity_ref attacker);
+

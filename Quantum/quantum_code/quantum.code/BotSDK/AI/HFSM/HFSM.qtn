@@ -1,0 +1,17 @@
+﻿asset HFSMRoot;
+asset HFSMState;
+asset HFSMDecision;
+asset HFSMTransitionSet;
+
+component HFSMAgent{
+	HFSMData Data;
+	AssetRefAIConfig Config;
+}
+
+struct HFSMData
+{
+	asset_ref<HFSMRoot> Root;
+	asset_ref<HFSMState> CurrentState;
+	FP Time;
+	array<FP>[8] Times;
+}

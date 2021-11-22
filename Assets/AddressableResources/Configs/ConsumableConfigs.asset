@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d615ac06a0264d62bc62cbf725eb7c1c, type: 3}
+  m_Name: ConsumableConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/ConsumableConfigs
+      Guid:
+        Value: 3521447524462001825
+    QuantumConfigs:
+    - Id: 64
+      ConsumableType: 1
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 15
+    - Id: 4
+      ConsumableType: 0
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 100
+    - Id: 127
+      ConsumableType: 3
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 10
+    - Id: 128
+      ConsumableType: 3
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 32
+    - Id: 126
+      ConsumableType: 4
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 400
+    - Id: 129
+      ConsumableType: 4
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 1000

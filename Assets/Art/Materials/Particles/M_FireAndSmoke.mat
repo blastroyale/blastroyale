@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_FireAndSmoke
+  m_Shader: {fileID: -6465566751694194690, guid: e7bf542b01c71ac49bb3f80465e04094, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_27E9C562:
+        m_Texture: {fileID: 2800000, guid: 1a90ea9b6e5e1f141bbafb2dbe7244ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9DA69721:
+        m_Texture: {fileID: 2800000, guid: d5dad7d06452ddd4fb440b993c983640, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d5dad7d06452ddd4fb440b993c983640, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_F05D7CF: 1
+    m_Colors:
+    - Color_F629BE2B: {r: 8.564653, g: 1.9360881, b: 0.61945534, a: 1}
+    - Vector2_165D8D5E: {r: 0, g: 0.23, b: 0, a: 0}
+    - Vector2_AB41C7CD: {r: -0.5, g: 0.5, b: 0, a: 0}
+  m_BuildTextureStacks: []

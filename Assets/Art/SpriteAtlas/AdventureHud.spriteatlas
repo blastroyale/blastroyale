@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AdventureHud
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4a88a8bce955ac54e87d88ee03e24775, type: 3}
+    - {fileID: 102900000, guid: 0e8ec11294a6166498631c667f175d27, type: 3}
+    - {fileID: 102900000, guid: 24880832516b99b4097c5e0186d88f10, type: 3}
+    - {fileID: 102900000, guid: 154453715f16d66419afedfd67420f80, type: 3}
+    - {fileID: 102900000, guid: f32c1bd90aa444729b7a70530abfb1af, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d533b2002939d42b09f93ea5c5640482, type: 3}
+  - {fileID: 21300000, guid: a9877810cf8dfcf45a22db5765ea87d1, type: 3}
+  - {fileID: 21300000, guid: 657537604173846308db848529b8e666, type: 3}
+  - {fileID: 21300000, guid: 4f5bb9c04ad71274097f42d6b1bb830a, type: 3}
+  - {fileID: 21300000, guid: 8b6bea0173d97c744befc64bceab542e, type: 3}
+  - {fileID: 21300000, guid: 04395511ad9f3fa4caca419869ec6ba5, type: 3}
+  - {fileID: 21300000, guid: d66d92d1e501e4d12b64f78788cdada0, type: 3}
+  - {fileID: 21300000, guid: fffcdc323b176c44685847bb11a5ad2b, type: 3}
+  - {fileID: 21300000, guid: 710393722a6aea44a91958ec48faf1df, type: 3}
+  - {fileID: 21300000, guid: 015fefd294d197c47a6200192ed61102, type: 3}
+  - {fileID: 21300000, guid: 07ff8b0340c7df94f8a4257a1a776eb7, type: 3}
+  - {fileID: 21300000, guid: d39f12438282f3f4582fc4dbd4bed85d, type: 3}
+  - {fileID: 21300000, guid: 2ba2d5a3829f2844da9780a46bde1f63, type: 3}
+  - {fileID: 21300000, guid: abae18041ec2b3a4d8d16772af05241d, type: 3}
+  - {fileID: 21300000, guid: eea4c914f098743eb80820aef94b95ac, type: 3}
+  - {fileID: 21300000, guid: 26a1063432a2745b0a994e82a0bc9845, type: 3}
+  - {fileID: 21300000, guid: b4f7eea4c12960a4f8ecb113e57816cd, type: 3}
+  - {fileID: 21300000, guid: 8a3451f4b261249adbe672242c3c5331, type: 3}
+  - {fileID: 21300000, guid: af51e505dca254a45a2f80602f9da72b, type: 3}
+  - {fileID: 21300000, guid: 2a2d40756fab94e739899ed2cf53eb0a, type: 3}
+  - {fileID: 21300000, guid: 3b8a9e85985ce4a449bd7f89d4887897, type: 3}
+  - {fileID: 21300000, guid: 33cb72d57497e456cbd2b35f73065735, type: 3}
+  - {fileID: 21300000, guid: 055d5ef54e3ec4ee6b338a4867b7c641, type: 3}
+  - {fileID: 21300000, guid: 6899dd6601172446d9df3f5033afabe6, type: 3}
+  - {fileID: 21300000, guid: 002ac4862f155463fb4d52d5b177e0ce, type: 3}
+  - {fileID: 21300000, guid: e38a2727d5e515f498bf59ce2542bd9e, type: 3}
+  - {fileID: 21300000, guid: 21a62b37e8f323f479b3a5896e49171b, type: 3}
+  - {fileID: 21300000, guid: bec95047e2f276844b0419ffbf07b7c4, type: 3}
+  - {fileID: 21300000, guid: b5ab2e571ea004f279c320f066bb3105, type: 3}
+  - {fileID: 21300000, guid: f26621d71421141298a9a8cf0dc80574, type: 3}
+  - {fileID: 21300000, guid: 734058f7d1ddca14da41f2d56d253dd0, type: 3}
+  - {fileID: 21300000, guid: 0655db597a744f2499c7bf098e161522, type: 3}
+  - {fileID: 21300000, guid: 1eebf889d9952494995383a7a0401e09, type: 3}
+  - {fileID: 21300000, guid: 4358f599f237f4186a501d2d73007520, type: 3}
+  - {fileID: 21300000, guid: 0728f4e9144eb4d108dd24d2c71d79b7, type: 3}
+  - {fileID: 21300000, guid: 21c78af9a15cc1a4191a60ce7e351b1d, type: 3}
+  - {fileID: 21300000, guid: 3b67aef998e104d9ba413a8802c6d8d3, type: 3}
+  - {fileID: 21300000, guid: f80be77a76765442ea265f828dea7888, type: 3}
+  - {fileID: 21300000, guid: ae74559a0e1790b4e8f8019c57128d83, type: 3}
+  - {fileID: 21300000, guid: f399e6aa82350064fbf740f138c0f9c6, type: 3}
+  - {fileID: 21300000, guid: 97826b1bcd8e6c04ca7aeb7b79cca1f9, type: 3}
+  - {fileID: 21300000, guid: 715dca5ba7c7456438d4c122a0801205, type: 3}
+  - {fileID: 21300000, guid: 41e813cbb15b2406db58a4022b6efcca, type: 3}
+  - {fileID: 21300000, guid: c4fa85fbe87b6f84c9eea5af0eca2341, type: 3}
+  - {fileID: 21300000, guid: 523d402cd81de4cdc9fb5aaee7712622, type: 3}
+  - {fileID: 21300000, guid: b3cf5e3cdd4314e8ca4f90d654141bc8, type: 3}
+  - {fileID: 21300000, guid: 0f00a1acb69574ad2a5863ef52275252, type: 3}
+  - {fileID: 21300000, guid: 00d895ccfbba141c19d851d2646007a6, type: 3}
+  - {fileID: 21300000, guid: f335cbcc9213a4dd292ffabe22ccf9c4, type: 3}
+  - {fileID: 21300000, guid: c5d752fc5fa5d5b4fa3a069a455059cf, type: 3}
+  - {fileID: 21300000, guid: 25a1920dd444f5a4d9ed9d2530f805fe, type: 3}
+  - {fileID: 21300000, guid: 557f203d3134fc043b30d3a5242e9a2a, type: 3}
+  - {fileID: 21300000, guid: 82591b8dbfe25e64b95fd25fd184e568, type: 3}
+  - {fileID: 21300000, guid: 1ffdc9ad31db7a1488f4e5225bb3f750, type: 3}
+  - {fileID: 21300000, guid: 8e06afad60bdde94084d77a92cd0f4c7, type: 3}
+  - {fileID: 21300000, guid: 26ba52ed9051d423dbfe823488a7abfc, type: 3}
+  - {fileID: 21300000, guid: 113fd59e86fa6524a972547df6cc8459, type: 3}
+  - {fileID: 21300000, guid: bd5d2d0f52715473ca58a463cc941357, type: 3}
+  - {fileID: 21300000, guid: 23beb82f33697664a8e8e12ace7b93f5, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - DefaultIndicatorBase
+  - LootIndicatorIcon
+  - BossIndicatorOutside
+  - HUDRankBackground
+  - SpeedPill
+  - QuestBarFill
+  - PlayerIndicatorFace
+  - MovementIndicatorStar
+  - JoystickAutoAim
+  - JoystickThumbRight
+  - CircleWipe
+  - Female01Avatar
+  - Male02Avatar
+  - HUD_Coin
+  - HealthBarShine
+  - SpecialRing
+  - WhiteRound
+  - 2Countdown
+  - Joystick_Background
+  - TimerBase
+  - ReviveArrow
+  - EnemyIndicatorBase
+  - SmearSpecial
+  - GOCountdown
+  - PlayerIndicatorBase
+  - JoystickManualAim
+  - HealthPill
+  - Armour
+  - 3Countdown
+  - DiagonalWiper
+  - Female02Avatar
+  - JoystickThumbLeft
+  - SkullKing
+  - SpecialButtonDirectional
+  - Joystick_Handle_Aim
+  - JoystickAutoAimBase
+  - 1Countdown
+  - SkullKillCount
+  - Male01Avatar
+  - QuestBarQuestFill
+  - BossArrow
+  - EnemyRadialIndicator
+  - LootIndicatorBase
+  - PowerPill
+  - HealthBar
+  - EnemyIndicatorFace
+  - CheqFlag
+  - BossIndicatorInside
+  - Joystick_Handle_Move
+  - PlayerAvatarKO
+  - NearDeathVignette
+  - RIP_Icon
+  - PlayerAvatarGeneric
+  - QuestTitleFrame
+  - QuestBar
+  - SpecialButton
+  - PlayerLeft
+  - PlayerIndicatorFaceKO
+  - HUD_AdventureCoin
+  m_RenderDataMap: {}
+  m_Tag: AdventureHud
+  m_IsVariant: 0

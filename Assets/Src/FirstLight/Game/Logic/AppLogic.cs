@@ -1,0 +1,118 @@
+using System;
+using System.Collections.Generic;
+using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
+using FirstLight.Game.MonoComponent.Ftue;
+using FirstLight.Game.Utils;
+using FirstLight.Services;
+
+
+namespace FirstLight.Game.Logic
+{
+	/// <summary>
+	/// This logic provides the necessary behaviour to manage the game's app
+	/// </summary>
+	public interface IAppDataProvider
+	{
+		/// <summary>
+		/// Requests the information if the current game session is the first time the player is playing the game or not
+		/// </summary>
+		bool IsFirstSession { get; }
+		
+		/// <summary>
+		/// Requests the information if the game was or not yet reviewed
+		/// </summary>
+		bool IsGameReviewed { get; }
+
+		/// <summary>
+		/// Are Sound Effects enabled?
+		/// </summary>
+		bool IsSfxOn { get; set; }
+
+		/// <summary>
+		/// Is Background Music enabled?
+		/// </summary>
+		bool IsBgmOn { get; set; }
+
+		/// <summary>
+		/// Is Haptic feedback on device enabled?
+		/// </summary>
+		bool IsHapticOn { get; set; }
+
+		/// <summary>
+		/// Marks the date when the game was last time reviewed
+		/// </summary>
+		void MarkGameAsReviewed();
+	}
+	
+	/// <inheritdoc />
+	public interface IAppLogic : IAppDataProvider
+	{
+	}
+
+	/// <inheritdoc cref="IAppLogic"/>
+	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic, IGameLogicInitializer
+	{
+		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
+		private readonly IAudioFxService<AudioId> _audioFxService;
+
+		/// <inheritdoc />
+		public bool IsFirstSession => Data.IsFirstSession;
+		/// <inheritdoc />
+		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
+
+		/// <inheritdoc />
+		public bool IsSfxOn
+		{
+			get => Data.SfxEnabled;
+			set
+			{
+				Data.SfxEnabled = value;
+				_audioFxService.Is2dSfxMuted = !value;
+				_audioFxService.Is3dSfxMuted = !value;
+			}
+		}
+
+		/// <inheritdoc />
+		public bool IsBgmOn
+		{
+			get => Data.BgmEnabled;
+			set
+			{
+				Data.BgmEnabled = value;
+				_audioFxService.IsBgmMuted = !value;
+			}
+		}
+
+		/// <inheritdoc />
+		public bool IsHapticOn
+		{
+			get => Data.HapticEnabled; 
+			set => Data.HapticEnabled = value;
+		}
+
+		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) : 
+			base(gameLogic, dataProvider)
+		{
+			_audioFxService = audioFxService;
+		}
+
+		/// <inheritdoc />
+		public void Init()
+		{
+			IsSfxOn = IsSfxOn;
+			IsBgmOn = IsBgmOn;
+		}
+
+		/// <inheritdoc />
+		public void MarkGameAsReviewed()
+		{
+			if (IsGameReviewed)
+			{
+				throw new LogicException("The game was already reviewed and cannot be reviewed again");
+			}
+			
+			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
+		}
+	}
+}

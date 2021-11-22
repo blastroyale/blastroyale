@@ -1,0 +1,7 @@
+﻿asset AIFunctionByte;
+asset AIFunctionBool;
+asset AIFunctionInt;
+asset AIFunctionFP;
+asset AIFunctionFPVector2;
+asset AIFunctionFPVector3;
+asset AIFunctionEntityRef;

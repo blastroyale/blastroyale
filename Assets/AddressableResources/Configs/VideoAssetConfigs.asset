@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef2cbc9a793aee4096d58426081eb55, type: 3}
+  m_Name: VideoAssetConfigs
+  m_EditorClassIdentifier: 
+  _assetsFolderPath: Assets/AddressableResources/Video
+  _configs:
+  - Key: 23
+    Value:
+      m_AssetGUID: 5faf252815344494f8591f9d112381e5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 30
+    Value:
+      m_AssetGUID: 17e026156edaf9d4fb837a4a16d8c875
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 80
+    Value:
+      m_AssetGUID: b028131213798e745a2c2a835c7b49d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 81
+    Value:
+      m_AssetGUID: ebe1bed468cb95d4bbe6981f01cace93
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 83
+    Value:
+      m_AssetGUID: a5600f95a5c51e547b8a46e89d30706a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 84
+    Value:
+      m_AssetGUID: 1ec444cf6943fa74c9a72dad450f1e83
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 85
+    Value:
+      m_AssetGUID: 243059416f44ad94c9f0f1d3e9278f2b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 86
+    Value:
+      m_AssetGUID: 101fce42aef5bff4899491709362e403
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 89
+    Value:
+      m_AssetGUID: befa1711ab9cf0b42a04df1662df9925
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 110
+    Value:
+      m_AssetGUID: b4a7c55a064bd2e4386336f607d7d1b8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 111
+    Value:
+      m_AssetGUID: d22389be3c968c443ad797b0b307a48c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 117
+    Value:
+      m_AssetGUID: 094225ad32083fe4ea78ff1564a9156e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 119
+    Value:
+      m_AssetGUID: bd90fea2d123c5449bb3a659a7d63a81
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

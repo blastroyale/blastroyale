@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4180ae84daba4918bb9d2b80549bc7d0, type: 3}
+  m_Name: PlayerBlackboard
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
+      Guid:
+        Value: 4429615334325005816
+    Entries:
+    - Type: 3
+      Key:
+        Key: TargetRange
+    - Type: 3
+      Key:
+        Key: StunDuration
+    - Type: 3
+      Key:
+        Key: AimTime
+    - Type: 3
+      Key:
+        Key: ProjectileRange
+    - Type: 3
+      Key:
+        Key: SplashRadius
+    - Type: 6
+      Key:
+        Key: TargetCandidate
+    - Type: 3
+      Key:
+        Key: ProjectileStunDuration
+    - Type: 2
+      Key:
+        Key: ProjectileGameId
+    - Type: 2
+      Key:
+        Key: TargetingType
+    - Type: 0
+      Key:
+        Key: IsAimed
+    - Type: 3
+      Key:
+        Key: ProjectileSpeed
+    - Type: 0
+      Key:
+        Key: IsHoming
+    - Type: 0
+      Key:
+        Key: IsAutoShoot
+    - Type: 6
+      Key:
+        Key: Projectile
+    - Type: 6
+      Key:
+        Key: Target
+    - Type: 0
+      Key:
+        Key: IsManualAiming
+    - Type: 3
+      Key:
+        Key: AttackCooldown

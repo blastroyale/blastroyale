@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd92f114058573408588712184cdae1, type: 3}
+  m_Name: GearConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/GearConfigs
+      Guid:
+        Value: 331988359844761930
+    QuantumConfigs:
+    - Id: 24
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 32768
+    - Id: 26
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 17695
+      SpeedRatioToBase:
+        RawValue: 32768
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 25
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 131072
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 47
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 23593
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 27
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 32768
+    - Id: 28
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 65536
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 29
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 40960
+    - Id: 38
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 19661
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 39
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 4915
+      SpeedRatioToBase:
+        RawValue: 49152
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 40
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 14746
+      SpeedRatioToBase:
+        RawValue: 16384
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 41
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 9830
+      SpeedRatioToBase:
+        RawValue: 32768
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 42
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 24576
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 20480
+    - Id: 43
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 36864
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 10240
+    - Id: 44
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 12288
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 30720
+    - Id: 45
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 49152
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 46
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 11796
+      SpeedRatioToBase:
+        RawValue: 65536
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 48
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 5898
+      SpeedRatioToBase:
+        RawValue: 98304
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 52
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 29491
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 8192
+    - Id: 53
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 9830
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 24576
+    - Id: 54
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 39322
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+    - Id: 50
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 29491
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 8192
+    - Id: 49
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 9830
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 24576
+    - Id: 51
+      StartingRarity: 0
+      HpRatioToBase:
+        RawValue: 39322
+      SpeedRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0

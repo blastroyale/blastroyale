@@ -1,0 +1,61 @@
+component Stun
+{
+	FP VulnerabilityMultiplier; 
+}
+
+component Shield
+{
+}
+
+component Regeneration
+{
+}
+
+component Rage
+{
+	FP Power;
+	UInt32 PowerModifierId;
+}
+
+component Invisibility
+{
+}
+
+component Star
+{
+	EntityRef DamageHazard;
+	FP Power;
+	UInt32 SpeedModifierId;
+}
+
+enum StatusModifierType
+{
+	None,
+	Stun,
+	Shield,
+	Regeneration,
+	Rage,
+	Invisibility,
+	Star,
+}
+
+synced event OnStatusModifierSet
+{
+	entity_ref Entity;
+	StatusModifierType Type;
+	FP Duration;
+}
+
+synced event OnStatusModifierCancelled
+{
+	entity_ref Entity;
+	StatusModifierType Type;
+}
+
+synced event OnStatusModifierFinished
+{
+	entity_ref Entity;
+	StatusModifierType Type;
+}
+
+signal StatusModifierCancelled(entity_ref entity, StatusModifierType type);

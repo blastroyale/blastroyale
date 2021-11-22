@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1d036770c1ce443b17299047b9d147, type: 3}
+  m_Name: Default NavMeshAgentConfigAsset
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/Default Config Assets/Default NavMeshAgentConfigAsset
+      Guid:
+        Value: 4427458006344599318
+    UpdateInterval: 1
+    PathQuality: 1
+    CachedWaypointCount: 6
+    MaxRepathTimeout:
+      RawValue: 327680
+    LineOfSightFunneling: 0
+    DynamicLineOfSight: 0
+    DynamicLineOfSightWaypointRange:
+      RawValue: 0
+    AutomaticTargetCorrection: 1
+    AutomaticTargetCorrectionRadius:
+      RawValue: 65536
+    EnableWaypointDetectionAxis: 0
+    WaypointDetectionAxisExtend:
+      RawValue: 32768
+    WaypointDetectionAxisOffset:
+      RawValue: 0
+    DefaultWaypointDetectionDistance:
+      RawValue: 655
+    MovementType: 1
+    VerticalPositioning: 1
+    Speed:
+      RawValue: 229376
+    AngularSpeed:
+      RawValue: 1310720
+    Acceleration:
+      RawValue: 1310720
+    StoppingDistance:
+      RawValue: 655
+    AutoBraking: 0
+    AutoBrakingDistance:
+      RawValue: 32768
+    ClampAgentToNavmesh: 0
+    ClampAgentToNavmeshCorrection:
+      RawValue: 16384
+    AvoidanceType: 2
+    AvoidanceQuality: 3
+    Priority: 50
+    AvoidanceRadius:
+      RawValue: 32768
+    AvoidanceLayer: 0
+    AvoidanceMask:
+      BitMask: 55
+    MaxAvoidanceCandidates: 64
+    ReduceAvoidanceAtWaypoints: 0
+    ReduceAvoidanceFactor:
+      RawValue: 262144
+    AvoidanceCanReduceSpeed: 0
+    ShowDebugSteering: 0
+    ShowDebugAvoidance: 0

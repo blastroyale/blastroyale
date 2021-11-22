@@ -1,0 +1,258 @@
+using System;
+using System.Collections;
+using System.Globalization;
+using System.Text;
+using System.Threading.Tasks;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
+using I2.Loc;
+using Quantum;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Playables;
+using Object = UnityEngine.Object;
+
+namespace FirstLight.Game.Utils
+{
+	/// <summary>
+	/// This class has a list of useful extensions to be used in the project
+	/// </summary>
+	public static class Extensions
+	{
+		/// <summary>
+		/// Requests the hierarchy path in the scene of the given game object
+		/// </summary>
+		public static string FullGameObjectPath(this GameObject go)
+		{
+			var name = go.name;
+			while (go.transform.parent)
+			{
+				go = go.transform.parent.gameObject;
+				name = $"{go.name}.{name}";
+			}
+			return name;
+		}
+
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="stat"/>
+		/// </summary>
+		public static string GetTranslation(this EquipmentStatType stat)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+		}
+		
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetTranslation(this GameId id)
+		{
+			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
+		}
+
+		/// <summary>
+		/// Get's the translation term of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetTranslationTerm(this GameId id)
+		{
+			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
+		}
+
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="group"/>
+		/// </summary>
+		public static string GetTranslation(this GameIdGroup group)
+		{
+			return LocalizationManager.GetTranslation(group.GetTranslationTerm());
+		}
+
+		/// <summary>
+		/// Get's the translation term of the given <paramref name="group"/>
+		/// </summary>
+		public static string GetTranslationTerm(this GameIdGroup group)
+		{
+			return $"{nameof(ScriptTerms.GameIds)}/{group.ToString()}";
+		}
+
+		/// <summary>
+		/// Sets the Layer of a game object and if include children is set to true, also sets all child objects to that layer too.
+		/// </summary>
+		public static void SetLayer(this GameObject parent, int layer, bool includeChildren = true)
+		{
+			parent.layer = layer;
+			if (includeChildren)
+			{
+				foreach (Transform trans in parent.transform.GetComponentsInChildren<Transform>(true))
+				{
+					trans.gameObject.layer = layer;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Validates the given <paramref name="component"/> to check if is not yet destroyed.
+		/// This is just sugar syntax to improve the code readability.
+		/// </summary>
+		public static T Validate<T>(this Component component) where T : Component
+		{
+			return component.IsDestroyed() ? null : component as T;
+		}
+
+		/// <summary>
+		/// Checks if the given <paramref name="component"/> is destroyed.
+		/// This is just sugar syntax to improve the code readability.
+		/// </summary>
+		public static bool IsDestroyed(this Component component)
+		{
+			return component == null || component.Equals(null) || component.gameObject == null;
+		}
+
+		/// <summary>
+		/// Calls the given <paramref name="onCallback"/> after the given <paramref name="duration"/> is completed and
+		/// only if the given <paramref name="component"/> is still alive
+		/// </summary>
+		public static async void LateCall(this Component component, float duration, Action onCallback)
+		{
+			await LateCallAwaitable(component, duration, onCallback);
+		}
+		
+		/// <inheritdoc cref="LateCall"/>
+		/// <remarks>
+		/// Extends the method to allow awaitable task callbacks
+		/// </remarks>
+		public static async Task LateCallAwaitable(this Component component, float duration, Action onCallback)
+		{
+			await Task.Delay((int) (duration * 1000));
+
+			if (!component.IsDestroyed())
+			{
+				onCallback?.Invoke();
+			}
+		}
+		
+		/// <summary>
+		/// Formats a large number in the decimal format to use K, M or B. E.g. 9800 = 9.8K.
+		/// </summary>
+		public static string ToKMB(this uint num)
+		{
+			if (num > 999999999)
+			{
+				return num.ToString("0,,,.###B", CultureInfo.InvariantCulture);
+			}
+			else
+			if (num > 999999)
+			{
+				return num.ToString("0,,.##M", CultureInfo.InvariantCulture);
+			}
+			else
+			if (num > 999)
+			{
+				return num.ToString("0,.#K", CultureInfo.InvariantCulture);
+			}
+			else
+			{
+				return num.ToString(CultureInfo.InvariantCulture);
+			}
+		}
+
+		/// <summary>
+		/// Formats a string in seconds to H M S format. E.g. shows a chest has 3H to unlock.
+		/// </summary>
+		public static string ToHMS(this uint num)
+		{
+			var ts = TimeSpan.FromSeconds(num);
+
+			if (ts.Hours > 0)
+			{
+				if (ts.Minutes > 0)
+				{
+					return $"{ts.TotalHours.ToString()}h ${ts.Minutes.ToString()}m";
+				}
+				
+				return $"{ts.TotalHours.ToString()}h";
+			}
+			
+			if (ts.Minutes > 0)
+			{
+				return $"{ts.Minutes.ToString()}m";
+			}
+			
+			return $"{ts.Seconds.ToString()}s";
+		}
+		
+		/// <summary>
+		/// Formats a string in seconds to Hours and Minutes and Seconds.
+		/// </summary>
+		public static string ToHoursMinutesSeconds(this uint num)
+		{
+			var ts = TimeSpan.FromSeconds(num);
+
+			if (ts.Hours > 0)
+			{
+				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(), ts.Seconds.ToString());
+			}
+			
+			if (ts.Minutes > 0)
+			{
+				return string.Format("{0}m {1}s", ts.Minutes.ToString(), ts.Seconds.ToString());
+			}
+			
+			return string.Format("{0}s", ts.Seconds.ToString());
+		}
+
+		/// <summary>
+		/// Requests the <see cref="GameIdGroup"/> slot representing the given <see cref="item"/>
+		/// </summary>
+		public static GameIdGroup GetSlot(this GameId item)
+		{
+			var groups = item.GetGroups();
+
+			if (!groups.Contains(GameIdGroup.Equipment))
+			{
+				throw new ArgumentException($"The item {item} is not a {nameof(GameIdGroup.Equipment)} type to put in a slot");
+			}
+
+			return groups[0];
+		}
+
+		/// <summary>
+		/// Requests the player name for the given player's match <paramref name="data"/>
+		/// </summary>
+		public static string GetPlayerName(this QuantumPlayerMatchData data)
+		{
+			if (data.IsBot)
+			{
+				return GetBotName(data.PlayerName);
+			}
+			
+			return data.PlayerName;
+		}
+
+		/// <summary>
+		/// Requests the bot name for the given bot's <paramref name="nameIndex"/>
+		/// </summary>
+		public static string GetBotName(string nameIndex)
+		{
+			var term = ScriptTerms.BotNames.Bot1.Remove(ScriptTerms.BotNames.Bot1.Length - 1);
+
+			return LocalizationManager.GetTranslation($"{term}{nameIndex}");
+		}
+
+		/// <summary>
+		/// Makes the timelines <see cref="PlayableGraph"/> resume it's current play
+		/// </summary>
+		public static void PlayTimeline(this PlayableGraph graph)
+		{
+			graph.GetRootPlayable(0).SetSpeed(1);
+			graph.Play();
+		}
+
+		/// <summary>
+		/// Makes the timelines <see cref="PlayableGraph"/> stop it's current play
+		/// </summary>
+		public static void StopTimeline(this PlayableGraph graph)
+		{
+			graph.Stop();
+			graph.GetRootPlayable(0).SetSpeed(0);
+		}
+	}
+}

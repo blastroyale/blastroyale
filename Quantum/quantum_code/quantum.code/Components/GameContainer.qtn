@@ -1,0 +1,8 @@
+singleton component GameContainer
+{
+	array<PlayerMatchData>[PLAYER_COUNT] PlayersData;
+	UInt32 CurrentProgress;
+	UInt32 TargetProgress;
+}
+
+signal GameEnded();

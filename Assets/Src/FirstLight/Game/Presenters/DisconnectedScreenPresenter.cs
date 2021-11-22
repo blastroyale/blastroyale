@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
+using FirstLight.Services;
+using FirstLight.UiService;
+using I2.Loc;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace FirstLight.Game.Presenters
+{
+	/// <summary>
+	/// This Presenter handles the Disconnected from Adventure Screen UI by:
+	/// - Reconnect to the Adventure
+	/// - Leave the Adventure to the Main menu
+	/// </summary>
+	public class DisconnectedScreenPresenter : UiPresenterData<DisconnectedScreenPresenter.StateData>
+	{
+		public struct StateData
+		{
+			public Action ReconnectClicked;
+			public Action MainMenuClicked;
+		}
+		
+		[SerializeField] private Button _reconnectButton;
+		[SerializeField] private Button _leaveButton;
+
+		private IGameServices _services;
+
+		private void Awake()
+		{
+			_services = MainInstaller.Resolve<IGameServices>();
+			
+			_reconnectButton.onClick.AddListener(OnReconnectClicked);
+			_leaveButton.onClick.AddListener(OnLeaveClicked);
+		}
+
+		protected override void OnOpened()
+		{
+			var dictionary = new Dictionary<string, object>
+			{
+				{"disconnected_cause", _services.NetworkService.QuantumClient.DisconnectedCause}
+			};
+			
+			_services.AnalyticsService.LogEvent("disconnected", dictionary);
+			_services.AnalyticsService.CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
+
+			if (Application.internetReachability == NetworkReachability.NotReachable)
+			{
+				var button = new AlertButton
+				{
+					Callback = Data.ReconnectClicked,
+					Style = AlertButtonStyle.Positive,
+					Text = ScriptLocalization.General.Confirm
+				};
+			
+				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet, 
+				                               ScriptLocalization.General.NoInternetDescription, button);
+			}
+		}
+
+		private void OnLeaveClicked()
+		{
+			Data.MainMenuClicked.Invoke();
+		}
+
+		private void OnReconnectClicked()
+		{
+			Data.ReconnectClicked.Invoke();
+		}
+	}
+}

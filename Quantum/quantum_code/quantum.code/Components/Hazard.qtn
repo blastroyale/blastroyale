@@ -1,0 +1,22 @@
+component Hazard
+{
+	[HideInInspector] GameId GameId;
+	[HideInInspector] FP Radius;
+	[HideInInspector] FP DestroyTime;
+	[HideInInspector] FP Interval;
+	[HideInInspector] UInt32 PowerAmount;
+	[HideInInspector] bool IsHealing;
+	[HideInInspector] Int32 TeamSource;
+	[HideInInspector] EntityRef Attacker;
+	[HideInInspector] FP NextApplyTime;
+	[HideInInspector] bool IsActive;
+}
+
+struct HazardHitData
+{
+	entity_ref Hazard;
+	entity_ref TargetHit;
+	FPVector3 HitPosition;
+}
+
+signal HazardTargetHit(HazardHitData* data);

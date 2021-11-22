@@ -1,0 +1,64 @@
+using System.Collections.Generic;
+using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
+using FirstLight.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using PlayFab;
+using PlayFab.CloudScriptModels;
+using UnityEngine;
+
+namespace FirstLight.Game.Commands
+{
+	/// <summary>
+	/// Opens the given loot box id in the player's loot box slots
+	/// </summary>
+	public struct OpenLootBoxCommand : IGameCommand
+	{
+		public UniqueId LootBoxId;
+
+		/// <inheritdoc />
+		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		{
+			var info = gameLogic.LootBoxLogic.GetLootBoxInfo(LootBoxId);
+			var loot = gameLogic.LootBoxLogic.Open(LootBoxId);
+			var converter = new StringEnumConverter();
+
+			for (var i = 0; i < loot.Count; i++)
+			{
+				var item = loot[i];
+
+				loot[i] = gameLogic.EquipmentLogic.AddToInventory(item.GameId, item.Data.Rarity, item.Data.Level);
+			}
+
+			var request = new ExecuteFunctionRequest
+			{
+				FunctionName = "ExecuteCommand",
+				GeneratePlayStreamEvent = true,
+				FunctionParameter = new LogicRequest
+				{
+					Command = nameof(OpenLootBoxCommand),
+					Platform = Application.platform.ToString(),
+					Data = new Dictionary<string, string>
+					{
+						{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
+						{nameof(RngData), JsonConvert.SerializeObject(dataProvider.GetData<RngData>(), converter)},
+						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
+					}
+				},
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
+
+			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+			gameLogic.MessageBrokerService.Publish(new LootBoxOpenedMessage
+			{
+				LootBoxContent = loot,
+				LootBoxInfo = info,
+				LootBoxId = LootBoxId
+			});
+		}
+	}
+}

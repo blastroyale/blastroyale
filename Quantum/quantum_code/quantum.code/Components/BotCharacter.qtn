@@ -1,0 +1,76 @@
+enum BotBehaviourType
+{
+	Balanced,
+	Cautious,
+	Aggressive,
+}
+
+component DummyCharacter
+{
+}
+
+component BotCharacter
+{
+	BotBehaviourType BehaviourType;
+	Int32 BotNameIndex;
+	GameId Skin;
+	Equipment Weapon;
+	array<Equipment>[EQUIPMENT_SLOT_COUNT] Gear;
+	
+	// Settings to prevent a bot from making decisions every frame
+	FP DecisionInterval;
+	FP LookForTargetsToShootAtInterval;
+	FP NextDecisionTime;
+	FP NextLookForTargetsToShootAtTime;
+	
+	// How far the bot can see (square value)
+	// Set to -1 to allow a bot fully cheat and don't check range
+	FP VisionRangeSqr;
+	
+	// [0;100] where 0 is "never care" and 100 is "look for Armour even with a slight loss"
+	// Formula is "IsLookForArmour = RNG(0;1) < CLAMP01((1 - CurrentArmour/MaxArmour) * LowArmourSensitivity)"
+	FP LowArmourSensitivity;
+	
+	// [0;100] where 0 is "never care" and 100 is "look for HP even with a slight loss"
+	// Formula is "IsLookForHp = RNG(0;1) < CLAMP01((1 - CurrentHP/MaxHP) * LowHPSensitivity)"
+	FP LowHealthSensitivity;
+	
+	// [0;100] where 0 is "never care" and 100 is "look for Ammo even with a bit less of maximum"
+	// Formula is "IsLookForAmmo = RNG(0;1) < CLAMP01((1 - CurrentAmmo/MaxAmmo) * LowAmmoSensitivity)"
+	FP LowAmmoSensitivity;
+	
+	// [0;1] where 0 is "never seek" and 1 is "always seek"
+	FP ChanceToSeekWeapons;
+	
+	// [0;1] where 0 is "never seek" and 1 is "always seek"
+	FP ChanceToSeekEnemies;
+	
+	// [0;1] where 0 is "never seek" and 1 is "always seek"
+	FP ChanceToSeekReplenishSpecials;
+	
+	// [0;1] where 0 is "never seek" and 1 is "always seek"
+	FP ChanceToSeekRage;
+	
+	// [0;1] where 0 is "never abandon" and 1 is "always abandon" which will result in a bot not shooting at all
+	FP ChanceToAbandonTarget;
+	
+	// [0;1] where 0 is "be as close as possible to enemy" and 1 is "keep enemy at maximum range"
+	FP CloseFightIntolerance;
+	
+	// Determines the Wander distance
+	FP WanderRadius;
+	
+	// Determines how inaccurate the bot is in its aiming where 0 is the perfect accuracy
+	UInt32 AccuracySpreadAngle;
+	
+	// [0;1] where 0 is "never use" and 1 is "always use"
+	FP ChanceToUseSpecial;
+	
+	// Random deviation up to this value from the center of aiming
+	FP SpecialAimingDeviation;
+}
+
+synced event OnDummyCharacterKilled
+{
+	entity_ref Entity;
+}

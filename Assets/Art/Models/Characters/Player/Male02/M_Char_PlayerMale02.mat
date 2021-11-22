@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Char_PlayerMale02
+  m_Shader: {fileID: -6465566751694194690, guid: d9dfbf9d63b50c84fa42b9f84d42d33e, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - MaskTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_8E5FA2AE:
+        m_Texture: {fileID: 2800000, guid: 12543b546d982ba4fa519ab7d7ac8e75, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D73132B5:
+        m_Texture: {fileID: 2800000, guid: 56b2e93ba1adadd44ad2d2fb979e9727, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HologramTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 756b36377b2b5b54ea58f3a835df1a52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - BrightenMainTexture: 0.5
+    - Vector1_12FD5A15: 30
+    - Vector1_13791F7D: 0.025
+    - Vector1_54501CA6: 0.1
+    - Vector1_A3CA1DE4: 0.6
+    - Vector1_FA9A29A7: 0.5
+    - _Death: 0
+    - _EmissTexAmount: 0
+    - _Hit: 0
+    - _Rage: 0
+    m_Colors:
+    - Color_1982176cf2404a43b37721aa91e37a76: {r: 5.992157, g: 0, b: 0, a: 0}
+    - Color_3EC64E69: {r: 16, g: 0.8340815, b: 0, a: 0}
+    - Color_F2EE02DC: {r: 64, g: 19.57647, b: 0, a: 1}
+    - Vector2_A8F95C61: {r: 1, g: 2, b: 0, a: 0}
+    - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.26203978, g: 1, b: 0, a: 1}
+    - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
+  m_BuildTextureStacks: []

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e31f72e4c99a364189783be71ef7a2e, type: 3}
+  m_Name: QuantumEditorSettings
+  m_EditorClassIdentifier: 
+  AssetResourcesPath: Assets/AddressableResources/Configs/Settings/AssetResources.asset
+  AssetSearchPaths:
+  - Assets/AddressableResources
+  - Assets/Resources
+  SearchAssemblies:
+  - Assembly-CSharp
+  - Assembly-CSharp-firstpass
+  SearchEditorAssemblies:
+  - Assembly-CSharp-Editor
+  - Assembly-CSharp-Editor-firstpass
+  PhysicsGridColor: {r: 0, g: 0.7, b: 1, a: 1}
+  NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 1}
+  GizmoIconScale:
+    RawValue: 65536
+  DrawStaticMeshTriangles: 1
+  DrawStaticMeshNormals: 1
+  DrawSceneMeshCells: 1
+  DrawSceneMeshTriangles: 1
+  StaticColliderColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
+  DynamicColliderColor: {r: 0.6, g: 0.8509804, b: 0.91764706, a: 1}
+  KinematicColliderColor: {r: 1, g: 1, b: 1, a: 1}
+  CharacterControllerColor: {r: 1, g: 1, b: 0, a: 1}
+  AsleepColliderColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
+  DisabledColliderColor: {r: 1, g: 0, b: 0, a: 1}
+  DrawPredictionArea: 1
+  PredictionAreaColor: {r: 1, g: 0, b: 0, a: 0.25}
+  DrawPathfinderRawPath: 0
+  DrawPathfinderRawTrianglePath: 0
+  DrawPathfinderFunnel: 0
+  DrawNavMeshAgents: 0
+  NavMeshAgentColor: {r: 0, g: 1, b: 0, a: 1}
+  NavMeshAvoidanceColor: {r: 0, g: 0.5, b: 0, a: 0.5}
+  DrawNavMesh: 0
+  DrawNavMeshBorders: 0
+  DrawNavMeshTriangleIds: 0
+  DrawNavMeshRegionIds: 0
+  DrawNavMeshVertexNormals: 0
+  DrawNavMeshLinks: 0
+  NavMeshDefaultColor: {r: 0, g: 0.75, b: 1, a: 0.5}
+  NavMeshRegionColor: {r: 1, g: 0, b: 0.5, a: 0.5}
+  DrawNavMeshDefinitionAlways: 0
+  DrawNavMeshDefinitionMesh: 0
+  DrawNavMeshDefinitionOptimized: 0
+  UseQuantumAssetInspector: 1
+  UseAssetBasePostprocessor: 1
+  UseQuantumToolbarUtilities: 1
+  UsePhotonAppVersionsPostprocessor: 1
+  EntityComponentInspectorMode: 0
+  FPDisplayPrecision: 5
+  AutoBuildOnSceneSave: 0
+  AutoBuildOnPlaymodeChanged: 0
+  AutoBuildOnBuild: 0
+  QuantumSolutionPath: ./Quantum/quantum_code/quantum_code.sln
+  MergeWithVisualStudioSolution: 0
+  ImportQuantumLibrariesImmediately: 0
+  AutoRunQtnCodeGen: 0

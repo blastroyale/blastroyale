@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HumanoidEnemy_SniperOverride
+  m_Controller: {fileID: 9100000, guid: 7483cfd979e34a547b65fb5f0d428258, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 3649851975438038662, guid: b0d8a22ad3c4819458adb78a038f0e88, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 695bee6e38b37ea49b0f95d87fe6a3a7, type: 2}

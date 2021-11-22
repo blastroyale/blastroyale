@@ -1,0 +1,52 @@
+using System.Collections.Generic;
+using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
+using FirstLight.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using PlayFab;
+using PlayFab.CloudScriptModels;
+using Quantum;
+using UnityEngine;
+
+namespace FirstLight.Game.Commands
+{
+	/// <summary>
+	/// Speeds up all the extra timed boxes in the player's inventory that don't fit in the slots anymore
+	/// </summary>
+	public struct SpeedUpAllExtraTimedBoxesCommand : IGameCommand
+	{
+		/// <inheritdoc />
+		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		{
+			var cost = gameLogic.LootBoxLogic.GetLootBoxInventoryInfo().GetUnlockExtraBoxesCost(gameLogic.TimeService.DateTimeUtcNow);
+			var converter = new StringEnumConverter();
+
+			// Spend Hard currency
+			gameLogic.CurrencyLogic.DeductCurrency(GameId.HC, cost);
+			gameLogic.LootBoxLogic.SpeedUpAllExtraTimedBoxes();
+
+			var request = new ExecuteFunctionRequest
+			{
+				FunctionName = "ExecuteCommand",
+				GeneratePlayStreamEvent = true,
+				FunctionParameter = new LogicRequest
+				{
+					Command = nameof(SpeedUpAllExtraTimedBoxesCommand),
+					Platform = Application.platform.ToString(),
+					Data = new Dictionary<string, string>
+					{
+						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
+					}
+				},
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
+
+			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+		}
+	}
+}

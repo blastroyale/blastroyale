@@ -1,0 +1,680 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c61082b33b44b09493ffaecc80a9fa, type: 3}
+  m_Name: BotConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/BotConfigs
+      Guid:
+        Value: 1550297457877710414
+    QuantumConfigs:
+    - BehaviourType: 1
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 131072
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 58982
+      ChanceToSeekReplenishSpecials:
+        RawValue: 32768
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 38011
+      CloseFightIntolerance:
+        RawValue: 32768
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 25
+      ChanceToUseSpecial:
+        RawValue: 1311
+      SpecialAimingDeviation:
+        RawValue: 576000
+    - BehaviourType: 1
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 124518
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 6554
+      ChanceToSeekEnemies:
+        RawValue: 62259
+      ChanceToSeekReplenishSpecials:
+        RawValue: 22938
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 34079
+      CloseFightIntolerance:
+        RawValue: 24576
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 59
+      ChanceToUseSpecial:
+        RawValue: 3932
+      SpecialAimingDeviation:
+        RawValue: 256000
+    - BehaviourType: 0
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 137626
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 1638400
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 3277
+      ChanceToSeekEnemies:
+        RawValue: 60293
+      ChanceToSeekReplenishSpecials:
+        RawValue: 65536
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 36700
+      CloseFightIntolerance:
+        RawValue: 26214
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 39
+      ChanceToUseSpecial:
+        RawValue: 5243
+      SpecialAimingDeviation:
+        RawValue: 448000
+    - BehaviourType: 1
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 134349
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 64225
+      ChanceToSeekReplenishSpecials:
+        RawValue: 13107
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 39322
+      CloseFightIntolerance:
+        RawValue: 27853
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 48
+      ChanceToUseSpecial:
+        RawValue: 3277
+      SpecialAimingDeviation:
+        RawValue: 384000
+    - BehaviourType: 0
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 127795
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 1638400
+      LowAmmoSensitivity:
+        RawValue: 327680
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 57016
+      ChanceToSeekReplenishSpecials:
+        RawValue: 6554
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 35389
+      CloseFightIntolerance:
+        RawValue: 29491
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 35
+      ChanceToUseSpecial:
+        RawValue: 6554
+      SpecialAimingDeviation:
+        RawValue: 512000
+    - BehaviourType: 1
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 111411
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 39322
+      ChanceToSeekReplenishSpecials:
+        RawValue: 32768
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 26214
+      CloseFightIntolerance:
+        RawValue: 32768
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 18
+      ChanceToUseSpecial:
+        RawValue: 1311
+      SpecialAimingDeviation:
+        RawValue: 460800
+    - BehaviourType: 1
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 104858
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 6554
+      ChanceToSeekEnemies:
+        RawValue: 42598
+      ChanceToSeekReplenishSpecials:
+        RawValue: 22938
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 27525
+      CloseFightIntolerance:
+        RawValue: 24576
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 42
+      ChanceToUseSpecial:
+        RawValue: 3932
+      SpecialAimingDeviation:
+        RawValue: 204800
+    - BehaviourType: 0
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 117965
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 1638400
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 3277
+      ChanceToSeekEnemies:
+        RawValue: 45875
+      ChanceToSeekReplenishSpecials:
+        RawValue: 65536
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 24904
+      CloseFightIntolerance:
+        RawValue: 26214
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 28
+      ChanceToUseSpecial:
+        RawValue: 5243
+      SpecialAimingDeviation:
+        RawValue: 358400
+    - BehaviourType: 1
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 114688
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 44564
+      ChanceToSeekReplenishSpecials:
+        RawValue: 13107
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 26870
+      CloseFightIntolerance:
+        RawValue: 27853
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 34
+      ChanceToUseSpecial:
+        RawValue: 3277
+      SpecialAimingDeviation:
+        RawValue: 307200
+    - BehaviourType: 0
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 108134
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 1638400
+      LowAmmoSensitivity:
+        RawValue: 327680
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 43254
+      ChanceToSeekReplenishSpecials:
+        RawValue: 6554
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 24248
+      CloseFightIntolerance:
+        RawValue: 29491
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 25
+      ChanceToUseSpecial:
+        RawValue: 6554
+      SpecialAimingDeviation:
+        RawValue: 409600
+    - BehaviourType: 1
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 62259
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 655360
+      LowHealthSensitivity:
+        RawValue: 5242880
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 9830
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 32768
+      ChanceToSeekRage:
+        RawValue: 3277
+      ChanceToAbandonTarget:
+        RawValue: 19661
+      CloseFightIntolerance:
+        RawValue: 32768
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 13
+      ChanceToUseSpecial:
+        RawValue: 1311
+      SpecialAimingDeviation:
+        RawValue: 368640
+    - BehaviourType: 2
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 49152
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 327680
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 16384
+      ChanceToSeekEnemies:
+        RawValue: 32768
+      ChanceToSeekReplenishSpecials:
+        RawValue: 22938
+      ChanceToSeekRage:
+        RawValue: 19661
+      ChanceToAbandonTarget:
+        RawValue: 16384
+      CloseFightIntolerance:
+        RawValue: 24576
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 30
+      ChanceToUseSpecial:
+        RawValue: 7864
+      SpecialAimingDeviation:
+        RawValue: 163840
+    - BehaviourType: 0
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 55706
+      VisionRangeSqr:
+        RawValue: 37748736
+      LowArmourSensitivity:
+        RawValue: 327680
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 3277
+      ChanceToSeekEnemies:
+        RawValue: 13107
+      ChanceToSeekReplenishSpecials:
+        RawValue: 65536
+      ChanceToSeekRage:
+        RawValue: 3277
+      ChanceToAbandonTarget:
+        RawValue: 19005
+      CloseFightIntolerance:
+        RawValue: 26214
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 20
+      ChanceToUseSpecial:
+        RawValue: 11141
+      SpecialAimingDeviation:
+        RawValue: 286720
+    - BehaviourType: 1
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 65536
+      VisionRangeSqr:
+        RawValue: 23658496
+      LowArmourSensitivity:
+        RawValue: 524288
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 19661
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 13107
+      ChanceToSeekRage:
+        RawValue: 3277
+      ChanceToAbandonTarget:
+        RawValue: 20972
+      CloseFightIntolerance:
+        RawValue: 27853
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 24
+      ChanceToUseSpecial:
+        RawValue: 6554
+      SpecialAimingDeviation:
+        RawValue: 245760
+    - BehaviourType: 2
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 52429
+      VisionRangeSqr:
+        RawValue: 58982400
+      LowArmourSensitivity:
+        RawValue: 65536
+      LowHealthSensitivity:
+        RawValue: 3276800
+      LowAmmoSensitivity:
+        RawValue: 327680
+      ChanceToSeekWeapons:
+        RawValue: 26214
+      ChanceToSeekEnemies:
+        RawValue: 32768
+      ChanceToSeekReplenishSpecials:
+        RawValue: 6554
+      ChanceToSeekRage:
+        RawValue: 32768
+      ChanceToAbandonTarget:
+        RawValue: 17039
+      CloseFightIntolerance:
+        RawValue: 29491
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 18
+      ChanceToUseSpecial:
+        RawValue: 16384
+      SpecialAimingDeviation:
+        RawValue: 327680
+    - BehaviourType: 1
+      Difficulty: 4
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 39322
+      VisionRangeSqr:
+        RawValue: -65536
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5242880
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 13107
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 32768
+      ChanceToSeekRage:
+        RawValue: 32768
+      ChanceToAbandonTarget:
+        RawValue: 6554
+      CloseFightIntolerance:
+        RawValue: 14418
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 10
+      ChanceToUseSpecial:
+        RawValue: 3277
+      SpecialAimingDeviation:
+        RawValue: 294912
+    - BehaviourType: 2
+      Difficulty: 4
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: -65536
+      LowArmourSensitivity:
+        RawValue: 655360
+      LowHealthSensitivity:
+        RawValue: 1310720
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 22938
+      ChanceToSeekEnemies:
+        RawValue: 49152
+      ChanceToSeekReplenishSpecials:
+        RawValue: 22938
+      ChanceToSeekRage:
+        RawValue: 65536
+      ChanceToAbandonTarget:
+        RawValue: 1311
+      CloseFightIntolerance:
+        RawValue: 9830
+      WanderRadius:
+        RawValue: 1310720
+      AccuracySpreadAngle: 24
+      ChanceToUseSpecial:
+        RawValue: 16384
+      SpecialAimingDeviation:
+        RawValue: 131072
+    - BehaviourType: 0
+      Difficulty: 4
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 32768
+      VisionRangeSqr:
+        RawValue: 37748736
+      LowArmourSensitivity:
+        RawValue: 3276800
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 6554
+      ChanceToSeekEnemies:
+        RawValue: 13107
+      ChanceToSeekReplenishSpecials:
+        RawValue: 65536
+      ChanceToSeekRage:
+        RawValue: 32768
+      ChanceToAbandonTarget:
+        RawValue: 5898
+      CloseFightIntolerance:
+        RawValue: 7864
+      WanderRadius:
+        RawValue: 655360
+      AccuracySpreadAngle: 16
+      ChanceToUseSpecial:
+        RawValue: 22938
+      SpecialAimingDeviation:
+        RawValue: 229376
+    - BehaviourType: 1
+      Difficulty: 4
+      DecisionInterval:
+        RawValue: 98304
+      LookForTargetsToShootAtInterval:
+        RawValue: 42598
+      VisionRangeSqr:
+        RawValue: 23658496
+      LowArmourSensitivity:
+        RawValue: 6553600
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 32768
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 13107
+      ChanceToSeekRage:
+        RawValue: 6554
+      ChanceToAbandonTarget:
+        RawValue: 7864
+      CloseFightIntolerance:
+        RawValue: 11796
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 19
+      ChanceToUseSpecial:
+        RawValue: 13107
+      SpecialAimingDeviation:
+        RawValue: 196608
+    - BehaviourType: 2
+      Difficulty: 4
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 29491
+      VisionRangeSqr:
+        RawValue: -65536
+      LowArmourSensitivity:
+        RawValue: 65536
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 327680
+      ChanceToSeekWeapons:
+        RawValue: 42598
+      ChanceToSeekEnemies:
+        RawValue: 65536
+      ChanceToSeekReplenishSpecials:
+        RawValue: 6554
+      ChanceToSeekRage:
+        RawValue: 45875
+      ChanceToAbandonTarget:
+        RawValue: 655
+      CloseFightIntolerance:
+        RawValue: 7209
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 14
+      ChanceToUseSpecial:
+        RawValue: 32768
+      SpecialAimingDeviation:
+        RawValue: 262144

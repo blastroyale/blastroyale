@@ -1,0 +1,18 @@
+#define EQUIPMENT_SLOT_COUNT 6 
+
+struct Equipment
+{
+	GameId GameId;
+	ItemRarity Rarity;
+	UInt32 Level;
+}
+
+enum ItemRarity
+{
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}

@@ -1,0 +1,19 @@
+{
+    "name": "FirstLight.GoogleSheetImporter.Editor",
+    "references": [
+        "GUID:97e8c5e426b7946028b98691397a84d4",
+        "GUID:22c6cdfa54ae844a9a9eda2f0014b020",
+        "GUID:c9469b4b7e97d254f9668fc2a5297172"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

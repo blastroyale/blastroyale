@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_SpawnerBooth_Emissive
+  m_Shader: {fileID: -6465566751694194690, guid: 24798ffa691615c4290734700157eb02, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_10D62C28:
+        m_Texture: {fileID: 2800000, guid: febb1848e0f81ae4497f768d929d0f61, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D3A88EA6:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissTex:
+        m_Texture: {fileID: 2800000, guid: 9bd62c1f30824594b9b289ca3fe68ca2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HologramTex:
+        m_Texture: {fileID: 2800000, guid: b75f3dd47a27ba3408684ffffc32f6c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HologramTexture:
+        m_Texture: {fileID: 2800000, guid: b75f3dd47a27ba3408684ffffc32f6c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 66c61a1396a7a4a41bbcf51aba59c822, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_32C51478_Out:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Vector1_12FD5A15: 30
+    - Vector1_13791F7D: 0.025
+    - Vector1_54501CA6: 0.1
+    - Vector1_A3CA1DE4: 0
+    - Vector1_BCBA1C84: 0
+    - Vector1_BE159139: 0
+    - Vector1_CCA142DB: 0
+    - Vector1_FA9A29A7: 0
+    - _Death: 0
+    - _EmisTexAmount: 0
+    - _EmissTexAmount: 20
+    - _Hit: 0
+    m_Colors:
+    - Color_33910B57: {r: 0, g: 1, b: 0.03551388, a: 0}
+    - Color_3EC64E69: {r: 6.27451, g: 0.627451, b: 0, a: 0}
+    - Color_5F69BB12: {r: 1, g: 1, b: 1, a: 1}
+    - Color_F2EE02DC: {r: 31.626795, g: 9.769533, b: 0, a: 1}
+    - Vector2_A8F95C61: {r: 1, g: 2, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _HitColor: {r: 8, g: 0.3137255, b: 0, a: 0}
+  m_BuildTextureStacks: []

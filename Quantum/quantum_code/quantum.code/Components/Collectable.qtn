@@ -1,0 +1,37 @@
+component Collectable
+{
+	GameId GameId;
+	array<FP>[PLAYER_COUNT] CollectorsEndTime;
+}
+
+synced event OnLocalStartedCollecting
+{
+	local player_ref Player;
+	entity_ref PlayerEntity;
+	entity_ref CollectableEntity;
+	Collectable Collectable;
+}
+
+synced event OnLocalStoppedCollecting
+{
+	local player_ref Player;
+	entity_ref CollectableEntity;
+}
+
+synced event OnLocalCollectableCollected
+{
+	GameId CollectableId;
+	local player_ref Player;
+	entity_ref PlayerEntity;
+	entity_ref CollectableEntity;
+}
+
+synced event OnCollectableCollected
+{
+	GameId CollectableId;
+	player_ref Player;
+	entity_ref PlayerEntity;
+	entity_ref CollectableEntity;
+}
+
+signal CollectablePicked(entity_ref entity, entity_ref playerEntity, player_ref player);

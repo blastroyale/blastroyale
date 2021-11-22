@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Invincible
+  m_Shader: {fileID: -6465566751694194690, guid: 2655cb671c443994985caa8cf2cb9caa, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_43F1EAD7:
+        m_Texture: {fileID: 2800000, guid: bf5bd6da21e385849ba37a93b6d7b744, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_ABA32058:
+        m_Texture: {fileID: 2800000, guid: e73a613b4e31dd647927fdaa18efba72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: bf5bd6da21e385849ba37a93b6d7b744, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_298C1F9B: 0
+    - Boolean_BF45E6F: 0
+    - Vector1_11E09B9A: 0.2
+    - Vector1_134CD8F5: 10
+    - Vector1_658CA14C: 0.01
+    - Vector1_Alpha: 1
+    - Vector1_D7D25B08: 0.8
+    - Vector1_DB54F993: 3.14
+    - Vector1_DE34490F: 0.2
+    - Vector1_Fill: 1
+    - Vector1_FresnelPow: 0
+    - _DissolveAmount: -0
+    m_Colors:
+    - Color_6C438A4D: {r: 11.984314, g: 7.8431373, b: 1.6941177, a: 0}
+    - Color_6C97CED8: {r: 1, g: 1, b: 1, a: 1}
+    - Color_AD3EB5C7: {r: 1.9152038, g: 5.3973927, b: 6.650981, a: 0}
+    - Color_BA6F28AB: {r: 1.2470589, g: 1.1607844, b: 0.078431375, a: 0}
+    - Color_DDF29A3E: {r: 5.992157, g: 3.7019608, b: 0.34509805, a: 0}
+    - Color_F5F39363: {r: 0.6698113, g: 0.20299369, b: 0, a: 0}
+    - Vector2_FE91CED5: {r: 2, g: 2, b: 1, a: 0}
+  m_BuildTextureStacks: []

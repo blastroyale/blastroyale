@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b142e5cc752643cda6bc05a17e120fc5, type: 3}
+  m_Name: QuantumRunnerConfigs
+  m_EditorClassIdentifier: 
+  _runtimeConfig:
+    Seed: 1780825216
+    Map:
+      Id:
+        Value: 4332060462896694051
+    SimulationConfig:
+      Id:
+        Value: 1565542650131154954
+    GameConfigs:
+      Id:
+        Value: 2168878361177007176
+    MapConfigs:
+      Id:
+        Value: 22960179855089054
+    BotConfigs:
+      Id:
+        Value: 1550297457877710414
+    EnemyConfigs:
+      Id:
+        Value: 2393585214740519735
+    EnemyWaveConfigs:
+      Id:
+        Value: 708547131024446588
+    EnemyWaveLayoutConfigs:
+      Id:
+        Value: 4290984004441149879
+    SpawnOnDeathConfigs:
+      Id:
+        Value: 236213860816656681
+    MultishotConfigs:
+      Id:
+        Value: 25992991120524083
+    FrontshotConfigs:
+      Id:
+        Value: 2642967239424394741
+    DiagonalshotConfigs:
+      Id:
+        Value: 4377079066132996845
+    LifestealConfigs:
+      Id:
+        Value: 268914726391290792
+    WallBounceConfigs:
+      Id:
+        Value: 2157413871213122957
+    WeaponConfigs:
+      Id:
+        Value: 2174339006334179964
+    GearConfigs:
+      Id:
+        Value: 331988359844761930
+    ConsumableConfigs:
+      Id:
+        Value: 3521447524462001825
+    PillConfigs:
+      Id:
+        Value: 3343352028377025524
+    SpecialConfigs:
+      Id:
+        Value: 3242401771564966650
+    HazardConfigs:
+      Id:
+        Value: 374155793228999426
+    AssetConfigs:
+      Id:
+        Value: 1782342916809032400
+    DestructibleConfigs:
+      Id:
+        Value: 4393632908210870598
+    LootBoxConfigs:
+      Id:
+        Value: 1941196573164950699
+    EnemySpawnerConfigs:
+      Id:
+        Value: 3897611654662675749
+  _deterministicConfigAsset: {fileID: 11400000, guid: f751724b9805d468883f1b6feb3bc2de, type: 2}
+  _serverSettings: {fileID: 11400000, guid: 36ac09ddba67042d388dbb80f6fa2ccb, type: 2}

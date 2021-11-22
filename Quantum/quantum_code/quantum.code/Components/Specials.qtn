@@ -1,0 +1,100 @@
+#define MAX_SPECIALS 2
+
+struct Special
+{
+	[HideInInspector] GameId SpecialGameId;
+	[HideInInspector] Int32 SpecialIndex;
+	[HideInInspector] SpecialType SpecialType;
+	[HideInInspector] UInt32 Level;
+	[HideInInspector] UInt32 BaseCharges;
+	[HideInInspector] UInt32 MaxCharges;
+	[HideInInspector] FP Cooldown;
+	[HideInInspector] FP SplashRadius;
+	[HideInInspector] UInt32 PowerAmount;
+	[HideInInspector] FP Speed;
+	[HideInInspector] FP ResetCooldownTime;
+	[HideInInspector] UInt32 Charges;
+	[HideInInspector] GameId ExtraGameId;
+	[HideInInspector] FP MaxRange;
+	[HideInInspector] FP HealingModeSwitchTime;
+}
+
+enum SpecialType
+{
+	Airstrike,
+	HealingField,
+	StunSplash,
+	RageSelfStatus,
+	InvisibilitySelfStatus,
+	ShieldSelfStatus,
+	StunGrenade,
+	RageAimAreaStatus,
+	InvisibilityAimAreaStatus,
+	ShieldAimAreaStatus,
+	HealAround,
+	HealAim,
+	HealingMode,
+	HazardAimSpawn,
+	AggroBeaconGrenade,
+	ShieldedCharge,
+	Grenade,
+}
+
+synced event OnAirstrikeUsed
+{
+	entity_ref Projectile;
+	FPVector3 TargetPosition;
+	ProjectileData ProjectileData;
+}
+
+synced event OnStunGrenadeUsed
+{
+	entity_ref Projectile;
+	FPVector3 TargetPosition;
+	ProjectileData ProjectileData;
+}
+
+synced event OnAggroBeaconGrenadeUsed
+{
+	FPVector3 TargetPosition;
+	entity_ref Attacker;
+	FP LaunchTime;
+}
+
+synced event OnShieldedChargeUsed
+{
+	entity_ref Attacker;
+	FP ChargeDuration;
+}
+
+synced event OnGrenadeUsed
+{
+	entity_ref Projectile;
+	FPVector3 TargetPosition;
+	ProjectileData ProjectileData;
+}
+
+synced event OnSkyBeamUsed
+{
+	entity_ref Projectile;
+	FPVector3 TargetPosition;
+	ProjectileData ProjectileData;
+}
+
+synced event OnLocalSpecialUsed
+{
+	local player_ref Player;
+	entity_ref Entity;
+	SpecialType SpecialType;
+	Int32 SpecialIndex;
+}
+
+synced event OnLocalSpecialAvailable
+{
+	local player_ref Player;
+	entity_ref Entity;
+	SpecialType SpecialType;
+	Int32 SpecialIndex;
+}
+
+signal SpecialUsed(player_ref player, entity_ref entity, SpecialType specialType, Int32 specialIndex);

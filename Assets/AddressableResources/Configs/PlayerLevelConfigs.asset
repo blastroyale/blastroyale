@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea9016dd33b4b7ca868b86cf6082138, type: 3}
+  m_Name: PlayerLevelConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Level: 1
+    LevelUpXP: 100
+    RewardId: 132
+    RewardValue: 2130
+    Systems: 
+  - Level: 2
+    LevelUpXP: 200
+    RewardId: 133
+    RewardValue: 2210
+    Systems: 
+  - Level: 3
+    LevelUpXP: 300
+    RewardId: 1
+    RewardValue: 1500
+    Systems: 
+  - Level: 4
+    LevelUpXP: 300
+    RewardId: 132
+    RewardValue: 211
+    Systems: 00000000
+  - Level: 5
+    LevelUpXP: 300
+    RewardId: 1
+    RewardValue: 5000
+    Systems: 
+  - Level: 6
+    LevelUpXP: 900
+    RewardId: 133
+    RewardValue: 221
+    Systems: 
+  - Level: 7
+    LevelUpXP: 1100
+    RewardId: 133
+    RewardValue: 221
+    Systems: 
+  - Level: 8
+    LevelUpXP: 1000
+    RewardId: 1
+    RewardValue: 10000
+    Systems: 
+  - Level: 9
+    LevelUpXP: 2000
+    RewardId: 134
+    RewardValue: 231
+    Systems: 02000000
+  - Level: 10
+    LevelUpXP: 1000
+    RewardId: 134
+    RewardValue: 231
+    Systems: 
+  - Level: 11
+    LevelUpXP: 2000
+    RewardId: 2
+    RewardValue: 200
+    Systems: 
+  - Level: 12
+    LevelUpXP: 2000
+    RewardId: 135
+    RewardValue: 241
+    Systems: 01000000
+  - Level: 13
+    LevelUpXP: 2000
+    RewardId: 136
+    RewardValue: 251
+    Systems: 
+  - Level: 14
+    LevelUpXP: 2000
+    RewardId: 1
+    RewardValue: 50000
+    Systems: 03000000
+  - Level: 15
+    LevelUpXP: 5000
+    RewardId: 136
+    RewardValue: 251
+    Systems: 

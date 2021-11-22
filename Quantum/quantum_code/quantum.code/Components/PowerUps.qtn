@@ -1,0 +1,27 @@
+component Multishot
+{
+	UInt32 Level;
+	UInt32 BaseAmount;
+	FP BaseShootTimeGap;
+	UInt32 AmountLevelUpStep;
+	FP ShootTimeGapLevelUpStep;
+	list<FP> NextShootTimes;
+	list<ProjectileData> ProjectileData;
+}
+
+component Frontshot
+{
+	UInt32 Level;
+	UInt32 BaseAmount;
+	FP Spread;
+	UInt32 AmountLevelUpStep;
+}
+
+component Diagonalshot
+{
+	UInt32 Level;
+	UInt32 BaseAmount;
+	UInt32 BaseAngle;
+	UInt32 AmountLevelUpStep;
+	UInt32 AngleLevelUpStep;
+}

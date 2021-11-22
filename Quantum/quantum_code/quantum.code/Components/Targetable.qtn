@@ -1,0 +1,34 @@
+component Targetable
+{
+	Int32 Team;
+	bool IsUntargetable;
+}
+
+enum TeamType
+{
+	Player,
+	Enemy,
+	Neutral,
+	TOTAL            // Used to know the total amount of this type without the need of reflection
+}
+
+enum TargetingType
+{
+	Nearest = 1,
+	Furthest = 2,
+}
+
+synced event OnTargetChanged
+ {
+ 	entity_ref Attacker;
+ 	entity_ref Target;
+ }
+
+synced event OnLocalPlayerTargetChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	entity_ref Target;
+}
+
+signal TargetChanged(entity_ref attacker, entity_ref target);

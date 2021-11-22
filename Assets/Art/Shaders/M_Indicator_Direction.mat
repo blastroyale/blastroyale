@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Indicator_Direction
+  m_Shader: {fileID: -6465566751694194690, guid: 4310cffc431989746a8bf6c069c4cd5d, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture:
+        m_Texture: {fileID: 2800000, guid: 485c101af1667fb44b975815eb3564a8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Power: 0
+    - Rotate: 180
+    - ScrollSpeed: 2
+    - ScrollSpeed_X: -1
+    - Vector1_20e275bf1f2e4874a60ed4a79f8c68fd: 0
+    - Vector1_8d561011fa054f3187dc9d4a50441c38: 0.98
+    - Vector1_cd047edbde144e149b5ea1510e81c375: 0.5
+    m_Colors:
+    - Color_c456f3cd5c7a48ceb6529b327462c057: {r: 1, g: 0.84111327, b: 0.12893075, a: 0}
+    - EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - Tile: {r: 1.2, g: 1, b: 0, a: 0}
+    - Vector2_0725aee017b6472ea0ce6140deb30d9d: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

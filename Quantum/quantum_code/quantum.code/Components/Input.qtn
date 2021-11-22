@@ -1,0 +1,6 @@
+input
+{
+	Byte MoveDirectionEncoded;
+	Byte AimingDirectionEncoded;
+	Byte AimButtonState;
+}

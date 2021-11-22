@@ -1,0 +1,22 @@
+﻿enum GOAPWorldState : Int64 {
+	Root = 1, TargetSelected = 2, CarryingTarget = 4, TargetDelivered = 8
+}
+
+import GOAPAgent;
+
+asset GOAPTask;
+asset GOAPRoot;
+
+struct GOAPState{
+	Int64 Positive;
+	Int64 Negative;
+}
+
+component GOAPAgent{
+	Int64 CurrentState;
+	GOAPState Goal;
+	array<AssetRefGOAPTask>[4] Plan;
+	Int32 CurrentTaskIndex;
+	Int32 TaskCount;
+	AssetRefAIConfig Config;
+}

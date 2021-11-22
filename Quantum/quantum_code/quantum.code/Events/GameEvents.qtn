@@ -1,0 +1,11 @@
+synced event OnGameEnded
+{
+	player_ref PlayerWinner;
+}
+
+event OnGameProgressUpdated
+{
+	UInt32 PreviousProgress;
+	UInt32 CurrentProgress;
+	UInt32 TargetProgress;
+}

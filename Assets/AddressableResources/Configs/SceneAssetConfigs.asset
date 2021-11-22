@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f5c28602264ae29c8823586a36f78a, type: 3}
+  m_Name: SceneAssetConfigs
+  m_EditorClassIdentifier: 
+  _assetsFolderPath: Assets/AddressableResources/Scenes
+  _configs:
+  - Key: 0
+    Value:
+      m_AssetGUID: f318fba89b3c7cf4ab1ae49325ca033d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 1
+    Value:
+      m_AssetGUID: 4b5d65e602ee3f944bc373bef6e58cbb
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 2
+    Value:
+      m_AssetGUID: 0bf167223475216408b2220baa2e549f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 3
+    Value:
+      m_AssetGUID: ade2c4b5528ee2f418d1dfdb5750922d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 4
+    Value:
+      m_AssetGUID: 2208f266a9173fc4d961bdecb950cf8e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 5
+    Value:
+      m_AssetGUID: b83dee67281aa024d80ba0306e751934
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 6
+    Value:
+      m_AssetGUID: 716196f43d523334481ac4ba581947b7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 7
+    Value:
+      m_AssetGUID: 68d74302caef16c4da511dbf610ee11a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 8
+    Value:
+      m_AssetGUID: e01a5defd857eb84aae64a1b8c51b09d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 9
+    Value:
+      m_AssetGUID: d9b65336e0e54a343ab2e4492c1b3188
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

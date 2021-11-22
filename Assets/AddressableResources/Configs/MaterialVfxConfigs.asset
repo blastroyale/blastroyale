@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e9f6188f9092b44ae7bf1f728c8782, type: 3}
+  m_Name: MaterialVfxConfigs
+  m_EditorClassIdentifier: 
+  _assetsFolderPath: Assets/AddressableResources/Materials
+  _configs:
+  - Key: 0
+    Value:
+      m_AssetGUID: b2e8403b59729ce4c97591f6ab0f5edc
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 1
+    Value:
+      m_AssetGUID: eaacc333698c3eb49a0eb536dd8d0e94
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 2
+    Value:
+      m_AssetGUID: cea3168fcc0a94740958750cb394c105
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02273fef4a4a4db988101d671f561e4e, type: 3}
+  m_Name: CustomAssetConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/CustomAssetConfigs
+      Guid:
+        Value: 1782342916809032400
+    HazardPrototype:
+      Id:
+        Value: 830040999928004567
+    PlayerCharacterPrototype:
+      Id:
+        Value: 1494014866598569848
+    PlayerBulletPrototype:
+      Id:
+        Value: 727426939994474453
+    BotNavMeshConfig:
+      Id:
+        Value: 1093005050644660195
+    DummyCharacterPrototype:
+      Id:
+        Value: 754640765234653046
+    WeaponPlatformPrototype:
+      Id:
+        Value: 3423522033009671601
+    ConsumablePlatformPrototype:
+      Id:
+        Value: 2403753126067035639
+  ErrorCube:
+    m_AssetGUID: a9651f376caf92241bf234d75cb584ea
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ErrorSprite:
+    m_AssetGUID: 1e189b3dda3ca46bd9838a3f2c196d29
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ErrorClip:
+    m_AssetGUID: da54a4a78bf9f4fd3adfbebb78b1a870
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ErrorMaterial:
+    m_AssetGUID: 1743cc96f370f41ba8c4b829353c107e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  ConsumablePrototype:
+    Id:
+      Value: 240296495379453662
+  WeaponPickUpPrototype:
+    Id:
+      Value: 4070827363264793974

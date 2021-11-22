@@ -1,0 +1,12 @@
+asset QuantumGameConfigs;
+asset QuantumWeaponConfigs;
+asset QuantumGearConfigs;
+asset QuantumBotConfigs;
+asset QuantumMultishotConfigs;
+asset QuantumFrontshotConfigs;
+asset QuantumDiagonalshotConfigs;
+asset QuantumConsumableConfigs;
+asset QuantumDestructibleConfigs;
+asset QuantumSpecialConfigs;
+asset QuantumHazardConfigs;
+asset QuantumAssetConfigs;

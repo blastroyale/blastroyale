@@ -1,0 +1,14 @@
+component Spell
+{
+	UInt32 PowerAmount;
+	bool IsHealing;
+	entity_ref Attacker;
+}
+
+synced event OnSpellHit
+{
+	entity_ref Entity;
+	Spell Spell;
+}
+
+signal SpellHit(entity_ref entity, Spell* spell);

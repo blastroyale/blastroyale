@@ -1,0 +1,39 @@
+event OnProjectileFired
+{
+	entity_ref Projectile;
+	ProjectileData ProjectileData;
+}
+
+synced event OnEnemyProjectileScheduled
+{
+	entity_ref Projectile;
+	Projectile ProjectileComponent;
+	FPVector3 SpawnPosition;
+	bool IsParabolic;
+	FP IndicationRadius;
+}
+
+event OnLocalPlayerProjectileHit
+{
+	local player_ref Player;
+	ProjectileHitData HitData;
+	ProjectileData ProjectileData;
+}
+
+event OnLocalPlayerHit
+{
+	local player_ref Player;
+	ProjectileHitData HitData;
+	ProjectileData ProjectileData;
+}
+
+event OnProjectileHit
+{
+	ProjectileHitData HitData;
+	ProjectileData ProjectileData;
+}
+
+event OnProjectileFailedHitDestroy
+{
+	entity_ref Projectile;
+}

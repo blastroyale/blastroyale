@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09553a2054444537a54ad049c01e6c81, type: 3}
+  m_Name: MultishotConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/MultishotConfigs
+      Guid:
+        Value: 25992991120524083
+    QuantumConfigs:
+    - Id: 18
+      BaseAmount: 2
+      BaseShootTimeGap:
+        RawValue: 1966
+      AmountLevelUpStep: 1
+      ShootTimeGapLevelUpStep:
+        RawValue: -655
+    - Id: 35
+      BaseAmount: 3
+      BaseShootTimeGap:
+        RawValue: 3277
+      AmountLevelUpStep: 1
+      ShootTimeGapLevelUpStep:
+        RawValue: -655
+    - Id: 37
+      BaseAmount: 3
+      BaseShootTimeGap:
+        RawValue: 5243
+      AmountLevelUpStep: 1
+      ShootTimeGapLevelUpStep:
+        RawValue: -655
+    - Id: 36
+      BaseAmount: 3
+      BaseShootTimeGap:
+        RawValue: 5243
+      AmountLevelUpStep: 1
+      ShootTimeGapLevelUpStep:
+        RawValue: -655

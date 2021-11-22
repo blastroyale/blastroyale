@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57d87e078fa42808726652be0931d14, type: 3}
+  m_Name: RarityConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Rarity: 0
+    MaxLevel: 10
+    FusionCost: 300
+    EnhancementCost: 1000
+    EnhancementItemAmount: 2
+    SellBasePrice: 75
+    SellPriceLevelPowerOf: 1.1
+    UpgradeBasePrice: 150
+    UpgradePriceLevelPowerOf: 1.1
+  - Rarity: 1
+    MaxLevel: 15
+    FusionCost: 1300
+    EnhancementCost: 4000
+    EnhancementItemAmount: 3
+    SellBasePrice: 125
+    SellPriceLevelPowerOf: 1.1
+    UpgradeBasePrice: 250
+    UpgradePriceLevelPowerOf: 1.1
+  - Rarity: 2
+    MaxLevel: 20
+    FusionCost: 3000
+    EnhancementCost: 13000
+    EnhancementItemAmount: 4
+    SellBasePrice: 200
+    SellPriceLevelPowerOf: 1.05
+    UpgradeBasePrice: 400
+    UpgradePriceLevelPowerOf: 1.05
+  - Rarity: 3
+    MaxLevel: 25
+    FusionCost: 7000
+    EnhancementCost: 39000
+    EnhancementItemAmount: 5
+    SellBasePrice: 313
+    SellPriceLevelPowerOf: 1.02
+    UpgradeBasePrice: 625
+    UpgradePriceLevelPowerOf: 1.02
+  - Rarity: 4
+    MaxLevel: 30
+    FusionCost: 7000
+    EnhancementCost: 0
+    EnhancementItemAmount: 0
+    SellBasePrice: 482
+    SellPriceLevelPowerOf: 1.02
+    UpgradeBasePrice: 963
+    UpgradePriceLevelPowerOf: 1.02

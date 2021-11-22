@@ -1,0 +1,51 @@
+
+using System;
+using System.Collections.Generic;
+using FirstLight.Game.Utils;
+using FirstLight.Game.Views.AdventureHudViews;
+using FirstLight.Services;
+using Quantum;
+using TMPro;
+using UnityEngine;
+
+namespace FirstLight.Game.Views.MainMenuViews
+{
+	/// <summary>
+	/// Used to display the current leading player and how many frags they have.
+	/// </summary>
+	public class LeaderHolderView : MonoBehaviour
+	{
+		[SerializeField] private TextMeshProUGUI _leaderNameText;
+		[SerializeField] private TextMeshProUGUI _currentLeaderFragsText;
+		[SerializeField] private Animation _leaderChangedAnimation;
+
+		private PlayerRef? _currentLeader;
+		
+		private void Awake()
+		{
+			_currentLeaderFragsText.text = "0";
+			_leaderNameText.text = "";
+			_currentLeader = null;
+			
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
+		}
+
+
+		/// <summary>
+		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
+		/// </summary>
+		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			if (!_currentLeader.HasValue || _currentLeader.Value != callback.LeaderMatchData.Data.Player)
+			{
+				_currentLeader = callback.LeaderMatchData.Data.Player;
+				_leaderNameText.text = callback.LeaderMatchData.GetPlayerName();
+				
+				_leaderChangedAnimation.Rewind();
+				_leaderChangedAnimation.Play();
+			}
+			
+			_currentLeaderFragsText.text = callback.LeaderMatchData.Data.PlayersKilledCount.ToString();
+		}
+	}
+}

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Quantum</RootNamespace>
+    <AssemblyName>quantum.code</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath Condition="'$(Configuration)' == 'Release'">..\..\assemblies\release\PhotonDeterministic.dll</HintPath>
+      <HintPath Condition="'$(Configuration)' == 'Debug'">..\..\assemblies\debug\PhotonDeterministic.dll</HintPath>
+    </Reference>
+    <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath Condition="'$(Configuration)' == 'Release'">..\..\assemblies\release\quantum.core.dll</HintPath>
+      <HintPath Condition="'$(Configuration)' == 'Debug'">..\..\assemblies\debug\quantum.core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI\Actions\AIAction.cs" />
+    <Compile Include="AI\Actions\ClearTargetAction.cs" />
+    <Compile Include="AI\Actions\SetBlackboardBoolAction.cs" />
+    <Compile Include="AI\Actions\SetEntityRefAction.cs" />
+    <Compile Include="AI\Actions\ShootAtAimingDirectionAction.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsBotDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsPlayerInputAimingDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsPlayerInputShootingDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.TimerDecisionDecision.cs" />
+    <Compile Include="AI\HFSM.State.cs" />
+    <Compile Include="AI\Player\PlayerShapeAttackAction.cs" />
+    <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
+    <Compile Include="BotSDK\AI\BT\BTAgent.User.cs" />
+    <Compile Include="BotSDK\AI\BT\Composite\BTSelector.cs" />
+    <Compile Include="BotSDK\AI\BT\Composite\BTSequence.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTComposite.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTDataIndex.User.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTDecorator.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTLeaf.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTNode.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTParams.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTRoot.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\BTService.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\Types\BTAbort.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\Types\BTNodeType.cs" />
+    <Compile Include="BotSDK\AI\BT\Core\Types\BTStatus.cs" />
+    <Compile Include="BotSDK\AI\BT\Decorator\BTBlackboardCompare.cs" />
+    <Compile Include="BotSDK\AI\BT\Decorator\BTCooldown.cs" />
+    <Compile Include="BotSDK\AI\BT\Decorator\BTForceResult.cs" />
+    <Compile Include="BotSDK\AI\BT\Decorator\BTLoop.cs" />
+    <Compile Include="BotSDK\AI\BT\Leaf\DebugLeaf.cs" />
+    <Compile Include="BotSDK\AI\BT\Leaf\WaitLeaf.cs" />
+    <Compile Include="BotSDK\AI\BT\Service\DebugService.cs" />
+    <Compile Include="BotSDK\AI\Common\AIAction.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionBool.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionByte.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionEntityRef.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionFP.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionFPVector2.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionFPVector3.cs" />
+    <Compile Include="BotSDK\AI\Common\AIFunction\AIFunctionInt.cs" />
+    <Compile Include="BotSDK\AI\Common\BotSDKHiddenAttribute.cs" />
+    <Compile Include="BotSDK\AI\Common\Params\AIConfig.cs" />
+    <Compile Include="BotSDK\AI\Common\Params\AIParam.cs" />
+    <Compile Include="BotSDK\AI\Common\Params\AIParam.Types.cs" />
+    <Compile Include="BotSDK\AI\Debugger\IBotDebug.cs" />
+    <Compile Include="BotSDK\AI\GOAP\GOAP.Heap.cs" />
+    <Compile Include="BotSDK\AI\GOAP\GOAP.Manager.cs" />
+    <Compile Include="BotSDK\AI\GOAP\GOAP.Root.cs" />
+    <Compile Include="BotSDK\AI\GOAP\GOAP.Task.cs" />
+    <Compile Include="BotSDK\AI\GOAP\GOAPAgent.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.Agent.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.Decision.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.LogicalDecisions.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.Manager.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.Root.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.State.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.Transition.cs" />
+    <Compile Include="BotSDK\AI\HFSM\HFSM.TransitionSet.cs" />
+    <Compile Include="BotSDK\AI\UT\Consideration.cs" />
+    <Compile Include="BotSDK\AI\UT\ResponseCurve.cs" />
+    <Compile Include="BotSDK\AI\UT\UTAgent.User.cs" />
+    <Compile Include="BotSDK\AI\UT\UtilityReasoner.User.cs" />
+    <Compile Include="BotSDK\AI\UT\UTManager.cs" />
+    <Compile Include="BotSDK\AI\UT\UTRoot.cs" />
+    <Compile Include="BotSDK\Blackboard\AIBlackboard.cs" />
+    <Compile Include="BotSDK\Blackboard\AIBlackboardComponent.cs" />
+    <Compile Include="BotSDK\Blackboard\AIBlackboardEntry.cs" />
+    <Compile Include="BotSDK\Blackboard\AIBlackboardInitializer.cs" />
+    <Compile Include="BotSDK\Blackboard\AIBlackboardValueKey.cs" />
+    <Compile Include="BotSDK\Blackboard\AIBlackboardValueType.cs" />
+    <Compile Include="BotSDK\Blackboard\BlackboardEntry.cs" />
+    <Compile Include="BotSDK\Blackboard\BlackboardValue.cs" />
+    <Compile Include="BotSDK\BotSDKDebuggerSystem.cs" />
+    <Compile Include="BotSDK\BotSDKSystem.cs" />
+    <Compile Include="BotSDK\Samples\Actions\DebugAction.cs" />
+    <Compile Include="BotSDK\Samples\Actions\IdleAction.cs" />
+    <Compile Include="BotSDK\Samples\Actions\IncreaseBlackboardInt.cs" />
+    <Compile Include="BotSDK\Samples\Actions\SetBlackboardInt.cs" />
+    <Compile Include="BotSDK\Samples\Decisions\HFSM.CheckBlackboardInt.cs" />
+    <Compile Include="BotSDK\Samples\Decisions\HFSM.TimerDecision.cs" />
+    <Compile Include="BotSDK\Samples\Decisions\HFSM.TrueDecision.cs" />
+    <Compile Include="Commands\CheatCompleteKillCountCommand.cs" />
+    <Compile Include="Commands\CheatMakeLocalPlayerBigDamagerCommand.cs" />
+    <Compile Include="Commands\CheatMakeLocalPlayerSuperToughCommand.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\DummySpawnCommand.cs" />
+    <Compile Include="Commands\PlatformSpawnCommand.cs" />
+    <Compile Include="Commands\PlayerEmojiCommand.cs" />
+    <Compile Include="Commands\CheatLocalPlayerKillCommand.cs" />
+    <Compile Include="Commands\PlayerQuitCommand.cs" />
+    <Compile Include="Commands\PlayerRespawnCommand.cs" />
+    <Compile Include="Commands\SpecialUsedCommand.cs" />
+    <Compile Include="Commands\CollectablePlatformSpawnCommand.cs" />
+    <Compile Include="Components\Collectable.cs" />
+    <Compile Include="Components\Destructible.cs" />
+    <Compile Include="Components\Equipment.cs" />
+    <Compile Include="Components\GameContainer.cs" />
+    <Compile Include="Components\PlayerMatchData.cs" />
+    <Compile Include="Components\Spawners.cs" />
+    <Compile Include="Components\SpecialAggroBeaconGrenade.cs" />
+    <Compile Include="Components\SpecialAimAreaDamage.cs" />
+    <Compile Include="Components\SpecialAimAreaStatusModifier.cs" />
+    <Compile Include="Components\SpecialAirstrike.cs" />
+    <Compile Include="Components\Consumable.cs" />
+    <Compile Include="Components\Hazard.cs" />
+    <Compile Include="Components\Input.cs" />
+    <Compile Include="Components\PlayerCharacter.cs" />
+    <Compile Include="Components\PowerUps.cs" />
+    <Compile Include="Components\Projectile.cs" />
+    <Compile Include="Components\SpecialGrenade.cs" />
+    <Compile Include="Components\SpecialHazardAimSpawn.cs" />
+    <Compile Include="Components\SpecialHealingField.cs" />
+    <Compile Include="Components\SpecialHealingMode.cs" />
+    <Compile Include="Components\SpecialSelfStatusModifier.cs" />
+    <Compile Include="Components\Specials.cs" />
+    <Compile Include="Components\SpecialShieldedCharge.cs" />
+    <Compile Include="Components\SpecialStunGrenade.cs" />
+    <Compile Include="Components\SpecialAreaDamage.cs" />
+    <Compile Include="Components\Stats.cs" />
+    <Compile Include="Components\StatusModifiers.cs" />
+    <Compile Include="Components\WeaponCollectable.cs" />
+    <Compile Include="Configs\Constants.cs" />
+    <Compile Include="Configs\GameId.cs" />
+    <Compile Include="Configs\IndicatorVfxId.cs" />
+    <Compile Include="Configs\QuantumBotConfigs.cs" />
+    <Compile Include="Configs\QuantumConsumableConfigs.cs" />
+    <Compile Include="Configs\QuantumGearConfigs.cs" />
+    <Compile Include="Configs\QuantumDestructibleConfigs.cs" />
+    <Compile Include="Configs\QuantumDiagonalshotConfigs.cs" />
+    <Compile Include="Configs\QuantumFrontshotConfigs.cs" />
+    <Compile Include="Configs\QuantumHazardConfigs.cs" />
+    <Compile Include="Configs\QuantumMultishotConfigs.cs" />
+    <Compile Include="Configs\QuantumAssetConfigs.cs" />
+    <Compile Include="Configs\QuantumPair.cs" />
+    <Compile Include="Configs\QuantumGameConfigs.cs" />
+    <Compile Include="Configs\QuantumSpecialConfigs.cs" />
+    <Compile Include="Configs\QuantumWeaponConfigs.cs" />
+    <Compile Include="Core\CodeGen.cs" />
+    <Compile Include="CommandSetup.cs" />
+    <Compile Include="Core\Core.cs" />
+    <Compile Include="Events\GameEvents.cs" />
+    <Compile Include="Events\PlayerEvents.cs" />
+    <Compile Include="Frame.User.cs" />
+    <Compile Include="FrameContext.User.cs" />
+    <Compile Include="RuntimeConfig.User.cs" />
+    <Compile Include="RuntimePlayer.User.cs" />
+    <Compile Include="SimulationConfig.User.cs" />
+    <Compile Include="SystemSetup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Systems\AiPreUpdateSystem.cs" />
+    <Compile Include="Systems\BotCharacterSystem.cs" />
+    <Compile Include="Systems\Collectables\CollectableSystem.cs" />
+    <Compile Include="Systems\Collectables\CollectableSystemBase.cs" />
+    <Compile Include="Systems\Collectables\CollectableSystemGroup.cs" />
+    <Compile Include="Systems\Collectables\Consumables\AmmoConsumableSystem.cs" />
+    <Compile Include="Systems\Collectables\Consumables\ConsumableSystemBase.cs" />
+    <Compile Include="Systems\Collectables\Consumables\HealthConsumableSystem.cs" />
+    <Compile Include="Systems\Collectables\Consumables\InterimArmourConsumableSystem.cs" />
+    <Compile Include="Systems\Collectables\Consumables\RageConsumableSystem.cs" />
+    <Compile Include="Systems\Collectables\WeaponCollectableSystem.cs" />
+    <Compile Include="Systems\DestructibleSystem.cs" />
+    <Compile Include="Systems\DummyCharacterSystem.cs" />
+    <Compile Include="Systems\PowerUps\PowerUpsSystemGroup.cs" />
+    <Compile Include="Systems\Spawners\ConsumablePlatformSpawnerSystem.cs" />
+    <Compile Include="Systems\Spawners\CollectablePlatformSpawnerSystemBase.cs" />
+    <Compile Include="Systems\Spawners\PlatformSpawnerSystemGroup.cs" />
+    <Compile Include="Systems\Spawners\WeaponPlatformSpawnerSystem.cs" />
+    <Compile Include="Systems\SpellSystem.cs" />
+    <Compile Include="Systems\StatusModifiers\ShieldSystem.cs" />
+    <Compile Include="Systems\StatusModifiers\StatusModifierSystemGroup.cs" />
+    <Compile Include="Systems\TransformOutOfWorldSystem.cs" />
+    <Compile Include="Systems\CollisionDamageSystem.cs" />
+    <Compile Include="Systems\StatusModifiers\RageSystem.cs" />
+    <Compile Include="Systems\StatusModifiers\StunSystem.cs" />
+    <Compile Include="Systems\EntityLateDestroyerSystem.cs" />
+    <Compile Include="Systems\GameSystem.cs" />
+    <Compile Include="Systems\HazardSystem.cs" />
+    <Compile Include="Systems\MatchDataSystem.cs" />
+    <Compile Include="Systems\StatSystem.cs" />
+    <Compile Include="Systems\NavMeshAgentSystem.cs" />
+    <Compile Include="Systems\PlayerCharacterSystem.cs" />
+    <Compile Include="Systems\AiSystem.cs" />
+    <Compile Include="Systems\CommandsSystem.cs" />
+    <Compile Include="Systems\PowerUps\DiagonalshotSystem.cs" />
+    <Compile Include="Systems\PowerUps\FrontshotSystem.cs" />
+    <Compile Include="Systems\PowerUps\MultishotSystem.cs" />
+    <Compile Include="Systems\ProjectileSystem.cs" />
+    <Compile Include="Systems\SystemInitializer.cs" />
+    <Compile Include="Utils\BitUtil.cs" />
+    <Compile Include="Utils\QuantumHelpers.cs" />
+    <Compile Include="Utils\QuantumPlayerMatchData.cs" />
+    <Compile Include="Utils\QuantumStatCalculator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BotSDK\AI\BT\bt.qtn" />
+    <Content Include="BotSDK\AI\Common\Actions.qtn" />
+    <Content Include="BotSDK\AI\Common\AIFunction\AIFunction.qtn" />
+    <Content Include="BotSDK\AI\Common\Params\AIConfig.qtn" />
+    <Content Include="BotSDK\AI\GOAP\GOAP.qtn" />
+    <Content Include="BotSDK\AI\HFSM\HFSM.qtn" />
+    <Content Include="BotSDK\AI\UT\UT.qtn" />
+    <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
+    <Content Include="Components\BotCharacter.qtn" />
+    <Content Include="Components\Collectable.qtn" />
+    <Content Include="Components\CollisionDamage.qtn" />
+    <Content Include="Components\Consumable.qtn" />
+    <Content Include="Components\Destructible.qtn" />
+    <Content Include="Components\Equipment.qtn" />
+    <Content Include="Components\Hazard.qtn" />
+    <Content Include="Components\EntityDestroyer.qtn" />
+    <Content Include="Components\GameContainer.qtn" />
+    <Content Include="Components\Global.qtn" />
+    <Content Include="Components\Input.qtn" />
+    <Content Include="Components\Spawners.qtn" />
+    <Content Include="Components\PlayerMatchData.qtn" />
+    <Content Include="Components\PowerUps.qtn" />
+    <Content Include="Components\Projectile.qtn" />
+    <Content Include="Components\PlayerCharacter.qtn" />
+    <Content Include="Components\Specials.qtn" />
+    <Content Include="Components\Spell.qtn" />
+    <Content Include="Components\Stats.qtn" />
+    <Content Include="Components\StatusModifiers.qtn" />
+    <Content Include="Components\Targetable.qtn" />
+    <Content Include="Components\Weapon.qtn" />
+    <Content Include="Configs\Assets.qtn" />
+    <Content Include="Configs\GameId.qtn" />
+    <Content Include="Events\GameEvents.qtn" />
+    <Content Include="Events\PlayerEvents.qtn" />
+    <Content Include="Events\ProjectileEvents.qtn" />
+    <EmbeddedResource Include="db.json" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

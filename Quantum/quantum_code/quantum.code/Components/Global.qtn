@@ -1,0 +1,11 @@
+global
+{
+	list<EntityPair> Queries;
+	UInt32 ModifierIdCount;
+}
+
+struct EntityPair
+{
+	entity_ref Entity;
+	FP Value;
+}

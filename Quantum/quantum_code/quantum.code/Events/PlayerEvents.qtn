@@ -1,0 +1,139 @@
+import Physics3D;
+import String;
+
+synced event OnPlayerLeft
+{
+	remote player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnPlayerSpawned
+{
+	player_ref Player;
+	entity_ref Entity;
+	bool HasRespawned;
+}
+
+synced event OnPlayerAlive
+{
+	player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnPlayerDead
+{
+	player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnPlayerEmojiSent
+{
+	player_ref Player;
+	entity_ref Entity;
+	GameId Emoji;
+}
+
+synced event OnPlayerKilledPlayer
+{
+	player_ref PlayerDead;
+	entity_ref EntityDead;
+	player_ref PlayerKiller;
+	entity_ref EntityKiller;
+}
+
+synced event OnPlayerWeaponChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	GameId WeaponGameId;
+}
+
+// LOCAL PLAYER EVENTS
+
+synced event OnLocalPlayerLeft
+{
+	local player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnLocalPlayerSpawned
+{
+	local player_ref Player;
+	entity_ref Entity;
+	bool HasRespawned;
+}
+
+synced event OnLocalPlayerAlive
+{
+	local player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnLocalPlayerDead
+{
+	local player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnLocalPlayerFailedShoot
+{
+	local player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnLocalPlayerWeaponChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	GameId WeaponGameId;
+	bool ResetCooldownSpecial0;
+	bool ResetCooldownSpecial1;
+}
+
+// REMOTE PLAYER EVENTS
+
+synced event OnRemotePlayerLeft
+{
+	remote player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnRemotePlayerSpawned
+{
+	remote player_ref Player;
+	entity_ref Entity;
+	bool HasRespawned;
+}
+
+synced event OnRemotePlayerAlive
+{
+	remote player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnRemotePlayerDead
+{
+	remote player_ref Player;
+	entity_ref Entity;
+}
+
+// New Shape Cast events - Move up when the feature is fully integrated
+
+synced event OnPlayerAttacked
+{
+	entity_ref PlayerEntity;
+	PlayerCharacter PlayerCharacter;
+}
+
+synced event OnPlayerAttackHit
+{
+	entity_ref PlayerEntity;
+	player_ref Player;
+	Hit3D Hit;
+}
+
+synced event OnPlayerAttackMiss
+{
+	entity_ref PlayerEntity;
+	player_ref Player;
+}

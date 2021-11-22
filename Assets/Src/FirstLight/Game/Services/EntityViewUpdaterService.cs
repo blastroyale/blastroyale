@@ -1,0 +1,73 @@
+using System.Collections.Generic;
+using Quantum;
+
+namespace FirstLight.Game.Services
+{
+	/// <summary>
+	/// This Service allows to access <see cref="EntityView"/> from any point in the game.
+	/// Also overrides the Quantum's <see cref="EntityViewUpdaterService"/> by extending the possibility to only delete
+	/// GameObjects on late update to allow other components to access it on the same frame if marked to be manual desposable.
+	/// </summary>
+	public interface IEntityViewUpdaterService
+	{
+		/// <summary>
+		/// Requests the <see cref="EntityView"/> existing in the game world that represents the given <paramref name="entityRef"/>.
+		/// Returns true if the entity exists in the active or manual entities to destroy.
+		/// </summary>
+		/// <remarks>
+		/// Use this call instead of <see cref="EntityViewUpdater.GetView"/> in potential cases where the entity is
+		/// marked to be manual destroyed
+		/// </remarks>
+		bool TryGetView(EntityRef entityRef, out EntityView view);
+
+		/// <summary>
+		/// Requests the <see cref="EntityView"/> existing in the game world that represents the given <paramref name="entityRef"/>.
+		/// </summary>
+		/// <remarks>
+		/// Use this call instead of <see cref="EntityViewUpdater.GetView"/> in potential cases where the entity is
+		/// marked to be manual destroyed
+		/// </remarks>
+		EntityView GetManualView(EntityRef entityRef);
+	}
+	
+	/// <inheritdoc cref="IEntityViewUpdaterService" />
+	public class EntityViewUpdaterService : EntityViewUpdater, IEntityViewUpdaterService
+	{
+		private readonly IDictionary<EntityRef, EntityView> _viewsToDestroy = new Dictionary<EntityRef, EntityView>(256);
+		private readonly IList<EntityView> _viewsListToDestroy = new List<EntityView>(256);
+
+		private void LateUpdate()
+		{
+			for (var i = 0; i < _viewsListToDestroy.Count; i++)
+			{
+				base.DestroyEntityView(ObservedGame, _viewsListToDestroy[i]);
+			}
+			
+			_viewsListToDestroy.Clear();
+			_viewsToDestroy.Clear();
+		}
+
+		/// <inheritdoc />
+		public bool TryGetView(EntityRef entityRef, out EntityView view)
+		{
+			return ActiveViews.TryGetValue(entityRef, out view) || _viewsToDestroy.TryGetValue(entityRef, out view);
+		}
+
+		/// <inheritdoc />
+		public EntityView GetManualView(EntityRef entityRef)
+		{
+			if (!TryGetView(entityRef, out var view))
+			{
+				throw new KeyNotFoundException($"There is no {nameof(EntityView)} for the given entity {entityRef}.");
+			}
+
+			return view;
+		}
+
+		protected override void DestroyEntityView(QuantumGame game, EntityView view)
+		{
+			_viewsListToDestroy.Add(view);
+			_viewsToDestroy.Add(view.EntityRef, view);
+		}
+	}
+}

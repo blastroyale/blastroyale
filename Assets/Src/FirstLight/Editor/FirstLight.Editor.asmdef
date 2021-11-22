@@ -1,0 +1,38 @@
+{
+    "name": "FirstLight.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Addressables",
+        "Unity.Addressables.Editor",
+        "Unity.ResourceManager",
+        "Unity.InputSystem",
+        "Unity.Timeline",
+        "Unity.Timeline.Editor",
+        "FirstLight.DataExtensions.Editor",
+        "FirstLight.UiService",
+        "FirstLight.UiService.Editor",
+        "FirstLight.AssetImporter.Editor",
+        "FirstLight.AssetImporter",
+        "FirstLight.GoogleSheetImporter",
+        "FirstLight.GoogleSheetImporter.Editor",
+        "FirstLight.AddressablesExtensions",
+        "FirstLight.DataExtensions",
+        "FirstLight.Services",
+        "FirstLight.Game",
+        "PlayFab",
+        "PhotonQuantum",
+        "Localization",
+        "MoreMountains.NiceVibrations.Haptics"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

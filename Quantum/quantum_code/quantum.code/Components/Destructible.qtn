@@ -1,0 +1,17 @@
+component Destructible
+{
+	[HideInInspector] FP SplashRadius;
+	[HideInInspector] AssetRefEntityPrototype ProjectileAssetRef;
+	[HideInInspector] bool IsDestructing;
+	[HideInInspector] FP DestructionLengthTime;
+	[HideInInspector] FP TimeToDestroy;
+	[HideInInspector] GameId GameId;
+}
+
+synced event OnDestructibleScheduled
+{
+	entity_ref DestructibleEntity;
+	Destructible Destructible;
+	entity_ref ProjectileEntity;
+	ProjectileData ProjectileData;
+}

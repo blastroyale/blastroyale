@@ -61,6 +61,12 @@ namespace FirstLight.Editor.EditorTools
 			EditorSceneManager.OpenScene(GetScenePath("FloodCitySimple"));
 		}
 		
+		[MenuItem("First Light Games/Scene/Open BRGenesis Scene")]
+		private static void OpenBRGenesisScene()
+		{
+			EditorSceneManager.OpenScene(GetScenePath("BRGenesis"));
+		}
+		
 		[MenuItem("First Light Games/Scene/Open Boot Scene &9")]
 		private static void OpenBootScene()
 		{

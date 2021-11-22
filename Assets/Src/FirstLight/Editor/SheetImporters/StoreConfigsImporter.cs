@@ -17,7 +17,7 @@ namespace FirstLight.Editor.SheetImporters
 	public class StoreConfigsImporter : IGoogleSheetConfigsImporter
 	{
 		/// <inheritdoc />
-		public string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1TZuc8gOMgrN6nJWRFJymxmf2SR2QNyQfx0x-STtIN-M/edit#gid=1971354923";
+		public string GoogleSheetUrl => "***REMOVED***/edit#gid=1971354923";
 
 		/// <inheritdoc />
 		public void Import(List<Dictionary<string, string>> data)

@@ -14,6 +14,6 @@ namespace FirstLight.Editor.SheetImporters
 	public class FrontshotConfigsImporter : GoogleSheetQuantumConfigsImporter<QuantumFrontshotConfig, FrontshotConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1TZuc8gOMgrN6nJWRFJymxmf2SR2QNyQfx0x-STtIN-M/edit#gid=511615071";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=511615071";
 	}
 }

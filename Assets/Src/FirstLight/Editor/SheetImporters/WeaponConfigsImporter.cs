@@ -13,7 +13,7 @@ namespace FirstLight.Editor.SheetImporters
 	public class WeaponConfigsImporter : GoogleSheetConfigsAssetImporterBase<QuantumWeaponConfig, WeaponConfigs, CustomAssetConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1TZuc8gOMgrN6nJWRFJymxmf2SR2QNyQfx0x-STtIN-M/edit#gid=1031494639";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1031494639";
 
 		protected override QuantumWeaponConfig DeserializeAsset(Dictionary<string, string> data, CustomAssetConfigs assetConfigs)
 		{

@@ -20,7 +20,7 @@ namespace FirstLight.Editor.SheetImporters
 		private const string _namespace = "FirstLight.Game.Ids";
 		
 		/// <inheritdoc />
-		public string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1TZuc8gOMgrN6nJWRFJymxmf2SR2QNyQfx0x-STtIN-M/edit#gid=683619898";
+		public string GoogleSheetUrl => "***REMOVED***/edit#gid=683619898";
 		
 		/// <inheritdoc />
 		public void Import(List<Dictionary<string, string>> data)

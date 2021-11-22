@@ -158,6 +158,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.BRGenesis, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.Diagonalshot, new List<GameIdGroup>
 					{
 						GameIdGroup.PowerUp
@@ -896,7 +902,8 @@ namespace Quantum
 						GameId.FtueDeck,
 						GameId.SmallWilderness,
 						GameId.FloodCitySimple,
-						GameId.BlimpDeck
+						GameId.BlimpDeck,
+						GameId.BRGenesis
 					}.AsReadOnly()
 				},
 				{

@@ -39,6 +39,11 @@ MonoBehaviour:
         Id:
           Value: 178988713699507947
       Address: QuantumAssets/Hazards/Hazard.prefab[HazardEntityView]
+    - Path: AddressableResources/Maps/BRGenesis_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 187962833955632473
+      Address: Maps/BRGenesis_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/Collectables/ConsumablePickup|EntityPrototype
       AssetRef:
         Id:
@@ -84,6 +89,11 @@ MonoBehaviour:
         Id:
           Value: 571862605402387161
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecisionDecision_4]
+    - Path: AddressableResources/Maps/BRGenesis
+      AssetRef:
+        Id:
+          Value: 581929196288820183
+      Address: Maps/BRGenesis.asset
     - Path: AddressableResources/Maps/FtueDeck_mesh
       AssetRef:
         Id:
@@ -396,6 +406,11 @@ MonoBehaviour:
         Id:
           Value: 3315138076201881096
       Address: Maps/FloodCity_NavMesh_data.asset
+    - Path: AddressableResources/Maps/BRGenesis_NavMesh
+      AssetRef:
+        Id:
+          Value: 3321959121446098905
+      Address: Maps/BRGenesis_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ShootingAtAimingDirection_3
       AssetRef:
         Id:
@@ -481,6 +496,11 @@ MonoBehaviour:
         Id:
           Value: 4145150269741386877
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecisionDecision_8]
+    - Path: AddressableResources/Maps/BRGenesis_mesh
+      AssetRef:
+        Id:
+          Value: 4328303550200794573
+      Address: Maps/BRGenesis_mesh.asset
     - Path: AddressableResources/Maps/FloodCity
       AssetRef:
         Id:

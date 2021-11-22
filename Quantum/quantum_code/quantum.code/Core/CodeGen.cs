@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -63,6 +62,7 @@ namespace Quantum {
     SmallWilderness = 144,
     FloodCitySimple = 7,
     BlimpDeck = 8,
+    BRGenesis = 9,
     Diagonalshot = 17,
     Multishot = 18,
     Frontshot = 20,

@@ -14,6 +14,7 @@ namespace FirstLight.Game.Ids
 		FloodCitySimple,
 		MainDeck,
 		BlimpDeck,
+		BRGenesis,
 	}
 	
 	/// <summary>

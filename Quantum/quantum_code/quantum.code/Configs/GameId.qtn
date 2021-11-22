@@ -18,6 +18,7 @@ enum GameId
 	SmallWilderness = 144,
 	FloodCitySimple = 7,
 	BlimpDeck = 8,
+	BRGenesis = 9,
 	Diagonalshot = 17,
 	Multishot = 18,
 	Frontshot = 20,

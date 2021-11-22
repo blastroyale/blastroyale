@@ -54,8 +54,8 @@ namespace FirstLight.Game.Utils
 		
 		public static GameId [] TUTORIAL_VIDEO_IDS = { GameId.SniperRifle };
 
-		public const int FtueAdventuresCount = 2;
-		public const int OnboardingAdventuresCount = 4;
-		public const int RotationAdventuresCount = 5;
+		public const int FtueAdventuresCount = 1;
+		public const int OnboardingAdventuresCount = 0;
+		public const int RotationAdventuresCount = 1;
 	}
 }

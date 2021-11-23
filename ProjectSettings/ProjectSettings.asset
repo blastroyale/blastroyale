@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: First Light Games
-  productName: Blast Lands
+  productName: Blast Royale
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -136,7 +136,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.11.0
+  bundleVersion: 0.1.0
   preloadedAssets:
   - {fileID: 11400000, guid: c3452a039b34041249d840c527f7b803, type: 2}
   metroInputSource: 0

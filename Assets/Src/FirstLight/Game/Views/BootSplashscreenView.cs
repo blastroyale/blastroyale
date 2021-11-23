@@ -80,19 +80,7 @@ namespace FirstLight.Game.Views
 				                                  $"Firebase could not be initialized properly. Status: {dependencyStatus}");
 			}
 			
-			//TODO# @mr change to read google-services.json file 
-#if UNITY_ANDROID
-			if (!Debug.isDebugBuild)
-			{
-				var appOptions = AppOptions.LoadFromJsonConfig("{  \"project_info\": {     \"project_number\": \"705357047706\",     \"firebase_url\": \"https://phoenix-515d2-default-rtdb.europe-west1.firebasedatabase.app\",     \"project_id\": \"phoenix-515d2\",     \"storage_bucket\": \"phoenix-515d2.appspot.com\"   },   \"client\": [     {       \"client_info\": {         \"mobilesdk_app_id\": \"1:705357047706:android:e492ea23f28056e315bc23\",         \"android_client_info\": {           \"package_name\": \"com.firstlightgames.phoenix\"         }       },       \"oauth_client\": [         {           \"client_id\": \"705357047706-hmm2dotje81gklfjc0d182p307fs52g4.apps.googleusercontent.com\",           \"client_type\": 3         }       ],       \"api_key\": [         {           \"current_key\": \"***REMOVED***\"         }       ],       \"services\": {         \"appinvite_service\": {           \"other_platform_oauth_client\": [             {               \"client_id\": \"705357047706-hmm2dotje81gklfjc0d182p307fs52g4.apps.googleusercontent.com\",               \"client_type\": 3             },             {               \"client_id\": \"705357047706-45mojo26ucv4cnkvabpmcedmltn7cgkc.apps.googleusercontent.com\",               \"client_type\": 2,               \"ios_info\": {                 \"bundle_id\": \"com.firstlightgames.phoenix\"               }             }           ]         }       }     }   ],   \"configuration_version\": \"1\" }");
-				FirebaseApp.Create(appOptions);
-			}
-			else		
-#endif
-			{
-				FirebaseApp.Create();
-			}
-			
+			FirebaseApp.Create();
 			FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
 		}
 

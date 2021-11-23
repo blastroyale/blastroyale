@@ -880,11 +880,12 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Analytics: 1
+    Analytics: 0
     Build: 0
     Collab: 0
-    Game Performance: 1
-    Purchasing: 1
+    Game Performance: 0
+    Purchasing: 0
+    UDP: 0
     Unity Ads: 0
   luminIcon:
     m_Name: 
@@ -899,10 +900,10 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: 6c319abf-d163-42f9-b3bd-3b4ca2e31c41
+  cloudProjectId: ***REMOVED***
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Project Phoenix
+  projectName: Blast Royale
   organizationId: first-light-games-***REMOVED***
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

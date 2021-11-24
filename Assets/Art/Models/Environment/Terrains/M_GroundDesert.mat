@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_TerrainDefault
+  m_Name: M_GroundDesert
   m_Shader: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MetRough:
+        m_Texture: {fileID: 2800000, guid: fcea564af35acf04ba9ae26d103135a5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_80E45D9B:
         m_Texture: {fileID: 2800000, guid: 7feca4d8f8ad56349842846313775643, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -37,6 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Distort: 0.5
     - DistortAmount: 1.15
     - DistortScale: 0.3
     - NormalStrength: 0.1

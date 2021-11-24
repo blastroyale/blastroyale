@@ -19,8 +19,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MetRough:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_80E45D9B:
-        m_Texture: {fileID: 2800000, guid: 95f50a161b9896846b675679a5ab2163, type: 3}
+        m_Texture: {fileID: 2800000, guid: 12ecd7f0e60d3f3488a639af9ee9e2cc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -37,17 +41,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_1B1866F0: 0
-    - Vector1_35A109C9: 3.88
-    - Vector1_652EF29: 0
-    - Vector1_904B25EC: 0
+    - Distort: 1
+    - DistortAmount: 0.2
+    - DistortScale: 0.5
+    - NormalStrength: 0.05
+    - Vector1_1B1866F0: 0.3
+    - Vector1_35A109C9: 0.4
+    - Vector1_652EF29: 0.15
+    - Vector1_904B25EC: 0.39
     - Vector1_976BFC4: 0.5
     - Vector1_C53D494A: 0
-    - Vector1_C53F84B0: 0
+    - Vector1_C53F84B0: 0.7
     - Vector1_CDB3DABE: 0.3
     m_Colors:
-    - Color_1E8D7265: {r: 0.754717, g: 0.4671878, b: 0.41770497, a: 1}
+    - Color_1E8D7265: {r: 0.26415092, g: 0.07296154, b: 0.041533146, a: 1}
     - Color_CB1CA255: {r: 0.44339615, g: 0.44339615, b: 0.44339615, a: 1}
     - Vector2_FD0C58A4: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - Vector4_F799D26D: {r: 1, g: 1, b: 0, a: 90}
+    - Vector4_F799D26D: {r: 1, g: 2, b: 1, a: 90}
   m_BuildTextureStacks: []

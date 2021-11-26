@@ -15,9 +15,9 @@ MonoBehaviour:
   DevAccountEmail: admin@firstlight.games
   DevAccountToken: ***REMOVED***
   SelectedStudio: First Light Games
-  SdkPath: Assets/Libs/PlayFabSDK/Shared/Public/Resources/PlayFabSharedSettings.asset
+  SdkPath: Assets/Libs/PlayFabEditorExtensions/Editor/Resources/PlayFabEditorPrefsSO.asset
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 0
-  curSubMenuIdx: 0
+  curMainMenuIdx: 2
+  curSubMenuIdx: 1

@@ -289,7 +289,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			
-			QuantumRunner.ShutdownAll(true);
+			QuantumRunner.ShutdownAll();
 		}
 
 		private void PlayMusic()

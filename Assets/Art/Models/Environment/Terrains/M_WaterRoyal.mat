@@ -33,7 +33,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_28287F92: 1
+    - Vector1_28287F92: 1.5
     - Vector1_485BCCF8: 5
     - Vector1_534C4AC9: 1
     - Vector1_B3F6D69: 0.4

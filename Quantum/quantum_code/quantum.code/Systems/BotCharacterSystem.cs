@@ -449,7 +449,7 @@ namespace Quantum.Systems
 			foreach (var consumableCandidate in iterator)
 			{
 				if (consumableCandidate.Component.ConsumableType != consumableType ||
-				    (consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component.PowerAmount))
+				    consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component.Amount)
 				{
 					continue;
 				}

@@ -1,9 +1,9 @@
 using Photon.Deterministic;
 
-namespace Quantum.Systems.Collectables
+namespace Quantum.Systems
 {
 	/// <summary>
-	/// This system handles all the collectable component collection interactions using triggers 
+	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
 	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalHealthIsZero,
 	                                        ISignalOnComponentRemoved<PlayerCharacter>, 
@@ -12,7 +12,7 @@ namespace Quantum.Systems.Collectables
 		/// <inheritdoc />
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) || 
+			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) || collectable->IsCollected ||
 			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player))
 			{
 				return;
@@ -25,16 +25,20 @@ namespace Quantum.Systems.Collectables
 				endTime = f.Time + f.GameConfig.CollectableCollectTime;
 				collectable->CollectorsEndTime[player.Player] = endTime;
 				
-				f.Events.OnLocalStartedCollecting(player.Player, info.Other, info.Entity, *collectable);
+				f.Events.OnLocalStartedCollecting(info.Entity, *collectable, player.Player, info.Other);
 			}
 
 			if (f.Time < endTime)
 			{
 				return;
 			}
-			
-			collectable->CollectorsEndTime[player.Player] = FP._0;
-			f.Signals.CollectablePicked(info.Entity, info.Other, player.Player);
+
+			collectable->IsCollected = true;
+
+			Collect(f, info.Entity, info.Other, player.Player);
+			f.Events.OnLocalCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
+			f.Events.OnCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
+			f.Add<EntityDestroyer>(info.Entity);
 		}
 
 		/// <inheritdoc />
@@ -81,7 +85,20 @@ namespace Quantum.Systems.Collectables
 
 			collectable->CollectorsEndTime[player] = FP._0;
 
-			f.Events.OnLocalStoppedCollecting(player, entity);
+			f.Events.OnLocalStoppedCollecting(entity, player, playerEntity);
+		}
+
+		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
+		{
+			if (f.Unsafe.TryGetPointer<WeaponCollectable>(entity, out var weapon))
+			{
+				weapon->Collect(f, entity, playerEntity, player);
+			}
+			else if(f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
+			{
+				consumable->Collect(f, entity, playerEntity, player);
+				f.Events.OnConsumablePicked(entity, *consumable, player, playerEntity);
+			}
 		}
 	}
 }

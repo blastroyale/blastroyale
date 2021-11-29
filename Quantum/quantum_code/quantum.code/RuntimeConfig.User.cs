@@ -9,7 +9,8 @@ namespace Quantum
 		[NonSerialized] public GameId MapId;
 		[NonSerialized] public int BotDifficultyLevel;
 		[NonSerialized] public int TotalFightersLimit;
-		[NonSerialized] public uint DeathmatchKillCount;
+		[NonSerialized] public int GameEndTarget;
+		[NonSerialized] public GameMode GameMode;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumBotConfigs BotConfigs;
@@ -23,15 +24,18 @@ namespace Quantum
 		public AssetRefQuantumHazardConfigs HazardConfigs;
 		public AssetRefQuantumAssetConfigs AssetConfigs;
 		public AssetRefQuantumDestructibleConfigs DestructibleConfigs;
+		public AssetRefQuantumBattleRoyaleConfigs BattleRoyaleConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
 			var mapId = (int) MapId;
+			var gameMode = (int) GameMode;
 			
 			stream.Serialize(ref mapId);
+			stream.Serialize(ref gameMode);
 			stream.Serialize(ref BotDifficultyLevel);
 			stream.Serialize(ref TotalFightersLimit);
-			stream.Serialize(ref DeathmatchKillCount);
+			stream.Serialize(ref GameEndTarget);
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref MultishotConfigs);
 			stream.Serialize(ref FrontshotConfigs);
@@ -43,9 +47,10 @@ namespace Quantum
 			stream.Serialize(ref HazardConfigs);
 			stream.Serialize(ref AssetConfigs);
 			stream.Serialize(ref DestructibleConfigs);
-			stream.Serialize(ref BotConfigs);
+			stream.Serialize(ref BattleRoyaleConfigs);
 			
 			MapId = (GameId) mapId;
+			GameMode = (GameMode) gameMode;
 		}
 	}
 }

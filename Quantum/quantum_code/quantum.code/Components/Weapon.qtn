@@ -1,7 +1,3 @@
-component WeaponCollectable
-{
-}
-
 component Weapon
 {
 	[HideInInspector] GameId GameId;

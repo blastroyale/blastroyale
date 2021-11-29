@@ -34,18 +34,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-
-			if (f.Has<BotCharacter>(characterEntity))
-			{
-				f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->PlayerLeft(f, characterEntity);
-				f.Destroy(characterEntity);
-			}
-			else if (characterEntity != EntityRef.None)
-			{
-				return;
-			}
-
 			var spawnerTransform = QuantumHelpers.GetPlayerSpawnTransform(f);
 			var playerData = f.GetPlayerData(playerRef);
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));

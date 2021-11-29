@@ -251,8 +251,9 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
-			var data = new QuantumPlayerMatchData(f,playersData[game.GetLocalPlayers()[0]]);
+			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
 			var totalPlayers = 0;
+			var 
 
 			for(var i = 0; i < playersData.Length; i++) 
 			{
@@ -473,7 +474,7 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.LogEvent("match_start", dictionary);
 		}
 
-		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
+		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, int playerRank, bool isQuitGame)
 		{
 			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
 			
@@ -485,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 				{"total_specials_used", matchData.Data.SpecialUsedCount},
 				{"total_deaths_amount", matchData.Data.DeathCount},
 				{"suicides_amount", matchData.Data.SuicideCount},
-				{"leaderboard_place", matchData.Data.CurrentKillRank},
+				{"player_rank", matchData.Data.CurrentKillRank},
 				{"map_id", info.Config.Id},
 				{"end_state", isQuitGame ? "quit" : "ended" },
 				{"match_time", f.Time.AsFloat}

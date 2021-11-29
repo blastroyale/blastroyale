@@ -1,4 +1,5 @@
-﻿using Photon.Deterministic;
+﻿using System;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -13,6 +14,40 @@ namespace Quantum
 			return f.Time >= ActivationTime;
 		}
 	}
+
+	public unsafe partial struct ConsumablePlatformSpawner
+	{
+		/// <summary>
+		/// Spawns a <see cref="Consumable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		internal EntityRef Spawn(Frame f, GameId id, Transform3D transform)
+		{
+			var configs = f.ConsumableConfigs;
+			var config = id == GameId.Random ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)] : configs.GetConfig(id);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+			
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+
+			return entity;
+		}
+	}
+
+	public unsafe partial struct WeaponPlatformSpawner
+	{
+		/// <summary>
+		/// Spawns a <see cref="WeaponCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		internal EntityRef Spawn(Frame f, GameId id, Transform3D transform)
+		{
+			var configs = f.WeaponConfigs;
+			var config = id == GameId.Random ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)] : configs.GetConfig(id);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+			
+			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+
+			return entity;
+		}
+	}
 	
 	public unsafe partial struct CollectablePlatformSpawner
 	{
@@ -22,22 +57,37 @@ namespace Quantum
 		public FP IntervalTime => SpawnCount == 0 ? InitialSpawnDelayInSec : RespawnTimeInSec;
 
 		/// <summary>
-		/// Cache collectable entity as spawned and increment spawn count
-		/// </summary>
-		public void MarkSpawned(EntityRef collectable)
-		{
-			Collectable = collectable;
-			
-			SpawnCount++;
-		}
-
-		/// <summary>
 		/// Mark collectable entity as not spawned and set the next spawn time
 		/// </summary>
-		public void MarkCollected(Frame f)
+		internal void MarkCollected(Frame f)
 		{
 			Collectable = EntityRef.None;
 			NextSpawnTime = f.Time + RespawnTimeInSec;
+		}
+
+		/// <summary>
+		/// Spawns a <see cref="Collectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		internal void Spawn(Frame f, EntityRef e)
+		{
+			var transform = f.Get<Transform3D>(e);
+			
+			if (f.Unsafe.TryGetPointer<ConsumablePlatformSpawner>(e, out var consumablePlatformSpawner))
+			{
+				Collectable = consumablePlatformSpawner->Spawn(f, GameId, transform);
+			}
+			else if(f.Unsafe.TryGetPointer<WeaponPlatformSpawner>(e, out var weaponPlatformSpawner))
+			{
+				Collectable = weaponPlatformSpawner->Spawn(f, GameId, transform);
+			}
+			else
+			{
+				throw new InvalidOperationException($"The platform spawner is missing the component for the given {e} " +
+				                                    $"entity of the given {GameId} id");
+			}
+			
+			SpawnCount++;
+			
 		}
 	}
 }

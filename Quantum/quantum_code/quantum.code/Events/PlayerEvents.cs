@@ -12,7 +12,6 @@ namespace Quantum
 		public QuantumPlayerMatchData DeadMatchData;
 		public QuantumPlayerMatchData KillerMatchData;
 		public QuantumPlayerMatchData[] PlayersMatchData;
-		public QuantumPlayerMatchData LeaderMatchData;
 	}
 	
 	public partial class Frame 
@@ -48,20 +47,7 @@ namespace Quantum
 					return;
 				}
 				
-				ev.PlayersMatchData = new QuantumPlayerMatchData[_f._runtimeConfig.TotalFightersLimit];
-				ev.LeaderMatchData.Data.CurrentKillRank = 0;
-
-				for (var i = 0; i < _f._runtimeConfig.TotalFightersLimit; i++)
-				{
-					ev.PlayersMatchData[i] = new QuantumPlayerMatchData(_f, data[i]);
-
-					if (ev.LeaderMatchData.Data.CurrentKillRank == 0 && 
-					    ev.PlayersMatchData[i].Data.CurrentKillRank == 1)
-					{
-						ev.LeaderMatchData = ev.PlayersMatchData[i];
-					}
-				}
-				
+				ev.PlayersMatchData = container.GetPlayersMatchData(_f);
 				ev.DeadMatchData = ev.PlayersMatchData[PlayerDead];
 				ev.KillerMatchData = ev.PlayersMatchData[PlayerKiller];
 			}

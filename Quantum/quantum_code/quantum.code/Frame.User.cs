@@ -38,6 +38,7 @@ namespace Quantum
 		internal QuantumHazardConfigs HazardConfigs => FindAsset<QuantumHazardConfigs>(RuntimeConfig.HazardConfigs.Id);
 		internal QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
 		internal QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);
+		internal QuantumBattleRoyaleConfigs BattleRoyaleConfigs => FindAsset<QuantumBattleRoyaleConfigs>(RuntimeConfig.BattleRoyaleConfigs.Id);
 
 		partial void InitUser()
 		{

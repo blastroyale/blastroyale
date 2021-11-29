@@ -1,0 +1,10 @@
+singleton component BattleRoyaleCircle
+{
+	FPVector2 CurrentCircleCenter;
+	FPVector2 TargetCircleCenter;
+	FP CurrentRadius;
+	FP TargetRadius;
+	FP ShrinkingStartTime;
+	FP ShrinkingDurationTime;
+	UInt32 Step;
+}

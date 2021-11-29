@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Quantum
 {
 	public unsafe partial struct GameContainer
@@ -40,48 +42,82 @@ namespace Quantum
 		/// </summary>
 		internal void UpdateGameProgress(Frame f, uint amount)
 		{
+			if (amount <= 0)
+			{
+				return;
+			}
+			
 			var previousProgress = CurrentProgress;
 			
 			CurrentProgress += amount;
 
 			f.Events.OnGameProgressUpdated(previousProgress, CurrentProgress, TargetProgress);
 
-			if (CurrentProgress < TargetProgress)
+			if (CurrentProgress >= TargetProgress)
 			{
-				return;
+				f.Signals.GameEnded();
 			}
-
-			f.Signals.GameEnded();
 		}
 
 		/// <summary>
-		/// Updates the current game ranks based on the player's performance.
-		/// More frags == higher rank
-		/// Same frags && more deaths == lower rank 
+		/// Request all players match data.
+		/// Battle Roayle Ranking: More frags == higher rank and Dead longer == lower rank
+		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		internal void UpdateRanks(Frame f)
+		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f)
 		{
 			var data = PlayersData;
-			
+			var matchData = new QuantumPlayerMatchData[f.RuntimeConfig.TotalFightersLimit];
+
 			for (var i = 0; i < f.RuntimeConfig.TotalFightersLimit; i++)
 			{
-				var pos = 1u;
+				matchData[i] = new QuantumPlayerMatchData(f, data[i]);
 
-				for (var j = 0; j < i; j++)
-				{
-					if (data[i].PlayersKilledCount < data[j].PlayersKilledCount)
-					{
-						pos++;
-					}
-					else if (data[i].PlayersKilledCount > data[j].PlayersKilledCount || 
-					         data[i].DeathCount < data[j].DeathCount)
-					{
-						data.GetPointer(j)->CurrentKillRank++;
-					}
-				}
-
-				data.GetPointer(i)->CurrentKillRank = pos;
+				ProcessDeathmatchRanks(matchData, i);
+				//ProcessBattleRoyaleRanks(matchData, i);
 			}
+
+			return matchData;
+		}
+
+		private void ProcessDeathmatchRanks(QuantumPlayerMatchData[] data, int i)
+		{
+			var pos = 1u;
+			
+			for (var j = 0; j < i; j++)
+			{
+				if (data[i].Data.PlayersKilledCount < data[j].Data.PlayersKilledCount)
+				{
+					pos++;
+				}
+				else if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount || 
+				         data[i].Data.DeathCount < data[j].Data.DeathCount)
+				{
+					data[j].PlayerRank++;
+				}
+			}
+			
+			data[i].PlayerRank = pos;
+		}
+
+		private void ProcessBattleRoyaleRanks(QuantumPlayerMatchData[] data, int i)
+		{
+			var pos = 1u;
+			
+			for (var j = 0; j < i; j++)
+			{
+				if (data[i].Data.FirstDeathTime < data[j].Data.FirstDeathTime)
+				{
+					pos++;
+				}
+				else if (data[i].Data.FirstDeathTime > data[j].Data.FirstDeathTime || 
+				         data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount)
+				{
+					data[j].PlayerRank++;
+				}
+			}
+			
+			data[i].PlayerRank = pos;
 		}
 	}
 }

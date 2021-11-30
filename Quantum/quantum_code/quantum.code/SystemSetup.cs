@@ -33,6 +33,7 @@ namespace Quantum
 				new CollectableSystemGroup(),
 				new PowerUpsSystemGroup(),
 				new DummyCharacterSystem(),
+				new DropOnDeathSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),

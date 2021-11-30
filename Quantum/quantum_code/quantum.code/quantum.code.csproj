@@ -218,6 +218,7 @@
     <Compile Include="Systems\Collectables\Consumables\RageConsumableSystem.cs" />
     <Compile Include="Systems\Collectables\WeaponCollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />
+    <Compile Include="Systems\DropOnDeathSystem.cs" />
     <Compile Include="Systems\DummyCharacterSystem.cs" />
     <Compile Include="Systems\PowerUps\PowerUpsSystemGroup.cs" />
     <Compile Include="Systems\Spawners\ConsumablePlatformSpawnerSystem.cs" />

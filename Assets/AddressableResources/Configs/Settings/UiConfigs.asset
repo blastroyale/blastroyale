@@ -165,6 +165,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.TrophyRoadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/UiTooltipContainer Screen.prefab
+    Layer: 7
+    UiType: FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/UiVfxContainer Screen.prefab
     Layer: 7
     UiType: FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -223,6 +227,8 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.ProgressionScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.OverflowLootDialogPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:

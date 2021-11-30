@@ -13,18 +13,9 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
 		{
-			var configs = f.BattleRoyaleConfigs.QuantumConfigs;
-			var gameConfig = f.GameConfig;
-			var config = configs[0];
-			var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;
-
-			circle->Step = config.Step;
-			circle->ShrinkingStartTime = config.DelayTime + config.WarningTime;
-			circle->ShrinkingDurationTime = config.ShringkingTime;
-			circle->CurrentRadius = gameConfig.BattleRoyaleMapRadius;
-			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
-			circle->TargetCircleCenter = new FPVector2(f.RNG->NextInclusive(-borderK, borderK), 
-			                                           f.RNG->NextInclusive(-borderK, borderK)) * circle->TargetRadius;
+			circle->CurrentRadius = f.GameConfig.BattleRoyaleMapRadius;
+			
+			SetShrinkingCircleData(f, circle, f.BattleRoyaleConfigs.QuantumConfigs[0]);
 		}
 
 		/// <inheritdoc />
@@ -73,23 +64,29 @@ namespace Quantum.Systems
 					
 				return *circle;
 			}
-				
+			
+			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
+			circle->CurrentRadius = circle->TargetRadius;
+
+			SetShrinkingCircleData(f, circle, configs[circle->Step]);
+			
+			return *circle;
+		}
+
+		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumBattleRoyaleConfig config)
+		{
 			var gameConfig = f.GameConfig;
-			var config = configs[circle->Step];
 			var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;
 
 			circle->Step = config.Step;
-			circle->ShrinkingStartTime += circle->ShrinkingDurationTime + config.DelayTime + config.WarningTime;
+			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShringkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
-			circle->CurrentRadius = circle->TargetRadius;
-			circle->TargetRadius *= gameConfig.ShrinkingSizeK;
+			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
 			circle->TargetCircleCenter += new FPVector2(f.RNG->NextInclusive(-borderK, borderK), 
 			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->TargetRadius;
-
-			f.Events.OnNewShrinkingCircle(*circle);
 			
-			return *circle;
+			f.Events.OnNewShrinkingCircle(*circle);
 		}
 	}
 }

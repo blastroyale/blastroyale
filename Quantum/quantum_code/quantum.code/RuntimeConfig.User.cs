@@ -37,6 +37,7 @@ namespace Quantum
 			stream.Serialize(ref TotalFightersLimit);
 			stream.Serialize(ref GameEndTarget);
 			stream.Serialize(ref GameConfigs);
+			stream.Serialize(ref BotConfigs);
 			stream.Serialize(ref MultishotConfigs);
 			stream.Serialize(ref FrontshotConfigs);
 			stream.Serialize(ref DiagonalshotConfigs);

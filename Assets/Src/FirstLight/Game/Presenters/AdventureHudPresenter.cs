@@ -65,6 +65,7 @@ namespace FirstLight.Game.Presenters
 			_fragTarget = _services.ConfigsProvider.GetConfig<AdventureConfig>(matchId).DeathmatchKillCount;
 			_targetFragsText.text = _fragTarget.ToString();
 
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
 		}
@@ -78,13 +79,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
-			
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out _);
-			
-			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
 		}
 		
 		private void OnQuitClicked()
@@ -95,6 +89,16 @@ namespace FirstLight.Game.Presenters
 		private void OnLag(bool previous, bool hasLag)
 		{
 			_connectionIcon.SetActive(hasLag);
+		}
+
+		private void OnMatchStarted(MatchStartedMessage message)
+		{
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var matchData = container.GetPlayersMatchData(frame, out _);
+			
+			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
 		}
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)

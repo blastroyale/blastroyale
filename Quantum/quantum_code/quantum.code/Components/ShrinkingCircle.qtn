@@ -1,4 +1,4 @@
-singleton component BattleRoyaleCircle
+singleton component ShrinkingCircle
 {
 	FPVector2 CurrentCircleCenter;
 	FPVector2 TargetCircleCenter;
@@ -6,5 +6,10 @@ singleton component BattleRoyaleCircle
 	FP TargetRadius;
 	FP ShrinkingStartTime;
 	FP ShrinkingDurationTime;
-	UInt32 Step;
+	Int32 Step;
+}
+
+synced event OnNewShrinkingCircle
+{
+	ShrinkingCircle ShrinkingCircle;
 }

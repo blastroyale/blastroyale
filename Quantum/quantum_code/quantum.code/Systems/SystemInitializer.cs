@@ -18,8 +18,8 @@ namespace Quantum.Systems
 
 			if (gameContainer->GameMode == GameMode.BattleRoyale)
 			{
-				f.SystemEnable<BattleRoyaleCircleSystem>();
-				f.GetOrAddSingleton<BattleRoyaleCircle>();
+				f.SystemEnable<ShrinkingCircleSystem>();
+				f.GetOrAddSingleton<ShrinkingCircle>();
 			}
 		}
 	}

@@ -209,7 +209,7 @@
     <Compile Include="SystemSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
-    <Compile Include="Systems\BattleRoyaleCircleSystem.cs" />
+    <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
     <Compile Include="Systems\CollectableSystem.cs" />
@@ -251,7 +251,7 @@
     <Content Include="BotSDK\AI\HFSM\HFSM.qtn" />
     <Content Include="BotSDK\AI\UT\UT.qtn" />
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
-    <Content Include="Components\BattleRoyaleCircle.qtn" />
+    <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />
     <Content Include="Components\Collectable.qtn" />
     <Content Include="Components\CollisionDamage.qtn" />

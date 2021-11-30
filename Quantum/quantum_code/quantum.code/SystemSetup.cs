@@ -34,7 +34,7 @@ namespace Quantum
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
-				new BattleRoyaleCircleSystem(),
+				new ShrinkingCircleSystem(),
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),

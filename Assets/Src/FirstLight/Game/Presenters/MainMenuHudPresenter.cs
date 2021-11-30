@@ -6,7 +6,6 @@ using FirstLight.UiService;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.TooltipView;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
@@ -125,12 +124,12 @@ namespace FirstLight.Game.Presenters
 
 		public void OnSCClicked()
 		{
-			TooltipManager.Instance.ShowTooltipHelper(ScriptLocalization.Tooltips.ToolTip_SC, _scTooltipAnchor.position, TooltipHelper.TooltipArrowPosition.Top);
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_SC, _scTooltipAnchor.position, TooltipHelper.TooltipArrowPosition.Top);
 		}
 		
 		public void OnHCClicked()
 		{
-			TooltipManager.Instance.ShowTooltipHelper(ScriptLocalization.Tooltips.ToolTip_HC, _hcTooltipAnchor.position, TooltipHelper.TooltipArrowPosition.Top);
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_HC, _hcTooltipAnchor.position, TooltipHelper.TooltipArrowPosition.Top);
 		}
 
 		private void SoftCurrencyRackupUpdate(float value)

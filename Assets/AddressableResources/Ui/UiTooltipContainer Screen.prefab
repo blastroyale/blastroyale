@@ -64,11 +64,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8406725767746600746}
-  - component: {fileID: 856272133985649804}
   - component: {fileID: 1019179674698805847}
   - component: {fileID: 3382889955754902259}
   m_Layer: 5
-  m_Name: TooltipManger
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,19 +92,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &856272133985649804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806308141882991227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4c086be1eb88c24589086368ddcd192, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tooltipHelperPrefab: {fileID: 1508119508327186, guid: fa8bc4d4cd8640740bad1ab6b6f10a8e, type: 3}
 --- !u!223 &1019179674698805847
 Canvas:
   m_ObjectHideFlags: 0
@@ -270,3 +256,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36cb26287cf6834a96570cc0d054b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tooltipParentTransform: {fileID: 8406725767746600746}
+  _tooltipHelperPrefab: {fileID: 1508119508327186, guid: fa8bc4d4cd8640740bad1ab6b6f10a8e, type: 3}

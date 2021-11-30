@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using FirstLight.Game.Utils;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;

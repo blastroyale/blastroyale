@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-			initial.OnExit(OpenUiTooltipPresenter);
+			//initial.OnExit(OpenUiTooltipPresenter);
 
 			screenCheck.Transition().Condition(CheckAutoLootBoxes).Target(collectLoot);
 			screenCheck.Transition().Condition(CheckOverflowLootSpentHc).Target(collectLoot);

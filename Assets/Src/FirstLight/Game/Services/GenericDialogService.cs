@@ -1,6 +1,8 @@
 using System;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Views.TooltipView;
+using UnityEngine;
 using UnityEngine.Events;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -83,6 +85,11 @@ namespace FirstLight.Game.Services
 		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
 		/// </summary>
 		void OpenLootInfoDialog(GenericDialogButton button, LootBoxInfo boxInfo, Action closeCallback = null);
+
+		/// <summary>
+		/// Opens up a tooltip dialog to show informative text.
+		/// </summary>
+		void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipHelper.TooltipArrowPosition tooltipArrowPosition);
 
 		/// <summary>
 		/// Opens up a Talking Head Dialog.
@@ -170,7 +177,13 @@ namespace FirstLight.Game.Services
 			
 			ui.SetInfo(button, boxInfo, closeCallback);
 		}
-		
+
+		public void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipHelper.TooltipArrowPosition tooltipArrowPosition)
+		{
+			var ui = _uiService.OpenUi<UiTooltipPresenter>();
+			ui.ShowTooltipHelper(locTag, worldPos,tooltipArrowPosition);
+		}
+
 		/// <summary>
 		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
 		/// </summary>

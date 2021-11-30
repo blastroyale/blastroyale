@@ -129,10 +129,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.PlayerSkinScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/ProgressionScreen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.ProgressionScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/QuitGame Dialog.prefab
     Layer: 3
     UiType: FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game,
@@ -219,8 +215,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.EnhanceScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.ProgressionScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.OverflowLootDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

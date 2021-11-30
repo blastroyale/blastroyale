@@ -54,7 +54,8 @@ namespace FirstLight.Game.Configs
 			_runtimeConfig.MapId = info.Config.Map;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
 			_runtimeConfig.TotalFightersLimit = info.Config.TotalFightersLimit;
-			_runtimeConfig.DeathmatchKillCount = info.Config.DeathmatchKillCount;
+			_runtimeConfig.GameMode = GameMode.Deathmatch;
+			_runtimeConfig.GameEndTarget = info.Config.DeathmatchKillCount;
 		}
 
 		/// <inheritdoc cref="EnterRoomParams"/>

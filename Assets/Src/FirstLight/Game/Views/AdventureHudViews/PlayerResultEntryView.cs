@@ -31,7 +31,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
 			
 			_playerNameText.text = data.GetPlayerName();
-			_playerRankText.text = $"{data.Data.CurrentKillRank.ToString()}.";
+			_playerRankText.text = $"{data.PlayerRank.ToString()}.";
 			_killsText.text = data.Data.PlayersKilledCount.ToString();
 			_deathsText.text = data.Data.DeathCount.ToString();
 			_coinsText.text = rewards.TryGetValue(GameId.SC, out var sc) ? sc.ToString() : "0";

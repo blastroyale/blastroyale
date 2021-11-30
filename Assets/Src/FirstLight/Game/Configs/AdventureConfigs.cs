@@ -25,7 +25,7 @@ namespace FirstLight.Game.Configs
 		public int DestructiblesAmount;
 		public int MaxPillsDropPerEnemyWave;
 		public int TotalFightersLimit;
-		public uint DeathmatchKillCount;
+		public int DeathmatchKillCount;
 	}
 
 	/// <summary>

@@ -24,7 +24,7 @@ namespace Quantum
 		public AssetRefQuantumHazardConfigs HazardConfigs;
 		public AssetRefQuantumAssetConfigs AssetConfigs;
 		public AssetRefQuantumDestructibleConfigs DestructibleConfigs;
-		public AssetRefQuantumBattleRoyaleConfigs BattleRoyaleConfigs;
+		public AssetRefQuantumShrinkingCircleConfigs ShrinkingCircleConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -47,7 +47,7 @@ namespace Quantum
 			stream.Serialize(ref HazardConfigs);
 			stream.Serialize(ref AssetConfigs);
 			stream.Serialize(ref DestructibleConfigs);
-			stream.Serialize(ref BattleRoyaleConfigs);
+			stream.Serialize(ref ShrinkingCircleConfigs);
 			
 			MapId = (GameId) mapId;
 			GameMode = (GameMode) gameMode;

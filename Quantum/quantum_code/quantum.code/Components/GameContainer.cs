@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Quantum
 {
 	public unsafe partial struct GameContainer
@@ -64,17 +62,31 @@ namespace Quantum
 		/// Battle Roayle Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f)
+		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
 			var matchData = new QuantumPlayerMatchData[f.RuntimeConfig.TotalFightersLimit];
+			var gameMode = f.RuntimeConfig.GameMode;
+
+			leader = PlayerRef.None;
 
 			for (var i = 0; i < f.RuntimeConfig.TotalFightersLimit; i++)
 			{
 				matchData[i] = new QuantumPlayerMatchData(f, data[i]);
 
-				ProcessDeathmatchRanks(matchData, i);
-				//ProcessBattleRoyaleRanks(matchData, i);
+				if (gameMode == GameMode.Deathmatch)
+				{
+					ProcessDeathmatchRanks(matchData, i);
+				}
+				else if (gameMode == GameMode.BattleRoyale)
+				{
+					ProcessBattleRoyaleRanks(matchData, i);
+				}
+
+				if (matchData[i].PlayerRank == 1)
+				{
+					leader = matchData[i].Data.Player;
+				}
 			}
 
 			return matchData;

@@ -1946,48 +1946,6 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
-  [Quantum.AssetRefAttribute(typeof(QuantumBattleRoyaleConfigs))]
-  [System.SerializableAttribute()]
-  public unsafe partial struct AssetRefQuantumBattleRoyaleConfigs : IEquatable<AssetRefQuantumBattleRoyaleConfigs>, IAssetRef<QuantumBattleRoyaleConfigs> {
-    public const Int32 SIZE = 8;
-    public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
-    public AssetGuid Id;
-    public override String ToString() {
-      return AssetRef.ToString(Id);
-    }
-    public static implicit operator AssetRefQuantumBattleRoyaleConfigs(QuantumBattleRoyaleConfigs value) {
-      var r = default(AssetRefQuantumBattleRoyaleConfigs);
-      if (value != null) {
-        r.Id = value.Guid;
-      }
-      return r;
-    }
-    public override Boolean Equals(Object obj) {
-      return obj is AssetRefQuantumBattleRoyaleConfigs other && Equals(other);
-    }
-    public Boolean Equals(AssetRefQuantumBattleRoyaleConfigs other) {
-      return Id.Equals(other.Id);
-    }
-    public static Boolean operator ==(AssetRefQuantumBattleRoyaleConfigs a, AssetRefQuantumBattleRoyaleConfigs b) {
-      return a.Id == b.Id;
-    }
-    public static Boolean operator !=(AssetRefQuantumBattleRoyaleConfigs a, AssetRefQuantumBattleRoyaleConfigs b) {
-      return a.Id != b.Id;
-    }
-    public override Int32 GetHashCode() {
-      unchecked { 
-        var hash = 191;
-        hash = hash * 31 + Id.GetHashCode();
-        return hash;
-      }
-    }
-    public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (AssetRefQuantumBattleRoyaleConfigs*)ptr;
-        AssetGuid.Serialize(&p->Id, serializer);
-    }
-  }
-  [StructLayout(LayoutKind.Explicit)]
   [Quantum.AssetRefAttribute(typeof(QuantumBotConfigs))]
   [System.SerializableAttribute()]
   public unsafe partial struct AssetRefQuantumBotConfigs : IEquatable<AssetRefQuantumBotConfigs>, IAssetRef<QuantumBotConfigs> {
@@ -2019,7 +1977,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 193;
+        var hash = 191;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2061,7 +2019,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 197;
+        var hash = 193;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2103,7 +2061,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 199;
+        var hash = 197;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2145,7 +2103,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 211;
+        var hash = 199;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2187,7 +2145,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 223;
+        var hash = 211;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2229,7 +2187,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 227;
+        var hash = 223;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2271,7 +2229,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 229;
+        var hash = 227;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2313,7 +2271,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 233;
+        var hash = 229;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2355,13 +2313,55 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 239;
+        var hash = 233;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (AssetRefQuantumMultishotConfigs*)ptr;
+        AssetGuid.Serialize(&p->Id, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  [Quantum.AssetRefAttribute(typeof(QuantumShrinkingCircleConfigs))]
+  [System.SerializableAttribute()]
+  public unsafe partial struct AssetRefQuantumShrinkingCircleConfigs : IEquatable<AssetRefQuantumShrinkingCircleConfigs>, IAssetRef<QuantumShrinkingCircleConfigs> {
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public AssetGuid Id;
+    public override String ToString() {
+      return AssetRef.ToString(Id);
+    }
+    public static implicit operator AssetRefQuantumShrinkingCircleConfigs(QuantumShrinkingCircleConfigs value) {
+      var r = default(AssetRefQuantumShrinkingCircleConfigs);
+      if (value != null) {
+        r.Id = value.Guid;
+      }
+      return r;
+    }
+    public override Boolean Equals(Object obj) {
+      return obj is AssetRefQuantumShrinkingCircleConfigs other && Equals(other);
+    }
+    public Boolean Equals(AssetRefQuantumShrinkingCircleConfigs other) {
+      return Id.Equals(other.Id);
+    }
+    public static Boolean operator ==(AssetRefQuantumShrinkingCircleConfigs a, AssetRefQuantumShrinkingCircleConfigs b) {
+      return a.Id == b.Id;
+    }
+    public static Boolean operator !=(AssetRefQuantumShrinkingCircleConfigs a, AssetRefQuantumShrinkingCircleConfigs b) {
+      return a.Id != b.Id;
+    }
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 239;
+        hash = hash * 31 + Id.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (AssetRefQuantumShrinkingCircleConfigs*)ptr;
         AssetGuid.Serialize(&p->Id, serializer);
     }
   }
@@ -5871,8 +5871,8 @@ namespace Quantum {
       public QuantumAssetConfigs QuantumAssetConfigs(AssetRefQuantumAssetConfigs assetRef) {
          return _f.FindAsset<QuantumAssetConfigs>(assetRef.Id);
       }
-      public QuantumBattleRoyaleConfigs QuantumBattleRoyaleConfigs(AssetRefQuantumBattleRoyaleConfigs assetRef) {
-         return _f.FindAsset<QuantumBattleRoyaleConfigs>(assetRef.Id);
+      public QuantumShrinkingCircleConfigs QuantumShrinkingCircleConfigs(AssetRefQuantumShrinkingCircleConfigs assetRef) {
+         return _f.FindAsset<QuantumShrinkingCircleConfigs>(assetRef.Id);
       }
     }
   }
@@ -7507,9 +7507,6 @@ namespace Quantum {
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumAssetConfigs value) {
       stream.Serialize(ref value.Id.Value);
     }
-    public static void Serialize(this IBitStream stream, ref AssetRefQuantumBattleRoyaleConfigs value) {
-      stream.Serialize(ref value.Id.Value);
-    }
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumBotConfigs value) {
       stream.Serialize(ref value.Id.Value);
     }
@@ -7535,6 +7532,9 @@ namespace Quantum {
       stream.Serialize(ref value.Id.Value);
     }
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumMultishotConfigs value) {
+      stream.Serialize(ref value.Id.Value);
+    }
+    public static void Serialize(this IBitStream stream, ref AssetRefQuantumShrinkingCircleConfigs value) {
       stream.Serialize(ref value.Id.Value);
     }
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumSpecialConfigs value) {
@@ -7648,7 +7648,7 @@ namespace Quantum {
   public unsafe partial class QuantumAssetConfigs : AssetObject {
   }
   [System.SerializableAttribute()]
-  public unsafe partial class QuantumBattleRoyaleConfigs : AssetObject {
+  public unsafe partial class QuantumShrinkingCircleConfigs : AssetObject {
   }
   public unsafe partial class ComponentPrototypeVisitor : Prototypes.ComponentPrototypeVisitorBase {
     public virtual void Visit(Prototypes.AIBlackboardComponent_Prototype prototype) {
@@ -7855,7 +7855,6 @@ namespace Quantum {
       Register(typeof(AssetRefPhysicsMaterial), AssetRefPhysicsMaterial.SIZE);
       Register(typeof(AssetRefPolygonCollider), AssetRefPolygonCollider.SIZE);
       Register(typeof(Quantum.AssetRefQuantumAssetConfigs), Quantum.AssetRefQuantumAssetConfigs.SIZE);
-      Register(typeof(Quantum.AssetRefQuantumBattleRoyaleConfigs), Quantum.AssetRefQuantumBattleRoyaleConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumBotConfigs), Quantum.AssetRefQuantumBotConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumConsumableConfigs), Quantum.AssetRefQuantumConsumableConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumDestructibleConfigs), Quantum.AssetRefQuantumDestructibleConfigs.SIZE);
@@ -7865,6 +7864,7 @@ namespace Quantum {
       Register(typeof(Quantum.AssetRefQuantumGearConfigs), Quantum.AssetRefQuantumGearConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumHazardConfigs), Quantum.AssetRefQuantumHazardConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumMultishotConfigs), Quantum.AssetRefQuantumMultishotConfigs.SIZE);
+      Register(typeof(Quantum.AssetRefQuantumShrinkingCircleConfigs), Quantum.AssetRefQuantumShrinkingCircleConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumSpecialConfigs), Quantum.AssetRefQuantumSpecialConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumWeaponConfigs), Quantum.AssetRefQuantumWeaponConfigs.SIZE);
       Register(typeof(AssetRefTerrainCollider), AssetRefTerrainCollider.SIZE);
@@ -8028,7 +8028,6 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefHFSMState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefHFSMTransitionSet>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumAssetConfigs>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumBattleRoyaleConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumBotConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumConsumableConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumDestructibleConfigs>();
@@ -8038,6 +8037,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumGearConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumHazardConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumMultishotConfigs>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumShrinkingCircleConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumSpecialConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumWeaponConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefUTRoot>();

@@ -41,7 +41,7 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		private uint _fragTarget;
+		private int _fragTarget;
 		
 		private void Awake()
 		{
@@ -82,8 +82,9 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
+			var matchData = container.GetPlayersMatchData(frame, out _);
 			
-			_currentRankText.text = container.PlayersData[game.GetLocalPlayers()[0]].CurrentKillRank.ToString();
+			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
 		}
 		
 		private void OnQuitClicked()
@@ -98,10 +99,10 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.KillerMatchData;
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var localPlayer = callback.Game.GetLocalPlayers()[0];
 
-			_currentRankText.text = callback.PlayersMatchData[localPlayer].Data.CurrentKillRank.ToString();
+			_currentRankText.text = callback.PlayersMatchData[localPlayer].PlayerRank.ToString();
 			
 			_rankChangeAnimation.Rewind();
 			_rankChangeAnimation.Play();

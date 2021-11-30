@@ -193,8 +193,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var deadData = callback.DeadMatchData;
-			var killerData = callback.KillerMatchData;
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
+			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 			
 			// "Key" = Number of times I killed this player, "Value" = number of times that player killed me.
 			if (deadData.IsLocalPlayer || killerData.IsLocalPlayer)
@@ -253,7 +253,6 @@ namespace FirstLight.Game.StateMachines
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
 			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
 			var totalPlayers = 0;
-			var 
 
 			for(var i = 0; i < playersData.Length; i++) 
 			{
@@ -474,7 +473,7 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.LogEvent("match_start", dictionary);
 		}
 
-		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, int playerRank, bool isQuitGame)
+		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
 			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
 			
@@ -483,10 +482,10 @@ namespace FirstLight.Game.StateMachines
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
 				{"total_kills_amount", matchData.Data.PlayersKilledCount},
-				{"total_specials_used", matchData.Data.SpecialUsedCount},
+				{"total_specials_used", matchData.Data.SpecialsUsedCount},
 				{"total_deaths_amount", matchData.Data.DeathCount},
 				{"suicides_amount", matchData.Data.SuicideCount},
-				{"player_rank", matchData.Data.CurrentKillRank},
+				{"player_rank", matchData.PlayerRank },
 				{"map_id", info.Config.Id},
 				{"end_state", isQuitGame ? "quit" : "ended" },
 				{"match_time", f.Time.AsFloat}

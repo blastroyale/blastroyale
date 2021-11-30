@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumBattleRoyaleConfig
+	public partial struct QuantumShrinkingCircleConfig
 	{
 		public int Step;
 		public FP DelayTime;
@@ -14,11 +14,11 @@ namespace Quantum
 	}
 
 	/// <summary>
-	/// This is the quantum's asset config container for <see cref="QuantumBattleRoyaleConfig"/>
+	/// This is the quantum's asset config container for <see cref="QuantumShrinkingCircleConfig"/>
 	/// </summary>
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
-	public partial class QuantumBattleRoyaleConfigs
+	public partial class QuantumShrinkingCircleConfigs
 	{
-		public List<QuantumBattleRoyaleConfig> QuantumConfigs = new List<QuantumBattleRoyaleConfig>();
+		public List<QuantumShrinkingCircleConfig> QuantumConfigs = new List<QuantumShrinkingCircleConfig>();
 	}
 }

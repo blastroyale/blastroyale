@@ -34,8 +34,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private Coroutine _killTimerCoroutine;
 		private int _killCounter;
 		private float _killConfigTimer;
-		private uint _killWarningLimit;
-		private uint _killTarget;
+		private int _killWarningLimit;
+		private int _killTarget;
 		private int[] _playerKillStreak;
 		private bool[] _playerDominating;
 		private bool[] _playerGodlike;
@@ -81,13 +81,16 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			var leaderData = callback.PlayersMatchData[callback.PlayerLeader];
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
+			var deadData = callback.PlayersMatchData[callback.PlayerDead];
+			
 			// Check to see if we are close to ending the match.
-			if (callback.LeaderMatchData.Data.PlayersKilledCount == _killWarningLimit && 
-			    callback.PlayerKiller == callback.LeaderMatchData.Data.Player)
+			if(leaderData.Data.PlayersKilledCount == _killWarningLimit &&  callback.PlayerKiller == callback.PlayerLeader)
 			{
 				var messageData = new MessageData
 				{
-					TopText = string.Format(ScriptLocalization.AdventureMenu.KillsRemaining, _killTarget - _killWarningLimit),
+					TopText = string.Format(ScriptLocalization.AdventureMenu.KillsRemaining, (_killTarget - _killWarningLimit).ToString()),
 					BottomText = ScriptLocalization.AdventureMenu.Remaining,
 					MessageEntry = _messages[Random.Range(0, _messages.Count)]
 				};
@@ -99,16 +102,16 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_playerKillStreak[callback.PlayerDead] = 0;
 			_playerKillStreak[callback.PlayerKiller]++;
 
-			CheckKillingSpree(callback.KillerMatchData, callback.DeadMatchData);
+			CheckKillingSpree(killerData, deadData);
 
 			if (!_playerDominating[callback.PlayerKiller])
 			{
-				CheckDominating(callback.PlayerKiller, callback.KillerMatchData.PlayerName);
+				CheckDominating(callback.PlayerKiller, killerData.PlayerName);
 			}
 
 			if (!_playerGodlike[callback.PlayerKiller])
 			{
-				CheckGodlike(callback.PlayerKiller, callback.KillerMatchData.PlayerName);
+				CheckGodlike(callback.PlayerKiller, killerData.PlayerName);
 			}
 		}
 

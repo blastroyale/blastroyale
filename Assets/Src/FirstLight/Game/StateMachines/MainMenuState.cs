@@ -46,7 +46,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly CratesMenuState _cratesMenuState;
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
-		private readonly ProgressionMenuState _progressMenuState;
 		private readonly ShopMenuState _shopMenuState;
 		private Type _currentScreen;
 
@@ -62,7 +61,6 @@ namespace FirstLight.Game.StateMachines
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
-			_progressMenuState = new ProgressionMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 		}
 
@@ -106,7 +104,6 @@ namespace FirstLight.Game.StateMachines
 			var shopMenu = stateFactory.Nest("Shop Menu");
 			var lootMenu = stateFactory.Nest("Loot Menu");
 			var trophyRoadMenu = stateFactory.Nest("Trophy Road Menu");
-			var progressMenu = stateFactory.Nest("Progress Menu");
 			var collectLoot = stateFactory.Nest("Collect Loot Menu");
 			var cratesMenu = stateFactory.Nest("Crates Menu");
 			var socialMenu = stateFactory.State("Social Menu");
@@ -150,10 +147,6 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialog.Event(_nameEnteredEvent).Target(final);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
 			
-			progressMenu.OnEnter(OpenProgressMenuUI);
-			progressMenu.Nest(ProgressMenuStateSetup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			progressMenu.OnExit(CloseProgressMenuUI);
-			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
 			settingsMenu.Event(_currentTabButtonClickedEvent).Target(homeMenu);
@@ -179,11 +172,6 @@ namespace FirstLight.Game.StateMachines
 			
 			socialMenu.OnEnter(OpenSocialMenuUI);
 			socialMenu.OnExit(CloseSocialMenuUI);
-			
-			void ProgressMenuStateSetup(IStateFactory factory)
-			{
-				_progressMenuState.Setup(factory, final);
-			}
 		}
 
 		private void SubscribeEvents()
@@ -411,21 +399,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseSocialMenuUI()
 		{
 			_uiService.CloseUi<SocialScreenPresenter>();
-		}
-		
-		private void OpenProgressMenuUI()
-		{
-			var data = new ProgressionScreenPresenter.StateData
-			{
-				OnProgressMenuClosedClicked = OnTabClickedCallback<ProgressionScreenPresenter>,
-			};
-			
-			_uiService.OpenUi<ProgressionScreenPresenter, ProgressionScreenPresenter.StateData>(data);
-		}
-		
-		private void CloseProgressMenuUI()
-		{
-			_uiService.CloseUi<ProgressionScreenPresenter>();
 		}
 
 		private void OpenEnterNameDialog()

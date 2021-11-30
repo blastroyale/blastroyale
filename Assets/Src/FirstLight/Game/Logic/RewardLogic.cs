@@ -65,7 +65,7 @@ namespace FirstLight.Game.Logic
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var adventureInfo = GameLogic.AdventureLogic.GetInfo(GameLogic.AdventureDataProvider.AdventureSelectedId.Value);
 			var totalFighters = adventureInfo.Config.TotalFightersLimit;
-			var rankValue = totalFighters + 1 - matchData.Data.CurrentKillRank;
+			var rankValue = totalFighters + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
 			var xp = Math.Ceiling(gameConfig.XpPerRank * rankValue + gameConfig.XpPerFragDeathRatio.AsFloat * fragValue);

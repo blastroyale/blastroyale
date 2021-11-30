@@ -95,7 +95,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private int Sorter(QuantumPlayerMatchData a, QuantumPlayerMatchData b)
 		{
-			var rank = b.Data.CurrentKillRank.CompareTo(a.Data.CurrentKillRank);
+			var rank = b.PlayerRank.CompareTo(a.PlayerRank);
 
 			if (rank == 0)
 			{

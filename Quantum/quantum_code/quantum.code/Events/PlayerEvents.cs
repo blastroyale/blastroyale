@@ -9,8 +9,8 @@ namespace Quantum
 	
 	public unsafe partial class EventOnPlayerKilledPlayer
 	{
-		public QuantumPlayerMatchData DeadMatchData;
-		public QuantumPlayerMatchData KillerMatchData;
+		public PlayerRef PlayerLeader;
+		public EntityRef EntityLeader;
 		public QuantumPlayerMatchData[] PlayersMatchData;
 	}
 	
@@ -47,9 +47,9 @@ namespace Quantum
 					return;
 				}
 				
-				ev.PlayersMatchData = container.GetPlayersMatchData(_f);
-				ev.DeadMatchData = ev.PlayersMatchData[PlayerDead];
-				ev.KillerMatchData = ev.PlayersMatchData[PlayerKiller];
+				ev.PlayersMatchData = container.GetPlayersMatchData(_f, out var leader);
+				ev.PlayerLeader = leader;
+				ev.EntityLeader = data[leader].Entity;
 			}
 		}
 	}

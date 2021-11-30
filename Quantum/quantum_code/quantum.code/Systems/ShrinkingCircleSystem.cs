@@ -15,7 +15,7 @@ namespace Quantum.Systems
 		{
 			circle->CurrentRadius = f.GameConfig.BattleRoyaleMapRadius;
 			
-			SetShrinkingCircleData(f, circle, f.BattleRoyaleConfigs.QuantumConfigs[0]);
+			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
 		}
 
 		/// <inheritdoc />
@@ -55,7 +55,7 @@ namespace Quantum.Systems
 				return *circle;
 			}
 			
-			var configs = f.BattleRoyaleConfigs.QuantumConfigs;
+			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
 
 			if (circle->Step >= configs.Count)
 			{
@@ -73,7 +73,7 @@ namespace Quantum.Systems
 			return *circle;
 		}
 
-		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumBattleRoyaleConfig config)
+		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
 		{
 			var gameConfig = f.GameConfig;
 			var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;

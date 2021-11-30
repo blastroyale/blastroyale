@@ -1,5 +1,4 @@
-﻿using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
+﻿using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
@@ -31,12 +30,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var view = _killTrackerPool.Spawn();
-			var deadData = callback.DeadMatchData;
-			var killerData = callback.KillerMatchData;
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
+			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 
 			view.transform.SetSiblingIndex(0);
 			view.SetInfo(killerData.GetPlayerName(), killerData.Data.PlayerSkin, 
-			             deadData.GetPlayerName(), deadData.Data.PlayerSkin, deadData.Data.Player == killerData.Data.Player);
+			             deadData.GetPlayerName(), deadData.Data.PlayerSkin, 
+			             deadData.Data.Player == killerData.Data.Player);
 		}
 	}
 }

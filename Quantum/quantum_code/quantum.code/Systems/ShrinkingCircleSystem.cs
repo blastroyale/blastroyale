@@ -23,14 +23,14 @@ namespace Quantum.Systems
 		{
 			var circle = ProcessShrinkingCircle(f);
 			
-			if (f.Time < circle.ShrinkingStartTime)
+			if (f.Time < circle->ShrinkingStartTime)
 			{
 				return;
 			}
 			
-			var lerp = FPMath.Max(0, (f.Time - circle.ShrinkingStartTime) / circle.ShrinkingDurationTime);
-			var radius = FPMath.Lerp(circle.CurrentRadius, circle.TargetRadius, lerp);
-			var center = FPVector2.Lerp(circle.CurrentCircleCenter, circle.TargetCircleCenter, lerp);
+			var lerp = FPMath.Max(0, (f.Time - circle->ShrinkingStartTime) / circle->ShrinkingDurationTime);
+			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
+			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
 
 			radius = radius * radius;
 			
@@ -46,13 +46,13 @@ namespace Quantum.Systems
 			}
 		}
 
-		private ShrinkingCircle ProcessShrinkingCircle(Frame f)
+		private ShrinkingCircle* ProcessShrinkingCircle(Frame f)
 		{
 			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
 			if (f.Time < circle->ShrinkingStartTime + circle->ShrinkingDurationTime)
 			{
-				return *circle;
+				return circle;
 			}
 			
 			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
@@ -62,7 +62,7 @@ namespace Quantum.Systems
 				circle->ShrinkingStartTime = FP.MaxValue;
 				circle->ShrinkingDurationTime = FP.MaxValue;
 					
-				return *circle;
+				return circle;
 			}
 			
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
@@ -70,7 +70,7 @@ namespace Quantum.Systems
 
 			SetShrinkingCircleData(f, circle, configs[circle->Step]);
 			
-			return *circle;
+			return circle;
 		}
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)

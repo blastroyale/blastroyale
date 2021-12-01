@@ -38,11 +38,6 @@ namespace FirstLight.Game.Logic
 		List<RewardData> CollectUnclaimedRewards();
 
 		/// <summary>
-		/// Collects the rewards when the player clears the first time the given <paramref name="adventureId"/>
-		/// </summary>
-		List<RewardData> CollectFirstTimeAdventureRewards(int adventureId);
-
-		/// <summary>
 		/// Awards the given <paramref name="reward"/> to the player
 		/// </summary>
 		RewardData GiveReward(RewardData reward);
@@ -63,9 +58,8 @@ namespace FirstLight.Game.Logic
 		{
 			var rewards = new Dictionary<GameId, int>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var adventureInfo = GameLogic.AdventureLogic.GetInfo(GameLogic.AdventureDataProvider.AdventureSelectedId.Value);
-			var totalFighters = adventureInfo.Config.TotalFightersLimit;
-			var rankValue = totalFighters + 1 - matchData.PlayerRank;
+			var mapConfig = GameLogic.AdventureLogic.SelectedMapConfig;
+			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
 			var xp = Math.Ceiling(gameConfig.XpPerRank * rankValue + gameConfig.XpPerFragDeathRatio.AsFloat * fragValue);
@@ -135,31 +129,6 @@ namespace FirstLight.Game.Logic
 			}
 			
 			Data.UncollectedRewards.Clear();
-
-			return rewards;
-		}
-
-		/// <inheritdoc />
-		public List<RewardData> CollectFirstTimeAdventureRewards(int adventureId)
-		{
-			var rewards = new List<RewardData>();
-			var adventureInfo = GameLogic.AdventureLogic.GetInfo(adventureId);
-			
-			foreach (var reward in adventureInfo.Config.FirstClearReward)
-			{
-				var rewardData = new RewardData(reward.Key, (int) reward.Value);
-				
-				if (reward.Key.IsInGroup(GameIdGroup.LootBox))
-				{
-					rewardData = GiveReward(rewardData);
-				}
-				else
-				{
-					Data.UncollectedRewards.Add(rewardData);
-				}
-				
-				rewards.Add(rewardData);
-			}
 
 			return rewards;
 		}

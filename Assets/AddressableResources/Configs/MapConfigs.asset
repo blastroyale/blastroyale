@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f22d0686b87e105489c9486c3e6e9339, type: 3}
-  m_Name: AdventureConfigs
+  m_Name: MapConfigs
   m_EditorClassIdentifier: 
   _configs:
   - Id: 0

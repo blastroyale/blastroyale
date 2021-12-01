@@ -19,7 +19,7 @@ namespace Quantum.Systems
 			var matchData = container->PlayersData;
 			var playerWinner = (PlayerRef) 0;
 
-			for (var i = 1; i < f.RuntimeConfig.TotalFightersLimit; i++)
+			for (var i = 1; i < f.RuntimeConfig.PlayersLimit; i++)
 			{
 				if (matchData[i].PlayersKilledCount > matchData[playerWinner].PlayersKilledCount)
 				{

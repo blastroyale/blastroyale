@@ -8,7 +8,7 @@ namespace Quantum
 		// Non Serialized Map Data
 		[NonSerialized] public GameId MapId;
 		[NonSerialized] public int BotDifficultyLevel;
-		[NonSerialized] public int TotalFightersLimit;
+		[NonSerialized] public int PlayersLimit;
 		[NonSerialized] public int GameEndTarget;
 		[NonSerialized] public GameMode GameMode;
 		
@@ -34,7 +34,7 @@ namespace Quantum
 			stream.Serialize(ref mapId);
 			stream.Serialize(ref gameMode);
 			stream.Serialize(ref BotDifficultyLevel);
-			stream.Serialize(ref TotalFightersLimit);
+			stream.Serialize(ref PlayersLimit);
 			stream.Serialize(ref GameEndTarget);
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref BotConfigs);

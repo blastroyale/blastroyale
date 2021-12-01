@@ -113,38 +113,6 @@ public partial class SROptions
 	}
 		
 	[Category("Cheats")]
-	public void UnlockAllAdventures()
-	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
-		var adventureConfigs = services.ConfigsProvider.GetConfigsList<AdventureConfig>();
-		var converter = new StringEnumConverter();
-
-		foreach (var config in adventureConfigs)
-		{
-			gameLogic.AdventureLogic.MarkAdventureCompleted(config.Id, true);
-		}
-
-		var request = new ExecuteFunctionRequest
-		{
-			FunctionName = "ExecuteCommand",
-			GeneratePlayStreamEvent = true,
-			FunctionParameter = new LogicRequest
-			{
-				Command = "UnlockAllAdventures",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-				}
-			},
-			AuthenticationContext = PlayFabSettings.staticPlayer
-		};
-
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
-	}
-		
-	[Category("Cheats")]
 	public void UnlockAllEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
@@ -260,9 +228,9 @@ public partial class SROptions
 	{
 		var uiService = Object.FindObjectOfType<Main>().UiService;
 
-		if (uiService.GetUi<AdventureHudPresenter>().IsOpen)
+		if (uiService.GetUi<MatchHudPresenter>().IsOpen)
 		{
-			uiService.CloseUi<AdventureHudPresenter>();
+			uiService.CloseUi<MatchHudPresenter>();
 			
 			foreach (var renderer in uiService.GetUi<AdventureControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
 			{
@@ -271,7 +239,7 @@ public partial class SROptions
 		}
 		else
 		{
-			uiService.OpenUi<AdventureHudPresenter>();
+			uiService.OpenUi<MatchHudPresenter>();
 			
 			foreach (var renderer in uiService.GetUi<AdventureControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
 			{

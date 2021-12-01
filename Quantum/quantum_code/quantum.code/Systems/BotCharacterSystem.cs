@@ -25,7 +25,7 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			var playerLimit = f.RuntimeConfig.TotalFightersLimit;
+			var playerLimit = f.RuntimeConfig.PlayersLimit;
 			var botIds = new List<PlayerRef>();
 			
 			for (var i = 0; i < playerLimit; i++)

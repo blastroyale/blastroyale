@@ -4,6 +4,6 @@ namespace FirstLight.Game.Ids
 	{
 		InitialLoadUi,
 		MainMenuUi,
-		AdventureUi
+		MatchUi
 	}
 }

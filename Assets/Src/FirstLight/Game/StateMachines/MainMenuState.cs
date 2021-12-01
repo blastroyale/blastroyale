@@ -267,9 +267,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsNameNotSet()
 		{
-			return _gameDataProvider.AdventureDataProvider.GetInfo(0).IsCompleted &&
-			       !_gameDataProvider.AdventureDataProvider.AdventuresCompletedTagged.Contains(0) &&
-			       _gameDataProvider.PlayerDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
+			return _gameDataProvider.PlayerDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -552,7 +550,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (playerLevel < adventureIdOffset)
 			{
-				_gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value = (int) playerLevel;
+				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = (int) playerLevel;
 			}
 			else
 			{
@@ -565,7 +563,7 @@ namespace FirstLight.Game.StateMachines
 				var adventureId = mapTick % GameConstants.RotationAdventuresCount + adventureIdOffset;
 					
 				// With X == 3, for instance, possible Adventure IDs will be (0, 1 and 2) + ftueAdventuresCount
-				_gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value = adventureId;
+				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = adventureId;
 			}
 				
 			_statechartTrigger(_playClickedEvent);
@@ -573,13 +571,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendPlayClickedEvent()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			
 			var dictionary = new Dictionary<string, object> 
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"map_id", info.Config.Id},
-				{"map_name", info.Config.Map},
+				{"map_id", config.Id},
+				{"map_name", config.Map},
 			};
 			
 			_services.AnalyticsService.LogEvent("play_clicked", dictionary);

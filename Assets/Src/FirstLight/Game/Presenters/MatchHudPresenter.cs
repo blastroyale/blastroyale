@@ -16,23 +16,20 @@ using Button = UnityEngine.UI.Button;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// This Presenter handles the Adventure HUD UI by:
+	/// This Presenter handles the Match HUD UI by:
 	/// - Showing the Game HUD visual status
 	/// </summary>		
-	public class AdventureHudPresenter : UiPresenter
+	public class MatchHudPresenter : UiPresenter
 	{
 		[SerializeField] private Animation _animation;
 		[SerializeField] private AnimationClip _introAnimationClip;
 		[SerializeField] private GameObject _connectionIcon;
-		[SerializeField] private GameObject _scoreHolder;
-		[SerializeField] private GameObject _leaderHolder;
 		[SerializeField] private Button _quitButton;
 		[SerializeField] private Button _standingsButton;
 		[SerializeField] private Button _leaderButton;
 		[SerializeField] private TextMeshProUGUI _currentRankText;
 		[SerializeField] private TextMeshProUGUI _currentFragsText;
 		[SerializeField] private TextMeshProUGUI _targetFragsText;
-		[SerializeField] private GameObject _currentWeaponHolder;
 		[SerializeField] private Image _currentWeaponImage;
 		[SerializeField] private TextMeshProUGUI _currentWeaponText;
 		[SerializeField] private Slider _progressSlider;
@@ -48,7 +45,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			var matchId = _gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value;
+			var matchId = _gameDataProvider.AdventureDataProvider.SelectedMapId.Value;
 				
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
@@ -62,7 +59,7 @@ namespace FirstLight.Game.Presenters
 			_progressSlider.value = 0;
 			_currentWeaponText.text = ScriptLocalization.GameIds.Hammer;
 
-			_fragTarget = _services.ConfigsProvider.GetConfig<AdventureConfig>(matchId).DeathmatchKillCount;
+			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);

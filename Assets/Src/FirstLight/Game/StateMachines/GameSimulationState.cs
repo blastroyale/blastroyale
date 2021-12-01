@@ -231,7 +231,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsFtueLevel()
 		{
-			return _gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value == 0;
+			return _gameDataProvider.AdventureDataProvider.SelectedMapId.Value == 0;
 		}
 
 		private void QuitGameConfirmedClicked()
@@ -269,12 +269,12 @@ namespace FirstLight.Game.StateMachines
 			});
 			
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
-			_gameDataProvider.AdventureDataProvider.IncrementLevel();
+			_gameDataProvider.AdventureDataProvider.IncrementMapLevel();
 		}
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var info = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
@@ -332,12 +332,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenAdventureHud()
 		{
-			_uiService.OpenUi<AdventureHudPresenter>();
+			_uiService.OpenUi<MatchHudPresenter>();
 		}
 
 		private void CloseAdventureHud()
 		{
-			_uiService.CloseUi<AdventureHudPresenter>();
+			_uiService.CloseUi<MatchHudPresenter>();
 		}
 
 		private void GameCompleteScreen(IWaitActivity activity)
@@ -458,16 +458,16 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchStartAnalytics()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 			
 			var dictionary = new Dictionary<string, object> 
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
-				{"total_bots", info.Config.TotalFightersLimit - totalPlayers},
-				{"map_id", info.Config.Id},
-				{"map_name", info.Config.Map},
+				{"total_bots", config.PlayersLimit - totalPlayers},
+				{"map_id", config.Id},
+				{"map_name", config.Map},
 			};
 
 			_services.AnalyticsService.LogEvent("match_start", dictionary);
@@ -475,7 +475,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			
 			var analytics = new Dictionary<string, object>
 			{
@@ -486,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 				{"total_deaths_amount", matchData.Data.DeathCount},
 				{"suicides_amount", matchData.Data.SuicideCount},
 				{"player_rank", matchData.PlayerRank },
-				{"map_id", info.Config.Id},
+				{"map_id", config.Id},
 				{"end_state", isQuitGame ? "quit" : "ended" },
 				{"match_time", f.Time.AsFloat}
 			};

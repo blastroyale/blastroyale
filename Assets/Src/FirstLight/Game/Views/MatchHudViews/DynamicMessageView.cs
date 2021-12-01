@@ -5,12 +5,13 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// Shows a Dynamic Message featuring Text and Graphics on screen after receiving an event from Quantum in game.
@@ -51,7 +52,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _services.ConfigsProvider.GetConfig<AdventureConfig>(_gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value);
+			var adventureInfo = _services.ConfigsProvider.GetConfig<MapConfig>(_gameDataProvider.AdventureDataProvider.SelectedMapId.Value);
 			
 			foreach (var message in _messages)
 			{
@@ -63,12 +64,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = adventureInfo.DeathmatchKillCount;
+			_killTarget = adventureInfo.GameEndTarget;
 			_killWarningLimit = (_killTarget / 3) * 2;
 
-			_playerKillStreak = new int[adventureInfo.TotalFightersLimit];
-			_playerDominating = new bool[adventureInfo.TotalFightersLimit];
-			_playerGodlike = new bool[adventureInfo.TotalFightersLimit];
+			_playerKillStreak = new int[adventureInfo.PlayersLimit];
+			_playerDominating = new bool[adventureInfo.PlayersLimit];
+			_playerGodlike = new bool[adventureInfo.PlayersLimit];
 		}
 		
 		private void OnEventGameEnd(EventOnGameEnded callback)

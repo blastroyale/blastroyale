@@ -65,12 +65,12 @@ namespace Quantum
 		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
-			var matchData = new QuantumPlayerMatchData[f.RuntimeConfig.TotalFightersLimit];
+			var matchData = new QuantumPlayerMatchData[f.RuntimeConfig.PlayersLimit];
 			var gameMode = f.RuntimeConfig.GameMode;
 
 			leader = PlayerRef.None;
 
-			for (var i = 0; i < f.RuntimeConfig.TotalFightersLimit; i++)
+			for (var i = 0; i < f.RuntimeConfig.PlayersLimit; i++)
 			{
 				matchData[i] = new QuantumPlayerMatchData(f, data[i]);
 

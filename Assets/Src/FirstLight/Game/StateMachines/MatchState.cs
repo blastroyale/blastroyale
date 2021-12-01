@@ -16,13 +16,13 @@ using UnityEngine.SceneManagement;
 namespace FirstLight.Game.StateMachines
 {
 	/// <summary>
-	/// This object contains the behaviour logic for the Adventure State in the <seealso cref="GameStateMachine"/>
+	/// This object contains the behaviour logic for the match in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class AdventureState
+	public class MatchState
 	{
-		public static readonly IStatechartEvent GameEndedEvent = new StatechartEvent("Game Ended Event");
+		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
 		
-		private static readonly IStatechartEvent _leaveAdventureEvent = new StatechartEvent("Leave Adventure Event");
+		private static readonly IStatechartEvent _leaveMatchEvent = new StatechartEvent("Leave Match Event");
 		
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
@@ -30,7 +30,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
-		public AdventureState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService, 
+		public MatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService, 
 		                      IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
@@ -47,17 +47,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var loading = stateFactory.TaskWait("Loading Adventure");
+			var loading = stateFactory.TaskWait("Loading Assets");
 			var connecting = stateFactory.State("Connecting Screen");
 			var connectedCheck = stateFactory.Choice("Connected Check");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
-			var adventureUnloading  = stateFactory.TaskWait("Adventure Unloading");
+			var unloading  = stateFactory.TaskWait("Unloading Assets");
 			var disconnected = stateFactory.State("Disconnected Screen");
 			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
 			
-			loading.WaitingFor(LoadAdventure).Target(connectedCheck);
+			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
 			
 			connectedCheck.Transition().Condition(IsConnected).Target(gameSimulation);
 			connectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
@@ -66,18 +66,18 @@ namespace FirstLight.Game.StateMachines
 			connecting.Event(NetworkState.ConnectedEvent).Target(gameSimulation);
 			connecting.Event(NetworkState.DisconnectedEvent).Target(disconnected);
 			
-			gameSimulation.Nest(simulationState.Setup).Target(adventureUnloading);
+			gameSimulation.Nest(simulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.DisconnectedEvent).Target(disconnected);
 			
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.OnEnter(CloseLoadingScreen);
 			disconnected.Event(NetworkState.ReconnectEvent).Target(connecting);
-			disconnected.Event(_leaveAdventureEvent).Target(adventureUnloading);
+			disconnected.Event(_leaveMatchEvent).Target(unloading);
 			disconnected.OnExit(OpenLoadingScreen);
 			disconnected.OnExit(CloseDisconnectedScreen);
 
-			adventureUnloading.OnEnter(OpenLoadingScreen);
-			adventureUnloading.WaitingFor(UnloadAdventure).Target(final);
+			unloading.OnEnter(OpenLoadingScreen);
+			unloading.WaitingFor(UnloadMatchAssets).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -106,7 +106,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				MainMenuClicked = () => _statechartTrigger(_leaveAdventureEvent),
+				MainMenuClicked = () => _statechartTrigger(_leaveMatchEvent),
 				ReconnectClicked = () => _statechartTrigger(NetworkState.ReconnectEvent)
 			};
 			
@@ -146,23 +146,20 @@ namespace FirstLight.Game.StateMachines
 			return tasks;
 		}
 
-		private async Task LoadAdventure()
+		private async Task LoadMatchAssets()
 		{
 			var tasks = new List<Task>();
-			var adventureServices = new AdventureServices(_services.AssetResolverService);
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
-			var map = info.Config.Map.ToString();
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
+			var map = config.Map.ToString();
 			var operation = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
-			
-			AdventureInstaller.Bind<IAdventureServices>(adventureServices);
 
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
-			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().SetRuntimeConfig(info);
+			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().SetRuntimeConfig(config);
 			
 			tasks.Add(operation);
 			tasks.AddRange(LoadQuantumAssets(map));
-			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.AdventureUi));
+			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 			
 			await Task.WhenAll(tasks);
 
@@ -171,25 +168,22 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
 		}
 
-		private async Task UnloadAdventure()
+		private async Task UnloadMatchAssets()
 		{
 			var mapId = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig.MapId;
 			var scene = SceneManager.GetSceneByName(mapId.ToString());
-			var adventureServices = AdventureInstaller.Resolve<IAdventureServices>();
 			var configProvider = _services.ConfigsProvider;
 			
 			Camera.main.gameObject.SetActive(false);
-			_uiService.UnloadUiSet((int) UiSetId.AdventureUi);
+			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
-			_statechartTrigger(GameEndedEvent);
+			_statechartTrigger(MatchEndedEvent);
 			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 			
 			_services.VfxService.DespawnAll();
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
-			adventureServices.Dispose();
-			AdventureInstaller.Clean();
 			Resources.UnloadUnusedAssets();
 		}
 	}

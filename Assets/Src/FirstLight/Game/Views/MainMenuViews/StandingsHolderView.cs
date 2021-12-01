@@ -32,18 +32,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _services.ConfigsProvider.GetConfig<AdventureConfig>(_gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value);
-			_playerResultPool = new GameObjectPool<PlayerResultEntryView>((uint) adventureInfo.TotalFightersLimit, _resultEntryViewRef);
+			var adventureInfo = _services.ConfigsProvider.GetConfig<MapConfig>(_gameDataProvider.AdventureDataProvider.SelectedMapId.Value);
+			_playerResultPool = new GameObjectPool<PlayerResultEntryView>((uint) adventureInfo.PlayersLimit, _resultEntryViewRef);
 
-			for (var i = 0; i < adventureInfo.TotalFightersLimit; i++)
+			for (var i = 0; i < adventureInfo.PlayersLimit; i++)
 			{
 				_playerResultPool.Spawn();
 			}
 
-			if (adventureInfo.TotalFightersLimit < 10)
+			if (adventureInfo.PlayersLimit < 10)
 			{
 				var entryHeight = ((RectTransform) _resultEntryViewRef.transform).sizeDelta.y;
-				_contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x, (entryHeight + _verticalEntrySpacing) * (adventureInfo.TotalFightersLimit + 1));
+				_contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x, 
+				                                          (entryHeight + _verticalEntrySpacing) * (adventureInfo.PlayersLimit + 1));
 			}
 			
 			_blockerButton.onClick.AddListener(OnCloseClicked);

@@ -145,7 +145,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => _configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<PlayerSkinConfigs>(AddressableId.Configs_PlayerSkinConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<AdventureConfigs>(AddressableId.Configs_AdventureConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
+				LoadConfig<MapConfigs>(AddressableId.Configs_AdventureConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<RarityConfigs>(AddressableId.Configs_RarityConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),

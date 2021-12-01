@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-
+			
 			screenCheck.Transition().Condition(CheckAutoLootBoxes).Target(collectLoot);
 			screenCheck.Transition().Condition(CheckOverflowLootSpentHc).Target(collectLoot);
 			screenCheck.Transition().Condition(CheckOverflowLoot).Target(overflowLootMenu);
@@ -337,7 +337,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LootOptionsScreenPresenter>();
 			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
 		}
-		
+
 		private void OpenTrophyRoadMenuUI()
 		{
 			var data = new TrophyRoadScreenPresenter.StateData

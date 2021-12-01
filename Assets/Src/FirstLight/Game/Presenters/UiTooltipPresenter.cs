@@ -18,18 +18,11 @@ namespace FirstLight.Game.Presenters
 	public class UiTooltipPresenter : UiPresenter
 	{
 		[SerializeField] private Transform _tooltipParentTransform;
-		[SerializeField] private GameObject _tooltipHelperPrefab;
+		[SerializeField] private TooltipHelper _tooltipHelper;
 		
-		private TooltipHelper _tooltipHelper;
-		
-		protected void Awake()
-		{
-			var go  = Instantiate(_tooltipHelperPrefab);
-			_tooltipHelper = go.GetComponent<TooltipHelper>();
-			_tooltipHelper.transform.SetParent(_tooltipParentTransform);
-			_tooltipHelper.transform.ResetLocal();
-		}
-
+		/// <summary>
+		/// Show a tool tip graphic at world and arrow position
+		/// </summary>
 		public void ShowTooltipHelper(string locTag, Vector3 worldPos, TooltipHelper.TooltipArrowPosition tooltipArrowPosition)
 		{
 			_tooltipHelper.ShowTooltip(locTag, worldPos, tooltipArrowPosition);

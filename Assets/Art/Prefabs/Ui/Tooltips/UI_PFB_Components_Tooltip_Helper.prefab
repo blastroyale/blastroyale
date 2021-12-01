@@ -34,9 +34,9 @@ RectTransform:
   m_Father: {fileID: 224275387864359586}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 257, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257, y: -32}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &222001726932970158
@@ -212,9 +212,9 @@ RectTransform:
   m_Father: {fileID: 224106915937402128}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 257, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257, y: -242.205}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222453419661698796
@@ -308,7 +308,6 @@ GameObject:
   - component: {fileID: 114795552253489780}
   - component: {fileID: 114959741077227434}
   - component: {fileID: 95215882473317696}
-  - component: {fileID: 7010360860739667100}
   - component: {fileID: 2188905367597445503}
   m_Layer: 5
   m_Name: UI_PFB_Components_Tooltip_Helper
@@ -408,25 +407,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7010360860739667100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508119508327186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 370bcc3f96df2e6468694a6482ea5818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvas: {fileID: 2188905367597445503}
-  _animator: {fileID: 95215882473317696}
-  _tooltipText: {fileID: 7147653722322829729}
-  _tooltipArrow: {fileID: 224977083265725700}
-  _arrowYOffset: 8
-  _canvasGroup: {fileID: 225039428383892900}
-  _layoutElement: {fileID: 114486489214113266}
 --- !u!223 &2188905367597445503
 Canvas:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using System;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Presenters;
-using FirstLight.Game.Views.TooltipView;
 using UnityEngine;
 using UnityEngine.Events;
 using Assert = UnityEngine.Assertions.Assert;
@@ -89,7 +88,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Opens up a tooltip dialog to show informative text.
 		/// </summary>
-		void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipHelper.TooltipArrowPosition tooltipArrowPosition);
+		void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition);
 
 		/// <summary>
 		/// Opens up a Talking Head Dialog.
@@ -179,10 +178,10 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipHelper.TooltipArrowPosition tooltipArrowPosition)
+		public void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition)
 		{
 			var ui = _uiService.OpenUi<UiTooltipPresenter>();
-			ui.ShowTooltipHelper(locTag, worldPos,tooltipArrowPosition);
+			ui.ShowTooltip(locTag, worldPos, tooltipArrowPosition);
 		}
 
 		/// <summary>

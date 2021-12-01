@@ -93,8 +93,6 @@ namespace FirstLight.Game.Views.TooltipView
             {
                 _animator.SetTrigger("Show");
             }
-
-            yield return new WaitForEndOfFrame();
             
             _isActive = true;
         }

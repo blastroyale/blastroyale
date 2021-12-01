@@ -33,6 +33,9 @@ namespace FirstLight.Game.Views.TooltipView
             _rectTransform = _rectTransform ? _rectTransform : GetComponent<RectTransform>();
         }
         
+        /// <summary>
+        /// Show a tool tip graphic at world and arrow position
+        /// </summary>
         public void ShowTooltip(string locTag, Vector3 worldPosition, TooltipArrowPosition tooltipArrowPosition)
         {
             _canvas.enabled = false;

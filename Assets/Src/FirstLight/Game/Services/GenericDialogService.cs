@@ -178,6 +178,7 @@ namespace FirstLight.Game.Services
 			ui.SetInfo(button, boxInfo, closeCallback);
 		}
 
+		/// <inheritdoc />
 		public void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipHelper.TooltipArrowPosition tooltipArrowPosition)
 		{
 			var ui = _uiService.OpenUi<UiTooltipPresenter>();

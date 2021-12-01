@@ -121,12 +121,12 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		public void OnSCClicked()
+		private void OnSCClicked()
 		{
 			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_SC, _scTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 		
-		public void OnHCClicked()
+		private void OnHCClicked()
 		{
 			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_HC, _hcTooltipAnchor.position, TooltipArrowPosition.Top);
 		}

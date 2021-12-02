@@ -9,10 +9,9 @@ namespace Quantum
 	
 	public unsafe partial class EventOnPlayerKilledPlayer
 	{
-		public QuantumPlayerMatchData DeadMatchData;
-		public QuantumPlayerMatchData KillerMatchData;
+		public PlayerRef PlayerLeader;
+		public EntityRef EntityLeader;
 		public QuantumPlayerMatchData[] PlayersMatchData;
-		public QuantumPlayerMatchData LeaderMatchData;
 	}
 	
 	public partial class Frame 
@@ -48,22 +47,9 @@ namespace Quantum
 					return;
 				}
 				
-				ev.PlayersMatchData = new QuantumPlayerMatchData[_f._runtimeConfig.TotalFightersLimit];
-				ev.LeaderMatchData.Data.CurrentKillRank = 0;
-
-				for (var i = 0; i < _f._runtimeConfig.TotalFightersLimit; i++)
-				{
-					ev.PlayersMatchData[i] = new QuantumPlayerMatchData(_f, data[i]);
-
-					if (ev.LeaderMatchData.Data.CurrentKillRank == 0 && 
-					    ev.PlayersMatchData[i].Data.CurrentKillRank == 1)
-					{
-						ev.LeaderMatchData = ev.PlayersMatchData[i];
-					}
-				}
-				
-				ev.DeadMatchData = ev.PlayersMatchData[PlayerDead];
-				ev.KillerMatchData = ev.PlayersMatchData[PlayerKiller];
+				ev.PlayersMatchData = container.GetPlayersMatchData(_f, out var leader);
+				ev.PlayerLeader = leader;
+				ev.EntityLeader = data[leader].Entity;
 			}
 		}
 	}

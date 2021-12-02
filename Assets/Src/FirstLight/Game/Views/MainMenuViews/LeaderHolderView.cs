@@ -30,22 +30,23 @@ namespace FirstLight.Game.Views.MainMenuViews
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 		}
 
-
 		/// <summary>
 		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (!_currentLeader.HasValue || _currentLeader.Value != callback.LeaderMatchData.Data.Player)
+			var leaderData = callback.PlayersMatchData[callback.PlayerLeader];
+			
+			if (!_currentLeader.HasValue || _currentLeader.Value != callback.PlayerLeader)
 			{
-				_currentLeader = callback.LeaderMatchData.Data.Player;
-				_leaderNameText.text = callback.LeaderMatchData.GetPlayerName();
+				_currentLeader = callback.PlayerLeader;
+				_leaderNameText.text = leaderData.GetPlayerName();
 				
 				_leaderChangedAnimation.Rewind();
 				_leaderChangedAnimation.Play();
 			}
 			
-			_currentLeaderFragsText.text = callback.LeaderMatchData.Data.PlayersKilledCount.ToString();
+			_currentLeaderFragsText.text = leaderData.Data.PlayersKilledCount.ToString();
 		}
 	}
 }

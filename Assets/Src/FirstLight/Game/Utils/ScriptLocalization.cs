@@ -240,15 +240,6 @@ namespace I2.Loc
 			public static string Bot99 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot99"); } }
 		}
 
-		public static class Chapters
-		{
-			public static string Chapter1 		{ get{ return LocalizationManager.GetTranslation ("Chapters/Chapter1"); } }
-			public static string Chapter2 		{ get{ return LocalizationManager.GetTranslation ("Chapters/Chapter2"); } }
-			public static string Chapter3 		{ get{ return LocalizationManager.GetTranslation ("Chapters/Chapter3"); } }
-			public static string Chapter4 		{ get{ return LocalizationManager.GetTranslation ("Chapters/Chapter4"); } }
-			public static string Chapter5 		{ get{ return LocalizationManager.GetTranslation ("Chapters/Chapter5"); } }
-		}
-
 		public static class FTUE
 		{
 			public static string AttackDummy 		{ get{ return LocalizationManager.GetTranslation ("FTUE/AttackDummy"); } }
@@ -268,106 +259,6 @@ namespace I2.Loc
 			public static string Welcome 		{ get{ return LocalizationManager.GetTranslation ("FTUE/Welcome"); } }
 		}
 
-		public static class FTUESteps
-		{
-			public static string FTUE_AttackDummy 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_AttackDummy"); } }
-			public static string FTUE_CollectWeapon 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_CollectWeapon"); } }
-			public static string FTUE_CollectWeaponTip 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_CollectWeaponTip"); } }
-			public static string FTUE_EnterDeathmatch 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_EnterDeathmatch"); } }
-			public static string FTUE_GoToExit 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_GoToExit"); } }
-			public static string FTUE_HeadToExit 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_HeadToExit"); } }
-			public static string FTUE_KillDummies 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_KillDummies"); } }
-			public static string FTUE_KillDummy 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_KillDummy"); } }
-			public static string FTUE_KillEnemyWithRangedWeapon 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_KillEnemyWithRangedWeapon"); } }
-			public static string FTUE_MoveToArea 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_MoveToArea"); } }
-			public static string FTUE_SpecialAbilities 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_SpecialAbilities"); } }
-			public static string FTUE_UseHammer 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_UseHammer"); } }
-			public static string FTUE_UseJoystick 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_UseJoystick"); } }
-			public static string FTUE_UseSpecial 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_UseSpecial"); } }
-			public static string FTUE_Welcome 		{ get{ return LocalizationManager.GetTranslation ("FTUESteps/FTUE_Welcome"); } }
-		}
-
-		public static class Game_Name
-		{
-			public static string A_V_A 		{ get{ return LocalizationManager.GetTranslation ("Game Name/A.V.A"); } }
-			public static string ADVANCE_BRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/ADVANCE BRAWL"); } }
-			public static string BATTLE_CHAMPS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BATTLE CHAMPS"); } }
-			public static string BATTLE_Z 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BATTLE Z"); } }
-			public static string BATTLERZ 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BATTLERZ"); } }
-			public static string BEAT_BRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BEAT BRAWL"); } }
-			public static string BEAT_MELEE 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BEAT MELEE"); } }
-			public static string BEST_ENEMIES 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BEST ENEMIES"); } }
-			public static string BING_BANG 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BING BANG"); } }
-			public static string BLAST_LANDS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BLAST LANDS"); } }
-			public static string BLASTLANDS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BLASTLANDS"); } }
-			public static string BOOM_BRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BOOM BRAWL"); } }
-			public static string BOOM_DING_DONG 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BOOM DING DONG"); } }
-			public static string BOOM_HA_HA 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BOOM HA-HA"); } }
-			public static string BOOM_ZONE 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BOOM ZONE"); } }
-			public static string BOOMERZ 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BOOMERZ"); } }
-			public static string BRAWL_MAUL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BRAWL MAUL"); } }
-			public static string BRAWLERZ 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BRAWLERZ"); } }
-			public static string BRAWLHA 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BRAWLHA"); } }
-			public static string BREW_BRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BREW BRAWL"); } }
-			public static string BROUHAHA 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BROUHAHA"); } }
-			public static string BULLET_LAND 		{ get{ return LocalizationManager.GetTranslation ("Game Name/BULLET LAND"); } }
-			public static string CLICK_CLACK 		{ get{ return LocalizationManager.GetTranslation ("Game Name/CLICK-CLACK"); } }
-			public static string CLUSTERFIGHT 		{ get{ return LocalizationManager.GetTranslation ("Game Name/CLUSTERFIGHT"); } }
-			public static string CUNTFLICKERS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/CUNTFLICKERS"); } }
-			public static string DESTRUCTION 		{ get{ return LocalizationManager.GetTranslation ("Game Name/DESTRUCTION"); } }
-			public static string Dawn_of_Ding_Dang 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Dawn of Ding Dang"); } }
-			public static string Ding_Match 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Ding Match"); } }
-			public static string EVO_BRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/EVO BRAWL"); } }
-			public static string EVO_FIGHT 		{ get{ return LocalizationManager.GetTranslation ("Game Name/EVO FIGHT"); } }
-			public static string FRACALICIOUS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRACALICIOUS"); } }
-			public static string FRAG_HEROES 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAG HEROES"); } }
-			public static string FRAGALICIOUS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAGALICIOUS"); } }
-			public static string FRAGFALL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAGFALL"); } }
-			public static string FRAGLAND 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAGLAND"); } }
-			public static string FRAGNITE 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAGNITE"); } }
-			public static string FRAGTIME 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAGTIME"); } }
-			public static string FRAKATTACK 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAKATTACK"); } }
-			public static string FRAY_DAY 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FRAY DAY"); } }
-			public static string FREE_FOR_ALL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FREE FOR ALL"); } }
-			public static string FREE_MELEE 		{ get{ return LocalizationManager.GetTranslation ("Game Name/FREE MELEE"); } }
-			public static string Frag_Attack 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Frag Attack"); } }
-			public static string Frag_Die_repeat 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Frag Die repeat"); } }
-			public static string Frag_Heroes 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Frag Heroes"); } }
-			public static string Frag_Jam 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Frag Jam"); } }
-			public static string Frag_Land 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Frag Land"); } }
-			public static string Fragnite 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Fragnite"); } }
-			public static string Fragocalypse 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Fragocalypse"); } }
-			public static string Free_Frag 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Free Frag"); } }
-			public static string GO_GO_RIVALS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/GO GO RIVALS"); } }
-			public static string GO_GO_SHOOT 		{ get{ return LocalizationManager.GetTranslation ("Game Name/GO-GO-SHOOT"); } }
-			public static string GRAND_BANG 		{ get{ return LocalizationManager.GetTranslation ("Game Name/GRAND BANG"); } }
-			public static string Game_of_Guns 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Game of Guns"); } }
-			public static string Great_Match_ 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Great Match!"); } }
-			public static string Grim_Frag_Dango 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Grim Frag Dango"); } }
-			public static string Heroes_of_Boom 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Heroes of Boom"); } }
-			public static string I_WILL_DESTROY_YOU 		{ get{ return LocalizationManager.GetTranslation ("Game Name/I WILL DESTROY YOU"); } }
-			public static string INSURGERNT 		{ get{ return LocalizationManager.GetTranslation ("Game Name/INSURGERNT"); } }
-			public static string LAST_RIVALS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/LAST RIVALS"); } }
-			public static string RIVAL_TACTICS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/RIVAL TACTICS"); } }
-			public static string RUSH_BRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/RUSH BRAWL"); } }
-			public static string SCREWBRAWL 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SCREWBRAWL"); } }
-			public static string SHOOT_DOWN 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SHOOT DOWN"); } }
-			public static string SHOOT_RIVALS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SHOOT RIVALS"); } }
-			public static string SHOOT_SHOOT 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SHOOT-SHOOT"); } }
-			public static string SHOOTMANZ 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SHOOTMANZ"); } }
-			public static string SHOOTUP 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SHOOTUP"); } }
-			public static string SHOOTY_GUNS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SHOOTY GUNS"); } }
-			public static string SMACK_CHAMPS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SMACK CHAMPS"); } }
-			public static string SMASHLANDS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SMASHLANDS"); } }
-			public static string SUPER_CHAMPS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SUPER CHAMPS"); } }
-			public static string SURIVALRY 		{ get{ return LocalizationManager.GetTranslation ("Game Name/SURIVALRY"); } }
-			public static string TOP_CHAMPS 		{ get{ return LocalizationManager.GetTranslation ("Game Name/TOP CHAMPS"); } }
-			public static string TOP_OF_THE_BOP 		{ get{ return LocalizationManager.GetTranslation ("Game Name/TOP OF THE BOP"); } }
-			public static string TOPLANDERZ 		{ get{ return LocalizationManager.GetTranslation ("Game Name/TOPLANDERZ"); } }
-			public static string Ultimate_Fragging_Championship 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Ultimate Fragging Championship"); } }
-			public static string Z_BATTLE 		{ get{ return LocalizationManager.GetTranslation ("Game Name/Z BATTLE"); } }
-		}
-
 		public static class GameIds
 		{
 			public static string AK47 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AK47"); } }
@@ -379,6 +270,7 @@ namespace I2.Loc
 			public static string AssaultRifleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AssaultRifleDescription"); } }
 			public static string BFG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BFG"); } }
 			public static string BFGDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BFGDescription"); } }
+			public static string BlimpDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlimpDeck"); } }
 			public static string Boots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Boots"); } }
 			public static string BossAngrymanAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossAngrymanAi"); } }
 			public static string BossCritterAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossCritterAi"); } }
@@ -399,6 +291,7 @@ namespace I2.Loc
 			public static string Female01Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Female01Avatar"); } }
 			public static string Female02Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Female02Avatar"); } }
 			public static string FloodCity 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCity"); } }
+			public static string FloodCitySimple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCitySimple"); } }
 			public static string Freeway 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Freeway"); } }
 			public static string FreewayDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FreewayDescription"); } }
 			public static string Frontshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Frontshot"); } }
@@ -523,7 +416,6 @@ namespace I2.Loc
 			public static string Star 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Star"); } }
 			public static string TikTokAmulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmulet"); } }
 			public static string TikTokAmuletDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmuletDescription"); } }
-			public static string TinyTemple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TinyTemple"); } }
 			public static string UncommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/UncommonBox"); } }
 			public static string UncommonCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/UncommonCore"); } }
 			public static string WallBounce 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WallBounce"); } }
@@ -741,14 +633,6 @@ namespace I2.Loc
 			public static string NoCrateUnlockingTitle 		{ get{ return LocalizationManager.GetTranslation ("Notifications/NoCrateUnlockingTitle"); } }
 			public static string UnopenedCrate 		{ get{ return LocalizationManager.GetTranslation ("Notifications/UnopenedCrate"); } }
 			public static string UnopenedCrateTitle 		{ get{ return LocalizationManager.GetTranslation ("Notifications/UnopenedCrateTitle"); } }
-		}
-
-		public static class Settings
-		{
-			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("Settings/BGM"); } }
-			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("Settings/Haptic"); } }
-			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("Settings/Meters"); } }
-			public static string SFX 		{ get{ return LocalizationManager.GetTranslation ("Settings/SFX"); } }
 		}
 
 		public static class Shop
@@ -1011,15 +895,6 @@ namespace I2.Loc
 		    public const string Bot99 = "BotNames/Bot99";
 		}
 
-		public static class Chapters
-		{
-		    public const string Chapter1 = "Chapters/Chapter1";
-		    public const string Chapter2 = "Chapters/Chapter2";
-		    public const string Chapter3 = "Chapters/Chapter3";
-		    public const string Chapter4 = "Chapters/Chapter4";
-		    public const string Chapter5 = "Chapters/Chapter5";
-		}
-
 		public static class FTUE
 		{
 		    public const string AttackDummy = "FTUE/AttackDummy";
@@ -1039,106 +914,6 @@ namespace I2.Loc
 		    public const string Welcome = "FTUE/Welcome";
 		}
 
-		public static class FTUESteps
-		{
-		    public const string FTUE_AttackDummy = "FTUESteps/FTUE_AttackDummy";
-		    public const string FTUE_CollectWeapon = "FTUESteps/FTUE_CollectWeapon";
-		    public const string FTUE_CollectWeaponTip = "FTUESteps/FTUE_CollectWeaponTip";
-		    public const string FTUE_EnterDeathmatch = "FTUESteps/FTUE_EnterDeathmatch";
-		    public const string FTUE_GoToExit = "FTUESteps/FTUE_GoToExit";
-		    public const string FTUE_HeadToExit = "FTUESteps/FTUE_HeadToExit";
-		    public const string FTUE_KillDummies = "FTUESteps/FTUE_KillDummies";
-		    public const string FTUE_KillDummy = "FTUESteps/FTUE_KillDummy";
-		    public const string FTUE_KillEnemyWithRangedWeapon = "FTUESteps/FTUE_KillEnemyWithRangedWeapon";
-		    public const string FTUE_MoveToArea = "FTUESteps/FTUE_MoveToArea";
-		    public const string FTUE_SpecialAbilities = "FTUESteps/FTUE_SpecialAbilities";
-		    public const string FTUE_UseHammer = "FTUESteps/FTUE_UseHammer";
-		    public const string FTUE_UseJoystick = "FTUESteps/FTUE_UseJoystick";
-		    public const string FTUE_UseSpecial = "FTUESteps/FTUE_UseSpecial";
-		    public const string FTUE_Welcome = "FTUESteps/FTUE_Welcome";
-		}
-
-		public static class Game_Name
-		{
-		    public const string A_V_A = "Game Name/A.V.A";
-		    public const string ADVANCE_BRAWL = "Game Name/ADVANCE BRAWL";
-		    public const string BATTLE_CHAMPS = "Game Name/BATTLE CHAMPS";
-		    public const string BATTLE_Z = "Game Name/BATTLE Z";
-		    public const string BATTLERZ = "Game Name/BATTLERZ";
-		    public const string BEAT_BRAWL = "Game Name/BEAT BRAWL";
-		    public const string BEAT_MELEE = "Game Name/BEAT MELEE";
-		    public const string BEST_ENEMIES = "Game Name/BEST ENEMIES";
-		    public const string BING_BANG = "Game Name/BING BANG";
-		    public const string BLAST_LANDS = "Game Name/BLAST LANDS";
-		    public const string BLASTLANDS = "Game Name/BLASTLANDS";
-		    public const string BOOM_BRAWL = "Game Name/BOOM BRAWL";
-		    public const string BOOM_DING_DONG = "Game Name/BOOM DING DONG";
-		    public const string BOOM_HA_HA = "Game Name/BOOM HA-HA";
-		    public const string BOOM_ZONE = "Game Name/BOOM ZONE";
-		    public const string BOOMERZ = "Game Name/BOOMERZ";
-		    public const string BRAWL_MAUL = "Game Name/BRAWL MAUL";
-		    public const string BRAWLERZ = "Game Name/BRAWLERZ";
-		    public const string BRAWLHA = "Game Name/BRAWLHA";
-		    public const string BREW_BRAWL = "Game Name/BREW BRAWL";
-		    public const string BROUHAHA = "Game Name/BROUHAHA";
-		    public const string BULLET_LAND = "Game Name/BULLET LAND";
-		    public const string CLICK_CLACK = "Game Name/CLICK-CLACK";
-		    public const string CLUSTERFIGHT = "Game Name/CLUSTERFIGHT";
-		    public const string CUNTFLICKERS = "Game Name/CUNTFLICKERS";
-		    public const string DESTRUCTION = "Game Name/DESTRUCTION";
-		    public const string Dawn_of_Ding_Dang = "Game Name/Dawn of Ding Dang";
-		    public const string Ding_Match = "Game Name/Ding Match";
-		    public const string EVO_BRAWL = "Game Name/EVO BRAWL";
-		    public const string EVO_FIGHT = "Game Name/EVO FIGHT";
-		    public const string FRACALICIOUS = "Game Name/FRACALICIOUS";
-		    public const string FRAG_HEROES = "Game Name/FRAG HEROES";
-		    public const string FRAGALICIOUS = "Game Name/FRAGALICIOUS";
-		    public const string FRAGFALL = "Game Name/FRAGFALL";
-		    public const string FRAGLAND = "Game Name/FRAGLAND";
-		    public const string FRAGNITE = "Game Name/FRAGNITE";
-		    public const string FRAGTIME = "Game Name/FRAGTIME";
-		    public const string FRAKATTACK = "Game Name/FRAKATTACK";
-		    public const string FRAY_DAY = "Game Name/FRAY DAY";
-		    public const string FREE_FOR_ALL = "Game Name/FREE FOR ALL";
-		    public const string FREE_MELEE = "Game Name/FREE MELEE";
-		    public const string Frag_Attack = "Game Name/Frag Attack";
-		    public const string Frag_Die_repeat = "Game Name/Frag Die repeat";
-		    public const string Frag_Heroes = "Game Name/Frag Heroes";
-		    public const string Frag_Jam = "Game Name/Frag Jam";
-		    public const string Frag_Land = "Game Name/Frag Land";
-		    public const string Fragnite = "Game Name/Fragnite";
-		    public const string Fragocalypse = "Game Name/Fragocalypse";
-		    public const string Free_Frag = "Game Name/Free Frag";
-		    public const string GO_GO_RIVALS = "Game Name/GO GO RIVALS";
-		    public const string GO_GO_SHOOT = "Game Name/GO-GO-SHOOT";
-		    public const string GRAND_BANG = "Game Name/GRAND BANG";
-		    public const string Game_of_Guns = "Game Name/Game of Guns";
-		    public const string Great_Match_ = "Game Name/Great Match!";
-		    public const string Grim_Frag_Dango = "Game Name/Grim Frag Dango";
-		    public const string Heroes_of_Boom = "Game Name/Heroes of Boom";
-		    public const string I_WILL_DESTROY_YOU = "Game Name/I WILL DESTROY YOU";
-		    public const string INSURGERNT = "Game Name/INSURGERNT";
-		    public const string LAST_RIVALS = "Game Name/LAST RIVALS";
-		    public const string RIVAL_TACTICS = "Game Name/RIVAL TACTICS";
-		    public const string RUSH_BRAWL = "Game Name/RUSH BRAWL";
-		    public const string SCREWBRAWL = "Game Name/SCREWBRAWL";
-		    public const string SHOOT_DOWN = "Game Name/SHOOT DOWN";
-		    public const string SHOOT_RIVALS = "Game Name/SHOOT RIVALS";
-		    public const string SHOOT_SHOOT = "Game Name/SHOOT-SHOOT";
-		    public const string SHOOTMANZ = "Game Name/SHOOTMANZ";
-		    public const string SHOOTUP = "Game Name/SHOOTUP";
-		    public const string SHOOTY_GUNS = "Game Name/SHOOTY GUNS";
-		    public const string SMACK_CHAMPS = "Game Name/SMACK CHAMPS";
-		    public const string SMASHLANDS = "Game Name/SMASHLANDS";
-		    public const string SUPER_CHAMPS = "Game Name/SUPER CHAMPS";
-		    public const string SURIVALRY = "Game Name/SURIVALRY";
-		    public const string TOP_CHAMPS = "Game Name/TOP CHAMPS";
-		    public const string TOP_OF_THE_BOP = "Game Name/TOP OF THE BOP";
-		    public const string TOPLANDERZ = "Game Name/TOPLANDERZ";
-		    public const string Ultimate_Fragging_Championship = "Game Name/Ultimate Fragging Championship";
-		    public const string Z_BATTLE = "Game Name/Z BATTLE";
-		}
-
 		public static class GameIds
 		{
 		    public const string AK47 = "GameIds/AK47";
@@ -1150,6 +925,7 @@ namespace I2.Loc
 		    public const string AssaultRifleDescription = "GameIds/AssaultRifleDescription";
 		    public const string BFG = "GameIds/BFG";
 		    public const string BFGDescription = "GameIds/BFGDescription";
+		    public const string BlimpDeck = "GameIds/BlimpDeck";
 		    public const string Boots = "GameIds/Boots";
 		    public const string BossAngrymanAi = "GameIds/BossAngrymanAi";
 		    public const string BossCritterAi = "GameIds/BossCritterAi";
@@ -1170,6 +946,7 @@ namespace I2.Loc
 		    public const string Female01Avatar = "GameIds/Female01Avatar";
 		    public const string Female02Avatar = "GameIds/Female02Avatar";
 		    public const string FloodCity = "GameIds/FloodCity";
+		    public const string FloodCitySimple = "GameIds/FloodCitySimple";
 		    public const string Freeway = "GameIds/Freeway";
 		    public const string FreewayDescription = "GameIds/FreewayDescription";
 		    public const string Frontshot = "GameIds/Frontshot";
@@ -1294,7 +1071,6 @@ namespace I2.Loc
 		    public const string Star = "GameIds/Star";
 		    public const string TikTokAmulet = "GameIds/TikTokAmulet";
 		    public const string TikTokAmuletDescription = "GameIds/TikTokAmuletDescription";
-		    public const string TinyTemple = "GameIds/TinyTemple";
 		    public const string UncommonBox = "GameIds/UncommonBox";
 		    public const string UncommonCore = "GameIds/UncommonCore";
 		    public const string WallBounce = "GameIds/WallBounce";
@@ -1512,14 +1288,6 @@ namespace I2.Loc
 		    public const string NoCrateUnlockingTitle = "Notifications/NoCrateUnlockingTitle";
 		    public const string UnopenedCrate = "Notifications/UnopenedCrate";
 		    public const string UnopenedCrateTitle = "Notifications/UnopenedCrateTitle";
-		}
-
-		public static class Settings
-		{
-		    public const string BGM = "Settings/BGM";
-		    public const string Haptic = "Settings/Haptic";
-		    public const string Meters = "Settings/Meters";
-		    public const string SFX = "Settings/SFX";
 		}
 
 		public static class Shop

@@ -60,12 +60,11 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override async void OnOpened()
 		{
-			var config = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo.Config;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 
-
-			_firstToXKillsText.text = string.Format(ScriptLocalization.AdventureMenu.FirstToXKills, config.DeathmatchKillCount.ToString());
+			_firstToXKillsText.text = string.Format(ScriptLocalization.AdventureMenu.FirstToXKills, config.PlayersLimit.ToString());
 			_nextArenaText.text = $"{ScriptLocalization.MainMenu.NextArena}: {config.Map.GetTranslation()}";
-			_playersFoundText.text = $"{0}/{config.TotalFightersLimit.ToString()}" ;
+			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_nextMapImage.enabled = false;
 			
 			foreach (var image in _playersWaitingImage)
@@ -137,12 +136,12 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private IEnumerator TimeUpdateCoroutine(AdventureConfig config)
+		private IEnumerator TimeUpdateCoroutine(MapConfig config)
 		{
-			for (var i = 0; i < _playersWaitingImage.Length && i < config.TotalFightersLimit; i++)
+			for (var i = 0; i < _playersWaitingImage.Length && i < config.PlayersLimit; i++)
 			{
 				_playersWaitingImage[i].gameObject.SetActive(true);
-				_playersFoundText.text = $"{(i + 1).ToString()}/{config.TotalFightersLimit.ToString()}" ;
+				_playersFoundText.text = $"{(i + 1).ToString()}/{config.PlayersLimit.ToString()}" ;
 				
 				yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
 			}

@@ -64,7 +64,7 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnExit(StopMatchmaking);
 
 			connected.Event(DisconnectedEvent).Target(final);
-			connected.Event(AdventureState.GameEndedEvent).Target(disconnecting);
+			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
 			
 			reconnecting.Event(DisconnectedEvent).Target(disconnected);
 			reconnecting.Event(ConnectedEvent).Target(connected);
@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnConnectedToMaster()
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var info = _dataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var info = _dataProvider.AdventureDataProvider.SelectedMapConfig;
 			var enterParams = config.GetDefaultEnterRoomParams(info);
 			
 #if !RELEASE_BUILD
@@ -169,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			var info = _dataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var info = _dataProvider.AdventureDataProvider.SelectedMapConfig;
 			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetDefaultEnterRoomParams(info);
 			
 			_networkService.QuantumClient.OpCreateRoom(properties);

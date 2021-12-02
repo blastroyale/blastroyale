@@ -22,17 +22,17 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_gameDataProvider.AdventureDataProvider.AdventureSelectedId.InvokeObserve(OnSelectedAdventureUpdated);
+			_gameDataProvider.AdventureDataProvider.SelectedMapId.InvokeObserve(OnSelectedAdventureUpdated);
 		}
 
 		protected void OnDestroy()
 		{
-			_gameDataProvider?.AdventureDataProvider?.AdventureSelectedId?.StopObserving(OnSelectedAdventureUpdated);
+			_gameDataProvider?.AdventureDataProvider?.SelectedMapId?.StopObserving(OnSelectedAdventureUpdated);
 		}
 
 		private void OnSelectedAdventureUpdated(int previousValue, int newValue)
 		{
-			var config = _services.ConfigsProvider.GetConfig<AdventureConfig>(newValue);
+			var config = _services.ConfigsProvider.GetConfig<MapConfig>(newValue);
 			
 			// _gameModeText.SetText(config.Map.GetTranslation()); TODO: Change name when adventure ID changes based on level up / other logic.
 		}

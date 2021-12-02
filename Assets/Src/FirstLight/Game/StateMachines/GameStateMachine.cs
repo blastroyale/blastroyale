@@ -25,7 +25,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
-		private readonly AdventureState _adventureState;
+		private readonly MatchState _matchState;
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly NetworkState _networkState;
 		private readonly MainMenuState _mainMenuState;
@@ -56,7 +56,7 @@ namespace FirstLight.Game.StateMachines
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_adventureState = new AdventureState(gameLogic, services, uiService, assetAdderService, Trigger);
+			_matchState = new MatchState(gameLogic, services, uiService, assetAdderService, Trigger);
 			_gameSimulationState = new GameSimulationState(gameLogic, services, uiService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
@@ -109,7 +109,7 @@ namespace FirstLight.Game.StateMachines
 
 			void AdventureSetup(IStateFactory factory)
 			{
-				_adventureState.Setup(factory, _gameSimulationState);
+				_matchState.Setup(factory, _gameSimulationState);
 			}
 		}
 
@@ -165,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsFtueEnabled()
 		{
-			return _gameLogic.AdventureDataProvider.AdventureSelectedId.Value < GameConstants.FtueAdventuresCount;
+			return _gameLogic.AdventureDataProvider.SelectedMapId.Value < GameConstants.FtueAdventuresCount;
 		}
 		
 		private async Task LoadCoreAssets()

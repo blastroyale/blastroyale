@@ -17,7 +17,6 @@ namespace Quantum
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingSizeK;
 		public FP ShrinkingBorderK;
-		public FP BattleRoyaleMapRadius;
 		public int PlayerDefaultHealth;
 		public FP PlayerDefaultSpeed;
 		public int PlayerDefaultInterimArmour;

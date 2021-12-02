@@ -30,7 +30,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-		private readonly IStatechartEvent _nameEnteredEvent = new StatechartEvent("Name Entered Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
@@ -108,8 +107,8 @@ namespace FirstLight.Game.StateMachines
 			var cratesMenu = stateFactory.Nest("Crates Menu");
 			var socialMenu = stateFactory.State("Social Menu");
 			var settingsMenu = stateFactory.State("Settings Menu");
-			var enterNameCheck = stateFactory.Choice("Check name Entry State");
-			var enterNameDialog = stateFactory.State("Enter Name Dialog");
+			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
+			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -135,16 +134,16 @@ namespace FirstLight.Game.StateMachines
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 			
 			homeMenu.OnEnter(OpenPlayMenuUI);
-			homeMenu.Event(_playClickedEvent).OnTransition(SendPlayClickedEvent).Target(enterNameCheck);
+			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			
-			enterNameCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
-			enterNameCheck.Transition().Target(final);
+			playClickedCheck.OnEnter(SendPlayClickedEvent);
+			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
+			playClickedCheck.Transition().Target(final);
 
-			enterNameDialog.OnEnter(OpenEnterNameDialog);
-			enterNameDialog.Event(_nameEnteredEvent).Target(final);
+			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(final);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
 			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
@@ -399,8 +398,9 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<SocialScreenPresenter>();
 		}
 
-		private void OpenEnterNameDialog()
+		private void OpenEnterNameDialog(IWaitActivity activity)
 		{
+			var closureActivity = activity;
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.Yes,
@@ -414,7 +414,7 @@ namespace FirstLight.Game.StateMachines
 			void OnNameSet(string newName)
 			{
 				_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = newName });
-				_statechartTrigger(_nameEnteredEvent);
+				closureActivity.Complete();
 			}
 		}
 
@@ -545,7 +545,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void PlayButtonClicked()
 		{
-			var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
+			/*var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
 			var playerLevel = _gameDataProvider.PlayerDataProvider.Level.Value;
 			
 			if (playerLevel < adventureIdOffset)
@@ -564,7 +564,7 @@ namespace FirstLight.Game.StateMachines
 					
 				// With X == 3, for instance, possible Adventure IDs will be (0, 1 and 2) + ftueAdventuresCount
 				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = adventureId;
-			}
+			}*/
 				
 			_statechartTrigger(_playClickedEvent);
 		}

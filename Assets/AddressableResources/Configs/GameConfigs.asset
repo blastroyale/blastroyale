@@ -35,8 +35,6 @@ MonoBehaviour:
         RawValue: 32768
       ShrinkingBorderK:
         RawValue: 62259
-      BattleRoyaleMapRadius:
-        RawValue: 6553600
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
         RawValue: 357990

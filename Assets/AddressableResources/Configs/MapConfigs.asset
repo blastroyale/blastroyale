@@ -14,116 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Id: 0
-    Chapter: 1
-    Stage: 1
     Map: 5
-    Difficulty: 0
-    UnlockedAdventureRequirement: -1
-    RecommendedPower: 50
-    FirstClearReward:
-    - Key: 1
-      Value: 100
-    WaveId: 5
-    EnemiesDifficulty: 1
-    BossDifficulty: 1
-    CycleCratesTier: 1
+    GameMode: 0
     PlayersLimit: 1
-    DestructiblesAmount: 0
-    MaxPillsDropPerEnemyWave: 0
-    TotalFightersLimit: 1
-    DeathmatchKillCount: 5
+    GameEndTarget: 1
   - Id: 1
-    Chapter: 1
-    Stage: 2
-    Map: 7
-    Difficulty: 0
-    UnlockedAdventureRequirement: -1
-    RecommendedPower: 50
-    FirstClearReward:
-    - Key: 1
-      Value: 100
-    WaveId: 5
-    EnemiesDifficulty: 4
-    BossDifficulty: 1
-    CycleCratesTier: 1
+    Map: 137
+    GameMode: 0
     PlayersLimit: 10
-    DestructiblesAmount: 0
-    MaxPillsDropPerEnemyWave: 0
-    TotalFightersLimit: 10
-    DeathmatchKillCount: 50
+    GameEndTarget: 10
   - Id: 2
-    Chapter: 1
-    Stage: 3
-    Map: 7
-    Difficulty: 0
-    UnlockedAdventureRequirement: -1
-    RecommendedPower: 50
-    FirstClearReward:
-    - Key: 1
-      Value: 100
-    WaveId: 5
-    EnemiesDifficulty: 4
-    BossDifficulty: 1
-    CycleCratesTier: 1
+    Map: 143
+    GameMode: 0
     PlayersLimit: 10
-    DestructiblesAmount: 0
-    MaxPillsDropPerEnemyWave: 0
-    TotalFightersLimit: 10
-    DeathmatchKillCount: 50
+    GameEndTarget: 10
   - Id: 3
-    Chapter: 1
-    Stage: 4
-    Map: 7
-    Difficulty: 0
-    UnlockedAdventureRequirement: -1
-    RecommendedPower: 51
-    FirstClearReward:
-    - Key: 1
-      Value: 101
-    WaveId: 5
-    EnemiesDifficulty: 4
-    BossDifficulty: 1
-    CycleCratesTier: 1
+    Map: 144
+    GameMode: 0
     PlayersLimit: 10
-    DestructiblesAmount: 0
-    MaxPillsDropPerEnemyWave: 0
-    TotalFightersLimit: 10
-    DeathmatchKillCount: 50
+    GameEndTarget: 10
   - Id: 4
-    Chapter: 1
-    Stage: 5
     Map: 7
-    Difficulty: 0
-    UnlockedAdventureRequirement: -1
-    RecommendedPower: 52
-    FirstClearReward:
-    - Key: 1
-      Value: 102
-    WaveId: 5
-    EnemiesDifficulty: 4
-    BossDifficulty: 1
-    CycleCratesTier: 1
+    GameMode: 0
     PlayersLimit: 10
-    DestructiblesAmount: 0
-    MaxPillsDropPerEnemyWave: 0
-    TotalFightersLimit: 10
-    DeathmatchKillCount: 50
+    GameEndTarget: 10
   - Id: 5
-    Chapter: 1
-    Stage: 6
-    Map: 7
-    Difficulty: 0
-    UnlockedAdventureRequirement: -1
-    RecommendedPower: 53
-    FirstClearReward:
-    - Key: 1
-      Value: 103
-    WaveId: 5
-    EnemiesDifficulty: 4
-    BossDifficulty: 1
-    CycleCratesTier: 1
+    Map: 8
+    GameMode: 0
     PlayersLimit: 10
-    DestructiblesAmount: 0
-    MaxPillsDropPerEnemyWave: 0
-    TotalFightersLimit: 10
-    DeathmatchKillCount: 50
+    GameEndTarget: 10
+  - Id: 6
+    Map: 9
+    GameMode: 1
+    PlayersLimit: 10
+    GameEndTarget: 10

@@ -37,6 +37,7 @@ namespace Quantum {
     Weapon,
     Ammo,
     InterimArmour,
+    Stash,
   }
   public enum GOAPWorldState : long {
     Root = 1,
@@ -118,6 +119,9 @@ namespace Quantum {
     AmmoLarge = 128,
     InterimArmourSmall = 126,
     InterimArmourLarge = 129,
+    CommonStash = 10,
+    RareStash = 11,
+    LegendaryStash = 12,
     Airstrike = 69,
     PointProjectile = 70,
     BulletSniper = 71,

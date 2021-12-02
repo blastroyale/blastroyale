@@ -547,6 +547,27 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.CommonStash, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.RareStash, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.LegendaryStash, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.Airstrike, new List<GameIdGroup>
 					{
 						GameIdGroup.Projectile
@@ -1070,7 +1091,10 @@ namespace Quantum
 						GameId.AmmoSmall,
 						GameId.AmmoLarge,
 						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge
+						GameId.InterimArmourLarge,
+						GameId.CommonStash,
+						GameId.RareStash,
+						GameId.LegendaryStash
 					}.AsReadOnly()
 				},
 				{
@@ -1081,7 +1105,10 @@ namespace Quantum
 						GameId.AmmoSmall,
 						GameId.AmmoLarge,
 						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge
+						GameId.InterimArmourLarge,
+						GameId.CommonStash,
+						GameId.RareStash,
+						GameId.LegendaryStash
 					}.AsReadOnly()
 				},
 				{

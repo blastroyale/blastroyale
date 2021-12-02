@@ -11,6 +11,7 @@ enum ConsumableType
 	Weapon,
 	Ammo,
 	InterimArmour,
+	Stash,
 }
 
 synced event OnConsumablePicked

@@ -216,6 +216,7 @@
     <Compile Include="Systems\Collectables\Consumables\HealthConsumableSystem.cs" />
     <Compile Include="Systems\Collectables\Consumables\InterimArmourConsumableSystem.cs" />
     <Compile Include="Systems\Collectables\Consumables\RageConsumableSystem.cs" />
+    <Compile Include="Systems\Collectables\Consumables\StashConsumableSystem.cs" />
     <Compile Include="Systems\Collectables\WeaponCollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />
     <Compile Include="Systems\DummyCharacterSystem.cs" />

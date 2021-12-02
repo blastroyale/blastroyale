@@ -9,7 +9,8 @@ namespace Quantum.Systems.Collectables
 	{
 		public CollectableSystemGroup() : base("Collectable Systems", new CollectableSystem(),
 		                                       new WeaponCollectableSystem(), new HealthConsumableSystem(), 
-		                                       new InterimArmourConsumableSystem(), new RageConsumableSystem())
+		                                       new InterimArmourConsumableSystem(), new RageConsumableSystem(),
+		                                       new StashConsumableSystem())
 		{
 		}
 	}

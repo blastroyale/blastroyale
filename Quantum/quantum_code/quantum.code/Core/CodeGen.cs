@@ -3874,11 +3874,14 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Consumable : Quantum.IComponent {
-    public const Int32 SIZE = 8;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     [HideInInspector()]
     public UInt32 Amount;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public FP CollectTime;
     [FieldOffset(0)]
     [HideInInspector()]
     public ConsumableType ConsumableType;
@@ -3886,6 +3889,7 @@ namespace Quantum {
       unchecked { 
         var hash = 431;
         hash = hash * 31 + Amount.GetHashCode();
+        hash = hash * 31 + CollectTime.GetHashCode();
         hash = hash * 31 + (Int32)ConsumableType;
         return hash;
       }
@@ -3894,6 +3898,7 @@ namespace Quantum {
         var p = (Consumable*)ptr;
         serializer.Stream.Serialize((Int32*)&p->ConsumableType);
         serializer.Stream.Serialize(&p->Amount);
+        FP.Serialize(&p->CollectTime, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -8595,6 +8600,8 @@ namespace Quantum.Prototypes {
     public ConsumableType_Prototype ConsumableType;
     [HideInInspector()]
     public UInt32 Amount;
+    [HideInInspector()]
+    public FP CollectTime;
     partial void MaterializeUser(Frame frame, ref Consumable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Consumable component = default;
@@ -8603,6 +8610,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Consumable result, in PrototypeMaterializationContext context) {
       result.Amount = this.Amount;
+      result.CollectTime = this.CollectTime;
       result.ConsumableType = this.ConsumableType;
       MaterializeUser(frame, ref result, in context);
     }

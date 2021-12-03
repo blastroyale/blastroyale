@@ -2,6 +2,7 @@ component Consumable
 {
 	[HideInInspector] ConsumableType ConsumableType;
 	[HideInInspector] UInt32 Amount;
+	[HideInInspector] FP CollectTime;
 }
 
 enum ConsumableType

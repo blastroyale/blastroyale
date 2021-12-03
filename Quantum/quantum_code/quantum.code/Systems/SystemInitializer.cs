@@ -9,9 +9,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void OnInit(Frame f)
 		{
-			f.Global->Queries = f.AllocateList<EntityPair>(64);
+			var gameContainer = f.Unsafe.GetOrAddSingletonPointer<GameContainer>();
 			
-			f.Unsafe.GetOrAddSingletonPointer<GameContainer>()->TargetProgress = f.RuntimeConfig.DeathmatchKillCount;
+			f.Global->Queries = f.AllocateList<EntityPair>(128);
+			
+			gameContainer->TargetProgress = (uint) f.RuntimeConfig.GameEndTarget;
+			gameContainer->GameMode = f.RuntimeConfig.GameMode;
+
+			if (gameContainer->GameMode == GameMode.BattleRoyale)
+			{
+				f.SystemEnable<ShrinkingCircleSystem>();
+				f.GetOrAddSingleton<ShrinkingCircle>();
+			}
 		}
 	}
 }

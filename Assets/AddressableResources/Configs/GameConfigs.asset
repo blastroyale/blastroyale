@@ -31,6 +31,10 @@ MonoBehaviour:
         RawValue: 983040
       GoToNextMatchForceTime:
         RawValue: 655360
+      ShrinkingSizeK:
+        RawValue: 32768
+      ShrinkingBorderK:
+        RawValue: 62259
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
         RawValue: 357990

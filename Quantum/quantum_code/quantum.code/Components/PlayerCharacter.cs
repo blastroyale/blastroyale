@@ -11,7 +11,6 @@ namespace Quantum
 		{
 			f.Add<EntityDestroyer>(e);
 			
-			f.Signals.PlayerLeft(Player, e);
 			f.Events.OnRemotePlayerLeft(Player, e);
 			f.Events.OnPlayerLeft(Player, e);
 			f.Events.OnLocalPlayerLeft(Player);

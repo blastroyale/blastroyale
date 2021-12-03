@@ -1,3 +1,5 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -15,12 +17,18 @@ namespace Quantum.Systems
 			}
 			
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			var pointer = gameContainer->PlayersData.GetPointer(deadPlayer.Player);
 			
-			gameContainer->PlayersData.GetPointer(deadPlayer.Player)->DeathCount++;
+			pointer->DeathCount++;
+
+			if (pointer->FirstDeathTime == FP._0)
+			{
+				pointer->FirstDeathTime = f.Time;
+			}
 
 			if (entity == attacker)
 			{
-				gameContainer->PlayersData.GetPointer(deadPlayer.Player)->SuicideCount++;
+				pointer->SuicideCount++;
 			}
 		}
 
@@ -34,10 +42,7 @@ namespace Quantum.Systems
 			if (playerDead != playerKiller)
 			{
 				gameContainer->PlayersData.GetPointer(playerKiller)->PlayersKilledCount++;
-				
 			}
-			
-			gameContainer->UpdateRanks(f);
 		}
 		
 		/// <inheritdoc />
@@ -85,7 +90,7 @@ namespace Quantum.Systems
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			gameContainer->PlayersData.GetPointer(player)->SpecialUsedCount++;
+			gameContainer->PlayersData.GetPointer(player)->SpecialsUsedCount++;
 		}
 	}
 }

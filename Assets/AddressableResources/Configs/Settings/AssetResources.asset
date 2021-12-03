@@ -386,6 +386,11 @@ MonoBehaviour:
         Id:
           Value: 3059267041051081090
       Address: QuantumAssets/Destructibles/Barrel.prefab[BarrelEntityView]
+    - Path: AddressableResources/Configs/ShrinkingCircleConfigs
+      AssetRef:
+        Id:
+          Value: 3083889286552435639
+      Address: Configs/ShrinkingCircleConfigs.asset
     - Path: AddressableResources/Maps/FloodCitySimple
       AssetRef:
         Id:

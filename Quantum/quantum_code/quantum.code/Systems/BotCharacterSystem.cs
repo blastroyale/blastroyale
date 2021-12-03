@@ -25,7 +25,7 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			var playerLimit = f.RuntimeConfig.TotalFightersLimit;
+			var playerLimit = f.RuntimeConfig.PlayersLimit;
 			var botIds = new List<PlayerRef>();
 			
 			for (var i = 0; i < playerLimit; i++)
@@ -449,7 +449,7 @@ namespace Quantum.Systems
 			foreach (var consumableCandidate in iterator)
 			{
 				if (consumableCandidate.Component.ConsumableType != consumableType ||
-				    (consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component.PowerAmount))
+				    consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component.Amount)
 				{
 					continue;
 				}

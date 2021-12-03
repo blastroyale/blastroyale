@@ -1,4 +1,4 @@
-#define PLAYER_COUNT 15
+#define PLAYER_COUNT 32
 #pragma max_players PLAYER_COUNT
 
 // COMPONENTS
@@ -40,7 +40,6 @@ component PlayerCharacterCharging
 	FP ChargeEndTime;
 }
 
-signal PlayerLeft(player_ref player, entity_ref entity);
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
 
 // New Shape Cast signals - Move up when the feature is fully integrated

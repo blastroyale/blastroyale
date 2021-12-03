@@ -24,6 +24,5 @@ namespace FirstLight.Game.Data
 		public readonly List<TimedBoxData> TimedBoxes = new List<TimedBoxData>();
 		public readonly List<LootBoxData> CoreBoxes = new List<LootBoxData>();
 		public readonly List<GameId> Emoji = new List<GameId>();
-		public readonly List<AdventureData> AdventureProgress = new List<AdventureData>();
 	}
 }

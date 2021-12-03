@@ -1,8 +1,15 @@
 singleton component GameContainer
 {
 	array<PlayerMatchData>[PLAYER_COUNT] PlayersData;
+	GameMode GameMode;
 	UInt32 CurrentProgress;
 	UInt32 TargetProgress;
+}
+
+enum GameMode
+{
+	Deathmatch,
+	BattleRoyale
 }
 
 signal GameEnded();

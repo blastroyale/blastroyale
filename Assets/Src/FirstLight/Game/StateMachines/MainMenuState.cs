@@ -30,7 +30,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-		private readonly IStatechartEvent _nameEnteredEvent = new StatechartEvent("Name Entered Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
@@ -46,7 +45,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly CratesMenuState _cratesMenuState;
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
-		private readonly ProgressionMenuState _progressMenuState;
 		private readonly ShopMenuState _shopMenuState;
 		private Type _currentScreen;
 
@@ -62,7 +60,6 @@ namespace FirstLight.Game.StateMachines
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
-			_progressMenuState = new ProgressionMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 		}
 
@@ -106,17 +103,16 @@ namespace FirstLight.Game.StateMachines
 			var shopMenu = stateFactory.Nest("Shop Menu");
 			var lootMenu = stateFactory.Nest("Loot Menu");
 			var trophyRoadMenu = stateFactory.Nest("Trophy Road Menu");
-			var progressMenu = stateFactory.Nest("Progress Menu");
 			var collectLoot = stateFactory.Nest("Collect Loot Menu");
 			var cratesMenu = stateFactory.Nest("Crates Menu");
 			var socialMenu = stateFactory.State("Social Menu");
 			var settingsMenu = stateFactory.State("Settings Menu");
-			var enterNameCheck = stateFactory.Choice("Check name Entry State");
-			var enterNameDialog = stateFactory.State("Enter Name Dialog");
+			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
+			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-
+			
 			screenCheck.Transition().Condition(CheckAutoLootBoxes).Target(collectLoot);
 			screenCheck.Transition().Condition(CheckOverflowLootSpentHc).Target(collectLoot);
 			screenCheck.Transition().Condition(CheckOverflowLoot).Target(overflowLootMenu);
@@ -138,21 +134,17 @@ namespace FirstLight.Game.StateMachines
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 			
 			homeMenu.OnEnter(OpenPlayMenuUI);
-			homeMenu.Event(_playClickedEvent).OnTransition(SendPlayClickedEvent).Target(enterNameCheck);
+			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			
-			enterNameCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
-			enterNameCheck.Transition().Target(final);
+			playClickedCheck.OnEnter(SendPlayClickedEvent);
+			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
+			playClickedCheck.Transition().Target(final);
 
-			enterNameDialog.OnEnter(OpenEnterNameDialog);
-			enterNameDialog.Event(_nameEnteredEvent).Target(final);
+			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(final);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
-			
-			progressMenu.OnEnter(OpenProgressMenuUI);
-			progressMenu.Nest(ProgressMenuStateSetup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			progressMenu.OnExit(CloseProgressMenuUI);
 			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
@@ -179,11 +171,6 @@ namespace FirstLight.Game.StateMachines
 			
 			socialMenu.OnEnter(OpenSocialMenuUI);
 			socialMenu.OnExit(CloseSocialMenuUI);
-			
-			void ProgressMenuStateSetup(IStateFactory factory)
-			{
-				_progressMenuState.Setup(factory, final);
-			}
 		}
 
 		private void SubscribeEvents()
@@ -279,9 +266,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsNameNotSet()
 		{
-			return _gameDataProvider.AdventureDataProvider.GetInfo(0).IsCompleted &&
-			       !_gameDataProvider.AdventureDataProvider.AdventuresCompletedTagged.Contains(0) &&
-			       _gameDataProvider.PlayerDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
+			return _gameDataProvider.PlayerDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -337,7 +322,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LootOptionsScreenPresenter>();
 			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
 		}
-		
+
 		private void OpenTrophyRoadMenuUI()
 		{
 			var data = new TrophyRoadScreenPresenter.StateData
@@ -412,24 +397,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<SocialScreenPresenter>();
 		}
-		
-		private void OpenProgressMenuUI()
-		{
-			var data = new ProgressionScreenPresenter.StateData
-			{
-				OnProgressMenuClosedClicked = OnTabClickedCallback<ProgressionScreenPresenter>,
-			};
-			
-			_uiService.OpenUi<ProgressionScreenPresenter, ProgressionScreenPresenter.StateData>(data);
-		}
-		
-		private void CloseProgressMenuUI()
-		{
-			_uiService.CloseUi<ProgressionScreenPresenter>();
-		}
 
-		private void OpenEnterNameDialog()
+		private void OpenEnterNameDialog(IWaitActivity activity)
 		{
+			var closureActivity = activity;
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.Yes,
@@ -443,7 +414,7 @@ namespace FirstLight.Game.StateMachines
 			void OnNameSet(string newName)
 			{
 				_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = newName });
-				_statechartTrigger(_nameEnteredEvent);
+				closureActivity.Complete();
 			}
 		}
 
@@ -574,12 +545,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void PlayButtonClicked()
 		{
-			var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
+			/*var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
 			var playerLevel = _gameDataProvider.PlayerDataProvider.Level.Value;
 			
 			if (playerLevel < adventureIdOffset)
 			{
-				_gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value = (int) playerLevel;
+				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = (int) playerLevel;
 			}
 			else
 			{
@@ -592,21 +563,21 @@ namespace FirstLight.Game.StateMachines
 				var adventureId = mapTick % GameConstants.RotationAdventuresCount + adventureIdOffset;
 					
 				// With X == 3, for instance, possible Adventure IDs will be (0, 1 and 2) + ftueAdventuresCount
-				_gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value = adventureId;
-			}
+				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = adventureId;
+			}*/
 				
 			_statechartTrigger(_playClickedEvent);
 		}
 
 		private void SendPlayClickedEvent()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			
 			var dictionary = new Dictionary<string, object> 
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"map_id", info.Config.Id},
-				{"map_name", info.Config.Map},
+				{"map_id", config.Id},
+				{"map_name", config.Map},
 			};
 			
 			_services.AnalyticsService.LogEvent("play_clicked", dictionary);

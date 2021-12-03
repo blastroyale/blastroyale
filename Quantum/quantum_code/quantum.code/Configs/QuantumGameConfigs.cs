@@ -15,6 +15,8 @@ namespace Quantum
 		public FP PlayerRespawnTime;
 		public FP PlayerForceRespawnTime;
 		public FP GoToNextMatchForceTime;
+		public FP ShrinkingSizeK;
+		public FP ShrinkingBorderK;
 		public int PlayerDefaultHealth;
 		public FP PlayerDefaultSpeed;
 		public int PlayerDefaultInterimArmour;

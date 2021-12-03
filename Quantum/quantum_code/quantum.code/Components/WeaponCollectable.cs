@@ -17,5 +17,16 @@ namespace Quantum
 			
 			f.Add(e, collectable);
 		}
+
+		/// <summary>
+		/// Collects this given <paramref name="entity"/> by the given <paramref name="player"/>
+		/// </summary>
+		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
+		{
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var collectable = f.Get<Collectable>(entity);
+			
+			playerCharacter->SetWeapon(f, playerEntity, collectable.GameId, ItemRarity.Common, 1);
+		}
 	}
 }

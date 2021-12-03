@@ -1,6 +1,4 @@
 using Quantum.Systems;
-using Quantum.Systems.Collectables;
-using Quantum.Systems.Spawners;
 
 namespace Quantum 
 {
@@ -30,14 +28,15 @@ namespace Quantum
 				new MatchDataSystem(),		// Must be the first to guarantee that receives all the events before entities are deleted
 				new NavMeshAgentSystem(),
 				new StatusModifierSystemGroup(),
-				new CollectableSystemGroup(),
 				new PowerUpsSystemGroup(),
 				new DummyCharacterSystem(),
+				new CollectableSystem(),
 				new DropOnDeathSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
-				new PlatformSpawnerSystemGroup(),
+				new ShrinkingCircleSystem(),
+				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
 				new PlayerCharacterSystem(),

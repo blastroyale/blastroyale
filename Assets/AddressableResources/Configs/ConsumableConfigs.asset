@@ -31,25 +31,25 @@ MonoBehaviour:
           Value: 240296495379453662
       PowerAmount: 100
     - Id: 127
-      ConsumableType: 3
+      ConsumableType: 2
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 10
     - Id: 128
-      ConsumableType: 3
+      ConsumableType: 2
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 32
     - Id: 126
-      ConsumableType: 4
+      ConsumableType: 3
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 400
     - Id: 129
-      ConsumableType: 4
+      ConsumableType: 3
       AssetRef:
         Id:
           Value: 240296495379453662

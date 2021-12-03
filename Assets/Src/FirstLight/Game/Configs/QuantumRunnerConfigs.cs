@@ -23,7 +23,6 @@ namespace FirstLight.Game.Configs
 		
 		private const string _roomPropertyKeyGitCommit = "g";
 		private const string _roomPropertyKeyMap = "m";
-		private const string _roomPropertyKeyAdventure = "a";
 		
 		[SerializeField] private RuntimeConfig _runtimeConfig;
 		[SerializeField] private DeterministicSessionConfigAsset _deterministicConfigAsset;
@@ -45,23 +44,24 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
-		public void SetRuntimeConfig(AdventureInfo info)
+		public void SetRuntimeConfig(MapConfig config)
 		{
-			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{info.Config.Map.ToString()}.asset");
+			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
 			
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
-			_runtimeConfig.BotDifficultyLevel = info.Config.EnemiesDifficulty;
-			_runtimeConfig.MapId = info.Config.Map;
+			_runtimeConfig.BotDifficultyLevel = 1;
+			_runtimeConfig.MapId = config.Map;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
-			_runtimeConfig.TotalFightersLimit = info.Config.TotalFightersLimit;
-			_runtimeConfig.DeathmatchKillCount = info.Config.DeathmatchKillCount;
+			_runtimeConfig.PlayersLimit = config.PlayersLimit;
+			_runtimeConfig.GameMode = config.GameMode;
+			_runtimeConfig.GameEndTarget = config.GameEndTarget;
 		}
 
 		/// <inheritdoc cref="EnterRoomParams"/>
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetDefaultEnterRoomParams(AdventureInfo info)
+		public EnterRoomParams GetDefaultEnterRoomParams(MapConfig config)
 		{
 			var roomParams = new EnterRoomParams
 			{
@@ -73,13 +73,13 @@ namespace FirstLight.Game.Configs
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreationRoomProperties(info),
+					CustomRoomProperties = GetCreationRoomProperties(config),
 					CustomRoomPropertiesForLobby = GetRoomPropertiesToExposeInLobby(),
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
 					IsVisible = true,
-					MaxPlayers = (byte) info.Config.PlayersLimit,
+					MaxPlayers = (byte) config.PlayersLimit,
 					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000
 				}
 			};
@@ -99,12 +99,12 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public OpJoinRandomRoomParams GetDefaultJoinRoomParams(AdventureInfo info)
+		public OpJoinRandomRoomParams GetDefaultJoinRoomParams(MapConfig config)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetMatchMakingRoomProperties(info),
-				ExpectedMaxPlayers = (byte) info.Config.PlayersLimit,
+				ExpectedCustomRoomProperties = GetMatchMakingRoomProperties(config),
+				ExpectedMaxPlayers = (byte) config.PlayersLimit,
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -116,9 +116,9 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(AdventureInfo info)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(MapConfig config)
 		{
-			var gameMode = info.Config.PlayersLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+			var gameMode = config.PlayersLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
 			
 			return new QuantumRunner.StartParameters
 			{
@@ -134,31 +134,28 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = InstantReplaySettings.Default,
 				HeapExtraCount = 0,
-				PlayerCount = info.Config.PlayersLimit
+				PlayerCount =config.PlayersLimit
 			};
 		}
 
-		private Hashtable GetCreationRoomProperties(AdventureInfo info)
+		private Hashtable GetCreationRoomProperties(MapConfig config)
 		{
-			var properties = GetMatchMakingRoomProperties(info);
+			var properties = GetMatchMakingRoomProperties(config);
 			
 			properties.Add(RoomPropertyKeyStartTime, DateTime.UtcNow.Ticks);
 
 			return properties;
 		}
 		
-		private Hashtable GetMatchMakingRoomProperties(AdventureInfo info)
+		private Hashtable GetMatchMakingRoomProperties(MapConfig config)
 		{
 			return new Hashtable
 			{
 				// The commit should guarantee the same Quantum build version + App version etc.
 				{ _roomPropertyKeyGitCommit, VersionUtils.Commit },
 				
-				// We send the map GameId as an int.
-				{ _roomPropertyKeyMap, info.Config.Map.ToString("D") },
-				
-				// We send the game adventure Id
-				{ _roomPropertyKeyAdventure, info.AdventureData.Id },
+				// We send the game map Id
+				{ _roomPropertyKeyMap, config.Id },
 			};
 		}
 
@@ -171,8 +168,7 @@ namespace FirstLight.Game.Configs
 			return new []
 			{
 				_roomPropertyKeyGitCommit,
-				_roomPropertyKeyMap,
-				_roomPropertyKeyAdventure
+				_roomPropertyKeyMap
 			};
 		}
 	}

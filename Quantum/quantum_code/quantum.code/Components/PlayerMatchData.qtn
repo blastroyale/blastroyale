@@ -5,7 +5,7 @@ struct PlayerMatchData
 	UInt32 PlayerLevel;
 	GameId PlayerSkin;
 	
-	UInt32 CurrentKillRank;
+	FP FirstDeathTime;
 	UInt32 PlayersKilledCount;
 	UInt32 DamageDone;
 	UInt32 HealingDone;
@@ -13,5 +13,5 @@ struct PlayerMatchData
 	UInt32 HealingReceived;
 	UInt32 DeathCount;
 	UInt32 SuicideCount;
-	UInt32 SpecialUsedCount;
+	UInt32 SpecialsUsedCount;
 }

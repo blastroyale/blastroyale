@@ -28,16 +28,15 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
-
 		protected override void OnOpened()
 		{
-			var adventureInfo = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var mapConfig = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 
 			_animation.clip = _firstToXKillsCountdownClip;
 			_animation.Play();
 
 			_firstToXKillsText.text =  string.Format(ScriptLocalization.AdventureMenu.FirstToXKills,
-				adventureInfo.Config.DeathmatchKillCount.ToString());
+			                                         mapConfig.GameEndTarget.ToString());
 			
 			this.LateCall(_animation.clip.length, Close);
 		}

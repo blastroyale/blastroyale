@@ -41,6 +41,8 @@ MonoBehaviour:
         Z:
           RawValue: 0
       SolverIterations: 4
+      PositionSolverIterations: 2
+      UseJoints: 1
       UseAngularVelocity: 1
       UseVerticalTransform: 1
       PenetrationAllowance:
@@ -82,6 +84,7 @@ MonoBehaviour:
       DefaultBucketsCapacity: 16
       DefaultIslandsCapacity: 512
       DefaultManifoldsCapacity: 1024
+      DefaultJointsCapacity: 64
       DefaultPhysicsMaterial:
         Id:
           Value: 534549481968428075
@@ -134,7 +137,8 @@ MonoBehaviour:
     DeltaTimeType: 0
     HeapPageShift: 15
     HeapPageCount: 256
-    HeapExtraCount: 0
+    HeapExtraCount: 1
     ThreadCount: 2
     ChecksumSnapshotHistoryLengthSeconds:
       RawValue: 196608
+    ChecksumErrorDumpOptions: 0

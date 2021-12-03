@@ -10,6 +10,7 @@ namespace Quantum
 		public string PlayerName;
 		public bool IsBot;
 		public bool IsLocalPlayer;
+		public uint PlayerRank;
 		public PlayerMatchData Data;
 
 		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.GetSingleton<GameContainer>().PlayersData[player])

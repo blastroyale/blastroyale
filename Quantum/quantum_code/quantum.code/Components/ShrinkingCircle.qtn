@@ -1,0 +1,15 @@
+singleton component ShrinkingCircle
+{
+	FPVector2 CurrentCircleCenter;
+	FPVector2 TargetCircleCenter;
+	FP CurrentRadius;
+	FP TargetRadius;
+	FP ShrinkingStartTime;
+	FP ShrinkingDurationTime;
+	Int32 Step;
+}
+
+synced event OnNewShrinkingCircle
+{
+	ShrinkingCircle ShrinkingCircle;
+}

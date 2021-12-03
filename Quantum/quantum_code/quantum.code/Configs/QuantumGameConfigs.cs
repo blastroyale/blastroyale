@@ -48,7 +48,7 @@ namespace Quantum
 		public int StatsArmorBaseValue;
 		public FP StatsArmorRarityMultiplier;
 		public FP StatsArmorLevelStepMultiplier;
-		public List<GameId> CratesCycle;
+		//public List<GameId> CratesCycle;
 	}
 	
 	/// <summary>

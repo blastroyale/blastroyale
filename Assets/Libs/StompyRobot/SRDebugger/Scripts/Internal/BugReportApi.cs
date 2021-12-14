@@ -120,7 +120,7 @@ namespace SRDebugger.Internal
 #if !UNITY_2017_1_OR_NEWER
             if(_webRequest.isError)
 #else
-                if (_webRequest.isNetworkError)
+                if (_webRequest.result == UnityWebRequest.Result.ConnectionError)
 #endif
             {
                 ErrorMessage = "Request Error: " + _webRequest.error;

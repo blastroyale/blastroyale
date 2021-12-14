@@ -379,20 +379,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "b244668d467d4bab895cb5440e1f5e4f"
-                },
-                "m_SlotId": 3
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "f78e6ece18814db1b852beb7446fe43a"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "b7a9603a25d545828053746d8cf8e153"
                 },
                 "m_SlotId": 2
@@ -814,6 +800,8 @@
         "m_GuidSerialized": "c7749da1-536e-4ea2-8015-ce18fa866efc"
     },
     "m_Name": "LineHeight",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_098ad2f4c76f4778909cde381f5b5cfa",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -1829,6 +1817,8 @@
         "m_GuidSerialized": "e1cdada7-b849-44cd-b1b3-2bd7c625e4d3"
     },
     "m_Name": "CircleThickness",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_6ae01ae6587d4676927694421b1c8a49",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -1876,6 +1866,8 @@
         "m_GuidSerialized": "c6bc1628-e42b-45f1-b8d2-e5f0bb2ae106"
     },
     "m_Name": "LineWidth",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_710c5e96fc9e48f1be679954b76d5d00",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -1970,6 +1962,8 @@
         "m_GuidSerialized": "015faafc-2def-4eb0-b2c8-4a95538cce4f"
     },
     "m_Name": "CircleSub",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_728cc59b5ebc44f0a1d3d1c1e332a138",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -2228,6 +2222,8 @@
         "m_GuidSerialized": "6a51f8a5-96a8-4037-ae2f-45ec625d2121"
     },
     "m_Name": "LineSub",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_92fdf375f5784c49959e8a87b3f752d9",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -2555,7 +2551,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Alpha",
     "m_StageCapability": 2,
-    "m_Value": 1.0,
+    "m_Value": 0.5,
     "m_DefaultValue": 1.0,
     "m_Labels": []
 }
@@ -2870,6 +2866,8 @@
         "m_GuidSerialized": "afc26709-ef39-4515-a8bc-000178e50e6e"
     },
     "m_Name": "Color",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_c456f3cd5c7a48ceb6529b327462c057",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -2944,6 +2942,8 @@
         "m_GuidSerialized": "33a18a46-7452-4feb-b6ff-c4cd888d8d16"
     },
     "m_Name": "CircleSize",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_cd047edbde144e149b5ea1510e81c375",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,

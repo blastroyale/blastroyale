@@ -104,7 +104,7 @@ namespace Quantum
 
 			f.Events.OnPlayerDead(Player, e);
 			f.Events.OnRemotePlayerDead(Player, e);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
 			
 			f.Remove<Targetable>(e);
 			f.Remove<HFSMAgent>(e);

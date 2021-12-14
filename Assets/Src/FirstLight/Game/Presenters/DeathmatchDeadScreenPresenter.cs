@@ -16,12 +16,12 @@ using Button = UnityEngine.UI.Button;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// Adventure Spectator Hud
+	/// The screen presenter is responsible for:
+	/// - Show the local player's state when he dies in the deathmatch
+	/// - Show all players performance that are playing the match
+	/// - Respawn the player back again into action
 	/// </summary>
-	///<remarks>
-	/// Currently without any features but added so that the logic is in place to do so.
-	/// </remarks>
-	public class AdventureSpectatorHudPresenter : AnimatedUiPresenterData<AdventureSpectatorHudPresenter.StateData>
+	public class DeathmatchDeadScreenPresenter : AnimatedUiPresenterData<DeathmatchDeadScreenPresenter.StateData>
 	{
 		public struct StateData
 		{

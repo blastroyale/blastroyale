@@ -82,7 +82,7 @@ namespace FirstLight.Game.StateMachines
 			var adventure = stateFactory.Split("Adventure");
 			var playAgainCheck = stateFactory.Choice("Play Again Check");
 			var mainMenu = stateFactory.Nest("Main Menu");
-			var ftueCheck = stateFactory.Choice("FTUE Check");
+			//var ftueCheck = stateFactory.Choice("FTUE Check");
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
@@ -92,11 +92,11 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
-			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(ftueCheck);
+			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(mainMenu);
 			initialLoading.OnExit(InitializeGame);
 			
-			ftueCheck.Transition().Condition(IsFtueEnabled).Target(adventure);
-			ftueCheck.Transition().Target(mainMenu);
+			//ftueCheck.Transition().Condition(IsFtueEnabled).Target(adventure);
+			//ftueCheck.Transition().Target(mainMenu);
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(adventure);
 			

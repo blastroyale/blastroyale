@@ -241,14 +241,14 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnUpgradeClicked()
 		{
-			if (_upgradeButtonImage.sprite == _maxUpgradeButtonSprite)
+			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
+			
+			if (info.IsMaxLevel)
 			{
 				_mainMenuServices.UiVfxService.PlayFloatingText(ScriptLocalization.MainMenu.WeaponIsAtMaxLevel);
 				
 				return;
 			}
-
-			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
 			
 			if (info.UpgradeCost <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.SC))
 			{

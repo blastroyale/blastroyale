@@ -17,18 +17,22 @@ MonoBehaviour:
     Layer: 1
     UiType: FirstLight.Game.Presenters.AdventureControlsHudPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/Adventure Spectator Hud.prefab
-    Layer: 2
-    UiType: FirstLight.Game.Presenters.AdventureSpectatorHudPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Adventure World Hud.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.AdventureWorldHudPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/Battle Royale Spectator Hud.prefab
+    Layer: 2
+    UiType: FirstLight.Game.Presenters.BattleRoyaleSpectatorHudPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/CratesScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.CratesScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/Deathmatch Dead Screen.prefab
+    Layer: 2
+    UiType: FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Disconnected Screen.prefab
     Layer: 5
     UiType: FirstLight.Game.Presenters.DisconnectedScreenPresenter, FirstLight.Game,
@@ -232,8 +236,6 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.AdventureWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.AdventureSpectatorHudPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -248,3 +250,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.BattleRoyaleSpectatorHudPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

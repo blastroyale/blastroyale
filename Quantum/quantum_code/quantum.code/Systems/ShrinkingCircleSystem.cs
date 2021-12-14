@@ -23,6 +23,8 @@ namespace Quantum.Systems
 		{
 			var circle = ProcessShrinkingCircle(f);
 			
+			Log.Debug(circle->ShrinkingDurationTime);
+			
 			if (f.Time < circle->ShrinkingStartTime)
 			{
 				return;

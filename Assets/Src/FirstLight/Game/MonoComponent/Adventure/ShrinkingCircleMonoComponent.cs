@@ -22,8 +22,10 @@ namespace FirstLight.Game.MonoComponent.Adventure
 			var diameter = Mathf.Lerp(circle.CurrentRadius.AsFloat, circle.TargetRadius.AsFloat, lerp) * 2f;
 			var center = Vector2.Lerp(circle.CurrentCircleCenter.ToUnityVector2(), circle.TargetCircleCenter.ToUnityVector2(), lerp);
 			
-			transform.localScale = new Vector3(diameter, 1f, diameter);
-			transform.position = new Vector3(center.x, transform.position.y, center.y);
+			var cachedTransform = transform;
+			
+			cachedTransform.localScale = new Vector3(diameter, 1f, diameter);
+			cachedTransform.position = new Vector3(center.x, cachedTransform.position.y, center.y);
 		}
 	}
 }

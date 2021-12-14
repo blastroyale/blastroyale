@@ -21,7 +21,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action OnLeaveClicked;
-			public QuantumPlayerMatchData Killer;
+			public PlayerRef Killer;
 		}
 		
 		[SerializeField] private Button _button;
@@ -40,8 +40,20 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
+
+			var killerName = "Shrinking Circle";
+
+			if (Data.Killer != PlayerRef.None)
+			{
+				var f = QuantumRunner.Default.Game.Frames.Verified;
+				var playersData = f.GetSingleton<GameContainer>().PlayersData;
+				var data = new QuantumPlayerMatchData(f, playersData[Data.Killer]);
+
+				killerName = data.GetPlayerName();
+			}
 			
-			_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, Data.Killer.GetPlayerName());
+			
+			_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
 		}
 
 		private void OnLeavePressed()

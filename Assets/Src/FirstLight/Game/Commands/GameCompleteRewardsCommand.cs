@@ -25,7 +25,6 @@ namespace FirstLight.Game.Commands
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			var converter = new StringEnumConverter();
-			var success = true;
 			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
 
 			var request = new ExecuteFunctionRequest

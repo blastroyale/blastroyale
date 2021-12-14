@@ -22,7 +22,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private QuantumPlayerMatchData _killerData;
+		private PlayerRef _killer;
 		
 		public BattleRoyaleState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                         Action<IStatechartEvent> statechartTrigger)
@@ -81,7 +81,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_killerData = callback.KillerData;
+			_killer = callback.PlayerKiller;
 			
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 			var cacheActivity = activity;
 			var data = new BattleRoyaleSpectatorHudPresenter.StateData
 			{
-				Killer = _killerData,
+				Killer = _killer,
 				OnLeaveClicked = LeaveClicked
 			};
 			

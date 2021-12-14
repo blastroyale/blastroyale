@@ -11,7 +11,6 @@ namespace Quantum
 		{
 			f.Add<EntityDestroyer>(e);
 			
-			f.Signals.PlayerLeft(Player, e);
 			f.Events.OnRemotePlayerLeft(Player, e);
 			f.Events.OnPlayerLeft(Player, e);
 			f.Events.OnLocalPlayerLeft(Player);
@@ -105,7 +104,7 @@ namespace Quantum
 
 			f.Events.OnPlayerDead(Player, e);
 			f.Events.OnRemotePlayerDead(Player, e);
-			f.Events.OnLocalPlayerDead(Player, e);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer);
 			
 			f.Remove<Targetable>(e);
 			f.Remove<HFSMAgent>(e);

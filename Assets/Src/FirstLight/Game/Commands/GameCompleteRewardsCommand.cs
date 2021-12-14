@@ -27,8 +27,6 @@ namespace FirstLight.Game.Commands
 			var converter = new StringEnumConverter();
 			var success = true;
 			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
-			
-			gameLogic.AdventureLogic.MarkAdventureCompleted(gameLogic.AdventureDataProvider.AdventureSelectedId.Value, success);
 
 			var request = new ExecuteFunctionRequest
 			{

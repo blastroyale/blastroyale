@@ -13,6 +13,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -22,16 +23,15 @@ namespace FirstLight.Game.StateMachines
 	public class GameSimulationState
 	{
 		private readonly IStatechartEvent _simulationReadyEvent = new StatechartEvent("Simulation Ready Event");
-		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
-		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
 		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
 		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
 
+		private readonly DeathmatchState _deathmatchState;
+		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new Dictionary<PlayerRef, Pair<int, int>>();
 		
 		/// <summary>
 		/// True if the player marked the game state to repeat again
@@ -45,17 +45,21 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
+			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
+			_battleRoyaleState = new BattleRoyaleState(gameDataProvider, services, uiService, statechartTrigger);
 		}
 
 		/// <summary>
-		/// Setups the Adventure gameplay state
+		/// Setups the Game Simulation state
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 	
-			var gameplay = stateFactory.Nest("Game Play Running");
+			var deathmatch = stateFactory.Nest("Deathmatch Mode");
+			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
+			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
@@ -65,17 +69,26 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
-			startSimulation.Event(_simulationReadyEvent).Target(gameplay);
-			startSimulation.OnEnter(PublishMatchReady);
+			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
 			startSimulation.OnExit(CloseLoadingScreen);
-			startSimulation.OnExit(PlayMusic);
+			startSimulation.OnExit(PublishMatchReady);
+			startSimulation.OnExit(SetPlayerMatchData);
+			startSimulation.OnExit(MatchStartAnalytics);
+			
+			modeCheck.OnEnter(OpenAdventureWorldHud);
+			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
+			modeCheck.Transition().Target(battleRoyale);
+			modeCheck.OnExit(PlayMusic);
 
-			gameplay.OnEnter(OpenAdventureWorldHud);
-			gameplay.Nest(GameplaySetup);
-			gameplay.Event(_gameEndedEvent).Target(gameEnded);
-			gameplay.Event(_gameQuitEvent).Target(final);
-			gameplay.OnExit(CloseAdventureHud);
-			gameplay.OnExit(PublishMatchEnded);
+			deathmatch.Nest(_deathmatchState.Setup);
+			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
+			deathmatch.Event(_gameQuitEvent).Target(final);
+			deathmatch.OnExit(PublishMatchEnded);
+			
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
+			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
+			battleRoyale.Event(_gameQuitEvent).Target(final);
+			battleRoyale.OnExit(PublishMatchEnded);
 
 			gameEnded.OnEnter(SendGameplayDataAnalytics);
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
@@ -91,49 +104,11 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
-		private void GameplaySetup(IStateFactory stateFactory)
-		{
-			var initial = stateFactory.Initial("Initial");
-			var final = stateFactory.Final("Final");
-			var startCheck = stateFactory.Choice("Start Game Check");
-			var countdown = stateFactory.TaskWait("Countdown Hud");
-			var ftueSpawning = stateFactory.State("FTUE spawning");
-			var alive = stateFactory.State("Alive Hud");
-			var dead = stateFactory.State("Dead Hud");
-
-			initial.Transition().Target(startCheck);
-
-			startCheck.Transition().Condition(IsFtueLevel).Target(ftueSpawning);
-			startCheck.Transition().Target(countdown);
-			startCheck.OnExit(SetPlayerMatchData);
-			startCheck.OnExit(MatchStartAnalytics);
-			
-			ftueSpawning.Event(_localPlayerAliveEvent).Target(alive);
-			ftueSpawning.OnExit(PublishMatchStarted);
-			
-			countdown.OnEnter(OpenAdventureHud);
-			countdown.OnEnter(ShowCountdownHud);
-			countdown.WaitingFor(Countdown).Target(alive);
-			countdown.OnExit(PublishMatchStarted);
-			
-			alive.OnEnter(OpenControlsHud);
-			alive.Event(_localPlayerDeadEvent).Target(dead);
-			alive.OnExit(CloseControlsHud);
-
-			dead.OnEnter(CloseAdventureHud);
-			dead.OnEnter(OpenSpectatorHud);
-			dead.Event(_localPlayerAliveEvent).OnTransition(OpenAdventureHud).Target(alive);
-			dead.OnExit(CloseSpectatorHud);
-		}
-
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 			
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
@@ -147,9 +122,9 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		private bool IsDeathmatch()
 		{
-			_statechartTrigger(_localPlayerAliveEvent);
+			return _gameDataProvider.AdventureDataProvider.SelectedMapConfig.GameMode == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -185,36 +160,6 @@ namespace FirstLight.Game.StateMachines
 			
 			_statechartTrigger(_simulationReadyEvent);
 		}
-
-		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
-		{
-			_statechartTrigger(_localPlayerDeadEvent);
-		}
-
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
-		{
-			var deadData = callback.DeadMatchData;
-			var killerData = callback.KillerMatchData;
-			
-			// "Key" = Number of times I killed this player, "Value" = number of times that player killed me.
-			if (deadData.IsLocalPlayer || killerData.IsLocalPlayer)
-			{
-				var recordName = deadData.IsLocalPlayer ? killerData.Data.Player : deadData.Data.Player;
-				
-				if (!_killsDictionary.TryGetValue(recordName, out var recordPair))
-				{
-					recordPair = new Pair<int, int>();
-					
-					_killsDictionary.Add(recordName, recordPair);
-				}
-				
-				recordPair.Key += deadData.IsLocalPlayer ? 0 : 1;
-				recordPair.Value += deadData.IsLocalPlayer ? 1 : 0;
-				
-				_killsDictionary[recordName] = recordPair;
-			}
-		}
-
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
 		{
 			var data = new QuitGameDialogPresenter.StateData { ConfirmClicked = QuitGameConfirmedClicked };
@@ -227,11 +172,6 @@ namespace FirstLight.Game.StateMachines
 			SendGameplayData(false);
 			
 			_statechartTrigger(_gameQuitEvent);
-		}
-		
-		private bool IsFtueLevel()
-		{
-			return _gameDataProvider.AdventureDataProvider.AdventureSelectedId.Value == 0;
 		}
 
 		private void QuitGameConfirmedClicked()
@@ -251,7 +191,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
-			var data = new QuantumPlayerMatchData(f,playersData[game.GetLocalPlayers()[0]]);
+			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
 			var totalPlayers = 0;
 
 			for(var i = 0; i < playersData.Length; i++) 
@@ -269,12 +209,12 @@ namespace FirstLight.Game.StateMachines
 			});
 			
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
-			_gameDataProvider.AdventureDataProvider.IncrementLevel();
+			_gameDataProvider.AdventureDataProvider.IncrementMapLevel();
 		}
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var info = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
@@ -289,18 +229,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			
-			QuantumRunner.ShutdownAll(true);
+			QuantumRunner.ShutdownAll();
 		}
 
 		private void PlayMusic()
 		{
 			_services.AudioFxService.PlayMusic(AudioId.AdventureMainLoop);
 			_services.AudioFxService.PlayClip2D(AudioId.AdventureStart1);
-		}
-
-		private void PublishMatchStarted()
-		{
-			_services.MessageBrokerService.Publish(new MatchStartedMessage());
 		}
 
 		private void PublishMatchReady()
@@ -328,16 +263,6 @@ namespace FirstLight.Game.StateMachines
 		private void OpenAdventureWorldHud()
 		{
 			_uiService.OpenUi<AdventureWorldHudPresenter>();
-		}
-		
-		private void OpenAdventureHud()
-		{
-			_uiService.OpenUi<AdventureHudPresenter>();
-		}
-
-		private void CloseAdventureHud()
-		{
-			_uiService.CloseUi<AdventureHudPresenter>();
 		}
 
 		private void GameCompleteScreen(IWaitActivity activity)
@@ -398,53 +323,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<RewardsScreenPresenter>();
 		}
-		
-		private void OpenControlsHud()
-		{
-			_uiService.OpenUi<AdventureControlsHudPresenter>();
-		}
-		
-		private void CloseControlsHud()
-		{
-			_uiService.CloseUi<AdventureControlsHudPresenter>();
-		}
-		
-		private async Task PlayerLocalDissolve()
-		{
-			await Task.Delay((int)((GameConstants.DissolveDelay + GameConstants.DissolveDuration) * 1000));
-		}
-		
-		private void OpenSpectatorHud()
-		{
-			var data = new AdventureSpectatorHudPresenter.StateData
-			{
-				KillerData = _killsDictionary
-			};
-			
-			_uiService.OpenUi<AdventureSpectatorHudPresenter, AdventureSpectatorHudPresenter.StateData>(data);
-		}
-		
-		private void CloseSpectatorHud()
-		{
-			_uiService.CloseUi<AdventureSpectatorHudPresenter>();
-		}
-
-		private async Task Countdown()
-		{
-			await Task.Delay(3000);
-		}
-		
-		private void ShowCountdownHud()
-		{
-			_uiService.OpenUi<GameCountdownScreenPresenter>();
-		}
 
 		private void SetPlayerMatchData()
 		{
 			var game = QuantumRunner.Default.Game;
 			var info = _gameDataProvider.EquipmentDataProvider.GetLoadOutInfo();
-			
-			_killsDictionary.Clear();
 			
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
@@ -458,16 +341,16 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchStartAnalytics()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 			
 			var dictionary = new Dictionary<string, object> 
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
-				{"total_bots", info.Config.TotalFightersLimit - totalPlayers},
-				{"map_id", info.Config.Id},
-				{"map_name", info.Config.Map},
+				{"total_bots", config.PlayersLimit - totalPlayers},
+				{"map_id", config.Id},
+				{"map_name", config.Map},
 			};
 
 			_services.AnalyticsService.LogEvent("match_start", dictionary);
@@ -475,18 +358,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var info = _gameDataProvider.AdventureDataProvider.AdventureSelectedInfo;
+			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			
 			var analytics = new Dictionary<string, object>
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
 				{"total_kills_amount", matchData.Data.PlayersKilledCount},
-				{"total_specials_used", matchData.Data.SpecialUsedCount},
+				{"total_specials_used", matchData.Data.SpecialsUsedCount},
 				{"total_deaths_amount", matchData.Data.DeathCount},
 				{"suicides_amount", matchData.Data.SuicideCount},
-				{"leaderboard_place", matchData.Data.CurrentKillRank},
-				{"map_id", info.Config.Id},
+				{"player_rank", matchData.PlayerRank },
+				{"map_id", config.Id},
 				{"end_state", isQuitGame ? "quit" : "ended" },
 				{"match_time", f.Time.AsFloat}
 			};

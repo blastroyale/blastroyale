@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		[SerializeField] private Button _playOnlineButton;
+		[SerializeField] private Button _playDeathmatchOnlineButton;
 		[SerializeField] private Button _playOfflineButton;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
@@ -54,6 +55,7 @@ namespace FirstLight.Game.Presenters
 			
 			_playOfflineButton.gameObject.SetActive(Debug.isDebugBuild);
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
+			_playDeathmatchOnlineButton.onClick.AddListener(OnPlayDeathmatchOnlineClicked);
 			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
@@ -92,45 +94,26 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayOnlineClicked()
 		{
-			if (CheckHasWeaponEquipped())
-			{
-				Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = false;
+			Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = false;
+			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 6;
 
-				Data.OnPlayButtonClicked();
-			}
+			Data.OnPlayButtonClicked();
+		}
+
+		private void OnPlayDeathmatchOnlineClicked()
+		{
+			Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = false;
+			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 1;
+
+			Data.OnPlayButtonClicked();
 		}
 
 		private void OnPlayOfflineClicked()
 		{
-			if (CheckHasWeaponEquipped())
-			{
-				Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = true;
+			Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = true;
+			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 6;
 
-				Data.OnPlayButtonClicked();
-			}
-		}
-		
-		private bool CheckHasWeaponEquipped()
-		{
-			if (_gameDataProvider.EquipmentDataProvider.EquippedItems.ContainsKey(GameIdGroup.Weapon))
-			{
-				return true;
-			}
-
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.Confirm,
-				ButtonOnClick = CloseDialog
-			};
-
-			Services.GenericDialogService.OpenDialog(ScriptLocalization.General.RequireWeapon, false, confirmButton);
-
-			return false;
-		}
-
-		private void CloseDialog()
-		{
-			Services.GenericDialogService.CloseDialog();
+			Data.OnPlayButtonClicked();
 		}
 
 		private void OnTrophyRoadButtonClicked()

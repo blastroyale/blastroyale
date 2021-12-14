@@ -149,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			
 #if RELEASE_BUILD
-			PlayFabSettings.TitleId = "D5A19";
+			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #else
 			PlayFabSettings.TitleId = "***REMOVED***";

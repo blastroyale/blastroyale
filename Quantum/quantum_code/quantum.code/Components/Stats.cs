@@ -88,7 +88,7 @@ namespace Quantum
 		/// Gives the given interim armour <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// This interim armour gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent (Ex: consumable).
+		/// or non existent anymore.
 		/// </summary>
 		internal void GainInterimArmour(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
@@ -125,7 +125,7 @@ namespace Quantum
 		/// Gives the given health <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// This health gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent (Ex: consumable).
+		/// or non existent anymore.
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{

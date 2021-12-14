@@ -66,11 +66,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// <inheritdoc />
 		public void OnAim(InputAction.CallbackContext context)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var game = QuantumRunner.Default;
+			var frame = game == null ? null : game.Game?.Frames?.Verified;
+			var isEmptied = frame?.Get<Weapon>(EntityView.EntityRef).Emptied ?? false;
 			var direction = context.ReadValue<Vector2>();
 			
 			_shootIndicator.SetTransformState(direction);
-			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, frame.Get<Weapon>(EntityView.EntityRef).Emptied);
+			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
 		}
 
 		/// <inheritdoc />
@@ -82,12 +84,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// <inheritdoc />
 		public void OnAimButton(InputAction.CallbackContext context)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var game = QuantumRunner.Default;
+			var frame = game == null ? null : game.Game?.Frames?.Verified;
+			var isEmptied = frame?.Get<Weapon>(EntityView.EntityRef).Emptied ?? false;
 			var isDown = context.ReadValueAsButton();
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
 			_playerView.SetMovingState(isDown);
-			_shootIndicator.SetVisualState(isDown, frame.Get<Weapon>(EntityView.EntityRef).Emptied);
+			_shootIndicator.SetVisualState(isDown, isEmptied);
 		}
 
 		/// <inheritdoc />

@@ -23,7 +23,6 @@ namespace Quantum.Commands
 			var player = playerInt == 0 ? 1 : playerInt;
 
 			container->PlayersData.GetPointer(IsLocalWinner ? playerInt : player)->PlayersKilledCount = container->TargetProgress;
-			container->UpdateRanks(f);
 			container->UpdateGameProgress(f, container->TargetProgress);
 		}
 	}

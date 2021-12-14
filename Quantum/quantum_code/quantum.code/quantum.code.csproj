@@ -214,7 +214,6 @@
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
     <Compile Include="Systems\CollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />
-    <Compile Include="Systems\DropOnDeathSystem.cs" />
     <Compile Include="Systems\DummyCharacterSystem.cs" />
     <Compile Include="Systems\PowerUps\PowerUpsSystemGroup.cs" />
     <Compile Include="Systems\SpellSystem.cs" />

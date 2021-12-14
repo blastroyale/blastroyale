@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 4012532177667323731}
   - component: {fileID: 4401133809288807453}
   m_Layer: 5
-  m_Name: Adventure Spectator Hud
+  m_Name: Deathmatch Dead Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

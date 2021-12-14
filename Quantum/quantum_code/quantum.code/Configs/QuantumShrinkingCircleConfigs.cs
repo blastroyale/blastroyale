@@ -10,7 +10,7 @@ namespace Quantum
 		public int Step;
 		public FP DelayTime;
 		public FP WarningTime;
-		public FP ShringkingTime;
+		public FP ShrinkingTime;
 	}
 
 	/// <summary>

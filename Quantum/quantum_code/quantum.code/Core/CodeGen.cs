@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -5619,12 +5620,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerDead OnLocalPlayerDead(PlayerRef Player, EntityRef Entity) {
+      public EventOnLocalPlayerDead OnLocalPlayerDead(PlayerRef Player, EntityRef Entity, PlayerRef PlayerKiller, EntityRef EntityKiller) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerDead>(EventOnLocalPlayerDead.ID);
         ev.Player = Player;
         ev.Entity = Entity;
+        ev.PlayerKiller = PlayerKiller;
+        ev.EntityKiller = EntityKiller;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6985,6 +6988,8 @@ namespace Quantum {
     public new const Int32 ID = 37;
     public PlayerRef Player;
     public EntityRef Entity;
+    public PlayerRef PlayerKiller;
+    public EntityRef EntityKiller;
     protected EventOnLocalPlayerDead(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7004,6 +7009,8 @@ namespace Quantum {
         var hash = 227;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + PlayerKiller.GetHashCode();
+        hash = hash * 31 + EntityKiller.GetHashCode();
         return hash;
       }
     }

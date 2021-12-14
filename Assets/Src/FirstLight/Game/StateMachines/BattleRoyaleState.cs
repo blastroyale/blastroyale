@@ -5,6 +5,7 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -14,6 +15,7 @@ namespace FirstLight.Game.StateMachines
 	public class BattleRoyaleState
 	{
 		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
+		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
 		
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
@@ -38,14 +40,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var startCheck = stateFactory.Choice("Start Game Check");
 			var alive = stateFactory.State("Alive Hud");
 			var spectator = stateFactory.Wait("Spectator Hud");
+			var spawning = stateFactory.State("Spawning");
 
-			initial.Transition().Target(startCheck);
+			initial.Transition().Target(spawning);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenAdventureHud);
-			initial.OnExit(PublishMatchStarted);
+			
+			spawning.OnEnter(OpenAdventureHud);
+			spawning.Event(_localPlayerAliveEvent).Target(alive);
+			spawning.OnExit(PublishMatchStarted);
 			
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(spectator);
@@ -61,12 +65,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		{
+			_statechartTrigger(_localPlayerAliveEvent);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)

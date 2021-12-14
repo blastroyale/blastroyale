@@ -13,6 +13,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -68,23 +69,23 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
-			startSimulation.Event(_simulationReadyEvent).Target(deathmatch);
+			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
 			startSimulation.OnExit(CloseLoadingScreen);
 			startSimulation.OnExit(PublishMatchReady);
 			startSimulation.OnExit(SetPlayerMatchData);
 			startSimulation.OnExit(MatchStartAnalytics);
-			startSimulation.OnExit(OpenAdventureWorldHud);
-			startSimulation.OnExit(PlayMusic);
 			
+			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
+			modeCheck.OnExit(PlayMusic);
 
 			deathmatch.Nest(_deathmatchState.Setup);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(PublishMatchEnded);
 			
-			battleRoyale.Nest(_battleRoyaleState.Setup);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(PublishMatchEnded);

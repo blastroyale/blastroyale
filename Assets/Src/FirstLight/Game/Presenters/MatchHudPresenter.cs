@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Circuit;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -8,6 +11,7 @@ using TMPro;
 using UnityEngine;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using UnityEngine.UI;
@@ -35,6 +39,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Slider _progressSlider;
 		[SerializeField] private StandingsHolderView _standings;
 		[SerializeField] private Animation _rankChangeAnimation;
+		[SerializeField] private TextMeshProUGUI _mapStatusText;
+		[SerializeField] private GameObject _timerHolder;
+		[SerializeField] private TextMeshProUGUI _timerText;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -65,6 +72,10 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
+			
+			_timerHolder.SetActive(false);
+			_mapStatusText.text = "";
 		}
 
 		private void OnDestroy()
@@ -96,6 +107,65 @@ namespace FirstLight.Game.Presenters
 			var matchData = container.GetPlayersMatchData(frame, out _);
 			
 			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
+		}
+		
+		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
+		{
+			var config =
+				_services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
+
+			// _mapStatusMessageView.OnNewShrinkingCircle(callback);
+			StartCoroutine(SetTimers(config, callback));
+		}
+		
+		private IEnumerator SetTimers(QuantumShrinkingCircleConfig config, EventOnNewShrinkingCircle callback)
+		{
+			var delayTime = config.DelayTime.AsFloat; // callback.ShrinkingCircle.ShrinkingStartTime - config.WarningTime;
+			Debug.Log("New Shrinking Circle Message");
+			Debug.Log($"Warning time: {config.WarningTime.ToString()}");
+			Debug.Log($"Delay time: {delayTime.ToString()}");
+			Debug.Log("Start Time: " + callback.ShrinkingCircle.ShrinkingStartTime);
+			Debug.Log("Duration Time: " + callback.ShrinkingCircle.ShrinkingDurationTime);
+				
+			yield return new WaitForSeconds(delayTime);
+
+			StartCoroutine(UpdateShrinkingCircleTimer(callback.ShrinkingCircle));	
+			
+			yield return new WaitForSeconds(config.WarningTime.AsFloat);
+		}
+		
+		private IEnumerator UpdateShrinkingCircleTimer(ShrinkingCircle circle)
+		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
+			
+			yield return new WaitForSeconds(config.DelayTime.AsFloat);
+
+			_timerHolder.SetActive(true);
+			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
+			
+			var endTime = Time.time + config.WarningTime.AsFloat;
+			
+			while (Time.time < endTime)
+			{
+				_timerText.text = (endTime - Time.time).ToString("N0");
+
+				yield return null;
+			}
+			
+			yield return new WaitForSeconds(config.WarningTime.AsFloat);
+			
+			_mapStatusText.text = ScriptLocalization.AdventureMenu.AreaShrinking;
+			endTime = Time.time + config.ShrinkingTime.AsFloat;
+
+			while (Time.time < endTime)
+			{
+				_timerText.text = (endTime - Time.time).ToString("N0");
+
+				yield return null;
+			}
+			
+			_timerHolder.SetActive(false);
+			_mapStatusText.text = "";
 		}
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)

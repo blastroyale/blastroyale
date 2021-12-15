@@ -8,6 +8,7 @@ namespace I2.Loc
 		public static class AdventureMenu
 		{
 			public static string AdventureCompleted 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AdventureCompleted"); } }
+			public static string AreaShrinking 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AreaShrinking"); } }
 			public static string AskForHelp 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AskForHelp"); } }
 			public static string BossAngry 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/BossAngry"); } }
 			public static string BossFurious 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/BossFurious"); } }
@@ -23,6 +24,7 @@ namespace I2.Loc
 			public static string GameOver 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GameOver"); } }
 			public static string GameStartsIn 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GameStartsIn"); } }
 			public static string Go 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Go"); } }
+			public static string GoToArea 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GoToArea"); } }
 			public static string Godlike 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Godlike"); } }
 			public static string Healing 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Healing"); } }
 			public static string JoinedGame1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/JoinedGame1"); } }
@@ -663,6 +665,7 @@ namespace I2.Loc
 		public static class AdventureMenu
 		{
 		    public const string AdventureCompleted = "AdventureMenu/AdventureCompleted";
+		    public const string AreaShrinking = "AdventureMenu/AreaShrinking";
 		    public const string AskForHelp = "AdventureMenu/AskForHelp";
 		    public const string BossAngry = "AdventureMenu/BossAngry";
 		    public const string BossFurious = "AdventureMenu/BossFurious";
@@ -678,6 +681,7 @@ namespace I2.Loc
 		    public const string GameOver = "AdventureMenu/GameOver";
 		    public const string GameStartsIn = "AdventureMenu/GameStartsIn";
 		    public const string Go = "AdventureMenu/Go";
+		    public const string GoToArea = "AdventureMenu/GoToArea";
 		    public const string Godlike = "AdventureMenu/Godlike";
 		    public const string Healing = "AdventureMenu/Healing";
 		    public const string JoinedGame1 = "AdventureMenu/JoinedGame1";

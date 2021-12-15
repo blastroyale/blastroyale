@@ -20,11 +20,11 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 983040
+        RawValue: 327680
       WarningTime:
-        RawValue: 655360
+        RawValue: 327680
       ShrinkingTime:
-        RawValue: 2621440
+        RawValue: 655360
     - Step: 2
       DelayTime:
         RawValue: 458752

@@ -9,7 +9,6 @@ namespace Quantum
 	public unsafe partial class EventOnLocalPlayerDead
 	{
 		public QuantumPlayerMatchData PlayerData;
-		public QuantumPlayerMatchData KillerData;
 	}
 	
 	public unsafe partial class EventOnPlayerKilledPlayer
@@ -36,13 +35,12 @@ namespace Quantum
 				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
 			}
 			
-			public void OnLocalPlayerDead(PlayerRef Player, PlayerRef killer)
+			public void OnLocalPlayerDead(PlayerRef Player, PlayerRef killer, EntityRef killerEntity)
 			{
 				var data = _f.GetSingleton<GameContainer>().PlayersData;
 				var matchData = data[Player];
-				var killerData = data[killer];
 				
-				var ev = OnLocalPlayerDead(Player, matchData.Entity, killer, killerData.Entity);
+				var ev = OnLocalPlayerDead(Player, matchData.Entity, killer, killerEntity);
 
 				if (ev == null)
 				{
@@ -50,7 +48,6 @@ namespace Quantum
 				}
 
 				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
-				ev.KillerData = new QuantumPlayerMatchData(_f, killerData);
 			}
 			
 			public void OnPlayerKilledPlayer(PlayerRef PlayerDead, PlayerRef PlayerKiller)

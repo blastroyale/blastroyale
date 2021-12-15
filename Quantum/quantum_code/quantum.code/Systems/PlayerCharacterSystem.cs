@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -8,7 +7,8 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, 
 	                                            ISignalOnComponentRemoved<PlayerCharacter>,
-	                                            ISignalOnPlayerDataSet, ISignalTargetChanged, ISignalHealthIsZero
+	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero,
+	                                            ISignalTargetChanged
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -67,6 +67,43 @@ namespace Quantum.Systems
 			if (f.TryGet<PlayerCharacter>(attacker, out var playerCharacter) && !f.Has<BotCharacter>(attacker))
 			{
 				f.Events.OnLocalPlayerTargetChanged(playerCharacter.Player, attacker, target);
+			}
+		}
+
+		/// <inheritdoc />
+		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
+		                               EntityRef entityKiller)
+		{
+			var deathPosition = f.Get<Transform3D>(entityDead).Position;
+			var armourDropChance = f.RNG->Next();
+			var step = 0;
+			
+			// Try to drop Health pack
+			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+			{
+				DropCollectable(f, GameId.Health, deathPosition, step, false);
+
+				step++;
+			}
+			
+			// Try to drop InterimArmourLarge, if didn't work then try to drop InterimArmourSmall
+			if (armourDropChance <= f.GameConfig.DeathDropInterimArmourLargeChance)
+			{
+				DropCollectable(f, GameId.InterimArmourLarge, deathPosition, step, false);
+
+				step++;
+			}
+			else if (armourDropChance <= f.GameConfig.DeathDropInterimArmourSmallChance + f.GameConfig.DeathDropInterimArmourLargeChance)
+			{
+				DropCollectable(f, GameId.InterimArmourSmall, deathPosition, step, false);
+
+				step++;
+			}
+			
+			// Try to drop Weapon
+			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance && f.TryGet<Weapon>(entityDead, out var weapon))
+			{
+				DropCollectable(f, weapon.GameId, deathPosition, step, true);
 			}
 		}
 		
@@ -285,6 +322,29 @@ namespace Quantum.Systems
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			playerCharacter->SetWeapon(f, e, Constants.DEFAULT_WEAPON_GAME_ID, ItemRarity.Common, 1);
+		}
+
+		private void DropCollectable(Frame f, GameId dropItemGameId, FPVector3 position, int step, bool isWeapon)
+		{
+			var angleStep = FPVector2.Rotate(FPVector2.Left, FP.PiTimes2 * step / 5);
+			var dropPosition = (angleStep * Constants.DEATH_DROP_OFFSET_RADIUS).XOY + position;
+			
+			QuantumHelpers.TryFindPosOnNavMesh(f, EntityRef.None, dropPosition, out FPVector3 newPosition);
+
+			if (isWeapon)
+			{
+				var configWeapon = f.WeaponConfigs.GetConfig(dropItemGameId);
+				var entityWeapon = f.Create(f.FindAsset<EntityPrototype>(configWeapon.AssetRef.Id));
+				f.Unsafe.GetPointer<WeaponCollectable>(entityWeapon)->Init(f, entityWeapon, newPosition, 
+				                                                           FPQuaternion.Identity, configWeapon);
+			}
+			else
+			{
+				var configConsumable = f.ConsumableConfigs.GetConfig(dropItemGameId);
+				var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
+				f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, newPosition, 
+				                                                        FPQuaternion.Identity, configConsumable);
+			}
 		}
 	}
 }

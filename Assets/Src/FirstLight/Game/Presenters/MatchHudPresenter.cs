@@ -113,27 +113,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var config =
 				_services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
-
-			// _mapStatusMessageView.OnNewShrinkingCircle(callback);
-			StartCoroutine(SetTimers(config, callback));
-		}
-		
-		private IEnumerator SetTimers(QuantumShrinkingCircleConfig config, EventOnNewShrinkingCircle callback)
-		{
-			var delayTime = config.DelayTime.AsFloat; // callback.ShrinkingCircle.ShrinkingStartTime - config.WarningTime;
-			Debug.Log("New Shrinking Circle Message");
-			Debug.Log($"Warning time: {config.WarningTime.ToString()}");
-			Debug.Log($"Delay time: {delayTime.ToString()}");
-			Debug.Log("Start Time: " + callback.ShrinkingCircle.ShrinkingStartTime);
-			Debug.Log("Duration Time: " + callback.ShrinkingCircle.ShrinkingDurationTime);
-				
-			yield return new WaitForSeconds(delayTime);
-
-			StartCoroutine(UpdateShrinkingCircleTimer(callback.ShrinkingCircle));	
 			
-			yield return new WaitForSeconds(config.WarningTime.AsFloat);
+			StartCoroutine(UpdateShrinkingCircleTimer(callback.ShrinkingCircle));
 		}
-		
+
 		private IEnumerator UpdateShrinkingCircleTimer(ShrinkingCircle circle)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);

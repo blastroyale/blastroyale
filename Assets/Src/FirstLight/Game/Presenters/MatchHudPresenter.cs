@@ -42,6 +42,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _mapStatusText;
 		[SerializeField] private GameObject _timerHolder;
 		[SerializeField] private TextMeshProUGUI _timerText;
+		[SerializeField] private Animation _mapStatusTextAnimation;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -125,6 +126,8 @@ namespace FirstLight.Game.Presenters
 
 			_timerHolder.SetActive(true);
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
+			_mapStatusTextAnimation.Rewind();
+			_mapStatusTextAnimation.Play();
 			
 			var endTime = Time.time + config.WarningTime.AsFloat;
 			
@@ -138,6 +141,8 @@ namespace FirstLight.Game.Presenters
 			yield return new WaitForSeconds(config.WarningTime.AsFloat);
 			
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.AreaShrinking;
+			_mapStatusTextAnimation.Rewind();
+			_mapStatusTextAnimation.Play();
 			endTime = Time.time + config.ShrinkingTime.AsFloat;
 
 			while (Time.time < endTime)

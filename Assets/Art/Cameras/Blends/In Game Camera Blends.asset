@@ -16,7 +16,7 @@ MonoBehaviour:
   - m_From: Spawn Camera
     m_To: Adventure Camera
     m_Blend:
-      m_Style: 3
+      m_Style: 2
       m_Time: 3
       m_CustomCurve:
         serializedVersion: 2

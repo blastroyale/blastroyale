@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_TerrainGrassy
+  m_Name: M_BRTerrainGrassy
   m_Shader: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -54,7 +54,7 @@ Material:
     - Vector1_C53F84B0: 0.14
     - Vector1_CDB3DABE: 0.3
     m_Colors:
-    - Color_1E8D7265: {r: 0.6410997, g: 2.9960785, b: 0.5019607, a: 1}
+    - Color_1E8D7265: {r: 1.4182708, g: 3.3207548, b: 0.4281474, a: 1}
     - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_FD0C58A4: {r: 0.2, g: 0.2, b: 1, a: 1}
     - Vector4_F799D26D: {r: 2, g: 1, b: 0, a: 90}

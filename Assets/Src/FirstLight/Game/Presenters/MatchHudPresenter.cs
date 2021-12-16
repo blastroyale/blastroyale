@@ -55,6 +55,15 @@ namespace FirstLight.Game.Presenters
 
 			var matchId = _gameDataProvider.AdventureDataProvider.SelectedMapId.Value;
 				
+			_currentRankText.text = "1";
+			_currentFragsText.text = "0";
+			_mapStatusText.text = "";
+			_progressSlider.value = 0;
+			_currentWeaponText.text = ScriptLocalization.GameIds.Hammer;
+			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
+			_targetFragsText.text = _fragTarget.ToString();
+			
+			_timerHolder.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_standingsButton.onClick.AddListener(OnStandingsClicked);
@@ -62,25 +71,17 @@ namespace FirstLight.Game.Presenters
 			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
-			_currentRankText.text = "1";
-			_currentFragsText.text = "0";
-			_progressSlider.value = 0;
-			_currentWeaponText.text = ScriptLocalization.GameIds.Hammer;
-
-			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
-			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
+			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
 			
-			_timerHolder.SetActive(false);
-			_mapStatusText.text = "";
 		}
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
 
@@ -88,6 +89,13 @@ namespace FirstLight.Game.Presenters
 		{
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
+		}
+
+		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			_currentWeaponText.text = callback.WeaponGameId.GetTranslation();
+			
+			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
 		}
 		
 		private void OnQuitClicked()
@@ -108,52 +116,56 @@ namespace FirstLight.Game.Presenters
 			var matchData = container.GetPlayersMatchData(frame, out _);
 			
 			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
+
+			if (container.GameMode == GameMode.BattleRoyale)
+			{
+				StartCoroutine(UpdateShrinkingCircleTimer(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>()));
+			}
 		}
 		
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			var config =
-				_services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
-			
-			StartCoroutine(UpdateShrinkingCircleTimer(callback.ShrinkingCircle));
+			StartCoroutine(UpdateShrinkingCircleTimer(callback.Game.Frames.Predicted, callback.ShrinkingCircle));
 		}
 
-		private IEnumerator UpdateShrinkingCircleTimer(ShrinkingCircle circle)
+		private IEnumerator UpdateShrinkingCircleTimer(Frame f, ShrinkingCircle circle)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
+			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 			
-			yield return new WaitForSeconds(config.DelayTime.AsFloat);
+			yield return new WaitForSeconds(time);
 
-			_timerHolder.SetActive(true);
+			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
+			
+			_mapStatusText.gameObject.SetActive(true);
+			_timerHolder.SetActive(true);
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
 			
-			var endTime = Time.time + config.WarningTime.AsFloat;
-			
-			while (Time.time < endTime)
+			while (Time.time < time)
 			{
-				_timerText.text = (endTime - Time.time).ToString("N0");
+				_timerText.text = (time - Time.time).ToString("N0");
 
 				yield return null;
 			}
 			
-			yield return new WaitForSeconds(config.WarningTime.AsFloat);
-			
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.AreaShrinking;
+			time = Time.time + (circle.ShrinkingStartTime + circle.ShrinkingDurationTime - 
+			                    QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
+			
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
-			endTime = Time.time + config.ShrinkingTime.AsFloat;
 
-			while (Time.time < endTime)
+			while (Time.time < time)
 			{
-				_timerText.text = (endTime - Time.time).ToString("N0");
+				_timerText.text = (time - Time.time).ToString("N0");
 
 				yield return null;
 			}
 			
 			_timerHolder.SetActive(false);
-			_mapStatusText.text = "";
+			_mapStatusText.gameObject.SetActive(false);
 		}
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -176,14 +188,6 @@ namespace FirstLight.Game.Presenters
 			_currentFragsText.text = kills.ToString();
 			_progressSlider.value = kills / (float)_fragTarget;
 		}
-
-		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			_currentWeaponText.text = callback.WeaponGameId.GetTranslation();
-			
-			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
-		}
-		
 
 		private void OnStandingsClicked()
 		{

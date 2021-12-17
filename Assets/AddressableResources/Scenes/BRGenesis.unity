@@ -2696,6 +2696,7 @@ MonoBehaviour:
   - {fileID: 1992804786}
   - {fileID: 1992804785}
   - {fileID: 1992804784}
+  - {fileID: 1992804838}
   - {fileID: 1992804782}
   - {fileID: 1992804781}
   - {fileID: 1992804780}
@@ -2910,7 +2911,7 @@ Transform:
   m_GameObject: {fileID: 990306057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 500, y: 1, z: 500}
   m_Children:
   - {fileID: 121657918}
   - {fileID: 43648814}
@@ -10183,6 +10184,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -7124416401763349795, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7103098681405850615, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -11915,6 +11920,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5318389641178713093, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5387201871883815952, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
@@ -12234,6 +12243,10 @@ PrefabInstance:
     - target: {fileID: 7822994237599643147, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839284906630838130, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7841555764547615427, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -14717,6 +14730,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mesh: {fileID: 6712961319118786353, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
+--- !u!1 &1992804837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5318389641178713093, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
+  m_PrefabInstance: {fileID: 1992804679}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1992804838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992804837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 5935235449539149909, guid: 85b70f3b7a4105e4c90d72b9a7f59696, type: 3}
   Settings:
     MutableMode: 0
     PhysicsMaterial:

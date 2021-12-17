@@ -40,9 +40,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private StandingsHolderView _standings;
 		[SerializeField] private Animation _rankChangeAnimation;
 		[SerializeField] private TextMeshProUGUI _mapStatusText;
-		[SerializeField] private GameObject _timerHolder;
-		[SerializeField] private TextMeshProUGUI _timerText;
-		[SerializeField] private Animation _mapStatusTextAnimation;
+		[SerializeField] private MapTimerView _mapTimerView;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -63,7 +61,6 @@ namespace FirstLight.Game.Presenters
 			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 			
-			_timerHolder.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_standingsButton.onClick.AddListener(OnStandingsClicked);
@@ -119,55 +116,15 @@ namespace FirstLight.Game.Presenters
 
 			if (container.GameMode == GameMode.BattleRoyale)
 			{
-				StartCoroutine(UpdateShrinkingCircleTimer(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>()));
+				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
 			}
 		}
 		
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			StartCoroutine(UpdateShrinkingCircleTimer(callback.Game.Frames.Predicted, callback.ShrinkingCircle));
+			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
 		}
 
-		private IEnumerator UpdateShrinkingCircleTimer(Frame f, ShrinkingCircle circle)
-		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
-			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
-			
-			yield return new WaitForSeconds(time);
-
-			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
-			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
-			
-			_mapStatusText.gameObject.SetActive(true);
-			_timerHolder.SetActive(true);
-			_mapStatusTextAnimation.Rewind();
-			_mapStatusTextAnimation.Play();
-			
-			while (Time.time < time)
-			{
-				_timerText.text = (time - Time.time).ToString("N0");
-
-				yield return null;
-			}
-			
-			_mapStatusText.text = ScriptLocalization.AdventureMenu.AreaShrinking;
-			time = Time.time + (circle.ShrinkingStartTime + circle.ShrinkingDurationTime - 
-			                    QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
-			
-			_mapStatusTextAnimation.Rewind();
-			_mapStatusTextAnimation.Play();
-
-			while (Time.time < time)
-			{
-				_timerText.text = (time - Time.time).ToString("N0");
-
-				yield return null;
-			}
-			
-			_timerHolder.SetActive(false);
-			_mapStatusText.gameObject.SetActive(false);
-		}
-		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];

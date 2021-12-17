@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 974ff18d55e6b2c42b84b465be5e0fa8
+guid: 85b70f3b7a4105e4c90d72b9a7f59696
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
   externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ColorGrads
-    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -18,37 +13,72 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Ground_Desert
-    second: {fileID: 2100000, guid: 27c04e2ac3c9c4b4695c7c897edb4cf5, type: 2}
+    second: {fileID: 2100000, guid: c112d356a55fb7e40b883a406210febc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ground_Hot
-    second: {fileID: 2100000, guid: 712e3bfba0ecb084fac0198914c0d25c, type: 2}
+      name: M_Apc
+    second: {fileID: 2100000, guid: 1827869761088354d9d48372016f2ce8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ground_Urban
-    second: {fileID: 2100000, guid: 7126f4d5f0c56ec43b81222b6f1e86fd, type: 2}
+      name: M_ApcAlt
+    second: {fileID: 2100000, guid: caa89ac44d59b2b4da14d9f2f4944b5a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Road1
-    second: {fileID: 2100000, guid: 8f200e224654a3b4a88319b2a990a840, type: 2}
+      name: M_ApcVeh
+    second: {fileID: 2100000, guid: 7ac3bbbbdec37f74fb7fa1719c09ac4a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Water2
-    second: {fileID: 2100000, guid: d84aaeba965348e40b4422eb7876e13a, type: 2}
+      name: M_BR
+    second: {fileID: 2100000, guid: 2b070fc2713e7de46a871350bf5c6644, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: phongE1
+      name: M_ColorAtlas
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Glass
+    second: {fileID: 2100000, guid: 4b10abe931b4e104ea703e265261351b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Lava
     second: {fileID: 2100000, guid: ce054cda6d2ea6549a47bd5d1390c960, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: terrain
-    second: {fileID: 2100000, guid: 2842376a7d36f8c43a6be1947880cb11, type: 2}
+      name: M_Nature
+    second: {fileID: 2100000, guid: ba3a910668858004a995bf9e88018aa9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Plane
+    second: {fileID: 2100000, guid: bae14410fa5f9d14998122797694ac0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Road
+    second: {fileID: 2100000, guid: 26b222bad5ecbe54594fb7b17ebc555b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Water
+    second: {fileID: 2100000, guid: d84aaeba965348e40b4422eb7876e13a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TerrainGreen
+    second: {fileID: 2100000, guid: 281f214aea63fd1448ee900d8fd36403, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Terrain_Desert
+    second: {fileID: 2100000, guid: 6034f85158339724f9dd612091c871b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -102,10 +132,10 @@ ModelImporter:
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15
+    secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVMarginMethod: 1
-    secondaryUVMinLightmapResolution: 10
+    secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1

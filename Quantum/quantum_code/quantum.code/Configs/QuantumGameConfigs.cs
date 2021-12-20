@@ -48,7 +48,10 @@ namespace Quantum
 		public int StatsArmorBaseValue;
 		public FP StatsArmorRarityMultiplier;
 		public FP StatsArmorLevelStepMultiplier;
-		public List<GameId> CratesCycle;
+		public FP DeathDropHealthChance;
+		public FP DeathDropInterimArmourLargeChance;
+		public FP DeathDropInterimArmourSmallChance;
+		public FP DeathDropWeaponChance;
 	}
 	
 	/// <summary>

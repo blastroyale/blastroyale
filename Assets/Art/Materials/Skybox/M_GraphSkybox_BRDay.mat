@@ -48,7 +48,7 @@ Material:
     - Color_49AC444C: {r: 0, g: 0, b: 0, a: 0}
     - Color_CB580CB6: {r: 0.8396226, g: 0.25875157, b: 0.5008373, a: 1}
     - Color_E46740D2: {r: 2.270603, g: 1.5929885, b: 1.3671169, a: 0}
-    - Color_F1A1AA80: {r: 0.35573995, g: 1.0147957, b: 2.976984, a: 1}
+    - Color_F1A1AA80: {r: 2.3622072, g: 0.45771745, b: 0.28227612, a: 1}
     - Vector3_75B35D82: {r: 0, g: -0.24, b: 0, a: 0}
     - _SunDirection: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -73,6 +73,8 @@ synced event OnLocalPlayerDead
 {
 	local player_ref Player;
 	entity_ref Entity;
+	player_ref PlayerKiller;
+	entity_ref EntityKiller;
 }
 
 synced event OnLocalPlayerFailedShoot

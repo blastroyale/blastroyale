@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using UnityEngine.UI;
@@ -35,6 +36,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Slider _progressSlider;
 		[SerializeField] private StandingsHolderView _standings;
 		[SerializeField] private Animation _rankChangeAnimation;
+		[SerializeField] private TextMeshProUGUI _mapStatusText;
+		[SerializeField] private MapTimerView _mapTimerView;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -47,6 +50,14 @@ namespace FirstLight.Game.Presenters
 
 			var matchId = _gameDataProvider.AdventureDataProvider.SelectedMapId.Value;
 				
+			_currentRankText.text = "1";
+			_currentFragsText.text = "0";
+			_mapStatusText.text = "";
+			_progressSlider.value = 0;
+			_currentWeaponText.text = ScriptLocalization.GameIds.Hammer;
+			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
+			_targetFragsText.text = _fragTarget.ToString();
+			
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_standingsButton.onClick.AddListener(OnStandingsClicked);
@@ -54,21 +65,17 @@ namespace FirstLight.Game.Presenters
 			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
-			_currentRankText.text = "1";
-			_currentFragsText.text = "0";
-			_progressSlider.value = 0;
-			_currentWeaponText.text = ScriptLocalization.GameIds.Hammer;
-
-			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
-			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
+			
 		}
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
 
@@ -76,6 +83,13 @@ namespace FirstLight.Game.Presenters
 		{
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
+		}
+
+		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			_currentWeaponText.text = callback.WeaponGameId.GetTranslation();
+			
+			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
 		}
 		
 		private void OnQuitClicked()
@@ -96,8 +110,18 @@ namespace FirstLight.Game.Presenters
 			var matchData = container.GetPlayersMatchData(frame, out _);
 			
 			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
+
+			if (container.GameMode == GameMode.BattleRoyale)
+			{
+				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
+			}
 		}
 		
+		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
+		{
+			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
+		}
+
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
@@ -118,14 +142,6 @@ namespace FirstLight.Game.Presenters
 			_currentFragsText.text = kills.ToString();
 			_progressSlider.value = kills / (float)_fragTarget;
 		}
-
-		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			_currentWeaponText.text = callback.WeaponGameId.GetTranslation();
-			
-			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
-		}
-		
 
 		private void OnStandingsClicked()
 		{

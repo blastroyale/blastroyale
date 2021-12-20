@@ -36,13 +36,8 @@ namespace FirstLight.Game.MonoComponent.Adventure
 			cachedTransform.position = targetCenter;
 			cachedTransform.localScale = new Vector3(radius * 2f, cachedTransform.localScale.y, radius * 2f);
 			
-			_shrinkingCircleLinerRenderer.Radius = radius;
-			_shrinkingCircleLinerRenderer.CenterPosition = targetCenter;
-			_shrinkingCircleLinerRenderer.Draw();
-			
-			_safeAreaCircleLinerRenderer.Radius = targetRadius;
-			_safeAreaCircleLinerRenderer.CenterPosition = new Vector3(targetCircleCenter.x, _safeAreaCircleLinerRenderer.transform.position.y, targetCircleCenter.y);
-			_safeAreaCircleLinerRenderer.Draw();
+			_shrinkingCircleLinerRenderer.Draw(targetCenter, radius);
+			_safeAreaCircleLinerRenderer.Draw(new Vector3(targetCircleCenter.x, _safeAreaCircleLinerRenderer.transform.position.y, targetCircleCenter.y), targetRadius);
 		}
 	}
 }

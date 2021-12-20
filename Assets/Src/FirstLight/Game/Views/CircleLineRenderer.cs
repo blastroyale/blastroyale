@@ -12,9 +12,6 @@ namespace FirstLight.Game.Views
 	
 		private static int _circleVertexResolution = 100;
 		
-		public float Radius { get; set; } = 1f;
-		
-		public Vector3 CenterPosition { get; set; } = Vector3.zero;
 		private readonly Vector3[] _circlePositions = new Vector3[_circleVertexResolution];
 
 		private void Awake()
@@ -22,7 +19,7 @@ namespace FirstLight.Game.Views
 			_lineRenderer.positionCount = _circleVertexResolution;
 		}
 
-		public void Draw()
+		public void Draw(Vector3 centerPosition, float radius)
 		{
 			var angle = 2 * Mathf.PI / _circleVertexResolution;
 
@@ -35,8 +32,8 @@ namespace FirstLight.Game.Views
 				                                   new Vector4(0, 0, 1, 0),
 				                                   new Vector4(0, 0, 0, 1));
 				
-				var position = rotationMatrix.MultiplyPoint(new Vector3(0, Radius, 0));
-				_circlePositions[i] = CenterPosition + new Vector3(position.x, 0, position.y);
+				var position = rotationMatrix.MultiplyPoint(new Vector3(0, radius, 0));
+				_circlePositions[i] = centerPosition + new Vector3(position.x, 0, position.y);
 			}
 			
 			_lineRenderer.SetPositions(_circlePositions);

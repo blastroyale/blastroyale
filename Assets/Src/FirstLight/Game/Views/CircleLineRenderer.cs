@@ -19,7 +19,10 @@ namespace FirstLight.Game.Views
 			_lineRenderer.positionCount = _circleVertexResolution;
 		}
 
-		public void Draw(Vector3 centerPosition, float radius)
+		/// <summary>
+		/// Draw circle at a given world space position with radius
+		/// </summary>
+		public void Draw(Vector3 position, float radius)
 		{
 			var angle = 2 * Mathf.PI / _circleVertexResolution;
 
@@ -32,8 +35,7 @@ namespace FirstLight.Game.Views
 				                                   new Vector4(0, 0, 1, 0),
 				                                   new Vector4(0, 0, 0, 1));
 				
-				var position = rotationMatrix.MultiplyPoint(new Vector3(0, radius, 0));
-				_circlePositions[i] = centerPosition + new Vector3(position.x, 0, position.y);
+				_circlePositions[i] = rotationMatrix.MultiplyPoint(new Vector3(0, radius, 0)) + new Vector3(position.x, 0, position.y);
 			}
 			
 			_lineRenderer.SetPositions(_circlePositions);

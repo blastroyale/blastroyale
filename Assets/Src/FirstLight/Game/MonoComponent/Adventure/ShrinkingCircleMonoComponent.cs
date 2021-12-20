@@ -48,6 +48,9 @@ namespace FirstLight.Game.MonoComponent.Adventure
 			cachedShrinkingCircleLineTransform.position = position;
 			cachedShrinkingCircleLineTransform.localScale = new Vector3(radius, radius, 1f);
 			_shrinkingCircleLinerRenderer.WidthMultiplier = 1f / radius;
+
+			_damageZoneTransform.position = position;
+			_damageZoneTransform.localScale = new Vector3(radius * 2f, _damageZoneTransform.localScale.y, radius * 2f);
 			
 			if (frame.Time < circle.ShrinkingStartTime - _config.WarningTime)
 			{

@@ -299,7 +299,12 @@ namespace Quantum.Systems
 
 		private bool TryAvoidShrinkingCircle(Frame f, ref BotCharacterFilter filter)
 		{
-			var circle = f.GetSingleton<ShrinkingCircle>();
+			// Not all game modes have a Shrinking Circle
+			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
+			{
+				return false;
+			}
+			
 			var sqrDistanceFromShrinkingCenter =
 				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.CurrentCircleCenter);
 			var sqrShrinkingRadius = circle.CurrentRadius * circle.CurrentRadius;

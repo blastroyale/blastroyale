@@ -2,6 +2,7 @@ component Consumable
 {
 	[HideInInspector] ConsumableType ConsumableType;
 	[HideInInspector] UInt32 Amount;
+	[HideInInspector] FP CollectTime;
 }
 
 enum ConsumableType
@@ -10,6 +11,7 @@ enum ConsumableType
 	Rage,
 	Ammo,
 	InterimArmour,
+	Stash,
 }
 
 synced event OnConsumablePicked

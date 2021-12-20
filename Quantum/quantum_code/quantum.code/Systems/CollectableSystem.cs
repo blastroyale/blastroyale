@@ -22,7 +22,16 @@ namespace Quantum.Systems
 
 			if (!collectable->IsCollecting(player.Player))
 			{
-				endTime = f.Time + f.GameConfig.CollectableCollectTime;
+				// If it's a consumable then we use CollectTime from consumable config
+				if (f.TryGet<Consumable>(info.Entity, out var consumable))
+				{
+					endTime = f.Time + consumable.CollectTime;
+				}
+				// Otherwise we use global collect time
+				else
+				{
+					endTime = f.Time + f.GameConfig.CollectableCollectTime;
+				}
 				collectable->CollectorsEndTime[player.Player] = endTime;
 				
 				f.Events.OnLocalStartedCollecting(info.Entity, *collectable, player.Player, info.Other);

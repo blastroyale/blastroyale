@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -10,6 +11,7 @@ namespace Quantum
 		public ConsumableType ConsumableType;
 		public AssetRefEntityPrototype AssetRef; 
 		public uint PowerAmount;
+		public FP ConsumableCollectTime;
 	}
 
 	/// <summary>

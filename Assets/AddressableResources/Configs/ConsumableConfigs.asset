@@ -24,33 +24,69 @@ MonoBehaviour:
         Id:
           Value: 240296495379453662
       PowerAmount: 15
+      ConsumableCollectTime:
+        RawValue: 14746
     - Id: 4
       ConsumableType: 0
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 100
+      ConsumableCollectTime:
+        RawValue: 14746
     - Id: 127
       ConsumableType: 2
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 10
+      ConsumableCollectTime:
+        RawValue: 14746
     - Id: 128
       ConsumableType: 2
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 32
+      ConsumableCollectTime:
+        RawValue: 18432
     - Id: 126
       ConsumableType: 3
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 400
+      ConsumableCollectTime:
+        RawValue: 14746
     - Id: 129
       ConsumableType: 3
       AssetRef:
         Id:
           Value: 240296495379453662
       PowerAmount: 1000
+      ConsumableCollectTime:
+        RawValue: 22118
+    - Id: 10
+      ConsumableType: 4
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 1
+      ConsumableCollectTime:
+        RawValue: 73728
+    - Id: 11
+      ConsumableType: 4
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 2
+      ConsumableCollectTime:
+        RawValue: 129024
+    - Id: 12
+      ConsumableType: 4
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      PowerAmount: 3
+      ConsumableCollectTime:
+        RawValue: 225792

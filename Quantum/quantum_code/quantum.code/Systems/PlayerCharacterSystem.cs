@@ -81,7 +81,7 @@ namespace Quantum.Systems
 			// Try to drop Health pack
 			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
 			{
-				DropCollectable(f, GameId.Health, deathPosition, step, false);
+				Collectable.DropCollectable(f, GameId.Health, deathPosition, step, false);
 
 				step++;
 			}
@@ -89,13 +89,13 @@ namespace Quantum.Systems
 			// Try to drop InterimArmourLarge, if didn't work then try to drop InterimArmourSmall
 			if (armourDropChance <= f.GameConfig.DeathDropInterimArmourLargeChance)
 			{
-				DropCollectable(f, GameId.InterimArmourLarge, deathPosition, step, false);
+				Collectable.DropCollectable(f, GameId.InterimArmourLarge, deathPosition, step, false);
 
 				step++;
 			}
 			else if (armourDropChance <= f.GameConfig.DeathDropInterimArmourSmallChance + f.GameConfig.DeathDropInterimArmourLargeChance)
 			{
-				DropCollectable(f, GameId.InterimArmourSmall, deathPosition, step, false);
+				Collectable.DropCollectable(f, GameId.InterimArmourSmall, deathPosition, step, false);
 
 				step++;
 			}
@@ -103,7 +103,7 @@ namespace Quantum.Systems
 			// Try to drop Weapon
 			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance && f.TryGet<Weapon>(entityDead, out var weapon))
 			{
-				DropCollectable(f, weapon.GameId, deathPosition, step, true);
+				Collectable.DropCollectable(f, weapon.GameId, deathPosition, step, true);
 			}
 		}
 		
@@ -322,29 +322,6 @@ namespace Quantum.Systems
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			playerCharacter->SetWeapon(f, e, Constants.DEFAULT_WEAPON_GAME_ID, ItemRarity.Common, 1);
-		}
-
-		private void DropCollectable(Frame f, GameId dropItemGameId, FPVector3 position, int step, bool isWeapon)
-		{
-			var angleStep = FPVector2.Rotate(FPVector2.Left, FP.PiTimes2 * step / 5);
-			var dropPosition = (angleStep * Constants.DEATH_DROP_OFFSET_RADIUS).XOY + position;
-			
-			QuantumHelpers.TryFindPosOnNavMesh(f, EntityRef.None, dropPosition, out FPVector3 newPosition);
-
-			if (isWeapon)
-			{
-				var configWeapon = f.WeaponConfigs.GetConfig(dropItemGameId);
-				var entityWeapon = f.Create(f.FindAsset<EntityPrototype>(configWeapon.AssetRef.Id));
-				f.Unsafe.GetPointer<WeaponCollectable>(entityWeapon)->Init(f, entityWeapon, newPosition, 
-				                                                           FPQuaternion.Identity, configWeapon);
-			}
-			else
-			{
-				var configConsumable = f.ConsumableConfigs.GetConfig(dropItemGameId);
-				var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
-				f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, newPosition, 
-				                                                        FPQuaternion.Identity, configConsumable);
-			}
 		}
 	}
 }

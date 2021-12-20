@@ -1382,7 +1382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6644597904059184708, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6644597904059184708, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
       propertyPath: m_Lens.FarClipPlane

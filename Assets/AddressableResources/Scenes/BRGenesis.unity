@@ -2702,7 +2702,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 568650682100347901, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 803093299297845896, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_RootOrder
@@ -2751,6 +2751,14 @@ PrefabInstance:
     - target: {fileID: 803093299297845897, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_Name
       value: ShrinkingCircleSetup (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682541575006371303, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682541575540226530, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}

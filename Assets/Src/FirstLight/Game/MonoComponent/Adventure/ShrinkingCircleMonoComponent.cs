@@ -11,7 +11,6 @@ namespace FirstLight.Game.MonoComponent.Adventure
 	{
 		[SerializeField] private CircleLineRenderer _shrinkingCircleLinerRenderer;
 		[SerializeField] private CircleLineRenderer _safeAreaCircleLinerRenderer;
-		[SerializeField] private Transform _damageZoneTransform;
 		
 		private void Awake()
 		{
@@ -28,16 +27,20 @@ namespace FirstLight.Game.MonoComponent.Adventure
 			var lerp = Mathf.Max(0, (frame.Time.AsFloat - circle.ShrinkingStartTime.AsFloat) / circle.ShrinkingDurationTime.AsFloat);
 			var radius = Mathf.Lerp(circle.CurrentRadius.AsFloat, targetRadius, lerp);
 			var center = Vector2.Lerp(circle.CurrentCircleCenter.ToUnityVector2(), targetCircleCenter, lerp);
-
-			var cachedTransform = _damageZoneTransform;
 			
-			var targetCenter = new Vector3(center.x, _shrinkingCircleLinerRenderer.transform.position.y, center.y);
+			var cachedShrinkingCircleLineTransform = _shrinkingCircleLinerRenderer.transform;
+			var cachedSafeAreaCircleLine = _safeAreaCircleLinerRenderer.transform;
 			
-			cachedTransform.position = targetCenter;
-			cachedTransform.localScale = new Vector3(radius * 2f, cachedTransform.localScale.y, radius * 2f);
+			var targetCenter = new Vector3(center.x, cachedShrinkingCircleLineTransform.position.y, center.y);
 			
-			_shrinkingCircleLinerRenderer.Draw(targetCenter, radius);
-			_safeAreaCircleLinerRenderer.Draw(new Vector3(targetCircleCenter.x, _safeAreaCircleLinerRenderer.transform.position.y, targetCircleCenter.y), targetRadius);
+			
+			cachedShrinkingCircleLineTransform.position = targetCenter;
+			cachedShrinkingCircleLineTransform.localScale = new Vector3(radius, radius, 1f);
+			_shrinkingCircleLinerRenderer.WidthMultiplier = 1f / radius;
+			
+			cachedSafeAreaCircleLine.position = new Vector3(targetCircleCenter.x, cachedSafeAreaCircleLine.position.y, targetCircleCenter.y);
+			cachedSafeAreaCircleLine.localScale = new Vector3(targetRadius, targetRadius, 1f);
+			_safeAreaCircleLinerRenderer.WidthMultiplier = 1f / (targetRadius);
 		}
 	}
 }

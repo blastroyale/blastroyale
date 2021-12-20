@@ -131,7 +131,8 @@ namespace Quantum.Systems
 			switch (filter.BotCharacter->BehaviourType)
 			{
 				case BotBehaviourType.Cautious:
-					var cautious = TryGoForHealth(f, ref filter)
+					var cautious = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForHealth(f, ref filter)
 					               || TryGoForInterimArmour(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
@@ -140,7 +141,8 @@ namespace Quantum.Systems
 					               || Wander(f, ref filter);
 					break;
 				case BotBehaviourType.Aggressive:
-					var aggressive = TryGoForRage(f, ref filter)
+					var aggressive = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForRage(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForEnemies(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
@@ -149,7 +151,8 @@ namespace Quantum.Systems
 					               || Wander(f, ref filter);
 					break;
 				case BotBehaviourType.Balanced:
-					var balanced = TryGoForAmmo(f, ref filter)
+					var balanced = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForInterimArmour(f, ref filter)
@@ -292,6 +295,24 @@ namespace Quantum.Systems
 			}
 			
 			return false;
+		}
+
+		private bool TryAvoidShrinkingCircle(Frame f, ref BotCharacterFilter filter)
+		{
+			var circle = f.GetSingleton<ShrinkingCircle>();
+			var sqrDistanceFromShrinkingCenter =
+				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.CurrentCircleCenter);
+			var sqrShrinkingRadius = circle.CurrentRadius * circle.CurrentRadius;
+			var safeCircleCenter = circle.TargetCircleCenter.XOY;
+			safeCircleCenter.Y = filter.Transform->Position.Y;
+			
+			// If sqrDistanceFromShrinkingCenter / sqrShrinkingRadius > 1 then the bot is outside the shrinking circle
+			// If sqrDistanceFromShrinkingCenter / sqrShrinkingRadius < 1 then the bot is safe, inside the shrinking circle
+			
+			var isGoing = sqrDistanceFromShrinkingCenter / sqrShrinkingRadius > filter.BotCharacter->ShrinkingCircleRiskTolerance;
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, safeCircleCenter, circle.TargetRadius);
+			
+			return isGoing;
 		}
 
 		private bool TryGoForRage(Frame f, ref BotCharacterFilter filter)
@@ -558,6 +579,7 @@ namespace Quantum.Systems
 					AccuracySpreadAngle = botConfig.AccuracySpreadAngle,
 					ChanceToUseSpecial = botConfig.ChanceToUseSpecial,
 					SpecialAimingDeviation = botConfig.SpecialAimingDeviation,
+					ShrinkingCircleRiskTolerance = botConfig.ShrinkingCircleRiskTolerance,
 					NextDecisionTime = FP._0,
 					NextLookForTargetsToShootAtTime = FP._0,
 				};

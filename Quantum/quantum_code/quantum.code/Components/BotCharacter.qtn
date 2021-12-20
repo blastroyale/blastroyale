@@ -68,6 +68,10 @@ component BotCharacter
 	
 	// Random deviation up to this value from the center of aiming
 	FP SpecialAimingDeviation;
+	
+	// [0;1] where 0 is "try to stay in the center of the shrinking area"
+	// and 1 is "care about shrinking circle only when on the edge of it"
+	FP ShrinkingCircleRiskTolerance;
 }
 
 synced event OnDummyCharacterKilled

@@ -53,12 +53,8 @@ namespace Quantum
 			}
 		}
 
-		/// <summary>
-		/// Decide what to spawn when a player collects a stash
-		/// </summary>
 		private void HandleCollectedStash(Frame f, EntityRef e, int stashValue)
 		{
-			var gameIdsToDrop = new List<GameId>();
 			var weaponIDs = GameIdGroup.Weapon.GetIds();
 			var stashPosition = f.Get<Transform3D>(e).Position;
 			
@@ -66,71 +62,39 @@ namespace Quantum
 			{
 				// Legendary stash
 				case 3 :
-					gameIdsToDrop.Add(weaponIDs[f.RNG->Next(0, weaponIDs.Count)]);
-					gameIdsToDrop.Add(GameId.InterimArmourLarge);
-					gameIdsToDrop.Add(GameId.Health);
+					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
+					Collectable.DropCollectable(f, GameId.InterimArmourLarge, stashPosition, 1, false);
+					Collectable.DropCollectable(f, GameId.Health, stashPosition, 2, false);
 					break;
 				
 				// Rare stash
 				case 2 :
-					gameIdsToDrop.Add(weaponIDs[f.RNG->Next(0, weaponIDs.Count)]);
-					if (f.RNG->Next() <= FP._0_25)
-					{
-						gameIdsToDrop.Add(GameId.InterimArmourLarge);
-					}
-					else
-					{
-						gameIdsToDrop.Add(GameId.InterimArmourSmall);
-					}
-					gameIdsToDrop.Add(GameId.Health);
+					var armour = f.RNG->Next() < FP._0_25 ? GameId.InterimArmourLarge : GameId.InterimArmourSmall;
+					
+					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
+					Collectable.DropCollectable(f, armour, stashPosition, 1, false);
+					Collectable.DropCollectable(f, GameId.Health, stashPosition, 2, false);
 					break;
 				
 				// Common stash
-				case 1 :
 				default :
 					if (f.RNG->Next() <= FP._0_10)
 					{
-						var randomWeaponId = weaponIDs[f.RNG->Next(0, weaponIDs.Count)];
-						gameIdsToDrop.Add(randomWeaponId);
+						Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
 					}
+					else
+					{
+						Collectable.DropCollectable(f, GameId.Health, stashPosition, 0, false);
+					}
+					
 					if (f.RNG->Next() <= FP._0_25)
 					{
-						gameIdsToDrop.Add(GameId.InterimArmourSmall);
+						Collectable.DropCollectable(f, GameId.InterimArmourSmall, stashPosition, 1, false);
 					}
-					for (var i = gameIdsToDrop.Count; i < 2; i++)
+					else
 					{
-						gameIdsToDrop.Add(GameId.Health);
+						Collectable.DropCollectable(f, GameId.Health, stashPosition, 1, false);
 					}
-					break;
-			}
-			
-			var angleStep = FP.PiTimes2 / gameIdsToDrop.Count;
-			
-			for (var i = 0; i < gameIdsToDrop.Count; i++)
-			{
-				var dropPosition = stashPosition +
-				                   (FPVector2.Rotate(FPVector2.Left, angleStep * i) * Constants.DROP_OFFSET_RADIUS).XOY;
-				QuantumHelpers.TryFindPosOnNavMesh(f, EntityRef.None, dropPosition,
-				                                   out FPVector3 correctedPosition);
-				DropCollectable(f, gameIdsToDrop[i], correctedPosition);
-			}
-		}
-		
-		private void DropCollectable(Frame f, GameId dropItemGameId, FPVector3 dropPosition)
-		{
-			switch (dropItemGameId)
-			{
-				case GameId.Health:
-				case GameId.InterimArmourLarge:
-				case GameId.InterimArmourSmall:
-					var configConsumable = f.ConsumableConfigs.GetConfig(dropItemGameId);
-					var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
-					f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition, FPQuaternion.Identity, configConsumable);
-					break;
-				default:
-					var configWeapon = f.WeaponConfigs.GetConfig(dropItemGameId);
-					var entityWeapon = f.Create(f.FindAsset<EntityPrototype>(configWeapon.AssetRef.Id));
-					f.Unsafe.GetPointer<WeaponCollectable>(entityWeapon)->Init(f, entityWeapon, dropPosition, FPQuaternion.Identity, configWeapon);
 					break;
 			}
 		}

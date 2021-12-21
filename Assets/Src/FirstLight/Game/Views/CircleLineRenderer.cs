@@ -12,9 +12,7 @@ namespace FirstLight.Game.Views
 	{
 		[SerializeField] private LineRenderer _lineRenderer;
 	
-		private static readonly int _circleVertexResolution = 100;
-		private readonly Vector3[] _circlePositions = new Vector3[_circleVertexResolution];
-
+		
 		public float WidthMultiplier
 		{
 			set => _lineRenderer.widthMultiplier = value;
@@ -22,11 +20,15 @@ namespace FirstLight.Game.Views
 
 		private void Awake()
 		{
-			_lineRenderer.positionCount = _circleVertexResolution;
+			var circleVertexResolution = 100;
+				
+			var circlePositions = new Vector3[circleVertexResolution];
 			
-			var angle = 2 * Mathf.PI / _circleVertexResolution;
+			_lineRenderer.positionCount = circleVertexResolution;
+			
+			var angle = 2 * Mathf.PI / circleVertexResolution;
 
-			for (var i = 0; i < _circleVertexResolution; i++)
+			for (var i = 0; i < circleVertexResolution; i++)
 			{
 				var cos = Mathf.Cos(angle * i);
 				var sin = Mathf.Sin(angle * i);
@@ -36,10 +38,10 @@ namespace FirstLight.Game.Views
 				                                   new Vector4(0, 0, 1, 0),
 				                                   new Vector4(0, 0, 0, 1));
 				
-				_circlePositions[i] = rotationMatrix.MultiplyPoint(new Vector3(0, 1, 0));
+				circlePositions[i] = rotationMatrix.MultiplyPoint(new Vector3(0, 1, 0));
 			}
 			
-			_lineRenderer.SetPositions(_circlePositions);
+			_lineRenderer.SetPositions(circlePositions);
 		}
 	}
 }

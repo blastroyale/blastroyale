@@ -5,19 +5,19 @@ namespace FirstLight.Game.Views
 {
 	/// <summary>
 	/// This Mono Behaviour is responsible for circle line renderer data manipulation.
-	/// Width Multiplier property allows us to modify the line width as we scale the transform of the line
-	/// renderer game object as we need to compensate for line width to maintain constant size.
 	/// </summary>
 	public class CircleLineRenderer : MonoBehaviour
 	{
 		[SerializeField] private LineRenderer _lineRenderer;
 	
-		
+		/// <summary>
+		/// Set an overall multiplier that is applied to the LineRenderer.widthCurve to get the final width of the line.
+		/// </summary>
 		public float WidthMultiplier
 		{
 			set => _lineRenderer.widthMultiplier = value;
 		}
-
+		
 		private void Awake()
 		{
 			var circleVertexResolution = 100;

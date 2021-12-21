@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 7682541575006371300}
   - {fileID: 7682541575540226529}
-  - {fileID: 914108011930167623}
+  - {fileID: 3645265080736833621}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48,21 +48,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shrinkingCircleLinerRenderer: {fileID: 7682541575006371302}
   _safeAreaCircleLinerRenderer: {fileID: 7682541575540226531}
-  _damageZoneTransform: {fileID: 914108011930167623}
+  _damageZoneTransform: {fileID: 3645265080736833621}
+--- !u!1 &4858687258718294325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3645265080736833621}
+  m_Layer: 0
+  m_Name: DamageZoneRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3645265080736833621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4858687258718294325}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 914108011930167623}
+  m_Father: {fileID: 803093299297845896}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &803093298990468780
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 803093299297845896}
+    m_TransformParent: {fileID: 3645265080736833621}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0141
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_LocalScale.y
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0141
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_LocalPosition.x

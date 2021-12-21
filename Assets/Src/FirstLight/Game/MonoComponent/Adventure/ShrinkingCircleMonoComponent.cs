@@ -59,7 +59,7 @@ namespace FirstLight.Game.MonoComponent.Adventure
 			
 			cachedSafeAreaCircleLine.position = new Vector3(targetCircleCenter.x, cachedSafeAreaCircleLine.position.y, targetCircleCenter.y);
 			cachedSafeAreaCircleLine.localScale = new Vector3(targetRadius, targetRadius, 1f);
-			_safeAreaCircleLinerRenderer.WidthMultiplier = 1f / (targetRadius);
+			_safeAreaCircleLinerRenderer.WidthMultiplier = 1f / targetRadius;
 		}
 	}
 }

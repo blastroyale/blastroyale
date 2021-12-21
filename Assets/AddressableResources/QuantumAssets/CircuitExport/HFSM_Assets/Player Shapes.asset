@@ -1,0 +1,845 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8792023175836040793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: RaisingTheGun_6
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|RaisingTheGun_6
+      Guid:
+        Value: 2043752527012779451
+    Label: RaisingTheGun
+    OnUpdateLinks: []
+    OnEnterLinks: []
+    OnExitLinks: []
+    Transitions:
+    - Id: d7dd4909-3d7b-4d97-a31b-48c235543aee
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 571862605402387161
+      StateLink:
+        Id:
+          Value: 0
+      TransitionSetLink:
+        Id:
+          Value: 1501523847475527130
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 1253621093286091345
+    Level: 1
+--- !u!114 &-8764927142187052162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: ClearTargets_3
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ClearTargets_3
+      Guid:
+        Value: 3953896484241224472
+    Label: ClearTargets
+    OnUpdateLinks: []
+    OnEnterLinks:
+    - Id:
+        Value: 2473633493183716789
+    - Id:
+        Value: 2632775630183370303
+    OnExitLinks: []
+    Transitions:
+    - Id: 8fee1811-5a44-43b9-859f-8fe6414ec418
+      EventKey: 4
+      DecisionLink:
+        Id:
+          Value: 0
+      StateLink:
+        Id:
+          Value: 4094788670093508337
+      TransitionSetLink:
+        Id:
+          Value: 0
+    - Id: f6316549-9e15-402f-9f29-54f8f98bc931
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 1232190272509173084
+      StateLink:
+        Id:
+          Value: 1212277887283794247
+      TransitionSetLink:
+        Id:
+          Value: 0
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 0
+    Level: 0
+--- !u!114 &-8705212364494371970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8f34ae8ea74354860a447a0bdd4547, type: 3}
+  m_Name: TimerDecisionDecision_4
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|TimerDecisionDecision_4
+      Guid:
+        Value: 571862605402387161
+    Label: 
+    TimeToTrueState:
+      Key: AimTime
+--- !u!114 &-8234331681974811818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: Attacking_5
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|Attacking_5
+      Guid:
+        Value: 1253621093286091345
+    Label: Attacking
+    OnUpdateLinks: []
+    OnEnterLinks: []
+    OnExitLinks: []
+    Transitions:
+    - Id: 8fee1811-5a44-43b9-859f-8fe6414ec418
+      EventKey: 4
+      DecisionLink:
+        Id:
+          Value: 0
+      StateLink:
+        Id:
+          Value: 4094788670093508337
+      TransitionSetLink:
+        Id:
+          Value: 0
+    - Id: ac4d1663-0dfa-4a6a-bd0c-eecacdc1284b
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 22984689142726396
+      StateLink:
+        Id:
+          Value: 3953896484241224472
+      TransitionSetLink:
+        Id:
+          Value: 0
+    ChildrenLinks:
+    - Id:
+        Value: 2043752527012779451
+    - Id:
+        Value: 749124385513526459
+    - Id:
+        Value: 3327311300454820772
+    - Id:
+        Value: 2857634106875602355
+    ParentLink:
+      Id:
+        Value: 0
+    Level: 0
+--- !u!114 &-7127969839011005629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: Stunned_2
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|Stunned_2
+      Guid:
+        Value: 4094788670093508337
+    Label: Stunned
+    OnUpdateLinks: []
+    OnEnterLinks:
+    - Id:
+        Value: 735872010791849619
+    - Id:
+        Value: 1872239222679037602
+    OnExitLinks: []
+    Transitions:
+    - Id: a1b7209b-f445-4109-ba67-e3e567445be7
+      EventKey: 3
+      DecisionLink:
+        Id:
+          Value: 0
+      StateLink:
+        Id:
+          Value: 1212277887283794247
+      TransitionSetLink:
+        Id:
+          Value: 0
+    - Id: 5ac17597-4adf-4e6d-895a-5900b1339b3b
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 4145150269741386877
+      StateLink:
+        Id:
+          Value: 1212277887283794247
+      TransitionSetLink:
+        Id:
+          Value: 0
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 0
+    Level: 0
+--- !u!114 &-6933176926821486799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f03b48b5b844d7286ac7cd2e98c2ca6, type: 3}
+  m_Name: SetEntityRefAction_1
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|SetEntityRefAction_1
+      Guid:
+        Value: 871531872128537649
+    Label: 
+    Entity:
+      Key: 
+    OutEntity:
+      Key: TargetCandidate
+--- !u!114 &-6572101747697579031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980042ae2e8644b59fad988ba9f8f2d5, type: 3}
+  m_Name: IsBotSelection
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|IsBotSelection
+      Guid:
+        Value: 3842478983370280462
+    Label: IsBotSelection
+    PrerequisiteLink:
+      Id:
+        Value: 0
+    Transitions:
+    - Id: d84fa51b-cd0f-4b5c-aee0-a6b27b145f97
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 854447704305200694
+      StateLink:
+        Id:
+          Value: 3327311300454820772
+      TransitionSetLink:
+        Id:
+          Value: 0
+    - Id: e5ed44d2-7eb9-40cc-89c8-dd2106d06280
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 1120641763379912215
+      StateLink:
+        Id:
+          Value: 2857634106875602355
+      TransitionSetLink:
+        Id:
+          Value: 0
+--- !u!114 &-6529157167813369016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: Reloading_1
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|Reloading_1
+      Guid:
+        Value: 749124385513526459
+    Label: Reloading
+    OnUpdateLinks: []
+    OnEnterLinks: []
+    OnExitLinks: []
+    Transitions:
+    - Id: 509f2413-03f3-4817-9f5a-b8c8382686c7
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 654689027538055943
+      StateLink:
+        Id:
+          Value: 0
+      TransitionSetLink:
+        Id:
+          Value: 1501523847475527130
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 1253621093286091345
+    Level: 1
+--- !u!114 &-6003778526115746396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8f34ae8ea74354860a447a0bdd4547, type: 3}
+  m_Name: TimerDecisionDecision_7
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|TimerDecisionDecision_7
+      Guid:
+        Value: 654689027538055943
+    Label: 
+    TimeToTrueState:
+      Key: AttackCooldown
+--- !u!114 &-5828980002156637765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f03b48b5b844d7286ac7cd2e98c2ca6, type: 3}
+  m_Name: SetEntityRefAction_5
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|SetEntityRefAction_5
+      Guid:
+        Value: 2632775630183370303
+    Label: 
+    Entity:
+      Key: 
+    OutEntity:
+      Key: TargetCandidate
+--- !u!114 &-5473988119401985812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee96a7d5b35ca834992de4752007ad76, type: 3}
+  m_Name: IsBotDecision_1
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|IsBotDecision_1
+      Guid:
+        Value: 854447704305200694
+    Label: 
+--- !u!114 &-4454625058146513040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf9b17aa4a544cdb97793d5fe1cffe3, type: 3}
+  m_Name: ClearTargetAction_4
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ClearTargetAction_4
+      Guid:
+        Value: 2473633493183716789
+    Label: 
+    OutTargetEntity:
+      Key: Target
+--- !u!114 &-3910184913190047217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf9b17aa4a544cdb97793d5fe1cffe3, type: 3}
+  m_Name: ClearTargetAction_0
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ClearTargetAction_0
+      Guid:
+        Value: 868282700845672442
+    Label: 
+    OutTargetEntity:
+      Key: Target
+--- !u!114 &-3605539142486723459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: ShootingAtAimingDirection_4
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ShootingAtAimingDirection_4
+      Guid:
+        Value: 3327311300454820772
+    Label: ShootingAtAimingDirection
+    OnUpdateLinks: []
+    OnEnterLinks:
+    - Id:
+        Value: 2013958860002001829
+    OnExitLinks: []
+    Transitions:
+    - Id: 26375163-d637-4684-9d90-10a9a11f4ff7
+      EventKey: 1
+      DecisionLink:
+        Id:
+          Value: 0
+      StateLink:
+        Id:
+          Value: 749124385513526459
+      TransitionSetLink:
+        Id:
+          Value: 0
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 1253621093286091345
+    Level: 1
+--- !u!114 &-3487410462260225704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a29c1afb15342bcb523a7d7646120dd, type: 3}
+  m_Name: IsPlayerInputShootingDecision_10
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|IsPlayerInputShootingDecision_10
+      Guid:
+        Value: 3260322406490536287
+    Label: 
+--- !u!114 &-3166294609872358718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4d0879e65249009aef4c02b0d5e622, type: 3}
+  m_Name: HFSMNotDecision_5
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|HFSMNotDecision_5
+      Guid:
+        Value: 22984689142726396
+    Label: 
+    Decisions:
+    - Id:
+        Value: 2208604499324009609
+--- !u!114 &-2385788646920741041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b0c61812934085b7fe69413c34d5d7, type: 3}
+  m_Name: TrueDecision_9
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|TrueDecision_9
+      Guid:
+        Value: 3917813618495872851
+    Label: 
+--- !u!114 &-1986819386239792249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b0c61812934085b7fe69413c34d5d7, type: 3}
+  m_Name: TrueDecision_3
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|TrueDecision_3
+      Guid:
+        Value: 1232190272509173084
+    Label: 
+--- !u!114 &-631961246896084855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980042ae2e8644b59fad988ba9f8f2d5, type: 3}
+  m_Name: Shoot at Target OR Direction
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|Shoot
+        at Target OR Direction
+      Guid:
+        Value: 1501523847475527130
+    Label: Shoot at Target OR Direction
+    PrerequisiteLink:
+      Id:
+        Value: 0
+    Transitions:
+    - Id: 3942778f-3b10-4906-ba9c-d61bc2de97dc
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 4416881158065041833
+      StateLink:
+        Id:
+          Value: 0
+      TransitionSetLink:
+        Id:
+          Value: 3842478983370280462
+--- !u!114 &-543871611333562832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8f34ae8ea74354860a447a0bdd4547, type: 3}
+  m_Name: TimerDecisionDecision_8
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|TimerDecisionDecision_8
+      Guid:
+        Value: 4145150269741386877
+    Label: 
+    TimeToTrueState:
+      Key: StunDuration
+--- !u!114 &-378778108020868274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9641c1cf4ca4fd9864d0e515b5aa8ec, type: 3}
+  m_Name: ShootAtAimingDirectionAction_6
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ShootAtAimingDirectionAction_6
+      Guid:
+        Value: 2013958860002001829
+    Label: 
+    ProjectileAssetRef:
+      Key: Projectile
+    ProjectileId:
+      Key: ProjectileGameId
+    ProjectileSpeed:
+      Key: ProjectileSpeed
+    ProjectileRange:
+      Key: ProjectileRange
+    ProjectileSplashRadius:
+      Key: SplashRadius
+    ProjectileStunDuration:
+      Key: ProjectileStunDuration
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85686518f74a43e990ad6395e59d078c, type: 3}
+  m_Name: Player Shapes
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes
+      Guid:
+        Value: 214994971261690423
+    Label: Player Shapes
+    StatesLinks:
+    - Id:
+        Value: 1212277887283794247
+    - Id:
+        Value: 3953896484241224472
+    - Id:
+        Value: 1253621093286091345
+    - Id:
+        Value: 4094788670093508337
+    EventsNames:
+    - OnAttackFinished
+    - OnShootInputReleased
+    - OnStunCancelled
+    - OnStunned
+--- !u!114 &1774852951862453827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b0c61812934085b7fe69413c34d5d7, type: 3}
+  m_Name: TrueDecision_2
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|TrueDecision_2
+      Guid:
+        Value: 1120641763379912215
+    Label: 
+--- !u!114 &1936254457733455876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066b5340772d496f9ef2224f7e2beeae, type: 3}
+  m_Name: IsPlayerInputAimingDecision_0
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|IsPlayerInputAimingDecision_0
+      Guid:
+        Value: 4416881158065041833
+    Label: 
+--- !u!114 &2803132906708871426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: NotShooting_7
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|NotShooting_7
+      Guid:
+        Value: 1212277887283794247
+    Label: NotShooting
+    OnUpdateLinks: []
+    OnEnterLinks: []
+    OnExitLinks: []
+    Transitions:
+    - Id: 8fee1811-5a44-43b9-859f-8fe6414ec418
+      EventKey: 4
+      DecisionLink:
+        Id:
+          Value: 0
+      StateLink:
+        Id:
+          Value: 4094788670093508337
+      TransitionSetLink:
+        Id:
+          Value: 0
+    - Id: 0fb8d6ab-6dfb-4fdb-9fb6-16f2be3c6e6a
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 3260322406490536287
+      StateLink:
+        Id:
+          Value: 1253621093286091345
+      TransitionSetLink:
+        Id:
+          Value: 0
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 0
+    Level: 0
+--- !u!114 &3746057005372662416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf9b17aa4a544cdb97793d5fe1cffe3, type: 3}
+  m_Name: ClearTargetAction_2
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ClearTargetAction_2
+      Guid:
+        Value: 735872010791849619
+    Label: 
+    OutTargetEntity:
+      Key: Target
+--- !u!114 &3748584352523485261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
+  m_Name: ResetTarget_0
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|ResetTarget_0
+      Guid:
+        Value: 2857634106875602355
+    Label: ResetTarget
+    OnUpdateLinks: []
+    OnEnterLinks:
+    - Id:
+        Value: 868282700845672442
+    - Id:
+        Value: 871531872128537649
+    OnExitLinks: []
+    Transitions:
+    - Id: 2234e313-3e94-498f-a1b7-510e803fc1cc
+      EventKey: 0
+      DecisionLink:
+        Id:
+          Value: 3917813618495872851
+      StateLink:
+        Id:
+          Value: 3327311300454820772
+      TransitionSetLink:
+        Id:
+          Value: 0
+    ChildrenLinks: []
+    ParentLink:
+      Id:
+        Value: 1253621093286091345
+    Level: 1
+--- !u!114 &4398101322931581365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f03b48b5b844d7286ac7cd2e98c2ca6, type: 3}
+  m_Name: SetEntityRefAction_3
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|SetEntityRefAction_3
+      Guid:
+        Value: 1872239222679037602
+    Label: 
+    Entity:
+      Key: 
+    OutEntity:
+      Key: TargetCandidate
+--- !u!114 &5100795730920167886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a29c1afb15342bcb523a7d7646120dd, type: 3}
+  m_Name: IsPlayerInputShootingDecision_6
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player Shapes|IsPlayerInputShootingDecision_6
+      Guid:
+        Value: 2208604499324009609
+    Label: 

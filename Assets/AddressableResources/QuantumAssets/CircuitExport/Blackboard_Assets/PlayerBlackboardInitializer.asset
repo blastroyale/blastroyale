@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca22f7cf1da47a1a9ce6ce22bc849b1, type: 3}
+  m_Name: PlayerBlackboardInitializer
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
+      Guid:
+        Value: 635794991992980594
+    ReportMissingEntries: 1
+    AIBlackboard:
+      Id:
+        Value: 0
+    InitialValues:
+    - Key: TargetingType
+      Value:
+        AsBoolean: 0
+        AsByte: 0
+        AsInteger: 1
+        AsFP:
+          RawValue: 0
+        AsFPVector2:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        AsFPVector3:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+    - Key: TargetRange
+      Value:
+        AsBoolean: 0
+        AsByte: 0
+        AsInteger: 0
+        AsFP:
+          RawValue: 983040
+        AsFPVector2:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        AsFPVector3:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0

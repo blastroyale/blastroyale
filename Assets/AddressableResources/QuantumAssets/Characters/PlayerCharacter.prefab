@@ -290,10 +290,10 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 1022242325826308483
+        Value: 2089488708164176946
     BlackboardRef:
       Id:
-        Value: 4429615334325005816
+        Value: 31257817806518291
     KccConfigRef:
       Id:
         Value: 2480520579551617486

@@ -8,6 +8,7 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class CircleLineRenderer : MonoBehaviour
 	{
+		[SerializeField] private float _lineWidth = 1;
 		[SerializeField] private LineRenderer _lineRenderer;
 	
 		/// <summary>
@@ -15,7 +16,7 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		public float WidthMultiplier
 		{
-			set => _lineRenderer.widthMultiplier = value;
+			set => _lineRenderer.widthMultiplier = value * _lineWidth;
 		}
 		
 		private void Awake()

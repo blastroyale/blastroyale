@@ -25,6 +25,7 @@ namespace Quantum
 		public uint AccuracySpreadAngle;
 		public FP ChanceToUseSpecial;
 		public FP SpecialAimingDeviation;
+		public FP ShrinkingCircleRiskTolerance;
 	}
 	
 	/// <summary>

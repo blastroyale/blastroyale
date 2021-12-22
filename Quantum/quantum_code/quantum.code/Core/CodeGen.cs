@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -119,9 +118,9 @@ namespace Quantum {
     AmmoLarge = 128,
     InterimArmourSmall = 126,
     InterimArmourLarge = 129,
-    CommonStash = 10,
-    RareStash = 11,
-    LegendaryStash = 12,
+    ChestCommon = 13,
+    ChestRare = 16,
+    ChestLegendary = 19,
     Airstrike = 69,
     PointProjectile = 70,
     BulletSniper = 71,
@@ -3669,9 +3668,9 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 240;
+    public const Int32 SIZE = 248;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(236)]
+    [FieldOffset(244)]
     private fixed Byte _alignment_padding_[4];
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3695,7 +3694,7 @@ namespace Quantum {
     public FP CloseFightIntolerance;
     [FieldOffset(72)]
     public FP DecisionInterval;
-    [FieldOffset(152)]
+    [FieldOffset(160)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 6)]
     private fixed Byte _Gear_[72];
     [FieldOffset(80)]
@@ -3710,15 +3709,17 @@ namespace Quantum {
     public FP NextDecisionTime;
     [FieldOffset(120)]
     public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(128)]
+    public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(4)]
     public GameId Skin;
-    [FieldOffset(128)]
-    public FP SpecialAimingDeviation;
     [FieldOffset(136)]
-    public FP VisionRangeSqr;
+    public FP SpecialAimingDeviation;
     [FieldOffset(144)]
+    public FP VisionRangeSqr;
+    [FieldOffset(152)]
     public FP WanderRadius;
-    [FieldOffset(224)]
+    [FieldOffset(232)]
     public Equipment Weapon;
     public FixedArray<Equipment> Gear {
       get {
@@ -3746,6 +3747,7 @@ namespace Quantum {
         hash = hash * 31 + LowHealthSensitivity.GetHashCode();
         hash = hash * 31 + NextDecisionTime.GetHashCode();
         hash = hash * 31 + NextLookForTargetsToShootAtTime.GetHashCode();
+        hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
         hash = hash * 31 + (Int32)Skin;
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
         hash = hash * 31 + VisionRangeSqr.GetHashCode();
@@ -3774,6 +3776,7 @@ namespace Quantum {
         FP.Serialize(&p->LowHealthSensitivity, serializer);
         FP.Serialize(&p->NextDecisionTime, serializer);
         FP.Serialize(&p->NextLookForTargetsToShootAtTime, serializer);
+        FP.Serialize(&p->ShrinkingCircleRiskTolerance, serializer);
         FP.Serialize(&p->SpecialAimingDeviation, serializer);
         FP.Serialize(&p->VisionRangeSqr, serializer);
         FP.Serialize(&p->WanderRadius, serializer);
@@ -8487,6 +8490,7 @@ namespace Quantum.Prototypes {
     public UInt32 AccuracySpreadAngle;
     public FP ChanceToUseSpecial;
     public FP SpecialAimingDeviation;
+    public FP ShrinkingCircleRiskTolerance;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -8514,6 +8518,7 @@ namespace Quantum.Prototypes {
       result.LowHealthSensitivity = this.LowHealthSensitivity;
       result.NextDecisionTime = this.NextDecisionTime;
       result.NextLookForTargetsToShootAtTime = this.NextLookForTargetsToShootAtTime;
+      result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
       result.Skin = this.Skin;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
       result.VisionRangeSqr = this.VisionRangeSqr;

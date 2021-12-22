@@ -64,16 +64,29 @@ namespace Quantum
 				case 3 :
 					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
 					Collectable.DropCollectable(f, GameId.InterimArmourLarge, stashPosition, 1, false);
-					Collectable.DropCollectable(f, GameId.Health, stashPosition, 2, false);
+					Collectable.DropCollectable(f, GameId.AmmoLarge, stashPosition, 2, false);
 					break;
 				
 				// Rare stash
 				case 2 :
 					var armour = f.RNG->Next() < FP._0_25 ? GameId.InterimArmourLarge : GameId.InterimArmourSmall;
+					var ammoOrHealthChance = f.RNG->Next();
 					
 					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
 					Collectable.DropCollectable(f, armour, stashPosition, 1, false);
-					Collectable.DropCollectable(f, GameId.Health, stashPosition, 2, false);
+					
+					if (ammoOrHealthChance < FP._0_10)
+					{
+						Collectable.DropCollectable(f, GameId.AmmoLarge, stashPosition, 2, false);
+					}
+					else if (ammoOrHealthChance < FP._0_50 + FP._0_10)
+					{
+						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 2, false);
+					}
+					else
+					{
+						Collectable.DropCollectable(f, GameId.Health, stashPosition, 2, false);
+					}
 					break;
 				
 				// Common stash
@@ -81,6 +94,10 @@ namespace Quantum
 					if (f.RNG->Next() <= FP._0_10)
 					{
 						Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
+					}
+					else if (f.RNG->Next() <= FP._0_50)
+					{
+						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 0, false);
 					}
 					else
 					{
@@ -90,6 +107,10 @@ namespace Quantum
 					if (f.RNG->Next() <= FP._0_25)
 					{
 						Collectable.DropCollectable(f, GameId.InterimArmourSmall, stashPosition, 1, false);
+					}
+					else if (f.RNG->Next() <= FP._0_50)
+					{
+						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 1, false);
 					}
 					else
 					{

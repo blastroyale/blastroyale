@@ -66,7 +66,7 @@ MonoBehaviour:
       PowerAmount: 1000
       ConsumableCollectTime:
         RawValue: 22118
-    - Id: 10
+    - Id: 13
       ConsumableType: 4
       AssetRef:
         Id:
@@ -74,7 +74,7 @@ MonoBehaviour:
       PowerAmount: 1
       ConsumableCollectTime:
         RawValue: 73728
-    - Id: 11
+    - Id: 16
       ConsumableType: 4
       AssetRef:
         Id:
@@ -82,7 +82,7 @@ MonoBehaviour:
       PowerAmount: 2
       ConsumableCollectTime:
         RawValue: 129024
-    - Id: 12
+    - Id: 19
       ConsumableType: 4
       AssetRef:
         Id:

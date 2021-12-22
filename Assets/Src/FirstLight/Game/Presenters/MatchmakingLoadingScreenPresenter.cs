@@ -15,6 +15,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 using LayerMask = UnityEngine.LayerMask;
 using Random = UnityEngine.Random;
 
@@ -35,12 +36,15 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Image _nextMapImage;
 		[SerializeField] private Image [] _playersWaitingImage;
 		[SerializeField] private Animation _animation;
+		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField] private TextMeshProUGUI _firstToXKillsText;
 		[SerializeField] private TextMeshProUGUI _nextArenaText;
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-
+		[SerializeField] private Button _selectAreaButton;
+		[SerializeField] private GameObject _selectedAreaHolder;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
@@ -48,6 +52,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			_selectAreaButton.onClick.AddListener(OnDropAreaPressed);
 
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -61,9 +66,7 @@ namespace FirstLight.Game.Presenters
 		protected override async void OnOpened()
 		{
 			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
-
-			_firstToXKillsText.text = string.Format(ScriptLocalization.AdventureMenu.FirstToXKills, config.PlayersLimit.ToString());
-			_nextArenaText.text = $"{ScriptLocalization.MainMenu.NextArena}: {config.Map.GetTranslation()}";
+			
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_nextMapImage.enabled = false;
 			
@@ -152,5 +155,14 @@ namespace FirstLight.Game.Presenters
 			_findingPlayersText.enabled = false;
 			_playersFoundText.enabled = false;
 		}
+
+		private void OnDropAreaPressed()
+		{
+			Touch touch = UnityEngine.Input.GetTouch(0);
+
+			// TODO Miguel: Please can you make this position relative to the screen / map image?
+			_selectedAreaHolder.transform.localPosition = touch.position;
+		}
+		
 	}
 }

@@ -2709,6 +2709,14 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 803093299297845896, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 803093299297845896, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 803093299297845896, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2754,11 +2762,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 914108011930167623, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.0141
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 914108011930167623, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.0141
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7682541575006371303, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_UseWorldSpace
@@ -2770,6 +2778,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+--- !u!23 &1004639338 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2081996427913876008, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+  m_PrefabInstance: {fileID: 1004639337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1198814564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,7 +3927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1680170965
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4679,7 +4692,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     m_Mesh: {fileID: 0}
-    m_MeshRenderer: {fileID: 0}
+    m_MeshRenderer: {fileID: 1004639338}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 0}
     m_SpriteRenderer: {fileID: 0}

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RenderersContainerProxy: {fileID: 0}
-  _collectableIndicatorAnchor: {fileID: 0}
+  _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _collectSfxId: 2
   _animation: {fileID: 2115767306961407324}
   _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}

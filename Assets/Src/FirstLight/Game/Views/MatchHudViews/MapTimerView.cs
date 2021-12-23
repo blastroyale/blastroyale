@@ -22,8 +22,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Animation _mapStatusTextAnimation;
 		[SerializeField] private GameObject _timerOutline;
 		[SerializeField] private Animation _mapShrinkingTimerAnimation;
+		[SerializeField] private Transform _safeAreaRadialTransform;
 		
 		private IGameServices _services;
+		private Transform _cameraTransform;
 
 		public void UpdateShrinkingCircle(Frame f, ShrinkingCircle circle)
 		{
@@ -36,6 +38,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			_timerHolder.SetActive(false);
 			_timerOutline.SetActive(false);
+			
+			_cameraTransform = Camera.main.transform;
 		}
 		
 		private IEnumerator UpdateShrinkingCircleTimer(Frame f, ShrinkingCircle circle)
@@ -54,6 +58,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
 
+			var targetPosLocal = _cameraTransform.InverseTransformPoint(circle.TargetCircleCenter.ToUnityVector3());
+			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+			// Apply rotation
+			_safeAreaRadialTransform.eulerAngles = new Vector3(0, 0, targetAngle);
 			
 			while (Time.time < time)
 			{

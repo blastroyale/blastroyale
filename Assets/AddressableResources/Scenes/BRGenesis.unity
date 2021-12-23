@@ -1386,6 +1386,18 @@ PrefabInstance:
       propertyPath: m_SoftZoneHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2508444973157341317, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508444973157341317, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_Lens.FarClipPlane
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508444973157341317, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 2.1635513
+      objectReference: {fileID: 0}
     - target: {fileID: 3206798757963032342, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
       propertyPath: m_CameraDistance
       value: 10
@@ -1570,6 +1582,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7320929064678466921, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320929064678466921, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7660445
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320929064678466921, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.6427876
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320929064678466921, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 7922642237387115857, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1614,9 +1642,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8431401016875031390, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9004956775911555926, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005503006768313172, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}
+      propertyPath: m_CameraDistance
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3206798757963032342, guid: 75a7246011e10a74192f5ab2eab40507, type: 3}

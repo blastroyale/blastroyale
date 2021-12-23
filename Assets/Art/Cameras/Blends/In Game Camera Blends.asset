@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: In Game Camera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: Adventure Camera
-    m_To: '**ANY CAMERA**'
+  - m_From: Special Aim Camera
+    m_To: Adventure Camera
     m_Blend:
-      m_Style: 3
+      m_Style: 2
       m_Time: 1
       m_CustomCurve:
         serializedVersion: 2
@@ -39,6 +39,17 @@ MonoBehaviour:
     m_To: '**ANY CAMERA**'
     m_Blend:
       m_Style: 2
+      m_Time: 3
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Adventure Camera
+    m_To: Special Aim Camera
+    m_Blend:
+      m_Style: 3
       m_Time: 3
       m_CustomCurve:
         serializedVersion: 2

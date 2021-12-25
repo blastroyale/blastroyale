@@ -1,6 +1,8 @@
 ﻿asset AIBlackboard;
 asset AIBlackboardInitializer;
 
+import struct AssetRef(8);
+
 union BlackboardValue {
 	QBoolean BooleanValue;
 	byte ByteValue;
@@ -9,6 +11,7 @@ union BlackboardValue {
 	FPVector2 FPVector2Value;
 	FPVector3 FPVector3Value;
 	entity_ref EntityRefValue;
+	AssetRef AssetRefValue;
 }
 
 component AIBlackboardComponent {

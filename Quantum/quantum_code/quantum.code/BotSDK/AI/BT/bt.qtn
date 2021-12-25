@@ -5,11 +5,12 @@ component BTAgent {
 	asset_ref<BTNode> Tree;
 	asset_ref<BTNode> Current;
 	list<Byte> NodesStatus;
-	list<Int32> ServicesNextTicks;
+	list<FP> ServicesEndTimes;
 	list<BTDataValue> BTDataValues;
 	list<AssetRefBTService> ActiveServices;
 	list<AssetRefBTComposite> DynamicComposites;
 	AssetRefAIConfig Config;
+	Int32 AbortNodeId;
 }
 
 struct BTDataIndex{

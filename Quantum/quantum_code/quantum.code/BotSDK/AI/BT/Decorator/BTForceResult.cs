@@ -2,22 +2,26 @@
 
 namespace Quantum
 {
-  [Serializable]
-  public unsafe partial class BTForceResult : BTDecorator
-  {
-    public BTStatus Result;
+	[Serializable]
+	public unsafe partial class BTForceResult : BTDecorator
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    protected override BTStatus OnUpdate(BTParams p)
-    {
-      if (_childInstance != null)
-        _childInstance.RunUpdate(p);
+		public BTStatus Result;
 
-      return Result;
-    }
+		// ========== BTNode INTERFACE ================================================================================
 
-    public override Boolean DryRun(BTParams p)
-    {
-      return true;
-    }
-  }
+		protected override BTStatus OnUpdate(BTParams btParams)
+		{
+			if (_childInstance != null)
+				_childInstance.RunUpdate(btParams);
+
+			return Result;
+		}
+
+		public override Boolean DryRun(BTParams btParams)
+		{
+			return true;
+		}
+	}
 }

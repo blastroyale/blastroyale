@@ -4,12 +4,12 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-  [Serializable]
-  [AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-  public partial class IdleAction : AIAction
-  {
-    public override unsafe void Update(Frame f, EntityRef e)
-    {
-    }
-  }
+	[Serializable]
+	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
+	public partial class IdleAction : AIAction
+	{
+		public override unsafe void Update(Frame frame, EntityRef entity)
+		{
+		}
+	}
 }

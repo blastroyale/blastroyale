@@ -3,351 +3,354 @@ using Quantum.Collections;
 
 namespace Quantum
 {
-  public unsafe partial struct UtilityReasoner
-  {
-    public void Initialize(Frame frame, AssetRefUTRoot utRootRef = default, EntityRef entity = default)
-    {
-      // If we don't receive the UTRoot as parameter, we try to find it on the component itself
-      // Useful for pre-seting the UTRoot on a Prototype
-      UTRoot utRootInstance;
-      if(utRootRef == default)
-      {
-        utRootInstance = frame.FindAsset<UTRoot>(UTRoot.Id);
-      }
-      else
-      {
-        UTRoot = utRootRef;
-        utRootInstance = frame.FindAsset<UTRoot>(utRootRef.Id);
-      }
+	public unsafe partial struct UtilityReasoner
+	{
+		// ========== PUBLIC METHODS ==================================================================================
 
-      // Initialize the Reasoner's considerations.
-      // Can be useful further when creating dynamically added Considerations to the Agent (runtime)
-      QList<AssetRefConsideration> considerationsList = frame.AllocateList<AssetRefConsideration>();
-      for (int i = 0; i < utRootInstance.ConsiderationsRefs.Length; i++)
-      {
-        considerationsList.Add(utRootInstance.ConsiderationsRefs[i]);
-      }
-      Considerations = considerationsList;
+		public void Initialize(Frame frame, AssetRefUTRoot utRootRef = default, EntityRef entity = default)
+		{
+			// If we don't receive the UTRoot as parameter, we try to find it on the component itself
+			// Useful for pre-seting the UTRoot on a Prototype
+			UTRoot utRootInstance;
+			if (utRootRef == default)
+			{
+				utRootInstance = frame.FindAsset<UTRoot>(UTRoot.Id);
+			}
+			else
+			{
+				UTRoot = utRootRef;
+				utRootInstance = frame.FindAsset<UTRoot>(utRootRef.Id);
+			}
 
-      CooldownsDict = frame.AllocateDictionary<AssetRefConsideration, FP>();
+			// Initialize the Reasoner's considerations.
+			// Can be useful further when creating dynamically added Considerations to the Agent (runtime)
+			QList<AssetRefConsideration> considerationsList = frame.AllocateList<AssetRefConsideration>();
+			for (int i = 0; i < utRootInstance.ConsiderationsRefs.Length; i++)
+			{
+				considerationsList.Add(utRootInstance.ConsiderationsRefs[i]);
+			}
+			Considerations = considerationsList;
 
-      QList<AssetRefConsideration> previousExecution = frame.AllocateList<AssetRefConsideration>();
-      for (int i = 0; i < 6; i++)
-      {
-        previousExecution.Add(default);
-      }
-      PreviousExecution = previousExecution;
+			CooldownsDict = frame.AllocateDictionary<AssetRefConsideration, FP>();
 
-      MomentumList = frame.AllocateList<UTMomentumPack>();
+			QList<AssetRefConsideration> previousExecution = frame.AllocateList<AssetRefConsideration>();
+			for (int i = 0; i < 6; i++)
+			{
+				previousExecution.Add(default);
+			}
+			PreviousExecution = previousExecution;
 
-      if(entity != default)
-      {
-        UTManager.SetupDebugger?.Invoke(entity, utRootInstance.Path);
-      }
-    }
+			MomentumList = frame.AllocateList<UTMomentumPack>();
 
-    public void Free(Frame f)
-    {
-      UTRoot = default;
-      f.FreeList<AssetRefConsideration>(Considerations);
-      f.FreeDictionary<AssetRefConsideration, FP>(CooldownsDict);
-      f.FreeList<AssetRefConsideration>(PreviousExecution);
-      f.FreeList<UTMomentumPack>(MomentumList);
-    }
+			if (entity != default)
+			{
+				UTManager.SetupDebugger?.Invoke(entity, utRootInstance.Path);
+			}
+		}
 
-    public void Update(Frame frame, UtilityReasoner* reasoner, EntityRef entity = default)
-    {
-      Consideration[] considerations = SolveConsiderationsList(frame, Considerations, reasoner, entity);
-      Consideration chosenConsideration = SelectBestConsideration(frame, considerations, 1, reasoner, entity);
+		public void Free(Frame frame)
+		{
+			UTRoot = default;
+			frame.FreeList<AssetRefConsideration>(Considerations);
+			frame.FreeDictionary<AssetRefConsideration, FP>(CooldownsDict);
+			frame.FreeList<AssetRefConsideration>(PreviousExecution);
+			frame.FreeList<UTMomentumPack>(MomentumList);
+		}
 
-      if (chosenConsideration != default)
-      {
-        chosenConsideration.OnUpdate(frame, reasoner, entity);
-        UTManager.ConsiderationChosen?.Invoke(entity, chosenConsideration.Identifier.Guid.Value);
-      }
+		public void Update(FrameThreadSafe frame, UtilityReasoner* reasoner, EntityRef entity = default)
+		{
+			Consideration[] considerations = SolveConsiderationsList(frame, Considerations, reasoner, entity);
+			Consideration chosenConsideration = SelectBestConsideration(frame, considerations, 1, reasoner, entity);
 
-      TickMomentum(frame, entity);
-    }
+			if (chosenConsideration != default)
+			{
+				chosenConsideration.OnUpdate(frame, reasoner, entity);
+				UTManager.ConsiderationChosen?.Invoke(entity, chosenConsideration.Identifier.Guid.Value);
+			}
 
-    public Consideration[] SolveConsiderationsList(Frame frame, QListPtr<AssetRefConsideration> considerationsRefs, UtilityReasoner* reasoner, EntityRef entity = default)
-    {
-      QList<AssetRefConsideration> solvedRefs = frame.ResolveList(considerationsRefs);
-      Consideration[] considerationsArray = new Consideration[solvedRefs.Count];
-      for (int i = 0; i < solvedRefs.Count; i++)
-      {
-        considerationsArray[i] = frame.FindAsset<Consideration>(solvedRefs[i].Id);
-      }
+			TickMomentum(frame, entity);
+		}
 
-      return considerationsArray;
-    }
+		public Consideration[] SolveConsiderationsList(FrameThreadSafe frame, QListPtr<AssetRefConsideration> considerationsRefs, UtilityReasoner* reasoner, EntityRef entity = default)
+		{
+			QList<AssetRefConsideration> solvedRefs = frame.ResolveList(considerationsRefs);
+			Consideration[] considerationsArray = new Consideration[solvedRefs.Count];
+			for (int i = 0; i < solvedRefs.Count; i++)
+			{
+				considerationsArray[i] = frame.FindAsset<Consideration>(solvedRefs[i].Id);
+			}
 
-    public Consideration SelectBestConsideration(Frame frame, Consideration[] considerations, byte depth, UtilityReasoner* reasoner, EntityRef entity = default)
-    {
-      if (considerations == default)
-        return null;
+			return considerationsArray;
+		}
 
-      QList<UTMomentumPack> momentumList = frame.ResolveList(MomentumList);
+		public Consideration SelectBestConsideration(FrameThreadSafe frame, Consideration[] considerations, byte depth, UtilityReasoner* reasoner, EntityRef entity = default)
+		{
+			if (considerations == default)
+				return null;
 
-      // We get the Rank of every Consideration Set
-      // This "filters" the Considerations with higher absolute utility
-      AssetRefConsideration[] highRankConsiderations = new AssetRefConsideration[considerations.Length];
-      int highestRank = -1;
-      int counter = 0;
-      QDictionary<AssetRefConsideration, FP> cooldowns = frame.ResolveDictionary(CooldownsDict);
+			QList<UTMomentumPack> momentumList = frame.ResolveList(MomentumList);
 
-      for (int i = 0; i < considerations.Length; i++)
-      {
-        Consideration consideration = considerations[i];
+			// We get the Rank of every Consideration Set
+			// This "filters" the Considerations with higher absolute utility
+			AssetRefConsideration[] highRankConsiderations = new AssetRefConsideration[considerations.Length];
+			int highestRank = -1;
+			int counter = 0;
+			QDictionary<AssetRefConsideration, FP> cooldowns = frame.ResolveDictionary(CooldownsDict);
 
-        // Force low Rank for Considerations in Cooldown
-        if (cooldowns.Count > 0 && cooldowns.ContainsKey(considerations[i]) == true)
-        {
-          cooldowns[considerations[i]] -= frame.DeltaTime;
-          if (cooldowns[considerations[i]] <= 0)
-          {
-            cooldowns.Remove(considerations[i]);
-          }
-          {
-            continue;
-          }
-        }
+			for (int i = 0; i < considerations.Length; i++)
+			{
+				Consideration consideration = considerations[i];
 
-        // If the Consideration has Momentum, then it's Rank should is defined by it
-        // Otherwise, we calculate the Rank dynamically
-        int rank;
-        if (ContainsMomentum(momentumList, consideration, out var momentum) == true)
-        {
-          rank = momentum.Value;
-        }
-        else
-        {
-          rank = consideration.GetRank(frame, entity);
-        }
+				// Force low Rank for Considerations in Cooldown
+				if (cooldowns.Count > 0 && cooldowns.ContainsKey(considerations[i]) == true)
+				{
+					cooldowns[considerations[i]] -= frame.DeltaTime;
+					if (cooldowns[considerations[i]] <= 0)
+					{
+						cooldowns.Remove(considerations[i]);
+					}
+					{
+						continue;
+					}
+				}
 
-        if (rank > highestRank)
-        {
-          counter = 0;
+				// If the Consideration has Momentum, then it's Rank should is defined by it
+				// Otherwise, we calculate the Rank dynamically
+				int rank;
+				if (ContainsMomentum(momentumList, consideration, out var momentum) == true)
+				{
+					rank = momentum.Value;
+				}
+				else
+				{
+					rank = consideration.GetRank(frame, entity);
+				}
 
-          highestRank = rank;
-          highRankConsiderations[counter] = considerations[i];
-        }
-        else if (highestRank == rank)
-        {
-          counter++;
-          highRankConsiderations[counter] = considerations[i];
-        }
-      }
+				if (rank > highestRank)
+				{
+					counter = 0;
 
-      // We clean the indices on the high rank sets that were not selected
-      for (int i = counter + 1; i < highRankConsiderations.Length; i++)
-      {
-        if (highRankConsiderations[i] == default)
-          break;
+					highestRank = rank;
+					highRankConsiderations[counter] = considerations[i];
+				}
+				else if (highestRank == rank)
+				{
+					counter++;
+					highRankConsiderations[counter] = considerations[i];
+				}
+			}
 
-        highRankConsiderations[i] = default;
-      }
+			// We clean the indices on the high rank sets that were not selected
+			for (int i = counter + 1; i < highRankConsiderations.Length; i++)
+			{
+				if (highRankConsiderations[i] == default)
+					break;
 
-      // Based on the higher rank, we check which Considerations sets have greater utility
-      // Then we choose that set this frame
-      Consideration chosenConsideration = default;
-      FP highestScore = FP.UseableMin;
-      for (int i = 0; i <= counter; i++)
-      {
-        if (highRankConsiderations[i] == default)
-          continue;
+				highRankConsiderations[i] = default;
+			}
 
-        Consideration consideration = frame.FindAsset<Consideration>(highRankConsiderations[i].Id);
+			// Based on the higher rank, we check which Considerations sets have greater utility
+			// Then we choose that set this frame
+			Consideration chosenConsideration = default;
+			FP highestScore = FP.UseableMin;
+			for (int i = 0; i <= counter; i++)
+			{
+				if (highRankConsiderations[i] == default)
+					continue;
 
-        FP score = consideration.Score(frame, entity);
-        if (highestScore < score)
-        {
-          highestScore = score;
-          chosenConsideration = consideration;
-        }
-      }
+				Consideration consideration = frame.FindAsset<Consideration>(highRankConsiderations[i].Id);
 
-      if (chosenConsideration != default)
-      {
-        // If the chosen Consideration and it is not already under Momentum,
-        // we add add it there, replacing the previous Momentum (if any)
-        if (chosenConsideration.MomentumData.Value > 0 && ContainsMomentum(momentumList, chosenConsideration, out var momentum) == false)
-        {
-          InsertMomentum(frame, momentumList, chosenConsideration);
-        }
+				FP score = consideration.Score(frame, entity);
+				if (highestScore < score)
+				{
+					highestScore = score;
+					chosenConsideration = consideration;
+				}
+			}
 
-        // If the chosen Consideration has cooldown and it is not yet on the cooldowns dictionary,
-        // we add it there
-        if (chosenConsideration.Cooldown > 0 && cooldowns.ContainsKey(chosenConsideration) == false)
-        {
-          cooldowns.Add(chosenConsideration, chosenConsideration.Cooldown);
-        }
+			if (chosenConsideration != default)
+			{
+				// If the chosen Consideration and it is not already under Momentum,
+				// we add add it there, replacing the previous Momentum (if any)
+				if (chosenConsideration.MomentumData.Value > 0 && ContainsMomentum(momentumList, chosenConsideration, out var momentum) == false)
+				{
+					InsertMomentum(frame, momentumList, chosenConsideration);
+				}
 
-        // Add the chosen set to the choices history
-        OnConsiderationChosen(frame, reasoner, chosenConsideration, entity);
-      }
-      else
-      {
-        OnNoConsiderationChosen(frame, reasoner, depth, entity);
-      }
+				// If the chosen Consideration has cooldown and it is not yet on the cooldowns dictionary,
+				// we add it there
+				if (chosenConsideration.Cooldown > 0 && cooldowns.ContainsKey(chosenConsideration) == false)
+				{
+					cooldowns.Add(chosenConsideration, chosenConsideration.Cooldown);
+				}
 
-      // We return the chosen set so it can be executed
-      return chosenConsideration;
-    }
+				// Add the chosen set to the choices history
+				OnConsiderationChosen(frame, reasoner, chosenConsideration, entity);
+			}
+			else
+			{
+				OnNoConsiderationChosen(frame, reasoner, depth, entity);
+			}
 
-    #region Momentum
-    private bool ContainsMomentum(QList<UTMomentumPack> momentumList, Consideration consideration, out UTMomentumData momentum)
-    {
-      for (int i = 0; i < momentumList.Count; i++)
-      {
-        if (momentumList[i].ConsiderationRef == consideration)
-        {
-          momentum = momentumList[i].MomentumData;
-          return true;
-        }
-      }
+			// We return the chosen set so it can be executed
+			return chosenConsideration;
+		}
 
-      momentum = default;
-      return false;
-    }
+		// ========== PRIVATE METHODS =================================================================================
 
-    private void InsertMomentum(Frame frame, QList<UTMomentumPack> momentumList, AssetRefConsideration considerationRef)
-    {
-      Consideration newConsideration = frame.FindAsset<Consideration>(considerationRef.Id);
+		#region Momentum
+		private bool ContainsMomentum(QList<UTMomentumPack> momentumList, Consideration consideration, out UTMomentumData momentum)
+		{
+			for (int i = 0; i < momentumList.Count; i++)
+			{
+				if (momentumList[i].ConsiderationRef == consideration)
+				{
+					momentum = momentumList[i].MomentumData;
+					return true;
+				}
+			}
 
-      // First, we check if this should be a replacement, which happens if:
-      // . The momentum list already have that same Depth added
-      // . Or when it have a higher Depth added
-      bool wasReplacedment = false;
-      for (int i = 0; i < momentumList.Count; i++)
-      {
-        Consideration currentConsideration = frame.FindAsset<Consideration>(momentumList[i].ConsiderationRef.Id);
-        if (currentConsideration.Depth == newConsideration.Depth || currentConsideration.Depth > newConsideration.Depth)
-        {
-          momentumList.GetPointer(i)->ConsiderationRef = considerationRef;
-          momentumList.GetPointer(i)->MomentumData = frame.FindAsset<Consideration>(considerationRef.Id).MomentumData;
+			momentum = default;
+			return false;
+		}
 
-          // We clear the rightmost momentum entries
-          if (i < momentumList.Count - 1)
-          {
-            for (int k = i + 1; k < momentumList.Count; k++)
-            {
-              momentumList.RemoveAt(k);
-            }
-          }
+		private void InsertMomentum(FrameThreadSafe frame, QList<UTMomentumPack> momentumList, AssetRefConsideration considerationRef)
+		{
+			Consideration newConsideration = frame.FindAsset<Consideration>(considerationRef.Id);
 
-          wasReplacedment = true;
-          break;
-        }
-      }
+			// First, we check if this should be a replacement, which happens if:
+			// . The momentum list already have that same Depth added
+			// . Or when it have a higher Depth added
+			bool wasReplacedment = false;
+			for (int i = 0; i < momentumList.Count; i++)
+			{
+				Consideration currentConsideration = frame.FindAsset<Consideration>(momentumList[i].ConsiderationRef.Id);
+				if (currentConsideration.Depth == newConsideration.Depth || currentConsideration.Depth > newConsideration.Depth)
+				{
+					momentumList.GetPointer(i)->ConsiderationRef = considerationRef;
+					momentumList.GetPointer(i)->MomentumData = frame.FindAsset<Consideration>(considerationRef.Id).MomentumData;
 
-      // If there was no replacement, we simply add it to the end of the list as this
-      // consideration probably has higher Depth than the others currently on the list
-      // which can also mean that the list was empty
-      if (wasReplacedment == false)
-      {
-        UTMomentumPack newMomentum = new UTMomentumPack()
-        {
-          ConsiderationRef = considerationRef,
-          MomentumData = frame.FindAsset<Consideration>(considerationRef.Id).MomentumData,
-        };
-        momentumList.Add(newMomentum);
-      }
-    }
+					// We clear the rightmost momentum entries
+					if (i < momentumList.Count - 1)
+					{
+						for (int k = i + 1; k < momentumList.Count; k++)
+						{
+							momentumList.RemoveAt(k);
+						}
+					}
 
-    private void TickMomentum(Frame frame, EntityRef entity = default)
-    {
-      QList<UTMomentumPack> momentumList = frame.ResolveList(MomentumList);
+					wasReplacedment = true;
+					break;
+				}
+			}
 
-      // We decrease the timer and check if it is time already to decay all of the current Momentums
-      TimeToTick -= frame.DeltaTime;
-      bool decay = false;
-      if (TimeToTick <= 0)
-      {
-        decay = true;
-        TimeToTick = 1;
-      }
+			// If there was no replacement, we simply add it to the end of the list as this
+			// consideration probably has higher Depth than the others currently on the list
+			// which can also mean that the list was empty
+			if (wasReplacedment == false)
+			{
+				UTMomentumPack newMomentum = new UTMomentumPack()
+				{
+					ConsiderationRef = considerationRef,
+					MomentumData = frame.FindAsset<Consideration>(considerationRef.Id).MomentumData,
+				};
+				momentumList.Add(newMomentum);
+			}
+		}
 
-      for (int i = 0; i < momentumList.Count; i++)
-      {
-        UTMomentumPack* momentum = momentumList.GetPointer(i);
+		private void TickMomentum(FrameThreadSafe frame, EntityRef entity = default)
+		{
+			QList<UTMomentumPack> momentumList = frame.ResolveList(MomentumList);
 
-        // If we currently have a commitment, we check if it is done already
-        // If it is done, that Consideration's Rank shall be re-calculated
-        // If it is not done, then the Consideration's Rank will be kept due to the commitment
-        // unless some other Consideration has greater Rank and replaces the current commitment
-        Consideration momentumConsideration = frame.FindAsset<Consideration>(momentum->ConsiderationRef.Id);
+			// We decrease the timer and check if it is time already to decay all of the current Momentums
+			TimeToTick -= frame.DeltaTime;
+			bool decay = false;
+			if (TimeToTick <= 0)
+			{
+				decay = true;
+				TimeToTick = 1;
+			}
 
-        if (momentum->MomentumData.Value > 0 && momentumConsideration.MomentumData.DecayAmount > 0)
-        {
-          if (decay)
-          {
-            momentum->MomentumData.Value -= momentumConsideration.MomentumData.DecayAmount;
-          }
-        }
+			for (int i = 0; i < momentumList.Count; i++)
+			{
+				UTMomentumPack* momentum = momentumList.GetPointer(i);
+
+				// If we currently have a commitment, we check if it is done already
+				// If it is done, that Consideration's Rank shall be re-calculated
+				// If it is not done, then the Consideration's Rank will be kept due to the commitment
+				// unless some other Consideration has greater Rank and replaces the current commitment
+				Consideration momentumConsideration = frame.FindAsset<Consideration>(momentum->ConsiderationRef.Id);
+
+				if (momentum->MomentumData.Value > 0 && momentumConsideration.MomentumData.DecayAmount > 0)
+				{
+					if (decay)
+					{
+						momentum->MomentumData.Value -= momentumConsideration.MomentumData.DecayAmount;
+					}
+				}
 
 
-        bool isDone = false;
-        if(momentumConsideration.Commitment != default)
-        {
-          isDone = momentumConsideration.Commitment.Execute(frame, entity);
-        }
-        
-        if (isDone == true || momentum->MomentumData.Value <= 0)
-        {
-          momentum->MomentumData.Value = 0;
-          momentumList.RemoveAt(i);
-        }
-      }
-    }
-    #endregion
+				bool isDone = false;
+				if (momentumConsideration.Commitment != default)
+				{
+					isDone = momentumConsideration.Commitment.Execute(frame, entity);
+				}
+				if (isDone == true || momentum->MomentumData.Value <= 0)
+				{
+					momentum->MomentumData.Value = 0;
+					momentumList.RemoveAt(i);
+				}
+			}
+		}
+		#endregion
 
-    #region ConsiderationsChoiceReactions
-    private static void OnConsiderationChosen(Frame frame, UtilityReasoner* reasoner, AssetRefConsideration chosenConsiderationRef, EntityRef entity = default)
-    {
-      Consideration chosenConsideration = frame.FindAsset<Consideration>(chosenConsiderationRef.Id);
+		#region ConsiderationsChoiceReactions
+		private static void OnConsiderationChosen(FrameThreadSafe frame, UtilityReasoner* reasoner, AssetRefConsideration chosenConsiderationRef, EntityRef entity = default)
+		{
+			Consideration chosenConsideration = frame.FindAsset<Consideration>(chosenConsiderationRef.Id);
 
-      QList<AssetRefConsideration> previousExecution = frame.ResolveList(reasoner->PreviousExecution);
+			QList<AssetRefConsideration> previousExecution = frame.ResolveList(reasoner->PreviousExecution);
 
-      if (previousExecution[chosenConsideration.Depth - 1] != chosenConsideration)
-      {
-        // Exit the one that we're replacing
-        var replacedSet = frame.FindAsset<Consideration>(previousExecution[chosenConsideration.Depth - 1].Id);
-        if (replacedSet != default)
-        {
-          replacedSet.OnExit(frame, reasoner, entity);
-        }
+			if (previousExecution[chosenConsideration.Depth - 1] != chosenConsideration)
+			{
+				// Exit the one that we're replacing
+				var replacedSet = frame.FindAsset<Consideration>(previousExecution[chosenConsideration.Depth - 1].Id);
+				if (replacedSet != default)
+				{
+					replacedSet.OnExit(frame, reasoner, entity);
+				}
 
-        // Exit the consecutive ones
-        for (int i = chosenConsideration.Depth; i < previousExecution.Count; i++)
-        {
-          var cs = frame.FindAsset<Consideration>(previousExecution[i].Id);
-          if (cs == default)
-            break;
+				// Exit the consecutive ones
+				for (int i = chosenConsideration.Depth; i < previousExecution.Count; i++)
+				{
+					var cs = frame.FindAsset<Consideration>(previousExecution[i].Id);
+					if (cs == default)
+						break;
 
-          cs.OnExit(frame, reasoner, entity);
-          previousExecution[i] = default;
-        }
+					cs.OnExit(frame, reasoner, entity);
+					previousExecution[i] = default;
+				}
 
-        // Insert and Enter on the new chosen consideration
-        previousExecution[chosenConsideration.Depth - 1] = chosenConsideration;
-        chosenConsideration.OnEnter(frame, reasoner, entity);
-      }
-    }
+				// Insert and Enter on the new chosen consideration
+				previousExecution[chosenConsideration.Depth - 1] = chosenConsideration;
+				chosenConsideration.OnEnter(frame, reasoner, entity);
+			}
+		}
 
-    private static void OnNoConsiderationChosen(Frame frame, UtilityReasoner* reasoner, byte depth, EntityRef entity = default)
-    {
-      QList<AssetRefConsideration> previousExecution = frame.ResolveList(reasoner->PreviousExecution);
+		private static void OnNoConsiderationChosen(FrameThreadSafe frame, UtilityReasoner* reasoner, byte depth, EntityRef entity = default)
+		{
+			QList<AssetRefConsideration> previousExecution = frame.ResolveList(reasoner->PreviousExecution);
 
-      for (int i = depth - 1; i < previousExecution.Count; i++)
-      {
-        var cs = frame.FindAsset<Consideration>(previousExecution[i].Id);
-        if (cs == default)
-          break;
+			for (int i = depth - 1; i < previousExecution.Count; i++)
+			{
+				var cs = frame.FindAsset<Consideration>(previousExecution[i].Id);
+				if (cs == default)
+					break;
 
-        cs.OnExit(frame, reasoner, entity);
-        previousExecution[i] = default;
-      }
-    }
-    #endregion
-  }
+				cs.OnExit(frame, reasoner, entity);
+				previousExecution[i] = default;
+			}
+		}
+		#endregion
+	}
 }

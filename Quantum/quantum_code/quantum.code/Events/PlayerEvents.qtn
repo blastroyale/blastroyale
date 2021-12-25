@@ -124,14 +124,15 @@ synced event OnRemotePlayerDead
 synced event OnPlayerAttacked
 {
 	entity_ref PlayerEntity;
-	PlayerCharacter PlayerCharacter;
+	player_ref Player;
 }
 
 synced event OnPlayerAttackHit
 {
 	entity_ref PlayerEntity;
 	player_ref Player;
-	Hit3D Hit;
+	entity_ref HitEntity;
+	FPVector3 HitPosition;
 }
 
 synced event OnPlayerAttackMiss

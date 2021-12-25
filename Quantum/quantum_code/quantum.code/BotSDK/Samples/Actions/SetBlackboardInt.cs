@@ -2,22 +2,22 @@
 
 namespace Quantum
 {
-  [Serializable]
-  [AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-  public unsafe partial class SetBlackboardInt : AIAction
-  {
-    public AIBlackboardValueKey Key;
-    public AIParamInt Value;
+	[Serializable]
+	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
+	public unsafe partial class SetBlackboardInt : AIAction
+	{
+		public AIBlackboardValueKey Key;
+		public AIParamInt Value;
 
-    public override unsafe void Update(Frame f, EntityRef e)
-    {
-      var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+		public override unsafe void Update(Frame frame, EntityRef entity)
+		{
+			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 
-      var hfsmAgent = f.Unsafe.GetPointer<HFSMAgent>(e);
-      var config = hfsmAgent->GetConfig(f);
+			var agent = frame.Unsafe.GetPointer<HFSMAgent>(entity);
+			var aiConfig = agent->GetConfig(frame);
 
-      var value = Value.Resolve(f, bbComponent, config);
-      bbComponent->Set(f, Key.Key, value);
-    }
-  }
+			var value = Value.Resolve(frame, entity, blackboard, aiConfig);
+			blackboard->Set(frame, Key.Key, value);
+		}
+	}
 }

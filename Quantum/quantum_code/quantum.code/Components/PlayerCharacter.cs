@@ -150,6 +150,8 @@ namespace Quantum
 			weapon.IsAutoShoot = config.IsAutoShoot;
 			weapon.AttackCooldown = config.AttackCooldown;
 			weapon.NextShotAllowedTime = f.Time;
+			weapon.Range = config.ProjectileRange;
+			weapon.AttackAngle = config.BulletSpreadAngle;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{

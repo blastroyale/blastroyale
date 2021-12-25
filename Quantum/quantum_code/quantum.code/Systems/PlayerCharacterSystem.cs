@@ -182,8 +182,7 @@ namespace Quantum.Systems
 				
 				rotation = input->Direction;
 				kcc->MaxSpeed = speed;
-				
-				moveVelocity = input->Direction.XOY * speed;
+				moveVelocity = rotation.XOY * speed;
 			}
 			
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,

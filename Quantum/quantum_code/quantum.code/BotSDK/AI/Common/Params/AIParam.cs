@@ -2,99 +2,118 @@
 
 namespace Quantum
 {
-  public enum AIParamSource
-  {
-    None,
-    Value,
-    Config,
-    Blackboard,
-    Func,
-  }
+	public enum AIParamSource
+	{
+		None,
+		Value,
+		Config,
+		Blackboard,
+		Function,
+	}
 
-  [Serializable]
-  public abstract unsafe class AIParam<T>
-  {
-    public AIParamSource Source = AIParamSource.Value;
-    public string Key;
-    public T DefaultValue;
+	// ============================================================================================================
 
-    public unsafe T ResolveFromHFSM(Frame frame, EntityRef entity)
-    {
-      AIBlackboardComponent* blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
-      AIConfig aiConfig = frame.FindAsset<AIConfig>(frame.Unsafe.GetPointer<HFSMAgent>(entity)->Config.Id);
+	[Serializable]
+	public abstract unsafe class AIParam<T>
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-      return Resolve(frame, blackboard, aiConfig);
-    }
+		public AIParamSource Source = AIParamSource.Value;
+		public string Key;
+		public T DefaultValue;
 
-    public unsafe T ResolveFromGOAP(Frame frame, EntityRef entity)
-    {
-      AIBlackboardComponent* blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
-      AIConfig aiConfig = frame.FindAsset<AIConfig>(frame.Unsafe.GetPointer<GOAPAgent>(entity)->Config.Id);
+		// ========== AIParam INTERFACE ================================================================================
 
-      return Resolve(frame, blackboard, aiConfig);
-    }
+		protected abstract T GetBlackboardValue(BlackboardValue value);
+		protected abstract T GetConfigValue(AIConfig.KeyValuePair configPair);
 
-    public unsafe T ResolveFromBT(Frame frame, EntityRef entity)
-    {
-      AIBlackboardComponent* blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
-      AIConfig aiConfig = frame.FindAsset<AIConfig>(frame.Unsafe.GetPointer<BTAgent>(entity)->Config.Id);
+		protected abstract T GetFunctionValue(Frame frame, EntityRef entity);
+		protected abstract T GetFunctionValue(FrameThreadSafe frame, EntityRef entity);
 
-      return Resolve(frame, blackboard, aiConfig);
-    }
+		// ========== PUBLIC METHODS ==================================================================================
 
-    /// <summary>
-    /// Use this to solve the AIParam value when the source of the value is unkown
-    /// </summary>
-    public unsafe T Resolve(Frame frame, AIBlackboardComponent* blackboardComponent, AIConfig configData, EntityRef entity = default)
-    {
-      if (Source == AIParamSource.Value || (Source != AIParamSource.Func && string.IsNullOrEmpty(Key) == true))
-        return DefaultValue;
+		public T Resolve(Frame frame, EntityRef entity, AIBlackboardComponent* blackboard, AIConfig aiConfig)
+		{
+			return Resolve((FrameThreadSafe)frame, entity, blackboard, aiConfig);
+		}
 
-      switch (Source)
-      {
-        case AIParamSource.Blackboard:
-          BlackboardValue blackboardValue = blackboardComponent->GetBlackboardValue(frame, Key);
-          return GetBlackboardValue(blackboardValue);
+		/// <summary>
+		/// Use this to solve the AIParam value when the source of the value is unkown
+		/// </summary>
+		public T Resolve(FrameThreadSafe frame, EntityRef entity, AIBlackboardComponent* blackboard, AIConfig aiConfig)
+		{
+			if (Source == AIParamSource.Value || (Source != AIParamSource.Function && string.IsNullOrEmpty(Key) == true))
+				return DefaultValue;
 
-        case AIParamSource.Config:
-          AIConfig.KeyValuePair config = configData != null ? configData.Get(Key) : null;
-          return config != null ? GetConfigValue(config) : DefaultValue;
+			switch (Source)
+			{
+				case AIParamSource.Blackboard:
+					BlackboardValue blackboardValue = blackboard->GetBlackboardValue(frame, Key);
+					return GetBlackboardValue(blackboardValue);
 
-        case AIParamSource.Func:
-          return GetFuncValue(frame, entity);
-      }
+				case AIParamSource.Config:
+					AIConfig.KeyValuePair configPair = aiConfig != null ? aiConfig.Get(Key) : null;
+					return configPair != null ? GetConfigValue(configPair) : DefaultValue;
 
-      return default(T);
-    }
+				case AIParamSource.Function:
+					return GetFunctionValue(frame, entity);
+			}
 
-    /// <summary>
-    /// Use this if the it is known that the AIParam stores specifically a Blackboard value
-    /// </summary>
-    public unsafe T ResolveBlackboard(Frame frame, AIBlackboardComponent* blackboardComponent)
-    {
-      BlackboardValue blackboardValue = blackboardComponent->GetBlackboardValue(frame, Key);
-      return GetBlackboardValue(blackboardValue);
-    }
+			return default(T);
+		}
 
-    /// <summary>
-    /// Use this if the it is known that the AIParam stores specifically a Config value
-    /// </summary>
-    public unsafe T ResolveConfig(Frame frame, AIConfig configData)
-    {
-      AIConfig.KeyValuePair config = configData != null ? configData.Get(Key) : null;
-      return config != null ? GetConfigValue(config) : DefaultValue;
-    }
+		/// <summary>
+		/// Use this if the it is known that the AIParam stores specifically a Blackboard value
+		/// </summary>
+		public unsafe T ResolveBlackboard(Frame frame, AIBlackboardComponent* blackboard)
+		{
+			return ResolveBlackboard((FrameThreadSafe)frame, blackboard);
+		}
 
-    /// <summary>
-    /// Use this if the it is known that the AIParam stores specifically a Func
-    /// </summary>
-    public unsafe T ResolveFunc(Frame frame, EntityRef entity)
-    {
-      return GetFuncValue(frame, entity);
-    }
+		/// <summary>
+		/// Use this if the it is known that the AIParam stores specifically a Blackboard value
+		/// </summary>
+		public unsafe T ResolveBlackboard(FrameThreadSafe frame, AIBlackboardComponent* blackboard)
+		{
+			BlackboardValue blackboardValue = blackboard->GetBlackboardValue(frame, Key);
+			return GetBlackboardValue(blackboardValue);
+		}
 
-    protected abstract T GetBlackboardValue(BlackboardValue value);
-    protected abstract T GetConfigValue(AIConfig.KeyValuePair config);
-    protected abstract T GetFuncValue(Frame frame, EntityRef entity);
-  }
+
+
+		/// <summary>
+		/// Use this if the it is known that the AIParam stores specifically a Config value
+		/// </summary>
+		public unsafe T ResolveConfig(Frame frame, AIConfig aiConfig)
+		{
+			return ResolveConfig((FrameThreadSafe)frame, aiConfig);
+		}
+
+		/// <summary>
+		/// Use this if the it is known that the AIParam stores specifically a Config value
+		/// </summary>
+		public unsafe T ResolveConfig(FrameThreadSafe frame, AIConfig aiConfig)
+		{
+			AIConfig.KeyValuePair configPair = aiConfig != null ? aiConfig.Get(Key) : null;
+			return configPair != null ? GetConfigValue(configPair) : DefaultValue;
+		}
+
+
+
+		/// <summary>
+		/// Use this if the it is known that the AIParam stores specifically a Func
+		/// </summary>
+		public unsafe T ResolveFunction(Frame frame, EntityRef entity)
+		{
+			return ResolveFunction((FrameThreadSafe)frame, entity);
+		}
+
+		/// <summary>
+		/// Use this if the it is known that the AIParam stores specifically a Func
+		/// </summary>
+		public unsafe T ResolveFunction(FrameThreadSafe frame, EntityRef entity)
+		{
+			return GetFunctionValue(frame, entity);
+		}
+	}
 }

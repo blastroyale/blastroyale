@@ -1,22 +1,45 @@
-﻿enum GOAPWorldState : Int64 {
-	Root = 1, TargetSelected = 2, CarryingTarget = 4, TargetDelivered = 8
-}
+﻿#define MAX_PLAN_SIZE 6
 
-import GOAPAgent;
-
-asset GOAPTask;
 asset GOAPRoot;
+asset GOAPGoal;
+asset GOAPAction;
+asset GOAPBackValidation;
+asset GOAPHeuristic;
 
-struct GOAPState{
-	Int64 Positive;
-	Int64 Negative;
+singleton component GOAPData
+{
+	asset_ref<GOAPHeuristic> HeuristicCost;
 }
 
-component GOAPAgent{
-	Int64 CurrentState;
-	GOAPState Goal;
-	array<AssetRefGOAPTask>[4] Plan;
-	Int32 CurrentTaskIndex;
-	Int32 TaskCount;
+component GOAPAgent
+{
+	asset_ref<GOAPRoot> Root;
 	AssetRefAIConfig Config;
+
+	[ExcludeFromPrototype]
+	GOAPState CurrentState;
+
+	[ExcludeFromPrototype]
+	asset_ref<GOAPGoal> CurrentGoal;
+	[ExcludeFromPrototype]
+	GOAPState GoalState;
+
+	[ExcludeFromPrototype]
+	sbyte CurrentActionIndex;
+	[ExcludeFromPrototype]
+	sbyte LastProcessedActionIndex;
+	[ExcludeFromPrototype]
+	byte CurrentPlanSize;
+	[ExcludeFromPrototype]
+	array<asset_ref<GOAPAction>>[MAX_PLAN_SIZE] Plan;
+
+	[ExcludeFromPrototype]
+	FP CurrentActionTime;
+	[ExcludeFromPrototype]
+	FP CurrentGoalTime;
+	[ExcludeFromPrototype]
+	FP InterruptionCheckCooldown;
+
+	[ExcludeFromPrototype]
+	list<FP> GoalDisableTimes;
 }

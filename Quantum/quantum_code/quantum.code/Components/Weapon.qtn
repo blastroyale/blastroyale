@@ -3,18 +3,22 @@ component Weapon
 	[HideInInspector] GameId GameId;
 	[HideInInspector] UInt32 Capacity;
 	[HideInInspector] UInt32 MaxCapacity;
+	[HideInInspector] FP AttackCooldown;
+	[HideInInspector] FP Range;
+	[HideInInspector] FP AttackAngle;
+	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
+	[HideInInspector] FP AimingMovementSpeedMultiplier; 
+	[HideInInspector] FP LastAttackTime; 
+	
 	[HideInInspector] UInt32 MinCapacityToShoot;
 	[HideInInspector] FP OneCapacityReloadingTime;
 	[HideInInspector] FP NextCapacityIncreaseTime;
-	[HideInInspector] FP AimingMovementSpeedMultiplier; 
 	[HideInInspector] UInt32 BulletSpreadAngle;
 	[HideInInspector] ReloadType ReloadType;
 	[HideInInspector] bool Emptied;
 	[HideInInspector] bool IsHealing;
 	[HideInInspector] GameId ProjectileHealingId;
-	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 	[HideInInspector] bool IsAutoShoot;
-	[HideInInspector] FP AttackCooldown;
 	[HideInInspector] FP NextShotAllowedTime;
 }
 

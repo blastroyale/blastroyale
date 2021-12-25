@@ -1,5 +1,6 @@
 using System;
 using Photon.Deterministic;
+using Quantum.Physics3D;
 
 namespace Quantum
 {
@@ -14,33 +15,46 @@ namespace Quantum
 		public override void Update(Frame f, EntityRef e)
 		{
 			var playerCharacter = f.Get<PlayerCharacter>(e);
-			var weapon = f.Get<Weapon>(e);
-			var config = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var input = f.GetPlayerInput(playerCharacter.Player);
-			var aimingDirection = input->AimingDirection;
-			var startPosition = f.Get<Transform3D>(e).Position;
-			var direction = aimingDirection.XOY.Normalized * config.ProjectileRange;
-			var shape = Shape3D.CreateBox(new FPVector3(1, 10, 1));
-			var rotation = FPQuaternion.Euler(aimingDirection.XOY);
-			var hit = f.Physics3D.ShapeCast(startPosition, rotation, &shape, direction, f.PlayerCastLayerMask, 
-			                                 QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			var weapon = f.Unsafe.GetPointer<Weapon>(e);
+			var player = playerCharacter.Player;
+			var aimingDirection = f.GetPlayerInput(player)->AimingDirection; // TODO outside of here
+			var position = f.Get<Transform3D>(e).Position;
+			var team = f.Get<Targetable>(e).Team;
+			var angleCount = FPMath.FloorToInt(weapon->BulletSpreadAngle / (FP._1 * 10)) + 1;
+			var angleStep = weapon->BulletSpreadAngle / FPMath.Max(FP._1, angleCount - 1);
+			var angle = -(FP) weapon->BulletSpreadAngle / FP._2;
 			
-			f.Events.OnPlayerAttacked(e, playerCharacter);
-			
-			if (hit.HasValue)
+			f.Events.OnPlayerAttacked(e, player);
+
+			for (var i = 0; i < angleCount; i++)
 			{
-				// Triggered if the player hit's target
-				if (QuantumHelpers.IsAttackable(f, hit.Value.Entity, f.Get<Targetable>(e).Team))
-				{
-					f.Signals.PlayerAttackHit(playerCharacter.Player, e, hit.Value.Entity);
-				}
+				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
+				var hit = f.Physics3D.Raycast(position, direction.XOY, weapon->Range, f.PlayerCastLayerMask);
+				
+				ProcessHit(f, e, player, hit, team);
 
-				f.Events.OnPlayerAttackHit(e, playerCharacter.Player, hit.Value);
+				angle += angleStep;
+			}
+			
+			weapon->Capacity--;
+			weapon->LastAttackTime = f.Time;
+		}
 
+		private void ProcessHit(Frame f, EntityRef attackerEntity, PlayerRef attacker, Hit3D? hit, int attackerTeam)
+		{
+			if (!hit.HasValue)
+			{
+				f.Events.OnPlayerAttackMiss(attackerEntity, attacker);
+				
 				return;
 			}
 			
-			f.Events.OnPlayerAttackMiss(e, playerCharacter.Player);
+			if (QuantumHelpers.IsAttackable(f, hit.Value.Entity, attackerTeam))
+			{
+				f.Signals.PlayerAttackHit(attacker, attackerEntity, hit.Value.Entity);
+			}
+
+			f.Events.OnPlayerAttackHit(attackerEntity, attacker, hit.Value.Entity, hit.Value.Point);
 		}
 	}
 }

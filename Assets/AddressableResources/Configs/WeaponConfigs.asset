@@ -33,12 +33,12 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 58982
-      InitialCapacity: 18
-      MaxCapacity: 18
+      InitialCapacity: 7
+      MaxCapacity: 36
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 181535
+        RawValue: 363069
       TargetingType: 1
       SplashRadius:
         RawValue: 0
@@ -73,12 +73,12 @@ MonoBehaviour:
         RawValue: 8192
       AttackCooldown:
         RawValue: 36045
-      InitialCapacity: 50
-      MaxCapacity: 50
+      InitialCapacity: 100
+      MaxCapacity: 100
       MinCapacityToShoot: 1
       ReloadType: 1
       ReloadSpeed:
-        RawValue: 1638400
+        RawValue: 3276800
       TargetingType: 1
       SplashRadius:
         RawValue: 49152
@@ -113,12 +113,12 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 13107
-      InitialCapacity: 90
-      MaxCapacity: 90
+      InitialCapacity: 36
+      MaxCapacity: 180
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 589824
+        RawValue: 1179648
       TargetingType: 1
       SplashRadius:
         RawValue: 0
@@ -153,12 +153,12 @@ MonoBehaviour:
         RawValue: 16384
       AttackCooldown:
         RawValue: 42598
-      InitialCapacity: 12
-      MaxCapacity: 12
+      InitialCapacity: 5
+      MaxCapacity: 24
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 98304
+        RawValue: 196608
       TargetingType: 1
       SplashRadius:
         RawValue: 0
@@ -193,12 +193,12 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 58982
-      InitialCapacity: 16
-      MaxCapacity: 16
+      InitialCapacity: 6
+      MaxCapacity: 32
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 150077
+        RawValue: 299500
       TargetingType: 1
       SplashRadius:
         RawValue: 131072
@@ -233,12 +233,12 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 27525
-      InitialCapacity: 50
-      MaxCapacity: 50
+      InitialCapacity: 20
+      MaxCapacity: 100
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 728105
+        RawValue: 1456210
       TargetingType: 1
       SplashRadius:
         RawValue: 0
@@ -273,12 +273,12 @@ MonoBehaviour:
         RawValue: 36045
       AttackCooldown:
         RawValue: 13107
-      InitialCapacity: 18
-      MaxCapacity: 18
+      InitialCapacity: 7
+      MaxCapacity: 36
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 29491
+        RawValue: 58982
       TargetingType: 1
       SplashRadius:
         RawValue: 0
@@ -313,10 +313,10 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 22938
-      InitialCapacity: 50
-      MaxCapacity: 50
+      InitialCapacity: 20
+      MaxCapacity: 100
       MinCapacityToShoot: 1
-      ReloadType: 1
+      ReloadType: 4
       ReloadSpeed:
         RawValue: 1638400
       TargetingType: 1
@@ -353,12 +353,12 @@ MonoBehaviour:
         RawValue: 26214
       AttackCooldown:
         RawValue: 13107
-      InitialCapacity: 65
-      MaxCapacity: 65
+      InitialCapacity: 26
+      MaxCapacity: 130
       MinCapacityToShoot: 1
       ReloadType: 4
       ReloadSpeed:
-        RawValue: 106824
+        RawValue: 212992
       TargetingType: 1
       SplashRadius:
         RawValue: 0

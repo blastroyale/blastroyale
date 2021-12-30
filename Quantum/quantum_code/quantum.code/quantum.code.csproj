@@ -58,15 +58,19 @@
   <ItemGroup>
     <Compile Include="AI\Actions\AIAction.cs" />
     <Compile Include="AI\Actions\ClearTargetAction.cs" />
+    <Compile Include="AI\Actions\PlayerAttackAction.cs" />
+    <Compile Include="AI\Actions\PlayerWeaponEmptyAction.cs" />
     <Compile Include="AI\Actions\SetBlackboardBoolAction.cs" />
     <Compile Include="AI\Actions\SetEntityRefAction.cs" />
     <Compile Include="AI\Actions\ShootAtAimingDirectionAction.cs" />
     <Compile Include="AI\Decisions\HFSM.IsBotDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerInputAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerInputShootingDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsWeaponEmptyDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.TimerDecisionDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsPlayerShootingDecision.cs" />
     <Compile Include="AI\HFSM.State.cs" />
-    <Compile Include="AI\Player\PlayerShapeAttackAction.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />
     <Compile Include="BotSDK\AI\BT\BTAgent\BTAgent.User.cs" />

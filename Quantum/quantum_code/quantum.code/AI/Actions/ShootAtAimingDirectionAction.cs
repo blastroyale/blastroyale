@@ -38,7 +38,7 @@ namespace Quantum
 				if (weapon->Emptied || weapon->NextShotAllowedTime > f.Time)
 				{
 					HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.ATTACK_FINISHED_EVENT);
-					f.Events.OnLocalPlayerFailedShoot(playerCharacter.Player, e);
+					f.Events.OnLocalPlayerWeaponEmpty(playerCharacter.Player, e);
 					return;
 				}
 				
@@ -66,7 +66,7 @@ namespace Quantum
 				normalizedDirection = normalizedOriginalDirection;
 				
 				// If weapon is at full capacity then we mark the next time to increase the capacity on 1 point
-				if (weapon->Capacity == weapon->MaxCapacity)
+				if (weapon->Ammo == weapon->MaxAmmo)
 				{
 					weapon->NextCapacityIncreaseTime = f.Time + weapon->OneCapacityReloadingTime;
 				}
@@ -78,10 +78,10 @@ namespace Quantum
 				
 				spawnOffset = f.Get<PlayerCharacter>(e).ProjectileSpawnOffset;
 				isHealing = weapon->IsHealing;
-				weapon->Capacity = Math.Max(weapon->Capacity - 1, 0);
+				weapon->Ammo = Math.Max(weapon->Ammo - 1, 0);
 				weapon->NextShotAllowedTime = f.Time + weapon->AttackCooldown;
 				
-				if (weapon->Capacity == 0)
+				if (weapon->Ammo == 0)
 				{
 					weapon->Emptied = true;
 				}

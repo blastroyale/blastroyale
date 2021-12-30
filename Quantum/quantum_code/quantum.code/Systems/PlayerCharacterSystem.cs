@@ -144,10 +144,11 @@ namespace Quantum.Systems
 				return;
 			}
 
-			ProcessWeaponMode(f, ref filter);
-			ProcessWeaponReload(f, ref filter);
-			ProcessWeaponSwitching(f, ref filter);
+			ProcessWeaponMode(f, ref filter); // TODO: REMOVE
+			ProcessWeaponReload(f, ref filter); // TODO: REMOVE
+			ProcessWeaponSwitching(f, ref filter); // TODO: REMOVE
 
+			// TODO: Rework charging attack with spells
 			if (f.Unsafe.TryGetPointer<PlayerCharacterCharging>(filter.Entity, out var chargePlayer))
 			{
 				ProcessChargingPlayer(f, ref filter, chargePlayer);
@@ -170,6 +171,7 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
 			var moveVelocity = FPVector3.Zero;
+			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
 
 			if (input->IsMoveButtonDown)
 			{
@@ -184,6 +186,9 @@ namespace Quantum.Systems
 				kcc->MaxSpeed = speed;
 				moveVelocity = rotation.XOY * speed;
 			}
+
+			bb.Set(f, Constants.IsShootingKey, input->IsShootButtonDown);
+			bb.Set(f, Constants.AimDirectionKey, input->AimingDirection);
 			
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
@@ -195,7 +200,8 @@ namespace Quantum.Systems
 			}
 			
 			// TODO: either process the player's rotation on the BOT SDK or process in here, but not in both places
-			if (f.Get<AIBlackboardComponent>(filter.Entity).GetEntityRef(f, Constants.TARGET_BB_KEY).IsValid)
+			// TODO: Remove this when shapes attacks are online
+			if (bb.GetEntityRef(f, Constants.TARGET_BB_KEY).IsValid)
 			{
 				rotation = FPVector2.Zero;
 			}
@@ -235,7 +241,7 @@ namespace Quantum.Systems
 			}
 			
 			// Handles the reload skip for reload types that aren't always reloading
-			if (weapon->Capacity < weapon->MaxCapacity && weapon->ReloadType != ReloadType.Always)
+			if (weapon->Ammo < weapon->MaxAmmo && weapon->ReloadType != ReloadType.Always)
 			{
 				var input = f.GetPlayerInput(filter.Player->Player);
 					
@@ -247,19 +253,19 @@ namespace Quantum.Systems
 				}
 			}
 				
-			if (weapon->Capacity >= weapon->MaxCapacity || f.Time < weapon->NextCapacityIncreaseTime)
+			if (weapon->Ammo >= weapon->MaxAmmo || f.Time < weapon->NextCapacityIncreaseTime)
 			{
 				return;
 			}
 				
-			weapon->Capacity += 1;
+			weapon->Ammo += 1;
 				
-			if (weapon->Emptied && weapon->Capacity >= weapon->MinCapacityToShoot)
+			if (weapon->Emptied && weapon->Ammo >= weapon->MinCapacityToShoot)
 			{
 				weapon->Emptied = false;
 			}
 				
-			if (weapon->Capacity < weapon->MaxCapacity)
+			if (weapon->Ammo < weapon->MaxAmmo)
 			{
 				weapon->NextCapacityIncreaseTime = f.Time + weapon->OneCapacityReloadingTime;
 			}

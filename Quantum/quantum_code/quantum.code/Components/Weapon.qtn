@@ -1,11 +1,12 @@
 component Weapon
 {
 	[HideInInspector] GameId GameId;
-	[HideInInspector] UInt32 Capacity;
-	[HideInInspector] UInt32 MaxCapacity;
-	[HideInInspector] FP AttackCooldown;
+	[HideInInspector] UInt32 Ammo;
+	[HideInInspector] UInt32 MaxAmmo;
 	[HideInInspector] FP Range;
+	[HideInInspector] FP AttackCooldown;
 	[HideInInspector] FP AttackAngle;
+	[HideInInspector] FP SplashRadius;
 	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 	[HideInInspector] FP AimingMovementSpeedMultiplier; 
 	[HideInInspector] FP LastAttackTime; 

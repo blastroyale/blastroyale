@@ -44,4 +44,4 @@ signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_r
 
 // New Shape Cast signals - Move up when the feature is fully integrated
 
-signal PlayerAttackHit(player_ref player, entity_ref playerEntity, entity_ref hitEntity);
+signal AttackHit(entity_ref attacker, entity_ref hitEntity, Int32 amount);

@@ -4765,23 +4765,23 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Weapon : Quantum.IComponent {
-    public const Int32 SIZE = 280;
+    public const Int32 SIZE = 288;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(40)]
     [HideInInspector()]
     public FP AimingMovementSpeedMultiplier;
+    [FieldOffset(24)]
+    [HideInInspector()]
+    public UInt32 Ammo;
     [FieldOffset(48)]
     [HideInInspector()]
     public FP AttackAngle;
     [FieldOffset(56)]
     [HideInInspector()]
     public FP AttackCooldown;
-    [FieldOffset(24)]
-    [HideInInspector()]
-    public UInt32 BulletSpreadAngle;
     [FieldOffset(28)]
     [HideInInspector()]
-    public UInt32 Capacity;
+    public UInt32 BulletSpreadAngle;
     [FieldOffset(8)]
     [HideInInspector()]
     public QBoolean Emptied;
@@ -4799,7 +4799,7 @@ namespace Quantum {
     public FP LastAttackTime;
     [FieldOffset(32)]
     [HideInInspector()]
-    public UInt32 MaxCapacity;
+    public UInt32 MaxAmmo;
     [FieldOffset(36)]
     [HideInInspector()]
     public UInt32 MinCapacityToShoot;
@@ -4821,10 +4821,13 @@ namespace Quantum {
     [FieldOffset(20)]
     [HideInInspector()]
     public ReloadType ReloadType;
-    [FieldOffset(104)]
+    [FieldOffset(112)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[176];
+    [FieldOffset(104)]
+    [HideInInspector()]
+    public FP SplashRadius;
     public FixedArray<Special> Specials {
       get {
         fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 88, 2); }
@@ -4834,16 +4837,16 @@ namespace Quantum {
       unchecked { 
         var hash = 607;
         hash = hash * 31 + AimingMovementSpeedMultiplier.GetHashCode();
+        hash = hash * 31 + Ammo.GetHashCode();
         hash = hash * 31 + AttackAngle.GetHashCode();
         hash = hash * 31 + AttackCooldown.GetHashCode();
         hash = hash * 31 + BulletSpreadAngle.GetHashCode();
-        hash = hash * 31 + Capacity.GetHashCode();
         hash = hash * 31 + Emptied.GetHashCode();
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + IsAutoShoot.GetHashCode();
         hash = hash * 31 + IsHealing.GetHashCode();
         hash = hash * 31 + LastAttackTime.GetHashCode();
-        hash = hash * 31 + MaxCapacity.GetHashCode();
+        hash = hash * 31 + MaxAmmo.GetHashCode();
         hash = hash * 31 + MinCapacityToShoot.GetHashCode();
         hash = hash * 31 + NextCapacityIncreaseTime.GetHashCode();
         hash = hash * 31 + NextShotAllowedTime.GetHashCode();
@@ -4852,6 +4855,7 @@ namespace Quantum {
         hash = hash * 31 + Range.GetHashCode();
         hash = hash * 31 + (Int32)ReloadType;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Specials);
+        hash = hash * 31 + SplashRadius.GetHashCode();
         return hash;
       }
     }
@@ -4863,9 +4867,9 @@ namespace Quantum {
         QBoolean.Serialize(&p->IsAutoShoot, serializer);
         QBoolean.Serialize(&p->IsHealing, serializer);
         serializer.Stream.Serialize((Int32*)&p->ReloadType);
+        serializer.Stream.Serialize(&p->Ammo);
         serializer.Stream.Serialize(&p->BulletSpreadAngle);
-        serializer.Stream.Serialize(&p->Capacity);
-        serializer.Stream.Serialize(&p->MaxCapacity);
+        serializer.Stream.Serialize(&p->MaxAmmo);
         serializer.Stream.Serialize(&p->MinCapacityToShoot);
         FP.Serialize(&p->AimingMovementSpeedMultiplier, serializer);
         FP.Serialize(&p->AttackAngle, serializer);
@@ -4875,6 +4879,7 @@ namespace Quantum {
         FP.Serialize(&p->NextShotAllowedTime, serializer);
         FP.Serialize(&p->OneCapacityReloadingTime, serializer);
         FP.Serialize(&p->Range, serializer);
+        FP.Serialize(&p->SplashRadius, serializer);
         FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
     }
   }
@@ -4917,7 +4922,7 @@ namespace Quantum {
     private ISignalProjectileFired[] _ISignalProjectileFiredSystems;
     private ISignalProjectileTargetHit[] _ISignalProjectileTargetHitSystems;
     private ISignalPlayerKilledPlayer[] _ISignalPlayerKilledPlayerSystems;
-    private ISignalPlayerAttackHit[] _ISignalPlayerAttackHitSystems;
+    private ISignalAttackHit[] _ISignalAttackHitSystems;
     private ISignalSpecialUsed[] _ISignalSpecialUsedSystems;
     private ISignalSpellHit[] _ISignalSpellHitSystems;
     private ISignalHealthChanged[] _ISignalHealthChangedSystems;
@@ -4985,7 +4990,7 @@ namespace Quantum {
       _ISignalProjectileFiredSystems = BuildSignalsArray<ISignalProjectileFired>();
       _ISignalProjectileTargetHitSystems = BuildSignalsArray<ISignalProjectileTargetHit>();
       _ISignalPlayerKilledPlayerSystems = BuildSignalsArray<ISignalPlayerKilledPlayer>();
-      _ISignalPlayerAttackHitSystems = BuildSignalsArray<ISignalPlayerAttackHit>();
+      _ISignalAttackHitSystems = BuildSignalsArray<ISignalAttackHit>();
       _ISignalSpecialUsedSystems = BuildSignalsArray<ISignalSpecialUsed>();
       _ISignalSpellHitSystems = BuildSignalsArray<ISignalSpellHit>();
       _ISignalHealthChangedSystems = BuildSignalsArray<ISignalHealthChanged>();
@@ -5177,13 +5182,13 @@ namespace Quantum {
           }
         }
       }
-      public void PlayerAttackHit(PlayerRef player, EntityRef playerEntity, EntityRef hitEntity) {
-        var array = _f._ISignalPlayerAttackHitSystems;
+      public void AttackHit(EntityRef attacker, EntityRef hitEntity, Int32 amount) {
+        var array = _f._ISignalAttackHitSystems;
         var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (systems->IsSet(s.RuntimeIndex)) {
-            s.PlayerAttackHit(_f, player, playerEntity, hitEntity);
+            s.AttackHit(_f, attacker, hitEntity, amount);
           }
         }
       }
@@ -5295,7 +5300,7 @@ namespace Quantum {
           case EventOnLocalPlayerSpawned.ID: return typeof(EventOnLocalPlayerSpawned);
           case EventOnLocalPlayerAlive.ID: return typeof(EventOnLocalPlayerAlive);
           case EventOnLocalPlayerDead.ID: return typeof(EventOnLocalPlayerDead);
-          case EventOnLocalPlayerFailedShoot.ID: return typeof(EventOnLocalPlayerFailedShoot);
+          case EventOnLocalPlayerWeaponEmpty.ID: return typeof(EventOnLocalPlayerWeaponEmpty);
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
           case EventOnRemotePlayerLeft.ID: return typeof(EventOnRemotePlayerLeft);
           case EventOnRemotePlayerSpawned.ID: return typeof(EventOnRemotePlayerSpawned);
@@ -5663,10 +5668,10 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerFailedShoot OnLocalPlayerFailedShoot(PlayerRef Player, EntityRef Entity) {
+      public EventOnLocalPlayerWeaponEmpty OnLocalPlayerWeaponEmpty(PlayerRef Player, EntityRef Entity) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerFailedShoot>(EventOnLocalPlayerFailedShoot.ID);
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponEmpty>(EventOnLocalPlayerWeaponEmpty.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         _f.AddEvent(ev);
@@ -5920,8 +5925,8 @@ namespace Quantum {
   public unsafe interface ISignalPlayerKilledPlayer : ISignal {
     void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller, EntityRef entityKiller);
   }
-  public unsafe interface ISignalPlayerAttackHit : ISignal {
-    void PlayerAttackHit(Frame f, PlayerRef player, EntityRef playerEntity, EntityRef hitEntity);
+  public unsafe interface ISignalAttackHit : ISignal {
+    void AttackHit(Frame f, EntityRef attacker, EntityRef hitEntity, Int32 amount);
   }
   public unsafe interface ISignalSpecialUsed : ISignal {
     void SpecialUsed(Frame f, PlayerRef player, EntityRef entity, SpecialType specialType, Int32 specialIndex);
@@ -7039,14 +7044,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerFailedShoot : EventBase {
+  public unsafe partial class EventOnLocalPlayerWeaponEmpty : EventBase {
     public new const Int32 ID = 38;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerFailedShoot(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerWeaponEmpty(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerFailedShoot() : 
+    public EventOnLocalPlayerWeaponEmpty() : 
         base(38, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -9731,15 +9736,17 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public GameId_Prototype GameId;
     [HideInInspector()]
-    public UInt32 Capacity;
+    public UInt32 Ammo;
     [HideInInspector()]
-    public UInt32 MaxCapacity;
-    [HideInInspector()]
-    public FP AttackCooldown;
+    public UInt32 MaxAmmo;
     [HideInInspector()]
     public FP Range;
     [HideInInspector()]
+    public FP AttackCooldown;
+    [HideInInspector()]
     public FP AttackAngle;
+    [HideInInspector()]
+    public FP SplashRadius;
     [HideInInspector()]
     [ArrayLengthAttribute(2)]
     public Special_Prototype[] Specials = new Special_Prototype[2];
@@ -9775,16 +9782,16 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Weapon result, in PrototypeMaterializationContext context) {
       result.AimingMovementSpeedMultiplier = this.AimingMovementSpeedMultiplier;
+      result.Ammo = this.Ammo;
       result.AttackAngle = this.AttackAngle;
       result.AttackCooldown = this.AttackCooldown;
       result.BulletSpreadAngle = this.BulletSpreadAngle;
-      result.Capacity = this.Capacity;
       result.Emptied = this.Emptied;
       result.GameId = this.GameId;
       result.IsAutoShoot = this.IsAutoShoot;
       result.IsHealing = this.IsHealing;
       result.LastAttackTime = this.LastAttackTime;
-      result.MaxCapacity = this.MaxCapacity;
+      result.MaxAmmo = this.MaxAmmo;
       result.MinCapacityToShoot = this.MinCapacityToShoot;
       result.NextCapacityIncreaseTime = this.NextCapacityIncreaseTime;
       result.NextShotAllowedTime = this.NextShotAllowedTime;
@@ -9795,6 +9802,7 @@ namespace Quantum.Prototypes {
       for (int i = 0, count = PrototypeValidator.CheckLength(Specials, 2, in context); i < count; ++i) {
         this.Specials[i].Materialize(frame, ref *result.Specials.GetPointer(i), in context);
       }
+      result.SplashRadius = this.SplashRadius;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

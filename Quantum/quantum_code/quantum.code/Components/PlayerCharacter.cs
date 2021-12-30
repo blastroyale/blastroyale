@@ -136,8 +136,8 @@ namespace Quantum
 			                                                     f.GameConfig, StatType.Power);
 			
 			weapon.GameId = config.Id;
-			weapon.Capacity = config.InitialCapacity;
-			weapon.MaxCapacity = config.MaxCapacity;
+			weapon.Ammo = config.InitialCapacity;
+			weapon.MaxAmmo = config.MaxCapacity;
 			weapon.NextCapacityIncreaseTime = FP._0;
 			weapon.OneCapacityReloadingTime = FP._1 / config.ReloadSpeed;
 			weapon.AimingMovementSpeedMultiplier = config.AimingMovementSpeedMultiplier;
@@ -152,6 +152,7 @@ namespace Quantum
 			weapon.NextShotAllowedTime = f.Time;
 			weapon.Range = config.ProjectileRange;
 			weapon.AttackAngle = config.BulletSpreadAngle;
+			weapon.SplashRadius = config.SplashRadius;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{

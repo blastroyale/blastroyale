@@ -368,7 +368,7 @@ namespace Quantum.Systems
 		{
 			var ammoConsumablePosition = FPVector3.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
-			var ratioAmmo = weapon.Capacity / weapon.MaxCapacity;
+			var ratioAmmo = weapon.Ammo / weapon.MaxAmmo;
 			var lowAmmoSensitivity = filter.BotCharacter->LowAmmoSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioAmmo) * lowAmmoSensitivity);
 			
@@ -507,7 +507,7 @@ namespace Quantum.Systems
 				var weaponCandidateId = f.Get<Collectable>(weaponCandidate.Entity).GameId;
 				
 				// Do not pick up the same weapon unless has less than 50% ammo
-				if (weapon.GameId == weaponCandidateId && weapon.Capacity > weapon.MaxCapacity * FP._0_50)
+				if (weapon.GameId == weaponCandidateId && weapon.Ammo > weapon.MaxAmmo * FP._0_50)
 				{
 					continue;
 				}

@@ -25,6 +25,11 @@ namespace Quantum
 		public static readonly FP MELEE_WEAPON_RANGE_THRESHOLD = FP._2;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
 		public static readonly GameId DEFAULT_WEAPON_GAME_ID = GameId.Hammer;
+
+
+		public static readonly string AimDirectionKey = "AimDirection";
+		public static readonly string IsShootingKey = "IsShooting";
+		
 		public static readonly GameIdGroup[] EquipmentSlots = new GameIdGroup[Constants.EQUIPMENT_SLOT_COUNT]
 		{
 			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Boots, GameIdGroup.Helmet, GameIdGroup.Shield,

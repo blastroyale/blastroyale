@@ -3,6 +3,7 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+    // TODO: DELETE THIS DECISION
     /// <summary>
     /// This decision waits for specified amount of time before returns true
     /// </summary>

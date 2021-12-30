@@ -127,7 +127,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
-		private void HandleOnLocalPlayerFailedShoot(EventOnLocalPlayerFailedShoot callback)
+		private void HandleOnLocalPlayerWeaponEmpty(EventOnLocalPlayerWeaponEmpty callback)
 		{
 			var shootState = _shootIndicator?.VisualState ?? false;
 			
@@ -233,7 +233,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
-			QuantumEvent.Subscribe<EventOnLocalPlayerFailedShoot>(this, HandleOnLocalPlayerFailedShoot);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponEmpty>(this, HandleOnLocalPlayerWeaponEmpty);
 		}
 
 		private void SetWeaponIndicators(GameId weapon)

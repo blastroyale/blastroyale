@@ -3,7 +3,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Spell"/>
 	/// </summary>
-	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalPlayerAttackHit
+	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalAttackHit
 	{
 		public struct SpellFilter
 		{
@@ -19,14 +19,16 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void PlayerAttackHit(Frame f, PlayerRef player, EntityRef playerEntity, EntityRef hitEntity)
+		public void AttackHit(Frame f, EntityRef playerEntity, EntityRef hitEntity, int amount)
 		{
 			var spell = new Spell
 			{
 				IsHealing = false,
-				PowerAmount = (uint) f.Get<Stats>(playerEntity).GetStatData(StatType.Power).StatValue.AsInt,
+				PowerAmount = (uint) amount,
 				Attacker = playerEntity
 			};
+			
+			// TODO: do damage
 
 			f.Add(hitEntity, spell);
 		}

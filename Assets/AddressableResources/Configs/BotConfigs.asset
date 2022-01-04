@@ -52,7 +52,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 576000
       ShrinkingCircleRiskTolerance:
-        RawValue: 52429
+        RawValue: 20972
     - BehaviourType: 1
       Difficulty: 1
       DecisionInterval:
@@ -87,7 +87,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 256000
       ShrinkingCircleRiskTolerance:
-        RawValue: 47186
+        RawValue: 18874
     - BehaviourType: 0
       Difficulty: 1
       DecisionInterval:
@@ -122,7 +122,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 448000
       ShrinkingCircleRiskTolerance:
-        RawValue: 49152
+        RawValue: 19661
     - BehaviourType: 1
       Difficulty: 1
       DecisionInterval:
@@ -157,7 +157,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 384000
       ShrinkingCircleRiskTolerance:
-        RawValue: 55706
+        RawValue: 22282
     - BehaviourType: 0
       Difficulty: 1
       DecisionInterval:
@@ -192,7 +192,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 512000
       ShrinkingCircleRiskTolerance:
-        RawValue: 48497
+        RawValue: 19399
     - BehaviourType: 1
       Difficulty: 2
       DecisionInterval:
@@ -227,7 +227,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 460800
       ShrinkingCircleRiskTolerance:
-        RawValue: 51118
+        RawValue: 20447
     - BehaviourType: 1
       Difficulty: 2
       DecisionInterval:
@@ -262,7 +262,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 204800
       ShrinkingCircleRiskTolerance:
-        RawValue: 45875
+        RawValue: 18350
     - BehaviourType: 0
       Difficulty: 2
       DecisionInterval:
@@ -297,7 +297,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 358400
       ShrinkingCircleRiskTolerance:
-        RawValue: 47841
+        RawValue: 19137
     - BehaviourType: 1
       Difficulty: 2
       DecisionInterval:
@@ -332,7 +332,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 307200
       ShrinkingCircleRiskTolerance:
-        RawValue: 54395
+        RawValue: 21758
     - BehaviourType: 0
       Difficulty: 2
       DecisionInterval:
@@ -367,7 +367,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 409600
       ShrinkingCircleRiskTolerance:
-        RawValue: 47186
+        RawValue: 18874
     - BehaviourType: 1
       Difficulty: 3
       DecisionInterval:
@@ -402,7 +402,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 368640
       ShrinkingCircleRiskTolerance:
-        RawValue: 47841
+        RawValue: 19137
     - BehaviourType: 2
       Difficulty: 3
       DecisionInterval:
@@ -437,7 +437,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 163840
       ShrinkingCircleRiskTolerance:
-        RawValue: 32768
+        RawValue: 13107
     - BehaviourType: 0
       Difficulty: 3
       DecisionInterval:
@@ -472,7 +472,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 286720
       ShrinkingCircleRiskTolerance:
-        RawValue: 45875
+        RawValue: 18350
     - BehaviourType: 1
       Difficulty: 3
       DecisionInterval:
@@ -507,7 +507,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 245760
       ShrinkingCircleRiskTolerance:
-        RawValue: 52429
+        RawValue: 20972
     - BehaviourType: 2
       Difficulty: 3
       DecisionInterval:
@@ -542,7 +542,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 327680
       ShrinkingCircleRiskTolerance:
-        RawValue: 36045
+        RawValue: 14418
     - BehaviourType: 1
       Difficulty: 4
       DecisionInterval:
@@ -577,7 +577,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 294912
       ShrinkingCircleRiskTolerance:
-        RawValue: 44564
+        RawValue: 17826
     - BehaviourType: 2
       Difficulty: 4
       DecisionInterval:
@@ -612,7 +612,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 131072
       ShrinkingCircleRiskTolerance:
-        RawValue: 29491
+        RawValue: 11796
     - BehaviourType: 0
       Difficulty: 4
       DecisionInterval:
@@ -647,7 +647,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 229376
       ShrinkingCircleRiskTolerance:
-        RawValue: 42598
+        RawValue: 17039
     - BehaviourType: 1
       Difficulty: 4
       DecisionInterval:
@@ -682,7 +682,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 196608
       ShrinkingCircleRiskTolerance:
-        RawValue: 49152
+        RawValue: 19661
     - BehaviourType: 2
       Difficulty: 4
       DecisionInterval:
@@ -717,4 +717,4 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 262144
       ShrinkingCircleRiskTolerance:
-        RawValue: 32768
+        RawValue: 13107

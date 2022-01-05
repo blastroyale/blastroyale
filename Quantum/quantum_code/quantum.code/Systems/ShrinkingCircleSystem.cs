@@ -41,7 +41,11 @@ namespace Quantum.Systems
 
 				if (distance > radius)
 				{
-					f.Unsafe.GetPointer<PlayerCharacter>(pair.Entity)->Dead(f, pair.Entity, PlayerRef.None, EntityRef.None);
+					var currentHealth = f.Get<Stats>(pair.Entity).CurrentHealth;
+					var ragdollDirection = (center - position.XZ).XOY;
+					
+					f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
+					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, ragdollDirection, currentHealth);
 				}
 			}
 		}

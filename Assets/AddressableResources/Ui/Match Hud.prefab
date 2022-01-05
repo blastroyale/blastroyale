@@ -3020,15 +3020,11 @@ MonoBehaviour:
   _quitButton: {fileID: 1532407260596321951}
   _standingsButton: {fileID: 241463956799401094}
   _leaderButton: {fileID: 5421646869646843574}
-  _currentRankText: {fileID: 1006929506433647122}
-  _currentFragsText: {fileID: 4071930493600354620}
-  _targetFragsText: {fileID: 6940635341172100051}
   _currentWeaponImage: {fileID: 5942961820518093657}
-  _currentWeaponText: {fileID: 9188521245033762501}
-  _progressSlider: {fileID: 4712017999487563428}
   _standings: {fileID: 2376430894042035693}
-  _rankChangeAnimation: {fileID: 4694858573926928670}
   _mapStatusText: {fileID: 7562021623555054913}
+  _leaderHolderView: {fileID: 2811348743788715574}
+  _scoreHolderView: {fileID: 2766772532731751132}
   _mapTimerView: {fileID: 8018744190964896810}
 --- !u!222 &6241638454973851678
 CanvasRenderer:
@@ -3463,6 +3459,7 @@ GameObject:
   - component: {fileID: 508598708643644403}
   - component: {fileID: 7717861873418899884}
   - component: {fileID: 241463956799401094}
+  - component: {fileID: 2766772532731751132}
   m_Layer: 5
   m_Name: ScoreHolder
   m_TagString: Untagged
@@ -3488,7 +3485,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -62.8}
+  m_AnchoredPosition: {x: 280, y: -62.8}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4366603917211484771
@@ -3595,9 +3592,26 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 24
+  TapSoundFx: 31
   Anchor: {fileID: 3319469657535568295}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
+--- !u!114 &2766772532731751132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918659279235197923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208b3431f0f27eb41ba0592c7754bbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentRankText: {fileID: 1006929506433647122}
+  _currentFragsText: {fileID: 4071930493600354620}
+  _targetFragsText: {fileID: 6940635341172100051}
+  _progressSlider: {fileID: 4712017999487563428}
+  _rankChangeAnimation: {fileID: 4694858573926928670}
 --- !u!1 &6058373816275112774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5823,7 +5837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8872352133960261334, guid: 32617f20297ce49529734f431c9d66d4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 454
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 8872352133960261334, guid: 32617f20297ce49529734f431c9d66d4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5863,6 +5877,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32617f20297ce49529734f431c9d66d4, type: 3}
+--- !u!224 &767672679106752275 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8872352133960261334, guid: 32617f20297ce49529734f431c9d66d4, type: 3}
+  m_PrefabInstance: {fileID: 8180717778564510149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1532407260596321951 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7260800067829616474, guid: 32617f20297ce49529734f431c9d66d4, type: 3}
@@ -5874,11 +5893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f11d691ff49f24ca26aaa08dcf0448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &767672679106752275 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8872352133960261334, guid: 32617f20297ce49529734f431c9d66d4, type: 3}
-  m_PrefabInstance: {fileID: 8180717778564510149}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &595958961453386533 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8773850990637791968, guid: 32617f20297ce49529734f431c9d66d4, type: 3}

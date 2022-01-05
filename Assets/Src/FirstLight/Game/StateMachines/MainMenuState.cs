@@ -41,7 +41,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly LootOptionsMenuState _lootMenuState;
+		private readonly LootOptionsMenuState _lootOptionsMenuState;
+		private readonly LootMenuState _lootMenuState;
 		private readonly CratesMenuState _cratesMenuState;
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
@@ -56,7 +57,8 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider = gameDataProvider;
 			_assetAdderService = assetAdderService;
 			_statechartTrigger = statechartTrigger;
-			_lootMenuState = new LootOptionsMenuState(services, uiService, gameDataProvider, statechartTrigger);
+			_lootOptionsMenuState = new LootOptionsMenuState(services, uiService, gameDataProvider, statechartTrigger);
+			_lootMenuState = new LootMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
@@ -101,6 +103,7 @@ namespace FirstLight.Game.StateMachines
 			var claimUnclaimedRewards = stateFactory.Transition("Claim Unclaimed Rewards");
 			var homeMenu = stateFactory.State("Home Menu");
 			var shopMenu = stateFactory.Nest("Shop Menu");
+			var lootOptionsMenu = stateFactory.Nest("Loot Options Menu");
 			var lootMenu = stateFactory.Nest("Loot Menu");
 			var trophyRoadMenu = stateFactory.Nest("Trophy Road Menu");
 			var collectLoot = stateFactory.Nest("Collect Loot Menu");
@@ -120,7 +123,8 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(homeMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<CratesScreenPresenter>).Target(cratesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<ShopScreenPresenter>).Target(shopMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<LootOptionsScreenPresenter>).Target(lootMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<LootOptionsScreenPresenter>).Target(lootOptionsMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<TrophyRoadScreenPresenter>).Target(trophyRoadMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
@@ -153,6 +157,10 @@ namespace FirstLight.Game.StateMachines
 			shopMenu.OnEnter(OpenShopMenuUI);
 			shopMenu.Nest(_shopMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			shopMenu.OnExit(CloseShopMenuUI);
+
+			lootOptionsMenu.OnEnter(OpenLootOptionsMenuUI);
+			lootOptionsMenu.Nest(_lootOptionsMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			lootOptionsMenu.OnExit(CloseLootOptionsMenuUI);
 
 			lootMenu.OnEnter(OpenLootMenuUI);
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
@@ -306,7 +314,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<OverflowLootDialogPresenter>();
 		}
 
-		private void OpenLootMenuUI()
+		private void OpenLootOptionsMenuUI()
 		{
 			var data = new LootOptionsScreenPresenter.StateData
 			{
@@ -317,11 +325,29 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
 		}
 		
-		private void CloseLootMenuUI()
+		private void CloseLootOptionsMenuUI()
 		{
 			_uiService.CloseUi<LootOptionsScreenPresenter>();
 			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
 		}
+		
+		private void OpenLootMenuUI()
+		{
+			var data = new LootScreenPresenter.StateData
+			{
+				OnLootBackButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
+			};
+
+			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
+			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
+		}
+		
+		private void CloseLootMenuUI()
+		{
+			_uiService.CloseUi<LootScreenPresenter>();
+			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
+		}
+
 
 		private void OpenTrophyRoadMenuUI()
 		{
@@ -350,7 +376,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
-				OnLootButtonClicked = OnTabClickedCallback<LootOptionsScreenPresenter>,
+				// OnLootButtonClicked = OnTabClickedCallback<LootOptionsScreenPresenter>,
+				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
 				OnCratesButtonClicked = OnTabClickedCallback<CratesScreenPresenter>,
 				OnSocialButtonClicked = OnTabClickedCallback<SocialScreenPresenter>,
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,

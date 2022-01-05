@@ -88,8 +88,6 @@ synced event OnLocalPlayerWeaponChanged
 	local player_ref Player;
 	entity_ref Entity;
 	GameId WeaponGameId;
-	bool ResetCooldownSpecial0;
-	bool ResetCooldownSpecial1;
 }
 
 // REMOTE PLAYER EVENTS
@@ -133,10 +131,4 @@ synced event OnPlayerAttackHit
 	player_ref Player;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
-}
-
-synced event OnPlayerAttackMiss
-{
-	entity_ref PlayerEntity;
-	player_ref Player;
 }

@@ -8,7 +8,7 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class StatSystem : SystemMainThreadFilter<StatSystem.StatsFilter>, 
 	                                 ISignalOnComponentAdded<Stats>, ISignalOnComponentRemoved<Stats>, 
-	                                 ISignalProjectileTargetHit, ISignalHazardTargetHit, ISignalSpellHit
+	                                 ISignalHazardTargetHit
 	{
 		public struct StatsFilter
 		{
@@ -56,33 +56,11 @@ namespace Quantum.Systems
 		}
 		
 		/// <inheritdoc />
-		public void ProjectileTargetHit(Frame f, ProjectileHitData* data)
-		{
-			var projectileData = f.Get<Projectile>(data->Projectile).Data;
-			var power = (int) projectileData.PowerAmount;
-			
-			// If it's a direct hit with explosive projectile then we do an increased damage
-			// proportionally to the splash explosion diameter
-			if (projectileData.SplashRadius > 0)
-			{
-				power *= (int) (projectileData.SplashRadius + projectileData.SplashRadius);
-			}
-			
-			HandleHealth(f, projectileData.Attacker, data->TargetHit, data->Projectile, projectileData.IsHealing, power);
-		}
-		
-		/// <inheritdoc />
 		public void HazardTargetHit(Frame f, HazardHitData* data)
 		{
 			var hazard = f.Get<Hazard>(data->Hazard);
 			
 			HandleHealth(f, hazard.Attacker, data->TargetHit, data->Hazard,hazard.IsHealing, (int) hazard.PowerAmount);
-		}
-
-		/// <inheritdoc />
-		public void SpellHit(Frame f, EntityRef entity, Spell* spell)
-		{
-			HandleHealth(f, spell->Attacker, entity, spell->Attacker, spell->IsHealing, (int) spell->PowerAmount);
 		}
 		
 		private void HandleHealth(Frame f, EntityRef attacker, EntityRef targetHit, EntityRef hitSource, bool isHealing, int powerAmount)

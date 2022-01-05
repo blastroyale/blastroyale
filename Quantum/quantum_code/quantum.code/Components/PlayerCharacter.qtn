@@ -25,7 +25,6 @@ component PlayerCharacter
 	AssetRefAIBlackboard BlackboardRef;
 	AssetRefCharacterController3DConfig KccConfigRef;
 	FP SpawnTime;
-	AssetRefEntityPrototype Projectile;
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
@@ -41,7 +40,3 @@ component PlayerCharacterCharging
 }
 
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
-
-// New Shape Cast signals - Move up when the feature is fully integrated
-
-signal AttackHit(entity_ref attacker, entity_ref hitEntity, Int32 amount);

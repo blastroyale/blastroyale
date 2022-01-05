@@ -7,6 +7,9 @@ namespace Quantum
 	/// <summary>
 	/// This action attacks at <see cref="PlayerCharacter"/> aiming direction based on it's <see cref="Weapon"/> data
 	/// </summary>
+	/// <remarks>
+	/// Use <see cref="PlayerProjectileAttackAction"/> if is a projectile speed base attack
+	/// </remarks>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public unsafe class PlayerAttackAction : AIAction
@@ -19,11 +22,13 @@ namespace Quantum
 			var player = playerCharacter.Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey);
 			var position = f.Get<Transform3D>(e).Position;
-			var angleCount = FPMath.FloorToInt(weapon->BulletSpreadAngle / (FP._1 * 10)) + 1;
-			var angleStep = weapon->BulletSpreadAngle / FPMath.Max(FP._1, angleCount - 1);
-			var angle = -(FP) weapon->BulletSpreadAngle / FP._2;
+			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / (FP._1 * 10)) + 1;
+			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
+			var angle = -weapon->AttackAngle / FP._2;
 			var team = f.Get<Targetable>(e).Team;
-			var attackHit = false;
+			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
+			var shape = Shape3D.CreateSphere(weapon->SplashRadius);
+			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
 			
 			weapon->Ammo--;
 			weapon->LastAttackTime = f.Time;
@@ -33,7 +38,7 @@ namespace Quantum
 			for (var i = 0; i < angleCount; i++)
 			{
 				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
-				var hit = f.Physics3D.Raycast(position, direction.XOY, weapon->Range, f.PlayerCastLayerMask);
+				var hit = f.Physics3D.Raycast(position, direction.XOY, weapon->AttackRange, f.PlayerCastLayerMask, hitQuery);
 				
 				angle += angleStep;
 
@@ -44,33 +49,20 @@ namespace Quantum
 
 				if (hit.Value.IsDynamic)
 				{
-					ProcessHit(f, e, player, hit.Value, team);
-
-					attackHit = true;
+					QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
 				}
 
 				if (weapon->SplashRadius > FP._0)
 				{
-					
+					var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, shape, FPVector3.Zero, 
+					                                    f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+
+					for (var j = 0; j < hits.Count; j++)
+					{
+						QuantumHelpers.ProcessHit(f, e, hits[j].Entity, hits[j].Point, team, powerAmount);
+					}
 				}
 			}
-
-			if (!attackHit)
-			{
-				f.Events.OnPlayerAttackMiss(e, player);
-			}
-		}
-
-		private void ProcessHit(Frame f, EntityRef attackerEntity, PlayerRef attacker, Hit3D hit, int attackerTeam)
-		{
-			if (QuantumHelpers.IsAttackable(f, hit.Entity, attackerTeam))
-			{
-				var amount = f.Get<Stats>(attackerEntity).GetStatData(StatType.Power).StatValue.AsInt;
-				
-				f.Signals.AttackHit(attackerEntity, hit.Entity, amount);
-			}
-
-			f.Events.OnPlayerAttackHit(attackerEntity, attacker, hit.Entity, hit.Point);
 		}
 	}
 }

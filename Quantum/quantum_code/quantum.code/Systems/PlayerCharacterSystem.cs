@@ -103,7 +103,7 @@ namespace Quantum.Systems
 			// Try to drop Weapon
 			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance && f.TryGet<Weapon>(entityDead, out var weapon))
 			{
-				Collectable.DropCollectable(f, weapon.GameId, deathPosition, step, true);
+				Collectable.DropCollectable(f, weapon.WeaponId, deathPosition, step, true);
 			}
 		}
 		
@@ -144,10 +144,6 @@ namespace Quantum.Systems
 				return;
 			}
 
-			ProcessWeaponMode(f, ref filter); // TODO: REMOVE
-			ProcessWeaponReload(f, ref filter); // TODO: REMOVE
-			ProcessWeaponSwitching(f, ref filter); // TODO: REMOVE
-
 			// TODO: Rework charging attack with spells
 			if (f.Unsafe.TryGetPointer<PlayerCharacterCharging>(filter.Entity, out var chargePlayer))
 			{
@@ -179,7 +175,7 @@ namespace Quantum.Systems
 
 				if (input->IsShootButtonDown)
 				{
-					speed *= weapon.AimingMovementSpeedMultiplier;
+					speed *= weapon.AimingMovementSpeed;
 				}
 				
 				rotation = input->Direction;
@@ -198,110 +194,11 @@ namespace Quantum.Systems
 			{
 				rotation = input->AimingDirection;
 			}
-			
-			// TODO: either process the player's rotation on the BOT SDK or process in here, but not in both places
-			// TODO: Remove this when shapes attacks are online
-			if (bb.GetEntityRef(f, Constants.TARGET_BB_KEY).IsValid)
-			{
-				rotation = FPVector2.Zero;
-			}
 
 			if (rotation.SqrMagnitude > FP._0)
 			{
 				QuantumHelpers.LookAt2d(f, filter.Entity, rotation);
 			}
-		}
-
-		private void ProcessWeaponMode(Frame f, ref PlayerCharacterFilter filter)
-		{
-			var weapon = f.Unsafe.GetPointer<Weapon>(filter.Entity);
-			
-			// Handles the healing mode on/off when it's time to switch
-			for (var i = 0; i < weapon->Specials.Length; i++)
-			{
-				var specialPointer = weapon->Specials.GetPointer(i);
-				
-				if (f.Time >= specialPointer->HealingModeSwitchTime)
-				{
-					specialPointer->HealingModeSwitchTime = FP.MaxValue;
-					weapon->IsHealing = !weapon->IsHealing;
-					break;
-				}
-			}
-		}
-
-		private void ProcessWeaponReload(Frame f, ref PlayerCharacterFilter filter)
-		{
-			var weapon = f.Unsafe.GetPointer<Weapon>(filter.Entity);
-			
-			// Handles the reload type Never; If it Never reloads then we return and don't process any reloading
-			if (weapon->ReloadType == ReloadType.Never)
-			{
-				return;
-			}
-			
-			// Handles the reload skip for reload types that aren't always reloading
-			if (weapon->Ammo < weapon->MaxAmmo && weapon->ReloadType != ReloadType.Always)
-			{
-				var input = f.GetPlayerInput(filter.Player->Player);
-					
-				if (weapon->ReloadType == ReloadType.Moving && !input->IsMoveButtonDown || 
-				    weapon->ReloadType == ReloadType.NotMoving && input->IsMoveButtonDown)
-				{
-					weapon->NextCapacityIncreaseTime += f.DeltaTime;
-					return;
-				}
-			}
-				
-			if (weapon->Ammo >= weapon->MaxAmmo || f.Time < weapon->NextCapacityIncreaseTime)
-			{
-				return;
-			}
-				
-			weapon->Ammo += 1;
-				
-			if (weapon->Emptied && weapon->Ammo >= weapon->MinCapacityToShoot)
-			{
-				weapon->Emptied = false;
-			}
-				
-			if (weapon->Ammo < weapon->MaxAmmo)
-			{
-				weapon->NextCapacityIncreaseTime = f.Time + weapon->OneCapacityReloadingTime;
-			}
-		}
-
-		private void ProcessWeaponSwitching(Frame f, ref PlayerCharacterFilter filter)
-		{
-			var weapon = f.Unsafe.GetPointer<Weapon>(filter.Entity);
-			
-			// If a player already carries the Default weapon
-			// OR if a weapon still has ammo then we don't switch
-			if (weapon->GameId == Constants.DEFAULT_WEAPON_GAME_ID || !weapon->Emptied)
-			{
-				return;
-			}
-			
-			// If it's a bot then we don't check specials and switch weapon right away
-			// It's because bots cannot use or not allowed to use all types of specials
-			if (f.Has<BotCharacter>(filter.Entity))
-			{
-				SetDefaultWeapon(f, filter.Entity);
-				return;
-			}
-			
-			// If it's not a bot then we check specials
-			var specials = weapon->Specials;
-			for (int i = 0; i < Constants.MAX_SPECIALS; i++)
-			{
-				// If any weapon's special is available then we don't switch
-				if (specials[i].IsSpecialAvailable(f))
-				{
-					return;
-				}
-			}
-			
-			SetDefaultWeapon(f, filter.Entity);
 		}
 		
 		private void ProcessChargingPlayer(Frame f, ref PlayerCharacterFilter filter, PlayerCharacterCharging* charge)
@@ -321,12 +218,6 @@ namespace Quantum.Systems
 			{
 				f.Remove<PlayerCharacterCharging>(filter.Entity);
 			}
-		}
-
-		private void SetDefaultWeapon(Frame f, EntityRef e)
-		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			playerCharacter->SetWeapon(f, e, Constants.DEFAULT_WEAPON_GAME_ID, ItemRarity.Common, 1);
 		}
 	}
 }

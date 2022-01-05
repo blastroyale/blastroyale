@@ -75,6 +75,7 @@ namespace Quantum.Systems
 			var target = bb.GetEntityRef(f, Constants.TARGET_BB_KEY);
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
@@ -82,7 +83,7 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				kcc->MaxSpeed = speed * f.Get<Weapon>(filter.Entity).AimingMovementSpeedMultiplier;
+				kcc->MaxSpeed = speed * weapon.AimingMovementSpeed;
 				QuantumHelpers.LookAt2d(f, filter.Entity, target);
 			}
 			
@@ -102,7 +103,7 @@ namespace Quantum.Systems
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
-						var weaponTargetRange = bb.GetFP(f, Constants.WEAPON_TARGET_RANGE);
+						var weaponTargetRange = weapon.AttackRange;
 						var minDistanceToTarget = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position).SqrMagnitude;
 						if (sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
@@ -201,7 +202,7 @@ namespace Quantum.Systems
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// If the bot's weapon is empty then we clear the target and leave the method
-			if (weapon.Emptied)
+			if (weapon.Ammo == 0)
 			{
 				bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
 				return;
@@ -211,7 +212,7 @@ namespace Quantum.Systems
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = bbPointer->GetFP(f, Constants.WEAPON_TARGET_RANGE);
+			var targetRange = weapon.AttackRange;
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			
@@ -384,7 +385,7 @@ namespace Quantum.Systems
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// Bots seek new weapons if they have a default one OR if the chance worked
-			var isGoing = weapon.GameId == Constants.DEFAULT_WEAPON_GAME_ID || f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
+			var isGoing = weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID || f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			
 			isGoing = isGoing && TryGetClosestWeapon(f, ref filter, out weaponPickupPosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, weaponPickupPosition);
@@ -397,7 +398,7 @@ namespace Quantum.Systems
 			var isGoing = f.RNG->Next() < filter.BotCharacter->ChanceToSeekEnemies;
 			
 			// If chance didn't work OR the bot's weapon is empty then we don't go for enemies
-			if (!isGoing || f.Get<Weapon>(filter.Entity).Emptied)
+			if (!isGoing || f.TryGet<Weapon>(filter.Entity, out var weapon) && weapon.Ammo == 0)
 			{
 				return false;
 			}
@@ -432,7 +433,7 @@ namespace Quantum.Systems
 			}
 			
 			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var weaponTargetRange = bb.GetFP(f, Constants.WEAPON_TARGET_RANGE);
+			var weaponTargetRange = weapon.AttackRange;
 			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			// Do not go closer than 1 meter to target
 			var offsetDistance = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
@@ -507,7 +508,7 @@ namespace Quantum.Systems
 				var weaponCandidateId = f.Get<Collectable>(weaponCandidate.Entity).GameId;
 				
 				// Do not pick up the same weapon unless has less than 50% ammo
-				if (weapon.GameId == weaponCandidateId && weapon.Ammo > weapon.MaxAmmo * FP._0_50)
+				if (weapon.WeaponId == weaponCandidateId && weapon.Ammo > weapon.MaxAmmo * FP._0_50)
 				{
 					continue;
 				}
@@ -567,7 +568,7 @@ namespace Quantum.Systems
 				{
 					Skin = skins[f.RNG->Next(0, skins.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id, weaponConfig.StartingRarity, 1),
+					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, 1),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,

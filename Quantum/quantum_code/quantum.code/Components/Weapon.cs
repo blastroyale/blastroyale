@@ -10,14 +10,9 @@ namespace Quantum
 		internal void GainAmmo(uint amount)
 		{
 			var consumablePower = amount / FP._100;
-			var updatedAmmo = (uint) (Ammo + FPMath.CeilToInt(MaxAmmo * consumablePower));
+			var updatedAmmo = Ammo + FPMath.CeilToInt(MaxAmmo * consumablePower);
 			
 			Ammo = updatedAmmo > MaxAmmo ? MaxAmmo : updatedAmmo;
-			
-			if (Emptied && Ammo >= MinCapacityToShoot)
-			{
-				Emptied = false;
-			}
 		}
 	}
 }

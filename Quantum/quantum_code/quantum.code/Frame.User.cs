@@ -30,9 +30,6 @@ namespace Quantum
 		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
 		internal QuantumGearConfigs GearConfigs => FindAsset<QuantumGearConfigs>(RuntimeConfig.GearConfigs.Id);
-		internal QuantumMultishotConfigs MultishotConfigs => FindAsset<QuantumMultishotConfigs>(RuntimeConfig.MultishotConfigs.Id);
-		internal QuantumFrontshotConfigs FrontshotConfigs => FindAsset<QuantumFrontshotConfigs>(RuntimeConfig.FrontshotConfigs.Id);
-		internal QuantumDiagonalshotConfigs DiagonalshotConfigs => FindAsset<QuantumDiagonalshotConfigs>(RuntimeConfig.DiagonalshotConfigs.Id);
 		internal QuantumConsumableConfigs ConsumableConfigs => FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
 		internal QuantumSpecialConfigs SpecialConfigs => FindAsset<QuantumSpecialConfigs>(RuntimeConfig.SpecialConfigs.Id);
 		internal QuantumHazardConfigs HazardConfigs => FindAsset<QuantumHazardConfigs>(RuntimeConfig.HazardConfigs.Id);

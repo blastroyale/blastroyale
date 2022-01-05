@@ -59,6 +59,7 @@
     <Compile Include="AI\Actions\AIAction.cs" />
     <Compile Include="AI\Actions\ClearTargetAction.cs" />
     <Compile Include="AI\Actions\PlayerAttackAction.cs" />
+    <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerWeaponEmptyAction.cs" />
     <Compile Include="AI\Actions\SetBlackboardBoolAction.cs" />
     <Compile Include="AI\Actions\SetEntityRefAction.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerInputAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerInputShootingDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsWeaponEmptyDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.TimerDecisionDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerShootingDecision.cs" />
@@ -186,7 +188,6 @@
     <Compile Include="Components\GameContainer.cs" />
     <Compile Include="Components\PlayerMatchData.cs" />
     <Compile Include="Components\Spawners.cs" />
-    <Compile Include="Components\SpecialAggroBeaconGrenade.cs" />
     <Compile Include="Components\SpecialAimAreaDamage.cs" />
     <Compile Include="Components\SpecialAimAreaStatusModifier.cs" />
     <Compile Include="Components\SpecialAirstrike.cs" />
@@ -194,12 +195,10 @@
     <Compile Include="Components\Hazard.cs" />
     <Compile Include="Components\Input.cs" />
     <Compile Include="Components\PlayerCharacter.cs" />
-    <Compile Include="Components\PowerUps.cs" />
     <Compile Include="Components\Projectile.cs" />
     <Compile Include="Components\SpecialGrenade.cs" />
     <Compile Include="Components\SpecialHazardAimSpawn.cs" />
     <Compile Include="Components\SpecialHealingField.cs" />
-    <Compile Include="Components\SpecialHealingMode.cs" />
     <Compile Include="Components\SpecialSelfStatusModifier.cs" />
     <Compile Include="Components\Specials.cs" />
     <Compile Include="Components\SpecialShieldedCharge.cs" />
@@ -217,10 +216,7 @@
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />
     <Compile Include="Configs\QuantumGearConfigs.cs" />
     <Compile Include="Configs\QuantumDestructibleConfigs.cs" />
-    <Compile Include="Configs\QuantumDiagonalshotConfigs.cs" />
-    <Compile Include="Configs\QuantumFrontshotConfigs.cs" />
     <Compile Include="Configs\QuantumHazardConfigs.cs" />
-    <Compile Include="Configs\QuantumMultishotConfigs.cs" />
     <Compile Include="Configs\QuantumAssetConfigs.cs" />
     <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumGameConfigs.cs" />
@@ -245,12 +241,10 @@
     <Compile Include="Systems\CollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />
     <Compile Include="Systems\DummyCharacterSystem.cs" />
-    <Compile Include="Systems\PowerUps\PowerUpsSystemGroup.cs" />
     <Compile Include="Systems\SpellSystem.cs" />
     <Compile Include="Systems\StatusModifiers\ShieldSystem.cs" />
     <Compile Include="Systems\StatusModifiers\StatusModifierSystemGroup.cs" />
     <Compile Include="Systems\TransformOutOfWorldSystem.cs" />
-    <Compile Include="Systems\CollisionDamageSystem.cs" />
     <Compile Include="Systems\StatusModifiers\RageSystem.cs" />
     <Compile Include="Systems\StatusModifiers\StunSystem.cs" />
     <Compile Include="Systems\EntityLateDestroyerSystem.cs" />
@@ -262,9 +256,6 @@
     <Compile Include="Systems\PlayerCharacterSystem.cs" />
     <Compile Include="Systems\AiSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
-    <Compile Include="Systems\PowerUps\DiagonalshotSystem.cs" />
-    <Compile Include="Systems\PowerUps\FrontshotSystem.cs" />
-    <Compile Include="Systems\PowerUps\MultishotSystem.cs" />
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Utils\BitUtil.cs" />
@@ -288,7 +279,6 @@
     <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />
     <Content Include="Components\Collectable.qtn" />
-    <Content Include="Components\CollisionDamage.qtn" />
     <Content Include="Components\Consumable.qtn" />
     <Content Include="Components\Destructible.qtn" />
     <Content Include="Components\Equipment.qtn" />
@@ -299,7 +289,6 @@
     <Content Include="Components\Input.qtn" />
     <Content Include="Components\Spawners.qtn" />
     <Content Include="Components\PlayerMatchData.qtn" />
-    <Content Include="Components\PowerUps.qtn" />
     <Content Include="Components\Projectile.qtn" />
     <Content Include="Components\PlayerCharacter.qtn" />
     <Content Include="Components\Specials.qtn" />
@@ -313,7 +302,6 @@
     <Content Include="Configs\GameId.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
-    <Content Include="Events\ProjectileEvents.qtn" />
     <EmbeddedResource Include="db.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

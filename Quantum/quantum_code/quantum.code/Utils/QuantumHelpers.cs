@@ -82,6 +82,28 @@ namespace Quantum
 		{
 			return !f.Exists(e) || !e.IsValid || f.Has<EntityDestroyer>(e);
 		}
+
+		/// <summary>
+		/// Process a hit source from the given <paramref name="attackerEntity"/> to the given <paramref name="hitEntity"/>
+		/// to create a <see cref="Spell"/> to be processed
+		/// </summary>
+		public static void ProcessHit(Frame f, EntityRef attackerEntity, EntityRef hitEntity, FPVector3 hitPoint, int attackerTeam, uint amount)
+		{
+			if (IsDestroyed(f, hitEntity) || !f.TryGet<Targetable>(hitEntity, out var targetable) || targetable.Team != attackerTeam)
+			{
+				return;
+			}
+			
+			var spell = new Spell
+			{
+				Attacker = attackerEntity,
+				PowerAmount = amount,
+				TeamSource = attackerTeam,
+				OriginalHitPosition = hitPoint
+			};
+
+			f.Add(hitEntity, spell);
+		}
 		
 		/// <summary>
 		/// Get a random element from the <see cref="elements"/> based on weights

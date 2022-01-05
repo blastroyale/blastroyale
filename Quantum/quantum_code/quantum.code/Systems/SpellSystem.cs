@@ -1,9 +1,11 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Spell"/>
 	/// </summary>
-	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalAttackHit
+	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalOnComponentAdded<Spell>
 	{
 		public struct SpellFilter
 		{
@@ -12,25 +14,40 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public override void Update(Frame f, ref SpellFilter filter)
+		public void OnAdded(Frame f, EntityRef entity, Spell* component)
 		{
-			f.Signals.SpellHit(filter.Entity, filter.Spell);
-			f.Remove<Spell>(filter.Entity);
+			if (f.TryGet<PlayerCharacter>(component->Attacker, out var attacker))
+			{
+				f.Events.OnPlayerAttackHit(component->Attacker, attacker.Player, entity, component->OriginalHitPosition);
+			}
+			
+			HandleHealth(f, component->Attacker, entity, component->Attacker, false, (int) component->PowerAmount);
 		}
 
 		/// <inheritdoc />
-		public void AttackHit(Frame f, EntityRef playerEntity, EntityRef hitEntity, int amount)
+		public override void Update(Frame f, ref SpellFilter filter)
 		{
-			var spell = new Spell
+			f.Remove<Spell>(filter.Entity);
+		}
+		
+		private void HandleHealth(Frame f, EntityRef attacker, EntityRef targetHit, EntityRef hitSource, bool isHealing, int powerAmount)
+		{
+			if (!f.Unsafe.TryGetPointer<Stats>(targetHit, out var stats) || powerAmount == 0)
 			{
-				IsHealing = false,
-				PowerAmount = (uint) amount,
-				Attacker = playerEntity
-			};
+				return;
+			}
 			
-			// TODO: do damage
-
-			f.Add(hitEntity, spell);
+			var armour = f.Get<Stats>(targetHit).Values[(int) StatType.Armour].StatValue;
+			var damage = FPMath.Max(powerAmount - armour, 0).AsInt;
+			
+			if (isHealing)
+			{
+				stats->GainHealth(f, targetHit, attacker, powerAmount);
+			}
+			else if(damage > 0)
+			{
+				stats->ReduceHealth(f, targetHit, attacker, hitSource, damage);
+			}
 		}
 	}
 }

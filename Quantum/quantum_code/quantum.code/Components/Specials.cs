@@ -110,12 +110,8 @@ namespace Quantum
 					return SpecialAimAreaStatusModifier.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.HealAim:
 					return SpecialAimAreaDamage.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.HealingMode:
-					return SpecialHealingMode.Use(f, entity, this);
 				case SpecialType.HazardAimSpawn:
 					return SpecialHazardAimSpawn.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.AggroBeaconGrenade:
-					return SpecialAggroBeaconGrenade.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.ShieldedCharge:
 					return SpecialShieldedCharge.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.Grenade:

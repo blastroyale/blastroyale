@@ -16,7 +16,7 @@ namespace Quantum
 			var specials = weapon.Specials;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			
-			if (weapon.GameId == Constants.DEFAULT_WEAPON_GAME_ID)
+			if (weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID)
 			{
 				return;
 			}

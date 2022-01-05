@@ -1,32 +1,14 @@
 component Weapon
 {
-	[HideInInspector] GameId GameId;
-	[HideInInspector] UInt32 Ammo;
-	[HideInInspector] UInt32 MaxAmmo;
-	[HideInInspector] FP Range;
-	[HideInInspector] FP AttackCooldown;
-	[HideInInspector] FP AttackAngle;
-	[HideInInspector] FP SplashRadius;
-	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
-	[HideInInspector] FP AimingMovementSpeedMultiplier; 
-	[HideInInspector] FP LastAttackTime; 
-	
-	[HideInInspector] UInt32 MinCapacityToShoot;
-	[HideInInspector] FP OneCapacityReloadingTime;
-	[HideInInspector] FP NextCapacityIncreaseTime;
-	[HideInInspector] UInt32 BulletSpreadAngle;
-	[HideInInspector] ReloadType ReloadType;
-	[HideInInspector] bool Emptied;
-	[HideInInspector] bool IsHealing;
-	[HideInInspector] GameId ProjectileHealingId;
-	[HideInInspector] bool IsAutoShoot;
-	[HideInInspector] FP NextShotAllowedTime;
-}
-
-enum ReloadType
-{
-	Always = 1,
-	NotMoving = 2,
-	Moving = 3,
-	Never = 4
+	GameId WeaponId;
+	Int32 Ammo;
+	Int32 MaxAmmo;
+	FP AttackRange;
+	FP AttackCooldown;
+	FP AttackAngle;
+	FP SplashRadius;
+	FP ProjectileSpeed;
+	array<Special>[MAX_SPECIALS] Specials;
+	FP AimingMovementSpeed; 
+	FP LastAttackTime; 
 }

@@ -33,7 +33,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Animation _pingAnimation;
 		
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 		private Coroutine _cooldownCoroutine;
 
 		private void Awake()
@@ -83,7 +82,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		public async void Init(GameId special, bool resetCooldown)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
 			
 			if(!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) special, out var config))
 			{

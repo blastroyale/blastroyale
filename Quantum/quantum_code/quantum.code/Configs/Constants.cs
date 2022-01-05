@@ -4,12 +4,10 @@ namespace Quantum
 {
 	public static unsafe partial class Constants
 	{
-		public static readonly string ATTACK_FINISHED_EVENT = "OnAttackFinished";
 		public static readonly string STUNNED_EVENT = "OnStunned";
 		public static readonly string STUN_CANCELLED_EVENT = "OnStunCancelled";
 		public static readonly string STUN_DURATION_BB_KEY = "StunDuration";
 		public static readonly string TARGET_BB_KEY = "Target";
-		public static readonly string WEAPON_TARGET_RANGE = nameof(QuantumWeaponConfig.TargetRange);
 		public static readonly string PROJECTILE_GAME_ID = "ProjectileGameId";
 		public static readonly FP PROJECTILE_MAX_RANGE = FP._1000;
 		public static readonly FP PROJECTILE_MAX_SPEED = FP._4 * FP._10;
@@ -25,7 +23,6 @@ namespace Quantum
 		public static readonly FP MELEE_WEAPON_RANGE_THRESHOLD = FP._2;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
 		public static readonly GameId DEFAULT_WEAPON_GAME_ID = GameId.Hammer;
-
 
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string IsShootingKey = "IsShooting";

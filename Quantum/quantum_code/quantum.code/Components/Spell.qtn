@@ -1,8 +1,9 @@
 component Spell
 {
-	UInt32 PowerAmount;
-	bool IsHealing;
 	entity_ref Attacker;
+	Int32 TeamSource;
+	UInt32 PowerAmount;
+	FPVector3 OriginalHitPosition;
 }
 
 synced event OnSpellHit
@@ -10,5 +11,3 @@ synced event OnSpellHit
 	entity_ref Entity;
 	Spell Spell;
 }
-
-signal SpellHit(entity_ref entity, Spell* spell);

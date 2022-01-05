@@ -20,148 +20,84 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref ProjectileFilter filter)
 		{
-			// Current time should be higher than LaunchTime which is 0 by default
-			if (f.Time < filter.Projectile->Data.LaunchTime)
-			{
-				return;
-			}
-			
-			var distance = filter.Transform->Position - filter.Projectile->Data.SpawnPosition;
-			var range = filter.Projectile->Data.Range;
+			var distance = filter.Transform->Position - filter.Projectile->SpawnPosition;
+			var range = filter.Projectile->Range;
 
 			if (distance.SqrMagnitude > range * range)
 			{
-				if (filter.Projectile->Data.IsHitOnRangeLimit)
-				{
-					var hitData = new ProjectileHitData
-					{
-						TargetHit = EntityRef.None,
-						Projectile = filter.Entity,
-						// If the hit happens on range limit then we use the exact position of a range limit instead of a hit position
-						HitPosition =  filter.Projectile->Data.SpawnPosition + filter.Projectile->Data.NormalizedDirection * range,
-						// We consider this a static hit, because if it's not then the collision would be handled in OnTriggerEnter3D
-						IsStaticHit = true
-					};
-					
-					ProjectileHit(f, filter.Projectile, &hitData);
-				}
-				else
-				{
-					f.Events.OnProjectileFailedHitDestroy(filter.Entity);
-					f.Add<EntityDestroyer>(filter.Entity);
-				}
+				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile);
+				f.Add<EntityDestroyer>(filter.Entity);
+				
 				return;
 			}
 			
 			// Projectile with Target is a Homing projectile. We update the direction based on Target's position
-			if (QuantumHelpers.IsAttackable(f, filter.Projectile->Data.Target))
+			if (QuantumHelpers.IsAttackable(f, filter.Projectile->Target))
 			{
-				var targetPosition = f.Get<Transform3D>(filter.Projectile->Data.Target).Position;
+				var targetPosition = f.Get<Transform3D>(filter.Projectile->Target).Position;
 				targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 				
 				var directionNormalized = (targetPosition - filter.Transform->Position).Normalized;
 				
-				filter.Projectile->Data.NormalizedDirection = directionNormalized;
+				filter.Projectile->Direction = directionNormalized;
 				filter.Transform->Rotation = FPQuaternion.LookRotation(directionNormalized);
 			}
 
-			filter.Transform->Position += f.DeltaTime * filter.Projectile->Data.Speed * filter.Projectile->Data.NormalizedDirection;
+			filter.Transform->Position += f.DeltaTime * filter.Projectile->Speed * filter.Projectile->Direction;
 		}
 		
 		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<Projectile>(info.Entity, out var projectile)
-			    || projectile->Data.IsHitOnlyOnRangeLimit
-			    // If it's not splash damage entity (speed!=0) and projectile already hit something then we don't process another hit
-			    || (f.Has<EntityDestroyer>(info.Entity) && projectile->Data.Speed != FP._0))
+			if (f.Has<EntityDestroyer>(info.Entity) || !f.TryGet<Projectile>(info.Entity, out var projectile) ||
+			    !IsValidCollision(f, projectile, info))
 			{
 				return;
 			}
 			
-			var hitData = new ProjectileHitData
-			{
-				TargetHit = info.Other,
-				Projectile = info.Entity,
-				HitPosition =  f.Get<Transform3D>(info.Entity).Position,
-				IsStaticHit = info.IsStatic
-			};
-			
-			if (info.IsStatic)
-			{
-				ProjectileHit(f, projectile, &hitData);
-				
-				return;
-			}
-			
-			if (f.TryGet<Targetable>(info.Other, out var targetable) &&
-			    ((targetable.Team != projectile->Data.TeamSource && !projectile->Data.IsHealing) ||
-			     (targetable.Team == projectile->Data.TeamSource && projectile->Data.IsHealing) ||
-			     (targetable.Team == (int) TeamType.Neutral && !projectile->Data.IsHealing)))
-			{
-				LocalPlayerHitEvents(f, projectile, &hitData);
-				ProjectileHit(f, projectile, &hitData);
-			}
-		}
+			var position = f.Get<Transform3D>(info.Entity).Position;
 
-		private void LocalPlayerHitEvents(Frame f, Projectile* projectile, ProjectileHitData* hitData)
-		{
-			var attacker = projectile->Data.Attacker;
+			if (!projectile.IsPiercing)
+			{
+				f.Add<EntityDestroyer>(info.Entity);
+			}
+			
+			if (projectile.SplashRadius == FP._0)
+			{
+				QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
+				                          projectile.TeamSource, projectile.PowerAmount);
+
+				f.Events.OnProjectileHit(info.Entity, info.Other, projectile, position);
+
+				return;
+			}
+			
+			var sqrtRadius = projectile.SplashRadius * projectile.SplashRadius;
+			var shape = Shape3D.CreateSphere(projectile.SplashRadius);
+			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
+			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+
+			for (var j = 0; j < hits.Count; j++)
+			{
+				var hitPoint = hits[j].Point;
+				var hitEntity = hits[j].Entity;
+				var normalized = (hitPoint - position).SqrMagnitude / sqrtRadius;
 					
-			if (f.TryGet<PlayerCharacter>(attacker, out var playerAttacker))
-			{
-				// Player's projectile hit someone
-				f.Events.OnLocalPlayerProjectileHit(playerAttacker.Player, *hitData, projectile->Data);
+				QuantumHelpers.ProcessHit(f, projectile.Attacker, hitEntity, hitPoint, projectile.TeamSource,
+				                          (uint) FPMath.RoundToInt(projectile.PowerAmount * normalized));
+					
+				f.Events.OnProjectileHit(info.Entity, hitEntity, projectile, hitPoint);
 			}
-			else if (f.TryGet<PlayerCharacter>(hitData->TargetHit, out var playerHit))
-			{
-				// Someone's projectile hit a player
-				f.Events.OnLocalPlayerHit(playerHit.Player, *hitData, projectile->Data);
-			}
+			
+			
 		}
 
-		private void ProjectileHit(Frame f, Projectile* projectile, ProjectileHitData* hitData)
+		private bool IsValidCollision(Frame f, Projectile projectile, TriggerInfo3D info)
 		{
-			if (!projectile->Data.IsPiercing)
-			{
-				f.Add<EntityDestroyer>(hitData->Projectile);
-			}
+			var neutral = (int)TeamType.Neutral;
 			
-			f.Events.OnProjectileHit(*hitData, projectile->Data);
-			
-			// We create splash explosion only if we hit static
-			// If we hit an actor then this actor "consumes" all the explosion while receiving a huge damage
-			if (projectile->Data.SplashRadius > FP._0 && hitData->IsStaticHit)
-			{
-				var splashProjectileProxyData = new ProjectileData
-				{
-					Attacker = projectile->Data.Attacker,
-					ProjectileAssetRef = projectile->Data.ProjectileAssetRef,
-					ProjectileId = projectile->Data.ProjectileId,
-					NormalizedDirection = FPVector3.Zero,
-					SpawnPosition = hitData->HitPosition,
-					TeamSource = projectile->Data.TeamSource,
-					IsHealing = projectile->Data.IsHealing,
-					PowerAmount = projectile->Data.PowerAmount,
-					Speed = FP._0,
-					Range = projectile->Data.Range,
-					StunDuration = projectile->Data.StunDuration,
-					SplashRadius = FP._0,
-				};
-			
-				Projectile.CreateSplash(f, splashProjectileProxyData, projectile->Data.SplashRadius);
-				
-				// In case SplashProjectile carries a Hazard then we create a single hazard here
-				// rather than in the HazardSystem
-				if (projectile->Data.SpawnHazardId != 0)
-				{
-					Hazard.Create(f, projectile->Data.SpawnHazardId, hitData->HitPosition, projectile->Data.Attacker, projectile->Data.TeamSource);
-				}
-			}
-			else
-			{
-				f.Signals.ProjectileTargetHit(hitData);
-			}
+			return info.IsStatic || f.TryGet<Targetable>(info.Other, out var targetable) && 
+			       (targetable.Team != projectile.TeamSource || targetable.Team == neutral || projectile.TeamSource == neutral); 
 		}
 	}
 }

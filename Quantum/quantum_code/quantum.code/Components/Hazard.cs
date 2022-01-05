@@ -118,14 +118,12 @@ namespace Quantum
 		/// </summary>
 		private void InitData(Frame f, QuantumHazardConfig config, int teamSource, EntityRef attacker)
 		{
-			var isPlayerHealing = f.TryGet<Weapon>(attacker, out var weapon) && weapon.IsHealing; 
-			
 			GameId = config.Id;
 			Radius = config.Radius;
 			DestroyTime = f.Time + config.Lifetime;
 			Interval = config.Interval;
 			PowerAmount = config.Damage;
-			IsHealing = isPlayerHealing || (QBoolean) config.IsHealing;
+			IsHealing = config.IsHealing;
 			TeamSource = teamSource;
 			Attacker = attacker;
 			NextApplyTime = f.Time + config.ActivationDelay;

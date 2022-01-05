@@ -1,3 +1,4 @@
 component WeaponCollectable
 {
+	FPVector3 ProjectileSpawnOffset;
 }

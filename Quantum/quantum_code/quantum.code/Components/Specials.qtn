@@ -33,9 +33,7 @@ enum SpecialType
 	ShieldAimAreaStatus,
 	HealAround,
 	HealAim,
-	HealingMode,
 	HazardAimSpawn,
-	AggroBeaconGrenade,
 	ShieldedCharge,
 	Grenade,
 }
@@ -44,14 +42,14 @@ synced event OnAirstrikeUsed
 {
 	entity_ref Projectile;
 	FPVector3 TargetPosition;
-	ProjectileData ProjectileData;
+	Projectile ProjectileData;
 }
 
 synced event OnStunGrenadeUsed
 {
 	entity_ref Projectile;
 	FPVector3 TargetPosition;
-	ProjectileData ProjectileData;
+	Projectile ProjectileData;
 }
 
 synced event OnAggroBeaconGrenadeUsed
@@ -71,14 +69,14 @@ synced event OnGrenadeUsed
 {
 	entity_ref Projectile;
 	FPVector3 TargetPosition;
-	ProjectileData ProjectileData;
+	Projectile ProjectileData;
 }
 
 synced event OnSkyBeamUsed
 {
 	entity_ref Projectile;
 	FPVector3 TargetPosition;
-	ProjectileData ProjectileData;
+	Projectile ProjectileData;
 }
 
 synced event OnLocalSpecialUsed

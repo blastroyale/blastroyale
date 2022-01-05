@@ -30,13 +30,14 @@ namespace Quantum.Systems
 			
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
-				var position = f.Get<Transform3D>(pair.Entity).Position;
+				var transform = f.Get<Transform3D>(pair.Entity);
+				var position = transform.Position;
 				var distance = (position.XZ - center).SqrMagnitude;
 
 				if (distance > radius)
 				{
 					var currentHealth = f.Get<Stats>(pair.Entity).CurrentHealth;
-					var ragdollDirection = f.Get<Transform3D>(pair.Entity).Rotation.AsEuler;
+					var ragdollDirection = transform.Rotation.AsEuler;
 					
 					f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
 					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, ragdollDirection, currentHealth);

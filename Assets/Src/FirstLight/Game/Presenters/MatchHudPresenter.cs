@@ -28,7 +28,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _quitButton;
 		[SerializeField] private Button _standingsButton;
 		[SerializeField] private Button _leaderButton;
-		[SerializeField] private Image _currentWeaponImage;
 		[SerializeField] private StandingsHolderView _standings;
 		[SerializeField] private TextMeshProUGUI _mapStatusText;
 		[SerializeField] private LeaderHolderView _leaderHolderView;
@@ -54,7 +53,6 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
 			
 			_mapTimerView.gameObject.SetActive(false);
@@ -74,11 +72,6 @@ namespace FirstLight.Game.Presenters
 			_animation.Play();
 		}
 
-		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
-		}
-		
 		private void OnQuitClicked()
 		{
 			_services.MessageBrokerService.Publish(new QuitGameClickedMessage());

@@ -34,14 +34,14 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_28287F92: 1.5
-    - Vector1_485BCCF8: 5
-    - Vector1_534C4AC9: 1
-    - Vector1_B3F6D69: 0.4
-    - Vector1_BEF38A08: 5
-    - Vector1_DB7D2282: 1
-    - Vector1_E33CBEF2: 0.75
-    - Vector1_E7AE6CD: 4.5
-    - Vector1_FE3B4DFB: 300
+    - Vector1_485BCCF8: 0.1
+    - Vector1_534C4AC9: 0
+    - Vector1_B3F6D69: 2
+    - Vector1_BEF38A08: 10
+    - Vector1_DB7D2282: 0.6
+    - Vector1_E33CBEF2: 1
+    - Vector1_E7AE6CD: 6
+    - Vector1_FE3B4DFB: 0.05
     m_Colors:
     - Color_17AB51B8: {r: 0, g: 0.32691926, b: 1.1353015, a: 1}
     - Color_20EAE851: {r: 0.039871756, g: 0.21216772, b: 0.9056604, a: 1}

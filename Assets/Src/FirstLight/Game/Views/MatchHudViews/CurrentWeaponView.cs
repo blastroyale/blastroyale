@@ -26,12 +26,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
 		}
-		
-		private void OnDestroy()
-		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.NetworkService?.HasLag?.StopObservingAll(this);
-		}
 
 		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{

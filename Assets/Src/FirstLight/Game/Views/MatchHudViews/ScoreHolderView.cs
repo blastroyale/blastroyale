@@ -49,7 +49,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)

@@ -69,16 +69,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Water
     second: {fileID: 2100000, guid: d84aaeba965348e40b4422eb7876e13a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TerrainGreen
-    second: {fileID: 2100000, guid: 281f214aea63fd1448ee900d8fd36403, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Terrain_Desert
-    second: {fileID: 2100000, guid: 6034f85158339724f9dd612091c871b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

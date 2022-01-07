@@ -21,6 +21,14 @@ namespace Quantum.Systems
 				if (spawner.Component->Collectable == entity)
 				{
 					spawner.Component->MarkCollected(f);
+					
+					// If RespawnTimeInSec == 0 then this is not a respawnable collectable so we destroy it
+					if (spawner.Component->RespawnTimeInSec == 0)
+					{
+						f.Remove<CollectablePlatformSpawner>(spawner.Entity);
+						f.Add<EntityDestroyer>(spawner.Entity);
+					}
+					
 					return;
 				}
 			}

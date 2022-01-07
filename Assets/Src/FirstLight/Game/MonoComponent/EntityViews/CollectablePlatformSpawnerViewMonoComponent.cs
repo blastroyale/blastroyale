@@ -34,7 +34,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
-			var spawner = frame.Get<CollectablePlatformSpawner>(EntityRef);
+			if (!frame.TryGet<CollectablePlatformSpawner>(EntityRef, out var spawner))
+			{
+				return;
+			}
 
 			var remaining = spawner.NextSpawnTime.AsFloat - frame.Time.AsFloat;
 

@@ -43,13 +43,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out _);
-
-			// _playersLeft = matchData.Length;
-			
 			var mapConfig = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			_contendersLeftText.text = mapConfig.PlayersLimit.ToString();
 		}

@@ -1,11 +1,13 @@
 
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
+using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -23,11 +25,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private AnimationClip _animationClipFadeOut;
 
 		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
 		private int _playersLeft;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			_contendersLeftText.text = "";
@@ -40,12 +44,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out _);
-
-			_playersLeft = matchData.Length;
+			var mapConfig = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
+			_contendersLeftText.text = mapConfig.PlayersLimit.ToString();
 		}
 		
 		/// <summary>
@@ -55,16 +55,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 			
-			_playersLeft--;
-			if (_playersLeft < 1)
-			{
-				_playersLeft = 1;
-			}
-
-			Debug.Log("Player Rank: " + (deadData.PlayerRank - 1) );
-			
-			_contendersLeftText.text = _playersLeft.ToString() + " PLAYERS REMAINING";
-				// (deadData.PlayerRank - 1) + " PLAYERS REMAINING";
+			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, (deadData.PlayerRank - 1) );
 			
 			_animation.clip = _animationClipFadeIn;
 			_animation.Rewind();

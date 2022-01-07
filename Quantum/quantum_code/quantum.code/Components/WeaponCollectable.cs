@@ -11,7 +11,7 @@ namespace Quantum
 		{
 			var collectable = new Collectable {GameId = config.Id };
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			
+
 			transform->Position = position;
 			transform->Rotation = rotation;
 			
@@ -21,12 +21,12 @@ namespace Quantum
 		/// <summary>
 		/// Collects this given <paramref name="entity"/> by the given <paramref name="player"/>
 		/// </summary>
-		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
+		internal void Collect(Frame f, EntityRef entity, EntityRef player)
 		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
 			var collectable = f.Get<Collectable>(entity);
 			
-			playerCharacter->SetWeapon(f, playerEntity, collectable.GameId, ItemRarity.Common, 1);
+			playerCharacter->SetWeapon(f, player, collectable.GameId, ItemRarity.Common, 1, ProjectileSpawnOffset);
 		}
 	}
 }

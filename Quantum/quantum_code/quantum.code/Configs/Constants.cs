@@ -8,8 +8,6 @@ namespace Quantum
 		public static readonly string STUN_CANCELLED_EVENT = "OnStunCancelled";
 		public static readonly string STUN_DURATION_BB_KEY = "StunDuration";
 		public static readonly string TARGET_BB_KEY = "Target";
-		public static readonly string PROJECTILE_GAME_ID = "ProjectileGameId";
-		public static readonly FP PROJECTILE_MAX_RANGE = FP._1000;
 		public static readonly FP PROJECTILE_MAX_SPEED = FP._4 * FP._10;
 		public static readonly FP FAKE_PROJECTILE_Y_OFFSET = FP._5;
 		public static readonly FP STUN_GRENADE_TIME_TO_DAMAGE_MULTIPLIER = FP._5;
@@ -20,7 +18,6 @@ namespace Quantum
 		public static readonly FP CHARGE_VALIDITY_CHECK_DISTANCE_STEP = FP._0_25;
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._2;
-		public static readonly FP MELEE_WEAPON_RANGE_THRESHOLD = FP._2;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
 		public static readonly GameId DEFAULT_WEAPON_GAME_ID = GameId.Hammer;
 

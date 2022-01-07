@@ -61,18 +61,12 @@ namespace Quantum
 		/// <summary>
 		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
 		/// </summary>
-		public static bool IsAttackable(Frame f, EntityRef e)
-		{
-			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) && !targetable.IsUntargetable;
-		}
-		
-		/// <summary>
-		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
-		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			return !IsDestroyed(f, e) && 
-			       f.TryGet<Targetable>(e, out var targetable) && !targetable.IsUntargetable && targetable.Team != attackerTeam;
+			var neutral = (int)TeamType.Neutral;
+			
+			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
+			       (targetable.Team != attackerTeam || targetable.Team == neutral || attackerTeam == neutral);
 		}
 		
 		/// <summary>
@@ -85,13 +79,15 @@ namespace Quantum
 
 		/// <summary>
 		/// Process a hit source from the given <paramref name="attackerEntity"/> to the given <paramref name="hitEntity"/>
-		/// to create a <see cref="Spell"/> to be processed
+		/// to create a <see cref="Spell"/> to be processed.
+		/// Returns true if the hit was successful and false otherwise
 		/// </summary>
-		public static void ProcessHit(Frame f, EntityRef attackerEntity, EntityRef hitEntity, FPVector3 hitPoint, int attackerTeam, uint amount)
+		public static bool ProcessHit(Frame f, EntityRef attackerEntity, EntityRef hitEntity, FPVector3 hitPoint, 
+		                              int attackerTeam, uint amount)
 		{
-			if (IsDestroyed(f, hitEntity) || !f.TryGet<Targetable>(hitEntity, out var targetable) || targetable.Team != attackerTeam)
+			if (!IsAttackable(f, hitEntity, attackerTeam))
 			{
-				return;
+				return false;
 			}
 			
 			var spell = new Spell
@@ -103,6 +99,8 @@ namespace Quantum
 			};
 
 			f.Add(hitEntity, spell);
+
+			return true;
 		}
 		
 		/// <summary>

@@ -42,7 +42,7 @@ namespace Quantum
 				
 				angle += angleStep;
 
-				if (!hit.HasValue)
+				if (!hit.HasValue || hit.Value.Entity == e)
 				{
 					continue;
 				}
@@ -52,15 +52,22 @@ namespace Quantum
 					QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
 				}
 
-				if (weapon->SplashRadius > FP._0)
+				if (weapon->SplashRadius == FP._0)
 				{
-					var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, shape, FPVector3.Zero, 
-					                                    f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+					continue;
+				}
+				
+				var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, shape, FPVector3.Zero, 
+				                                    f.PlayerCastLayerMask, QueryOptions.HitDynamics);
 
-					for (var j = 0; j < hits.Count; j++)
+				for (var j = 0; j < hits.Count; j++)
+				{
+					if (hits[j].Entity == e)
 					{
-						QuantumHelpers.ProcessHit(f, e, hits[j].Entity, hits[j].Point, team, powerAmount);
+						continue;
 					}
+					
+					QuantumHelpers.ProcessHit(f, e, hits[j].Entity, hits[j].Point, team, powerAmount);
 				}
 			}
 		}

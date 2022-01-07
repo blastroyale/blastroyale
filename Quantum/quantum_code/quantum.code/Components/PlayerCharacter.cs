@@ -114,7 +114,8 @@ namespace Quantum
 		/// <summary>
 		/// Set's the player's current weapon to the given <paramref name="weaponGameId"/> and data
 		/// </summary>
-		public void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level)
+		public void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level, 
+		                      FPVector3 projectileSpawnOffset = new FPVector3())
 		{
 			var weapon = new Weapon();
 			var config = f.WeaponConfigs.GetConfig(weaponGameId);
@@ -136,13 +137,14 @@ namespace Quantum
 			weapon.ProjectileSpeed = config.ProjectileSpeed;
 			weapon.SplashRadius = config.SplashRadius;
 			weapon.AimingMovementSpeed = config.AimingMovementSpeed;
+			weapon.ProjectileSpawnOffset = projectileSpawnOffset;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
 				var specialId = config.Specials[specialIndex];
 				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
 				
-				weapon.Specials[specialIndex] = new Special(f, specialConfig, specialIndex);
+				weapon.Specials[specialIndex] = new Special(f, specialConfig);
 			}
 			
 			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);

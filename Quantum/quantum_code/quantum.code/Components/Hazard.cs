@@ -49,9 +49,7 @@ namespace Quantum
 				var iterator = f.GetComponentIterator<Targetable>();
 				foreach (var target in iterator)
 				{
-					if (!QuantumHelpers.IsAttackable(f, target.Entity) || 
-					    (teamSource == target.Component.Team && !hazardConfig.IsHealing) || 
-					    (teamSource != target.Component.Team && hazardConfig.IsHealing) ||
+					if (!QuantumHelpers.IsAttackable(f, target.Entity, hazard->TeamSource) || 
 					    (f.Get<Transform3D>(target.Entity).Position - spawnPosition).SqrMagnitude > sqrRadius)
 					{
 						continue;
@@ -65,47 +63,6 @@ namespace Quantum
 			
 			hazardTransform->Position = spawnPosition;
 			hazardTransform->Rotation = FPQuaternion.LookRotation(FPVector3.Forward, FPVector3.Up);
-
-			/* TODO: Delete when Hazards, Projectiles & specials are cleaned up
-			if (hazardConfig.Id == GameId.AggroBeaconHazard)
-			{
-				var targetable = new Targetable
-				{
-					Team = teamSource,
-					IsUntargetable = false
-				};
-				var projectileData = new ProjectileData
-				{
-					Attacker = source,
-					ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-					NormalizedDirection = FPVector3.Down,
-					SpawnPosition = new FPVector3(spawnPosition.X, spawnPosition.Y + Constants.FAKE_PROJECTILE_Y_OFFSET, spawnPosition.Z),
-					TeamSource = teamSource,
-					IsHealing = false,
-					PowerAmount = Constants.AGGRO_OBJECT_EXPLOSION_DAMAGE,
-					Speed = Constants.PROJECTILE_MAX_SPEED,
-					Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
-					SplashRadius = Constants.AGGRO_OBJECT_EXPLOSION_RADIUS,
-					StunDuration = FP._0,
-					Target = EntityRef.None,
-					IsHitOnRangeLimit = true,
-					IsHitOnlyOnRangeLimit = true,
-					LaunchTime = f.Time + hazardConfig.Lifetime
-				};
-				
-				var collider = *physicsCollider;
-
-				collider.IsTrigger = false;
-				collider.Layer = f.PlayerCharacterLayerMask;
-				attacker = f.Create();
-				
-				Projectile.Create(f, projectileData);
-				
-				f.Add(entity, targetable);
-				f.Add(attacker, *hazardTransform);
-				f.Add(attacker, targetable);
-				f.Add(attacker, collider);
-			}*/
 			
 			hazard->InitData(f, hazardConfig, teamSource, attacker);
 			physicsCollider->Shape = Shape3D.CreateSphere(hazardConfig.Radius);

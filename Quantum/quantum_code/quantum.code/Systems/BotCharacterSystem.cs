@@ -220,8 +220,7 @@ namespace Quantum.Systems
 			
 			foreach (var targetCandidate in f.GetComponentIterator<Targetable>())
 			{
-				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity) || 
-				    team == targetCandidate.Component.Team || 
+				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity, team) || 
 				    !QuantumHelpers.IsEntityInRange(f, filter.Entity, targetCandidate.Entity, FP._0, targetRange))
 				{
 					continue;
@@ -258,40 +257,11 @@ namespace Quantum.Systems
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
 				var special = weaponPointer->Specials.GetPointer(specialIndex);
+				var target = f.Get<AIBlackboardComponent>(filter.Entity).GetEntityRef(f, Constants.TARGET_BB_KEY);
 				
-				if (!special->IsValid || !special->IsSpecialAvailable(f))
+				if ((target != EntityRef.None || special->SpecialType == SpecialType.ShieldSelfStatus) &&
+					special->IsValid && special->TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
 				{
-					continue;
-				}
-				
-				var tryUseSpecial = false;
-				
-				switch (special->SpecialType)
-				{
-					case SpecialType.Airstrike:
-					case SpecialType.StunGrenade:
-					case SpecialType.Grenade:
-					case SpecialType.HazardAimSpawn:
-					case SpecialType.ShieldedCharge:
-						var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-						var target = bb.GetEntityRef(f, Constants.TARGET_BB_KEY);
-						tryUseSpecial = target != EntityRef.None;
-						break;
-					case SpecialType.HealingField:
-						var stats = f.Get<Stats>(filter.Entity);
-						var maxHealth = stats.Values[(int) StatType.Health].StatValue;
-						tryUseSpecial = stats.CurrentHealth < maxHealth;
-						break;
-					case SpecialType.InvisibilitySelfStatus:
-					case SpecialType.RageSelfStatus:
-					case SpecialType.ShieldSelfStatus:
-						tryUseSpecial = true;
-						break;
-				}
-				
-				if (tryUseSpecial && special->TryUse(f, filter.Entity, FPVector2.Zero))
-				{
-					special->HandleUsed(f, filter.Entity);
 					return true;
 				}
 			}
@@ -411,8 +381,7 @@ namespace Quantum.Systems
 			
 			foreach (var targetCandidate in iterator)
 			{
-				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity) ||
-				    team == targetCandidate.Component.Team)
+				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity, team))
 				{
 					continue;
 				}

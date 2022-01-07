@@ -1,5 +1,3 @@
-using Photon.Deterministic;
-
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -30,11 +28,6 @@ namespace Quantum.Systems
 			
 			if (f.Time >= hazard->DestroyTime)
 			{
-				if (hazard->GameId == GameId.AggroBeaconHazard)
-				{
-					f.Add<EntityDestroyer>(hazard->Attacker);
-				}
-				
 				f.Add<EntityDestroyer>(filter.Entity);
 			}
 		}
@@ -42,46 +35,16 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
 		{
-			if (info.IsStatic || !f.TryGet<Hazard>(info.Entity, out var hazard) || !hazard.IsActive)
+			if (!f.TryGet<Hazard>(info.Entity, out var hazard) || !hazard.IsActive || info.IsStatic || info.Entity == info.Other)
 			{
 				return;
 			}
 			
-			if (f.TryGet<Targetable>(info.Other, out var targetable) &&
-			    ((targetable.Team != hazard.TeamSource && !hazard.IsHealing) ||
-			     (targetable.Team == hazard.TeamSource && hazard.IsHealing)))
+			var position = f.Get<Transform3D>(info.Entity).Position;
+
+			if (QuantumHelpers.ProcessHit(f, hazard.Attacker, info.Other, position, hazard.TeamSource, hazard.PowerAmount))
 			{
-				var hazardHitData = new HazardHitData
-				{
-					TargetHit = info.Other,
-					Hazard = info.Entity,
-					HitPosition = f.Get<Transform3D>(info.Other).Position
-				};
-				
-				var hitData = new ProjectileHitData
-				{
-					TargetHit = info.Other,
-					Projectile = info.Entity,
-					HitPosition = hazardHitData.HitPosition
-				};
-				
-				var projectileProxyData = new ProjectileData
-				{
-					Attacker = hazard.Attacker,
-					ProjectileAssetRef = 0,
-					NormalizedDirection = FPVector3.Zero,
-					SpawnPosition = hazardHitData.HitPosition,
-					TeamSource = hazard.TeamSource,
-					IsHealing = hazard.IsHealing,
-					PowerAmount = hazard.PowerAmount,
-					Speed = FP._0,
-					Range = Constants.PROJECTILE_MAX_RANGE,
-					SplashRadius = FP._0,
-				};
-				
-				LocalPlayerHitEvents(f, &projectileProxyData, &hitData);
-				
-				f.Signals.HazardTargetHit(&hazardHitData);
+				f.Events.OnHazardHit(info.Entity, info.Other, hazard, position);
 			}
 		}
 	}

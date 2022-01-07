@@ -11,12 +11,11 @@ component Hazard
 	[HideInInspector] FP NextApplyTime;
 	[HideInInspector] bool IsActive;
 }
-
-struct HazardHitData
-{
-	entity_ref Hazard;
-	entity_ref TargetHit;
-	FPVector3 HitPosition;
-}
-
-signal HazardTargetHit(HazardHitData* data);
+ 
+ event OnHazardHit
+ {
+ 	entity_ref Hazard;
+ 	entity_ref HitEntity;
+ 	Hazard HazardData;
+ 	FPVector3 HitPosition;
+ }

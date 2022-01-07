@@ -11,4 +11,5 @@ component Weapon
 	array<Special>[MAX_SPECIALS] Specials;
 	FP AimingMovementSpeed; 
 	FP LastAttackTime; 
+	FPVector3 ProjectileSpawnOffset;
 }

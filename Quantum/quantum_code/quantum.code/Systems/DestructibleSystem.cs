@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -13,15 +12,36 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Destructible* Destructible;
+			public Transform3D* Transform;
+			public Targetable* Targetable;
+			public Stats* Stats;
 		}
 		
 		/// <inheritdoc />
 		public override void Update(Frame f, ref DestructibleFilter filter)
 		{
-			if (filter.Destructible->IsDestructing && f.Time >= filter.Destructible->TimeToDestroy)
+			if (!filter.Destructible->IsDestructing || f.Time < filter.Destructible->TimeToDestroy)
 			{
-				f.Add<EntityDestroyer>(filter.Entity);
+				return;
 			}
+			
+			var shape = Shape3D.CreateSphere(filter.Destructible->SplashRadius);
+			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
+			var hits = f.Physics3D.ShapeCastAll(filter.Transform->Position, FPQuaternion.Identity, shape, 
+			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+
+			for (var j = 0; j < hits.Count; j++)
+			{
+				if (hits[j].Entity == filter.Entity)
+				{
+					continue;
+				}
+				
+				QuantumHelpers.ProcessHit(f, filter.Entity, hits[j].Entity, hits[j].Point,
+				                          filter.Targetable->Team, power);
+			}
+			
+			f.Add<EntityDestroyer>(filter.Entity);
 		}
 		
 		/// <inheritdoc />
@@ -32,34 +52,10 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
-			var stats = f.Get<Stats>(entity);
-			var spawnPosition = transform->Position;
-			var projectileData = new ProjectileData
-			{
-				Attacker = entity,
-				ProjectileAssetRef = destructible->ProjectileAssetRef.Id.Value,
-				NormalizedDirection = FPVector3.Down,
-				SpawnPosition = spawnPosition + FPVector3.Up * Constants.FAKE_PROJECTILE_Y_OFFSET,
-				TeamSource = (int) TeamType.Neutral,
-				IsHealing = false,
-				PowerAmount = (uint) stats.Values[(int) StatType.Power].StatValue.AsInt,
-				Speed = Constants.PROJECTILE_MAX_SPEED,
-				Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
-				SplashRadius = destructible->SplashRadius,
-				StunDuration = FP._0,
-				Target = EntityRef.None,
-				IsHitOnRangeLimit = true,
-				IsHitOnlyOnRangeLimit = true,
-				LaunchTime = f.Time + destructible->DestructionLengthTime
-			};
-			
-			var projectile = Projectile.Create(f, projectileData);
-			
 			destructible->TimeToDestroy = f.Time + destructible->DestructionLengthTime;
 			destructible->IsDestructing = true;
 			
-			f.Events.OnDestructibleScheduled(entity, *destructible, projectile, projectileData);
+			f.Events.OnDestructibleScheduled(entity, *destructible);
 		}
 	}
 }

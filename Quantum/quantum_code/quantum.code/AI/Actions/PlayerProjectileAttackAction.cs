@@ -23,28 +23,27 @@ namespace Quantum
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey);
 			var position = f.Get<Transform3D>(e).Position;
 			var team = f.Get<Targetable>(e).Team;
+			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
+			var projectile = new Projectile
+			{
+				Attacker = e,
+				Direction = aimingDirection.XOY,
+				IsPiercing = false,
+				PowerAmount = (uint) power.AsInt,
+				SourceId = weapon->WeaponId,
+				Range = weapon->AttackRange,
+				SpawnPosition = position + weapon->ProjectileSpawnOffset,
+				Speed = weapon->ProjectileSpeed,
+				SplashRadius = weapon->SplashRadius,
+				StunDuration = FP._0,
+				Target = EntityRef.None,
+				TeamSource = team
+			};
 			
 			weapon->Ammo--;
 			weapon->LastAttackTime = f.Time;
-			
-			var projectileData = new ProjectileData
-			{
-				Attacker = e,
-				ProjectileId = projectileId,
-				ProjectileAssetRef = bbComponent.GetFP(f, ProjectileAssetRef.Key).RawValue,
-				NormalizedDirection = normalizedDirection,
-				OriginalDirection = normalizedOriginalDirection,
-				SpawnPosition = spawnPosition,
-				TeamSource = f.Get<Targetable>(e).Team,
-				IsHealing = isHealing,
-				PowerAmount = (uint) stats.Values[(int) StatType.Power].StatValue.AsInt,
-				Speed = bbComponent.GetFP(f, ProjectileSpeed.Key),
-				Range = projectileRange,
-				SplashRadius = bbComponent.GetFP(f, ProjectileSplashRadius.Key),
-				StunDuration = bbComponent.GetFP(f, ProjectileStunDuration.Key),
-				IsHitOnRangeLimit = projectileRange <= Constants.MELEE_WEAPON_RANGE_THRESHOLD,
-				IsHitOnlyOnRangeLimit = projectileRange <= Constants.MELEE_WEAPON_RANGE_THRESHOLD,
-			};
+
+			Projectile.Create(f, projectile);
 			
 			f.Events.OnPlayerAttacked(e, player);
 		}

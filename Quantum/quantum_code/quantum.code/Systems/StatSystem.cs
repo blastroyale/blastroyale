@@ -1,5 +1,3 @@
-using Photon.Deterministic;
-
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -7,8 +5,7 @@ namespace Quantum.Systems
 	/// entities <see cref="Stats"/>
 	/// </summary>
 	public unsafe class StatSystem : SystemMainThreadFilter<StatSystem.StatsFilter>, 
-	                                 ISignalOnComponentAdded<Stats>, ISignalOnComponentRemoved<Stats>, 
-	                                 ISignalHazardTargetHit
+	                                 ISignalOnComponentAdded<Stats>, ISignalOnComponentRemoved<Stats>
 	{
 		public struct StatsFilter
 		{
@@ -52,34 +49,6 @@ namespace Quantum.Systems
 			if (f.Time > filter.Stats->CurrentStatusModifierEndTime)
 			{
 				StatusModifiers.FinishCurrentStatusModifier(f, filter.Entity);
-			}
-		}
-		
-		/// <inheritdoc />
-		public void HazardTargetHit(Frame f, HazardHitData* data)
-		{
-			var hazard = f.Get<Hazard>(data->Hazard);
-			
-			HandleHealth(f, hazard.Attacker, data->TargetHit, data->Hazard,hazard.IsHealing, (int) hazard.PowerAmount);
-		}
-		
-		private void HandleHealth(Frame f, EntityRef attacker, EntityRef targetHit, EntityRef hitSource, bool isHealing, int powerAmount)
-		{
-			if (!f.Unsafe.TryGetPointer<Stats>(targetHit, out var stats) || powerAmount == 0)
-			{
-				return;
-			}
-			
-			var armour = f.Get<Stats>(targetHit).Values[(int) StatType.Armour].StatValue;
-			var damage = FPMath.Max(powerAmount - armour, 0).AsInt;
-			
-			if (isHealing)
-			{
-				stats->GainHealth(f, targetHit, attacker, powerAmount);
-			}
-			else if(damage > 0)
-			{
-				stats->ReduceHealth(f, targetHit, attacker, hitSource, damage);
 			}
 		}
 	}

@@ -2,7 +2,7 @@ component Projectile
 {
 	entity_ref Attacker;
 	entity_ref Target;
-	GameId ProjectileId;
+	GameId SourceId;
 	Int32 TeamSource;
 	FPVector3 SpawnPosition;
 	FPVector3 Direction;

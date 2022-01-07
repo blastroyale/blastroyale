@@ -6,8 +6,7 @@ namespace Quantum.Systems
 	/// Handles specifics for Stun status modifier
 	/// </summary>
 	public unsafe class StunSystem : SystemSignalsOnly, 
-	                                 ISignalOnComponentAdded<Stun>, 
-	                                 ISignalProjectileTargetHit, ISignalStatusModifierCancelled
+	                                 ISignalOnComponentAdded<Stun>, ISignalStatusModifierCancelled
 	{
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, Stun* component)
@@ -22,19 +21,8 @@ namespace Quantum.Systems
 			var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 			
 			bbComponent->Set(f, Constants.STUN_DURATION_BB_KEY, f.Get<Stats>(entity).CurrentStatusModifierDuration);
+			bbComponent->Set(f, Constants.TARGET_BB_KEY, EntityRef.None);
 			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.STUNNED_EVENT);
-		}
-		
-		/// <inheritdoc />
-		public void ProjectileTargetHit(Frame f, ProjectileHitData* data)
-		{
-			var projectileData = f.Get<Projectile>(data->Projectile).Data;
-			
-			if (projectileData.StunDuration > FP._0 && !data->IsStaticHit && f.Has<HFSMAgent>(data->TargetHit) &&
-			    f.TryGet<Stats>(data->TargetHit, out var stats) && stats.CurrentHealth > 0)
-			{
-				StatusModifiers.AddStatusModifierToEntity(f, data->TargetHit, StatusModifierType.Stun, projectileData.StunDuration);
-			}
 		}
 
 		/// <inheritdoc />

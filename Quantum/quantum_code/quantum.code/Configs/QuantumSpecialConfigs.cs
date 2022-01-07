@@ -10,14 +10,11 @@ namespace Quantum
 		public GameId Id;
 		public SpecialType SpecialType;
 		public IndicatorVfxId Indicator;
-		public uint BaseCharges;
-		public uint MaxCharges;
 		public FP InitialCooldown;
 		public FP Cooldown;
 		public FP SplashRadius;
 		public uint PowerAmount;
 		public FP Speed;
-		public GameId ExtraId;
 		public FP MinRange;
 		public FP MaxRange;
 
@@ -46,7 +43,6 @@ namespace Quantum
 					_dictionary.Add(config.Id, config);
 				}
 			}
-			
 
 			return _dictionary[gameId];
 		}

@@ -23,7 +23,7 @@ namespace Quantum
 				var iterator = f.GetComponentIterator<Targetable>();
 				foreach (var target in iterator)
 				{
-					if (!QuantumHelpers.IsAttackable(f, target.Entity) || (teamSource == target.Component.Team) || 
+					if (!QuantumHelpers.IsAttackable(f, target.Entity, teamSource) ||
 					    !QuantumHelpers.IsEntityInRange(f, e, target.Entity, FP._0, maxRange))
 					{
 						continue;

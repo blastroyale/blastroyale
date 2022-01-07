@@ -32,7 +32,7 @@ namespace Quantum.Systems
 			}
 			
 			// Projectile with Target is a Homing projectile. We update the direction based on Target's position
-			if (QuantumHelpers.IsAttackable(f, filter.Projectile->Target))
+			if (QuantumHelpers.IsAttackable(f, filter.Projectile->Target, filter.Projectile->TeamSource))
 			{
 				var targetPosition = f.Get<Transform3D>(filter.Projectile->Target).Position;
 				targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
@@ -49,30 +49,30 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (f.Has<EntityDestroyer>(info.Entity) || !f.TryGet<Projectile>(info.Entity, out var projectile) ||
-			    !IsValidCollision(f, projectile, info))
+			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.StaticData.IsTrigger || info.Other == info.Entity)
 			{
 				return;
 			}
 			
 			var position = f.Get<Transform3D>(info.Entity).Position;
+			var sqrtRadius = projectile.SplashRadius * projectile.SplashRadius;
 
 			if (!projectile.IsPiercing)
 			{
 				f.Add<EntityDestroyer>(info.Entity);
 			}
+
+			if (!info.IsStatic && QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
+			                                               projectile.TeamSource, projectile.PowerAmount))
+			{
+				OnHit(f, info.Entity, info.Other, projectile, position);
+			}
 			
 			if (projectile.SplashRadius == FP._0)
 			{
-				QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
-				                          projectile.TeamSource, projectile.PowerAmount);
-
-				f.Events.OnProjectileHit(info.Entity, info.Other, projectile, position);
-
 				return;
 			}
 			
-			var sqrtRadius = projectile.SplashRadius * projectile.SplashRadius;
 			var shape = Shape3D.CreateSphere(projectile.SplashRadius);
 			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
 			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
@@ -82,22 +82,24 @@ namespace Quantum.Systems
 				var hitPoint = hits[j].Point;
 				var hitEntity = hits[j].Entity;
 				var normalized = (hitPoint - position).SqrMagnitude / sqrtRadius;
-					
-				QuantumHelpers.ProcessHit(f, projectile.Attacker, hitEntity, hitPoint, projectile.TeamSource,
-				                          (uint) FPMath.RoundToInt(projectile.PowerAmount * normalized));
-					
-				f.Events.OnProjectileHit(info.Entity, hitEntity, projectile, hitPoint);
+				var amount = (uint) FPMath.RoundToInt(projectile.PowerAmount * normalized);
+
+				if (hitEntity != info.Other && QuantumHelpers.ProcessHit(f, projectile.Attacker, hitEntity, 
+				                                                         hitPoint, projectile.TeamSource, amount))
+				{
+					OnHit(f, info.Entity, hitEntity, projectile, hitPoint);
+				}
 			}
-			
-			
 		}
 
-		private bool IsValidCollision(Frame f, Projectile projectile, TriggerInfo3D info)
+		private void OnHit(Frame f, EntityRef attacker, EntityRef hitEntity, Projectile projectile, FPVector3 hitPoint)
 		{
-			var neutral = (int)TeamType.Neutral;
+			if (projectile.StunDuration > FP._0)
+			{
+				StatusModifiers.AddStatusModifierToEntity(f, hitEntity, StatusModifierType.Stun, projectile.StunDuration);
+			}
 			
-			return info.IsStatic || f.TryGet<Targetable>(info.Other, out var targetable) && 
-			       (targetable.Team != projectile.TeamSource || targetable.Team == neutral || projectile.TeamSource == neutral); 
+			f.Events.OnProjectileHit(attacker, hitEntity, projectile, hitPoint);
 		}
 	}
 }

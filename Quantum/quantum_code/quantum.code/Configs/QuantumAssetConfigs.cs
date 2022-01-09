@@ -6,7 +6,6 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumAssetConfigs
 	{
-		public AssetRefEntityPrototype HazardPrototype;
 		public AssetRefEntityPrototype PlayerCharacterPrototype;
 		public AssetRefEntityPrototype PlayerBulletPrototype;
 		public AssetRefEntityPrototype DummyCharacterPrototype;

@@ -47,27 +47,21 @@ namespace Quantum
 			}
 			
 			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.FAKE_PROJECTILE_Y_OFFSET, targetPosition.Z);
-			var maxProjectileFlyingTime = grenade.Speed;
 			var targetRange = grenade.MaxRange;
-			var launchTime = maxProjectileFlyingTime * ((targetPosition - attackerPosition).Magnitude / targetRange);
-			
+			var launchTime = grenade.Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
 			var projectileData = new ProjectileData
 			{
-				ProjectileId = grenade.SpecialGameId,
 				Attacker = e,
-				ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-				NormalizedDirection = FPVector3.Down,
+				Direction = FPVector3.Down,
+				IsPiercing = false,
 				SpawnPosition = spawnPosition,
-				TeamSource = team,
-				IsHealing = false,
 				PowerAmount = (uint) FPMath.FloorToInt(powerAmount * Constants.STUN_GRENADE_TIME_TO_DAMAGE_MULTIPLIER),
 				Speed = Constants.PROJECTILE_MAX_SPEED,
 				Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
 				SplashRadius = grenade.SplashRadius,
 				StunDuration = powerAmount,
 				Target = EntityRef.None,
-				LaunchTime = f.Time + launchTime,
-				IsHitOnRangeLimit = true
+				TeamSource = team
 			};
 			
 			var projectile = Projectile.Create(f, projectileData);

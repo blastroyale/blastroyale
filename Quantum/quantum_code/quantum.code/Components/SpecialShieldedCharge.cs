@@ -101,7 +101,7 @@ namespace Quantum
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, chargeDuration * Constants.SHIELDED_CHARGE_SHIELD_DURATION_MULTIPLIER, true);
+			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, chargeDuration, true);
 			Projectile.Create(f, projectileData);
 			
 			f.Add(e, chargeComponent);

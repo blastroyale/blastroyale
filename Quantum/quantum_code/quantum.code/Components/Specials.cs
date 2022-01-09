@@ -9,17 +9,17 @@ namespace Quantum
 	public partial struct Special
 	{
 		public bool IsAimable => MaxRange > FP._0;
-		public bool IsValid => SpecialGameId != default;
+		public bool IsValid => SpecialId != GameId.Random;
 		
 		/// <summary>
 		/// Initializes this Special with all the necessary data
 		/// </summary>
 		public Special(Frame f, QuantumSpecialConfig config) : this()
 		{
-			SpecialGameId = config.Id;
+			SpecialId = config.Id;
 			SpecialType = config.SpecialType;
 			Cooldown = config.Cooldown;
-			SplashRadius = config.SplashRadius;
+			Radius = config.Radius;
 			PowerAmount = config.PowerAmount;
 			Speed = config.Speed;
 			MaxRange = config.MaxRange;

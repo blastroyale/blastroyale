@@ -55,7 +55,6 @@ namespace Quantum.Systems
 			}
 			
 			var position = f.Get<Transform3D>(info.Entity).Position;
-			var sqrtRadius = projectile.SplashRadius * projectile.SplashRadius;
 
 			if (!projectile.IsPiercing)
 			{
@@ -65,41 +64,29 @@ namespace Quantum.Systems
 			if (!info.IsStatic && QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
 			                                               projectile.TeamSource, projectile.PowerAmount))
 			{
-				OnHit(f, info.Entity, info.Other, projectile, position);
+				OnHit(f,  projectile.Attacker, info.Entity, info.Other, position);
+				return;
 			}
 			
 			if (projectile.SplashRadius == FP._0)
 			{
 				return;
 			}
-			
-			var shape = Shape3D.CreateSphere(projectile.SplashRadius);
-			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
-			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
 
-			for (var j = 0; j < hits.Count; j++)
-			{
-				var hitPoint = hits[j].Point;
-				var hitEntity = hits[j].Entity;
-				var normalized = (hitPoint - position).SqrMagnitude / sqrtRadius;
-				var amount = (uint) FPMath.RoundToInt(projectile.PowerAmount * normalized);
-
-				if (hitEntity != info.Other && QuantumHelpers.ProcessHit(f, projectile.Attacker, hitEntity, 
-				                                                         hitPoint, projectile.TeamSource, amount))
-				{
-					OnHit(f, info.Entity, hitEntity, projectile, hitPoint);
-				}
-			}
+			QuantumHelpers.ProcessAreaHit(f, projectile.Attacker, info.Entity, projectile.SplashRadius, position,
+			                              projectile.PowerAmount, projectile.TeamSource, OnHit);
 		}
 
-		private void OnHit(Frame f, EntityRef attacker, EntityRef hitEntity, Projectile projectile, FPVector3 hitPoint)
+		private void OnHit(Frame f, EntityRef attacker, EntityRef attackSource, EntityRef hitEntity, FPVector3 hitPoint)
 		{
-			if (projectile.StunDuration > FP._0)
+			var source = f.Get<Projectile>(attackSource);
+			
+			if (source.StunDuration > FP._0)
 			{
-				StatusModifiers.AddStatusModifierToEntity(f, hitEntity, StatusModifierType.Stun, projectile.StunDuration);
+				StatusModifiers.AddStatusModifierToEntity(f, hitEntity, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnProjectileHit(attacker, hitEntity, projectile, hitPoint);
+			f.Events.OnProjectileHit(attacker, hitEntity, source, hitPoint);
 		}
 	}
 }

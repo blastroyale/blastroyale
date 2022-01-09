@@ -14,22 +14,22 @@ component Projectile
 	bool IsPiercing;
 }
 
-event OnProjectileFired
- {
- 	entity_ref Projectile;
- 	Projectile ProjectileData;
- }
- 
- event OnProjectileHit
- {
- 	entity_ref Projectile;
- 	entity_ref HitEntity;
- 	Projectile ProjectileData;
- 	FPVector3 HitPosition;
- }
- 
- event OnProjectileFailedHit
- {
+synced event OnProjectileFired
+{
+	entity_ref Projectile;
+	Projectile ProjectileData;
+}
+
+synced event OnProjectileHit
+{
+	entity_ref Projectile;
+	entity_ref HitEntity;
+	Projectile ProjectileData;
+	FPVector3 HitPosition;
+}
+
+synced event OnProjectileFailedHit
+{
  	entity_ref Projectile;
  	Projectile ProjectileData;
  }

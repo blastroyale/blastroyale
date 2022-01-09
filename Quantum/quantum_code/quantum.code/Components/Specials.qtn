@@ -2,14 +2,14 @@
 
 struct Special
 {
-	[HideInInspector] GameId SpecialGameId;
-	[HideInInspector] SpecialType SpecialType;
-	[HideInInspector] FP Cooldown;
-	[HideInInspector] FP SplashRadius;
-	[HideInInspector] UInt32 PowerAmount;
-	[HideInInspector] FP Speed;
-	[HideInInspector] FP MaxRange;
-	[HideInInspector] FP AvailableTime;
+	GameId SpecialId;
+	SpecialType SpecialType;
+	FP Cooldown;
+	FP Radius;
+	UInt32 PowerAmount;
+	FP Speed;
+	FP MaxRange;
+	FP AvailableTime;
 }
 
 enum SpecialType
@@ -44,9 +44,16 @@ synced event OnShieldedChargeUsed
 
 synced event OnGrenadeUsed
 {
-	entity_ref Projectile;
+	entity_ref Hazard;
 	FPVector3 TargetPosition;
-	Projectile ProjectileData;
+	Hazard HazardData;
+}
+
+synced event OnSkyBeamUsed
+{
+	entity_ref Hazard;
+	FPVector3 TargetPosition;
+	Hazard HazardData;
 }
 
 synced event OnLocalSpecialUsed

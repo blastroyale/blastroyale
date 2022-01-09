@@ -1,14 +1,17 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// Handles Hazards
 	/// </summary>
-	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>, ISignalOnTrigger3D
+	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>
 	{
 		public struct HazardFilter
 		{
 			public EntityRef Entity;
 			public Hazard* Hazard;
+			public Transform3D* Transform;
 		}
 		
 		/// <inheritdoc />
@@ -16,36 +19,32 @@ namespace Quantum.Systems
 		{
 			var hazard = filter.Hazard;
 			
-			if (f.Time >= hazard->NextApplyTime)
-			{
-				hazard->NextApplyTime += hazard->Interval;
-				hazard->IsActive = true;
-			}
-			else if (hazard->IsActive)
-			{
-				hazard->IsActive = false;
-			}
-			
-			if (f.Time >= hazard->DestroyTime)
+			if (f.Time > hazard->EndTime)
 			{
 				f.Add<EntityDestroyer>(filter.Entity);
 			}
-		}
-		
-		/// <inheritdoc />
-		public void OnTrigger3D(Frame f, TriggerInfo3D info)
-		{
-			if (!f.TryGet<Hazard>(info.Entity, out var hazard) || !hazard.IsActive || info.IsStatic || info.Entity == info.Other)
+			
+			if (f.Time < hazard->NextTickTime)
 			{
 				return;
 			}
 			
-			var position = f.Get<Transform3D>(info.Entity).Position;
+			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
 
-			if (QuantumHelpers.ProcessHit(f, hazard.Attacker, info.Other, position, hazard.TeamSource, hazard.PowerAmount))
+			QuantumHelpers.ProcessAreaHit(f, hazard->Attacker, filter.Entity, hazard->Radius,
+			                              filter.Transform->Position, hazard->PowerAmount, hazard->TeamSource, OnHit);
+		}
+
+		private void OnHit(Frame f, EntityRef attacker, EntityRef attackSource, EntityRef hitEntity, FPVector3 hitPoint)
+		{
+			var source = f.Get<Hazard>(attackSource);
+			
+			if (source.StunDuration > FP._0)
 			{
-				f.Events.OnHazardHit(info.Entity, info.Other, hazard, position);
+				StatusModifiers.AddStatusModifierToEntity(f, hitEntity, StatusModifierType.Stun, source.StunDuration);
 			}
+			
+			f.Events.OnHazardHit(attacker, hitEntity, source, hitPoint);
 		}
 	}
 }

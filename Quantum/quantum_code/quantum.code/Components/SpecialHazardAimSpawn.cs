@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -45,32 +43,22 @@ namespace Quantum
 				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
-			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.FAKE_PROJECTILE_Y_OFFSET, targetPosition.Z);
-			
-			var projectileData = new ProjectileData
+			var hazardData = new Hazard
 			{
-				ProjectileId = GameId.BulletInvisible,
 				Attacker = e,
-				ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-				NormalizedDirection = FPVector3.Down,
-				SpawnPosition = spawnPosition,
-				TeamSource = team,
-				IsHealing = false,
+				EndTime = f.Time + special.Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
+				NextTickTime = f.Time + special.Speed,
 				PowerAmount = special.PowerAmount,
-				Speed = Constants.PROJECTILE_MAX_SPEED,
-				Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
-				SplashRadius = special.SplashRadius,
+				Radius = special.Radius,
 				StunDuration = FP._0,
-				Target = EntityRef.None,
-				LaunchTime = f.Time + special.Speed,
-				IsHitOnRangeLimit = true,
-				IsHitOnlyOnRangeLimit = true,
-				SpawnHazardId = special.ExtraGameId
+				TeamSource = team
 			};
 			
-			var projectile = Projectile.Create(f, projectileData);
+			var hazard = Hazard.Create(f, hazardData, targetPosition);
 			
-			f.Events.OnSkyBeamUsed(projectile, targetPosition, projectileData);
+			f.Events.OnSkyBeamUsed(hazard, targetPosition, hazardData);
 			
 			return true;
 		}

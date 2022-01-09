@@ -10,9 +10,8 @@ namespace Quantum
 		public GameId Id;
 		public SpecialType SpecialType;
 		public IndicatorVfxId Indicator;
-		public FP InitialCooldown;
 		public FP Cooldown;
-		public FP SplashRadius;
+		public FP Radius;
 		public uint PowerAmount;
 		public FP Speed;
 		public FP MinRange;

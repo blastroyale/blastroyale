@@ -11,9 +11,6 @@ namespace Quantum
 		public static readonly FP PROJECTILE_MAX_SPEED = FP._4 * FP._10;
 		public static readonly FP FAKE_PROJECTILE_Y_OFFSET = FP._5;
 		public static readonly FP STUN_GRENADE_TIME_TO_DAMAGE_MULTIPLIER = FP._5;
-		public static readonly FP SHIELDED_CHARGE_POWER_TO_STUN_MULTIPLIER = FP._0;
-		public static readonly FP SHIELDED_CHARGE_POWER_TO_AGGRO_MULTIPLIER = FP._0_10;
-		public static readonly FP SHIELDED_CHARGE_SHIELD_DURATION_MULTIPLIER = FP._1;
 		public static readonly FP OUT_OF_WORLD_Y_THRESHOLD = -FP._5;
 		public static readonly FP CHARGE_VALIDITY_CHECK_DISTANCE_STEP = FP._0_25;
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
@@ -21,6 +18,7 @@ namespace Quantum
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
 		public static readonly GameId DEFAULT_WEAPON_GAME_ID = GameId.Hammer;
 
+		public static readonly FP ProjectileSkyRange = FP._10;
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string IsShootingKey = "IsShooting";
 		

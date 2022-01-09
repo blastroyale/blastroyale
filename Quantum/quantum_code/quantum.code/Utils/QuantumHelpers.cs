@@ -78,6 +78,40 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Process an AOE attack from the given <paramref name="attackSource"/> with the given defined data.
+		/// On each hit, the <paramref name="onHitCallback"/> will be called.
+		/// Return true if at least one hit was successful, false otherwise.
+		/// </summary>
+		public static bool ProcessAreaHit(Frame f, EntityRef attacker, EntityRef attackSource, FP radius, FPVector3 position, 
+		                                  uint powerAmount, int teamSource,
+		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback)
+		{
+			var onHit = false;
+			var sqrtRadius = radius * radius;
+			var shape = Shape3D.CreateSphere(radius);
+			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
+			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+
+			for (var j = 0; j < hits.Count; j++)
+			{
+				var hitPoint = hits[j].Point;
+				var hitEntity = hits[j].Entity;
+				var normalized = (hitPoint - position).SqrMagnitude / sqrtRadius;
+				var amount = (uint) FPMath.RoundToInt(powerAmount * normalized);
+
+				if (hitEntity != attacker && hitEntity != attackSource && 
+				    ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, amount))
+				{
+					onHit = true;
+					
+					onHitCallback(f, attacker, attackSource, hitEntity, hitPoint);
+				}
+			}
+
+			return onHit;
+		}
+
+		/// <summary>
 		/// Process a hit source from the given <paramref name="attackerEntity"/> to the given <paramref name="hitEntity"/>
 		/// to create a <see cref="Spell"/> to be processed.
 		/// Returns true if the hit was successful and false otherwise

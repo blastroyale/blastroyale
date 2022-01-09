@@ -9,12 +9,10 @@ namespace Quantum
 	{
 		public GameId Id;
 		public FP Radius;
-		public FP ActivationDelay;
+		public FP InitialDelay;
 		public FP Lifetime;
 		public FP Interval;
-		public uint Damage;
-		public bool IsHealing;
-		public FP AimHelpingRadius;
+		public uint PowerAmount;
 	}
 
 	/// <summary>

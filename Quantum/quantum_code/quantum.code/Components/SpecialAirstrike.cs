@@ -22,7 +22,7 @@ namespace Quantum
 				var iterator = f.GetComponentIterator<Targetable>();
 				foreach (var target in iterator)
 				{
-					if (!QuantumHelpers.IsAttackable(f, target.Entity) || (team == target.Component.Team) || 
+					if (!QuantumHelpers.IsAttackable(f, target.Entity, team) || 
 					    !QuantumHelpers.IsEntityInRange(f, e, target.Entity, FP._0, maxRange))
 					{
 						continue;
@@ -44,25 +44,22 @@ namespace Quantum
 				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
-			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + FP._10, targetPosition.Z);
+			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.ProjectileSkyRange, targetPosition.Z);
 			var direction = targetPosition - spawnPosition;
-			
-			var projectileData = new ProjectileData
+			var projectileData = new Projectile
 			{
-				ProjectileId = airstrike.SpecialGameId,
 				Attacker = e,
-				ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-				NormalizedDirection = direction.Normalized,
-				SpawnPosition = spawnPosition,
-				TeamSource = team,
-				IsHealing = false,
+				Direction = direction.Normalized,
+				IsPiercing = false,
 				PowerAmount = airstrike.PowerAmount,
+				Range = Constants.ProjectileSkyRange,
+				SourceId = airstrike.SpecialGameId,
+				SpawnPosition = spawnPosition,
 				Speed = airstrike.Speed,
-				Range = FP._10,
 				SplashRadius = airstrike.SplashRadius,
 				StunDuration = FP._0,
 				Target = EntityRef.None,
-				IsHitOnRangeLimit = true
+				TeamSource = team
 			};
 			
 			var projectile = Projectile.Create(f, projectileData);

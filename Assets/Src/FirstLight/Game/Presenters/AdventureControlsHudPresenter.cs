@@ -113,8 +113,8 @@ namespace FirstLight.Game.Presenters
 			
 			var weapon = callback.Game.Frames.Verified.Get<Weapon>(callback.Entity);
 			
-			_specialButton0.Init(weapon.Specials[0].SpecialGameId, true);
-			_specialButton1.Init(weapon.Specials[1].SpecialGameId, true);
+			_specialButton0.Init(weapon.Specials[0].SpecialId);
+			_specialButton1.Init(weapon.Specials[1].SpecialId);
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
@@ -124,8 +124,8 @@ namespace FirstLight.Game.Presenters
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
 			
-			_specialButton0.Init(config.Specials[0], callback.ResetCooldownSpecial0);
-			_specialButton1.Init(config.Specials[1], callback.ResetCooldownSpecial1);
+			_specialButton0.Init(config.Specials[0]);
+			_specialButton1.Init(config.Specials[1]);
 			
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();

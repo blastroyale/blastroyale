@@ -12,7 +12,6 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Transform3D* Transform;
-			public PlayerCharacter* Player;
 			public PlayerCharging* PlayerCharging;
 			public AlivePlayerCharacter* AlivePlayer;
 		}

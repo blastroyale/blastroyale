@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given <paramref name="projectileCapacity"/>
 		/// </summary>
-		public void SetupView(EntityRef entity, uint projectileCapacity, uint minProjectileCapacityToShoot)
+		public void SetupView(EntityRef entity, int projectileCapacity, int minProjectileCapacityToShoot)
 		{
 			_entity = entity;
 			_slider.value = 1f;
@@ -70,29 +70,21 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (frame.TryGet<Weapon>(_entity, out var weapon))
 			{
 				// If weapon is fully reloaded then we set slider to max
-				if (weapon.Capacity >= weapon.MaxCapacity && _slider.value < 1f)
+				if (weapon.Ammo >= weapon.MaxAmmo && _slider.value < 1f)
 				{
 					_slider.value = 1f;
-					_reloadBarImage.color = weapon.Emptied ? _secondaryReloadColor : _primaryReloadColor;
+					_reloadBarImage.color = weapon.Ammo == 0 ? _secondaryReloadColor : _primaryReloadColor;
 					
 					return;
 				}
 				
 				// If weapon isn't full then we do the whole process of slider value calculation
-				if (weapon.Capacity < weapon.MaxCapacity)
+				if (weapon.Ammo < weapon.MaxAmmo)
 				{
-					var reloadFill = (float) weapon.Capacity / weapon.MaxCapacity;
-					
-					// If weapon has any kind of constant reloading then we take reload time into account
-					if (weapon.ReloadType != ReloadType.Never)
-					{
-						var delta = weapon.NextCapacityIncreaseTime - frame.Time;
-						var nextCapacityTimePart = 1f - (delta / weapon.OneCapacityReloadingTime).AsFloat;
-						reloadFill += nextCapacityTimePart / weapon.MaxCapacity;
-					}
+					var reloadFill = (float) weapon.Ammo / weapon.MaxAmmo;
 					
 					_slider.value = Mathf.Clamp01(reloadFill);
-					_reloadBarImage.color = weapon.Emptied ? _secondaryReloadColor : _primaryReloadColor;
+					_reloadBarImage.color = weapon.Ammo == 0 ? _secondaryReloadColor : _primaryReloadColor;
 				}
 			}
 		}

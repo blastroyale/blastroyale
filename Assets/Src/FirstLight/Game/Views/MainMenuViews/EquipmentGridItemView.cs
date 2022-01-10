@@ -83,15 +83,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_notificationUniqueIdView.SetUniqueId(uniqueId, data.PlayViewNotificationAnimation);
 			_notificationUniqueIdUpgradeView.SetUniqueId(uniqueId);
 			_equipmentIconView.SetInfo(data.Info.DataInfo);
-			
-			if (data.Info.IsWeapon)
-			{
-				var weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) data.Info.DataInfo.GameId);
-				
-				_autoFireIcon.enabled = weaponConfig.IsAutoShoot;
-				_manualFireIcon.enabled = !weaponConfig.IsAutoShoot;
-			}
-
 			_uniqueId = uniqueId;
 		}
 		

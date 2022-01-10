@@ -40,7 +40,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnStunGrenadeUsed>(this, HandleOnStunGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnGrenadeUsed>(this, HandleOnGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnSkyBeamUsed>(this, HandleOnSkyBeamUsed);
-			QuantumEvent.Subscribe<EventOnAggroBeaconGrenadeUsed>(this, HandleOnAggroBeaconGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
@@ -236,19 +235,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Projectile, callback.ProjectileData);
+			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Projectile, callback.ProjectileData.SplashRadius.AsFloat);
 		}
 
 		private void HandleOnSkyBeamUsed(EventOnSkyBeamUsed callback)
 		{
-			if (callback.ProjectileData.Attacker != EntityView.EntityRef)
+			if (callback.HazardData.Attacker != EntityView.EntityRef)
 			{
 				return;
 			}
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Projectile, callback.ProjectileData);
+			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Hazard, callback.HazardData.Radius.AsFloat);
 		}
 		
 		private void HandleUpdateView(CallbackUpdateView callback)

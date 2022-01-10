@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var projectile = game.Frames.Predicted.Get<Projectile>(EntityView.EntityRef);
 			
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(projectile.Data.ProjectileId, true, true, OnLoaded);
+			Services.AssetResolverService.RequestAsset<GameId, GameObject>(projectile.ProjectileId, true, true, OnLoaded);
 
 		}
 	}

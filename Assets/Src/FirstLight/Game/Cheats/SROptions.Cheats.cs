@@ -124,7 +124,7 @@ public partial class SROptions
 
 		foreach (var config in weaponConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
+			gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
 		}
 		
 		foreach (var config in gearConfigs)

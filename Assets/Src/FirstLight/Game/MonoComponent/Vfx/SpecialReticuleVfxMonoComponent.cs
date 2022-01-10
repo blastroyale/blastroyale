@@ -18,9 +18,9 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		/// <summary>
 		/// Sets the special reticule <paramref name="targetPosition"/> of the given special's projectile <paramref name="projectile"/>
 		/// </summary>
-		public void SetTarget(Vector3 targetPosition, EntityRef projectile, ProjectileData data)
+		public void SetTarget(Vector3 targetPosition, EntityRef projectile, float radius)
 		{
-			var scale = data.SplashRadius.AsFloat * GameConstants.RadiusToScaleConversionValue * Vector3.one;
+			var scale = radius * GameConstants.RadiusToScaleConversionValue * Vector3.one;
 			scale.y = 1f;
 
 			var transformCache = transform;

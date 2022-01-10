@@ -64,7 +64,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				_healthBarLocalPlayer.HealthBarNameView.NameText.text = frame.GetPlayerData(playerCharacter.Player).PlayerName;
 				
 				_healthBarLocalPlayer.HealthBarTextView.SetupView(entity, frame.Get<Stats>(entity).CurrentHealth);
-				_healthBarLocalPlayer.ReloadBarView.SetupView(entity, weapon.MaxCapacity, weapon.MinCapacityToShoot);
+				_healthBarLocalPlayer.ReloadBarView.SetupView(entity, weapon.MaxAmmo, 0);
 			}
 			else
 			{

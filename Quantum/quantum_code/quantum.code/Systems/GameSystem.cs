@@ -51,7 +51,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (entity == attacker || !f.TryGet<PlayerCharacter>(entity, out var player))
+			if (!f.TryGet<PlayerCharacter>(entity, out var player))
 			{
 				return;
 			}
@@ -64,6 +64,7 @@ namespace Quantum.Systems
 				inc = 1;
 			}
 			else if(container->GameMode == GameMode.Deathmatch &&
+			        entity != attacker &&
 			        f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
 				var killerData = container->PlayersData[killer.Player];

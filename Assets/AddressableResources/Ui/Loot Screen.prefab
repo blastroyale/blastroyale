@@ -160,6 +160,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -751,6 +752,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -804,7 +806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -286}
+  m_AnchoredPosition: {x: 326, y: -286}
   m_SizeDelta: {x: 106, y: 142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!111 &6217996005674806501
@@ -1545,6 +1547,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -1794,6 +1797,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -1967,6 +1971,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -2211,7 +2216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5648518644328971182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3409,6 +3414,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -5650,6 +5656,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -5855,12 +5862,14 @@ MonoBehaviour:
   - {fileID: 3465280528831952966}
   - {fileID: 2008692583863366622}
   - {fileID: 8039447050906972788}
+  - {fileID: 1588899383242780086}
   _equipmentButtons:
   - {fileID: 4946111960827057519}
   - {fileID: 3332558087610517454}
   - {fileID: 8536853434566822588}
   - {fileID: 154012519843730443}
   - {fileID: 4994140037692114282}
+  - {fileID: 6035847899385143203}
   _allGearButton: {fileID: 1907767686247497183}
   _changeSkinButton: {fileID: 3168119401070235899}
   _backButton: {fileID: 7931492035728203081}
@@ -6082,6 +6091,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -7540,7 +7550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 74, y: -104}
+  m_AnchoredPosition: {x: 74, y: -286}
   m_SizeDelta: {x: 106, y: 142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!111 &7440169798301248417
@@ -8468,6 +8478,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -8850,6 +8861,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -9023,6 +9035,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -9346,6 +9359,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -9725,7 +9739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 97, y: -550}
+  m_AnchoredPosition: {x: 97, y: -555}
   m_SizeDelta: {x: 194, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &465754856916082343
@@ -10204,6 +10218,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -11169,7 +11184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &165631068559299081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11188,9 +11203,9 @@ RectTransform:
   m_Father: {fileID: 7016256811744139591}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 97, y: -87.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 194, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1463082803480219910
@@ -12302,7 +12317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 134, y: -286}
+  m_AnchoredPosition: {x: 200, y: -286}
   m_SizeDelta: {x: 106, y: 142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!111 &2095750559563747226
@@ -12616,6 +12631,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -12959,6 +12975,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:
@@ -13821,11 +13838,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
---- !u!224 &1912219257973070617 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3938949462246101465, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
-  m_PrefabInstance: {fileID: 3179652259709471424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1636323496551116090 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4221288398327752698, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
@@ -13837,6 +13849,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed84d90e65d85d4aa619d1772727a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1912219257973070617 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3938949462246101465, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
+  m_PrefabInstance: {fileID: 3179652259709471424}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3664631280257333399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14309,6 +14326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
+--- !u!224 &7517864366497621212 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3938949462246101465, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
+  m_PrefabInstance: {fileID: 6844667028235449605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7235071331841135359 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4221288398327752698, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
@@ -14320,11 +14342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed84d90e65d85d4aa619d1772727a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &7517864366497621212 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3938949462246101465, guid: 4b3ac76e07e1ea84a9a845e0e9ee2cb5, type: 3}
-  m_PrefabInstance: {fileID: 6844667028235449605}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7910367219142137550
 PrefabInstance:
   m_ObjectHideFlags: 0

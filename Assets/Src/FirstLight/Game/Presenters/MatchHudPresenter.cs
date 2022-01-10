@@ -33,7 +33,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private LeaderHolderView _leaderHolderView;
 		[SerializeField] private ScoreHolderView _scoreHolderView;
 		[SerializeField] private MapTimerView _mapTimerView;
-		
+		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
+		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -58,6 +59,8 @@ namespace FirstLight.Game.Presenters
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
+			_contendersLeftHolderMessageView.gameObject.SetActive(false);
+			_contendersLeftHolderView.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()
@@ -92,6 +95,8 @@ namespace FirstLight.Game.Presenters
 			bool isBattleRoyale = container.GameMode == GameMode.BattleRoyale;
 			
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			

@@ -31,12 +31,13 @@ component PlayerCharacter
 	[HideInInspector] Equipment DefaultWeapon;
 }
 
-component PlayerCharacterCharging
+component PlayerCharging
 {
 	FPVector3 ChargeStartPos;
 	FPVector3 ChargeEndPos;
 	FP ChargeDuration;
-	FP ChargeEndTime;
+	FP ChargeStartTime;
+	UInt32 PowerAmount;
 }
 
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);

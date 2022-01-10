@@ -7,13 +7,11 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, 
 	                                            ISignalOnComponentRemoved<PlayerCharacter>,
-	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero,
-	                                            ISignalTargetChanged
+	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero
 	{
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
-			public Transform3D* Transform;
 			public PlayerCharacter* Player;
 		}
 		
@@ -28,7 +26,7 @@ namespace Quantum.Systems
 		{
 			ProcessSpawnPlayer(f, ref filter);
 			ProcessPlayerDisconnect(f, ref filter);
-			ProcessAlivePlayers(f, ref filter);
+			ProcessPlayerInput(f, ref filter);
 		}
 
 		/// <inheritdoc />
@@ -46,28 +44,19 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
 			{
-				if (f.TryGet<PlayerCharacter>(attacker, out var killer))
-				{
-					f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
-					f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
-				}
-				
-				// If it was not the player the killer then will save it as PlayerRef.None
-				player->Dead(f, entity, killer.Player, attacker);
+				return;
 			}
-		}
-
-		/// <inheritdoc />
-		public void TargetChanged(Frame f, EntityRef attacker, EntityRef target)
-		{
-			f.Events.OnTargetChanged(attacker, target);
 			
-			if (f.TryGet<PlayerCharacter>(attacker, out var playerCharacter) && !f.Has<BotCharacter>(attacker))
+			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
-				f.Events.OnLocalPlayerTargetChanged(playerCharacter.Player, attacker, target);
+				f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
+				f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
 			}
+				
+			// If it was not the player the killer then will save it as PlayerRef.None
+			player->Dead(f, entity, killer.Player, attacker);
 		}
 
 		/// <inheritdoc />
@@ -137,27 +126,10 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void ProcessAlivePlayers(Frame f, ref PlayerCharacterFilter filter)
-		{
-			if (!f.TryGet<AlivePlayerCharacter>(filter.Entity, out var alivePlayer))
-			{
-				return;
-			}
-
-			// TODO: Rework charging attack with spells
-			if (f.Unsafe.TryGetPointer<PlayerCharacterCharging>(filter.Entity, out var chargePlayer))
-			{
-				ProcessChargingPlayer(f, ref filter, chargePlayer);
-				return;
-			}
-
-			ProcessPlayerInput(f, ref filter);
-		}
-
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
-			// Do not process input if player is stunned
-			if (f.Has<Stun>(filter.Entity))
+			// Do not process input if player is stunned or not alive
+			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity))
 			{
 				return;
 			}
@@ -198,25 +170,6 @@ namespace Quantum.Systems
 			if (rotation.SqrMagnitude > FP._0)
 			{
 				QuantumHelpers.LookAt2d(f, filter.Entity, rotation);
-			}
-		}
-		
-		private void ProcessChargingPlayer(Frame f, ref PlayerCharacterFilter filter, PlayerCharacterCharging* charge)
-		{
-			var startPos2d = charge->ChargeStartPos.XZ;
-			var targetPos2d = charge->ChargeEndPos.XZ;
-			var startPosY = charge->ChargeStartPos.Y;
-			var targetPosY = charge->ChargeEndPos.Y;
-			var lerpT = FPMath.Clamp01(FP._1 - ((charge->ChargeEndTime - f.Time) / charge->ChargeDuration));
-			var nextPos2d = FPVector2.Lerp(startPos2d, targetPos2d, lerpT);
-			var nextPosY = FPMath.Lerp(startPosY, targetPosY, lerpT);
-			var nextPos = new FPVector3(nextPos2d.X, nextPosY, nextPos2d.Y);
-				
-			filter.Transform->Position = nextPos;
-				
-			if (f.Time > charge->ChargeEndTime)
-			{
-				f.Remove<PlayerCharacterCharging>(filter.Entity);
 			}
 		}
 	}

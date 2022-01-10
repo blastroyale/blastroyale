@@ -38,6 +38,7 @@ namespace Quantum
 				new HazardSystem(),
 				new ProjectileSystem(),
 				new SpellSystem(),
+				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),

@@ -3880,31 +3880,35 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
-  public unsafe partial struct PlayerCharacterCharging : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+  public unsafe partial struct PlayerCharging : Quantum.IComponent {
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
-    public FP ChargeDuration;
-    [FieldOffset(16)]
-    public FPVector3 ChargeEndPos;
     [FieldOffset(8)]
-    public FP ChargeEndTime;
-    [FieldOffset(40)]
+    public FP ChargeDuration;
+    [FieldOffset(24)]
+    public FPVector3 ChargeEndPos;
+    [FieldOffset(48)]
     public FPVector3 ChargeStartPos;
+    [FieldOffset(16)]
+    public FP ChargeStartTime;
+    [FieldOffset(0)]
+    public UInt32 PowerAmount;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 449;
         hash = hash * 31 + ChargeDuration.GetHashCode();
         hash = hash * 31 + ChargeEndPos.GetHashCode();
-        hash = hash * 31 + ChargeEndTime.GetHashCode();
         hash = hash * 31 + ChargeStartPos.GetHashCode();
+        hash = hash * 31 + ChargeStartTime.GetHashCode();
+        hash = hash * 31 + PowerAmount.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (PlayerCharacterCharging*)ptr;
+        var p = (PlayerCharging*)ptr;
+        serializer.Stream.Serialize(&p->PowerAmount);
         FP.Serialize(&p->ChargeDuration, serializer);
-        FP.Serialize(&p->ChargeEndTime, serializer);
+        FP.Serialize(&p->ChargeStartTime, serializer);
         FPVector3.Serialize(&p->ChargeEndPos, serializer);
         FPVector3.Serialize(&p->ChargeStartPos, serializer);
     }
@@ -4437,7 +4441,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.Hazard>(Quantum.Hazard.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Invisibility>(Quantum.Invisibility.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.PlayerCharacter>(Quantum.PlayerCharacter.Serialize, null, null, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.PlayerCharacterCharging>(Quantum.PlayerCharacterCharging.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.PlayerCharging>(Quantum.PlayerCharging.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.PlayerSpawner>(Quantum.PlayerSpawner.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Projectile>(Quantum.Projectile.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Rage>(Quantum.Rage.Serialize, null, null, ComponentFlags.None);
@@ -4527,8 +4531,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<PhysicsCollider3D>();
       BuildSignalsArrayOnComponentAdded<Quantum.PlayerCharacter>();
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayerCharacter>();
-      BuildSignalsArrayOnComponentAdded<Quantum.PlayerCharacterCharging>();
-      BuildSignalsArrayOnComponentRemoved<Quantum.PlayerCharacterCharging>();
+      BuildSignalsArrayOnComponentAdded<Quantum.PlayerCharging>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.PlayerCharging>();
       BuildSignalsArrayOnComponentAdded<Quantum.PlayerSpawner>();
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayerSpawner>();
       BuildSignalsArrayOnComponentAdded<Quantum.Projectile>();
@@ -4833,7 +4837,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnStunGrenadeUsed OnStunGrenadeUsed(EntityRef Projectile, FPVector3 TargetPosition, Projectile ProjectileData) {
+      public EventOnStunGrenadeUsed OnStunGrenadeUsed(EntityRef Projectile, FPVector3 TargetPosition, Hazard ProjectileData) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnStunGrenadeUsed>(EventOnStunGrenadeUsed.ID);
         ev.Projectile = Projectile;
@@ -5660,7 +5664,7 @@ namespace Quantum {
     public new const Int32 ID = 13;
     public EntityRef Projectile;
     public FPVector3 TargetPosition;
-    public Projectile ProjectileData;
+    public Hazard ProjectileData;
     protected EventOnStunGrenadeUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6926,7 +6930,7 @@ namespace Quantum {
     public virtual void Visit(Prototypes.PlayerCharacter_Prototype prototype) {
       VisitFallback(prototype);
     }
-    public virtual void Visit(Prototypes.PlayerCharacterCharging_Prototype prototype) {
+    public virtual void Visit(Prototypes.PlayerCharging_Prototype prototype) {
       VisitFallback(prototype);
     }
     public virtual void Visit(Prototypes.PlayerSpawner_Prototype prototype) {
@@ -7154,7 +7158,7 @@ namespace Quantum {
       Register(typeof(PhysicsCollider3D), PhysicsCollider3D.SIZE);
       Register(typeof(PhysicsSceneSettings), PhysicsSceneSettings.SIZE);
       Register(typeof(Quantum.PlayerCharacter), Quantum.PlayerCharacter.SIZE);
-      Register(typeof(Quantum.PlayerCharacterCharging), Quantum.PlayerCharacterCharging.SIZE);
+      Register(typeof(Quantum.PlayerCharging), Quantum.PlayerCharging.SIZE);
       Register(typeof(Quantum.PlayerMatchData), Quantum.PlayerMatchData.SIZE);
       Register(typeof(PlayerRef), PlayerRef.SIZE);
       Register(typeof(Quantum.PlayerSpawner), Quantum.PlayerSpawner.SIZE);
@@ -8162,23 +8166,25 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
-  [Prototype(typeof(PlayerCharacterCharging))]
-  public sealed unsafe partial class PlayerCharacterCharging_Prototype : ComponentPrototype<PlayerCharacterCharging> {
+  [Prototype(typeof(PlayerCharging))]
+  public sealed unsafe partial class PlayerCharging_Prototype : ComponentPrototype<PlayerCharging> {
     public FPVector3 ChargeStartPos;
     public FPVector3 ChargeEndPos;
     public FP ChargeDuration;
-    public FP ChargeEndTime;
-    partial void MaterializeUser(Frame frame, ref PlayerCharacterCharging result, in PrototypeMaterializationContext context);
+    public FP ChargeStartTime;
+    public UInt32 PowerAmount;
+    partial void MaterializeUser(Frame frame, ref PlayerCharging result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
-      PlayerCharacterCharging component = default;
+      PlayerCharging component = default;
       Materialize((Frame)f, ref component, in context);
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
-    public void Materialize(Frame frame, ref PlayerCharacterCharging result, in PrototypeMaterializationContext context) {
+    public void Materialize(Frame frame, ref PlayerCharging result, in PrototypeMaterializationContext context) {
       result.ChargeDuration = this.ChargeDuration;
       result.ChargeEndPos = this.ChargeEndPos;
-      result.ChargeEndTime = this.ChargeEndTime;
       result.ChargeStartPos = this.ChargeStartPos;
+      result.ChargeStartTime = this.ChargeStartTime;
+      result.PowerAmount = this.PowerAmount;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -8785,7 +8791,7 @@ namespace Quantum.Prototypes {
     [ArrayLength(0, 1)]
     public List<Prototypes.PlayerCharacter_Prototype> PlayerCharacter;
     [ArrayLength(0, 1)]
-    public List<Prototypes.PlayerCharacterCharging_Prototype> PlayerCharacterCharging;
+    public List<Prototypes.PlayerCharging_Prototype> PlayerCharging;
     [ArrayLength(0, 1)]
     public List<Prototypes.PlayerSpawner_Prototype> PlayerSpawner;
     [ArrayLength(0, 1)]
@@ -8838,7 +8844,7 @@ namespace Quantum.Prototypes {
       Collect(Hazard, target);
       Collect(Invisibility, target);
       Collect(PlayerCharacter, target);
-      Collect(PlayerCharacterCharging, target);
+      Collect(PlayerCharging, target);
       Collect(PlayerSpawner, target);
       Collect(Projectile, target);
       Collect(Rage, target);
@@ -8914,8 +8920,8 @@ namespace Quantum.Prototypes {
       public override void Visit(Prototypes.PlayerCharacter_Prototype prototype) {
         Storage.Store(prototype, ref Storage.PlayerCharacter);
       }
-      public override void Visit(Prototypes.PlayerCharacterCharging_Prototype prototype) {
-        Storage.Store(prototype, ref Storage.PlayerCharacterCharging);
+      public override void Visit(Prototypes.PlayerCharging_Prototype prototype) {
+        Storage.Store(prototype, ref Storage.PlayerCharging);
       }
       public override void Visit(Prototypes.PlayerSpawner_Prototype prototype) {
         Storage.Store(prototype, ref Storage.PlayerSpawner);

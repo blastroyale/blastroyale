@@ -33,7 +33,7 @@ synced event OnStunGrenadeUsed
 {
 	entity_ref Projectile;
 	FPVector3 TargetPosition;
-	Projectile ProjectileData;
+	Hazard ProjectileData;
 }
 
 synced event OnShieldedChargeUsed

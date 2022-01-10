@@ -53,10 +53,10 @@ namespace Quantum
 				IsPiercing = false,
 				PowerAmount = airstrike.PowerAmount,
 				Range = Constants.ProjectileSkyRange,
-				SourceId = airstrike.SpecialGameId,
+				SourceId = airstrike.SpecialId,
 				SpawnPosition = spawnPosition,
 				Speed = airstrike.Speed,
-				SplashRadius = airstrike.SplashRadius,
+				SplashRadius = airstrike.Radius,
 				StunDuration = FP._0,
 				Target = EntityRef.None,
 				TeamSource = team

@@ -16,6 +16,7 @@ namespace Quantum
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 			var teamSource = f.Get<Targetable>(e).Team;
 			var powerAmount = special.PowerAmount;
+			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
 			
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
@@ -72,37 +73,17 @@ namespace Quantum
 			}
 			
 			var chargeDuration = chargeDistance / special.Speed;
-			
-			var chargeComponent = new PlayerCharacterCharging
+			var chargeComponent = new PlayerCharging
 			{
 				ChargeDuration = chargeDuration,
 				ChargeStartPos = attackerPosition,
 				ChargeEndPos = targetPosition,
-				ChargeEndTime = f.Time + chargeDuration
-			};
-			
-			var projectileData = new ProjectileData
-			{
-				Attacker = e,
-				ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-				NormalizedDirection = (targetPosition - attackerPosition).Normalized,
-				SpawnPosition = attackerPosition,
-				TeamSource = teamSource,
-				IsHealing = false,
-				PowerAmount = special.PowerAmount,
-				Speed = special.Speed,
-				Range = chargeDistance,
-				SplashRadius = FP._0,
-				StunDuration = powerAmount * Constants.SHIELDED_CHARGE_POWER_TO_STUN_MULTIPLIER,
-				Target = EntityRef.None,
-				IsHitOnRangeLimit = false,
-				IsPiercing = true,
-				AggroMultiplier = powerAmount * Constants.SHIELDED_CHARGE_POWER_TO_AGGRO_MULTIPLIER
+				ChargeStartTime = f.Time,
+				PowerAmount = special.PowerAmount
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, chargeDuration, true);
-			Projectile.Create(f, projectileData);
 			
 			f.Add(e, chargeComponent);
 			

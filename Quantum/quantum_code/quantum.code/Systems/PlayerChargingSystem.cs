@@ -1,0 +1,50 @@
+using Photon.Deterministic;
+
+namespace Quantum.Systems
+{
+	/// <summary>
+	/// TODO: Refactor this system when we have the spells
+	/// </summary>
+	public unsafe class PlayerChargingSystem : SystemMainThreadFilter<PlayerChargingSystem.PlayerCharacterFilter>, 
+	                                           ISignalOnTriggerEnter3D 
+	{
+		public struct PlayerCharacterFilter
+		{
+			public EntityRef Entity;
+			public Transform3D* Transform;
+			public PlayerCharacter* Player;
+			public PlayerCharging* PlayerCharging;
+			public AlivePlayerCharacter* AlivePlayer;
+		}
+
+		/// <inheritdoc />
+		public override void Update(Frame f, ref PlayerCharacterFilter filter)
+		{
+			var charging = filter.PlayerCharging;
+			var lerpT = FPMath.Clamp01(FP._1 - ((f.Time - charging->ChargeStartTime) / charging->ChargeDuration));
+			var nextPos2d = FPVector2.Lerp(charging->ChargeStartPos.XZ, charging->ChargeEndPos.XZ, lerpT);
+			var nextPosY = FPMath.Lerp(charging->ChargeStartPos.Y, charging->ChargeEndPos.Y, lerpT);
+			var nextPos = new FPVector3(nextPos2d.X, nextPosY, nextPos2d.Y);
+				
+			filter.Transform->Position = nextPos;
+				
+			if (f.Time > charging->ChargeStartTime + charging->ChargeDuration)
+			{
+				f.Remove<PlayerCharging>(filter.Entity);
+			}
+		}
+
+		/// <inheritdoc />
+		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		{
+			if (!f.TryGet<PlayerCharging>(info.Entity, out var charging) || !f.Has<PlayerCharacter>(info.Other))
+			{
+				return;
+			}
+
+			QuantumHelpers.ProcessHit(f, info.Entity, info.Other,
+			                          f.Get<Transform3D>(info.Other).Position, f.Get<Targetable>(info.Entity).Team,
+			                          charging.PowerAmount);
+		}
+	}
+}

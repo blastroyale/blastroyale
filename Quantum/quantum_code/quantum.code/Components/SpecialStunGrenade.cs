@@ -9,13 +9,12 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialStunGrenade
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special grenade, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 			var team = f.Get<Targetable>(e).Team;
-			var powerAmount = grenade.PowerAmount;
 			
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
@@ -47,26 +46,24 @@ namespace Quantum
 			}
 			
 			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.FAKE_PROJECTILE_Y_OFFSET, targetPosition.Z);
-			var targetRange = grenade.MaxRange;
-			var launchTime = grenade.Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
-			var projectileData = new ProjectileData
+			var targetRange = special.MaxRange;
+			var launchTime = special.Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
+			var hazardData = new Hazard
 			{
 				Attacker = e,
-				Direction = FPVector3.Down,
-				IsPiercing = false,
-				SpawnPosition = spawnPosition,
-				PowerAmount = (uint) FPMath.FloorToInt(powerAmount * Constants.STUN_GRENADE_TIME_TO_DAMAGE_MULTIPLIER),
-				Speed = Constants.PROJECTILE_MAX_SPEED,
-				Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
-				SplashRadius = grenade.SplashRadius,
-				StunDuration = powerAmount,
-				Target = EntityRef.None,
+				EndTime = f.Time + launchTime + special.Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
+				NextTickTime = f.Time + launchTime + special.Speed,
+				PowerAmount = special.PowerAmount,
+				Radius = special.Radius,
+				StunDuration = FP._0,
 				TeamSource = team
 			};
 			
-			var projectile = Projectile.Create(f, projectileData);
+			var hazard = Hazard.Create(f, hazardData, targetPosition);
 			
-			f.Events.OnStunGrenadeUsed(projectile, targetPosition, projectileData);
+			f.Events.OnStunGrenadeUsed(hazard, targetPosition, hazardData);
 			
 			return true;
 		}

@@ -40,7 +40,7 @@ namespace FirstLight.Game.Services
 		{
 			for (var i = 0; i < _viewsListToDestroy.Count; i++)
 			{
-				base.DestroyEntityView(ObservedGame, _viewsListToDestroy[i]);
+				base.DestroyEntityViewInstance(_viewsListToDestroy[i]);
 			}
 			
 			_viewsListToDestroy.Clear();
@@ -64,10 +64,17 @@ namespace FirstLight.Game.Services
 			return view;
 		}
 
-		protected override void DestroyEntityView(QuantumGame game, EntityView view)
+		protected override void DestroyEntityViewInstance(EntityView view)
 		{
-			_viewsListToDestroy.Add(view);
-			_viewsToDestroy.Add(view.EntityRef, view);
+			if (view.ManualDisposal)
+			{
+				_viewsListToDestroy.Add(view);
+				_viewsToDestroy.Add(view.EntityRef, view);
+			}
+			else
+			{
+				base.DestroyEntityViewInstance(view);
+			}
 		}
 	}
 }

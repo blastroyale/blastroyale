@@ -6390,6 +6390,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7835173250936114052}
     m_Modifications:
+    - target: {fileID: 628481586923181001, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 628481586923181001, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 628481586923181001, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 628481586923181001, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 2189664949999178225, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
       propertyPath: m_Name
       value: CombinedRadarMinimap
@@ -6476,6 +6492,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975058296889702844, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204391290752775463, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204391290752775463, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204391290752775463, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204391290752775463, guid: 4ab6aa1fdd29c42419dde584c0a4fea9, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -20,10 +20,13 @@ MonoBehaviour:
     Entries:
     - Type: 3
       Key:
-        Key: StunDuration
+        Key: AimTime
     - Type: 3
       Key:
-        Key: AimTime
+        Key: StunDuration
+    - Type: 0
+      Key:
+        Key: IsAiming
     - Type: 3
       Key:
         Key: AttackCooldown

@@ -60,10 +60,11 @@
     <Compile Include="AI\Actions\PlayerAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerWeaponEmptyAction.cs" />
+    <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
+    <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsWeaponEmptyDecision.cs" />
-    <Compile Include="AI\Decisions\HFSM.IsPlayerShootingDecision.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />

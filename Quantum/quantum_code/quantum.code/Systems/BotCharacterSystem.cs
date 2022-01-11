@@ -72,7 +72,7 @@ namespace Quantum.Systems
 			// to the weapon they carry and turn the bot towards the target
 			// otherwise we return speed to normal and let automatic navigation turn the bot
 			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var target = bb.GetEntityRef(f, Constants.TARGET_BB_KEY);
+			var target = bb.GetEntityRef(f, Constants.TargetKey);
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 			var weapon = f.Get<Weapon>(filter.Entity);
@@ -189,7 +189,7 @@ namespace Quantum.Systems
 		{
 			var bbPointer = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			target = EntityRef.None;
-			bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
+			bbPointer->Set(f, Constants.TargetKey, target);
 			
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
@@ -207,7 +207,7 @@ namespace Quantum.Systems
 			// If the bot's weapon is empty then we clear the target and leave the method
 			if (weapon.Ammo == 0)
 			{
-				bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
+				bbPointer->Set(f, Constants.TargetKey, target);
 				return;
 			}
 			
@@ -244,7 +244,7 @@ namespace Quantum.Systems
 				}
 			}
 			
-			bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
+			bbPointer->Set(f, Constants.TargetKey, target);
 		}
 
 		// We check specials and try to use them depending on their type if possible
@@ -260,7 +260,7 @@ namespace Quantum.Systems
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
 				var special = weaponPointer->Specials.GetPointer(specialIndex);
-				var target = f.Get<AIBlackboardComponent>(filter.Entity).GetEntityRef(f, Constants.TARGET_BB_KEY);
+				var target = f.Get<AIBlackboardComponent>(filter.Entity).GetEntityRef(f, Constants.TargetKey);
 				
 				if ((target != EntityRef.None || special->SpecialType == SpecialType.ShieldSelfStatus) &&
 					special->IsValid && special->TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))

@@ -142,6 +142,12 @@ namespace Quantum
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
 				var specialId = config.Specials[specialIndex];
+
+				if (specialId == default)
+				{
+					continue;
+				}
+				
 				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
 				
 				weapon.Specials[specialIndex] = new Special(f, specialConfig);

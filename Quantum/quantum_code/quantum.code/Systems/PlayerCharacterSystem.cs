@@ -155,7 +155,7 @@ namespace Quantum.Systems
 				moveVelocity = rotation.XOY * speed;
 			}
 
-			bb.Set(f, Constants.IsShootingKey, input->IsShootButtonDown);
+			bb.Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
 			bb.Set(f, Constants.AimDirectionKey, input->AimingDirection);
 			
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,

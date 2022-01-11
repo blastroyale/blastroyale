@@ -47,6 +47,8 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
+		private float _rndWaitingTimeLowest;
+		private float _rndWaitingTimeBiggest;
 
 		private void Awake()
 		{
@@ -92,6 +94,9 @@ namespace FirstLight.Game.Presenters
 			_nextMapImage.enabled = true;
 
 			_getReadyToRumbleText.gameObject.SetActive(false);
+
+			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
+			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
 			
 			StartCoroutine(TimeUpdateCoroutine(config));
 		}
@@ -146,7 +151,7 @@ namespace FirstLight.Game.Presenters
 				_playersWaitingImage[i].gameObject.SetActive(true);
 				_playersFoundText.text = $"{(i + 1).ToString()}/{config.PlayersLimit.ToString()}" ;
 				
-				yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
+				yield return new WaitForSeconds(Random.Range(_rndWaitingTimeLowest, _rndWaitingTimeBiggest));
 			}
 
 			yield return new WaitForSeconds(0.5f);

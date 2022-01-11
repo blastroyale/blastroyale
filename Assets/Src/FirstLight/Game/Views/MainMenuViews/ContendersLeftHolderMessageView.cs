@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			_contendersLeftText.text = "";
 		}
 		
@@ -51,11 +51,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
 		/// </summary>
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			var deadData = callback.PlayersMatchData[callback.PlayerDead];
-			
-			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, (deadData.PlayerRank - 1) );
+			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>() );
 			
 			_animation.clip = _animationClipFadeIn;
 			_animation.Rewind();

@@ -96,11 +96,7 @@ namespace FirstLight.Game.Views
             var worldDelta = positionWorldSpace - originWorldSpace;
             worldDelta.y = 0f;
             worldDelta /= RadiusWorldSpace;
-            if (worldDelta.sqrMagnitude > 1f)
-            {
-                //worldDelta.Normalize();
-            }
-
+            
             var screenDelta = new Vector2(worldDelta.x, worldDelta.z);
             screenDelta.Scale(_radarBackground.rect.size * 0.5f);
             pingTransform.localPosition = screenDelta;

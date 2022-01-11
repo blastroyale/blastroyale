@@ -98,7 +98,7 @@ namespace FirstLight.Game.Views
             worldDelta /= RadiusWorldSpace;
             if (worldDelta.sqrMagnitude > 1f)
             {
-                worldDelta.Normalize();
+                //worldDelta.Normalize();
             }
 
             var screenDelta = new Vector2(worldDelta.x, worldDelta.z);

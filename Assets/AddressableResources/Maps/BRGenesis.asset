@@ -2798,11 +2798,11 @@ MonoBehaviour:
           RawValue: 65536
       Position:
         X:
-          RawValue: 1385814
+          RawValue: 1363665
         Y:
-          RawValue: 0
+          RawValue: 359242
         Z:
-          RawValue: 6982860
+          RawValue: 7477281
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2843,7 +2843,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 3313004
+          RawValue: 3389998
       PhysicsMaterial:
         Id:
           Value: 0
@@ -8792,11 +8792,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 904396
+          RawValue: -4364697
         Y:
           RawValue: 0
         Z:
-          RawValue: -7431782
+          RawValue: 7022182
       Rotation:
         X:
           RawValue: 0
@@ -10574,11 +10574,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1083310
+          RawValue: -930611
         Y:
-          RawValue: 0
+          RawValue: 22937
         Z:
-          RawValue: 3091333
+          RawValue: 3354787
       Rotation:
         X:
           RawValue: 0
@@ -11060,11 +11060,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2129920
+          RawValue: 1891369
         Y:
           RawValue: 0
         Z:
-          RawValue: 229376
+          RawValue: 519700
       Rotation:
         X:
           RawValue: 0

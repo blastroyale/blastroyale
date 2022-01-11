@@ -1,6 +1,8 @@
+using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
-
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
 {
@@ -9,12 +11,28 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class ProjectileMonoComponent : EntityBase
 	{
-		protected override void OnEntityInstantiated(QuantumGame game)
+		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
 			var projectile = game.Frames.Predicted.Get<Projectile>(EntityView.EntityRef);
+			var configsProvider = MainInstaller.Resolve<IGameServices>().ConfigsProvider;
+			var assetReference = configsProvider.GetConfig<ProjectileAssetConfigs>().ConfigsDictionary[projectile.SourceId];
 			
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(projectile.ProjectileId, true, true, OnLoaded);
-
+			if (!assetReference.OperationHandle.IsValid())
+			{
+				assetReference.LoadAssetAsync<GameObject>();
+			}
+			
+			if (!assetReference.IsDone)
+			{
+				await assetReference.OperationHandle.Task;
+			}
+				
+			if (this.IsDestroyed())
+			{
+				return;
+			}
+			
+			OnLoaded(projectile.SourceId, Instantiate(assetReference.Asset as GameObject), true);
 		}
 	}
 }

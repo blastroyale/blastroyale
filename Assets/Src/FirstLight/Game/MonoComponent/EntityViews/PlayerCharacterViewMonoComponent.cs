@@ -66,55 +66,41 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
 		{
-			if (callback.ProjectileData.Attacker != EntityView.EntityRef)
+			if (callback.HazardData.Attacker != EntityView.EntityRef)
 			{
 				return;
 			}
+			
+			var time = callback.Game.Frames.Verified.Time;
+			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
-			HandleParabolicUsed(callback.ProjectileData.LaunchTime, 
-			                    callback.Game.Frames.Verified.Time,
-			                    callback.TargetPosition,
-			                    VfxId.GrenadeStunParabolic,
-			                    VfxId.ImpactGrenadeStun);
+			HandleParabolicUsed(callback.HazardData.EndTime - callback.HazardData.Interval, 
+			                    time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Projectile, callback.ProjectileData);
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat, (callback.HazardData.EndTime - time).AsFloat);
 		}
 
 		private void HandleOnGrenadeUsed(EventOnGrenadeUsed callback)
 		{
-			if (callback.ProjectileData.Attacker != EntityView.EntityRef)
+			if (callback.HazardData.Attacker != EntityView.EntityRef)
 			{
 				return;
 			}
 
-			HandleParabolicUsed(callback.ProjectileData.LaunchTime, 
-			                    callback.Game.Frames.Verified.Time,
-			                    callback.TargetPosition,
-			                    VfxId.GrenadeParabolic,
-			                    VfxId.ImpactGrenade);
+			var time = callback.Game.Frames.Verified.Time;
+			var targetPosition = callback.TargetPosition.ToUnityVector3();
+
+			HandleParabolicUsed(callback.HazardData.EndTime - callback.HazardData.Interval, 
+			                    time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Projectile, callback.ProjectileData);
-		}
-		
-		private void HandleOnAggroBeaconGrenadeUsed(EventOnAggroBeaconGrenadeUsed callback)
-		{
-			if (callback.Attacker != EntityView.EntityRef)
-			{
-				return;
-			}
-
-			HandleParabolicUsed(callback.LaunchTime, 
-			                    callback.Game.Frames.Verified.Time,
-			                    callback.TargetPosition,
-			                    VfxId.AggroBeaconParabolic, // TODO: Change to proper visual
-			                    VfxId.DustCloudSmall); // TODO: Change to proper visual
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat, (callback.HazardData.EndTime - time).AsFloat);
 		}
 
-		private async void HandleParabolicUsed(FP launchTime, FP frameTime, FPVector3 targetPositionFp, VfxId parabolicVfxid, VfxId impactVfxId)
+		private async void HandleParabolicUsed(FP launchTime, FP frameTime, Vector3 targetPosition, VfxId parabolicVfxId, VfxId impactVfxId)
 		{
 			var flyTime = (launchTime - frameTime).AsFloat;
 
@@ -123,8 +109,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var parabolic = Services.VfxService.Spawn(parabolicVfxid) as ParabolicVfxMonoComponent;
-			var targetPosition = targetPositionFp.ToUnityVector3();
+			var parabolic = Services.VfxService.Spawn(parabolicVfxId) as ParabolicVfxMonoComponent;
 
 			parabolic.transform.position = transform.position;
 			
@@ -228,14 +213,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)
 		{
-			if (callback.ProjectileData.Attacker != EntityView.EntityRef)
+			if (callback.HazardData.Attacker != EntityView.EntityRef)
 			{
 				return;
 			}
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
+			var time = callback.Game.Frames.Verified.Time;
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Projectile, callback.ProjectileData.SplashRadius.AsFloat);
+			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.HazardData.Radius.AsFloat, 
+			              (callback.HazardData.EndTime - time).AsFloat);
 		}
 
 		private void HandleOnSkyBeamUsed(EventOnSkyBeamUsed callback)
@@ -246,8 +233,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
+			var time = callback.Game.Frames.Verified.Time;
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.Hazard, callback.HazardData.Radius.AsFloat);
+			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.HazardData.Radius.AsFloat, 
+			              (callback.HazardData.EndTime - time).AsFloat);
 		}
 		
 		private void HandleUpdateView(CallbackUpdateView callback)

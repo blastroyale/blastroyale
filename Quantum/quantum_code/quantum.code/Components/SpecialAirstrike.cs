@@ -9,7 +9,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialAirstrike
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special airstrike, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
@@ -44,27 +44,22 @@ namespace Quantum
 				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
-			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.ProjectileSkyRange, targetPosition.Z);
-			var direction = targetPosition - spawnPosition;
-			var projectileData = new Projectile
+			var hazardData = new Hazard
 			{
 				Attacker = e,
-				Direction = direction.Normalized,
-				IsPiercing = false,
-				PowerAmount = airstrike.PowerAmount,
-				Range = Constants.ProjectileSkyRange,
-				SourceId = airstrike.SpecialId,
-				SpawnPosition = spawnPosition,
-				Speed = airstrike.Speed,
-				SplashRadius = airstrike.Radius,
+				EndTime = f.Time + special.Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
+				NextTickTime = f.Time + special.Speed,
+				PowerAmount = special.PowerAmount,
+				Radius = special.Radius,
 				StunDuration = FP._0,
-				Target = EntityRef.None,
 				TeamSource = team
 			};
 			
-			var projectile = Projectile.Create(f, projectileData);
+			var hazard = Hazard.Create(f, hazardData, targetPosition);
 			
-			f.Events.OnAirstrikeUsed(projectile, targetPosition, projectileData);
+			f.Events.OnAirstrikeUsed(hazard, targetPosition, hazardData);
 			
 			return true;
 		}

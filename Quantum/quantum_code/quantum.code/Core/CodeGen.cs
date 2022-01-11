@@ -4828,21 +4828,21 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnAirstrikeUsed OnAirstrikeUsed(EntityRef Projectile, FPVector3 TargetPosition, Projectile ProjectileData) {
+      public EventOnAirstrikeUsed OnAirstrikeUsed(EntityRef Hazard, FPVector3 TargetPosition, Hazard HazardData) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnAirstrikeUsed>(EventOnAirstrikeUsed.ID);
-        ev.Projectile = Projectile;
+        ev.Hazard = Hazard;
         ev.TargetPosition = TargetPosition;
-        ev.ProjectileData = ProjectileData;
+        ev.HazardData = HazardData;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnStunGrenadeUsed OnStunGrenadeUsed(EntityRef Projectile, FPVector3 TargetPosition, Hazard ProjectileData) {
+      public EventOnStunGrenadeUsed OnStunGrenadeUsed(EntityRef Hazard, FPVector3 TargetPosition, Hazard HazardData) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnStunGrenadeUsed>(EventOnStunGrenadeUsed.ID);
-        ev.Projectile = Projectile;
+        ev.Hazard = Hazard;
         ev.TargetPosition = TargetPosition;
-        ev.ProjectileData = ProjectileData;
+        ev.HazardData = HazardData;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5633,9 +5633,9 @@ namespace Quantum {
   }
   public unsafe partial class EventOnAirstrikeUsed : EventBase {
     public new const Int32 ID = 12;
-    public EntityRef Projectile;
+    public EntityRef Hazard;
     public FPVector3 TargetPosition;
-    public Projectile ProjectileData;
+    public Hazard HazardData;
     protected EventOnAirstrikeUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -5653,18 +5653,18 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 89;
-        hash = hash * 31 + Projectile.GetHashCode();
+        hash = hash * 31 + Hazard.GetHashCode();
         hash = hash * 31 + TargetPosition.GetHashCode();
-        hash = hash * 31 + ProjectileData.GetHashCode();
+        hash = hash * 31 + HazardData.GetHashCode();
         return hash;
       }
     }
   }
   public unsafe partial class EventOnStunGrenadeUsed : EventBase {
     public new const Int32 ID = 13;
-    public EntityRef Projectile;
+    public EntityRef Hazard;
     public FPVector3 TargetPosition;
-    public Hazard ProjectileData;
+    public Hazard HazardData;
     protected EventOnStunGrenadeUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -5682,9 +5682,9 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 97;
-        hash = hash * 31 + Projectile.GetHashCode();
+        hash = hash * 31 + Hazard.GetHashCode();
         hash = hash * 31 + TargetPosition.GetHashCode();
-        hash = hash * 31 + ProjectileData.GetHashCode();
+        hash = hash * 31 + HazardData.GetHashCode();
         return hash;
       }
     }

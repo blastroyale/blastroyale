@@ -13,37 +13,19 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	/// </summary>
 	public class SpecialReticuleVfxMonoComponent : VfxMonoComponent
 	{
-		private EntityRef _specialProjectile;
-
 		/// <summary>
 		/// Sets the special reticule <paramref name="targetPosition"/> of the given special's projectile <paramref name="projectile"/>
 		/// </summary>
-		public void SetTarget(Vector3 targetPosition, EntityRef projectile, float radius)
+		public void SetTarget(Vector3 targetPosition, float radius, float endTime)
 		{
-			var scale = radius * GameConstants.RadiusToScaleConversionValue * Vector3.one;
-			scale.y = 1f;
-
 			var transformCache = transform;
+			var scale = radius * GameConstants.RadiusToScaleConversionValue * Vector3.one;
+			
+			scale.y = 1f;
 			transformCache.position = targetPosition;
 			transformCache.localScale = scale;
-			_specialProjectile = projectile;
 			
-			QuantumEvent.Subscribe<EventOnProjectileHit>(this, OnEventOnProjectileHit);
-		}
-
-		protected override void OnDespawned()
-		{
-			_specialProjectile = EntityRef.None;
-
-			QuantumEvent.UnsubscribeListener(this);
-		}
-
-		private void OnEventOnProjectileHit(EventOnProjectileHit callback)
-		{
-			if (callback.HitData.Projectile == _specialProjectile)
-			{
-				Despawn();
-			}
+			Despawner(endTime);
 		}
 	}
 }

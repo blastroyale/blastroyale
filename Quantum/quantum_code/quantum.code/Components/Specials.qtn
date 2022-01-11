@@ -24,16 +24,16 @@ enum SpecialType
 
 synced event OnAirstrikeUsed
 {
-	entity_ref Projectile;
+	entity_ref Hazard;
 	FPVector3 TargetPosition;
-	Projectile ProjectileData;
+	Hazard HazardData;
 }
 
 synced event OnStunGrenadeUsed
 {
-	entity_ref Projectile;
+	entity_ref Hazard;
 	FPVector3 TargetPosition;
-	Hazard ProjectileData;
+	Hazard HazardData;
 }
 
 synced event OnShieldedChargeUsed

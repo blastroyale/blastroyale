@@ -290,18 +290,15 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 2089488708164176946
+        Value: 3604240760277831758
     BlackboardRef:
       Id:
-        Value: 31257817806518291
+        Value: 2023469158184812780
     KccConfigRef:
       Id:
         Value: 2480520579551617486
     SpawnTime:
       RawValue: 131072
-    Projectile:
-      Id:
-        Value: 727426939994474453
     ProjectileSpawnOffset:
       X:
         RawValue: 10944

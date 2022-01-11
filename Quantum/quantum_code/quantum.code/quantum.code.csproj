@@ -60,7 +60,6 @@
     <Compile Include="AI\Actions\PlayerAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerWeaponEmptyAction.cs" />
-    <Compile Include="AI\Decisions\HFSM.IsBotDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsWeaponEmptyDecision.cs" />

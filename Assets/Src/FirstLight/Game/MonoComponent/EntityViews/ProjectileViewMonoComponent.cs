@@ -20,10 +20,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit()
 		{
 			QuantumEvent.Subscribe<EventOnProjectileHit>(this, OnEventOnProjectileHit);
-			QuantumEvent.Subscribe<EventOnProjectileFailedHitDestroy>(this, OnProjectileFailedHitDestroy);
+			QuantumEvent.Subscribe<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
 		}
 
-		private void OnProjectileFailedHitDestroy(EventOnProjectileFailedHitDestroy callback)
+		private void OnProjectileFailedHit(EventOnProjectileFailedHit callback)
 		{
 			if (callback.Projectile != EntityRef)
 			{
@@ -35,28 +35,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEventOnProjectileHit(EventOnProjectileHit callback)
 		{
-			if (callback.HitData.Projectile != EntityRef)
+			if (callback.Projectile != EntityRef)
 			{
 				return;
 			}
 			
-			var hitPosition = callback.HitData.IsStaticHit ? transform.position : callback.HitData.HitPosition.ToUnityVector3();
-			
-			// If it's not Splash then we create either FailedHitVfx (if it hits the wall) or regular HitVfx in other cases
-			if (callback.ProjectileData.SplashRadius == FP._0)
-			{
-				var vfx = callback.HitData.IsStaticHit ? _projectileFailedHitVfx : _projectileHitVfx;
-				
-				Services.VfxService.Spawn(vfx).transform.position = hitPosition;
-				
-				return;
-			}
-			
-			// If it's Splash then we create regular HitVfx and then SplashProjectile Vfx
 			var regularHitVfx = Services.VfxService.Spawn(_projectileHitVfx);
 			var splashProjectile = Services.VfxService.Spawn(_projectileSplashVfx);
 			var scale = (callback.ProjectileData.SplashRadius * 2).AsFloat * Vector3.one;
 			var projectileTransform = splashProjectile.transform;
+			var hitPosition = callback.HitPosition.ToUnityVector3();
 			
 			regularHitVfx.transform.position = hitPosition;
 			projectileTransform.position = hitPosition;

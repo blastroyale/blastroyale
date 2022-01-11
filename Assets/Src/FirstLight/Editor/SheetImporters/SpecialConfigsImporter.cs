@@ -14,7 +14,7 @@ namespace FirstLight.Editor.SheetImporters
 	public class SpecialConfigsImporter : GoogleSheetConfigsAssetImporterBase<QuantumSpecialConfig, SpecialConfigs, QuantumPrototypeAssetConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=717164846";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1389279474";
 		
 		protected override QuantumSpecialConfig DeserializeAsset(Dictionary<string, string> data, QuantumPrototypeAssetConfigs assetConfigs)
 		{

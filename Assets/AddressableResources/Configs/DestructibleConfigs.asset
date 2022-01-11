@@ -24,7 +24,7 @@ MonoBehaviour:
           Value: 125091833024730613
       ProjectileAssetRef:
         Id:
-          Value: 1482319315467290993
+          Value: 0
       Health: 100
       SplashRadius:
         RawValue: 327680

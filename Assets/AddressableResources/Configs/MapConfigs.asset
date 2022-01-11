@@ -46,5 +46,5 @@ MonoBehaviour:
   - Id: 6
     Map: 9
     GameMode: 1
-    PlayersLimit: 10
-    GameEndTarget: 10
+    PlayersLimit: 30
+    GameEndTarget: 29

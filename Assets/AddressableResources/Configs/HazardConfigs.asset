@@ -21,91 +21,70 @@ MonoBehaviour:
     - Id: 93
       Radius:
         RawValue: 0
-      ActivationDelay:
+      InitialDelay:
         RawValue: 0
       Lifetime:
         RawValue: 14155776000
       Interval:
         RawValue: 16384
-      Damage: 10000
-      IsHealing: 0
-      AimHelpingRadius:
-        RawValue: 0
+      PowerAmount: 10000
     - Id: 94
       Radius:
         RawValue: 131072
-      ActivationDelay:
+      InitialDelay:
         RawValue: 0
       Lifetime:
         RawValue: 367002
       Interval:
         RawValue: 32768
-      Damage: 20
-      IsHealing: 1
-      AimHelpingRadius:
-        RawValue: 0
+      PowerAmount: 20
     - Id: 95
       Radius:
         RawValue: 98304
-      ActivationDelay:
+      InitialDelay:
         RawValue: 0
       Lifetime:
         RawValue: 186778
       Interval:
         RawValue: 16384
-      Damage: 50
-      IsHealing: 0
-      AimHelpingRadius:
-        RawValue: 0
+      PowerAmount: 50
     - Id: 112
       Radius:
         RawValue: 65536
-      ActivationDelay:
+      InitialDelay:
         RawValue: 19661
       Lifetime:
         RawValue: 98304
       Interval:
         RawValue: 131072
-      Damage: 1000
-      IsHealing: 0
-      AimHelpingRadius:
-        RawValue: 180224
+      PowerAmount: 1000
     - Id: 115
       Radius:
         RawValue: 32768
-      ActivationDelay:
+      InitialDelay:
         RawValue: 0
       Lifetime:
         RawValue: 14155776000
       Interval:
         RawValue: 16384
-      Damage: 0
-      IsHealing: 0
-      AimHelpingRadius:
-        RawValue: 0
+      PowerAmount: 0
     - Id: 118
       Radius:
         RawValue: 655360
-      ActivationDelay:
+      InitialDelay:
         RawValue: 0
       Lifetime:
         RawValue: 478413
       Interval:
         RawValue: 32768
-      Damage: 0
-      IsHealing: 0
-      AimHelpingRadius:
-        RawValue: 0
+      PowerAmount: 0
     - Id: 121
       Radius:
         RawValue: 98304
-      ActivationDelay:
+      InitialDelay:
         RawValue: 13107
       Lifetime:
         RawValue: 0
       Interval:
         RawValue: 6554
-      Damage: 15
-      IsHealing: 0
-      AimHelpingRadius:
-        RawValue: 0
+      PowerAmount: 15

@@ -23,11 +23,6 @@ namespace FirstLight.Editor.SheetImporters
 			{
 				config.AssetRef = QuantumConverter.QuantumEntityRef(AssetDatabase.GUIDToAssetPath(assetReference.AssetGUID));
 			}
-			
-			if (assetConfigs.ConfigsDictionary.TryGetValue(CsvParser.Parse<GameId>(data["ProjectileId"]), out var projectileAssetReference))
-			{
-				config.ProjectileAssetRef = QuantumConverter.QuantumEntityRef(AssetDatabase.GUIDToAssetPath(projectileAssetReference.AssetGUID));
-			}
 
 			return config;
 		}

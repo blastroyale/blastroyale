@@ -138,6 +138,7 @@ namespace Quantum.Systems
 					               || TryGoForInterimArmour(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
+					               || TryGoForCrates(f, ref filter)
 					               || TryGoForRage(f, ref filter)
 					               || TryGoForEnemies(f, ref filter)
 					               || Wander(f, ref filter);
@@ -147,6 +148,7 @@ namespace Quantum.Systems
 					               || TryGoForRage(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForEnemies(f, ref filter)
+					               || TryGoForCrates(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForInterimArmour(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
@@ -157,6 +159,7 @@ namespace Quantum.Systems
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
+					               || TryGoForCrates(f, ref filter)
 					               || TryGoForInterimArmour(f, ref filter)
 					               || TryGoForEnemies(f, ref filter)
 					               || TryGoForRage(f, ref filter)
@@ -345,6 +348,16 @@ namespace Quantum.Systems
 			
 			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.Ammo, out ammoConsumablePosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, ammoConsumablePosition);
+			
+			return isGoing;
+		}
+		
+		private bool TryGoForCrates(Frame f, ref BotCharacterFilter filter)
+		{
+			var cratePosition = FPVector3.Zero;
+			
+			var isGoing = TryGetClosestConsumable(f, ref filter, ConsumableType.Stash, out cratePosition);
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, cratePosition);
 			
 			return isGoing;
 		}

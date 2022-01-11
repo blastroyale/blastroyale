@@ -28,36 +28,23 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _quitButton;
 		[SerializeField] private Button _standingsButton;
 		[SerializeField] private Button _leaderButton;
-		[SerializeField] private TextMeshProUGUI _currentRankText;
-		[SerializeField] private TextMeshProUGUI _currentFragsText;
-		[SerializeField] private TextMeshProUGUI _targetFragsText;
-		[SerializeField] private Image _currentWeaponImage;
-		[SerializeField] private TextMeshProUGUI _currentWeaponText;
-		[SerializeField] private Slider _progressSlider;
 		[SerializeField] private StandingsHolderView _standings;
-		[SerializeField] private Animation _rankChangeAnimation;
 		[SerializeField] private TextMeshProUGUI _mapStatusText;
+		[SerializeField] private LeaderHolderView _leaderHolderView;
+		[SerializeField] private ScoreHolderView _scoreHolderView;
 		[SerializeField] private MapTimerView _mapTimerView;
+		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
+		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		private int _fragTarget;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-			var matchId = _gameDataProvider.AdventureDataProvider.SelectedMapId.Value;
-				
-			_currentRankText.text = "1";
-			_currentFragsText.text = "0";
 			_mapStatusText.text = "";
-			_progressSlider.value = 0;
-			_currentWeaponText.text = ScriptLocalization.GameIds.Hammer;
-			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
-			_targetFragsText.text = _fragTarget.ToString();
-			
+
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_standingsButton.onClick.AddListener(OnStandingsClicked);
@@ -67,10 +54,13 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
 			
+			_mapTimerView.gameObject.SetActive(false);
+			_leaderHolderView.gameObject.SetActive(false);
+			_scoreHolderView.gameObject.SetActive(false);
+			_contendersLeftHolderMessageView.gameObject.SetActive(false);
+			_contendersLeftHolderView.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()
@@ -85,13 +75,6 @@ namespace FirstLight.Game.Presenters
 			_animation.Play();
 		}
 
-		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			_currentWeaponText.text = callback.WeaponGameId.GetTranslation();
-			
-			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
-		}
-		
 		private void OnQuitClicked()
 		{
 			_services.MessageBrokerService.Publish(new QuitGameClickedMessage());
@@ -108,39 +91,25 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var matchData = container.GetPlayersMatchData(frame, out _);
-			
-			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
 
+			bool isBattleRoyale = container.GameMode == GameMode.BattleRoyale;
+			
+			_mapTimerView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
+			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
+			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
+			
 			if (container.GameMode == GameMode.BattleRoyale)
 			{
 				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
+				
 			}
 		}
 		
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
 			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
-		}
-
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
-		{
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var localPlayer = callback.Game.GetLocalPlayers()[0];
-
-			_currentRankText.text = callback.PlayersMatchData[localPlayer].PlayerRank.ToString();
-			
-			_rankChangeAnimation.Rewind();
-			_rankChangeAnimation.Play();
-			
-			if (localPlayer != callback.PlayerKiller)
-			{
-				return;
-			}
-
-			var kills = killerData.Data.PlayersKilledCount;
-			
-			_currentFragsText.text = kills.ToString();
-			_progressSlider.value = kills / (float)_fragTarget;
 		}
 
 		private void OnStandingsClicked()

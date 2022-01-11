@@ -14,6 +14,7 @@ namespace I2.Loc
 			public static string BossFurious 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/BossFurious"); } }
 			public static string BossPain 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/BossPain"); } }
 			public static string ChooseDeath 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/ChooseDeath"); } }
+			public static string ContendersRemaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/ContendersRemaining"); } }
 			public static string Damage 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Damage"); } }
 			public static string Deaths 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Deaths"); } }
 			public static string Dominating 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Dominating"); } }
@@ -671,6 +672,7 @@ namespace I2.Loc
 		    public const string BossFurious = "AdventureMenu/BossFurious";
 		    public const string BossPain = "AdventureMenu/BossPain";
 		    public const string ChooseDeath = "AdventureMenu/ChooseDeath";
+		    public const string ContendersRemaining = "AdventureMenu/ContendersRemaining";
 		    public const string Damage = "AdventureMenu/Damage";
 		    public const string Deaths = "AdventureMenu/Deaths";
 		    public const string Dominating = "AdventureMenu/Dominating";

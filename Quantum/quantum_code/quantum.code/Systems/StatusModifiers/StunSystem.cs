@@ -1,5 +1,3 @@
-using Photon.Deterministic;
-
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -16,12 +14,16 @@ namespace Quantum.Systems
 			{
 				navMeshPathfinder->Stop(f, entity, true);
 			}
+
+			if (f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
+			{
+				bot->Target = EntityRef.None;
+			}
 			
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
 			var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 			
 			bbComponent->Set(f, Constants.StunDurationKey, f.Get<Stats>(entity).CurrentStatusModifierDuration);
-			bbComponent->Set(f, Constants.TargetKey, EntityRef.None);
 			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
 		}
 

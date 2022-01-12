@@ -38,7 +38,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 2949120
+        RawValue: 0
       Specials: 550000006e000000
     - Id: 31
       AssetRef:
@@ -60,7 +60,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 49152
       ProjectileSpeed:
-        RawValue: 1310720
+        RawValue: 0
       Specials: 8d00000000000000
     - Id: 32
       AssetRef:
@@ -82,7 +82,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 1966080
+        RawValue: 0
       Specials: 6e00000066000000
     - Id: 34
       AssetRef:
@@ -104,7 +104,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 1966080
+        RawValue: 0
       Specials: 7700000077000000
     - Id: 33
       AssetRef:
@@ -148,7 +148,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 1966080
+        RawValue: 0
       Specials: 5300000055000000
     - Id: 36
       AssetRef:
@@ -170,7 +170,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 1310720
+        RawValue: 0
       Specials: 5900000077000000
     - Id: 23
       AssetRef:
@@ -192,7 +192,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 983040
+        RawValue: 0
       Specials: 8d00000000000000
     - Id: 37
       AssetRef:
@@ -214,5 +214,5 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
-        RawValue: 1310720
+        RawValue: 0
       Specials: 530000006e000000

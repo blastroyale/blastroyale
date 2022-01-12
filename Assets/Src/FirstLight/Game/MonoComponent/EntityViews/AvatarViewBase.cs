@@ -175,7 +175,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void HandleOnEntityDestroyed(QuantumGame game)
 		{
 			transform.parent = null;
-			
+
 			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
 			Dissolve(true);
 					

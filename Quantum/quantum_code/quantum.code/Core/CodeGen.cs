@@ -3253,9 +3253,9 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 248;
+    public const Int32 SIZE = 256;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(244)]
+    [FieldOffset(252)]
     private fixed Byte _alignment_padding_[4];
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3263,48 +3263,50 @@ namespace Quantum {
     public BotBehaviourType BehaviourType;
     [FieldOffset(8)]
     public Int32 BotNameIndex;
-    [FieldOffset(16)]
-    public FP ChanceToAbandonTarget;
     [FieldOffset(24)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToAbandonTarget;
     [FieldOffset(32)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(40)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekRage;
     [FieldOffset(48)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(56)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(64)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToUseSpecial;
     [FieldOffset(72)]
+    public FP CloseFightIntolerance;
+    [FieldOffset(80)]
     public FP DecisionInterval;
-    [FieldOffset(160)]
+    [FieldOffset(168)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 6)]
     private fixed Byte _Gear_[72];
-    [FieldOffset(80)]
-    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(88)]
-    public FP LowAmmoSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(96)]
-    public FP LowArmourSensitivity;
+    public FP LowAmmoSensitivity;
     [FieldOffset(104)]
-    public FP LowHealthSensitivity;
+    public FP LowArmourSensitivity;
     [FieldOffset(112)]
-    public FP NextDecisionTime;
+    public FP LowHealthSensitivity;
     [FieldOffset(120)]
-    public FP NextLookForTargetsToShootAtTime;
+    public FP NextDecisionTime;
     [FieldOffset(128)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(136)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(4)]
     public GameId Skin;
-    [FieldOffset(136)]
-    public FP SpecialAimingDeviation;
     [FieldOffset(144)]
-    public FP VisionRangeSqr;
+    public FP SpecialAimingDeviation;
+    [FieldOffset(16)]
+    public EntityRef Target;
     [FieldOffset(152)]
+    public FP VisionRangeSqr;
+    [FieldOffset(160)]
     public FP WanderRadius;
-    [FieldOffset(232)]
+    [FieldOffset(240)]
     public Equipment Weapon;
     public FixedArray<Equipment> Gear {
       get {
@@ -3335,6 +3337,7 @@ namespace Quantum {
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
         hash = hash * 31 + (Int32)Skin;
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
+        hash = hash * 31 + Target.GetHashCode();
         hash = hash * 31 + VisionRangeSqr.GetHashCode();
         hash = hash * 31 + WanderRadius.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
@@ -3347,6 +3350,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
+        EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->ChanceToAbandonTarget, serializer);
         FP.Serialize(&p->ChanceToSeekEnemies, serializer);
         FP.Serialize(&p->ChanceToSeekRage, serializer);
@@ -7643,6 +7647,7 @@ namespace Quantum.Prototypes {
     public FP LookForTargetsToShootAtInterval;
     public FP NextDecisionTime;
     public FP NextLookForTargetsToShootAtTime;
+    public MapEntityId Target;
     public FP VisionRangeSqr;
     public FP LowArmourSensitivity;
     public FP LowHealthSensitivity;
@@ -7688,6 +7693,7 @@ namespace Quantum.Prototypes {
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
       result.Skin = this.Skin;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
+      PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);
       result.VisionRangeSqr = this.VisionRangeSqr;
       result.WanderRadius = this.WanderRadius;
       this.Weapon.Materialize(frame, ref result.Weapon, in context);

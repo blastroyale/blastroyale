@@ -13,13 +13,17 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Xml: "<?xml version=\"1.0\" encoding=\"utf-16\"?>\n<Document>\n  <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\n 
-    <Version>1</Version>\n  <Meta>false</Meta>\n  <Graph>1be2771a-ed37-481c-ae86-99e013d33d6e</Graph>\n 
+    <Version>1</Version>\n  <Meta>false</Meta>\n  <Graph>0ffd0a36-53e0-48a8-af1d-c576043b1334</Graph>\n 
     <DebugKey>cc7a3a35-f572-4640-8839-d54bb52dcd00</DebugKey>\n  <Flags>0</Flags>\n 
     <Parent>$statemachine</Parent>\n  <Error Count=\"0\" />\n  <Comments Count=\"0\"
-    />\n  <HiddenActionsDecisions Count=\"0\" />\n  <Vars Count=\"6\">\n    <Key>02a9fef5-d66b-4c45-bcb1-68e02c109d83</Key>\n   
+    />\n  <HiddenActionsDecisions Count=\"0\" />\n  <Vars Count=\"7\">\n    <Key>02a9fef5-d66b-4c45-bcb1-68e02c109d83</Key>\n   
     <Var>\n      <Id>02a9fef5-d66b-4c45-bcb1-68e02c109d83</Id>\n      <Name>AttackCooldown</Name>\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\n      <Default></Default>\n     
     <Flags>0</Flags>\n      <VarMode>MetaField</VarMode>\n      <TypeMode>Value</TypeMode>\n     
+    <Scope>Blackboard</Scope>\n    </Var>\n    <Key>733f760e-34ce-4c35-86db-b1c8466fa5eb</Key>\n   
+    <Var>\n      <Id>733f760e-34ce-4c35-86db-b1c8466fa5eb</Id>\n      <Name>AimDirection</Name>\n     
+    <Type>Photon.Deterministic.FPVector2, PhotonDeterministic</Type>\n      <Default
+    />\n      <Flags>0</Flags>\n      <VarMode>MetaField</VarMode>\n      <TypeMode>Value</TypeMode>\n     
     <Scope>Blackboard</Scope>\n    </Var>\n    <Key>917710d6-ab15-4573-9958-88dbae3022f3</Key>\n   
     <Var>\n      <Id>917710d6-ab15-4573-9958-88dbae3022f3</Id>\n      <Name>StunDuration</Name>\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\n      <Default></Default>\n     
@@ -40,7 +44,7 @@ MonoBehaviour:
     <Var>\n      <Id>ffabdba4-3842-45d9-abc0-a31ea7d0310f</Id>\n      <Name>OnStunned</Name>\n     
     <Type>$event</Type>\n      <Default></Default>\n      <Flags>0</Flags>\n     
     <VarMode>Event</VarMode>\n      <TypeMode>Value</TypeMode>\n      <Scope>Document</Scope>\n   
-    </Var>\n  </Vars>\n  <Nodes Count=\"52\">\n    <Key>02809f7a-0c2b-4380-8705-e1690c2bc891</Key>\n   
+    </Var>\n  </Vars>\n  <Nodes Count=\"53\">\n    <Key>02809f7a-0c2b-4380-8705-e1690c2bc891</Key>\n   
     <Node>\n      <Id>02809f7a-0c2b-4380-8705-e1690c2bc891</Id>\n      <Name>EmptyWeapon</Name>\n     
     <Comment></Comment>\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\n     
     <Parent>$state</Parent>\n      <DebugIndex>-1</DebugIndex>\n      <Flags>65568</Flags>\n     
@@ -586,7 +590,23 @@ MonoBehaviour:
     <Value Type=\"@int32\">0</Value>\n          <Type>@int32</Type>\n          <Mode>In</Mode>\n         
     <Flags>0</Flags>\n          <TypeMode>Value</TypeMode>\n        </Slot>\n     
     </StaticIn>\n      <StaticOut Count=\"0\" />\n      <Groups Count=\"0\" />\n     
-    <Data Count=\"0\" />\n    </Node>\n    <Key>aea3c74a-d888-463f-b5f8-72af4fdf1b95</Key>\n   
+    <Data Count=\"0\" />\n    </Node>\n    <Key>acbbeacc-9783-4cb5-b2ed-f31fc0c5155f</Key>\n   
+    <Node>\n      <Id>acbbeacc-9783-4cb5-b2ed-f31fc0c5155f</Id>\n      <Name>BlackboardVar</Name>\n     
+    <Comment />\n      <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\n     
+    <Parent>$blackboardVarData</Parent>\n      <DebugIndex>-1</DebugIndex>\n     
+    <Flags>8</Flags>\n      <Position>251|79||0</Position>\n      <StaticIn Count=\"0\"
+    />\n      <StaticOut Count=\"0\" />\n      <Groups Count=\"0\" />\n      <Data
+    Count=\"8\">\n        <Data>\n          <Name>$default</Name>\n          <Value
+    Type=\"Photon.Deterministic.FPVector2, PhotonDeterministic\">(0, 0)</Value>\n       
+    </Data>\n        <Data>\n          <Name></Name>\n          <Value />\n       
+    </Data>\n        <Data>\n          <Name>$hasDefault</Name>\n          <Value
+    Type=\"@boolean\">False</Value>\n        </Data>\n        <Data>\n          <Name>True</Name>\n         
+    <Value />\n        </Data>\n        <Data>\n          <Name>$bbType</Name>\n         
+    <Value Type=\"@string\">Vector2</Value>\n        </Data>\n        <Data>\n         
+    <Name>Boolean</Name>\n          <Value />\n        </Data>\n        <Data>\n         
+    <Name>$varId</Name>\n          <Value Type=\"@string\">733f760e-34ce-4c35-86db-b1c8466fa5eb</Value>\n       
+    </Data>\n        <Data>\n          <Name></Name>\n          <Value />\n       
+    </Data>\n      </Data>\n    </Node>\n    <Key>aea3c74a-d888-463f-b5f8-72af4fdf1b95</Key>\n   
     <Node>\n      <Id>aea3c74a-d888-463f-b5f8-72af4fdf1b95</Id>\n      <Name>Transition</Name>\n     
     <Comment></Comment>\n      <Graph>c85867c8-d730-4f9d-b9f4-6f7b63b4c133</Graph>\n     
     <Parent>$transition</Parent>\n      <DebugIndex>-1</DebugIndex>\n      <Flags>129</Flags>\n     

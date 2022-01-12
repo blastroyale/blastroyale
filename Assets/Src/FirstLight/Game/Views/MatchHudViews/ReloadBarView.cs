@@ -34,9 +34,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		}
 		
 		/// <summary>
-		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given <paramref name="projectileCapacity"/>
+		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given data
 		/// </summary>
-		public void SetupView(EntityRef entity, int projectileCapacity, int minProjectileCapacityToShoot)
+		public void SetupView(EntityRef entity, int maxAmmo)
 		{
 			_entity = entity;
 			_slider.value = 1f;
@@ -44,16 +44,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (_separatorPool == null)
 			{
 				_separatorPool ??= new GameObjectPool(3, _separatorRef);
-			
-				var separatorsAmount = minProjectileCapacityToShoot == 1
-					? projectileCapacity
-					: projectileCapacity / minProjectileCapacityToShoot;
 				
-				separatorsAmount = separatorsAmount > GameConstants.MAX_RELOAD_BAR_SEPARATORS_AMOUNT
-					                   ? 0
-					                   : separatorsAmount;
+				maxAmmo = maxAmmo > GameConstants.MAX_RELOAD_BAR_SEPARATORS_AMOUNT ? 0 : maxAmmo;
 				
-				for (var i = 1; i < separatorsAmount; i++)
+				for (var i = 1; i < maxAmmo; i++)
 				{
 					_separatorPool.Spawn();
 				}

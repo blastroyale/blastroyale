@@ -119,7 +119,7 @@ namespace FirstLight.Services
 	/// <inheritdoc />
 	public class AudioFxService<T> : IAudioFxInternalService<T> where T : struct, Enum
 	{
-		private const float _sound3dSpacialThreshold = 0.2f;
+		private const float Sound3dSpacialThreshold = 0.2f;
 		
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioObject> _pool;
@@ -152,7 +152,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].AudioSource.spatialBlend < _sound3dSpacialThreshold)
+					if (audio[i].AudioSource.spatialBlend < Sound3dSpacialThreshold)
 					{
 						audio[i].AudioSource.mute = value;
 					}
@@ -172,7 +172,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].AudioSource.spatialBlend >= _sound3dSpacialThreshold)
+					if (audio[i].AudioSource.spatialBlend >= Sound3dSpacialThreshold)
 					{
 						audio[i].AudioSource.mute = value;
 					}

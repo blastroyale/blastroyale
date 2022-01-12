@@ -71,15 +71,14 @@ namespace Quantum.Systems
 			// If a bot has a valid target then we correct the bot's speed according
 			// to the weapon they carry and turn the bot towards the target
 			// otherwise we return speed to normal and let automatic navigation turn the bot
-			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var target = bb.GetEntityRef(f, Constants.TargetKey);
+			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
-				ClearTarget(f, ref filter, out target);
+				ClearTarget(f, ref filter);
 			}
 			else
 			{
@@ -93,7 +92,7 @@ namespace Quantum.Systems
 				// Bots also have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
 				if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
 				{
-					ClearTarget(f, ref filter, out target);
+					ClearTarget(f, ref filter);
 				}
 				else
 				{
@@ -127,7 +126,7 @@ namespace Quantum.Systems
 			
 			if (TryUseSpecials(f, ref filter))
 			{
-				ClearTarget(f, ref filter, out target);
+				ClearTarget(f, ref filter);
 			}
 			
 			switch (filter.BotCharacter->BehaviourType)
@@ -185,29 +184,26 @@ namespace Quantum.Systems
 			return list;
 		}
 
-		private void ClearTarget(Frame f, ref BotCharacterFilter filter, out EntityRef target)
+		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
 		{
-			var bbPointer = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-			target = EntityRef.None;
-			bbPointer->Set(f, Constants.TargetKey, target);
+			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
+			
+			filter.BotCharacter->Target = EntityRef.None;
 			
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
-			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			kcc->MaxSpeed = speed;
+			f.Unsafe.GetPointer<CharacterController3D>(filter.Entity)->MaxSpeed = speed;
 		}
 		
 		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter)
 		{
-			var bbPointer = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			var target = EntityRef.None;
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// If the bot's weapon is empty then we clear the target and leave the method
 			if (weapon.Ammo == 0)
 			{
-				bbPointer->Set(f, Constants.TargetKey, target);
+				filter.BotCharacter->Target = EntityRef.None;
 				return;
 			}
 			
@@ -244,7 +240,7 @@ namespace Quantum.Systems
 				}
 			}
 			
-			bbPointer->Set(f, Constants.TargetKey, target);
+			filter.BotCharacter->Target = target;
 		}
 
 		// We check specials and try to use them depending on their type if possible
@@ -256,11 +252,11 @@ namespace Quantum.Systems
 			}
 			
 			var weaponPointer = f.Unsafe.GetPointer<Weapon>(filter.Entity);
+			var target = filter.BotCharacter->Target;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
 				var special = weaponPointer->Specials.GetPointer(specialIndex);
-				var target = f.Get<AIBlackboardComponent>(filter.Entity).GetEntityRef(f, Constants.TargetKey);
 				
 				if ((target != EntityRef.None || special->SpecialType == SpecialType.ShieldSelfStatus) &&
 					special->IsValid && special->TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
@@ -414,7 +410,6 @@ namespace Quantum.Systems
 				return false;
 			}
 			
-			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
 			var weaponTargetRange = weapon.AttackRange;
 			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			// Do not go closer than 1 meter to target

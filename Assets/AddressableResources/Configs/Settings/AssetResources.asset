@@ -150,11 +150,6 @@ MonoBehaviour:
         Id:
           Value: 1181736976140049685
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Attacking_3]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
-      AssetRef:
-        Id:
-          Value: 1223433821224064692
-      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer.asset
     - Path: AddressableResources/Maps/BlimpDeck_NavMesh_data
       AssetRef:
         Id:
@@ -220,11 +215,11 @@ MonoBehaviour:
         Id:
           Value: 1838569179050410201
       Address: Maps/TinyTemple_NavMesh.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
       AssetRef:
         Id:
-          Value: 2023469158184812780
-      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard.asset
+          Value: 1981750164035069802
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_4
       AssetRef:
         Id:
@@ -361,11 +356,6 @@ MonoBehaviour:
         Id:
           Value: 3521447524462001825
       Address: Configs/ConsumableConfigs.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
-      AssetRef:
-        Id:
-          Value: 3604240760277831758
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset
     - Path: AddressableResources/QuantumAssets/Collectables/WeaponPickup|EntityView
       AssetRef:
         Id:
@@ -426,6 +416,11 @@ MonoBehaviour:
         Id:
           Value: 4332060462896694051
       Address: Maps/FloodCity.asset
+    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
+      AssetRef:
+        Id:
+          Value: 4369022756819259992
+      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard.asset
     - Path: AddressableResources/Maps/TinyTemple_mesh
       AssetRef:
         Id:
@@ -451,6 +446,11 @@ MonoBehaviour:
         Id:
           Value: 4506913672909982829
       Address: QuantumAssets/Characters/DummyCharacter.prefab[DummyCharacterEntityView]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
+      AssetRef:
+        Id:
+          Value: 4556694802731587811
+      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Check
         Attack State
       AssetRef:

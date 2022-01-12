@@ -139,7 +139,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					continue;
 				}
-
+				
 				tasks.Add(_assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1));
 			}
 

@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BindBehaviour: 1
-  ManualDisposal: 0
+  ManualDisposal: 1
   GameObjectNameIsEntityRef: 0
   ErrorCorrectionRateMin: 3.3
   ErrorCorrectionRateMax: 10

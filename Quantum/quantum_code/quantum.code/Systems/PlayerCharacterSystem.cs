@@ -54,8 +54,7 @@ namespace Quantum.Systems
 				f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
 				f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
 			}
-				
-			// If it was not the player the killer then will save it as PlayerRef.None
+			
 			player->Dead(f, entity, killer.Player, attacker);
 		}
 

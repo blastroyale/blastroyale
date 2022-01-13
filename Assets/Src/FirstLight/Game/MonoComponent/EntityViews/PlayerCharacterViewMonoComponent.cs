@@ -178,6 +178,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
+			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
 			

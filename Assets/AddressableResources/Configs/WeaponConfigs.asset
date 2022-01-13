@@ -55,8 +55,8 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 36045
       AttackRange:
-        RawValue: 49152
-      AttackAngle: 0
+        RawValue: 131072
+      AttackAngle: 30
       SplashRadius:
         RawValue: 49152
       ProjectileSpeed:
@@ -78,7 +78,7 @@ MonoBehaviour:
         RawValue: 13107
       AttackRange:
         RawValue: 579994
-      AttackAngle: 3
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
@@ -100,7 +100,7 @@ MonoBehaviour:
         RawValue: 42598
       AttackRange:
         RawValue: 262144
-      AttackAngle: 0
+      AttackAngle: 45
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
@@ -144,7 +144,7 @@ MonoBehaviour:
         RawValue: 27525
       AttackRange:
         RawValue: 524288
-      AttackAngle: 8
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
@@ -188,7 +188,7 @@ MonoBehaviour:
         RawValue: 22938
       AttackRange:
         RawValue: 491520
-      AttackAngle: 6
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
@@ -210,7 +210,7 @@ MonoBehaviour:
         RawValue: 13107
       AttackRange:
         RawValue: 471859
-      AttackAngle: 14
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:

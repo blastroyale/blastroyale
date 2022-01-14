@@ -21,7 +21,7 @@ namespace Quantum
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
 			var player = playerCharacter.Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey);
-			var position = f.Get<Transform3D>(e).Position;
+			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
 			var projectile = new Projectile
@@ -40,7 +40,11 @@ namespace Quantum
 				TeamSource = team
 			};
 			
-			weapon->Ammo--;
+			if (weapon->Ammo > 0)
+			{
+				weapon->Ammo--;
+			}
+			
 			weapon->LastAttackTime = f.Time;
 
 			Projectile.Create(f, projectile);

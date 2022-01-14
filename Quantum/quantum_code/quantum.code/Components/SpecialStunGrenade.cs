@@ -45,7 +45,6 @@ namespace Quantum
 				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
-			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.FAKE_PROJECTILE_Y_OFFSET, targetPosition.Z);
 			var targetRange = special.MaxRange;
 			var launchTime = special.Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
 			var hazardData = new Hazard

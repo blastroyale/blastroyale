@@ -26,7 +26,7 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
 			var collectable = f.Get<Collectable>(entity);
 			
-			playerCharacter->SetWeapon(f, player, collectable.GameId, ItemRarity.Common, 1, ProjectileSpawnOffset);
+			playerCharacter->SetWeapon(f, player, collectable.GameId, ItemRarity.Common, 1, FPVector3.Zero);
 		}
 	}
 }

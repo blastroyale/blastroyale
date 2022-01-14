@@ -214,6 +214,7 @@ namespace Quantum.Systems
 			var targetRange = weapon.AttackRange;
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
+			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
 			
 			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 			
@@ -236,11 +237,15 @@ namespace Quantum.Systems
 				if (hit.HasValue)
 				{
 					target = hit.Value.Entity;
+					
+					bb.Set(f, Constants.AimDirectionKey, targetPosition - botPosition);
 					break;
 				}
 			}
 			
 			filter.BotCharacter->Target = target;
+			
+			bb.Set(f, Constants.IsAimingKey, target != EntityRef.None);
 		}
 
 		// We check specials and try to use them depending on their type if possible

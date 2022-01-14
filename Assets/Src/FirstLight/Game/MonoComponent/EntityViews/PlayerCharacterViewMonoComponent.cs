@@ -1,12 +1,10 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Adventure;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -17,6 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
 		[SerializeField] private AdventureCharacterViewMonoComponent _adventureCharacterView;
+		[SerializeField] private bool _isDebugMode;
 		
 		public Transform RootTransform;
 		
@@ -225,6 +224,23 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.HazardData.Radius.AsFloat, 
 			              (callback.HazardData.EndTime - time).AsFloat);
 		}
+		
+		private void HandleOnShieldedChargeUsed(EventOnShieldedChargeUsed callback)
+		{
+			if (callback.Attacker != EntityView.EntityRef)
+			{
+				return;
+			}
+			
+			var vfx = Services.VfxService.Spawn(VfxId.EnergyShield) as MutableTimeVfxMonoComponent;
+			var vfxTransform = vfx.transform;
+			vfxTransform.SetParent(transform);
+			vfxTransform.localPosition = Vector3.zero;
+			vfxTransform.localScale = Vector3.one;
+			vfxTransform.localRotation = Quaternion.identity;
+			
+			vfx.StartDespawnTimer(callback.ChargeDuration.AsFloat);
+		}
 
 		private void HandleOnSkyBeamUsed(EventOnSkyBeamUsed callback)
 		{
@@ -266,23 +282,35 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			
 			_lastPosition = currentPosition;
-		}
-		
-		private void HandleOnShieldedChargeUsed(EventOnShieldedChargeUsed callback)
-		{
-			if (callback.Attacker != EntityView.EntityRef)
+
+			if (!_isDebugMode)
 			{
 				return;
 			}
-			
-			var vfx = Services.VfxService.Spawn(VfxId.EnergyShield) as MutableTimeVfxMonoComponent;
-			var vfxTransform = vfx.transform;
-			vfxTransform.SetParent(transform);
-			vfxTransform.localPosition = Vector3.zero;
-			vfxTransform.localScale = Vector3.one;
-			vfxTransform.localRotation = Quaternion.identity;
-			
-			vfx.StartDespawnTimer(callback.ChargeDuration.AsFloat);
+
+			DebugAttackGizmos(callback.Game);
+		}
+
+		private void DebugAttackGizmos(QuantumGame game)
+		{
+#if UNITY_EDITOR
+			var f = game.Frames.Predicted;
+			var weapon = f.Get<Weapon>(EntityRef);
+			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / (FP._1 * 10)) + 1;
+			var aimingDirection = f.Get<AIBlackboardComponent>(EntityRef).GetVector2(f, Constants.AimDirectionKey) * weapon.AttackRange;
+			var angle = -weapon.AttackAngle / FP._2;
+			var fpPosition = _lastPosition.ToFPVector3();
+			var angleStep = weapon.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
+
+			for (var i = 0; i < angleCount; i++)
+			{
+				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
+				
+				Draw.Line(fpPosition, fpPosition + direction.XOY);
+
+				angle += angleStep;
+			}
+#endif
 		}
 	}
 }

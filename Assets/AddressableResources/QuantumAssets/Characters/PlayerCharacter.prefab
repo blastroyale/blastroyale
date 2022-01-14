@@ -182,8 +182,8 @@ MonoBehaviour:
       Value: 448
   PhysicsBody:
     IsEnabled: 0
-    Version2D: 0
-    Version3D: 0
+    Version2D: 2
+    Version3D: 2
     Config2D: 116
     Config3D: 58
     RotationFreeze: 0

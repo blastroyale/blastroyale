@@ -20,8 +20,8 @@ namespace Quantum
 			var playerCharacter = f.Get<PlayerCharacter>(e);
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
 			var player = playerCharacter.Player;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey);
-			var position = f.Get<Transform3D>(e).Position;
+			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey) * weapon->AttackRange;
+			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / (FP._1 * 10)) + 1;
 			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var angle = -weapon->AttackAngle / FP._2;
@@ -29,8 +29,12 @@ namespace Quantum
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
 			var shape = Shape3D.CreateSphere(weapon->SplashRadius);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
+
+			if (weapon->Ammo > 0)
+			{
+				weapon->Ammo--;
+			}
 			
-			weapon->Ammo--;
 			weapon->LastAttackTime = f.Time;
 			
 			f.Events.OnPlayerAttacked(e, player);
@@ -57,8 +61,8 @@ namespace Quantum
 					continue;
 				}
 				
-				var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, shape, FPVector3.Zero, 
-				                                    f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+				var hits = f.Physics3D.ShapeCastAll(hit.Value.Point, FPQuaternion.Identity, shape, 
+				                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
 
 				for (var j = 0; j < hits.Count; j++)
 				{

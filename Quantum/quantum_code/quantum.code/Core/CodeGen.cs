@@ -4375,20 +4375,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponCollectable : Quantum.IComponent {
-    public const Int32 SIZE = 24;
-    public const Int32 ALIGNMENT = 8;
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
-    public FPVector3 ProjectileSpawnOffset;
+    private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 557;
-        hash = hash * 31 + ProjectileSpawnOffset.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponCollectable*)ptr;
-        FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -8724,7 +8722,8 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(WeaponCollectable))]
   public sealed unsafe partial class WeaponCollectable_Prototype : ComponentPrototype<WeaponCollectable> {
-    public FPVector3 ProjectileSpawnOffset;
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
     partial void MaterializeUser(Frame frame, ref WeaponCollectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       WeaponCollectable component = default;
@@ -8732,7 +8731,6 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref WeaponCollectable result, in PrototypeMaterializationContext context) {
-      result.ProjectileSpawnOffset = this.ProjectileSpawnOffset;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

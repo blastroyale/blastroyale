@@ -56,7 +56,7 @@ MonoBehaviour:
         RawValue: 36045
       AttackRange:
         RawValue: 131072
-      AttackAngle: 30
+      AttackAngle: 60
       SplashRadius:
         RawValue: 49152
       ProjectileSpeed:

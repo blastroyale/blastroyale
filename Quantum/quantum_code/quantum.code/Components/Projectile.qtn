@@ -11,7 +11,6 @@ component Projectile
 	FP Range;
 	FP SplashRadius;
 	FP StunDuration;
-	bool IsPiercing;
 }
 
 synced event OnProjectileFired

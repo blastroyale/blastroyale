@@ -20,7 +20,7 @@ namespace Quantum
 			var playerCharacter = f.Get<PlayerCharacter>(e);
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
 			var player = playerCharacter.Player;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey);
+			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
@@ -28,7 +28,6 @@ namespace Quantum
 			{
 				Attacker = e,
 				Direction = aimingDirection.XOY,
-				IsPiercing = false,
 				PowerAmount = (uint) power.AsInt,
 				SourceId = weapon->WeaponId,
 				Range = weapon->AttackRange,

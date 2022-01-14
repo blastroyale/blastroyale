@@ -3945,8 +3945,6 @@ namespace Quantum {
     [FieldOffset(64)]
     public FPVector3 Direction;
     [FieldOffset(8)]
-    public QBoolean IsPiercing;
-    [FieldOffset(12)]
     public UInt32 PowerAmount;
     [FieldOffset(32)]
     public FP Range;
@@ -3969,7 +3967,6 @@ namespace Quantum {
         var hash = 461;
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
-        hash = hash * 31 + IsPiercing.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
         hash = hash * 31 + (Int32)SourceId;
@@ -3986,7 +3983,6 @@ namespace Quantum {
         var p = (Projectile*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SourceId);
         serializer.Stream.Serialize(&p->TeamSource);
-        QBoolean.Serialize(&p->IsPiercing, serializer);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         EntityRef.Serialize(&p->Target, serializer);
@@ -8262,7 +8258,6 @@ namespace Quantum.Prototypes {
     public FP Range;
     public FP SplashRadius;
     public FP StunDuration;
-    public QBoolean IsPiercing;
     partial void MaterializeUser(Frame frame, ref Projectile result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Projectile component = default;
@@ -8272,7 +8267,6 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Projectile result, in PrototypeMaterializationContext context) {
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
       result.Direction = this.Direction;
-      result.IsPiercing = this.IsPiercing;
       result.PowerAmount = this.PowerAmount;
       result.Range = this.Range;
       result.SourceId = this.SourceId;

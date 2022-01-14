@@ -33,7 +33,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
-			QuantumEvent.Subscribe<EventOnPlayerDead>(this, HandleOnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
 			QuantumEvent.Subscribe<EventOnStunGrenadeUsed>(this, HandleOnStunGrenadeUsed);
@@ -61,6 +60,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public void SetMovingState(bool isAiming)
 		{
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+		}
+
+		protected override void OnEntityDestroyed(QuantumGame game)
+		{
+			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -285,7 +289,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (!_isDebugMode)
 			{
-				return;
+				//return;
 			}
 
 			DebugAttackGizmos(callback.Game);
@@ -294,13 +298,21 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void DebugAttackGizmos(QuantumGame game)
 		{
 #if UNITY_EDITOR
-			var f = game.Frames.Predicted;
-			var weapon = f.Get<Weapon>(EntityRef);
+			var f = game.Frames.Verified;
+
+			if (!f.TryGet<Weapon>(EntityRef, out var weapon))
+			{
+				return;
+			}
+			
+			var fpPosition = (_lastPosition + Vector3.up).ToFPVector3();
 			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / (FP._1 * 10)) + 1;
-			var aimingDirection = f.Get<AIBlackboardComponent>(EntityRef).GetVector2(f, Constants.AimDirectionKey) * weapon.AttackRange;
 			var angle = -weapon.AttackAngle / FP._2;
-			var fpPosition = _lastPosition.ToFPVector3();
 			var angleStep = weapon.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
+			var aimingDirection = f.Get<AIBlackboardComponent>(EntityRef).GetVector2(f, Constants.AimDirectionKey).Normalized * 
+			                      weapon.AttackRange;
+			
+			Draw.Line(fpPosition, fpPosition + aimingDirection.XOY, ColorRGBA.Red);
 
 			for (var i = 0; i < angleCount; i++)
 			{

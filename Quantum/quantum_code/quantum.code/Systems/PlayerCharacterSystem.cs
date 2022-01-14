@@ -6,19 +6,12 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, 
-	                                            ISignalOnComponentRemoved<PlayerCharacter>,
 	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero
 	{
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
 			public PlayerCharacter* Player;
-		}
-		
-		/// <inheritdoc />
-		public void OnRemoved(Frame f, EntityRef entity, PlayerCharacter* playerCharacter)
-		{
-			f.Unsafe.GetPointerSingleton<GameContainer>()->RemovePlayer(f, playerCharacter->Player);
 		}
 
 		/// <inheritdoc />

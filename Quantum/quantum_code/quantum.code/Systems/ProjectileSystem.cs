@@ -49,17 +49,19 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.StaticData.IsTrigger || info.Other == info.Entity)
+			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || 
+			    projectile.Attacker == info.Entity || projectile.Attacker == info.Other)
 			{
 				return;
 			}
 			
 			var position = f.Get<Transform3D>(info.Entity).Position;
 			
-			if (!info.IsStatic && QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
+			f.Add<EntityDestroyer>(info.Entity);
+			
+			if (QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
 			                                               projectile.TeamSource, projectile.PowerAmount))
 			{
-				f.Add<EntityDestroyer>(info.Entity);
 				OnHit(f,  projectile.Attacker, info.Entity, info.Other, position);
 				return;
 			}
@@ -69,7 +71,6 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			f.Add<EntityDestroyer>(info.Entity);
 			QuantumHelpers.ProcessAreaHit(f, projectile.Attacker, info.Entity, projectile.SplashRadius, position,
 			                              projectile.PowerAmount, projectile.TeamSource, OnHit);
 		}

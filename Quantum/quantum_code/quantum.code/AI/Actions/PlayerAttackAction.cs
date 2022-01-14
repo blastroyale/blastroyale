@@ -20,7 +20,6 @@ namespace Quantum
 			var playerCharacter = f.Get<PlayerCharacter>(e);
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
 			var player = playerCharacter.Player;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey) * weapon->AttackRange;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / (FP._1 * 10)) + 1;
 			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
@@ -29,6 +28,8 @@ namespace Quantum
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
 			var shape = Shape3D.CreateSphere(weapon->SplashRadius);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
+			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized * 
+			                      weapon->AttackRange;
 
 			if (weapon->Ammo > 0)
 			{

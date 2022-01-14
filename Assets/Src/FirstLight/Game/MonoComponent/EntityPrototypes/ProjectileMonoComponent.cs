@@ -26,11 +26,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				await assetReference.OperationHandle.Task;
 			}
-				
-			if (this.IsDestroyed())
-			{
-				return;
-			}
 			
 			OnLoaded(projectile.SourceId, Instantiate(assetReference.Asset as GameObject), true);
 		}

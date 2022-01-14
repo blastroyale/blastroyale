@@ -150,6 +150,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
+		protected virtual void OnEntityDestroyed(QuantumGame game)
+		{
+		}
+		
+		private void HandleOnEntityDestroyed(QuantumGame game)
+		{
+			transform.parent = null;
+					
+			OnEntityDestroyed(game);
+			AnimatorWrapper.SetBool(Bools.Stun, false);
+			AnimatorWrapper.SetBool(Bools.Pickup, false);
+			Dissolve(false);
+			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
+		}
+
 		private void HandleOnHealthIsZero(EventOnHealthIsZero callback)
 		{
 			if (callback.Entity != EntityView.EntityRef)
@@ -170,14 +186,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.Impulse);
 			}
-		}
-		
-		private void HandleOnEntityDestroyed(QuantumGame game)
-		{
-			transform.parent = null;
-					
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener<CallbackUpdateView>(this);
 		}
 
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)

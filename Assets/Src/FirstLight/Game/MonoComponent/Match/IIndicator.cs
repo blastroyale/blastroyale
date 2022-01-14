@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This interface defines the contract for a player's 3D world attack indicator

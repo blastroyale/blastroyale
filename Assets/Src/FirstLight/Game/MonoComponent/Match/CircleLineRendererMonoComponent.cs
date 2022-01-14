@@ -1,12 +1,11 @@
-using System;
 using UnityEngine;
 
-namespace FirstLight.Game.Views
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This Mono Behaviour is responsible for circle line renderer data manipulation.
 	/// </summary>
-	public class CircleLineRenderer : MonoBehaviour
+	public class CircleLineRendererMonoComponent : MonoBehaviour
 	{
 		[SerializeField] private float _lineWidth = 1;
 		[SerializeField] private LineRenderer _lineRenderer;

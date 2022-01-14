@@ -1,8 +1,7 @@
-using Quantum;
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// Shows the indicator to where the local player's is moving towards to

@@ -6,7 +6,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
 using UnityEngine;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This Mono component controls the stadium tv mesh rendering behaviour 

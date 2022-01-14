@@ -1,18 +1,17 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
 using Quantum;
 using UnityEngine;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This Mono Component controls shrinking circle visuals behaviour
 	/// </summary>
 	public class ShrinkingCircleMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private CircleLineRenderer _shrinkingCircleLinerRenderer;
-		[SerializeField] private CircleLineRenderer _safeAreaCircleLinerRenderer;
+		[SerializeField] private CircleLineRendererMonoComponent _shrinkingCircleLinerRenderer;
+		[SerializeField] private CircleLineRendererMonoComponent _safeAreaCircleLinerRenderer;
 		[SerializeField] private Transform _damageZoneTransform;
 
 		private QuantumShrinkingCircleConfig _config;

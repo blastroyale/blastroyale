@@ -1,7 +1,7 @@
 using FirstLight.Game.Utils;
 using UnityEngine;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// Shows the indicator for the local player's max target range

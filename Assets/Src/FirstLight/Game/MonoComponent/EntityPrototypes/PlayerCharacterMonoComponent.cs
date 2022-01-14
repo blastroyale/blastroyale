@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
-using FirstLight.Game.MonoComponent.Adventure;
 using FirstLight.Game.MonoComponent.EntityViews;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;

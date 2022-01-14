@@ -24,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private static readonly IStatechartEvent _leaveMatchEvent = new StatechartEvent("Leave Match Event");
 		
+		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -38,12 +39,13 @@ namespace FirstLight.Game.StateMachines
 			_assetAdderService = assetAdderService;
 			_gameDataProvider = gameDataProvider;
 			_statechartTrigger = statechartTrigger;
+			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);
 		}
 
 		/// <summary>
 		/// Setups the Adventure gameplay state
 		/// </summary>
-		public void Setup(IStateFactory stateFactory, GameSimulationState simulationState)
+		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
@@ -66,7 +68,7 @@ namespace FirstLight.Game.StateMachines
 			connecting.Event(NetworkState.ConnectedEvent).Target(gameSimulation);
 			connecting.Event(NetworkState.DisconnectedEvent).Target(disconnected);
 			
-			gameSimulation.Nest(simulationState.Setup).Target(unloading);
+			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.DisconnectedEvent).Target(disconnected);
 			
 			disconnected.OnEnter(OpenDisconnectedScreen);

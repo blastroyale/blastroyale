@@ -1,14 +1,12 @@
-using System.Collections;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This Mono Component controls the main camera behaviour throughout the game

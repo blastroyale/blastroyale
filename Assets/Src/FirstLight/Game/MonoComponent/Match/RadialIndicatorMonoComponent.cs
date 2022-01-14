@@ -1,10 +1,7 @@
-using FirstLight.Game.Utils;
-using Quantum;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
-namespace FirstLight.Game.MonoComponent.Adventure
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// Shows the indicator for the local player's attack with radial area of damage

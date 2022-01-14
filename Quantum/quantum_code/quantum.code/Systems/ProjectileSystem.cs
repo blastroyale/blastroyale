@@ -55,24 +55,21 @@ namespace Quantum.Systems
 			}
 			
 			var position = f.Get<Transform3D>(info.Entity).Position;
-
-			if (!projectile.IsPiercing)
-			{
-				f.Add<EntityDestroyer>(info.Entity);
-			}
-
+			
 			if (!info.IsStatic && QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
 			                                               projectile.TeamSource, projectile.PowerAmount))
 			{
+				f.Add<EntityDestroyer>(info.Entity);
 				OnHit(f,  projectile.Attacker, info.Entity, info.Other, position);
 				return;
 			}
 			
-			if (projectile.SplashRadius == FP._0)
+			if (projectile.SplashRadius == FP._0 || !info.IsStatic)
 			{
 				return;
 			}
-
+			
+			f.Add<EntityDestroyer>(info.Entity);
 			QuantumHelpers.ProcessAreaHit(f, projectile.Attacker, info.Entity, projectile.SplashRadius, position,
 			                              projectile.PowerAmount, projectile.TeamSource, OnHit);
 		}

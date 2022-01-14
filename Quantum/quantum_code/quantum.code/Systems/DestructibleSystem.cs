@@ -28,7 +28,7 @@ namespace Quantum.Systems
 			var shape = Shape3D.CreateSphere(filter.Destructible->SplashRadius);
 			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
 			var hits = f.Physics3D.ShapeCastAll(filter.Transform->Position, FPQuaternion.Identity, shape, 
-			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+			                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
 
 			for (var j = 0; j < hits.Count; j++)
 			{

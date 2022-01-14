@@ -90,7 +90,7 @@ namespace Quantum
 			var sqrtRadius = radius * radius;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
-			                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+			                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
 
 			for (var j = 0; j < hits.Count; j++)
 			{

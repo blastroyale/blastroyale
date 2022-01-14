@@ -42,7 +42,7 @@ namespace Quantum
 			for (var i = 0; i < angleCount; i++)
 			{
 				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
-				var hit = f.Physics3D.Raycast(position, direction.XOY, weapon->AttackRange, f.PlayerCastLayerMask, hitQuery);
+				var hit = f.Physics3D.Raycast(position, direction.XOY, weapon->AttackRange, f.TargetAllLayerMask, hitQuery);
 				
 				angle += angleStep;
 
@@ -51,10 +51,7 @@ namespace Quantum
 					continue;
 				}
 
-				if (hit.Value.IsDynamic)
-				{
-					QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
-				}
+				QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
 
 				if (weapon->SplashRadius == FP._0)
 				{
@@ -62,7 +59,7 @@ namespace Quantum
 				}
 				
 				var hits = f.Physics3D.ShapeCastAll(hit.Value.Point, FPQuaternion.Identity, shape, 
-				                                    FPVector3.Zero, f.PlayerCastLayerMask, QueryOptions.HitDynamics);
+				                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
 
 				for (var j = 0; j < hits.Count; j++)
 				{

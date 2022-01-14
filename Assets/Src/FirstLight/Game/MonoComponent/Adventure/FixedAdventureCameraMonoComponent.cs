@@ -22,15 +22,13 @@ namespace FirstLight.Game.MonoComponent.Adventure
 		[SerializeField] private CinemachineVirtualCamera _specialAimCamera;
 		
 		private IGameServices _services;
-		private CinemachineBasicMultiChannelPerlin _channelPerlinNoise;
 		private LocalInput _localInput;
-		private EntityView _playerEntityView;
+		private PlayerCharacterViewMonoComponent _playerCharacterView;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
-			_channelPerlinNoise = _adventureCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 			
 			_localInput.Gameplay.SpecialButton0.started += ctx => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton0.canceled += ctx => SetActiveCamera(_adventureCamera);
@@ -50,22 +48,25 @@ namespace FirstLight.Game.MonoComponent.Adventure
 		
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			_playerEntityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			var follow = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
 			
-			SetTargetTransform(_playerEntityView.transform);
+			SetTargetTransform(follow.transform);
 			SetActiveCamera(_spawnCamera);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			var follow = _playerEntityView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform;
-			
-			SetTargetTransform(follow);
+			SetTargetTransform(_playerCharacterView.RootTransform);
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
 			var entityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			
+			if (_playerCharacterView == null)
+			{
+				_playerCharacterView = entityView.GetComponentInChildren<PlayerCharacterViewMonoComponent>();
+			}
 			
 			SetTargetTransform(entityView.transform);
 			SetActiveCamera(_adventureCamera);

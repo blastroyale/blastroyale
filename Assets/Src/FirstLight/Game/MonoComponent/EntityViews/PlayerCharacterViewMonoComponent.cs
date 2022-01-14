@@ -304,7 +304,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			var fpPosition = (_lastPosition + Vector3.up).ToFPVector3();
+			var fpPosition = _lastPosition.ToFPVector3() + FPVector3.Up;
 			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / (FP._1 * 10)) + 1;
 			var angle = -weapon.AttackAngle / FP._2;
 			var angleStep = weapon.AttackAngle / FPMath.Max(FP._1, angleCount - 1);

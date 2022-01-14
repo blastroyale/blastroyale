@@ -150,18 +150,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
-		protected virtual void OnEntityDestroyed(QuantumGame game)
+		protected virtual void OnPlayerDead(QuantumGame game)
 		{
+			AnimatorWrapper.SetBool(Bools.Stun, false);
+			AnimatorWrapper.SetBool(Bools.Pickup, false);
+			Dissolve(false);
 		}
 		
 		private void HandleOnEntityDestroyed(QuantumGame game)
 		{
 			transform.parent = null;
 					
-			OnEntityDestroyed(game);
-			AnimatorWrapper.SetBool(Bools.Stun, false);
-			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			Dissolve(false);
+			OnPlayerDead(game);
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
 		}

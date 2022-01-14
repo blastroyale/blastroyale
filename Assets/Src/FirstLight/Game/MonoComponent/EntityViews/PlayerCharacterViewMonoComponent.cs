@@ -32,6 +32,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAwake();
 			
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, HandleOnPlayerDead);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
@@ -62,8 +63,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 
-		protected override void OnEntityDestroyed(QuantumGame game)
+		protected override void OnPlayerDead(QuantumGame game)
 		{
+			base.OnPlayerDead(game);
+			
 			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
 		}
 
@@ -181,11 +184,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
-			AnimatorWrapper.SetBool(Bools.Stun, false);
-			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			
-			Dissolve(false);
+			OnPlayerDead(callback.Game);
 		}
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)

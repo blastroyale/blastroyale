@@ -21,7 +21,7 @@ namespace Quantum
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
 			var player = playerCharacter.Player;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
-			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / (FP._1 * 10)) + 1;
+			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var angle = -weapon->AttackAngle / FP._2;
 			var team = f.Get<Targetable>(e).Team;

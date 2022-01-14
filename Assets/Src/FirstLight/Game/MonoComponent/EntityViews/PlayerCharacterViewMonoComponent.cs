@@ -288,7 +288,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (!_isDebugMode)
 			{
-				//return;
+				return;
 			}
 
 			DebugAttackGizmos(callback.Game);
@@ -304,20 +304,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			var fpPosition = _lastPosition.ToFPVector3() + FPVector3.Up;
-			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / (FP._1 * 10)) + 1;
+			var position = _lastPosition + Vector3.up;
+			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angle = -weapon.AttackAngle / FP._2;
 			var angleStep = weapon.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var aimingDirection = f.Get<AIBlackboardComponent>(EntityRef).GetVector2(f, Constants.AimDirectionKey).Normalized * 
 			                      weapon.AttackRange;
-			
-			Draw.Line(fpPosition, fpPosition + aimingDirection.XOY, ColorRGBA.Red);
 
 			for (var i = 0; i < angleCount; i++)
 			{
 				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
 				
-				Draw.Line(fpPosition, fpPosition + direction.XOY);
+				Debug.DrawLine(position, position + direction.XOY.ToUnityVector3(), 
+				               i == Mathf.FloorToInt(angleCount / 2f) ? Color.red : Color.black);
 
 				angle += angleStep;
 			}

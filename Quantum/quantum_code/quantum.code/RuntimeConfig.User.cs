@@ -18,7 +18,6 @@ namespace Quantum
 		public AssetRefQuantumGearConfigs GearConfigs;
 		public AssetRefQuantumConsumableConfigs ConsumableConfigs;
 		public AssetRefQuantumSpecialConfigs SpecialConfigs;
-		public AssetRefQuantumHazardConfigs HazardConfigs;
 		public AssetRefQuantumAssetConfigs AssetConfigs;
 		public AssetRefQuantumDestructibleConfigs DestructibleConfigs;
 		public AssetRefQuantumShrinkingCircleConfigs ShrinkingCircleConfigs;
@@ -39,7 +38,6 @@ namespace Quantum
 			stream.Serialize(ref GearConfigs);
 			stream.Serialize(ref ConsumableConfigs);
 			stream.Serialize(ref SpecialConfigs);
-			stream.Serialize(ref HazardConfigs);
 			stream.Serialize(ref AssetConfigs);
 			stream.Serialize(ref DestructibleConfigs);
 			stream.Serialize(ref ShrinkingCircleConfigs);

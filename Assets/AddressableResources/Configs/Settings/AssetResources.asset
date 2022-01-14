@@ -55,11 +55,6 @@ MonoBehaviour:
         Id:
           Value: 344788493933926436
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[NotShooting_5]
-    - Path: AddressableResources/Configs/HazardConfigs
-      AssetRef:
-        Id:
-          Value: 374155793228999426
-      Address: Configs/HazardConfigs.asset
     - Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityView
       AssetRef:
         Id:

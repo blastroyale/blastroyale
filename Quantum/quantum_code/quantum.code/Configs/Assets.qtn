@@ -5,6 +5,5 @@ asset QuantumBotConfigs;
 asset QuantumConsumableConfigs;
 asset QuantumDestructibleConfigs;
 asset QuantumSpecialConfigs;
-asset QuantumHazardConfigs;
 asset QuantumAssetConfigs;
 asset QuantumShrinkingCircleConfigs;

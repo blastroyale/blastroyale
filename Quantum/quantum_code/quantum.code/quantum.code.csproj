@@ -205,7 +205,6 @@
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />
     <Compile Include="Configs\QuantumGearConfigs.cs" />
     <Compile Include="Configs\QuantumDestructibleConfigs.cs" />
-    <Compile Include="Configs\QuantumHazardConfigs.cs" />
     <Compile Include="Configs\QuantumAssetConfigs.cs" />
     <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumGameConfigs.cs" />

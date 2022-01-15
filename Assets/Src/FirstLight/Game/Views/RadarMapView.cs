@@ -8,18 +8,19 @@ namespace FirstLight.Game.Views
 {
     public class RadarMapView : MonoBehaviour
     {
-        [SerializeField]
-        private RectTransform _radarBackground;
-
-        [SerializeField]
-        private GameObject _enemyPingPrefab;
-        
+        [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private RectTransform _radarBackground;
+        [SerializeField] private GameObject _enemyPingPrefab;
+        [SerializeField] private Animation _animation;
+        [SerializeField] private AnimationClip _smallMiniMapClip;
+        [SerializeField] private AnimationClip _extendedMiniMapClip;
         
         private const float RadiusWorldSpace = 15f;
         private readonly List<Transform> _players = new List<Transform>(30);
         private readonly List<Transform> _pingTransforms = new List<Transform>();
         private IGameServices _services;
         private EntityView _playerEntityView;
+        private bool _miniMapActivated;
         
         private void Awake()
         {
@@ -64,8 +65,16 @@ namespace FirstLight.Game.Views
 
             _players.Add(playerEntityView.transform);
         }
-        
-        
+
+        public void ToggleMiniMapView()
+        {
+            _animation.clip = _miniMapActivated ? _smallMiniMapClip : _extendedMiniMapClip;
+            _animation.Play();
+
+            _miniMapActivated = !_miniMapActivated;
+        }
+
+
         private void Update()
         {
             if (_playerEntityView == null)
@@ -75,6 +84,10 @@ namespace FirstLight.Game.Views
 
             RegulatePingInstances();
             PlotPingPositions();
+            
+            
+            var position = _smallMiniMapClip ? _playerEntityView.transform.position : Vector3.zero;
+            _cameraTransform.position = new Vector3(position.x, 10, position.z);
         }
 
         private void PlotPingPositions()

@@ -4667,7 +4667,7 @@ namespace Quantum {
           case EventOnLocalPlayerSpawned.ID: return typeof(EventOnLocalPlayerSpawned);
           case EventOnLocalPlayerAlive.ID: return typeof(EventOnLocalPlayerAlive);
           case EventOnLocalPlayerDead.ID: return typeof(EventOnLocalPlayerDead);
-          case EventOnLocalPlayerWeaponEmpty.ID: return typeof(EventOnLocalPlayerWeaponEmpty);
+          case EventOnLocalPlayerAmmoEmpty.ID: return typeof(EventOnLocalPlayerAmmoEmpty);
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
           case EventOnRemotePlayerLeft.ID: return typeof(EventOnRemotePlayerLeft);
           case EventOnRemotePlayerSpawned.ID: return typeof(EventOnRemotePlayerSpawned);
@@ -5053,10 +5053,10 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponEmpty OnLocalPlayerWeaponEmpty(PlayerRef Player, EntityRef Entity) {
+      public EventOnLocalPlayerAmmoEmpty OnLocalPlayerAmmoEmpty(PlayerRef Player, EntityRef Entity) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponEmpty>(EventOnLocalPlayerWeaponEmpty.ID);
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerAmmoEmpty>(EventOnLocalPlayerAmmoEmpty.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         _f.AddEvent(ev);
@@ -6423,14 +6423,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerWeaponEmpty : EventBase {
+  public unsafe partial class EventOnLocalPlayerAmmoEmpty : EventBase {
     public new const Int32 ID = 41;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerWeaponEmpty(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerWeaponEmpty() : 
+    public EventOnLocalPlayerAmmoEmpty() : 
         base(41, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {

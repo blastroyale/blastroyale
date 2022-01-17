@@ -53,7 +53,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				}
 			
 				QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
-				QuantumEvent.Subscribe<EventOnLocalPlayerWeaponEmpty>(this, HandleOnLocalPlayerWeaponEmpty);
+				QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 			}
 		}
 		
@@ -83,7 +83,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 		}
 		
-		private void HandleOnLocalPlayerWeaponEmpty(EventOnLocalPlayerWeaponEmpty callback)
+		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
 			if (callback.Entity != _entity)
 			{

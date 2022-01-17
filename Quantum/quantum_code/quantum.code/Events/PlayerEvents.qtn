@@ -77,7 +77,7 @@ synced event OnLocalPlayerDead
 	entity_ref EntityKiller;
 }
 
-synced event OnLocalPlayerWeaponEmpty
+synced event OnLocalPlayerAmmoEmpty
 {
 	local player_ref Player;
 	entity_ref Entity;

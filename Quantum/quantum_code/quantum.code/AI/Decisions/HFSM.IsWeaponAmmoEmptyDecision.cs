@@ -7,7 +7,7 @@ namespace Quantum
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-	public class IsWeaponEmpty : HFSMDecision
+	public class IsAmmoEmptyDecision : HFSMDecision
 	{
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e)

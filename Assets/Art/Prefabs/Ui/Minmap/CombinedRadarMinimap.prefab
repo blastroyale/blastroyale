@@ -140,7 +140,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294904029
+    m_Bits: 4294901965
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 7763e810eb3539049983a7acb2e9fd5e, type: 2}
   m_TargetDisplay: 0
@@ -442,7 +442,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRadarPing: {fileID: 8725738221799257494}
   _camera: {fileID: 1004498570666097496}
-  _cameraTransform: {fileID: 1004498570666097479}
   _radarBackground: {fileID: 1810341899012769135}
   _enemyPingPrefab: {fileID: 8356943869205122394, guid: 1893523c67514439d9af9336aac2c140, type: 3}
   _animation: {fileID: 1076470030576961878}

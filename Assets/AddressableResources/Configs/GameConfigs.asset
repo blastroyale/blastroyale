@@ -37,7 +37,7 @@ MonoBehaviour:
         RawValue: 62259
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
-        RawValue: 357990
+        RawValue: 250593
       PlayerDefaultInterimArmour: 1000
       CoinsPerRank: 30
       XpPerRank: 20

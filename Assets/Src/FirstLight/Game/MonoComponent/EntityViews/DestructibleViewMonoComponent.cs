@@ -43,7 +43,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleProjectileHit(EventOnProjectileHit callback)
 		{
-			if (callback.HitData.TargetHit != EntityRef)
+			if (callback.HitEntity != EntityRef)
 			{
 				return;
 			}
@@ -53,7 +53,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleDestructionScheduled(EventOnDestructibleScheduled callback)
 		{
-			if (callback.ProjectileData.Attacker != EntityView.EntityRef)
+			if (callback.Entity != EntityView.EntityRef)
 			{
 				return;
 			}

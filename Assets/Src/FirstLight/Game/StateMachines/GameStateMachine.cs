@@ -26,7 +26,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
 		private readonly MatchState _matchState;
-		private readonly GameSimulationState _gameSimulationState;
 		private readonly NetworkState _networkState;
 		private readonly MainMenuState _mainMenuState;
 		private readonly GameLogic _gameLogic;
@@ -57,7 +56,6 @@ namespace FirstLight.Game.StateMachines
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_matchState = new MatchState(gameLogic, services, uiService, assetAdderService, Trigger);
-			_gameSimulationState = new GameSimulationState(gameLogic, services, uiService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -80,7 +78,6 @@ namespace FirstLight.Game.StateMachines
 			var internetCheck = stateFactory.Choice("Internet Check");
 			var initialLoading = stateFactory.Split("Initial Loading");
 			var adventure = stateFactory.Split("Adventure");
-			var playAgainCheck = stateFactory.Choice("Play Again Check");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var ftueCheck = stateFactory.Choice("FTUE Check");
 			
@@ -100,17 +97,9 @@ namespace FirstLight.Game.StateMachines
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(adventure);
 			
-			adventure.Split(AdventureSetup, _networkState.Setup).Target(playAgainCheck);
-			
-			playAgainCheck.Transition().Condition(IsPlayAgainMarked).Target(adventure);
-			playAgainCheck.Transition().Target(mainMenu);
+			adventure.Split(_matchState.Setup, _networkState.Setup).Target(mainMenu);
 			
 			final.OnEnter(UnsubscribeEvents);
-
-			void AdventureSetup(IStateFactory factory)
-			{
-				_matchState.Setup(factory, _gameSimulationState);
-			}
 		}
 
 		private void SubscribeEvents()
@@ -126,11 +115,6 @@ namespace FirstLight.Game.StateMachines
 		private bool InternetCheck()
 		{
 			return Application.internetReachability == NetworkReachability.NotReachable;
-		}
-
-		private bool IsPlayAgainMarked()
-		{
-			return _gameSimulationState.IsPlayAgainMarked || IsFtueEnabled();
 		}
 
 		private void InitializeGame()

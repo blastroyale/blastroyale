@@ -77,7 +77,7 @@ synced event OnLocalPlayerDead
 	entity_ref EntityKiller;
 }
 
-synced event OnLocalPlayerFailedShoot
+synced event OnLocalPlayerAmmoEmpty
 {
 	local player_ref Player;
 	entity_ref Entity;
@@ -88,8 +88,6 @@ synced event OnLocalPlayerWeaponChanged
 	local player_ref Player;
 	entity_ref Entity;
 	GameId WeaponGameId;
-	bool ResetCooldownSpecial0;
-	bool ResetCooldownSpecial1;
 }
 
 // REMOTE PLAYER EVENTS
@@ -124,18 +122,13 @@ synced event OnRemotePlayerDead
 synced event OnPlayerAttacked
 {
 	entity_ref PlayerEntity;
-	PlayerCharacter PlayerCharacter;
+	player_ref Player;
 }
 
 synced event OnPlayerAttackHit
 {
 	entity_ref PlayerEntity;
 	player_ref Player;
-	Hit3D Hit;
-}
-
-synced event OnPlayerAttackMiss
-{
-	entity_ref PlayerEntity;
-	player_ref Player;
+	entity_ref HitEntity;
+	FPVector3 HitPosition;
 }

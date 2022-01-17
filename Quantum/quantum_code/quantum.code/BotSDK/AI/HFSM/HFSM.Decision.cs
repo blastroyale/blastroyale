@@ -1,10 +1,24 @@
 ﻿using Photon.Deterministic;
 using System;
 
-namespace Quantum {
-  public abstract unsafe partial class HFSMDecision {
-    public string Label;
+namespace Quantum
+{
+	public abstract unsafe partial class HFSMDecision
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    public abstract Boolean Decide(Frame f, EntityRef e);
-  }
+		public string Label;
+
+		// ========== HFSMDecision INTERFACE ==========================================================================
+
+		public virtual Boolean Decide(Frame frame, EntityRef entity)
+		{
+			return false;
+		}
+
+		public virtual Boolean DecideThreadSafe(FrameThreadSafe frame, EntityRef entity)
+		{
+			return Decide((Frame)frame, entity);
+		}
+	}
 }

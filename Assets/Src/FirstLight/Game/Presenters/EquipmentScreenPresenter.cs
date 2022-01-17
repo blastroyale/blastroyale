@@ -95,8 +95,6 @@ namespace FirstLight.Game.Presenters
 			
 			_closeButton.onClick.AddListener(Close);
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
-			_movieButton.onClick.AddListener(OnMovieClicked);
-			_weaponTypeButton.onClick.AddListener(OnMovieClicked);
 			_sellButton.onClick.AddListener(OnSellClicked);
 			_upgradeButton.onClick.AddListener(OnUpgradeClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
@@ -206,14 +204,6 @@ namespace FirstLight.Game.Presenters
 			for (int i = 0; i < _rarityImage.Length; i++)
 			{
 				_rarityImage[i].enabled = i == (int) info.DataInfo.Data.Rarity;
-			}
-			
-			if (info.IsWeapon)
-			{
-				var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) info.DataInfo.GameId);
-				
-				_weaponTypeText.text = config.IsAutoShoot ? ScriptLocalization.MainMenu.AutoFire : ScriptLocalization.MainMenu.ManualFire;
-				_weaponTypeImage.color = config.IsAutoShoot ? _autoFireColor : _manualFireColor;
 			}
 			
 			_movieButton.gameObject.SetActive(isWeapon);
@@ -428,30 +418,6 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			ShowPowerChange((int) previousPower);
-		}
-
-		private void OnMovieClicked()
-		{
-			if (!_gameDataProvider.EquipmentDataProvider.TryGetWeaponInfo(_uniqueId, out var info))
-			{
-				return;
-			}
-			
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.AWESOME,
-				ButtonOnClick = Services.GenericDialogService.CloseDialog
-			};
-
-			var title = info.WeaponConfig.IsAutoShoot ? 
-				            ScriptLocalization.MainMenu.AutoFire : 
-				            ScriptLocalization.MainMenu.ManualFire;
-			var description = info.WeaponConfig.IsAutoShoot ? 
-				                  ScriptLocalization.MainMenu.HoldToFireDescription : 
-				                  ScriptLocalization.MainMenu.DragAndReleaseToFireDescription;
-			var videoId = info.WeaponConfig.IsAutoShoot ? GameId.AssaultRifle : GameId.SniperRifle;
-			
-			Services.GenericDialogService.OpenVideoDialog(title, description, videoId, false, confirmButton);
 		}
 		
 		private void OnSellClicked()

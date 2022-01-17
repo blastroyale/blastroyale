@@ -20,7 +20,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			if (!f.IsVerified || f.ComponentCount<BotCharacter>() > 0)
+			if (f.ComponentCount<BotCharacter>() > 0)
 			{
 				return;
 			}
@@ -71,18 +71,18 @@ namespace Quantum.Systems
 			// If a bot has a valid target then we correct the bot's speed according
 			// to the weapon they carry and turn the bot towards the target
 			// otherwise we return speed to normal and let automatic navigation turn the bot
-			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var target = bb.GetEntityRef(f, Constants.TARGET_BB_KEY);
+			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
-				ClearTarget(f, ref filter, out target);
+				ClearTarget(f, ref filter);
 			}
 			else
 			{
-				kcc->MaxSpeed = speed * f.Get<Weapon>(filter.Entity).AimingMovementSpeedMultiplier;
+				kcc->MaxSpeed = speed * weapon.AimingMovementSpeed;
 				QuantumHelpers.LookAt2d(f, filter.Entity, target);
 			}
 			
@@ -92,7 +92,7 @@ namespace Quantum.Systems
 				// Bots also have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
 				if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
 				{
-					ClearTarget(f, ref filter, out target);
+					ClearTarget(f, ref filter);
 				}
 				else
 				{
@@ -102,7 +102,7 @@ namespace Quantum.Systems
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
-						var weaponTargetRange = bb.GetFP(f, Constants.WEAPON_TARGET_RANGE);
+						var weaponTargetRange = weapon.AttackRange;
 						var minDistanceToTarget = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position).SqrMagnitude;
 						if (sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
@@ -126,7 +126,7 @@ namespace Quantum.Systems
 			
 			if (TryUseSpecials(f, ref filter))
 			{
-				ClearTarget(f, ref filter, out target);
+				ClearTarget(f, ref filter);
 			}
 			
 			switch (filter.BotCharacter->BehaviourType)
@@ -184,29 +184,26 @@ namespace Quantum.Systems
 			return list;
 		}
 
-		private void ClearTarget(Frame f, ref BotCharacterFilter filter, out EntityRef target)
+		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
 		{
-			var bbPointer = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-			target = EntityRef.None;
-			bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
+			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
+			
+			filter.BotCharacter->Target = EntityRef.None;
 			
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
-			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			kcc->MaxSpeed = speed;
+			f.Unsafe.GetPointer<CharacterController3D>(filter.Entity)->MaxSpeed = speed;
 		}
 		
 		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter)
 		{
-			var bbPointer = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			var target = EntityRef.None;
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// If the bot's weapon is empty then we clear the target and leave the method
-			if (weapon.Emptied)
+			if (weapon.Ammo == 0)
 			{
-				bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
+				filter.BotCharacter->Target = EntityRef.None;
 				return;
 			}
 			
@@ -214,16 +211,16 @@ namespace Quantum.Systems
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = bbPointer->GetFP(f, Constants.WEAPON_TARGET_RANGE);
+			var targetRange = weapon.AttackRange;
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			
 			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 			
 			foreach (var targetCandidate in f.GetComponentIterator<Targetable>())
 			{
-				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity) || 
-				    team == targetCandidate.Component.Team || 
+				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity, team) || 
 				    !QuantumHelpers.IsEntityInRange(f, filter.Entity, targetCandidate.Entity, FP._0, targetRange))
 				{
 					continue;
@@ -240,11 +237,15 @@ namespace Quantum.Systems
 				if (hit.HasValue)
 				{
 					target = hit.Value.Entity;
+					
+					bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
 					break;
 				}
 			}
 			
-			bbPointer->Set(f, Constants.TARGET_BB_KEY, target);
+			filter.BotCharacter->Target = target;
+			
+			bb->Set(f, Constants.IsAimingKey, target != EntityRef.None);
 		}
 
 		// We check specials and try to use them depending on their type if possible
@@ -256,44 +257,15 @@ namespace Quantum.Systems
 			}
 			
 			var weaponPointer = f.Unsafe.GetPointer<Weapon>(filter.Entity);
+			var target = filter.BotCharacter->Target;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
 				var special = weaponPointer->Specials.GetPointer(specialIndex);
 				
-				if (!special->IsValid || !special->IsSpecialAvailable(f))
+				if ((target != EntityRef.None || special->SpecialType == SpecialType.ShieldSelfStatus) &&
+					special->IsValid && special->TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
 				{
-					continue;
-				}
-				
-				var tryUseSpecial = false;
-				
-				switch (special->SpecialType)
-				{
-					case SpecialType.Airstrike:
-					case SpecialType.StunGrenade:
-					case SpecialType.Grenade:
-					case SpecialType.HazardAimSpawn:
-					case SpecialType.ShieldedCharge:
-						var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-						var target = bb.GetEntityRef(f, Constants.TARGET_BB_KEY);
-						tryUseSpecial = target != EntityRef.None;
-						break;
-					case SpecialType.HealingField:
-						var stats = f.Get<Stats>(filter.Entity);
-						var maxHealth = stats.Values[(int) StatType.Health].StatValue;
-						tryUseSpecial = stats.CurrentHealth < maxHealth;
-						break;
-					case SpecialType.InvisibilitySelfStatus:
-					case SpecialType.RageSelfStatus:
-					case SpecialType.ShieldSelfStatus:
-						tryUseSpecial = true;
-						break;
-				}
-				
-				if (tryUseSpecial && special->TryUse(f, filter.Entity, FPVector2.Zero))
-				{
-					special->HandleUsed(f, filter.Entity);
 					return true;
 				}
 			}
@@ -371,7 +343,7 @@ namespace Quantum.Systems
 		{
 			var ammoConsumablePosition = FPVector3.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
-			var ratioAmmo = weapon.Capacity / weapon.MaxCapacity;
+			var ratioAmmo = weapon.Ammo / weapon.MaxAmmo;
 			var lowAmmoSensitivity = filter.BotCharacter->LowAmmoSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioAmmo) * lowAmmoSensitivity);
 			
@@ -397,7 +369,7 @@ namespace Quantum.Systems
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// Bots seek new weapons if they have a default one OR if the chance worked
-			var isGoing = weapon.GameId == Constants.DEFAULT_WEAPON_GAME_ID || f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
+			var isGoing = weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID || f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			
 			isGoing = isGoing && TryGetClosestWeapon(f, ref filter, out weaponPickupPosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, weaponPickupPosition);
@@ -410,7 +382,7 @@ namespace Quantum.Systems
 			var isGoing = f.RNG->Next() < filter.BotCharacter->ChanceToSeekEnemies;
 			
 			// If chance didn't work OR the bot's weapon is empty then we don't go for enemies
-			if (!isGoing || f.Get<Weapon>(filter.Entity).Emptied)
+			if (!isGoing || f.TryGet<Weapon>(filter.Entity, out var weapon) && weapon.Ammo == 0)
 			{
 				return false;
 			}
@@ -423,8 +395,7 @@ namespace Quantum.Systems
 			
 			foreach (var targetCandidate in iterator)
 			{
-				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity) ||
-				    team == targetCandidate.Component.Team)
+				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity, team))
 				{
 					continue;
 				}
@@ -444,8 +415,7 @@ namespace Quantum.Systems
 				return false;
 			}
 			
-			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var weaponTargetRange = bb.GetFP(f, Constants.WEAPON_TARGET_RANGE);
+			var weaponTargetRange = weapon.AttackRange;
 			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			// Do not go closer than 1 meter to target
 			var offsetDistance = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
@@ -520,7 +490,7 @@ namespace Quantum.Systems
 				var weaponCandidateId = f.Get<Collectable>(weaponCandidate.Entity).GameId;
 				
 				// Do not pick up the same weapon unless has less than 50% ammo
-				if (weapon.GameId == weaponCandidateId && weapon.Capacity > weapon.MaxCapacity * FP._0_50)
+				if (weapon.WeaponId == weaponCandidateId && weapon.Ammo > weapon.MaxAmmo * FP._0_50)
 				{
 					continue;
 				}
@@ -549,7 +519,7 @@ namespace Quantum.Systems
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var skins = GameIdGroup.PlayerSkin.GetIds();
-			var playerData = f.GetSingleton<GameContainer>().PlayersData;
+			var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
 			
@@ -580,7 +550,7 @@ namespace Quantum.Systems
 				{
 					Skin = skins[f.RNG->Next(0, skins.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id, weaponConfig.StartingRarity, 1),
+					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, 1),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
@@ -602,7 +572,7 @@ namespace Quantum.Systems
 					NextDecisionTime = FP._0,
 					NextLookForTargetsToShootAtTime = FP._0,
 				};
-				
+
 				botNamesIndices.RemoveAt(listNamesIndex);
 				
 				for(var j = 0; j < gearPieces; j++)
@@ -618,7 +588,6 @@ namespace Quantum.Systems
 					botCharacter.Gear[j] = equipment;
 					gearSlots.RemoveAt(slotIndex);
 				}
-				
 				
 				playerSpawners[rngSpawnIndex].Component->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 

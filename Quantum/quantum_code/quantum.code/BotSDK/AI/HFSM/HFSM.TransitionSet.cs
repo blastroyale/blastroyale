@@ -3,29 +3,34 @@ using System;
 
 namespace Quantum
 {
-  public partial class HFSMTransitionSet {
-    public string Label;
-    public AssetRefHFSMDecision PrerequisiteLink;
+	public partial class HFSMTransitionSet
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    public HFSMTransition[] Transitions;
+		public string Label;
+		public AssetRefHFSMDecision PrerequisiteLink;
 
-    [NonSerialized]
-    public HFSMDecision Prerequisite;
+		public HFSMTransition[] Transitions;
 
-    public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
-    {
-      base.Loaded(resourceManager, allocator);
+		[NonSerialized]
+		public HFSMDecision Prerequisite;
 
-      Prerequisite = (HFSMDecision)resourceManager.GetAsset(PrerequisiteLink.Id);
+		// ========== AssetObject INTERFACE ===========================================================================
 
-      if (Transitions != null)
-      {
-        for (int i = 0; i < Transitions.Length; i++)
-        {
-          Transitions[i].Setup(resourceManager);
-        }
-      }
-    }
-  }
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			base.Loaded(resourceManager, allocator);
+
+			Prerequisite = (HFSMDecision)resourceManager.GetAsset(PrerequisiteLink.Id);
+
+			if (Transitions != null)
+			{
+				for (int i = 0; i < Transitions.Length; i++)
+				{
+					Transitions[i].Setup(resourceManager);
+				}
+			}
+		}
+	}
 }
 

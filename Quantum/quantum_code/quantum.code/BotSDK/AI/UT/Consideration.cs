@@ -4,161 +4,167 @@ using Quantum.Prototypes;
 
 namespace Quantum
 {
-  [Serializable]
-  public struct ResponseCurvePack
-  {
-    public FP MultiplyFactor;
-    public AssetRefAIFunctionFP ResponseCurveRef;
-    [NonSerialized] public ResponseCurve ResponseCurve;
-  }
+	[Serializable]
+	public struct ResponseCurvePack
+	{
+		public FP MultiplyFactor;
+		public AssetRefAIFunction ResponseCurveRef;
+		[NonSerialized] public ResponseCurve ResponseCurve;
+	}
 
-  public unsafe partial class Consideration
-  {
-    public string Label;
+	// ============================================================================================================
 
-    public AssetRefAIFunctionInt RankRef;
-    public AssetRefAIFunctionBool CommitmentRef;
-    public AssetRefConsideration[] NextConsiderationsRefs;
-    public AssetRefAIAction[] OnEnterActionsRefs;
-    public AssetRefAIAction[] OnUpdateActionsRefs;
-    public AssetRefAIAction[] OnExitActionsRefs;
+	public unsafe partial class Consideration
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    [NonSerialized] public AIFunctionInt Rank;
-    [NonSerialized] public AIFunctionBool Commitment;
-    [NonSerialized] public Consideration[] NextConsiderations;
-    [NonSerialized] public AIAction[] OnEnterActions;
-    [NonSerialized] public AIAction[] OnUpdateActions;
-    [NonSerialized] public AIAction[] OnExitActions;
+		public string Label;
 
-    public ResponseCurvePack[] ResponseCurvePacks;
+		public AssetRefAIFunction RankRef;
+		public AssetRefAIFunction CommitmentRef;
+		public AssetRefConsideration[] NextConsiderationsRefs;
+		public AssetRefAIAction[] OnEnterActionsRefs;
+		public AssetRefAIAction[] OnUpdateActionsRefs;
+		public AssetRefAIAction[] OnExitActionsRefs;
 
-    public FP BaseScore;
+		[NonSerialized] public AIFunction<int> Rank;
+		[NonSerialized] public AIFunction<bool> Commitment;
+		[NonSerialized] public Consideration[] NextConsiderations;
+		[NonSerialized] public AIAction[] OnEnterActions;
+		[NonSerialized] public AIAction[] OnUpdateActions;
+		[NonSerialized] public AIAction[] OnExitActions;
 
-    public UTMomentumData MomentumData;
-    public FP Cooldown;
+		public ResponseCurvePack[] ResponseCurvePacks;
 
-    public byte Depth;
+		public FP BaseScore;
 
-    public int GetRank(Frame frame, EntityRef entity = default)
-    {
-      if (Rank == null)
-        return 0;
+		public UTMomentumData MomentumData;
+		public FP Cooldown;
 
-      return Rank.Execute(frame, entity);
-    }
+		public byte Depth;
 
-    public FP Score(Frame frame, EntityRef entity = default)
-    {
-      if (ResponseCurvePacks.Length == 0)
-        return 0;
+		// ========== PUBLIC METHODS ==================================================================================
 
-      FP score = 1;
-      for (int i = 0; i < ResponseCurvePacks.Length; i++)
-      {
-        score *= ResponseCurvePacks[i].ResponseCurve.Execute(frame, entity) * ResponseCurvePacks[i].MultiplyFactor;
+		public int GetRank(FrameThreadSafe frame, EntityRef entity = default)
+		{
+			if (Rank == null)
+				return 0;
 
-        // If we find a negative veto, the final score would be zero anyways, so we stop here
-        if(score == 0)
-        {
-          break;
-        }
-      }
+			return Rank.Execute(frame, entity);
+		}
 
-      score += BaseScore;
+		public FP Score(FrameThreadSafe frame, EntityRef entity = default)
+		{
+			if (ResponseCurvePacks.Length == 0)
+				return 0;
 
-      FP modificationFactor = 1 - (1 / ResponseCurvePacks.Length);
-      FP makeUpValue = (1 - score) * modificationFactor;
-      FP finalScore = score + (makeUpValue * score);
+			FP score = 1;
+			for (int i = 0; i < ResponseCurvePacks.Length; i++)
+			{
+				score *= ResponseCurvePacks[i].ResponseCurve.Execute(frame, entity) * ResponseCurvePacks[i].MultiplyFactor;
 
-      return finalScore;
-    }
+				// If we find a negative veto, the final score would be zero anyways, so we stop here
+				if (score == 0)
+				{
+					break;
+				}
+			}
 
-    public void OnEnter(Frame frame, UtilityReasoner* reasoner, EntityRef entity = default)
-    {
-      for (int i = 0; i < OnEnterActions.Length; i++)
-      {
-        OnEnterActions[i].Update(frame, entity);
-      }
-    }
+			score += BaseScore;
 
-    public void OnExit(Frame frame, UtilityReasoner* reasoner, EntityRef entity = default)
-    {
-      for (int i = 0; i < OnExitActions.Length; i++)
-      {
-        OnExitActions[i].Update(frame, entity);
-      }
-    }
+			FP modificationFactor = 1 - (1 / ResponseCurvePacks.Length);
+			FP makeUpValue = (1 - score) * modificationFactor;
+			FP finalScore = score + (makeUpValue * score);
 
-    public void OnUpdate(Frame frame, UtilityReasoner* reasoner, EntityRef entity = default)
-    {
-      for (int i = 0; i < OnUpdateActions.Length; i++)
-      {
-        OnUpdateActions[i].Update(frame, entity);
-      }
+			return finalScore;
+		}
 
-      if(NextConsiderationsRefs != null && NextConsiderationsRefs.Length > 0)
-      {
-        Consideration chosenConsideration = reasoner->SelectBestConsideration(frame, NextConsiderations, (byte)(Depth + 1), reasoner, entity);
-        if(chosenConsideration != default)
-        {
-          chosenConsideration.OnUpdate(frame, reasoner, entity);
-          UTManager.ConsiderationChosen?.Invoke(entity, chosenConsideration.Identifier.Guid.Value);
-        }
-      }
-    }
+		public void OnEnter(FrameThreadSafe frame, UtilityReasoner* reasoner, EntityRef entity = default)
+		{
+			for (int i = 0; i < OnEnterActions.Length; i++)
+			{
+				OnEnterActions[i].Update(frame, entity);
+			}
+		}
 
-    public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
-    {
-      base.Loaded(resourceManager, allocator);
+		public void OnExit(FrameThreadSafe frame, UtilityReasoner* reasoner, EntityRef entity = default)
+		{
+			for (int i = 0; i < OnExitActions.Length; i++)
+			{
+				OnExitActions[i].Update(frame, entity);
+			}
+		}
 
-      Rank = (AIFunctionInt)resourceManager.GetAsset(RankRef.Id);
+		public void OnUpdate(FrameThreadSafe frame, UtilityReasoner* reasoner, EntityRef entity = default)
+		{
+			for (int i = 0; i < OnUpdateActions.Length; i++)
+			{
+				OnUpdateActions[i].Update(frame, entity);
+			}
 
-      if (ResponseCurvePacks != null)
-      {
-        for (Int32 i = 0; i < ResponseCurvePacks.Length; i++)
-        {
-          ResponseCurvePacks[i].ResponseCurve = (ResponseCurve)resourceManager.GetAsset(ResponseCurvePacks[i].ResponseCurveRef.Id);
-          ResponseCurvePacks[i].MultiplyFactor = 1;
-        }
-      }
+			if (NextConsiderationsRefs != null && NextConsiderationsRefs.Length > 0)
+			{
+				Consideration chosenConsideration = reasoner->SelectBestConsideration(frame, NextConsiderations, (byte)(Depth + 1), reasoner, entity);
+				if (chosenConsideration != default)
+				{
+					chosenConsideration.OnUpdate(frame, reasoner, entity);
+					UTManager.ConsiderationChosen?.Invoke(entity, chosenConsideration.Identifier.Guid.Value);
+				}
+			}
+		}
 
-      OnEnterActions = new AIAction[OnEnterActionsRefs == null ? 0 : OnEnterActionsRefs.Length];
-      if (OnEnterActionsRefs != null)
-      {
-        for (Int32 i = 0; i < OnEnterActionsRefs.Length; i++)
-        {
-          OnEnterActions[i] = (AIAction)resourceManager.GetAsset(OnEnterActionsRefs[i].Id);
-        }
-      }
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			base.Loaded(resourceManager, allocator);
 
-      OnUpdateActions = new AIAction[OnUpdateActionsRefs == null ? 0 : OnUpdateActionsRefs.Length];
-      if (OnEnterActionsRefs != null)
-      {
-        for (Int32 i = 0; i < OnUpdateActionsRefs.Length; i++)
-        {
-          OnUpdateActions[i] = (AIAction)resourceManager.GetAsset(OnUpdateActionsRefs[i].Id);
-        }
-      }
+			Rank = (AIFunction<int>)resourceManager.GetAsset(RankRef.Id);
 
-      OnExitActions = new AIAction[OnExitActionsRefs == null ? 0 : OnExitActionsRefs.Length];
-      if (OnEnterActionsRefs != null)
-      {
-        for (Int32 i = 0; i < OnExitActionsRefs.Length; i++)
-        {
-          OnExitActions[i] = (AIAction)resourceManager.GetAsset(OnExitActionsRefs[i].Id);
-        }
-      }
+			if (ResponseCurvePacks != null)
+			{
+				for (Int32 i = 0; i < ResponseCurvePacks.Length; i++)
+				{
+					ResponseCurvePacks[i].ResponseCurve = (ResponseCurve)resourceManager.GetAsset(ResponseCurvePacks[i].ResponseCurveRef.Id);
+					ResponseCurvePacks[i].MultiplyFactor = 1;
+				}
+			}
 
-      Commitment = (AIFunctionBool)resourceManager.GetAsset(CommitmentRef.Id);
+			OnEnterActions = new AIAction[OnEnterActionsRefs == null ? 0 : OnEnterActionsRefs.Length];
+			if (OnEnterActionsRefs != null)
+			{
+				for (Int32 i = 0; i < OnEnterActionsRefs.Length; i++)
+				{
+					OnEnterActions[i] = (AIAction)resourceManager.GetAsset(OnEnterActionsRefs[i].Id);
+				}
+			}
 
-      NextConsiderations = new Consideration[NextConsiderationsRefs == null ? 0 : NextConsiderationsRefs.Length];
-      if (NextConsiderationsRefs != null)
-      {
-        for (Int32 i = 0; i < NextConsiderationsRefs.Length; i++)
-        {
-          NextConsiderations[i] = (Consideration)resourceManager.GetAsset(NextConsiderationsRefs[i].Id);
-        }
-      }
-    }
-  }
+			OnUpdateActions = new AIAction[OnUpdateActionsRefs == null ? 0 : OnUpdateActionsRefs.Length];
+			if (OnEnterActionsRefs != null)
+			{
+				for (Int32 i = 0; i < OnUpdateActionsRefs.Length; i++)
+				{
+					OnUpdateActions[i] = (AIAction)resourceManager.GetAsset(OnUpdateActionsRefs[i].Id);
+				}
+			}
+
+			OnExitActions = new AIAction[OnExitActionsRefs == null ? 0 : OnExitActionsRefs.Length];
+			if (OnEnterActionsRefs != null)
+			{
+				for (Int32 i = 0; i < OnExitActionsRefs.Length; i++)
+				{
+					OnExitActions[i] = (AIAction)resourceManager.GetAsset(OnExitActionsRefs[i].Id);
+				}
+			}
+
+			Commitment = (AIFunction<bool>)resourceManager.GetAsset(CommitmentRef.Id);
+
+			NextConsiderations = new Consideration[NextConsiderationsRefs == null ? 0 : NextConsiderationsRefs.Length];
+			if (NextConsiderationsRefs != null)
+			{
+				for (Int32 i = 0; i < NextConsiderationsRefs.Length; i++)
+				{
+					NextConsiderations[i] = (Consideration)resourceManager.GetAsset(NextConsiderationsRefs[i].Id);
+				}
+			}
+		}
+	}
 }

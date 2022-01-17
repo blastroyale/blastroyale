@@ -1,7 +1,7 @@
 ﻿namespace Quantum
 {
-  public partial class UTRoot
-  {
-    public AssetRefConsideration[] ConsiderationsRefs;
-  }
+	public partial class UTRoot
+	{
+		public AssetRefConsideration[] ConsiderationsRefs;
+	}
 }

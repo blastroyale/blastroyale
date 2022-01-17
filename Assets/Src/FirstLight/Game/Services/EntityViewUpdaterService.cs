@@ -34,13 +34,20 @@ namespace FirstLight.Game.Services
 	public class EntityViewUpdaterService : EntityViewUpdater, IEntityViewUpdaterService
 	{
 		private readonly IDictionary<EntityRef, EntityView> _viewsToDestroy = new Dictionary<EntityRef, EntityView>(256);
-		private readonly IList<EntityView> _viewsListToDestroy = new List<EntityView>(256);
+		private readonly List<EntityView> _viewsListToDestroy = new List<EntityView>(256);
 
 		private void LateUpdate()
 		{
-			for (var i = 0; i < _viewsListToDestroy.Count; i++)
+			foreach (var view in _viewsListToDestroy)
 			{
-				base.DestroyEntityViewInstance(_viewsListToDestroy[i]);
+				if (view.AssetGuid.IsValid) 
+				{
+					DestroyEntityViewInstance(view);
+				} 
+				else 
+				{
+					DisableMapEntityInstance(view);
+				}
 			}
 			
 			_viewsListToDestroy.Clear();
@@ -64,17 +71,20 @@ namespace FirstLight.Game.Services
 			return view;
 		}
 
-		protected override void DestroyEntityViewInstance(EntityView view)
+		protected override void DestroyEntityView(QuantumGame game, EntityView view)
 		{
+			if (game.Frames.Predicted == null)
+			{
+				return;
+			}
+			
 			if (view.ManualDisposal)
 			{
 				_viewsListToDestroy.Add(view);
 				_viewsToDestroy.Add(view.EntityRef, view);
 			}
-			else
-			{
-				base.DestroyEntityViewInstance(view);
-			}
+			
+			base.DestroyEntityView(game, view);
 		}
 	}
 }

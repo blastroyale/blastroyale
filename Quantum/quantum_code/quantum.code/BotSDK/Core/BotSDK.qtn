@@ -1,0 +1,11 @@
+﻿struct BotSDKData
+{
+	FP OriginalDeltaTime;
+	Int32 ElapsedTicks;
+	FP ElapsedPartialTicks;
+}
+
+global
+{
+	BotSDKData BotSDKData;
+}

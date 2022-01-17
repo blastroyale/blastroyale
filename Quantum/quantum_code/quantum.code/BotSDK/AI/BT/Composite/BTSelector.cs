@@ -3,52 +3,66 @@
 namespace Quantum
 {
 
-  /// <summary>
-  /// The selector task is similar to an or operation. It will return success as soon as one of its child tasks return success.
-  /// If a child task returns failure then it will sequentially run the next task. If no child task returns success then it will return failure.
-  /// </summary>
-  [Serializable]
-  public unsafe partial class BTSelector : BTComposite
-  {
-    protected override BTStatus OnUpdate(BTParams p)
-    {
-      BTStatus status = BTStatus.Success;
+	/// <summary>
+	/// The selector task is similar to an or operation. It will return success as soon as one of its child tasks return success.
+	/// If a child task returns failure then it will sequentially run the next task. If no child task returns success then it will return failure.
+	/// </summary>
+	[Serializable]
+	public unsafe partial class BTSelector : BTComposite
+	{
+		// ========== PROTECTED METHODS ===============================================================================
 
-      while (GetCurrentChild(p.Frame, p.BtAgent) < _childInstances.Length)
-      {
-        var currentChildId = GetCurrentChild(p.Frame, p.BtAgent);
-        var child = _childInstances[currentChildId];
+		protected override BTStatus OnUpdate(BTParams btParams)
+		{
+			BTStatus status = BTStatus.Success;
 
-        status = child.RunUpdate(p);
-        if (status == BTStatus.Failure)
-        {
-          SetCurrentChild(p.Frame, currentChildId + 1, p.BtAgent);
-        }
-        else
-          break;
-      }
+			while (GetCurrentChild(btParams.FrameThreadSafe, btParams.Agent) < _childInstances.Length)
+			{
+				var currentChildId = GetCurrentChild(btParams.FrameThreadSafe, btParams.Agent);
+				var child = _childInstances[currentChildId];
+				status = child.RunUpdate(btParams);
 
-      return status;
-    }
+				if (status == BTStatus.Abort && btParams.Agent->IsAborting == true)
+				{
+					return BTStatus.Abort;
+				}
 
-    internal override void ChildCompletedRunning(BTParams p, BTStatus childResult)
-    {
-      if (childResult == BTStatus.Failure)
-      {
-        var currentChild = GetCurrentChild(p.Frame, p.BtAgent);
-        SetCurrentChild(p.Frame, currentChild + 1, p.BtAgent);
-      }
-      else
-      {
-        SetCurrentChild(p.Frame, _childInstances.Length + 1, p.BtAgent);
+				if (status == BTStatus.Failure || status == BTStatus.Abort)
+				{
+					SetCurrentChild(btParams.FrameThreadSafe, currentChildId + 1, btParams.Agent);
+				}
+				else
+					break;
+			}
 
-        // If the child succeeded, then we already know that this sequence succeeded, so we can force it
-        SetStatus(p.Frame, BTStatus.Success, p.BtAgent);
+			return status;
+		}
 
-        // Trigger the debugging callbacks
-        BTManager.OnNodeSuccess?.Invoke(p.Entity, Guid.Value);
-        BTManager.OnNodeExit?.Invoke(p.Entity, Guid.Value);
-      }
-    }
-  }
+		// ========== INTERNAL METHODS ================================================================================
+
+		internal override void ChildCompletedRunning(BTParams btParams, BTStatus childResult)
+		{
+			if (childResult == BTStatus.Abort)
+			{
+				return;
+			}
+
+			if (childResult == BTStatus.Failure)
+			{
+				var currentChild = GetCurrentChild(btParams.FrameThreadSafe, btParams.Agent);
+				SetCurrentChild(btParams.FrameThreadSafe, currentChild + 1, btParams.Agent);
+			}
+			else
+			{
+				SetCurrentChild(btParams.FrameThreadSafe, _childInstances.Length, btParams.Agent);
+
+				// If the child succeeded, then we already know that this sequence succeeded, so we can force it
+				SetStatus(btParams.FrameThreadSafe, BTStatus.Success, btParams.Agent);
+
+				// Trigger the debugging callbacks
+				BTManager.OnNodeSuccess?.Invoke(btParams.Entity, Guid.Value);
+				BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value);
+			}
+		}
+	}
 }

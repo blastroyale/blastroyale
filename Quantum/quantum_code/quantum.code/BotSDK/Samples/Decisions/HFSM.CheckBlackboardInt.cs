@@ -18,15 +18,15 @@ namespace Quantum
 		public EValueComparison Comparison = EValueComparison.MoreThan;
 		public AIParamInt DesiredValue = 1;
 
-		public override unsafe bool Decide(Frame f, EntityRef e)
+		public override unsafe bool Decide(Frame frame, EntityRef entity)
 		{
-			var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 
-			var hfsmAgent = f.Unsafe.GetPointer<HFSMAgent>(e);
-			var config = hfsmAgent->GetConfig(f);
+			var agent = frame.Unsafe.GetPointer<HFSMAgent>(entity);
+			var aiConfig = agent->GetConfig(frame);
 
-			var comparisonValue = DesiredValue.Resolve(f, bbComponent, config);
-			var currentAmount = bbComponent->GetInteger(f, Key.Key);
+			var comparisonValue = DesiredValue.Resolve(frame, entity, blackboard, aiConfig);
+			var currentAmount = blackboard->GetInteger(frame, Key.Key);
 
 			switch (Comparison)
 			{

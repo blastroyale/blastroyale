@@ -23,7 +23,6 @@ struct UTMomentumPack
 	UTMomentumData MomentumData;
 }
 
-[Serializable]
 struct UTMomentumData
 {
 	Int32 Value;

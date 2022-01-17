@@ -1,13 +1,10 @@
-using Photon.Deterministic;
-
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// Handles specifics for Stun status modifier
 	/// </summary>
 	public unsafe class StunSystem : SystemSignalsOnly, 
-	                                 ISignalOnComponentAdded<Stun>, 
-	                                 ISignalProjectileTargetHit, ISignalStatusModifierCancelled
+	                                 ISignalOnComponentAdded<Stun>, ISignalStatusModifierCancelled
 	{
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, Stun* component)
@@ -17,24 +14,17 @@ namespace Quantum.Systems
 			{
 				navMeshPathfinder->Stop(f, entity, true);
 			}
+
+			if (f.Unsafe.TryGetPointer<BotCharacter>(entity, out var bot))
+			{
+				bot->Target = EntityRef.None;
+			}
 			
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
 			var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 			
-			bbComponent->Set(f, Constants.STUN_DURATION_BB_KEY, f.Get<Stats>(entity).CurrentStatusModifierDuration);
-			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.STUNNED_EVENT);
-		}
-		
-		/// <inheritdoc />
-		public void ProjectileTargetHit(Frame f, ProjectileHitData* data)
-		{
-			var projectileData = f.Get<Projectile>(data->Projectile).Data;
-			
-			if (projectileData.StunDuration > FP._0 && !data->IsStaticHit && f.Has<HFSMAgent>(data->TargetHit) &&
-			    f.TryGet<Stats>(data->TargetHit, out var stats) && stats.CurrentHealth > 0)
-			{
-				StatusModifiers.AddStatusModifierToEntity(f, data->TargetHit, StatusModifierType.Stun, projectileData.StunDuration);
-			}
+			bbComponent->Set(f, Constants.StunDurationKey, f.Get<Stats>(entity).CurrentStatusModifierDuration);
+			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
 		}
 
 		/// <inheritdoc />
@@ -42,7 +32,7 @@ namespace Quantum.Systems
 		{
 			if (type == StatusModifierType.Stun && f.Unsafe.TryGetPointer<HFSMAgent>(entity, out var agent))
 			{
-				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.STUN_CANCELLED_EVENT);
+				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunCancelledEvent);
 			}
 		}
 	}

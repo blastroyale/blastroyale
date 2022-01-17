@@ -3,52 +3,56 @@ using System;
 
 namespace Quantum
 {
-  [Serializable]
-  public unsafe partial class BTCooldown : BTDecorator
-  {
-    // How many time should we wait
-    public FP CooldownTime;
+	[Serializable]
+	public unsafe partial class BTCooldown : BTDecorator
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    // An indexer so we know when the time started counting
-    public BTDataIndex StartTimeIndex;
+		// How many time should we wait
+		public FP CooldownTime;
 
-    public override void Init(Frame frame, AIBlackboardComponent* bbComponent, BTAgent* btAgent)
-    {
-      base.Init(frame, bbComponent, btAgent);
+		// An indexer so we know when the time started counting
+		public BTDataIndex StartTimeIndex;
 
-      // We allocate space on the BTAgent so we can store the Start Time
-      btAgent->AddFPData(frame, 0);
-    }
+		// ========== BTNode INTERFACE ================================================================================
 
-    protected override BTStatus OnUpdate(BTParams p)
-    {
-      var result = base.OnUpdate(p);
+		public override void Init(Frame frame, AIBlackboardComponent* blackboard, BTAgent* agent)
+		{
+			base.Init(frame, blackboard, agent);
 
-      // We let the time check, which happens on the DryRun, happen
-      // If it results in success, then we store on the BTAgent the time value of the moment that it happened
-      if (result == BTStatus.Success)
-      {
-        var currentTime = p.Frame.DeltaTime * p.Frame.Number;
+			// We allocate space on the BTAgent so we can store the Start Time
+			agent->AddFPData(frame, 0);
+		}
 
-        var frame = p.Frame;
-        var entity = p.Entity;
-        p.BtAgent->SetFPData(frame, currentTime, StartTimeIndex.Index);
-      }
+		protected override BTStatus OnUpdate(BTParams btParams)
+		{
+			var result = base.OnUpdate(btParams);
 
-      return result;
-    }
+			// We let the time check, which happens on the DryRun, happen
+			// If it results in success, then we store on the BTAgent the time value of the moment that it happened
+			if (result == BTStatus.Success)
+			{
+				var currentTime = btParams.Frame.DeltaTime * btParams.Frame.Number;
 
-    // We get the Start Time stored on the BTAgent, then we check if the time + cooldown is already over
-    // If it is not over, then we return False, blocking the execution of the children nodes
-    public override Boolean DryRun(BTParams p)
-    {
-      var frame = p.Frame;
-      var entity = p.Entity;
-      FP startTime = p.BtAgent->GetFPData(frame, StartTimeIndex.Index);
+				var frame = btParams.Frame;
+				var entity = btParams.Entity;
+				btParams.Agent->SetFPData(frame, currentTime, StartTimeIndex.Index);
+			}
 
-      var currentTime = p.Frame.DeltaTime * p.Frame.Number;
+			return result;
+		}
 
-      return currentTime >= startTime + CooldownTime;
-    }
-  }
+		// We get the Start Time stored on the BTAgent, then we check if the time + cooldown is already over
+		// If it is not over, then we return False, blocking the execution of the children nodes
+		public override Boolean DryRun(BTParams btParams)
+		{
+			var frame = btParams.Frame;
+			var entity = btParams.Entity;
+			FP startTime = btParams.Agent->GetFPData(frame, StartTimeIndex.Index);
+
+			var currentTime = btParams.Frame.DeltaTime * btParams.Frame.Number;
+
+			return currentTime >= startTime + CooldownTime;
+		}
+	}
 }

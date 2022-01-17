@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
-using FirstLight.Game.MonoComponent.Adventure;
 using FirstLight.Game.MonoComponent.EntityViews;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -68,7 +68,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var game = QuantumRunner.Default;
 			var frame = game == null ? null : game.Game?.Frames?.Verified;
-			var isEmptied = frame?.Get<Weapon>(EntityView.EntityRef).Emptied ?? false;
+			var isEmptied = frame != null && frame.TryGet<Weapon>(EntityView.EntityRef, out var weapon) && weapon.IsEmpty;
 			var direction = context.ReadValue<Vector2>();
 			
 			_shootIndicator.SetTransformState(direction);
@@ -86,7 +86,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var game = QuantumRunner.Default;
 			var frame = game == null ? null : game.Game?.Frames?.Verified;
-			var isEmptied = frame?.Get<Weapon>(EntityView.EntityRef).Emptied ?? false;
+			var isEmptied = frame != null && frame.TryGet<Weapon>(EntityView.EntityRef, out var weapon) && weapon.IsEmpty;
 			var isDown = context.ReadValueAsButton();
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
@@ -106,7 +106,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_specialAimIndicator.Key?.SetVisualState(true);
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key?.SetVisualProperties(config.SplashRadius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
@@ -123,11 +123,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_specialAimIndicator.Key?.SetVisualState(true);
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key?.SetVisualProperties(config.SplashRadius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
-		private void HandleOnLocalPlayerFailedShoot(EventOnLocalPlayerFailedShoot callback)
+		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
 			var shootState = _shootIndicator?.VisualState ?? false;
 			
@@ -233,7 +233,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
-			QuantumEvent.Subscribe<EventOnLocalPlayerFailedShoot>(this, HandleOnLocalPlayerFailedShoot);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
 		private void SetWeaponIndicators(GameId weapon)
@@ -241,15 +241,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var configProvider = Services.ConfigsProvider;
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
 			var config = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
-			var range = config.TargetRange.AsFloat;
+			var range = config.AttackRange.AsFloat;
 			var shootState = _shootIndicator?.VisualState ?? false;
-			var angleInRad = config.IsDiagonalshot
-				                 ? configProvider.GetConfig<QuantumDiagonalshotConfig>((int) config.Id).BaseAngle
-				                 : config.BulletSpreadAngle;
+			var angleInRad = config.AttackAngle;
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
+			var indicator = angleInRad > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
-			if (range <= Constants.MELEE_WEAPON_RANGE_THRESHOLD.AsFloat && config.SplashRadius > FP._0)
+			if (config.Id == GameId.Hammer && config.SplashRadius > FP._0)
 			{
 				range += config.SplashRadius.AsFloat;
 				size = config.SplashRadius.AsFloat * 2f;
@@ -257,7 +256,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_shootIndicator?.SetVisualState(false);
 			
-			_shootIndicator = _indicators[(int) config.Indicator] as ITransformIndicator;
+			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualProperties(range, 0, range);
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(shootState);

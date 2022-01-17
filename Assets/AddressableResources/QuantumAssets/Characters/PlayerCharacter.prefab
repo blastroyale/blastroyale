@@ -182,8 +182,8 @@ MonoBehaviour:
       Value: 448
   PhysicsBody:
     IsEnabled: 0
-    Version2D: 0
-    Version3D: 0
+    Version2D: 2
+    Version3D: 2
     Config2D: 116
     Config3D: 58
     RotationFreeze: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BindBehaviour: 1
-  ManualDisposal: 0
+  ManualDisposal: 1
   GameObjectNameIsEntityRef: 0
   ErrorCorrectionRateMin: 3.3
   ErrorCorrectionRateMax: 10
@@ -290,18 +290,15 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 1022242325826308483
+        Value: 3004986853085767605
     BlackboardRef:
       Id:
-        Value: 4429615334325005816
+        Value: 2645699745187393063
     KccConfigRef:
       Id:
         Value: 2480520579551617486
     SpawnTime:
       RawValue: 131072
-    Projectile:
-      Id:
-        Value: 727426939994474453
     ProjectileSpawnOffset:
       X:
         RawValue: 10944

@@ -4,6 +4,7 @@ struct PlayerMatchData
 	entity_ref Entity;
 	UInt32 PlayerLevel;
 	GameId PlayerSkin;
+	Int32 BotNameIndex;
 	
 	FP FirstDeathTime;
 	UInt32 PlayersKilledCount;

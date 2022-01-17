@@ -2,11 +2,7 @@ using System.Collections.Generic;
 using FirstLight.Editor.EditorTools;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Utils;
-using FirstLight.GoogleSheetImporter;
 using Quantum;
-using UnityEditor;
 
 namespace FirstLight.Editor.SheetImporters
 {
@@ -14,7 +10,7 @@ namespace FirstLight.Editor.SheetImporters
 	public class SpecialConfigsImporter : GoogleSheetConfigsAssetImporterBase<QuantumSpecialConfig, SpecialConfigs, QuantumPrototypeAssetConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=717164846";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1389279474";
 		
 		protected override QuantumSpecialConfig DeserializeAsset(Dictionary<string, string> data, QuantumPrototypeAssetConfigs assetConfigs)
 		{

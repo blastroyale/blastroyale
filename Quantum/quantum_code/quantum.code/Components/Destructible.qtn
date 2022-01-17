@@ -10,8 +10,6 @@ component Destructible
 
 synced event OnDestructibleScheduled
 {
-	entity_ref DestructibleEntity;
+	entity_ref Entity;
 	Destructible Destructible;
-	entity_ref ProjectileEntity;
-	ProjectileData ProjectileData;
 }

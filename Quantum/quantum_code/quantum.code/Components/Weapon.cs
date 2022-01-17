@@ -5,19 +5,19 @@ namespace Quantum
 	public unsafe partial struct Weapon
 	{
 		/// <summary>
+		/// Requests the ammo state of the <see cref="Weapon"/>
+		/// </summary>
+		public bool IsEmpty => Ammo == 0;
+		
+		/// <summary>
 		/// Gives the given ammo <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// </summary>
 		internal void GainAmmo(uint amount)
 		{
 			var consumablePower = amount / FP._100;
-			var updatedCapacity = (uint) (Capacity + FPMath.CeilToInt(MaxCapacity * consumablePower));
+			var updatedAmmo = Ammo + FPMath.CeilToInt(MaxAmmo * consumablePower);
 			
-			Capacity = updatedCapacity > MaxCapacity ? MaxCapacity : updatedCapacity;
-			
-			if (Emptied && Capacity >= MinCapacityToShoot)
-			{
-				Emptied = false;
-			}
+			Ammo = updatedAmmo > MaxAmmo ? MaxAmmo : updatedAmmo;
 		}
 	}
 }

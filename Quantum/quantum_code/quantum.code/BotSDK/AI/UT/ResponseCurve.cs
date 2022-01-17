@@ -3,31 +3,42 @@ using System;
 
 namespace Quantum
 {
-  [BotSDKHidden]
-  [System.Serializable]
-  public unsafe partial class ResponseCurve : AIFunctionFP
-  {
-    public AIParamFP Input;
+	[BotSDKHidden]
+	[System.Serializable]
+	public unsafe partial class ResponseCurve : AIFunction<FP>
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    [BotSDKHidden]
-    public FPAnimationCurve Curve;
+		public AIParamFP Input;
 
-    public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
-    {
-      base.Loaded(resourceManager, allocator);
-    }
+		[BotSDKHidden]
+		public FPAnimationCurve Curve;
 
-    public override FP Execute(Frame frame, EntityRef entity = default)
-    {
-      if (Input.FunctionRef == default) return 0;
+		// ========== AssetObject INTERFACE ===========================================================================
 
-      FP input = Input.ResolveFunc(frame, entity);
-      FP result = Curve.Evaluate(input);
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			base.Loaded(resourceManager, allocator);
+		}
 
-      if (result > 1) result = 1;
-      else if (result < 0) result = 0;
+		// ========== AIFunctionFP INTERFACE ==========================================================================
 
-      return result;
-    }
-  }
+		public override FP Execute(Frame frame, EntityRef entity)
+		{
+			return Execute((FrameThreadSafe)frame, entity);
+		}
+
+		public override FP Execute(FrameThreadSafe frame, EntityRef entity = default)
+		{
+			if (Input.FunctionRef == default) return 0;
+
+			FP input = Input.ResolveFunction(frame, entity);
+			FP result = Curve.Evaluate(input);
+
+			if (result > 1) result = 1;
+			else if (result < 0) result = 0;
+
+			return result;
+		}
+	}
 }

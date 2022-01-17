@@ -61,18 +61,12 @@ namespace Quantum
 		/// <summary>
 		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
 		/// </summary>
-		public static bool IsAttackable(Frame f, EntityRef e)
-		{
-			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) && !targetable.IsUntargetable;
-		}
-		
-		/// <summary>
-		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
-		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			return !IsDestroyed(f, e) && 
-			       f.TryGet<Targetable>(e, out var targetable) && !targetable.IsUntargetable && targetable.Team != attackerTeam;
+			var neutral = (int)TeamType.Neutral;
+			
+			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
+			       (targetable.Team != attackerTeam || targetable.Team == neutral || attackerTeam == neutral);
 		}
 		
 		/// <summary>
@@ -81,6 +75,66 @@ namespace Quantum
 		public static bool IsDestroyed(Frame f, EntityRef e)
 		{
 			return !f.Exists(e) || !e.IsValid || f.Has<EntityDestroyer>(e);
+		}
+
+		/// <summary>
+		/// Process an AOE attack from the given <paramref name="attackSource"/> with the given defined data.
+		/// On each hit, the <paramref name="onHitCallback"/> will be called.
+		/// Return true if at least one hit was successful, false otherwise.
+		/// </summary>
+		public static bool ProcessAreaHit(Frame f, EntityRef attacker, EntityRef attackSource, FP radius, FPVector3 position, 
+		                                  uint powerAmount, int teamSource,
+		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback)
+		{
+			var onHit = false;
+			var sqrtRadius = radius * radius;
+			var shape = Shape3D.CreateSphere(radius);
+			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
+			                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
+
+			for (var j = 0; j < hits.Count; j++)
+			{
+				var hitPoint = hits[j].Point;
+				var hitEntity = hits[j].Entity;
+				var normalized = (hitPoint - position).SqrMagnitude / sqrtRadius;
+				var amount = (uint) FPMath.RoundToInt(powerAmount * normalized);
+
+				if (hitEntity != attacker && hitEntity != attackSource && 
+				    ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, amount))
+				{
+					onHit = true;
+					
+					onHitCallback(f, attacker, attackSource, hitEntity, hitPoint);
+				}
+			}
+
+			return onHit;
+		}
+
+		/// <summary>
+		/// Process a hit source from the given <paramref name="attackerEntity"/> to the given <paramref name="hitEntity"/>
+		/// to create a <see cref="Spell"/> to be processed.
+		/// Returns true if the hit was successful and false otherwise
+		/// </summary>
+		public static bool ProcessHit(Frame f, EntityRef attackerEntity, EntityRef hitEntity, FPVector3 hitPoint, 
+		                              int attackerTeam, uint amount)
+		{
+			if (!IsAttackable(f, hitEntity, attackerTeam))
+			{
+				return false;
+			}
+			
+			var spell = new Spell
+			{
+				Attacker = attackerEntity,
+				PowerAmount = amount,
+				TeamSource = attackerTeam,
+				OriginalHitPosition = hitPoint
+			};
+
+			f.Add(hitEntity, spell);
+
+			return true;
 		}
 		
 		/// <summary>

@@ -1,0 +1,14 @@
+﻿struct GOAPState
+{
+	EWorldState Positive;
+	EWorldState Negative;
+}
+
+[Flags]
+enum EWorldState : UInt32
+{
+	None                = 0,
+	Idle                = 1,
+	CarryingTarget      = 2,
+	TargetDelivered     = 4,
+}

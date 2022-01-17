@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 1076470030576961878}
   - component: {fileID: 518225895316097783}
   m_Layer: 0
-  m_Name: CombinedRadarMinimap
+  m_Name: Minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

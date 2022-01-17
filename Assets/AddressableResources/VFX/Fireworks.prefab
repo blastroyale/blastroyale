@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7887054753608424683}
   - component: {fileID: 7887054753608424682}
   - component: {fileID: -1891869093385300265}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fireworks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

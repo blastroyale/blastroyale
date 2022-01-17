@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4606365370276110}
   - component: {fileID: 2138159956950216446}
-  m_Layer: 0
-  m_Name: RGPMuzzleFlash
+  m_Layer: 11
+  m_Name: RPGMuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6471698914850408492}
   - component: {fileID: 6518577627085483595}
   - component: {fileID: 5083082508218658185}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MuzzleFlashRPG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,7 @@ VisualEffect:
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
       m_Array: []
@@ -125,6 +126,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

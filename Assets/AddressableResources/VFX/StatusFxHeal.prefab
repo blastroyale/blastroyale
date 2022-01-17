@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 8983657958151232221}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StatusFxHeal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8395110327329983820}
   - component: {fileID: 8395110327329983818}
   - component: {fileID: 8395110327329983819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,6 +191,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

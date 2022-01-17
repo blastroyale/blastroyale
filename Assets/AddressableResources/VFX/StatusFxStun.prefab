@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3371803324989641677}
   - component: {fileID: 3371803324989641679}
   - component: {fileID: 3371803324989641678}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Stun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ VisualEffect:
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
       m_Array:
@@ -150,6 +151,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -194,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 746074294436848934}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StatusFxStun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

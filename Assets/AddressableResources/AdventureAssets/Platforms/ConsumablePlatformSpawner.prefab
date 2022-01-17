@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 865124021322792985}
   - component: {fileID: 6678472298258646616}
   - component: {fileID: 1287442934847808098}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 2188751142976748592}
   - component: {fileID: 2522719600255484432}
   - component: {fileID: 6329297094479278746}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 6375513295203996185}
   - component: {fileID: 8978940664760114754}
   - component: {fileID: 5153027604715973720}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ConsumablePlatformSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 818346084855927308}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 2955708844222177330}
   - component: {fileID: 1890879610059741675}
   - component: {fileID: 2406062661820886864}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5194,6 +5194,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 818346084855927308}
     m_Modifications:
+    - target: {fileID: 5401616873852070738, guid: dd4417b76bbd10a419607d4be5c903f5, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5401616873852070740, guid: dd4417b76bbd10a419607d4be5c903f5, type: 3}
       propertyPath: m_FillAmount
       value: 0
@@ -5245,6 +5249,14 @@ PrefabInstance:
     - target: {fileID: 5401616874869108253, guid: dd4417b76bbd10a419607d4be5c903f5, type: 3}
       propertyPath: m_Name
       value: RadialIndicator3DView
+      objectReference: {fileID: 0}
+    - target: {fileID: 5401616874869108253, guid: dd4417b76bbd10a419607d4be5c903f5, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5401616875688700564, guid: dd4417b76bbd10a419607d4be5c903f5, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4417b76bbd10a419607d4be5c903f5, type: 3}

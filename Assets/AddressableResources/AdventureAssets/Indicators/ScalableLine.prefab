@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52538998560082273}
   - component: {fileID: 5609014838248470559}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ScalableLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 2131109484766670311}
   - component: {fileID: 6819182855212280976}
   - component: {fileID: 6597072799151200449}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}

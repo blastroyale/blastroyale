@@ -58,6 +58,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laserbolt_Heal
       objectReference: {fileID: 0}
+    - target: {fileID: 3863318529409858551, guid: 0686bf0dc64764f489abce2ee0775ede, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8049726262138067315, guid: 0686bf0dc64764f489abce2ee0775ede, type: 3}
       propertyPath: m_RootOrder
       value: 0

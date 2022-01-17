@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52538998560082273}
   - component: {fileID: 5523244623572303846}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Radial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _indicator: {fileID: 5384027589429659013}
   _localHeight: -0.1
+  _initiallyEnabled: 0
 --- !u!1001 &652661122393980343
 PrefabInstance:
   m_ObjectHideFlags: 0

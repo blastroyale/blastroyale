@@ -25,21 +25,10 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			var shape = Shape3D.CreateSphere(filter.Destructible->SplashRadius);
 			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
-			var hits = f.Physics3D.ShapeCastAll(filter.Transform->Position, FPQuaternion.Identity, shape, 
-			                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
 
-			for (var j = 0; j < hits.Count; j++)
-			{
-				if (hits[j].Entity == filter.Entity)
-				{
-					continue;
-				}
-				
-				QuantumHelpers.ProcessHit(f, filter.Entity, hits[j].Entity, hits[j].Point,
-				                          filter.Targetable->Team, power);
-			}
+			QuantumHelpers.ProcessAreaHit(f, filter.Entity, filter.Entity, filter.Destructible->SplashRadius,
+			                              filter.Transform->Position, power, filter.Targetable->Team);
 			
 			f.Add<EntityDestroyer>(filter.Entity);
 		}

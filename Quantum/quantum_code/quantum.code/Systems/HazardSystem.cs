@@ -30,7 +30,7 @@ namespace Quantum.Systems
 			}
 			
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
-
+			
 			QuantumHelpers.ProcessAreaHit(f, hazard->Attacker, filter.Entity, hazard->Radius,
 			                              filter.Transform->Position, hazard->PowerAmount, hazard->TeamSource, OnHit);
 		}

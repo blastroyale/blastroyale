@@ -84,13 +84,13 @@ namespace Quantum
 		/// </summary>
 		public static bool ProcessAreaHit(Frame f, EntityRef attacker, EntityRef attackSource, FP radius, FPVector3 position, 
 		                                  uint powerAmount, int teamSource,
-		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback)
+		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback = null)
 		{
 			var onHit = false;
 			var sqrtRadius = radius * radius;
 			var shape = Shape3D.CreateSphere(radius);
-			var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, 
-			                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
+			var hits = f.Physics3D.OverlapShape(position, FPQuaternion.Identity, shape, f.TargetAllLayerMask, 
+			                                    QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 
 			for (var j = 0; j < hits.Count; j++)
 			{
@@ -104,7 +104,7 @@ namespace Quantum
 				{
 					onHit = true;
 					
-					onHitCallback(f, attacker, attackSource, hitEntity, hitPoint);
+					onHitCallback?.Invoke(f, attacker, attackSource, hitEntity, hitPoint);
 				}
 			}
 

@@ -10,7 +10,6 @@ namespace FirstLight.Game.Views
     {
         [SerializeField] private Transform _playerRadarPing;
         [SerializeField] private Camera _camera;
-        [SerializeField] private Transform _cameraTransform;
         [SerializeField] private RectTransform _radarBackground;
         [SerializeField] private GameObject _enemyPingPrefab;
         [SerializeField] private Animation _animation;
@@ -18,6 +17,7 @@ namespace FirstLight.Game.Views
         [SerializeField] private AnimationClip _extendedMiniMapClip;
         
         private const float CameraHeight = 10;
+        private Transform _cameraTransform;
         private readonly List<Transform> _players = new List<Transform>(30);
         private readonly List<Transform> _pingTransforms = new List<Transform>();
         private IGameServices _services;
@@ -29,6 +29,8 @@ namespace FirstLight.Game.Views
         {
             _services = MainInstaller.Resolve<IGameServices>();
 
+            _cameraTransform = _camera.transform;
+
             QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandlePlayerSpawned);
             QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
             QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
@@ -39,15 +41,17 @@ namespace FirstLight.Game.Views
         private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
         {
             _playerEntityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+            
+            _services.TickService.SubscribeOnUpdate(UpdateTick);
+        }
+        
+        private void OnDestroy()
+        {
+            _services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
         }
 
-        private void Update()
+        private void UpdateTick(float deltaTime)
         {
-            if (_playerEntityView == null)
-            {
-                return;
-            }
-
             RegulatePingInstances();
             PlotPingPositions();
 

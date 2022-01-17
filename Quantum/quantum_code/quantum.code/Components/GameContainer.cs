@@ -18,6 +18,7 @@ namespace Quantum
 				Player = player,
 				PlayerLevel = playerLevel,
 				PlayerSkin = skin,
+				BotNameIndex = f.TryGet<BotCharacter>(playerEntity, out var bot) ? bot.BotNameIndex : 0
 			};
 		}
 

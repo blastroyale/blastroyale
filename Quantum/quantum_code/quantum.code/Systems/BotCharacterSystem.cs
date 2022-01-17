@@ -20,7 +20,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			if (!f.IsVerified || f.ComponentCount<BotCharacter>() > 0)
+			if (f.ComponentCount<BotCharacter>() > 0)
 			{
 				return;
 			}
@@ -519,7 +519,7 @@ namespace Quantum.Systems
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var skins = GameIdGroup.PlayerSkin.GetIds();
-			var playerData = f.GetSingleton<GameContainer>().PlayersData;
+			var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
 			
@@ -572,7 +572,7 @@ namespace Quantum.Systems
 					NextDecisionTime = FP._0,
 					NextLookForTargetsToShootAtTime = FP._0,
 				};
-				
+
 				botNamesIndices.RemoveAt(listNamesIndex);
 				
 				for(var j = 0; j < gearPieces; j++)
@@ -588,7 +588,6 @@ namespace Quantum.Systems
 					botCharacter.Gear[j] = equipment;
 					gearSlots.RemoveAt(slotIndex);
 				}
-				
 				
 				playerSpawners[rngSpawnIndex].Component->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 

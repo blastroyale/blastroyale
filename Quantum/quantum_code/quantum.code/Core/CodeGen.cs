@@ -2458,35 +2458,38 @@ namespace Quantum {
   public unsafe partial struct PlayerMatchData {
     public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
-    public UInt32 DamageDone;
+    [FieldOffset(4)]
+    public Int32 BotNameIndex;
     [FieldOffset(12)]
-    public UInt32 DamageReceived;
+    public UInt32 DamageDone;
     [FieldOffset(16)]
+    public UInt32 DamageReceived;
+    [FieldOffset(20)]
     public UInt32 DeathCount;
     [FieldOffset(48)]
     public EntityRef Entity;
     [FieldOffset(56)]
     public FP FirstDeathTime;
-    [FieldOffset(20)]
-    public UInt32 HealingDone;
     [FieldOffset(24)]
-    public UInt32 HealingReceived;
-    [FieldOffset(4)]
-    public PlayerRef Player;
+    public UInt32 HealingDone;
     [FieldOffset(28)]
+    public UInt32 HealingReceived;
+    [FieldOffset(8)]
+    public PlayerRef Player;
+    [FieldOffset(32)]
     public UInt32 PlayerLevel;
     [FieldOffset(0)]
     public GameId PlayerSkin;
-    [FieldOffset(32)]
-    public UInt32 PlayersKilledCount;
     [FieldOffset(36)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayersKilledCount;
     [FieldOffset(40)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(44)]
     public UInt32 SuicideCount;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 271;
+        hash = hash * 31 + BotNameIndex.GetHashCode();
         hash = hash * 31 + DamageDone.GetHashCode();
         hash = hash * 31 + DamageReceived.GetHashCode();
         hash = hash * 31 + DeathCount.GetHashCode();
@@ -2506,6 +2509,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerMatchData*)ptr;
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
+        serializer.Stream.Serialize(&p->BotNameIndex);
         PlayerRef.Serialize(&p->Player, serializer);
         serializer.Stream.Serialize(&p->DamageDone);
         serializer.Stream.Serialize(&p->DamageReceived);
@@ -8145,6 +8149,7 @@ namespace Quantum.Prototypes {
     public MapEntityId Entity;
     public UInt32 PlayerLevel;
     public GameId_Prototype PlayerSkin;
+    public Int32 BotNameIndex;
     public FP FirstDeathTime;
     public UInt32 PlayersKilledCount;
     public UInt32 DamageDone;
@@ -8156,6 +8161,7 @@ namespace Quantum.Prototypes {
     public UInt32 SpecialsUsedCount;
     partial void MaterializeUser(Frame frame, ref PlayerMatchData result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref PlayerMatchData result, in PrototypeMaterializationContext context) {
+      result.BotNameIndex = this.BotNameIndex;
       result.DamageDone = this.DamageDone;
       result.DamageReceived = this.DamageReceived;
       result.DeathCount = this.DeathCount;

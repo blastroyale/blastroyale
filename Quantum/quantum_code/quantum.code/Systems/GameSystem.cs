@@ -62,6 +62,7 @@ namespace Quantum.Systems
 			f.SystemDisable(typeof(PlayerCharacterSystem));
 			f.SystemDisable(typeof(ProjectileSystem));
 			f.SystemDisable(typeof(HazardSystem));
+			f.SystemDisable(typeof(ShrinkingCircleSystem));
 		}
 
 		/// <inheritdoc />

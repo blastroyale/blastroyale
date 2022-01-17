@@ -8,6 +8,8 @@ namespace FirstLight.Game.Views
 {
     public class RadarMapView : MonoBehaviour
     {
+        [SerializeField] private Transform _playerRadarPing;
+        [SerializeField] private Camera _camera;
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private RectTransform _radarBackground;
         [SerializeField] private GameObject _enemyPingPrefab;
@@ -15,12 +17,13 @@ namespace FirstLight.Game.Views
         [SerializeField] private AnimationClip _smallMiniMapClip;
         [SerializeField] private AnimationClip _extendedMiniMapClip;
         
-        private const float RadiusWorldSpace = 15f;
+        private const float CameraHeight = 10;
         private readonly List<Transform> _players = new List<Transform>(30);
         private readonly List<Transform> _pingTransforms = new List<Transform>();
         private IGameServices _services;
         private EntityView _playerEntityView;
-        private bool _miniMapActivated;
+        private bool _miniMapActivated = true;
+        
         
         private void Awake()
         {
@@ -31,10 +34,34 @@ namespace FirstLight.Game.Views
             QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
             QuantumEvent.Subscribe<EventOnPlayerDead>(this, HandleOnPlayerDead);
         }
+        
 
         private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
         {
             _playerEntityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+        }
+
+        private void Update()
+        {
+            if (_playerEntityView == null)
+            {
+                return;
+            }
+
+            RegulatePingInstances();
+            PlotPingPositions();
+
+            if (_miniMapActivated)
+            {
+                _playerRadarPing.localPosition = Vector3.zero;
+            }
+            else
+            {
+                SetPingPosition(_playerRadarPing, _playerEntityView.transform.position);
+            }
+
+            var position =  _miniMapActivated ? _playerEntityView.transform.position : Vector3.zero;
+            _cameraTransform.position = new Vector3(position.x, CameraHeight, position.z);
         }
 
         private void HandleOnPlayerDead(EventOnPlayerDead callback)
@@ -68,50 +95,33 @@ namespace FirstLight.Game.Views
 
         public void ToggleMiniMapView()
         {
-            _animation.clip = _miniMapActivated ? _smallMiniMapClip : _extendedMiniMapClip;
+            _animation.clip = !_miniMapActivated ? _smallMiniMapClip : _extendedMiniMapClip;
             _animation.Play();
 
             _miniMapActivated = !_miniMapActivated;
         }
-
-
-        private void Update()
-        {
-            if (_playerEntityView == null)
-            {
-                return;
-            }
-
-            RegulatePingInstances();
-            PlotPingPositions();
-            
-            
-            var position = _smallMiniMapClip ? _playerEntityView.transform.position : Vector3.zero;
-            _cameraTransform.position = new Vector3(position.x, 10, position.z);
-        }
-
+        
         private void PlotPingPositions()
         {
             var count = _players.Count;
-            var originWorldSpace = _playerEntityView.transform.position;
             for (var i = 0; i < count; i++)
             {
-                var enemyActor = _players[i];
+                var player = _players[i];
                 var pingTransform = _pingTransforms[i];
                 
                 pingTransform.gameObject.SetActive(true);
-                SetPingPosition(pingTransform, originWorldSpace, enemyActor.transform.position);
+                SetPingPosition(pingTransform, player.transform.position);
             }
         }
 
-        private void SetPingPosition(Transform pingTransform, Vector3 originWorldSpace, Vector3 positionWorldSpace)
+        private void SetPingPosition(Transform pingTransform, Vector3 positionWorldSpace)
         {
-            var worldDelta = positionWorldSpace - originWorldSpace;
-            worldDelta.y = 0f;
-            worldDelta /= RadiusWorldSpace;
+            var viewportPoint = _camera.WorldToViewportPoint(positionWorldSpace);
+
+            var screenDelta = new Vector2(viewportPoint.x, viewportPoint.y);
+            screenDelta.Scale(_radarBackground.rect.size);
+            screenDelta -= _radarBackground.rect.size * 0.5f;
             
-            var screenDelta = new Vector2(worldDelta.x, worldDelta.z);
-            screenDelta.Scale(_radarBackground.rect.size * 0.5f);
             pingTransform.localPosition = screenDelta;
         }
 

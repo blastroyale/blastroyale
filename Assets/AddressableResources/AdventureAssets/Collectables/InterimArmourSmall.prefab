@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5c4faaf3b0451eb195431260891ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RenderersContainer: {fileID: 5825346893658110353}
+  RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _collectSfxId: 3
   _animation: {fileID: 3121645564521645946}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5012,7 +5012,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5194,6 +5194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmorLight
       objectReference: {fileID: 0}
+    - target: {fileID: 3643430711052631180, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3898485481164907664, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5249,6 +5253,10 @@ PrefabInstance:
     - target: {fileID: 3898485481164907664, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680867859477978234, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}

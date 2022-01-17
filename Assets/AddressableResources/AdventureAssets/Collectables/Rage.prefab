@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3001999710957566891}
   - component: {fileID: 8075635412887415251}
   - component: {fileID: 2421542504505594885}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BoxingGlove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5c4faaf3b0451eb195431260891ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RenderersContainer: {fileID: 3696723151283434160}
+  RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 3001999710957566891}
   _collectSfxId: 1
   _animation: {fileID: 4534731145222255033}
@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5099,7 +5099,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5254,9 +5254,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7273039971299085641}
     m_Modifications:
+    - target: {fileID: 1564267555197094653, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546426376297171350, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3034626658480962267, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4258370805240611869, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
       propertyPath: m_Name
       value: QuadDmage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258370805240611869, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520698662685267356, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7052118638972558067, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
       propertyPath: m_RootOrder

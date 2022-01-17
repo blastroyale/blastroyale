@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -15,10 +14,10 @@ namespace FirstLight.Game.Views
         [SerializeField] private AnimationClip _smallMiniMapClip;
         [SerializeField] private AnimationClip _extendedMiniMapClip;
         
-        private const float CameraHeight = 10;
-        private Transform _cameraTransform;
         private IGameServices _services;
+        private Transform _cameraTransform;
         private EntityView _playerEntityView;
+        private const float CameraHeight = 10;
         private bool _miniMapActivated = true;
         
         
@@ -67,7 +66,6 @@ namespace FirstLight.Game.Views
             _miniMapActivated = !_miniMapActivated;
         }
         
-
         private void SetPingPosition(Transform pingTransform, Vector3 positionWorldSpace)
         {
             var viewportPoint = _camera.WorldToViewportPoint(positionWorldSpace);

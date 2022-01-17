@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4654002760112072846}
   - component: {fileID: 1332305562297005971}
   - component: {fileID: 7975807116325824915}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxUnCommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -94,7 +95,7 @@ GameObject:
   - component: {fileID: 7148365258894336884}
   - component: {fileID: 8802010853476721418}
   - component: {fileID: 3866801206991244983}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_LootDropUnCommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,6 +223,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -266,7 +268,7 @@ GameObject:
   - component: {fileID: 1358671958264817035}
   - component: {fileID: 8550709872450771679}
   - component: {fileID: 649335138564279944}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,6 +308,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

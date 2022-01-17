@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6951558053818259267}
   - component: {fileID: 6951558053818259265}
   - component: {fileID: 6951558053818259264}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4817,7 +4817,7 @@ GameObject:
   - component: {fileID: 6951558054064997037}
   - component: {fileID: 6951558054064997035}
   - component: {fileID: 6951558054064997034}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9623,7 +9623,7 @@ GameObject:
   - component: {fileID: 6951558054655268902}
   - component: {fileID: 6951558054655268900}
   - component: {fileID: 6951558054655268903}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Outershell 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9703,7 +9703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6951558054759797563}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Refill_Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9739,7 +9739,7 @@ GameObject:
   - component: {fileID: 6951558055007514970}
   - component: {fileID: 6951558055007514968}
   - component: {fileID: 6951558055007514971}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

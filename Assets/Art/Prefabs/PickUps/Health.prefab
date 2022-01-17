@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5288402067754337069}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8787140419122190893}
   - component: {fileID: 4906539945772704550}
   - component: {fileID: 6349094201186007701}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4850,7 +4850,7 @@ GameObject:
   - component: {fileID: 6028668947319414543}
   - component: {fileID: 5017295400359883456}
   - component: {fileID: 1786444828240899637}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: InnerIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,7 +4932,7 @@ GameObject:
   - component: {fileID: 7929935357772233857}
   - component: {fileID: 4135022336034550239}
   - component: {fileID: 5478063846180501990}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Outershell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

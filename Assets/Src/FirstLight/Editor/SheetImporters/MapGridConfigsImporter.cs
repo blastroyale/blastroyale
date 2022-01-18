@@ -26,7 +26,7 @@ namespace FirstLight.Editor.SheetImporters
 					var val = row[j.ToString()];
 					var config = new MapGridConfig
 					{
-						Value = val,
+						AreaName = val,
 						X = j,
 						Y = i,
 						IsValid = val != "0"

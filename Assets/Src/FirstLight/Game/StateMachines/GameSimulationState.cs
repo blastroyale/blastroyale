@@ -65,9 +65,9 @@ namespace FirstLight.Game.StateMachines
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
+			startSimulation.OnExit(SetPlayerMatchData);
 			startSimulation.OnExit(CloseLoadingScreen);
 			startSimulation.OnExit(PublishMatchReady);
-			startSimulation.OnExit(SetPlayerMatchData);
 			startSimulation.OnExit(MatchStartAnalytics);
 			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
@@ -316,14 +316,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			var game = QuantumRunner.Default.Game;
 			var info = _gameDataProvider.EquipmentDataProvider.GetLoadOutInfo();
+			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
 			
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
 				PlayerName = _gameDataProvider.PlayerDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
+				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
+				SpawnPosition = position.ToFPVector2(),
 				Weapon = info.Weapon.Value,
-				Gear = info.Gear.ConvertAll(item => (Equipment) item).ToArray(),
-				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value
+				Gear = info.Gear.ConvertAll(item => (Equipment) item).ToArray()
 			});
 		}
 		

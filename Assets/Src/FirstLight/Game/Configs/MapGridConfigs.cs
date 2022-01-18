@@ -7,7 +7,7 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct MapGridConfig
 	{
-		public string Value;
+		public string AreaName;
 		public int X;
 		public int Y;
 		public bool IsValid;

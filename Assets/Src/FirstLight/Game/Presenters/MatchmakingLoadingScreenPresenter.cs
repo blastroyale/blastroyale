@@ -1,22 +1,15 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
-using I2.Loc;
 using Quantum;
-using SRF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
-using LayerMask = UnityEngine.LayerMask;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
@@ -31,18 +24,18 @@ namespace FirstLight.Game.Presenters
 		{
 			public IUiService UiService;
 		}
+		
+		public MapSelectionView MapSelectionView;
 
 		[SerializeField] private Transform _playerCharacterParent;
-		[SerializeField] private Image _nextMapImage;
+		[SerializeField] private Image _mapImage;
 		[SerializeField] private Image [] _playersWaitingImage;
 		[SerializeField] private Animation _animation;
-		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField] private TextMeshProUGUI _firstToXKillsText;
 		[SerializeField] private TextMeshProUGUI _nextArenaText;
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField] private GameObject _selectedAreaHolder;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -73,7 +66,6 @@ namespace FirstLight.Game.Presenters
 			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
-			_nextMapImage.enabled = false;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
 			
@@ -83,8 +75,9 @@ namespace FirstLight.Game.Presenters
 			_animation.Rewind();
 			_animation.Play();
 			
-			_nextMapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
-			_nextMapImage.enabled = true;
+			_mapImage.enabled = false;
+			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
+			_mapImage.enabled = true;
 			
 			StartCoroutine(TimeUpdateCoroutine(config));
 		}
@@ -153,15 +146,5 @@ namespace FirstLight.Game.Presenters
 				layer.SetActive(state);
 			}
 		}
-
-		private void OnDropAreaPressed()
-		{
-			var mapConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			Touch touch = UnityEngine.Input.GetTouch(0);
-
-			// TODO Miguel: Please can you make this position relative to the screen / map image?
-			_selectedAreaHolder.transform.localPosition = touch.position;
-		}
-		
 	}
 }

@@ -14,149 +14,149 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Row:
-    - Value: 0
+    - AreaName: 0
       X: 0
       Y: 0
       IsValid: 0
-    - Value: 0
+    - AreaName: 0
       X: 1
       Y: 0
       IsValid: 0
-    - Value: 0
+    - AreaName: 0
       X: 2
       Y: 0
       IsValid: 0
-    - Value: 0
+    - AreaName: 0
       X: 3
       Y: 0
       IsValid: 0
-    - Value: 0
+    - AreaName: 0
       X: 4
       Y: 0
       IsValid: 0
   - Row:
-    - Value: 0
+    - AreaName: 0
       X: 0
       Y: 1
       IsValid: 0
-    - Value: 0
+    - AreaName: 0
       X: 1
       Y: 1
       IsValid: 0
-    - Value: Top 1
+    - AreaName: Top 1
       X: 2
       Y: 1
       IsValid: 1
-    - Value: Top 2
+    - AreaName: Top 2
       X: 3
       Y: 1
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 4
       Y: 1
       IsValid: 1
   - Row:
-    - Value: 
+    - AreaName: 
       X: 0
       Y: 2
       IsValid: 1
-    - Value: Test
+    - AreaName: Test
       X: 1
       Y: 2
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 2
       Y: 2
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 3
       Y: 2
       IsValid: 1
-    - Value: Top Right
+    - AreaName: Top Right
       X: 4
       Y: 2
       IsValid: 1
   - Row:
-    - Value: 
+    - AreaName: 
       X: 0
       Y: 3
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 1
       Y: 3
       IsValid: 1
-    - Value: Old
+    - AreaName: Old
       X: 2
       Y: 3
       IsValid: 1
-    - Value: New
+    - AreaName: New
       X: 3
       Y: 3
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 4
       Y: 3
       IsValid: 1
   - Row:
-    - Value: Left
+    - AreaName: Left
       X: 0
       Y: 4
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 1
       Y: 4
       IsValid: 1
-    - Value: Center
+    - AreaName: Center
       X: 2
       Y: 4
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 3
       Y: 4
       IsValid: 1
-    - Value: Right
+    - AreaName: Right
       X: 4
       Y: 4
       IsValid: 1
   - Row:
-    - Value: 0
+    - AreaName: 0
       X: 0
       Y: 5
       IsValid: 0
-    - Value: Left Bottom
+    - AreaName: Left Bottom
       X: 1
       Y: 5
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 2
       Y: 5
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 3
       Y: 5
       IsValid: 1
-    - Value: 
+    - AreaName: 
       X: 4
       Y: 5
       IsValid: 1
   - Row:
-    - Value: 0
+    - AreaName: 0
       X: 0
       Y: 6
       IsValid: 0
-    - Value: Boat
+    - AreaName: Boat
       X: 1
       Y: 6
       IsValid: 1
-    - Value: Bottom
+    - AreaName: Bottom
       X: 2
       Y: 6
       IsValid: 1
-    - Value: Bottom Right
+    - AreaName: Bottom Right
       X: 3
       Y: 6
       IsValid: 1
-    - Value: 0
+    - AreaName: 0
       X: 4
       Y: 6
       IsValid: 0

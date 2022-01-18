@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 1024, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7615410100993554058
 CanvasRenderer:
@@ -136,11 +136,11 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 150
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294901961
+    m_Bits: 4294836425
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 7763e810eb3539049983a7acb2e9fd5e, type: 2}
   m_TargetDisplay: 0
@@ -290,7 +290,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4204391290752775463}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -440,9 +440,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99ac09796ee53e4a8b5df35ff737cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shrinkingCircleRenderTexture: {fileID: 8400000, guid: 075a0b7d479345046a200af6b1620127, type: 2}
   _playerRadarPing: {fileID: 8725738221799257494}
   _camera: {fileID: 1004498570666097496}
-  _radarBackground: {fileID: 1810341899012769135}
+  _defaultImageRectTransform: {fileID: 1810341899012769135}
+  _circleImageRectTransform: {fileID: 6899741067322515684}
   _animation: {fileID: 1076470030576961878}
   _smallMiniMapClip: {fileID: 7400000, guid: e6abc406be9cba84184e5f1ee07d6e18, type: 2}
   _extendedMiniMapClip: {fileID: 7400000, guid: 63ccb579b2c7022459d066e6ebff8871, type: 2}
@@ -627,6 +629,78 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: -10, y: -10, z: -10, w: -10}
+--- !u!1 &7158854005815531476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6899741067322515684}
+  - component: {fileID: 1639419956941007928}
+  - component: {fileID: 1355970414377985174}
+  m_Layer: 0
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6899741067322515684
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158854005815531476}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4204391290752775463}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1024, y: 1024}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1639419956941007928
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158854005815531476}
+  m_CullTransparentMesh: 0
+--- !u!114 &1355970414377985174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158854005815531476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: 075a0b7d479345046a200af6b1620127, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &8170755201373730946
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +733,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1810341899012769135}
+  - {fileID: 6899741067322515684}
   - {fileID: 8725738221799257494}
   m_Father: {fileID: 3975058296889702844}
   m_RootOrder: 1

@@ -89,7 +89,7 @@ namespace FirstLight.Game.StateMachines
 			
 			mainMenuTransition.Transition().Target(mainMenu);
 			
-			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
+			mainMenuUnloading.WaitingFor(UnloadMainMenu);//.Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}

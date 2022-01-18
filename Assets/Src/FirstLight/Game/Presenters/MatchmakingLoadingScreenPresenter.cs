@@ -42,7 +42,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField] private Button _selectAreaButton;
 		[SerializeField] private GameObject _selectedAreaHolder;
 		
 		private IGameDataProvider _gameDataProvider;
@@ -54,8 +53,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			
-			_selectAreaButton.onClick.AddListener(OnDropAreaPressed);
 			
 			foreach (var image in _playersWaitingImage)
 			{

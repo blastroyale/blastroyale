@@ -165,8 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 0
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
+  m_RequiresDepthTextureOption: 0
+  m_RequiresOpaqueTextureOption: 0
   m_CameraType: 0
   m_Cameras: []
   m_RendererIndex: -1
@@ -381,7 +381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3975058296889702844}
   - component: {fileID: 1076470030576961878}
-  - component: {fileID: 518225895316097783}
+  - component: {fileID: 4273494036948097774}
   m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
@@ -428,7 +428,7 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &518225895316097783
+--- !u!114 &4273494036948097774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,13 +437,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2189664949999178225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb5683da3040634ab4bfbe74bc93512, type: 3}
+  m_Script: {fileID: 11500000, guid: f99ac09796ee53e4a8b5df35ff737cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerRadarPing: {fileID: 8725738221799257494}
   _camera: {fileID: 1004498570666097496}
   _radarBackground: {fileID: 1810341899012769135}
-  _enemyPingPrefab: {fileID: 8356943869205122394, guid: 1893523c67514439d9af9336aac2c140, type: 3}
   _animation: {fileID: 1076470030576961878}
   _smallMiniMapClip: {fileID: 7400000, guid: e6abc406be9cba84184e5f1ee07d6e18, type: 2}
   _extendedMiniMapClip: {fileID: 7400000, guid: 63ccb579b2c7022459d066e6ebff8871, type: 2}
@@ -591,7 +590,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518225895316097783}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FirstLight.Game.Views.RadarMapView, FirstLight.Game
         m_MethodName: ToggleMiniMapView
         m_Mode: 1
@@ -751,7 +750,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518225895316097783}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FirstLight.Game.Views.RadarMapView, FirstLight.Game
         m_MethodName: ToggleMiniMapView
         m_Mode: 1

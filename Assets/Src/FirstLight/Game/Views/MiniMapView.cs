@@ -5,7 +5,10 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views
 {
-    public class RadarMapView : MonoBehaviour
+    /// <summary>
+    /// This Mono Component controls the visual behaviour for mini map graphics display
+    /// </summary>
+    public class MiniMapView : MonoBehaviour
     {
         [SerializeField] private Transform _playerRadarPing;
         [SerializeField] private Camera _camera;
@@ -60,7 +63,7 @@ namespace FirstLight.Game.Views
         
         public void ToggleMiniMapView()
         {
-            _animation.clip = !_miniMapActivated ? _smallMiniMapClip : _extendedMiniMapClip;
+            _animation.clip = _miniMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
             _animation.Play();
 
             _miniMapActivated = !_miniMapActivated;

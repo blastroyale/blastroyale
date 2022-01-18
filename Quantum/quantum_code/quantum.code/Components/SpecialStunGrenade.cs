@@ -50,10 +50,10 @@ namespace Quantum
 			var hazardData = new Hazard
 			{
 				Attacker = e,
-				EndTime = f.Time + launchTime + special.Speed,
+				EndTime = f.Time + launchTime,
 				GameId = special.SpecialId,
 				Interval = special.Speed,
-				NextTickTime = f.Time + launchTime + special.Speed,
+				NextTickTime = f.Time + launchTime,
 				PowerAmount = 0,
 				Radius = special.Radius,
 				StunDuration = special.PowerAmount,

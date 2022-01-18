@@ -750,8 +750,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FirstLight.Game.Views.RadarMapView, FirstLight.Game
+      - m_Target: {fileID: 4273494036948097774}
+        m_TargetAssemblyTypeName: FirstLight.Game.Views.MiniMapView, FirstLight.Game
         m_MethodName: ToggleMiniMapView
         m_Mode: 1
         m_Arguments:

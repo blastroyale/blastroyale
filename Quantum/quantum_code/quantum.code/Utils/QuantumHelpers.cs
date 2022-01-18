@@ -87,7 +87,6 @@ namespace Quantum
 		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback = null)
 		{
 			var onHit = false;
-			var sqrtRadius = radius * radius;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(position, FPQuaternion.Identity, shape, f.TargetAllLayerMask, 
 			                                    QueryOptions.HitDynamics | QueryOptions.HitKinematics);
@@ -96,11 +95,9 @@ namespace Quantum
 			{
 				var hitPoint = hits[j].Point;
 				var hitEntity = hits[j].Entity;
-				var normalized = (hitPoint - position).SqrMagnitude / sqrtRadius;
-				var amount = (uint) FPMath.RoundToInt(powerAmount * normalized);
 
 				if (hitEntity != attacker && hitEntity != attackSource && 
-				    ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, amount))
+				    ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, powerAmount))
 				{
 					onHit = true;
 					

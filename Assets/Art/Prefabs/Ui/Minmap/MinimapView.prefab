@@ -448,7 +448,7 @@ MonoBehaviour:
   _animation: {fileID: 1076470030576961878}
   _smallMiniMapClip: {fileID: 7400000, guid: e6abc406be9cba84184e5f1ee07d6e18, type: 2}
   _extendedMiniMapClip: {fileID: 7400000, guid: 63ccb579b2c7022459d066e6ebff8871, type: 2}
-  _closeButton: {fileID: 0}
+  _closeButton: {fileID: 7322065373361732568}
 --- !u!1 &3493479546891750687
 GameObject:
   m_ObjectHideFlags: 0

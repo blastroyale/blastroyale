@@ -27,7 +27,7 @@ MonoBehaviour:
         RawValue: 229376
       PowerAmount: 600
       Speed:
-        RawValue: 557056
+        RawValue: 163840
       MinRange:
         RawValue: 0
       MaxRange:
@@ -67,7 +67,7 @@ MonoBehaviour:
         RawValue: 327680
       Radius:
         RawValue: 180224
-      PowerAmount: 0
+      PowerAmount: 1000
       Speed:
         RawValue: 45875
       MinRange:

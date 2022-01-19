@@ -20,7 +20,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
 			var charging = filter.PlayerCharging;
-			var lerpT = FPMath.Clamp01(FP._1 - ((f.Time - charging->ChargeStartTime) / charging->ChargeDuration));
+			var lerpT = FPMath.Clamp01((f.Time - charging->ChargeStartTime) / charging->ChargeDuration);
 			var nextPos2d = FPVector2.Lerp(charging->ChargeStartPos.XZ, charging->ChargeEndPos.XZ, lerpT);
 			var nextPosY = FPMath.Lerp(charging->ChargeStartPos.Y, charging->ChargeEndPos.Y, lerpT);
 			var nextPos = new FPVector3(nextPos2d.X, nextPosY, nextPos2d.Y);
@@ -29,6 +29,7 @@ namespace Quantum.Systems
 				
 			if (f.Time > charging->ChargeStartTime + charging->ChargeDuration)
 			{
+				f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->IsTrigger = false;
 				f.Remove<PlayerCharging>(filter.Entity);
 			}
 		}
@@ -36,7 +37,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.TryGet<PlayerCharging>(info.Entity, out var charging) || !f.Has<PlayerCharacter>(info.Other))
+			if (!f.TryGet<PlayerCharging>(info.Entity, out var charging))
 			{
 				return;
 			}

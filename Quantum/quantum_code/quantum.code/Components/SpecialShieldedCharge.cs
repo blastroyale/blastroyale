@@ -15,8 +15,6 @@ namespace Quantum
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 			var teamSource = f.Get<Targetable>(e).Team;
-			var powerAmount = special.PowerAmount;
-			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
 			
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
@@ -84,6 +82,7 @@ namespace Quantum
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, chargeDuration, true);
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->IsTrigger = true;
 			
 			f.Add(e, chargeComponent);
 			

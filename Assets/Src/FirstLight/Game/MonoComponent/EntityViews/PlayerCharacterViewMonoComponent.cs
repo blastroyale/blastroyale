@@ -80,7 +80,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
-			HandleParabolicUsed(callback.HazardData.EndTime - callback.HazardData.Interval, 
+			HandleParabolicUsed(callback.HazardData.EndTime, 
 			                    time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
@@ -98,7 +98,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
-			HandleParabolicUsed(callback.HazardData.EndTime - callback.HazardData.Interval, 
+			HandleParabolicUsed(callback.HazardData.EndTime, 
 			                    time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;

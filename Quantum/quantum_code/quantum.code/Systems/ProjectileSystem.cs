@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Photon.Deterministic;
@@ -72,7 +73,7 @@ namespace Quantum.Systems
 			}
 			
 			QuantumHelpers.ProcessAreaHit(f, projectile.Attacker, info.Entity, projectile.SplashRadius, position,
-			                              projectile.PowerAmount, projectile.TeamSource, OnHit);
+			                              projectile.PowerAmount, projectile.TeamSource, uint.MaxValue, OnHit);
 		}
 
 		private void OnHit(Frame f, EntityRef attacker, EntityRef attackSource, EntityRef hitEntity, FPVector3 hitPoint)

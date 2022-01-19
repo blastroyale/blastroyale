@@ -47,6 +47,7 @@ namespace FirstLight.Game.Views
             _toggleMiniMapViewButton.onClick.AddListener(ToggleMiniMapView);
             
             QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+            QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
         }
 
         private void OnDestroy()
@@ -60,6 +61,11 @@ namespace FirstLight.Game.Views
             _animation.Play();
 
             _smallMapActivated = !_smallMapActivated;
+        }
+
+        private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
+        {
+            _services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
         }
 
         private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)

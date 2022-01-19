@@ -19,6 +19,7 @@ namespace FirstLight.Game.Views
         [SerializeField] private Animation _animation;
         [SerializeField] private AnimationClip _smallMiniMapClip;
         [SerializeField] private AnimationClip _extendedMiniMapClip;
+        [SerializeField] private UiButtonView _closeButton;
         
         private enum RenderTextureMode
         {
@@ -40,6 +41,8 @@ namespace FirstLight.Game.Views
 
             _cameraTransform = _camera.transform;
             
+            _closeButton.onClick.AddListener(ToggleMiniMapView);
+            
             QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
         }
 
@@ -48,10 +51,7 @@ namespace FirstLight.Game.Views
             _services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
         }
         
-        /// <summary>
-        /// Toggle small and extended map views.
-        /// </summary>
-        public void ToggleMiniMapView()
+        private void ToggleMiniMapView()
         {
             _animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
             _animation.Play();

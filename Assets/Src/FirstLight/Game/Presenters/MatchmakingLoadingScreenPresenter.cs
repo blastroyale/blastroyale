@@ -1,22 +1,15 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
-using I2.Loc;
 using Quantum;
-using SRF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
-using LayerMask = UnityEngine.LayerMask;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
@@ -31,19 +24,18 @@ namespace FirstLight.Game.Presenters
 		{
 			public IUiService UiService;
 		}
+		
+		public MapSelectionView MapSelectionView;
 
 		[SerializeField] private Transform _playerCharacterParent;
-		[SerializeField] private Image _nextMapImage;
+		[SerializeField] private Image _mapImage;
 		[SerializeField] private Image [] _playersWaitingImage;
 		[SerializeField] private Animation _animation;
-		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField] private TextMeshProUGUI _firstToXKillsText;
 		[SerializeField] private TextMeshProUGUI _nextArenaText;
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField] private Button _selectAreaButton;
-		[SerializeField] private GameObject _selectedAreaHolder;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -54,7 +46,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_selectAreaButton.onClick.AddListener(OnDropAreaPressed);
+			
+			foreach (var image in _playersWaitingImage)
+			{
+				image.gameObject.SetActive(false);
+			}
 
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -70,35 +66,25 @@ namespace FirstLight.Game.Presenters
 			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
-			_nextMapImage.enabled = false;
-			
-			foreach (var image in _playersWaitingImage)
-			{
-				image.gameObject.SetActive(false);
-			}
-			
-			transform.SetParent(null);
-			_animation.Rewind();
-			_animation.Play();
-
-			// Little hack to avoid UIs to spam over this screen
-			for (var i = 0; i < Data.UiService.TotalLayers; i++)
-			{
-				if (Data.UiService.TryGetLayer(i, out var layer))
-				{
-					layer.SetActive(false);
-				}
-			}
-			
-			_nextMapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
-			_nextMapImage.enabled = true;
-
-			_getReadyToRumbleText.gameObject.SetActive(false);
-
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
 			
+			_getReadyToRumbleText.gameObject.SetActive(false);
+			transform.SetParent(null);
+			SetLayerState(false);
+			_animation.Rewind();
+			_animation.Play();
+			
+			_mapImage.enabled = false;
+			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
+			_mapImage.enabled = true;
+			
 			StartCoroutine(TimeUpdateCoroutine(config));
+		}
+
+		protected override void OnClosed()
+		{
+			SetLayerState(true);
 		}
 
 		private void OnSceneChanged(Scene previous, Scene current)
@@ -130,20 +116,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override void OnClosed()
-		{
-			// Little hack to avoid UIs to spam over this screen
-			for (var i = 0; i < Data.UiService.TotalLayers; i++)
-			{
-				if (!Data.UiService.TryGetLayer(i, out var layer))
-				{
-					continue;
-				}
-
-				layer.SetActive(true);
-			}
-		}
-
 		private IEnumerator TimeUpdateCoroutine(MapConfig config)
 		{
 			for (var i = 0; i < _playersWaitingImage.Length && i < config.PlayersLimit; i++)
@@ -161,13 +133,18 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.enabled = false;
 		}
 
-		private void OnDropAreaPressed()
+		private void SetLayerState(bool state)
 		{
-			Touch touch = UnityEngine.Input.GetTouch(0);
+			// Little hack to avoid UIs to spam over this screen
+			for (var i = 0; i < Data.UiService.TotalLayers; i++)
+			{
+				if (!Data.UiService.TryGetLayer(i, out var layer))
+				{
+					continue;
+				}
 
-			// TODO Miguel: Please can you make this position relative to the screen / map image?
-			_selectedAreaHolder.transform.localPosition = touch.position;
+				layer.SetActive(state);
+			}
 		}
-		
 	}
 }

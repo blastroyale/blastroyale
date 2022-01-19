@@ -2,6 +2,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
+using Button = UnityEngine.UI.Button;
 using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.Views
@@ -20,6 +21,7 @@ namespace FirstLight.Game.Views
         [SerializeField] private AnimationClip _smallMiniMapClip;
         [SerializeField] private AnimationClip _extendedMiniMapClip;
         [SerializeField] private UiButtonView _closeButton;
+        [SerializeField] private Button _toggleMiniMapViewButton;
         
         private enum RenderTextureMode
         {
@@ -42,6 +44,7 @@ namespace FirstLight.Game.Views
             _cameraTransform = _camera.transform;
             
             _closeButton.onClick.AddListener(ToggleMiniMapView);
+            _toggleMiniMapViewButton.onClick.AddListener(ToggleMiniMapView);
             
             QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
         }

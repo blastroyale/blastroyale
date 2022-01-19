@@ -58,19 +58,8 @@ namespace Quantum
 				{
 					continue;
 				}
-				
-				var hits = f.Physics3D.ShapeCastAll(hit.Value.Point, FPQuaternion.Identity, shape, 
-				                                    FPVector3.Zero, f.TargetAllLayerMask, QueryOptions.HitDynamics);
 
-				for (var j = 0; j < hits.Count; j++)
-				{
-					if (hits[j].Entity == e)
-					{
-						continue;
-					}
-					
-					QuantumHelpers.ProcessHit(f, e, hits[j].Entity, hits[j].Point, team, powerAmount);
-				}
+				QuantumHelpers.ProcessAreaHit(f, e, e, weapon->SplashRadius, hit.Value.Point, powerAmount, team);
 			}
 		}
 	}

@@ -75,6 +75,7 @@ synced event OnLocalPlayerSpawned
 	local player_ref Player;
 	entity_ref Entity;
 	bool HasRespawned;
+	GameId WeaponGameId;
 }
 
 synced event OnLocalPlayerAlive

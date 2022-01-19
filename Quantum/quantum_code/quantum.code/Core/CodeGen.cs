@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -5041,13 +5040,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerSpawned OnLocalPlayerSpawned(PlayerRef Player, EntityRef Entity, QBoolean HasRespawned) {
+      public EventOnLocalPlayerSpawned OnLocalPlayerSpawned(PlayerRef Player, EntityRef Entity, QBoolean HasRespawned, GameId WeaponGameId) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSpawned>(EventOnLocalPlayerSpawned.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.HasRespawned = HasRespawned;
+        ev.WeaponGameId = WeaponGameId;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6362,6 +6362,7 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public QBoolean HasRespawned;
+    public GameId WeaponGameId;
     protected EventOnLocalPlayerSpawned(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6382,6 +6383,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + HasRespawned.GetHashCode();
+        hash = hash * 31 + WeaponGameId.GetHashCode();
         return hash;
       }
     }

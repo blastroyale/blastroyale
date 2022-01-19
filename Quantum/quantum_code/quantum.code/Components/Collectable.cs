@@ -13,7 +13,7 @@ namespace Quantum
 			var angleStep = FPVector2.Rotate(FPVector2.Left, FP.PiTimes2 * angleDropStep / 5);
 			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS).XOY + position;
 			
-			QuantumHelpers.TryFindPosOnNavMesh(f, EntityRef.None, dropPosition, out FPVector3 newPosition);
+			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, out FPVector3 newPosition);
 
 			if (isWeapon)
 			{

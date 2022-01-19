@@ -31,8 +31,7 @@ namespace Quantum.Systems
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
 
-			f.NavMesh.FindRandomPointOnNavmesh(spawnPosition.XOY, FP._10, f.RNG, NavMeshRegionMask.Default, 
-			                                   out var closestPosition);
+			QuantumHelpers.TryFindPosOnNavMesh(f, spawnPosition.XOY, out var closestPosition);
 
 			spawnTransform.Position = closestPosition;
 			

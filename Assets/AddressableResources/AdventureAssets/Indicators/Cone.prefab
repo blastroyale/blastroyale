@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39875542609533644}
   - component: {fileID: 1404504189048552082}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 8921230505373304175}
   - component: {fileID: 8921230505373304168}
   - component: {fileID: 8921230505373304169}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

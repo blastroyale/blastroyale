@@ -130,6 +130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFX_IndicatorDirection
       objectReference: {fileID: 0}
+    - target: {fileID: 323577571062079319, guid: f7485363197cd3e4599100b3ae674506, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7485363197cd3e4599100b3ae674506, type: 3}
 --- !u!4 &835999157884014760 stripped

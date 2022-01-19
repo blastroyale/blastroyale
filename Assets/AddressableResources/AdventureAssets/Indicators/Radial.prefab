@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52538998560082273}
   - component: {fileID: 5523244623572303846}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Radial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,6 +57,10 @@ PrefabInstance:
     - target: {fileID: 4880036417697986608, guid: d417ce955ab424148ba045e5a311bf2e, type: 3}
       propertyPath: m_Name
       value: VFX_IndicatorSpecial
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880036417697986608, guid: d417ce955ab424148ba045e5a311bf2e, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4880036417697986609, guid: d417ce955ab424148ba045e5a311bf2e, type: 3}
       propertyPath: m_Enabled

@@ -83,29 +83,38 @@ namespace Quantum
 		/// Return true if at least one hit was successful, false otherwise.
 		/// </summary>
 		public static bool ProcessAreaHit(Frame f, EntityRef attacker, EntityRef attackSource, FP radius, FPVector3 position, 
-		                                  uint powerAmount, int teamSource,
+		                                  uint powerAmount, int teamSource, uint maxHitCount = uint.MaxValue,
 		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback = null)
 		{
-			var onHit = false;
+			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(position, FPQuaternion.Identity, shape, f.TargetAllLayerMask, 
 			                                    QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			
+			hits.SortCastDistance();
 
 			for (var j = 0; j < hits.Count; j++)
 			{
 				var hitPoint = hits[j].Point;
 				var hitEntity = hits[j].Entity;
 
-				if (hitEntity != attacker && hitEntity != attackSource && 
-				    ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, powerAmount))
+				if (hitEntity == attacker || hitEntity == attackSource ||
+				    !ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, powerAmount))
 				{
-					onHit = true;
+					continue;
+				}
+				
+				hitCount++;
 					
-					onHitCallback?.Invoke(f, attacker, attackSource, hitEntity, hitPoint);
+				onHitCallback?.Invoke(f, attacker, attackSource, hitEntity, hitPoint);
+
+				if (hitCount >= maxHitCount)
+				{
+					break;
 				}
 			}
 
-			return onHit;
+			return hitCount > 0;
 		}
 
 		/// <summary>

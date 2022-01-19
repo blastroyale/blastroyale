@@ -9,6 +9,7 @@ component Hazard
 	FP NextTickTime;
 	UInt32 PowerAmount;
 	FP StunDuration;
+	UInt32 MaxHitCount;
 }
 
 synced event OnHazardHit

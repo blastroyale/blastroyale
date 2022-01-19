@@ -54,7 +54,8 @@ namespace Quantum
 				PowerAmount = special.PowerAmount,
 				Radius = special.Radius,
 				StunDuration = FP._0,
-				TeamSource = team
+				TeamSource = team,
+				MaxHitCount = uint.MaxValue
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

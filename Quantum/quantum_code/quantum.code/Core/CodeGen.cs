@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -3741,9 +3742,11 @@ namespace Quantum {
     public GameId GameId;
     [FieldOffset(32)]
     public FP Interval;
+    [FieldOffset(8)]
+    public UInt32 MaxHitCount;
     [FieldOffset(40)]
     public FP NextTickTime;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public UInt32 PowerAmount;
     [FieldOffset(48)]
     public FP Radius;
@@ -3758,6 +3761,7 @@ namespace Quantum {
         hash = hash * 31 + EndTime.GetHashCode();
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + Interval.GetHashCode();
+        hash = hash * 31 + MaxHitCount.GetHashCode();
         hash = hash * 31 + NextTickTime.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
@@ -3770,6 +3774,7 @@ namespace Quantum {
         var p = (Hazard*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         serializer.Stream.Serialize(&p->TeamSource);
+        serializer.Stream.Serialize(&p->MaxHitCount);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         FP.Serialize(&p->EndTime, serializer);
@@ -7855,6 +7860,7 @@ namespace Quantum.Prototypes {
     public FP NextTickTime;
     public UInt32 PowerAmount;
     public FP StunDuration;
+    public UInt32 MaxHitCount;
     partial void MaterializeUser(Frame frame, ref Hazard result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Hazard component = default;
@@ -7866,6 +7872,7 @@ namespace Quantum.Prototypes {
       result.EndTime = this.EndTime;
       result.GameId = this.GameId;
       result.Interval = this.Interval;
+      result.MaxHitCount = this.MaxHitCount;
       result.NextTickTime = this.NextTickTime;
       result.PowerAmount = this.PowerAmount;
       result.Radius = this.Radius;

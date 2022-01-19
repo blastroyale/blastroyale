@@ -47,6 +47,17 @@ namespace FirstLight.Game.Views
         {
             _services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
         }
+        
+        /// <summary>
+        /// Toggle small and extended map views.
+        /// </summary>
+        public void ToggleMiniMapView()
+        {
+            _animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
+            _animation.Play();
+
+            _smallMapActivated = !_smallMapActivated;
+        }
 
         private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
         {
@@ -90,14 +101,6 @@ namespace FirstLight.Game.Views
             {
                 _renderTextureMode = RenderTextureMode.Default;
             }
-        }
-        
-        public void ToggleMiniMapView()
-        {
-            _animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
-            _animation.Play();
-
-            _smallMapActivated = !_smallMapActivated;
         }
         
         private void SetPingPosition(Transform pingTransform, Vector3 positionWorldSpace)

@@ -43,6 +43,10 @@ namespace FirstLight.Game.Views
             QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
         }
 
+        private void OnDestroy()
+        {
+            _services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+        }
 
         private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
         {
@@ -51,11 +55,6 @@ namespace FirstLight.Game.Views
             _services.TickService.SubscribeOnUpdate(UpdateTick);
         }
         
-        private void OnDestroy()
-        {
-            _services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
-        }
-
         private void UpdateTick(float deltaTime)
         {
             _cameraTransform.position = new Vector3(0, CameraHeight, 0);

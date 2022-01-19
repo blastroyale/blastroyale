@@ -258,10 +258,22 @@ namespace Quantum
 		/// </summary>
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, out FPVector3 correctedPosition)
 		{
+			var radius = FP._2;
 			var navMesh = f.NavMesh;
-			
-			return navMesh.FindClosestTriangle(initialPosition, FP._1_50, NavMeshRegionMask.Default, out int _,
-			                                  out correctedPosition);
+
+			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default, 
+			                                     out correctedPosition))
+			{
+				return true;
+			}
+
+			if (navMesh.FindClosestTriangle(initialPosition, radius * 2, NavMeshRegionMask.Default, out var triangle, 
+			                                out correctedPosition))
+			{
+				return navMesh.FindRandomPointOnTriangle(triangle, f.RNG, out correctedPosition);
+			}
+
+			return false;
 		}
 	}
 }

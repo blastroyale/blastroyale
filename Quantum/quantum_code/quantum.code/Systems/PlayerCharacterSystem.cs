@@ -32,6 +32,8 @@ namespace Quantum.Systems
 			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
 
 			QuantumHelpers.TryFindPosOnNavMesh(f, spawnPosition.XOY, out var closestPosition);
+			
+			Log.Warn($"{spawnPosition} - {closestPosition}");
 
 			spawnTransform.Position = closestPosition;
 			

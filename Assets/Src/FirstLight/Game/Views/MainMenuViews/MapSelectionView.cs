@@ -51,10 +51,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var size = mapConfigs.GetSize();
 			var sizeDelta = _rectTransform.sizeDelta;
+			var normalizedPoint = new Vector2(localPos.x / sizeDelta.x, localPos.y / sizeDelta.y);
 			var calcPos = new Vector2(localPos.x + sizeDelta.x / 2f, Mathf.Abs(localPos.y - sizeDelta.y / 2f));
-			var normalizedPoint = new Vector2(calcPos.x / sizeDelta.x, calcPos.y / sizeDelta.y);
-			var xPos = Mathf.FloorToInt(size.Key * normalizedPoint.x);
-			var yPos = Mathf.FloorToInt(size.Value * normalizedPoint.y);
+			var xPos = Mathf.FloorToInt(size.Key * calcPos.x / sizeDelta.x);
+			var yPos = Mathf.FloorToInt(size.Value * calcPos.y / sizeDelta.y);
 			var config = mapConfigs.GetConfig(xPos, yPos);
 
 			if (!config.IsValid)

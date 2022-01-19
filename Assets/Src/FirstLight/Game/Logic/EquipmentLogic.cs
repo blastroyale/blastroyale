@@ -71,13 +71,7 @@ namespace FirstLight.Game.Logic
 		{
 			var rarity = ItemRarity.Common;
 			
-			if (gameId.IsInGroup(GameIdGroup.Weapon))
-			{
-				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) gameId);
-
-				rarity = weaponConfig.StartingRarity;
-			}
-			else
+			if (!gameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				var gearConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGearConfig>((int) gameId);
 
@@ -107,15 +101,14 @@ namespace FirstLight.Game.Logic
 				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) gameId);
 				var damage = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, gameConfig, StatType.Power);
 
-				baseRarity = weaponConfig.StartingRarity;
+				baseRarity = ItemRarity.Common;
 				isWeapon = true;
 				
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
-				stats.Add(EquipmentStatType.ReloadSpeed, (float) weaponConfig.ReloadSpeed);
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxCapacity);
+				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
 				stats.Add(EquipmentStatType.ProjectileSpeed, weaponConfig.ProjectileSpeed.AsFloat);
-				stats.Add(EquipmentStatType.TargetRange, weaponConfig.TargetRange.AsFloat);
+				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.Damage, damage.AsFloat);
 			}
@@ -198,7 +191,7 @@ namespace FirstLight.Game.Logic
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) gameId);
 
-			return GetWeaponInfo(gameId, config.StartingRarity, 1);
+			return GetWeaponInfo(gameId, ItemRarity.Common, 1);
 		}
 
 		/// <inheritdoc />

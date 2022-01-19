@@ -1,22 +1,20 @@
 component Hazard
 {
-	[HideInInspector] GameId GameId;
-	[HideInInspector] FP Radius;
-	[HideInInspector] FP DestroyTime;
-	[HideInInspector] FP Interval;
-	[HideInInspector] UInt32 PowerAmount;
-	[HideInInspector] bool IsHealing;
-	[HideInInspector] Int32 TeamSource;
-	[HideInInspector] EntityRef Attacker;
-	[HideInInspector] FP NextApplyTime;
-	[HideInInspector] bool IsActive;
+	GameId GameId;
+	EntityRef Attacker;
+	Int32 TeamSource;
+	FP Radius;
+	FP EndTime;
+	FP Interval;
+	FP NextTickTime;
+	UInt32 PowerAmount;
+	FP StunDuration;
 }
 
-struct HazardHitData
+synced event OnHazardHit
 {
-	entity_ref Hazard;
-	entity_ref TargetHit;
-	FPVector3 HitPosition;
-}
-
-signal HazardTargetHit(HazardHitData* data);
+ 	entity_ref Hazard;
+ 	entity_ref HitEntity;
+ 	Hazard HazardData;
+ 	FPVector3 HitPosition;
+ }

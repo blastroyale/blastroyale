@@ -33,7 +33,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Animation _pingAnimation;
 		
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 		private Coroutine _cooldownCoroutine;
 
 		private void Awake()
@@ -80,10 +79,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(GameId special, bool resetCooldown)
+		public async void Init(GameId special)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
 			
 			if(!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) special, out var config))
 			{
@@ -97,16 +95,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			gameObject.SetActive(true);
 			
-			if (resetCooldown)
+			if (_cooldownCoroutine != null)
 			{
-				if (_cooldownCoroutine != null)
-				{
-					_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-					_cooldownCoroutine = null;
-				}
-
-				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.InitialCooldown));
+				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
+				_cooldownCoroutine = null;
 			}
+
+			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
 		}
 		
 		private void OnEventOnLocalSpecialUsed(EventOnLocalSpecialUsed callback)
@@ -116,27 +111,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				return;
 			}
 
-			var frame = callback.Game.Frames.Verified;
-			var special = frame.Get<Weapon>(callback.Entity).Specials[_specialIndex];
-
 			if (_cooldownCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
 				_cooldownCoroutine = null;
 			}
 			
-			if (special.Charges > 0 || special.IsInfiniteUse)
-			{
-				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(frame.Time, special.ResetCooldownTime));
-			}
-			else
-			{
-				_specialIconImage.color = _cooldownColor;
-				_specialIconImage.fillAmount = 0f;
-				_specialIconBackgroundImage.color = _cooldownColor;
-				_specialIconBackgroundImage.fillAmount = 0f;
-				_buttonView.interactable = false;
-			}
+			_specialIconImage.color = _cooldownColor;
+			_specialIconImage.fillAmount = 0f;
+			_specialIconBackgroundImage.color = _cooldownColor;
+			_specialIconBackgroundImage.fillAmount = 0f;
+			_buttonView.interactable = false;
 		}
 
 		private void HandleLocalSpecialAvailable(EventOnLocalSpecialAvailable callback)

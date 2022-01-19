@@ -30,14 +30,10 @@ namespace Quantum.Commands
 			}
 
 			var special = weapon->Specials.GetPointer(SpecialIndex);
-			if (!special->IsValid || !special->IsSpecialAvailable(f))
-			{
-				return;
-			}
 			
-			if (special->TryUse(f, characterEntity, AimInput))
+			if (special->IsValid || !special->IsSpecialAvailable(f))
 			{
-				special->HandleUsed(f, characterEntity, playerRef);
+				special->TryActivate(f, characterEntity, AimInput, SpecialIndex);
 			}
 		}
 	}

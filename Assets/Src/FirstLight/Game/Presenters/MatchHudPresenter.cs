@@ -90,9 +90,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out _);
-
-			bool isBattleRoyale = container.GameMode == GameMode.BattleRoyale;
+			var isBattleRoyale = container.GameMode == GameMode.BattleRoyale;
 			
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);

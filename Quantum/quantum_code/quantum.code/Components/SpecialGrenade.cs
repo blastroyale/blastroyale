@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -9,13 +7,12 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialGrenade
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special grenade, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 			var team = f.Get<Targetable>(e).Team;
-			var powerAmount = grenade.PowerAmount;
 			
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
@@ -23,7 +20,7 @@ namespace Quantum
 				var iterator = f.GetComponentIterator<Targetable>();
 				foreach (var target in iterator)
 				{
-					if (!QuantumHelpers.IsAttackable(f, target.Entity) || (team == target.Component.Team) || 
+					if (!QuantumHelpers.IsAttackable(f, target.Entity, team) || 
 					    !QuantumHelpers.IsEntityInRange(f, e, target.Entity, FP._0, maxRange))
 					{
 						continue;
@@ -46,33 +43,25 @@ namespace Quantum
 				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
-			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + Constants.FAKE_PROJECTILE_Y_OFFSET, targetPosition.Z);
-			var maxProjectileFlyingTime = grenade.Speed;
-			var targetRange = grenade.MaxRange;
+			var maxProjectileFlyingTime = special.Speed;
+			var targetRange = special.MaxRange;
 			var launchTime = maxProjectileFlyingTime * ((targetPosition - attackerPosition).Magnitude / targetRange);
-			
-			var projectileData = new ProjectileData
+			var hazardData = new Hazard
 			{
-				ProjectileId = grenade.SpecialGameId,
 				Attacker = e,
-				ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-				NormalizedDirection = FPVector3.Down,
-				SpawnPosition = spawnPosition,
-				TeamSource = team,
-				IsHealing = false,
-				PowerAmount = powerAmount,
-				Speed = Constants.PROJECTILE_MAX_SPEED,
-				Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
-				SplashRadius = grenade.SplashRadius,
+				EndTime = f.Time + launchTime + special.Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
+				NextTickTime = f.Time + launchTime + special.Speed,
+				PowerAmount = special.PowerAmount,
+				Radius = special.Radius,
 				StunDuration = FP._0,
-				Target = EntityRef.None,
-				LaunchTime = f.Time + launchTime,
-				IsHitOnRangeLimit = true
+				TeamSource = team
 			};
 			
-			var projectile = Projectile.Create(f, projectileData);
+			var hazard = Hazard.Create(f, hazardData, targetPosition);
 			
-			f.Events.OnGrenadeUsed(projectile, targetPosition, projectileData);
+			f.Events.OnGrenadeUsed(hazard, targetPosition, hazardData);
 			
 			return true;
 		}

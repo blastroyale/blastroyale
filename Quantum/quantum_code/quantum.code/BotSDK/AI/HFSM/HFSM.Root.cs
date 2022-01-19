@@ -4,48 +4,54 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-  public partial class HFSMRoot : AssetObject
-  {
-    public string Label;
+	public partial class HFSMRoot : AssetObject
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    public AssetRefHFSMState[] StatesLinks;
+		public string Label;
 
-    public AssetRefHFSMState InitialState
-    {
-      get
-      {
-		    if(StatesLinks != null)
-        {
-          return StatesLinks[0];
-        }
-        return default;
-      }
-    }
+		public AssetRefHFSMState[] StatesLinks;
 
-    public string[] EventsNames;
+		public AssetRefHFSMState InitialState
+		{
+			get
+			{
+				if (StatesLinks != null)
+				{
+					return StatesLinks[0];
+				}
+				return default;
+			}
+		}
 
-    [NonSerialized]
-    public Dictionary<string, int> RegisteredEvents = new Dictionary<string, int>();
+		public string[] EventsNames;
 
-    public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
-    {
-      base.Loaded(resourceManager, allocator);
+		[NonSerialized]
+		public Dictionary<string, int> RegisteredEvents = new Dictionary<string, int>();
 
-      RegisteredEvents.Clear();
-      for (int i = 0; i < EventsNames.Length; i++)
-      {
-        RegisteredEvents.Add(EventsNames[i], i + 1);
-      }
-    }
+		// ========== PUBLIC METHODS ==================================================================================
 
-    public string GetEventName(int eventID)
-    {
-      foreach (var kvp in RegisteredEvents)
-      {
-        if (kvp.Value == eventID)
-          return kvp.Key;
-      }
-      return "";
-    }
-  }
+		public string GetEventName(int eventID)
+		{
+			foreach (var kvp in RegisteredEvents)
+			{
+				if (kvp.Value == eventID)
+					return kvp.Key;
+			}
+			return "";
+		}
+
+		// ========== AssetObject INTERFACE ===========================================================================
+
+		public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
+		{
+			base.Loaded(resourceManager, allocator);
+
+			RegisteredEvents.Clear();
+			for (int i = 0; i < EventsNames.Length; i++)
+			{
+				RegisteredEvents.Add(EventsNames[i], i + 1);
+			}
+		}
+	}
 }

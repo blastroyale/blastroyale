@@ -73,13 +73,27 @@ namespace FirstLight.Game.Presenters
 			var data = container.PlayersData;
 			var playerWinner = data[0];
 
-			
-			for(var i = 1; i < data.Length; i++)
+			// Deathmatch winner is the one with the most kills
+			if (container.GameMode == GameMode.Deathmatch)
 			{
-				if (data[i].PlayersKilledCount > playerWinner.PlayersKilledCount ||
-				    data[i].PlayersKilledCount == playerWinner.PlayersKilledCount && data[i].DeathCount < playerWinner.DeathCount)
+				for(var i = 1; i < data.Length; i++)
 				{
-					playerWinner = data[i];
+					if (data[i].PlayersKilledCount > playerWinner.PlayersKilledCount ||
+					    data[i].PlayersKilledCount == playerWinner.PlayersKilledCount && data[i].DeathCount < playerWinner.DeathCount)
+					{
+						playerWinner = data[i];
+					}
+				}
+			}
+			// BattleRoyale winner is the one with the least deaths (the last survivor)
+			else
+			{
+				for(var i = 1; i < data.Length; i++)
+				{
+					if (data[i].DeathCount + data[i].SuicideCount < playerWinner.DeathCount + playerWinner.SuicideCount)
+					{
+						playerWinner = data[i];
+					}
 				}
 			}
 

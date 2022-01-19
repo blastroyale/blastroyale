@@ -33,11 +33,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
-		/// <summary>
-		/// True if the player marked the game state to repeat again
-		/// </summary>
-		public bool IsPlayAgainMarked { get; private set; }
-		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
@@ -218,7 +213,6 @@ namespace FirstLight.Game.StateMachines
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
-			IsPlayAgainMarked = false;
 			startParams.NetworkClient = _services.NetworkService.QuantumClient;
 
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
@@ -288,17 +282,11 @@ namespace FirstLight.Game.StateMachines
 			var cacheActivity = activity;
 			var data = new ResultsScreenPresenter.StateData
 			{
-				ContinueButtonClicked = PlayAgainClicked, 
+				ContinueButtonClicked = () => cacheActivity.Complete(),
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
 
 			_uiService.OpenUi<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
-			
-			void PlayAgainClicked()
-			{
-				IsPlayAgainMarked = true;
-				cacheActivity.Complete();
-			}
 		}
 
 		private void CloseResultScreen()

@@ -6,21 +6,12 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, 
-	                                            ISignalOnComponentRemoved<PlayerCharacter>,
-	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero,
-	                                            ISignalTargetChanged
+	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero
 	{
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
-			public Transform3D* Transform;
 			public PlayerCharacter* Player;
-		}
-		
-		/// <inheritdoc />
-		public void OnRemoved(Frame f, EntityRef entity, PlayerCharacter* playerCharacter)
-		{
-			f.Unsafe.GetPointerSingleton<GameContainer>()->RemovePlayer(f, playerCharacter->Player);
 		}
 
 		/// <inheritdoc />
@@ -28,7 +19,7 @@ namespace Quantum.Systems
 		{
 			ProcessSpawnPlayer(f, ref filter);
 			ProcessPlayerDisconnect(f, ref filter);
-			ProcessAlivePlayers(f, ref filter);
+			ProcessPlayerInput(f, ref filter);
 		}
 
 		/// <inheritdoc />
@@ -46,28 +37,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
 			{
-				if (f.TryGet<PlayerCharacter>(attacker, out var killer))
-				{
-					f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
-					f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
-				}
-				
-				// If it was not the player the killer then will save it as PlayerRef.None
-				player->Dead(f, entity, killer.Player, attacker);
+				return;
 			}
-		}
-
-		/// <inheritdoc />
-		public void TargetChanged(Frame f, EntityRef attacker, EntityRef target)
-		{
-			f.Events.OnTargetChanged(attacker, target);
 			
-			if (f.TryGet<PlayerCharacter>(attacker, out var playerCharacter) && !f.Has<BotCharacter>(attacker))
+			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
-				f.Events.OnLocalPlayerTargetChanged(playerCharacter.Player, attacker, target);
+				f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
+				f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
 			}
+			
+			player->Dead(f, entity, killer.Player, attacker);
 		}
 
 		/// <inheritdoc />
@@ -103,7 +84,7 @@ namespace Quantum.Systems
 			// Try to drop Weapon
 			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance && f.TryGet<Weapon>(entityDead, out var weapon))
 			{
-				Collectable.DropCollectable(f, weapon.GameId, deathPosition, step, true);
+				Collectable.DropCollectable(f, weapon.WeaponId, deathPosition, step, true);
 			}
 		}
 		
@@ -137,30 +118,10 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void ProcessAlivePlayers(Frame f, ref PlayerCharacterFilter filter)
-		{
-			if (!f.TryGet<AlivePlayerCharacter>(filter.Entity, out var alivePlayer))
-			{
-				return;
-			}
-
-			ProcessWeaponMode(f, ref filter);
-			ProcessWeaponReload(f, ref filter);
-			ProcessWeaponSwitching(f, ref filter);
-
-			if (f.Unsafe.TryGetPointer<PlayerCharacterCharging>(filter.Entity, out var chargePlayer))
-			{
-				ProcessChargingPlayer(f, ref filter, chargePlayer);
-				return;
-			}
-
-			ProcessPlayerInput(f, ref filter);
-		}
-
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
-			// Do not process input if player is stunned
-			if (f.Has<Stun>(filter.Entity))
+			// Do not process input if player is stunned or not alive
+			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) || f.Has<BotCharacter>(filter.Entity))
 			{
 				return;
 			}
@@ -170,6 +131,7 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
 			var moveVelocity = FPVector3.Zero;
+			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
 
 			if (input->IsMoveButtonDown)
 			{
@@ -177,14 +139,16 @@ namespace Quantum.Systems
 
 				if (input->IsShootButtonDown)
 				{
-					speed *= weapon.AimingMovementSpeedMultiplier;
+					speed *= weapon.AimingMovementSpeed;
 				}
 				
 				rotation = input->Direction;
 				kcc->MaxSpeed = speed;
-				
-				moveVelocity = input->Direction.XOY * speed;
+				moveVelocity = rotation.XOY * speed;
 			}
+
+			bb.Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
+			bb.Set(f, Constants.AimDirectionKey, input->AimingDirection);
 			
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
@@ -194,134 +158,11 @@ namespace Quantum.Systems
 			{
 				rotation = input->AimingDirection;
 			}
-			
-			// TODO: either process the player's rotation on the BOT SDK or process in here, but not in both places
-			if (f.Get<AIBlackboardComponent>(filter.Entity).GetEntityRef(f, Constants.TARGET_BB_KEY).IsValid)
-			{
-				rotation = FPVector2.Zero;
-			}
 
 			if (rotation.SqrMagnitude > FP._0)
 			{
 				QuantumHelpers.LookAt2d(f, filter.Entity, rotation);
 			}
-		}
-
-		private void ProcessWeaponMode(Frame f, ref PlayerCharacterFilter filter)
-		{
-			var weapon = f.Unsafe.GetPointer<Weapon>(filter.Entity);
-			
-			// Handles the healing mode on/off when it's time to switch
-			for (var i = 0; i < weapon->Specials.Length; i++)
-			{
-				var specialPointer = weapon->Specials.GetPointer(i);
-				
-				if (f.Time >= specialPointer->HealingModeSwitchTime)
-				{
-					specialPointer->HealingModeSwitchTime = FP.MaxValue;
-					weapon->IsHealing = !weapon->IsHealing;
-					break;
-				}
-			}
-		}
-
-		private void ProcessWeaponReload(Frame f, ref PlayerCharacterFilter filter)
-		{
-			var weapon = f.Unsafe.GetPointer<Weapon>(filter.Entity);
-			
-			// Handles the reload type Never; If it Never reloads then we return and don't process any reloading
-			if (weapon->ReloadType == ReloadType.Never)
-			{
-				return;
-			}
-			
-			// Handles the reload skip for reload types that aren't always reloading
-			if (weapon->Capacity < weapon->MaxCapacity && weapon->ReloadType != ReloadType.Always)
-			{
-				var input = f.GetPlayerInput(filter.Player->Player);
-					
-				if (weapon->ReloadType == ReloadType.Moving && !input->IsMoveButtonDown || 
-				    weapon->ReloadType == ReloadType.NotMoving && input->IsMoveButtonDown)
-				{
-					weapon->NextCapacityIncreaseTime += f.DeltaTime;
-					return;
-				}
-			}
-				
-			if (weapon->Capacity >= weapon->MaxCapacity || f.Time < weapon->NextCapacityIncreaseTime)
-			{
-				return;
-			}
-				
-			weapon->Capacity += 1;
-				
-			if (weapon->Emptied && weapon->Capacity >= weapon->MinCapacityToShoot)
-			{
-				weapon->Emptied = false;
-			}
-				
-			if (weapon->Capacity < weapon->MaxCapacity)
-			{
-				weapon->NextCapacityIncreaseTime = f.Time + weapon->OneCapacityReloadingTime;
-			}
-		}
-
-		private void ProcessWeaponSwitching(Frame f, ref PlayerCharacterFilter filter)
-		{
-			var weapon = f.Unsafe.GetPointer<Weapon>(filter.Entity);
-			
-			// If a player already carries the Default weapon
-			// OR if a weapon still has ammo then we don't switch
-			if (weapon->GameId == Constants.DEFAULT_WEAPON_GAME_ID || !weapon->Emptied)
-			{
-				return;
-			}
-			
-			// If it's a bot then we don't check specials and switch weapon right away
-			// It's because bots cannot use or not allowed to use all types of specials
-			if (f.Has<BotCharacter>(filter.Entity))
-			{
-				SetDefaultWeapon(f, filter.Entity);
-				return;
-			}
-			
-			// If it's not a bot then we check specials
-			var specials = weapon->Specials;
-			for (int i = 0; i < Constants.MAX_SPECIALS; i++)
-			{
-				// If any weapon's special is available then we don't switch
-				if (specials[i].IsSpecialAvailable(f))
-				{
-					return;
-				}
-			}
-			
-			SetDefaultWeapon(f, filter.Entity);
-		}
-		
-		private void ProcessChargingPlayer(Frame f, ref PlayerCharacterFilter filter, PlayerCharacterCharging* charge)
-		{
-			var startPos2d = charge->ChargeStartPos.XZ;
-			var targetPos2d = charge->ChargeEndPos.XZ;
-			var startPosY = charge->ChargeStartPos.Y;
-			var targetPosY = charge->ChargeEndPos.Y;
-			var lerpT = FPMath.Clamp01(FP._1 - ((charge->ChargeEndTime - f.Time) / charge->ChargeDuration));
-			var nextPos2d = FPVector2.Lerp(startPos2d, targetPos2d, lerpT);
-			var nextPosY = FPMath.Lerp(startPosY, targetPosY, lerpT);
-			var nextPos = new FPVector3(nextPos2d.X, nextPosY, nextPos2d.Y);
-				
-			filter.Transform->Position = nextPos;
-				
-			if (f.Time > charge->ChargeEndTime)
-			{
-				f.Remove<PlayerCharacterCharging>(filter.Entity);
-			}
-		}
-
-		private void SetDefaultWeapon(Frame f, EntityRef e)
-		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			playerCharacter->SetWeapon(f, e, Constants.DEFAULT_WEAPON_GAME_ID, ItemRarity.Common, 1);
 		}
 	}
 }

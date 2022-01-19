@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5006176107355488481}
   - component: {fileID: 4527445493281042505}
   - component: {fileID: 6468335883811020856}
-  - component: {fileID: 7927374937039426240}
   m_Layer: 10
   m_Name: PlayerBullet
   m_TagString: Untagged
@@ -55,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -193,6 +193,10 @@ MonoBehaviour:
         RawValue: 0
       Z:
         RawValue: 0
+    GravityScale:
+      _hasValue: 0
+      _value:
+        RawValue: 65536
   NavMeshPathfinder:
     IsEnabled: 0
     NavMeshAgentConfig:
@@ -272,75 +276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityView: {fileID: 4527445493281042505}
---- !u!114 &7927374937039426240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465671954405442202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6697f5fdb064319a3dc7e1a1defedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    Data:
-      Attacker: {fileID: 0}
-      ProjectileAssetRef: 0
-      TeamSource:
-        Value: 0
-      SpawnPosition:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      NormalizedDirection:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      OriginalDirection:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      IsHealing:
-        Value: 0
-      PowerAmount: 0
-      Speed:
-        RawValue: 0
-      Range:
-        RawValue: 0
-      SplashRadius:
-        RawValue: 0
-      StunDuration:
-        RawValue: 0
-      ProjectileId:
-        Value: 0
-      ProjectileHealingId:
-        Value: 0
-      Target: {fileID: 0}
-      LaunchTime:
-        RawValue: 0
-      IsHitOnRangeLimit:
-        Value: 0
-      IsHitOnlyOnRangeLimit:
-        Value: 0
-      SpawnHazardId:
-        Value: 0
-      IsPiercing:
-        Value: 0
-      AggroMultiplier:
-        RawValue: 0
-      IsNoEventSending:
-        Value: 0
 --- !u!114 &-8452382852626058855
 MonoBehaviour:
   m_ObjectHideFlags: 0

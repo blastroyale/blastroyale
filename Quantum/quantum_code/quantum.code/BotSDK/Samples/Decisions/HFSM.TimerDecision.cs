@@ -3,23 +3,23 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-  [Serializable]
-  [AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-  public partial class TimerDecision : HFSMDecision
-  {
-    public AIParamFP TimeToTrueState = FP._3;
+	[Serializable]
+	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
+	public partial class TimerDecision : HFSMDecision
+	{
+		public AIParamFP TimeToTrueState = FP._3;
 
-    public override unsafe bool Decide(Frame f, EntityRef e)
-    {
-      var bbComponent = f.Has<AIBlackboardComponent>(e) ? f.Get<AIBlackboardComponent>(e) : default;
-      
-      var hfsmAgent = f.Unsafe.GetPointer<HFSMAgent>(e);
-      var config = hfsmAgent->GetConfig(f);
+		public override unsafe bool Decide(Frame frame, EntityRef entity)
+		{
+			var blackboard = frame.Has<AIBlackboardComponent>(entity) ? frame.Get<AIBlackboardComponent>(entity) : default;
 
-      FP requiredTime = TimeToTrueState.Resolve(f, &bbComponent, config);
+			var agent = frame.Unsafe.GetPointer<HFSMAgent>(entity);
+			var aiConfig = agent->GetConfig(frame);
 
-      var hfsmData = &hfsmAgent->Data;
-      return hfsmData->Time >= requiredTime;
-    }
-  }
+			FP requiredTime = TimeToTrueState.Resolve(frame, entity, &blackboard, aiConfig);
+
+			var hfsmData = &agent->Data;
+			return hfsmData->Time >= requiredTime;
+		}
+	}
 }

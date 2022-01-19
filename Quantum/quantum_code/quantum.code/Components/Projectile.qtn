@@ -1,44 +1,34 @@
 component Projectile
 {
-	[HideInInspector] ProjectileData Data;
-}
-
-struct ProjectileData
-{
 	entity_ref Attacker;
-	Int64 ProjectileAssetRef;
+	entity_ref Target;
+	GameId SourceId;
 	Int32 TeamSource;
 	FPVector3 SpawnPosition;
-	FPVector3 NormalizedDirection;
-	FPVector3 OriginalDirection;
-	bool IsHealing;
+	FPVector3 Direction;
 	UInt32 PowerAmount;
 	FP Speed;
 	FP Range;
 	FP SplashRadius;
 	FP StunDuration;
-	GameId ProjectileId;
-	GameId ProjectileHealingId;
-	entity_ref Target;
-	FP LaunchTime;
-	bool IsHitOnRangeLimit;
-	bool IsHitOnlyOnRangeLimit;
-	GameId SpawnHazardId;
-	bool IsPiercing;
-	FP AggroMultiplier;
-	bool IsNoEventSending;
 }
 
-struct ProjectileHitData
+synced event OnProjectileFired
 {
 	entity_ref Projectile;
-	entity_ref TargetHit;
-	FPVector3 HitPosition;
-	bool IsStaticHit;
+	Projectile ProjectileData;
 }
 
-// Triggered when the attacker does it's attack before any affect on it. The reference projectile is the attack done.
-signal ProjectileShootTriggered(entity_ref projectile);
-// Triggered when the attacker does any attack, including buffed or affected attacks
-signal ProjectileFired(entity_ref projectile);
-signal ProjectileTargetHit(ProjectileHitData* data);
+synced event OnProjectileHit
+{
+	entity_ref Projectile;
+	entity_ref HitEntity;
+	Projectile ProjectileData;
+	FPVector3 HitPosition;
+}
+
+synced event OnProjectileFailedHit
+{
+ 	entity_ref Projectile;
+ 	Projectile ProjectileData;
+ }

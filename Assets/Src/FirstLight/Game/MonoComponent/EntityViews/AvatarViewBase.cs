@@ -91,7 +91,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, HandleOnHealthIsZero);
-			QuantumEvent.Subscribe<EventOnProjectileFired>(this, HandleOnProjectileFired);
+			QuantumEvent.Subscribe<EventOnPlayerAttacked>(this, HandleOnPlayerAttacked);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
@@ -150,6 +150,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
+		protected virtual void OnPlayerDead(QuantumGame game)
+		{
+			AnimatorWrapper.SetBool(Bools.Stun, false);
+			AnimatorWrapper.SetBool(Bools.Pickup, false);
+			Dissolve(false);
+		}
+		
+		private void HandleOnEntityDestroyed(QuantumGame game)
+		{
+			transform.parent = null;
+					
+			OnPlayerDead(game);
+			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
+		}
+
 		private void HandleOnHealthIsZero(EventOnHealthIsZero callback)
 		{
 			if (callback.Entity != EntityView.EntityRef)
@@ -171,19 +187,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.Impulse);
 			}
 		}
-		
-		private void HandleOnEntityDestroyed(QuantumGame game)
-		{
-			transform.parent = null;
-			
-			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
-			Dissolve(true);
-					
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener<CallbackUpdateView>(this);
-		}
 
-		protected virtual void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
 		{
 			if (evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
 			{
@@ -198,9 +203,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.HitDuration);
 		}
 		
-		private void HandleOnProjectileFired(EventOnProjectileFired evnt)
+		private void HandleOnPlayerAttacked(EventOnPlayerAttacked evnt)
 		{
-			if (evnt.ProjectileData.Attacker != EntityRef)
+			if (evnt.PlayerEntity != EntityRef)
 			{
 				return;
 			}

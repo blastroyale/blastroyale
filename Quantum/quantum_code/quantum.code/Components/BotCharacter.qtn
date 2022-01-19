@@ -22,6 +22,7 @@ component BotCharacter
 	FP LookForTargetsToShootAtInterval;
 	FP NextDecisionTime;
 	FP NextLookForTargetsToShootAtTime;
+	entity_ref Target;
 	
 	// How far the bot can see (square value)
 	// Set to -1 to allow a bot fully cheat and don't check range

@@ -53,8 +53,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var sc = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.SC];
-
 			_softCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.SC].ToString()}";
 			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
 			

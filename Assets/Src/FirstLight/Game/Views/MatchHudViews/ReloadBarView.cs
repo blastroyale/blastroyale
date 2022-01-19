@@ -34,9 +34,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		}
 		
 		/// <summary>
-		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given <paramref name="projectileCapacity"/>
+		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given data
 		/// </summary>
-		public void SetupView(EntityRef entity, uint projectileCapacity, uint minProjectileCapacityToShoot)
+		public void SetupView(EntityRef entity, int maxAmmo)
 		{
 			_entity = entity;
 			_slider.value = 1f;
@@ -44,22 +44,16 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (_separatorPool == null)
 			{
 				_separatorPool ??= new GameObjectPool(3, _separatorRef);
-			
-				var separatorsAmount = minProjectileCapacityToShoot == 1
-					? projectileCapacity
-					: projectileCapacity / minProjectileCapacityToShoot;
 				
-				separatorsAmount = separatorsAmount > GameConstants.MAX_RELOAD_BAR_SEPARATORS_AMOUNT
-					                   ? 0
-					                   : separatorsAmount;
+				maxAmmo = maxAmmo > GameConstants.MAX_RELOAD_BAR_SEPARATORS_AMOUNT ? 0 : maxAmmo;
 				
-				for (var i = 1; i < separatorsAmount; i++)
+				for (var i = 1; i < maxAmmo; i++)
 				{
 					_separatorPool.Spawn();
 				}
 			
 				QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
-				QuantumEvent.Subscribe<EventOnLocalPlayerFailedShoot>(this, HandleOnLocalPlayerFailedShoot);
+				QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 			}
 		}
 		
@@ -70,34 +64,26 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (frame.TryGet<Weapon>(_entity, out var weapon))
 			{
 				// If weapon is fully reloaded then we set slider to max
-				if (weapon.Capacity >= weapon.MaxCapacity && _slider.value < 1f)
+				if (weapon.Ammo >= weapon.MaxAmmo && _slider.value < 1f)
 				{
 					_slider.value = 1f;
-					_reloadBarImage.color = weapon.Emptied ? _secondaryReloadColor : _primaryReloadColor;
+					_reloadBarImage.color = weapon.Ammo == 0 ? _secondaryReloadColor : _primaryReloadColor;
 					
 					return;
 				}
 				
 				// If weapon isn't full then we do the whole process of slider value calculation
-				if (weapon.Capacity < weapon.MaxCapacity)
+				if (weapon.Ammo < weapon.MaxAmmo)
 				{
-					var reloadFill = (float) weapon.Capacity / weapon.MaxCapacity;
-					
-					// If weapon has any kind of constant reloading then we take reload time into account
-					if (weapon.ReloadType != ReloadType.Never)
-					{
-						var delta = weapon.NextCapacityIncreaseTime - frame.Time;
-						var nextCapacityTimePart = 1f - (delta / weapon.OneCapacityReloadingTime).AsFloat;
-						reloadFill += nextCapacityTimePart / weapon.MaxCapacity;
-					}
+					var reloadFill = (float) weapon.Ammo / weapon.MaxAmmo;
 					
 					_slider.value = Mathf.Clamp01(reloadFill);
-					_reloadBarImage.color = weapon.Emptied ? _secondaryReloadColor : _primaryReloadColor;
+					_reloadBarImage.color = weapon.Ammo == 0 ? _secondaryReloadColor : _primaryReloadColor;
 				}
 			}
 		}
 		
-		private void HandleOnLocalPlayerFailedShoot(EventOnLocalPlayerFailedShoot callback)
+		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
 			if (callback.Entity != _entity)
 			{

@@ -86,16 +86,15 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private async void UpdatePlayerSkinMenu()
 		{
-			var data = _services.ConfigsProvider.GetConfigsList<PlayerSkinConfig>();
+			var data = GameIdGroup.PlayerSkin.GetIds();
 			var list = new List<PlayerSkinGridItemView.PlayerSkinGridItemData>(data.Count);
 			
 			for (var i = 0; i < data.Count; i++)
 			{
-				var info = data[i];
 				var viewData = new PlayerSkinGridItemView.PlayerSkinGridItemData
 				{
-					Config = info,
-					IsSelected = info.Id == _selectedId,
+					Skin = data[i],
+					IsSelected = data[i] == _selectedId,
 					OnAvatarClicked = OnAvatarClicked
 				};
 				

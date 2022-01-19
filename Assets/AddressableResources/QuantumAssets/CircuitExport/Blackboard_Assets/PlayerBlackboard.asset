@@ -16,56 +16,20 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
       Guid:
-        Value: 4429615334325005816
+        Value: 2645699745187393063
     Entries:
-    - Type: 3
+    - Type: 0
       Key:
-        Key: TargetRange
-    - Type: 3
-      Key:
-        Key: StunDuration
+        Key: IsAiming
     - Type: 3
       Key:
         Key: AimTime
+    - Type: 4
+      Key:
+        Key: AimDirection
     - Type: 3
       Key:
-        Key: ProjectileRange
-    - Type: 3
-      Key:
-        Key: SplashRadius
-    - Type: 6
-      Key:
-        Key: TargetCandidate
-    - Type: 3
-      Key:
-        Key: ProjectileStunDuration
-    - Type: 2
-      Key:
-        Key: ProjectileGameId
-    - Type: 2
-      Key:
-        Key: TargetingType
-    - Type: 0
-      Key:
-        Key: IsAimed
-    - Type: 3
-      Key:
-        Key: ProjectileSpeed
-    - Type: 0
-      Key:
-        Key: IsHoming
-    - Type: 0
-      Key:
-        Key: IsAutoShoot
-    - Type: 6
-      Key:
-        Key: Projectile
-    - Type: 6
-      Key:
-        Key: Target
-    - Type: 0
-      Key:
-        Key: IsManualAiming
+        Key: StunDuration
     - Type: 3
       Key:
         Key: AttackCooldown

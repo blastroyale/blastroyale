@@ -1,4 +1,0 @@
-component CollisionDamage
-{
-	[HideInInspector] EntityRef Hazard;
-}

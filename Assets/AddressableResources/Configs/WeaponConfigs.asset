@@ -22,359 +22,197 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: 7
+      MaxAmmo: 36
       PowerRatioToBase:
         RawValue: 49152
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 39322
       AimTime:
         RawValue: 13107
       AttackCooldown:
         RawValue: 58982
-      InitialCapacity: 7
-      MaxCapacity: 36
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 363069
-      TargetingType: 1
+      AttackRange:
+        RawValue: 688128
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 688128
-      ProjectileId: 71
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 0
       ProjectileSpeed:
-        RawValue: 2949120
-      ProjectileRange:
-        RawValue: 688128
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 550000006e000000
-      IsDiagonalshot: 0
-      IsMultishot: 0
-      IsFrontshot: 0
     - Id: 31
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: -1
+      MaxAmmo: 100
       PowerRatioToBase:
         RawValue: 39322
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 65536
       AimTime:
         RawValue: 8192
       AttackCooldown:
         RawValue: 36045
-      InitialCapacity: 100
-      MaxCapacity: 100
-      MinCapacityToShoot: 1
-      ReloadType: 1
-      ReloadSpeed:
-        RawValue: 3276800
-      TargetingType: 1
+      AttackRange:
+        RawValue: 131072
+      AttackAngle: 60
       SplashRadius:
         RawValue: 49152
-      TargetRange:
-        RawValue: 49152
-      ProjectileId: 76
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 0
       ProjectileSpeed:
-        RawValue: 1310720
-      ProjectileRange:
-        RawValue: 49152
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 8d00000000000000
-      IsDiagonalshot: 0
-      IsMultishot: 0
-      IsFrontshot: 0
     - Id: 32
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: 36
+      MaxAmmo: 180
       PowerRatioToBase:
         RawValue: 5571
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 52429
       AimTime:
         RawValue: 13107
       AttackCooldown:
         RawValue: 13107
-      InitialCapacity: 36
-      MaxCapacity: 180
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 1179648
-      TargetingType: 1
+      AttackRange:
+        RawValue: 579994
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 579994
-      ProjectileId: 73
-      ProjectileHealingId: 113
-      BulletSpreadAngle: 3
       ProjectileSpeed:
-        RawValue: 1966080
-      ProjectileRange:
-        RawValue: 579994
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 6e00000066000000
-      IsDiagonalshot: 0
-      IsMultishot: 0
-      IsFrontshot: 1
     - Id: 34
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 4
+      InitialAmmo: 5
+      MaxAmmo: 24
       PowerRatioToBase:
         RawValue: 26214
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 32768
       AimTime:
         RawValue: 16384
       AttackCooldown:
         RawValue: 42598
-      InitialCapacity: 5
-      MaxCapacity: 24
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 196608
-      TargetingType: 1
+      AttackRange:
+        RawValue: 262144
+      AttackAngle: 45
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 262144
-      ProjectileId: 79
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 0
       ProjectileSpeed:
-        RawValue: 1966080
-      ProjectileRange:
-        RawValue: 262144
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 7700000077000000
-      IsDiagonalshot: 1
-      IsMultishot: 0
-      IsFrontshot: 0
     - Id: 33
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: 6
+      MaxAmmo: 32
       PowerRatioToBase:
         RawValue: 14746
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 32768
       AimTime:
         RawValue: 13107
       AttackCooldown:
         RawValue: 58982
-      InitialCapacity: 6
-      MaxCapacity: 32
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 299500
-      TargetingType: 1
+      AttackRange:
+        RawValue: 786432
+      AttackAngle: 0
       SplashRadius:
         RawValue: 131072
-      TargetRange:
-        RawValue: 622592
-      ProjectileId: 74
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 0
       ProjectileSpeed:
         RawValue: 425984
-      ProjectileRange:
-        RawValue: 786432
-      ProjectileStunDuration:
-        RawValue: 0
-      HazardId: 0
       Specials: 6600000053000000
-      IsDiagonalshot: 0
-      IsMultishot: 0
-      IsFrontshot: 0
     - Id: 35
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: 20
+      MaxAmmo: 100
       PowerRatioToBase:
         RawValue: 10650
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 45875
       AimTime:
         RawValue: 13107
       AttackCooldown:
         RawValue: 27525
-      InitialCapacity: 20
-      MaxCapacity: 100
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 1456210
-      TargetingType: 1
+      AttackRange:
+        RawValue: 524288
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 524288
-      ProjectileId: 75
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 8
       ProjectileSpeed:
-        RawValue: 1966080
-      ProjectileRange:
-        RawValue: 524288
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 5300000055000000
-      IsDiagonalshot: 0
-      IsMultishot: 1
-      IsFrontshot: 0
     - Id: 36
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 4
+      InitialAmmo: 7
+      MaxAmmo: 36
       PowerRatioToBase:
         RawValue: 8847
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 22938
       AimTime:
         RawValue: 36045
       AttackCooldown:
         RawValue: 13107
-      InitialCapacity: 7
-      MaxCapacity: 36
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 58982
-      TargetingType: 1
+      AttackRange:
+        RawValue: 419430
+      AttackAngle: 25
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 419430
-      ProjectileId: 77
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 25
       ProjectileSpeed:
-        RawValue: 1310720
-      ProjectileRange:
-        RawValue: 419430
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 5900000077000000
-      IsDiagonalshot: 1
-      IsMultishot: 1
-      IsFrontshot: 0
     - Id: 23
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: 20
+      MaxAmmo: 100
       PowerRatioToBase:
         RawValue: 8192
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 65536
       AimTime:
         RawValue: 13107
       AttackCooldown:
         RawValue: 22938
-      InitialCapacity: 20
-      MaxCapacity: 100
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 1638400
-      TargetingType: 1
+      AttackRange:
+        RawValue: 491520
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 491520
-      ProjectileId: 75
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 6
       ProjectileSpeed:
-        RawValue: 983040
-      ProjectileRange:
-        RawValue: 491520
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 8d00000000000000
-      IsDiagonalshot: 0
-      IsMultishot: 0
-      IsFrontshot: 0
     - Id: 37
       AssetRef:
         Id:
           Value: 4070827363264793974
-      StartingRarity: 0
-      Indicator: 3
+      InitialAmmo: 26
+      MaxAmmo: 130
       PowerRatioToBase:
         RawValue: 6881
-      IsAutoShoot: 1
-      AimingMovementSpeedMultiplier:
+      AimingMovementSpeed:
         RawValue: 32768
       AimTime:
         RawValue: 26214
       AttackCooldown:
         RawValue: 13107
-      InitialCapacity: 26
-      MaxCapacity: 130
-      MinCapacityToShoot: 1
-      ReloadType: 4
-      ReloadSpeed:
-        RawValue: 212992
-      TargetingType: 1
+      AttackRange:
+        RawValue: 471859
+      AttackAngle: 0
       SplashRadius:
         RawValue: 0
-      TargetRange:
-        RawValue: 471859
-      ProjectileId: 77
-      ProjectileHealingId: 0
-      BulletSpreadAngle: 14
       ProjectileSpeed:
-        RawValue: 1310720
-      ProjectileRange:
-        RawValue: 471859
-      ProjectileStunDuration:
         RawValue: 0
-      HazardId: 0
       Specials: 530000006e000000
-      IsDiagonalshot: 0
-      IsMultishot: 1
-      IsFrontshot: 0

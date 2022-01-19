@@ -2,26 +2,26 @@
 
 namespace Quantum
 {
-  [Serializable]
-  [AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-  public unsafe partial class IncreaseBlackboardInt : AIAction
-  {
-    public AIBlackboardValueKey Key;
-    public AIParamInt IncrementAmount; 
+	[Serializable]
+	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
+	public unsafe partial class IncreaseBlackboardInt : AIAction
+	{
+		public AIBlackboardValueKey Key;
+		public AIParamInt IncrementAmount;
 
-    public override unsafe void Update(Frame f, EntityRef e)
-    {
-      var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+		public override unsafe void Update(Frame frame, EntityRef entity)
+		{
+			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 
-      var hfsmAgent = f.Unsafe.GetPointer<HFSMAgent>(e);
-      var config = hfsmAgent->GetConfig(f);
+			var agent = frame.Unsafe.GetPointer<HFSMAgent>(entity);
+			var aiConfig = agent->GetConfig(frame);
 
-      var incrementValue = IncrementAmount.Resolve(f, bbComponent, config);
+			var incrementValue = IncrementAmount.Resolve(frame, entity, blackboard, aiConfig);
 
-      var currentAmount = bbComponent->GetInteger(f, Key.Key);
-      currentAmount += incrementValue;
+			var currentAmount = blackboard->GetInteger(frame, Key.Key);
+			currentAmount += incrementValue;
 
-      bbComponent->Set(f, Key.Key, currentAmount);
-    }
-  }
+			blackboard->Set(frame, Key.Key, currentAmount);
+		}
+	}
 }

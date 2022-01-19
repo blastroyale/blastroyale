@@ -28,7 +28,6 @@ namespace Quantum
 				new MatchDataSystem(),		// Must be the first to guarantee that receives all the events before entities are deleted
 				new NavMeshAgentSystem(),
 				new StatusModifierSystemGroup(),
-				new PowerUpsSystemGroup(),
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
 				
@@ -38,6 +37,8 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
+				new SpellSystem(),
+				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),

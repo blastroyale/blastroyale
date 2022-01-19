@@ -11,12 +11,6 @@ namespace Quantum
 			
 			switch (special.SpecialType)
 			{
-				case SpecialType.RageSelfStatus:
-					StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Rage, duration);
-					return true;
-				case SpecialType.InvisibilitySelfStatus:
-					StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Invisibility, duration);
-					return true;
 				case SpecialType.ShieldSelfStatus:
 					StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, duration);
 					return true;

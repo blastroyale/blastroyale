@@ -10,14 +10,10 @@ namespace Quantum
 		public GameId Id;
 		public SpecialType SpecialType;
 		public IndicatorVfxId Indicator;
-		public uint BaseCharges;
-		public uint MaxCharges;
-		public FP InitialCooldown;
 		public FP Cooldown;
-		public FP SplashRadius;
+		public FP Radius;
 		public uint PowerAmount;
 		public FP Speed;
-		public GameId ExtraId;
 		public FP MinRange;
 		public FP MaxRange;
 
@@ -31,5 +27,23 @@ namespace Quantum
 	public partial class QuantumSpecialConfigs
 	{
 		public List<QuantumSpecialConfig> QuantumConfigs = new List<QuantumSpecialConfig>();
+		
+		private IDictionary<GameId, QuantumSpecialConfig> _dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
+
+		/// <summary>
+		/// Requests the <see cref="QuantumSpecialConfig"/> of the given enemy <paramref name="gameId"/>
+		/// </summary>
+		public QuantumSpecialConfig GetConfig(GameId gameId)
+		{
+			if (_dictionary.Count == 0)
+			{
+				foreach (var config in QuantumConfigs)
+				{
+					_dictionary.Add(config.Id, config);
+				}
+			}
+
+			return _dictionary[gameId];
+		}
 	}
 }

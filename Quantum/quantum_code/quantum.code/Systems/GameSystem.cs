@@ -18,12 +18,28 @@ namespace Quantum.Systems
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var matchData = container->PlayersData;
 			var playerWinner = (PlayerRef) 0;
-
-			for (var i = 1; i < f.RuntimeConfig.PlayersLimit; i++)
+			
+			// Deathmatch winner is the one with the most kills
+			if (container->GameMode == GameMode.Deathmatch)
 			{
-				if (matchData[i].PlayersKilledCount > matchData[playerWinner].PlayersKilledCount)
+				for (var i = 1; i < f.RuntimeConfig.PlayersLimit; i++)
 				{
-					playerWinner = i;
+					if (matchData[i].PlayersKilledCount > matchData[playerWinner].PlayersKilledCount)
+					{
+						playerWinner = i;
+					}
+				}
+			}
+			// BattleRoyale winner is the one with the least deaths (the last survivor)
+			else
+			{
+				for (var i = 1; i < f.RuntimeConfig.PlayersLimit; i++)
+				{
+					if (matchData[i].DeathCount + matchData[i].SuicideCount <
+					    matchData[playerWinner].DeathCount + matchData[playerWinner].SuicideCount)
+					{
+						playerWinner = i;
+					}
 				}
 			}
 			
@@ -46,12 +62,13 @@ namespace Quantum.Systems
 			f.SystemDisable(typeof(PlayerCharacterSystem));
 			f.SystemDisable(typeof(ProjectileSystem));
 			f.SystemDisable(typeof(HazardSystem));
+			f.SystemDisable(typeof(ShrinkingCircleSystem));
 		}
 
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (entity == attacker || !f.TryGet<PlayerCharacter>(entity, out var player))
+			if (!f.TryGet<PlayerCharacter>(entity, out var player))
 			{
 				return;
 			}
@@ -64,6 +81,7 @@ namespace Quantum.Systems
 				inc = 1;
 			}
 			else if(container->GameMode == GameMode.Deathmatch &&
+			        entity != attacker &&
 			        f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
 				var killerData = container->PlayersData[killer.Player];

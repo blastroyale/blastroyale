@@ -99,6 +99,11 @@ namespace Quantum
 			{
 				navMeshPathfinder->Stop(f, e, true);
 			}
+
+			if (f.GetSingleton<GameContainer>().GameMode == GameMode.BattleRoyale)
+			{
+				f.Add<EntityDestroyer>(e);
+			}
 			
 			f.Add(e, deadPlayer);
 
@@ -109,6 +114,59 @@ namespace Quantum
 			f.Remove<Targetable>(e);
 			f.Remove<HFSMAgent>(e);
 			f.Remove<AlivePlayerCharacter>(e);
+		}
+
+		/// <summary>
+		/// Set's the player's current weapon to the given <paramref name="weaponGameId"/> and data
+		/// </summary>
+		public void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level, 
+		                      FPVector3 projectileSpawnOffset = new FPVector3())
+		{
+			var weapon = new Weapon();
+			var config = f.WeaponConfigs.GetConfig(weaponGameId);
+			var blackboard = f.Get<AIBlackboardComponent>(e);
+			var weaponConfig = f.WeaponConfigs.GetConfig(weaponGameId);
+			var power = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, 
+			                                                     f.GameConfig, StatType.Power);
+			
+			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), config.AimTime);
+			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), config.AttackCooldown);
+			
+			weapon.WeaponId = config.Id;
+			weapon.Ammo = config.InitialAmmo;
+			weapon.MaxAmmo = config.MaxAmmo;
+			weapon.AttackCooldown = config.AttackCooldown;
+			weapon.LastAttackTime = f.Time;
+			weapon.AttackRange = config.AttackRange;
+			weapon.AttackAngle = config.AttackAngle;
+			weapon.ProjectileSpeed = config.ProjectileSpeed;
+			weapon.SplashRadius = config.SplashRadius;
+			weapon.AimingMovementSpeed = config.AimingMovementSpeed;
+			weapon.ProjectileSpawnOffset = projectileSpawnOffset;
+			
+			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
+			{
+				var specialId = config.Specials[specialIndex];
+
+				if (specialId == default)
+				{
+					continue;
+				}
+				
+				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
+				
+				weapon.Specials[specialIndex] = new Special(f, specialConfig);
+			}
+			
+			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+
+			if (f.Has<Weapon>(e))
+			{
+				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId);
+			}
+			
+			f.Set(e, weapon);
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)
@@ -124,95 +182,6 @@ namespace Quantum
 
 			f.Add(e, kcc);
 			f.Add(e, new Stats(health, 0, speed, armour, f.GameConfig.PlayerDefaultInterimArmour));
-		}
-
-		public void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level)
-		{
-			var weapon = new Weapon();
-			var config = f.WeaponConfigs.GetConfig(weaponGameId);
-			var blackboard = f.Get<AIBlackboardComponent>(e);
-			var weaponConfig = f.WeaponConfigs.GetConfig(weaponGameId);
-			var power = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, 
-			                                                     f.GameConfig, StatType.Power);
-			
-			weapon.GameId = config.Id;
-			weapon.Capacity = config.InitialCapacity;
-			weapon.MaxCapacity = config.MaxCapacity;
-			weapon.NextCapacityIncreaseTime = FP._0;
-			weapon.OneCapacityReloadingTime = FP._1 / config.ReloadSpeed;
-			weapon.AimingMovementSpeedMultiplier = config.AimingMovementSpeedMultiplier;
-			weapon.BulletSpreadAngle = config.BulletSpreadAngle;
-			weapon.ReloadType = config.ReloadType;
-			weapon.MinCapacityToShoot = config.MinCapacityToShoot;
-			weapon.Emptied = false;
-			weapon.IsHealing = false;
-			weapon.ProjectileHealingId = config.ProjectileHealingId;
-			weapon.IsAutoShoot = config.IsAutoShoot;
-			weapon.AttackCooldown = config.AttackCooldown;
-			weapon.NextShotAllowedTime = f.Time;
-			
-			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
-			{
-				var specialId = config.Specials[specialIndex];
-				var specialConfig = f.SpecialConfigs.QuantumConfigs.Find(special => special.Id == specialId);
-				
-				weapon.Specials[specialIndex] = new Special(f, specialConfig, specialIndex);
-			}
-			
-			// Remove all current power ups from a character before adding new ones
-			PowerUps.RemovePowerupsFromEntity(f, e);
-			
-			if (config.IsDiagonalshot)
-			{
-				PowerUps.AddPowerUpToEntity(f, e, GameId.Diagonalshot, weaponGameId);
-			}
-			
-			if (config.IsMultishot)
-			{
-				PowerUps.AddPowerUpToEntity(f, e, GameId.Multishot, weaponGameId);
-			}
-			
-			if (config.IsFrontshot)
-			{
-				PowerUps.AddPowerUpToEntity(f, e, GameId.Frontshot, weaponGameId);
-			}
-			
-			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), config.AimTime);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), config.AttackCooldown);
-			blackboard.Set(f, Constants.WEAPON_TARGET_RANGE, config.TargetRange);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.TargetingType), (int)config.TargetingType);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.ProjectileSpeed), config.ProjectileSpeed);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.ProjectileRange), config.ProjectileRange);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.SplashRadius), config.SplashRadius);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.ProjectileStunDuration), config.ProjectileStunDuration);
-			blackboard.Set(f, Constants.PROJECTILE_GAME_ID, (int)config.ProjectileId);
-			blackboard.Set(f, nameof(Projectile), FP.FromRaw(Projectile.Id.Value));
-			blackboard.Set(f, nameof(QuantumWeaponConfig.IsAutoShoot), config.IsAutoShoot);
-			
-			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
-
-			if (f.TryGet<Weapon>(e, out var previousWeapon))
-			{
-				var isSameWeapon = previousWeapon.GameId == weaponGameId;
-				var resetCooldownSpecial = new bool[Constants.MAX_SPECIALS];
-				
-				for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
-				{
-					if (isSameWeapon && previousWeapon.Specials[specialIndex].Charges > 0)
-					{
-						resetCooldownSpecial[specialIndex] = false;
-						weapon.Specials[specialIndex].ResetCooldownTime = previousWeapon.Specials[specialIndex].ResetCooldownTime;
-						continue;
-					}
-					
-					resetCooldownSpecial[specialIndex] = true;
-				}
-				
-				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId, resetCooldownSpecial[0], resetCooldownSpecial[1]);
-			}
-			
-			f.Set(e, weapon);
 		}
 	}
 }

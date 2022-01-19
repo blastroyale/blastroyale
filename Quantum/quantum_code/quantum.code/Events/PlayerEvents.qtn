@@ -48,6 +48,20 @@ synced event OnPlayerWeaponChanged
 	GameId WeaponGameId;
 }
 
+synced event OnPlayerAttacked
+{
+	entity_ref PlayerEntity;
+	player_ref Player;
+}
+
+synced event OnPlayerAttackHit
+{
+	entity_ref PlayerEntity;
+	player_ref Player;
+	entity_ref HitEntity;
+	FPVector3 HitPosition;
+}
+
 // LOCAL PLAYER EVENTS
 
 synced event OnLocalPlayerLeft
@@ -61,6 +75,7 @@ synced event OnLocalPlayerSpawned
 	local player_ref Player;
 	entity_ref Entity;
 	bool HasRespawned;
+	GameId WeaponGameId;
 }
 
 synced event OnLocalPlayerAlive
@@ -88,47 +103,4 @@ synced event OnLocalPlayerWeaponChanged
 	local player_ref Player;
 	entity_ref Entity;
 	GameId WeaponGameId;
-}
-
-// REMOTE PLAYER EVENTS
-
-synced event OnRemotePlayerLeft
-{
-	remote player_ref Player;
-	entity_ref Entity;
-}
-
-synced event OnRemotePlayerSpawned
-{
-	remote player_ref Player;
-	entity_ref Entity;
-	bool HasRespawned;
-}
-
-synced event OnRemotePlayerAlive
-{
-	remote player_ref Player;
-	entity_ref Entity;
-}
-
-synced event OnRemotePlayerDead
-{
-	remote player_ref Player;
-	entity_ref Entity;
-}
-
-// New Shape Cast events - Move up when the feature is fully integrated
-
-synced event OnPlayerAttacked
-{
-	entity_ref PlayerEntity;
-	player_ref Player;
-}
-
-synced event OnPlayerAttackHit
-{
-	entity_ref PlayerEntity;
-	player_ref Player;
-	entity_ref HitEntity;
-	FPVector3 HitPosition;
 }

@@ -24,13 +24,24 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnEventOnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
 		}
 
-		private async void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		private void OnEventOnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(callback.WeaponGameId);
-			_weaponText.text = callback.WeaponGameId.GetTranslation();
+			UpdateCurrentWeapon(callback.WeaponGameId);
+		}
+		
+		private void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			UpdateCurrentWeapon(callback.WeaponGameId);
+		}
+		
+		private async void UpdateCurrentWeapon(GameId weaponGameId)
+		{
+			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
+			_weaponText.text = weaponGameId.GetTranslation();
 		}
 	}
 }

@@ -1,17 +1,19 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views;
+using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 using LayerMask = UnityEngine.LayerMask;
 
-namespace FirstLight.Game.Views
+namespace FirstLight.Game.Presenters
 {
-    /// <summary>
-    /// This Mono Component controls the visual behaviour for mini map graphics display
-    /// </summary>
-    public class MiniMapView : MonoBehaviour
-    {
+	/// <summary>
+	/// Presenter for controlling small and extended map views.
+	/// </summary>
+	public class MiniMapHudPresenter : UiPresenter
+	{
         [SerializeField] private RenderTexture _shrinkingCircleRenderTexture;
         [SerializeField] private Transform _playerRadarPing;
         [SerializeField] private Camera _camera;
@@ -122,5 +124,5 @@ namespace FirstLight.Game.Views
             
             pingTransform.localPosition = screenDelta;
         }
-    }
+	}
 }

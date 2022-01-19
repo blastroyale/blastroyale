@@ -26,14 +26,12 @@ namespace Quantum.Systems
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
-			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize / FP._2;
+			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize;
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
 
 			QuantumHelpers.TryFindPosOnNavMesh(f, spawnPosition.XOY, out var closestPosition);
-			
-			Log.Warn($"{spawnPosition} - {closestPosition}");
 
 			spawnTransform.Position = closestPosition;
 			

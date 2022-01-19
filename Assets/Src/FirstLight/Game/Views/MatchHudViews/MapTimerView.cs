@@ -48,7 +48,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 			
 			yield return new WaitForSeconds(time);
-
+			
+			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector3();
+			
 			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
 			
@@ -57,16 +59,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
-
-			var targetPosLocal = _cameraTransform.InverseTransformPoint(circle.TargetCircleCenter.ToUnityVector3());
-			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
-			// Apply rotation
-			_safeAreaRadialTransform.eulerAngles = new Vector3(0, 0, targetAngle);
 			
 			while (Time.time < time)
 			{
 				_timerText.text = (time - Time.time).ToString("N0");
-
+				
+				UpdateDirectionPointer(targetCircleCenter);
+				
 				yield return null;
 			}
 			
@@ -84,13 +83,23 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			while (Time.time < time)
 			{
 				_timerText.text = (time - Time.time).ToString("N0");
-
+				
+				UpdateDirectionPointer(targetCircleCenter);
+				
 				yield return null;
 			}
 			
 			_timerHolder.SetActive(false);
 			_timerOutline.SetActive(false);
 			_mapStatusText.gameObject.SetActive(false);
+		}
+
+		private void UpdateDirectionPointer(Vector3 targetCircleCenter)
+		{
+			// Calculate and Apply rotation
+			var targetPosLocal = _cameraTransform.InverseTransformPoint(targetCircleCenter);
+			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+			_safeAreaRadialTransform.eulerAngles = new Vector3(0, 0, targetAngle);
 		}
 
 	}

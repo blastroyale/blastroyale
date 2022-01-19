@@ -11,7 +11,6 @@ namespace Quantum
 		{
 			f.Add<EntityDestroyer>(e);
 			
-			f.Events.OnRemotePlayerLeft(Player, e);
 			f.Events.OnPlayerLeft(Player, e);
 			f.Events.OnLocalPlayerLeft(Player);
 		}
@@ -50,8 +49,7 @@ namespace Quantum
 			SetWeapon(f, e, DefaultWeapon.GameId, DefaultWeapon.Rarity, DefaultWeapon.Level);
 			
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
-			f.Events.OnRemotePlayerSpawned(Player, e, isRespawning);
-			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
+			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning, DefaultWeapon.GameId);
 			
 			f.Remove<DeadPlayerCharacter>(e);
 			f.Add(e, spawnPlayer);
@@ -74,7 +72,6 @@ namespace Quantum
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, f.GameConfig.PlayerAliveShieldDuration);
 			
 			f.Events.OnPlayerAlive(Player, e);
-			f.Events.OnRemotePlayerAlive(Player, e);
 			f.Events.OnLocalPlayerAlive(Player, e);
 			
 			f.Remove<SpawnPlayerCharacter>(e);
@@ -108,7 +105,6 @@ namespace Quantum
 			f.Add(e, deadPlayer);
 
 			f.Events.OnPlayerDead(Player, e);
-			f.Events.OnRemotePlayerDead(Player, e);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
 			
 			f.Remove<Targetable>(e);

@@ -42,7 +42,7 @@ namespace Quantum
 			{
 				aimInput = FPVector2.ClampMagnitude(aimInput, FP._1);
 				targetPosition = attackerPosition + (aimInput * maxRange).XOY;
-				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
+				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
 			var targetRange = special.MaxRange;
@@ -50,14 +50,15 @@ namespace Quantum
 			var hazardData = new Hazard
 			{
 				Attacker = e,
-				EndTime = f.Time + launchTime + special.Speed,
+				EndTime = f.Time + launchTime,
 				GameId = special.SpecialId,
 				Interval = special.Speed,
-				NextTickTime = f.Time + launchTime + special.Speed,
-				PowerAmount = special.PowerAmount,
+				NextTickTime = f.Time + launchTime,
+				PowerAmount = 0,
 				Radius = special.Radius,
-				StunDuration = FP._0,
-				TeamSource = team
+				StunDuration = special.PowerAmount,
+				TeamSource = team,
+				MaxHitCount = uint.MaxValue
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

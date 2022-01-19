@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
 			
 			mainMenuTransition.Transition().Target(mainMenu);
-			
+
 			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);

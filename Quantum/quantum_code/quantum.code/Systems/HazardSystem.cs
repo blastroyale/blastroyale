@@ -30,9 +30,10 @@ namespace Quantum.Systems
 			}
 			
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
-
+			
 			QuantumHelpers.ProcessAreaHit(f, hazard->Attacker, filter.Entity, hazard->Radius,
-			                              filter.Transform->Position, hazard->PowerAmount, hazard->TeamSource, OnHit);
+			                              filter.Transform->Position, hazard->PowerAmount, hazard->TeamSource, 
+			                              hazard->MaxHitCount, OnHit);
 		}
 
 		private void OnHit(Frame f, EntityRef attacker, EntityRef attackSource, EntityRef hitEntity, FPVector3 hitPoint)

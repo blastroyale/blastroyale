@@ -65,10 +65,7 @@ namespace FirstLight.Game.StateMachines
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
-			startSimulation.OnExit(CloseLoadingScreen);
-			startSimulation.OnExit(PublishMatchReady);
-			startSimulation.OnExit(SetPlayerMatchData);
-			startSimulation.OnExit(MatchStartAnalytics);
+			startSimulation.OnExit(PrepareMatch);
 			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
@@ -232,11 +229,6 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlayClip2D(AudioId.AdventureStart1);
 		}
 
-		private void PublishMatchReady()
-		{
-			_services.MessageBrokerService.Publish(new MatchReadyMessage());
-		}
-
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
@@ -312,18 +304,29 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<RewardsScreenPresenter>();
 		}
 
+		private void PrepareMatch()
+		{
+			MatchStartAnalytics();
+			SetPlayerMatchData();
+			CloseLoadingScreen();
+			
+			_services.MessageBrokerService.Publish(new MatchReadyMessage());
+		}
+
 		private void SetPlayerMatchData()
 		{
 			var game = QuantumRunner.Default.Game;
 			var info = _gameDataProvider.EquipmentDataProvider.GetLoadOutInfo();
+			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
 			
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
 				PlayerName = _gameDataProvider.PlayerDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
+				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
+				NormalizedSpawnPosition = position.ToFPVector2(),
 				Weapon = info.Weapon.Value,
-				Gear = info.Gear.ConvertAll(item => (Equipment) item).ToArray(),
-				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value
+				Gear = info.Gear.ConvertAll(item => (Equipment) item).ToArray()
 			});
 		}
 		

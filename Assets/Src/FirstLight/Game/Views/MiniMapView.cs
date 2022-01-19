@@ -84,7 +84,7 @@ namespace FirstLight.Game.Views
             if (_renderTextureMode == RenderTextureMode.Default)
             {
                 _camera.targetTexture = _shrinkingCircleRenderTexture;
-                _camera.cullingMask = LayerMask.GetMask("Shrinking Circle");
+                _camera.cullingMask = LayerMask.GetMask("Mini Map Object");
                 _renderTextureMode = RenderTextureMode.ShrinkingCircle;
             }
             else if (_renderTextureMode == RenderTextureMode.None)

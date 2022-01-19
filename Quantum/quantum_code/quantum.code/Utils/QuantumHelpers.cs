@@ -258,7 +258,7 @@ namespace Quantum
 		/// </summary>
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, out FPVector3 correctedPosition)
 		{
-			var radius = FP._2;
+			var radius = FP._1_50;
 			var navMesh = f.NavMesh;
 
 			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default, 

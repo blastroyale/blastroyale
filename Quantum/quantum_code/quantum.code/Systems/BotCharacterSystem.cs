@@ -519,7 +519,6 @@ namespace Quantum.Systems
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var skins = GameIdGroup.PlayerSkin.GetIds();
-			var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
 			

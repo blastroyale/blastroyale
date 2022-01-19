@@ -7,7 +7,7 @@ namespace Quantum
 		public string PlayerName;
 		public GameId Skin;
 		public uint PlayerLevel;
-		public FPVector2 SpawnPosition;
+		public FPVector2 NormalizedSpawnPosition;
 		public Equipment Weapon;
 		public Equipment[] Gear;
 
@@ -20,7 +20,7 @@ namespace Quantum
 			stream.Serialize(ref PlayerName);
 			stream.Serialize(ref skin);
 			stream.Serialize(ref PlayerLevel);
-			stream.Serialize(ref SpawnPosition);
+			stream.Serialize(ref NormalizedSpawnPosition);
 			stream.SerializeArrayLength(ref Gear);
 
 			for (var i = 0; i < Gear.Length; i++)

@@ -25,21 +25,29 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private RectTransform _rectTransform;
 
+		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_rectTransform = transform as RectTransform;
 
-			NormalizedSelectionPoint = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+			var size = _rectTransform.sizeDelta;
+			var randomPos = new Vector2(Random.Range(-size.x, size.x), Random.Range(-size.y, size.y));
+
+			SetPosition(randomPos / 2f);
 		}
 		
 		/// <inheritdoc />
-		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, eventData.position, _uiCamera, 
 			                                                        out var localPos);
 			
+			SetPosition(localPos);
+		}
+
+		private void SetPosition(Vector2 localPos)
+		{
 			var mapConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var size = mapConfigs.GetSize();
 			var sizeDelta = _rectTransform.sizeDelta;
@@ -47,7 +55,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var normalizedPoint = new Vector2(calcPos.x / sizeDelta.x, calcPos.y / sizeDelta.y);
 			var xPos = Mathf.FloorToInt(size.Key * normalizedPoint.x);
 			var yPos = Mathf.FloorToInt(size.Value * normalizedPoint.y);
-			
 			var config = mapConfigs.GetConfig(xPos, yPos);
 
 			if (!config.IsValid)

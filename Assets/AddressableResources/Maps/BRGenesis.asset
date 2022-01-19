@@ -3246,23 +3246,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3319,23 +3316,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3392,23 +3386,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3465,23 +3456,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3538,23 +3526,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3611,23 +3596,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3684,23 +3666,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3757,23 +3736,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3830,23 +3806,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3903,23 +3876,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -3976,23 +3946,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4049,23 +4016,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4122,23 +4086,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4195,23 +4156,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4268,23 +4226,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4341,23 +4296,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4414,23 +4366,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4487,23 +4436,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4560,23 +4506,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4633,23 +4576,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4706,23 +4646,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4779,23 +4716,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4852,23 +4786,20 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
@@ -4934,24 +4865,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 90
       GameId:
         Value: 64
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5015,24 +4943,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 129
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5096,24 +5021,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 126
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5177,24 +5099,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5258,24 +5177,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5339,24 +5255,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5420,24 +5333,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5501,24 +5411,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5582,24 +5489,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5663,24 +5567,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5744,24 +5645,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5825,24 +5723,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5906,24 +5801,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -5987,24 +5879,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6068,24 +5957,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6149,24 +6035,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6230,24 +6113,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6311,24 +6191,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6392,24 +6269,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6473,24 +6347,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6554,24 +6425,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6635,24 +6503,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6716,24 +6581,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6797,24 +6659,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6878,24 +6737,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -6959,24 +6815,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7040,24 +6893,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7121,24 +6971,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7202,24 +7049,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7283,24 +7127,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7364,24 +7205,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7445,24 +7283,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7526,24 +7361,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7607,24 +7439,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7688,24 +7517,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7769,24 +7595,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7850,24 +7673,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -7931,24 +7751,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8012,24 +7829,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8093,24 +7907,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8174,24 +7985,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8255,24 +8063,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8336,24 +8141,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8417,24 +8219,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 13
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8498,24 +8297,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8579,24 +8375,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8660,24 +8453,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8741,24 +8531,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8822,24 +8609,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8903,24 +8687,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -8984,24 +8765,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9065,24 +8843,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9146,24 +8921,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9227,24 +8999,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9308,24 +9077,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9389,24 +9155,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9470,24 +9233,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9551,24 +9311,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9632,24 +9389,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9713,24 +9467,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 16
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9794,24 +9545,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9875,24 +9623,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -9956,24 +9701,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10037,24 +9779,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10118,24 +9857,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10199,24 +9935,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10280,24 +10013,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10361,24 +10091,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10442,24 +10169,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10523,24 +10247,21 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 19
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10604,23 +10325,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 30
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10685,23 +10403,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 36
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10766,23 +10481,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 33
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10847,23 +10559,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 34
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -10928,23 +10637,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 32
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -11009,23 +10715,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 35
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -11090,23 +10793,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 35
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -11171,23 +10871,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 35
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -11252,23 +10949,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 32
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -11333,23 +11027,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 32
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
@@ -11414,23 +11105,20 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 37
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []

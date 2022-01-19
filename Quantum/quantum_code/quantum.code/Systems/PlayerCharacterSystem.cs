@@ -25,12 +25,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			var spawnerTransform = QuantumHelpers.GetPlayerSpawnTransform(f);
 			var playerData = f.GetPlayerData(playerRef);
+			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize / FP._2;
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
+
+			f.NavMesh.FindRandomPointOnNavmesh(spawnPosition.XOY, FP._10, f.RNG, NavMeshRegionMask.Default, 
+			                                   out var closestPosition);
+
+			spawnTransform.Position = closestPosition;
 			
-			playerCharacter->Init(f, playerEntity, playerRef, spawnerTransform.Component, playerData.PlayerLevel, 
+			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel, 
 			                      playerData.Skin, playerData.Weapon, playerData.Gear);
 		}
 

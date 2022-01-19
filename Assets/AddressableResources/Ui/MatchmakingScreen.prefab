@@ -2640,6 +2640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0fd5d80bd4322049bc64f60d1080ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapSelectionView: {fileID: 4627899384041019775}
   _playerCharacterParent: {fileID: 987607125991997567}
   _mapImage: {fileID: 794559060278026207}
   _playersWaitingImage:

@@ -4951,7 +4951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290921325080463802, guid: 09429db00904e4c47a2dd60b7fc2f6d5, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2290921325080463802, guid: 09429db00904e4c47a2dd60b7fc2f6d5, type: 3}
       propertyPath: TrailModule.widthOverTrail.scalar

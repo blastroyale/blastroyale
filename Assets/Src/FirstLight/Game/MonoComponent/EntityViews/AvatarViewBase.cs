@@ -91,11 +91,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, HandleOnHealthIsZero);
-			QuantumEvent.Subscribe<EventOnPlayerAttacked>(this, HandleOnPlayerAttacked);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
-			QuantumEvent.Subscribe<EventOnLocalSpecialUsed>(this, HandleOnLocalSpecialUsed);
 		}
 
 		protected override void OnInit()
@@ -150,18 +148,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
-		protected virtual void OnPlayerDead(QuantumGame game)
+		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
+			var destroy = game.Frames.Verified.GetSingleton<GameContainer>().GameMode != GameMode.Deathmatch;
+			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			Dissolve(false);
+			Dissolve(destroy);
 		}
 		
 		private void HandleOnEntityDestroyed(QuantumGame game)
 		{
 			transform.parent = null;
-					
-			OnPlayerDead(game);
+			
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
 		}
@@ -176,6 +175,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.Enabled = false;
 			
 			RigidbodyContainerMonoComponent.SetState(true);
+			OnAvatarEliminated(callback.Game);
 			
 			var direction = callback.DamageSourceDirection.ToUnityVector3().normalized;
 				
@@ -201,17 +201,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_animatorWrapper.SetTrigger(Triggers.Hit);
 			Services.AudioFxService.PlayClip3D(AudioId.ActorHit01, transform.position);
 			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.HitDuration);
-		}
-		
-		private void HandleOnPlayerAttacked(EventOnPlayerAttacked evnt)
-		{
-			if (evnt.PlayerEntity != EntityRef)
-			{
-				return;
-			}
-			
-			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired01, transform.position);
-			_animatorWrapper.SetTrigger(Triggers.Shoot);
 		}
 		
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)
@@ -242,16 +231,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			
 			CleanUp();
-		}
-
-		private void HandleOnLocalSpecialUsed(EventOnLocalSpecialUsed evnt)
-		{
-			if (evnt.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-			
-			_animatorWrapper.SetTrigger(Triggers.Special);
 		}
 
 		private void CleanUp()

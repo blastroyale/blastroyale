@@ -47,6 +47,7 @@ namespace Quantum
 			var player = f.Get<PlayerCharacter>(playerEntity).Player;
 				
 			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);
+			f.Events.OnSpecialUsed(player, playerEntity, SpecialType, specialIndex);
 			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex);
 
 			return true;

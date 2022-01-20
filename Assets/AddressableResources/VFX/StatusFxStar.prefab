@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 7835871525043747356}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StatusFxStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 1927937612574471934}
   - component: {fileID: 6768582621625569147}
   - component: {fileID: 8919231840531909082}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,6 +282,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

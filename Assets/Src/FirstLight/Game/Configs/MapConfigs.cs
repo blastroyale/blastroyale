@@ -19,7 +19,7 @@ namespace FirstLight.Game.Configs
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="MapConfig"/> sheet data
 	/// </summary>
-	[CreateAssetMenu(fileName = "AdventureConfigs", menuName = "ScriptableObjects/Configs/AdventureConfigs")]
+	[CreateAssetMenu(fileName = "MapConfigs", menuName = "ScriptableObjects/Configs/MapConfigs")]
 	public class MapConfigs : ScriptableObject, IConfigsContainer<MapConfig>
 	{
 		[SerializeField] private List<MapConfig> _configs = new List<MapConfig>();

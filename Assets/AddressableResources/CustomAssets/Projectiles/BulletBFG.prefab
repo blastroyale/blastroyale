@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 1067459253873524759}
   - component: {fileID: 8037374155631401242}
   - component: {fileID: 8937810802318334335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MinigunBullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4972,6 +4972,10 @@ PrefabInstance:
     - target: {fileID: 3863318529409858551, guid: 09429db00904e4c47a2dd60b7fc2f6d5, type: 3}
       propertyPath: m_Name
       value: BFGbolt
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863318529409858551, guid: 09429db00904e4c47a2dd60b7fc2f6d5, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7571531224376861025, guid: 09429db00904e4c47a2dd60b7fc2f6d5, type: 3}
       propertyPath: m_Materials.Array.data[0]

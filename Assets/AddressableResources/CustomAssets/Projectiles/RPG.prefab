@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 5063964806687914928}
   - component: {fileID: 1792860565293580455}
   - component: {fileID: 1629769611986045003}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RocketTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

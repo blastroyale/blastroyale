@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5951048328364116208}
   - component: {fileID: 2770599597664266231}
   - component: {fileID: 4728546610766997533}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ExplosionBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,6 +86,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -129,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ImpactSmallAirstrike
   m_TagString: Untagged
   m_Icon: {fileID: 0}

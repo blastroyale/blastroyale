@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4283840200359566726}
   - component: {fileID: 4754822366335462427}
   - component: {fileID: 2511998578036184277}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_LootCoreUnCommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,6 +110,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -152,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8196430296355205900}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootCoreUnCommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,6 +255,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: d756731c196e35744bcc581ac2aab3be, type: 2}
+    - target: {fileID: -4501317917057629633, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -4424578121627519998, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -1665099024466896126, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -1106458986058271706, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -1106458986058271706, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -262,6 +279,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LootCore
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1691101594248468151, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -294,6 +315,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 7b47d90dd2421c747b9d32eac62c6b99, type: 2}
+    - target: {fileID: 4746971632187366956, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175038709545690706, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5175038709545690706, guid: 5f91ea5032c2a6c49959433004c465ed, type: 3}
       propertyPath: m_IsActive
       value: 1

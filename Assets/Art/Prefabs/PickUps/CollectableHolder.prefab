@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5c4faaf3b0451eb195431260891ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RenderersContainer: {fileID: 8031558781370260273}
+  RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 0}
   _collectSfxId: 3
   _animation: {fileID: 7082083947952226433}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5009,7 +5009,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

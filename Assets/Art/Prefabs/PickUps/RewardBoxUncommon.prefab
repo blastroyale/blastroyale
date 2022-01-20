@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5827318943263427462}
   - component: {fileID: 6748327784016337266}
   - component: {fileID: 3468249888017096016}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -92,7 +93,7 @@ GameObject:
   - component: {fileID: 8125691644962738320}
   - component: {fileID: 1464399440747062273}
   - component: {fileID: 4991145530508725962}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,6 +133,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -171,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6214935005501642944}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxLid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +210,7 @@ GameObject:
   - component: {fileID: 5954160098874598454}
   - component: {fileID: 1876555659895327095}
   - component: {fileID: 6767795415462080504}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxSolid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,6 +251,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -290,7 +293,7 @@ GameObject:
   - component: {fileID: 2526537461368637130}
   - component: {fileID: 4220029123766647705}
   - component: {fileID: 3086541205114039096}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,6 +333,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -371,7 +375,7 @@ GameObject:
   - component: {fileID: 215680346082348199}
   - component: {fileID: 3100393651777090749}
   - component: {fileID: 5759969809870819720}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Clamp1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,6 +416,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -453,7 +458,7 @@ GameObject:
   - component: {fileID: 7550378078406267317}
   - component: {fileID: 3922811913089177346}
   - component: {fileID: 1576736557319565951}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,6 +498,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -534,7 +540,7 @@ GameObject:
   - component: {fileID: 2595073211029436280}
   - component: {fileID: 594325817489755912}
   - component: {fileID: 5881126519550410450}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,6 +580,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -615,7 +622,7 @@ GameObject:
   - component: {fileID: 6731224317439668423}
   - component: {fileID: 4180678122528123719}
   - component: {fileID: 4493886156814663812}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,6 +664,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -696,7 +704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6253394894663939460}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RewardBoxUncommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +739,7 @@ GameObject:
   - component: {fileID: 3554907358506318858}
   - component: {fileID: 6283449795782078375}
   - component: {fileID: 6560473157912343378}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -771,6 +779,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -812,7 +821,7 @@ GameObject:
   - component: {fileID: 1965474302189829506}
   - component: {fileID: 8184927768936177144}
   - component: {fileID: 7588291058947327503}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: InnerGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,6 +861,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -893,7 +903,7 @@ GameObject:
   - component: {fileID: 9112913077355792609}
   - component: {fileID: 1959019219244075010}
   - component: {fileID: 5929057506364468559}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -933,6 +943,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

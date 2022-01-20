@@ -49,7 +49,7 @@ namespace Quantum
 			SetWeapon(f, e, DefaultWeapon.GameId, DefaultWeapon.Rarity, DefaultWeapon.Level);
 			
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
-			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
+			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning, DefaultWeapon.GameId);
 			
 			f.Remove<DeadPlayerCharacter>(e);
 			f.Add(e, spawnPlayer);

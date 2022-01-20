@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6650924514108190406}
   - component: {fileID: 6369629610119479141}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CollectableIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6650924515104287631}
   - component: {fileID: 6650924515104287629}
   - component: {fileID: 6650924515104287630}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6650924515329124941}
   - component: {fileID: 6650924515329124940}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

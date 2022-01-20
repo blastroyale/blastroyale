@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 2395875334018905368}
   - component: {fileID: 8697836485763018543}
   - component: {fileID: 4643963747205317835}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 31436151450630406}
   - component: {fileID: 3311120596832384793}
   - component: {fileID: 1156139750979976271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5173,7 +5173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8732573179921721208}
   - component: {fileID: 8732573179921721209}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5232,7 +5232,7 @@ GameObject:
   - component: {fileID: 8732573180231493306}
   - component: {fileID: 8732573180231493304}
   - component: {fileID: 8732573180231493307}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5305,7 +5305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8732573180841714675}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RadialIndicator3DView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5338,7 +5338,7 @@ GameObject:
   - component: {fileID: 8449893965286696728}
   - component: {fileID: 2732338449301725529}
   - component: {fileID: 7536896001643873635}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

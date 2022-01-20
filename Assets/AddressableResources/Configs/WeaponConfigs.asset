@@ -22,8 +22,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 7
-      MaxAmmo: 36
+      InitialAmmo: 11
+      MaxAmmo: 54
       PowerRatioToBase:
         RawValue: 49152
       AimingMovementSpeed:
@@ -45,7 +45,7 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmo: -1
-      MaxAmmo: 100
+      MaxAmmo: 50
       PowerRatioToBase:
         RawValue: 39322
       AimingMovementSpeed:
@@ -66,8 +66,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 36
-      MaxAmmo: 180
+      InitialAmmo: 54
+      MaxAmmo: 270
       PowerRatioToBase:
         RawValue: 5571
       AimingMovementSpeed:
@@ -88,8 +88,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 5
-      MaxAmmo: 24
+      InitialAmmo: 7
+      MaxAmmo: 36
       PowerRatioToBase:
         RawValue: 26214
       AimingMovementSpeed:
@@ -110,8 +110,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 6
-      MaxAmmo: 32
+      InitialAmmo: 10
+      MaxAmmo: 48
       PowerRatioToBase:
         RawValue: 58982
       AimingMovementSpeed:
@@ -132,8 +132,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 20
-      MaxAmmo: 100
+      InitialAmmo: 30
+      MaxAmmo: 150
       PowerRatioToBase:
         RawValue: 10650
       AimingMovementSpeed:
@@ -154,8 +154,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 7
-      MaxAmmo: 36
+      InitialAmmo: 11
+      MaxAmmo: 54
       PowerRatioToBase:
         RawValue: 8847
       AimingMovementSpeed:
@@ -176,8 +176,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 20
-      MaxAmmo: 100
+      InitialAmmo: 30
+      MaxAmmo: 150
       PowerRatioToBase:
         RawValue: 8192
       AimingMovementSpeed:
@@ -198,8 +198,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 26
-      MaxAmmo: 130
+      InitialAmmo: 39
+      MaxAmmo: 195
       PowerRatioToBase:
         RawValue: 6881
       AimingMovementSpeed:

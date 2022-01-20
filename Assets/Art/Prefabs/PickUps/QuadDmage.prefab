@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 659910550253777241}
   - component: {fileID: 1534359906560029314}
   - component: {fileID: 7977861132670699672}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Rage (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 3417575882302238943}
   - component: {fileID: 2770041350295012068}
   - component: {fileID: 7337000596040198428}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BoxingGlove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 7317006229996636199}
   - component: {fileID: 3481162591738653903}
   - component: {fileID: 5299980654030676022}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7052118638972558067}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: QuadDmage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 6613234949948822158}
   - component: {fileID: 2337069496180255095}
   - component: {fileID: 7197527808165944888}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GloveParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

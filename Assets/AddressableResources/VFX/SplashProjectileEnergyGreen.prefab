@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5231245992312000478}
   - component: {fileID: 5231245992312000479}
   - component: {fileID: 100114986438559546}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SplashProjectileEnergyGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 9086912032402462267}
   - component: {fileID: 6436409545407294472}
   - component: {fileID: 1139785110216394100}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnergySplash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,6 +205,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

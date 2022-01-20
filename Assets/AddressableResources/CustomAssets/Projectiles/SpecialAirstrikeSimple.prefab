@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 7740617857894234799}
   - component: {fileID: 9167244150794164919}
   - component: {fileID: 2570612215214858536}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ParticleFloating
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4936,7 +4936,7 @@ GameObject:
   - component: {fileID: 6163509442376322464}
   - component: {fileID: 2301429028028590154}
   - component: {fileID: 8576571497303813979}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FlameAndSmokeTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

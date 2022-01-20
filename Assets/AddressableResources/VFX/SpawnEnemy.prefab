@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4555731559734380379}
   - component: {fileID: 4555731559734380377}
   - component: {fileID: 4555731559734380376}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -165,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4555731560061430784}
   - component: {fileID: 7791933294958921566}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SpawnEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

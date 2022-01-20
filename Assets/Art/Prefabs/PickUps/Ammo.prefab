@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4077108798897294171}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7969682438306948158}
   - component: {fileID: 4056319337587307006}
   - component: {fileID: 5419609527883185822}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 946870195398459472}
   - component: {fileID: 8336539172342287870}
   - component: {fileID: 5011753205884365277}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AmmoParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,7 +4932,7 @@ GameObject:
   - component: {fileID: 1725077125917941808}
   - component: {fileID: 4602941937227924298}
   - component: {fileID: 4785558491455671401}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Outershell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

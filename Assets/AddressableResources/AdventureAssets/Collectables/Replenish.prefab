@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5c4faaf3b0451eb195431260891ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RenderersContainer: {fileID: 7154763326806129797}
+  RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _collectSfxId: 3
   _animation: {fileID: 4159690803613263917}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5014,7 +5014,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5168,9 +5168,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7273039971299085641}
     m_Modifications:
+    - target: {fileID: 6951558053818259266, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951558054064997036, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951558054655268889, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6951558054759797562, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
       propertyPath: m_Name
       value: Refill_Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951558054759797562, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6951558054759797563, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
       propertyPath: m_RootOrder
@@ -5215,6 +5231,10 @@ PrefabInstance:
     - target: {fileID: 6951558054759797563, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951558055007514973, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4cf143559a95ce4081b60ba32ee275d, type: 3}

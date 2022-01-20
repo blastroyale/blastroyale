@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3898485481164907664}
   - component: {fileID: 1731124706598594537}
   - component: {fileID: 4196088318031210387}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ArmorLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2397682563014544376}
   - component: {fileID: 5872165069159604445}
   - component: {fileID: 2512651846792174242}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_YelRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

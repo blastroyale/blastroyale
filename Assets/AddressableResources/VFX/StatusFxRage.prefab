@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5522950119543431314}
   - component: {fileID: 4434195675342789817}
   - component: {fileID: 5336166632930653284}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Rage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,6 +195,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -239,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 2056925739605810967}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StatusFxRage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

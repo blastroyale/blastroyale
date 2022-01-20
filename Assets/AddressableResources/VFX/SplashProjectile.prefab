@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 461516346912110737}
   - component: {fileID: 461516346912110736}
   - component: {fileID: 5736761442419814517}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SplashProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 6522588518597658537}
   - component: {fileID: 9034230508804788185}
   - component: {fileID: 3831054859616570971}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SplashFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,6 +184,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

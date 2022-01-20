@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5910724111841763201}
   - component: {fileID: 5910724111841763203}
   - component: {fileID: 5910724111841763200}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: PlasmaPurpleEnergyBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,6 +98,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -139,7 +140,7 @@ GameObject:
   - component: {fileID: 8715616123025002813}
   - component: {fileID: 9037723210036607422}
   - component: {fileID: 4434705747426655271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnergyBallParabolicGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

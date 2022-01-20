@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _indicator: {fileID: 5384027589429659013}
   _localHeight: -0.1
+  _initiallyEnabled: 0
 --- !u!1001 &652661122393980343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,6 +57,10 @@ PrefabInstance:
     - target: {fileID: 4880036417697986608, guid: d417ce955ab424148ba045e5a311bf2e, type: 3}
       propertyPath: m_Name
       value: VFX_IndicatorSpecial
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880036417697986608, guid: d417ce955ab424148ba045e5a311bf2e, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4880036417697986609, guid: d417ce955ab424148ba045e5a311bf2e, type: 3}
       propertyPath: m_Enabled

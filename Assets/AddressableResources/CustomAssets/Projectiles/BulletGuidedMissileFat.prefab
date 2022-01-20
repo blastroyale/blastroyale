@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 5063964806687914928}
   - component: {fileID: 1792860565293580455}
   - component: {fileID: 1629769611986045003}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RocketTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4940,6 +4940,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 268cb05d8e9de8a4cadfe01f56f03f9c, type: 3}
       propertyPath: m_Name
       value: GuidedMissileFat
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 268cb05d8e9de8a4cadfe01f56f03f9c, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 268cb05d8e9de8a4cadfe01f56f03f9c, type: 3}

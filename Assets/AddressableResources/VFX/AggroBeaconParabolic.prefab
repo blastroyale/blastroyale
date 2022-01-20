@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 15149584}
   - component: {fileID: 15149583}
   - component: {fileID: 15149582}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Gift
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 3
@@ -92,7 +93,7 @@ GameObject:
   - component: {fileID: 3923792585832202197}
   - component: {fileID: 6316675133480294890}
   - component: {fileID: 154494010502258877}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,6 +133,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -173,7 +175,7 @@ GameObject:
   - component: {fileID: 8715616123025002813}
   - component: {fileID: 9037723210036607422}
   - component: {fileID: -4023512071319890190}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AggroBeaconParabolic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

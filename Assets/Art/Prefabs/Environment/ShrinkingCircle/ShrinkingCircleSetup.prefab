@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1680170967}
   - component: {fileID: 1680170966}
   - component: {fileID: 1680170965}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DamageZoneParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4865,7 +4865,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3645265080736833621}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: DamageZoneRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4963,6 +4963,10 @@ PrefabInstance:
       value: DamageZone
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -5049,6 +5053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CircleLineRendererDamage
       objectReference: {fileID: 0}
+    - target: {fileID: 7041650430274429307, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}
 --- !u!4 &7682541575006371300 stripped
@@ -5121,6 +5129,10 @@ PrefabInstance:
     - target: {fileID: 7041650430274429307, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}
       propertyPath: m_Name
       value: CircleLineRendererSafe
+      objectReference: {fileID: 0}
+    - target: {fileID: 7041650430274429307, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f692fa56ce2a0a4ea8321266c802f73, type: 3}

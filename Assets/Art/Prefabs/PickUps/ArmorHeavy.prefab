@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8709097821727773528}
   - component: {fileID: 5911708151267449265}
   - component: {fileID: 7538999929989052495}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ArmorHeavy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4900285241579675192}
   - component: {fileID: 920199936285213791}
   - component: {fileID: 4227348727970125302}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_RedRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

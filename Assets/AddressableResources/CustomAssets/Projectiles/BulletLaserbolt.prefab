@@ -306,6 +306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserBolt
       objectReference: {fileID: 0}
+    - target: {fileID: 3863318529409858551, guid: 0ed8e764e788dc4418e2d0613622e3a0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7571531224376861025, guid: 0ed8e764e788dc4418e2d0613622e3a0, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 

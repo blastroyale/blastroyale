@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4606365370276110}
   - component: {fileID: 2138159956950216446}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LaserMuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8283551965618661516}
   - component: {fileID: 4798337589493985585}
   - component: {fileID: 3759049412852623751}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MuzzleFlashLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,6 +132,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

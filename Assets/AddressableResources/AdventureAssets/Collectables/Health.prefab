@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3800497451396617169}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 3800497452174952383}
   - component: {fileID: 3800497452174952381}
   - component: {fileID: 3800497452174952382}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5030,7 +5030,7 @@ GameObject:
   - component: {fileID: 5570222039674345798}
   - component: {fileID: 5570222039674345793}
   - component: {fileID: 5570222039674345792}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5186,6 +5186,22 @@ PrefabInstance:
     - target: {fileID: 1371259136092624911, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
       propertyPath: m_Name
       value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371259136092624911, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267392781956504378, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057008199465531990, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173640590466686882, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5288402067754337069, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
       propertyPath: m_RootOrder

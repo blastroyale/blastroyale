@@ -29221,6 +29221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676359e63342a724ea1fac8770c35d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 896949881}
   _spawnVfx: {fileID: 5408424534294514235}
 --- !u!114 &7436109961248645320
 MonoBehaviour:

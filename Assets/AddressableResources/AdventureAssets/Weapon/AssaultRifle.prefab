@@ -4890,16 +4890,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259127173}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004000008, y: 0.116441965, z: 0.5671935}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.07762798, z: 0.5825548}
+  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.8}
   m_Children:
   - {fileID: 1170091508}
   - {fileID: 2042391197}
   - {fileID: 1870382936}
   - {fileID: 1364640662}
   - {fileID: 2108136235}
-  m_Father: {fileID: 4516585669790791155}
-  m_RootOrder: 1
+  m_Father: {fileID: 993235984750837776}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &1259127176
 ParticleSystem:
@@ -4974,7 +4974,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -38880,7 +38880,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.004, y: 0, z: -0.161}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.25}
-  m_Children: []
+  m_Children:
+  - {fileID: 1259127174}
   m_Father: {fileID: 4516585669790791155}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38975,6 +38976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676359e63342a724ea1fac8770c35d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 1259127176}
   _spawnVfx: {fileID: 5983059780413533106}
 --- !u!114 &8527307134790669404
 MonoBehaviour:
@@ -38992,7 +38994,15 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d93fc4b5d3cec834ba31dde84a343798, type: 2}
   _renderers:
   - {fileID: 2126686390076472191}
-  _particleRenderers: []
+  _particleRenderers:
+  - {fileID: 1259127175}
+  - {fileID: 1170091509}
+  - {fileID: 2042391198}
+  - {fileID: 1870382937}
+  - {fileID: 1364640663}
+  - {fileID: 2108136236}
+  - {fileID: 1364047490}
+  - {fileID: 1983629360}
   _mainRenderer: {fileID: 2126686390076472191}
 --- !u!1 &4516585669790791156
 GameObject:
@@ -39022,7 +39032,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 993235984750837776}
-  - {fileID: 1259127174}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

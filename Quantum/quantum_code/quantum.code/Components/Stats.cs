@@ -116,9 +116,9 @@ namespace Quantum
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			
-			CurrentHealth = FPMath.RoundToInt(Values[(int) StatType.Health].StatValue * FPMath.Clamp01(percentage));
+			//CurrentHealth = FPMath.RoundToInt(Values[(int) StatType.Health].StatValue * FPMath.Clamp01(percentage));
 			
-			f.Events.OnHealthChanged(entity, EntityRef.None, previousHealth, CurrentHealth, maxHealth);
+			//f.Events.OnHealthChanged(entity, EntityRef.None, previousHealth, CurrentHealth, maxHealth);
 		}
 		
 		/// <summary>
@@ -155,7 +155,7 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, EntityRef hitSource, int damageAmount)
 		{
-			var amount = damageAmount;
+			/*var amount = damageAmount;
 			
 			if (IsImmune)
 			{
@@ -201,6 +201,7 @@ namespace Quantum
 				f.Events.OnHealthIsZero(entity, attacker, direction, damageAmount);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
+			*/
 		}
 	}
 }

@@ -48,7 +48,7 @@ synced event OnPlayerWeaponChanged
 	GameId WeaponGameId;
 }
 
-synced event OnPlayerAttacked
+synced event OnPlayerAttack
 {
 	entity_ref PlayerEntity;
 	player_ref Player;

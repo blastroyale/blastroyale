@@ -56,6 +56,14 @@ synced event OnSkyBeamUsed
 	Hazard HazardData;
 }
 
+synced event OnSpecialUsed
+{
+	local player_ref Player;
+	entity_ref Entity;
+	SpecialType SpecialType;
+	Int32 SpecialIndex;
+}
+
 synced event OnLocalSpecialUsed
 {
 	local player_ref Player;

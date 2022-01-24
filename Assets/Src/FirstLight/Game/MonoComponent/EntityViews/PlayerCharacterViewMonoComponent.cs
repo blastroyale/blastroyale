@@ -32,7 +32,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAwake();
 			
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
-			QuantumEvent.Subscribe<EventOnPlayerDead>(this, HandleOnPlayerDead);
+			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
+			QuantumEvent.Subscribe<EventOnSpecialUsed>(this, HandleOnSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
@@ -63,9 +64,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 
-		protected override void OnPlayerDead(QuantumGame game)
+		protected override void OnAvatarEliminated(QuantumGame game)
 		{
-			base.OnPlayerDead(game);
+			base.OnAvatarEliminated(game);
 			
 			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
 		}
@@ -176,15 +177,26 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RenderersContainerProxy.SetRendererState(false);
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
-
-		private void HandleOnPlayerDead(EventOnPlayerDead callback)
+		
+		private void HandleOnPlayerAttack(EventOnPlayerAttack evnt)
 		{
-			if (callback.Entity != EntityView.EntityRef)
+			if (evnt.PlayerEntity != EntityRef)
 			{
 				return;
 			}
 			
-			OnPlayerDead(callback.Game);
+			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired01, transform.position);
+			AnimatorWrapper.SetTrigger(Triggers.Shoot);
+		}
+
+		private void HandleOnSpecialUsed(EventOnSpecialUsed evnt)
+		{
+			if (evnt.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+			
+			AnimatorWrapper.SetTrigger(Triggers.Special);
 		}
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)

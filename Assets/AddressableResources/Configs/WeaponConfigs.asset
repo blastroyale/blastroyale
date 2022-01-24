@@ -45,7 +45,7 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmo: -1
-      MaxAmmo: 50
+      MaxAmmo: 1
       PowerRatioToBase:
         RawValue: 39322
       AimingMovementSpeed:

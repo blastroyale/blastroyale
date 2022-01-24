@@ -29,8 +29,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private Coroutine _matchmakingCoroutine;
-
 		public NetworkState(IGameDataProvider dataProvider, IGameServices services, IGameBackendNetworkService networkService, 
 		                    Action<IStatechartEvent> statechartTrigger)
 		{
@@ -61,7 +59,6 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(StartMatchmaking);
 			matchmaking.Event(ConnectedEvent).Target(connected);
 			matchmaking.Event(DisconnectedEvent).Target(final);
-			matchmaking.OnExit(StopMatchmaking);
 
 			connected.Event(DisconnectedEvent).Target(final);
 			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
@@ -232,18 +229,25 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
+			
+			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.TickService?.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage data)
 		{
 			DisconnectQuantum();
+		}
+
+		private void OnGameStart(CallbackGameStarted callback)
+		{
+			LockRoom();
 		}
 
 		private void TickQuantumServer(float deltaTime)
@@ -261,32 +265,12 @@ namespace FirstLight.Game.StateMachines
 		private void StartMatchmaking()
 		{
 			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
-			var asyncCoroutine = _services.CoroutineService.StartAsyncCoroutine(TimeCoroutine());
 
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_matchmakingCoroutine = asyncCoroutine.Coroutine;
 			
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname); 
-			asyncCoroutine.OnComplete(LockRoom);
-
-			IEnumerator TimeCoroutine()
-			{
-				var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-
-				yield return new WaitForSeconds(config.MatchmakingTime.AsFloat);
-			}
-		}
-
-		private void StopMatchmaking()
-		{
-			if (_matchmakingCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_matchmakingCoroutine);
-
-				_matchmakingCoroutine = null;
-			}
 		}
 
 		private void Reconnect()

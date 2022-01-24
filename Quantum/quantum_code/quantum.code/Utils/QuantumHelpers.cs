@@ -65,6 +65,11 @@ namespace Quantum
 		{
 			var neutral = (int)TeamType.Neutral;
 			
+			if (f.GetSingleton<GameContainer>().IsGameOver)
+			{
+				return false;
+			}
+			
 			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
 			       (targetable.Team != attackerTeam || targetable.Team == neutral || attackerTeam == neutral);
 		}
@@ -86,6 +91,11 @@ namespace Quantum
 		                                  uint powerAmount, int teamSource, uint maxHitCount = uint.MaxValue,
 		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback = null)
 		{
+			if (f.GetSingleton<GameContainer>().IsGameOver)
+			{
+				return false;
+			}
+			
 			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(position, FPQuaternion.Identity, shape, f.TargetAllLayerMask, 

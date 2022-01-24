@@ -3676,14 +3676,16 @@ namespace Quantum {
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
     public const Int32 SIZE = 2064;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public UInt32 CurrentProgress;
     [FieldOffset(0)]
     public GameMode GameMode;
+    [FieldOffset(4)]
+    public QBoolean IsGameOver;
     [FieldOffset(16)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
     private fixed Byte _PlayersData_[2048];
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public UInt32 TargetProgress;
     public FixedArray<PlayerMatchData> PlayersData {
       get {
@@ -3695,6 +3697,7 @@ namespace Quantum {
         var hash = 419;
         hash = hash * 31 + CurrentProgress.GetHashCode();
         hash = hash * 31 + (Int32)GameMode;
+        hash = hash * 31 + IsGameOver.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(PlayersData);
         hash = hash * 31 + TargetProgress.GetHashCode();
         return hash;
@@ -3703,6 +3706,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (GameContainer*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameMode);
+        QBoolean.Serialize(&p->IsGameOver, serializer);
         serializer.Stream.Serialize(&p->CurrentProgress);
         serializer.Stream.Serialize(&p->TargetProgress);
         FixedArray.Serialize(p->PlayersData, serializer, StaticDelegates.SerializePlayerMatchData);
@@ -4949,10 +4953,11 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnGameEnded OnGameEnded(PlayerRef PlayerWinner) {
+      public EventOnGameEnded OnGameEnded(PlayerRef PlayerLeader, EntityRef EntityLeader) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnGameEnded>(EventOnGameEnded.ID);
-        ev.PlayerWinner = PlayerWinner;
+        ev.PlayerLeader = PlayerLeader;
+        ev.EntityLeader = EntityLeader;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5007,13 +5012,15 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerKilledPlayer OnPlayerKilledPlayer(PlayerRef PlayerDead, EntityRef EntityDead, PlayerRef PlayerKiller, EntityRef EntityKiller) {
+      public EventOnPlayerKilledPlayer OnPlayerKilledPlayer(PlayerRef PlayerDead, EntityRef EntityDead, PlayerRef PlayerKiller, EntityRef EntityKiller, PlayerRef PlayerLeader, EntityRef EntityLeader) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerKilledPlayer>(EventOnPlayerKilledPlayer.ID);
         ev.PlayerDead = PlayerDead;
         ev.EntityDead = EntityDead;
         ev.PlayerKiller = PlayerKiller;
         ev.EntityKiller = EntityKiller;
+        ev.PlayerLeader = PlayerLeader;
+        ev.EntityLeader = EntityLeader;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6065,7 +6072,8 @@ namespace Quantum {
   }
   public unsafe partial class EventOnGameEnded : EventBase {
     public new const Int32 ID = 29;
-    public PlayerRef PlayerWinner;
+    public PlayerRef PlayerLeader;
+    public EntityRef EntityLeader;
     protected EventOnGameEnded(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6083,7 +6091,8 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 179;
-        hash = hash * 31 + PlayerWinner.GetHashCode();
+        hash = hash * 31 + PlayerLeader.GetHashCode();
+        hash = hash * 31 + EntityLeader.GetHashCode();
         return hash;
       }
     }
@@ -6262,6 +6271,8 @@ namespace Quantum {
     public EntityRef EntityDead;
     public PlayerRef PlayerKiller;
     public EntityRef EntityKiller;
+    public PlayerRef PlayerLeader;
+    public EntityRef EntityLeader;
     protected EventOnPlayerKilledPlayer(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6283,6 +6294,8 @@ namespace Quantum {
         hash = hash * 31 + EntityDead.GetHashCode();
         hash = hash * 31 + PlayerKiller.GetHashCode();
         hash = hash * 31 + EntityKiller.GetHashCode();
+        hash = hash * 31 + PlayerLeader.GetHashCode();
+        hash = hash * 31 + EntityLeader.GetHashCode();
         return hash;
       }
     }
@@ -7836,6 +7849,7 @@ namespace Quantum.Prototypes {
     public GameMode_Prototype GameMode;
     public UInt32 CurrentProgress;
     public UInt32 TargetProgress;
+    public QBoolean IsGameOver;
     partial void MaterializeUser(Frame frame, ref GameContainer result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       GameContainer component = default;
@@ -7845,6 +7859,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref GameContainer result, in PrototypeMaterializationContext context) {
       result.CurrentProgress = this.CurrentProgress;
       result.GameMode = this.GameMode;
+      result.IsGameOver = this.IsGameOver;
       for (int i = 0, count = PrototypeValidator.CheckLength(PlayersData, 32, in context); i < count; ++i) {
         this.PlayersData[i].Materialize(frame, ref *result.PlayersData.GetPointer(i), in context);
       }

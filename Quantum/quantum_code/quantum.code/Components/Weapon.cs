@@ -14,6 +14,12 @@ namespace Quantum
 		/// </summary>
 		internal void GainAmmo(uint amount)
 		{
+			// Do not do "gain" for infinite ammo weapons
+			if (Ammo < 0)
+			{
+				return;
+			}
+			
 			var consumablePower = amount / FP._100;
 			var updatedAmmo = Ammo + FPMath.CeilToInt(MaxAmmo * consumablePower);
 			

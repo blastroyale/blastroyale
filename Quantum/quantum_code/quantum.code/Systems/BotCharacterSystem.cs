@@ -343,6 +343,13 @@ namespace Quantum.Systems
 		{
 			var ammoConsumablePosition = FPVector3.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
+			
+			// Don't go for ammo for the default weapon
+			if (weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID)
+			{
+				return false;
+			}
+			
 			var ratioAmmo = weapon.Ammo / weapon.MaxAmmo;
 			var lowAmmoSensitivity = filter.BotCharacter->LowAmmoSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioAmmo) * lowAmmoSensitivity);

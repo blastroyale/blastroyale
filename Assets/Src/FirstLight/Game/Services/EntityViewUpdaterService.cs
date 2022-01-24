@@ -40,6 +40,8 @@ namespace FirstLight.Game.Services
 		{
 			foreach (var view in _viewsListToDestroy)
 			{
+				view.OnEntityDestroyed.Invoke(ObservedGame);
+				
 				if (view.AssetGuid.IsValid) 
 				{
 					DestroyEntityViewInstance(view);
@@ -73,6 +75,7 @@ namespace FirstLight.Game.Services
 
 		protected override void DestroyEntityView(QuantumGame game, EntityView view)
 		{
+			// Checks if the simulation is running
 			if (game.Frames.Predicted == null)
 			{
 				return;
@@ -82,6 +85,8 @@ namespace FirstLight.Game.Services
 			{
 				_viewsListToDestroy.Add(view);
 				_viewsToDestroy.Add(view.EntityRef, view);
+
+				return;
 			}
 			
 			base.DestroyEntityView(game, view);

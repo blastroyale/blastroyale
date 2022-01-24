@@ -156,12 +156,15 @@ namespace Quantum
 			
 			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 
-			if (f.TryGet<Weapon>(e, out var previousWeapon) && previousWeapon.WeaponId != Constants.DEFAULT_WEAPON_GAME_ID)
+			if (f.TryGet<Weapon>(e, out var previousWeapon))
 			{
-				// Add ammo from the previous weapon to the new one
-				var previousAmmoPortion = previousWeapon.Ammo / (FP)previousWeapon.MaxAmmo;
-				var updatedAmmo = weapon.Ammo + FPMath.CeilToInt(weapon.MaxAmmo * previousAmmoPortion);
-				weapon.Ammo = updatedAmmo > weapon.MaxAmmo ? weapon.MaxAmmo : updatedAmmo;
+				if (previousWeapon.WeaponId != Constants.DEFAULT_WEAPON_GAME_ID)
+				{
+					// Add ammo from the previous weapon to the new one
+					var previousAmmoPortion = previousWeapon.Ammo / (FP)previousWeapon.MaxAmmo;
+					var updatedAmmo = weapon.Ammo + FPMath.CeilToInt(weapon.MaxAmmo * previousAmmoPortion);
+					weapon.Ammo = updatedAmmo > weapon.MaxAmmo ? weapon.MaxAmmo : updatedAmmo;
+				}
 				
 				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId);

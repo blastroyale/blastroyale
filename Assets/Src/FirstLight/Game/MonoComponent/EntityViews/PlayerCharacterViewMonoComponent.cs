@@ -201,7 +201,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)
 		{
-			if (EntityView.EntityRef != callback.WinnerMatchData.Data.Entity)
+			if (EntityView.EntityRef != callback.EntityLeader)
 			{
 				AnimatorWrapper.SetBool(Bools.Stun, true);
 			}

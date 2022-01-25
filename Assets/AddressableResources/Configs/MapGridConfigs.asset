@@ -34,6 +34,50 @@ MonoBehaviour:
       X: 4
       Y: 0
       IsValid: 0
+    - AreaName: 0
+      X: 5
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 6
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 7
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 8
+      Y: 0
+      IsValid: 0
+    - AreaName: Court
+      X: 9
+      Y: 0
+      IsValid: 1
+    - AreaName: 0
+      X: 10
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 11
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 0
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 0
+      IsValid: 0
   - Row:
     - AreaName: 0
       X: 0
@@ -43,100 +87,320 @@ MonoBehaviour:
       X: 1
       Y: 1
       IsValid: 0
-    - AreaName: Top 1
-      X: 2
-      Y: 1
-      IsValid: 1
-    - AreaName: Top 2
-      X: 3
-      Y: 1
-      IsValid: 1
-    - AreaName: 
-      X: 4
-      Y: 1
-      IsValid: 1
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 2
-      IsValid: 1
-    - AreaName: Test
-      X: 1
-      Y: 2
-      IsValid: 1
-    - AreaName: 
-      X: 2
-      Y: 2
-      IsValid: 1
-    - AreaName: 
-      X: 3
-      Y: 2
-      IsValid: 1
-    - AreaName: Top Right
-      X: 4
-      Y: 2
-      IsValid: 1
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 3
-      IsValid: 1
-    - AreaName: 
-      X: 1
-      Y: 3
-      IsValid: 1
-    - AreaName: Old
-      X: 2
-      Y: 3
-      IsValid: 1
-    - AreaName: New
-      X: 3
-      Y: 3
-      IsValid: 1
-    - AreaName: 
-      X: 4
-      Y: 3
-      IsValid: 1
-  - Row:
-    - AreaName: Left
-      X: 0
-      Y: 4
-      IsValid: 1
-    - AreaName: 
-      X: 1
-      Y: 4
-      IsValid: 1
-    - AreaName: Center
-      X: 2
-      Y: 4
-      IsValid: 1
-    - AreaName: 
-      X: 3
-      Y: 4
-      IsValid: 1
-    - AreaName: Right
-      X: 4
-      Y: 4
-      IsValid: 1
-  - Row:
     - AreaName: 0
-      X: 0
-      Y: 5
+      X: 2
+      Y: 1
       IsValid: 0
-    - AreaName: Left Bottom
+    - AreaName: 0
+      X: 3
+      Y: 1
+      IsValid: 0
+    - AreaName: 0
+      X: 4
+      Y: 1
+      IsValid: 0
+    - AreaName: Market
+      X: 5
+      Y: 1
+      IsValid: 1
+    - AreaName: Market
+      X: 6
+      Y: 1
+      IsValid: 1
+    - AreaName: Market
+      X: 7
+      Y: 1
+      IsValid: 1
+    - AreaName: Court
+      X: 8
+      Y: 1
+      IsValid: 1
+    - AreaName: Court
+      X: 9
+      Y: 1
+      IsValid: 1
+    - AreaName: 0
+      X: 10
+      Y: 1
+      IsValid: 0
+    - AreaName: 0
+      X: 11
+      Y: 1
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 1
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 1
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 1
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 1
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 2
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 2
+      IsValid: 0
+    - AreaName: 0
+      X: 2
+      Y: 2
+      IsValid: 0
+    - AreaName: Cinema
+      X: 3
+      Y: 2
+      IsValid: 1
+    - AreaName: Cinema
+      X: 4
+      Y: 2
+      IsValid: 1
+    - AreaName: Store
+      X: 5
+      Y: 2
+      IsValid: 1
+    - AreaName: Fountain
+      X: 6
+      Y: 2
+      IsValid: 1
+    - AreaName: Fountain
+      X: 7
+      Y: 2
+      IsValid: 1
+    - AreaName: Court
+      X: 8
+      Y: 2
+      IsValid: 1
+    - AreaName: Court
+      X: 9
+      Y: 2
+      IsValid: 1
+    - AreaName: Court
+      X: 10
+      Y: 2
+      IsValid: 1
+    - AreaName: 0
+      X: 11
+      Y: 2
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 2
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 2
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 2
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 2
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 3
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 3
+      IsValid: 0
+    - AreaName: Slum
+      X: 2
+      Y: 3
+      IsValid: 1
+    - AreaName: Cinema
+      X: 3
+      Y: 3
+      IsValid: 1
+    - AreaName: Cinema
+      X: 4
+      Y: 3
+      IsValid: 1
+    - AreaName: Store
+      X: 5
+      Y: 3
+      IsValid: 1
+    - AreaName: Fountain
+      X: 6
+      Y: 3
+      IsValid: 1
+    - AreaName: Fountain
+      X: 7
+      Y: 3
+      IsValid: 1
+    - AreaName: Motel
+      X: 8
+      Y: 3
+      IsValid: 1
+    - AreaName: Motel
+      X: 9
+      Y: 3
+      IsValid: 1
+    - AreaName: Motel
+      X: 10
+      Y: 3
+      IsValid: 1
+    - AreaName: 0
+      X: 11
+      Y: 3
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 3
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 3
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 3
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 3
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 4
+      IsValid: 0
+    - AreaName: GasStation
+      X: 1
+      Y: 4
+      IsValid: 1
+    - AreaName: GasStation
+      X: 2
+      Y: 4
+      IsValid: 1
+    - AreaName: Cinema
+      X: 3
+      Y: 4
+      IsValid: 1
+    - AreaName: Cinema
+      X: 4
+      Y: 4
+      IsValid: 1
+    - AreaName: Cinema
+      X: 5
+      Y: 4
+      IsValid: 1
+    - AreaName: Church
+      X: 6
+      Y: 4
+      IsValid: 1
+    - AreaName: Church
+      X: 7
+      Y: 4
+      IsValid: 1
+    - AreaName: Motel
+      X: 8
+      Y: 4
+      IsValid: 1
+    - AreaName: Motel
+      X: 9
+      Y: 4
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 10
+      Y: 4
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 11
+      Y: 4
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 12
+      Y: 4
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 13
+      Y: 4
+      IsValid: 1
+    - AreaName: 0
+      X: 14
+      Y: 4
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 4
+      IsValid: 0
+  - Row:
+    - AreaName: GasStation
+      X: 0
+      Y: 5
+      IsValid: 1
+    - AreaName: GasStation
       X: 1
       Y: 5
       IsValid: 1
-    - AreaName: 
+    - AreaName: GasStation
       X: 2
       Y: 5
       IsValid: 1
-    - AreaName: 
+    - AreaName: PetShop
       X: 3
       Y: 5
       IsValid: 1
-    - AreaName: 
+    - AreaName: PetShop
       X: 4
+      Y: 5
+      IsValid: 1
+    - AreaName: Cafe
+      X: 5
+      Y: 5
+      IsValid: 1
+    - AreaName: Church
+      X: 6
+      Y: 5
+      IsValid: 1
+    - AreaName: Church
+      X: 7
+      Y: 5
+      IsValid: 1
+    - AreaName: Motel
+      X: 8
+      Y: 5
+      IsValid: 1
+    - AreaName: Motel
+      X: 9
+      Y: 5
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 10
+      Y: 5
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 11
+      Y: 5
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 12
+      Y: 5
+      IsValid: 1
+    - AreaName: EastCamp
+      X: 13
+      Y: 5
+      IsValid: 1
+    - AreaName: EastCamp
+      X: 14
+      Y: 5
+      IsValid: 1
+    - AreaName: EastCamp
+      X: 15
       Y: 5
       IsValid: 1
   - Row:
@@ -144,19 +408,648 @@ MonoBehaviour:
       X: 0
       Y: 6
       IsValid: 0
-    - AreaName: Boat
+    - AreaName: GasStation
       X: 1
       Y: 6
       IsValid: 1
-    - AreaName: Bottom
+    - AreaName: GasStation
       X: 2
       Y: 6
       IsValid: 1
-    - AreaName: Bottom Right
+    - AreaName: PetShop
       X: 3
       Y: 6
       IsValid: 1
-    - AreaName: 0
+    - AreaName: PetShop
       X: 4
       Y: 6
+      IsValid: 1
+    - AreaName: Cafe
+      X: 5
+      Y: 6
+      IsValid: 1
+    - AreaName: Cafe
+      X: 6
+      Y: 6
+      IsValid: 1
+    - AreaName: TheCore
+      X: 7
+      Y: 6
+      IsValid: 1
+    - AreaName: TheCore
+      X: 8
+      Y: 6
+      IsValid: 1
+    - AreaName: TheCore
+      X: 9
+      Y: 6
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 10
+      Y: 6
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 11
+      Y: 6
+      IsValid: 1
+    - AreaName: MainCamp
+      X: 12
+      Y: 6
+      IsValid: 1
+    - AreaName: EastCamp
+      X: 13
+      Y: 6
+      IsValid: 1
+    - AreaName: EastCamp
+      X: 14
+      Y: 6
+      IsValid: 1
+    - AreaName: EastCamp
+      X: 15
+      Y: 6
+      IsValid: 1
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 7
+      IsValid: 0
+    - AreaName: Repairs
+      X: 1
+      Y: 7
+      IsValid: 1
+    - AreaName: Repairs
+      X: 2
+      Y: 7
+      IsValid: 1
+    - AreaName: Diner
+      X: 3
+      Y: 7
+      IsValid: 1
+    - AreaName: Diner
+      X: 4
+      Y: 7
+      IsValid: 1
+    - AreaName: Diner
+      X: 5
+      Y: 7
+      IsValid: 1
+    - AreaName: TheCore
+      X: 6
+      Y: 7
+      IsValid: 1
+    - AreaName: TheCore
+      X: 7
+      Y: 7
+      IsValid: 1
+    - AreaName: TheCore
+      X: 8
+      Y: 7
+      IsValid: 1
+    - AreaName: TheCore
+      X: 9
+      Y: 7
+      IsValid: 1
+    - AreaName: Park
+      X: 10
+      Y: 7
+      IsValid: 1
+    - AreaName: Park
+      X: 11
+      Y: 7
+      IsValid: 1
+    - AreaName: Park
+      X: 12
+      Y: 7
+      IsValid: 1
+    - AreaName: 0
+      X: 13
+      Y: 7
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 7
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 7
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 8
+      IsValid: 0
+    - AreaName: Liberty
+      X: 1
+      Y: 8
+      IsValid: 1
+    - AreaName: Liberty
+      X: 2
+      Y: 8
+      IsValid: 1
+    - AreaName: Diner
+      X: 3
+      Y: 8
+      IsValid: 1
+    - AreaName: Tower
+      X: 4
+      Y: 8
+      IsValid: 1
+    - AreaName: Tower
+      X: 5
+      Y: 8
+      IsValid: 1
+    - AreaName: TheCore
+      X: 6
+      Y: 8
+      IsValid: 1
+    - AreaName: TheCore
+      X: 7
+      Y: 8
+      IsValid: 1
+    - AreaName: TheCore
+      X: 8
+      Y: 8
+      IsValid: 1
+    - AreaName: TheCore
+      X: 9
+      Y: 8
+      IsValid: 1
+    - AreaName: Park
+      X: 10
+      Y: 8
+      IsValid: 1
+    - AreaName: Park
+      X: 11
+      Y: 8
+      IsValid: 1
+    - AreaName: Park
+      X: 12
+      Y: 8
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 13
+      Y: 8
+      IsValid: 1
+    - AreaName: 0
+      X: 14
+      Y: 8
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 8
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 9
+      IsValid: 0
+    - AreaName: Liberty
+      X: 1
+      Y: 9
+      IsValid: 1
+    - AreaName: Liberty
+      X: 2
+      Y: 9
+      IsValid: 1
+    - AreaName: Liberty
+      X: 3
+      Y: 9
+      IsValid: 1
+    - AreaName: Tower
+      X: 4
+      Y: 9
+      IsValid: 1
+    - AreaName: Tower
+      X: 5
+      Y: 9
+      IsValid: 1
+    - AreaName: TheCore
+      X: 6
+      Y: 9
+      IsValid: 1
+    - AreaName: TheCore
+      X: 7
+      Y: 9
+      IsValid: 1
+    - AreaName: TheCore
+      X: 8
+      Y: 9
+      IsValid: 1
+    - AreaName: Park
+      X: 9
+      Y: 9
+      IsValid: 1
+    - AreaName: Park
+      X: 10
+      Y: 9
+      IsValid: 1
+    - AreaName: Park
+      X: 11
+      Y: 9
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 12
+      Y: 9
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 13
+      Y: 9
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 14
+      Y: 9
+      IsValid: 1
+    - AreaName: 0
+      X: 15
+      Y: 9
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 10
+      IsValid: 0
+    - AreaName: Liberty
+      X: 1
+      Y: 10
+      IsValid: 1
+    - AreaName: Liberty
+      X: 2
+      Y: 10
+      IsValid: 1
+    - AreaName: Liberty
+      X: 3
+      Y: 10
+      IsValid: 1
+    - AreaName: Port
+      X: 4
+      Y: 10
+      IsValid: 1
+    - AreaName: Port
+      X: 5
+      Y: 10
+      IsValid: 1
+    - AreaName: Port
+      X: 6
+      Y: 10
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 7
+      Y: 10
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 8
+      Y: 10
+      IsValid: 1
+    - AreaName: Park
+      X: 9
+      Y: 10
+      IsValid: 1
+    - AreaName: Park
+      X: 10
+      Y: 10
+      IsValid: 1
+    - AreaName: Park
+      X: 11
+      Y: 10
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 12
+      Y: 10
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 13
+      Y: 10
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 14
+      Y: 10
+      IsValid: 1
+    - AreaName: 0
+      X: 15
+      Y: 10
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 11
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 11
+      IsValid: 0
+    - AreaName: Liberty
+      X: 2
+      Y: 11
+      IsValid: 1
+    - AreaName: Port
+      X: 3
+      Y: 11
+      IsValid: 1
+    - AreaName: Port
+      X: 4
+      Y: 11
+      IsValid: 1
+    - AreaName: Port
+      X: 5
+      Y: 11
+      IsValid: 1
+    - AreaName: Port
+      X: 6
+      Y: 11
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 7
+      Y: 11
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 8
+      Y: 11
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 9
+      Y: 11
+      IsValid: 1
+    - AreaName: Park
+      X: 10
+      Y: 11
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 11
+      Y: 11
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 12
+      Y: 11
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 13
+      Y: 11
+      IsValid: 1
+    - AreaName: 0
+      X: 14
+      Y: 11
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 11
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 12
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 12
+      IsValid: 0
+    - AreaName: Port
+      X: 2
+      Y: 12
+      IsValid: 1
+    - AreaName: Port
+      X: 3
+      Y: 12
+      IsValid: 1
+    - AreaName: Port
+      X: 4
+      Y: 12
+      IsValid: 1
+    - AreaName: Port
+      X: 5
+      Y: 12
+      IsValid: 1
+    - AreaName: Port
+      X: 6
+      Y: 12
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 7
+      Y: 12
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 8
+      Y: 12
+      IsValid: 1
+    - AreaName: Aircraft
+      X: 9
+      Y: 12
+      IsValid: 1
+    - AreaName: Park
+      X: 10
+      Y: 12
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 11
+      Y: 12
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 12
+      Y: 12
+      IsValid: 1
+    - AreaName: TheIsle
+      X: 13
+      Y: 12
+      IsValid: 1
+    - AreaName: 0
+      X: 14
+      Y: 12
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 12
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 13
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 13
+      IsValid: 0
+    - AreaName: Ship
+      X: 2
+      Y: 13
+      IsValid: 1
+    - AreaName: Ship
+      X: 3
+      Y: 13
+      IsValid: 1
+    - AreaName: Ship
+      X: 4
+      Y: 13
+      IsValid: 1
+    - AreaName: Port
+      X: 5
+      Y: 13
+      IsValid: 1
+    - AreaName: Port
+      X: 6
+      Y: 13
+      IsValid: 1
+    - AreaName: Lighthouse
+      X: 7
+      Y: 13
+      IsValid: 1
+    - AreaName: Lighthouse
+      X: 8
+      Y: 13
+      IsValid: 1
+    - AreaName: Lighthouse
+      X: 9
+      Y: 13
+      IsValid: 1
+    - AreaName: 0
+      X: 10
+      Y: 13
+      IsValid: 0
+    - AreaName: 0
+      X: 11
+      Y: 13
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 13
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 13
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 13
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 13
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 2
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 3
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 4
+      Y: 14
+      IsValid: 0
+    - AreaName: Port
+      X: 5
+      Y: 14
+      IsValid: 1
+    - AreaName: Port
+      X: 6
+      Y: 14
+      IsValid: 1
+    - AreaName: Lighthouse
+      X: 7
+      Y: 14
+      IsValid: 1
+    - AreaName: Lighthouse
+      X: 8
+      Y: 14
+      IsValid: 1
+    - AreaName: Lighthouse
+      X: 9
+      Y: 14
+      IsValid: 1
+    - AreaName: 0
+      X: 10
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 11
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 14
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 14
+      IsValid: 0
+  - Row:
+    - AreaName: 0
+      X: 0
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 1
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 2
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 3
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 4
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 5
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 6
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 7
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 8
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 9
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 10
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 11
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 12
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 13
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 14
+      Y: 15
+      IsValid: 0
+    - AreaName: 0
+      X: 15
+      Y: 15
       IsValid: 0

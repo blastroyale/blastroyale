@@ -607,6 +607,174 @@ MonoBehaviour:
       - Every weapon has its own special talent
       Flags: 00
       Languages_Touch: []
+    - Term: MapDropPoints/Court
+      TermType: 0
+      Description: 
+      Languages:
+      - Court
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Market
+      TermType: 0
+      Description: 
+      Languages:
+      - Market
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Cinema
+      TermType: 0
+      Description: 
+      Languages:
+      - Cinema
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Store
+      TermType: 0
+      Description: 
+      Languages:
+      - Store
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Fountain
+      TermType: 0
+      Description: 
+      Languages:
+      - Fountain
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Motel
+      TermType: 0
+      Description: 
+      Languages:
+      - Motel
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Slum
+      TermType: 0
+      Description: 
+      Languages:
+      - Slum
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/GasStation
+      TermType: 0
+      Description: 
+      Languages:
+      - Gas Station
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/PetShop
+      TermType: 0
+      Description: 
+      Languages:
+      - Pet Shop
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Repairs
+      TermType: 0
+      Description: 
+      Languages:
+      - Repairs
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Liberty
+      TermType: 0
+      Description: 
+      Languages:
+      - Liberty
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Diner
+      TermType: 0
+      Description: 
+      Languages:
+      - Diner
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Cafe
+      TermType: 0
+      Description: 
+      Languages:
+      - Cafe
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Tower
+      TermType: 0
+      Description: 
+      Languages:
+      - Tower
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Church
+      TermType: 0
+      Description: 
+      Languages:
+      - Church
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/MainCamp
+      TermType: 0
+      Description: 
+      Languages:
+      - Main Camp
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/EastCamp
+      TermType: 0
+      Description: 
+      Languages:
+      - East Camp
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Park
+      TermType: 0
+      Description: 
+      Languages:
+      - Park
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/TheIsle
+      TermType: 0
+      Description: 
+      Languages:
+      - The Isle
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/TheCore
+      TermType: 0
+      Description: 
+      Languages:
+      - The Core
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Aircraft
+      TermType: 0
+      Description: 
+      Languages:
+      - Aircraft
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Lighthouse
+      TermType: 0
+      Description: 
+      Languages:
+      - Lighthouse
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Port
+      TermType: 0
+      Description: 
+      Languages:
+      - Port
+      Flags: 00
+      Languages_Touch: []
+    - Term: MapDropPoints/Ship
+      TermType: 0
+      Description: 
+      Languages:
+      - Ship
+      Flags: 00
+      Languages_Touch: []
     - Term: FTUE/Welcome
       TermType: 0
       Description: 
@@ -4336,7 +4504,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1641567174829
+    Google_LastUpdatedVersion: 1643125485714
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

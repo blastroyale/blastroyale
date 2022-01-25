@@ -63,7 +63,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_selectedPoint.anchoredPosition = localPos;
-			_selectedDropAreaText.text = config.AreaName;
+			_selectedDropAreaText.text = mapConfigs.GetTranslation(config.AreaName);
 			NormalizedSelectionPoint = normalizedPoint;
 		}
 	}

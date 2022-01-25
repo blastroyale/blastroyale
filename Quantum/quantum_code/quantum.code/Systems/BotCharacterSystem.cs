@@ -344,8 +344,8 @@ namespace Quantum.Systems
 			var ammoConsumablePosition = FPVector3.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
-			// Don't go for ammo for the default weapon
-			if (weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID)
+			// If weapon has Unlimited ammo then don't go for more ammo
+			if (weapon.Ammo == -1)
 			{
 				return false;
 			}

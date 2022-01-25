@@ -87,8 +87,8 @@ namespace Quantum.Systems
 			}
 			
 			// Try to drop Weapon
-			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance && f.TryGet<Weapon>(entityDead, out var weapon)
-			                                                        && weapon.WeaponId != Constants.DEFAULT_WEAPON_GAME_ID)
+			if (f.TryGet<Weapon>(entityDead, out var weapon) && weapon.WeaponId != Constants.DEFAULT_WEAPON_GAME_ID
+			                                                 && f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
 			{
 				Collectable.DropCollectable(f, weapon.WeaponId, deathPosition, step, true);
 			}

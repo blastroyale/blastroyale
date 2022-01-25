@@ -158,9 +158,10 @@ namespace Quantum
 
 			if (f.TryGet<Weapon>(e, out var previousWeapon))
 			{
-				if (previousWeapon.WeaponId != Constants.DEFAULT_WEAPON_GAME_ID)
+				// If previous weapon's ammo is not Unlimited
+				if (previousWeapon.Ammo > -1)
 				{
-					// Add ammo from the previous weapon to the new one
+					// Then add ammo from the previous weapon to the new one
 					var previousAmmoPortion = previousWeapon.Ammo / (FP)previousWeapon.MaxAmmo;
 					var updatedAmmo = weapon.Ammo + FPMath.CeilToInt(weapon.MaxAmmo * previousAmmoPortion);
 					weapon.Ammo = updatedAmmo > weapon.MaxAmmo ? weapon.MaxAmmo : updatedAmmo;

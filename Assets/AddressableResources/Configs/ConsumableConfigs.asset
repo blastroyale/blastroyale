@@ -39,7 +39,7 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 240296495379453662
-      PowerAmount: 15
+      PowerAmount: 10
       ConsumableCollectTime:
         RawValue: 14746
     - Id: 128
@@ -47,7 +47,7 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 240296495379453662
-      PowerAmount: 25
+      PowerAmount: 20
       ConsumableCollectTime:
         RawValue: 18432
     - Id: 126

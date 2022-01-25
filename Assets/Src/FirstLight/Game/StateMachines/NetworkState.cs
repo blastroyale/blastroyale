@@ -5,13 +5,11 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -229,8 +227,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
-			
-			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 		}
 
 		private void UnsubscribeEvents()
@@ -243,11 +239,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnApplicationQuit(ApplicationQuitMessage data)
 		{
 			DisconnectQuantum();
-		}
-
-		private void OnGameStart(CallbackGameStarted callback)
-		{
-			LockRoom();
 		}
 
 		private void TickQuantumServer(float deltaTime)
@@ -270,7 +261,15 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 			
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname); 
+			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
+			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
+
+			IEnumerator LockRoomCoroutine()
+			{
+				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
+				
+				LockRoom();
+			}
 		}
 
 		private void Reconnect()

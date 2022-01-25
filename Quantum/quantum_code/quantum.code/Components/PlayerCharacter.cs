@@ -156,8 +156,17 @@ namespace Quantum
 			
 			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 
-			if (f.Has<Weapon>(e))
+			if (f.TryGet<Weapon>(e, out var previousWeapon))
 			{
+				// If previous weapon's ammo is not Unlimited
+				if (previousWeapon.Ammo > -1)
+				{
+					// Then add ammo from the previous weapon to the new one
+					var previousAmmoPortion = previousWeapon.Ammo / (FP)previousWeapon.MaxAmmo;
+					var updatedAmmo = weapon.Ammo + FPMath.CeilToInt(weapon.MaxAmmo * previousAmmoPortion);
+					weapon.Ammo = updatedAmmo > weapon.MaxAmmo ? weapon.MaxAmmo : updatedAmmo;
+				}
+				
 				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId);
 			}

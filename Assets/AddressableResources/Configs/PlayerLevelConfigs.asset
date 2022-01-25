@@ -32,7 +32,7 @@ MonoBehaviour:
     LevelUpXP: 300
     RewardId: 132
     RewardValue: 211
-    Systems: 00000000
+    Systems: 
   - Level: 5
     LevelUpXP: 300
     RewardId: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
     LevelUpXP: 2000
     RewardId: 134
     RewardValue: 231
-    Systems: 02000000
+    Systems: 
   - Level: 10
     LevelUpXP: 1000
     RewardId: 134
@@ -72,7 +72,7 @@ MonoBehaviour:
     LevelUpXP: 2000
     RewardId: 135
     RewardValue: 241
-    Systems: 01000000
+    Systems: 
   - Level: 13
     LevelUpXP: 2000
     RewardId: 136
@@ -82,7 +82,7 @@ MonoBehaviour:
     LevelUpXP: 2000
     RewardId: 1
     RewardValue: 50000
-    Systems: 03000000
+    Systems: 
   - Level: 15
     LevelUpXP: 5000
     RewardId: 136

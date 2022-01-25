@@ -305,7 +305,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 581295853275894912, guid: cf20305f5d8914e438059bef60d36487, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 581295853275894912, guid: cf20305f5d8914e438059bef60d36487, type: 3}
       propertyPath: m_LocalPosition.x
@@ -624,7 +624,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6348189754933789880, guid: 4074d927f3a61e24eab716421393079f, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6348189754933789880, guid: 4074d927f3a61e24eab716421393079f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -942,7 +942,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4516585669790791155, guid: 20726ea407e52a6498e164e584a57242, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4516585669790791155, guid: 20726ea407e52a6498e164e584a57242, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1003,7 +1003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8938953702785480351, guid: 140b54d710748574e9768ffc85667c93, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8938953702785480351, guid: 140b54d710748574e9768ffc85667c93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1464,7 +1464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7858867518742138693, guid: 1f270f7c55a30ec46a36b19c08a04260, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.48
+      value: -6.52
       objectReference: {fileID: 0}
     - target: {fileID: 7858867518742138693, guid: 1f270f7c55a30ec46a36b19c08a04260, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1663,7 +1663,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6141187416942925850, guid: 8e296881da4831d4096620985e9564a3, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6141187416942925850, guid: 8e296881da4831d4096620985e9564a3, type: 3}
       propertyPath: m_LocalPosition.x

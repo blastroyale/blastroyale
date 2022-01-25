@@ -10,7 +10,7 @@ namespace Quantum
 		/// </summary>
 		public static void DropCollectable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isWeapon)
 		{
-			var angleStep = FPVector2.Rotate(FPVector2.Left, FP.PiTimes2 * angleDropStep / 5);
+			var angleStep = FPVector2.Rotate(FPVector2.Left, FP.PiTimes2 * angleDropStep / 3);
 			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS).XOY + position;
 			
 			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, out FPVector3 newPosition);

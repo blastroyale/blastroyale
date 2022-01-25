@@ -218,7 +218,10 @@ namespace FirstLight.Game.Presenters
 			_sliderPlayerLevelView.UpdateProgressView();
 			_lootButton.UpdateState(true, lootNew, false);
 			_shopButton.UpdateState(unlocked.Contains(UnlockSystem.Shop), false, false);
-			UpdateCratesButtonState();
+			if (unlocked.Contains(UnlockSystem.Crates))
+			{
+				UpdateCratesButtonState();
+			}
 			this.LateCall(1,_lootButton.UpdateShinyState);
 			this.LateCall(2,_cratesButton.UpdateShinyState);
 		}

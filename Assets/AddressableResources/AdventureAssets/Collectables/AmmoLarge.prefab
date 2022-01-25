@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8394961782085835017}
   - component: {fileID: 7154763326806129797}
   - component: {fileID: 4159690803613263917}
-  m_Layer: 11
+  - component: {fileID: 6932532202222978580}
+  m_Layer: 10
   m_Name: AmmoLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +97,21 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &6932532202222978580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3587682744574828602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8f0f7a3f7faaf4ea32fa2ad42c8f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainRenderersContainer: {fileID: 7154763326806129797}
+  _renderersContainers:
+  - {fileID: 7154763326806129797}
 --- !u!1 &4060014088925188177
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +154,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5014,7 +5030,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5109,7 +5125,6 @@ VFXRenderer:
   m_Materials:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5139,7 +5154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7273039971299085641}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5190,11 +5205,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219724607372360283, guid: 80d399ad922b8ec4886a4f57344df321, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2265920656301079912, guid: 80d399ad922b8ec4886a4f57344df321, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4077108798897294171, guid: 80d399ad922b8ec4886a4f57344df321, type: 3}
       propertyPath: m_RootOrder
@@ -5242,11 +5257,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5127129617194239914, guid: 80d399ad922b8ec4886a4f57344df321, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6656656175428358121, guid: 80d399ad922b8ec4886a4f57344df321, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8336539172342287870, guid: 80d399ad922b8ec4886a4f57344df321, type: 3}
       propertyPath: RotationModule.separateAxes

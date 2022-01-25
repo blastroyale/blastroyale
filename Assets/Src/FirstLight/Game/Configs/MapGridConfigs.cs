@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using I2.Loc;
 
 namespace FirstLight.Game.Configs
 {
@@ -49,6 +50,14 @@ namespace FirstLight.Game.Configs
 		public MapGridConfig GetConfig(int x, int y)
 		{
 			return _configs[y].Row[x];
+		}
+		
+		/// <summary>
+		/// Requests the area name translated
+		/// </summary>
+		public string GetTranslation(string areaName)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.MapDropPoints)}/{areaName}");
 		}
 	}
 }

@@ -1316,5 +1316,9 @@ namespace I2.Loc
 		    public const string ToolTip_HC = "Tooltips/ToolTip_HC";
 		    public const string ToolTip_SC = "Tooltips/ToolTip_SC";
 		}
+
+		public static class MapDropPoints
+		{
+		}
 	}
 }

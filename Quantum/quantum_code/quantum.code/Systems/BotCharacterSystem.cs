@@ -343,6 +343,13 @@ namespace Quantum.Systems
 		{
 			var ammoConsumablePosition = FPVector3.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
+			
+			// If weapon has Unlimited ammo then don't go for more ammo
+			if (weapon.Ammo == -1)
+			{
+				return false;
+			}
+			
 			var ratioAmmo = weapon.Ammo / weapon.MaxAmmo;
 			var lowAmmoSensitivity = filter.BotCharacter->LowAmmoSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioAmmo) * lowAmmoSensitivity);

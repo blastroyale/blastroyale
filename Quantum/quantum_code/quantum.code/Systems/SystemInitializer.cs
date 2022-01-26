@@ -14,9 +14,8 @@ namespace Quantum.Systems
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			
 			gameContainer->TargetProgress = (uint) f.RuntimeConfig.GameEndTarget;
-			gameContainer->GameMode = f.RuntimeConfig.GameMode;
 
-			if (gameContainer->GameMode == GameMode.BattleRoyale)
+			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
 			{
 				f.SystemEnable<ShrinkingCircleSystem>();
 				f.GetOrAddSingleton<ShrinkingCircle>();

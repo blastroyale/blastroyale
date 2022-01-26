@@ -89,8 +89,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var isBattleRoyale = container.GameMode == GameMode.BattleRoyale;
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 			
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
@@ -98,10 +97,9 @@ namespace FirstLight.Game.Presenters
 			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			
-			if (container.GameMode == GameMode.BattleRoyale)
+			if (isBattleRoyale)
 			{
 				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
-				
 			}
 		}
 		

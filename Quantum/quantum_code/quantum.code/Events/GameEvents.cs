@@ -2,21 +2,26 @@ namespace Quantum
 {
 	public unsafe partial class EventOnGameEnded
 	{
-		public QuantumPlayerMatchData WinnerMatchData;
+		public QuantumPlayerMatchData[] PlayersMatchData;
 	}
 	
 	public partial class Frame 
 	{
 		public unsafe partial struct FrameEvents
 		{
-			public void OnGameEnded(PlayerRef PlayerWinner, PlayerMatchData matchData)
+			public void OnGameEnded()
 			{
-				var ev = OnGameEnded(PlayerWinner);
+				var container = _f.GetSingleton<GameContainer>();
+				var data = container.PlayersData;
+				var matchData = container.GetPlayersMatchData(_f, out var leader);
+				var ev = OnGameEnded(leader, data[leader].Entity);
 
-				if (ev != null)
+				if (ev == null)
 				{
-					ev.WinnerMatchData = new QuantumPlayerMatchData(_f, matchData);
+					return;
 				}
+
+				ev.PlayersMatchData = matchData;
 			}
 		}
 	}

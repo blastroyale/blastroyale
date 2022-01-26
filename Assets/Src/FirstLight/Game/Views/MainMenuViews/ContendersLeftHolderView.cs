@@ -28,28 +28,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
+			_contendersLeftText.text = _gameDataProvider.AdventureDataProvider.SelectedMapConfig.PlayersLimit.ToString();
 			
-			var mapConfig = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
-			_contendersLeftText.text = mapConfig.PlayersLimit.ToString();
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 		}
 		
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-
-		private void OnMatchStarted(MatchStartedMessage message)
-		{
-			var mapConfig = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
-			_contendersLeftText.text = mapConfig.PlayersLimit.ToString();
-		}
 		
-		/// <summary>
-		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
-		/// </summary>
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
 			_contendersLeftText.text = (callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>()).ToString();

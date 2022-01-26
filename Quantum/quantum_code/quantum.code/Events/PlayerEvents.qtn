@@ -39,6 +39,8 @@ synced event OnPlayerKilledPlayer
 	entity_ref EntityDead;
 	player_ref PlayerKiller;
 	entity_ref EntityKiller;
+	player_ref PlayerLeader;
+	entity_ref EntityLeader;
 }
 
 synced event OnPlayerWeaponChanged

@@ -15,45 +15,9 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void GameEnded(Frame f)
 		{
-			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			var matchData = container->PlayersData;
-			var playerWinner = (PlayerRef) 0;
+			f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver = true;
 			
-			// Deathmatch winner is the one with the most kills
-			if (container->GameMode == GameMode.Deathmatch)
-			{
-				for (var i = 1; i < f.RuntimeConfig.PlayersLimit; i++)
-				{
-					if (matchData[i].PlayersKilledCount > matchData[playerWinner].PlayersKilledCount)
-					{
-						playerWinner = i;
-					}
-				}
-			}
-			// BattleRoyale winner is the one with the least deaths (the last survivor)
-			else
-			{
-				for (var i = 1; i < f.RuntimeConfig.PlayersLimit; i++)
-				{
-					if (matchData[i].DeathCount + matchData[i].SuicideCount <
-					    matchData[playerWinner].DeathCount + matchData[playerWinner].SuicideCount)
-					{
-						playerWinner = i;
-					}
-				}
-			}
-			
-			foreach (var projectile in f.GetComponentIterator<Projectile>())
-			{
-				f.Destroy(projectile.Entity);
-			}
-			
-			foreach (var hazard in f.GetComponentIterator<Hazard>())
-			{
-				f.Destroy(hazard.Entity);
-			}
-
-			f.Events.OnGameEnded(playerWinner, matchData[playerWinner]);
+			f.Events.OnGameEnded();
 			
 			f.SystemDisable(typeof(AiPreUpdateSystem));
 			f.SystemDisable(typeof(AiSystem));
@@ -76,13 +40,11 @@ namespace Quantum.Systems
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var inc = 0u;
 
-			if (container->GameMode == GameMode.BattleRoyale)
+			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
 			{
 				inc = 1;
 			}
-			else if(container->GameMode == GameMode.Deathmatch &&
-			        entity != attacker &&
-			        f.TryGet<PlayerCharacter>(attacker, out var killer))
+			else if(entity != attacker && f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
 				var killerData = container->PlayersData[killer.Player];
 				

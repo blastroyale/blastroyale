@@ -28,8 +28,7 @@ namespace FirstLight.Editor.SheetImporters
 					{
 						AreaName = val,
 						X = j,
-						Y = i,
-						IsValid = val != "0"
+						Y = i
 					};
 					
 					entry.Row.Add(config);

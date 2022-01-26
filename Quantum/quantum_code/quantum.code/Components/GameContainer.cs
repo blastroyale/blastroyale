@@ -68,7 +68,7 @@ namespace Quantum
 			var data = PlayersData;
 			var matchData = new QuantumPlayerMatchData[f.RuntimeConfig.PlayersLimit];
 			var gameMode = f.RuntimeConfig.GameMode;
-
+			
 			leader = PlayerRef.None;
 
 			for (var i = 0; i < f.RuntimeConfig.PlayersLimit; i++)
@@ -77,23 +77,18 @@ namespace Quantum
 
 				if (gameMode == GameMode.Deathmatch)
 				{
-					ProcessDeathmatchRanks(matchData, i);
+					ProcessDeathmatchRanks(matchData, i, ref leader);
 				}
 				else if (gameMode == GameMode.BattleRoyale)
 				{
-					ProcessBattleRoyaleRanks(matchData, i);
-				}
-
-				if (matchData[i].PlayerRank == 1)
-				{
-					leader = matchData[i].Data.Player;
+					ProcessBattleRoyaleRanks(matchData, i, ref leader);
 				}
 			}
 
 			return matchData;
 		}
 
-		private void ProcessDeathmatchRanks(QuantumPlayerMatchData[] data, int i)
+		private void ProcessDeathmatchRanks(QuantumPlayerMatchData[] data, int i, ref PlayerRef leader)
 		{
 			var pos = 1u;
 			
@@ -108,29 +103,59 @@ namespace Quantum
 				{
 					data[j].PlayerRank++;
 				}
+
+				if (data[j].PlayerRank == 1)
+				{
+					leader = j;
+				}
 			}
 			
 			data[i].PlayerRank = pos;
+
+			if (data[i].PlayerRank == 1)
+			{
+				leader = i;
+			}
 		}
 
-		private void ProcessBattleRoyaleRanks(QuantumPlayerMatchData[] data, int i)
+		private void ProcessBattleRoyaleRanks(QuantumPlayerMatchData[] data, int i, ref PlayerRef leader)
 		{
 			var pos = 1u;
 			
 			for (var j = 0; j < i; j++)
 			{
-				if (data[i].Data.FirstDeathTime < data[j].Data.FirstDeathTime)
+				if (data[i].Data.DeathCount == data[j].Data.DeathCount)
+				{
+					if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount)
+					{
+						data[j].PlayerRank++;
+					}
+					else
+					{
+						pos++;
+					}
+				}
+				else if(data[i].Data.FirstDeathTime > data[j].Data.FirstDeathTime && data[j].Data.DeathCount > 0)
+				{
+					data[j].PlayerRank++;
+				}
+				else
 				{
 					pos++;
 				}
-				else if (data[i].Data.FirstDeathTime > data[j].Data.FirstDeathTime || 
-				         data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount)
+
+				if (data[j].PlayerRank == 1)
 				{
-					data[j].PlayerRank++;
+					leader = j;
 				}
 			}
 			
 			data[i].PlayerRank = pos;
+
+			if (data[i].PlayerRank == 1)
+			{
+				leader = i;
+			}
 		}
 	}
 }

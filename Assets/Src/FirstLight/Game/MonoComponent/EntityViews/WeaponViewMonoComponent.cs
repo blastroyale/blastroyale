@@ -18,10 +18,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit()
 		{
 			_localInput = new LocalInput();
-			
 			_localInput.Gameplay.Aim.performed += OnAim;
 			_localInput.Gameplay.Aim.canceled += OnAim;
-			
 			_localInput.Enable();
 			
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
@@ -34,8 +32,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		private void OnAim(InputAction.CallbackContext context)
 		{
-			Debug.Log("OnAim");
-			
 			if (_particleSystem == null)
 			{
 				return;

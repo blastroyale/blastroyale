@@ -35,7 +35,7 @@ MonoBehaviour:
         RawValue: 32768
       ShrinkingBorderK:
         RawValue: 62259
-      PlayerDefaultHealth: 75000
+      PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
         RawValue: 250593
       PlayerDefaultInterimArmour: 1000

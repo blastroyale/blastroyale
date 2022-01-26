@@ -1,12 +1,6 @@
-
-using System;
-using System.Collections.Generic;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.AdventureHudViews;
-using FirstLight.Services;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -41,7 +35,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			_contendersLeftText.text = (callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>()).ToString();
+			var container = callback.Game.Frames.Verified.GetSingleton<GameContainer>();
+			
+			_contendersLeftText.text = (container.TargetProgress - container.CurrentProgress + 1).ToString();
 			
 			_animation.Rewind();
 			_animation.Play();

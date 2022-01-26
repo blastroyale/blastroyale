@@ -39,8 +39,8 @@ namespace Quantum.Systems
 					var currentHealth = f.Get<Stats>(pair.Entity).CurrentHealth;
 					var ragdollDirection = transform.Rotation.AsEuler;
 					
-					//f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
-					//f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, ragdollDirection, currentHealth);
+					f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
+					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, ragdollDirection, currentHealth);
 				}
 			}
 		}

@@ -59,3 +59,16 @@ Material:
     - Vector2_FD0C58A4: {r: 0.2, g: 0.2, b: 1, a: 1}
     - Vector4_F799D26D: {r: 2, g: 1, b: 0, a: 90}
   m_BuildTextureStacks: []
+--- !u!114 &6095355276660864402
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

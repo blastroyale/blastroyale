@@ -1,6 +1,4 @@
 using Quantum;
-using UnityEditor.UIElements;
-using UnityEngine;
 
 namespace FirstLight.Game.Utils
 {

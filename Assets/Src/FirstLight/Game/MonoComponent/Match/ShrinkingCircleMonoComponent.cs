@@ -26,7 +26,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void HandleUpdateView(CallbackUpdateView callback)
 		{
-			var frame = callback.Game.Frames.Verified;
+			var frame = callback.Game.Frames.Predicted;
 			var circle = frame.GetSingleton<ShrinkingCircle>();
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;

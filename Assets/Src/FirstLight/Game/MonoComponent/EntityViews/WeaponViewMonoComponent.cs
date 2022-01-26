@@ -9,7 +9,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// <summary>
 	/// This Mono component handles particle system playback when player aims.
 	/// </summary>
-	public class WeaponViewMonoComponent : EntityViewBase, LocalInput.IGameplayActions
+	public class WeaponViewMonoComponent : EntityViewBase
 	{
 		[SerializeField] private ParticleSystem _particleSystem;
 		
@@ -18,7 +18,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit()
 		{
 			_localInput = new LocalInput();
-			_localInput.Gameplay.SetCallbacks(this);
+			
+			_localInput.Gameplay.Aim.performed += OnAim;
+			_localInput.Gameplay.Aim.canceled += OnAim;
+			
 			_localInput.Enable();
 			
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
@@ -28,13 +31,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_localInput?.Dispose();
 		}
-
-		public void OnMove(InputAction.CallbackContext context)
+		
+		private void OnAim(InputAction.CallbackContext context)
 		{
-		}
-
-		public void OnAim(InputAction.CallbackContext context)
-		{
+			Debug.Log("OnAim");
+			
 			if (_particleSystem == null)
 			{
 				return;
@@ -56,22 +57,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_particleSystem.Stop();
 			}
-		}
-
-		public void OnSpecialAim(InputAction.CallbackContext context)
-		{
-		}
-
-		public void OnAimButton(InputAction.CallbackContext context)
-		{
-		}
-
-		public void OnSpecialButton0(InputAction.CallbackContext context)
-		{
-		}
-
-		public void OnSpecialButton1(InputAction.CallbackContext context)
-		{
 		}
 	}
 }

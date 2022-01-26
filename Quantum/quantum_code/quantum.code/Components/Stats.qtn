@@ -60,7 +60,6 @@ synced event OnHealthIsZero
 {
 	entity_ref Entity;
 	entity_ref Attacker;
-	FPVector3 DamageSourceDirection;
 	Int32 DamageAmount;
 }
 

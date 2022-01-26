@@ -32,9 +32,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_contendersLeftText.text = "";
+			
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
-			_contendersLeftText.text = "";
 		}
 		
 		private void OnDestroy()

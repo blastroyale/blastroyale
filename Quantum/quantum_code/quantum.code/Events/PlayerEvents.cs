@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Quantum
 {
 	public unsafe partial class EventOnLocalPlayerLeft
@@ -13,8 +11,6 @@ namespace Quantum
 	
 	public unsafe partial class EventOnPlayerKilledPlayer
 	{
-		public PlayerRef PlayerLeader;
-		public EntityRef EntityLeader;
 		public QuantumPlayerMatchData[] PlayersMatchData;
 	}
 	
@@ -54,17 +50,17 @@ namespace Quantum
 			{
 				var container = _f.GetSingleton<GameContainer>();
 				var data = container.PlayersData;
+				var matchData = container.GetPlayersMatchData(_f, out var leader);
 				var ev = OnPlayerKilledPlayer(PlayerDead, data[PlayerDead].Entity, 
-				                              PlayerKiller, data[PlayerKiller].Entity);
+				                              PlayerKiller, data[PlayerKiller].Entity, 
+				                              leader, data[leader].Entity);
 
 				if (ev == null)
 				{
 					return;
 				}
 				
-				ev.PlayersMatchData = container.GetPlayersMatchData(_f, out var leader);
-				ev.PlayerLeader = leader;
-				ev.EntityLeader = data[leader].Entity;
+				ev.PlayersMatchData = matchData;
 			}
 		}
 	}

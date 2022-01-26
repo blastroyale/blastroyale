@@ -141,12 +141,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void OnGameResync(CallbackGameResynced callback)
 		{
-			// paused on Start means waiting for Snapshot
-			if (callback.Game.Session.IsPaused)
-			{
-				return;
-			}
-
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 			

@@ -1,6 +1,7 @@
 synced event OnGameEnded
 {
-	player_ref PlayerWinner;
+	player_ref PlayerLeader;
+	entity_ref EntityLeader;
 }
 
 event OnGameProgressUpdated

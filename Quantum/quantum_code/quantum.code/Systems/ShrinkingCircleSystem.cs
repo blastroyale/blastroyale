@@ -26,7 +26,7 @@ namespace Quantum.Systems
 			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
 			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
 			
-			radius = radius * radius;
+			radius *= radius;
 			
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
@@ -37,10 +37,9 @@ namespace Quantum.Systems
 				if (distance > radius)
 				{
 					var currentHealth = f.Get<Stats>(pair.Entity).CurrentHealth;
-					var ragdollDirection = transform.Rotation.AsEuler;
 					
 					f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
-					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, ragdollDirection, currentHealth);
+					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, currentHealth);
 				}
 			}
 		}

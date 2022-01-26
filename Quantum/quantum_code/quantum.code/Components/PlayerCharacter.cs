@@ -97,7 +97,7 @@ namespace Quantum
 				navMeshPathfinder->Stop(f, e, true);
 			}
 
-			if (f.GetSingleton<GameContainer>().GameMode == GameMode.BattleRoyale)
+			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
 			{
 				f.Add<EntityDestroyer>(e);
 			}

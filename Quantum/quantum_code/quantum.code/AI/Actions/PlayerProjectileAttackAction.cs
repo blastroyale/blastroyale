@@ -48,7 +48,7 @@ namespace Quantum
 
 			Projectile.Create(f, projectile);
 			
-			f.Events.OnPlayerAttacked(e, player);
+			f.Events.OnPlayerAttack(e, player);
 		}
 	}
 }

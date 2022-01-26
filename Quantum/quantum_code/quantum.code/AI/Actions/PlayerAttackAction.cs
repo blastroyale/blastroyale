@@ -38,7 +38,7 @@ namespace Quantum
 			
 			weapon->LastAttackTime = f.Time;
 			
-			f.Events.OnPlayerAttacked(e, player);
+			f.Events.OnPlayerAttack(e, player);
 
 			for (var i = 0; i < angleCount; i++)
 			{

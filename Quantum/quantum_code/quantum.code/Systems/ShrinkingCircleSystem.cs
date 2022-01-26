@@ -13,7 +13,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
 		{
-			circle->CurrentRadius = f.Map.WorldSize;
+			circle->CurrentRadius = f.Map.WorldSize / FP._2;
 			
 			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
 		}

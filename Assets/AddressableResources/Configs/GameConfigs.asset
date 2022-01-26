@@ -48,7 +48,7 @@ MonoBehaviour:
       XpPerFragDeathRatio:
         RawValue: 2293760
       CollectableCollectTime:
-        RawValue: 14746
+        RawValue: 131072
       PlayerAliveShieldDuration:
         RawValue: 196608
       EquipmentLevelToPowerK: 10

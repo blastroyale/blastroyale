@@ -114,6 +114,25 @@ namespace FirstLight.Game.Utils
 		{
 			await LateCallAwaitable(component, duration, onCallback);
 		}
+
+		/// <summary>
+		/// Uses a coroutine to call the given <paramref name="onCallback"/> after the given <paramref name="duration"/> is completed and
+		/// only if the given <paramref name="component"/> is still alive
+		/// </summary>
+		/// <remarks>
+		/// Coroutines only get executed if the game object is active and alive. Use <see cref="LateCall"/> for other purposes.
+		/// </remarks>
+		public static void LateCoroutineCall(this MonoBehaviour component, float duration, Action onCallback)
+		{
+			component.StartCoroutine(DelayCoroutine(duration, onCallback));
+
+			IEnumerator DelayCoroutine(float time, Action callback)
+			{
+				yield return new WaitForSeconds(time);
+				
+				callback?.Invoke();
+			}
+		}
 		
 		/// <inheritdoc cref="LateCall"/>
 		/// <remarks>

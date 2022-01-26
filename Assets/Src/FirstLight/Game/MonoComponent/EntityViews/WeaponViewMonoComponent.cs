@@ -20,8 +20,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_localInput = new LocalInput();
 			_localInput.Gameplay.SetCallbacks(this);
 			_localInput.Enable();
+			
+			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 		}
-		
+
+		private void OnEntityDestroyed(QuantumGame game)
+		{
+			_localInput?.Dispose();
+		}
+
 		public void OnMove(InputAction.CallbackContext context)
 		{
 		}

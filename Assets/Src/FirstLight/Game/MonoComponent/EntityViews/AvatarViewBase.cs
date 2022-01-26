@@ -150,11 +150,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
-			var destroy = game.Frames.Verified.GetSingleton<GameContainer>().GameMode != GameMode.Deathmatch;
+			var frame = game.Frames.Verified;
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			Dissolve(destroy);
+			Dissolve(isBattleRoyale);
 		}
 		
 		private void HandleOnEntityDestroyed(QuantumGame game)
@@ -171,21 +172,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
+			var direction = Vector3.zero;
+
+			if(Services.EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
+			{
+				direction = (transform.position - attackerView.transform.position).normalized;
+			}
+
 			AnimatorWrapper.Enabled = false;
+			direction = direction.sqrMagnitude > Mathf.Epsilon ? direction : transform.rotation.eulerAngles.normalized;
+			direction *= Mathf.Clamp(GameConstants.PLAYER_RAGDOLL_FORCE_SCALAR * Mathf.Sqrt(callback.DamageAmount), 
+			                         0, GameConstants.PLAYER_RAGDOLL_FORCE_MAX);
 			
 			RigidbodyContainerMonoComponent.SetState(true);
 			OnAvatarEliminated(callback.Game);
-			
-			var direction = callback.DamageSourceDirection.ToUnityVector3().normalized;
-				
-			if (direction.sqrMagnitude > Mathf.Epsilon)
-			{
-				direction *= Mathf.Clamp(GameConstants.PLAYER_RAGDOLL_FORCE_SCALAR * Mathf.Sqrt(callback.DamageAmount), 0, 
-				                         GameConstants.PLAYER_RAGDOLL_FORCE_MAX);
-
-				RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.Impulse);
-			}
+			RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.Impulse);
 		}
 
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)

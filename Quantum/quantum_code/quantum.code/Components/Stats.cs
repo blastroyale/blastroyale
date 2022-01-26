@@ -184,7 +184,6 @@ namespace Quantum
 			
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
-			var direction = f.Get<Transform3D>(entity).Position - f.Get<Transform3D>(attacker).Position;
 
 			CurrentHealth = amount > CurrentHealth ? 0 : previousHealth - amount;
 				
@@ -198,7 +197,7 @@ namespace Quantum
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, attacker, direction, damageAmount);
+				f.Events.OnHealthIsZero(entity, attacker, damageAmount);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
 		}

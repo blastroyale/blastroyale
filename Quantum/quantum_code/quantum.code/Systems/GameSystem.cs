@@ -40,13 +40,11 @@ namespace Quantum.Systems
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var inc = 0u;
 
-			if (container->GameMode == GameMode.BattleRoyale)
+			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
 			{
 				inc = 1;
 			}
-			else if(container->GameMode == GameMode.Deathmatch &&
-			        entity != attacker &&
-			        f.TryGet<PlayerCharacter>(attacker, out var killer))
+			else if(entity != attacker && f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
 				var killerData = container->PlayersData[killer.Player];
 				

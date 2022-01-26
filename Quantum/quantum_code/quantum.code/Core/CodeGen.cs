@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -3675,16 +3676,14 @@ namespace Quantum {
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
     public const Int32 SIZE = 2064;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     public UInt32 CurrentProgress;
     [FieldOffset(0)]
-    public GameMode GameMode;
-    [FieldOffset(4)]
     public QBoolean IsGameOver;
     [FieldOffset(16)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
     private fixed Byte _PlayersData_[2048];
-    [FieldOffset(12)]
+    [FieldOffset(8)]
     public UInt32 TargetProgress;
     public FixedArray<PlayerMatchData> PlayersData {
       get {
@@ -3695,7 +3694,6 @@ namespace Quantum {
       unchecked { 
         var hash = 419;
         hash = hash * 31 + CurrentProgress.GetHashCode();
-        hash = hash * 31 + (Int32)GameMode;
         hash = hash * 31 + IsGameOver.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(PlayersData);
         hash = hash * 31 + TargetProgress.GetHashCode();
@@ -3704,7 +3702,6 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (GameContainer*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->GameMode);
         QBoolean.Serialize(&p->IsGameOver, serializer);
         serializer.Stream.Serialize(&p->CurrentProgress);
         serializer.Stream.Serialize(&p->TargetProgress);
@@ -4899,12 +4896,11 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHealthIsZero OnHealthIsZero(EntityRef Entity, EntityRef Attacker, FPVector3 DamageSourceDirection, Int32 DamageAmount) {
+      public EventOnHealthIsZero OnHealthIsZero(EntityRef Entity, EntityRef Attacker, Int32 DamageAmount) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnHealthIsZero>(EventOnHealthIsZero.ID);
         ev.Entity = Entity;
         ev.Attacker = Attacker;
-        ev.DamageSourceDirection = DamageSourceDirection;
         ev.DamageAmount = DamageAmount;
         _f.AddEvent(ev);
         return ev;
@@ -5903,7 +5899,6 @@ namespace Quantum {
     public new const Int32 ID = 23;
     public EntityRef Entity;
     public EntityRef Attacker;
-    public FPVector3 DamageSourceDirection;
     public Int32 DamageAmount;
     protected EventOnHealthIsZero(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -5924,7 +5919,6 @@ namespace Quantum {
         var hash = 149;
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + DamageSourceDirection.GetHashCode();
         hash = hash * 31 + DamageAmount.GetHashCode();
         return hash;
       }
@@ -7845,7 +7839,6 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class GameContainer_Prototype : ComponentPrototype<GameContainer> {
     [ArrayLengthAttribute(32)]
     public PlayerMatchData_Prototype[] PlayersData = new PlayerMatchData_Prototype[32];
-    public GameMode_Prototype GameMode;
     public UInt32 CurrentProgress;
     public UInt32 TargetProgress;
     public QBoolean IsGameOver;
@@ -7857,7 +7850,6 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref GameContainer result, in PrototypeMaterializationContext context) {
       result.CurrentProgress = this.CurrentProgress;
-      result.GameMode = this.GameMode;
       result.IsGameOver = this.IsGameOver;
       for (int i = 0, count = PrototypeValidator.CheckLength(PlayersData, 32, in context); i < count; ++i) {
         this.PlayersData[i].Materialize(frame, ref *result.PlayersData.GetPointer(i), in context);

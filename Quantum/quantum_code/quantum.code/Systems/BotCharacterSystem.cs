@@ -47,7 +47,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			// If it's a deathmatch game mode and a bot is dead then we process respawn behaviour
-			if (f.GetSingleton<GameContainer>().GameMode == GameMode.Deathmatch
+			if (f.RuntimeConfig.GameMode == GameMode.Deathmatch
 			    && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
 			{
 				// If the bot is dead and it's not yet the time to respawn then we skip the update

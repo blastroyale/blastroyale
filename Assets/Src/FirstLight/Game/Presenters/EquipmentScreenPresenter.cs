@@ -283,7 +283,7 @@ namespace FirstLight.Game.Presenters
 					var statText = selectedValue.ToString(format);
 					var delta = statType == EquipmentStatType.ReloadSpeed ? selectedValue - equippedValue : Mathf.RoundToInt(selectedValue) - Mathf.RoundToInt(equippedValue);
 
-					if (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1)
+					if (selectedValue > 0 && (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1))
 					{
 						GetSpecialIconInfo(selectedStats[i].Key, _statSpecialInfoViewPool.Spawn(), (GameId) selectedValue); 
 					}
@@ -306,7 +306,7 @@ namespace FirstLight.Game.Presenters
 					continue;
 				}
 				
-				if (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1)
+				if (selectedStats[i].Value > 0 && (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1))
 				{
 					GetSpecialIconInfo(selectedStats[i].Key, _statSpecialInfoViewPool.Spawn(), (GameId) selectedStats[i].Value); 
 				}

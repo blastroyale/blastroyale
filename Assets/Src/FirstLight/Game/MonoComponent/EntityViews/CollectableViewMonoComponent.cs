@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
@@ -37,7 +38,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			PlayAnimation(_spawnClip);
 
-			this.LateCall(_animation.clip.length, () => PlayAnimation(_idleClip));
+			this.LateCoroutineCall(_animation.clip.length, () => PlayAnimation(_idleClip));
 		}
 
 		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
@@ -76,7 +77,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.UnsubscribeListener(this);
 			PlayAnimation(_collectClip);
 			
-			this.LateCall(_animation.clip.length, () => { Destroy(gameObject); });
+			this.LateCoroutineCall(_animation.clip.length, () => { Destroy(gameObject); });
 		}
 		
 		private void PlayAnimation(AnimationClip clip)
@@ -86,5 +87,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_animation.Rewind();
 			_animation.Play();
 		}
+		
+		
 	}
 }

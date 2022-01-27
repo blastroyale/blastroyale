@@ -149,6 +149,15 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.CurrentRoom.IsOpen)
 			{
 				_statechartTrigger(ConnectedEvent);
+				return;
+			}
+			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
+
+			IEnumerator LockRoomCoroutine()
+			{
+				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
+				
+				LockRoom();
 			}
 		}
 
@@ -262,14 +271,6 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 			
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
-			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
-
-			IEnumerator LockRoomCoroutine()
-			{
-				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
-				
-				LockRoom();
-			}
 		}
 
 		private void Reconnect()

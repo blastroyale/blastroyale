@@ -74,6 +74,8 @@ Material:
     - EdgeB: 1.83
     - Vector1_682B89C5: -3.29
     - Vector1_F0DE848C: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - ColorB: {r: 3.5648696, g: 0.338172, b: 0, a: 0}
     - Color_14693D33: {r: 4, g: 0, b: 0.078431375, a: 0}

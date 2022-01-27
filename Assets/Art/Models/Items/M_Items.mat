@@ -89,6 +89,7 @@ Material:
     - _Hit: 0
     - _Metallic: 0.4
     - _OcclusionStrength: 1
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _Rage: 0
     - _ReceiveShadows: 1

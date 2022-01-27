@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private AnimationClip _introAnimationClip;
 		[SerializeField] private GameObject _connectionIcon;
 		[SerializeField] private Button _quitButton;
-		[SerializeField] private Button _standingsButton;
+		[SerializeField] private Button[] _standingsButtons;
 		[SerializeField] private Button _leaderButton;
 		[SerializeField] private StandingsHolderView _standings;
 		[SerializeField] private TextMeshProUGUI _mapStatusText;
@@ -45,9 +45,13 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mapStatusText.text = "";
 
+			foreach (var standingsButton in _standingsButtons)
+			{
+				standingsButton.onClick.AddListener(OnStandingsClicked);
+			}
+
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
-			_standingsButton.onClick.AddListener(OnStandingsClicked);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
@@ -113,19 +117,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>();
-
-			for(var i = 0; i < container.PlayersData.Length; i++)
-			{
-				if (!container.PlayersData[i].IsValid)
-				{
-					continue;
-				}
-				
-				var playerMatchData = new QuantumPlayerMatchData(frame,container.PlayersData[i]);
-				
-				playerData.Add(playerMatchData);
-			}
+			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
 			
 			_standings.gameObject.SetActive(true);
 			_standings.Initialise(playerData, false);

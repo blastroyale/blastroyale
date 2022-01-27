@@ -4,7 +4,7 @@ using Quantum;
 using TMPro;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class shows match data information for all players at the end of the match, e.g. total kills, deaths, ranking, etc.
@@ -29,6 +29,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
+			
+			Debug.Log($"{data.PlayerRank} - {data.Data.PlayersKilledCount} - {data.Data.DeathCount}");
 			
 			_playerNameText.text = data.GetPlayerName();
 			_playerRankText.text = $"{data.PlayerRank.ToString()}.";

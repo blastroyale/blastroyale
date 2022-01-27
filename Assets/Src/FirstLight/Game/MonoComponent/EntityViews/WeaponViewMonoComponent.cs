@@ -18,10 +18,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit()
 		{
 			_localInput = new LocalInput();
-			_localInput.Gameplay.Aim.performed += OnAim;
-			_localInput.Gameplay.Aim.canceled += OnAim;
+			
+			_localInput.Gameplay.AimButton.canceled += context =>
+			{
+				if (_particleSystem && _particleSystem.isPlaying)
+				{
+					_particleSystem.Stop();
+				}
+			};
+			
 			_localInput.Enable();
 			
+			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 		}
 
@@ -29,30 +37,21 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_localInput?.Dispose();
 		}
-		
-		private void OnAim(InputAction.CallbackContext context)
+
+		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_particleSystem == null)
+			if (!_particleSystem || EntityRef != callback.PlayerEntity)
 			{
 				return;
 			}
 
-			var game = QuantumRunner.Default;
-			var frame = game == null ? null : game.Game?.Frames?.Verified;
-			var isEmptied = frame != null && frame.TryGet<Weapon>(EntityView.EntityRef, out var weapon) && weapon.IsEmpty;
-			var direction = context.ReadValue<Vector2>();
-			var isShooting = direction.sqrMagnitude > 0;
-			var isPlaying = _particleSystem.isPlaying;
+			if (_particleSystem.isPlaying)
+			{
+				return;
+			}
 			
-			if (!isPlaying && !isEmptied && isShooting)
-			{
-				_particleSystem.Simulate(0.0f, true, true);
-				_particleSystem.Play();
-			}
-			else if (isPlaying && (!isShooting || isEmptied))
-			{
-				_particleSystem.Stop();
-			}
+			_particleSystem.Simulate(0.0f, true, true);
+			_particleSystem.Play();
 		}
 	}
 }

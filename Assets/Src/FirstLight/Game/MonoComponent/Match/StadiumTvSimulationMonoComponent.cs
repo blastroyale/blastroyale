@@ -70,17 +70,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			var frame = callback.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>();
-
-			for(var i = 0; i < container.PlayersData.Length; i++)
-			{
-				if (!container.PlayersData[i].IsValid)
-				{
-					continue;
-				}
-				
-				playerData.Add(new QuantumPlayerMatchData(frame,container.PlayersData[i]));
-			}
+			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
 
 			_standings.Initialise(playerData);
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);

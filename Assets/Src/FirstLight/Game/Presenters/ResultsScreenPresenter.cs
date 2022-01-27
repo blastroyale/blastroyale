@@ -48,19 +48,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>();
-
-			for(var i = 0; i < container.PlayersData.Length; i++)
-			{
-				if (!container.PlayersData[i].IsValid)
-				{
-					continue;
-				}
-				
-				var playerMatchData = new QuantumPlayerMatchData(frame,container.PlayersData[i]);
-				
-				playerData.Add(playerMatchData);
-			}
+			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
 			
 			_standings.Initialise(playerData);
 			

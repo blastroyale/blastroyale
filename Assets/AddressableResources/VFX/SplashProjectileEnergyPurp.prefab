@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5231245992312000478}
   - component: {fileID: 5231245992312000479}
   - component: {fileID: 100114986438559546}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SplashProjectileEnergyPurp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 9086912032402462267}
   - component: {fileID: 6436409545407294472}
   - component: {fileID: 1139785110216394100}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: EnergySplash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

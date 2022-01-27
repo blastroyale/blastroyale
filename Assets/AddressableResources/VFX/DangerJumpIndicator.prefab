@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4768413324043133669}
   - component: {fileID: 4768413324043133668}
   - component: {fileID: 4768413324043133671}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: VFX_IndicatorDanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52538998560082273}
   - component: {fileID: -880895488896727025}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: DangerJumpIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4551299319499327461}
   - component: {fileID: 4551299319499327462}
   - component: {fileID: 4551299319499327463}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: LightningBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4551299321156392629}
   - component: {fileID: -3547817792561891256}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SpawnPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

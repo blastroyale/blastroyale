@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -6486363563728641276}
   - component: {fileID: 5825346893658110353}
   - component: {fileID: 3121645564521645946}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: InterimArmourSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5012,7 +5012,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5137,7 +5137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7273039971299085641}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5196,7 +5196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3643430711052631180, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3898485481164907664, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
       propertyPath: m_RootOrder
@@ -5256,7 +5256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8680867859477978234, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cde5e4a434b498459645a0367d2435c, type: 3}

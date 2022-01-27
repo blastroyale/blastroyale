@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4606365370276110}
   - component: {fileID: 2138159956950216446}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: RPGMuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6471698914850408492}
   - component: {fileID: 6518577627085483595}
   - component: {fileID: 5083082508218658185}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: MuzzleFlashRPG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

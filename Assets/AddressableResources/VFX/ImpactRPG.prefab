@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6465126025087759875}
   - component: {fileID: 5567066404845714502}
   - component: {fileID: 5844817396669419386}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: HitFxRPG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ImpactRPG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4157198256058678}
   - component: {fileID: -2611422950561050045}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SplatsHitEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4340011362121428}
   - component: {fileID: 198924537004548512}
   - component: {fileID: 199250079919708546}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Splash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4897,7 +4897,7 @@ GameObject:
   - component: {fileID: 4295145812010300}
   - component: {fileID: 198954423705496824}
   - component: {fileID: 199414694135592698}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ParticlesGravity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9834,7 +9834,7 @@ GameObject:
   - component: {fileID: 4763151278674944}
   - component: {fileID: 198162971860522622}
   - component: {fileID: 199624507992987194}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SplashMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

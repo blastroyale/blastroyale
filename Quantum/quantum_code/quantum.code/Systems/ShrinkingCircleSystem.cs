@@ -82,7 +82,7 @@ namespace Quantum.Systems
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
 			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
 			circle->TargetCircleCenter += new FPVector2(f.RNG->NextInclusive(-borderK, borderK), 
-			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->TargetRadius;
+			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->CurrentRadius;
 			
 			f.Events.OnNewShrinkingCircle(*circle);
 		}

@@ -1,5 +1,6 @@
 {
     "name": "FirstLight.Game.Tests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
@@ -9,7 +10,9 @@
         "Unity.Addressables",
         "Unity.ResourceManager"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

@@ -30,8 +30,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
 			
-			Debug.Log($"{data.PlayerRank} - {data.Data.PlayersKilledCount} - {data.Data.DeathCount}");
-			
 			_playerNameText.text = data.GetPlayerName();
 			_playerRankText.text = $"{data.PlayerRank.ToString()}.";
 			_killsText.text = data.Data.PlayersKilledCount.ToString();

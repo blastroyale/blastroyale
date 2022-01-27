@@ -20,8 +20,14 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
+			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleGameEnded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
+		}
+
+		private void HandleGameEnded(EventOnGameEnded callback)
+		{
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void HandleUpdateView(CallbackUpdateView callback)
@@ -33,7 +39,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			var lerp = Mathf.Max(0, (frame.Time.AsFloat - circle.ShrinkingStartTime.AsFloat) / circle.ShrinkingDurationTime.AsFloat);
 			var radius = Mathf.Lerp(circle.CurrentRadius.AsFloat, targetRadius, lerp);
 			var center = Vector2.Lerp(circle.CurrentCircleCenter.ToUnityVector2(), targetCircleCenter, lerp);
-
 			var cachedShrinkingCircleLineTransform = _shrinkingCircleLinerRenderer.transform;
 			var cachedSafeAreaCircleLine = _safeAreaCircleLinerRenderer.transform;
 			

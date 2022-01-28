@@ -18,18 +18,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit()
 		{
 			_localInput = new LocalInput();
-			
-			_localInput.Gameplay.AimButton.canceled += context =>
-			{
-				if (_particleSystem && _particleSystem.isPlaying)
-				{
-					_particleSystem.Stop();
-				}
-			};
+
+			_localInput.Gameplay.AimButton.canceled += _ => _particleSystem.Stop();
 			
 			_localInput.Enable();
 			
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
+			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 		}
 
@@ -40,18 +35,23 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (!_particleSystem || EntityRef != callback.PlayerEntity)
-			{
-				return;
-			}
-
-			if (_particleSystem.isPlaying)
+			if (_particleSystem.isPlaying || EntityRef != callback.PlayerEntity)
 			{
 				return;
 			}
 			
 			_particleSystem.Simulate(0.0f, true, true);
 			_particleSystem.Play();
+		}
+
+		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
+		{
+			if (EntityRef != callback.PlayerEntity)
+			{
+				return;
+			}
+			
+			_particleSystem.Stop();
 		}
 	}
 }

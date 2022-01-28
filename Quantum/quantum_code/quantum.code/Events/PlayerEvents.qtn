@@ -43,6 +43,12 @@ synced event OnPlayerKilledPlayer
 	entity_ref EntityLeader;
 }
 
+synced event OnPlayerAmmoEmpty
+{
+	player_ref Player;
+	entity_ref Entity;
+}
+
 synced event OnPlayerWeaponChanged
 {
 	player_ref Player;
@@ -52,16 +58,22 @@ synced event OnPlayerWeaponChanged
 
 synced event OnPlayerAttack
 {
-	entity_ref PlayerEntity;
 	player_ref Player;
+	entity_ref PlayerEntity;
 }
 
 synced event OnPlayerAttackHit
 {
-	entity_ref PlayerEntity;
 	player_ref Player;
+	entity_ref PlayerEntity;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
+}
+
+synced event OnPlayerStopAttack
+{
+	player_ref Player;
+	entity_ref PlayerEntity;
 }
 
 // LOCAL PLAYER EVENTS

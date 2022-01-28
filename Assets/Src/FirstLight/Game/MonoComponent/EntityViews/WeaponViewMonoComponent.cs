@@ -1,5 +1,6 @@
 using FirstLight.Game.Input;
 using FirstLight.Game.MonoComponent.Vfx;
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,24 +14,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		[SerializeField] private ParticleSystem _particleSystem;
 		
-		private LocalInput _localInput;
-		
 		protected override void OnInit()
 		{
-			_localInput = new LocalInput();
-
-			_localInput.Gameplay.AimButton.canceled += _ => _particleSystem.Stop();
-			
-			_localInput.Enable();
-			
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
-			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
-		}
-
-		private void OnEntityDestroyed(QuantumGame game)
-		{
-			_localInput?.Dispose();
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)

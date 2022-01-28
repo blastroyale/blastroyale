@@ -4,7 +4,7 @@ using Quantum;
 using TMPro;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class shows match data information for all players at the end of the match, e.g. total kills, deaths, ranking, etc.

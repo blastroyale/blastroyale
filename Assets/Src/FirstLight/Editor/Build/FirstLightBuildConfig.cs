@@ -179,7 +179,7 @@ namespace FirstLight.Editor.Build
 			buildConfig.options |= BuildOptions.ConnectWithProfiler;
 			buildConfig.options |= BuildOptions.DetailedBuildReport;
 			buildConfig.options |= BuildOptions.ShowBuiltPlayer;
-			buildConfig.options |= BuildOptions.SymlinkLibraries;
+			buildConfig.options |= BuildOptions.SymlinkSources;
 
 			SetDevelopmentBuildConfig(target, ref buildConfig);
 		}

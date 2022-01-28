@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using FirstLight.Game.Input;
-using FirstLight.Game.Logic;
-using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -10,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class handles the Special Move button. As long as the player has special charges and the special is not in

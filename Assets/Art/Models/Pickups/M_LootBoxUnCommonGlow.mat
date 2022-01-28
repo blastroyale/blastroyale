@@ -88,6 +88,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - FresnelAmount_: 3.35
     - GlowAmount_: 1
@@ -131,7 +132,7 @@ Material:
     - Color_DEABE623: {r: 1, g: 1, b: 1, a: 1}
     - Color_F2EE02DC: {r: 0.34509805, g: 3.4352942, b: 0.34509805, a: 1}
     - _BaseColor: {r: 0.18879786, g: 0.8113208, b: 0.2956564, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.18879783, g: 0.8113207, b: 0.29565638, a: 1}
     - _EmissionColor: {r: 1.331852, g: 76.81773, b: 0.38805252, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
@@ -147,4 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 4
+  version: 5

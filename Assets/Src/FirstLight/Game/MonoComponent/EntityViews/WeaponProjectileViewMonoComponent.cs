@@ -1,4 +1,6 @@
 using FirstLight.Game.MonoComponent.Vfx;
+using FirstLight.Game.Services;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 
@@ -9,18 +11,31 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class WeaponProjectileViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private AdventureVfxSpawnerMonoComponent _spawnVfx;
-		
+		[SerializeField] private GameObject _rocket;
+
+		private IObjectPool<GameObject> _pool;
+
 		protected override void OnInit()
 		{
+			_pool = new GameObjectPool(3, _rocket);
+			
 			QuantumEvent.Subscribe<EventOnProjectileFired>(this, OnEventOnProjectileFired);
 		}
 		
 		private void OnEventOnProjectileFired(EventOnProjectileFired callback)
 		{
-			if (_spawnVfx && callback.ProjectileData.Attacker == EntityRef)
+			if (callback.ProjectileData.Attacker == EntityRef && 
+			    Services.EntityViewUpdaterService.TryGetView(callback.Projectile, out var projectile))
 			{
-				_spawnVfx.Spawn();
+				var go = _pool.Spawn();
+				var goTransform = go.transform;
+				
+				goTransform.SetParent(projectile.transform);
+				
+				goTransform.localPosition = Vector3.zero;
+				goTransform.localRotation = Quaternion.identity;
+				
+				projectile.OnEntityDestroyed.AddListener(_ => _pool?.Despawn(go));
 			}
 		}
 	}

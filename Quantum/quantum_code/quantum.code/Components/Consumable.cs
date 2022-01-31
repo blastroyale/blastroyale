@@ -75,11 +75,11 @@ namespace Quantum
 					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
 					Collectable.DropCollectable(f, armour, stashPosition, 1, false);
 					
-					if (ammoOrHealthChance < FP._0_10)
+					if (ammoOrHealthChance < FP._0_20 + FP._0_10)
 					{
 						Collectable.DropCollectable(f, GameId.AmmoLarge, stashPosition, 2, false);
 					}
-					else if (ammoOrHealthChance < FP._0_50 + FP._0_10)
+					else if (ammoOrHealthChance < FP._0_50 + FP._0_20 + FP._0_20)
 					{
 						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 2, false);
 					}
@@ -91,11 +91,11 @@ namespace Quantum
 				
 				// Common stash
 				default :
-					if (f.RNG->Next() <= FP._0_10)
+					if (f.RNG->Next() <= FP._0_05)
 					{
 						Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
 					}
-					else if (f.RNG->Next() <= FP._0_50)
+					else if (f.RNG->Next() <= FP._0_50 + FP._0_20)
 					{
 						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 0, false);
 					}
@@ -104,17 +104,26 @@ namespace Quantum
 						Collectable.DropCollectable(f, GameId.Health, stashPosition, 0, false);
 					}
 					
-					if (f.RNG->Next() <= FP._0_25)
+					if (f.RNG->Next() <= FP._0_10)
 					{
-						Collectable.DropCollectable(f, GameId.InterimArmourSmall, stashPosition, 1, false);
+						Collectable.DropCollectable(f, GameId.AmmoLarge, stashPosition, 1, false);
 					}
 					else if (f.RNG->Next() <= FP._0_50)
 					{
-						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 1, false);
+						Collectable.DropCollectable(f, GameId.InterimArmourSmall, stashPosition, 1, false);
 					}
 					else
 					{
 						Collectable.DropCollectable(f, GameId.Health, stashPosition, 1, false);
+					}
+
+					if (f.RNG->Next() <= FP._0_50 + FP._0_20 + FP._0_20)
+					{
+						Collectable.DropCollectable(f, GameId.AmmoSmall, stashPosition, 2, false);
+					}
+					else
+					{
+						Collectable.DropCollectable(f, GameId.Health, stashPosition, 2, false);
 					}
 					break;
 			}

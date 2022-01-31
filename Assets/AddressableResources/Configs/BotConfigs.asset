@@ -33,7 +33,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 58982
       ChanceToSeekReplenishSpecials:
@@ -68,7 +68,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 6554
+        RawValue: 3277
       ChanceToSeekEnemies:
         RawValue: 62259
       ChanceToSeekReplenishSpecials:
@@ -103,7 +103,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 3277
+        RawValue: 1638
       ChanceToSeekEnemies:
         RawValue: 60293
       ChanceToSeekReplenishSpecials:
@@ -138,7 +138,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 4915200
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 64225
       ChanceToSeekReplenishSpecials:
@@ -173,7 +173,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 327680
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 57016
       ChanceToSeekReplenishSpecials:
@@ -208,7 +208,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 39322
       ChanceToSeekReplenishSpecials:
@@ -243,7 +243,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 6554
+        RawValue: 3277
       ChanceToSeekEnemies:
         RawValue: 42598
       ChanceToSeekReplenishSpecials:
@@ -278,7 +278,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 3277
+        RawValue: 1638
       ChanceToSeekEnemies:
         RawValue: 45875
       ChanceToSeekReplenishSpecials:
@@ -313,7 +313,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 4915200
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 44564
       ChanceToSeekReplenishSpecials:
@@ -348,7 +348,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 327680
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 43254
       ChanceToSeekReplenishSpecials:
@@ -383,7 +383,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 9830
+        RawValue: 4915
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -418,7 +418,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 16384
+        RawValue: 8192
       ChanceToSeekEnemies:
         RawValue: 32768
       ChanceToSeekReplenishSpecials:
@@ -453,7 +453,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 3277
+        RawValue: 1638
       ChanceToSeekEnemies:
         RawValue: 13107
       ChanceToSeekReplenishSpecials:
@@ -488,7 +488,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 4915200
       ChanceToSeekWeapons:
-        RawValue: 19661
+        RawValue: 9830
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -523,7 +523,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 327680
       ChanceToSeekWeapons:
-        RawValue: 26214
+        RawValue: 13107
       ChanceToSeekEnemies:
         RawValue: 32768
       ChanceToSeekReplenishSpecials:
@@ -558,7 +558,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 13107
+        RawValue: 6554
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -593,7 +593,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 22938
+        RawValue: 11469
       ChanceToSeekEnemies:
         RawValue: 49152
       ChanceToSeekReplenishSpecials:
@@ -628,7 +628,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 6554
+        RawValue: 3277
       ChanceToSeekEnemies:
         RawValue: 13107
       ChanceToSeekReplenishSpecials:
@@ -663,7 +663,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 4915200
       ChanceToSeekWeapons:
-        RawValue: 32768
+        RawValue: 16384
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -698,7 +698,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 327680
       ChanceToSeekWeapons:
-        RawValue: 42598
+        RawValue: 21299
       ChanceToSeekEnemies:
         RawValue: 65536
       ChanceToSeekReplenishSpecials:

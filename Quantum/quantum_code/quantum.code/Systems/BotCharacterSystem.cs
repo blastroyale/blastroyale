@@ -375,8 +375,10 @@ namespace Quantum.Systems
 			var weaponPickupPosition = FPVector3.Zero;
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
-			// Bots seek new weapons if they have a default one OR if the chance worked
-			var isGoing = weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID || f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
+			// Bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
+			var isGoing = weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID ||
+			              weapon.Ammo == 0 ||
+			              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			
 			isGoing = isGoing && TryGetClosestWeapon(f, ref filter, out weaponPickupPosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, weaponPickupPosition);

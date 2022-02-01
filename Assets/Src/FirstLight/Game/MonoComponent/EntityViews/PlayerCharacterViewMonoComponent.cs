@@ -222,7 +222,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			foreach (var weapon in weapons)
 			{
-				weapon.GetComponent<WeaponViewMonoComponent>().SetEntityView(EntityView);
+				var components = weapon.GetComponents<EntityViewBase>();
+
+				foreach (var entityViewBase  in components)
+				{
+					entityViewBase.SetEntityView(EntityView);	
+				}
 			}
 		}
 

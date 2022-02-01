@@ -1,5 +1,3 @@
-using FirstLight.Game.MonoComponent.Vfx;
-using FirstLight.Game.Services;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;

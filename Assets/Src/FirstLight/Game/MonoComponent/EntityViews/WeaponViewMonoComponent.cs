@@ -1,9 +1,6 @@
-using FirstLight.Game.Input;
-using FirstLight.Game.MonoComponent.Vfx;
-using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {

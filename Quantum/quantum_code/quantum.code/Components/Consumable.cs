@@ -55,8 +55,18 @@ namespace Quantum
 
 		private void HandleCollectedStash(Frame f, EntityRef e, int stashValue)
 		{
-			var weaponIDs = GameIdGroup.Weapon.GetIds();
+			var unfilteredWeaponIDs = GameIdGroup.Weapon.GetIds();
 			var stashPosition = f.Get<Transform3D>(e).Position;
+			var weaponIDs = new List<GameId>();
+			
+			// Choose only non-melee weapons to consider for a drop
+			for (int i = 0; i < unfilteredWeaponIDs.Count; i++)
+			{
+				if (f.WeaponConfigs.GetConfig(unfilteredWeaponIDs[i]).MaxAmmo > 0)
+				{
+					weaponIDs.Add(unfilteredWeaponIDs[i]);
+				}
+			}
 			
 			switch (stashValue)
 			{

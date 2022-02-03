@@ -45,7 +45,7 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmo: -1
-      MaxAmmo: 1
+      MaxAmmo: -1
       PowerRatioToBase:
         RawValue: 39322
       AimingMovementSpeed:
@@ -193,7 +193,7 @@ MonoBehaviour:
         RawValue: 0
       ProjectileSpeed:
         RawValue: 0
-      Specials: 8d00000000000000
+      Specials: 7700000066000000
     - Id: 37
       AssetRef:
         Id:

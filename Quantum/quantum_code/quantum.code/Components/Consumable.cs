@@ -62,10 +62,12 @@ namespace Quantum
 			// Choose only non-melee weapons to consider for a drop
 			for (int i = 0; i < unfilteredWeaponIDs.Count; i++)
 			{
-				if (f.WeaponConfigs.GetConfig(unfilteredWeaponIDs[i]).MaxAmmo > 0)
+				if (f.WeaponConfigs.GetConfig(unfilteredWeaponIDs[i]).InitialAmmo < 0)
 				{
-					weaponIDs.Add(unfilteredWeaponIDs[i]);
+					continue;
 				}
+				
+				weaponIDs.Add(unfilteredWeaponIDs[i]);
 			}
 			
 			switch (stashValue)

@@ -423,6 +423,18 @@ namespace FirstLight.Game.Presenters
 				}
 				
 				Services.CommandService.ExecuteCommand(new UnequipItemCommand { ItemId = _uniqueId });
+				
+				// Equip Default/Melee weapon after unequipping a regular one
+				var weapons = _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon);
+				for (int i = 0; i < weapons.Count; i++)
+				{
+					if (_gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(weapons[i].GameId)
+					                     .Stats[EquipmentStatType.MaxCapacity] < 0)
+					{
+						Services.CommandService.ExecuteCommand(new EquipItemCommand { ItemId = weapons[i].Data.Id });
+						break;
+					}
+				}
 			}
 			else
 			{
@@ -436,7 +448,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
 			
-			// Selling your last weapon isn't allowed. In the future we may allow players to enter the game without any weapon.
+			// Selling your last weapon isn't allowed
 			if (info.IsWeapon && _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1)
 			{
 				var confirmButton = new GenericDialogButton

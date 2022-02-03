@@ -17,9 +17,9 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(e);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
-			var player = playerCharacter.Player;
+			var player = playerCharacter->Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var team = f.Get<Targetable>(e).Team;
@@ -42,6 +42,7 @@ namespace Quantum
 			if (weapon->Ammo > 0)
 			{
 				weapon->Ammo--;
+				playerCharacter->AmmoPercentage = weapon->Ammo / (FP)weapon->MaxAmmo;
 			}
 			
 			weapon->LastAttackTime = f.Time;

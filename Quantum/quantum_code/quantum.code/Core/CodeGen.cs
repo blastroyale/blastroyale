@@ -3801,14 +3801,17 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 88;
+    public const Int32 SIZE = 96;
     public const Int32 ALIGNMENT = 8;
+    [FieldOffset(32)]
+    [HideInInspector()]
+    public FP AmmoPercentage;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
-    [FieldOffset(48)]
+    [FieldOffset(56)]
     [HideInInspector()]
     public Equipment DefaultWeapon;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     [HideInInspector()]
     public FP DisconnectedDuration;
     [FieldOffset(24)]
@@ -3818,13 +3821,14 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(64)]
+    [FieldOffset(72)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public FP SpawnTime;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 439;
+        hash = hash * 31 + AmmoPercentage.GetHashCode();
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + DefaultWeapon.GetHashCode();
         hash = hash * 31 + DisconnectedDuration.GetHashCode();
@@ -3842,6 +3846,7 @@ namespace Quantum {
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
+        FP.Serialize(&p->AmmoPercentage, serializer);
         FP.Serialize(&p->DisconnectedDuration, serializer);
         FP.Serialize(&p->SpawnTime, serializer);
         Quantum.Equipment.Serialize(&p->DefaultWeapon, serializer);
@@ -8001,6 +8006,8 @@ namespace Quantum.Prototypes {
     public PlayerRef Player;
     [HideInInspector()]
     public Equipment_Prototype DefaultWeapon;
+    [HideInInspector()]
+    public FP AmmoPercentage;
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -8008,6 +8015,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
+      result.AmmoPercentage = this.AmmoPercentage;
       result.BlackboardRef = this.BlackboardRef;
       this.DefaultWeapon.Materialize(frame, ref result.DefaultWeapon, in context);
       result.DisconnectedDuration = this.DisconnectedDuration;

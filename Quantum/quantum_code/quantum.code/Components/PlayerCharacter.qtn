@@ -29,6 +29,7 @@ component PlayerCharacter
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Equipment DefaultWeapon;
+	[HideInInspector] FP AmmoPercentage;
 }
 
 component PlayerCharging

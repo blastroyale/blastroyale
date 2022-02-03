@@ -32,6 +32,7 @@ namespace Quantum.Commands
 			
 			stats->AddModifier(f, powerModifier);
 			
+			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->GainAmmoPercentage(FP._1);
 			f.Unsafe.GetPointer<Weapon>(characterEntity)->GainAmmo(100);
 		}
 	}

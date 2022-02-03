@@ -17,9 +17,9 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(e);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
-			var player = playerCharacter.Player;
+			var player = playerCharacter->Player;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
@@ -34,6 +34,7 @@ namespace Quantum
 			if (weapon->Ammo > 0)
 			{
 				weapon->Ammo--;
+				playerCharacter->AmmoPercentage = weapon->Ammo / (FP)weapon->MaxAmmo;
 			}
 			
 			weapon->LastAttackTime = f.Time;

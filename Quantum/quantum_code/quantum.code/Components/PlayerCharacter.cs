@@ -25,6 +25,7 @@ namespace Quantum
 			
 			Player = playerRef;
 			DefaultWeapon = playerWeapon;
+			AmmoPercentage = FP._0;
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin);
@@ -154,23 +155,31 @@ namespace Quantum
 			}
 			
 			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
-
+			
+			// If we set non-melee weapon then we need to use ammo from AmmoPercentage
+			if (weapon.Ammo > -1)
+			{
+				GainAmmoPercentage(weaponConfig.InitialAmmo / (FP)weaponConfig.MaxAmmo);
+				weapon.Ammo = FPMath.CeilToInt(AmmoPercentage * weaponConfig.MaxAmmo);
+			}
+			
 			if (f.TryGet<Weapon>(e, out var previousWeapon))
 			{
-				// If previous weapon's ammo is not Unlimited
-				if (previousWeapon.Ammo > -1)
-				{
-					// Then add ammo from the previous weapon to the new one
-					var previousAmmoPortion = previousWeapon.Ammo / (FP)previousWeapon.MaxAmmo;
-					var updatedAmmo = weapon.Ammo + FPMath.CeilToInt(weapon.MaxAmmo * previousAmmoPortion);
-					weapon.Ammo = updatedAmmo > weapon.MaxAmmo ? weapon.MaxAmmo : updatedAmmo;
-				}
-				
 				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId);
 			}
 			
 			f.Set(e, weapon);
+		}
+
+		/// <summary>
+		/// Sets the weapon-independent AmmoPercentage
+		/// </summary>
+		public void GainAmmoPercentage(FP amount)
+		{
+			var updatedAmmoPercentage = AmmoPercentage + amount;
+			
+			AmmoPercentage = updatedAmmoPercentage > FP._1 ? FP._1 : updatedAmmoPercentage;
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)

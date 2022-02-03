@@ -119,30 +119,29 @@ namespace Quantum
 		                      FPVector3 projectileSpawnOffset = new FPVector3())
 		{
 			var weapon = new Weapon();
-			var config = f.WeaponConfigs.GetConfig(weaponGameId);
 			var blackboard = f.Get<AIBlackboardComponent>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(weaponGameId);
 			var power = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, 
 			                                                     f.GameConfig, StatType.Power);
 			
-			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), config.AimTime);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), config.AttackCooldown);
+			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
+			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			
-			weapon.WeaponId = config.Id;
-			weapon.Ammo = config.InitialAmmo;
-			weapon.MaxAmmo = config.MaxAmmo;
-			weapon.AttackCooldown = config.AttackCooldown;
+			weapon.WeaponId = weaponConfig.Id;
+			weapon.Ammo = weaponConfig.InitialAmmo;
+			weapon.MaxAmmo = weaponConfig.MaxAmmo;
+			weapon.AttackCooldown = weaponConfig.AttackCooldown;
 			weapon.LastAttackTime = f.Time;
-			weapon.AttackRange = config.AttackRange;
-			weapon.AttackAngle = config.AttackAngle;
-			weapon.ProjectileSpeed = config.ProjectileSpeed;
-			weapon.SplashRadius = config.SplashRadius;
-			weapon.AimingMovementSpeed = config.AimingMovementSpeed;
+			weapon.AttackRange = weaponConfig.AttackRange;
+			weapon.AttackAngle = weaponConfig.AttackAngle;
+			weapon.ProjectileSpeed = weaponConfig.ProjectileSpeed;
+			weapon.SplashRadius = weaponConfig.SplashRadius;
+			weapon.AimingMovementSpeed = weaponConfig.AimingMovementSpeed;
 			weapon.ProjectileSpawnOffset = projectileSpawnOffset;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
-				var specialId = config.Specials[specialIndex];
+				var specialId = weaponConfig.Specials[specialIndex];
 
 				if (specialId == default)
 				{

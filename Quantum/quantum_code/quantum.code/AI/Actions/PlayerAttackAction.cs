@@ -26,16 +26,9 @@ namespace Quantum
 			var angle = -weapon->AttackAngle / FP._2;
 			var team = f.Get<Targetable>(e).Team;
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
-			var shape = Shape3D.CreateSphere(weapon->SplashRadius);
+			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized * 
-			                      weapon->AttackRange;
-
-			if (weapon->Ammo > 0)
-			{
-				weapon->Ammo--;
-				playerCharacter->AmmoPercentage = weapon->Ammo / (FP)weapon->MaxAmmo;
-			}
+			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized * weapon->AttackRange;
 			
 			weapon->LastAttackTime = f.Time;
 			

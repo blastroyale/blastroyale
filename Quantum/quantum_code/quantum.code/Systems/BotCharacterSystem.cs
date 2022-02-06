@@ -15,6 +15,7 @@ namespace Quantum.Systems
 			public EntityRef Entity;
 			public Transform3D* Transform;
 			public BotCharacter* BotCharacter;
+			public PlayerCharacter* PlayerCharacter;
 		}
 
 		/// <inheritdoc />
@@ -201,7 +202,7 @@ namespace Quantum.Systems
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// If the bot's weapon is empty then we clear the target and leave the method
-			if (weapon.Ammo == 0)
+			if (filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity))
 			{
 				filter.BotCharacter->Target = EntityRef.None;
 				return;
@@ -345,12 +346,12 @@ namespace Quantum.Systems
 			var weapon = f.Get<Weapon>(filter.Entity);
 			
 			// If weapon has Unlimited ammo then don't go for more ammo
-			if (weapon.Ammo == -1)
+			if (filter.PlayerCharacter->IsMeleeWeapon(f, filter.Entity))
 			{
 				return false;
 			}
 			
-			var ratioAmmo = weapon.Ammo / weapon.MaxAmmo;
+			var ratioAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity) / weapon.MaxAmmo;
 			var lowAmmoSensitivity = filter.BotCharacter->LowAmmoSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioAmmo) * lowAmmoSensitivity);
 			
@@ -377,7 +378,7 @@ namespace Quantum.Systems
 			
 			// Bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
 			var isGoing = weapon.WeaponId == Constants.DEFAULT_WEAPON_GAME_ID ||
-			              weapon.Ammo == 0 ||
+			              filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
 			              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			
 			isGoing = isGoing && TryGetClosestWeapon(f, ref filter, out weaponPickupPosition);
@@ -391,7 +392,7 @@ namespace Quantum.Systems
 			var isGoing = f.RNG->Next() < filter.BotCharacter->ChanceToSeekEnemies;
 			
 			// If chance didn't work OR the bot's weapon is empty then we don't go for enemies
-			if (!isGoing || f.TryGet<Weapon>(filter.Entity, out var weapon) && weapon.Ammo == 0)
+			if (!isGoing || f.TryGet<Weapon>(filter.Entity, out var weapon) && filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity))
 			{
 				return false;
 			}
@@ -492,6 +493,7 @@ namespace Quantum.Systems
 			var botPosition = filter.Transform->Position;
 			var iterator = f.GetComponentIterator<WeaponCollectable>();
 			var sqrDistance = FP.MaxValue;
+			var totalAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity);
 			weaponPickupPosition = FPVector3.Zero;
 			
 			foreach (var weaponCandidate in iterator)
@@ -499,7 +501,7 @@ namespace Quantum.Systems
 				var weaponCandidateId = f.Get<Collectable>(weaponCandidate.Entity).GameId;
 				
 				// Do not pick up the same weapon unless has less than 50% ammo
-				if (weapon.WeaponId == weaponCandidateId && weapon.Ammo > weapon.MaxAmmo * FP._0_50)
+				if (weapon.WeaponId == weaponCandidateId && totalAmmo > weapon.MaxAmmo * FP._0_50)
 				{
 					continue;
 				}

@@ -39,12 +39,6 @@ namespace Quantum
 				TeamSource = team
 			};
 			
-			if (weapon->Ammo > 0)
-			{
-				weapon->Ammo--;
-				playerCharacter->AmmoPercentage = weapon->Ammo / (FP)weapon->MaxAmmo;
-			}
-			
 			weapon->LastAttackTime = f.Time;
 
 			Projectile.Create(f, projectile);

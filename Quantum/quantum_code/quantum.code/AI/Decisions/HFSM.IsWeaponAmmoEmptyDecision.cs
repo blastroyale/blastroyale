@@ -12,7 +12,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e)
 		{
-			return !f.TryGet<Weapon>(e, out var weapon) || weapon.Ammo == 0;
+			return !f.TryGet<Weapon>(e, out var weapon);
 		}
 	}
 }

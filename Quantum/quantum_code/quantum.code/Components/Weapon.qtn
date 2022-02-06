@@ -1,7 +1,6 @@
 component Weapon
 {
 	GameId WeaponId;
-	Int32 Ammo;
 	Int32 MaxAmmo;
 	FP AttackRange;
 	FP AttackCooldown;

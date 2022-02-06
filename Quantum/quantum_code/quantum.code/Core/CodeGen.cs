@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -3801,17 +3802,14 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 96;
+    public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(32)]
-    [HideInInspector()]
-    public FP AmmoPercentage;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
-    [FieldOffset(56)]
+    [FieldOffset(48)]
     [HideInInspector()]
     public Equipment DefaultWeapon;
-    [FieldOffset(40)]
+    [FieldOffset(32)]
     [HideInInspector()]
     public FP DisconnectedDuration;
     [FieldOffset(24)]
@@ -3821,14 +3819,13 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(72)]
+    [FieldOffset(64)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(48)]
+    [FieldOffset(40)]
     public FP SpawnTime;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 439;
-        hash = hash * 31 + AmmoPercentage.GetHashCode();
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + DefaultWeapon.GetHashCode();
         hash = hash * 31 + DisconnectedDuration.GetHashCode();
@@ -3846,7 +3843,6 @@ namespace Quantum {
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
-        FP.Serialize(&p->AmmoPercentage, serializer);
         FP.Serialize(&p->DisconnectedDuration, serializer);
         FP.Serialize(&p->SpawnTime, serializer);
         Quantum.Equipment.Serialize(&p->DefaultWeapon, serializer);
@@ -4273,30 +4269,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Weapon : Quantum.IComponent {
-    public const Int32 SIZE = 208;
+    public const Int32 SIZE = 200;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
-    public FP AimingMovementSpeed;
-    [FieldOffset(4)]
-    public Int32 Ammo;
-    [FieldOffset(24)]
-    public FP AttackAngle;
-    [FieldOffset(32)]
-    public FP AttackCooldown;
-    [FieldOffset(40)]
-    public FP AttackRange;
-    [FieldOffset(48)]
-    public FP LastAttackTime;
     [FieldOffset(8)]
+    public FP AimingMovementSpeed;
+    [FieldOffset(16)]
+    public FP AttackAngle;
+    [FieldOffset(24)]
+    public FP AttackCooldown;
+    [FieldOffset(32)]
+    public FP AttackRange;
+    [FieldOffset(40)]
+    public FP LastAttackTime;
+    [FieldOffset(4)]
     public Int32 MaxAmmo;
-    [FieldOffset(72)]
+    [FieldOffset(64)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(56)]
+    [FieldOffset(48)]
     public FP ProjectileSpeed;
-    [FieldOffset(96)]
+    [FieldOffset(88)]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
-    [FieldOffset(64)]
+    [FieldOffset(56)]
     public FP SplashRadius;
     [FieldOffset(0)]
     public GameId WeaponId;
@@ -4309,7 +4303,6 @@ namespace Quantum {
       unchecked { 
         var hash = 541;
         hash = hash * 31 + AimingMovementSpeed.GetHashCode();
-        hash = hash * 31 + Ammo.GetHashCode();
         hash = hash * 31 + AttackAngle.GetHashCode();
         hash = hash * 31 + AttackCooldown.GetHashCode();
         hash = hash * 31 + AttackRange.GetHashCode();
@@ -4326,7 +4319,6 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Weapon*)ptr;
         serializer.Stream.Serialize((Int32*)&p->WeaponId);
-        serializer.Stream.Serialize(&p->Ammo);
         serializer.Stream.Serialize(&p->MaxAmmo);
         FP.Serialize(&p->AimingMovementSpeed, serializer);
         FP.Serialize(&p->AttackAngle, serializer);
@@ -8006,8 +7998,6 @@ namespace Quantum.Prototypes {
     public PlayerRef Player;
     [HideInInspector()]
     public Equipment_Prototype DefaultWeapon;
-    [HideInInspector()]
-    public FP AmmoPercentage;
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -8015,7 +8005,6 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
-      result.AmmoPercentage = this.AmmoPercentage;
       result.BlackboardRef = this.BlackboardRef;
       this.DefaultWeapon.Materialize(frame, ref result.DefaultWeapon, in context);
       result.DisconnectedDuration = this.DisconnectedDuration;
@@ -8541,7 +8530,6 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(Weapon))]
   public sealed unsafe partial class Weapon_Prototype : ComponentPrototype<Weapon> {
     public GameId_Prototype WeaponId;
-    public Int32 Ammo;
     public Int32 MaxAmmo;
     public FP AttackRange;
     public FP AttackCooldown;
@@ -8561,7 +8549,6 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Weapon result, in PrototypeMaterializationContext context) {
       result.AimingMovementSpeed = this.AimingMovementSpeed;
-      result.Ammo = this.Ammo;
       result.AttackAngle = this.AttackAngle;
       result.AttackCooldown = this.AttackCooldown;
       result.AttackRange = this.AttackRange;

@@ -40,8 +40,7 @@ namespace Quantum
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, (int) consumable.Amount);
 					break;
 				case ConsumableType.Ammo:
-					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmoPercentage(consumable.Amount / FP._100);
-					f.Unsafe.GetPointer<Weapon>(playerEntity)->GainAmmo(consumable.Amount);
+					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
 					break;
 				case ConsumableType.InterimArmour:
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainInterimArmour(f, playerEntity, entity, (int) consumable.Amount);

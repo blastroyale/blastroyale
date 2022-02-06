@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -25,7 +26,6 @@ namespace Quantum
 			
 			Player = playerRef;
 			DefaultWeapon = playerWeapon;
-			AmmoPercentage = FP._0;
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin);
@@ -116,7 +116,7 @@ namespace Quantum
 		/// <summary>
 		/// Set's the player's current weapon to the given <paramref name="weaponGameId"/> and data
 		/// </summary>
-		public void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level, 
+		internal void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level, 
 		                      FPVector3 projectileSpawnOffset = new FPVector3())
 		{
 			var weapon = new Weapon();
@@ -127,9 +127,9 @@ namespace Quantum
 			
 			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
+			blackboard.Set(f, Constants.AmmoKey, weaponConfig.InitialAmmo);
 			
 			weapon.WeaponId = weaponConfig.Id;
-			weapon.Ammo = weaponConfig.InitialAmmo;
 			weapon.MaxAmmo = weaponConfig.MaxAmmo;
 			weapon.AttackCooldown = weaponConfig.AttackCooldown;
 			weapon.LastAttackTime = f.Time;
@@ -156,14 +156,7 @@ namespace Quantum
 			
 			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			
-			// If we set non-melee weapon then we need to use ammo from AmmoPercentage
-			if (weapon.Ammo > -1)
-			{
-				GainAmmoPercentage(weaponConfig.InitialAmmo / (FP)weaponConfig.MaxAmmo);
-				weapon.Ammo = FPMath.CeilToInt(AmmoPercentage * weaponConfig.MaxAmmo);
-			}
-			
-			if (f.TryGet<Weapon>(e, out var previousWeapon))
+			if (f.Has<Weapon>(e))
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId);
@@ -171,15 +164,53 @@ namespace Quantum
 			
 			f.Set(e, weapon);
 		}
+		
+		/// <summary>
+		/// Requests the total amount of ammo the <paramref name="e"/> player has
+		/// </summary>
+		public int GetAmmoAmount(Frame f, EntityRef e)
+		{
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			
+			return bb->GetInteger(f, Constants.AmmoKey);
+		}
 
 		/// <summary>
-		/// Sets the weapon-independent AmmoPercentage
+		/// Requests if the current weapon equipped by the player is empty of ammo or not.
 		/// </summary>
-		public void GainAmmoPercentage(FP amount)
+		/// <remarks>
+		/// It will be always false for melee weapons. Use <see cref="IsMeleeWeapon"/> to double check the state.
+		/// </remarks>
+		public bool IsAmmoEmpty(Frame f, EntityRef e)
 		{
-			var updatedAmmoPercentage = AmmoPercentage + amount;
+			return GetAmmoAmount(f, e) == 0;
+		}
+
+		/// <summary>
+		/// Requests if the current weapon equipped by the player is a melee weapon or not
+		/// </summary>
+		public bool IsMeleeWeapon(Frame f, EntityRef e)
+		{
+			return GetAmmoAmount(f, e) < 0;
+		}
+		
+		/// <summary>
+		/// Gives the given ammo <paramref name="amount"/> to this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void GainAmmo(Frame f, EntityRef e, uint amount)
+		{
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var ammo = bb->GetInteger(f, Constants.AmmoKey);
 			
-			AmmoPercentage = updatedAmmoPercentage > FP._1 ? FP._1 : updatedAmmoPercentage;
+			// Do not do "gain" for infinite ammo weapons
+			if (ammo < 0)
+			{
+				return;
+			}
+
+			var finalAmmo = Math.Min(f.Get<Weapon>(e).MaxAmmo, ammo + (int) amount);
+
+			bb->Set(f, Constants.AmmoKey, finalAmmo);
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)

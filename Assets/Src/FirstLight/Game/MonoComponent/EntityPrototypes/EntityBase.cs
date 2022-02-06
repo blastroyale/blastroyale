@@ -38,9 +38,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected T GetComponentData<T>(QuantumGame game) where T : unmanaged, IComponent
 		{
-			var frame = EntityView.BindBehaviour == EntityViewBindBehaviour.Verified ? game.Frames.Verified : game.Frames.Predicted;
-			
-			return frame.Get<T>(EntityView.EntityRef);
+			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
+				       ? GetComponentVerifiedData<T>(game)
+				       : GetComponentPredictedData<T>(game);
 		}
 
 		protected T GetComponentPredictedData<T>(QuantumGame game) where T : unmanaged, IComponent
@@ -50,7 +50,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected T GetComponentVerifiedData<T>(QuantumGame game) where T : unmanaged, IComponent
 		{
-			return game.Frames.Predicted.Get<T>(EntityView.EntityRef);
+			return game.Frames.Verified.Get<T>(EntityView.EntityRef);
 		}
 
 		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)

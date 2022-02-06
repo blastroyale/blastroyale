@@ -208,9 +208,13 @@ namespace Quantum
 				return;
 			}
 
-			var finalAmmo = Math.Min(f.Get<Weapon>(e).MaxAmmo, ammo + (int) amount);
+			var maxAmmo = f.Get<Weapon>(e).MaxAmmo;
+			var finalAmmo = Math.Min(maxAmmo, ammo + (int) amount);
 
 			bb->Set(f, Constants.AmmoKey, finalAmmo);
+
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, finalAmmo, maxAmmo);
+			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, finalAmmo, maxAmmo);
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)

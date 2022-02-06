@@ -75,16 +75,14 @@ namespace FirstLight.Game.MonoComponent
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
 				
-				var renderContainer = piece.GetComponent<RenderersContainerMonoComponent>();
+				piece.SetParent(anchors[i]);
+				instances.Add(piece.gameObject);
 				
-				if (renderContainer)
+				piece.localPosition = Vector3.zero;
+				piece.localRotation = Quaternion.identity;
+				
+				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{
-					piece.SetParent(anchors[i]);
-					instances.Add(piece.gameObject);
-				
-					piece.localPosition = Vector3.zero;
-					piece.localRotation = Quaternion.identity;
-					
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 				}
 			}

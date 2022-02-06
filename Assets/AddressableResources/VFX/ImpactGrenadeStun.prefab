@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ImpactGrenadeStun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1390893132191037127, guid: 419e385bf95eb344faea278e46c42e01, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 419e385bf95eb344faea278e46c42e01, type: 3}

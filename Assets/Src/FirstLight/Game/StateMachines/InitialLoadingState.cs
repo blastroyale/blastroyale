@@ -126,7 +126,6 @@ namespace FirstLight.Game.StateMachines
 				LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<ProjectileAssetConfigs>(AddressableId.Configs_ProjectileAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs, asset => _assetService.AddConfigs(asset)),

@@ -18,7 +18,7 @@ namespace Quantum.Systems
 		{
 			if (f.TryGet<PlayerCharacter>(component->Attacker, out var attacker))
 			{
-				f.Events.OnPlayerAttackHit(component->Attacker, attacker.Player, entity, component->OriginalHitPosition);
+				f.Events.OnPlayerAttackHit(attacker.Player, component->Attacker, entity, component->OriginalHitPosition);
 			}
 			
 			HandleHealth(f, component->Attacker, entity, component->Attacker, false, (int) component->PowerAmount);

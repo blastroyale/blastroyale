@@ -60,7 +60,8 @@
     <Compile Include="AI\Actions\PlayerAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerChangeDefaultWeaponAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
-    <Compile Include="AI\Actions\LocalPlayerAmmoEmptyAction.cs" />
+    <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
+    <Compile Include="AI\Actions\PlayerStopAttackAction.cs" />
     <Compile Include="AI\Decisions\HFSM.AreSpecialsEmptyDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />

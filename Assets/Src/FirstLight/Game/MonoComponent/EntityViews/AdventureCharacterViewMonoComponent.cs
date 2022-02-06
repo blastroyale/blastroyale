@@ -40,7 +40,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			for (var i = 0; i < weapons.Count; i++)
 			{
-				weapons[i].GetComponent<WeaponViewMonoComponent>().SetEntityView(entityView);
+				var components = weapons[i].GetComponents<EntityViewBase>();
+
+				foreach (var entityViewBase  in components)
+				{
+					entityViewBase.SetEntityView(entityView);	
+				}
 			}
 		}
 	}

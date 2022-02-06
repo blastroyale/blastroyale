@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 334323895834224125}
   - component: {fileID: 8150672877849948388}
   - component: {fileID: 5052809015655488116}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4886,7 +4886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6680832883778784056}
   - component: {fileID: 3594477505689111093}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: DustCloudLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}

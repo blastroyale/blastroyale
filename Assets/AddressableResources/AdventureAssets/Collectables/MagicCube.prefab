@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1806733336203859583}
   - component: {fileID: 1806733336203859581}
   - component: {fileID: 1806733336203859582}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4885,7 +4885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1806733336847450641}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4919,7 +4919,7 @@ GameObject:
   - component: {fileID: 8840067456564149700}
   - component: {fileID: 3309135243193465814}
   - component: {fileID: 7382275056785876679}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: MagicCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5011,7 +5011,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4779339415560365637}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: RadialAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5041,7 +5041,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5018655378232991498}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5074,7 +5074,7 @@ GameObject:
   - component: {fileID: 4769137203903179123}
   - component: {fileID: 8466972434035156694}
   - component: {fileID: 5936955800896426524}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: MagicCube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5157,7 +5157,7 @@ GameObject:
   - component: {fileID: 6981068982664333446}
   - component: {fileID: 6981068982664333441}
   - component: {fileID: 6981068982664333440}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

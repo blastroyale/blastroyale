@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ImpactGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8267541076962591990, guid: 02be94ae0f147d841a74cf89a4b1dca9, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02be94ae0f147d841a74cf89a4b1dca9, type: 3}

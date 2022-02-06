@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8099640809448563747}
   - component: {fileID: 6202000490953862927}
   - component: {fileID: 978178215556547338}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: GrenadeRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4887,7 +4887,7 @@ GameObject:
   - component: {fileID: 8715616123025002813}
   - component: {fileID: 9037723210036607422}
   - component: {fileID: -4023512071319890190}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: GrenadeParabolic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

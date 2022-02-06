@@ -15,15 +15,9 @@ namespace FirstLight.Game.Timeline
 	[CustomStyle("DestinationMarker")]
 	public class PlayVfxMarker : Marker, INotification
 	{
-		[FormerlySerializedAs("createAtPlayerPosition")] [SerializeField] private bool _createAtPlayerPosition;
 		[SerializeField] private VfxId _vfxId;
 		
 		public PropertyName id { get; }
 		public VfxId Vfx => _vfxId;
-
-		private void Reset()
-		{
-			_createAtPlayerPosition = true;
-		}
 	}
 }

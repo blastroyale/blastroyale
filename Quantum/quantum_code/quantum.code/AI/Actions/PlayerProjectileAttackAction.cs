@@ -47,8 +47,7 @@ namespace Quantum
 			weapon->LastAttackTime = f.Time;
 
 			Projectile.Create(f, projectile);
-			
-			f.Events.OnPlayerAttack(e, player);
+			f.Events.OnPlayerAttack(player, e);
 		}
 	}
 }

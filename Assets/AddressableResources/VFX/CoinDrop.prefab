@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137220981831321292}
   - component: {fileID: 6660133266074976039}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: CoinDrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 1137650317146411718}
   - component: {fileID: 937926817242159874}
   - component: {fileID: 937463532265177344}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ParticlesGravity
   m_TagString: Untagged
   m_Icon: {fileID: 0}

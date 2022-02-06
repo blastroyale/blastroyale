@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;

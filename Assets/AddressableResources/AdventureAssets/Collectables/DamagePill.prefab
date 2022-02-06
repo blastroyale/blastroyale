@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1806733336203859583}
   - component: {fileID: 1806733336203859581}
   - component: {fileID: 1806733336203859582}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4885,7 +4885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1806733336847450641}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4918,7 +4918,7 @@ GameObject:
   - component: {fileID: 7406489166750759633}
   - component: {fileID: 8253115963685862201}
   - component: {fileID: 4088837406591678447}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: AttackPill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5001,7 +5001,7 @@ GameObject:
   - component: {fileID: -8355042178338762755}
   - component: {fileID: 7962650166543386652}
   - component: {fileID: 1060424179497554842}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: DamagePill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5091,7 +5091,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5018655378232991498}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5124,7 +5124,7 @@ GameObject:
   - component: {fileID: 6981068982664333446}
   - component: {fileID: 6981068982664333441}
   - component: {fileID: 6981068982664333440}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

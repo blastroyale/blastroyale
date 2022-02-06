@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52538998560082273}
   - component: {fileID: 8348270544967863124}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SpecialReticule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4880036417697986608, guid: 96e932611bce49f49a1915f83f8ff4c2, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4880036417697986609, guid: 96e932611bce49f49a1915f83f8ff4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]

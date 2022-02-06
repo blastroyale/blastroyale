@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8394961782085835017}
   - component: {fileID: 7154763326806129797}
   - component: {fileID: 4159690803613263917}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ReplenishSecondary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060014088925188178}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_DustCloudBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4060014089699066940}
   - component: {fileID: 4060014089699066942}
   - component: {fileID: 4060014089699066941}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5012,7 +5012,7 @@ GameObject:
   - component: {fileID: 4731984034646006469}
   - component: {fileID: 4731984034646006466}
   - component: {fileID: 4731984034646006467}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_SpawnItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5137,7 +5137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7273039971299085641}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5168,7 +5168,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2898866349958468881, guid: 267a638eac1123c42a79c369451224ee, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2898866350378729405, guid: 267a638eac1123c42a79c369451224ee, type: 3}
       propertyPath: m_Name
@@ -5176,7 +5176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2898866350378729405, guid: 267a638eac1123c42a79c369451224ee, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2898866350378729406, guid: 267a638eac1123c42a79c369451224ee, type: 3}
       propertyPath: m_RootOrder
@@ -5224,7 +5224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2898866350572010008, guid: 267a638eac1123c42a79c369451224ee, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2898866350572010009, guid: 267a638eac1123c42a79c369451224ee, type: 3}
       propertyPath: m_LocalScale.x

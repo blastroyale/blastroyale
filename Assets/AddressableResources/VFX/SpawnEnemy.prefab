@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4555731559734380379}
   - component: {fileID: 4555731559734380377}
   - component: {fileID: 4555731559734380376}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: LightningRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4555731560061430784}
   - component: {fileID: 7791933294958921566}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SpawnEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

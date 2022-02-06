@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4916778764401073884}
   - component: {fileID: 2918083058575715880}
   - component: {fileID: 6385194371132999682}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: HitFxLaserbolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ImpactSnakeLaserbolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

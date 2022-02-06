@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SpawnBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 9194167723328143370}
   - component: {fileID: 9194167723328143368}
   - component: {fileID: 9194167723328143369}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: LightningRedXL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

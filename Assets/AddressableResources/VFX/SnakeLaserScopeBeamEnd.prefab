@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3742801186420569158}
   - component: {fileID: 1640602418307850381}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SnakeLaserScopeBeamEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1852135262362392030, guid: 7e09945ac3a808b49b76de1ebea1dff4, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2311629540457452584, guid: 7e09945ac3a808b49b76de1ebea1dff4, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.size

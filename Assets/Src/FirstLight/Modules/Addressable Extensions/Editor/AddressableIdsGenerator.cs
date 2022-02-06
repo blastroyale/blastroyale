@@ -43,7 +43,7 @@ namespace FirstLightEditor.AddressablesExtensions
 					continue;
 				}
 				
-				settingsGroup.GatherAllAssets(assetList, true, true, true);
+				settingsGroup.GatherAllAssets(assetList, true, true, false);
 			}
 
 			return assetList;

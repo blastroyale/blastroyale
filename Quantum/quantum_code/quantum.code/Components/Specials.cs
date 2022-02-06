@@ -31,7 +31,7 @@ namespace Quantum
 		/// </summary>
 		public bool IsSpecialAvailable(Frame f)
 		{
-			return f.Time >= AvailableTime;
+			return AvailableTime > FP._0 && f.Time >= AvailableTime;
 		}
 
 		/// <summary>
@@ -45,7 +45,9 @@ namespace Quantum
 			}
 			
 			var player = f.Get<PlayerCharacter>(playerEntity).Player;
-				
+			
+			AvailableTime = FP._0;
+			
 			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);
 			f.Events.OnSpecialUsed(player, playerEntity, SpecialType, specialIndex);
 			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex);

@@ -142,6 +142,20 @@ namespace FirstLight.Game.Presenters
 			UpdateEquipmentMenu();
 			SetStats();
 		}
+
+		private void ShowStatsForEmptySlot()
+		{
+			_screenTitleText.text = Data.EquipmentSlot.GetTranslation();
+			_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
+			_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
+				
+			_rarityHolder.SetActive(false);
+			_weaponTypeButton.gameObject.SetActive(false);
+			_movieButton.gameObject.SetActive(false);
+			_itemLevelObject.SetActive(false);
+			_actionButtonHolder.SetActive(false);
+			_powerRatingText.text = "";
+		}
 		
 		private void SetStats()
 		{
@@ -154,21 +168,19 @@ namespace FirstLight.Game.Presenters
 
 			if (_uniqueId == UniqueId.Invalid)
 			{
-				_screenTitleText.text = Data.EquipmentSlot.GetTranslation();
-				_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
-				_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
-				
-				_rarityHolder.SetActive(false);
-				_weaponTypeButton.gameObject.SetActive(false);
-				_movieButton.gameObject.SetActive(false);
-				_itemLevelObject.SetActive(false);
-				_actionButtonHolder.SetActive(false);
-				_powerRatingText.text = "";
-
+				ShowStatsForEmptySlot();
 				return;
 			}
 			
 			var info = equipmentProvider.GetEquipmentInfo(_uniqueId);
+			
+			// Don't show Default/Melee weapon
+			if (info.IsWeapon && info.Stats[EquipmentStatType.MaxCapacity] < 0)
+			{
+				ShowStatsForEmptySlot();
+				return;
+			}
+			
 			var maxLevelInfo = equipmentProvider.GetEquipmentInfo(info.DataInfo.GameId, info.DataInfo.Data.Rarity, info.MaxLevel);
 			var descriptionID = info.DataInfo.GameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
 			var isWeapon = info.DataInfo.GameId.IsInGroup(GameIdGroup.Weapon);
@@ -411,6 +423,18 @@ namespace FirstLight.Game.Presenters
 				}
 				
 				Services.CommandService.ExecuteCommand(new UnequipItemCommand { ItemId = _uniqueId });
+				
+				// Equip Default/Melee weapon after unequipping a regular one
+				var weapons = _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon);
+				for (int i = 0; i < weapons.Count; i++)
+				{
+					if (_gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(weapons[i].GameId)
+					                     .Stats[EquipmentStatType.MaxCapacity] < 0)
+					{
+						Services.CommandService.ExecuteCommand(new EquipItemCommand { ItemId = weapons[i].Data.Id });
+						break;
+					}
+				}
 			}
 			else
 			{
@@ -424,7 +448,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
 			
-			// Selling your last weapon isn't allowed. In the future we may allow players to enter the game without any weapon.
+			// Selling your last weapon isn't allowed
 			if (info.IsWeapon && _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1)
 			{
 				var confirmButton = new GenericDialogButton
@@ -481,6 +505,14 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < inventory.Count; i++)
 			{
 				var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(inventory[i].Id);
+				
+				if (!info.DataInfo.GameId.IsInGroup(Data.EquipmentSlot)
+				    // Don't show Default/Melee weapon
+				    || (info.IsWeapon && info.Stats[EquipmentStatType.MaxCapacity] < 0))
+				{
+					continue;
+				}
+
 				var viewData = new EquipmentGridItemView.EquipmentGridItemData
 				{
 					Info = info,
@@ -489,11 +521,8 @@ namespace FirstLight.Game.Presenters
 					IsSelectable = true,
 					OnEquipmentClicked = OnEquipmentClicked
 				};
-
-				if (info.DataInfo.GameId.IsInGroup(Data.EquipmentSlot))
-				{
-					list.Add(viewData);
-				}
+					
+				list.Add(viewData);
 			}
 
 			_noItemsCollectedText.enabled = (list.Count == 0);

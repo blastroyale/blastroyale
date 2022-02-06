@@ -20,6 +20,11 @@ namespace Quantum
 		public FP SplashRadius;
 		public FP ProjectileSpeed;
 		public List<GameId> Specials;
+
+		/// <summary>
+		/// Requests if this config is from a melee weapon
+		/// </summary>
+		public bool IsMeleeWeapon => InitialAmmo < 0 || MaxAmmo < 0;
 	}
 
 	/// <summary>

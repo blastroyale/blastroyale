@@ -32,6 +32,7 @@ namespace Quantum
 			
 			weapon->LastAttackTime = f.Time;
 			
+			playerCharacter->ReduceAmmo(f, e, 1);
 			f.Events.OnPlayerAttack(player, e);
 
 			for (var i = 0; i < angleCount; i++)

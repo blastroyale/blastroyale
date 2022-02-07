@@ -40,9 +40,10 @@ namespace Quantum
 			};
 			
 			weapon->LastAttackTime = f.Time;
-
-			Projectile.Create(f, projectile);
+			
+			playerCharacter->ReduceAmmo(f, e, 1);
 			f.Events.OnPlayerAttack(player, e);
+			Projectile.Create(f, projectile);
 		}
 	}
 }

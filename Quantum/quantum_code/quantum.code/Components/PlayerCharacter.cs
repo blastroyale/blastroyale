@@ -195,12 +195,12 @@ namespace Quantum
 		}
 		
 		/// <summary>
-		/// Gives the given ammo <paramref name="amount"/> to this <paramref name="e"/> player's entity
+		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
 		/// </summary>
 		internal void GainAmmo(Frame f, EntityRef e, uint amount)
 		{
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var ammo = bb->GetInteger(f, Constants.AmmoKey);
+			var ammo = GetAmmoAmount(f, e);
+			var finalAmmo = Math.Max(ammo + (int) amount, 0);
 			
 			// Do not do "gain" for infinite ammo weapons
 			if (ammo < 0)
@@ -208,13 +208,37 @@ namespace Quantum
 				return;
 			}
 
+			ChangeAmmo(f, e, finalAmmo);
+		}
+		
+		/// <summary>
+		/// Reduces the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
+		{
+			var ammo = GetAmmoAmount(f, e);
+			var finalAmmo = Math.Max(ammo - (int) amount, 0);
+			
+			// Do not do reduce for infinite ammo weapons
+			if (ammo < 0)
+			{
+				return;
+			}
+
+			ChangeAmmo(f, e, finalAmmo);
+		}
+		
+		private void ChangeAmmo(Frame f, EntityRef e, int amount)
+		{
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var previousAmmo = bb->GetInteger(f, Constants.AmmoKey);
 			var maxAmmo = f.Get<Weapon>(e).MaxAmmo;
-			var finalAmmo = Math.Min(maxAmmo, ammo + (int) amount);
+			var finalAmmo = Math.Min(maxAmmo, amount);
 
 			bb->Set(f, Constants.AmmoKey, finalAmmo);
 
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, finalAmmo, maxAmmo);
-			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, finalAmmo, maxAmmo);
+			f.Events.OnPlayerAmmoChanged(Player, e, previousAmmo, finalAmmo, maxAmmo);
+			f.Events.OnLocalPlayerAmmoChanged(Player, e, previousAmmo, finalAmmo, maxAmmo);
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)

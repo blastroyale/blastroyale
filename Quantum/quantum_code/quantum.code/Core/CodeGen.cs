@@ -3340,11 +3340,14 @@ namespace Quantum {
     public const Int32 SIZE = 264;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
+    [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(FP), 32)]
     private fixed Byte _CollectorsEndTime_[256];
     [FieldOffset(0)]
+    [HideInInspector()]
     public GameId GameId;
     [FieldOffset(4)]
+    [HideInInspector()]
     public QBoolean IsCollected;
     public FixedArray<FP> CollectorsEndTime {
       get {
@@ -3410,12 +3413,12 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Consumable : Quantum.IComponent {
-    public const Int32 SIZE = 16;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(4)]
-    [HideInInspector()]
-    public UInt32 Amount;
     [FieldOffset(8)]
+    [HideInInspector()]
+    public FP Amount;
+    [FieldOffset(16)]
     [HideInInspector()]
     public FP CollectTime;
     [FieldOffset(0)]
@@ -3433,7 +3436,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Consumable*)ptr;
         serializer.Stream.Serialize((Int32*)&p->ConsumableType);
-        serializer.Stream.Serialize(&p->Amount);
+        FP.Serialize(&p->Amount, serializer);
         FP.Serialize(&p->CollectTime, serializer);
     }
   }
@@ -7729,9 +7732,12 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Collectable))]
   public sealed unsafe partial class Collectable_Prototype : ComponentPrototype<Collectable> {
+    [HideInInspector()]
     public GameId_Prototype GameId;
+    [HideInInspector()]
     [ArrayLengthAttribute(32)]
     public FP[] CollectorsEndTime = new FP[32];
+    [HideInInspector()]
     public QBoolean IsCollected;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -7788,7 +7794,7 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public ConsumableType_Prototype ConsumableType;
     [HideInInspector()]
-    public UInt32 Amount;
+    public FP Amount;
     [HideInInspector()]
     public FP CollectTime;
     partial void MaterializeUser(Frame frame, ref Consumable result, in PrototypeMaterializationContext context);

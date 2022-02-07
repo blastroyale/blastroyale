@@ -1,8 +1,8 @@
 component Collectable
 {
-	GameId GameId;
-	array<FP>[PLAYER_COUNT] CollectorsEndTime;
-	bool IsCollected;
+	[HideInInspector] GameId GameId;
+	[HideInInspector] array<FP>[PLAYER_COUNT] CollectorsEndTime;
+	[HideInInspector] bool IsCollected;
 }
 
 synced event OnLocalStartedCollecting

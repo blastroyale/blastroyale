@@ -15,7 +15,7 @@ namespace Quantum
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			
 			ConsumableType = config.ConsumableType;
-			Amount = config.PowerAmount;
+			Amount = config.Amount;
 			CollectTime = config.ConsumableCollectTime;
 			
 			transform->Position = position;

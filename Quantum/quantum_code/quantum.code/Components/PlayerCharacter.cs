@@ -127,7 +127,7 @@ namespace Quantum
 			
 			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
-			blackboard.Set(f, Constants.AmmoKey, weaponConfig.InitialAmmo);
+			blackboard.Set(f, Constants.AmmoFilledKey, weaponConfig.InitialAmmoFilled);
 			
 			weapon.WeaponId = weaponConfig.Id;
 			weapon.MaxAmmo = weaponConfig.MaxAmmo;
@@ -170,9 +170,19 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e)
 		{
+			var maxAmmo = f.Get<Weapon>(e).MaxAmmo;
+
+			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
+		}
+		
+		/// <summary>
+		/// Requests the total amount of ammo the <paramref name="e"/> player has
+		/// </summary>
+		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
+		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			
-			return bb->GetInteger(f, Constants.AmmoKey);
+			return bb->GetFP(f, Constants.AmmoFilledKey);
 		}
 
 		/// <summary>
@@ -183,7 +193,7 @@ namespace Quantum
 		/// </remarks>
 		public bool IsAmmoEmpty(Frame f, EntityRef e)
 		{
-			return GetAmmoAmount(f, e) == 0;
+			return GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
 		}
 
 		/// <summary>
@@ -191,24 +201,30 @@ namespace Quantum
 		/// </summary>
 		public bool IsMeleeWeapon(Frame f, EntityRef e)
 		{
-			return GetAmmoAmount(f, e) < 0;
+			return GetAmmoAmountFilled(f, e) < FP._0;
 		}
 		
 		/// <summary>
 		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
 		/// </summary>
-		internal void GainAmmo(Frame f, EntityRef e, uint amount)
+		internal void GainAmmo(Frame f, EntityRef e, FP amount)
 		{
 			var ammo = GetAmmoAmount(f, e);
-			var finalAmmo = Math.Max(ammo + (int) amount, 0);
 			
-			// Do not do "gain" for infinite ammo weapons
+			// Do not do reduce for infinite ammo weapons
 			if (ammo < 0)
 			{
 				return;
 			}
 
-			ChangeAmmo(f, e, finalAmmo);
+			var maxAmmo = f.Get<Weapon>(e).MaxAmmo;
+			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
+			var currentAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
+
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
+
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
+			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 		
 		/// <summary>
@@ -217,7 +233,7 @@ namespace Quantum
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
 			var ammo = GetAmmoAmount(f, e);
-			var finalAmmo = Math.Max(ammo - (int) amount, 0);
+			var newAmmo = Math.Max(ammo - (int) amount, 0);
 			
 			// Do not do reduce for infinite ammo weapons
 			if (ammo < 0)
@@ -225,20 +241,14 @@ namespace Quantum
 				return;
 			}
 
-			ChangeAmmo(f, e, finalAmmo);
-		}
-		
-		private void ChangeAmmo(Frame f, EntityRef e, int amount)
-		{
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var previousAmmo = bb->GetInteger(f, Constants.AmmoKey);
 			var maxAmmo = f.Get<Weapon>(e).MaxAmmo;
-			var finalAmmo = Math.Min(maxAmmo, amount);
+			var currentAmmo = Math.Min(newAmmo, maxAmmo);
+			var finalAmmoFilled = FPMath.FloorToInt((FP) currentAmmo / maxAmmo);
 
-			bb->Set(f, Constants.AmmoKey, finalAmmo);
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
 
-			f.Events.OnPlayerAmmoChanged(Player, e, previousAmmo, finalAmmo, maxAmmo);
-			f.Events.OnLocalPlayerAmmoChanged(Player, e, previousAmmo, finalAmmo, maxAmmo);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
+			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)

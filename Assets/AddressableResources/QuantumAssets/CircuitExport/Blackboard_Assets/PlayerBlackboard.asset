@@ -24,9 +24,9 @@ MonoBehaviour:
     - Type: 3
       Key:
         Key: AimTime
-    - Type: 2
+    - Type: 3
       Key:
-        Key: Ammo
+        Key: AmmoFilled
     - Type: 4
       Key:
         Key: AimDirection

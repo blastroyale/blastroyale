@@ -16,7 +16,7 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
       Guid:
-        Value: 4050966888896627133
+        Value: 3236662031045569557
     Entries:
     - Type: 0
       Key:
@@ -24,6 +24,9 @@ MonoBehaviour:
     - Type: 3
       Key:
         Key: AimTime
+    - Type: 3
+      Key:
+        Key: AmmoFilled
     - Type: 4
       Key:
         Key: AimDirection

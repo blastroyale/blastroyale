@@ -17,27 +17,22 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(e);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.Unsafe.GetPointer<Weapon>(e);
-			var player = playerCharacter.Player;
+			var player = playerCharacter->Player;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var angle = -weapon->AttackAngle / FP._2;
 			var team = f.Get<Targetable>(e).Team;
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
-			var shape = Shape3D.CreateSphere(weapon->SplashRadius);
+			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized * 
-			                      weapon->AttackRange;
-
-			if (weapon->Ammo > 0)
-			{
-				weapon->Ammo--;
-			}
+			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized * weapon->AttackRange;
 			
 			weapon->LastAttackTime = f.Time;
 			
+			playerCharacter->ReduceAmmo(f, e, 1);
 			f.Events.OnPlayerAttack(player, e);
 
 			for (var i = 0; i < angleCount; i++)

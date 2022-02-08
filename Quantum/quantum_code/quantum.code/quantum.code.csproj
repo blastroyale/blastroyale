@@ -56,18 +56,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\AIAction.cs" />
     <Compile Include="AI\Actions\PlayerAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerChangeDefaultWeaponAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
-    <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\PlayerStopAttackAction.cs" />
     <Compile Include="AI\Decisions\HFSM.AreSpecialsEmptyDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
-    <Compile Include="AI\Decisions\HFSM.IsWeaponAmmoEmptyDecision.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Components\SpecialStunGrenade.cs" />
     <Compile Include="Components\Stats.cs" />
     <Compile Include="Components\StatusModifiers.cs" />
-    <Compile Include="Components\Weapon.cs" />
     <Compile Include="Components\WeaponCollectable.cs" />
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="Configs\GameId.cs" />
@@ -290,7 +288,7 @@
     <Content Include="Components\Targetable.qtn" />
     <Content Include="Components\Weapon.qtn" />
     <Content Include="Components\WeaponCollectable.qtn" />
-    <Content Include="Configs\Assets.qtn" />
+    <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />

@@ -22,7 +22,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 10
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 90
       PowerRatioToBase:
         RawValue: 49152
@@ -44,7 +45,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: -1
+      InitialAmmoFilled:
+        RawValue: -65536
       MaxAmmo: -1
       PowerRatioToBase:
         RawValue: 39322
@@ -66,7 +68,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 50
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 450
       PowerRatioToBase:
         RawValue: 5571
@@ -88,7 +91,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 7
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 60
       PowerRatioToBase:
         RawValue: 26214
@@ -110,7 +114,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 9
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 80
       PowerRatioToBase:
         RawValue: 58982
@@ -127,12 +132,13 @@ MonoBehaviour:
         RawValue: 131072
       ProjectileSpeed:
         RawValue: 425984
-      Specials: 6600000053000000
+      Specials: 660000000a000000
     - Id: 35
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 28
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 250
       PowerRatioToBase:
         RawValue: 10650
@@ -149,12 +155,13 @@ MonoBehaviour:
         RawValue: 0
       ProjectileSpeed:
         RawValue: 0
-      Specials: 5300000055000000
+      Specials: 0a00000055000000
     - Id: 36
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 10
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 90
       PowerRatioToBase:
         RawValue: 8847
@@ -176,7 +183,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 28
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 250
       PowerRatioToBase:
         RawValue: 8192
@@ -198,7 +206,8 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 4070827363264793974
-      InitialAmmo: 36
+      InitialAmmoFilled:
+        RawValue: 6554
       MaxAmmo: 325
       PowerRatioToBase:
         RawValue: 6881
@@ -215,4 +224,4 @@ MonoBehaviour:
         RawValue: 0
       ProjectileSpeed:
         RawValue: 0
-      Specials: 530000006e000000
+      Specials: 0a0000006e000000

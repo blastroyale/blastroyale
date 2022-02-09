@@ -2,6 +2,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;

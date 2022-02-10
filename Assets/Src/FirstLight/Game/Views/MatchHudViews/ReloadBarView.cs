@@ -1,11 +1,9 @@
-using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View handles the Health Bar View in the UI:
@@ -29,8 +27,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			_entity = EntityRef.None;
 			
-			_separatorPool?.DespawnAll();
-			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
 		
@@ -41,7 +37,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			_maxAmmo = f.Get<Weapon>(entity).MaxAmmo;
 			_entity = entity;
-			_separatorPool ??= new GameObjectPool(10, _separatorRef);
 
 			SetSliderValue(f);
 			
@@ -51,6 +46,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
 		{
+			if (_entity != callback.Entity)
+			{
+				return;
+			}
+			
 			SetSliderValue(callback.Game.Frames.Verified);
 		}
 

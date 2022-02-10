@@ -4509,70 +4509,63 @@ namespace Quantum {
     public unsafe partial struct FrameSignals {
       public void GameEnded() {
         var array = _f._ISignalGameEndedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.GameEnded(_f);
           }
         }
       }
       public void PlayerKilledPlayer(PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller, EntityRef entityKiller) {
         var array = _f._ISignalPlayerKilledPlayerSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.PlayerKilledPlayer(_f, playerDead, entityDead, playerKiller, entityKiller);
           }
         }
       }
       public void SpecialUsed(PlayerRef player, EntityRef entity, SpecialType specialType, Int32 specialIndex) {
         var array = _f._ISignalSpecialUsedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.SpecialUsed(_f, player, entity, specialType, specialIndex);
           }
         }
       }
       public void HealthChanged(EntityRef entity, EntityRef attacker, Int32 previousHealth) {
         var array = _f._ISignalHealthChangedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.HealthChanged(_f, entity, attacker, previousHealth);
           }
         }
       }
       public void HealthIsZero(EntityRef entity, EntityRef attacker) {
         var array = _f._ISignalHealthIsZeroSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.HealthIsZero(_f, entity, attacker);
           }
         }
       }
       public void StatusModifierCancelled(EntityRef entity, StatusModifierType type) {
         var array = _f._ISignalStatusModifierCancelledSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.StatusModifierCancelled(_f, entity, type);
           }
         }
       }
       public void TargetChanged(EntityRef attacker, EntityRef target) {
         var array = _f._ISignalTargetChangedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.TargetChanged(_f, attacker, target);
           }
         }
@@ -7127,6 +7120,7 @@ namespace Quantum {
       Register(typeof(NullableFP), NullableFP.SIZE);
       Register(typeof(NullableFPVector2), NullableFPVector2.SIZE);
       Register(typeof(NullableFPVector3), NullableFPVector3.SIZE);
+      Register(typeof(NullableNonNegativeFP), NullableNonNegativeFP.SIZE);
       Register(typeof(PhysicsBody2D), PhysicsBody2D.SIZE);
       Register(typeof(PhysicsBody3D), PhysicsBody3D.SIZE);
       Register(typeof(PhysicsCollider2D), PhysicsCollider2D.SIZE);

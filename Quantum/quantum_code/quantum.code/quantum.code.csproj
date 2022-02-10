@@ -165,6 +165,7 @@
     <Compile Include="BotSDK\Samples\Decisions\HFSM.TrueDecision.cs" />
     <Compile Include="BotSDK\Utilities\Pool.cs" />
     <Compile Include="BotSDK\Utilities\StopwatchBlock.cs" />
+    <Compile Include="CommandSetup.User.cs" />
     <Compile Include="Commands\CheatCompleteKillCountCommand.cs" />
     <Compile Include="Commands\CheatMakeLocalPlayerBigDamagerCommand.cs" />
     <Compile Include="Commands\CheatMakeLocalPlayerSuperToughCommand.cs" />

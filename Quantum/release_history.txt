@@ -178,6 +178,334 @@ The navigation agent will move on the navmesh by default. But for better visual 
 
 ## RC2N
 
+### Build 977 (Feb 08, 2022)
+
+**What's New**
+
+- Warning message when setting a 2D or 3D Physics Collider physics material to an invalid asset
+
+**Bug Fixes**
+
+- Fixed: `FP.FromString` returning wrong values when providing strings with more than 14 digits of precision of the fraction part
+
+### Build 976 (Feb 07, 2022)
+
+**What's New**
+
+- An additional version of the codegen_unity tool compiled as a `netcoreapp3.1` app to work with dlls created for `netstandard2.1` (located in tools/codegen_unity/netcoreapp3.1). Please also see readme.txt
+- Warning/error messages when starting a Quantum game in WebGL and multithreading is enabled (`SimulationConfig.ThreadCount` > 1)
+
+**Bug Fixes**
+
+- Fixed: FPQuaternion.FromToRotation precision increased
+
+### Build 975 (Feb 04, 2022)
+
+**Bug Fixes**
+
+- Fixed: `FPCollision.LineIntersectsCircle` no longer ignores intersections if the start of the line segment is inside the circle. An optional parameter can be set in order to ignore these cases (default to false)
+
+### Build 973 (Feb 03, 2022)
+
+**Bug Fixes**
+
+- Fixed: A thread-safety issue on 2D and 3D Physics Engines when using joints and sleep detection
+- Fixed: 2D and 3D Shape Cast hit Point being computed at the center of circles or spheres, respectively
+
+### Build 972 (Feb 02, 2022)
+
+**What's New**
+
+- `FPVector3.SignedAngle()`, equivalent to Unity's `Vector3.SignedAngle()`
+
+**Changes**
+
+- `Frame.SystemDisable<T>(T system)` now always uses the system instance runtime type instead of T (explicit or implicit)
+- The assembly information of the Quantum dlls now contains Debug/Release information and debug dlls are now also tagged correctly
+
+### Build 970 (Feb 01, 2022)
+
+**What's New**
+
+- `QuantumEditorSettings` now has options to position the QuantumToolbar (level dropdown)
+
+### Build 969 (Jan 31, 2022)
+
+**What's New**
+
+- NullableNonNegativeFP
+
+**Bug Fixes**
+
+- Fixed: An issue with the properties of `NavMeshAvoidanceAgent` (AvoidanceMask, AvoidanceLayer, Priority) and `NavMeshSteeringAgent` (Acceleration, MaxSpeed) that were changed after instantiation and overwritten by values from the config during `frame.Set()` or `NavMeshPathfinder.SetConfig()`. `NavMeshPathfinder.SetConfig()` has an optional `overwrite` bool that forces the reset of the mentioned properties which is set to true for backwards compatibility reasons.
+- Fixed: Issues on the 2D Hinge Joint when both joint and connected entity were dynamic rigid bodies
+
+### Build 968 (Jan 27, 2022)
+
+**Changes**
+
+- `EntityViewUpdater.LoadMissingPrefab` will attempt to load a missing view synchronously now
+
+**Bug Fixes**
+
+- Fixed: Issues on the 2D and 3D Physics engines when the session is initialized with `RuntimeConfig.Map` as default or invalid
+- Fixed: QuantumPrefabAsset_Resources resource path not having its extension removed
+
+### Build 967 (Jan 26, 2022)
+
+- Upgraded Photon Realtime to 4.1.6.12
+
+**What's New**
+
+- WebGL builds are now supported (experimental). Photon WebSocket libraries are included in the SDK.  
+Important notes when targeting WebGL:  
+- Change `SimulationConfig` Thread Count to 1 (browsers/Unity WebGL builds do not support multi-threading)  
+- Recommended Unity version: 2021.2.8f1 (better performance). Minimum version: 2018.4.30f1  
+- Tested browsers and platforms: Chrome, Firefox, Edge and Safari, running on PC Windows or Mac
+
+### Build 966 (Jan 25, 2022)
+
+**What's New**
+
+- A new optional `OnBeforeBake` signature that includes the `BuildTrigger`
+- 2D and 3D Physics' callbacks API now have `ResetCallbacks`, a way to reset the collision history of an entity, used to compute OnEnter/OnExit conditions
+- A new optional `OnBeforeBake` signature that includes the bake flags `QuantumMapDataBakeFlags`
+
+### Build 964 (Jan 21, 2022)
+
+**What's New**
+
+- `EntityViewUpdater.LoadMissingPrefab` - a way to load a view if it missing in `EntityView` asset
+- Experimental Prefab Standalone Assets (.qprefab) - a way to supply the AssetDB with prototype and view assets without hard references to prefabs. This is useful if prefab being loaded along with its nested assets is problematic. To enable for a prefab, select its nested `EntityViewAsset` or `EntityPrototypeAsset` and follow instructions
+- `EntityViewUpdater.LoadMissingPrefab`: a way to load a prefab that might be initially missing
+
+**Changes**
+
+- Print conflicting asset's path if there is a guid/path conflict
+
+### Build 962 (Jan 19, 2022)
+
+**What's New**
+
+- `AssetDB.LoadedAssets` - a way to iterate over all loaded assets
+
+**Improvements**
+
+- Handling of exceptions during deserialization of RuntimePlayer data, now logged as error if in Debug mode
+
+### Build 961 (Jan 17, 2022)
+
+**Changes**
+
+- Updated Unity git igrore file to optionally include quantum pdb files
+
+**Bug Fixes**
+
+- Fixed: Quantum State Inspector window being closing in some situations
+
+### Build 959 (Jan 12, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue that could cause an exception to be thrown inside the navigation introduced by Build 957
+
+### Build 958 (Jan 11, 2022)
+
+**Improvements**
+
+- Improved the usable range of parameters on `FPCollision.LineIntersectsCircle`, reducing the risk of overflows
+
+### Build 957 (Jan 10, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue with `NavMesh.MovePositionIntoNavmesh()` when evaluating grid cells with more then 32 borders inside which could lead to the agent clipping through walls. The navmesh agent option `Clamp Agent to Navmesh` was also affected. Please switch to the signature with `Frame` when using the method explicitly
+- Fixed: MemoryIntegrity error for ComponentReference`, `EntityPrototypeRef`, `CompoundShape3D` and `CompoundShape2D` on some platforms
+
+### Build 956 (Jan 06, 2022)
+
+**Bug Fixes**
+
+- Fixed: Loaded is called on AssetObject when it's injected into dynamic DB
+
+### Build 955 (Jan 05, 2022)
+
+**Bug Fixes**
+
+- Fixed: Physics `OnExit` callbacks being called when one of the entities involved entered a sleeping state
+
+### Build 953 (Dec 20, 2021)
+
+**Bug Fixes**
+
+- Fixed: Issues when configuring 2D and 3D hinge joints with negative `MaxMotorTorque`
+
+### Build 951 (Dec 14, 2021)
+
+**Bug Fixes**
+
+- Fixed: Checksum error dumps showing `IsVerified=false`
+- Fixed: An issue on the Quantum simulator that could cause assertion exceptions when the `InputOffsetMin` of the config sent by the client differed from the one received from the server
+
+### Build 949 (Dec 08, 2021)
+
+**What's New**
+
+- `QuantumGame.SendPlayerData` overload that does not require the player index to be specified, useful when clients always control only one player
+
+### Build 947 (Dec 02, 2021)
+
+**What's New**
+
+- `TryGetQueryHits` method on 2D and 3D Physics API to try and retrieve the results of a broad-phase query
+
+**Bug Fixes**
+
+- Fixed: Issues when enabling toggleable mesh colliders that were initialized as disabled, expanding internal buffers in the process, which could corrupt memory and cause crashes
+
+### Build 946 (Dec 01, 2021)
+
+**What's New**
+
+- `Map` property on 2D and 3D Physics APIs, to retrieve the map asset currently used on the respective physics scene
+
+### Build 945 (Nov 30, 2021)
+
+**What's New**
+
+- Support to Paint Holes on Terrain static colliders
+
+**Bug Fixes**
+
+- Fixed: Worker threads being able to access an asset before `Loaded` callback was invoked
+- Fixed: CodeGen - order of attributes for Unity prototype scripts is more cross-platform now, with `System` attributes being emit first
+
+### Build 944 (Nov 29, 2021)
+
+**Bug Fixes**
+
+- Fixed: `DivideByZeroException` on `FPVector3.Slerp` and `.SlerpUnclamped` when vector were collinear
+- Fixed: Instability issues on 3D hinge joints, specially perceptible on rotated hinges with larger mass
+
+### Build 943 (Nov 26, 2021)
+
+**What's New**
+
+- Xml documentation to interpolated error correction settings on `EntityView`
+
+### Build 942 (Nov 25, 2021)
+
+**What's New**
+
+- Added two new navmesh related callbacks to `MapDataBakerCallback`. This change makes the navmesh baking more customizable without having to completely replace it. Either hook into `OnCollectNavMeshBakeData` (inject BakeData into Quantum Navmesh baking pipeline) or `OnCollectNavMeshes` (inject Navmesh objects into Asset serialization)
+- `EntityPrototypeContainer.SetDirty`. Needs to be called if `Components` property has been modified
+- `SystemIsEnabledSelf`, `SystemIsEnabledInHierarchy`
+- Nested systems are enabled/disabled when group is enabled/disabled
+
+**Changes**
+
+- `OnEnabled` and `OnDisabled` callback on SystemBase are called based on state of the hierarchy of the grouped systems. Systems update is called when it's enabled in hierarchy
+
+**Bug Fixes**
+
+- Fixed: An issue with 3D navmesh Delaunay triangulation that caused the navmesh to deform near slopes. Use the checkbox `DelaunayTriangulationRestrictToPlanes` in those cases
+- Fixed: `EntityPrototypeContainer` not being sorted again if repopulated
+- Fixed: Update is not called on disabled nested system when group is enabled
+
+### Build 941 (Nov 24, 2021)
+
+**Breaking Changes**
+
+- Multi-threaded, built-in system types on `Quantum.Task` namespace now have their `OnInit` override marked as sealed. Inheritors can override `OnInitUser` instead
+
+### Build 940 (Nov 23, 2021)
+
+**Bug Fixes**
+
+- Fixed: `Photon/Quantum/Editor/Generated` scripts being included in the unity upgrade package
+
+### Build 939 (Nov 22, 2021)
+
+**Bug Fixes**
+
+- Fixed: Misleading `velocity` parameter on 2D and 3D KCC, now renamed to `direction`
+
+### Build 936 (Nov 18, 2021)
+
+**What's New**
+
+- `QuantumGameFlags` code documentation
+
+**Changes**
+
+- `DeterministicCommandSerializer` will now log a warning when attempting to register multiple Command factories of the same type
+
+### Build 935 (Nov 17, 2021)
+
+**Bug Fixes**
+
+- Fixed: `AssertException` in Debug mode when performing a component removal, followed by the addition of the same component and then the destruction of the entity on the same frame
+
+### Build 934 (Nov 16, 2021)
+
+**Bug Fixes**
+
+- Fixed: An issue with `FPAnimationCurve` where the `PostWrapMode` was not being able to be set independently from the `PreWrapMode`
+
+### Build 933 (Nov 12, 2021)
+
+**What's New**
+
+- Built-in support to compound Commands through the new `Core.CompoundCommand` type
+- Built-in support for Command pooling through the new `DeterministicCommandPool<T>` class, which can also be registered as factory on `DeterministicCommandSetup.AddCommandFactoriesUser`
+- `IDeterministicCommandFactory` interface, now registered during Command setup to provide instances of Commands for de-serialization
+
+**Improvements**
+
+- Commands now implement `IDisposable`, which can be overridden on concrete types and used in conjunction with command factories to implement pooling patterns, for example
+
+**Changes**
+
+- Default `BitStream` size used for `RuntimeConfig` serialization changed from 1 to 8KB
+- `CommandSetup.CreateCommands` is now deprecated. Command factories should be registered through a partial declaration of `DeterministicCommandSetup.AddCommandFactoriesUser` instead, as shown on `CommandSetup.User.cs` available on the SDK package (not on the upgrade zip). Command instances can be used as factories of their own type, so instances returned from the deprecated method are still functional
+- `CommandSetup.cs` file was replaced by `CommandSetup.Legacy.cs` and `CommandSetup.User.cs`. The old file's implementation is now deprecated, although still functional. To replace the old file by the new ones, remove `quantum.code\CommandSetup.cs` file from the `quantum_code.csproj` and copy and add `quantum.code\CommandSetup.Legacy.cs` and `quantum.code\CommandSetup.User.cs` from the SDK folder into your project (those files are not inside the upgrade zip).
+
+```xml
+  <!-- OLD quantum.code.csproj -->
+  <ItemGroup>
+    <Compile Include="Core\CodeGen.cs" />
+    <Compile Include="CommandSetup.cs" />
+    <Compile Include="Core\Core.cs" />
+    ...
+  </ItemGroup>
+  
+  <!-- NEW quantum.code.csproj -->
+  <ItemGroup>
+    <Compile Include="CommandSetup.User.cs" />
+    <Compile Include="Core\CodeGen.cs" />
+    <Compile Include="CommandSetup.Legacy.cs" />
+    <Compile Include="Core\Core.cs" />
+    ...
+  </ItemGroup>
+```
+
+**Bug Fixes**
+
+- Fixed: Issues with Commands being shallow-copied during de-serialization, caused by shared reference types when de-serializing multiple commands of the same type on the same frame
+
+### Build 929 (Nov 10, 2021)
+
+**What's New**
+
+- QHashSet
+- `TryResolve` QCollection methods to `FrameThreadSafe`
+
+### Build 928 (Nov 05, 2021)
+
+**What's New**
+
+- `[AllocateOnComponentAdded]` - a way to auto allocate lists/dictionaries when component gets added to an entity
+
 ### Build 927 (Nov 05, 2021)
 
 **What's New**
@@ -2694,7 +3022,7 @@ f.Set(entity, new NavMeshAvoidanceAgent()); // optional
 ```
 
 - The `NavMeshAgentConfig` asset has not changed much and it still includes data for all navigation components
-- The pathfinder is the only component that requires an explict config asset during the creation. The config file, though, is applied to both other components.
+- The pathfinder is the only component that requires an explicit config asset during the creation. The config file, though, is applied to both other components.
 - The config can be updated during run-time using `NavMeshPathfinder.SetConfig()` on the pathfinder component
 - The number of waypoints stored with the pathfinder can be set under `NavMeshAgentConfig.WaypointCount`
 - `NavMeshAgentConfig.AvoidanceRadius` is now only used when `OverrideAvoidanceRadius` is enabled

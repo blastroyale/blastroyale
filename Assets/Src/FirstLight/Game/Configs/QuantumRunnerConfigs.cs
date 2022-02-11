@@ -37,6 +37,10 @@ namespace FirstLight.Game.Configs
 		/// </summary>
 		public bool IsOfflineMode { get; set; } = false;
 		/// <summary>
+		/// Marks the Quantum simulation to run in dev mode
+		/// </summary>
+		public bool IsDevMode { get; set; } = false;
+		/// <summary>
 		/// Returns the <see cref="RuntimeConfig"/> used to build the simulation from the client side
 		/// </summary>
 		public RuntimeConfig RuntimeConfig => _runtimeConfig;

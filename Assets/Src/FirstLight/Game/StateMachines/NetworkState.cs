@@ -151,14 +151,8 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(ConnectedEvent);
 				return;
 			}
-			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
 
-			IEnumerator LockRoomCoroutine()
-			{
-				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
-				
-				LockRoom();
-			}
+			StartLockRoomTimer();
 		}
 
 		/// <inheritdoc />
@@ -276,6 +270,23 @@ namespace FirstLight.Game.StateMachines
 		private void Reconnect()
 		{
 			_networkService.QuantumClient.ReconnectAndRejoin();
+		}
+
+		private void StartLockRoomTimer()
+		{
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
+			{
+				return;
+			}
+			
+			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
+
+			IEnumerator LockRoomCoroutine()
+			{
+				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
+				
+				LockRoom();
+			}
 		}
 
 		private void LockRoom()

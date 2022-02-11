@@ -85,13 +85,6 @@ namespace FirstLight.Game.StateMachines
 			var info = _dataProvider.AdventureDataProvider.SelectedMapConfig;
 			var enterParams = config.GetDefaultEnterRoomParams(info);
 			
-#if !RELEASE_BUILD
-			if (SROptions.Current.IsPrivateRoomSet)
-			{
-				_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
-				return;
-			}
-#endif
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(config.GetDefaultJoinRoomParams(info), enterParams);
 		}
 

@@ -88,13 +88,11 @@ namespace FirstLight.Game.Configs
 				}
 			};
 
-#if !RELEASE_BUILD
-			if (SROptions.Current.IsPrivateRoomSet)
+			if (IsDevMode)
 			{
-				roomParams.RoomName = SROptions.Current.PrivateRoomName;
+				roomParams.RoomName = "Development";
 				roomParams.RoomOptions.IsVisible = false;
 			}
-#endif
 			
 			return roomParams;
 		}

@@ -12,12 +12,12 @@ using UnityEngine.UI;
 namespace FirstLight.Game.Views.AdventureHudViews
 {
 	/// <summary>
-	/// Handles logic for the Weapon the player currently has equipped.
+	/// Handles logic for Weapon slots UI
 	/// </summary>
-	public class CurrentWeaponView : MonoBehaviour
+	public class WeaponSlotsView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _weaponText;
-		[SerializeField] private Image _currentWeaponImage;
+		[SerializeField] private TextMeshProUGUI[] _weaponText;
+		[SerializeField] private Image[] _currentWeaponImage;
 		
 		private IGameServices _services;
 
@@ -40,8 +40,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		
 		private async void UpdateCurrentWeapon(GameId weaponGameId)
 		{
-			_currentWeaponImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
-			_weaponText.text = weaponGameId.GetTranslation();
+			_currentWeaponImage[0].sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
+			_weaponText[0].text = weaponGameId.GetTranslation();
 		}
 	}
 }

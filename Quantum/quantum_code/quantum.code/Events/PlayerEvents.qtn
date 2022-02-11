@@ -49,6 +49,15 @@ synced event OnPlayerAmmoEmpty
 	entity_ref Entity;
 }
 
+synced event OnPlayerAmmoChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	Int32 PreviousAmmo;
+	Int32 CurrentAmmo;
+	Int32 MaxAmmo;
+}
+
 synced event OnPlayerWeaponChanged
 {
 	player_ref Player;
@@ -110,6 +119,15 @@ synced event OnLocalPlayerAmmoEmpty
 {
 	local player_ref Player;
 	entity_ref Entity;
+}
+
+synced event OnLocalPlayerAmmoChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Int32 PreviousAmmo;
+	Int32 CurrentAmmo;
+	Int32 MaxAmmo;
 }
 
 synced event OnLocalPlayerWeaponChanged

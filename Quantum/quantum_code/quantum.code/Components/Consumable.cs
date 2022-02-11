@@ -15,7 +15,7 @@ namespace Quantum
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			
 			ConsumableType = config.ConsumableType;
-			Amount = config.PowerAmount;
+			Amount = config.Amount;
 			CollectTime = config.ConsumableCollectTime;
 			
 			transform->Position = position;
@@ -40,7 +40,7 @@ namespace Quantum
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, (int) consumable.Amount);
 					break;
 				case ConsumableType.Ammo:
-					f.Unsafe.GetPointer<Weapon>(playerEntity)->GainAmmo(consumable.Amount);
+					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
 					break;
 				case ConsumableType.InterimArmour:
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainInterimArmour(f, playerEntity, entity, (int) consumable.Amount);
@@ -55,8 +55,17 @@ namespace Quantum
 
 		private void HandleCollectedStash(Frame f, EntityRef e, int stashValue)
 		{
-			var weaponIDs = GameIdGroup.Weapon.GetIds();
+			var weaponIDs = new List<GameId>(GameIdGroup.Weapon.GetIds());
 			var stashPosition = f.Get<Transform3D>(e).Position;
+			
+			// Choose only non-melee weapons to consider for a drop
+			for (var i = weaponIDs.Count - 1; i > -1; i--)
+			{
+				if (f.WeaponConfigs.GetConfig(weaponIDs[i]).IsMeleeWeapon)
+				{
+					weaponIDs.RemoveAt(i);
+				}
+			}
 			
 			switch (stashValue)
 			{

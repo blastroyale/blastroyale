@@ -1,7 +1,7 @@
 component Consumable
 {
 	[HideInInspector] ConsumableType ConsumableType;
-	[HideInInspector] UInt32 Amount;
+	[HideInInspector] FP Amount;
 	[HideInInspector] FP CollectTime;
 }
 

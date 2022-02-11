@@ -18,6 +18,6 @@ MonoBehaviour:
   SdkPath: Assets/Libs/PlayFabEditorExtensions/Editor/Resources/PlayFabEditorPrefsSO.asset
   EdExPath: 
   LocalCloudScriptPath: 
-  PanelIsShown: 0
+  PanelIsShown: 1
   curMainMenuIdx: 0
   curSubMenuIdx: 0

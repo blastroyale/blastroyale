@@ -46,7 +46,7 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: -65536
+        RawValue: 65536
       MaxAmmo: -1
       PowerRatioToBase:
         RawValue: 39322

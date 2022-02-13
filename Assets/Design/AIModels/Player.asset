@@ -956,11 +956,7 @@ MonoBehaviour:
     <Key>ce582252-3955-4154-b34f-36778247dabd</Key>\n    <Node>\n      <Id>ce582252-3955-4154-b34f-36778247dabd</Id>\n     
     <Name>IsProjectileAttackDecision</Name>\n      <Comment></Comment>\n      <Graph>0ffd0a36-53e0-48a8-af1d-c576043b1334</Graph>\n     
     <Parent>$decision/IsProjectileAttackDecision</Parent>\n      <DebugIndex>-1</DebugIndex>\n     
-    <Flags>0</Flags>\n      <Position>-352|-29||0</Position>\n      <StaticIn Count=\"2\">\n       
-    <Slot>\n          <Id>TimeToTrueState</Id>\n          <Name>TimeToTrueState</Name>\n         
-    <Value Type=\"Quantum.AIBlackboardValueKey, quantum.code\">Quantum.AIBlackboardValueKey</Value>\n         
-    <Type>Quantum.AIBlackboardValueKey, quantum.code</Type>\n          <Mode>In</Mode>\n         
-    <Flags>0</Flags>\n          <TypeMode>Value</TypeMode>\n        </Slot>\n       
+    <Flags>0</Flags>\n      <Position>-352|-29||0</Position>\n      <StaticIn Count=\"1\">\n       
     <Slot>\n          <Id>Label</Id>\n          <Name>Label</Name>\n          <Value
     />\n          <Type>@string</Type>\n          <Mode>In</Mode>\n          <Flags>512</Flags>\n         
     <TypeMode>Value</TypeMode>\n        </Slot>\n      </StaticIn>\n      <StaticOut

@@ -27,6 +27,13 @@ namespace FirstLight.Game.Logic
 		/// Thrown if the item with the given <paramref name="itemId"/> is not present in the inventory
 		/// </exception>
 		EquipmentDataInfo GetEquipmentDataInfo(UniqueId itemId);
+		/// <summary>
+		/// Requests the <see cref="EquipmentData"/> representing the item with the given equipment <paramref name="slot"/>
+		/// </summary>
+		/// <exception cref="LogicException">
+		/// Thrown if the item with the given <paramref name="slot"/> is not equipped or a valid slot
+		/// </exception>
+		EquipmentDataInfo GetEquipmentDataInfo(GameIdGroup slot);
 
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> representing the given <paramref name="itemId"/>

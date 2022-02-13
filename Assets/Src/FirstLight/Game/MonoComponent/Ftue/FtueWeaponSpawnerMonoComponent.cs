@@ -31,7 +31,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 
 		private void OnPlayerWeaponCollected(EventOnLocalPlayerWeaponChanged callback)
 		{
-			if (callback.WeaponGameId == _weapon)
+			if (callback.Weapon.GameId == _weapon)
 			{
 				_timeline.playableGraph.PlayTimeline();
 			}

@@ -87,10 +87,10 @@ namespace Quantum.Systems
 			}
 			
 			// Try to drop Weapon
-			if (f.TryGet<Weapon>(entityDead, out var weapon) && weapon.WeaponId != Constants.DEFAULT_WEAPON_GAME_ID
-			                                                 && f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
+			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
 			{
-				Collectable.DropCollectable(f, weapon.WeaponId, deathPosition, step, true);
+				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon.GameId, deathPosition, 
+				                            step, true);
 			}
 		}
 		
@@ -135,9 +135,9 @@ namespace Quantum.Systems
 			var input = f.GetPlayerInput(filter.Player->Player);
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 			var rotation = FPVector2.Zero;
-			var weapon = f.Get<Weapon>(filter.Entity);
 			var moveVelocity = FPVector3.Zero;
 			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
 
 			if (input->IsMoveButtonDown)
 			{
@@ -145,7 +145,7 @@ namespace Quantum.Systems
 
 				if (input->IsShootButtonDown)
 				{
-					speed *= weapon.AimingMovementSpeed;
+					speed *= weaponConfig.AimingMovementSpeed;
 				}
 				
 				rotation = input->Direction;

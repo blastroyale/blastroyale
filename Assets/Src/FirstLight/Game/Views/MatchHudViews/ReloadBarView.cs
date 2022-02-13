@@ -1,3 +1,8 @@
+using System;
+using System.Collections;
+using Circuit;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
@@ -18,15 +23,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _primaryReloadColor;
 		[SerializeField] private Color _secondaryReloadColor;
 		
-		private EntityRef _entity;
+		private Coroutine _coroutine;
 		private IObjectPool<GameObject> _separatorPool;
-		private int _maxAmmo;
 
 		/// <inheritdoc />
 		public void OnDespawn()
 		{
-			_entity = EntityRef.None;
-			
 			QuantumEvent.UnsubscribeListener(this);
 		}
 		
@@ -35,46 +37,65 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void SetupView(Frame f, EntityRef entity)
 		{
-			_maxAmmo = f.Get<Weapon>(entity).MaxAmmo;
-			_entity = entity;
-
-			SetSliderValue(f);
+			SetSliderValue(f, entity);
 			
-			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
-			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnPlayerAmmoEmpty);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAttack>(this, HandleOnPlayerAttacked);
 		}
 
-		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
+		private void HandleOnPlayerAttacked(EventOnLocalPlayerAttack callback)
 		{
-			if (_entity != callback.Entity)
+			var f = callback.Game.Frames.Verified;
+			var cooldown = f.Get<AIBlackboardComponent>(callback.PlayerEntity).GetFP(f, Constants.AttackCooldownKey);
+
+			if (!f.Get<PlayerCharacter>(callback.PlayerEntity).IsMeleeWeapon(f, callback.PlayerEntity))
 			{
 				return;
 			}
-			
-			SetSliderValue(callback.Game.Frames.Verified);
+
+			if (_coroutine != null)
+			{
+				StopCoroutine(_coroutine);
+			}
+
+			_coroutine = StartCoroutine(MeleeCooldownCoroutine(cooldown.AsFloat));
 		}
 
-		private void SetSliderValue(Frame f)
+		private void HandleOnPlayerAmmoChanged(EventOnLocalPlayerAmmoChanged callback)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(_entity);
-			var ammo = playerCharacter.GetAmmoAmount(f, _entity);
-			var isMelee = playerCharacter.IsMeleeWeapon(f, _entity);
-			
-			_slider.value = isMelee ? 1f : (float) ammo / _maxAmmo;
-			_reloadBarImage.color = _primaryReloadColor;
+			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
 		}
 		
-		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
+		private void HandleOnPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
-			if (callback.Entity != _entity)
-			{
-				return;
-			}
-
 			_reloadBarImage.color = _secondaryReloadColor;
 			
 			_capacityUsedAnimation.Rewind();
 			_capacityUsedAnimation.Play();
+		}
+
+		private void SetSliderValue(Frame f, EntityRef entity)
+		{
+			var playerCharacter = f.Get<PlayerCharacter>(entity);
+			
+			_slider.value = playerCharacter.GetAmmoAmountFilled(f, entity).AsFloat;
+			_reloadBarImage.color = _primaryReloadColor;
+		}
+
+		private IEnumerator MeleeCooldownCoroutine(float cooldown)
+		{
+			var endTime = Time.time + cooldown;
+
+			while (Time.time < endTime)
+			{
+				_slider.value = Mathf.Lerp(1, 0, (endTime - Time.time) / cooldown);
+
+				yield return null;
+			}
+
+			_slider.value = 1f;
+			_coroutine = null;
 		}
 	}
 }

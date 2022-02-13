@@ -10,12 +10,12 @@ namespace Quantum
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public partial class IsProjectileAttackDecision : HFSMDecision
 	{
-		public AIBlackboardValueKey TimeToTrueState;
-		
 		/// <inheritdoc />
 		public override unsafe bool Decide(Frame f, EntityRef e)
 		{
-			return f.Get<Weapon>(e).ProjectileSpeed > FP._0;
+			var weaponId = f.Get<PlayerCharacter>(e).CurrentWeapon.GameId;
+			
+			return f.WeaponConfigs.GetConfig(weaponId).ProjectileSpeed > FP._0;
 		}
 	}
 }

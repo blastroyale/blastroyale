@@ -54,6 +54,26 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
+		public EquipmentDataInfo GetEquipmentDataInfo(GameIdGroup slot)
+		{
+			var itemId = _equippedItems[slot];
+			var index = GetItemIndex(itemId);
+			var gameId = GameLogic.UniqueIdDataProvider.Ids[itemId];
+			
+			if (index < 0)
+			{
+				throw new LogicException($"The player does not have the given item Id '{itemId}' of type " +
+				                         $"{gameId} in it's inventory.");
+			}
+
+			return new EquipmentDataInfo
+			{
+				Data = _inventory[index],
+				GameId = gameId
+			};
+		}
+
+		/// <inheritdoc />
 		public EquipmentInfo GetEquipmentInfo(UniqueId itemId)
 		{
 			var data = GetEquipmentDataInfo(itemId);
@@ -149,18 +169,7 @@ namespace FirstLight.Game.Logic
 		{
 			var intRarity = (int) rarity;
 			var loot = new List<EquipmentDataInfo>();
-			// var weaponConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
 			var gearConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-			
-			// foreach (var weapon in weaponConfigs)
-			// {
-			// 	if ((int) weapon.StartingRarity > intRarity)
-			// 	{
-			// 		continue;
-			// 	}
-			// 			
-			// 	loot.Add(new EquipmentDataInfo(weapon.Id, rarity, 1));
-			// }
 			
 			foreach (var gear in gearConfigs)
 			{

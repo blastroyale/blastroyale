@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -20,22 +21,26 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Image[] _currentWeaponImage;
 		
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnEventOnLocalPlayerSpawned);
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
 		}
 
-		private void OnEventOnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		private void Start()
 		{
-			UpdateCurrentWeapon(callback.WeaponGameId);
+			var weapon = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(GameIdGroup.Weapon);
+
+			UpdateCurrentWeapon(weapon.GameId);
 		}
 		
 		private void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			UpdateCurrentWeapon(callback.WeaponGameId);
+			UpdateCurrentWeapon(callback.Weapon.GameId);
 		}
 		
 		private async void UpdateCurrentWeapon(GameId weaponGameId)

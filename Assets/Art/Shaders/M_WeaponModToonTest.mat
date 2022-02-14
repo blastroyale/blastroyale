@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8644266301316378263
+--- !u!114 &-2431936306229323517
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_WeaponMod
+  m_Name: M_WeaponModToonTest
   m_Shader: {fileID: -6465566751694194690, guid: 68f9ab0c23056d04688be6d00151dffd, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -57,19 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - PatternTexture:
-        m_Texture: {fileID: 2800000, guid: 4b287488653372a4c86d28ddf7fdef07, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ColorTextureA:
-        m_Texture: {fileID: 2800000, guid: 34e2616ff9b53ee41959bb68a47990c6, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ColorTextureB:
-        m_Texture: {fileID: 2800000, guid: c665522018c82744cb418f6fed5d3a29, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ColorTextureC:
-        m_Texture: {fileID: 2800000, guid: 34e2616ff9b53ee41959bb68a47990c6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7e9731f8bb83a2f41a84b5caf6abbcda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -87,20 +75,9 @@ Material:
     m_Ints: []
     m_Floats:
     - LIGHTMAP: 0
-    - Metal: 0.8
-    - Smoothness: 0.4
-    - _GlowAmount: 0.123
-    - _GlowPower: 5.18
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - ColorA: {r: 0, g: 0.25595236, b: 1, a: 1}
-    - ColorB: {r: 0.09019608, g: 0.25882354, b: 0.7490196, a: 1}
-    - ColorC: {r: 0.09019608, g: 0.25882354, b: 0.7490196, a: 1}
-    - EmissiveColor: {r: 8.299687, g: 1.993646, b: 0.13049738, a: 0}
-    - PatternColorA: {r: 0.9339623, g: 0.085172564, b: 0.085172564, a: 0}
-    - PatternColorB: {r: 0.9150943, g: 0.5554995, b: 0.10071782, a: 0}
-    - PatternColorC: {r: 0.72847205, g: 0.8301887, b: 0.71793044, a: 0}
+    - EmissiveColor: {r: 3.660378, g: 0.7282425, b: 2.642348, a: 0}
     - TintColor: {r: 1, g: 1, b: 1, a: 0}
-    - _GlowColor: {r: 52.60379, g: 15.741604, b: 1.3233616, a: 1}
   m_BuildTextureStacks: []

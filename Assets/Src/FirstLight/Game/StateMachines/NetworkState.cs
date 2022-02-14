@@ -76,6 +76,8 @@ namespace FirstLight.Game.StateMachines
 		public void OnConnected()
 		{
 			Debug.Log("OnConnected");
+			
+			_services.MessageBrokerService.Publish(new MatchConnectedMessage());
 		}
 		
 		/// <inheritdoc />
@@ -94,6 +96,8 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(DisconnectedEvent);
 			
 			Debug.Log("OnDisconnected " + cause);
+			
+			_services.MessageBrokerService.Publish(new MatchDisconnectedMessage { Cause = cause });
 		}
 
 		/// <inheritdoc />
@@ -138,6 +142,8 @@ namespace FirstLight.Game.StateMachines
 		public void OnJoinedRoom()
 		{
 			Debug.Log("OnJoinedRoom");
+			
+			_services.MessageBrokerService.Publish(new MatchJoinedRoomMessage());
 
 			if (!_networkService.QuantumClient.CurrentRoom.IsOpen)
 			{

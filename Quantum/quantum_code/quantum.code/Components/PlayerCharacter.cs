@@ -146,6 +146,11 @@ namespace Quantum
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
+
+				if (IsMeleeWeapon(f, e))
+				{
+					blackboard->Set(f, Constants.AmmoFilledKey, FP._0);
+				}
 			}
 			
 			CurrentWeapon = weapon;

@@ -202,17 +202,21 @@ namespace Quantum
 		/// </summary>
 		internal void GainAmmo(Frame f, EntityRef e, FP amount)
 		{
+			// We need to get current Ammo before we change AmmoFilled
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
+			
+			// We change AmmoFilled regardless of weapon a player carries
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
+			
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
-
-			if (ammo == newAmmo)
+			
+			// We don't handle Ammo if a player carries a melee weapon or if Ammo hasn't changed 
+			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
 			{
 				return;
 			}
 			
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
-
 			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
 		}

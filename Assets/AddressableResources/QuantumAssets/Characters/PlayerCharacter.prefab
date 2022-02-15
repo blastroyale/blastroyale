@@ -392,10 +392,10 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 3203550829295170141
+        Value: 3330617699365269185
     BlackboardRef:
       Id:
-        Value: 3236662031045569557
+        Value: 1931399702610443197
     KccConfigRef:
       Id:
         Value: 2480520579551617486
@@ -418,6 +418,43 @@ MonoBehaviour:
       Rarity:
         Value: 0
       Level: 0
+    CurrentWeapon:
+      GameId:
+        Value: 0
+      Rarity:
+        Value: 0
+      Level: 0
+    Specials:
+    - SpecialId:
+        Value: 0
+      SpecialType:
+        Value: 0
+      Cooldown:
+        RawValue: 0
+      Radius:
+        RawValue: 0
+      PowerAmount: 0
+      Speed:
+        RawValue: 0
+      MaxRange:
+        RawValue: 0
+      AvailableTime:
+        RawValue: 0
+    - SpecialId:
+        Value: 0
+      SpecialType:
+        Value: 0
+      Cooldown:
+        RawValue: 0
+      Radius:
+        RawValue: 0
+      PowerAmount: 0
+      Speed:
+        RawValue: 0
+      MaxRange:
+        RawValue: 0
+      AvailableTime:
+        RawValue: 0
 --- !u!114 &8755646374635016916
 MonoBehaviour:
   m_ObjectHideFlags: 0

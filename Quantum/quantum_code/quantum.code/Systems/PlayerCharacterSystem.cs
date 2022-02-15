@@ -86,8 +86,9 @@ namespace Quantum.Systems
 				step++;
 			}
 			
-			// Try to drop Weapon
-			if (f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
+			// Try to drop Weapon (if it's not Melee)
+			if (!f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead) &&
+			    f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
 			{
 				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon.GameId, deathPosition, 
 				                            step, true);

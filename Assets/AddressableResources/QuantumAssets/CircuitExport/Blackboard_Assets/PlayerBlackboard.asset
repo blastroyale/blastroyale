@@ -18,21 +18,24 @@ MonoBehaviour:
       Guid:
         Value: 3236662031045569557
     Entries:
-    - Type: 0
-      Key:
-        Key: IsAiming
-    - Type: 3
-      Key:
-        Key: AimTime
-    - Type: 3
-      Key:
-        Key: AmmoFilled
-    - Type: 4
-      Key:
-        Key: AimDirection
     - Type: 3
       Key:
         Key: StunDuration
+    - Type: 3
+      Key:
+        Key: AmmoFilled
+    - Type: 3
+      Key:
+        Key: AimTime
+    - Type: 0
+      Key:
+        Key: IsAiming
+    - Type: 0
+      Key:
+        Key: HasMeleeWeapon
+    - Type: 4
+      Key:
+        Key: AimDirection
     - Type: 3
       Key:
         Key: AttackCooldown

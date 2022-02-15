@@ -127,6 +127,20 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
+			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
+
+			if (CurrentWeapon.IsValid)
+			{
+				GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
+				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
+			}
+			else
+			{
+				blackboard->Set(f, Constants.AmmoFilledKey, weaponConfig.InitialAmmoFilled);
+			}
+			
+			CurrentWeapon = weapon;
 			
 			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
 			{
@@ -141,21 +155,6 @@ namespace Quantum
 				
 				Specials[specialIndex] = new Special(f, specialConfig);
 			}
-
-			if (CurrentWeapon.IsValid)
-			{
-				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
-
-				if (IsMeleeWeapon(f, e))
-				{
-					blackboard->Set(f, Constants.AmmoFilledKey, FP._0);
-				}
-			}
-			
-			CurrentWeapon = weapon;
-			
-			GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
 		}
 		
 		/// <summary>
@@ -182,7 +181,7 @@ namespace Quantum
 		/// Requests if the current weapon equipped by the player is empty of ammo or not.
 		/// </summary>
 		/// <remarks>
-		/// It will be always false for melee weapons. Use <see cref="IsMeleeWeapon"/> to double check the state.
+		/// It will be always false for melee weapons. Use <see cref="HasMeleeWeapon"/> to double check the state.
 		/// </remarks>
 		public bool IsAmmoEmpty(Frame f, EntityRef e)
 		{
@@ -192,9 +191,9 @@ namespace Quantum
 		/// <summary>
 		/// Requests if the current weapon equipped by the player is a melee weapon or not
 		/// </summary>
-		public bool IsMeleeWeapon(Frame f, EntityRef e)
+		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
-			return f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo < 0;
+			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
 		}
 		
 		/// <summary>
@@ -223,7 +222,7 @@ namespace Quantum
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
 			// Do not do reduce for melee weapons
-			if (IsMeleeWeapon(f, e))
+			if (HasMeleeWeapon(f, e))
 			{
 				return;
 			}

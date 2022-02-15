@@ -343,7 +343,7 @@ namespace Quantum.Systems
 			var ammoConsumablePosition = FPVector3.Zero;
 			
 			// If weapon has Unlimited ammo then don't go for more ammo
-			if (filter.PlayerCharacter->IsMeleeWeapon(f, filter.Entity))
+			if (filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity))
 			{
 				return false;
 			}

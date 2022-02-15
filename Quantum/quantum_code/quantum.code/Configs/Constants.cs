@@ -15,6 +15,7 @@ namespace Quantum
 		public static readonly string StunDurationKey = "StunDuration";
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string AttackCooldownKey = "AttackCooldown";
+		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
 		public static readonly FP RaycastAngleSplit = FP._1 * 10;

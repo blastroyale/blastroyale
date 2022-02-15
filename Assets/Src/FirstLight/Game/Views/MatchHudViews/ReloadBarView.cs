@@ -37,15 +37,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnPlayerAmmoEmpty);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAttack>(this, HandleOnPlayerAttacked);
+		}
+
+		private void HandleOnPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
 		}
 
 		private void HandleOnPlayerAttacked(EventOnLocalPlayerAttack callback)
 		{
 			var f = callback.Game.Frames.Verified;
 			var cooldown = f.Get<AIBlackboardComponent>(callback.PlayerEntity).GetFP(f, Constants.AttackCooldownKey);
-
-			if (!f.Get<PlayerCharacter>(callback.PlayerEntity).IsMeleeWeapon(f, callback.PlayerEntity))
+			
+			if (!f.Get<PlayerCharacter>(callback.PlayerEntity).HasMeleeWeapon(f, callback.PlayerEntity))
 			{
 				return;
 			}
@@ -54,13 +60,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				StopCoroutine(_coroutine);
 			}
-
+			
 			_coroutine = StartCoroutine(MeleeCooldownCoroutine(cooldown.AsFloat));
 		}
 
 		private void HandleOnPlayerAmmoChanged(EventOnLocalPlayerAmmoChanged callback)
 		{
-			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
+			var f = callback.Game.Frames.Verified;
+			var playerCharacter = f.Get<PlayerCharacter>(callback.Entity);
+
+			if (!playerCharacter.HasMeleeWeapon(f, callback.Entity))
+			{
+				_slider.value = playerCharacter.GetAmmoAmountFilled(f, callback.Entity).AsFloat;
+			}
+			
+			_reloadBarImage.color = _primaryReloadColor;
 		}
 		
 		private void HandleOnPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
@@ -73,9 +87,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetSliderValue(Frame f, EntityRef entity)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(entity);
+			var player = f.Get<PlayerCharacter>(entity);
 			
-			_slider.value = playerCharacter.GetAmmoAmountFilled(f, entity).AsFloat;
+			_slider.value = player.HasMeleeWeapon(f, entity) ? 1f : player.GetAmmoAmountFilled(f, entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;
 		}
 

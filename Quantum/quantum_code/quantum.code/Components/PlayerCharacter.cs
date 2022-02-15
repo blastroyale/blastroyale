@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -46,10 +47,10 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 			
-			SetWeapon(f, e, DefaultWeapon.GameId, DefaultWeapon.Rarity, DefaultWeapon.Level);
+			SetWeapon(f, e, DefaultWeapon);
 			
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
-			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning, DefaultWeapon.GameId);
+			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 			
 			f.Remove<DeadPlayerCharacter>(e);
 			f.Add(e, spawnPlayer);
@@ -113,36 +114,38 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Set's the player's current weapon to the given <paramref name="weaponGameId"/> and data
+		/// Set's the player's current weapon to the given <paramref name="weapon"/> and data
 		/// </summary>
-		public void SetWeapon(Frame f, EntityRef e, GameId weaponGameId, ItemRarity rarity, uint level, 
-		                      FPVector3 projectileSpawnOffset = new FPVector3())
+		internal void SetWeapon(Frame f, EntityRef e, Equipment weapon)
 		{
-			var weapon = new Weapon();
-			var config = f.WeaponConfigs.GetConfig(weaponGameId);
-			var blackboard = f.Get<AIBlackboardComponent>(e);
-			var weaponConfig = f.WeaponConfigs.GetConfig(weaponGameId);
-			var power = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, 
-			                                                     f.GameConfig, StatType.Power);
-			
-			blackboard.Set(f, nameof(QuantumWeaponConfig.AimTime), config.AimTime);
-			blackboard.Set(f, nameof(QuantumWeaponConfig.AttackCooldown), config.AttackCooldown);
-			
-			weapon.WeaponId = config.Id;
-			weapon.Ammo = config.InitialAmmo;
-			weapon.MaxAmmo = config.MaxAmmo;
-			weapon.AttackCooldown = config.AttackCooldown;
-			weapon.LastAttackTime = f.Time;
-			weapon.AttackRange = config.AttackRange;
-			weapon.AttackAngle = config.AttackAngle;
-			weapon.ProjectileSpeed = config.ProjectileSpeed;
-			weapon.SplashRadius = config.SplashRadius;
-			weapon.AimingMovementSpeed = config.AimingMovementSpeed;
-			weapon.ProjectileSpawnOffset = projectileSpawnOffset;
-			
-			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
+			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			var power = QuantumStatCalculator.CalculateStatValue(weapon.Rarity, weaponConfig.PowerRatioToBase, 
+			                                                     weapon.Level, f.GameConfig, StatType.Power);
+
+			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
+			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
+
+			if (CurrentWeapon.IsValid)
 			{
-				var specialId = config.Specials[specialIndex];
+				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
+			}
+			else
+			{
+				blackboard->Set(f, Constants.AmmoFilledKey, weaponConfig.InitialAmmoFilled);
+			}
+			
+			CurrentWeapon = weapon;
+			
+			GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
+			
+			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
+			{
+				var specialId = weaponConfig.Specials[i];
 
 				if (specialId == default)
 				{
@@ -151,27 +154,98 @@ namespace Quantum
 				
 				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
 				
-				weapon.Specials[specialIndex] = new Special(f, specialConfig);
+				Specials[i] = new Special(f, specialConfig);
 			}
-			
-			f.Unsafe.GetPointer<Stats>(e)->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+		}
+		
+		/// <summary>
+		/// Requests the total amount of ammo the <paramref name="e"/> player has
+		/// </summary>
+		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
+		{
+			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo;
 
-			if (f.TryGet<Weapon>(e, out var previousWeapon))
+			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
+		}
+		
+		/// <summary>
+		/// Requests the total amount of ammo the <paramref name="e"/> player has
+		/// </summary>
+		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
+		{
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			
+			return bb->GetFP(f, Constants.AmmoFilledKey);
+		}
+
+		/// <summary>
+		/// Requests if the current weapon equipped by the player is empty of ammo or not.
+		/// </summary>
+		/// <remarks>
+		/// It will be always false for melee weapons. Use <see cref="HasMeleeWeapon"/> to double check the state.
+		/// </remarks>
+		public bool IsAmmoEmpty(Frame f, EntityRef e)
+		{
+			return !HasMeleeWeapon(f, e) && GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
+		}
+
+		/// <summary>
+		/// Requests if the current weapon equipped by the player is a melee weapon or not
+		/// </summary>
+		public bool HasMeleeWeapon(Frame f, EntityRef e)
+		{
+			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
+		}
+		
+		/// <summary>
+		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void GainAmmo(Frame f, EntityRef e, FP amount)
+		{
+			// We need to get current Ammo before we change AmmoFilled
+			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
+			
+			// We change AmmoFilled regardless of weapon a player carries
+			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
+			
+			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
+			
+			// We don't handle Ammo if a player carries a melee weapon or if Ammo hasn't changed 
+			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
 			{
-				// If previous weapon's ammo is not Unlimited
-				if (previousWeapon.Ammo > -1)
-				{
-					// Then add ammo from the previous weapon to the new one
-					var previousAmmoPortion = previousWeapon.Ammo / (FP)previousWeapon.MaxAmmo;
-					var updatedAmmo = weapon.Ammo + FPMath.CeilToInt(weapon.MaxAmmo * previousAmmoPortion);
-					weapon.Ammo = updatedAmmo > weapon.MaxAmmo ? weapon.MaxAmmo : updatedAmmo;
-				}
-				
-				f.Events.OnPlayerWeaponChanged(Player, e, weaponGameId);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weaponGameId);
+				return;
 			}
 			
-			f.Set(e, weapon);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
+			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
+		}
+		
+		/// <summary>
+		/// Reduces the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
+		{
+			// Do not do reduce for melee weapons
+			if (HasMeleeWeapon(f, e))
+			{
+				return;
+			}
+
+			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
+			var newAmmo = Math.Max(ammo - (int) amount, 0);
+			var currentAmmo = Math.Min(newAmmo, maxAmmo);
+			var finalAmmoFilled = (FP) currentAmmo / maxAmmo;
+
+			if (ammo == newAmmo)
+			{
+				return;
+			}
+
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
+
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
+			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)

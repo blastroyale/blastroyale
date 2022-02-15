@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7622002825442408404}
   - component: {fileID: 1570073133943741198}
   - component: {fileID: 241501206621569465}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: HitFxElectrical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ImpactHammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -218,11 +218,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			var weapons = await _adventureCharacterView.EquipWeapon(callback.WeaponGameId);
+			var weapons = await _adventureCharacterView.EquipWeapon(callback.Weapon.GameId);
 
 			foreach (var weapon in weapons)
 			{
-				weapon.GetComponent<WeaponViewMonoComponent>().SetEntityView(EntityView);
+				var components = weapon.GetComponents<EntityViewBase>();
+
+				foreach (var entityViewBase  in components)
+				{
+					entityViewBase.SetEntityView(EntityView);	
+				}
 			}
 		}
 
@@ -311,14 +316,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 #if UNITY_EDITOR
 			var f = game.Frames.Verified;
 
-			if (!f.TryGet<Weapon>(EntityRef, out var weapon))
+			if (!f.TryGet<PlayerCharacter>(EntityRef, out var playerCharacter))
 			{
 				return;
 			}
-			
+
+			var weapon = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) playerCharacter.CurrentWeapon.GameId);
 			var position = _lastPosition + Vector3.up;
 			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / Constants.RaycastAngleSplit) + 1;
-			var angle = -weapon.AttackAngle / FP._2;
+			var angle = -(int) weapon.AttackAngle / FP._2;
 			var angleStep = weapon.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var aimingDirection = f.Get<AIBlackboardComponent>(EntityRef).GetVector2(f, Constants.AimDirectionKey).Normalized * 
 			                      weapon.AttackRange;

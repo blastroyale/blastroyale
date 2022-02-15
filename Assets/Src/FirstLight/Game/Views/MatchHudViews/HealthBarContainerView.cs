@@ -2,6 +2,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
@@ -59,12 +60,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 			else if(message.Game.PlayerIsLocal(playerCharacter.Player))
 			{
-				var weapon = frame.Get<Weapon>(entity);
+				var playerData = frame.GetPlayerData(playerCharacter.Player);
 				
-				_healthBarLocalPlayer.HealthBarNameView.NameText.text = frame.GetPlayerData(playerCharacter.Player).PlayerName;
+				_healthBarLocalPlayer.HealthBarNameView.NameText.text = playerData.PlayerName;
 				
 				_healthBarLocalPlayer.HealthBarTextView.SetupView(entity, frame.Get<Stats>(entity).CurrentHealth);
-				_healthBarLocalPlayer.ReloadBarView.SetupView(entity, weapon.MaxAmmo);
+				_healthBarLocalPlayer.ReloadBarView.SetupView(frame, entity);
 			}
 			else
 			{
@@ -72,7 +73,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				var playerName = isPlayerCharacter ? frame.GetPlayerData(playerCharacter.Player).PlayerName : "";
 				
 				barCache.HealthBarNameView.NameText.text = playerName;
-
 				healthBar = barCache;
 			}
 

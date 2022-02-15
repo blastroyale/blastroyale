@@ -18,7 +18,7 @@ MonoBehaviour:
       Guid:
         Value: 3242401771564966650
     QuantumConfigs:
-    - Id: 83
+    - Id: 10
       SpecialType: 0
       Indicator: 6
       Cooldown:

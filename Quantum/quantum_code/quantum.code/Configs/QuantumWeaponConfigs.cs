@@ -9,7 +9,7 @@ namespace Quantum
 	{
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef;
-		public int InitialAmmo;
+		public FP InitialAmmoFilled;
 		public int MaxAmmo;
 		public FP PowerRatioToBase;
 		public FP AimingMovementSpeed;
@@ -20,6 +20,11 @@ namespace Quantum
 		public FP SplashRadius;
 		public FP ProjectileSpeed;
 		public List<GameId> Specials;
+
+		/// <summary>
+		/// Requests if this config is from a melee weapon
+		/// </summary>
+		public bool IsMeleeWeapon => MaxAmmo < 0;
 	}
 
 	/// <summary>

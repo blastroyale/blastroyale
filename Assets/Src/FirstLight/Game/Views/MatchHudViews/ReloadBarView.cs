@@ -1,11 +1,10 @@
-using FirstLight.Game.Utils;
+using System.Collections;
 using FirstLight.Services;
 using Quantum;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View handles the Health Bar View in the UI:
@@ -20,78 +19,93 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Color _primaryReloadColor;
 		[SerializeField] private Color _secondaryReloadColor;
 		
-		private EntityRef _entity;
+		private Coroutine _coroutine;
 		private IObjectPool<GameObject> _separatorPool;
 
 		/// <inheritdoc />
 		public void OnDespawn()
 		{
-			_entity = EntityRef.None;
-			
-			_separatorPool?.DespawnAll();
-			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
 		
 		/// <summary>
 		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given data
 		/// </summary>
-		public void SetupView(EntityRef entity, int maxAmmo)
+		public void SetupView(Frame f, EntityRef entity)
 		{
-			_entity = entity;
-			_slider.value = 1f;
+			SetSliderValue(f, entity);
+			
+			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnPlayerAmmoEmpty);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAttack>(this, HandleOnPlayerAttacked);
+		}
 
-			if (_separatorPool == null)
-			{
-				_separatorPool ??= new GameObjectPool(3, _separatorRef);
-				
-				maxAmmo = maxAmmo > GameConstants.MAX_RELOAD_BAR_SEPARATORS_AMOUNT ? 0 : maxAmmo;
-				
-				for (var i = 1; i < maxAmmo; i++)
-				{
-					_separatorPool.Spawn();
-				}
-			
-				QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
-				QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
-			}
-		}
-		
-		private void OnUpdateView(CallbackUpdateView callback)
+		private void HandleOnPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			var frame = callback.Game.Frames.Verified;
-			
-			if (frame.TryGet<Weapon>(_entity, out var weapon))
-			{
-				// If weapon is fully reloaded then we set slider to max
-				if (weapon.Ammo >= weapon.MaxAmmo && _slider.value < 1f)
-				{
-					_slider.value = 1f;
-					_reloadBarImage.color = weapon.Ammo == 0 ? _secondaryReloadColor : _primaryReloadColor;
-					
-					return;
-				}
-				
-				// If weapon isn't full then we do the whole process of slider value calculation
-				if (weapon.Ammo < weapon.MaxAmmo)
-				{
-					var reloadFill = (float) weapon.Ammo / weapon.MaxAmmo;
-					
-					_slider.value = Mathf.Clamp01(reloadFill);
-					_reloadBarImage.color = weapon.Ammo == 0 ? _secondaryReloadColor : _primaryReloadColor;
-				}
-			}
+			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
 		}
-		
-		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
+
+		private void HandleOnPlayerAttacked(EventOnLocalPlayerAttack callback)
 		{
-			if (callback.Entity != _entity)
+			var f = callback.Game.Frames.Verified;
+			var cooldown = f.Get<AIBlackboardComponent>(callback.PlayerEntity).GetFP(f, Constants.AttackCooldownKey);
+			
+			if (!f.Get<PlayerCharacter>(callback.PlayerEntity).HasMeleeWeapon(f, callback.PlayerEntity))
 			{
 				return;
 			}
+
+			if (_coroutine != null)
+			{
+				StopCoroutine(_coroutine);
+			}
+			
+			_coroutine = StartCoroutine(MeleeCooldownCoroutine(cooldown.AsFloat));
+		}
+
+		private void HandleOnPlayerAmmoChanged(EventOnLocalPlayerAmmoChanged callback)
+		{
+			var f = callback.Game.Frames.Verified;
+			var playerCharacter = f.Get<PlayerCharacter>(callback.Entity);
+
+			if (!playerCharacter.HasMeleeWeapon(f, callback.Entity))
+			{
+				_slider.value = playerCharacter.GetAmmoAmountFilled(f, callback.Entity).AsFloat;
+			}
+			
+			_reloadBarImage.color = _primaryReloadColor;
+		}
+		
+		private void HandleOnPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
+		{
+			_reloadBarImage.color = _secondaryReloadColor;
 			
 			_capacityUsedAnimation.Rewind();
 			_capacityUsedAnimation.Play();
+		}
+
+		private void SetSliderValue(Frame f, EntityRef entity)
+		{
+			var player = f.Get<PlayerCharacter>(entity);
+			
+			_slider.value = player.HasMeleeWeapon(f, entity) ? 1f : player.GetAmmoAmountFilled(f, entity).AsFloat;
+			_reloadBarImage.color = _primaryReloadColor;
+		}
+
+		private IEnumerator MeleeCooldownCoroutine(float cooldown)
+		{
+			var endTime = Time.time + cooldown;
+
+			while (Time.time < endTime)
+			{
+				_slider.value = Mathf.Lerp(1, 0, (endTime - Time.time) / cooldown);
+
+				yield return null;
+			}
+
+			_slider.value = 1f;
+			_coroutine = null;
 		}
 	}
 }

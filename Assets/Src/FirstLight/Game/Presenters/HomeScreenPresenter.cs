@@ -28,9 +28,10 @@ namespace FirstLight.Game.Presenters
 			public Action OnTrophyRoadClicked;
 		}
 		
-		[SerializeField] private Button _playOnlineButton;
-		[SerializeField] private Button _playDeathmatchOnlineButton;
+		[SerializeField] private Button _playBattleRoyaleButton;
+		[SerializeField] private Button _playDeathmatchButton;
 		[SerializeField] private Button _playOfflineButton;
+		[SerializeField] private Button _playDevButton;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
@@ -53,9 +54,11 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			
+			_playDevButton.gameObject.SetActive(Debug.isDebugBuild);
 			_playOfflineButton.gameObject.SetActive(Debug.isDebugBuild);
-			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
-			_playDeathmatchOnlineButton.onClick.AddListener(OnPlayDeathmatchOnlineClicked);
+			_playDevButton.onClick.AddListener(OnPlayDevClicked);
+			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
+			_playDeathmatchButton.onClick.AddListener(OnPlayDeathmatchClicked);
 			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
@@ -92,17 +95,34 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnPlayOnlineClicked()
+		private void OnPlayDevClicked()
 		{
-			Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = false;
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
+			runnerConfigs.IsOfflineMode = false;
+			runnerConfigs.IsDevMode = true;
 			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 6;
 
 			Data.OnPlayButtonClicked();
 		}
 
-		private void OnPlayDeathmatchOnlineClicked()
+		private void OnPlayBattleRoyaleClicked()
 		{
-			Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = false;
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
+			runnerConfigs.IsOfflineMode = false;
+			runnerConfigs.IsDevMode = false;
+			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 6;
+
+			Data.OnPlayButtonClicked();
+		}
+
+		private void OnPlayDeathmatchClicked()
+		{
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
+			runnerConfigs.IsOfflineMode = false;
+			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 1;
 
 			Data.OnPlayButtonClicked();
@@ -110,7 +130,10 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayOfflineClicked()
 		{
-			Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = true;
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
+			runnerConfigs.IsOfflineMode = true;
+			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = 6;
 
 			Data.OnPlayButtonClicked();

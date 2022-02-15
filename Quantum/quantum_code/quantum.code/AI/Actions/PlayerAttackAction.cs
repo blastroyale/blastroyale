@@ -17,33 +17,27 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(e);
-			var weapon = f.Unsafe.GetPointer<Weapon>(e);
-			var player = playerCharacter.Player;
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
+			var player = playerCharacter->Player;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
-			var angleCount = FPMath.FloorToInt(weapon->AttackAngle / Constants.RaycastAngleSplit) + 1;
-			var angleStep = weapon->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
-			var angle = -weapon->AttackAngle / FP._2;
+			var angleCount = FPMath.FloorToInt(weaponConfig.AttackAngle / Constants.RaycastAngleSplit) + 1;
+			var angleStep = weaponConfig.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
+			var angle = -(int) weaponConfig.AttackAngle / FP._2;
 			var team = f.Get<Targetable>(e).Team;
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
-			var shape = Shape3D.CreateSphere(weapon->SplashRadius);
+			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized * 
-			                      weapon->AttackRange;
-
-			if (weapon->Ammo > 0)
-			{
-				weapon->Ammo--;
-			}
+			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized * weaponConfig.AttackRange;
 			
-			weapon->LastAttackTime = f.Time;
-			
-			f.Events.OnPlayerAttack(e, player);
+			playerCharacter->ReduceAmmo(f, e, 1);
+			f.Events.OnPlayerAttack(player, e);
+			f.Events.OnLocalPlayerAttack(player, e);
 
 			for (var i = 0; i < angleCount; i++)
 			{
 				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
-				var hit = f.Physics3D.Raycast(position, direction.XOY, weapon->AttackRange, f.TargetAllLayerMask, hitQuery);
+				var hit = f.Physics3D.Raycast(position, direction.XOY, weaponConfig.AttackRange, f.TargetAllLayerMask, hitQuery);
 				
 				angle += angleStep;
 
@@ -54,12 +48,12 @@ namespace Quantum
 
 				QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
 
-				if (weapon->SplashRadius == FP._0)
+				if (weaponConfig.SplashRadius == FP._0)
 				{
 					continue;
 				}
 
-				QuantumHelpers.ProcessAreaHit(f, e, e, weapon->SplashRadius, hit.Value.Point, powerAmount, team);
+				QuantumHelpers.ProcessAreaHit(f, e, e, weaponConfig.SplashRadius, hit.Value.Point, powerAmount, team);
 			}
 		}
 	}

@@ -17,9 +17,9 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(e);
-			var weapon = f.Unsafe.GetPointer<Weapon>(e);
-			var player = playerCharacter.Player;
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
+			var player = playerCharacter->Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var team = f.Get<Targetable>(e).Team;
@@ -29,26 +29,20 @@ namespace Quantum
 				Attacker = e,
 				Direction = aimingDirection.XOY,
 				PowerAmount = (uint) power.AsInt,
-				SourceId = weapon->WeaponId,
-				Range = weapon->AttackRange,
-				SpawnPosition = position + weapon->ProjectileSpawnOffset,
-				Speed = weapon->ProjectileSpeed,
-				SplashRadius = weapon->SplashRadius,
+				SourceId = weaponConfig.Id,
+				Range = weaponConfig.AttackRange,
+				SpawnPosition = position + playerCharacter->ProjectileSpawnOffset,
+				Speed = weaponConfig.ProjectileSpeed,
+				SplashRadius = weaponConfig.SplashRadius,
 				StunDuration = FP._0,
 				Target = EntityRef.None,
 				TeamSource = team
 			};
 			
-			if (weapon->Ammo > 0)
-			{
-				weapon->Ammo--;
-			}
-			
-			weapon->LastAttackTime = f.Time;
-
+			playerCharacter->ReduceAmmo(f, e, 1);
+			f.Events.OnPlayerAttack(player, e);
+			f.Events.OnLocalPlayerAttack(player, e);
 			Projectile.Create(f, projectile);
-			
-			f.Events.OnPlayerAttack(e, player);
 		}
 	}
 }

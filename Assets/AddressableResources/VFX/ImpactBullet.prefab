@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1352846535400291395}
   - component: {fileID: 6532503406288199880}
   - component: {fileID: 7027522512169724650}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: HitFxBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194167722963740090}
   - component: {fileID: 4724514446996240573}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: ImpactBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

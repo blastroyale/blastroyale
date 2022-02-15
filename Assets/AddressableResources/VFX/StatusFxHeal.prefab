@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 8983657958151232221}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: StatusFxHeal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8395110327329983820}
   - component: {fileID: 8395110327329983818}
   - component: {fileID: 8395110327329983819}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: VFX_Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

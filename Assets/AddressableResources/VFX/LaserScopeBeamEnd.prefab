@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3742801186420569158}
   - component: {fileID: 1640602418307850381}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: LaserScopeBeamEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4304338907063554367}
   - component: {fileID: 4409497499240353136}
   - component: {fileID: 3133838477250412100}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: BeamEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -86,9 +86,8 @@ crashlytics-build.properties
 [Aa]ssets/Editor Default Resources/Configs.meta
 [Aa]ssets/Build/
 [Aa]ssets/Build.meta
-!Quantum/quantum_code/quantum.code/quantum.code.csproj
-!Quantum/quantum_code/quantum.console.runner/quantum.console.runner.csproj
-!Quantum/quantum_code/quantum.code.csproj
+!Quantum/**/*.csproj
+!Quantum/**/*.pdb
 !Quantum/quantum_code/quantum_code.sln
 Quantum/quantum_code/quantum.console.runner/bin
 Quantum/quantum_code/quantum.console.runner/obj

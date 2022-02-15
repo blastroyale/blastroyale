@@ -12,7 +12,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e)
 		{
-			var specials = f.Get<Weapon>(e).Specials;
+			var specials = f.Get<PlayerCharacter>(e).Specials;
 			
 			for (var i = 0; i < specials.Length; i++)
 			{

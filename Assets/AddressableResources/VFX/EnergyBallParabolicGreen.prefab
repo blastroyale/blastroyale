@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5910724111841763201}
   - component: {fileID: 5910724111841763203}
   - component: {fileID: 5910724111841763200}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: PlasmaPurpleEnergyBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 8715616123025002813}
   - component: {fileID: 9037723210036607422}
   - component: {fileID: 4434705747426655271}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: EnergyBallParabolicGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3742801186420569158}
   - component: {fileID: 1640602418307850381}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: RobopedeLaserScopeBeamEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 3105657634806447520}
   - component: {fileID: 5128197255473036023}
   - component: {fileID: 5796104561031537768}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FX_PlasmaBeamImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}

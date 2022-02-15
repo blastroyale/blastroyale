@@ -43,25 +43,46 @@ synced event OnPlayerKilledPlayer
 	entity_ref EntityLeader;
 }
 
+synced event OnPlayerAmmoEmpty
+{
+	player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnPlayerAmmoChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	Int32 PreviousAmmo;
+	Int32 CurrentAmmo;
+	Int32 MaxAmmo;
+}
+
 synced event OnPlayerWeaponChanged
 {
 	player_ref Player;
 	entity_ref Entity;
-	GameId WeaponGameId;
+	Equipment Weapon;
 }
 
 synced event OnPlayerAttack
 {
-	entity_ref PlayerEntity;
 	player_ref Player;
+	entity_ref PlayerEntity;
 }
 
 synced event OnPlayerAttackHit
 {
-	entity_ref PlayerEntity;
 	player_ref Player;
+	entity_ref PlayerEntity;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
+}
+
+synced event OnPlayerStopAttack
+{
+	player_ref Player;
+	entity_ref PlayerEntity;
 }
 
 // LOCAL PLAYER EVENTS
@@ -77,7 +98,6 @@ synced event OnLocalPlayerSpawned
 	local player_ref Player;
 	entity_ref Entity;
 	bool HasRespawned;
-	GameId WeaponGameId;
 }
 
 synced event OnLocalPlayerAlive
@@ -100,9 +120,24 @@ synced event OnLocalPlayerAmmoEmpty
 	entity_ref Entity;
 }
 
+synced event OnLocalPlayerAmmoChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Int32 PreviousAmmo;
+	Int32 CurrentAmmo;
+	Int32 MaxAmmo;
+}
+
 synced event OnLocalPlayerWeaponChanged
 {
 	local player_ref Player;
 	entity_ref Entity;
-	GameId WeaponGameId;
+	Equipment Weapon;
+}
+
+synced event OnLocalPlayerAttack
+{
+	local player_ref Player;
+	entity_ref PlayerEntity;
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3371803324989641677}
   - component: {fileID: 3371803324989641679}
   - component: {fileID: 3371803324989641678}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: VFX_Stun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 746074294436848934}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: StatusFxStun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

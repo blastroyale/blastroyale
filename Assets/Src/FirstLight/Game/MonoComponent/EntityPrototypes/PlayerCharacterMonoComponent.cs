@@ -66,9 +66,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// <inheritdoc />
 		public void OnAim(InputAction.CallbackContext context)
 		{
-			var game = QuantumRunner.Default;
-			var frame = game == null ? null : game.Game?.Frames?.Verified;
-			var isEmptied = frame != null && frame.TryGet<Weapon>(EntityView.EntityRef, out var weapon) && weapon.IsEmpty;
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var isEmptied = GetComponentData<PlayerCharacter>(game).IsAmmoEmpty(frame, EntityView.EntityRef);
 			var direction = context.ReadValue<Vector2>();
 			
 			_shootIndicator.SetTransformState(direction);
@@ -84,9 +84,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// <inheritdoc />
 		public void OnAimButton(InputAction.CallbackContext context)
 		{
-			var game = QuantumRunner.Default;
-			var frame = game == null ? null : game.Game?.Frames?.Verified;
-			var isEmptied = frame != null && frame.TryGet<Weapon>(EntityView.EntityRef, out var weapon) && weapon.IsEmpty;
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var isEmptied = GetComponentData<PlayerCharacter>(game).IsAmmoEmpty(frame, EntityView.EntityRef);
 			var isDown = context.ReadValueAsButton();
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
@@ -146,7 +146,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			SetWeaponIndicators(callback.WeaponGameId);
+			SetWeaponIndicators(callback.Weapon.GameId);
 		}
 
 		private void HandlePlayerSpawned(EventOnPlayerSpawned callback)

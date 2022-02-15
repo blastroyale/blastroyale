@@ -1,6 +1,7 @@
 using System.Collections;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
@@ -10,6 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
@@ -28,6 +30,7 @@ namespace FirstLight.Game.Presenters
 		public MapSelectionView MapSelectionView;
 
 		[SerializeField] private Transform _playerCharacterParent;
+		[SerializeField] private Button _lockRoomButton;
 		[SerializeField] private Image _mapImage;
 		[SerializeField] private Image [] _playersWaitingImage;
 		[SerializeField] private Animation _animation;
@@ -51,12 +54,21 @@ namespace FirstLight.Game.Presenters
 			{
 				image.gameObject.SetActive(false);
 			}
+			
+			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
+
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
+			{
+				_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
+			}
 
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			
 			SceneManager.activeSceneChanged -= OnSceneChanged;
 		}
 
@@ -71,7 +83,7 @@ namespace FirstLight.Game.Presenters
 			
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			transform.SetParent(null);
-			SetLayerState(false);
+			SetLayerState(false, false);
 			_animation.Rewind();
 			_animation.Play();
 			
@@ -84,7 +96,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
-			SetLayerState(true);
+			SetLayerState(true, false);
+		}
+
+		private void OnJoinedRoom(MatchJoinedRoomMessage message)
+		{
+			_lockRoomButton.gameObject.SetActive(true);
 		}
 
 		private void OnSceneChanged(Scene previous, Scene current)
@@ -96,24 +113,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			// Little hack to avoid UIs to spam over this screen
-			for (var i = 0; i < Data.UiService.TotalLayers; i++)
-			{
-				if (!Data.UiService.TryGetLayer(i, out var layer))
-				{
-					continue;
-				}
-
-				layer.SetActive(true);
-				
-				foreach (var canvas in layer.GetComponentsInChildren<UiPresenter>(true))
-				{
-					// To force the UI awake calls
-					canvas.gameObject.SetActive(true);
-					canvas.gameObject.SetActive(false);
-				}
-				
-				layer.SetActive(false);
-			}
+			SetLayerState(false, true);
 		}
 
 		private IEnumerator TimeUpdateCoroutine(MapConfig config)
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.enabled = false;
 		}
 
-		private void SetLayerState(bool state)
+		private void SetLayerState(bool state, bool forceUiAwakeCalls)
 		{
 			// Little hack to avoid UIs to spam over this screen
 			for (var i = 0; i < Data.UiService.TotalLayers; i++)
@@ -143,8 +143,25 @@ namespace FirstLight.Game.Presenters
 					continue;
 				}
 
+				if (forceUiAwakeCalls)
+				{
+					layer.SetActive(!state);
+				
+					foreach (var canvas in layer.GetComponentsInChildren<UiPresenter>(true))
+					{
+						// To force the UI awake calls
+						canvas.gameObject.SetActive(true);
+						canvas.gameObject.SetActive(false);
+					}
+				}
+				
 				layer.SetActive(state);
 			}
+		}
+
+		private void OnLockRoomClicked()
+		{
+			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 		}
 	}
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4457696350136154431}
   - component: {fileID: -1218903277145408676}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: EnergyShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1551344924665980889, guid: d3c58fe2665284a44aff5b4b909cac5a, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2665802467594801341, guid: d3c58fe2665284a44aff5b4b909cac5a, type: 3}
       propertyPath: m_Name
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2665802467594801341, guid: d3c58fe2665284a44aff5b4b909cac5a, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5455368642450778421, guid: d3c58fe2665284a44aff5b4b909cac5a, type: 3}
       propertyPath: m_RootOrder
@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8434493972517821294, guid: d3c58fe2665284a44aff5b4b909cac5a, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3c58fe2665284a44aff5b4b909cac5a, type: 3}

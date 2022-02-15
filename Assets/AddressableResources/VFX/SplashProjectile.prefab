@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 461516346912110737}
   - component: {fileID: 461516346912110736}
   - component: {fileID: 5736761442419814517}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SplashProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 6522588518597658537}
   - component: {fileID: 9034230508804788185}
   - component: {fileID: 3831054859616570971}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SplashFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

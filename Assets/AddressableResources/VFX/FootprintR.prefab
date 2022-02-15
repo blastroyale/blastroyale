@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1554866901515156318}
   - component: {fileID: 6844657192415314771}
   - component: {fileID: 4169462814680329336}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: RightFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4828,7 +4828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4617281978225458098}
   - component: {fileID: 4913241684529730187}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: FootprintR
   m_TagString: Untagged
   m_Icon: {fileID: 0}

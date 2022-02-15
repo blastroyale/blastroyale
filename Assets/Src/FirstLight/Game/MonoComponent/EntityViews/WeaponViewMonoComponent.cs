@@ -1,27 +1,41 @@
-using FirstLight.Game.MonoComponent.Vfx;
 using Quantum;
 using UnityEngine;
+
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
 	/// <summary>
-	/// This Mono component handles spawning vfx when a weapon receives a quantum fire event.
+	/// This Mono component handles particle system playback when player aims.
 	/// </summary>
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private AdventureVfxSpawnerMonoComponent _spawnVfx;
+		[SerializeField] private ParticleSystem _particleSystem;
 		
 		protected override void OnInit()
 		{
-			QuantumEvent.Subscribe<EventOnProjectileFired>(this, OnEventOnProjectileFired);
+			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
+			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 		}
-		
-		private void OnEventOnProjectileFired(EventOnProjectileFired callback)
+
+		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_spawnVfx && callback.ProjectileData.Attacker == EntityRef)
+			if (_particleSystem.isPlaying || EntityRef != callback.PlayerEntity)
 			{
-				_spawnVfx.Spawn();
+				return;
 			}
+			
+			_particleSystem.Simulate(0.0f, true, true);
+			_particleSystem.Play();
+		}
+
+		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
+		{
+			if (EntityRef != callback.PlayerEntity)
+			{
+				return;
+			}
+			
+			_particleSystem.Stop();
 		}
 	}
 }

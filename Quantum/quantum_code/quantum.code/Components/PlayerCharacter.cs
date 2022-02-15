@@ -131,7 +131,6 @@ namespace Quantum
 
 			if (CurrentWeapon.IsValid)
 			{
-				GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
 			}
@@ -142,9 +141,11 @@ namespace Quantum
 			
 			CurrentWeapon = weapon;
 			
-			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
+			GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
+			
+			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
 			{
-				var specialId = weaponConfig.Specials[specialIndex];
+				var specialId = weaponConfig.Specials[i];
 
 				if (specialId == default)
 				{
@@ -153,7 +154,7 @@ namespace Quantum
 				
 				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
 				
-				Specials[specialIndex] = new Special(f, specialConfig);
+				Specials[i] = new Special(f, specialConfig);
 			}
 		}
 		
@@ -185,7 +186,7 @@ namespace Quantum
 		/// </remarks>
 		public bool IsAmmoEmpty(Frame f, EntityRef e)
 		{
-			return GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
+			return !HasMeleeWeapon(f, e) && GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
 		}
 
 		/// <summary>

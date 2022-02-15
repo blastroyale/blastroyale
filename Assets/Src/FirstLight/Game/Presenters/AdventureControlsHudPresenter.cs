@@ -112,15 +112,15 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var weapon = callback.Game.Frames.Verified.Get<Weapon>(callback.Entity);
+			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 			
-			_specialButton0.Init(weapon.Specials[0].SpecialId);
-			_specialButton1.Init(weapon.Specials[1].SpecialId);
+			_specialButton0.Init(playerCharacter.Specials[0].SpecialId);
+			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.WeaponGameId);
+			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
 			
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();

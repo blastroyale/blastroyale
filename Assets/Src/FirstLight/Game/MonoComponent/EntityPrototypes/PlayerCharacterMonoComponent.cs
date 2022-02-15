@@ -146,7 +146,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			SetWeaponIndicators(callback.WeaponGameId);
+			SetWeaponIndicators(callback.Weapon.GameId);
 		}
 
 		private void HandlePlayerSpawned(EventOnPlayerSpawned callback)

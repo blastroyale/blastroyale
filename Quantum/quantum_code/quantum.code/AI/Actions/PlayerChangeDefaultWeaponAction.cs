@@ -3,7 +3,7 @@ using System;
 namespace Quantum
 {
 	/// <summary>
-	/// This action changes the <see cref="PlayerCharacter"/> <see cref="Weapon"/> to the default weapon
+	/// This action changes the <see cref="PlayerCharacter"/> current weapon to the default weapon
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
@@ -14,7 +14,7 @@ namespace Quantum
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			
-			playerCharacter->SetWeapon(f, e, Constants.DEFAULT_WEAPON_GAME_ID, ItemRarity.Common, 1);
+			playerCharacter->SetWeapon(f, e, playerCharacter->DefaultWeapon);
 		}
 	}
 }

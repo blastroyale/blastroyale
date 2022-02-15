@@ -3763,11 +3763,14 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 88;
+    public const Int32 SIZE = 208;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(48)]
+    [HideInInspector()]
+    public Equipment CurrentWeapon;
+    [FieldOffset(60)]
     [HideInInspector()]
     public Equipment DefaultWeapon;
     [FieldOffset(32)]
@@ -3780,14 +3783,24 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(64)]
+    [FieldOffset(72)]
     public FPVector3 ProjectileSpawnOffset;
     [FieldOffset(40)]
     public FP SpawnTime;
+    [FieldOffset(96)]
+    [HideInInspector()]
+    [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
+    private fixed Byte _Specials_[112];
+    public FixedArray<Special> Specials {
+      get {
+        fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 56, 2); }
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 439;
         hash = hash * 31 + BlackboardRef.GetHashCode();
+        hash = hash * 31 + CurrentWeapon.GetHashCode();
         hash = hash * 31 + DefaultWeapon.GetHashCode();
         hash = hash * 31 + DisconnectedDuration.GetHashCode();
         hash = hash * 31 + HfsmRootRef.GetHashCode();
@@ -3795,6 +3808,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + ProjectileSpawnOffset.GetHashCode();
         hash = hash * 31 + SpawnTime.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Specials);
         return hash;
       }
     }
@@ -3806,8 +3820,10 @@ namespace Quantum {
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
         FP.Serialize(&p->DisconnectedDuration, serializer);
         FP.Serialize(&p->SpawnTime, serializer);
+        Quantum.Equipment.Serialize(&p->CurrentWeapon, serializer);
         Quantum.Equipment.Serialize(&p->DefaultWeapon, serializer);
         FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
+        FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -4229,70 +4245,6 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
-  public unsafe partial struct Weapon : Quantum.IComponent {
-    public const Int32 SIZE = 200;
-    public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
-    public FP AimingMovementSpeed;
-    [FieldOffset(16)]
-    public FP AttackAngle;
-    [FieldOffset(24)]
-    public FP AttackCooldown;
-    [FieldOffset(32)]
-    public FP AttackRange;
-    [FieldOffset(40)]
-    public FP LastAttackTime;
-    [FieldOffset(4)]
-    public Int32 MaxAmmo;
-    [FieldOffset(64)]
-    public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(48)]
-    public FP ProjectileSpeed;
-    [FieldOffset(88)]
-    [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
-    private fixed Byte _Specials_[112];
-    [FieldOffset(56)]
-    public FP SplashRadius;
-    [FieldOffset(0)]
-    public GameId WeaponId;
-    public FixedArray<Special> Specials {
-      get {
-        fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 56, 2); }
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked { 
-        var hash = 541;
-        hash = hash * 31 + AimingMovementSpeed.GetHashCode();
-        hash = hash * 31 + AttackAngle.GetHashCode();
-        hash = hash * 31 + AttackCooldown.GetHashCode();
-        hash = hash * 31 + AttackRange.GetHashCode();
-        hash = hash * 31 + LastAttackTime.GetHashCode();
-        hash = hash * 31 + MaxAmmo.GetHashCode();
-        hash = hash * 31 + ProjectileSpawnOffset.GetHashCode();
-        hash = hash * 31 + ProjectileSpeed.GetHashCode();
-        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Specials);
-        hash = hash * 31 + SplashRadius.GetHashCode();
-        hash = hash * 31 + (Int32)WeaponId;
-        return hash;
-      }
-    }
-    public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (Weapon*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->WeaponId);
-        serializer.Stream.Serialize(&p->MaxAmmo);
-        FP.Serialize(&p->AimingMovementSpeed, serializer);
-        FP.Serialize(&p->AttackAngle, serializer);
-        FP.Serialize(&p->AttackCooldown, serializer);
-        FP.Serialize(&p->AttackRange, serializer);
-        FP.Serialize(&p->LastAttackTime, serializer);
-        FP.Serialize(&p->ProjectileSpeed, serializer);
-        FP.Serialize(&p->SplashRadius, serializer);
-        FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
-        FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
-    }
-  }
-  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponCollectable : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -4300,7 +4252,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 547;
+        var hash = 541;
         return hash;
       }
     }
@@ -4316,7 +4268,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 557;
+        var hash = 547;
         return hash;
       }
     }
@@ -4376,7 +4328,6 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.Stun>(Quantum.Stun.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Targetable>(Quantum.Targetable.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.UTAgent>(Quantum.UTAgent.Serialize, null, Quantum.UTAgent.OnRemoved, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.Weapon>(Quantum.Weapon.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.WeaponCollectable>(Quantum.WeaponCollectable.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.WeaponPlatformSpawner>(Quantum.WeaponPlatformSpawner.Serialize, null, null, ComponentFlags.None);
       });
@@ -4488,8 +4439,6 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.UTAgent>();
       BuildSignalsArrayOnComponentAdded<View>();
       BuildSignalsArrayOnComponentRemoved<View>();
-      BuildSignalsArrayOnComponentAdded<Quantum.Weapon>();
-      BuildSignalsArrayOnComponentRemoved<Quantum.Weapon>();
       BuildSignalsArrayOnComponentAdded<Quantum.WeaponCollectable>();
       BuildSignalsArrayOnComponentRemoved<Quantum.WeaponCollectable>();
       BuildSignalsArrayOnComponentAdded<Quantum.WeaponPlatformSpawner>();
@@ -4572,7 +4521,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 50;
+      public const Int32 EVENT_TYPE_COUNT = 51;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -4630,6 +4579,7 @@ namespace Quantum {
           case EventOnLocalPlayerAmmoEmpty.ID: return typeof(EventOnLocalPlayerAmmoEmpty);
           case EventOnLocalPlayerAmmoChanged.ID: return typeof(EventOnLocalPlayerAmmoChanged);
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
+          case EventOnLocalPlayerAttack.ID: return typeof(EventOnLocalPlayerAttack);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
@@ -4992,12 +4942,12 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerWeaponChanged OnPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, GameId WeaponGameId) {
+      public EventOnPlayerWeaponChanged OnPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerWeaponChanged>(EventOnPlayerWeaponChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
-        ev.WeaponGameId = WeaponGameId;
+        ev.Weapon = Weapon;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5036,14 +4986,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerSpawned OnLocalPlayerSpawned(PlayerRef Player, EntityRef Entity, QBoolean HasRespawned, GameId WeaponGameId) {
+      public EventOnLocalPlayerSpawned OnLocalPlayerSpawned(PlayerRef Player, EntityRef Entity, QBoolean HasRespawned) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSpawned>(EventOnLocalPlayerSpawned.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.HasRespawned = HasRespawned;
-        ev.WeaponGameId = WeaponGameId;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5088,13 +5037,22 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, GameId WeaponGameId) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
-        ev.WeaponGameId = WeaponGameId;
+        ev.Weapon = Weapon;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnLocalPlayerAttack OnLocalPlayerAttack(PlayerRef Player, EntityRef PlayerEntity) {
+        if (_f.Context.IsLocalPlayer(Player) == false) return null;
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerAttack>(EventOnLocalPlayerAttack.ID);
+        ev.Player = Player;
+        ev.PlayerEntity = PlayerEntity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6350,7 +6308,7 @@ namespace Quantum {
     public new const Int32 ID = 39;
     public PlayerRef Player;
     public EntityRef Entity;
-    public GameId WeaponGameId;
+    public Equipment Weapon;
     protected EventOnPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6370,7 +6328,7 @@ namespace Quantum {
         var hash = 233;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + WeaponGameId.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
         return hash;
       }
     }
@@ -6492,7 +6450,6 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public QBoolean HasRespawned;
-    public GameId WeaponGameId;
     protected EventOnLocalPlayerSpawned(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6513,7 +6470,6 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + HasRespawned.GetHashCode();
-        hash = hash * 31 + WeaponGameId.GetHashCode();
         return hash;
       }
     }
@@ -6640,7 +6596,7 @@ namespace Quantum {
     public new const Int32 ID = 49;
     public PlayerRef Player;
     public EntityRef Entity;
-    public GameId WeaponGameId;
+    public Equipment Weapon;
     protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6660,7 +6616,34 @@ namespace Quantum {
         var hash = 283;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + WeaponGameId.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnLocalPlayerAttack : EventBase {
+    public new const Int32 ID = 50;
+    public PlayerRef Player;
+    public EntityRef PlayerEntity;
+    protected EventOnLocalPlayerAttack(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnLocalPlayerAttack() : 
+        base(50, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 293;
+        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + PlayerEntity.GetHashCode();
         return hash;
       }
     }
@@ -6941,9 +6924,6 @@ namespace Quantum {
     public virtual void Visit(Prototypes.UTAgent_Prototype prototype) {
       VisitFallback(prototype);
     }
-    public virtual void Visit(Prototypes.Weapon_Prototype prototype) {
-      VisitFallback(prototype);
-    }
     public virtual void Visit(Prototypes.WeaponCollectable_Prototype prototype) {
       VisitFallback(prototype);
     }
@@ -6969,11 +6949,11 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeEquipment;
     public static FrameSerializer.Delegate SerializeAssetRefGOAPAction;
     public static FrameSerializer.Delegate SerializePlayerMatchData;
+    public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeModifier;
     public static FrameSerializer.Delegate SerializeStatData;
     public static FrameSerializer.Delegate SerializeAssetRefConsideration;
     public static FrameSerializer.Delegate SerializeUTMomentumPack;
-    public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeEntityPair;
     public static FrameSerializer.Delegate SerializeInput;
     static partial void InitGen() {
@@ -6987,11 +6967,11 @@ namespace Quantum {
       SerializeEquipment = Quantum.Equipment.Serialize;
       SerializeAssetRefGOAPAction = Quantum.AssetRefGOAPAction.Serialize;
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
+      SerializeSpecial = Quantum.Special.Serialize;
       SerializeModifier = Quantum.Modifier.Serialize;
       SerializeStatData = Quantum.StatData.Serialize;
       SerializeAssetRefConsideration = Quantum.AssetRefConsideration.Serialize;
       SerializeUTMomentumPack = Quantum.UTMomentumPack.Serialize;
-      SerializeSpecial = Quantum.Special.Serialize;
       SerializeEntityPair = Quantum.EntityPair.Serialize;
       SerializeInput = Quantum.Input.Serialize;
     }
@@ -7164,7 +7144,6 @@ namespace Quantum {
       Register(typeof(Quantum.UTMomentumPack), Quantum.UTMomentumPack.SIZE);
       Register(typeof(Quantum.UtilityReasoner), Quantum.UtilityReasoner.SIZE);
       Register(typeof(View), View.SIZE);
-      Register(typeof(Quantum.Weapon), Quantum.Weapon.SIZE);
       Register(typeof(Quantum.WeaponCollectable), Quantum.WeaponCollectable.SIZE);
       Register(typeof(Quantum.WeaponPlatformSpawner), Quantum.WeaponPlatformSpawner.SIZE);
       Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
@@ -8119,6 +8098,11 @@ namespace Quantum.Prototypes {
     public PlayerRef Player;
     [HideInInspector()]
     public Equipment_Prototype DefaultWeapon;
+    [HideInInspector()]
+    public Equipment_Prototype CurrentWeapon;
+    [HideInInspector()]
+    [ArrayLengthAttribute(2)]
+    public Special_Prototype[] Specials = new Special_Prototype[2];
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -8127,6 +8111,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
       result.BlackboardRef = this.BlackboardRef;
+      this.CurrentWeapon.Materialize(frame, ref result.CurrentWeapon, in context);
       this.DefaultWeapon.Materialize(frame, ref result.DefaultWeapon, in context);
       result.DisconnectedDuration = this.DisconnectedDuration;
       result.HfsmRootRef = this.HfsmRootRef;
@@ -8134,6 +8119,9 @@ namespace Quantum.Prototypes {
       result.Player = this.Player;
       result.ProjectileSpawnOffset = this.ProjectileSpawnOffset;
       result.SpawnTime = this.SpawnTime;
+      for (int i = 0, count = PrototypeValidator.CheckLength(Specials, 2, in context); i < count; ++i) {
+        this.Specials[i].Materialize(frame, ref *result.Specials.GetPointer(i), in context);
+      }
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -8648,47 +8636,6 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
-  [Prototype(typeof(Weapon))]
-  public sealed unsafe partial class Weapon_Prototype : ComponentPrototype<Weapon> {
-    public GameId_Prototype WeaponId;
-    public Int32 MaxAmmo;
-    public FP AttackRange;
-    public FP AttackCooldown;
-    public FP AttackAngle;
-    public FP SplashRadius;
-    public FP ProjectileSpeed;
-    [ArrayLengthAttribute(2)]
-    public Special_Prototype[] Specials = new Special_Prototype[2];
-    public FP AimingMovementSpeed;
-    public FP LastAttackTime;
-    public FPVector3 ProjectileSpawnOffset;
-    partial void MaterializeUser(Frame frame, ref Weapon result, in PrototypeMaterializationContext context);
-    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
-      Weapon component = default;
-      Materialize((Frame)f, ref component, in context);
-      return f.Set(entity, component) == SetResult.ComponentAdded;
-    }
-    public void Materialize(Frame frame, ref Weapon result, in PrototypeMaterializationContext context) {
-      result.AimingMovementSpeed = this.AimingMovementSpeed;
-      result.AttackAngle = this.AttackAngle;
-      result.AttackCooldown = this.AttackCooldown;
-      result.AttackRange = this.AttackRange;
-      result.LastAttackTime = this.LastAttackTime;
-      result.MaxAmmo = this.MaxAmmo;
-      result.ProjectileSpawnOffset = this.ProjectileSpawnOffset;
-      result.ProjectileSpeed = this.ProjectileSpeed;
-      for (int i = 0, count = PrototypeValidator.CheckLength(Specials, 2, in context); i < count; ++i) {
-        this.Specials[i].Materialize(frame, ref *result.Specials.GetPointer(i), in context);
-      }
-      result.SplashRadius = this.SplashRadius;
-      result.WeaponId = this.WeaponId;
-      MaterializeUser(frame, ref result, in context);
-    }
-    public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
-      ((ComponentPrototypeVisitor)visitor).Visit(this);
-    }
-  }
-  [System.SerializableAttribute()]
   [Prototype(typeof(WeaponCollectable))]
   public sealed unsafe partial class WeaponCollectable_Prototype : ComponentPrototype<WeaponCollectable> {
     [HideInInspector()]
@@ -8792,8 +8739,6 @@ namespace Quantum.Prototypes {
     [ArrayLength(0, 1)]
     public List<Prototypes.UTAgent_Prototype> UTAgent;
     [ArrayLength(0, 1)]
-    public List<Prototypes.Weapon_Prototype> Weapon;
-    [ArrayLength(0, 1)]
     public List<Prototypes.WeaponCollectable_Prototype> WeaponCollectable;
     [ArrayLength(0, 1)]
     public List<Prototypes.WeaponPlatformSpawner_Prototype> WeaponPlatformSpawner;
@@ -8831,7 +8776,6 @@ namespace Quantum.Prototypes {
       Collect(Stun, target);
       Collect(Targetable, target);
       Collect(UTAgent, target);
-      Collect(Weapon, target);
       Collect(WeaponCollectable, target);
       Collect(WeaponPlatformSpawner, target);
     }
@@ -8934,9 +8878,6 @@ namespace Quantum.Prototypes {
       }
       public override void Visit(Prototypes.UTAgent_Prototype prototype) {
         Storage.Store(prototype, ref Storage.UTAgent);
-      }
-      public override void Visit(Prototypes.Weapon_Prototype prototype) {
-        Storage.Store(prototype, ref Storage.Weapon);
       }
       public override void Visit(Prototypes.WeaponCollectable_Prototype prototype) {
         Storage.Store(prototype, ref Storage.WeaponCollectable);

@@ -9,12 +9,13 @@ namespace Quantum
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._2;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
-		public static readonly GameId DEFAULT_WEAPON_GAME_ID = GameId.Hammer;
 
 		public static readonly string StunnedEvent = "OnStunned";
 		public static readonly string StunCancelledEvent = "OnStunCancelled";
 		public static readonly string StunDurationKey = "StunDuration";
 		public static readonly string AimDirectionKey = "AimDirection";
+		public static readonly string AttackCooldownKey = "AttackCooldown";
+		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
 		public static readonly FP RaycastAngleSplit = FP._1 * 10;

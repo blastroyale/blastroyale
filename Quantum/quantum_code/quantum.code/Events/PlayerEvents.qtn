@@ -62,7 +62,7 @@ synced event OnPlayerWeaponChanged
 {
 	player_ref Player;
 	entity_ref Entity;
-	GameId WeaponGameId;
+	Equipment Weapon;
 }
 
 synced event OnPlayerAttack
@@ -98,7 +98,6 @@ synced event OnLocalPlayerSpawned
 	local player_ref Player;
 	entity_ref Entity;
 	bool HasRespawned;
-	GameId WeaponGameId;
 }
 
 synced event OnLocalPlayerAlive
@@ -134,5 +133,11 @@ synced event OnLocalPlayerWeaponChanged
 {
 	local player_ref Player;
 	entity_ref Entity;
-	GameId WeaponGameId;
+	Equipment Weapon;
+}
+
+synced event OnLocalPlayerAttack
+{
+	local player_ref Player;
+	entity_ref PlayerEntity;
 }

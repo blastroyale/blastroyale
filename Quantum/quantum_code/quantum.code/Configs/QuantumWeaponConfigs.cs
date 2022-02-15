@@ -24,7 +24,7 @@ namespace Quantum
 		/// <summary>
 		/// Requests if this config is from a melee weapon
 		/// </summary>
-		public bool IsMeleeWeapon => MaxAmmo < 0 || InitialAmmoFilled < FP._0;
+		public bool IsMeleeWeapon => MaxAmmo < 0;
 	}
 
 	/// <summary>

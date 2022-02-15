@@ -1,6 +1,7 @@
 using System.Collections;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
@@ -56,11 +57,18 @@ namespace FirstLight.Game.Presenters
 			
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
+			{
+				_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
+			}
+
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			
 			SceneManager.activeSceneChanged -= OnSceneChanged;
 		}
 
@@ -73,7 +81,6 @@ namespace FirstLight.Game.Presenters
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
 			
-			_lockRoomButton.gameObject.SetActive(_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			transform.SetParent(null);
 			SetLayerState(false, false);
@@ -90,6 +97,11 @@ namespace FirstLight.Game.Presenters
 		protected override void OnClosed()
 		{
 			SetLayerState(true, false);
+		}
+
+		private void OnJoinedRoom(MatchJoinedRoomMessage message)
+		{
+			_lockRoomButton.gameObject.SetActive(true);
 		}
 
 		private void OnSceneChanged(Scene previous, Scene current)

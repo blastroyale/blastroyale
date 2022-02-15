@@ -29,6 +29,8 @@ component PlayerCharacter
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Equipment DefaultWeapon;
+	[HideInInspector] Equipment CurrentWeapon;
+	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }
 
 component PlayerCharging

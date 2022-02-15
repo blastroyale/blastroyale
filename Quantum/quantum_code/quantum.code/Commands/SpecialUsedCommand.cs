@@ -24,12 +24,12 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			
 			if (QuantumHelpers.IsDestroyed(f, characterEntity) || !f.Has<Targetable>(characterEntity) || 
-			    !f.Unsafe.TryGetPointer<Weapon>(characterEntity, out var weapon))
+			    !f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var playerCharacter))
 			{
 				return;
 			}
 
-			var special = weapon->Specials.GetPointer(SpecialIndex);
+			var special = playerCharacter->Specials.GetPointer(SpecialIndex);
 			
 			if (special->IsValid || !special->IsSpecialAvailable(f))
 			{

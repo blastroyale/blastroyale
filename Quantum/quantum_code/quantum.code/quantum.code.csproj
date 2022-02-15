@@ -287,7 +287,6 @@
     <Content Include="Components\Stats.qtn" />
     <Content Include="Components\StatusModifiers.qtn" />
     <Content Include="Components\Targetable.qtn" />
-    <Content Include="Components\Weapon.qtn" />
     <Content Include="Components\WeaponCollectable.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />

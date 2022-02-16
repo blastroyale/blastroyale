@@ -26,7 +26,9 @@ namespace Quantum
 			var config = id == GameId.Random ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)] : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 			
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+			QuantumHelpers.TryFindPosOnNavMesh(f, transform.Position, out FPVector3 newPosition);
+			
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, newPosition, transform.Rotation, config);
 
 			return entity;
 		}
@@ -43,7 +45,9 @@ namespace Quantum
 			var config = id == GameId.Random ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)] : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 			
-			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+			QuantumHelpers.TryFindPosOnNavMesh(f, transform.Position, out FPVector3 newPosition);
+			
+			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, newPosition, transform.Rotation, config);
 
 			return entity;
 		}

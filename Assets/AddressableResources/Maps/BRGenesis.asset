@@ -297,47 +297,6 @@ MonoBehaviour:
           RawValue: 65536
       Position:
         X:
-          RawValue: -5045888
-        Y:
-          RawValue: 28355
-        Z:
-          RawValue: -6648447
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 4
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Coll_DesShip
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 6
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
           RawValue: -5310813
         Y:
           RawValue: 0
@@ -365,7 +324,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 7
+        ColliderIndex: 6
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -406,7 +365,89 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
+        ColliderIndex: 7
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 4
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Coll_DeckMain
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
         ColliderIndex: 8
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
+          RawValue: -5104431
+        Y:
+          RawValue: 177107
+        Z:
+          RawValue: -6688376
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 4
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Coll_DeckNoWalk
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 9
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -447,7 +488,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 9
+        ColliderIndex: 10
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -488,7 +529,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 10
+        ColliderIndex: 11
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -529,7 +570,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 11
+        ColliderIndex: 12
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -570,7 +611,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 12
+        ColliderIndex: 13
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -611,7 +652,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 13
+        ColliderIndex: 14
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -652,7 +693,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 14
+        ColliderIndex: 15
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -693,7 +734,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 15
+        ColliderIndex: 16
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -734,7 +775,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 16
+        ColliderIndex: 17
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -775,7 +816,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 17
+        ColliderIndex: 18
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -816,7 +857,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 18
+        ColliderIndex: 19
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -857,7 +898,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 19
+        ColliderIndex: 20
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -898,7 +939,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 20
+        ColliderIndex: 21
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -939,7 +980,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 21
+        ColliderIndex: 22
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -980,7 +1021,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 22
+        ColliderIndex: 23
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1021,7 +1062,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 23
+        ColliderIndex: 24
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1062,7 +1103,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 24
+        ColliderIndex: 25
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1103,89 +1144,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 25
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: -34
-        Y:
-          RawValue: -51722
-        Z:
-          RawValue: 541
-        W:
-          RawValue: 40242
-      Position:
-        X:
-          RawValue: 6891804
-        Y:
-          RawValue: -28102
-        Z:
-          RawValue: 3488701
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 4
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Coll_Bridge01 1
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
         ColliderIndex: 26
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 6777876
-        Y:
-          RawValue: -28167
-        Z:
-          RawValue: 1725747
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 4
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Coll_Bridge02 1
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 27
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1226,7 +1185,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 28
+        ColliderIndex: 27
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1267,7 +1226,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 29
+        ColliderIndex: 28
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1308,7 +1267,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 30
+        ColliderIndex: 29
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1349,7 +1308,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 31
+        ColliderIndex: 30
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1390,7 +1349,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 32
+        ColliderIndex: 31
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1431,7 +1390,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 33
+        ColliderIndex: 32
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1472,7 +1431,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 34
+        ColliderIndex: 33
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1513,7 +1472,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 35
+        ColliderIndex: 34
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1554,7 +1513,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 36
+        ColliderIndex: 35
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1595,48 +1554,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 37
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 3449409
-        Y:
-          RawValue: 308752
-        Z:
-          RawValue: 4893566
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 4
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Coll_TreeCluster01 1
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 38
+        ColliderIndex: 36
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1677,7 +1595,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 39
+        ColliderIndex: 37
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1718,7 +1636,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 40
+        ColliderIndex: 38
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1759,7 +1677,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 41
+        ColliderIndex: 39
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1800,7 +1718,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 42
+        ColliderIndex: 40
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1841,7 +1759,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 43
+        ColliderIndex: 41
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1882,7 +1800,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 44
+        ColliderIndex: 42
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1923,7 +1841,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 45
+        ColliderIndex: 43
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1957,14 +1875,55 @@ MonoBehaviour:
           RawValue: 0
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll_BldPower
+        Name: Coll_Main
         Tag: Untagged
         Layer: 0
         Asset:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 46
+        ColliderIndex: 44
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
+          RawValue: 1652979
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -341168
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 4
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Coll_Roof
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 45
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2005,7 +1964,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 47
+        ColliderIndex: 46
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2046,7 +2005,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 48
+        ColliderIndex: 47
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2087,48 +2046,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 49
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 4
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Coll_HotTerrain01
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 50
+        ColliderIndex: 48
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2169,7 +2087,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 51
+        ColliderIndex: 49
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2210,7 +2128,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 52
+        ColliderIndex: 50
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2245,6 +2163,88 @@ MonoBehaviour:
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll_Tank02
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 51
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 4
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Coll_EdgeSlope
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 52
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 4
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Coll_Ground
         Tag: Untagged
         Layer: 0
         Asset:
@@ -3275,7 +3275,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3345,7 +3344,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3415,7 +3413,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3485,7 +3482,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3555,7 +3551,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3625,7 +3620,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3695,7 +3689,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3765,7 +3758,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3835,7 +3827,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3905,7 +3896,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -3975,7 +3965,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4045,7 +4034,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4115,7 +4103,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4185,7 +4172,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4255,7 +4241,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4325,7 +4310,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4395,7 +4379,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4465,7 +4448,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4535,7 +4517,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4605,7 +4586,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4675,7 +4655,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4745,7 +4724,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4815,7 +4793,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4885,7 +4862,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -4955,7 +4931,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5025,7 +5000,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5095,7 +5069,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5165,7 +5138,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5235,7 +5207,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5305,7 +5276,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5375,7 +5345,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5445,7 +5414,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5515,7 +5483,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5585,7 +5552,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5655,7 +5621,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5725,7 +5690,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5795,7 +5759,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5865,7 +5828,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -5935,7 +5897,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6005,7 +5966,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6075,7 +6035,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6145,7 +6104,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6215,7 +6173,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6285,7 +6242,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6355,7 +6311,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6425,7 +6380,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6495,7 +6449,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6565,7 +6518,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6635,7 +6587,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6705,7 +6656,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6775,7 +6725,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6845,7 +6794,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6915,7 +6863,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -6985,7 +6932,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7055,7 +7001,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7125,7 +7070,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7195,7 +7139,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7265,7 +7208,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7335,7 +7277,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7405,7 +7346,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7475,7 +7415,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7545,7 +7484,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7615,7 +7553,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7685,7 +7622,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7755,7 +7691,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7825,7 +7760,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7895,7 +7829,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -7965,7 +7898,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8035,7 +7967,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8105,7 +8036,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8175,7 +8105,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8245,7 +8174,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8315,7 +8243,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8385,7 +8312,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8463,7 +8389,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8541,7 +8466,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8619,7 +8543,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8697,7 +8620,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8775,7 +8697,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8795,11 +8716,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1795686
+          RawValue: -1469972
         Y:
-          RawValue: 0
+          RawValue: 65536
         Z:
-          RawValue: -1153433
+          RawValue: -1133117
       Rotation:
         X:
           RawValue: 0
@@ -8853,7 +8774,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -8931,7 +8851,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9009,7 +8928,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9087,7 +9005,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9165,7 +9082,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9243,7 +9159,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9321,7 +9236,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9399,7 +9313,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9477,7 +9390,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9555,7 +9467,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9633,7 +9544,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9711,7 +9621,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9789,7 +9698,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9867,7 +9775,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -9945,7 +9852,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10023,7 +9929,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10101,7 +10006,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10179,7 +10083,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10257,7 +10160,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10335,7 +10237,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10413,7 +10314,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10491,7 +10391,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10569,7 +10468,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10647,7 +10545,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10725,7 +10622,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10803,7 +10699,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10881,7 +10776,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -10959,7 +10853,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11037,7 +10930,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11115,7 +11007,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11193,7 +11084,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11271,7 +11161,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11349,7 +11238,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11427,7 +11315,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11505,7 +11392,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11583,7 +11469,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11661,7 +11546,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11739,7 +11623,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11759,11 +11642,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6389760
+          RawValue: -6310461
         Y:
           RawValue: 0
         Z:
-          RawValue: -5764546
+          RawValue: -5829427
       Rotation:
         X:
           RawValue: 0
@@ -11817,7 +11700,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11837,11 +11719,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6389760
+          RawValue: -6308495
         Y:
           RawValue: 0
         Z:
-          RawValue: -5898895
+          RawValue: -6012272
       Rotation:
         X:
           RawValue: 0
@@ -11895,7 +11777,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -11973,7 +11854,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12051,7 +11931,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12129,7 +12008,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12207,7 +12085,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12285,7 +12162,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12363,7 +12239,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12441,7 +12316,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12519,7 +12393,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12597,7 +12470,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12675,7 +12547,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12753,7 +12624,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12831,7 +12701,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12909,7 +12778,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -12987,7 +12855,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13065,7 +12932,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13143,7 +13009,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13221,7 +13086,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13299,7 +13163,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13377,7 +13240,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13455,7 +13317,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13533,7 +13394,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13611,7 +13471,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13689,7 +13548,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13767,7 +13625,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13845,7 +13702,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -13923,7 +13779,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14001,7 +13856,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14079,7 +13933,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14157,7 +14010,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14235,7 +14087,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14313,7 +14164,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14391,7 +14241,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14469,7 +14318,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14547,7 +14395,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14625,7 +14472,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14703,7 +14549,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14781,7 +14626,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14859,7 +14703,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -14937,7 +14780,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15015,7 +14857,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15093,7 +14934,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15171,7 +15011,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15249,7 +15088,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15327,7 +15165,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15405,7 +15242,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15483,7 +15319,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15561,7 +15396,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15639,7 +15473,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15717,7 +15550,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15795,7 +15627,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15873,7 +15704,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -15951,7 +15781,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16029,7 +15858,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16049,7 +15877,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1753743
+          RawValue: 1708523
         Y:
           RawValue: 0
         Z:
@@ -16107,7 +15935,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16127,7 +15954,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1635123
+          RawValue: 1556480
         Y:
           RawValue: 0
         Z:
@@ -16185,7 +16012,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16205,7 +16031,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1503395
+          RawValue: 1398538
         Y:
           RawValue: 0
         Z:
@@ -16263,7 +16089,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16341,7 +16166,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16419,7 +16243,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16497,7 +16320,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16575,7 +16397,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16653,7 +16474,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16731,7 +16551,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16809,7 +16628,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16887,7 +16705,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -16965,7 +16782,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17043,7 +16859,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17121,7 +16936,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17199,7 +17013,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17277,7 +17090,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17355,7 +17167,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17433,7 +17244,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17511,7 +17321,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17589,7 +17398,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17667,7 +17475,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17745,7 +17552,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17823,7 +17629,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17901,7 +17706,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -17979,7 +17783,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18057,7 +17860,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18135,7 +17937,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18213,7 +18014,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18291,7 +18091,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18369,7 +18168,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18447,7 +18245,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18525,7 +18322,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18603,7 +18399,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18681,7 +18476,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18759,7 +18553,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18837,7 +18630,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18915,7 +18707,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -18993,7 +18784,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19071,7 +18861,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19149,7 +18938,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19227,7 +19015,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19305,7 +19092,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19383,7 +19169,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19461,7 +19246,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19539,7 +19323,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19617,7 +19400,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19695,7 +19477,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19773,7 +19554,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19851,7 +19631,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -19929,7 +19708,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20007,7 +19785,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20085,7 +19862,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20105,11 +19881,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1481113
+          RawValue: 1532887
         Y:
           RawValue: 0
         Z:
-          RawValue: 1985740
+          RawValue: 1812070
       Rotation:
         X:
           RawValue: 0
@@ -20163,7 +19939,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20183,11 +19958,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1625292
+          RawValue: 1379532
         Y:
           RawValue: 0
         Z:
-          RawValue: 1985740
+          RawValue: 1810104
       Rotation:
         X:
           RawValue: 0
@@ -20241,7 +20016,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20319,7 +20093,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20397,7 +20170,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20475,7 +20247,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20553,7 +20324,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20631,7 +20401,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20709,7 +20478,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20729,11 +20497,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6135480
+          RawValue: -6081085
         Y:
           RawValue: 0
         Z:
-          RawValue: 817889
+          RawValue: 910295
       Rotation:
         X:
           RawValue: 0
@@ -20787,7 +20555,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20807,11 +20574,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6059458
+          RawValue: -6007685
         Y:
           RawValue: 0
         Z:
-          RawValue: 697303
+          RawValue: 708444
       Rotation:
         X:
           RawValue: 0
@@ -20865,7 +20632,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -20943,7 +20709,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21021,7 +20786,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21099,7 +20863,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21177,7 +20940,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21255,7 +21017,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21333,7 +21094,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21411,7 +21171,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21489,7 +21248,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21567,7 +21325,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21645,7 +21402,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21723,7 +21479,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21801,7 +21556,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21879,7 +21633,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -21957,7 +21710,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22035,7 +21787,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22113,7 +21864,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22191,7 +21941,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22269,7 +22018,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22347,7 +22095,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22425,7 +22172,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22503,7 +22249,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22581,7 +22326,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22659,7 +22403,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22737,7 +22480,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22815,7 +22557,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22893,7 +22634,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -22971,7 +22711,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23049,7 +22788,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23127,7 +22865,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23205,7 +22942,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23283,7 +23019,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23361,7 +23096,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23439,7 +23173,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23517,7 +23250,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23595,7 +23327,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23673,7 +23404,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23751,7 +23481,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23829,7 +23558,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23907,7 +23635,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -23985,7 +23712,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24063,7 +23789,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24141,7 +23866,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24219,7 +23943,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24297,7 +24020,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24375,7 +24097,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24453,7 +24174,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24531,7 +24251,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24609,7 +24328,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24687,7 +24405,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24765,7 +24482,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24843,7 +24559,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24921,7 +24636,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -24999,7 +24713,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25077,7 +24790,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25155,7 +24867,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25233,7 +24944,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25311,7 +25021,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25389,7 +25098,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25467,7 +25175,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25545,7 +25252,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25623,7 +25329,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25701,7 +25406,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25779,7 +25483,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25857,7 +25560,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -25935,7 +25637,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26013,7 +25714,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26091,7 +25791,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26169,7 +25868,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26247,7 +25945,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26325,7 +26022,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26403,7 +26099,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26481,7 +26176,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26559,7 +26253,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26637,7 +26330,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26715,7 +26407,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26793,7 +26484,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26871,7 +26561,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -26949,7 +26638,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27027,7 +26715,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27047,11 +26734,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -825753
+          RawValue: -592445
         Y:
           RawValue: 0
         Z:
-          RawValue: 432537
+          RawValue: 582615
       Rotation:
         X:
           RawValue: 0
@@ -27105,7 +26792,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27125,11 +26811,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -707788
+          RawValue: -474480
         Y:
           RawValue: 0
         Z:
-          RawValue: 530841
+          RawValue: 680919
       Rotation:
         X:
           RawValue: 0
@@ -27183,7 +26869,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27203,11 +26888,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -589824
+          RawValue: -356515
         Y:
           RawValue: 0
         Z:
-          RawValue: 629145
+          RawValue: 779223
       Rotation:
         X:
           RawValue: 0
@@ -27261,7 +26946,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27339,7 +27023,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27417,7 +27100,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27495,7 +27177,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27573,7 +27254,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27651,7 +27331,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27729,7 +27408,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27807,7 +27485,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27827,11 +27504,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5242880
+          RawValue: -5863506
         Y:
           RawValue: 0
         Z:
-          RawValue: -5079040
+          RawValue: -4907335
       Rotation:
         X:
           RawValue: 0
@@ -27885,7 +27562,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -27963,7 +27639,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28041,7 +27716,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28119,7 +27793,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28197,7 +27870,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28275,7 +27947,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28353,7 +28024,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28431,7 +28101,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28509,7 +28178,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28587,7 +28255,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28665,7 +28332,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28743,7 +28409,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28821,7 +28486,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28899,7 +28563,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -28977,7 +28640,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29055,7 +28717,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29133,7 +28794,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29211,7 +28871,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29289,7 +28948,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29367,7 +29025,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29445,7 +29102,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29523,7 +29179,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29601,7 +29256,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29679,7 +29333,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29757,7 +29410,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29835,7 +29487,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29913,7 +29564,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -29991,7 +29641,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30069,7 +29718,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30147,7 +29795,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30225,7 +29872,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30303,7 +29949,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30381,7 +30026,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30401,11 +30045,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1789132
+          RawValue: -898498
         Y:
           RawValue: 0
         Z:
-          RawValue: -832307
+          RawValue: -834273
       Rotation:
         X:
           RawValue: 0
@@ -30459,7 +30103,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30537,7 +30180,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30615,7 +30257,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30635,11 +30276,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4109107
+          RawValue: -4339138
         Y:
           RawValue: 0
         Z:
-          RawValue: -4671406
+          RawValue: -4336517
       Rotation:
         X:
           RawValue: 0
@@ -30693,7 +30334,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30771,7 +30411,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30849,7 +30488,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -30927,7 +30565,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31005,7 +30642,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31083,7 +30719,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31161,7 +30796,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31239,7 +30873,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31317,7 +30950,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31395,7 +31027,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31473,7 +31104,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31551,7 +31181,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31629,7 +31258,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31707,7 +31335,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31727,11 +31354,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1341521
+          RawValue: -977141
         Y:
           RawValue: 0
         Z:
-          RawValue: 1344143
+          RawValue: 174981
       Rotation:
         X:
           RawValue: 0
@@ -31785,7 +31412,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31863,7 +31489,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -31941,7 +31566,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32019,7 +31643,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32097,7 +31720,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32175,7 +31797,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32253,7 +31874,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32331,7 +31951,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32409,7 +32028,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32487,7 +32105,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32565,7 +32182,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32643,7 +32259,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32721,7 +32336,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32799,7 +32413,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32877,7 +32490,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -32955,7 +32567,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -33032,7 +32643,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33110,7 +32720,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33188,7 +32797,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33266,7 +32874,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33344,7 +32951,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33422,7 +33028,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33500,7 +33105,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33578,7 +33182,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33656,7 +33259,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33734,7 +33336,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33812,7 +33413,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33890,7 +33490,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -33968,7 +33567,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34046,7 +33644,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34124,7 +33721,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34202,7 +33798,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34223,11 +33818,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1311375
+          RawValue: 985661
         Y:
           RawValue: 0
         Z:
-          RawValue: -1304821
+          RawValue: -976486
       Rotation:
         X:
           RawValue: 0
@@ -34280,7 +33875,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34358,7 +33952,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34436,7 +34029,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34514,7 +34106,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34592,7 +34183,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34670,7 +34260,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34748,7 +34337,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34826,7 +34414,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34904,7 +34491,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -34982,7 +34568,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35060,7 +34645,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35138,7 +34722,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35216,7 +34799,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35294,7 +34876,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35372,7 +34953,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35450,7 +35030,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35471,11 +35050,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 660602
+          RawValue: 830341
         Y:
           RawValue: 0
         Z:
-          RawValue: 1963458
+          RawValue: 1797652
       Rotation:
         X:
           RawValue: 0
@@ -35528,7 +35107,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35606,7 +35184,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35684,7 +35261,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35762,7 +35338,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35840,7 +35415,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35918,7 +35492,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -35996,7 +35569,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36074,7 +35646,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36152,7 +35723,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36230,7 +35800,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36308,7 +35877,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36386,7 +35954,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36464,7 +36031,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36542,7 +36108,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36620,7 +36185,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36698,7 +36262,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36776,7 +36339,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36854,7 +36416,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -36932,7 +36493,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37010,7 +36570,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37088,7 +36647,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37166,7 +36724,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37244,7 +36801,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37322,7 +36878,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37400,7 +36955,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37423,7 +36977,7 @@ MonoBehaviour:
         X:
           RawValue: -2258370
         Y:
-          RawValue: 0
+          RawValue: 65536
         Z:
           RawValue: 493486
       Rotation:
@@ -37478,7 +37032,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37556,7 +37109,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37634,7 +37186,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -37655,11 +37206,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5845156
+          RawValue: -5238948
         Y:
           RawValue: 0
         Z:
-          RawValue: -5021368
+          RawValue: -4907991
       Rotation:
         X:
           RawValue: 0

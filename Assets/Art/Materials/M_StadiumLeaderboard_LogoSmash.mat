@@ -156,7 +156,7 @@ Material:
     - Color_672cd417853e4e2e903aebec227f0140: {r: 8, g: 8, b: 8, a: 0}
     - MessageOffset: {r: 0, g: 0, b: 0, a: 0}
     - MessageTile: {r: 1, g: 1, b: 1, a: 0}
-    - Vector2_888940f3b1d34147ad0a73ae1bb2f4da: {r: 60, g: 30, b: 0, a: 0}
+    - Vector2_888940f3b1d34147ad0a73ae1bb2f4da: {r: 30, g: 15, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

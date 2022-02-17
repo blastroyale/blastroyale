@@ -132,8 +132,7 @@ namespace Quantum
 		/// to create a <see cref="Spell"/> to be processed.
 		/// Returns true if the hit was successful and false otherwise
 		/// </summary>
-		public static bool ProcessHit(Frame f, EntityRef attackerEntity, EntityRef hitEntity, FPVector3 hitPoint, 
-		                              int attackerTeam, uint amount)
+		public static bool ProcessHit()
 		{
 			if (!IsAttackable(f, hitEntity, attackerTeam))
 			{
@@ -142,13 +141,17 @@ namespace Quantum
 			
 			var spell = new Spell
 			{
+				Victim = hitEntity,
 				Attacker = attackerEntity,
 				PowerAmount = amount,
 				TeamSource = attackerTeam,
-				OriginalHitPosition = hitPoint
+				OriginalHitPosition = hitPoint,
+				NextHitTime = FP._0,
+				EndTime = FP._0,
+				Cooldown = FP._0
 			};
 
-			f.Add(hitEntity, spell);
+			f.Add(f.Create(), spell);
 
 			return true;
 		}

@@ -4053,23 +4053,35 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Spell : Quantum.IComponent {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public EntityRef Attacker;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
+    public FP Cooldown;
+    [FieldOffset(32)]
+    public FP EndTime;
+    [FieldOffset(40)]
+    public FP NextHitTime;
+    [FieldOffset(48)]
     public FPVector3 OriginalHitPosition;
     [FieldOffset(4)]
     public UInt32 PowerAmount;
     [FieldOffset(0)]
     public Int32 TeamSource;
+    [FieldOffset(16)]
+    public EntityRef Victim;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 491;
         hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + Cooldown.GetHashCode();
+        hash = hash * 31 + EndTime.GetHashCode();
+        hash = hash * 31 + NextHitTime.GetHashCode();
         hash = hash * 31 + OriginalHitPosition.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + TeamSource.GetHashCode();
+        hash = hash * 31 + Victim.GetHashCode();
         return hash;
       }
     }
@@ -4078,6 +4090,10 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->TeamSource);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
+        EntityRef.Serialize(&p->Victim, serializer);
+        FP.Serialize(&p->Cooldown, serializer);
+        FP.Serialize(&p->EndTime, serializer);
+        FP.Serialize(&p->NextHitTime, serializer);
         FPVector3.Serialize(&p->OriginalHitPosition, serializer);
     }
   }
@@ -8378,10 +8394,14 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Spell))]
   public sealed unsafe partial class Spell_Prototype : ComponentPrototype<Spell> {
+    public MapEntityId Victim;
     public MapEntityId Attacker;
     public Int32 TeamSource;
     public UInt32 PowerAmount;
     public FPVector3 OriginalHitPosition;
+    public FP Cooldown;
+    public FP NextHitTime;
+    public FP EndTime;
     partial void MaterializeUser(Frame frame, ref Spell result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Spell component = default;
@@ -8390,9 +8410,13 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Spell result, in PrototypeMaterializationContext context) {
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
+      result.Cooldown = this.Cooldown;
+      result.EndTime = this.EndTime;
+      result.NextHitTime = this.NextHitTime;
       result.OriginalHitPosition = this.OriginalHitPosition;
       result.PowerAmount = this.PowerAmount;
       result.TeamSource = this.TeamSource;
+      PrototypeValidator.FindMapEntity(this.Victim, in context, out result.Victim);
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

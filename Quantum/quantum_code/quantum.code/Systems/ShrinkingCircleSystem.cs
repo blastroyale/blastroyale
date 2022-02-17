@@ -34,13 +34,23 @@ namespace Quantum.Systems
 				var position = transform.Position;
 				var distance = (position.XZ - center).SqrMagnitude;
 
-				if (distance > radius)
+				if (distance < radius)
 				{
-					var currentHealth = f.Get<Stats>(pair.Entity).CurrentHealth;
-					
-					f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
-					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, currentHealth);
+					continue;
 				}
+
+				var spell = new Spell
+				{
+					Attacker = EntityRef.None,
+					PowerAmount = f.GameConfig.ShrinkingDamage,
+					TeamSource = (int) TeamType.Enemy,
+					OriginalHitPosition = transform.Position,
+					NextHitTime = FP._0,
+					EndTime = FP.MaxValue,
+					Cooldown = FP._1
+				};
+
+				f.Add(pair.Entity, spell);
 			}
 		}
 

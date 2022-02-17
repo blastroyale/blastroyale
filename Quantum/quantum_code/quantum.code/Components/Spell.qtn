@@ -1,9 +1,13 @@
 component Spell
 {
+	entity_ref Victim;
 	entity_ref Attacker;
 	Int32 TeamSource;
 	UInt32 PowerAmount;
 	FPVector3 OriginalHitPosition;
+	FP Cooldown;
+	FP NextHitTime;
+	FP EndTime;
 }
 
 synced event OnSpellHit

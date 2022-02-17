@@ -5,7 +5,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Spell"/>
 	/// </summary>
-	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalOnComponentAdded<Spell>
+	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>
 	{
 		public struct SpellFilter
 		{
@@ -14,20 +14,30 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void OnAdded(Frame f, EntityRef entity, Spell* component)
-		{
-			if (f.TryGet<PlayerCharacter>(component->Attacker, out var attacker))
-			{
-				f.Events.OnPlayerAttackHit(attacker.Player, component->Attacker, entity, component->OriginalHitPosition);
-			}
-			
-			HandleHealth(f, component->Attacker, entity, component->Attacker, false, (int) component->PowerAmount);
-		}
-
-		/// <inheritdoc />
 		public override void Update(Frame f, ref SpellFilter filter)
 		{
-			f.Remove<Spell>(filter.Entity);
+			if (f.Time > filter.Spell->EndTime)
+			{
+				f.Remove<Spell>(filter.Entity);
+			}
+			
+			if (f.Time < filter.Spell->NextHitTime)
+			{
+				return;
+			}
+
+			filter.Spell->NextHitTime += filter.Spell->NextHitTime < FP.SmallestNonZero
+				                             ? f.Time + filter.Spell->Cooldown
+				                             : filter.Spell->Cooldown;
+			
+			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
+			{
+				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Entity, 
+				                           filter.Spell->OriginalHitPosition);
+			}
+			
+			HandleHealth(f, filter.Spell->Attacker, filter.Entity, filter.Spell->Attacker, 
+			             false, (int) filter.Spell->PowerAmount);
 		}
 		
 		private void HandleHealth(Frame f, EntityRef attacker, EntityRef targetHit, EntityRef hitSource, bool isHealing, int powerAmount)

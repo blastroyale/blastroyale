@@ -7,7 +7,7 @@
       "dependencies": {
         "com.google.external-dependency-manager": "1.2.144"
       },
-      "hash": "4c21e5cdaf75056f1e3d61bebceb2364b1cd0f22"
+      "hash": "7bc0b28c7f4e5d6e447c5761f6f04925b1e89872"
     },
     "com.coffee.ui-effect": {
       "version": "https://github.com/mob-sakai/UIEffect.git",
@@ -141,7 +141,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.9",
+      "version": "3.0.12",
       "depth": 0,
       "source": "registry",
       "dependencies": {

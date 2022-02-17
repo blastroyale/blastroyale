@@ -17,7 +17,7 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public class FirstLightBuildPostProcess : IPostprocessBuildWithReport
 	{
-		public int callbackOrder => 0;
+		public int callbackOrder => 1000;
 		
 		/// <inheritdoc />
 		public void OnPostprocessBuild(BuildReport report)
@@ -63,7 +63,7 @@ namespace FirstLight.Editor.Build
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
 			pbxProject.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
 			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", bitCode);
-			pbxProject.AddBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.0");
+			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
 			pbxProject.WriteToFile(projectPath);
 #endif
 		}

@@ -5714,7 +5714,7 @@ MonoBehaviour:
   _notificationOnSprite: {fileID: 21300000, guid: e7a924195237f4712941c803a49eede8, type: 3}
   _notificationOffSprite: {fileID: 21300000, guid: 54925af58e45742dcaa2c2c96b65598f, type: 3}
   _notifications: []
-  _shiny: {fileID: 0}
+  _shiny: {fileID: 5689163288814925427}
   _stateAnimation: {fileID: 9024265067634031279}
 --- !u!114 &4476703778457486678
 MonoBehaviour:

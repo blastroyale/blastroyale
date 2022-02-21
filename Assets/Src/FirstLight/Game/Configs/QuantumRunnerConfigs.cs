@@ -154,7 +154,7 @@ namespace FirstLight.Game.Configs
 				{ _roomPropertyKeyMap, config.Id },
 				
 				// Set if only dev mode players match together
-				{ _roomPropertyKeyDevMode, true },
+				{ _roomPropertyKeyDevMode, IsDevMode },
 			};
 			
 			return properties;

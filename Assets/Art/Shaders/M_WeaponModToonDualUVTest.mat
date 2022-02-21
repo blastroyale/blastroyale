@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - PatternTexture:
-        m_Texture: {fileID: 2800000, guid: 12c143c6264996b4d8b15c9aadd7a4a6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 84ffb509e4b5f9145b586a5c8387f34d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorTexture:
@@ -55,8 +55,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 2d461ab7b381202428e6bf429bce7d74, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _PatternA:
+        m_Texture: {fileID: 2800000, guid: 788e339159c9d584a8b9e32f92deaae5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Pattern_B:
+        m_Texture: {fileID: 2800000, guid: f0224f087058e134381c8cef339ba933, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _StaticTexture:
-        m_Texture: {fileID: 2800000, guid: c31a73f61e0fb294187d41f4bbcb47d8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0e01ae2324d60e64abd98e564a4aa3fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -73,15 +81,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ENABLE_PATTERN_A: 0
+    - _ENABLE_PATTERN_B: 0
     - _Float: 0
-    - _GlowAmount: 0
-    - _GlowPower: 3
+    - _GI_Amount: 3.5
+    - _GlowAmount: 0.126
+    - _GlowPower: 5
     - _PATTERN: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ColorOffset: {r: 3, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0.9568627, g: 2.478431, b: 3.058824, a: 0}
     - _GlowColor: {r: 64, g: 19.57647, b: 0, a: 1}
     - _Vector2: {r: 0.28, g: 0, b: 0, a: 0}

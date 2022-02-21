@@ -82,7 +82,7 @@ namespace FirstLight.Game.Configs
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
-					IsVisible = !IsDevMode,
+					IsVisible = true,
 					MaxPlayers = (byte) config.PlayersLimit,
 					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000
 				}

@@ -1,7 +1,5 @@
 using System;
 using ExitGames.Client.Photon;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Realtime;
@@ -79,12 +77,17 @@ namespace FirstLight.Game.Configs
 					CleanupCacheOnLeave = true,
 					CustomRoomProperties = GetCreationRoomProperties(config),
 					CustomRoomPropertiesForLobby = GetRoomPropertiesToExposeInLobby(),
+					Plugins = new [] { "QuantumPlugin" },
+					SuppressRoomEvents = false,
+					SuppressPlayerInfo = false,
+					PublishUserId = false,
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
 					IsVisible = true,
-					MaxPlayers = (byte) config.PlayersLimit,
-					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000
+					MaxPlayers = (byte)config.PlayersLimit,
+					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000,
+
 				}
 			};
 			
@@ -130,7 +133,7 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = InstantReplaySettings.Default,
 				HeapExtraCount = 0,
-				PlayerCount =config.PlayersLimit
+				PlayerCount = config.PlayersLimit
 			};
 		}
 

@@ -1,7 +1,9 @@
 component Spell
 {
+	UInt32 Id;
 	entity_ref Victim;
 	entity_ref Attacker;
+	entity_ref SpellSource; // It can be the attacker or a projectile from the attacker
 	Int32 TeamSource;
 	UInt32 PowerAmount;
 	FPVector3 OriginalHitPosition;

@@ -16,15 +16,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, Stats* component)
 		{
-			component->Modifiers = f.AllocateList<Modifier>(32);
+			component->Modifiers = f.AllocateList<Modifier>(16);
+			component->SpellEffects = f.AllocateList<EntityRef>(16);
 		}
 
 		/// <inheritdoc />
 		public void OnRemoved(Frame f, EntityRef entity, Stats* component)
 		{
 			f.FreeList(component->Modifiers);
+			f.FreeList(component->SpellEffects);
 
 			component->Modifiers = default;
+			component->SpellEffects = default;
 		}
 
 		/// <inheritdoc />

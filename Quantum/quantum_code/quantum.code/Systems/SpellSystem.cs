@@ -56,7 +56,7 @@ namespace Quantum.Systems
 			}
 			else if(damage > 0)
 			{
-				stats->ReduceHealth(f, targetHit, attacker, hitSource, damage);
+				stats->ReduceHealth(f, targetHit, attacker, damage);
 			}
 		}
 	}

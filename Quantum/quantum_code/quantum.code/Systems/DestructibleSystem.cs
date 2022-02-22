@@ -26,9 +26,10 @@ namespace Quantum.Systems
 			}
 			
 			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
+			var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, power,
+			                                filter.Transform->Position);
 
-			QuantumHelpers.ProcessAreaHit(f, filter.Entity, filter.Entity, filter.Destructible->SplashRadius,
-			                              filter.Transform->Position, power, filter.Targetable->Team);
+			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);
 			
 			f.Add<EntityDestroyer>(filter.Entity);
 		}

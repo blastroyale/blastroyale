@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 using Quantum.Collections;
 
@@ -24,6 +25,7 @@ namespace Quantum
 			CurrentStatusModifierType = StatusModifierType.None;
 			IsImmune = false;
 			ModifiersPtr = Ptr.Null;
+			SpellEffectsPtr = Ptr.Null;
 
 			Values[(int) StatType.Health] = new StatData(baseHealth, baseHealth, StatType.Health);
 			Values[(int) StatType.InterimArmour] = new StatData(0, maxInterimArmour, StatType.InterimArmour);
@@ -127,7 +129,7 @@ namespace Quantum
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
 		/// or non existent anymore.
 		/// </summary>
-		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, uint amount)
 		{
 			if (IsImmune)
 			{
@@ -137,7 +139,7 @@ namespace Quantum
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 
-			CurrentHealth = CurrentHealth + amount > maxHealth ? maxHealth : CurrentHealth + amount;
+			CurrentHealth = CurrentHealth + amount > maxHealth ? maxHealth : CurrentHealth + (int) amount;
 
 			if (CurrentHealth != previousHealth)
 			{
@@ -148,14 +150,13 @@ namespace Quantum
 		
 		/// <summary>
 		/// Reduces the given health <paramref name="damageAmount"/> to this <paramref name="entity"/> and notifies the change.
-		/// This health gain was induced by the given <paramref name="attacker"/> from a specific given <paramref name="hitSource"/>.
-		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent.
-		/// The <paramref name="hitSource"/> is always the damage output source for this damage reduction
+		/// First reduces the entity's armour before reducing it's health
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, EntityRef hitSource, int damageAmount)
+		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, uint damageAmount)
 		{
-			var amount = damageAmount;
+			var amount = (int) damageAmount;
+			var previousHealth = CurrentHealth;
+			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			
 			if (IsImmune)
 			{
@@ -168,11 +169,9 @@ namespace Quantum
 			{
 				var previousInterimArmour = CurrentInterimArmour;
 				var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
-				
-				CurrentInterimArmour = amount > CurrentInterimArmour ? 0 : previousInterimArmour - amount;
-				
-				// Reduce the damage value on the amount of armour
-				amount = previousInterimArmour < amount ? amount - previousInterimArmour : 0;
+
+				CurrentInterimArmour = Math.Max(previousInterimArmour - amount, 0);
+				amount = Math.Max(amount - previousInterimArmour, 0);
 				
 				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour, maxInterimArmour);
 			}
@@ -181,11 +180,8 @@ namespace Quantum
 			{
 				return;
 			}
-			
-			var previousHealth = CurrentHealth;
-			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 
-			CurrentHealth = amount > CurrentHealth ? 0 : previousHealth - amount;
+			CurrentHealth = Math.Max(previousHealth - amount, 0);
 				
 			if (CurrentHealth == previousHealth)
 			{
@@ -197,7 +193,7 @@ namespace Quantum
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, attacker, damageAmount);
+				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
 		}

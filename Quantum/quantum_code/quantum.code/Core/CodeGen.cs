@@ -4058,31 +4058,55 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Spell : Quantum.IComponent {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
-    public EntityRef Attacker;
     [FieldOffset(16)]
-    public FPVector3 OriginalHitPosition;
+    public EntityRef Attacker;
+    [FieldOffset(40)]
+    public FP Cooldown;
+    [FieldOffset(48)]
+    public FP EndTime;
     [FieldOffset(4)]
+    public UInt32 Id;
+    [FieldOffset(56)]
+    public FP NextHitTime;
+    [FieldOffset(64)]
+    public FPVector3 OriginalHitPosition;
+    [FieldOffset(8)]
     public UInt32 PowerAmount;
+    [FieldOffset(24)]
+    public EntityRef SpellSource;
     [FieldOffset(0)]
     public Int32 TeamSource;
+    [FieldOffset(32)]
+    public EntityRef Victim;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 491;
         hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + Cooldown.GetHashCode();
+        hash = hash * 31 + EndTime.GetHashCode();
+        hash = hash * 31 + Id.GetHashCode();
+        hash = hash * 31 + NextHitTime.GetHashCode();
         hash = hash * 31 + OriginalHitPosition.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
+        hash = hash * 31 + SpellSource.GetHashCode();
         hash = hash * 31 + TeamSource.GetHashCode();
+        hash = hash * 31 + Victim.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Spell*)ptr;
         serializer.Stream.Serialize(&p->TeamSource);
+        serializer.Stream.Serialize(&p->Id);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
+        EntityRef.Serialize(&p->SpellSource, serializer);
+        EntityRef.Serialize(&p->Victim, serializer);
+        FP.Serialize(&p->Cooldown, serializer);
+        FP.Serialize(&p->EndTime, serializer);
+        FP.Serialize(&p->NextHitTime, serializer);
         FPVector3.Serialize(&p->OriginalHitPosition, serializer);
     }
   }
@@ -4114,24 +4138,27 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 160;
+    public const Int32 SIZE = 168;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 CurrentHealth;
     [FieldOffset(4)]
     public Int32 CurrentInterimArmour;
-    [FieldOffset(24)]
-    public FP CurrentStatusModifierDuration;
     [FieldOffset(32)]
+    public FP CurrentStatusModifierDuration;
+    [FieldOffset(40)]
     public FP CurrentStatusModifierEndTime;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     public StatusModifierType CurrentStatusModifierType;
-    [FieldOffset(12)]
+    [FieldOffset(20)]
     public QBoolean IsImmune;
     [FieldOffset(8)]
     [FramePrinter.PtrQListAttribute(typeof(Modifier))]
     private Ptr ModifiersPtr;
-    [FieldOffset(40)]
+    [FieldOffset(16)]
+    [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
+    private Ptr SpellEffectsPtr;
+    [FieldOffset(48)]
     [FramePrinter.FixedArrayAttribute(typeof(StatData), 5)]
     private fixed Byte _Values_[120];
     public QListPtr<Modifier> Modifiers {
@@ -4140,6 +4167,14 @@ namespace Quantum {
       }
       set {
         ModifiersPtr = value.Ptr;
+      }
+    }
+    public QListPtr<EntityRef> SpellEffects {
+      get {
+        return new QListPtr<EntityRef>(SpellEffectsPtr);
+      }
+      set {
+        SpellEffectsPtr = value.Ptr;
       }
     }
     public FixedArray<StatData> Values {
@@ -4157,12 +4192,14 @@ namespace Quantum {
         hash = hash * 31 + (Int32)CurrentStatusModifierType;
         hash = hash * 31 + IsImmune.GetHashCode();
         hash = hash * 31 + ModifiersPtr.GetHashCode();
+        hash = hash * 31 + SpellEffectsPtr.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Values);
         return hash;
       }
     }
     public void ClearPointers(Frame f, EntityRef entity) {
       ModifiersPtr = default;
+      SpellEffectsPtr = default;
     }
     public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
       var p = (Stats*)ptr;
@@ -4173,6 +4210,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->CurrentHealth);
         serializer.Stream.Serialize(&p->CurrentInterimArmour);
         QList.Serialize(p->Modifiers, &p->ModifiersPtr, serializer, StaticDelegates.SerializeModifier);
+        QList.Serialize(p->SpellEffects, &p->SpellEffectsPtr, serializer, StaticDelegates.SerializeEntityRef);
         QBoolean.Serialize(&p->IsImmune, serializer);
         serializer.Stream.Serialize((Int32*)&p->CurrentStatusModifierType);
         FP.Serialize(&p->CurrentStatusModifierDuration, serializer);
@@ -7000,6 +7038,7 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializePlayerMatchData;
     public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeModifier;
+    public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeStatData;
     public static FrameSerializer.Delegate SerializeAssetRefConsideration;
     public static FrameSerializer.Delegate SerializeUTMomentumPack;
@@ -7018,6 +7057,7 @@ namespace Quantum {
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
       SerializeSpecial = Quantum.Special.Serialize;
       SerializeModifier = Quantum.Modifier.Serialize;
+      SerializeEntityRef = EntityRef.Serialize;
       SerializeStatData = Quantum.StatData.Serialize;
       SerializeAssetRefConsideration = Quantum.AssetRefConsideration.Serialize;
       SerializeUTMomentumPack = Quantum.UTMomentumPack.Serialize;
@@ -8430,10 +8470,16 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Spell))]
   public sealed unsafe partial class Spell_Prototype : ComponentPrototype<Spell> {
+    public UInt32 Id;
+    public MapEntityId Victim;
     public MapEntityId Attacker;
+    public MapEntityId SpellSource;
     public Int32 TeamSource;
     public UInt32 PowerAmount;
     public FPVector3 OriginalHitPosition;
+    public FP Cooldown;
+    public FP NextHitTime;
+    public FP EndTime;
     partial void MaterializeUser(Frame frame, ref Spell result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Spell component = default;
@@ -8442,9 +8488,15 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Spell result, in PrototypeMaterializationContext context) {
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
+      result.Cooldown = this.Cooldown;
+      result.EndTime = this.EndTime;
+      result.Id = this.Id;
+      result.NextHitTime = this.NextHitTime;
       result.OriginalHitPosition = this.OriginalHitPosition;
       result.PowerAmount = this.PowerAmount;
+      PrototypeValidator.FindMapEntity(this.SpellSource, in context, out result.SpellSource);
       result.TeamSource = this.TeamSource;
+      PrototypeValidator.FindMapEntity(this.Victim, in context, out result.Victim);
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -8497,6 +8549,8 @@ namespace Quantum.Prototypes {
     public StatData_Prototype[] Values = new StatData_Prototype[5];
     [DynamicCollectionAttribute()]
     public Modifier_Prototype[] Modifiers = {};
+    [DynamicCollectionAttribute()]
+    public MapEntityId[] SpellEffects = {};
     public StatusModifierType_Prototype CurrentStatusModifierType;
     public FP CurrentStatusModifierDuration;
     public FP CurrentStatusModifierEndTime;
@@ -8523,6 +8577,17 @@ namespace Quantum.Prototypes {
           list.Add(tmp);
         }
         result.Modifiers = list;
+      }
+      if (this.SpellEffects.Length == 0) {
+        result.SpellEffects = default;
+      } else {
+        var list = frame.AllocateList(result.SpellEffects, this.SpellEffects.Length);
+        for (int i = 0; i < this.SpellEffects.Length; ++i) {
+          EntityRef tmp = default;
+          PrototypeValidator.FindMapEntity(this.SpellEffects[i], in context, out tmp);
+          list.Add(tmp);
+        }
+        result.SpellEffects = list;
       }
       for (int i = 0, count = PrototypeValidator.CheckLength(Values, 5, in context); i < count; ++i) {
         this.Values[i].Materialize(frame, ref *result.Values.GetPointer(i), in context);

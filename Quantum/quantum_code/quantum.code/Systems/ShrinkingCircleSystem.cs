@@ -34,12 +34,13 @@ namespace Quantum.Systems
 				var position = transform.Position;
 				var distance = (position.XZ - center).SqrMagnitude;
 
-				if (distance > radius)
+				if (distance < radius)
 				{
-					var currentHealth = f.Get<Stats>(pair.Entity).CurrentHealth;
-					
-					f.Signals.HealthIsZero(pair.Entity, EntityRef.None);
-					f.Events.OnHealthIsZero(pair.Entity, EntityRef.None, currentHealth);
+					RemoveShrinkingDamage(f, pair.Entity);
+				}
+				else
+				{
+					AddShrinkingDamage(f, pair.Entity, position);
 				}
 			}
 		}
@@ -85,6 +86,72 @@ namespace Quantum.Systems
 			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->CurrentRadius;
 			
 			f.Events.OnNewShrinkingCircle(*circle);
+		}
+
+		private void AddShrinkingDamage(Frame f, EntityRef playerEntity, FPVector3 position)
+		{
+			if (TryGetSpellEntity(f, playerEntity, false, out _))
+			{
+				return;
+			}
+
+			var newSpell = f.Create();
+
+			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
+			f.Add(newSpell, new Spell
+			{
+				Id = Spell.ShrinkingCircleId,
+				Attacker = newSpell,
+				SpellSource = newSpell,
+				Cooldown = f.GameConfig.ShrinkingDamageCooldown,
+				EndTime = FP.MaxValue,
+				NextHitTime = FP._0,
+				OriginalHitPosition = position,
+				PowerAmount = f.GameConfig.ShrinkingDamage,
+				TeamSource = (int) TeamType.Enemy,
+				Victim = playerEntity
+			});
+		}
+
+		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)
+		{
+			if (TryGetSpellEntity(f, playerEntity, true, out var spellEntity))
+			{
+				f.Destroy(spellEntity);
+			}
+		}
+
+		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity)
+		{
+			var spellList = f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects);
+			
+			spellEntity = EntityRef.None;
+
+			for (var i = spellList.Count - 1; i > -1; --i)
+			{
+				if (!f.TryGet<Spell>(spellList[i], out var spell))
+				{
+					spellList.RemoveAt(i);
+
+					continue;
+				}
+
+				if (spell.Id != Spell.ShrinkingCircleId)
+				{
+					continue;
+				}
+				
+				spellEntity = spellList[i];
+
+				if (removeIfFound)
+				{
+					spellList.RemoveAt(i);
+				}
+					
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

@@ -68,8 +68,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
-			var isEmptied = GetComponentData<PlayerCharacter>(game).IsAmmoEmpty(frame, EntityView.EntityRef);
 			var direction = context.ReadValue<Vector2>();
+			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
+			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
 			_shootIndicator.SetTransformState(direction);
 			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
@@ -86,8 +87,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
-			var isEmptied = GetComponentData<PlayerCharacter>(game).IsAmmoEmpty(frame, EntityView.EntityRef);
 			var isDown = context.ReadValueAsButton();
+			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
+			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
 			_playerView.SetMovingState(isDown);

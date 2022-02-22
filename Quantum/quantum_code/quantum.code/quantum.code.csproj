@@ -196,6 +196,7 @@
     <Compile Include="Components\Specials.cs" />
     <Compile Include="Components\SpecialShieldedCharge.cs" />
     <Compile Include="Components\SpecialStunGrenade.cs" />
+    <Compile Include="Components\Spell.cs" />
     <Compile Include="Components\Stats.cs" />
     <Compile Include="Components\StatusModifiers.cs" />
     <Compile Include="Components\WeaponCollectable.cs" />

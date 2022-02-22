@@ -53,6 +53,23 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			return game.Frames.Verified.Get<T>(EntityView.EntityRef);
 		}
 
+		protected bool TryGetComponentData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
+		{
+			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
+				       ? TryGetComponentVerifiedData(game, out component)
+				       : TryGetComponentPredictedData(game, out component);
+		}
+
+		protected bool TryGetComponentPredictedData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
+		{
+			return game.Frames.Predicted.TryGet(EntityView.EntityRef, out component);
+		}
+
+		protected bool TryGetComponentVerifiedData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
+		{
+			return game.Frames.Verified.TryGet(EntityView.EntityRef, out component);
+		}
+
 		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
 		{
 			if (this.IsDestroyed())

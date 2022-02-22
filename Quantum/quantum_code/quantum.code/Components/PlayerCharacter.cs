@@ -6,6 +6,11 @@ namespace Quantum
 	public unsafe partial struct PlayerCharacter
 	{
 		/// <summary>
+		/// Requests the current weapon of player character
+		/// </summary>
+		public Equipment CurrentWeapon => Weapons[CurrentWeaponSlot];
+		
+		/// <summary>
 		/// Marks that the player left the game
 		/// </summary>
 		public void PlayerLeft(Frame f, EntityRef e)
@@ -25,12 +30,18 @@ namespace Quantum
 			var blackboard = new AIBlackboardComponent();
 			
 			Player = playerRef;
-			DefaultWeapon = playerWeapon;
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin);
 			
 			f.Add(e, blackboard);
+			
+			AddWeapon(f, e, new Equipment(GameId.Hammer, ItemRarity.Common, 1));
+			
+			if (!f.WeaponConfigs.GetConfig(playerWeapon.GameId).IsMeleeWeapon)
+			{
+				AddWeapon(f, e, playerWeapon);
+			}
 			
 			InitStats(f, e, playerGear);
 			Spawn(f, e, spawnPosition, false);
@@ -47,7 +58,7 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 			
-			SetWeapon(f, e, DefaultWeapon);
+			EquipCurrentSlotWeapon(f, e);
 			
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -114,11 +125,37 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Set's the player's current weapon to the given <paramref name="weapon"/> and data
+		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
-		internal void SetWeapon(Frame f, EntityRef e, Equipment weapon)
+		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon)
+		{
+			for (ushort i = 0; i < Constants.MAX_WEAPONS; i++)
+			{
+				if (Weapons[i].IsValid && i < Constants.MAX_WEAPONS-1)
+				{
+					continue;
+				}
+				
+				var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+				
+				Weapons[i] = weapon;
+				CurrentWeaponSlot = i;
+				
+				GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
+				
+				f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, i);
+				
+				break;
+			}
+		}
+		
+		/// <summary>
+		/// Sets the player's actual weapon and data to the one in the current slot
+		/// </summary>
+		internal void EquipCurrentSlotWeapon(Frame f, EntityRef e)
 		{
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var weapon = CurrentWeapon;
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var power = QuantumStatCalculator.CalculateStatValue(weapon.Rarity, weaponConfig.PowerRatioToBase, 
@@ -128,21 +165,11 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
-
-			if (CurrentWeapon.IsValid)
-			{
-				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
-			}
-			else
-			{
-				blackboard->Set(f, Constants.AmmoFilledKey, weaponConfig.InitialAmmoFilled);
-			}
 			
-			CurrentWeapon = weapon;
+			f.Events.OnPlayerWeaponChanged(Player, e, weapon);
+			f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
 			
-			GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
-			
+			// TODO: Specials should have charges and remember charges used for each weapon
 			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
 			{
 				var specialId = weaponConfig.Specials[i];
@@ -163,7 +190,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo;
+			maxAmmo = f.WeaponConfigs.GetConfig(Weapons[CurrentWeaponSlot].GameId).MaxAmmo;
 
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}

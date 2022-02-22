@@ -1326,7 +1326,7 @@ namespace Quantum {
         return _f.FindAsset<NavMeshAgentConfig>(assetRef.Id);
       }
 
-      public SimulationConfig TerrainCollider(AssetRefSimulationConfig assetRef) {
+      public SimulationConfig SimulationConfig(AssetRefSimulationConfig assetRef) {
         return _f.FindAsset<SimulationConfig>(assetRef.Id);
       }
 

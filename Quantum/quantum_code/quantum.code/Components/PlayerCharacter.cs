@@ -262,7 +262,7 @@ namespace Quantum
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 			var newAmmo = Math.Max(ammo - (int) amount, 0);
 			var currentAmmo = Math.Min(newAmmo, maxAmmo);
-			var finalAmmoFilled = currentAmmo == 0 ? FP._0 : (FP) currentAmmo / maxAmmo;
+			var finalAmmoFilled = (FP) currentAmmo / maxAmmo;
 
 			if (ammo == newAmmo)
 			{

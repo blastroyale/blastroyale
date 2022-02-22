@@ -75,7 +75,7 @@ namespace Quantum.Systems
 			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->GetCurrentWeapon().GameId);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
@@ -495,7 +495,7 @@ namespace Quantum.Systems
 				var weaponCandidateId = f.Get<Collectable>(weaponCandidate.Entity).GameId;
 				
 				// Do not pick up the same weapon unless has less than 50% ammo
-				if (filter.PlayerCharacter->GetCurrentWeapon().GameId == weaponCandidateId && totalAmmo > maxAmmo * FP._0_50)
+				if (filter.PlayerCharacter->CurrentWeapon.GameId == weaponCandidateId && totalAmmo > maxAmmo * FP._0_50)
 				{
 					continue;
 				}

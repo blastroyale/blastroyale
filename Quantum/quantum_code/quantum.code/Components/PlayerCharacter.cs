@@ -6,6 +6,11 @@ namespace Quantum
 	public unsafe partial struct PlayerCharacter
 	{
 		/// <summary>
+		/// Requests the current weapon of player character
+		/// </summary>
+		public Equipment CurrentWeapon => Weapons[CurrentWeaponSlot];
+		
+		/// <summary>
 		/// Marks that the player left the game
 		/// </summary>
 		public void PlayerLeft(Frame f, EntityRef e)
@@ -150,7 +155,7 @@ namespace Quantum
 		internal void EquipCurrentSlotWeapon(Frame f, EntityRef e)
 		{
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var weapon = GetCurrentWeapon();
+			var weapon = CurrentWeapon;
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var power = QuantumStatCalculator.CalculateStatValue(weapon.Rarity, weaponConfig.PowerRatioToBase, 
@@ -178,14 +183,6 @@ namespace Quantum
 				
 				Specials[i] = new Special(f, specialConfig);
 			}
-		}
-
-		/// <summary>
-		/// Requests the current weapon of <paramref name="e"/> player
-		/// </summary>
-		public Equipment GetCurrentWeapon()
-		{
-			return Weapons[CurrentWeaponSlot];
 		}
 		
 		/// <summary>

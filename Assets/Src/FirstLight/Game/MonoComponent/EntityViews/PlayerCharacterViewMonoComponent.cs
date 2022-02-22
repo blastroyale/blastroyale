@@ -321,7 +321,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var weapon = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) playerCharacter.GetCurrentWeapon().GameId);
+			var weapon = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) playerCharacter.CurrentWeapon.GameId);
 			var position = _lastPosition + Vector3.up;
 			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angle = -(int) weapon.AttackAngle / FP._2;

@@ -27,6 +27,6 @@ MonoBehaviour:
     EnableProtocolFallback: 1
     AuthMode: 0
     EnableLobbyStatistics: 0
-    NetworkLogging: 5
+    NetworkLogging: 1
   PlayerTtlInSeconds: 30
   EmptyRoomTtlInSeconds: 0

@@ -18,7 +18,7 @@ namespace Quantum
 		public override void Update(Frame f, EntityRef e)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
+			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->GetCurrentWeapon().GameId);
 			var player = playerCharacter->Player;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
 			var angleCount = FPMath.FloorToInt(weaponConfig.AttackAngle / Constants.RaycastAngleSplit) + 1;

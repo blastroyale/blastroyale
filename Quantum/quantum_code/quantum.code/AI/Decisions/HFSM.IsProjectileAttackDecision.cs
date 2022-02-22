@@ -13,7 +13,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override unsafe bool Decide(Frame f, EntityRef e)
 		{
-			var weaponId = f.Get<PlayerCharacter>(e).CurrentWeapon.GameId;
+			var weaponId = f.Get<PlayerCharacter>(e).GetCurrentWeapon().GameId;
 			
 			return f.WeaponConfigs.GetConfig(weaponId).ProjectileSpeed > FP._0;
 		}

@@ -75,7 +75,7 @@ namespace Quantum.Systems
 			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->GetCurrentWeapon().GameId);
 			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
@@ -372,7 +372,7 @@ namespace Quantum.Systems
 			var weaponPickupPosition = FPVector3.Zero;
 			
 			// Bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
-			var isGoing = filter.PlayerCharacter->CurrentWeapon.GameId == filter.PlayerCharacter->DefaultWeapon.GameId ||
+			var isGoing = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
 			              filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
 			              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			
@@ -495,7 +495,7 @@ namespace Quantum.Systems
 				var weaponCandidateId = f.Get<Collectable>(weaponCandidate.Entity).GameId;
 				
 				// Do not pick up the same weapon unless has less than 50% ammo
-				if (filter.PlayerCharacter->CurrentWeapon.GameId == weaponCandidateId && totalAmmo > maxAmmo * FP._0_50)
+				if (filter.PlayerCharacter->GetCurrentWeapon().GameId == weaponCandidateId && totalAmmo > maxAmmo * FP._0_50)
 				{
 					continue;
 				}

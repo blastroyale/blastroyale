@@ -18,7 +18,7 @@ namespace Quantum
 		public override void Update(Frame f, EntityRef e)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
+			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->GetCurrentWeapon().GameId);
 			var player = playerCharacter->Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;

@@ -90,7 +90,7 @@ namespace Quantum.Systems
 			if (!f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead) &&
 			    f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
 			{
-				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon.GameId, deathPosition, 
+				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).GetCurrentWeapon().GameId, deathPosition, 
 				                            step, true);
 			}
 		}
@@ -138,7 +138,7 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var moveVelocity = FPVector3.Zero;
 			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->GetCurrentWeapon().GameId);
 
 			if (input->IsMoveButtonDown)
 			{

@@ -4557,7 +4557,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2262541331478575046}
-  - component: {fileID: 4331226128146700466}
   m_Layer: 5
   m_Name: ProgressionHolder
   m_TagString: Untagged
@@ -4587,14 +4586,6 @@ RectTransform:
   m_AnchoredPosition: {x: 312.80426, y: -53.20497}
   m_SizeDelta: {x: 593.4814, y: 76.4099}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4331226128146700466
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5390474830747204124}
-  m_CullTransparentMesh: 1
 --- !u!1 &5393868523070217824
 GameObject:
   m_ObjectHideFlags: 0
@@ -5421,7 +5412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5587,7 +5578,6 @@ GameObject:
   - component: {fileID: 4470696618661570529}
   - component: {fileID: 8799440465595651426}
   - component: {fileID: 4476703778457486678}
-  - component: {fileID: 2015216868818991149}
   m_Layer: 0
   m_Name: TrophyRoadProgress
   m_TagString: Untagged
@@ -5724,7 +5714,7 @@ MonoBehaviour:
   _notificationOnSprite: {fileID: 21300000, guid: e7a924195237f4712941c803a49eede8, type: 3}
   _notificationOffSprite: {fileID: 21300000, guid: 54925af58e45742dcaa2c2c96b65598f, type: 3}
   _notifications: []
-  _shiny: {fileID: 2015216868818991149}
+  _shiny: {fileID: 0}
   _stateAnimation: {fileID: 9024265067634031279}
 --- !u!114 &4476703778457486678
 MonoBehaviour:
@@ -5779,32 +5769,6 @@ MonoBehaviour:
   TapSoundFx: 18
   Anchor: {fileID: 6386703330505197755}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
---- !u!114 &2015216868818991149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6152551915391187309}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectFactor: 0.7357857
-  m_Width: 0.035
-  m_Rotation: 110
-  m_Softness: 1
-  m_Brightness: 1
-  m_Gloss: 1
-  m_EffectArea: 0
-  m_Player:
-    play: 0
-    initialPlayDelay: 0
-    duration: 2
-    loop: 0
-    loopDelay: 0.5
-    updateMode: 0
 --- !u!1 &6391948782458888046
 GameObject:
   m_ObjectHideFlags: 0
@@ -7959,7 +7923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

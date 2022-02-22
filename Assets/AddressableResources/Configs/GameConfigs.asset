@@ -35,6 +35,9 @@ MonoBehaviour:
         RawValue: 32768
       ShrinkingBorderK:
         RawValue: 60948
+      ShrinkingDamageCooldown:
+        RawValue: 65536
+      ShrinkingDamage: 50
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
         RawValue: 250593

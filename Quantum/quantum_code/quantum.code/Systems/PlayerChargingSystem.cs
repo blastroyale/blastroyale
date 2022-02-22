@@ -37,14 +37,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.TryGet<PlayerCharging>(info.Entity, out var charging))
+			var targetHit = info.Other;
+			var attacker = info.Entity;
+			
+			if (!f.TryGet<PlayerCharging>(attacker, out var charging))
 			{
 				return;
 			}
 
-			QuantumHelpers.ProcessHit(f, info.Entity, info.Other,
-			                          f.Get<Transform3D>(info.Other).Position, f.Get<Targetable>(info.Entity).Team,
-			                          charging.PowerAmount);
+			var spell = Spell.CreateInstant(f, targetHit, attacker, attacker, charging.PowerAmount,
+			                                f.Get<Transform3D>(targetHit).Position);
+
+			QuantumHelpers.ProcessHit(f, spell);
 		}
 	}
 }

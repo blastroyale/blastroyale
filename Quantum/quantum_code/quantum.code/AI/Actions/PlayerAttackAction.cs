@@ -24,7 +24,6 @@ namespace Quantum
 			var angleCount = FPMath.FloorToInt(weaponConfig.AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angleStep = weaponConfig.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var angle = -(int) weaponConfig.AttackAngle / FP._2;
-			var team = f.Get<Targetable>(e).Team;
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
@@ -46,14 +45,14 @@ namespace Quantum
 					continue;
 				}
 
-				QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
+				var spell = Spell.CreateInstant(f, hit.Value.Entity, e, e, powerAmount, hit.Value.Point);
 
-				if (weaponConfig.SplashRadius == FP._0)
+				QuantumHelpers.ProcessHit(f, spell);
+
+				if (weaponConfig.SplashRadius > FP._0)
 				{
-					continue;
+					QuantumHelpers.ProcessAreaHit(f, weaponConfig.SplashRadius, spell);
 				}
-
-				QuantumHelpers.ProcessAreaHit(f, e, e, weaponConfig.SplashRadius, hit.Value.Point, powerAmount, team);
 			}
 		}
 	}

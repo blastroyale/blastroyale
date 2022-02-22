@@ -34,19 +34,19 @@ namespace Quantum
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainHealth(f, playerEntity, entity, (int) consumable.Amount);
+					f.Unsafe.GetPointer<Stats>(playerEntity)->GainHealth(f, playerEntity, entity, (uint) consumable.Amount.AsInt);
 					break;
 				case ConsumableType.Rage:
-					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, (int) consumable.Amount);
+					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.Ammo:
 					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
 					break;
 				case ConsumableType.InterimArmour:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainInterimArmour(f, playerEntity, entity, (int) consumable.Amount);
+					f.Unsafe.GetPointer<Stats>(playerEntity)->GainInterimArmour(f, playerEntity, entity, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.Stash:
-					HandleCollectedStash(f, entity, (int) consumable.Amount);
+					HandleCollectedStash(f, entity, consumable.Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

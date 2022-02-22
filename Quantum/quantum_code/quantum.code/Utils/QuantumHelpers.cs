@@ -138,7 +138,7 @@ namespace Quantum
 
 			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
 			{
-				stats->ReduceHealth(f, spell.Victim, spell.Attacker, (int) spell.PowerAmount);
+				stats->ReduceHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);
 
 				return true;
 			}

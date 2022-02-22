@@ -32,31 +32,30 @@ namespace Quantum.Systems
 			
 			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
 			{
-				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Entity, 
+				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Spell->Victim, 
 				                           filter.Spell->OriginalHitPosition);
 			}
 			
-			HandleHealth(f, filter.Spell->Attacker, filter.Entity, filter.Spell->Attacker, 
-			             false, (int) filter.Spell->PowerAmount);
+			HandleHealth(f, filter.Spell, false);
 		}
 		
-		private void HandleHealth(Frame f, EntityRef attacker, EntityRef targetHit, EntityRef hitSource, bool isHealing, int powerAmount)
+		private void HandleHealth(Frame f, Spell* spell, bool isHealing)
 		{
-			if (!f.Unsafe.TryGetPointer<Stats>(targetHit, out var stats) || powerAmount == 0)
+			if (!f.Unsafe.TryGetPointer<Stats>(spell->Victim, out var stats) || spell->PowerAmount == 0)
 			{
 				return;
 			}
 			
-			var armour = f.Get<Stats>(targetHit).Values[(int) StatType.Armour].StatValue;
-			var damage = FPMath.Max(powerAmount - armour, 0).AsInt;
+			var armour = f.Get<Stats>(spell->Victim).Values[(int) StatType.Armour].StatValue;
+			var damage = FPMath.Max(spell->PowerAmount - armour, 0).AsInt;
 			
 			if (isHealing)
 			{
-				stats->GainHealth(f, targetHit, attacker, powerAmount);
+				stats->GainHealth(f, spell->Victim, spell->Attacker, spell->PowerAmount);
 			}
 			else if(damage > 0)
 			{
-				stats->ReduceHealth(f, targetHit, attacker, damage);
+				stats->ReduceHealth(f, spell->Victim, spell->Attacker, (uint) damage);
 			}
 		}
 	}

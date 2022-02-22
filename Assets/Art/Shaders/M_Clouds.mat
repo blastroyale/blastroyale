@@ -64,6 +64,8 @@ Material:
     - Vector1_F65AAB4A: 100
     - Vector1_FC69CDDC: 0.1
     - Vertext_Offset: 2
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Cloud_Color: {r: 1.0413189, g: 1.3511068, b: 2.2680783, a: 1}
     - Cloud_Speed: {r: -0.003, g: 0.001, b: 0, a: 0}

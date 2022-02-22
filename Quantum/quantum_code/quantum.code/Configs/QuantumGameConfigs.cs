@@ -17,6 +17,8 @@ namespace Quantum
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingSizeK;
 		public FP ShrinkingBorderK;
+		public FP ShrinkingDamageCooldown;
+		public uint ShrinkingDamage;
 		public int PlayerDefaultHealth;
 		public FP PlayerDefaultSpeed;
 		public int PlayerDefaultInterimArmour;

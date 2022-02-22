@@ -3,7 +3,7 @@ using Photon.Deterministic;
 namespace Quantum.Systems
 {
 	/// <summary>
-	/// Handles Hazards
+	/// TODO: DELETE THE HAZARD SYSTEM
 	/// </summary>
 	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>
 	{
@@ -28,24 +28,36 @@ namespace Quantum.Systems
 			{
 				return;
 			}
+
+			var spell = new Spell
+			{
+				Id = Spell.DefaultId,
+				Attacker = hazard->Attacker,
+				Cooldown = FP._0,
+				EndTime = FP._0,
+				NextHitTime = FP._0,
+				OriginalHitPosition = filter.Transform->Position,
+				PowerAmount = hazard->PowerAmount,
+				SpellSource = filter.Entity,
+				TeamSource = hazard->TeamSource,
+				Victim = default
+			};
 			
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
 			
-			QuantumHelpers.ProcessAreaHit(f, hazard->Attacker, filter.Entity, hazard->Radius,
-			                              filter.Transform->Position, hazard->PowerAmount, hazard->TeamSource, 
-			                              hazard->MaxHitCount, OnHit);
+			QuantumHelpers.ProcessAreaHit(f, hazard->Radius, spell, hazard->MaxHitCount, OnHit);
 		}
 
-		private void OnHit(Frame f, EntityRef attacker, EntityRef attackSource, EntityRef hitEntity, FPVector3 hitPoint)
+		private void OnHit(Frame f, Spell spell)
 		{
-			var source = f.Get<Hazard>(attackSource);
+			var source = f.Get<Hazard>(spell.SpellSource);
 			
 			if (source.StunDuration > FP._0)
 			{
-				StatusModifiers.AddStatusModifierToEntity(f, hitEntity, StatusModifierType.Stun, source.StunDuration);
+				StatusModifiers.AddStatusModifierToEntity(f, spell.Victim, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnHazardHit(attacker, hitEntity, source, hitPoint);
+			f.Events.OnHazardHit(spell.Attacker, spell.Victim, source, spell.OriginalHitPosition);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 #define PLAYER_COUNT 32
+#define MAX_WEAPONS 3
 #pragma max_players PLAYER_COUNT
 
 // COMPONENTS
@@ -28,8 +29,8 @@ component PlayerCharacter
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
-	[HideInInspector] Equipment DefaultWeapon;
-	[HideInInspector] Equipment CurrentWeapon;
+	[HideInInspector] UInt16 CurrentWeaponSlot;
+	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
 	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }
 

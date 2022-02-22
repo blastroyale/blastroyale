@@ -129,6 +129,14 @@ synced event OnLocalPlayerAmmoChanged
 	Int32 MaxAmmo;
 }
 
+synced event OnLocalPlayerWeaponAdded
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Equipment Weapon;
+	Int32 WeaponSlotNumber;
+}
+
 synced event OnLocalPlayerWeaponChanged
 {
 	local player_ref Player;

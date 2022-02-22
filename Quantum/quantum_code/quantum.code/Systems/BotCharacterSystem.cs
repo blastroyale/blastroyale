@@ -372,7 +372,7 @@ namespace Quantum.Systems
 			var weaponPickupPosition = FPVector3.Zero;
 			
 			// Bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
-			var isGoing = filter.PlayerCharacter->CurrentWeapon.GameId == filter.PlayerCharacter->DefaultWeapon.GameId ||
+			var isGoing = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
 			              filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
 			              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			

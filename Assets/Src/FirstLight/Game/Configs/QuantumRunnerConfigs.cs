@@ -77,7 +77,7 @@ namespace FirstLight.Game.Configs
 					CleanupCacheOnLeave = true,
 					CustomRoomProperties = GetCreationRoomProperties(config),
 					CustomRoomPropertiesForLobby = GetRoomPropertiesToExposeInLobby(),
-					Plugins = new [] { "QuantumPlugin" },
+					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
 					PublishUserId = false,

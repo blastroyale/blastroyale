@@ -146,8 +146,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			Debug.Log("OnJoinedRoom");
 			
-			Debug.Log($"{_networkService.QuantumClient.CurrentCluster} - {_networkService.QuantumClient.CurrentLobby} - {_networkService.QuantumClient.CurrentRoom.ToStringFull()}");
-			
 			_services.MessageBrokerService.Publish(new MatchJoinedRoomMessage());
 
 			if (!_networkService.QuantumClient.CurrentRoom.IsOpen)

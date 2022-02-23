@@ -3769,7 +3769,7 @@ namespace Quantum {
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(0)]
     [HideInInspector()]
-    public UInt16 CurrentWeaponSlot;
+    public Int32 CurrentWeaponSlot;
     [FieldOffset(32)]
     [HideInInspector()]
     public FP DisconnectedDuration;
@@ -8184,7 +8184,7 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public PlayerRef Player;
     [HideInInspector()]
-    public UInt16 CurrentWeaponSlot;
+    public Int32 CurrentWeaponSlot;
     [HideInInspector()]
     [ArrayLengthAttribute(3)]
     public Equipment_Prototype[] Weapons = new Equipment_Prototype[3];

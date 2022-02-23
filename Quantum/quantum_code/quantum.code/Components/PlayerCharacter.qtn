@@ -29,7 +29,7 @@ component PlayerCharacter
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
-	[HideInInspector] UInt16 CurrentWeaponSlot;
+	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
 	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }

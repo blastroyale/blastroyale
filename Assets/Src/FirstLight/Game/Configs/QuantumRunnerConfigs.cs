@@ -172,7 +172,8 @@ namespace FirstLight.Game.Configs
 			return new []
 			{
 				_roomPropertyKeyGitCommit,
-				_roomPropertyKeyMap
+				_roomPropertyKeyMap,
+				_roomPropertyKeyDevMode
 			};
 		}
 	}

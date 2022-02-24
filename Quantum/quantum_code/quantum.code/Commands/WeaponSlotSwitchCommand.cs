@@ -28,8 +28,7 @@ namespace Quantum.Commands
 				return;
 			}
 			
-			playerCharacter->CurrentWeaponSlot = (ushort) WeaponSlotIndex;
-			playerCharacter->EquipCurrentSlotWeapon(f, characterEntity);
+			playerCharacter->EquipSlotWeapon(f, characterEntity, WeaponSlotIndex);
 		}
 	}
 }

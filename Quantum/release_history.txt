@@ -178,6 +178,62 @@ The navigation agent will move on the navmesh by default. But for better visual 
 
 ## RC2N
 
+### Build 987 (Feb 18, 2022)
+
+**Bug Fixes**
+
+- Fixed: `Frame.FrameAssets` incorrect `SimulationConfig` find method's name
+- Fixed: Missing serialization of 2D and 3D static colliders' enabled state, which could cause desyncs on late-joins and issues on replays
+
+### Build 986 (Feb 17, 2022)
+
+**What's New**
+
+- Support for FP constants in DSL. `#define FPConst 0.1223` will emit `Constants.FPConst` and `Constants.Raw.FPConst`
+
+**Bug Fixes**
+
+- Fixed: Codegen errors not appearing in `Errors List` window
+
+### Build 983 (Feb 11, 2022)
+
+**What's New**
+
+- Support to disable Unity modules to reduce the build size. Toggle in `QuantumEditorSettings.Disable***Module` or define `#QUANTUM_DISABLE_PHYSICS2D`, `_PHYSICS3D`, `_AI`, `_TERRAIN`
+
+**Bug Fixes**
+
+- Fixed: An issue in `QuantumRunnerLocalDebug` (if QUANTUM_ADDRESSABLES is enabled) that prevented exceptions being logged due to how Unity runs async code
+
+### Build 981 (Feb 10, 2022)
+
+**What's New**
+
+- FP implicit cast from byte and sbyte
+
+**Changes**
+
+- QuantumCodeIntegration no longer needs `Properties/AssemblyInfo.cs` removed
+- Quantum Code Integration - quantum.code can be imported into Unity project with Package Manager. Follow instructions in `tools/codeintegration_unity/README.txt`
+
+**Bug Fixes**
+
+- Fixed: CodeGen.cs mixed end-of-line characters
+- Fixed: Quantum Code Integration: .NET Standard 2.1 api compatibility is now supported
+- Fixed: Range attribute not working in Unity 2021.2+
+
+### Build 980 (Feb 09, 2022)
+
+**Changes**
+
+- Added deterministic `GetHashCode` override for each simulation struct
+- DumpFlag_PrintRawValues dump flag also makes QDictionary print key hash values
+- QBoolean implements IEquatable<QBoolean>
+
+**Bug Fixes**
+
+- Fixed: QuantumCodeIntegration throwing an exception if PhotonQuantumCode.dll is no longer accessible
+
 ### Build 977 (Feb 08, 2022)
 
 **What's New**
@@ -1955,6 +2011,21 @@ This fixes issues with the heap page max size and reduces memory consumption whe
 
 - Fixed: Inspector for arrays in Unity 2020.2: reorderable lists are simply not compatible with Quantum Editor GUI and hence have been disabled for Quantum types for now
 
+# 2.0.4
+
+## F1
+
+### Build 982 (Feb 11, 2022)
+
+- Added warning message when setting a 2D or 3D Physics Collider physics material to an invalid asset
+- Fixed `FP.FromString` returning wrong values when providing strings with more than 14 digits of precision of the fraction part
+- Fixed an issue on 2D and 3D KCCs that could cause the penetration correction to push the character further inside the collider in case the contact point was past the character center in the normal direction
+- Fixed an issue on the client simulator that would cause the input polling for a given frame to be skipped or polled in duplication when the input offset increased or decreased, respectively
+- Fixed an issue on the de-serialization of multiple Commands of the same type on the same frame
+- Fixed Arrays not being displayed correctly in Unity 2020.3.24+ and 2021.2
+- Fixed issues on the 2D and 3D Physics engines when the session is initialized with `RuntimeConfig.Map` as default or invalid
+- Fixed issues when enabling toggleable mesh colliders that were initialized as disabled, expanding internal buffers in the process, which could corrupt memory and cause crashes
+
 # 2.0.3
 
 ## F1
@@ -3170,6 +3241,32 @@ f.NavMeshRegionMask->ToggleRegion(secret, false);
 - Fixed an issue with consecutive navmesh links where the first waypoint was skipped
 - Fixed Quaternion multiplication bug fix
 - Added automatic changelog generation and publishing for nightly builds
+
+# 1.2.4.5
+
+## F1 (Feb 04, 2022)
+
+- Fixed an issue with the normal and penetration computations on 3D Box-Box collisions.
+- Fixed excessive memory allocations due to pre-loading of static Physics broad-phase structures on Map assets.
+- Fixed PhysicsSystemBase, now allowing selective calls to 2D or 3D Physics Updates by overrides on PhysicsSystemPre.
+- Fixed type mismatch between BitStream.WriteStringGZip and .ReadStringGZip serialization code that could corrupt the de-serialized data.
+- Fixed missing support to FPMatrix2x2 in the DSL.
+- Fixed an issue on 2D and 3D KCCs that could cause the penetration correction to push the character further inside the collider in case the contact point was past the character center in the normal direction.
+- Fixed an issue on the de-serialization of multiple Commands of the same type on the same frame.
+- Added the option to configure the server input buffer and history sizes when running a custom plugin.
+- Upgraded the custom plugin SDK to Photon Server 5 (version 5.0.12.7770). When upgrading the custom plugin make sure to delete everything inside `Photon-Server` first and then extract the new SDK. Significant changes: New game server plugin config location is `Photon-Server/deploy/LoadBalancing/GameServer/bin/plugin.config`. A license file has be be downloaded from the PhotonEngine dashboard and placed into `Photon-Server\deploy\bin_Win64`. PhotonControl does not have to be used to Set Local Game Server IP any more.
+
+# 1.2.4.4
+
+## F1 (Feb 28, 2021)
+
+- Fixed new Inspector files added on 1.2.4.3 missing from the upgrade package.
+- Fixed 2D and 3D physics bodies not having their linear and angular velocities reset when put in a sleeping state.
+- Fixed Custom Plugin sample, now disposing the session container in OnCloseGame instead of in BeforeCloseGame, so the simulation is still available during EmptyRoomTTL.
+- Fixed an accuracy issue in the normal computation of the 2D box-circle narrow phase.
+- Fixed an issue in FPCollision.CircleIntersectsAABB (used by OverlapCircle query) that would cause circles with radius 0 (point) inside boxes to not be considered as overlapping.
+- Fixed 2D OverlapCircle queries not checking against static polygons.
+- Added missing `UNITY_TVOS` directive when setting the correct Native Library on QuantumRunner.Init.
 
 # 1.2.4.3
 

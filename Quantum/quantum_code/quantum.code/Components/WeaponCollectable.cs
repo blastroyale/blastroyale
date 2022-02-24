@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -28,7 +29,7 @@ namespace Quantum
 			var equipment = new Equipment(collectable.GameId, ItemRarity.Common, 1);
 			
 			playerCharacter->AddWeapon(f, player, equipment);
-			playerCharacter->EquipCurrentSlotWeapon(f, player);
+			playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class WeaponSlotsView : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI[] _weaponText;
-		[SerializeField] private Image[] _currentWeaponImage;
+		[SerializeField] private Image[] _weaponImage;
 		
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void Start()
 		{
-			// UpdateWeaponSlot(GameId.Hammer, 0);
+			UpdateWeaponSlot(GameId.Hammer, 0);
 		}
 		
 		private void OnEventOnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
@@ -43,7 +43,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		
 		private async void UpdateWeaponSlot(GameId weaponGameId, int weaponSlotNumber)
 		{
-			_currentWeaponImage[weaponSlotNumber].sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
+			_weaponImage[weaponSlotNumber].sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
 			_weaponText[weaponSlotNumber].text = weaponGameId.GetTranslation();
 		}
 	}

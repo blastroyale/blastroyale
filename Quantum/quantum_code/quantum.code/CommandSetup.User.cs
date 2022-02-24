@@ -19,6 +19,7 @@ namespace Quantum
 			factories.Add(new WeaponSpawnCommand());
 			factories.Add(new CollectablePlatformSpawnCommand());
 			factories.Add(new DummySpawnCommand());
+			factories.Add(new WeaponSlotSwitchCommand());
 		}
 	}
 }

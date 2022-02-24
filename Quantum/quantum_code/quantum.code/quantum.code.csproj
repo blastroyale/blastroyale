@@ -178,6 +178,7 @@
     <Compile Include="Commands\PlayerRespawnCommand.cs" />
     <Compile Include="Commands\SpecialUsedCommand.cs" />
     <Compile Include="Commands\CollectablePlatformSpawnCommand.cs" />
+    <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
     <Compile Include="Components\Equipment.cs" />

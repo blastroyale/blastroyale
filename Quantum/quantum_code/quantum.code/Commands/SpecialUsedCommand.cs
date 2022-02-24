@@ -4,7 +4,7 @@ using Quantum.Systems;
 namespace Quantum.Commands
 {
 	/// <summary>
-	/// This cheat command destroys entity references of DumbAi components in the simulation.
+	/// This command tries to use a special with the SpecialIndex index
 	/// </summary>
 	public unsafe class SpecialUsedCommand : CommandBase
 	{

@@ -12,10 +12,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
-
-			playerCharacter->CurrentWeaponSlot = 0;
-			playerCharacter->EquipCurrentSlotWeapon(f, e);
+			f.Unsafe.GetPointer<PlayerCharacter>(e)->EquipSlotWeapon(f, e, 0);
 		}
 	}
 }

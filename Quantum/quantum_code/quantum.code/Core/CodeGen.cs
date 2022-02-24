@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -3768,7 +3769,7 @@ namespace Quantum {
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(0)]
     [HideInInspector()]
-    public UInt16 CurrentWeaponSlot;
+    public Int32 CurrentWeaponSlot;
     [FieldOffset(32)]
     [HideInInspector()]
     public FP DisconnectedDuration;
@@ -6734,9 +6735,7 @@ namespace Quantum {
       }
     }
   }
-  #region BitStreamExtensions
-  static
-  public unsafe partial class BitStreamExtensions {
+  public static unsafe partial class BitStreamExtensions {
     public static void Serialize(this IBitStream stream, ref AssetRefAIAction value) {
       stream.Serialize(ref value.Id.Value);
     }
@@ -6828,7 +6827,6 @@ namespace Quantum {
       stream.Serialize(ref value.Id.Value);
     }
   }
-  #endregion
   [System.SerializableAttribute()]
   public unsafe partial class BTNode : AssetObject {
   }
@@ -8186,7 +8184,7 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public PlayerRef Player;
     [HideInInspector()]
-    public UInt16 CurrentWeaponSlot;
+    public Int32 CurrentWeaponSlot;
     [HideInInspector()]
     [ArrayLengthAttribute(3)]
     public Equipment_Prototype[] Weapons = new Equipment_Prototype[3];

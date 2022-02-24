@@ -1,7 +1,5 @@
 using System;
 using ExitGames.Client.Photon;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Realtime;
@@ -19,10 +17,10 @@ namespace FirstLight.Game.Configs
 	[CreateAssetMenu(fileName = "QuantumRunner Configs", menuName = "ScriptableObjects/QuantumRunner Configs")]
 	public class QuantumRunnerConfigs : ScriptableObject
 	{
-		public const string RoomPropertyKeyStartTime = "t";
-		
+		private const string _roomPropertyKeyStartTime = "t";
 		private const string _roomPropertyKeyGitCommit = "g";
 		private const string _roomPropertyKeyMap = "m";
+		private const string _roomPropertyKeyDevMode = "dev";
 		
 		[SerializeField] private RuntimeConfig _runtimeConfig;
 		[SerializeField] private DeterministicSessionConfigAsset _deterministicConfigAsset;
@@ -79,20 +77,19 @@ namespace FirstLight.Game.Configs
 					CleanupCacheOnLeave = true,
 					CustomRoomProperties = GetCreationRoomProperties(config),
 					CustomRoomPropertiesForLobby = GetRoomPropertiesToExposeInLobby(),
+					Plugins = null,
+					SuppressRoomEvents = false,
+					SuppressPlayerInfo = false,
+					PublishUserId = false,
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
 					IsVisible = true,
-					MaxPlayers = (byte) config.PlayersLimit,
-					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000
+					MaxPlayers = (byte)config.PlayersLimit,
+					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000,
+
 				}
 			};
-
-			if (IsDevMode)
-			{
-				roomParams.RoomName = "Development";
-				roomParams.RoomOptions.IsVisible = false;
-			}
 			
 			return roomParams;
 		}
@@ -136,7 +133,7 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = InstantReplaySettings.Default,
 				HeapExtraCount = 0,
-				PlayerCount =config.PlayersLimit
+				PlayerCount = config.PlayersLimit
 			};
 		}
 
@@ -144,21 +141,26 @@ namespace FirstLight.Game.Configs
 		{
 			var properties = GetMatchMakingRoomProperties(config);
 			
-			properties.Add(RoomPropertyKeyStartTime, DateTime.UtcNow.Ticks);
+			properties.Add(_roomPropertyKeyStartTime, DateTime.UtcNow.Ticks);
 
 			return properties;
 		}
 		
 		private Hashtable GetMatchMakingRoomProperties(MapConfig config)
 		{
-			return new Hashtable
+			var properties = new Hashtable
 			{
 				// The commit should guarantee the same Quantum build version + App version etc.
 				{ _roomPropertyKeyGitCommit, VersionUtils.Commit },
 				
-				// We send the game map Id
+				// Set the game map Id for the same matchmaking
 				{ _roomPropertyKeyMap, config.Id },
+				
+				// Set if only dev mode players match together
+				{ _roomPropertyKeyDevMode, IsDevMode },
 			};
+			
+			return properties;
 		}
 
 		/// <summary>
@@ -170,7 +172,8 @@ namespace FirstLight.Game.Configs
 			return new []
 			{
 				_roomPropertyKeyGitCommit,
-				_roomPropertyKeyMap
+				_roomPropertyKeyMap,
+				_roomPropertyKeyDevMode
 			};
 		}
 	}

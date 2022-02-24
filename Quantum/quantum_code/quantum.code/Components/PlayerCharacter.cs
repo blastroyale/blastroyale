@@ -30,13 +30,13 @@ namespace Quantum
 			var blackboard = new AIBlackboardComponent();
 			
 			Player = playerRef;
+			CurrentWeaponSlot = 0;
+			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, 1);
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin);
 			
 			f.Add(e, blackboard);
-			
-			AddWeapon(f, e, new Equipment(GameId.Hammer, ItemRarity.Common, 1));
 			
 			if (!f.WeaponConfigs.GetConfig(playerWeapon.GameId).IsMeleeWeapon)
 			{
@@ -58,7 +58,7 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 			
-			EquipCurrentSlotWeapon(f, e);
+			EquipSlotWeapon(f, e, CurrentWeaponSlot);
 			
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -129,31 +129,23 @@ namespace Quantum
 		/// </summary>
 		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon)
 		{
-			for (ushort i = 0; i < Constants.MAX_WEAPONS; i++)
-			{
-				if (Weapons[i].IsValid && i < Constants.MAX_WEAPONS-1)
-				{
-					continue;
-				}
+			var slot = Weapons[1].IsValid ? 2 : 1;
+
+			Weapons[slot] = weapon;
+			CurrentWeaponSlot = slot;
 				
-				var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled);
 				
-				Weapons[i] = weapon;
-				CurrentWeaponSlot = i;
-				
-				GainAmmo(f, e, weaponConfig.InitialAmmoFilled);
-				
-				f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, i);
-				
-				break;
-			}
+			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
 		
 		/// <summary>
-		/// Sets the player's actual weapon and data to the one in the current slot
+		/// Sets the player's weapon to the given <paramref name="slot"/>
 		/// </summary>
-		internal void EquipCurrentSlotWeapon(Frame f, EntityRef e)
+		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
+			CurrentWeaponSlot = slot;
+			
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
@@ -229,16 +221,12 @@ namespace Quantum
 		/// </summary>
 		internal void GainAmmo(Frame f, EntityRef e, FP amount)
 		{
-			// We need to get current Ammo before we change AmmoFilled
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
-			
-			// We change AmmoFilled regardless of weapon a player carries
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
-			
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
 			
-			// We don't handle Ammo if a player carries a melee weapon or if Ammo hasn't changed 
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
+			
 			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
 			{
 				return;

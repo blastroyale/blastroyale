@@ -1913,14 +1913,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sn00pD0g
+      - Doctor
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot52
       TermType: 0
       Description: 
       Languages:
-      - Putin
+      - Jeremy
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot53
@@ -2852,6 +2852,111 @@ MonoBehaviour:
       Description: 
       Languages:
       - Botorama
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot186
+      TermType: 0
+      Description: 
+      Languages:
+      - ElClassico
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot187
+      TermType: 0
+      Description: 
+      Languages:
+      - Fred
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot188
+      TermType: 0
+      Description: 
+      Languages:
+      - NukeMan
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot189
+      TermType: 0
+      Description: 
+      Languages:
+      - Doge
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot190
+      TermType: 0
+      Description: 
+      Languages:
+      - $H1BA
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot191
+      TermType: 0
+      Description: 
+      Languages:
+      - Smackster
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot192
+      TermType: 0
+      Description: 
+      Languages:
+      - Hamster
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot193
+      TermType: 0
+      Description: 
+      Languages:
+      - Badger
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot194
+      TermType: 0
+      Description: 
+      Languages:
+      - Sonic
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot195
+      TermType: 0
+      Description: 
+      Languages:
+      - MarioTime
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot196
+      TermType: 0
+      Description: 
+      Languages:
+      - Browser
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot197
+      TermType: 0
+      Description: 
+      Languages:
+      - Lionheart
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot198
+      TermType: 0
+      Description: 
+      Languages:
+      - kl0p
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot199
+      TermType: 0
+      Description: 
+      Languages:
+      - Furhad
+      Flags: 00
+      Languages_Touch: []
+    - Term: BotNames/Bot200
+      TermType: 0
+      Description: 
+      Languages:
+      - Yui
       Flags: 00
       Languages_Touch: []
     - Term: Notifications/AdventureUnlocked
@@ -4504,7 +4609,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1643125485714
+    Google_LastUpdatedVersion: 1645720726492
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

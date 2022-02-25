@@ -4,18 +4,16 @@ using Quantum.Systems;
 namespace Quantum.Commands
 {
 	/// <summary>
-	/// This command tries to use a special with the SpecialIndex index
+	/// This command tries to switch to a weapon in a specified WeaponSlotIndex slot
 	/// </summary>
-	public unsafe class SpecialUsedCommand : CommandBase
+	public unsafe class WeaponSlotSwitchCommand : CommandBase
 	{
-		public FPVector2 AimInput;
-		public int SpecialIndex;
+		public int WeaponSlotIndex;
 		
 		/// <inheritdoc />
 		public override void Serialize(BitStream stream)
 		{
-			stream.Serialize(ref AimInput);
-			stream.Serialize(ref SpecialIndex);
+			stream.Serialize(ref WeaponSlotIndex);
 		}
 
 		/// <inheritdoc />
@@ -23,12 +21,13 @@ namespace Quantum.Commands
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
-			var special = playerCharacter->Specials.GetPointer(SpecialIndex);
 			
-			if (special->IsValid || !special->IsSpecialAvailable(f))
+			if (!playerCharacter->Weapons[WeaponSlotIndex].IsValid)
 			{
-				special->TryActivate(f, characterEntity, AimInput, SpecialIndex);
+				return;
 			}
+			
+			playerCharacter->EquipSlotWeapon(f, characterEntity, WeaponSlotIndex);
 		}
 	}
 }

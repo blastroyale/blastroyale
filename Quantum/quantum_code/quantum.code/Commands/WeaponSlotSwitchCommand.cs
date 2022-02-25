@@ -20,10 +20,9 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			
-			if (QuantumHelpers.IsDestroyed(f, characterEntity) || !f.Has<Targetable>(characterEntity) || 
-			    !f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var playerCharacter) ||
-			    !playerCharacter->Weapons[WeaponSlotIndex].IsValid)
+			if (!playerCharacter->Weapons[WeaponSlotIndex].IsValid)
 			{
 				return;
 			}

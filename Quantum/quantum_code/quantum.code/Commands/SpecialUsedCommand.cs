@@ -22,13 +22,7 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-			
-			if (QuantumHelpers.IsDestroyed(f, characterEntity) || !f.Has<Targetable>(characterEntity) || 
-			    !f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var playerCharacter))
-			{
-				return;
-			}
-
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			var special = playerCharacter->Specials.GetPointer(SpecialIndex);
 			
 			if (special->IsValid || !special->IsSpecialAvailable(f))

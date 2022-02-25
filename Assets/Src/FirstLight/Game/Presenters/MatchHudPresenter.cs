@@ -11,6 +11,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
+using Quantum.Commands;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -35,6 +36,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private MapTimerView _mapTimerView;
 		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
+		[SerializeField] private Button[] _weaponSlotButtons;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -50,6 +52,10 @@ namespace FirstLight.Game.Presenters
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
 
+			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
+			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
+			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
+			
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
@@ -121,6 +127,16 @@ namespace FirstLight.Game.Presenters
 			
 			_standings.gameObject.SetActive(true);
 			_standings.Initialise(playerData, false);
+		}
+
+		private void OnWeaponSlotClicked(int weaponSlotIndex)
+		{
+			var command = new WeaponSlotSwitchCommand()
+			{
+				WeaponSlotIndex = weaponSlotIndex
+			};
+			
+			QuantumRunner.Default.Game.SendCommand(command);
 		}
 	}
 }

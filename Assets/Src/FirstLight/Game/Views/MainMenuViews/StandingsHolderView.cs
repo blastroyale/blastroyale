@@ -61,7 +61,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void Initialise(List<QuantumPlayerMatchData> playerData, bool showExtra = true, bool enableBlockerButton = true)
 		{
-			_xpHolder.SetActive(showExtra);
 			_coinsHolder.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
 

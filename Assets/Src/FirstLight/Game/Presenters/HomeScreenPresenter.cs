@@ -76,14 +76,6 @@ namespace FirstLight.Game.Presenters
 		{
 			Services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-
-		/// <inheritdoc />
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-
-			UpdateButtonStates();
-		}
 		
 		private void OnXpSliderAnimationCompleted(uint previousLevel, uint newLevel)
 		{

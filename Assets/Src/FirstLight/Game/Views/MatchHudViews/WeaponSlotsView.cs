@@ -18,7 +18,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class WeaponSlotsView : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI[] _weaponText;
-		[SerializeField] private Image[] _currentWeaponImage;
+		[SerializeField] private Image[] _weaponImage;
 		
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -28,25 +28,23 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnEventOnLocalPlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnEventOnLocalPlayerWeaponAdded);
 		}
 
 		private void Start()
 		{
-			var weapon = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(GameIdGroup.Weapon);
-
-			UpdateCurrentWeapon(weapon.GameId);
+			UpdateWeaponSlot(GameId.Hammer, 0);
 		}
 		
-		private void OnEventOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		private void OnEventOnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
 		{
-			UpdateCurrentWeapon(callback.Weapon.GameId);
+			UpdateWeaponSlot(callback.Weapon.GameId, callback.WeaponSlotNumber);
 		}
 		
-		private async void UpdateCurrentWeapon(GameId weaponGameId)
+		private async void UpdateWeaponSlot(GameId weaponGameId, int weaponSlotNumber)
 		{
-			_currentWeaponImage[0].sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
-			_weaponText[0].text = weaponGameId.GetTranslation();
+			_weaponImage[weaponSlotNumber].sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weaponGameId);
+			_weaponText[weaponSlotNumber].text = weaponGameId.GetTranslation();
 		}
 	}
 }

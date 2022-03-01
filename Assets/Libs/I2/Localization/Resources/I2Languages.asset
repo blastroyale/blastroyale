@@ -893,7 +893,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Get<color=blue><b> Gems</b></color> from Match Rewards or from the <b>Shop</b>.
+      - Get<color=blue><b> Craft Spice</b></color> from <b>Match Rewards</b>.
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Abilties
@@ -3355,7 +3355,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DIAMONDS
+      - CRAFT SPICE
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/Hammer
@@ -4609,7 +4609,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1645720726492
+    Google_LastUpdatedVersion: 1645807405407
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

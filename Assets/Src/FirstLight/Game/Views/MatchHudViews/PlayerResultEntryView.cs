@@ -34,16 +34,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_playerRankText.text = $"{data.PlayerRank.ToString()}.";
 			_killsText.text = data.Data.PlayersKilledCount.ToString();
 			_deathsText.text = data.Data.DeathCount.ToString();
-			_coinsText.text = rewards.TryGetValue(GameId.SC, out var sc) ? sc.ToString() : "0";
-			_xpText.text = rewards.TryGetValue(GameId.XP, out var xp) ? xp.ToString() : "0";
-			_xpText.enabled = showExtra;
+			_coinsText.text = rewards.TryGetValue(GameId.HC, out var cs) ? cs.ToString() : "0";
 			_coinsText.enabled = showExtra;
 			
 			_playerNameText.color = col;
 			_playerRankText.color = col;
 			_killsText.color = col;
 			_deathsText.color = col;
-			_xpText.color = col;
 			_coinsText.color = col;
 		}
 	}

@@ -56,6 +56,7 @@ namespace FirstLight.Game.Ids
 		SplashProjectileEnergyGreen,
 		Fireworks,
 		Airstrike,
+		Skybeam,
 		TOTAL,            // Used to know the total amount of this type without the need of reflection
 	}
 	

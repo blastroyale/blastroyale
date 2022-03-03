@@ -21,7 +21,7 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
-			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
+			var position = f.Get<Transform3D>(e).Position + (f.Get<Transform3D>(e).Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
 			var projectile = new Projectile
@@ -31,7 +31,7 @@ namespace Quantum
 				PowerAmount = (uint) power.AsInt,
 				SourceId = weaponConfig.Id,
 				Range = weaponConfig.AttackRange,
-				SpawnPosition = position + playerCharacter->ProjectileSpawnOffset,
+				SpawnPosition = position,
 				Speed = weaponConfig.ProjectileSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
 				StunDuration = FP._0,

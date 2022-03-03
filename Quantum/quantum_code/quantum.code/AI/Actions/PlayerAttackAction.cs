@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 using Quantum.Physics3D;
 
@@ -27,7 +28,8 @@ namespace Quantum
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
-			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized * weaponConfig.AttackRange;
+			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized;
+			var targetsHit = new List<EntityRef>();
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
 			f.Events.OnPlayerAttack(player, e);
@@ -39,19 +41,24 @@ namespace Quantum
 				var hit = f.Physics3D.Raycast(position, direction.XOY, weaponConfig.AttackRange, f.TargetAllLayerMask, hitQuery);
 				
 				angle += angleStep;
-
-				if (!hit.HasValue || hit.Value.Entity == e)
+				
+				if (!hit.HasValue || hit.Value.Entity == e ||
+				    (!weaponConfig.CanHitSameTarget && targetsHit.Contains(hit.Value.Entity)))
 				{
 					continue;
 				}
-
+				
+				targetsHit.Add(hit.Value.Entity);
+				
 				var spell = Spell.CreateInstant(f, hit.Value.Entity, e, e, powerAmount, hit.Value.Point);
-
-				QuantumHelpers.ProcessHit(f, spell);
 
 				if (weaponConfig.SplashRadius > FP._0)
 				{
 					QuantumHelpers.ProcessAreaHit(f, weaponConfig.SplashRadius, spell);
+				}
+				else
+				{
+					QuantumHelpers.ProcessHit(f, spell);
 				}
 			}
 		}

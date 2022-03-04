@@ -120,7 +120,7 @@ MonoBehaviour:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 6554
-      MaxAmmo: 80
+      MaxAmmo: 120
       PowerRatioToBase:
         RawValue: 58982
       AimingMovementSpeed:

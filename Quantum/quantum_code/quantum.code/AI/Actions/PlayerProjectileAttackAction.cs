@@ -21,7 +21,8 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
 			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
-			var position = f.Get<Transform3D>(e).Position + (f.Get<Transform3D>(e).Rotation * playerCharacter->ProjectileSpawnOffset);
+			var transform = f.Get<Transform3D>(e);
+			var position = transform.Position + (transform.Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
 			var projectile = new Projectile

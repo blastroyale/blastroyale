@@ -19,11 +19,11 @@ namespace FirstLight.Game.Utils
 		public const float MOVEMENT_SPEED_BEAUTIFIER = 100f;
 
 		// Multiplier to scale player rag-doll impulse force amount 
-		public const float PLAYER_RAGDOLL_FORCE_SCALAR = 0.1f;
+		public const float PLAYER_RAGDOLL_FORCE_SCALAR = 0.07f;
 		
 		// Maximum player rag-doll impulse force amount 
-		public const float PLAYER_RAGDOLL_FORCE_MAX = 2f;
-			
+		public const float PLAYER_RAGDOLL_FORCE_MAX = 1.65f;
+		
 		// The name of the parameter in the animator that decides the time of stun outro animation
 		public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 		

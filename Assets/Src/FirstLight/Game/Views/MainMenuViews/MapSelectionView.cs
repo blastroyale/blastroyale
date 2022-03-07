@@ -54,7 +54,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_selectedPoint.anchoredPosition = GridToAnchoredPosition(pos);
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
-			NormalizedSelectionPoint = new Vector2((float) pos.x / mapGridSize.Key, (float) pos.y / mapGridSize.Value);
+			NormalizedSelectionPoint = new Vector2((float) pos.x / mapGridSize.x, (float) pos.y / mapGridSize.y);
 		}
 
 		private Vector2Int GetRandomGridPosition()
@@ -62,11 +62,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridSize = mapGridConfigs.GetSize();
 
-			var availableGridPositions = new HashSet<MapGridConfig>(gridSize.Key * gridSize.Value);
+			var availableGridPositions = new HashSet<MapGridConfig>(gridSize.x * gridSize.y);
 
-			for (int x = 0; x < gridSize.Key; x++)
+			for (int x = 0; x < gridSize.x; x++)
 			{
-				for (int y = 0; y < gridSize.Value; y++)
+				for (int y = 0; y < gridSize.y; y++)
 				{
 					var config = mapGridConfigs.GetConfig(x, y);
 					if (config.IsValid) availableGridPositions.Add(config);
@@ -88,8 +88,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var calcPos = new Vector2(localPos.x + sizeDelta.x / 2f, Mathf.Abs(localPos.y - sizeDelta.y / 2f));
 
 			return new Vector2Int(
-				Mathf.RoundToInt(size.Key * calcPos.x / sizeDelta.x),
-				Mathf.RoundToInt(size.Value * calcPos.y / sizeDelta.y)
+				Mathf.RoundToInt(size.x * calcPos.x / sizeDelta.x),
+				Mathf.RoundToInt(size.y * calcPos.y / sizeDelta.y)
 			);
 		}
 
@@ -98,7 +98,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var size = mapGridConfigs.GetSize();
 			var sizeDelta = _rectTransform.sizeDelta;
-			var normalizedPos = new Vector2((float) pos.x / size.Key, (float) pos.y / size.Value);
+			var normalizedPos = new Vector2((float) pos.x / size.x, (float) pos.y / size.y);
 
 			var positionInRectangle = sizeDelta * normalizedPos;
 			positionInRectangle.x -= sizeDelta.x / 2f;

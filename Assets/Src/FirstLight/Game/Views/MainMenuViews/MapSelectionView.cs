@@ -49,8 +49,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapGridSize = mapGridConfigs.GetSize();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 
-			Debug.Log($"Selecting grid position ({pos.x}, {pos.y}) - {(gridConfig.IsValid ? "Valid" : "Invalid")}");
-			if (!gridConfig.IsValid) return;
+			if (!gridConfig.IsValid)
+			{
+				return;
+			}
 
 			_selectedPoint.anchoredPosition = GridToAnchoredPosition(pos);
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
@@ -69,7 +71,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 				for (int y = 0; y < gridSize.y; y++)
 				{
 					var config = mapGridConfigs.GetConfig(x, y);
-					if (config.IsValid) availableGridPositions.Add(config);
+					if (config.IsValid)
+					{
+						availableGridPositions.Add(config);
+					}
 				}
 			}
 

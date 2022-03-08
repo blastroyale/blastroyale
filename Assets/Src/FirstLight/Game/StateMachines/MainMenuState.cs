@@ -105,6 +105,7 @@ namespace FirstLight.Game.StateMachines
 			var shopMenu = stateFactory.Nest("Shop Menu");
 			var lootOptionsMenu = stateFactory.Nest("Loot Options Menu");
 			var lootMenu = stateFactory.Nest("Loot Menu");
+			var heroesMenu = stateFactory.State("Heroes Menu");
 			var trophyRoadMenu = stateFactory.Nest("Trophy Road Menu");
 			var collectLoot = stateFactory.Nest("Collect Loot Menu");
 			var cratesMenu = stateFactory.Nest("Crates Menu");
@@ -125,6 +126,7 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().Condition(IsCurrentScreen<ShopScreenPresenter>).Target(shopMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootOptionsScreenPresenter>).Target(lootOptionsMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<TrophyRoadScreenPresenter>).Target(trophyRoadMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
@@ -165,6 +167,9 @@ namespace FirstLight.Game.StateMachines
 			lootMenu.OnEnter(OpenLootMenuUI);
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			lootMenu.OnExit(CloseLootMenuUI);
+			
+			heroesMenu.OnEnter(OpenHeroesMenuUI);
+			heroesMenu.OnExit(CloseHeroesMenuUI);
 			
 			trophyRoadMenu.OnEnter(OpenTrophyRoadMenuUI);
 			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
@@ -348,6 +353,20 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
 		}
 
+		private void OpenHeroesMenuUI()
+		{
+			var data = new PlayerSkinScreenPresenter.StateData
+			{
+				OnCloseClicked = OnTabClickedCallback<HomeScreenPresenter>,
+			};
+
+			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+		}
+		
+		private void CloseHeroesMenuUI()
+		{
+			_uiService.CloseUi<PlayerSkinScreenPresenter>();
+		}
 
 		private void OpenTrophyRoadMenuUI()
 		{
@@ -378,6 +397,7 @@ namespace FirstLight.Game.StateMachines
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
 				// OnLootButtonClicked = OnTabClickedCallback<LootOptionsScreenPresenter>,
 				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
+				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
 				OnCratesButtonClicked = OnTabClickedCallback<CratesScreenPresenter>,
 				OnSocialButtonClicked = OnTabClickedCallback<SocialScreenPresenter>,
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,

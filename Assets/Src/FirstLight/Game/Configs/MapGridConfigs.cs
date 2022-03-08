@@ -43,9 +43,9 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Requests the map grid size
 		/// </summary>
-		public Pair<int, int> GetSize()
+		public Vector2Int GetSize()
 		{
-			return new Pair<int, int>(_configs[0].Row.Count, _configs.Count);
+			return new Vector2Int(_configs[0].Row.Count, _configs.Count);
 		}
 
 		/// <summary>

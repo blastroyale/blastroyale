@@ -12,9 +12,15 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) || collectable->IsCollected ||
+			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player))
 			{
+				return;
+			}
+			
+			if (collectable->IsCollected)
+			{
+				f.Add<EntityDestroyer>(info.Entity);
 				return;
 			}
 			
@@ -47,7 +53,6 @@ namespace Quantum.Systems
 			Collect(f, info.Entity, info.Other, player.Player);
 			f.Events.OnLocalCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
 			f.Events.OnCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
-			f.Add<EntityDestroyer>(info.Entity);
 		}
 
 		/// <inheritdoc />

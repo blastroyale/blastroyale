@@ -34,7 +34,7 @@ namespace FirstLight.Game.Utils
 		
 		// The audios default starting volume
 		public const float Sfx2dDefaultVolume = 0.2f;
-		public const float Sfx3dDefaultVolume = 1f;
+		public const float Sfx3dDefaultVolume = 0.4f;
 		public const float BgmDefaultVolume = 0.45f;
 
 		public const float ExtraMatchmakingRandomTime = 2f;

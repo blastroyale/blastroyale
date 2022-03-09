@@ -46,7 +46,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void SetGridPosition(Vector2Int pos)
 		{
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var mapGridSize = mapGridConfigs.GetSize();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 
 			if (!gridConfig.IsValid)
@@ -54,9 +53,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 
-			_selectedPoint.anchoredPosition = GridToAnchoredPosition(pos);
+			var localPosition = GridToAnchoredPosition(pos);
+			var localSize = _rectTransform.sizeDelta;
+			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
-			NormalizedSelectionPoint = new Vector2((float) pos.x / mapGridSize.x, (float) pos.y / mapGridSize.y);
+			NormalizedSelectionPoint = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y);
 		}
 
 		private Vector2Int GetRandomGridPosition()
@@ -85,7 +86,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)
 		{
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, pointer, _uiCamera,
-				out var localPos);
+			                                                        out var localPos);
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var size = mapGridConfigs.GetSize();
@@ -93,9 +94,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var calcPos = new Vector2(localPos.x + sizeDelta.x / 2f, Mathf.Abs(localPos.y - sizeDelta.y / 2f));
 
 			return new Vector2Int(
-				Mathf.RoundToInt(size.x * calcPos.x / sizeDelta.x),
-				Mathf.RoundToInt(size.y * calcPos.y / sizeDelta.y)
-			);
+			                      Mathf.RoundToInt(size.x * calcPos.x / sizeDelta.x),
+			                      Mathf.RoundToInt(size.y * calcPos.y / sizeDelta.y)
+			                     );
 		}
 
 		private Vector2 GridToAnchoredPosition(Vector2Int pos)

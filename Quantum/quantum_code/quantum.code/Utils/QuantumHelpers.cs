@@ -114,7 +114,7 @@ namespace Quantum
 				
 				hitCount++;
 					
-				onHitCallback?.Invoke(f, spell);
+				onHitCallback?.Invoke(f, hitSpell);
 
 				if (hitCount >= maxHitCount)
 				{

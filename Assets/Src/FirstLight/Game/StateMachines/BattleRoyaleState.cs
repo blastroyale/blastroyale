@@ -99,13 +99,11 @@ namespace FirstLight.Game.StateMachines
 		private void OpenAdventureHud()
 		{
 			_uiService.OpenUi<MatchHudPresenter>();
-			_uiService.OpenUi<MiniMapHudPresenter>();
 		}
 
 		private void CloseAdventureHud()
 		{
 			_uiService.CloseUi<MatchHudPresenter>();
-			_uiService.CloseUi<MiniMapHudPresenter>();
 		}
 		
 		private void PublishMatchStarted()

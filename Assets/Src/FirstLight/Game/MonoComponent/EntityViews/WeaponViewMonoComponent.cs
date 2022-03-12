@@ -10,11 +10,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
 		[SerializeField] private ParticleSystem _particleSystem;
-		
+
 		protected override void OnInit()
 		{
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
+			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
@@ -23,7 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			_particleSystem.Simulate(0.0f, true, true);
 			_particleSystem.Play();
 		}
@@ -34,7 +35,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
+			_particleSystem.Stop();
+		}
+
+		private void OnEventOnGameEnded(EventOnGameEnded callback)
+		{
 			_particleSystem.Stop();
 		}
 	}

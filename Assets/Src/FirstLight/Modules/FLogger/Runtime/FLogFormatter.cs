@@ -16,11 +16,13 @@ namespace FirstLight.FLogger
 		private int _mainThreadID = -1;
 
 		/// <summary>
-		/// TODO mihak: Add docs
+		/// Formats the log message with additional data (e.g. current frame, current
+		/// thread, time, log level...).
+		/// This will also strip the log if it's longer than <see cref="MaxLength"/>.
 		/// </summary>
 		/// <param name="level">The level / severity of the log</param>
-		/// <param name="tag"></param>
-		/// <param name="message"></param>
+		/// <param name="tag">An optional tag. If empty it uses the calling class name</param>
+		/// <param name="message">The message of the log.</param>
 		/// <param name="e">An optional exception that will be added to the log</param>
 		/// <returns>The formatted log string</returns>
 		public string FormatLog(FLogLevel level, string tag, string message, Exception e = null)

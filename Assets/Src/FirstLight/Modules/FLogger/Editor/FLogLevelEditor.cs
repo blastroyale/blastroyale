@@ -10,7 +10,7 @@ namespace FirstLight.FLogger.Editor
 	/// Adds menu items to switch between different logging levels.
 	/// </summary>
 	[InitializeOnLoad]
-	public class FLogLevelEditor
+	internal class FLogLevelEditor
 	{
 		private const string SymbolError = "LOG_LEVEL_ERROR";
 		private const string SymbolWarn = "LOG_LEVEL_WARN";

@@ -92,7 +92,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _ColorOffset: {r: 3, g: 0, b: 0, a: 0}
+    - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0.9568627, g: 2.478431, b: 3.058824, a: 0}
     - _GlowColor: {r: 64, g: 19.57647, b: 0, a: 1}
     - _Vector2: {r: 0.28, g: 0, b: 0, a: 0}

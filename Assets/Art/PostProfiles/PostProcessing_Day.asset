@@ -13,31 +13,21 @@ MonoBehaviour:
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 0
     m_Value: 0
   contrast:
     m_OverrideState: 1
     m_Value: 5
-    min: -100
-    max: 100
   colorFilter:
     m_OverrideState: 1
-    m_Value: {r: 1.4980392, g: 1.1450981, b: 1.1137255, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
+    m_Value: {r: 1.5849056, g: 1.3331637, b: 1.3107867, a: 1}
   hueShift:
     m_OverrideState: 1
-    m_Value: -2
-    min: -180
-    max: 180
+    m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 2
-    min: -100
-    max: 100
+    m_Value: 5
 --- !u!114 &-2660854953957658396
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -51,26 +41,18 @@ MonoBehaviour:
   m_Name: Vignette
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   color:
     m_OverrideState: 1
     m_Value: {r: 0.5679722, g: 0.43137255, b: 0.59607846, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
   center:
     m_OverrideState: 0
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
     m_Value: 0.5
-    min: 0
-    max: 1
   smoothness:
     m_OverrideState: 0
     m_Value: 0.3
-    min: 0.01
-    max: 1
   rounded:
     m_OverrideState: 0
     m_Value: 1
@@ -103,7 +85,6 @@ MonoBehaviour:
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
     m_Value: 2

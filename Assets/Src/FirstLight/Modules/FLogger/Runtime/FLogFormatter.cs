@@ -115,6 +115,9 @@ namespace FirstLight.FLogger
 		/// <summary>
 		/// Has to be called from the main thread, and will allow reporting frame count while in the Unity thread.
 		/// </summary>
-		public void SetMainThreadID() => _mainThreadID = Thread.CurrentThread.ManagedThreadId;
+		public void SetMainThreadID()
+		{
+			_mainThreadID = Thread.CurrentThread.ManagedThreadId;
+		}
 	}
 }

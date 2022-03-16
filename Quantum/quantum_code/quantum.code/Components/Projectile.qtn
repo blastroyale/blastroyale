@@ -34,7 +34,7 @@ event OnProjectileFailedHit
  	FPVector3 LastPosition;
 }
 
-synced event OnProjectileSuccessHit
+event OnProjectileSuccessHit
 {
 	entity_ref Projectile;
 	entity_ref HitEntity;

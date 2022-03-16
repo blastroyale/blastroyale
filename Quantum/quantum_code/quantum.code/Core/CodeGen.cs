@@ -4740,7 +4740,6 @@ namespace Quantum {
         return ev;
       }
       public EventOnProjectileSuccessHit OnProjectileSuccessHit(EntityRef Projectile, EntityRef HitEntity, Projectile ProjectileData, FPVector3 HitPosition) {
-        if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnProjectileSuccessHit>(EventOnProjectileSuccessHit.ID);
         ev.Projectile = Projectile;
         ev.HitEntity = HitEntity;
@@ -5596,7 +5595,7 @@ namespace Quantum {
         base(id, flags) {
     }
     public EventOnProjectileSuccessHit() : 
-        base(12, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+        base(12, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
       get {

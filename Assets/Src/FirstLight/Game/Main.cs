@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Facebook.Unity;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -9,7 +10,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.UiService;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 namespace FirstLight.Game
 {
@@ -32,7 +32,9 @@ namespace FirstLight.Game
 		{
 			Application.targetFrameRate = 30;
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-			
+
+			FLog.Init();
+
 			var messageBroker = new MessageBrokerService();
 			var analyticsService = new AnalyticsService();
 			var timeService = new TimeService();

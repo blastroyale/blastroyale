@@ -26,7 +26,7 @@ namespace Quantum.Systems
 
 			if (distance.SqrMagnitude > range * range)
 			{
-				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile);
+				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position);
 				f.Add<EntityDestroyer>(filter.Entity);
 				
 				return;
@@ -55,7 +55,7 @@ namespace Quantum.Systems
 			var position = f.Get<Transform3D>(hitSource).Position;
 			
 			if (!f.TryGet<Projectile>(hitSource, out var projectile) || targetHit == hitSource || info.StaticData.IsTrigger ||
-			    projectile.Attacker == hitSource || projectile.Attacker == targetHit)
+			    projectile.Attacker == hitSource || projectile.Attacker == targetHit || f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
@@ -64,12 +64,14 @@ namespace Quantum.Systems
 
 			f.Add<EntityDestroyer>(info.Entity);
 			
+			f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
+			
 			if (QuantumHelpers.ProcessHit(f, spell))
 			{
 				OnHit(f, spell);
 				return;
 			}
-			
+
 			if (projectile.SplashRadius == FP._0 || !info.IsStatic)
 			{
 				return;
@@ -87,7 +89,7 @@ namespace Quantum.Systems
 				StatusModifiers.AddStatusModifierToEntity(f, spell.Victim, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnProjectileHit(spell.SpellSource, spell.Victim, source, spell.OriginalHitPosition);
+			f.Events.OnProjectileTargetableHit(spell.SpellSource, spell.Victim, source, spell.OriginalHitPosition);
 		}
 	}
 }

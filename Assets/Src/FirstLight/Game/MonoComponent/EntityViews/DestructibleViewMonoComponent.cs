@@ -33,7 +33,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 			QuantumEvent.Subscribe<EventOnDestructibleScheduled>(this, HandleDestructionScheduled);
-			QuantumEvent.Subscribe<EventOnProjectileHit>(this, HandleProjectileHit);
+			QuantumEvent.Subscribe<EventOnProjectileTargetableHit>(this, HandleProjectileHit);
 		}
 
 		private void OnEntityDestroyed(QuantumGame game)
@@ -41,7 +41,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			transform.parent = null;
 		}
 
-		private void HandleProjectileHit(EventOnProjectileHit callback)
+		private void HandleProjectileHit(EventOnProjectileTargetableHit callback)
 		{
 			if (callback.HitEntity != EntityRef)
 			{

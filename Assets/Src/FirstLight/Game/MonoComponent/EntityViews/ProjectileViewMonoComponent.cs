@@ -19,7 +19,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void OnInit()
 		{
-			QuantumEvent.Subscribe<EventOnProjectileHit>(this, OnEventOnProjectileHit);
+			QuantumEvent.Subscribe<EventOnProjectileSuccessHit>(this, OnEventOnProjectileHit);
 			QuantumEvent.Subscribe<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
 		}
 
@@ -30,10 +30,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			PlayEffect(_failedHitEffect, transform.position);
+			PlayEffect(_failedHitEffect, callback.LastPosition.ToUnityVector3());
 		}
 
-		private void OnEventOnProjectileHit(EventOnProjectileHit callback)
+		private void OnEventOnProjectileHit(EventOnProjectileSuccessHit callback)
 		{
 			if (callback.Projectile != EntityRef)
 			{

@@ -15,11 +15,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private EmojiView _emojiViewRef;
 		
 		private IGameServices _services;
+		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IObjectPool<EmojiPoolObject> _pool;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_pool = new ObjectPool<EmojiPoolObject>(Constants.PLAYER_COUNT, Instantiator);
 			
 			_emojiViewRef.gameObject.SetActive(false);
@@ -28,7 +30,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private async void OnPlayerEmojiSent(EventOnPlayerEmojiSent callback)
 		{
-			if (!_services.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			if (!_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				// In case that the emoji is trying to be shown when a late joiner opens the game
 				return;

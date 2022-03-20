@@ -1,6 +1,7 @@
 using System;
 using Cinemachine;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.TimelinePlayables;
 using FirstLight.Game.Utils;
@@ -89,7 +90,7 @@ namespace FirstLight.Game.Presenters
 			
 			Services.AudioFxService.PlayClip2D(AudioId.Victory1);
 			
-			if (Services.EntityViewUpdaterService.TryGetView(playerWinner.Data.Entity, out var entityView))
+			if (MainInstaller.Resolve<IEntityViewUpdaterService>().TryGetView(playerWinner.Data.Entity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
 				

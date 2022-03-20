@@ -31,6 +31,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private GameObject _floatingArmourAndTextRef;
 		
 		private IGameServices _services;
+		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IObjectPool<FloatingTextPoolObject> _pool;
 		private IObjectPool<FloatingTextPoolObject> _poolArmour;
 		private Coroutine _coroutine;
@@ -41,7 +42,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			_floatingTextRef.gameObject.SetActive(false);
 			_floatingArmourAndTextRef.gameObject.SetActive(false);
-			
+
+			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_pool = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorNormal);
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
@@ -65,7 +67,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		
 		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
 		{
-			if (!_services.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) || 
+			if (!_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) || 
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				Debug.LogWarning($"The entity {callback.PlayerEntity} is not ready for a losing floating text yet");
@@ -112,7 +114,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				return;
 			}
 
-			if (!_services.EntityViewUpdaterService.TryGetView(victim, out var entityView) || 
+			if (!_entityViewUpdaterService.TryGetView(victim, out var entityView) || 
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				Debug.LogWarning($"The entity {victim} is not ready for a losing floating text yet");

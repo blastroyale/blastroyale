@@ -17,6 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public abstract class EntityViewBase : MonoBehaviour
 	{
 		protected IGameServices Services;
+		protected IEntityViewUpdaterService EntityViewUpdaterService;
 		
 		/// <summary>
 		/// Requests the <see cref="EntityView"/> representing this view execution base
@@ -31,6 +32,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected virtual void Awake()
 		{
 			Services = MainInstaller.Resolve<IGameServices>();
+			EntityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			OnAwake();
 		}

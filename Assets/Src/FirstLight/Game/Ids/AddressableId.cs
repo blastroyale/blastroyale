@@ -61,7 +61,8 @@ namespace FirstLight.Game.Ids
 		Video_SpecialShieldedCharge,
 		Video_SpecialShieldSelf,
 		Video_SpecialSkyLaserBeam,
-		Timeline_FtueTimeline
+		Timeline_FtueTimeline,
+		EntityViewUpdater_Service
 	}
 
 	public enum AddressableLabel
@@ -71,6 +72,7 @@ namespace FirstLight.Game.Ids
 
 	public static class AddressablePathLookup
 	{
+		public static readonly string EntityViewUpdaterService = "EntityViewUpdater Service";
 		public static readonly string Timeline = "Timeline";
 		public static readonly string Video = "Video";
 		public static readonly string ConfigsSettings = "Configs/Settings";
@@ -219,7 +221,8 @@ namespace FirstLight.Game.Ids
 			new AddressableConfig(47, "Video/SpecialShieldedCharge.mp4", "Assets/AddressableResources/Video/SpecialShieldedCharge.mp4", typeof(UnityEngine.Video.VideoClip), new [] {""}),
 			new AddressableConfig(48, "Video/SpecialShieldSelf.mp4", "Assets/AddressableResources/Video/SpecialShieldSelf.mp4", typeof(UnityEngine.Video.VideoClip), new [] {""}),
 			new AddressableConfig(49, "Video/SpecialSkyLaserBeam.mp4", "Assets/AddressableResources/Video/SpecialSkyLaserBeam.mp4", typeof(UnityEngine.Video.VideoClip), new [] {""}),
-			new AddressableConfig(50, "Timeline/FtueTimeline.prefab", "Assets/AddressableResources/Timeline/FtueTimeline.prefab", typeof(UnityEngine.GameObject), new [] {""})
+			new AddressableConfig(50, "Timeline/FtueTimeline.prefab", "Assets/AddressableResources/Timeline/FtueTimeline.prefab", typeof(UnityEngine.GameObject), new [] {""}),
+			new AddressableConfig(51, "EntityViewUpdater Service", "Assets/AddressableResources/AdventureAssets/EntityViewUpdater Service.prefab", typeof(UnityEngine.GameObject), new [] {""})
 		}.AsReadOnly();
 	}
 }

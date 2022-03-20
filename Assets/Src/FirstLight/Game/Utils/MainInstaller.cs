@@ -24,6 +24,12 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <inheritdoc cref="IInstaller.Clean"/>
+		public static bool Clean<T>() where T : class
+		{
+			return _installer.Clean<T>();
+		}
+
+		/// <inheritdoc cref="IInstaller.Clean"/>
 		public static void Clean()
 		{
 			_installer.Clean();

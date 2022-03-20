@@ -153,19 +153,21 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			var map = config.Map.ToString();
-			var operation = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
-
+			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			
+			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
 			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().SetRuntimeConfig(config);
 			
-			tasks.Add(operation);
+			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 			
 			await Task.WhenAll(tasks);
 
-			SceneManager.SetActiveScene(operation.Result);
+			SceneManager.SetActiveScene(sceneTask.Result);
 		}
 
 		private async Task UnloadMatchAssets()
@@ -173,7 +175,9 @@ namespace FirstLight.Game.StateMachines
 			var mapId = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig.MapId;
 			var scene = SceneManager.GetSceneByName(mapId.ToString());
 			var configProvider = _services.ConfigsProvider;
+			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			
+			MainInstaller.Clean<IEntityViewUpdaterService>();
 			Camera.main.gameObject.SetActive(false);
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
@@ -181,6 +185,7 @@ namespace FirstLight.Game.StateMachines
 			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 			
+			GameObject.Destroy((entityService as EntityViewUpdaterService).gameObject);
 			_services.VfxService.DespawnAll();
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());

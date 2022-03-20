@@ -20,6 +20,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField] private CinemachineVirtualCamera _specialAimCamera;
 		
 		private IGameServices _services;
+		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
 		private PlayerCharacterViewMonoComponent _playerCharacterView;
 		
@@ -46,7 +47,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			var follow = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
 			
 			SetTargetTransform(follow.transform);
@@ -71,7 +72,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			var entityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			
 			if (_playerCharacterView == null)
 			{

@@ -3,6 +3,7 @@ using System.Collections;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
@@ -63,12 +64,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public UnityEvent FootprintRightEvent;
 		public UnityEvent FootprintLeftEvent;
 
-		[FormerlySerializedAs("_rigidbodyContainerMonoComponent")] [SerializeField] protected RigidbodyContainerMonoComponent RigidbodyContainerMonoComponent;
+		[SerializeField] protected RigidbodyContainerMonoComponent RigidbodyContainerMonoComponent;
 		
 		[SerializeField] private Animator _animator;
 		[SerializeField] private VfxId _projectileHitVfx;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
-		
+
 		private AnimatorWrapper _animatorWrapper;
 		private Coroutine _stunCoroutine;
 		private Coroutine _materialsCoroutine;
@@ -175,7 +176,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var direction = Vector3.zero;
 
-			if(Services.EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
+			if(EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
 			{
 				direction = (transform.position - attackerView.transform.position).normalized;
 			}

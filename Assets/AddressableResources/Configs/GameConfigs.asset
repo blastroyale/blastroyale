@@ -94,3 +94,4 @@ MonoBehaviour:
         RawValue: 16384
       DeathDropWeaponChance:
         RawValue: 32768
+      ParachuteDropHeight: 100

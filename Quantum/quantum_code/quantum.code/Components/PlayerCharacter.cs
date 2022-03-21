@@ -52,7 +52,6 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e, Transform3D spawnPosition, bool isRespawning)
 		{
-			var spawnPlayer = new SpawnPlayerCharacter { EndSpawnTime = f.Time + SpawnTime };
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			
 			transform->Position = spawnPosition.Position;
@@ -64,7 +63,10 @@ namespace Quantum
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 			
 			f.Remove<DeadPlayerCharacter>(e);
-			f.Add(e, spawnPlayer);
+			
+			// Init HFSM
+			f.Add<HFSMAgent>(e);
+			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 		}
 
 		/// <summary>
@@ -77,16 +79,10 @@ namespace Quantum
 			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, FP._1);
 			
 			f.Add(e, targetable);
-			f.Add<HFSMAgent>(e);
 			f.Add<AlivePlayerCharacter>(e);
-			
-			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, f.GameConfig.PlayerAliveShieldDuration);
 			
 			f.Events.OnPlayerAlive(Player, e);
 			f.Events.OnLocalPlayerAlive(Player, e);
-			
-			f.Remove<SpawnPlayerCharacter>(e);
 		}
 
 		/// <summary>

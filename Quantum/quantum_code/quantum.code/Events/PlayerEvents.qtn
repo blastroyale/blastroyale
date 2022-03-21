@@ -106,6 +106,12 @@ synced event OnLocalPlayerAlive
 	entity_ref Entity;
 }
 
+synced event OnLocalPlayerLanded
+{
+	local player_ref Player;
+	entity_ref Entity;
+}
+
 synced event OnLocalPlayerDead
 {
 	local player_ref Player;

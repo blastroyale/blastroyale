@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -4855,12 +4854,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHealthIsZero OnHealthIsZero(EntityRef Entity, EntityRef Attacker, Int32 DamageAmount) {
+      public EventOnHealthIsZero OnHealthIsZero(EntityRef Entity, EntityRef Attacker, Int32 DamageAmount, Int32 MaxHealth) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnHealthIsZero>(EventOnHealthIsZero.ID);
         ev.Entity = Entity;
         ev.Attacker = Attacker;
         ev.DamageAmount = DamageAmount;
+        ev.MaxHealth = MaxHealth;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5950,6 +5950,7 @@ namespace Quantum {
     public EntityRef Entity;
     public EntityRef Attacker;
     public Int32 DamageAmount;
+    public Int32 MaxHealth;
     protected EventOnHealthIsZero(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -5970,6 +5971,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + DamageAmount.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
         return hash;
       }
     }

@@ -280,16 +280,16 @@ namespace Quantum.Systems
 				return false;
 			}
 			
-			var sqrDistanceFromShrinkingCenter =
-				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.CurrentCircleCenter);
-			var sqrShrinkingRadius = circle.CurrentRadius * circle.CurrentRadius;
+			var sqrDistanceFromSafeAreaCenter =
+				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.TargetCircleCenter);
+			var sqrSafeAreaRadius = circle.TargetRadius * circle.TargetRadius;
 			var safeCircleCenter = circle.TargetCircleCenter.XOY;
 			safeCircleCenter.Y = filter.Transform->Position.Y;
 			
-			// If sqrDistanceFromShrinkingCenter / sqrShrinkingRadius > 1 then the bot is outside the shrinking circle
-			// If sqrDistanceFromShrinkingCenter / sqrShrinkingRadius < 1 then the bot is safe, inside the shrinking circle
+			// If sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius > 1 then the bot is outside the safe area
+			// If sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius < 1 then the bot is safe, inside safe area
 			
-			var isGoing = sqrDistanceFromShrinkingCenter / sqrShrinkingRadius > filter.BotCharacter->ShrinkingCircleRiskTolerance;
+			var isGoing = sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius > filter.BotCharacter->ShrinkingCircleRiskTolerance;
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, safeCircleCenter, circle.TargetRadius);
 			
 			return isGoing;
@@ -372,7 +372,7 @@ namespace Quantum.Systems
 			var weaponPickupPosition = FPVector3.Zero;
 			
 			// Bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
-			var isGoing = filter.PlayerCharacter->CurrentWeapon.GameId == filter.PlayerCharacter->DefaultWeapon.GameId ||
+			var isGoing = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
 			              filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
 			              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
 			

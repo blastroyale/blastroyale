@@ -178,6 +178,7 @@
     <Compile Include="Commands\PlayerRespawnCommand.cs" />
     <Compile Include="Commands\SpecialUsedCommand.cs" />
     <Compile Include="Commands\CollectablePlatformSpawnCommand.cs" />
+    <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
     <Compile Include="Components\Equipment.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Components\Specials.cs" />
     <Compile Include="Components\SpecialShieldedCharge.cs" />
     <Compile Include="Components\SpecialStunGrenade.cs" />
+    <Compile Include="Components\Spell.cs" />
     <Compile Include="Components\Stats.cs" />
     <Compile Include="Components\StatusModifiers.cs" />
     <Compile Include="Components\WeaponCollectable.cs" />

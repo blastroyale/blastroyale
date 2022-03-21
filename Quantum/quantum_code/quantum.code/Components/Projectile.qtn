@@ -19,7 +19,7 @@ synced event OnProjectileFired
 	Projectile ProjectileData;
 }
 
-synced event OnProjectileHit
+synced event OnProjectileTargetableHit
 {
 	entity_ref Projectile;
 	entity_ref HitEntity;
@@ -27,8 +27,17 @@ synced event OnProjectileHit
 	FPVector3 HitPosition;
 }
 
-synced event OnProjectileFailedHit
+event OnProjectileFailedHit
 {
  	entity_ref Projectile;
  	Projectile ProjectileData;
- }
+ 	FPVector3 LastPosition;
+}
+
+event OnProjectileSuccessHit
+{
+	entity_ref Projectile;
+	entity_ref HitEntity;
+	Projectile ProjectileData;
+	FPVector3 HitPosition;
+}

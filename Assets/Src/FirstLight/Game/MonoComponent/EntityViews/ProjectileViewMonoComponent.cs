@@ -1,9 +1,8 @@
-using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using Photon.Deterministic;
+using System.Collections;
+using System.Numerics;
 using Quantum;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -13,13 +12,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class ProjectileViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private VfxId _projectileHitVfx;
-		[SerializeField] private VfxId _projectileFailedHitVfx;
-		[SerializeField] private VfxId _projectileSplashVfx = VfxId.SplashProjectile;
+		[SerializeField] private ParticleSystem _hitEffect;
+		[SerializeField] private ParticleSystem _failedHitEffect;
+		
+		private Coroutine _recoverEffectWhenEndedCoroutine;
 
 		protected override void OnInit()
 		{
-			QuantumEvent.Subscribe<EventOnProjectileHit>(this, OnEventOnProjectileHit);
+			QuantumEvent.Subscribe<EventOnProjectileSuccessHit>(this, OnEventOnProjectileHit);
 			QuantumEvent.Subscribe<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
 		}
 
@@ -30,25 +30,42 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			Services.VfxService.Spawn(_projectileFailedHitVfx).transform.position = transform.position;
+			PlayEffect(_failedHitEffect, callback.LastPosition.ToUnityVector3());
 		}
 
-		private void OnEventOnProjectileHit(EventOnProjectileHit callback)
+		private void OnEventOnProjectileHit(EventOnProjectileSuccessHit callback)
 		{
 			if (callback.Projectile != EntityRef)
 			{
 				return;
 			}
 			
-			var regularHitVfx = Services.VfxService.Spawn(_projectileHitVfx);
-			var splashProjectile = Services.VfxService.Spawn(_projectileSplashVfx);
-			var scale = (callback.ProjectileData.SplashRadius * 2).AsFloat * Vector3.one;
-			var projectileTransform = splashProjectile.transform;
-			var hitPosition = callback.HitPosition.ToUnityVector3();
+			PlayEffect(_hitEffect, callback.HitPosition.ToUnityVector3());
+		}
+
+		private void PlayEffect(ParticleSystem effect, Vector3 position)
+		{
+			if (_recoverEffectWhenEndedCoroutine != null)
+			{
+				Services.CoroutineService.StopCoroutine(_recoverEffectWhenEndedCoroutine);
+			}
 			
-			regularHitVfx.transform.position = hitPosition;
-			projectileTransform.position = hitPosition;
-			projectileTransform.localScale = scale;
+			var effectTransform = effect.transform;
+			
+			_recoverEffectWhenEndedCoroutine = Services.CoroutineService.StartCoroutine(RecoverEffectWhenEnded(effect));
+
+			effectTransform.SetParent(null);
+			effectTransform.position = position;
+			effect.Play();
+		}
+
+		private IEnumerator RecoverEffectWhenEnded(ParticleSystem effect)
+		{
+			yield return new WaitForSeconds(effect.main.duration);
+			
+			effect.transform.SetParent(transform);
+
+			_recoverEffectWhenEndedCoroutine = null;
 		}
 	}
 }

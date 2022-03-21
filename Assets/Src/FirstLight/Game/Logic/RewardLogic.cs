@@ -62,29 +62,10 @@ namespace FirstLight.Game.Logic
 			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
-			var xp = Math.Ceiling(gameConfig.XpPerRank * rankValue + gameConfig.XpPerFragDeathRatio.AsFloat * fragValue);
-
-			/*
-			var lootBoxConfigs = GameLogic.ConfigsProvider.GetConfigsDictionary<QuantumLootBoxConfig>();
-			if (!didPlayerQuit && adventureInfo.Config.CycleCratesTier > 0)
-			{
-				var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-				var cycleIndex = Data.CurrentCrateCycleIndex < gameConfig.CratesCycle.Count ? Data.CurrentCrateCycleIndex : 0;
-				var reward = GetCrateReward(gameConfig.CratesCycle[cycleIndex], adventureInfo.Config.CycleCratesTier);
-				
-				Data.CurrentCrateCycleIndex += Data.TimedBoxes.Count < gameConfig.LootboxSlotsMaxNumber ? 1 : 0;
-
-				rewards.Add(GiveReward(reward));
-			}*/
-
-			if (xp > 0)
-			{
-				rewards.Add(GameId.XP, (int) xp);
-			}
 			
 			if (currency > 0)
 			{
-				rewards.Add(GameId.SC, (int) currency);
+				rewards.Add(GameId.HC, (int) currency);
 			}
 
 			return rewards;

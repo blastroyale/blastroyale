@@ -6,12 +6,10 @@ using FirstLight.UiService;
 using Quantum;
 using TMPro;
 using UnityEngine;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
-using I2.Loc;
-using UnityEngine.UI;
+using Quantum.Commands;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -35,7 +33,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private MapTimerView _mapTimerView;
 		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
-		
+		[SerializeField] private Button[] _weaponSlotButtons;
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
@@ -50,6 +49,10 @@ namespace FirstLight.Game.Presenters
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
 
+			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
+			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
+			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
+
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
@@ -59,7 +62,7 @@ namespace FirstLight.Game.Presenters
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
-			
+
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
@@ -94,19 +97,19 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-			
+
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			
+
 			if (isBattleRoyale)
 			{
 				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
 			}
 		}
-		
+
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
 			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
@@ -118,9 +121,19 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
-			
+
 			_standings.gameObject.SetActive(true);
 			_standings.Initialise(playerData, false);
+		}
+
+		private void OnWeaponSlotClicked(int weaponSlotIndex)
+		{
+			var command = new WeaponSlotSwitchCommand()
+			{
+				WeaponSlotIndex = weaponSlotIndex
+			};
+
+			QuantumRunner.Default.Game.SendCommand(command);
 		}
 	}
 }

@@ -83,13 +83,12 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Process an AOE attack from the given <paramref name="attackSource"/> with the given defined data.
+		/// Process an AOE attack in the given <paramref name="radius"/> from the given <paramref name="spell"/> to be processed.
 		/// On each hit, the <paramref name="onHitCallback"/> will be called.
 		/// Return true if at least one hit was successful, false otherwise.
 		/// </summary>
-		public static bool ProcessAreaHit(Frame f, EntityRef attacker, EntityRef attackSource, FP radius, FPVector3 position, 
-		                                  uint powerAmount, int teamSource, uint maxHitCount = uint.MaxValue,
-		                                  Action<Frame, EntityRef, EntityRef, EntityRef, FPVector3> onHitCallback = null)
+		public static bool ProcessAreaHit(Frame f, FP radius, Spell spell, uint maxHitCount = uint.MaxValue,
+		                                  Action<Frame, Spell> onHitCallback = null)
 		{
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
@@ -98,25 +97,24 @@ namespace Quantum
 			
 			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
-			var hits = f.Physics3D.OverlapShape(position, FPQuaternion.Identity, shape, f.TargetAllLayerMask, 
-			                                    QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			var hits = f.Physics3D.OverlapShape(spell.OriginalHitPosition, FPQuaternion.Identity, shape, 
+			                                    f.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
 
 			for (var j = 0; j < hits.Count; j++)
 			{
-				var hitPoint = hits[j].Point;
-				var hitEntity = hits[j].Entity;
+				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
+				                                   spell.PowerAmount, hits[j].Point);
 
-				if (hitEntity == attacker || hitEntity == attackSource ||
-				    !ProcessHit(f, attacker, hitEntity, hitPoint, teamSource, powerAmount))
+				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
 				{
 					continue;
 				}
 				
 				hitCount++;
 					
-				onHitCallback?.Invoke(f, attacker, attackSource, hitEntity, hitPoint);
+				onHitCallback?.Invoke(f, hitSpell);
 
 				if (hitCount >= maxHitCount)
 				{
@@ -128,27 +126,24 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Process a hit source from the given <paramref name="attackerEntity"/> to the given <paramref name="hitEntity"/>
-		/// to create a <see cref="Spell"/> to be processed.
+		/// Process a hit source from the given <paramref name="spell"/> to be processed.
 		/// Returns true if the hit was successful and false otherwise
 		/// </summary>
-		public static bool ProcessHit(Frame f, EntityRef attackerEntity, EntityRef hitEntity, FPVector3 hitPoint, 
-		                              int attackerTeam, uint amount)
+		public static bool ProcessHit(Frame f, Spell spell)
 		{
-			if (!IsAttackable(f, hitEntity, attackerTeam))
+			if (!IsAttackable(f, spell.Victim, spell.TeamSource))
 			{
 				return false;
 			}
-			
-			var spell = new Spell
-			{
-				Attacker = attackerEntity,
-				PowerAmount = amount,
-				TeamSource = attackerTeam,
-				OriginalHitPosition = hitPoint
-			};
 
-			f.Add(hitEntity, spell);
+			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
+			{
+				stats->ReduceHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);
+
+				return true;
+			}
+
+			f.Add(f.Create(), spell);
 
 			return true;
 		}

@@ -3,7 +3,7 @@ using System;
 namespace Quantum
 {
 	/// <summary>
-	/// This action changes the <see cref="PlayerCharacter"/> current weapon to the default weapon
+	/// This action changes the <see cref="PlayerCharacter"/> current weapon to the Melee weapon
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
@@ -12,9 +12,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			
-			playerCharacter->SetWeapon(f, e, playerCharacter->DefaultWeapon);
+			f.Unsafe.GetPointer<PlayerCharacter>(e)->EquipSlotWeapon(f, e, 0);
 		}
 	}
 }

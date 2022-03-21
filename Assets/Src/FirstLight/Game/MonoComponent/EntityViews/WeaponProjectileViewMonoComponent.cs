@@ -2,7 +2,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -11,13 +10,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class WeaponProjectileViewMonoComponent : EntityViewBase
 	{
-		[FormerlySerializedAs("_rocket")] [SerializeField] private GameObject _projectile;
+		[SerializeField] private ProjectileViewMonoComponent _projectile;
 
-		private IObjectPool<GameObject> _pool;
+		private IObjectPool<ProjectileViewMonoComponent> _pool;
 
 		protected override void OnInit()
 		{
-			_pool = new GameObjectPool(4, _projectile);
+			_pool = new GameObjectPool<ProjectileViewMonoComponent>(4, _projectile);
 			
 			QuantumEvent.Subscribe<EventOnProjectileFired>(this, OnEventOnProjectileFired);
 		}
@@ -29,17 +28,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				var go = _pool.Spawn();
 				var goTransform = go.transform;
-				
+
 				goTransform.SetParent(projectile.transform);
 				
 				goTransform.localPosition = Vector3.zero;
 				goTransform.localRotation = Quaternion.identity;
 				
 				projectile.OnEntityDestroyed.AddListener(_ => DespawnProjectileAsset(go));
+				
+				go.SetEntityView(projectile);
 			}
 		}
 
-		private void DespawnProjectileAsset(GameObject go)
+		private void DespawnProjectileAsset(ProjectileViewMonoComponent go)
 		{
 			if (this.IsDestroyed() || go == null)
 			{

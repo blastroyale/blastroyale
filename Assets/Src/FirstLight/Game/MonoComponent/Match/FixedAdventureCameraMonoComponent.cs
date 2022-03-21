@@ -47,13 +47,25 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var follow = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
 			
 			SetTargetTransform(follow.transform);
 			SetActiveCamera(_spawnCamera);
+			
+			// We place audio listener roughly "in the player character's head"
+			audioListenerTransform.SetParent(follow.transform);
+			audioListenerTransform.position = Vector3.up;
+			audioListenerTransform.rotation = Quaternion.identity;
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
+			// We place audio listener back to main camera
+			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
+			audioListenerTransform.SetParent(Camera.main.transform);
+			audioListenerTransform.position = Vector3.zero;
+			audioListenerTransform.rotation = Quaternion.identity;
+			
 			SetTargetTransform(_playerCharacterView.RootTransform);
 		}
 

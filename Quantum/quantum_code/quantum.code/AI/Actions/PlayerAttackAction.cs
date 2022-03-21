@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 using Quantum.Physics3D;
 
@@ -24,11 +25,11 @@ namespace Quantum
 			var angleCount = FPMath.FloorToInt(weaponConfig.AttackAngle / Constants.RaycastAngleSplit) + 1;
 			var angleStep = weaponConfig.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
 			var angle = -(int) weaponConfig.AttackAngle / FP._2;
-			var team = f.Get<Targetable>(e).Team;
 			var hitQuery = QueryOptions.HitDynamics | QueryOptions.HitKinematics | QueryOptions.HitStatics;
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
-			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized * weaponConfig.AttackRange;
+			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized;
+			var targetsHit = new List<EntityRef>();
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
 			f.Events.OnPlayerAttack(player, e);
@@ -40,20 +41,25 @@ namespace Quantum
 				var hit = f.Physics3D.Raycast(position, direction.XOY, weaponConfig.AttackRange, f.TargetAllLayerMask, hitQuery);
 				
 				angle += angleStep;
-
-				if (!hit.HasValue || hit.Value.Entity == e)
+				
+				if (!hit.HasValue || hit.Value.Entity == e ||
+				    (!weaponConfig.CanHitSameTarget && targetsHit.Contains(hit.Value.Entity)))
 				{
 					continue;
 				}
+				
+				targetsHit.Add(hit.Value.Entity);
+				
+				var spell = Spell.CreateInstant(f, hit.Value.Entity, e, e, powerAmount, hit.Value.Point);
 
-				QuantumHelpers.ProcessHit(f, e, hit.Value.Entity, hit.Value.Point, team, powerAmount);
-
-				if (weaponConfig.SplashRadius == FP._0)
+				if (weaponConfig.SplashRadius > FP._0)
 				{
-					continue;
+					QuantumHelpers.ProcessAreaHit(f, weaponConfig.SplashRadius, spell);
 				}
-
-				QuantumHelpers.ProcessAreaHit(f, e, e, weaponConfig.SplashRadius, hit.Value.Point, powerAmount, team);
+				else
+				{
+					QuantumHelpers.ProcessHit(f, spell);
+				}
 			}
 		}
 	}

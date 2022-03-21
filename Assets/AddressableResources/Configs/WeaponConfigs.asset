@@ -35,6 +35,7 @@ MonoBehaviour:
         RawValue: 58982
       AttackRange:
         RawValue: 688128
+      CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
         RawValue: 0
@@ -58,9 +59,10 @@ MonoBehaviour:
         RawValue: 36045
       AttackRange:
         RawValue: 131072
+      CanHitSameTarget: 0
       AttackAngle: 60
       SplashRadius:
-        RawValue: 49152
+        RawValue: 0
       ProjectileSpeed:
         RawValue: 0
       Specials: 8d00000000000000
@@ -81,6 +83,7 @@ MonoBehaviour:
         RawValue: 13107
       AttackRange:
         RawValue: 579994
+      CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
         RawValue: 0
@@ -104,6 +107,7 @@ MonoBehaviour:
         RawValue: 42598
       AttackRange:
         RawValue: 262144
+      CanHitSameTarget: 1
       AttackAngle: 45
       SplashRadius:
         RawValue: 0
@@ -116,7 +120,7 @@ MonoBehaviour:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 6554
-      MaxAmmo: 80
+      MaxAmmo: 120
       PowerRatioToBase:
         RawValue: 58982
       AimingMovementSpeed:
@@ -127,6 +131,7 @@ MonoBehaviour:
         RawValue: 58982
       AttackRange:
         RawValue: 786432
+      CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
         RawValue: 131072
@@ -150,6 +155,7 @@ MonoBehaviour:
         RawValue: 27525
       AttackRange:
         RawValue: 524288
+      CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
         RawValue: 0
@@ -173,6 +179,7 @@ MonoBehaviour:
         RawValue: 13107
       AttackRange:
         RawValue: 419430
+      CanHitSameTarget: 1
       AttackAngle: 25
       SplashRadius:
         RawValue: 0
@@ -196,6 +203,7 @@ MonoBehaviour:
         RawValue: 22938
       AttackRange:
         RawValue: 491520
+      CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
         RawValue: 0
@@ -219,6 +227,7 @@ MonoBehaviour:
         RawValue: 13107
       AttackRange:
         RawValue: 471859
+      CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
         RawValue: 0

@@ -240,11 +240,23 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 			var time = callback.Game.Frames.Verified.Time;
+			var targetPosition = callback.TargetPosition.ToUnityVector3();
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.HazardData.Radius.AsFloat, 
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat, 
 			              (callback.HazardData.EndTime - time).AsFloat);
+			
+			Services.VfxService.Spawn(VfxId.Airstrike).transform.position = targetPosition;
+			
+			HandleDelayedFX(callback.HazardData.Interval, targetPosition, VfxId.ImpactAirStrike);
 		}
-		
+
+		private async void HandleDelayedFX(FP delayTime, Vector3 targetPosition, VfxId explosionVfxId)
+		{
+			await Task.Delay((int) (delayTime * 1000));
+			
+			Services.VfxService.Spawn(explosionVfxId).transform.position = targetPosition;
+		}
+
 		private void HandleOnShieldedChargeUsed(EventOnShieldedChargeUsed callback)
 		{
 			if (callback.Attacker != EntityView.EntityRef)
@@ -271,9 +283,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 			var time = callback.Game.Frames.Verified.Time;
+			var targetPosition = callback.TargetPosition.ToUnityVector3();
 			
-			vfx.SetTarget(callback.TargetPosition.ToUnityVector3(), callback.HazardData.Radius.AsFloat, 
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat, 
 			              (callback.HazardData.EndTime - time).AsFloat);
+			
+			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
 		}
 		
 		private void HandleUpdateView(CallbackUpdateView callback)

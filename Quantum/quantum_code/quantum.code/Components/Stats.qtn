@@ -7,6 +7,7 @@ component Stats
 	bool IsImmune;
 	array<StatData>[TOTAL_STATS] Values;
 	list<Modifier> Modifiers;
+	list<EntityRef> SpellEffects;
 	StatusModifierType CurrentStatusModifierType;
 	FP CurrentStatusModifierDuration;
 	FP CurrentStatusModifierEndTime;

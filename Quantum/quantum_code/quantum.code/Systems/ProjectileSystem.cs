@@ -26,7 +26,7 @@ namespace Quantum.Systems
 
 			if (distance.SqrMagnitude > range * range)
 			{
-				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile);
+				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position);
 				f.Add<EntityDestroyer>(filter.Entity);
 				
 				return;
@@ -50,42 +50,46 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger ||
-			    projectile.Attacker == info.Entity || projectile.Attacker == info.Other)
+			var targetHit = info.Other;
+			var hitSource = info.Entity;
+			var position = f.Get<Transform3D>(hitSource).Position;
+			
+			if (!f.TryGet<Projectile>(hitSource, out var projectile) || targetHit == hitSource || info.StaticData.IsTrigger ||
+			    projectile.Attacker == hitSource || projectile.Attacker == targetHit || f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
-			
-			var position = f.Get<Transform3D>(info.Entity).Position;
-			
+
+			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount, position);
+
 			f.Add<EntityDestroyer>(info.Entity);
 			
-			if (QuantumHelpers.ProcessHit(f, projectile.Attacker, info.Other, position,
-			                                               projectile.TeamSource, projectile.PowerAmount))
+			f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
+			
+			if (QuantumHelpers.ProcessHit(f, spell))
 			{
-				OnHit(f,  projectile.Attacker, info.Entity, info.Other, position);
+				OnHit(f, spell);
 				return;
 			}
-			
+
 			if (projectile.SplashRadius == FP._0 || !info.IsStatic)
 			{
 				return;
 			}
 			
-			QuantumHelpers.ProcessAreaHit(f, projectile.Attacker, info.Entity, projectile.SplashRadius, position,
-			                              projectile.PowerAmount, projectile.TeamSource, uint.MaxValue, OnHit);
+			QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, spell, uint.MaxValue, OnHit);
 		}
 
-		private void OnHit(Frame f, EntityRef attacker, EntityRef attackSource, EntityRef hitEntity, FPVector3 hitPoint)
+		private void OnHit(Frame f, Spell spell)
 		{
-			var source = f.Get<Projectile>(attackSource);
+			var source = f.Get<Projectile>(spell.SpellSource);
 			
 			if (source.StunDuration > FP._0)
 			{
-				StatusModifiers.AddStatusModifierToEntity(f, hitEntity, StatusModifierType.Stun, source.StunDuration);
+				StatusModifiers.AddStatusModifierToEntity(f, spell.Victim, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnProjectileHit(attacker, hitEntity, source, hitPoint);
+			f.Events.OnProjectileTargetableHit(spell.SpellSource, spell.Victim, source, spell.OriginalHitPosition);
 		}
 	}
 }

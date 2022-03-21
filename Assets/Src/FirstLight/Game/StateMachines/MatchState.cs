@@ -166,8 +166,6 @@ namespace FirstLight.Game.StateMachines
 			await Task.WhenAll(tasks);
 
 			SceneManager.SetActiveScene(operation.Result);
-			
-			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
 		}
 
 		private async Task UnloadMatchAssets()

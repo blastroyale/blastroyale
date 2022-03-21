@@ -24,7 +24,7 @@ MonoBehaviour:
       RoomLockKillCount: 14
       MatchmakingTime:
         RawValue: 524288
-      BotsNameCount: 125
+      BotsNameCount: 200
       PlayerRespawnTime:
         RawValue: 262144
       PlayerForceRespawnTime:
@@ -35,6 +35,9 @@ MonoBehaviour:
         RawValue: 32768
       ShrinkingBorderK:
         RawValue: 60948
+      ShrinkingDamageCooldown:
+        RawValue: 65536
+      ShrinkingDamage: 75
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
         RawValue: 250593

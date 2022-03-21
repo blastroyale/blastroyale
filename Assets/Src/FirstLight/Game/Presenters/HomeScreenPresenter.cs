@@ -23,6 +23,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnSettingsButtonClicked;
 			public Action OnShopButtonClicked;
 			public Action OnLootButtonClicked;
+			public Action OnHeroesButtonClicked;
 			public Action OnCratesButtonClicked;
 			public Action OnSocialButtonClicked;
 			public Action OnTrophyRoadClicked;
@@ -42,6 +43,7 @@ namespace FirstLight.Game.Presenters
 		
 		// Landscape Mode Buttons
 		[SerializeField] private VisualStateButtonView _lootButton;
+		[SerializeField] private VisualStateButtonView _heroesButton;
 		[SerializeField] private VisualStateButtonView _cratesButton;
 		[SerializeField] private VisualStateButtonView _shopButton;
 		[SerializeField] private Button _discordButton;
@@ -62,6 +64,7 @@ namespace FirstLight.Game.Presenters
 			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
+			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
 			_cratesButton.Button.onClick.AddListener(OpenCratesMenuUI);
 			_shopButton.Button.onClick.AddListener(OpenShopMenuUI);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
@@ -75,14 +78,6 @@ namespace FirstLight.Game.Presenters
 		private void OnDestroy()
 		{
 			Services?.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		/// <inheritdoc />
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-
-			UpdateButtonStates();
 		}
 		
 		private void OnXpSliderAnimationCompleted(uint previousLevel, uint newLevel)
@@ -153,6 +148,12 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnLootButtonClicked();
 		}
+
+		private void OpenHeroesMenuUI()
+		{
+			Data.OnHeroesButtonClicked();
+		}
+		
 
 		private void OpenCratesMenuUI()
 		{

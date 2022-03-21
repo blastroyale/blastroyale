@@ -55,6 +55,7 @@ namespace Quantum
 		public FP DeathDropInterimArmourSmallChance;
 		public FP DeathDropWeaponChance;
 		public uint ParachuteDropHeight;
+		public FP ParachuteSpeedModifier;
 	}
 	
 	/// <summary>

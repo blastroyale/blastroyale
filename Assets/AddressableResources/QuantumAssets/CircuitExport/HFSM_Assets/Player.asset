@@ -979,7 +979,7 @@ MonoBehaviour:
     Label: ParachuteDrop
     OnUpdateLinks:
     - Id:
-        Value: 3932631188148688639
+        Value: 1248017107291919874
     OnEnterLinks:
     - Id:
         Value: 3844130875847218157
@@ -1031,24 +1031,6 @@ MonoBehaviour:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_10
       Guid:
         Value: 3054022343341149241
-    Label: 
---- !u!114 &3632150452274823132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1a9a82efa7c244cfafd8d612c8b6358, type: 3}
-  m_Name: ParachuteDropAction_6
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ParachuteDropAction_6
-      Guid:
-        Value: 3932631188148688639
     Label: 
 --- !u!114 &3658112478802313552
 MonoBehaviour:
@@ -1241,6 +1223,24 @@ MonoBehaviour:
       Id:
         Value: 0
     Level: 0
+--- !u!114 &4991598525057957452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0abec2163e54645b1b60e59e1dd9f1, type: 3}
+  m_Name: PlayerMoveAction_6
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerMoveAction_6
+      Guid:
+        Value: 1248017107291919874
+    Label: 
 --- !u!114 &5935289248824221561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,11 +1342,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21af5403e037f4a2b84c58284e0f79bf, type: 3}
-  m_Name: CheckGameModeDecision_12
+  m_Name: CheckGameModeDecision_13
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckGameModeDecision_12
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckGameModeDecision_13
       Guid:
         Value: 4506108631407942824
     Label: 
@@ -1379,11 +1379,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_13
+  m_Name: TimerDecision_12
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_13
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_12
       Guid:
         Value: 4376518659506176734
     Label: 

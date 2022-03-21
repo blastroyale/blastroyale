@@ -23,7 +23,8 @@ namespace Quantum
 			var moveVelocity = FPVector3.Zero;
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
-			var speed = f.Get<Stats>(e).Values[(int) StatType.Speed].StatValue;
+			var speedModifier = bb.GetFP(f, Constants.SpeedModifierKey);
+			var speed = f.Get<Stats>(e).Values[(int) StatType.Speed].StatValue * speedModifier;
 
 			if (input->IsMoveButtonDown)
 			{
@@ -37,8 +38,8 @@ namespace Quantum
 				moveVelocity = rotation.XOY * speed;
 			}
 
-			// bb.Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
-			// bb.Set(f, Constants.AimDirectionKey, input->AimingDirection);
+			bb.Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
+			bb.Set(f, Constants.AimDirectionKey, input->AimingDirection);
 			bb.Set(f, Constants.MoveDirectionKey, input->Direction * speed);
 
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,

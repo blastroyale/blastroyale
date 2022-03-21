@@ -36,6 +36,9 @@ MonoBehaviour:
     - Type: 4
       Key:
         Key: MoveDirection
+    - Type: 3
+      Key:
+        Key: SpeedModifier
     - Type: 0
       Key:
         Key: HasMeleeWeapon

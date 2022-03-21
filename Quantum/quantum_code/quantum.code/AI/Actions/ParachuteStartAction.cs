@@ -17,10 +17,14 @@ namespace Quantum
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			player->Activate(f, e);
 
-			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
-
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			transform->Position += FPVector3.Up * f.GameConfig.ParachuteDropHeight;
+
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			bb->Set(f, Constants.SpeedModifierKey, f.GameConfig.ParachuteSpeedModifier);
+
+			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
+			f.Events.OnLocalPlayerParachuteDrop(player->Player, e);
 		}
 	}
 }

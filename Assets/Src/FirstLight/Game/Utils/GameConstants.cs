@@ -23,7 +23,25 @@ namespace FirstLight.Game.Utils
 
 		// Minimum player rag-doll impulse force amount 
 		public const float PLAYER_RAGDOLL_FORCE_MIN = 0.25f;
+		
+		// Upper bound of damage that translates to the most intense haptic vibration
+		public const float HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY = 300f;
+		
+		// Maximum amount of haptic vibration intensity when a player is damaged
+		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;
 
+		// Minimum amount of haptic vibration intensity when a player is damaged
+		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.2f;
+		
+		// Maximum amount of haptic vibration sharpness when a player is damaged
+		public const float HAPTIC_DAMAGE_SHARPNESS_MAX = 1f;
+
+		// Minimum amount of haptic vibration sharpness when a player is damaged
+		public const float HAPTIC_DAMAGE_SHARPNESS_MIN = 0.6f;
+		
+		// Duration of haptic feedback when player is damaged
+		public const float HAPTIC_DAMAGE_DURATION = 0.1f;
+		
 		// The name of the parameter in the animator that decides the time of stun outro animation
 		public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 		

@@ -130,19 +130,21 @@ namespace FirstLight.Game.Presenters
 				// If damage is >0, it means the entity received healing
 				if (damageReceived > 0)
 				{
-					var minIntensity = 0.2f;
-					var maxIntensity = 0.8f;
-					var maxDamageForIntensity = 300f;
-					var intensity = (float) damageReceived / callback.MaxHealth;
+					// Clamp the damage for haptic intensity processing
+					var damageClamped = Mathf.Clamp(damageReceived, 0, GameConstants.HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY);
 					
-					// TODO - remap damage range to intensity range
-					// NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
-					var intensityRemapped =
-						((damageReceived - 0) / (maxDamageForIntensity - 0)) * (maxIntensity - minIntensity) +
-						minIntensity;
-					intensity = Mathf.Clamp(intensity, minIntensity, maxIntensity);
-					Debug.LogError(damageReceived + " " + callback.MaxHealth + " " + intensityRemapped);
-					MMVibrationManager.ContinuousHaptic(intensity, 1f, 0.1f);
+					// Get % of the damage for use in ALL haptic calculations
+					var damagePercentForCalc = damageClamped / GameConstants.HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY;
+					
+					// Intensity/sharpness are calculated the same way, but the min/max scales are different
+					var intensity = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_INTENSITY_MIN, GameConstants.HAPTIC_DAMAGE_INTENSITY_MAX,
+					                           damagePercentForCalc);
+					
+					var sharpness = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_SHARPNESS_MIN, GameConstants.HAPTIC_DAMAGE_SHARPNESS_MAX,
+					                           damagePercentForCalc);
+					
+					Debug.LogError(damageReceived + " " + callback.MaxHealth + " " + intensity);
+					MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);
 				}
 			}
 		}

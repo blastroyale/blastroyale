@@ -52,7 +52,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 32768
       AimingMovementSpeed:
-        RawValue: 13107
+        RawValue: 22938
       AimTime:
         RawValue: 8192
       AttackCooldown:

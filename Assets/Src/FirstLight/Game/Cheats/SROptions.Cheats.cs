@@ -232,7 +232,7 @@ public partial class SROptions
 		{
 			uiService.CloseUi<MatchHudPresenter>();
 			
-			foreach (var renderer in uiService.GetUi<AdventureControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
 			{
 				renderer.enabled = false;
 			}
@@ -241,7 +241,7 @@ public partial class SROptions
 		{
 			uiService.OpenUi<MatchHudPresenter>();
 			
-			foreach (var renderer in uiService.GetUi<AdventureControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
 			{
 				renderer.enabled = true;
 			}

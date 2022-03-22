@@ -18,9 +18,9 @@ using UnityEngine.InputSystem;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// Presenter for adventure controls.
+	/// Presenter for match controls.
 	/// </summary>
-	public class AdventureControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
+	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
 		[SerializeField] private SpecialButtonView _specialButton0;
 		[SerializeField] private SpecialButtonView _specialButton1;

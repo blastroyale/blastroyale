@@ -1,5 +1,7 @@
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Services;
+using MoreMountains.NiceVibrations;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Events;
@@ -106,6 +108,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (callback.Entity != Entity)
 			{
 				return;
+			}
+			else 
+			{
+				if (callback.PreviousHealth > callback.CurrentHealth)
+				{
+					FLog.Info("Local player damage");
+					//MMVibrationManager.Haptic()	
+				}
 			}
 			
 			DOVirtual.Float(_fillImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 0.1f, HealthBarUpdate);

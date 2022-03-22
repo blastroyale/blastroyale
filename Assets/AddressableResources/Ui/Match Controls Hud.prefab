@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 7127802443190282236}
   - component: {fileID: 4010216328906356468}
   m_Layer: 5
-  m_Name: Adventure Controls Hud
+  m_Name: Match Controls Hud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

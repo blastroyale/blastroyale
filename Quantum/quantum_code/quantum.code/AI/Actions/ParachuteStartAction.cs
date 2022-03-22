@@ -25,6 +25,7 @@ namespace Quantum
 
 			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
 			f.Events.OnLocalPlayerParachuteDrop(player->Player, e);
+			f.Events.OnPlayerParachuteDrop(player->Player, e);
 		}
 	}
 }

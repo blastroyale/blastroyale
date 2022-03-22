@@ -18,6 +18,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
 			ProcessPlayerDisconnect(f, ref filter);
+			ProcessPlayerInput(f, ref filter);
 		}
 
 		/// <inheritdoc />
@@ -115,6 +116,46 @@ namespace Quantum.Systems
 			{
 				filter.Player->PlayerLeft(f, filter.Entity);
 			}
+		}
+
+		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
+		{
+			// Do not process input if player is stunned or not alive
+			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) ||
+			    f.Has<BotCharacter>(filter.Entity))
+			{
+				return;
+			}
+
+			var input = f.GetPlayerInput(filter.Player->Player);
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			var rotation = FPVector2.Zero;
+			var moveVelocity = FPVector3.Zero;
+			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+
+			if (input->IsMoveButtonDown)
+			{
+				var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
+
+				if (input->IsShootButtonDown)
+				{
+					speed *= weaponConfig.AimingMovementSpeed;
+				}
+
+				rotation = input->Direction;
+				kcc->MaxSpeed = speed;
+				moveVelocity = rotation.XOY * speed;
+			}
+
+			if (input->AimingDirection.SqrMagnitude > FP._0)
+			{
+				rotation = input->AimingDirection;
+			}
+
+			bb.Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
+			bb.Set(f, Constants.AimDirectionKey, rotation);
+			bb.Set(f, Constants.MoveDirectionKey, moveVelocity);
 		}
 	}
 }

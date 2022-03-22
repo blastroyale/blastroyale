@@ -18,6 +18,7 @@ namespace Quantum
 
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			f.Events.OnLocalPlayerLanded(player->Player, e);
+			f.Events.OnPlayerLanded(player->Player, e);
 		}
 	}
 }

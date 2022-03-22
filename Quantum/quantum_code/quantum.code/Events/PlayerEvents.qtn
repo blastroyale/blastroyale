@@ -20,6 +20,17 @@ synced event OnPlayerAlive
 	entity_ref Entity;
 }
 
+synced event OnPlayerParachuteDrop {
+	player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnPlayerLanded
+{
+	player_ref Player;
+	entity_ref Entity;
+}
+
 synced event OnPlayerDead
 {
 	player_ref Player;

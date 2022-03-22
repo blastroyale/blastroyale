@@ -242,11 +242,11 @@ namespace Quantum
 			{
 				return;
 			}
-
-			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
+			
+			var ammo = GetAmmoAmount(f, e, out var maxAmmo); // Gives back Int floored down (filledFP * maxAmmo)
 			var newAmmo = Math.Max(ammo - (int) amount, 0);
 			var currentAmmo = Math.Min(newAmmo, maxAmmo);
-			var finalAmmoFilled = (FP) currentAmmo / maxAmmo;
+			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
 			if (ammo == newAmmo)
 			{

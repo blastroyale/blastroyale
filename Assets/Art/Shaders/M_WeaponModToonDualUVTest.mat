@@ -35,8 +35,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 84ffb509e4b5f9145b586a5c8387f34d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AdjectiveTexture:
+        m_Texture: {fileID: 2800000, guid: 5a7289a211bc2dd458cee59120fa398b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 2800000, guid: c31a73f61e0fb294187d41f4bbcb47d8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ColorTexture:
-        m_Texture: {fileID: 2800000, guid: 26062eea0fa665c44a3cb8d9c0dcb1b6, type: 3}
+        m_Texture: {fileID: 2800000, guid: ce690f6ebc1ce6444b53903365571692, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorTextureA:
@@ -56,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PatternA:
-        m_Texture: {fileID: 2800000, guid: 788e339159c9d584a8b9e32f92deaae5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5a7289a211bc2dd458cee59120fa398b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Pattern_B:
@@ -65,6 +73,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _StaticTexture:
         m_Texture: {fileID: 2800000, guid: 0e01ae2324d60e64abd98e564a4aa3fd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SurfaceTexture:
+        m_Texture: {fileID: 2800000, guid: 75b94230af44854458c44fdbc9700f81, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -81,19 +93,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ENABLE_PATTERN_A: 0
+    - _AdjectiveAmount: 0.05
+    - _BOOLEAN: 0
+    - _ENABLE_PATTERN_A: 1
     - _ENABLE_PATTERN_B: 0
-    - _Float: 0
-    - _GI_Amount: 3.5
-    - _GlowAmount: 0.126
+    - _EmissiveAmount: 0
+    - _Float: 6.39
+    - _GI_Amount: 2
+    - _GlowAmount: 0.3
     - _GlowPower: 5
     - _PATTERN: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SURFACEENABLE: 0
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissiveColor: {r: 0.9568627, g: 2.478431, b: 3.058824, a: 0}
+    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
     - _GlowColor: {r: 64, g: 19.57647, b: 0, a: 1}
     - _Vector2: {r: 0.28, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

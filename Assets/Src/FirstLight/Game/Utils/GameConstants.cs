@@ -27,16 +27,12 @@ namespace FirstLight.Game.Utils
 		// Upper bound of damage that translates to the most intense haptic vibration
 		public const float HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY = 300f;
 		
-		// Maximum amount of haptic vibration intensity when a player is damaged
+		// Min/max amounts of haptic vibration intensity when a player is damaged
 		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;
-
-		// Minimum amount of haptic vibration intensity when a player is damaged
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.2f;
 		
-		// Maximum amount of haptic vibration sharpness when a player is damaged
+		// Min/max amounts of haptic vibration sharpness when a player is damaged
 		public const float HAPTIC_DAMAGE_SHARPNESS_MAX = 1f;
-
-		// Minimum amount of haptic vibration sharpness when a player is damaged
 		public const float HAPTIC_DAMAGE_SHARPNESS_MIN = 0.6f;
 		
 		// Duration of haptic feedback when player is damaged

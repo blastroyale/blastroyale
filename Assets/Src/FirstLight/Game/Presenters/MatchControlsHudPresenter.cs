@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -28,15 +29,16 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
-
+		private EntityRef _entity;
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
-			
 			_localInput.Gameplay.SetCallbacks(this);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthChanged);
 		}
 
 		private void OnDestroy()
@@ -113,9 +115,36 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
+			_entity = callback.Entity;
 			
 			_specialButton0.Init(playerCharacter.Specials[0].SpecialId);
 			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
+		}
+
+		private void OnHealthChanged(EventOnHealthChanged callback)
+		{
+			if (callback.Entity == _entity)
+			{
+				var damageReceived = callback.PreviousHealth - callback.CurrentHealth;
+				
+				// If damage is >0, it means the entity received healing
+				if (damageReceived > 0)
+				{
+					var minIntensity = 0.2f;
+					var maxIntensity = 0.8f;
+					var maxDamageForIntensity = 300f;
+					var intensity = (float) damageReceived / callback.MaxHealth;
+					
+					// TODO - remap damage range to intensity range
+					// NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+					var intensityRemapped =
+						((damageReceived - 0) / (maxDamageForIntensity - 0)) * (maxIntensity - minIntensity) +
+						minIntensity;
+					intensity = Mathf.Clamp(intensity, minIntensity, maxIntensity);
+					Debug.LogError(damageReceived + " " + callback.MaxHealth + " " + intensityRemapped);
+					MMVibrationManager.ContinuousHaptic(intensity, 1f, 0.1f);
+				}
+			}
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)

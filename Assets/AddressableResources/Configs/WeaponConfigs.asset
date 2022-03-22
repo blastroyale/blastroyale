@@ -50,15 +50,15 @@ MonoBehaviour:
         RawValue: 0
       MaxAmmo: -1
       PowerRatioToBase:
-        RawValue: 16384
+        RawValue: 32768
       AimingMovementSpeed:
-        RawValue: 52429
+        RawValue: 13107
       AimTime:
         RawValue: 8192
       AttackCooldown:
-        RawValue: 40632
+        RawValue: 49152
       AttackRange:
-        RawValue: 98304
+        RawValue: 104858
       CanHitSameTarget: 0
       AttackAngle: 60
       SplashRadius:
@@ -74,7 +74,7 @@ MonoBehaviour:
         RawValue: 6554
       MaxAmmo: 350
       PowerRatioToBase:
-        RawValue: 3277
+        RawValue: 1966
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -82,9 +82,9 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 13107
       AttackRange:
-        RawValue: 344064
+        RawValue: 393216
       CanHitSameTarget: 0
-      AttackAngle: 0
+      AttackAngle: 20
       SplashRadius:
         RawValue: 0
       ProjectileSpeed:
@@ -154,7 +154,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 27525
       AttackRange:
-        RawValue: 393216
+        RawValue: 399770
       CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:
@@ -178,7 +178,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 13107
       AttackRange:
-        RawValue: 406323
+        RawValue: 367002
       CanHitSameTarget: 1
       AttackAngle: 30
       SplashRadius:
@@ -202,7 +202,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 22938
       AttackRange:
-        RawValue: 393216
+        RawValue: 406323
       CanHitSameTarget: 0
       AttackAngle: 0
       SplashRadius:

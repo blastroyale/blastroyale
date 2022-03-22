@@ -25,9 +25,9 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: IntroCamera
-    m_To: '**ANY CAMERA**'
+    m_To: Parachute Camera
     m_Blend:
-      m_Style: 2
+      m_Style: 0
       m_Time: 3
       m_CustomCurve:
         serializedVersion: 2
@@ -35,11 +35,11 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Spawn Camera
-    m_To: '**ANY CAMERA**'
+  - m_From: Parachute Camera
+    m_To: Adventure Camera
     m_Blend:
       m_Style: 2
-      m_Time: 3
+      m_Time: 2
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

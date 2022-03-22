@@ -1,11 +1,7 @@
 using System;
 using FirstLight.Game.Input;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum.Commands;
 using FirstLight.UiService;
@@ -24,7 +20,8 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField] private SpecialButtonView _specialButton0;
 		[SerializeField] private SpecialButtonView _specialButton1;
-		
+		[SerializeField] private GameObject[] _disableWhileParachuting;
+
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
@@ -33,10 +30,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
-			
+
 			_localInput.Gameplay.SetCallbacks(this);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerParachuteDrop>(this, OnLocalPlayerParachuteDrop);
+			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerParachuteLanded);
 		}
 
 		private void OnDestroy()
@@ -57,7 +56,7 @@ namespace FirstLight.Game.Presenters
 			_localInput.Disable();
 			QuantumCallback.UnsubscribeListener(this);
 		}
-		
+
 		/// <inheritdoc />
 		public void OnMove(InputAction.CallbackContext context)
 		{
@@ -79,7 +78,8 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnAimButton(InputAction.CallbackContext context)
 		{
-			_quantumInput.AimButtonState = context.ReadValueAsButton() ? Quantum.Input.DownState : Quantum.Input.ReleaseState;
+			_quantumInput.AimButtonState =
+				context.ReadValueAsButton() ? Quantum.Input.DownState : Quantum.Input.ReleaseState;
 		}
 
 		/// <inheritdoc />
@@ -90,7 +90,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
+
 			SendSpecialUsedCommand(0, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -101,7 +101,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
+
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -111,27 +111,51 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
+
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			
+
 			_specialButton0.Init(playerCharacter.Specials[0].SpecialId);
 			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
+		}
+
+		private void OnLocalPlayerParachuteDrop(EventOnLocalPlayerParachuteDrop callback)
+		{
+			_localInput.Gameplay.SpecialButton0.Disable();
+			_localInput.Gameplay.SpecialButton1.Disable();
+			_localInput.Gameplay.Aim.Disable();
+
+			foreach (var go in _disableWhileParachuting)
+			{
+				go.SetActive(false);
+			}
+		}
+
+		private void OnLocalPlayerParachuteLanded(EventOnLocalPlayerLanded callback)
+		{
+			_localInput.Gameplay.SpecialButton0.Enable();
+			_localInput.Gameplay.SpecialButton1.Enable();
+			_localInput.Gameplay.Aim.Enable();
+
+			foreach (var go in _disableWhileParachuting)
+			{
+				go.SetActive(true);
+			}
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
-			
+
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
-			
+
 			_specialButton0.Init(config.Specials[0]);
 			_specialButton1.Init(config.Specials[1]);
-			
+
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();
 		}
-		
+
 		private void SetInput(CallbackPollInput callback)
 		{
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
@@ -144,7 +168,7 @@ namespace FirstLight.Game.Presenters
 				SpecialIndex = specialIndex,
 				AimInput = aimDirection.ToFPVector2(),
 			};
-				
+
 			QuantumRunner.Default.Game.SendCommand(command);
 			MMVibrationManager.Haptic(HapticTypes.RigidImpact);
 		}

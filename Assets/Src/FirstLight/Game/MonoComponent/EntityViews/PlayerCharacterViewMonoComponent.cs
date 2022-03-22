@@ -43,6 +43,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandlePlayerSpawned);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 		}
 
@@ -53,7 +54,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			
 			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef) ? Triggers.Die : Triggers.Spawn);
-			RenderersContainerProxy.SetRendererState(!frame.Has<SpawnPlayerCharacter>(EntityView.EntityRef));
 		}
 
 		/// <summary>
@@ -62,6 +62,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public void SetMovingState(bool isAiming)
 		{
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+		}
+		
+		private void HandlePlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (callback.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+			
+			RenderersContainerProxy.SetRendererState(true);
 		}
 
 		protected override void OnAvatarEliminated(QuantumGame game)

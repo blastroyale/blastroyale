@@ -193,7 +193,7 @@ namespace Quantum
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount);
+				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount, maxHealth);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
 		}

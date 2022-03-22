@@ -273,5 +273,14 @@ namespace FirstLight.Game.Utils
 			graph.Stop();
 			graph.GetRootPlayable(0).SetSpeed(0);
 		}
+
+		/// <summary>
+		/// Requests the Verified state of the current <see cref="Frame"/> that triggered the given <paramref name="eventBase"/>.
+		/// Returns TRUE if this frame was verified by all running clients, FALSE otherwise
+		/// </summary>
+		public static bool IsVerifiedFrame(this EventBase eventBase)
+		{
+			return eventBase.Game.Session.IsFrameVerified(eventBase.Tick);
+		}
 	}
 }

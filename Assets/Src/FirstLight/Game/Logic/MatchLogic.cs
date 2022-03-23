@@ -20,7 +20,10 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		MapConfig SelectedMapConfig { get; }
 
-		uint GetTrophyCount();
+		/// <summary>
+		/// Request the player's current trophy count.
+		/// </summary>
+		IObservableFieldReader<uint> Trophies { get; }
 	}
 
 	/// <inheritdoc />
@@ -38,6 +41,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public MapConfig SelectedMapConfig => GameLogic.ConfigsProvider.GetConfig<MapConfig>(SelectedMapId.Value);
 
+		public IObservableFieldReader<uint> Trophies { get; private set; }
+
 		private AppData AppData => DataProvider.GetData<AppData>();
 
 		public MatchLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -50,11 +55,9 @@ namespace FirstLight.Game.Logic
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
 
 			SelectedMapId = new ObservableField<int>(configs[configs.Count - 1].Id);
-		}
 
-		public uint GetTrophyCount()
-		{
-			return Data.Trophies;
+			// Trophies = new ObservableField<uint>(Data.Trophies);
+			Trophies = new ObservableField<uint>(666);
 		}
 
 		public void UpdateTrophies(QuantumPlayerMatchData[] players, QuantumPlayerMatchData localPlayer)

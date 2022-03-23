@@ -3,6 +3,7 @@ struct PlayerMatchData
 	player_ref Player;
 	entity_ref Entity;
 	UInt32 PlayerLevel;
+	UInt32 PlayerTrophies;
 	GameId PlayerSkin;
 	Int32 BotNameIndex;
 	

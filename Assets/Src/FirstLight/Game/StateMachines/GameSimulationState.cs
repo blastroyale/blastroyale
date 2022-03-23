@@ -4,16 +4,13 @@ using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -329,6 +326,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerName = _gameDataProvider.PlayerDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
+				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
 				Weapon = info.Weapon.Value,
 				Gear = info.Gear.ConvertAll(item => (Equipment) item).ToArray()

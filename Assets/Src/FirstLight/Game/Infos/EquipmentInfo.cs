@@ -22,21 +22,24 @@ namespace FirstLight.Game.Infos
 		public EquipmentData Data;
 		public GameId GameId;
 
-		public EquipmentDataInfo(UniqueId id, GameId gameId, ItemRarity rarity, uint level)
+		public EquipmentDataInfo(UniqueId id, GameId gameId, ItemRarity rarity, ItemAdjective adjective,
+		                         ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
 		{
-			Data = new EquipmentData(id, rarity, level);
+			Data = new EquipmentData(id, rarity, adjective, material, manufacturer, faction, level, grade);
 			GameId = gameId;
 		}
 
-		public EquipmentDataInfo(GameId gameId, ItemRarity rarity, uint level)
+		public EquipmentDataInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective,
+		                         ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
 		{
-			Data = new EquipmentData(UniqueId.Invalid, rarity, level);
+			Data = new EquipmentData(UniqueId.Invalid, rarity, adjective, material, manufacturer, faction, level, grade);
 			GameId = gameId;
 		}
 
 		public static implicit operator Equipment(EquipmentDataInfo info)
 		{
-			return new Equipment(info.GameId, info.Data.Rarity, info.Data.Level);
+			return new Equipment(info.GameId, info.Data.Rarity, info.Data.Adjective, info.Data.Material,
+			                     info.Data.Manufacturer, info.Data.Faction, info.Data.Level, info.Data.Grade);
 		}
 	}
 	

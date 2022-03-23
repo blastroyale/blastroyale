@@ -25,13 +25,13 @@ namespace FirstLight.Game.Utils
 		public const float PLAYER_RAGDOLL_FORCE_MIN = 0.25f;
 		
 		// Platform dependent intensity as the vibrations vary greatly between android/iOS
-		#if UNITY_ANDROID
+#if UNITY_ANDROID
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.1f;
 		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 0.7f;
-		#else
+#else
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.35f;
 		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;
-		#endif
+#endif
 
 		// Min/max amounts of haptic vibration sharpness when a player is damaged
 		public const float HAPTIC_IOS_DAMAGE_SHARPNESS_MIN = 0.3f;

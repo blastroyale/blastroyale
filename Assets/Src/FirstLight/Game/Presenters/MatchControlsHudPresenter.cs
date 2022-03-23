@@ -152,7 +152,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var damageReceived = callback.PreviousHealth - callback.CurrentHealth;
 				
-				// If damage is >0, it means the entity received healing
+				// If damage is less than 0, it means the entity received healing
 				if (damageReceived > 0)
 				{
 					// Clamp the damage for haptic intensity processing
@@ -160,12 +160,25 @@ namespace FirstLight.Game.Presenters
 					
 					// Get % of the damage for use in ALL haptic calculations
 					var damagePercentForCalc = damageClamped / GameConstants.HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY;
+
+					var intensityMin = 0f;
+					var intensityMax = 0f;
+					
+					// Platform dependent as the vibrations vary greatly between android/iOS
+					#if UNITY_ANDROID
+						intensityMin = GameConstants.HAPTIC_ANDROID_DAMAGE_INTENSITY_MIN;
+						intensityMax = GameConstants.HAPTIC_ANDROID_DAMAGE_INTENSITY_MAX;
+					#elif UNITY_IOS
+						intensityMin = GameConstants.HAPTIC_IOS_DAMAGE_INTENSITY_MIN;
+						intensityMax = GameConstants.HAPTIC_IOS_DAMAGE_INTENSITY_MAX;
+					#endif
 					
 					// Intensity/sharpness are calculated the same way, but the min/max scales are different
-					var intensity = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_INTENSITY_MIN, GameConstants.HAPTIC_DAMAGE_INTENSITY_MAX,
+					var intensity = Mathf.Lerp(intensityMin, intensityMax,
 					                           damagePercentForCalc);
 					
-					var sharpness = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_SHARPNESS_MIN, GameConstants.HAPTIC_DAMAGE_SHARPNESS_MAX,
+					// Sharpness is only used in iOS vibrations
+					var sharpness = Mathf.Lerp(GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MIN, GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MAX,
 					                           damagePercentForCalc);
 					
 					MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);

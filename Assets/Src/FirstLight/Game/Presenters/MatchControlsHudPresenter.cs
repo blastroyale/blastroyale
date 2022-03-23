@@ -143,7 +143,6 @@ namespace FirstLight.Game.Presenters
 					var sharpness = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_SHARPNESS_MIN, GameConstants.HAPTIC_DAMAGE_SHARPNESS_MAX,
 					                           damagePercentForCalc);
 					
-					Debug.LogError(damageReceived + " " + callback.MaxHealth + " " + intensity);
 					MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);
 				}
 			}

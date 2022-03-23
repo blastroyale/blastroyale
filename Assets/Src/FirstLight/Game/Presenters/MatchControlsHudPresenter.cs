@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -14,9 +15,9 @@ using UnityEngine.InputSystem;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// Presenter for adventure controls.
+	/// Presenter for match controls.
 	/// </summary>
-	public class AdventureControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
+	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
 		[SerializeField] private SpecialButtonView _specialButton0;
 		[SerializeField] private SpecialButtonView _specialButton1;
@@ -25,6 +26,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
+		private EntityRef _entity;
 
 		private void Awake()
 		{
@@ -36,6 +38,7 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerParachuteDrop>(this, OnLocalPlayerParachuteDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerParachuteLanded);
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthChanged);
 		}
 
 		private void OnDestroy()
@@ -113,6 +116,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
+			_entity = callback.Entity;
 
 			_specialButton0.Init(playerCharacter.Specials[0].SpecialId);
 			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
@@ -139,6 +143,27 @@ namespace FirstLight.Game.Presenters
 			foreach (var go in _disableWhileParachuting)
 			{
 				go.SetActive(true);
+			}
+		}
+
+		private void OnHealthChanged(EventOnHealthChanged callback)
+		{
+			if (callback.Entity != _entity)
+				return;
+
+			var damageReceived = callback.PreviousHealth - callback.CurrentHealth;
+
+			if (damageReceived > 0)
+			{
+				var damagePercentForCalc = damageReceived / (float) callback.MaxHealth;
+				var intensity = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_INTENSITY_MIN,
+				                           GameConstants.HAPTIC_DAMAGE_INTENSITY_MAX, damagePercentForCalc);
+
+				// Sharpness is only used in iOS vibrations
+				var sharpness = Mathf.Lerp(GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MIN,
+				                           GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MAX, damagePercentForCalc);
+
+				MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);
 			}
 		}
 
@@ -170,7 +195,6 @@ namespace FirstLight.Game.Presenters
 			};
 
 			QuantumRunner.Default.Game.SendCommand(command);
-			MMVibrationManager.Haptic(HapticTypes.RigidImpact);
 		}
 	}
 }

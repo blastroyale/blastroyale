@@ -79,8 +79,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_animator.SetTrigger(_dieHash);
-			MMVibrationManager.Haptic(HapticTypes.HeavyImpact);
-			
+
 			this.LateCall(_dissolveDelay, () =>
 			{
 				Dissolve(false);

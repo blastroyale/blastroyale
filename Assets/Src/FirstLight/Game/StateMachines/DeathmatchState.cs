@@ -133,12 +133,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenControlsHud()
 		{
-			_uiService.OpenUi<AdventureControlsHudPresenter>();
+			_uiService.OpenUi<MatchControlsHudPresenter>();
 		}
 		
 		private void CloseControlsHud()
 		{
-			_uiService.CloseUi<AdventureControlsHudPresenter>();
+			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
 		
 		private void OpenAdventureHud()

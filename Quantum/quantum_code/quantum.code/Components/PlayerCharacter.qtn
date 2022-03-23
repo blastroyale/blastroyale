@@ -4,11 +4,6 @@
 
 // COMPONENTS
 
-component SpawnPlayerCharacter
-{
-	FP EndSpawnTime;
-}
-
 component AlivePlayerCharacter
 {
 }
@@ -25,7 +20,6 @@ component PlayerCharacter
 	AssetRefHFSMRoot HfsmRootRef;
 	AssetRefAIBlackboard BlackboardRef;
 	AssetRefCharacterController3DConfig KccConfigRef;
-	FP SpawnTime;
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;

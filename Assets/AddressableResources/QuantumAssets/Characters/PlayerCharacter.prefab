@@ -392,10 +392,10 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 3330617699365269185
+        Value: 2698857740438036488
     BlackboardRef:
       Id:
-        Value: 1931399702610443197
+        Value: 2467074483179683324
     KccConfigRef:
       Id:
         Value: 2480520579551617486
@@ -412,14 +412,19 @@ MonoBehaviour:
       RawValue: 0
     Player:
       _index: 0
-    DefaultWeapon:
-      GameId:
+    CurrentWeaponSlot: 0
+    Weapons:
+    - GameId:
         Value: 0
       Rarity:
         Value: 0
       Level: 0
-    CurrentWeapon:
-      GameId:
+    - GameId:
+        Value: 0
+      Rarity:
+        Value: 0
+      Level: 0
+    - GameId:
         Value: 0
       Rarity:
         Value: 0

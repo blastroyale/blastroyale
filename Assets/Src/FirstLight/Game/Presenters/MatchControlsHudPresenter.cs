@@ -157,7 +157,7 @@ namespace FirstLight.Game.Presenters
 				{
 					// Get % of the damage for use in ALL haptic calculations
 					var damagePercentForCalc = damageReceived / GameConstants.HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY;
-
+					
 					var intensityMin = 0f;
 					var intensityMax = 0f;
 					
@@ -209,7 +209,6 @@ namespace FirstLight.Game.Presenters
 			};
 
 			QuantumRunner.Default.Game.SendCommand(command);
-			MMVibrationManager.Haptic(HapticTypes.RigidImpact);
 		}
 	}
 }

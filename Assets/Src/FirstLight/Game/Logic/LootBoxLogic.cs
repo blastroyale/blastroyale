@@ -417,7 +417,7 @@ namespace FirstLight.Game.Logic
 				{
 					var index = GameLogic.RngLogic.Range(0, fixedItems.Count);
 					
-					loot.Add(new EquipmentDataInfo(fixedItems[index].Key, fixedItems[index].Value, 1));
+					loot.Add(new EquipmentDataInfo(fixedItems[index].Key, fixedItems[index].Value, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5));
 					fixedItems.RemoveAt(index);
 				}
 					

@@ -181,7 +181,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var maxLevelInfo = equipmentProvider.GetEquipmentInfo(info.DataInfo.GameId, info.DataInfo.Data.Rarity, info.MaxLevel);
+			var maxLevelInfo = equipmentProvider.GetEquipmentInfo(info.DataInfo.GameId, info.DataInfo.Data.Rarity, info.DataInfo.Data.Adjective, info.DataInfo.Data.Material, info.DataInfo.Data.Manufacturer, info.DataInfo.Data.Faction, info.MaxLevel, info.DataInfo.Data.Grade);
 			var descriptionID = info.DataInfo.GameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
 			var isWeapon = info.DataInfo.GameId.IsInGroup(GameIdGroup.Weapon);
 
@@ -335,7 +335,7 @@ namespace FirstLight.Game.Presenters
 					}
 					
 					var infoAtNextLevel = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(selectedInfo.DataInfo.GameId, 
-						selectedInfo.DataInfo.Data.Rarity, selectedInfo.DataInfo.Data.Level + 1);
+						selectedInfo.DataInfo.Data.Rarity, selectedInfo.DataInfo.Data.Adjective, selectedInfo.DataInfo.Data.Material, selectedInfo.DataInfo.Data.Manufacturer, selectedInfo.DataInfo.Data.Faction, selectedInfo.DataInfo.Data.Level + 1, selectedInfo.DataInfo.Data.Grade);
 					var equippedStats = infoAtNextLevel.Stats.ToList();
 					var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
 					var equippedValue = equippedStats[i].Value * statsBeautifier;

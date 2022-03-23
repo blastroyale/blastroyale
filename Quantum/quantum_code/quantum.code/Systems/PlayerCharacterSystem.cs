@@ -64,13 +64,16 @@ namespace Quantum.Systems
 			var armourDropChance = f.RNG->Next();
 			var step = 0;
 
-			// Try to drop Health pack
+			// Try to drop Health pack; Otherwise drop Small Ammo
 			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
 			{
 				Collectable.DropCollectable(f, GameId.Health, deathPosition, step, false);
-
-				step++;
 			}
+			else
+			{
+				Collectable.DropCollectable(f, GameId.AmmoSmall, deathPosition, step, false);
+			}
+			step++;
 
 			// Try to drop InterimArmourLarge, if didn't work then try to drop InterimArmourSmall
 			if (armourDropChance <= f.GameConfig.DeathDropInterimArmourLargeChance)

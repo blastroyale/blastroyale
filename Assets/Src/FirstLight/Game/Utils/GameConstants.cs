@@ -29,6 +29,12 @@ namespace FirstLight.Game.Utils
 		
 		// The upper limit for separators on reload bar; if the value is bigger then we don't show separators
 		public const uint MAX_RELOAD_BAR_SEPARATORS_AMOUNT = 6;
+		
+		// Distance from center for movement joystick to ignore input
+		public const float JOYSTICK_DEADZONE_DIST = 1.2f;
+		
+		// Velocity delta for joystick to ignore the deadzone behavior
+		public const float JOYSTICK_DEAZONE_IGNORE_DELTA = 0.2f;
 
 		public const float RadiusToScaleConversionValue = 2f;
 		

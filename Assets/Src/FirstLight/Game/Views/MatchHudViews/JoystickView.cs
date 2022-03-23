@@ -1,10 +1,13 @@
 using FirstLight.Game.Input;
+using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
+	// TODO - delta - calculate actual delta, and ref to distToCenter
+	
 	/// <summary>
 	/// Onscreen joystick class from Shoot & Loot.
 	/// </summary>
@@ -19,6 +22,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private RectTransform MainJoystick => _joysticks[0];
+		private Vector2 _joystickPosLastFrame = Vector2.zero;
 		
 		private void OnEnable()
 		{
@@ -61,10 +65,19 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			                                                        eventData.pressEventCamera, out var pressPosition);
 			
 			var radius = (rectTransform.rect.size.x / 2f) * rectTransform.localScale.x;
-			var delta = Vector2.ClampMagnitude(position - pressPosition, radius);
+			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
+			var deltaSinceLastFrame = _joystickPosLastFrame - deltaFromCenter;
+			var distFromCenter = deltaFromCenter.magnitude;
+			Debug.LogError(distFromCenter);
 			
-			_handleImage.rectTransform.anchoredPosition = delta;
-			_onscreenJoystickDirectionAdapter.SendValueToControl(delta / radius);
+			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
+
+			if (distFromCenter > GameConstants.JOYSTICK_DEADZONE_DIST)
+			{
+				_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenter / radius);
+			}
+
+			_joystickPosLastFrame = deltaFromCenter;
 		}
 
 		/// <inheritdoc />

@@ -27,7 +27,7 @@ namespace FirstLight.Game.Utils
 		// Platform dependent intensity as the vibrations vary greatly between android/iOS
 #if UNITY_ANDROID
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.1f;
-		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 0.7f;
+		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 0.9f;
 #else
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.35f;
 		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;

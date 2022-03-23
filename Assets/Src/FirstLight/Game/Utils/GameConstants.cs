@@ -24,15 +24,15 @@ namespace FirstLight.Game.Utils
 		// Minimum player rag-doll impulse force amount 
 		public const float PLAYER_RAGDOLL_FORCE_MIN = 0.25f;
 		
-		// Upper bound of damage that translates to the most intense haptic vibration
-		public const float HAPTIC_MAXIMUM_DAMAGE_FOR_INTENSITY = 325f;
-		
-		// Min/max amounts of haptic vibration intensity when a player is damaged
-		public const float HAPTIC_ANDROID_DAMAGE_INTENSITY_MIN = 0.1f;
-		public const float HAPTIC_ANDROID_DAMAGE_INTENSITY_MAX = 0.7f;
-		public const float HAPTIC_IOS_DAMAGE_INTENSITY_MIN = 0.35f;
-		public const float HAPTIC_IOS_DAMAGE_INTENSITY_MAX = 1f;
-		
+		// Platform dependent intensity as the vibrations vary greatly between android/iOS
+		#if UNITY_ANDROID
+		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.1f;
+		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 0.7f;
+		#else
+		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.35f;
+		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;
+		#endif
+
 		// Min/max amounts of haptic vibration sharpness when a player is damaged
 		public const float HAPTIC_IOS_DAMAGE_SHARPNESS_MIN = 0.3f;
 		public const float HAPTIC_IOS_DAMAGE_SHARPNESS_MAX = 1f;

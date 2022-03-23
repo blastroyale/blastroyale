@@ -29,7 +29,7 @@ namespace FirstLight.Game.Utils
 		
 		// Min/max amounts of haptic vibration intensity when a player is damaged
 		public const float HAPTIC_ANDROID_DAMAGE_INTENSITY_MIN = 0.1f;
-		public const float HAPTIC_ANDROID_DAMAGE_INTENSITY_MAX = 0.8f;
+		public const float HAPTIC_ANDROID_DAMAGE_INTENSITY_MAX = 0.7f;
 		public const float HAPTIC_IOS_DAMAGE_INTENSITY_MIN = 0.35f;
 		public const float HAPTIC_IOS_DAMAGE_INTENSITY_MAX = 1f;
 		

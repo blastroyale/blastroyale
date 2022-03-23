@@ -27,6 +27,7 @@ namespace FirstLight.Game.Views
 		public float PressedDuration = 0.1f;
 		// Final scale of button when pressed
 		public Vector3 PressedScale = new Vector3(0.95f, 0.95f, 1f);
+		public HapticTypes HapticType = HapticTypes.None;
 		public AudioId TapSoundFx;
 		public Transform Anchor;
 		public AnimationClip ClickClip;

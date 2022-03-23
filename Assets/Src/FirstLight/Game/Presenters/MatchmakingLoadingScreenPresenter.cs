@@ -75,7 +75,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override async void OnOpened()
 		{
-			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
 			
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;

@@ -98,7 +98,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsFtueLevel()
 		{
-			return _gameDataProvider.AdventureDataProvider.SelectedMapId.Value == 0;
+			return _gameDataProvider.MatchDataProvider.SelectedMapId.Value == 0;
 		}
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)

@@ -554,7 +554,7 @@ namespace Quantum.Systems
 				{
 					Skin = skins[f.RNG->Next(0, skins.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, 1),
+					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
@@ -586,7 +586,7 @@ namespace Quantum.Systems
 					var slotItems = slot.GetIds();
 					var rngGearIndex = f.RNG->Next(-1, slotItems.Count);
 					var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
-					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, rngGearIndex < 0 ? 0u : 1u);
+					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, rngGearIndex < 0 ? 0u : 1u, 5);
 
 					gear[j] = equipment;
 					botCharacter.Gear[j] = equipment;

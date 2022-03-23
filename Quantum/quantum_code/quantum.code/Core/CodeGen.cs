@@ -165,12 +165,54 @@ namespace Quantum {
     Deathmatch,
     BattleRoyale,
   }
+  public enum ItemAdjective : int {
+    Regular,
+    Cool,
+    Ornate,
+    Posh,
+    Exquisite,
+    Majestic,
+    Marvelous,
+    Magnificent,
+    Royal,
+    Divine,
+    TOTAL,
+  }
+  public enum ItemFaction : int {
+    Order,
+    Chaos,
+    Organic,
+    Dark,
+    Shadow,
+    Celestial,
+    Dimensional,
+    TOTAL,
+  }
+  public enum ItemManufacturer : int {
+    Military,
+    Futuristic,
+    Apocalyptic,
+    TOTAL,
+  }
+  public enum ItemMaterial : int {
+    Plastic,
+    Steel,
+    Bronze,
+    Carbon,
+    Golden,
+    TOTAL,
+  }
   public enum ItemRarity : int {
     Common,
+    CommonPlus,
     Uncommon,
+    UncommonPlus,
     Rare,
+    RarePlus,
     Epic,
+    EpicPlus,
     Legendary,
+    LegendaryPlus,
     TOTAL,
   }
   public enum SpecialType : int {
@@ -2244,19 +2286,34 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Equipment {
-    public const Int32 SIZE = 12;
+    public const Int32 SIZE = 32;
     public const Int32 ALIGNMENT = 4;
+    [FieldOffset(4)]
+    public ItemAdjective Adjective;
+    [FieldOffset(8)]
+    public ItemFaction Faction;
     [FieldOffset(0)]
     public GameId GameId;
-    [FieldOffset(8)]
+    [FieldOffset(24)]
+    public UInt32 Grade;
+    [FieldOffset(28)]
     public UInt32 Level;
-    [FieldOffset(4)]
+    [FieldOffset(12)]
+    public ItemManufacturer Manufacturer;
+    [FieldOffset(16)]
+    public ItemMaterial Material;
+    [FieldOffset(20)]
     public ItemRarity Rarity;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 241;
+        hash = hash * 31 + (Int32)Adjective;
+        hash = hash * 31 + (Int32)Faction;
         hash = hash * 31 + (Int32)GameId;
+        hash = hash * 31 + Grade.GetHashCode();
         hash = hash * 31 + Level.GetHashCode();
+        hash = hash * 31 + (Int32)Manufacturer;
+        hash = hash * 31 + (Int32)Material;
         hash = hash * 31 + (Int32)Rarity;
         return hash;
       }
@@ -2264,7 +2321,12 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Equipment*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
+        serializer.Stream.Serialize((Int32*)&p->Adjective);
+        serializer.Stream.Serialize((Int32*)&p->Faction);
+        serializer.Stream.Serialize((Int32*)&p->Manufacturer);
+        serializer.Stream.Serialize((Int32*)&p->Material);
         serializer.Stream.Serialize((Int32*)&p->Rarity);
+        serializer.Stream.Serialize(&p->Grade);
         serializer.Stream.Serialize(&p->Level);
     }
   }
@@ -3172,10 +3234,8 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 256;
+    public const Int32 SIZE = 392;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(252)]
-    private fixed Byte _alignment_padding_[4];
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
     [FieldOffset(0)]
@@ -3200,7 +3260,7 @@ namespace Quantum {
     public FP DecisionInterval;
     [FieldOffset(168)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 6)]
-    private fixed Byte _Gear_[72];
+    private fixed Byte _Gear_[192];
     [FieldOffset(88)]
     public FP LookForTargetsToShootAtInterval;
     [FieldOffset(96)]
@@ -3225,11 +3285,11 @@ namespace Quantum {
     public FP VisionRangeSqr;
     [FieldOffset(160)]
     public FP WanderRadius;
-    [FieldOffset(240)]
+    [FieldOffset(360)]
     public Equipment Weapon;
     public FixedArray<Equipment> Gear {
       get {
-        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 12, 6); }
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 32, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -3762,7 +3822,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 216;
+    public const Int32 SIZE = 272;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -3779,16 +3839,16 @@ namespace Quantum {
     [FieldOffset(4)]
     [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(80)]
+    [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(104)]
+    [FieldOffset(160)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
-    [FieldOffset(40)]
+    [FieldOffset(64)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 3)]
-    private fixed Byte _Weapons_[36];
+    private fixed Byte _Weapons_[96];
     public FixedArray<Special> Specials {
       get {
         fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 56, 2); }
@@ -3796,7 +3856,7 @@ namespace Quantum {
     }
     public FixedArray<Equipment> Weapons {
       get {
-        fixed (byte* p = _Weapons_) { return new FixedArray<Equipment>(p, 12, 3); }
+        fixed (byte* p = _Weapons_) { return new FixedArray<Equipment>(p, 32, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -3822,8 +3882,8 @@ namespace Quantum {
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
         FP.Serialize(&p->DisconnectedDuration, serializer);
-        FixedArray.Serialize(p->Weapons, serializer, StaticDelegates.SerializeEquipment);
         FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
+        FixedArray.Serialize(p->Weapons, serializer, StaticDelegates.SerializeEquipment);
         FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
     }
   }
@@ -7335,6 +7395,10 @@ namespace Quantum {
       Register(typeof(Quantum.Input), Quantum.Input.SIZE);
       Register(typeof(Quantum.InputButtons), 4);
       Register(typeof(Quantum.Invisibility), Quantum.Invisibility.SIZE);
+      Register(typeof(Quantum.ItemAdjective), 4);
+      Register(typeof(Quantum.ItemFaction), 4);
+      Register(typeof(Quantum.ItemManufacturer), 4);
+      Register(typeof(Quantum.ItemMaterial), 4);
       Register(typeof(Quantum.ItemRarity), 4);
       Register(typeof(Joint), Joint.SIZE);
       Register(typeof(Joint3D), Joint3D.SIZE);
@@ -7437,6 +7501,10 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameMode>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemAdjective>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemFaction>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemManufacturer>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemMaterial>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemRarity>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpecialType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatType>();
@@ -7524,6 +7592,50 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator GameMode_Prototype(GameMode value) {
         return new GameMode_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(ItemAdjective))]
+  public unsafe partial struct ItemAdjective_Prototype {
+    public Int32 Value;
+    public static implicit operator ItemAdjective(ItemAdjective_Prototype value) {
+        return (ItemAdjective)value.Value;
+    }
+    public static implicit operator ItemAdjective_Prototype(ItemAdjective value) {
+        return new ItemAdjective_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(ItemFaction))]
+  public unsafe partial struct ItemFaction_Prototype {
+    public Int32 Value;
+    public static implicit operator ItemFaction(ItemFaction_Prototype value) {
+        return (ItemFaction)value.Value;
+    }
+    public static implicit operator ItemFaction_Prototype(ItemFaction value) {
+        return new ItemFaction_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(ItemManufacturer))]
+  public unsafe partial struct ItemManufacturer_Prototype {
+    public Int32 Value;
+    public static implicit operator ItemManufacturer(ItemManufacturer_Prototype value) {
+        return (ItemManufacturer)value.Value;
+    }
+    public static implicit operator ItemManufacturer_Prototype(ItemManufacturer value) {
+        return new ItemManufacturer_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(ItemMaterial))]
+  public unsafe partial struct ItemMaterial_Prototype {
+    public Int32 Value;
+    public static implicit operator ItemMaterial(ItemMaterial_Prototype value) {
+        return (ItemMaterial)value.Value;
+    }
+    public static implicit operator ItemMaterial_Prototype(ItemMaterial value) {
+        return new ItemMaterial_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -8120,11 +8232,21 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Equipment_Prototype : StructPrototype {
     public GameId_Prototype GameId;
     public ItemRarity_Prototype Rarity;
+    public ItemAdjective_Prototype Adjective;
+    public ItemMaterial_Prototype Material;
+    public ItemManufacturer_Prototype Manufacturer;
+    public ItemFaction_Prototype Faction;
     public UInt32 Level;
+    public UInt32 Grade;
     partial void MaterializeUser(Frame frame, ref Equipment result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Equipment result, in PrototypeMaterializationContext context) {
+      result.Adjective = this.Adjective;
+      result.Faction = this.Faction;
       result.GameId = this.GameId;
+      result.Grade = this.Grade;
       result.Level = this.Level;
+      result.Manufacturer = this.Manufacturer;
+      result.Material = this.Material;
       result.Rarity = this.Rarity;
       MaterializeUser(frame, ref result, in context);
     }

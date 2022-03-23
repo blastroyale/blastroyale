@@ -77,7 +77,7 @@ namespace FirstLight.Game.Logic
 		public EquipmentInfo GetEquipmentInfo(UniqueId itemId)
 		{
 			var data = GetEquipmentDataInfo(itemId);
-			var info = GetEquipmentInfo(data.GameId, data.Data.Rarity, data.Data.Level);
+			var info = GetEquipmentInfo(data.GameId, data.Data.Rarity, data.Data.Adjective, data.Data.Material, data.Data.Manufacturer, data.Data.Faction, data.Data.Level, data.Data.Grade);
 
 			info.DataInfo.Data.Id = itemId;
 			info.IsInInventory = true;
@@ -98,11 +98,12 @@ namespace FirstLight.Game.Logic
 				rarity = gearConfig.StartingRarity;
 			}
 
-			return GetEquipmentInfo(gameId, rarity, 1);
+			return GetEquipmentInfo(gameId, rarity, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 		}
 
 		/// <inheritdoc />
-		public EquipmentInfo GetEquipmentInfo(GameId gameId, ItemRarity rarity, uint level)
+		public EquipmentInfo GetEquipmentInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective,
+		                                      ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
 		{
 			if (!gameId.IsInGroup(GameIdGroup.Equipment))
 			{
@@ -111,7 +112,7 @@ namespace FirstLight.Game.Logic
 			
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityConfig>((int) rarity);
-			var data = new EquipmentDataInfo(gameId, rarity, level);
+			var data = new EquipmentDataInfo(gameId, rarity, adjective, material, manufacturer, faction, level, grade);
 			var stats = new Dictionary<EquipmentStatType, float>(new EquipmentStatTypeComparer());
 			var baseRarity = rarity;
 			var isWeapon = false;
@@ -178,7 +179,8 @@ namespace FirstLight.Game.Logic
 					continue;
 				}
 				
-				loot.Add(new EquipmentDataInfo(gear.Id, rarity, 1));
+				loot.Add(new EquipmentDataInfo(gear.Id, rarity, ItemAdjective.Cool, ItemMaterial.Bronze,
+				                               ItemManufacturer.Military, ItemFaction.Order, 1, 5));
 			}
 			
 			return loot;
@@ -200,11 +202,13 @@ namespace FirstLight.Game.Logic
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) gameId);
 
-			return GetWeaponInfo(gameId, ItemRarity.Common, 1);
+			return GetWeaponInfo(gameId, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
+			                     ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 		}
 
 		/// <inheritdoc />
-		public WeaponInfo GetWeaponInfo(GameId gameId, ItemRarity rarity, uint level)
+		public WeaponInfo GetWeaponInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective, ItemMaterial material,
+		                                ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
 		{
 			if (!gameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -213,7 +217,7 @@ namespace FirstLight.Game.Logic
 
 			return new WeaponInfo
 			{
-				EquipmentInfo = GetEquipmentInfo(gameId, rarity, level),
+				EquipmentInfo = GetEquipmentInfo(gameId, rarity, adjective, material, manufacturer, faction, level, grade),
 				WeaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) gameId)
 			};
 		}
@@ -255,11 +259,13 @@ namespace FirstLight.Game.Logic
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGearConfig>((int) gameId);
 
-			return GetGearInfo(gameId, config.StartingRarity, 1);
+			return GetGearInfo(gameId, config.StartingRarity, ItemAdjective.Cool, ItemMaterial.Bronze,
+			                   ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 		}
 
 		/// <inheritdoc />
-		public GearInfo GetGearInfo(GameId gameId, ItemRarity rarity, uint level)
+		public GearInfo GetGearInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective, ItemMaterial material,
+		                            ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
 		{
 			if (gameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -268,7 +274,7 @@ namespace FirstLight.Game.Logic
 
 			return new GearInfo
 			{
-				EquipmentInfo = GetEquipmentInfo(gameId, rarity, level),
+				EquipmentInfo = GetEquipmentInfo(gameId, rarity, adjective, material, manufacturer, faction, level, grade),
 				GearConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGearConfig>((int) gameId)
 			};
 		}
@@ -411,7 +417,8 @@ namespace FirstLight.Game.Logic
 			
 			var rarity = ItemRarity.TOTAL;
 			var enhancementItems = new List<EquipmentDataInfo>();
-			var result = new EquipmentDataInfo(GameId.Random, ItemRarity.TOTAL, 1);
+			var result = new EquipmentDataInfo(GameId.Random, ItemRarity.TOTAL, ItemAdjective.Cool, ItemMaterial.Bronze,
+			                     ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 			var upgradeCost = 0u;
 			var rarityConfig = new RarityConfig();
 			var hasEquipped = false;

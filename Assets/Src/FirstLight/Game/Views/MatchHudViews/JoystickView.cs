@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace FirstLight.Game.Views.AdventureHudViews
 {
 	// TODO - delta - calculate actual delta, and ref to distToCenter
-	
+
 	/// <summary>
 	/// Onscreen joystick class from Shoot & Loot.
 	/// </summary>
@@ -17,18 +17,18 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Image _handleImage;
 		[SerializeField] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
 		[SerializeField] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
-		
+
 		private PointerEventData _pointerDownData;
-	
+
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private RectTransform MainJoystick => _joysticks[0];
 		private Vector2 _joystickPosLastFrame = Vector2.zero;
-		
+
 		private void OnEnable()
 		{
 			SetDefaultUI();
 		}
-		
+
 		/// <inheritdoc />
 		public void OnPointerDown(PointerEventData eventData)
 		{
@@ -41,10 +41,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				joystick.position = eventData.position;
 			}
-			
+
 			_pointerDownData = eventData;
 			_handleImage.rectTransform.anchoredPosition = Vector2.zero;
-			
+
 			_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
 			_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
 		}
@@ -56,26 +56,18 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			var rectTransform = MainJoystick;
-			
+
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position,
 			                                                        eventData.pressEventCamera, out var position);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.pressPosition,
 			                                                        eventData.pressEventCamera, out var pressPosition);
-			
+
 			var radius = (rectTransform.rect.size.x / 2f) * rectTransform.localScale.x;
 			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
-			var deltaSinceLastFrame = _joystickPosLastFrame - deltaFromCenter;
-			var distFromCenter = deltaFromCenter.magnitude;
-			Debug.LogError(distFromCenter);
-			
 			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
-
-			if (distFromCenter > GameConstants.JOYSTICK_DEADZONE_DIST)
-			{
-				_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenter / radius);
-			}
+			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenter / radius);
 
 			_joystickPosLastFrame = deltaFromCenter;
 		}
@@ -87,7 +79,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			SetDefaultUI();
 		}
 
@@ -97,10 +89,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				joystick.anchoredPosition = Vector2.zero;
 			}
-			
+
 			_pointerDownData = null;
 			_handleImage.rectTransform.anchoredPosition = Vector2.zero;
-			
+
 			_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
 			_onscreenJoystickPointerDownAdapter.SendValueToControl(0f);
 		}

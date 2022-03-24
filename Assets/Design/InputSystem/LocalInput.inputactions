@@ -11,7 +11,8 @@
                     "id": "80e0617a-f7d5-4342-9ec4-8445552b4b71",
                     "expectedControlType": "Vector2",
                     "processors": "StickDeadzone",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Aim",
@@ -19,7 +20,8 @@
                     "id": "6600ce1c-2814-459a-816a-acbe147764c8",
                     "expectedControlType": "Vector2",
                     "processors": "StickDeadzone",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Special Aim",
@@ -27,7 +29,8 @@
                     "id": "15d88791-423a-4e9d-b67e-a41cf186bf27",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Aim Button",
@@ -35,7 +38,8 @@
                     "id": "cb1a0282-e279-4d29-9642-33897f62e175",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Special Button0",
@@ -43,7 +47,8 @@
                     "id": "21ef680b-1285-493a-9407-c14b86f56123",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Special Button1",
@@ -51,7 +56,8 @@
                     "id": "2cbc1f2b-41d0-4084-a20d-1b13d6d48087",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

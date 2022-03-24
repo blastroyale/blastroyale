@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -4021,6 +4022,56 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct RaycastShot : Quantum.IComponent {
+    public const Int32 SIZE = 88;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(24)]
+    public FP AttackHitTime;
+    [FieldOffset(16)]
+    public EntityRef Attacker;
+    [FieldOffset(48)]
+    public FPVector2 Direction;
+    [FieldOffset(8)]
+    public UInt32 PowerAmount;
+    [FieldOffset(32)]
+    public FP Range;
+    [FieldOffset(0)]
+    public GameId SourceId;
+    [FieldOffset(64)]
+    public FPVector3 SpawnPosition;
+    [FieldOffset(40)]
+    public FP StartTime;
+    [FieldOffset(4)]
+    public Int32 TeamSource;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 463;
+        hash = hash * 31 + AttackHitTime.GetHashCode();
+        hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + Direction.GetHashCode();
+        hash = hash * 31 + PowerAmount.GetHashCode();
+        hash = hash * 31 + Range.GetHashCode();
+        hash = hash * 31 + (Int32)SourceId;
+        hash = hash * 31 + SpawnPosition.GetHashCode();
+        hash = hash * 31 + StartTime.GetHashCode();
+        hash = hash * 31 + TeamSource.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (RaycastShot*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->SourceId);
+        serializer.Stream.Serialize(&p->TeamSource);
+        serializer.Stream.Serialize(&p->PowerAmount);
+        EntityRef.Serialize(&p->Attacker, serializer);
+        FP.Serialize(&p->AttackHitTime, serializer);
+        FP.Serialize(&p->Range, serializer);
+        FP.Serialize(&p->StartTime, serializer);
+        FPVector2.Serialize(&p->Direction, serializer);
+        FPVector3.Serialize(&p->SpawnPosition, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Regeneration : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -4028,7 +4079,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 463;
+        var hash = 467;
         return hash;
       }
     }
@@ -4044,7 +4095,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 467;
+        var hash = 479;
         return hash;
       }
     }
@@ -4072,7 +4123,7 @@ namespace Quantum {
     public FP TargetRadius;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 479;
+        var hash = 487;
         hash = hash * 31 + CurrentCircleCenter.GetHashCode();
         hash = hash * 31 + CurrentRadius.GetHashCode();
         hash = hash * 31 + ShrinkingDurationTime.GetHashCode();
@@ -4120,7 +4171,7 @@ namespace Quantum {
     public EntityRef Victim;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 487;
+        var hash = 491;
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + Cooldown.GetHashCode();
         hash = hash * 31 + EndTime.GetHashCode();
@@ -4160,7 +4211,7 @@ namespace Quantum {
     public UInt32 SpeedModifierId;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 491;
+        var hash = 499;
         hash = hash * 31 + DamageHazard.GetHashCode();
         hash = hash * 31 + Power.GetHashCode();
         hash = hash * 31 + SpeedModifierId.GetHashCode();
@@ -4222,7 +4273,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 499;
+        var hash = 503;
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + CurrentInterimArmour.GetHashCode();
         hash = hash * 31 + CurrentStatusModifierDuration.GetHashCode();
@@ -4264,7 +4315,7 @@ namespace Quantum {
     public FP VulnerabilityMultiplier;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 503;
+        var hash = 509;
         hash = hash * 31 + VulnerabilityMultiplier.GetHashCode();
         return hash;
       }
@@ -4284,7 +4335,7 @@ namespace Quantum {
     public Int32 Team;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 509;
+        var hash = 521;
         hash = hash * 31 + IsUntargetable.GetHashCode();
         hash = hash * 31 + Team.GetHashCode();
         return hash;
@@ -4306,7 +4357,7 @@ namespace Quantum {
     public UtilityReasoner UtilityReasoner;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 521;
+        var hash = 523;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + UtilityReasoner.GetHashCode();
         return hash;
@@ -4333,7 +4384,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 523;
+        var hash = 541;
         return hash;
       }
     }
@@ -4349,7 +4400,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 541;
+        var hash = 547;
         return hash;
       }
     }
@@ -4399,6 +4450,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.PlayerSpawner>(Quantum.PlayerSpawner.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Projectile>(Quantum.Projectile.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Rage>(Quantum.Rage.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.RaycastShot>(Quantum.RaycastShot.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Regeneration>(Quantum.Regeneration.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Shield>(Quantum.Shield.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.ShrinkingCircle>(Quantum.ShrinkingCircle.Serialize, null, null, ComponentFlags.Singleton);
@@ -4491,6 +4543,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.Projectile>();
       BuildSignalsArrayOnComponentAdded<Quantum.Rage>();
       BuildSignalsArrayOnComponentRemoved<Quantum.Rage>();
+      BuildSignalsArrayOnComponentAdded<Quantum.RaycastShot>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.RaycastShot>();
       BuildSignalsArrayOnComponentAdded<Quantum.Regeneration>();
       BuildSignalsArrayOnComponentRemoved<Quantum.Regeneration>();
       BuildSignalsArrayOnComponentAdded<Quantum.Shield>();
@@ -7204,6 +7258,9 @@ namespace Quantum {
     public virtual void Visit(Prototypes.Rage_Prototype prototype) {
       VisitFallback(prototype);
     }
+    public virtual void Visit(Prototypes.RaycastShot_Prototype prototype) {
+      VisitFallback(prototype);
+    }
     public virtual void Visit(Prototypes.Regeneration_Prototype prototype) {
       VisitFallback(prototype);
     }
@@ -7430,6 +7487,7 @@ namespace Quantum {
       Register(typeof(QBoolean), QBoolean.SIZE);
       Register(typeof(RNGSession), RNGSession.SIZE);
       Register(typeof(Quantum.Rage), Quantum.Rage.SIZE);
+      Register(typeof(Quantum.RaycastShot), Quantum.RaycastShot.SIZE);
       Register(typeof(Quantum.Regeneration), Quantum.Regeneration.SIZE);
       Register(typeof(Shape2D), Shape2D.SIZE);
       Register(typeof(Shape3D), Shape3D.SIZE);
@@ -8640,6 +8698,40 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(RaycastShot))]
+  public sealed unsafe partial class RaycastShot_Prototype : ComponentPrototype<RaycastShot> {
+    public MapEntityId Attacker;
+    public GameId_Prototype SourceId;
+    public Int32 TeamSource;
+    public FPVector3 SpawnPosition;
+    public FPVector2 Direction;
+    public UInt32 PowerAmount;
+    public FP Range;
+    public FP AttackHitTime;
+    public FP StartTime;
+    partial void MaterializeUser(Frame frame, ref RaycastShot result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+      RaycastShot component = default;
+      Materialize((Frame)f, ref component, in context);
+      return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref RaycastShot result, in PrototypeMaterializationContext context) {
+      result.AttackHitTime = this.AttackHitTime;
+      PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
+      result.Direction = this.Direction;
+      result.PowerAmount = this.PowerAmount;
+      result.Range = this.Range;
+      result.SourceId = this.SourceId;
+      result.SpawnPosition = this.SpawnPosition;
+      result.StartTime = this.StartTime;
+      result.TeamSource = this.TeamSource;
+      MaterializeUser(frame, ref result, in context);
+    }
+    public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
+      ((ComponentPrototypeVisitor)visitor).Visit(this);
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(Regeneration))]
   public sealed unsafe partial class Regeneration_Prototype : ComponentPrototype<Regeneration> {
     [HideInInspector()]
@@ -9098,6 +9190,8 @@ namespace Quantum.Prototypes {
     [ArrayLength(0, 1)]
     public List<Prototypes.Rage_Prototype> Rage;
     [ArrayLength(0, 1)]
+    public List<Prototypes.RaycastShot_Prototype> RaycastShot;
+    [ArrayLength(0, 1)]
     public List<Prototypes.Regeneration_Prototype> Regeneration;
     [ArrayLength(0, 1)]
     public List<Prototypes.Shield_Prototype> Shield;
@@ -9143,6 +9237,7 @@ namespace Quantum.Prototypes {
       Collect(PlayerSpawner, target);
       Collect(Projectile, target);
       Collect(Rage, target);
+      Collect(RaycastShot, target);
       Collect(Regeneration, target);
       Collect(Shield, target);
       Collect(ShrinkingCircle, target);
@@ -9224,6 +9319,9 @@ namespace Quantum.Prototypes {
       }
       public override void Visit(Prototypes.Rage_Prototype prototype) {
         Storage.Store(prototype, ref Storage.Rage);
+      }
+      public override void Visit(Prototypes.RaycastShot_Prototype prototype) {
+        Storage.Store(prototype, ref Storage.RaycastShot);
       }
       public override void Visit(Prototypes.Regeneration_Prototype prototype) {
         Storage.Store(prototype, ref Storage.Regeneration);

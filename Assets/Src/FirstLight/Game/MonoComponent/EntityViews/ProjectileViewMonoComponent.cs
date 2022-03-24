@@ -17,7 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		private Coroutine _recoverEffectWhenEndedCoroutine;
 
-		protected override void OnInit()
+		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnProjectileSuccessHit>(this, OnEventOnProjectileHit);
 			QuantumEvent.Subscribe<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);

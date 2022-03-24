@@ -88,7 +88,6 @@ namespace FirstLight.Game.Views
 				_coroutine = null;
 			}
 			_coroutine = _gameService.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(PressedScale));
-			MMVibrationManager.Haptic(HapticType);
 		}
 
 		/// <inheritdoc />

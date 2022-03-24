@@ -183,12 +183,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			AnimatorWrapper.Enabled = false;
 			direction = direction.sqrMagnitude > Mathf.Epsilon ? direction : transform.rotation.eulerAngles.normalized;
-			direction *= Mathf.Clamp(GameConstants.PLAYER_RAGDOLL_FORCE_SCALAR * Mathf.Sqrt(callback.DamageAmount), 
-			                         0, GameConstants.PLAYER_RAGDOLL_FORCE_MAX);
-			
+			direction *= Mathf.Lerp(GameConstants.PLAYER_RAGDOLL_FORCE_MIN, GameConstants.PLAYER_RAGDOLL_FORCE_MAX,
+				(float)callback.DamageAmount / callback.MaxHealth);
+
 			RigidbodyContainerMonoComponent.SetState(true);
 			OnAvatarEliminated(callback.Game);
-			RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.Impulse);
+			
+			RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.VelocityChange);
 		}
 
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)

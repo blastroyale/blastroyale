@@ -20,7 +20,7 @@ MonoBehaviour:
   m_FilterNoiseOnCurrent: 0
   m_BackgroundBehavior: 0
   m_EditorInputBehaviorInPlayMode: 0
-  m_DefaultDeadzoneMin: 0.165
+  m_DefaultDeadzoneMin: 0.125
   m_DefaultDeadzoneMax: 0.925
   m_DefaultButtonPressPoint: 0.5
   m_ButtonReleaseThreshold: 0.75

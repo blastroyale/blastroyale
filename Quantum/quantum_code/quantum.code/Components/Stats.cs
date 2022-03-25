@@ -157,7 +157,7 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, uint damageAmount)
 		{
-			var amount = (int) damageAmount;
+			var currentDamageAmount = (int) damageAmount;
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			var previousInterimArmour = CurrentInterimArmour;
@@ -170,10 +170,10 @@ namespace Quantum
 
 			// If there's Interim Armour then we reduce it first
 			// and if the damage is bigger than armour then we proceed to remove health as well
-			if (CurrentInterimArmour > 0)
+			if (previousInterimArmour > 0)
 			{
-				CurrentInterimArmour = Math.Max(previousInterimArmour - amount, 0);
-				amount = Math.Max(amount - previousInterimArmour, 0);
+				CurrentInterimArmour = Math.Max(previousInterimArmour - currentDamageAmount, 0);
+				currentDamageAmount = Math.Max(currentDamageAmount - previousInterimArmour, 0);
 
 				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
 				                                maxInterimArmour);
@@ -181,21 +181,21 @@ namespace Quantum
 
 			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
-				var armourDamage = damageAmount - amount;
-				var healthDamage = amount;
-				var totalDamage = armourDamage + healthDamage;
-				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, (uint) armourDamage,
-				                         (uint) healthDamage, (uint) totalDamage, maxHealth, maxInterimArmour);
-				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, (uint) armourDamage,
-				                              (uint) healthDamage, (uint) totalDamage, maxHealth, maxInterimArmour);
+				var armourDamage = damageAmount - (uint) currentDamageAmount;
+				var healthDamage = (uint) currentDamageAmount;
+				
+				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
+				                         healthDamage, damageAmount, maxHealth, maxInterimArmour);
+				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
+				                              healthDamage, damageAmount, maxHealth, maxInterimArmour);
 			}
 
-			if (amount <= 0)
+			if (currentDamageAmount <= 0)
 			{
 				return;
 			}
 
-			CurrentHealth = Math.Max(previousHealth - amount, 0);
+			CurrentHealth = Math.Max(previousHealth - currentDamageAmount, 0);
 
 			if (CurrentHealth == previousHealth)
 			{

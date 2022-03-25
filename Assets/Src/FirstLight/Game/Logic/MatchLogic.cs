@@ -65,10 +65,6 @@ namespace FirstLight.Game.Logic
 		{
 			var trophyChange = 0f;
 
-			// TODO: Check if "players" is sorted by rank
-			Log.Info($"PACO: Rank of first {players[0].PlayerRank}");
-			Log.Info($"PACO: Rank of last {players[^1].PlayerRank}");
-
 			var localPlayerIndex = 0;
 			for (int i = 0; i < players.Length; i++)
 			{
@@ -78,8 +74,6 @@ namespace FirstLight.Game.Logic
 					break;
 				}
 			}
-
-			Log.Info($"PACO: Local index: {localPlayerIndex}");
 
 			// Losses
 			for (int i = 0; i < localPlayerIndex; i++)

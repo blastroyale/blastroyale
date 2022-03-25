@@ -568,7 +568,8 @@ namespace Quantum.Systems
 				{
 					Skin = skins[f.RNG->Next(0, skins.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5),
+					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
+					                       ItemManufacturer.Military, ItemFaction.Order, 1, 5),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
@@ -600,7 +601,9 @@ namespace Quantum.Systems
 					var slotItems = slot.GetIds();
 					var rngGearIndex = f.RNG->Next(-1, slotItems.Count);
 					var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
-					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, rngGearIndex < 0 ? 0u : 1u, 5);
+					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool,
+					                              ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order,
+					                              rngGearIndex < 0 ? 0u : 1u, 5);
 
 					gear[j] = equipment;
 					botCharacter.Gear[j] = equipment;
@@ -619,10 +622,9 @@ namespace Quantum.Systems
 				f.Add(botEntity, botCharacter);
 
 				// Calculate bot trophies
-				// TODO mihak: Use augmented trophy count here
 				var eloRange = f.GameConfig.TrophyEloRange;
 				var playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
-				var trophies = Math.Max(playerTrophies + (uint) f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
+				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
 				                      botCharacter.Weapon, gear);

@@ -45,7 +45,7 @@ namespace FirstLight.Game.Logic
 
 		public IObservableFieldReader<uint> Trophies { get; private set; }
 
-		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<GameConfigs>().Config;
+		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public MatchLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{

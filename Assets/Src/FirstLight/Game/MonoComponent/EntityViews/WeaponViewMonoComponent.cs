@@ -10,7 +10,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
 		[SerializeField] private ParticleSystem _particleSystem;
-
+		
 		protected override void OnInit()
 		{
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
@@ -23,6 +23,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (_particleSystem.isPlaying || EntityRef != callback.PlayerEntity)
 			{
 				return;
+			}
+			
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.WeaponConfigId);
+
+			if (config.AttackHitTime.AsFloat > 0)
+			{
+				// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
+				var main = _particleSystem.main;
+				main.startLifetime = config.AttackHitTime.AsFloat;
+				main.startSpeed = config.AttackRange.AsFloat / config.AttackHitTime.AsFloat;
+				main.startDelay = 0;
 			}
 
 			_particleSystem.Simulate(0.0f, true, true);

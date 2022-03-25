@@ -9,10 +9,11 @@ namespace Quantum
 		/// </summary>
 		public static EntityRef Create(Frame f, RaycastShot raycastShot)
 		{
+			raycastShot.StartTime = f.Time;
+			raycastShot.LastBulletPosition = raycastShot.SpawnPosition;
+			
 			var e = f.Create();
 			f.Add(e, raycastShot);
-
-			raycastShot.StartTime = f.Time;
 
 			return e;
 		}

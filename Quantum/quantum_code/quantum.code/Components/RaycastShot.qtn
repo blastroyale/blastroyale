@@ -1,9 +1,10 @@
 component RaycastShot
 {
 	entity_ref Attacker;
-	GameId SourceId;
+	GameId WeaponConfigId;
 	Int32 TeamSource;
 	FPVector3 SpawnPosition;
+	FPVector3 LastBulletPosition;
 	FPVector2 Direction;
 	UInt32 PowerAmount;
 	FP Range;

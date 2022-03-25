@@ -4023,7 +4023,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RaycastShot : Quantum.IComponent {
-    public const Int32 SIZE = 88;
+    public const Int32 SIZE = 112;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public FP AttackHitTime;
@@ -4031,36 +4031,39 @@ namespace Quantum {
     public EntityRef Attacker;
     [FieldOffset(48)]
     public FPVector2 Direction;
+    [FieldOffset(64)]
+    public FPVector3 LastBulletPosition;
     [FieldOffset(8)]
     public UInt32 PowerAmount;
     [FieldOffset(32)]
     public FP Range;
-    [FieldOffset(0)]
-    public GameId SourceId;
-    [FieldOffset(64)]
+    [FieldOffset(88)]
     public FPVector3 SpawnPosition;
     [FieldOffset(40)]
     public FP StartTime;
     [FieldOffset(4)]
     public Int32 TeamSource;
+    [FieldOffset(0)]
+    public GameId WeaponConfigId;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 463;
         hash = hash * 31 + AttackHitTime.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
+        hash = hash * 31 + LastBulletPosition.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
-        hash = hash * 31 + (Int32)SourceId;
         hash = hash * 31 + SpawnPosition.GetHashCode();
         hash = hash * 31 + StartTime.GetHashCode();
         hash = hash * 31 + TeamSource.GetHashCode();
+        hash = hash * 31 + (Int32)WeaponConfigId;
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (RaycastShot*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->SourceId);
+        serializer.Stream.Serialize((Int32*)&p->WeaponConfigId);
         serializer.Stream.Serialize(&p->TeamSource);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
@@ -4068,6 +4071,7 @@ namespace Quantum {
         FP.Serialize(&p->Range, serializer);
         FP.Serialize(&p->StartTime, serializer);
         FPVector2.Serialize(&p->Direction, serializer);
+        FPVector3.Serialize(&p->LastBulletPosition, serializer);
         FPVector3.Serialize(&p->SpawnPosition, serializer);
     }
   }
@@ -5115,11 +5119,12 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity) {
+      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, GameId WeaponConfigId) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttack>(EventOnPlayerAttack.ID);
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
+        ev.WeaponConfigId = WeaponConfigId;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6619,6 +6624,7 @@ namespace Quantum {
     public new const Int32 ID = 43;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
+    public GameId WeaponConfigId;
     protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6638,6 +6644,7 @@ namespace Quantum {
         var hash = 257;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + WeaponConfigId.GetHashCode();
         return hash;
       }
     }
@@ -8701,9 +8708,10 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(RaycastShot))]
   public sealed unsafe partial class RaycastShot_Prototype : ComponentPrototype<RaycastShot> {
     public MapEntityId Attacker;
-    public GameId_Prototype SourceId;
+    public GameId_Prototype WeaponConfigId;
     public Int32 TeamSource;
     public FPVector3 SpawnPosition;
+    public FPVector3 LastBulletPosition;
     public FPVector2 Direction;
     public UInt32 PowerAmount;
     public FP Range;
@@ -8719,12 +8727,13 @@ namespace Quantum.Prototypes {
       result.AttackHitTime = this.AttackHitTime;
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
       result.Direction = this.Direction;
+      result.LastBulletPosition = this.LastBulletPosition;
       result.PowerAmount = this.PowerAmount;
       result.Range = this.Range;
-      result.SourceId = this.SourceId;
       result.SpawnPosition = this.SpawnPosition;
       result.StartTime = this.StartTime;
       result.TeamSource = this.TeamSource;
+      result.WeaponConfigId = this.WeaponConfigId;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

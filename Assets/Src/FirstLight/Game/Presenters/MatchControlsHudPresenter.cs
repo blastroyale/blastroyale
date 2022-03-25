@@ -51,7 +51,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_localInput.Enable();
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
-			QuantumCallback.Subscribe<CallbackPollInput>(this, SetInput);
+			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		protected override void OnClosed()
@@ -181,7 +181,7 @@ namespace FirstLight.Game.Presenters
 			_localInput.Gameplay.SpecialButton1.Enable();
 		}
 
-		private void SetInput(CallbackPollInput callback)
+		private void PollInput(CallbackPollInput callback)
 		{
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}

@@ -9,7 +9,9 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using Photon.Deterministic;
 using Photon.Realtime;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -154,12 +156,13 @@ namespace FirstLight.Game.StateMachines
 			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 			
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
-			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().SetRuntimeConfig(config);
+			runnerConfigs.SetRuntimeConfig(config);
 			
 			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
@@ -168,6 +171,10 @@ namespace FirstLight.Game.StateMachines
 			await Task.WhenAll(tasks);
 
 			SceneManager.SetActiveScene(sceneTask.Result);
+			
+#if UNITY_EDITOR
+			SetQuantumMultiClient(runnerConfigs, entityService);
+#endif
 		}
 
 		private async Task UnloadMatchAssets()
@@ -190,6 +197,34 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			Resources.UnloadUnusedAssets();
+		}
+
+		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)
+		{
+			if (!SROptions.Current.IsMultiClient)
+			{
+				return;
+			}
+			
+			var multiClient = Resources.Load<QuantumMultiClientRunner>(nameof(QuantumMultiClientRunner));
+			
+			multiClient.RuntimeConfig = runnerConfigs.RuntimeConfig;
+			multiClient.EntityViewUpdaterTemplate = entityService;
+			SROptions.Current.IsMultiClient = false;
+
+			for (var i = 0; i < multiClient.RuntimePlayer.Length; i++)
+			{
+				multiClient.RuntimePlayer[i] = new RuntimePlayer
+				{
+					PlayerName = $"Test Name {i}",
+					Skin = GameId.Male01Avatar,
+					PlayerLevel = (uint) i,
+					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
+					Gear = null,
+					Weapon = new Equipment(GameId.AK47, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Carbon, 
+					                       ItemManufacturer.Futuristic, ItemFaction.Chaos, 1, 1)
+				};
+			}
 		}
 	}
 }

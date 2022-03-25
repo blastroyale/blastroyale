@@ -31,7 +31,8 @@ namespace Quantum
 			
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
-			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5);
+			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, 
+			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin);

@@ -38,8 +38,7 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerParachuteDrop>(this, OnLocalPlayerParachuteDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerParachuteLanded);
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthChanged);
-			QuantumEvent.Subscribe<EventOnInterimArmourChanged>(this, OnInterimArmourChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
 		}
 
 		private void OnDestroy()
@@ -147,29 +146,18 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnHealthChanged(EventOnHealthChanged callback)
+		private void OnLocalPlayerDamaged(EventOnLocalPlayerDamaged callback)
 		{
-			if (callback.Entity != _entity)
-				return;
-
-			var damageReceived = callback.PreviousHealth - callback.CurrentHealth;
-			
-			if (damageReceived > 0)
+			if (callback.TotalDamage > 0)
 			{
-				PlayHapticFeedbackForDamage(damageReceived, callback.MaxHealth);
-			}
-		}
-		
-		private void OnInterimArmourChanged(EventOnInterimArmourChanged callback)
-		{
-			if (callback.Entity != _entity)
-				return;
-
-			var damageReceived = callback.PreviousInterimArmour - callback.CurrentInterimArmour;
-			
-			if (damageReceived > 0)
-			{
-				PlayHapticFeedbackForDamage(damageReceived, callback.MaxInterimArmour);
+				if (callback.HealthDamage > 0)
+				{
+					PlayHapticFeedbackForDamage(callback.HealthDamage, callback.MaxHealth);
+				}
+				else if (callback.InterimArmourDamage > 0)
+				{
+					PlayHapticFeedbackForDamage(callback.InterimArmourDamage, callback.MaxInterimArmour);
+				}
 			}
 		}
 

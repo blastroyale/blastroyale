@@ -1,7 +1,9 @@
+using System;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Services;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -43,7 +45,7 @@ namespace FirstLight.Game.Logic
 
 		public IObservableFieldReader<uint> Trophies { get; private set; }
 
-		private AppData AppData => DataProvider.GetData<AppData>();
+		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<GameConfigs>().Config;
 
 		public MatchLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -56,14 +58,52 @@ namespace FirstLight.Game.Logic
 
 			SelectedMapId = new ObservableField<int>(configs[configs.Count - 1].Id);
 
-			// Trophies = new ObservableField<uint>(Data.Trophies);
-			Trophies = new ObservableField<uint>(666);
+			Trophies = new ObservableField<uint>(Data.Trophies);
 		}
 
 		public void UpdateTrophies(QuantumPlayerMatchData[] players, QuantumPlayerMatchData localPlayer)
 		{
-			// TODO: Implement trophy calculations
-			Data.Trophies += 10 * localPlayer.PlayerRank;
+			var trophyChange = 0f;
+
+			// TODO: Check if "players" is sorted by rank
+			Log.Info($"PACO: Rank of first {players[0].PlayerRank}");
+			Log.Info($"PACO: Rank of last {players[^1].PlayerRank}");
+
+			var localPlayerIndex = 0;
+			for (int i = 0; i < players.Length; i++)
+			{
+				if (players[localPlayerIndex].IsLocalPlayer)
+				{
+					localPlayerIndex = i;
+					break;
+				}
+			}
+
+			Log.Info($"PACO: Local index: {localPlayerIndex}");
+
+			// Losses
+			for (int i = 0; i < localPlayerIndex; i++)
+			{
+				trophyChange += CalculateEloChange(0, players[i].Data.PlayerTrophies, localPlayer.Data.PlayerTrophies);
+			}
+
+			// Wins
+			for (int i = localPlayerIndex + 1; i < players.Length; i++)
+			{
+				trophyChange += CalculateEloChange(1, players[i].Data.PlayerTrophies, localPlayer.Data.PlayerTrophies);
+			}
+
+
+			Data.Trophies = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
+		}
+
+		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)
+		{
+			return GameConfig.TrophyEloK * (score - 1f /
+			                                (1f +
+			                                 Mathf.Pow(10,
+			                                           (trophiesOpponent - trophiesPlayer) /
+			                                           (float) GameConfig.TrophyEloRange)));
 		}
 	}
 }

@@ -22,8 +22,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private RectTransform MainJoystick => _joysticks[0];
-		private Vector2 _joystickPosLastFrame = Vector2.zero;
+		private Vector2 _defaultJoystickPos = Vector2.zero;
 
+		private void Awake()
+		{
+			_defaultJoystickPos = MainJoystick.anchoredPosition;
+		}
+		
 		private void OnEnable()
 		{
 			SetDefaultUI();
@@ -68,8 +73,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
 			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
 			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenter / radius);
-
-			_joystickPosLastFrame = deltaFromCenter;
 		}
 
 		/// <inheritdoc />
@@ -87,7 +90,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			foreach (var joystick in _joysticks)
 			{
-				joystick.anchoredPosition = Vector2.zero;
+				joystick.anchoredPosition = _defaultJoystickPos;
 			}
 
 			_pointerDownData = null;

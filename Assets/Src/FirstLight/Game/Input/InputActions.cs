@@ -43,7 +43,7 @@ namespace FirstLight.Game.Input
                     ""type"": ""PassThrough"",
                     ""id"": ""6600ce1c-2814-459a-816a-acbe147764c8"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone(min=0.135,max=0.925)"",
+                    ""processors"": ""StickDeadzone(min=0.2,max=0.9)"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },

@@ -67,10 +67,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void Setup(List<QuantumPlayerMatchData> playerData, bool showExtra)
 		{
 			var pool = _playerResultPool.SpawnedReadOnly;
-			
-			// Do the descending order. From the highest to the lowest value
 			playerData.SortByPlayerRank();
+			playerData.Reverse();
 
+			// Do the descending order. From the highest to the lowest value
 			for (var i = 0; i < pool.Count; i++)
 			{
 				pool[i].SetInfo(playerData[i], showExtra);

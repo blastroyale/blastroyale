@@ -15,12 +15,12 @@ namespace FirstLight.Game.Utils
 		{
 			players.Sort((a, b) =>
 			{
-				var rank = b.PlayerRank.CompareTo(a.PlayerRank);
+				var rank = a.PlayerRank.CompareTo(b.PlayerRank);
 
 				// If players have the same rank, sort them by their PlayerRef index
 				if (rank == 0)
 				{
-					return b.Data.Player._index.CompareTo(a.Data.Player._index);
+					return a.Data.Player._index.CompareTo(b.Data.Player._index);
 				}
 
 				return rank;

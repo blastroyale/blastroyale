@@ -19,13 +19,14 @@ namespace FirstLight.Game.Commands
 	public struct UpdatePlayerTrophiesCommand : IGameCommand
 	{
 		public QuantumPlayerMatchData[] Players;
+		public uint LocalPlayerRank;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			var converter = new StringEnumConverter();
 
-			gameLogic.MatchLogic.UpdateTrophies(Players);
+			gameLogic.MatchLogic.UpdateTrophies(Players, LocalPlayerRank);
 
 			var request = new ExecuteFunctionRequest
 			{

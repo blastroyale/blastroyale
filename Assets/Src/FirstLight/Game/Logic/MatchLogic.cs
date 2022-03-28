@@ -33,7 +33,7 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc />
 	public interface IMatchLogic : IMatchDataProvider
 	{
-		void UpdateTrophies(QuantumPlayerMatchData[] players);
+		void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank);
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -49,6 +49,8 @@ namespace FirstLight.Game.Logic
 
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
+		private ObservableResolverField<uint> _trophiesResolver;
+
 		public MatchLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
@@ -59,18 +61,18 @@ namespace FirstLight.Game.Logic
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
 
 			SelectedMapId = new ObservableField<int>(configs[configs.Count - 1].Id);
-
-			Trophies = new ObservableField<uint>(Data.Trophies);
+			Trophies = _trophiesResolver =
+				           new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 		}
 
-		public void UpdateTrophies(QuantumPlayerMatchData[] players)
+		public void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank)
 		{
 			var trophyChange = 0f;
 
 			var sortedPlayers = players.ToList();
 			sortedPlayers.SortByPlayerRank();
 
-			var localPlayerIndex = sortedPlayers.FindIndex(p => p.IsLocalPlayer);
+			var localPlayerIndex = (int) localPlayerRank - 1;
 			var localPlayer = sortedPlayers[localPlayerIndex];
 
 			// Losses
@@ -85,8 +87,7 @@ namespace FirstLight.Game.Logic
 				trophyChange += CalculateEloChange(1, players[i].Data.PlayerTrophies, localPlayer.Data.PlayerTrophies);
 			}
 
-
-			Data.Trophies = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
+			_trophiesResolver.Value = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
 		}
 
 		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)

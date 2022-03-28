@@ -53,7 +53,7 @@ namespace Quantum.Systems
 			targetsHit.Add(hit.Value.Entity);
 			
 			var spell = Spell.CreateInstant(f, hit.Value.Entity, filter.RaycastShot->Attacker, filter.RaycastShot->Attacker,
-			                                powerAmount, hit.Value.Point);
+			                                powerAmount, hit.Value.Point, filter.RaycastShot->TeamSource);
 
 			if (weaponConfig.SplashRadius > FP._0)
 			{

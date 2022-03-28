@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -16,7 +17,7 @@ namespace Quantum
 		/// Creates an instant hit <see cref="Spell"/> based on the given data
 		/// </summary>
 		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource, 
-		                               uint powerAmount, FPVector3 position)
+		                               uint powerAmount, FPVector3 position, Int32 team)
 		{
 			return new Spell
 			{
@@ -29,7 +30,7 @@ namespace Quantum
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
 				PowerAmount = powerAmount,
-				TeamSource = f.Get<Targetable>(attacker).Team
+				TeamSource = team
 			};
 		}
 	}

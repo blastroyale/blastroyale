@@ -208,10 +208,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 539732899676485819}
   - {fileID: 8712624471627325397}
-  - {fileID: 2666238011588944143}
   - {fileID: 83829103835661394}
+  - {fileID: 539732899676485819}
+  - {fileID: 2666238011588944143}
   - {fileID: 5774780865538978590}
   - {fileID: 6508037046843924228}
   - {fileID: 3582669078517815228}
@@ -618,7 +618,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5025167367812149218}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -692,6 +692,7 @@ MonoBehaviour:
   _handleImage: {fileID: 7233397929623942655}
   _onscreenJoystickDirectionAdapter: {fileID: 1587165873812747888}
   _onscreenJoystickPointerDownAdapter: {fileID: 6161270051547520423}
+  _radiusMultiplier: 0.5
 --- !u!1 &3978021337145141848
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 33.000122, y: -30.000061}
+  m_AnchoredPosition: {x: 33, y: -30}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4543775689126659115
@@ -950,6 +951,7 @@ GameObject:
   - component: {fileID: 5361272457601393536}
   - component: {fileID: 323115840485055281}
   - component: {fileID: 8467213377424103225}
+  - component: {fileID: 424075208219945079}
   - component: {fileID: 5153671667736018561}
   m_Layer: 5
   m_Name: Movement Joystick Hitbox
@@ -971,7 +973,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5025167367812149218}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1028,6 +1030,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controlPath: <OnscreenControlsDevice>/LeftJoystickPointerDown
+--- !u!114 &424075208219945079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4543775689126659115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b88c9d03cb42d385f9310e1c063f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlPath: <OnScreenControlsDevice>/LeftJoystickDirection
 --- !u!114 &5153671667736018561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,6 +1060,7 @@ MonoBehaviour:
   _handleImage: {fileID: 1392665286482050968}
   _onscreenJoystickDirectionAdapter: {fileID: 323115840485055281}
   _onscreenJoystickPointerDownAdapter: {fileID: 8467213377424103225}
+  _radiusMultiplier: 1
 --- !u!1 &4826475593934011262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,7 +1167,7 @@ RectTransform:
   m_Children:
   - {fileID: 4081542687894896272}
   m_Father: {fileID: 5025167367812149218}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1959,7 +1975,7 @@ RectTransform:
   m_Children:
   - {fileID: 5734491727047242999}
   m_Father: {fileID: 5025167367812149218}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2509,11 +2525,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1332219460091614124, guid: 82581846efd49479095d63bc2e1985df, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1332219460091614124, guid: 82581846efd49479095d63bc2e1985df, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 275
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1633436635229243641, guid: 82581846efd49479095d63bc2e1985df, type: 3}
       propertyPath: m_Enabled

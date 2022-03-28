@@ -2,6 +2,7 @@ using FirstLight.Game.Input;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
@@ -17,13 +18,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Image _handleImage;
 		[SerializeField] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
 		[SerializeField] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
-
+		[SerializeField] private float _radiusMultiplier = 1f;
+		
 		private PointerEventData _pointerDownData;
 
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private RectTransform MainJoystick => _joysticks[0];
 		private Vector2 _defaultJoystickPos = Vector2.zero;
-
+		
+		// Will be used in the future for new delta deadzone input processor
+		private Vector2 _deltaLastFrame = Vector2.zero;
+		
 		private void Awake()
 		{
 			_defaultJoystickPos = MainJoystick.anchoredPosition;
@@ -69,10 +74,16 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.pressPosition,
 			                                                        eventData.pressEventCamera, out var pressPosition);
 
-			var radius = (rectTransform.rect.size.x / 2f) * rectTransform.localScale.x;
+			var radius = ((rectTransform.rect.size.x / 2f) * rectTransform.localScale.x) * _radiusMultiplier;
 			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
+			var deltaFromCenterNorm = deltaFromCenter / radius;
+			
+			Debug.LogError(deltaFromCenter + " " + deltaFromCenterNorm + " " + deltaFromCenterNorm.magnitude);
+			
 			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
-			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenter / radius);
+			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenterNorm);
+			
+			_deltaLastFrame = deltaFromCenter;
 		}
 
 		/// <inheritdoc />

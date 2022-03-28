@@ -692,7 +692,7 @@ MonoBehaviour:
   _handleImage: {fileID: 7233397929623942655}
   _onscreenJoystickDirectionAdapter: {fileID: 1587165873812747888}
   _onscreenJoystickPointerDownAdapter: {fileID: 6161270051547520423}
-  _radiusMultiplier: 0.65
+  _radiusMultiplier: 0.6
 --- !u!1 &3978021337145141848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2525,11 +2525,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1332219460091614124, guid: 82581846efd49479095d63bc2e1985df, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 1332219460091614124, guid: 82581846efd49479095d63bc2e1985df, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 275
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 1633436635229243641, guid: 82581846efd49479095d63bc2e1985df, type: 3}
       propertyPath: m_Enabled

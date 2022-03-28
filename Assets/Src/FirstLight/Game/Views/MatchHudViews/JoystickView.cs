@@ -1,10 +1,14 @@
 using FirstLight.Game.Input;
+using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
+	// TODO - delta - calculate actual delta, and ref to distToCenter
+
 	/// <summary>
 	/// Onscreen joystick class from Shoot & Loot.
 	/// </summary>
@@ -14,17 +18,27 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Image _handleImage;
 		[SerializeField] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
 		[SerializeField] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
+		[SerializeField] private float _radiusMultiplier = 1f;
 		
 		private PointerEventData _pointerDownData;
-	
+
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private RectTransform MainJoystick => _joysticks[0];
+		private Vector2 _defaultJoystickPos = Vector2.zero;
+		
+		// Will be used in the future for new delta deadzone input processor
+		private Vector2 _deltaLastFrame = Vector2.zero;
+		
+		private void Awake()
+		{
+			_defaultJoystickPos = MainJoystick.anchoredPosition;
+		}
 		
 		private void OnEnable()
 		{
 			SetDefaultUI();
 		}
-		
+
 		/// <inheritdoc />
 		public void OnPointerDown(PointerEventData eventData)
 		{
@@ -37,10 +51,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				joystick.position = eventData.position;
 			}
-			
+
 			_pointerDownData = eventData;
 			_handleImage.rectTransform.anchoredPosition = Vector2.zero;
-			
+
 			_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
 			_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
 		}
@@ -52,19 +66,22 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			var rectTransform = MainJoystick;
-			
+
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position,
 			                                                        eventData.pressEventCamera, out var position);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.pressPosition,
 			                                                        eventData.pressEventCamera, out var pressPosition);
+
+			var radius = ((rectTransform.rect.size.x / 2f) * rectTransform.localScale.x) * _radiusMultiplier;
+			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
+			var deltaFromCenterNorm = deltaFromCenter / radius;
 			
-			var radius = (rectTransform.rect.size.x / 2f) * rectTransform.localScale.x;
-			var delta = Vector2.ClampMagnitude(position - pressPosition, radius);
+			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
+			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenterNorm);
 			
-			_handleImage.rectTransform.anchoredPosition = delta;
-			_onscreenJoystickDirectionAdapter.SendValueToControl(delta / radius);
+			_deltaLastFrame = deltaFromCenter;
 		}
 
 		/// <inheritdoc />
@@ -74,7 +91,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			SetDefaultUI();
 		}
 
@@ -82,12 +99,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			foreach (var joystick in _joysticks)
 			{
-				joystick.anchoredPosition = Vector2.zero;
+				joystick.anchoredPosition = _defaultJoystickPos;
 			}
-			
+
 			_pointerDownData = null;
 			_handleImage.rectTransform.anchoredPosition = Vector2.zero;
-			
+
 			_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
 			_onscreenJoystickPointerDownAdapter.SendValueToControl(0f);
 		}

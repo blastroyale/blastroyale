@@ -1,6 +1,3 @@
-using System;
-using Quantum.Collections;
-
 namespace Quantum
 {
 	public unsafe partial struct PlayerMatchData

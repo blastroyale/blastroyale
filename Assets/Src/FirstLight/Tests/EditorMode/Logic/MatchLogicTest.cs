@@ -118,6 +118,34 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(125, _matchLogic.Trophies.Value);
 		}
 
+		/// <summary>
+		/// Checks if the sum of trophies of two players
+		/// is the same after a match as it was before.
+		/// </summary>
+		[Test]
+		public void TestTrophyConsistency()
+		{
+			uint localPlayerRank1;
+			var players1 = new List<QuantumPlayerMatchData>
+			{
+				CreatePlayer(localPlayerRank1 = 0, TestData.Trophies = 100, true),
+				CreatePlayer(1, 100),
+			};
+			_matchLogic.UpdateTrophies(players1.ToArray(), localPlayerRank1);
+			var trophies1 = TestData.Trophies;
+
+			uint localPlayerRank2;
+			var players2 = new List<QuantumPlayerMatchData>
+			{
+				CreatePlayer(0, 100),
+				CreatePlayer(localPlayerRank2 = 1, TestData.Trophies = 100, true),
+			};
+			_matchLogic.UpdateTrophies(players2.ToArray(), localPlayerRank2);
+			var trophies2 = TestData.Trophies;
+
+			Assert.AreEqual(200, trophies1 + trophies2, $"P1: {trophies1}, P2: {trophies2}");
+		}
+
 		private static QuantumPlayerMatchData CreatePlayer(uint rank, uint trophies, bool localPlayer = false)
 		{
 			return new QuantumPlayerMatchData

@@ -30,12 +30,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 			uint localPlayerRank;
 			var players = new List<QuantumPlayerMatchData>
 			{
+				CreatePlayer(0, 1000),
 				CreatePlayer(1, 1000),
 				CreatePlayer(2, 1000),
 				CreatePlayer(3, 1000),
 				CreatePlayer(4, 1000),
-				CreatePlayer(5, 1000),
-				CreatePlayer(localPlayerRank = 6, TestData.Trophies = 0, true),
+				CreatePlayer(localPlayerRank = 5, TestData.Trophies = 0, true),
 			};
 
 			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
@@ -49,17 +49,17 @@ namespace FirstLight.Tests.EditorMode.Logic
 			uint localPlayerRank;
 			var players = new List<QuantumPlayerMatchData>
 			{
+				CreatePlayer(0, 100),
 				CreatePlayer(1, 100),
 				CreatePlayer(2, 100),
 				CreatePlayer(3, 100),
 				CreatePlayer(4, 100),
-				CreatePlayer(6, 100),
 				CreatePlayer(localPlayerRank = 5, TestData.Trophies = 100, true),
 			};
 
 			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
 
-			Assert.AreEqual(92, _matchLogic.Trophies.Value);
+			Assert.AreEqual(88, _matchLogic.Trophies.Value);
 		}
 
 		[Test]
@@ -68,11 +68,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			uint localPlayerRank;
 			var players = new List<QuantumPlayerMatchData>
 			{
+				CreatePlayer(0, 120),
 				CreatePlayer(1, 120),
-				CreatePlayer(2, 120),
-				CreatePlayer(localPlayerRank = 3, TestData.Trophies = 120, true),
+				CreatePlayer(localPlayerRank = 2, TestData.Trophies = 120, true),
+				CreatePlayer(3, 120),
 				CreatePlayer(4, 120),
-				CreatePlayer(5, 120),
 			};
 
 			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
@@ -86,12 +86,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 			uint localPlayerRank;
 			var players = new List<QuantumPlayerMatchData>
 			{
-				CreatePlayer(localPlayerRank = 1, TestData.Trophies = 100, true),
+				CreatePlayer(localPlayerRank = 0, TestData.Trophies = 100, true),
+				CreatePlayer(1, 100),
 				CreatePlayer(2, 100),
 				CreatePlayer(3, 100),
 				CreatePlayer(4, 100),
 				CreatePlayer(5, 100),
-				CreatePlayer(6, 100),
 			};
 
 			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
@@ -105,12 +105,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 			uint localPlayerRank;
 			var players = new List<QuantumPlayerMatchData>
 			{
-				CreatePlayer(localPlayerRank = 1, TestData.Trophies = 100, true),
+				CreatePlayer(localPlayerRank = 0, TestData.Trophies = 100, true),
+				CreatePlayer(1, 300),
 				CreatePlayer(2, 300),
 				CreatePlayer(3, 300),
 				CreatePlayer(4, 300),
 				CreatePlayer(5, 300),
-				CreatePlayer(6, 300),
 			};
 
 			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);

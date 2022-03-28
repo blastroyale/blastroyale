@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
@@ -72,7 +73,7 @@ namespace FirstLight.Game.Logic
 			var sortedPlayers = players.ToList();
 			sortedPlayers.SortByPlayerRank();
 
-			var localPlayerIndex = (int) localPlayerRank - 1;
+			var localPlayerIndex = (int) localPlayerRank;
 			var localPlayer = sortedPlayers[localPlayerIndex];
 
 			// Losses

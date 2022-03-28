@@ -10,7 +10,8 @@ namespace FirstLight.Game.Input
 #endif
 
 	/// <summary>
-	/// This processor takes a Vector2 input, and zeros it if the magnitude is not above the minimum threshold.
+	/// This processor takes a Vector3 input (XY pos + delta), and runs a standard deadzone calculation
+	/// plus a "delta passthrough" that ignores the deadzone if delta is above a threshold 
 	/// </summary>
 	public class DeadzoneWithDeltaProcessor : InputProcessor<Vector3>
 	{
@@ -38,7 +39,6 @@ namespace FirstLight.Game.Input
 			Vector2 deltaFromCenter = new Vector2(value.x, value.y);
 			float deltaSinceLastFrame = value.z;
 			
-			// Deadzone will be ignored if deltaSinceLast frame 
 			if (deltaFromCenter.magnitude < DeadzoneMin && deltaSinceLastFrame < DeltaMagnitudeMin)
 			{
 				deltaFromCenter = Vector2.zero;
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Input
 				deltaFromCenter = deltaFromCenter.normalized;
 			}
 
-			return new Vector4(deltaFromCenter.x, deltaFromCenter.y, deltaSinceLastFrame);
+			return new Vector3(deltaFromCenter.x, deltaFromCenter.y, deltaSinceLastFrame);
 		}
 	}
 }

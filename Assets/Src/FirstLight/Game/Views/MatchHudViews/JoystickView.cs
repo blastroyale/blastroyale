@@ -78,8 +78,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
 			var deltaFromCenterNorm = deltaFromCenter / radius;
 			
-			Debug.LogError(deltaFromCenter + " " + deltaFromCenterNorm + " " + deltaFromCenterNorm.magnitude);
-			
 			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
 			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenterNorm);
 			

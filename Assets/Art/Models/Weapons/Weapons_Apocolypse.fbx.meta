@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: ColourAtlas
+    second: {fileID: 2100000, guid: 0daf603ac407bf746b04e11eafb1af43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Weapons
     second: {fileID: 2100000, guid: aef912decb2bd9f4db4b3a6b5cb32692, type: 2}
   materials:

@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_WeaponModToonDualUVTest
+  m_Name: M_WeaponModToon
   m_Shader: {fileID: -6465566751694194690, guid: 3bfce1a0d0d150c48ad5dc01f99387f2, type: 3}
-  m_ShaderKeywords: _SURFACEENABLE
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AdjectiveTexture:
-        m_Texture: {fileID: 2800000, guid: 5c4d6145274437844bc5f9d78d208ffa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4dd34e94633596d4790766774550b155, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
@@ -93,24 +93,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AdjectiveAmount: 0.5
+    - _AdjectiveAmount: 0.6
     - _BOOLEAN: 0
     - _ENABLE_PATTERN_A: 1
     - _ENABLE_PATTERN_B: 0
     - _EmissiveAmount: 7
     - _Float: 6.39
     - _GI_Amount: 1
-    - _GlowAmount: 0.3
+    - _GlowAmount: 0.5
     - _GlowPower: 5
     - _PATTERN: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SURFACEENABLE: 1
+    - _SURFACEENABLE: 0
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
-    - _GlowColor: {r: 64, g: 19.57647, b: 0, a: 1}
+    - _GlowColor: {r: 39.095123, g: 15.3218775, b: 0.61469924, a: 1}
     - _Vector2: {r: 0.28, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8342258011897039452

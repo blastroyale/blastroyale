@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_WeaponModToonDualUVTest
   m_Shader: {fileID: -6465566751694194690, guid: 3bfce1a0d0d150c48ad5dc01f99387f2, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _SURFACEENABLE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -36,11 +36,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AdjectiveTexture:
-        m_Texture: {fileID: 2800000, guid: 5a7289a211bc2dd458cee59120fa398b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5c4d6145274437844bc5f9d78d208ffa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
-        m_Texture: {fileID: 2800000, guid: c31a73f61e0fb294187d41f4bbcb47d8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 11d1dc8b31de19c449cb43b0465526e1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorTexture:
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveTexture:
-        m_Texture: {fileID: 2800000, guid: 2d461ab7b381202428e6bf429bce7d74, type: 3}
+        m_Texture: {fileID: 2800000, guid: 76d8254ddca2780438f55ab908910af5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PatternA:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SurfaceTexture:
-        m_Texture: {fileID: 2800000, guid: 75b94230af44854458c44fdbc9700f81, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7d756cd2940d41b4281b0f66120271e8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -93,19 +93,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AdjectiveAmount: 0.05
+    - _AdjectiveAmount: 0.5
     - _BOOLEAN: 0
     - _ENABLE_PATTERN_A: 1
     - _ENABLE_PATTERN_B: 0
-    - _EmissiveAmount: 0
+    - _EmissiveAmount: 7
     - _Float: 6.39
-    - _GI_Amount: 2
+    - _GI_Amount: 1
     - _GlowAmount: 0.3
     - _GlowPower: 5
     - _PATTERN: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SURFACEENABLE: 0
+    - _SURFACEENABLE: 1
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}

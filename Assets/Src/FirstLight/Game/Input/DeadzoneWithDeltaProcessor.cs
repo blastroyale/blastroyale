@@ -32,8 +32,10 @@ namespace FirstLight.Game.Input
 			InputSystem.RegisterProcessor<DeadzoneWithDeltaProcessor>();
 		}
 
-		// X, Y = POSITION (NORMALIZED)
-		// Z = DELTA SINCE LAST FRAME (calculated in runtime scripts)
+		/// <summary>
+		/// Processes the input for the passed Vector3 - deadzone + delta passthrough calculation
+		/// </summary>
+		/// <param name="value">XY = Position, Z = delta diff since last frame</param>
 		public override Vector3 Process(Vector3 value, InputControl control)
 		{
 			Vector2 deltaFromCenter = new Vector2(value.x, value.y);

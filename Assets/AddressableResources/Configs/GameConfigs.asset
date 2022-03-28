@@ -97,3 +97,5 @@ MonoBehaviour:
       ParachuteDropHeight: 100
       ParachuteSpeedModifier:
         RawValue: 131072
+      TrophyEloRange: 50
+      TrophyEloK: 5

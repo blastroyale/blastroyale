@@ -4,16 +4,13 @@ using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -32,7 +29,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		
+
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
@@ -51,7 +48,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-	
+
 			var deathmatch = stateFactory.Nest("Deathmatch Mode");
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
@@ -66,7 +63,7 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
 			startSimulation.OnExit(PrepareMatch);
-			
+
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
@@ -76,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(PublishMatchEnded);
-			
+
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
@@ -100,7 +97,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
-			
+
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
@@ -116,7 +113,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDeathmatch()
 		{
-			return _gameDataProvider.AdventureDataProvider.SelectedMapConfig.GameMode == GameMode.Deathmatch;
+			return _gameDataProvider.MatchDataProvider.SelectedMapConfig.GameMode == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -134,21 +131,22 @@ namespace FirstLight.Game.StateMachines
 
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
-			
+
 			_statechartTrigger(_simulationReadyEvent);
 		}
 
-		
+
 		private async void OnGameResync(CallbackGameResynced callback)
 		{
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
-			
+
 			_statechartTrigger(_simulationReadyEvent);
 		}
+
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
 		{
-			var data = new QuitGameDialogPresenter.StateData { ConfirmClicked = QuitGameConfirmedClicked };
+			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = QuitGameConfirmedClicked};
 
 			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
 		}
@@ -156,7 +154,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnFtueEndedMessage(FtueEndedMessage message)
 		{
 			SendGameplayData(false);
-			
+
 			_statechartTrigger(_gameQuitEvent);
 		}
 
@@ -171,16 +169,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			SendGameplayData(false);
 		}
-		
+
 		private void SendGameplayData(bool playerQuit)
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var playersData = f.GetSingleton<GameContainer>().PlayersData;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
 			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
 			var totalPlayers = 0;
 
-			for(var i = 0; i < playersData.Length; i++) 
+			for (var i = 0; i < playersData.Length; i++)
 			{
 				if (playersData[i].IsValid && !f.Has<BotCharacter>(playersData[i].Entity))
 				{
@@ -193,14 +192,22 @@ namespace FirstLight.Game.StateMachines
 				PlayerMatchData = data,
 				DidPlayerQuit = playerQuit
 			});
-			
+
+			if (!playerQuit)
+			{
+				_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
+				{
+					Players = gameContainer.GetPlayersMatchData(f, out _),
+					LocalPlayerRank = data.PlayerRank
+				});
+			}
+
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
-			_gameDataProvider.AdventureDataProvider.IncrementMapLevel();
 		}
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
+			var info = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
@@ -213,7 +220,7 @@ namespace FirstLight.Game.StateMachines
 		private void StopSimulation()
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
-			
+
 			QuantumRunner.ShutdownAll();
 		}
 
@@ -239,7 +246,7 @@ namespace FirstLight.Game.StateMachines
 				_uiService.CloseUi<LoadingScreenPresenter>();
 			}
 		}
-		
+
 		private void OpenAdventureWorldHud()
 		{
 			_uiService.OpenUi<AdventureWorldHudPresenter>();
@@ -283,7 +290,7 @@ namespace FirstLight.Game.StateMachines
 		private void RewardsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			var data = new RewardsScreenPresenter.StateData { MainMenuClicked = ContinueClicked};
+			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
 
 			_uiService.OpenUi<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
 
@@ -303,7 +310,7 @@ namespace FirstLight.Game.StateMachines
 			MatchStartAnalytics();
 			SetPlayerMatchData();
 			CloseLoadingScreen();
-			
+
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}
 
@@ -311,25 +318,27 @@ namespace FirstLight.Game.StateMachines
 		{
 			var game = QuantumRunner.Default.Game;
 			var info = _gameDataProvider.EquipmentDataProvider.GetLoadOutInfo();
-			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
-			
+			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView
+			                         .NormalizedSelectionPoint;
+
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
 				PlayerName = _gameDataProvider.PlayerDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
+				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
 				Weapon = info.Weapon.Value,
 				Gear = info.Gear.ConvertAll(item => (Equipment) item).ToArray()
 			});
 		}
-		
+
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
-			
-			var dictionary = new Dictionary<string, object> 
+
+			var dictionary = new Dictionary<string, object>
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
@@ -343,8 +352,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
-			
+			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+
 			var analytics = new Dictionary<string, object>
 			{
 				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
@@ -353,12 +362,12 @@ namespace FirstLight.Game.StateMachines
 				{"total_specials_used", matchData.Data.SpecialsUsedCount},
 				{"total_deaths_amount", matchData.Data.DeathCount},
 				{"suicides_amount", matchData.Data.SuicideCount},
-				{"player_rank", matchData.PlayerRank },
+				{"player_rank", matchData.PlayerRank},
 				{"map_id", config.Id},
-				{"end_state", isQuitGame ? "quit" : "ended" },
+				{"end_state", isQuitGame ? "quit" : "ended"},
 				{"match_time", f.Time.AsFloat}
 			};
-			
+
 			_services.AnalyticsService.LogEvent("match_end", analytics);
 		}
 	}

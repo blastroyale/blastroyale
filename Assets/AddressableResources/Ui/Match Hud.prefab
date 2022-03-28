@@ -8462,6 +8462,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7835173250936114052}
     m_Modifications:
+    - target: {fileID: 1521443202430570873, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950673951498368199, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_text
+      value: Trophies
+      objectReference: {fileID: 0}
     - target: {fileID: 4314653103931570383, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_Name
       value: StandingsHolder
@@ -8560,7 +8568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585648156639382652, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5901994344524911767, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_Name
@@ -8588,7 +8596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7525277773542632370, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8453398082473571059, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_Sprite

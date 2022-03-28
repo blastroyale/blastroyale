@@ -46,21 +46,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandlePlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerLanded>(this, HandlePlayerLanded);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
+			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 
 			// TODO: Check if we're in BR mode
 			AnimatorWrapper.SetBool(Bools.Flying, true);
-		}
-
-		private void HandlePlayerLanded(EventOnPlayerLanded callback)
-		{
-			if (EntityView.EntityRef != callback.Entity)
-			{
-				return;
-			}
-
-			AnimatorWrapper.SetBool(Bools.Flying, false);
 		}
 
 		protected override void OnInit()
@@ -356,6 +347,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			DebugAttackGizmos(callback.Game);
+		}
+
+
+		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)
+		{
+			if (EntityView.EntityRef != callback.Entity)
+			{
+				return;
+			}
+
+			// TODO: Trigger PLF animation
+		}
+
+		private void HandlePlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
+		{
+			if (EntityView.EntityRef != callback.Entity)
+			{
+				return;
+			}
+
+			AnimatorWrapper.SetBool(Bools.Flying, false);
 		}
 
 		private void DebugAttackGizmos(QuantumGame game)

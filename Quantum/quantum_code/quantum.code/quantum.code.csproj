@@ -56,9 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Actions\ParachuteDropAction.cs" />
-    <Compile Include="AI\Actions\ParachuteStartAction.cs" />
-    <Compile Include="AI\Actions\ParachuteStopAction.cs" />
+    <Compile Include="AI\Actions\SkydiveDropAction.cs" />
+    <Compile Include="AI\Actions\SkydiveStartAction.cs" />
+    <Compile Include="AI\Actions\SkydiveStopAction.cs" />
     <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\AIAction.cs" />
     <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />

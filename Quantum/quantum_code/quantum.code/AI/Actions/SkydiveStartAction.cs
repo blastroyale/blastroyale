@@ -10,7 +10,7 @@ namespace Quantum
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
 	                   GenerateAssetResetMethod = false)]
-	public unsafe class ParachuteStartAction : AIAction
+	public unsafe class SkydiveStartAction : AIAction
 	{
 		public override void Update(Frame f, EntityRef e)
 		{
@@ -18,14 +18,14 @@ namespace Quantum
 			player->Activate(f, e);
 
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			transform->Position += FPVector3.Up * f.GameConfig.ParachuteDropHeight;
+			transform->Position += FPVector3.Up * f.GameConfig.SkydiveDropHeight;
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			bb->Set(f, Constants.SpeedModifierKey, f.GameConfig.ParachuteSpeedModifier);
+			bb->Set(f, Constants.SpeedModifierKey, f.GameConfig.SkydiveSpeedModifier);
 
 			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
-			f.Events.OnLocalPlayerParachuteDrop(player->Player, e);
-			f.Events.OnPlayerParachuteDrop(player->Player, e);
+			f.Events.OnLocalPlayerSkydiveDrop(player->Player, e);
+			f.Events.OnPlayerSkydiveDrop(player->Player, e);
 		}
 	}
 }

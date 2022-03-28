@@ -9,7 +9,7 @@ namespace Quantum
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
 	                   GenerateAssetResetMethod = false)]
-	public unsafe class ParachuteStopAction : AIAction
+	public unsafe class SkydiveStopAction : AIAction
 	{
 		public override void Update(Frame f, EntityRef e)
 		{
@@ -17,8 +17,8 @@ namespace Quantum
 			bb->Set(f, Constants.SpeedModifierKey, FP._1);
 
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			f.Events.OnLocalPlayerLanded(player->Player, e);
-			f.Events.OnPlayerLanded(player->Player, e);
+			f.Events.OnLocalPlayerSkydiveLand(player->Player, e);
+			f.Events.OnPlayerSkydiveLand(player->Player, e);
 		}
 	}
 }

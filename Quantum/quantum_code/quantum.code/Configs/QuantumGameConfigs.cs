@@ -53,10 +53,11 @@ namespace Quantum
 		public FP DeathDropInterimArmourLargeChance;
 		public FP DeathDropInterimArmourSmallChance;
 		public FP DeathDropWeaponChance;
-		public uint ParachuteDropHeight;
-		public FP ParachuteSpeedModifier;
 		public int TrophyEloRange;
 		public int TrophyEloK;
+		public uint SkydiveDropHeight;
+		public FP SkydiveSpeedModifier;
+		public FP SkydivePLFHeight;
 	}
 
 	/// <summary>

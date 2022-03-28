@@ -40,7 +40,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerLanded);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 		}
 
 		private void OnDestroy()
@@ -62,7 +62,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			audioListenerTransform.rotation = Quaternion.identity;
 		}
 
-		private void OnLocalPlayerLanded(EventOnLocalPlayerLanded callback)
+		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
 			SetActiveCamera(_adventureCamera);
 		}

@@ -18,6 +18,6 @@ MonoBehaviour:
   SdkPath: Assets/Libs/PlayFabSDK
   EdExPath: 
   LocalCloudScriptPath: 
-  PanelIsShown: 1
+  PanelIsShown: 0
   curMainMenuIdx: 0
   curSubMenuIdx: 0

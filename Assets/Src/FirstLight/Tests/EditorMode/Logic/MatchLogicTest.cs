@@ -118,11 +118,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(125, _matchLogic.Trophies.Value);
 		}
 
-		/// <summary>
-		/// Checks if the sum of trophies of two players
-		/// is the same after a match as it was before.
-		/// </summary>
-		[Test]
+		[Test, Description("Checks if the sum of trophies of two players is the same after a match as it was before.")]
 		public void TestTrophyConsistency()
 		{
 			uint localPlayerRank1;

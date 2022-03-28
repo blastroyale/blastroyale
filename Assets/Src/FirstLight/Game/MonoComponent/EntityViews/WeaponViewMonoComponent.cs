@@ -34,6 +34,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				main.startLifetime = config.AttackHitTime.AsFloat;
 				main.startSpeed = config.AttackRange.AsFloat / config.AttackHitTime.AsFloat;
 				main.startDelay = 0;
+				main.loop = false;
+				main.duration = 0.1f;
+				var emission = _particleSystem.emission;
+				emission.rateOverTime = 1.0f;
 			}
 
 			_particleSystem.Simulate(0.0f, true, true);

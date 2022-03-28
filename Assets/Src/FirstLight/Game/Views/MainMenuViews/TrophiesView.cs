@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	/// <summary>
+	/// Displays information about the player's trophies.
+	/// </summary>
 	public class TrophiesView : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI trophiesText;

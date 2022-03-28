@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var pool = _playerResultPool.SpawnedReadOnly;
 			
 			// Do the descending order. From the highest to the lowest value
-			playerData.Sort(Sorter);
+			playerData.SortByPlayerRank();
 
 			for (var i = 0; i < pool.Count; i++)
 			{
@@ -89,18 +89,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			Setup(new List<QuantumPlayerMatchData>(callback.PlayersMatchData), false);
-		}
-
-		private int Sorter(QuantumPlayerMatchData a, QuantumPlayerMatchData b)
-		{
-			var rank = b.PlayerRank.CompareTo(a.PlayerRank);
-
-			if (rank == 0)
-			{
-				return b.Data.Player._index.CompareTo(a.Data.Player._index);
-			}
-
-			return rank;
 		}
 	}
 }

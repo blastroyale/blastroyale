@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
@@ -31,7 +33,7 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc />
 	public interface IMatchLogic : IMatchDataProvider
 	{
-		void UpdateTrophies(QuantumPlayerMatchData[] players, QuantumPlayerMatchData localPlayer);
+		void UpdateTrophies(QuantumPlayerMatchData[] players);
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -61,19 +63,15 @@ namespace FirstLight.Game.Logic
 			Trophies = new ObservableField<uint>(Data.Trophies);
 		}
 
-		public void UpdateTrophies(QuantumPlayerMatchData[] players, QuantumPlayerMatchData localPlayer)
+		public void UpdateTrophies(QuantumPlayerMatchData[] players)
 		{
 			var trophyChange = 0f;
 
-			var localPlayerIndex = 0;
-			for (int i = 0; i < players.Length; i++)
-			{
-				if (players[localPlayerIndex].IsLocalPlayer)
-				{
-					localPlayerIndex = i;
-					break;
-				}
-			}
+			var sortedPlayers = players.ToList();
+			sortedPlayers.SortByPlayerRank();
+
+			var localPlayerIndex = sortedPlayers.FindIndex(p => p.IsLocalPlayer);
+			var localPlayer = sortedPlayers[localPlayerIndex];
 
 			// Losses
 			for (int i = 0; i < localPlayerIndex; i++)
@@ -93,11 +91,8 @@ namespace FirstLight.Game.Logic
 
 		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)
 		{
-			return GameConfig.TrophyEloK * (score - 1f /
-			                                (1f +
-			                                 Mathf.Pow(10,
-			                                           (trophiesOpponent - trophiesPlayer) /
-			                                           (float) GameConfig.TrophyEloRange)));
+			var eloBracket = Mathf.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) GameConfig.TrophyEloRange);
+			return GameConfig.TrophyEloK * (score - 1f / (1f + eloBracket));
 		}
 	}
 }

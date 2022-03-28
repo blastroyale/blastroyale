@@ -197,8 +197,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
 				{
-					Players = gameContainer.GetPlayersMatchData(f, out _),
-					LocalPlayer = data
+					Players = gameContainer.GetPlayersMatchData(f, out _)
 				});
 			}
 

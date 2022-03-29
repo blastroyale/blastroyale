@@ -56,7 +56,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			// We place audio listener roughly "in the player character's head"
 			audioListenerTransform.SetParent(follow.transform);
-			audioListenerTransform.position = Vector3.up;
+			audioListenerTransform.localPosition = Vector3.up;
 			audioListenerTransform.rotation = Quaternion.identity;
 		}
 

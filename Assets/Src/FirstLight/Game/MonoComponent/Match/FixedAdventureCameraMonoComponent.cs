@@ -21,7 +21,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private IGameServices _services;
 		private LocalInput _localInput;
-		private PlayerCharacterViewMonoComponent _playerCharacterView;
+		private EntityView _playerView;
 
 		private void Awake()
 		{
@@ -73,19 +73,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			audioListenerTransform.position = Vector3.zero;
 			audioListenerTransform.rotation = Quaternion.identity;
 
-			SetTargetTransform(_playerCharacterView.RootTransform);
+			SetTargetTransform(_playerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			var entityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
-
-			if (_playerCharacterView == null)
-			{
-				_playerCharacterView = entityView.GetComponentInChildren<PlayerCharacterViewMonoComponent>();
-			}
-
-			SetTargetTransform(entityView.transform);
+			_playerView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			SetTargetTransform(_playerView.transform);
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)

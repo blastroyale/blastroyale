@@ -34,8 +34,6 @@ namespace Quantum
 			
 			for (var i = 0; i < angleCount; i++)
 			{
-				angle += angleStep;
-				
 				var raycastShot = new RaycastShot
 				{
 					Attacker = e,
@@ -49,6 +47,8 @@ namespace Quantum
 				};
 				
 				RaycastShot.Create(f, raycastShot);
+				
+				angle += angleStep;
 			}
 		}
 	}

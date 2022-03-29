@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1977304726408182874}
-  - component: {fileID: 3683224680579226665}
   - component: {fileID: 2670273952933158737}
   - component: {fileID: 2379595533778148135}
   m_Layer: 5
@@ -29,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4711052251909366904}
   m_Father: {fileID: 0}
@@ -39,22 +39,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &3683224680579226665
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068794795886234738}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: c901295fcac409c45806fcbde13ab157, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: c901295fcac409c45806fcbde13ab157, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &2670273952933158737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,8 +51,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 259b7d48a304fdf43910f503be47370c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 3683224680579226665}
+  _rectTransform: {fileID: 1977304726408182874}
+  _maxOffsetX: 50
+  _minOffsetY: 65
+  _maxOffsetY: 100
+  _yPositionAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.8615298
+      outSlope: 2.8615298
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.34889978
+      value: 0.9983871
+      inSlope: -0.013827792
+      outSlope: -0.013827792
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09761837
+    - serializedVersion: 3
+      time: 0.55
+      value: 0.5
+      inSlope: 0.03326027
+      outSlope: 0.03326027
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16164461
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0016288757
+      value: 0
+      inSlope: 3.3153324
+      outSlope: 3.3153324
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14413784
+    - serializedVersion: 3
+      time: 0.65
+      value: 1
+      inSlope: 0.03051703
+      outSlope: 0.03051703
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09609547
+    - serializedVersion: 3
+      time: 0.95
+      value: 0
+      inSlope: -0.033209454
+      outSlope: -0.033209454
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.161892
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _text: {fileID: 1915981856542320675}
+  _objectsToFloat:
+  - {fileID: 4711052251909366904}
 --- !u!114 &2379595533778148135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +193,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1977304726408182874}
   m_RootOrder: 0

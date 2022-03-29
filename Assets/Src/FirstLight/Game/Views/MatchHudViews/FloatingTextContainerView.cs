@@ -122,12 +122,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (previousValue > currentValue)
 			{
 				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, 
-				          entityBase.HealthBarAnchor.position, loseAnimation, false);
+				          entityBase.HealthBarAnchor.position, 1f);
 			}
 			else
 			{
 				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, 
-				          entityBase.HealthBarAnchor.position, gainAnimation, false);
+				          entityBase.HealthBarAnchor.position, 1f);
 			}
 		}
 
@@ -152,18 +152,18 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			if (_coroutine == null)
 			{
-				_coroutine = StartCoroutine(SpawnTextCoroutine(queue, flyingAnimation));
+				_coroutine = StartCoroutine(SpawnTextCoroutine(queue));
 			}
 		}
 		
-		private IEnumerator SpawnTextCoroutine(Queue<MessageData> queue, AnimationClip flyingAnimation)
+		private IEnumerator SpawnTextCoroutine(Queue<MessageData> queue)
 		{
 			while (queue.Count > 0)
 			{
 				var messageData = queue.Peek();
 				
 				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, 
-				          messageData.Anchor.position, flyingAnimation, false);
+				          messageData.Anchor.position, 1f);
 
 				yield return new WaitForSeconds(_queueWaitTime);
 
@@ -173,21 +173,15 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_coroutine = null;
 		}
 		
-		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, 
-		                       string text, Color color, Vector3 position, AnimationClip clip, bool disperse)
+		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, string text, Color color, Vector3 position, float duration)
 		{
 			var closurePool = pool;
 			var floatingTextPoolObject = pool.Spawn();
-			
-			if (disperse)
-			{
-				position += Random.insideUnitSphere;
-			}
-			
+
 			floatingTextPoolObject.OverlayWorldView.Follow(position);
-			floatingTextPoolObject.FloatingTextView.Play(text, color, clip);
+			floatingTextPoolObject.FloatingTextView.Play(text, color, duration);
 			
-			this.LateCall(clip.length, () => closurePool.Despawn(floatingTextPoolObject));
+			this.LateCall(duration, () => closurePool.Despawn(floatingTextPoolObject));
 		}
 		
 		private FloatingTextPoolObject InstantiatorNormal()

@@ -38,7 +38,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			var offsetX = Random.Range(-_maxOffsetX, _maxOffsetX);
 			var offsetY = Random.Range(_minOffsetY, _maxOffsetY);
-			duration = Random.Range(_minOffsetY, _maxOffsetY);
+			duration = Random.Range(_minDuration, _maxDuration);
 			
 			_text.text = text;
 			_text.color = color;

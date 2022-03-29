@@ -90,48 +90,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1915981856542320675}
-  _maxOffsetX: 50
-  _minOffsetY: 65
-  _maxOffsetY: 95
+  _minDuration: 0.5
+  _maxDuration: 1.25
+  _maxOffsetX: 60
+  _minOffsetY: 50
+  _maxOffsetY: 30
   _yPositionAnimCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 3.3333333
-      outSlope: 3.3333333
+      inSlope: 1.9839641
+      outSlope: 1.9839641
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.3
-      value: 1
+      time: 0.50011444
+      value: 0.9922091
+      inSlope: 0.011533084
+      outSlope: 0.011533084
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5469021
+    - serializedVersion: 3
+      time: 0.9875
+      value: 0.0070762634
       inSlope: -0.013827792
       outSlope: -0.013827792
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.09761837
-    - serializedVersion: 3
-      time: 0.55
-      value: 0.5
-      inSlope: 0.03326027
-      outSlope: 0.03326027
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.16164461
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

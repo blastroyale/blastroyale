@@ -196,3 +196,10 @@ synced event OnLocalPlayerAttack
 	local player_ref Player;
 	entity_ref PlayerEntity;
 }
+
+event OnLocalPlayerBulletUpdate
+{
+	FPVector3 rayStart;
+	FPVector3 direction;
+	FP time;
+}

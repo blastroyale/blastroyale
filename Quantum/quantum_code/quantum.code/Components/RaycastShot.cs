@@ -10,6 +10,7 @@ namespace Quantum
 		public static EntityRef Create(Frame f, RaycastShot raycastShot)
 		{
 			raycastShot.StartTime = f.Time;
+			raycastShot.PreviousToLastBulletPosition = FPVector3.Zero;
 			raycastShot.LastBulletPosition = raycastShot.SpawnPosition;
 			
 			var e = f.Create();

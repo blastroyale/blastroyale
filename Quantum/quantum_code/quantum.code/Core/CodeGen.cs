@@ -4023,7 +4023,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RaycastShot : Quantum.IComponent {
-    public const Int32 SIZE = 112;
+    public const Int32 SIZE = 136;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public FP AttackHitTime;
@@ -4035,9 +4035,11 @@ namespace Quantum {
     public FPVector3 LastBulletPosition;
     [FieldOffset(8)]
     public UInt32 PowerAmount;
+    [FieldOffset(88)]
+    public FPVector3 PreviousToLastBulletPosition;
     [FieldOffset(32)]
     public FP Range;
-    [FieldOffset(88)]
+    [FieldOffset(112)]
     public FPVector3 SpawnPosition;
     [FieldOffset(40)]
     public FP StartTime;
@@ -4053,6 +4055,7 @@ namespace Quantum {
         hash = hash * 31 + Direction.GetHashCode();
         hash = hash * 31 + LastBulletPosition.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
+        hash = hash * 31 + PreviousToLastBulletPosition.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
         hash = hash * 31 + SpawnPosition.GetHashCode();
         hash = hash * 31 + StartTime.GetHashCode();
@@ -4072,6 +4075,7 @@ namespace Quantum {
         FP.Serialize(&p->StartTime, serializer);
         FPVector2.Serialize(&p->Direction, serializer);
         FPVector3.Serialize(&p->LastBulletPosition, serializer);
+        FPVector3.Serialize(&p->PreviousToLastBulletPosition, serializer);
         FPVector3.Serialize(&p->SpawnPosition, serializer);
     }
   }
@@ -8859,6 +8863,7 @@ namespace Quantum.Prototypes {
     public Int32 TeamSource;
     public FPVector3 SpawnPosition;
     public FPVector3 LastBulletPosition;
+    public FPVector3 PreviousToLastBulletPosition;
     public FPVector2 Direction;
     public UInt32 PowerAmount;
     public FP Range;
@@ -8876,6 +8881,7 @@ namespace Quantum.Prototypes {
       result.Direction = this.Direction;
       result.LastBulletPosition = this.LastBulletPosition;
       result.PowerAmount = this.PowerAmount;
+      result.PreviousToLastBulletPosition = this.PreviousToLastBulletPosition;
       result.Range = this.Range;
       result.SpawnPosition = this.SpawnPosition;
       result.StartTime = this.StartTime;

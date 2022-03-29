@@ -44,7 +44,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandlePlayerSpawned);
-			QuantumEvent.Subscribe<EventOnLocalPlayerBulletUpdate>(this, HandleBulletEvent);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 		}
 
@@ -335,13 +334,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			DebugAttackGizmos(callback.Game);
-		}
-		
-		private void HandleBulletEvent(EventOnLocalPlayerBulletUpdate callback)
-		{
-#if UNITY_EDITOR
-			Debug.DrawRay(callback.rayStart.ToUnityVector3(), callback.direction.ToUnityVector3(), Color.magenta, callback.time.AsFloat);
-#endif
 		}
 
 		private void DebugAttackGizmos(QuantumGame game)

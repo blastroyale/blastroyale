@@ -44,6 +44,7 @@ namespace Quantum.Systems
 
 			f.Events.OnLocalPlayerBulletUpdate(filter.RaycastShot->LastBulletPosition, direction.XOY, f.DeltaTime);
 
+			filter.RaycastShot->PreviousToLastBulletPosition = filter.RaycastShot->LastBulletPosition;
 			filter.RaycastShot->LastBulletPosition = bulletEndPosition;
 			
 			if (!hit.HasValue || hit.Value.Entity == filter.RaycastShot->Attacker ||

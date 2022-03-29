@@ -121,13 +121,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			if (previousValue > currentValue)
 			{
-				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, 
-				          entityBase.HealthBarAnchor.position, 1.5f);
+				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, entityBase.HealthBarAnchor.position);
 			}
 			else
 			{
-				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, 
-				          entityBase.HealthBarAnchor.position, 1.5f);
+				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, entityBase.HealthBarAnchor.position);
 			}
 		}
 
@@ -162,8 +160,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				var messageData = queue.Peek();
 				
-				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, 
-				          messageData.Anchor.position, 1.5f);
+				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, messageData.Anchor.position);
 
 				yield return new WaitForSeconds(_queueWaitTime);
 
@@ -173,13 +170,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_coroutine = null;
 		}
 		
-		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, string text, Color color, Vector3 position, float duration)
+		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, string text, Color color, Vector3 position)
 		{
 			var closurePool = pool;
 			var floatingTextPoolObject = pool.Spawn();
 
 			floatingTextPoolObject.OverlayWorldView.Follow(position);
-			floatingTextPoolObject.FloatingTextView.Play(text, color, duration);
+			floatingTextPoolObject.FloatingTextView.Play(text, color, out var duration);
 			
 			this.LateCall(duration, () => closurePool.Despawn(floatingTextPoolObject));
 		}

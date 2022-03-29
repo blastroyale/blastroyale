@@ -16,6 +16,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private TextMeshProUGUI _text;
 		
 		[Header("Balancing params for the positioning/scaling during the float sequence")]
+		[SerializeField] private float _minDuration = 1f;
+		[SerializeField] private float _maxDuration = 1.75f;
 		[SerializeField] private float _maxOffsetX = 50f;
 		[SerializeField] private float _minOffsetY = 50f;
 		[SerializeField] private float _maxOffsetY = 75f;
@@ -26,14 +28,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[Header("Objects that will be affected by the float sequence")]
 		[SerializeField] private RectTransform[] _objectsToFloat;
 		
-		private float _offsetX;
-		private float _offsetY;
+
 		private Tweener _tweener;
 
-		public void Play(string text, Color color, float duration)
+		/// <summary>
+		/// Makes target object float based on positioning/scaling curves and offsets, over a duration.
+		/// </summary>
+		public void Play(string text, Color color, out float duration)
 		{
-			_offsetX = Random.Range(-_maxOffsetX, _maxOffsetX);
-			_offsetY = Random.Range(_minOffsetY, _maxOffsetY);
+			var offsetX = Random.Range(-_maxOffsetX, _maxOffsetX);
+			var offsetY = Random.Range(_minOffsetY, _maxOffsetY);
+			duration = Random.Range(_minOffsetY, _maxOffsetY);
 			
 			_text.text = text;
 			_text.color = color;
@@ -44,13 +49,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				_objectsToFloat[i].localScale = Vector3.one;
 			}
 
-			StartCoroutine(FloatSequence(duration));
+			StartCoroutine(FloatSequence(duration, offsetX, offsetY));
 		}
-
-		/// <summary>
-		/// Makes target objects float based on positioning/scaling curves and offsets, over a duration
-		/// </summary>
-		private IEnumerator FloatSequence(float totalDuration)
+		
+		private IEnumerator FloatSequence(float totalDuration, float offsetX, float offsetY)
 		{
 			var currentDuration = 0f;
 
@@ -59,8 +61,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				var currentDurationPercent = currentDuration / totalDuration;
 				
 				var yPosProgress = _yPositionAnimCurve.Evaluate(currentDurationPercent);
-				var yPos = Mathf.Lerp(0, _offsetY, yPosProgress);
-				var xPos = Mathf.Lerp(0, _offsetX, currentDurationPercent);
+				var yPos = Mathf.Lerp(0, offsetY, yPosProgress);
+				var xPos = Mathf.Lerp(0, offsetX, currentDurationPercent);
 				var scale = _scaleCurve.Evaluate(currentDurationPercent);
 
 				for (int i = 0; i < _objectsToFloat.Length; i++)

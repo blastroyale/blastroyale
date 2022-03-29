@@ -22,9 +22,9 @@ MonoBehaviour:
       DelayTime:
         RawValue: 983040
       WarningTime:
-        RawValue: 655360
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 2621440
+        RawValue: 3276800
     - Step: 2
       DelayTime:
         RawValue: 458752

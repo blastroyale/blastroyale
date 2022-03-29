@@ -10,7 +10,7 @@ namespace Quantum
 		/// <summary>
 		/// Add a PlayerMatchData to the container linked to a specific PlayerRef.
 		/// </summary>
-		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin)
+		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin, uint playerTrophies)
 		{
 			PlayersData[player] = new PlayerMatchData
 			{
@@ -18,6 +18,7 @@ namespace Quantum
 				Player = player,
 				PlayerLevel = playerLevel,
 				PlayerSkin = skin,
+				PlayerTrophies = playerTrophies,
 				BotNameIndex = f.TryGet<BotCharacter>(playerEntity, out var bot) ? bot.BotNameIndex : 0
 			};
 		}

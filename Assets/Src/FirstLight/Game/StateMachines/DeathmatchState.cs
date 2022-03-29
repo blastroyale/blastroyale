@@ -98,7 +98,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsFtueLevel()
 		{
-			return _gameDataProvider.AdventureDataProvider.SelectedMapId.Value == 0;
+			return _gameDataProvider.MatchDataProvider.SelectedMapId.Value == 0;
 		}
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -133,12 +133,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenControlsHud()
 		{
-			_uiService.OpenUi<AdventureControlsHudPresenter>();
+			_uiService.OpenUi<MatchControlsHudPresenter>();
 		}
 		
 		private void CloseControlsHud()
 		{
-			_uiService.CloseUi<AdventureControlsHudPresenter>();
+			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
 		
 		private void OpenAdventureHud()

@@ -149,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsFtueEnabled()
 		{
-			return _gameLogic.AdventureDataProvider.SelectedMapId.Value < GameConstants.FtueAdventuresCount;
+			return _gameLogic.MatchDataProvider.SelectedMapId.Value < GameConstants.FtueAdventuresCount;
 		}
 		
 		private async Task LoadCoreAssets()

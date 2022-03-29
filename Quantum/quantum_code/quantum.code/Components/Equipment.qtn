@@ -4,15 +4,70 @@ struct Equipment
 {
 	GameId GameId;
 	ItemRarity Rarity;
+	ItemAdjective Adjective;
+	ItemMaterial Material;
+	ItemManufacturer Manufacturer;
+	ItemFaction Faction;
 	UInt32 Level;
+	UInt32 Grade;
 }
 
 enum ItemRarity
 {
 	Common,
+	CommonPlus,
 	Uncommon,
+	UncommonPlus,
 	Rare,
+	RarePlus,
 	Epic,
+	EpicPlus,
 	Legendary,
+	LegendaryPlus,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum ItemAdjective
+{
+	Regular,
+	Cool,
+	Ornate,
+	Posh,
+	Exquisite,
+	Majestic,
+	Marvelous,
+	Magnificent,
+	Royal,
+	Divine,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum ItemMaterial
+{
+	Plastic,
+	Steel,
+	Bronze,
+	Carbon,
+	Golden,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum ItemManufacturer
+{
+	Military,
+	Futuristic,
+	Apocalyptic,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum ItemFaction
+{
+	Order,
+	Chaos,
+	Organic,
+	Dark,
+	Shadow,
+	Celestial,
+	Dimensional,
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }

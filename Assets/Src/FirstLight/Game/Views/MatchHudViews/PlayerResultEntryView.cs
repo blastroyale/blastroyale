@@ -19,7 +19,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private TextMeshProUGUI _coinsText;
 
 		private IGameDataProvider _dataProvider;
-		
+
 		/// <summary>
 		/// Set the information of this player entry ranking based on the given <paramref name="data"/> & <paramref name="awards"/>
 		/// </summary>
@@ -29,14 +29,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
-			
+
 			_playerNameText.text = data.GetPlayerName();
 			_playerRankText.text = $"{data.PlayerRank.ToString()}.";
 			_killsText.text = data.Data.PlayersKilledCount.ToString();
 			_deathsText.text = data.Data.DeathCount.ToString();
 			_coinsText.text = rewards.TryGetValue(GameId.HC, out var cs) ? cs.ToString() : "0";
 			_coinsText.enabled = showExtra;
-			
+			_xpText.text = data.Data.PlayerTrophies.ToString();
+
 			_playerNameText.color = col;
 			_playerRankText.color = col;
 			_killsText.color = col;

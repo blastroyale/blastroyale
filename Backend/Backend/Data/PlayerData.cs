@@ -12,6 +12,7 @@ namespace Backend.Data
 	{
 		public uint Level;
 		public uint Xp;
+		public uint Trophies;
 		public string PlayerSkinId;
 		public readonly Dictionary<string, uint> Currencies = new Dictionary<string, uint>();
 		public readonly Dictionary<string, UniqueId> EquippedItems = new Dictionary<string, UniqueId>();

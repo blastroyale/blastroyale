@@ -14,8 +14,8 @@ namespace FirstLight.Game.Data
 	{
 		public uint Level;
 		public uint Xp;
+		public uint Trophies;
 		public GameId PlayerSkinId;
-		public int CurrentCrateCycleIndex;
 		public readonly Dictionary<GameId, ulong> Currencies = new Dictionary<GameId, ulong>(new GameIdComparer());
 		public readonly Dictionary<GameIdGroup, UniqueId> EquippedItems = new Dictionary<GameIdGroup, UniqueId>(new GameIdGroupComparer());
 		public readonly List<EquipmentData> Inventory = new List<EquipmentData>();

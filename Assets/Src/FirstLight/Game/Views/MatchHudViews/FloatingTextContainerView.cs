@@ -122,12 +122,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (previousValue > currentValue)
 			{
 				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, 
-				          entityBase.HealthBarAnchor.position, 1f);
+				          entityBase.HealthBarAnchor.position, 1.5f);
 			}
 			else
 			{
 				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, 
-				          entityBase.HealthBarAnchor.position, 1f);
+				          entityBase.HealthBarAnchor.position, 1.5f);
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				var messageData = queue.Peek();
 				
 				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, 
-				          messageData.Anchor.position, 1f);
+				          messageData.Anchor.position, 1.5f);
 
 				yield return new WaitForSeconds(_queueWaitTime);
 

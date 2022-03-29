@@ -13,29 +13,28 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class FloatingTextView : MonoBehaviour
 	{
-		[SerializeField] private RectTransform _rectTransform;
+		[SerializeField] private TextMeshProUGUI _text;
+		
+		[Header("Balancing params for the positioning/scaling during the float sequence")]
 		[SerializeField] private float _maxOffsetX = 50f;
 		[SerializeField] private float _minOffsetY = 50f;
 		[SerializeField] private float _maxOffsetY = 75f;
 		[SerializeField] private AnimationCurve _yPositionAnimCurve;
 		[SerializeField] private AnimationCurve _scaleCurve;
-		[SerializeField] private TextMeshProUGUI _text;
+		
+		
+		[Header("Objects that will be affected by the float sequence")]
 		[SerializeField] private RectTransform[] _objectsToFloat;
+		
 		private float _offsetX;
 		private float _offsetY;
-		
-		private void Awake()
+		private Tweener _tweener;
+
+		public void Play(string text, Color color, float duration)
 		{
 			_offsetX = Random.Range(-_maxOffsetX, _maxOffsetX);
 			_offsetY = Random.Range(_minOffsetY, _maxOffsetY);
-			_rectTransform = GetComponent<RectTransform>();
-		}
-
-		/// <summary>
-		/// Plays the floating text animation with the given <paramref name="clip"/> and information
-		/// </summary>
-		public void Play(string text, Color color, float duration)
-		{
+			
 			_text.text = text;
 			_text.color = color;
 
@@ -45,21 +44,35 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				_objectsToFloat[i].localScale = Vector3.one;
 			}
 
-			Tweener meme = DOVirtual.Float(0, 1f, duration, (float progressPercent) =>
+			StartCoroutine(FloatSequence(duration));
+		}
+
+		/// <summary>
+		/// Makes target objects float based on positioning/scaling curves and offsets, over a duration
+		/// </summary>
+		private IEnumerator FloatSequence(float totalDuration)
+		{
+			var currentDuration = 0f;
+
+			while (currentDuration < totalDuration)
 			{
-				float yPosProgress = _yPositionAnimCurve.Evaluate(progressPercent);
-				float yPos = Mathf.Lerp(0, _offsetY, yPosProgress);
-				float xPos = Mathf.Lerp(0, _offsetX, progressPercent);
-				float scale = _scaleCurve.Evaluate(progressPercent);
+				var currentDurationPercent = currentDuration / totalDuration;
 				
+				var yPosProgress = _yPositionAnimCurve.Evaluate(currentDurationPercent);
+				var yPos = Mathf.Lerp(0, _offsetY, yPosProgress);
+				var xPos = Mathf.Lerp(0, _offsetX, currentDurationPercent);
+				var scale = _scaleCurve.Evaluate(currentDurationPercent);
+
 				for (int i = 0; i < _objectsToFloat.Length; i++)
 				{
-					Vector2 currentPos = _objectsToFloat[i].anchoredPosition;
 					_objectsToFloat[i].anchoredPosition = new Vector2(xPos, yPos);
 					_objectsToFloat[i].localScale = new Vector3(scale, scale, 1f);
 				}
-				
-			});
+
+				yield return new WaitForEndOfFrame();
+
+				currentDuration += Time.deltaTime;
+			}
 		}
 	}
 }

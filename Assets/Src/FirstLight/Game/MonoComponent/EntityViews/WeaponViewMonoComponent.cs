@@ -20,27 +20,31 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_particleSystem.isPlaying || EntityRef != callback.PlayerEntity)
+			if (EntityRef != callback.PlayerEntity)
 			{
 				return;
 			}
-			
-			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.WeaponConfigId);
 
-			if (config.AttackHitTime.AsFloat > 0)
+			if (!_particleSystem.isPlaying)
 			{
-				// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
-				var main = _particleSystem.main;
-				main.startLifetime = config.AttackHitTime.AsFloat;
-				main.startSpeed = config.AttackRange.AsFloat / config.AttackHitTime.AsFloat;
-				main.startDelay = 0;
-				main.loop = false;
-				main.duration = 0.1f;
-				var emission = _particleSystem.emission;
-				emission.rateOverTime = 1.0f;
-			}
+				var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.WeaponConfigId);
 
-			_particleSystem.Simulate(0.0f, true, true);
+				if (config.AttackHitTime.AsFloat > 0)
+				{
+					// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
+					var main = _particleSystem.main;
+					main.startLifetime = config.AttackHitTime.AsFloat;
+					main.startSpeed = config.AttackRange.AsFloat / config.AttackHitTime.AsFloat;
+					main.startDelay = 0;
+					main.loop = false;
+					main.maxParticles = 10;
+					var emission = _particleSystem.emission;
+					emission.rateOverTime = 0.1f;
+				}
+			}
+			
+			_particleSystem.Stop();
+			_particleSystem.time = 0;
 			_particleSystem.Play();
 		}
 

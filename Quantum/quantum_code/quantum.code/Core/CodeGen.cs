@@ -2476,7 +2476,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerMatchData {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public Int32 BotNameIndex;
@@ -2486,9 +2486,9 @@ namespace Quantum {
     public UInt32 DamageReceived;
     [FieldOffset(20)]
     public UInt32 DeathCount;
-    [FieldOffset(48)]
-    public EntityRef Entity;
     [FieldOffset(56)]
+    public EntityRef Entity;
+    [FieldOffset(64)]
     public FP FirstDeathTime;
     [FieldOffset(24)]
     public UInt32 HealingDone;
@@ -2501,10 +2501,12 @@ namespace Quantum {
     [FieldOffset(0)]
     public GameId PlayerSkin;
     [FieldOffset(36)]
-    public UInt32 PlayersKilledCount;
+    public UInt32 PlayerTrophies;
     [FieldOffset(40)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayersKilledCount;
     [FieldOffset(44)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(48)]
     public UInt32 SuicideCount;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2520,6 +2522,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerLevel.GetHashCode();
         hash = hash * 31 + (Int32)PlayerSkin;
+        hash = hash * 31 + PlayerTrophies.GetHashCode();
         hash = hash * 31 + PlayersKilledCount.GetHashCode();
         hash = hash * 31 + SpecialsUsedCount.GetHashCode();
         hash = hash * 31 + SuicideCount.GetHashCode();
@@ -2537,6 +2540,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->HealingDone);
         serializer.Stream.Serialize(&p->HealingReceived);
         serializer.Stream.Serialize(&p->PlayerLevel);
+        serializer.Stream.Serialize(&p->PlayerTrophies);
         serializer.Stream.Serialize(&p->PlayersKilledCount);
         serializer.Stream.Serialize(&p->SpecialsUsedCount);
         serializer.Stream.Serialize(&p->SuicideCount);
@@ -3695,7 +3699,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 2064;
+    public const Int32 SIZE = 2320;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public UInt32 CurrentProgress;
@@ -3703,12 +3707,12 @@ namespace Quantum {
     public QBoolean IsGameOver;
     [FieldOffset(16)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
-    private fixed Byte _PlayersData_[2048];
+    private fixed Byte _PlayersData_[2304];
     [FieldOffset(8)]
     public UInt32 TargetProgress;
     public FixedArray<PlayerMatchData> PlayersData {
       get {
-        fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 64, 32); }
+        fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 72, 32); }
       }
     }
     public override Int32 GetHashCode() {
@@ -8748,6 +8752,7 @@ namespace Quantum.Prototypes {
     public PlayerRef Player;
     public MapEntityId Entity;
     public UInt32 PlayerLevel;
+    public UInt32 PlayerTrophies;
     public GameId_Prototype PlayerSkin;
     public Int32 BotNameIndex;
     public FP FirstDeathTime;
@@ -8772,6 +8777,7 @@ namespace Quantum.Prototypes {
       result.Player = this.Player;
       result.PlayerLevel = this.PlayerLevel;
       result.PlayerSkin = this.PlayerSkin;
+      result.PlayerTrophies = this.PlayerTrophies;
       result.PlayersKilledCount = this.PlayersKilledCount;
       result.SpecialsUsedCount = this.SpecialsUsedCount;
       result.SuicideCount = this.SuicideCount;

@@ -22,12 +22,12 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_gameDataProvider.AdventureDataProvider.SelectedMapId.InvokeObserve(OnSelectedAdventureUpdated);
+			_gameDataProvider.MatchDataProvider.SelectedMapId.InvokeObserve(OnSelectedAdventureUpdated);
 		}
 
 		protected void OnDestroy()
 		{
-			_gameDataProvider?.AdventureDataProvider?.SelectedMapId?.StopObserving(OnSelectedAdventureUpdated);
+			_gameDataProvider?.MatchDataProvider?.SelectedMapId?.StopObserving(OnSelectedAdventureUpdated);
 		}
 
 		private void OnSelectedAdventureUpdated(int previousValue, int newValue)

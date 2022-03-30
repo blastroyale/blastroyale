@@ -86,7 +86,12 @@ namespace Backend.Functions
 		{
 			var rngSkin = Rng.Range(0, _initialSkins.Count, rngData.State, false);
 			var rngWeapon = Rng.Range(0, _initialWeapons.Count, rngData.State, false);
-			var playerData = new PlayerData { Level = 1, PlayerSkinId = _initialSkins[rngSkin] };
+			var playerData = new PlayerData
+			{
+				Level = 1,
+				PlayerSkinId = _initialSkins[rngSkin],
+				Trophies = 100
+			};
 
 			rngData.Count += 2;
 

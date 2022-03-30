@@ -34,7 +34,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			var matchId = _gameDataProvider.AdventureDataProvider.SelectedMapId.Value;
+			var matchId = _gameDataProvider.MatchDataProvider.SelectedMapId.Value;
 				
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";

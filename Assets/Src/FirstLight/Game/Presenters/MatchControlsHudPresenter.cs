@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
-			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
 		}
 
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnLocalPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
+		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
 		{
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();

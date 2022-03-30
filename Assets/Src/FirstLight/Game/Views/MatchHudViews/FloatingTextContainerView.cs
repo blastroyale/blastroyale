@@ -23,10 +23,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Color _neutralTextColor = Color.white;
 		[SerializeField] private Color _armourLossTextColor = Color.white;
 		[SerializeField] private Color _armourGainTextColor = Color.cyan;
-		[SerializeField] private AnimationClip _floatingTextAnimation;
-		[SerializeField] private AnimationClip _floatingArmourAndTextAnimation;
-		[SerializeField] private AnimationClip _floatingFastTextAnimation;
-		[SerializeField] private AnimationClip _floatingFastArmourAndTextAnimation;
 		[SerializeField] private GameObject _floatingTextRef;
 		[SerializeField] private GameObject _floatingArmourAndTextRef;
 		
@@ -72,7 +68,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				return;
 			}
 			
-			EnqueueText(_pool, entityBase, callback.CollectableId.GetTranslation(), _neutralTextColor, _floatingTextAnimation);
+			EnqueueText(_pool, entityBase, callback.CollectableId.GetTranslation(), _neutralTextColor);
 		}
 
 		private void OnInterimArmourUpdate(EventOnInterimArmourChanged callback)
@@ -83,8 +79,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 
 			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousInterimArmour,
-			               callback.CurrentInterimArmour, _poolArmour, _armourLossTextColor, _armourGainTextColor,
-			               _floatingFastArmourAndTextAnimation, _floatingArmourAndTextAnimation);
+			               callback.CurrentInterimArmour, _poolArmour, _armourLossTextColor, _armourGainTextColor);
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)
@@ -95,13 +90,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 
 			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousHealth,
-			               callback.CurrentHealth, _pool, _hitTextColor, _healTextColor,
-			               _floatingFastTextAnimation, _floatingTextAnimation);
+			               callback.CurrentHealth, _pool, _hitTextColor, _healTextColor);
 		}
 
 		private void OnValueUpdated(QuantumGame game, EntityRef victim, EntityRef attacker, int previousValue, int currentValue,
-		                            IObjectPool<FloatingTextPoolObject> pool, Color loseColor, Color gainColor,
-		                            AnimationClip loseAnimation, AnimationClip gainAnimation)
+		                            IObjectPool<FloatingTextPoolObject> pool, Color loseColor, Color gainColor)
 		{
 			var frame = game.Frames.Verified;
 
@@ -129,7 +122,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 		}
 
-		private void EnqueueText(IObjectPool<FloatingTextPoolObject> pool, HealthEntityBase entityBase, string message, Color color, AnimationClip flyingAnimation)
+		private void EnqueueText(IObjectPool<FloatingTextPoolObject> pool, HealthEntityBase entityBase, string message, Color color)
 		{
 			var messageData = new MessageData
 			{
@@ -174,9 +167,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			var closurePool = pool;
 			var floatingTextPoolObject = pool.Spawn();
-
+			var duration = 0f;
+			
 			floatingTextPoolObject.OverlayWorldView.Follow(position);
-			floatingTextPoolObject.FloatingTextView.Play(text, color, out var duration);
+			duration = floatingTextPoolObject.FloatingTextView.Play(text, color);
 			
 			this.LateCall(duration, () => closurePool.Despawn(floatingTextPoolObject));
 		}

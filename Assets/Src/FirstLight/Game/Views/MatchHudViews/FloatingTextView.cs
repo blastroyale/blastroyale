@@ -34,11 +34,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Makes target object float based on positioning/scaling curves and offsets, over a duration.
 		/// </summary>
-		public void Play(string text, Color color, out float duration)
+		/// <returns>Duration of the sequence that will play.</returns>
+		public float Play(string text, Color color)
 		{
 			var offsetX = Random.Range(-_maxOffsetX, _maxOffsetX);
 			var offsetY = Random.Range(_minOffsetY, _maxOffsetY);
-			duration = Random.Range(_minDuration, _maxDuration);
+			var duration = Random.Range(_minDuration, _maxDuration);
 			
 			_text.text = text;
 			_text.color = color;
@@ -50,6 +51,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 
 			StartCoroutine(FloatSequence(duration, offsetX, offsetY));
+
+			return duration;
 		}
 		
 		private IEnumerator FloatSequence(float totalDuration, float offsetX, float offsetY)
@@ -71,7 +74,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 					_objectsToFloat[i].localScale = new Vector3(scale, scale, 1f);
 				}
 
-				yield return new WaitForEndOfFrame();
+				yield return null;
 
 				currentDuration += Time.deltaTime;
 			}

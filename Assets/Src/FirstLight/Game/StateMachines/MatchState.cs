@@ -151,7 +151,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMatchAssets()
 		{
 			var tasks = new List<Task>();
-			var config = _gameDataProvider.AdventureDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
 			var map = config.Map.ToString();
 			var operation = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 

@@ -1,11 +1,8 @@
-
-using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
@@ -33,7 +30,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _services.ConfigsProvider.GetConfig<MapConfig>(_gameDataProvider.AdventureDataProvider.SelectedMapId.Value);
+			var adventureInfo = _services.ConfigsProvider.GetConfig<MapConfig>(_gameDataProvider.MatchDataProvider.SelectedMapId.Value);
 			_playerResultPool = new GameObjectPool<PlayerResultEntryView>((uint) adventureInfo.PlayersLimit, _resultEntryViewRef);
 
 			for (var i = 0; i < adventureInfo.PlayersLimit; i++)
@@ -70,10 +67,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void Setup(List<QuantumPlayerMatchData> playerData, bool showExtra)
 		{
 			var pool = _playerResultPool.SpawnedReadOnly;
-			
-			// Do the descending order. From the highest to the lowest value
-			playerData.Sort(Sorter);
+			playerData.SortByPlayerRank();
+			playerData.Reverse();
 
+			// Do the descending order. From the highest to the lowest value
 			for (var i = 0; i < pool.Count; i++)
 			{
 				pool[i].SetInfo(playerData[i], showExtra);
@@ -92,18 +89,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			Setup(new List<QuantumPlayerMatchData>(callback.PlayersMatchData), false);
-		}
-
-		private int Sorter(QuantumPlayerMatchData a, QuantumPlayerMatchData b)
-		{
-			var rank = b.PlayerRank.CompareTo(a.PlayerRank);
-
-			if (rank == 0)
-			{
-				return b.Data.Player._index.CompareTo(a.Data.Player._index);
-			}
-
-			return rank;
 		}
 	}
 }

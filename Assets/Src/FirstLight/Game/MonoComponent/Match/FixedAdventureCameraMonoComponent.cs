@@ -11,51 +11,58 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// <summary>
 	/// This Mono Component controls the main camera behaviour throughout the game
 	/// </summary>
-	public class FixedAdventureCameraMonoComponent: MonoBehaviour
+	public class FixedAdventureCameraMonoComponent : MonoBehaviour
 	{
 		[SerializeField] private CinemachineBrain _cinemachineBrain;
 		[SerializeField] private CinemachineVirtualCamera _spawnCamera;
 		[SerializeField] private CinemachineVirtualCamera _adventureCamera;
 		[SerializeField] private CinemachineVirtualCamera _deathCamera;
 		[SerializeField] private CinemachineVirtualCamera _specialAimCamera;
-		
+
 		private IGameServices _services;
 		private LocalInput _localInput;
-		private PlayerCharacterViewMonoComponent _playerCharacterView;
-		
+		private EntityView _playerView;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
-			
+
 			_localInput.Gameplay.SpecialButton0.started += ctx => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton0.canceled += ctx => SetActiveCamera(_adventureCamera);
 			_localInput.Gameplay.SpecialButton1.started += ctx => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton1.canceled += ctx => SetActiveCamera(_adventureCamera);
 
 			_localInput.Enable();
+
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
+			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerLanded);
 		}
 
 		private void OnDestroy()
 		{
 			_localInput?.Dispose();
 		}
-		
+
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var follow = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
-			
+
 			SetTargetTransform(follow.transform);
 			SetActiveCamera(_spawnCamera);
-			
+
 			// We place audio listener roughly "in the player character's head"
 			audioListenerTransform.SetParent(follow.transform);
 			audioListenerTransform.position = Vector3.up;
 			audioListenerTransform.rotation = Quaternion.identity;
+		}
+
+		private void OnLocalPlayerLanded(EventOnLocalPlayerLanded callback)
+		{
+			SetActiveCamera(_adventureCamera);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
@@ -65,21 +72,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			audioListenerTransform.SetParent(Camera.main.transform);
 			audioListenerTransform.position = Vector3.zero;
 			audioListenerTransform.rotation = Quaternion.identity;
-			
-			SetTargetTransform(_playerCharacterView.RootTransform);
+
+			SetTargetTransform(_playerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			var entityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
-			
-			if (_playerCharacterView == null)
-			{
-				_playerCharacterView = entityView.GetComponentInChildren<PlayerCharacterViewMonoComponent>();
-			}
-			
-			SetTargetTransform(entityView.transform);
-			SetActiveCamera(_adventureCamera);
+			_playerView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			SetTargetTransform(_playerView.transform);
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
@@ -88,11 +88,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return;
 			}
-			
+
 			_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.SetActive(false);
 			virtualCamera.gameObject.SetActive(true);
 		}
-		
+
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
 			_spawnCamera.LookAt = entityViewTransform;

@@ -1,19 +1,15 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.GoogleSheetImporter;
 using FirstLight.Services;
-using FirstLight;
 using NSubstitute;
 using NUnit.Framework;
 using Photon.Deterministic;
 using Quantum;
 using Quantum.Allocator;
 using Quantum.Core;
-using UnityEngine;
 
 namespace FirstLight.Tests.EditorMode
 {
@@ -32,7 +28,7 @@ namespace FirstLight.Tests.EditorMode
 			DataService.GetData<T>().Returns(x => TestData);
 		}
 	}
-	
+
 	/// <summary>
 	/// Helper base class for unit tests to mock dependencies.
 	/// All tests should inherit from this class to reduce code duplications
@@ -63,7 +59,8 @@ namespace FirstLight.Tests.EditorMode
 		protected IEquipmentLogic EquipmentLogic;
 		protected IRewardLogic RewardLogic;
 		protected ILootBoxLogic LootBoxLogic;
-		
+		protected IMatchLogic MatchLogic;
+
 		[SetUp]
 		public void InitMocks()
 		{
@@ -80,7 +77,7 @@ namespace FirstLight.Tests.EditorMode
 			AssetResolverService = Substitute.For<IAssetResolverService>();
 			AudioFxService = Substitute.For<IAudioFxService<AudioId>>();
 			ConfigsProvider = Substitute.For<IConfigsProvider>();
-			
+
 			// Services
 			GameLogic = Substitute.For<IGameLogic>();
 			AppLogic = Substitute.For<IAppLogic>();
@@ -91,7 +88,8 @@ namespace FirstLight.Tests.EditorMode
 			EquipmentLogic = Substitute.For<IEquipmentLogic>();
 			RewardLogic = Substitute.For<IRewardLogic>();
 			LootBoxLogic = Substitute.For<ILootBoxLogic>();
-			
+			MatchLogic = Substitute.For<IMatchLogic>();
+
 			// Returns
 			GameLogic.AppLogic.Returns(AppLogic);
 			GameLogic.UniqueIdLogic.Returns(UniqueIdLogic);
@@ -101,6 +99,7 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic.EquipmentLogic.Returns(EquipmentLogic);
 			GameLogic.RewardLogic.Returns(RewardLogic);
 			GameLogic.LootBoxLogic.Returns(LootBoxLogic);
+			GameLogic.MatchLogic.Returns(MatchLogic);
 
 			GameLogic.MessageBrokerService.Returns(MessageBrokerService);
 			GameLogic.TimeService.Returns(TimeService);
@@ -124,14 +123,14 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var list = new List<T>();
 			var dictionary = new Dictionary<int, T>();
-			
+
 			foreach (var value in data)
 			{
 				list.Add(value);
 				dictionary.Add(idResolver(value), value);
 				ConfigsProvider.GetConfig<T>(idResolver(value)).Returns(value);
 			}
-			
+
 			ConfigsProvider.GetConfig<T>().Returns(data[0]);
 			ConfigsProvider.GetConfigsList<T>().Returns(list);
 			ConfigsProvider.GetConfigsDictionary<T>().Returns(dictionary);
@@ -139,17 +138,17 @@ namespace FirstLight.Tests.EditorMode
 
 		protected void InitConfigData<T>(T data)
 		{
-			var list = new List<T> { data };
-			var dictionary = new Dictionary<int, T> { { Arg.Any<int>(), data }};
-			
+			var list = new List<T> {data};
+			var dictionary = new Dictionary<int, T> {{Arg.Any<int>(), data}};
+
 			ConfigsProvider.GetConfig<T>(Arg.Any<int>()).Returns(data);
 			ConfigsProvider.GetConfig<T>().Returns(data);
 			ConfigsProvider.GetConfigsList<T>().Returns(list);
 			ConfigsProvider.GetConfigsDictionary<T>().Returns(dictionary);
 		}
 	}
-	
-	
+
+
 	/// <inheritdoc cref="BaseTestFixture"/>
 	/// <remarks>
 	/// Helper class with a reference <seealso cref="TestData"/> of unsafe <typeparamref name="T"/> type to test Quantum's Systems
@@ -182,7 +181,7 @@ namespace FirstLight.Tests.EditorMode
 				UsePhysics2D = false,
 				UsePhysics3D = false
 			};
-			
+
 			DeltaTime = FP._0_10;
 			Frame = new Frame(new FrameContext(args), null, null, null, null, null, DeltaTime);
 		}

@@ -9,13 +9,23 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public UniqueId Id;
 		public ItemRarity Rarity;
+		public ItemAdjective Adjective;
+		public ItemMaterial Material;
+		public ItemManufacturer Manufacturer;
+		public ItemFaction Faction;
 		public uint Level;
+		public uint Grade;
 
-		public EquipmentData(UniqueId id, ItemRarity rarity, uint level)
+		public EquipmentData(UniqueId id, ItemRarity rarity, ItemAdjective adjective, ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
 		{
 			Id = id;
 			Rarity = rarity;
+			Adjective = adjective;
+			Material = material;
+			Manufacturer = manufacturer;
+			Faction = faction;
 			Level = level;
+			Grade = grade;
 		}
 		
 		/// <inheritdoc />

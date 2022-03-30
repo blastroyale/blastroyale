@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _services.ConfigsProvider.GetConfig<MapConfig>(_gameDataProvider.AdventureDataProvider.SelectedMapId.Value);
+			var adventureInfo = _services.ConfigsProvider.GetConfig<MapConfig>(_gameDataProvider.MatchDataProvider.SelectedMapId.Value);
 			
 			foreach (var message in _messages)
 			{

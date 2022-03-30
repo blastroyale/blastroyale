@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -24,7 +23,7 @@ namespace Quantum
 		public int PlayerDefaultInterimArmour;
 		public int CoinsPerRank;
 		public int XpPerRank;
-		public FP DeathSignificance ;
+		public FP DeathSignificance;
 		public FP CoinsPerFragDeathRatio;
 		public FP XpPerFragDeathRatio;
 		public FP CollectableCollectTime;
@@ -54,8 +53,12 @@ namespace Quantum
 		public FP DeathDropInterimArmourLargeChance;
 		public FP DeathDropInterimArmourSmallChance;
 		public FP DeathDropWeaponChance;
+		public uint ParachuteDropHeight;
+		public FP ParachuteSpeedModifier;
+		public int TrophyEloRange;
+		public int TrophyEloK;
 	}
-	
+
 	/// <summary>
 	/// This is the quantum's asset config container for <see cref="QuantumGameConfig"/>
 	/// </summary>

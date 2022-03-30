@@ -10,8 +10,8 @@ using UnityEngine.AddressableAssets;
 public partial class SROptions
 {
 	private static GameObject _profilers;
-	
-	public bool IsMultiClient { get; set; }
+
+	public bool IsMultiClient;
 
 	[Category("Quantum")]
 	public void ShowHideStats()

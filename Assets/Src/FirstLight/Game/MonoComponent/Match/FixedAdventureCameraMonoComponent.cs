@@ -27,6 +27,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_localInput = new LocalInput();
 
 			_localInput.Gameplay.SpecialButton0.started += ctx => SetActiveCamera(_specialAimCamera);
@@ -79,7 +80,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			_playerView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SetTargetTransform(_playerView.transform);
 		}
 

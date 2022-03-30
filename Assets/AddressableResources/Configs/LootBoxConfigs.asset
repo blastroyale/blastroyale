@@ -51,7 +51,7 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 180
@@ -63,7 +63,7 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 180
@@ -75,7 +75,7 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 3
     SecondsToOpen: 10800
@@ -87,247 +87,247 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 10800
   - Id: 123
     Tier: 3
     LootBoxId: 98
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 10800
   - Id: 124
     Tier: 4
     LootBoxId: 98
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 10800
   - Id: 125
     Tier: 5
     LootBoxId: 98
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 6
     SecondsToOpen: 10800
   - Id: 131
     Tier: 1
     LootBoxId: 99
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 28800
   - Id: 132
     Tier: 2
     LootBoxId: 99
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 28800
   - Id: 133
     Tier: 3
     LootBoxId: 99
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 28800
   - Id: 134
     Tier: 4
     LootBoxId: 99
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 88
       Value: 0
     - Key: 10
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 6
     SecondsToOpen: 28800
   - Id: 135
     Tier: 5
     LootBoxId: 99
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 88
       Value: 0
     - Key: 10
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 28800
   - Id: 141
     Tier: 1
     LootBoxId: 100
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 84
       Value: 0
     - Key: 15
-      Value: 1
-    - Key: 1
       Value: 2
+    - Key: 1
+      Value: 4
     FixedItems: []
     ItemsAmount: 6
     SecondsToOpen: 36000
   - Id: 142
     Tier: 2
     LootBoxId: 100
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 78
       Value: 0
     - Key: 20
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 36000
   - Id: 143
     Tier: 3
     LootBoxId: 100
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 78
       Value: 0
     - Key: 20
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 36000
   - Id: 144
     Tier: 4
     LootBoxId: 100
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 73
       Value: 0
     - Key: 25
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 8
     SecondsToOpen: 36000
   - Id: 145
     Tier: 5
     LootBoxId: 100
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 68
       Value: 0
     - Key: 30
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 9
     SecondsToOpen: 36000
   - Id: 151
     Tier: 1
     LootBoxId: 101
-    GuaranteeDrop: 010000000100000001000000
+    GuaranteeDrop: 020000000200000002000000
     Rarities:
     - Key: 78
       Value: 0
     - Key: 20
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 6
     SecondsToOpen: 43200
   - Id: 152
     Tier: 2
     LootBoxId: 101
-    GuaranteeDrop: 010000000100000001000000
+    GuaranteeDrop: 020000000200000002000000
     Rarities:
     - Key: 71
       Value: 0
     - Key: 25
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 43200
   - Id: 153
     Tier: 3
     LootBoxId: 101
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 66
       Value: 0
     - Key: 30
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 43200
   - Id: 154
     Tier: 4
     LootBoxId: 101
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 61
       Value: 0
     - Key: 35
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 8
     SecondsToOpen: 43200
   - Id: 155
     Tier: 5
     LootBoxId: 101
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 56
       Value: 0
     - Key: 40
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 9
     SecondsToOpen: 43200
@@ -381,18 +381,18 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems:
     - Key: 45
-      Value: 1
+      Value: 2
     - Key: 42
-      Value: 1
+      Value: 2
     - Key: 29
-      Value: 1
+      Value: 2
     - Key: 43
-      Value: 1
+      Value: 2
     - Key: 44
-      Value: 1
+      Value: 2
     ItemsAmount: 1
     SecondsToOpen: 0
   - Id: 2230
@@ -403,47 +403,47 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 0
   - Id: 2330
     Tier: 3
     LootBoxId: 134
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 0
   - Id: 2430
     Tier: 3
     LootBoxId: 135
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 78
       Value: 0
     - Key: 20
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 0
   - Id: 2540
     Tier: 4
     LootBoxId: 136
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 61
       Value: 0
     - Key: 35
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 8
     SecondsToOpen: 0
@@ -485,7 +485,7 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 0
@@ -497,7 +497,7 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 0
@@ -509,7 +509,7 @@ MonoBehaviour:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 1
     SecondsToOpen: 0
@@ -521,43 +521,43 @@ MonoBehaviour:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 0
   - Id: 223
     Tier: 3
     LootBoxId: 133
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 98
       Value: 0
     - Key: 2
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 4
     SecondsToOpen: 0
   - Id: 224
     Tier: 4
     LootBoxId: 133
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 0
   - Id: 225
     Tier: 5
     LootBoxId: 133
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 6
     SecondsToOpen: 0
@@ -569,199 +569,199 @@ MonoBehaviour:
     - Key: 49
       Value: 0
     - Key: 50
-      Value: 1
-    - Key: 1
       Value: 2
+    - Key: 1
+      Value: 4
     FixedItems: []
     ItemsAmount: 1
     SecondsToOpen: 0
   - Id: 232
     Tier: 2
     LootBoxId: 134
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 0
   - Id: 233
     Tier: 3
     LootBoxId: 134
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 95
       Value: 0
     - Key: 5
-      Value: 1
+      Value: 2
     FixedItems: []
     ItemsAmount: 5
     SecondsToOpen: 0
   - Id: 234
     Tier: 4
     LootBoxId: 134
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 88
       Value: 0
     - Key: 10
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 6
     SecondsToOpen: 0
   - Id: 235
     Tier: 5
     LootBoxId: 134
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 88
       Value: 0
     - Key: 10
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 0
   - Id: 241
     Tier: 1
     LootBoxId: 135
-    GuaranteeDrop: 02000000
+    GuaranteeDrop: 04000000
     Rarities:
     - Key: 95
-      Value: 1
-    - Key: 5
       Value: 2
+    - Key: 5
+      Value: 4
     FixedItems: []
     ItemsAmount: 2
     SecondsToOpen: 0
   - Id: 242
     Tier: 2
     LootBoxId: 135
-    GuaranteeDrop: 01000000
+    GuaranteeDrop: 02000000
     Rarities:
     - Key: 78
       Value: 0
     - Key: 20
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 0
   - Id: 243
     Tier: 3
     LootBoxId: 135
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 78
       Value: 0
     - Key: 20
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 0
   - Id: 244
     Tier: 4
     LootBoxId: 135
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 73
       Value: 0
     - Key: 25
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 8
     SecondsToOpen: 0
   - Id: 245
     Tier: 5
     LootBoxId: 135
-    GuaranteeDrop: 0100000002000000
+    GuaranteeDrop: 0200000004000000
     Rarities:
     - Key: 68
       Value: 0
     - Key: 30
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 4
     FixedItems: []
     ItemsAmount: 9
     SecondsToOpen: 0
   - Id: 251
     Tier: 1
     LootBoxId: 136
-    GuaranteeDrop: 03000000
+    GuaranteeDrop: 06000000
     Rarities:
     - Key: 90
-      Value: 1
-    - Key: 10
       Value: 2
+    - Key: 10
+      Value: 4
     - Key: 0
-      Value: 3
+      Value: 6
     FixedItems: []
     ItemsAmount: 2
     SecondsToOpen: 0
   - Id: 252
     Tier: 2
     LootBoxId: 136
-    GuaranteeDrop: 010000000100000001000000
+    GuaranteeDrop: 020000000200000002000000
     Rarities:
     - Key: 71
       Value: 0
     - Key: 25
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 0
   - Id: 253
     Tier: 3
     LootBoxId: 136
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 66
       Value: 0
     - Key: 30
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 7
     SecondsToOpen: 0
   - Id: 254
     Tier: 4
     LootBoxId: 136
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 61
       Value: 0
     - Key: 35
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 8
     SecondsToOpen: 0
   - Id: 255
     Tier: 5
     LootBoxId: 136
-    GuaranteeDrop: 01000000010000000100000002000000
+    GuaranteeDrop: 02000000020000000200000004000000
     Rarities:
     - Key: 56
       Value: 0
     - Key: 40
-      Value: 1
-    - Key: 4
       Value: 2
+    - Key: 4
+      Value: 4
     FixedItems: []
     ItemsAmount: 9
     SecondsToOpen: 0

@@ -61,7 +61,7 @@
     <Compile Include="AI\Actions\ParachuteStopAction.cs" />
     <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\AIAction.cs" />
-    <Compile Include="AI\Actions\PlayerAttackAction.cs" />
+    <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerChangeDefaultWeaponAction.cs" />
     <Compile Include="AI\Actions\PlayerMoveAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
@@ -190,6 +190,7 @@
     <Compile Include="Components\Equipment.cs" />
     <Compile Include="Components\GameContainer.cs" />
     <Compile Include="Components\PlayerMatchData.cs" />
+    <Compile Include="Components\RaycastShot.cs" />
     <Compile Include="Components\Spawners.cs" />
     <Compile Include="Components\SpecialAirstrike.cs" />
     <Compile Include="Components\Consumable.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
+    <Compile Include="Systems\RaycastShotSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
@@ -275,6 +277,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="BotSDK\Samples\.DS_Store" />
+    <Content Include="Components\RaycastShot.qtn" />
     <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />
     <Content Include="Components\Collectable.qtn" />

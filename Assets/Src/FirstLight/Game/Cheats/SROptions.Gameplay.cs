@@ -1,5 +1,7 @@
 using System.ComponentModel;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Quantum;
 using Quantum.Commands;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -77,5 +79,50 @@ public partial class SROptions
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();
 	}
+	
 #endif
+	
+#if UNITY_EDITOR
+
+	private bool _isRaycastGizmoShowing;
+
+	[Category("Gameplay")]
+	public bool ShowRaycastGizmo
+	{
+		get { return _isRaycastGizmoShowing; }
+		set
+		{
+			_isRaycastGizmoShowing = value;
+
+			if (_isRaycastGizmoShowing)
+			{
+				MainInstaller.Resolve<IGameServices>().TickService.SubscribeOnUpdate(ShowCurrentRaycastShots);
+			}
+			else
+			{
+				MainInstaller.Resolve<IGameServices>().TickService.Unsubscribe(ShowCurrentRaycastShots);
+			}
+		}
+	}
+
+	private void ShowCurrentRaycastShots(float deltaTime)
+	{
+		if (QuantumRunner.Default == null || QuantumRunner.Default.Game.Frames.Verified == null)
+		{
+			return;
+		}
+		
+		var f = QuantumRunner.Default.Game.Frames.Verified;
+
+		var raycasts = f.Filter<RaycastShot>();
+
+		while(raycasts.Next(out var entityRef, out var raycastShot))
+		{
+			if (raycastShot.PreviousToLastBulletPosition.ToUnityVector3() != Vector3.zero)
+			{
+				Debug.DrawLine(raycastShot.PreviousToLastBulletPosition.ToUnityVector3(), raycastShot.LastBulletPosition.ToUnityVector3(), Color.magenta, deltaTime);
+			}
+		}
+	}
+	#endif
 }

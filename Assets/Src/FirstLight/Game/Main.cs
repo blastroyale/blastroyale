@@ -18,8 +18,6 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
-		[SerializeField] private EntityViewUpdaterService _entityViewUpdaterService;
-
 		public IGameUiServiceInit UiService;
 		
 		private GameStateMachine _gameStateMachine;
@@ -48,8 +46,8 @@ namespace FirstLight.Game
 			var vfxService = new VfxService<VfxId>();
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, analyticsService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider,
-			                                    gameLogic, dataService, genericDialogService, _entityViewUpdaterService, 
-			                                    assetResolver, analyticsService, vfxService, audioFxService);
+			                                    gameLogic, dataService, genericDialogService, assetResolver, analyticsService, 
+			                                    vfxService, audioFxService);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);

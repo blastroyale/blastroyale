@@ -8,7 +8,7 @@ namespace Quantum
 	/// and it's an projectile speed based attack
 	/// </summary>
 	/// <remarks>
-	/// Use <see cref="PlayerAttackAction"/> if is not a projectile speed base attack
+	/// Use <see cref="PlayerRaycastAttackAction"/> if is not a projectile speed base attack
 	/// </remarks>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
@@ -41,7 +41,7 @@ namespace Quantum
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			f.Events.OnPlayerAttack(player, e);
+			f.Events.OnPlayerAttack(player, e, weaponConfig.Id);
 			f.Events.OnLocalPlayerAttack(player, e);
 			Projectile.Create(f, projectile);
 		}

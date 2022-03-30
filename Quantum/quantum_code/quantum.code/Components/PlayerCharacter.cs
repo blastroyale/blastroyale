@@ -31,7 +31,8 @@ namespace Quantum
 
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
-			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5);
+			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, 
+			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
@@ -74,10 +75,10 @@ namespace Quantum
 		/// </summary>
 		internal void Activate(Frame f, EntityRef e)
 		{
-			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
-
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, FP._1);
-
+			var targetable = new Targetable { Team = Player + (int) TeamType.TOTAL };
+			
+			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, EntityRef.None, FP._1);
+			
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
@@ -96,9 +97,9 @@ namespace Quantum
 				Killer = killerPlayer,
 				KillerEntity = attacker
 			};
-
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, FP._0);
-
+			
+			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, attacker, FP._0);
+			
 			// If an entity has NavMeshPathfinder then we stop the movement in case an entity was moving
 			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(e, out var navMeshPathfinder))
 			{
@@ -237,24 +238,18 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
-			// Do not do reduce for melee weapons
-			if (HasMeleeWeapon(f, e))
+			// Do not do reduce for melee weapons or if your weapon is empty
+			if (HasMeleeWeapon(f, e) || IsAmmoEmpty(f, e))
 			{
 				return;
 			}
-			
+
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo); // Gives back Int floored down (filledFP * maxAmmo)
 			var newAmmo = Math.Max(ammo - (int) amount, 0);
 			var currentAmmo = Math.Min(newAmmo, maxAmmo);
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
-			if (ammo == newAmmo)
-			{
-				return;
-			}
-
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-
 			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}

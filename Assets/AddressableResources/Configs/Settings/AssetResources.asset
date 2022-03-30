@@ -57,11 +57,6 @@ MonoBehaviour:
         Id:
           Value: 212813301171716479
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Attack Projectile_0]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
-      AssetRef:
-        Id:
-          Value: 229978090878801713
-      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer.asset
     - Path: AddressableResources/QuantumAssets/Collectables/ConsumablePickup|EntityPrototype
       AssetRef:
         Id:
@@ -77,11 +72,11 @@ MonoBehaviour:
         Id:
           Value: 331988359844761930
       Address: Configs/GearConfigs.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|NotShooting_8
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|NotShooting_9
       AssetRef:
         Id:
           Value: 344788493933926436
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[NotShooting_8]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[NotShooting_9]
     - Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityView
       AssetRef:
         Id:
@@ -117,6 +112,11 @@ MonoBehaviour:
         Id:
           Value: 645733108213557161
       Address: Maps/FtueDeck_NavMesh.asset
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
+      AssetRef:
+        Id:
+          Value: 646583736607106347
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsCharacterGroundedDecision_17
       AssetRef:
         Id:
@@ -182,11 +182,11 @@ MonoBehaviour:
         Id:
           Value: 1096838630856266725
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[IsPlayerAimingDecision_10]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TeleportSpawn_7
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TeleportSpawn_6
       AssetRef:
         Id:
           Value: 1122644952490040552
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TeleportSpawn_7]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TeleportSpawn_6]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attacking_3
       AssetRef:
         Id:
@@ -212,11 +212,11 @@ MonoBehaviour:
         Id:
           Value: 1351244667786713195
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardFP_6]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_14
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_13
       AssetRef:
         Id:
           Value: 1360579944318208444
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_14]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_13]
     - Path: AddressableResources/Maps/SmallWilderness_mesh
       AssetRef:
         Id:
@@ -242,6 +242,11 @@ MonoBehaviour:
         Id:
           Value: 1565542650131154954
       Address: Configs/Settings/SimulationConfig.asset
+    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
+      AssetRef:
+        Id:
+          Value: 1639645069144248456
+      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer.asset
     - Path: AddressableResources/Maps/SmallWilderness
       AssetRef:
         Id:
@@ -287,6 +292,16 @@ MonoBehaviour:
         Id:
           Value: 2190570854744983118
       Address: QuantumAssets/Characters/PlayerCharacter.prefab[PlayerCharacterEntityView]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerRaycastAttackAction_1
+      AssetRef:
+        Id:
+          Value: 2275598869678234754
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerRaycastAttackAction_1]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
+      AssetRef:
+        Id:
+          Value: 2313252873527534120
+      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|No
         Ammo_10
       AssetRef:
@@ -298,11 +313,6 @@ MonoBehaviour:
         Id:
           Value: 2403753126067035639
       Address: QuantumAssets/Spawners/ConsumablePlatformSpawner.prefab[ConsumablePlatformSpawnerEntityPrototype]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
-      AssetRef:
-        Id:
-          Value: 2467074483179683324
-      Address: QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard.asset
     - Path: AddressableResources/QuantumAssets/Physics Config Assets/Player CharacterController
       AssetRef:
         Id:
@@ -323,16 +333,11 @@ MonoBehaviour:
         Id:
           Value: 2550839787526224351
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_18]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ParachuteDrop_6
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ParachuteDrop_7
       AssetRef:
         Id:
           Value: 2596136622030980485
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[ParachuteDrop_6]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
-      AssetRef:
-        Id:
-          Value: 2698857740438036488
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[ParachuteDrop_7]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_16
       AssetRef:
         Id:
@@ -509,11 +514,11 @@ MonoBehaviour:
         Id:
           Value: 3932894365333874436
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardBool_3]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Spawn_9
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Spawn_8
       AssetRef:
         Id:
           Value: 3989947732779656465
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Spawn_9]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Spawn_8]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_20
       AssetRef:
         Id:
@@ -554,21 +559,16 @@ MonoBehaviour:
         Id:
           Value: 4374446875972627061
       Address: Maps/TinyTemple_mesh.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_12
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_14
       AssetRef:
         Id:
           Value: 4376518659506176734
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_12]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_14]
     - Path: AddressableResources/Configs/DestructibleConfigs
       AssetRef:
         Id:
           Value: 4393632908210870598
       Address: Configs/DestructibleConfigs.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerAttackAction_1
-      AssetRef:
-        Id:
-          Value: 4415390346316180250
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerAttackAction_1]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_4
       AssetRef:
         Id:
@@ -584,23 +584,23 @@ MonoBehaviour:
         Id:
           Value: 4489518858095098152
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[AreSpecialsEmptyDecision_4]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckGameModeDecision_13
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckGameModeDecision_12
       AssetRef:
         Id:
           Value: 4506108631407942824
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckGameModeDecision_13]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckGameModeDecision_12]
     - Path: AddressableResources/QuantumAssets/Characters/DummyCharacter|EntityView
       AssetRef:
         Id:
           Value: 4506913672909982829
       Address: QuantumAssets/Characters/DummyCharacter.prefab[DummyCharacterEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Check
-        Attack State
+        Attack State_tSet0
       AssetRef:
         Id:
           Value: 4563095865730876031
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Check Attack
-        State]
+        State_tSet0]
   AssetBundlesGroup:
     _resources: []
   ResourcesGroup:

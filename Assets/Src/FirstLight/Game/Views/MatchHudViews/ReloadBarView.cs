@@ -35,7 +35,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			SetSliderValue(f, entity);
 			
-			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnPlayerAmmoEmpty);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAttack>(this, HandleOnPlayerAttacked);
@@ -75,14 +74,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			
 			_reloadBarImage.color = _primaryReloadColor;
-		}
-		
-		private void HandleOnPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
-		{
-			_reloadBarImage.color = _secondaryReloadColor;
-			
-			_capacityUsedAnimation.Rewind();
-			_capacityUsedAnimation.Play();
+
+			if (playerCharacter.IsAmmoEmpty(f, callback.Entity))
+			{
+				_reloadBarImage.color = _secondaryReloadColor;
+
+				_capacityUsedAnimation.Rewind();
+				_capacityUsedAnimation.Play();
+			}
 		}
 
 		private void SetSliderValue(Frame f, EntityRef entity)

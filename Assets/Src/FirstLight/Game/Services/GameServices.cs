@@ -26,7 +26,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
-		IEntityViewUpdaterService EntityViewUpdaterService { get; }
 		/// <inheritdoc cref="IGuidService"/>
 		IGuidService GuidService { get; }
 
@@ -68,8 +67,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public IConfigsProvider ConfigsProvider { get; }
 		/// <inheritdoc />
-		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
-		/// <inheritdoc />
 		public IGuidService GuidService { get; }
 
 		/// <inheritdoc />
@@ -104,10 +101,9 @@ namespace FirstLight.Game.Services
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService, 
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic, IDataProvider dataProvider, IGenericDialogService genericDialogService, 
-		                    IEntityViewUpdaterService entityViewUpdaterService, IAssetResolverService assetResolverService, 
-		                    IAnalyticsService analyticsService, IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService, 
+		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
-			EntityViewUpdaterService = entityViewUpdaterService;
 			NetworkService = networkService;
 			AnalyticsService = analyticsService;
 			MessageBrokerService = messageBrokerService;

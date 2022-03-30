@@ -64,12 +64,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridSize = mapGridConfigs.GetSize();
-
 			var availableGridPositions = new HashSet<MapGridConfig>(gridSize.x * gridSize.y);
 
-			for (int x = 0; x < gridSize.x; x++)
+			for (var x = 0; x < gridSize.x; x++)
 			{
-				for (int y = 0; y < gridSize.y; y++)
+				for (var y = 0; y < gridSize.y; y++)
 				{
 					var config = mapGridConfigs.GetConfig(x, y);
 					if (config.IsValid)
@@ -80,6 +79,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			var position = availableGridPositions.ElementAt(Random.Range(0, availableGridPositions.Count));
+			
 			return new Vector2Int(position.X, position.Y);
 		}
 
@@ -93,10 +93,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var sizeDelta = _rectTransform.sizeDelta;
 			var calcPos = new Vector2(localPos.x + sizeDelta.x / 2f, Mathf.Abs(localPos.y - sizeDelta.y / 2f));
 
-			return new Vector2Int(
-			                      Mathf.RoundToInt(size.x * calcPos.x / sizeDelta.x),
-			                      Mathf.RoundToInt(size.y * calcPos.y / sizeDelta.y)
-			                     );
+			return new Vector2Int(Mathf.RoundToInt(size.x * calcPos.x / sizeDelta.x),
+			                      Mathf.RoundToInt(size.y * calcPos.y / sizeDelta.y));
 		}
 
 		private Vector2 GridToAnchoredPosition(Vector2Int pos)
@@ -105,8 +103,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var size = mapGridConfigs.GetSize();
 			var sizeDelta = _rectTransform.sizeDelta;
 			var normalizedPos = new Vector2((float) pos.x / size.x, (float) pos.y / size.y);
-
 			var positionInRectangle = sizeDelta * normalizedPos;
+			
 			positionInRectangle.x -= sizeDelta.x / 2f;
 			positionInRectangle.y = sizeDelta.y - positionInRectangle.y - sizeDelta.y / 2f;
 

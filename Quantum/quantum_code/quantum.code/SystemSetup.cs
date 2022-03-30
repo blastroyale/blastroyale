@@ -37,6 +37,7 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
+				new RaycastShotSystem(),
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),

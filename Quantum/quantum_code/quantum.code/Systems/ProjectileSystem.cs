@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -60,7 +57,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount, position);
+			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount, position, projectile.TeamSource);
 
 			f.Add<EntityDestroyer>(info.Entity);
 			

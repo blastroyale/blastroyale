@@ -23,10 +23,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Color _neutralTextColor = Color.white;
 		[SerializeField] private Color _armourLossTextColor = Color.white;
 		[SerializeField] private Color _armourGainTextColor = Color.cyan;
-		[SerializeField] private AnimationClip _floatingTextAnimation;
-		[SerializeField] private AnimationClip _floatingArmourAndTextAnimation;
-		[SerializeField] private AnimationClip _floatingFastTextAnimation;
-		[SerializeField] private AnimationClip _floatingFastArmourAndTextAnimation;
 		[SerializeField] private GameObject _floatingTextRef;
 		[SerializeField] private GameObject _floatingArmourAndTextRef;
 		
@@ -74,7 +70,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				return;
 			}
 			
-			EnqueueText(_pool, entityBase, callback.CollectableId.GetTranslation(), _neutralTextColor, _floatingTextAnimation);
+			EnqueueText(_pool, entityBase, callback.CollectableId.GetTranslation(), _neutralTextColor);
 		}
 
 		private void OnInterimArmourUpdate(EventOnInterimArmourChanged callback)
@@ -85,8 +81,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 
 			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousInterimArmour,
-			               callback.CurrentInterimArmour, _poolArmour, _armourLossTextColor, _armourGainTextColor,
-			               _floatingFastArmourAndTextAnimation, _floatingArmourAndTextAnimation);
+			               callback.CurrentInterimArmour, _poolArmour, _armourLossTextColor, _armourGainTextColor);
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)
@@ -97,13 +92,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 
 			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousHealth,
-			               callback.CurrentHealth, _pool, _hitTextColor, _healTextColor,
-			               _floatingFastTextAnimation, _floatingTextAnimation);
+			               callback.CurrentHealth, _pool, _hitTextColor, _healTextColor);
 		}
 
 		private void OnValueUpdated(QuantumGame game, EntityRef victim, EntityRef attacker, int previousValue, int currentValue,
-		                            IObjectPool<FloatingTextPoolObject> pool, Color loseColor, Color gainColor,
-		                            AnimationClip loseAnimation, AnimationClip gainAnimation)
+		                            IObjectPool<FloatingTextPoolObject> pool, Color loseColor, Color gainColor)
 		{
 			var frame = game.Frames.Verified;
 
@@ -123,17 +116,15 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			if (previousValue > currentValue)
 			{
-				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, 
-				          entityBase.HealthBarAnchor.position, loseAnimation, false);
+				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, entityBase.HealthBarAnchor.position);
 			}
 			else
 			{
-				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, 
-				          entityBase.HealthBarAnchor.position, gainAnimation, false);
+				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, entityBase.HealthBarAnchor.position);
 			}
 		}
 
-		private void EnqueueText(IObjectPool<FloatingTextPoolObject> pool, HealthEntityBase entityBase, string message, Color color, AnimationClip flyingAnimation)
+		private void EnqueueText(IObjectPool<FloatingTextPoolObject> pool, HealthEntityBase entityBase, string message, Color color)
 		{
 			var messageData = new MessageData
 			{
@@ -154,18 +145,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			if (_coroutine == null)
 			{
-				_coroutine = StartCoroutine(SpawnTextCoroutine(queue, flyingAnimation));
+				_coroutine = StartCoroutine(SpawnTextCoroutine(queue));
 			}
 		}
 		
-		private IEnumerator SpawnTextCoroutine(Queue<MessageData> queue, AnimationClip flyingAnimation)
+		private IEnumerator SpawnTextCoroutine(Queue<MessageData> queue)
 		{
 			while (queue.Count > 0)
 			{
 				var messageData = queue.Peek();
 				
-				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, 
-				          messageData.Anchor.position, flyingAnimation, false);
+				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, messageData.Anchor.position);
 
 				yield return new WaitForSeconds(_queueWaitTime);
 
@@ -175,21 +165,16 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_coroutine = null;
 		}
 		
-		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, 
-		                       string text, Color color, Vector3 position, AnimationClip clip, bool disperse)
+		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, string text, Color color, Vector3 position)
 		{
 			var closurePool = pool;
 			var floatingTextPoolObject = pool.Spawn();
-			
-			if (disperse)
-			{
-				position += Random.insideUnitSphere;
-			}
+			var duration = 0f;
 			
 			floatingTextPoolObject.OverlayWorldView.Follow(position);
-			floatingTextPoolObject.FloatingTextView.Play(text, color, clip);
+			duration = floatingTextPoolObject.FloatingTextView.Play(text, color);
 			
-			this.LateCall(clip.length, () => closurePool.Despawn(floatingTextPoolObject));
+			this.LateCall(duration, () => closurePool.Despawn(floatingTextPoolObject));
 		}
 		
 		private FloatingTextPoolObject InstantiatorNormal()

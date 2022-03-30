@@ -32,6 +32,13 @@ namespace FirstLight.Services
 		T Resolve<T>();
 
 		/// <summary>
+		/// Cleans the binding of the given type <typeparamref name="T"/> from the installer
+		/// Useful in case of resetting the game state.
+		/// Returns TRUE if successfully cleaned the given type <typeparamref name="T"/>, FALSE otherwise
+		/// </summary>
+		bool Clean<T>() where T : class;
+
+		/// <summary>
 		/// Cleans all the bindings of the installer
 		/// Useful in case of resetting the game state
 		/// </summary>
@@ -66,6 +73,12 @@ namespace FirstLight.Services
 			}
 
 			return (T) instance;
+		}
+
+		/// <inheritdoc />
+		public bool Clean<T>() where T : class
+		{
+			return _bindings.Remove(typeof(T));
 		}
 
 		/// <inheritdoc />

@@ -31,7 +31,8 @@ namespace Quantum
 
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
-			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 5);
+			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, 
+			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
@@ -74,10 +75,10 @@ namespace Quantum
 		/// </summary>
 		internal void Activate(Frame f, EntityRef e)
 		{
-			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
-
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, FP._1);
-
+			var targetable = new Targetable { Team = Player + (int) TeamType.TOTAL };
+			
+			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, EntityRef.None, FP._1);
+			
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
@@ -96,9 +97,9 @@ namespace Quantum
 				Killer = killerPlayer,
 				KillerEntity = attacker
 			};
-
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, FP._0);
-
+			
+			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, attacker, FP._0);
+			
 			// If an entity has NavMeshPathfinder then we stop the movement in case an entity was moving
 			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(e, out var navMeshPathfinder))
 			{

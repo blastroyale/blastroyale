@@ -116,14 +116,29 @@ namespace Quantum
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="percentage"/> (between 0 - 1)
 		/// </summary>
-		internal void SetCurrentHealth(Frame f, EntityRef entity, FP percentage)
+		internal void SetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
+		{
+			var maxHealth = GetStatData(StatType.Health).StatValue;
+
+			SetCurrentHealth(f, entity, attacker, FPMath.RoundToInt(maxHealth * FPMath.Clamp01(percentage)));
+		}
+
+		/// <summary>
+		/// Sets the entity health based on the given <paramref name="amount"/> (between 0 - max health)
+		/// </summary>
+		internal void SetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
 			var previousHealth = CurrentHealth;
-			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
-
-			CurrentHealth = FPMath.RoundToInt(Values[(int) StatType.Health].StatValue * FPMath.Clamp01(percentage));
-
-			f.Events.OnHealthChanged(entity, EntityRef.None, previousHealth, CurrentHealth, maxHealth);
+			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
+			
+			CurrentHealth = Math.Min(maxHealth, amount);
+			CurrentHealth = Math.Max(CurrentHealth, 0);
+			
+			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
+			{
+				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
+				f.Signals.HealthChanged(entity, attacker, previousHealth);
+			}
 		}
 
 		/// <summary>
@@ -139,16 +154,7 @@ namespace Quantum
 				return;
 			}
 
-			var previousHealth = CurrentHealth;
-			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
-
-			CurrentHealth = CurrentHealth + amount > maxHealth ? maxHealth : CurrentHealth + (int) amount;
-
-			if (CurrentHealth != previousHealth)
-			{
-				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
-				f.Signals.HealthChanged(entity, attacker, previousHealth);
-			}
+			SetCurrentHealth(f, entity, attacker, (uint) CurrentHealth + amount);
 		}
 
 		/// <summary>
@@ -195,15 +201,7 @@ namespace Quantum
 				return;
 			}
 
-			CurrentHealth = Math.Max(previousHealth - currentDamageAmount, 0);
-
-			if (CurrentHealth == previousHealth)
-			{
-				return;
-			}
-
-			f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
-			f.Signals.HealthChanged(entity, attacker, previousHealth);
+			SetCurrentHealth(f, entity, attacker, previousHealth - currentDamageAmount);
 
 			if (CurrentHealth == 0)
 			{

@@ -100,6 +100,9 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void UnequipItem(GameIdGroup slotType)
 		{
+			if (!_equipment.ContainsKey(slotType))
+				return;
+			
 			var items = _equipment[slotType];
 			
 			for (var i = 0; i < items.Count; i++)

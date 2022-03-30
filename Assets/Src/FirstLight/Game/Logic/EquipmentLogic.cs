@@ -552,7 +552,7 @@ namespace FirstLight.Game.Logic
 					throw new LogicException($"The player already has the given item Id '{itemId}' equipped");
 				}
 				
-				_equippedItems.Remove(slot);
+				Unequip(equippedId);
 			}
 			
 			_equippedItems.Add(slot, itemId);

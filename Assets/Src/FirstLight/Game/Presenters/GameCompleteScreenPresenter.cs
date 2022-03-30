@@ -37,9 +37,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _gotoResultsMenuButton;
 
 		private EntityRef _playerWinnerEntity;
+		private IEntityViewUpdaterService _entityService;
 		
 		private void Awake()
 		{
+			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			
 			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
 			
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
@@ -90,7 +93,7 @@ namespace FirstLight.Game.Presenters
 			
 			Services.AudioFxService.PlayClip2D(AudioId.Victory1);
 			
-			if (MainInstaller.Resolve<IEntityViewUpdaterService>().TryGetView(playerWinner.Data.Entity, out var entityView))
+			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
 				

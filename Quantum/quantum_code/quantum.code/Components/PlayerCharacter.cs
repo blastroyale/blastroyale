@@ -237,24 +237,18 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
-			// Do not do reduce for melee weapons
-			if (HasMeleeWeapon(f, e))
+			// Do not do reduce for melee weapons or if your weapon is empty
+			if (HasMeleeWeapon(f, e) || IsAmmoEmpty(f, e))
 			{
 				return;
 			}
-			
+
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo); // Gives back Int floored down (filledFP * maxAmmo)
 			var newAmmo = Math.Max(ammo - (int) amount, 0);
 			var currentAmmo = Math.Min(newAmmo, maxAmmo);
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
-			if (ammo == newAmmo)
-			{
-				return;
-			}
-
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-
 			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}

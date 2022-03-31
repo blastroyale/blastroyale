@@ -4665,7 +4665,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 60;
+      public const Int32 EVENT_TYPE_COUNT = 59;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -4732,7 +4732,6 @@ namespace Quantum {
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
           case EventOnLocalPlayerDamaged.ID: return typeof(EventOnLocalPlayerDamaged);
           case EventOnLocalPlayerAttack.ID: return typeof(EventOnLocalPlayerAttack);
-          case EventOnLocalPlayerBulletUpdate.ID: return typeof(EventOnLocalPlayerBulletUpdate);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
@@ -5130,12 +5129,11 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, GameId WeaponConfigId) {
+      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttack>(EventOnPlayerAttack.ID);
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
-        ev.WeaponConfigId = WeaponConfigId;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5291,14 +5289,6 @@ namespace Quantum {
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerAttack>(EventOnLocalPlayerAttack.ID);
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventOnLocalPlayerBulletUpdate OnLocalPlayerBulletUpdate(FPVector3 rayStart, FPVector3 direction, FP time) {
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerBulletUpdate>(EventOnLocalPlayerBulletUpdate.ID);
-        ev.rayStart = rayStart;
-        ev.direction = direction;
-        ev.time = time;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6672,7 +6662,6 @@ namespace Quantum {
     public new const Int32 ID = 43;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
-    public GameId WeaponConfigId;
     protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6692,7 +6681,6 @@ namespace Quantum {
         var hash = 257;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + WeaponConfigId.GetHashCode();
         return hash;
       }
     }
@@ -7144,35 +7132,6 @@ namespace Quantum {
         var hash = 349;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventOnLocalPlayerBulletUpdate : EventBase {
-    public new const Int32 ID = 59;
-    public FPVector3 rayStart;
-    public FPVector3 direction;
-    public FP time;
-    protected EventOnLocalPlayerBulletUpdate(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventOnLocalPlayerBulletUpdate() : 
-        base(59, EventFlags.Server|EventFlags.Client) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 353;
-        hash = hash * 31 + rayStart.GetHashCode();
-        hash = hash * 31 + direction.GetHashCode();
-        hash = hash * 31 + time.GetHashCode();
         return hash;
       }
     }

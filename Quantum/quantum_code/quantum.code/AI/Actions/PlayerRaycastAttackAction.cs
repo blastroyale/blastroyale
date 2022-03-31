@@ -29,7 +29,7 @@ namespace Quantum
 			var angle = -(int) weaponConfig.AttackAngle / FP._2;
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			f.Events.OnPlayerAttack(player, e, weaponConfig.Id);
+			f.Events.OnPlayerAttack(player, e);
 			f.Events.OnLocalPlayerAttack(player, e);
 			
 			for (var i = 0; i < angleCount; i++)
@@ -40,7 +40,7 @@ namespace Quantum
 					WeaponConfigId = weaponConfig.Id,
 					TeamSource = team,
 					SpawnPosition = position,
-					Direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad),
+					Direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).Normalized,
 					PowerAmount = powerAmount,
 					Range = weaponConfig.AttackRange,
 					AttackHitTime = weaponConfig.AttackHitTime

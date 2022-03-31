@@ -36,7 +36,7 @@ namespace Quantum.Systems
 		                                 List<EntityRef> targetsHit, uint powerAmount)
 		{
 			var normalizedCurrentTime = filter.RaycastShot->AttackHitTime > 0? (f.Time - filter.RaycastShot->StartTime) / filter.RaycastShot->AttackHitTime : 1;
-			var bulletEndPosition = position + direction.XOY.Normalized *
+			var bulletEndPosition = position + direction.XOY *
 			                          ((filter.RaycastShot->Range * normalizedCurrentTime));
 			var bulletLength = (bulletEndPosition - filter.RaycastShot->LastBulletPosition).Magnitude;
 			

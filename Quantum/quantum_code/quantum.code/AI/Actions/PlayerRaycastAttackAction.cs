@@ -40,7 +40,7 @@ namespace Quantum
 					WeaponConfigId = weaponConfig.Id,
 					TeamSource = team,
 					SpawnPosition = position,
-					Direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad),
+					Direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).Normalized,
 					PowerAmount = powerAmount,
 					Range = weaponConfig.AttackRange,
 					AttackHitTime = weaponConfig.AttackHitTime

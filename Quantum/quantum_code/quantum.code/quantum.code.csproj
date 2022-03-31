@@ -71,10 +71,12 @@
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckGameModeDecision.cs" />
-    <Compile Include="AI\Decisions\HFSM.IsCharacterAtPLFHeightDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsCharacterGroundedDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.RaycastHitDecision.cs" />
+    <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />

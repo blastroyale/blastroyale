@@ -55,9 +55,6 @@ namespace Quantum
 		public FP DeathDropWeaponChance;
 		public int TrophyEloRange;
 		public int TrophyEloK;
-		public uint SkydiveDropHeight;
-		public FP SkydiveSpeedModifier;
-		public FP SkydivePLFHeight;
 	}
 
 	/// <summary>

@@ -4665,7 +4665,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 59;
+      public const Int32 EVENT_TYPE_COUNT = 61;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -4708,8 +4708,9 @@ namespace Quantum {
           case EventOnPlayerLeft.ID: return typeof(EventOnPlayerLeft);
           case EventOnPlayerSpawned.ID: return typeof(EventOnPlayerSpawned);
           case EventOnPlayerAlive.ID: return typeof(EventOnPlayerAlive);
-          case EventOnPlayerParachuteDrop.ID: return typeof(EventOnPlayerParachuteDrop);
-          case EventOnPlayerLanded.ID: return typeof(EventOnPlayerLanded);
+          case EventOnPlayerSkydiveDrop.ID: return typeof(EventOnPlayerSkydiveDrop);
+          case EventOnPlayerSkydivePLF.ID: return typeof(EventOnPlayerSkydivePLF);
+          case EventOnPlayerSkydiveLand.ID: return typeof(EventOnPlayerSkydiveLand);
           case EventOnPlayerDead.ID: return typeof(EventOnPlayerDead);
           case EventOnPlayerEmojiSent.ID: return typeof(EventOnPlayerEmojiSent);
           case EventOnPlayerKilledPlayer.ID: return typeof(EventOnPlayerKilledPlayer);
@@ -4723,8 +4724,9 @@ namespace Quantum {
           case EventOnLocalPlayerLeft.ID: return typeof(EventOnLocalPlayerLeft);
           case EventOnLocalPlayerSpawned.ID: return typeof(EventOnLocalPlayerSpawned);
           case EventOnLocalPlayerAlive.ID: return typeof(EventOnLocalPlayerAlive);
-          case EventOnLocalPlayerParachuteDrop.ID: return typeof(EventOnLocalPlayerParachuteDrop);
-          case EventOnLocalPlayerLanded.ID: return typeof(EventOnLocalPlayerLanded);
+          case EventOnLocalPlayerSkydiveDrop.ID: return typeof(EventOnLocalPlayerSkydiveDrop);
+          case EventOnLocalPlayerSkydivePLF.ID: return typeof(EventOnLocalPlayerSkydivePLF);
+          case EventOnLocalPlayerSkydiveLand.ID: return typeof(EventOnLocalPlayerSkydiveLand);
           case EventOnLocalPlayerDead.ID: return typeof(EventOnLocalPlayerDead);
           case EventOnLocalPlayerAmmoEmpty.ID: return typeof(EventOnLocalPlayerAmmoEmpty);
           case EventOnLocalPlayerAmmoChanged.ID: return typeof(EventOnLocalPlayerAmmoChanged);
@@ -5056,17 +5058,25 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerParachuteDrop OnPlayerParachuteDrop(PlayerRef Player, EntityRef Entity) {
+      public EventOnPlayerSkydiveDrop OnPlayerSkydiveDrop(PlayerRef Player, EntityRef Entity) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnPlayerParachuteDrop>(EventOnPlayerParachuteDrop.ID);
+        var ev = _f.Context.AcquireEvent<EventOnPlayerSkydiveDrop>(EventOnPlayerSkydiveDrop.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerLanded OnPlayerLanded(PlayerRef Player, EntityRef Entity) {
+      public EventOnPlayerSkydivePLF OnPlayerSkydivePLF(PlayerRef Player, EntityRef Entity) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnPlayerLanded>(EventOnPlayerLanded.ID);
+        var ev = _f.Context.AcquireEvent<EventOnPlayerSkydivePLF>(EventOnPlayerSkydivePLF.ID);
+        ev.Player = Player;
+        ev.Entity = Entity;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnPlayerSkydiveLand OnPlayerSkydiveLand(PlayerRef Player, EntityRef Entity) {
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnPlayerSkydiveLand>(EventOnPlayerSkydiveLand.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         _f.AddEvent(ev);
@@ -5197,19 +5207,28 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerParachuteDrop OnLocalPlayerParachuteDrop(PlayerRef Player, EntityRef Entity) {
+      public EventOnLocalPlayerSkydiveDrop OnLocalPlayerSkydiveDrop(PlayerRef Player, EntityRef Entity) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerParachuteDrop>(EventOnLocalPlayerParachuteDrop.ID);
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSkydiveDrop>(EventOnLocalPlayerSkydiveDrop.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerLanded OnLocalPlayerLanded(PlayerRef Player, EntityRef Entity) {
+      public EventOnLocalPlayerSkydivePLF OnLocalPlayerSkydivePLF(PlayerRef Player, EntityRef Entity) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerLanded>(EventOnLocalPlayerLanded.ID);
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSkydivePLF>(EventOnLocalPlayerSkydivePLF.ID);
+        ev.Player = Player;
+        ev.Entity = Entity;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnLocalPlayerSkydiveLand OnLocalPlayerSkydiveLand(PlayerRef Player, EntityRef Entity) {
+        if (_f.Context.IsLocalPlayer(Player) == false) return null;
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSkydiveLand>(EventOnLocalPlayerSkydiveLand.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         _f.AddEvent(ev);
@@ -6424,14 +6443,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerParachuteDrop : EventBase {
+  public unsafe partial class EventOnPlayerSkydiveDrop : EventBase {
     public new const Int32 ID = 35;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnPlayerParachuteDrop(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerSkydiveDrop(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerParachuteDrop() : 
+    public EventOnPlayerSkydiveDrop() : 
         base(35, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6451,14 +6470,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerLanded : EventBase {
+  public unsafe partial class EventOnPlayerSkydivePLF : EventBase {
     public new const Int32 ID = 36;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnPlayerLanded(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerSkydivePLF(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerLanded() : 
+    public EventOnPlayerSkydivePLF() : 
         base(36, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6478,14 +6497,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerDead : EventBase {
+  public unsafe partial class EventOnPlayerSkydiveLand : EventBase {
     public new const Int32 ID = 37;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnPlayerDead(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerSkydiveLand(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerDead() : 
+    public EventOnPlayerSkydiveLand() : 
         base(37, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6505,15 +6524,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerEmojiSent : EventBase {
+  public unsafe partial class EventOnPlayerDead : EventBase {
     public new const Int32 ID = 38;
     public PlayerRef Player;
     public EntityRef Entity;
-    public GameId Emoji;
-    protected EventOnPlayerEmojiSent(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerDead(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerEmojiSent() : 
+    public EventOnPlayerDead() : 
         base(38, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6529,23 +6547,19 @@ namespace Quantum {
         var hash = 229;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Emoji.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerKilledPlayer : EventBase {
+  public unsafe partial class EventOnPlayerEmojiSent : EventBase {
     public new const Int32 ID = 39;
-    public PlayerRef PlayerDead;
-    public EntityRef EntityDead;
-    public PlayerRef PlayerKiller;
-    public EntityRef EntityKiller;
-    public PlayerRef PlayerLeader;
-    public EntityRef EntityLeader;
-    protected EventOnPlayerKilledPlayer(Int32 id, EventFlags flags) : 
+    public PlayerRef Player;
+    public EntityRef Entity;
+    public GameId Emoji;
+    protected EventOnPlayerEmojiSent(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerKilledPlayer() : 
+    public EventOnPlayerEmojiSent() : 
         base(39, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6559,24 +6573,25 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 233;
-        hash = hash * 31 + PlayerDead.GetHashCode();
-        hash = hash * 31 + EntityDead.GetHashCode();
-        hash = hash * 31 + PlayerKiller.GetHashCode();
-        hash = hash * 31 + EntityKiller.GetHashCode();
-        hash = hash * 31 + PlayerLeader.GetHashCode();
-        hash = hash * 31 + EntityLeader.GetHashCode();
+        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Emoji.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerAmmoEmpty : EventBase {
+  public unsafe partial class EventOnPlayerKilledPlayer : EventBase {
     public new const Int32 ID = 40;
-    public PlayerRef Player;
-    public EntityRef Entity;
-    protected EventOnPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
+    public PlayerRef PlayerDead;
+    public EntityRef EntityDead;
+    public PlayerRef PlayerKiller;
+    public EntityRef EntityKiller;
+    public PlayerRef PlayerLeader;
+    public EntityRef EntityLeader;
+    protected EventOnPlayerKilledPlayer(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerAmmoEmpty() : 
+    public EventOnPlayerKilledPlayer() : 
         base(40, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6590,23 +6605,24 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 239;
-        hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + PlayerDead.GetHashCode();
+        hash = hash * 31 + EntityDead.GetHashCode();
+        hash = hash * 31 + PlayerKiller.GetHashCode();
+        hash = hash * 31 + EntityKiller.GetHashCode();
+        hash = hash * 31 + PlayerLeader.GetHashCode();
+        hash = hash * 31 + EntityLeader.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerAmmoChanged : EventBase {
+  public unsafe partial class EventOnPlayerAmmoEmpty : EventBase {
     public new const Int32 ID = 41;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 PreviousAmmo;
-    public Int32 CurrentAmmo;
-    public Int32 MaxAmmo;
-    protected EventOnPlayerAmmoChanged(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerAmmoChanged() : 
+    public EventOnPlayerAmmoEmpty() : 
         base(41, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6622,22 +6638,21 @@ namespace Quantum {
         var hash = 241;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PreviousAmmo.GetHashCode();
-        hash = hash * 31 + CurrentAmmo.GetHashCode();
-        hash = hash * 31 + MaxAmmo.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerWeaponChanged : EventBase {
+  public unsafe partial class EventOnPlayerAmmoChanged : EventBase {
     public new const Int32 ID = 42;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Equipment Weapon;
-    protected EventOnPlayerWeaponChanged(Int32 id, EventFlags flags) : 
+    public Int32 PreviousAmmo;
+    public Int32 CurrentAmmo;
+    public Int32 MaxAmmo;
+    protected EventOnPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerWeaponChanged() : 
+    public EventOnPlayerAmmoChanged() : 
         base(42, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6653,19 +6668,22 @@ namespace Quantum {
         var hash = 251;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + PreviousAmmo.GetHashCode();
+        hash = hash * 31 + CurrentAmmo.GetHashCode();
+        hash = hash * 31 + MaxAmmo.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerAttack : EventBase {
+  public unsafe partial class EventOnPlayerWeaponChanged : EventBase {
     public new const Int32 ID = 43;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public Equipment Weapon;
+    protected EventOnPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerAttack() : 
+    public EventOnPlayerWeaponChanged() : 
         base(43, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6680,25 +6698,20 @@ namespace Quantum {
       unchecked {
         var hash = 257;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerDamaged : EventBase {
+  public unsafe partial class EventOnPlayerAttack : EventBase {
     public new const Int32 ID = 44;
     public PlayerRef Player;
-    public EntityRef Entity;
-    public EntityRef Attacker;
-    public UInt32 InterimArmourDamage;
-    public UInt32 HealthDamage;
-    public UInt32 TotalDamage;
-    public Int32 MaxHealth;
-    public Int32 MaxInterimArmour;
-    protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
+    public EntityRef PlayerEntity;
+    protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerDamaged() : 
+    public EventOnPlayerAttack() : 
         base(44, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6713,27 +6726,25 @@ namespace Quantum {
       unchecked {
         var hash = 263;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + InterimArmourDamage.GetHashCode();
-        hash = hash * 31 + HealthDamage.GetHashCode();
-        hash = hash * 31 + TotalDamage.GetHashCode();
-        hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + MaxInterimArmour.GetHashCode();
+        hash = hash * 31 + PlayerEntity.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerAttackHit : EventBase {
+  public unsafe partial class EventOnPlayerDamaged : EventBase {
     public new const Int32 ID = 45;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    public EntityRef HitEntity;
-    public FPVector3 HitPosition;
-    protected EventOnPlayerAttackHit(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public EntityRef Attacker;
+    public UInt32 InterimArmourDamage;
+    public UInt32 HealthDamage;
+    public UInt32 TotalDamage;
+    public Int32 MaxHealth;
+    public Int32 MaxInterimArmour;
+    protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerAttackHit() : 
+    public EventOnPlayerDamaged() : 
         base(45, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6748,21 +6759,27 @@ namespace Quantum {
       unchecked {
         var hash = 269;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + HitEntity.GetHashCode();
-        hash = hash * 31 + HitPosition.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + InterimArmourDamage.GetHashCode();
+        hash = hash * 31 + HealthDamage.GetHashCode();
+        hash = hash * 31 + TotalDamage.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
+        hash = hash * 31 + MaxInterimArmour.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerStopAttack : EventBase {
+  public unsafe partial class EventOnPlayerAttackHit : EventBase {
     public new const Int32 ID = 46;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
-    protected EventOnPlayerStopAttack(Int32 id, EventFlags flags) : 
+    public EntityRef HitEntity;
+    public FPVector3 HitPosition;
+    protected EventOnPlayerAttackHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerStopAttack() : 
+    public EventOnPlayerAttackHit() : 
         base(46, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6778,18 +6795,20 @@ namespace Quantum {
         var hash = 271;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + HitEntity.GetHashCode();
+        hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerLeft : EventBase {
+  public unsafe partial class EventOnPlayerStopAttack : EventBase {
     public new const Int32 ID = 47;
     public PlayerRef Player;
-    public EntityRef Entity;
-    protected EventOnLocalPlayerLeft(Int32 id, EventFlags flags) : 
+    public EntityRef PlayerEntity;
+    protected EventOnPlayerStopAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerLeft() : 
+    public EventOnPlayerStopAttack() : 
         base(47, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6804,20 +6823,19 @@ namespace Quantum {
       unchecked {
         var hash = 277;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + PlayerEntity.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerSpawned : EventBase {
+  public unsafe partial class EventOnLocalPlayerLeft : EventBase {
     public new const Int32 ID = 48;
     public PlayerRef Player;
     public EntityRef Entity;
-    public QBoolean HasRespawned;
-    protected EventOnLocalPlayerSpawned(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerLeft(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerSpawned() : 
+    public EventOnLocalPlayerLeft() : 
         base(48, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6833,19 +6851,19 @@ namespace Quantum {
         var hash = 281;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + HasRespawned.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAlive : EventBase {
+  public unsafe partial class EventOnLocalPlayerSpawned : EventBase {
     public new const Int32 ID = 49;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerAlive(Int32 id, EventFlags flags) : 
+    public QBoolean HasRespawned;
+    protected EventOnLocalPlayerSpawned(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAlive() : 
+    public EventOnLocalPlayerSpawned() : 
         base(49, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6861,18 +6879,19 @@ namespace Quantum {
         var hash = 283;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + HasRespawned.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerParachuteDrop : EventBase {
+  public unsafe partial class EventOnLocalPlayerAlive : EventBase {
     public new const Int32 ID = 50;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerParachuteDrop(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerAlive(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerParachuteDrop() : 
+    public EventOnLocalPlayerAlive() : 
         base(50, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6892,14 +6911,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerLanded : EventBase {
+  public unsafe partial class EventOnLocalPlayerSkydiveDrop : EventBase {
     public new const Int32 ID = 51;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerLanded(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerSkydiveDrop(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerLanded() : 
+    public EventOnLocalPlayerSkydiveDrop() : 
         base(51, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6919,16 +6938,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerDead : EventBase {
+  public unsafe partial class EventOnLocalPlayerSkydivePLF : EventBase {
     public new const Int32 ID = 52;
     public PlayerRef Player;
     public EntityRef Entity;
-    public PlayerRef PlayerKiller;
-    public EntityRef EntityKiller;
-    protected EventOnLocalPlayerDead(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerSkydivePLF(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerDead() : 
+    public EventOnLocalPlayerSkydivePLF() : 
         base(52, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6944,20 +6961,18 @@ namespace Quantum {
         var hash = 311;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PlayerKiller.GetHashCode();
-        hash = hash * 31 + EntityKiller.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAmmoEmpty : EventBase {
+  public unsafe partial class EventOnLocalPlayerSkydiveLand : EventBase {
     public new const Int32 ID = 53;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerSkydiveLand(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAmmoEmpty() : 
+    public EventOnLocalPlayerSkydiveLand() : 
         base(53, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6977,17 +6992,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAmmoChanged : EventBase {
+  public unsafe partial class EventOnLocalPlayerDead : EventBase {
     public new const Int32 ID = 54;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 PreviousAmmo;
-    public Int32 CurrentAmmo;
-    public Int32 MaxAmmo;
-    protected EventOnLocalPlayerAmmoChanged(Int32 id, EventFlags flags) : 
+    public PlayerRef PlayerKiller;
+    public EntityRef EntityKiller;
+    protected EventOnLocalPlayerDead(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAmmoChanged() : 
+    public EventOnLocalPlayerDead() : 
         base(54, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7003,23 +7017,20 @@ namespace Quantum {
         var hash = 317;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PreviousAmmo.GetHashCode();
-        hash = hash * 31 + CurrentAmmo.GetHashCode();
-        hash = hash * 31 + MaxAmmo.GetHashCode();
+        hash = hash * 31 + PlayerKiller.GetHashCode();
+        hash = hash * 31 + EntityKiller.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerWeaponAdded : EventBase {
+  public unsafe partial class EventOnLocalPlayerAmmoEmpty : EventBase {
     public new const Int32 ID = 55;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Equipment Weapon;
-    public Int32 WeaponSlotNumber;
-    protected EventOnLocalPlayerWeaponAdded(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerWeaponAdded() : 
+    public EventOnLocalPlayerAmmoEmpty() : 
         base(55, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7035,21 +7046,21 @@ namespace Quantum {
         var hash = 331;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Weapon.GetHashCode();
-        hash = hash * 31 + WeaponSlotNumber.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerWeaponChanged : EventBase {
+  public unsafe partial class EventOnLocalPlayerAmmoChanged : EventBase {
     public new const Int32 ID = 56;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Equipment Weapon;
-    protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
+    public Int32 PreviousAmmo;
+    public Int32 CurrentAmmo;
+    public Int32 MaxAmmo;
+    protected EventOnLocalPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerWeaponChanged() : 
+    public EventOnLocalPlayerAmmoChanged() : 
         base(56, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7065,25 +7076,23 @@ namespace Quantum {
         var hash = 337;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + PreviousAmmo.GetHashCode();
+        hash = hash * 31 + CurrentAmmo.GetHashCode();
+        hash = hash * 31 + MaxAmmo.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerDamaged : EventBase {
+  public unsafe partial class EventOnLocalPlayerWeaponAdded : EventBase {
     public new const Int32 ID = 57;
     public PlayerRef Player;
     public EntityRef Entity;
-    public EntityRef Attacker;
-    public UInt32 InterimArmourDamage;
-    public UInt32 HealthDamage;
-    public UInt32 TotalDamage;
-    public Int32 MaxHealth;
-    public Int32 MaxInterimArmour;
-    protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
+    public Equipment Weapon;
+    public Int32 WeaponSlotNumber;
+    protected EventOnLocalPlayerWeaponAdded(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerDamaged() : 
+    public EventOnLocalPlayerWeaponAdded() : 
         base(57, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7099,24 +7108,21 @@ namespace Quantum {
         var hash = 347;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + InterimArmourDamage.GetHashCode();
-        hash = hash * 31 + HealthDamage.GetHashCode();
-        hash = hash * 31 + TotalDamage.GetHashCode();
-        hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + MaxInterimArmour.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + WeaponSlotNumber.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAttack : EventBase {
+  public unsafe partial class EventOnLocalPlayerWeaponChanged : EventBase {
     public new const Int32 ID = 58;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    protected EventOnLocalPlayerAttack(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public Equipment Weapon;
+    protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAttack() : 
+    public EventOnLocalPlayerWeaponChanged() : 
         base(58, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7130,6 +7136,73 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 349;
+        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnLocalPlayerDamaged : EventBase {
+    public new const Int32 ID = 59;
+    public PlayerRef Player;
+    public EntityRef Entity;
+    public EntityRef Attacker;
+    public UInt32 InterimArmourDamage;
+    public UInt32 HealthDamage;
+    public UInt32 TotalDamage;
+    public Int32 MaxHealth;
+    public Int32 MaxInterimArmour;
+    protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnLocalPlayerDamaged() : 
+        base(59, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 353;
+        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + InterimArmourDamage.GetHashCode();
+        hash = hash * 31 + HealthDamage.GetHashCode();
+        hash = hash * 31 + TotalDamage.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
+        hash = hash * 31 + MaxInterimArmour.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnLocalPlayerAttack : EventBase {
+    public new const Int32 ID = 60;
+    public PlayerRef Player;
+    public EntityRef PlayerEntity;
+    protected EventOnLocalPlayerAttack(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnLocalPlayerAttack() : 
+        base(60, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 359;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
         return hash;

@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -36,8 +35,8 @@ namespace FirstLight.Game.Presenters
 			_localInput.Gameplay.SetCallbacks(this);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnLocalPlayerParachuteDrop>(this, OnLocalPlayerParachuteDrop);
-			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerParachuteLanded);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
 		}
 
@@ -122,7 +121,7 @@ namespace FirstLight.Game.Presenters
 			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
 		}
 
-		private void OnLocalPlayerParachuteDrop(EventOnLocalPlayerParachuteDrop callback)
+		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
@@ -134,7 +133,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnLocalPlayerParachuteLanded(EventOnLocalPlayerLanded callback)
+		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
 		{
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();

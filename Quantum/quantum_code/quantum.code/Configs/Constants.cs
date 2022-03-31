@@ -12,7 +12,6 @@ namespace Quantum
 
 		public static readonly string StunnedEvent = "OnStunned";
 		public static readonly string StunCancelledEvent = "OnStunCancelled";
-		public static readonly string ParachuteLandingEvent = "OnParachuteLanding";
 		public static readonly string SpawnedEvent = "OnSpawned";
 		public static readonly string StunDurationKey = "StunDuration";
 		public static readonly string AimDirectionKey = "AimDirection";

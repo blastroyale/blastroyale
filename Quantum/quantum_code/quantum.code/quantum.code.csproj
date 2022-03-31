@@ -56,9 +56,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Actions\ParachuteDropAction.cs" />
-    <Compile Include="AI\Actions\ParachuteStartAction.cs" />
-    <Compile Include="AI\Actions\ParachuteStopAction.cs" />
+    <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
+    <Compile Include="AI\Actions\SkydivePLFAction.cs" />
+    <Compile Include="AI\Actions\SkydiveStartAction.cs" />
+    <Compile Include="AI\Actions\SkydiveStopAction.cs" />
     <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\AIAction.cs" />
     <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />
@@ -73,6 +74,9 @@
     <Compile Include="AI\Decisions\HFSM.IsCharacterGroundedDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.RaycastHitDecision.cs" />
+    <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />

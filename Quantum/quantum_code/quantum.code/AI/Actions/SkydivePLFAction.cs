@@ -1,20 +1,20 @@
 using System;
-using Photon.Deterministic;
 
 namespace Quantum
 {
 	/// <summary>
-	/// Handles player movement while parachuting in BR mode.
+	/// Handles logic when we start a Parachute Landing Fall.
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
 	                   GenerateAssetResetMethod = false)]
-	public unsafe class ParachuteDropAction : AIAction
+	public unsafe class SkydivePLFAction : AIAction
 	{
 		public override void Update(Frame f, EntityRef e)
 		{
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
-			kcc->Move(f, e, FPVector3.Zero);
+			var player = f.Get<PlayerCharacter>(e);
+			f.Events.OnLocalPlayerSkydivePLF(player.Player, e);
+			f.Events.OnPlayerSkydivePLF(player.Player, e);
 		}
 	}
 }

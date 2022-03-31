@@ -18,7 +18,11 @@ namespace Quantum
 
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var aimDirection = bb.GetVector2(f, Constants.AimDirectionKey);
+			var speedModifier = bb.GetFP(f, Constants.SpeedModifierKey);
 			var moveDirection = bb.GetVector3(f, Constants.MoveDirectionKey);
+
+			// We need to set this every frame, since player input overwrites it
+			kcc->MaxSpeed *= speedModifier;
 
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method

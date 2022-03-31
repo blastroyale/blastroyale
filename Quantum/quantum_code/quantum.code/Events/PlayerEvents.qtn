@@ -20,12 +20,19 @@ synced event OnPlayerAlive
 	entity_ref Entity;
 }
 
-synced event OnPlayerParachuteDrop {
+synced event OnPlayerSkydiveDrop
+{
 	player_ref Player;
 	entity_ref Entity;
 }
 
-synced event OnPlayerLanded
+synced event OnPlayerSkydivePLF
+{
+	player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnPlayerSkydiveLand
 {
 	player_ref Player;
 	entity_ref Entity;
@@ -129,12 +136,19 @@ synced event OnLocalPlayerAlive
 	entity_ref Entity;
 }
 
-synced event OnLocalPlayerParachuteDrop {
+synced event OnLocalPlayerSkydiveDrop
+{
 	local player_ref Player;
 	entity_ref Entity;
 }
 
-synced event OnLocalPlayerLanded
+synced event OnLocalPlayerSkydivePLF
+{
+	local player_ref Player;
+	entity_ref Entity;
+}
+
+synced event OnLocalPlayerSkydiveLand
 {
 	local player_ref Player;
 	entity_ref Entity;

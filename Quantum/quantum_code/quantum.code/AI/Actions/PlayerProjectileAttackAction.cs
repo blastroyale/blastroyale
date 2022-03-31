@@ -41,7 +41,7 @@ namespace Quantum
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			f.Events.OnPlayerAttack(player, e, weaponConfig.Id);
+			f.Events.OnPlayerAttack(player, e);
 			f.Events.OnLocalPlayerAttack(player, e);
 			Projectile.Create(f, projectile);
 		}

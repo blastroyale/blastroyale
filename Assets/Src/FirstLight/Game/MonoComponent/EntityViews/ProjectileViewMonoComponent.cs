@@ -52,14 +52,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var effectTransform = effect.transform;
 			
-			_recoverEffectWhenEndedCoroutine = Services.CoroutineService.StartCoroutine(RecoverEffectWhenEnded(effect));
+			_recoverEffectWhenEndedCoroutine = Services.CoroutineService.StartCoroutine(RecoverEffectWhenEnded(effect, transform));
 
 			effectTransform.SetParent(null);
 			effectTransform.position = position;
 			effect.Play();
 		}
 
-		private IEnumerator RecoverEffectWhenEnded(ParticleSystem effect)
+		private IEnumerator RecoverEffectWhenEnded(ParticleSystem effect, Transform transform)
 		{
 			yield return new WaitForSeconds(effect.main.duration);
 			

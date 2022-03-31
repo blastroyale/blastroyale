@@ -29,7 +29,7 @@ namespace Quantum
 			var angle = -(int) weaponConfig.AttackAngle / FP._2;
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			f.Events.OnPlayerAttack(player, e, weaponConfig.Id);
+			f.Events.OnPlayerAttack(player, e);
 			f.Events.OnLocalPlayerAttack(player, e);
 			
 			for (var i = 0; i < angleCount; i++)

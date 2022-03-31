@@ -42,8 +42,6 @@ namespace Quantum.Systems
 			
 			var hit = f.Physics3D.Raycast(filter.RaycastShot->LastBulletPosition, direction.XOY, bulletLength, f.TargetAllLayerMask, hitQuery);
 
-			f.Events.OnLocalPlayerBulletUpdate(filter.RaycastShot->LastBulletPosition, direction.XOY, f.DeltaTime);
-
 			filter.RaycastShot->PreviousToLastBulletPosition = filter.RaycastShot->LastBulletPosition;
 			filter.RaycastShot->LastBulletPosition = bulletEndPosition;
 			

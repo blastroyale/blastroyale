@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
-	// TODO - delta - calculate actual delta, and ref to distToCenter
-
 	/// <summary>
 	/// Onscreen joystick class from Shoot & Loot.
 	/// </summary>

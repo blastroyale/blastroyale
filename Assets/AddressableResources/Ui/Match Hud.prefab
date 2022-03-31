@@ -951,7 +951,7 @@ MonoBehaviour:
   _smallMiniMapClip: {fileID: 7400000, guid: e6abc406be9cba84184e5f1ee07d6e18, type: 2}
   _extendedMiniMapClip: {fileID: 7400000, guid: 63ccb579b2c7022459d066e6ebff8871, type: 2}
   _closeButton: {fileID: 2771798187264068751}
-  _toggleMiniMapViewButton: {fileID: 5633110354763757426}
+  _toggleMiniMapViewButton: {fileID: 4694554439691078114}
 --- !u!1 &1083591398518430717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,7 +2568,7 @@ GameObject:
   - component: {fileID: 349694393382268936}
   - component: {fileID: 971212144508361134}
   - component: {fileID: 5131627357005648249}
-  - component: {fileID: 5633110354763757426}
+  - component: {fileID: 4694554439691078114}
   m_Layer: 0
   m_Name: RadarImage
   m_TagString: Untagged
@@ -2665,7 +2665,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &5633110354763757426
+--- !u!114 &4694554439691078114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2674,7 +2674,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3642865630141861845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: b5f11d691ff49f24ca26aaa08dcf0448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -2684,7 +2684,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2709,6 +2709,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  Animation: {fileID: 5131627357005648249}
+  RectTransform: {fileID: 8769260504532845168}
+  PressedEase: 1
+  PressedDuration: 0.1
+  PressedScale: {x: 0.95, y: 0.95, z: 1}
+  HapticType: 9
+  TapSoundFx: 0
+  Anchor: {fileID: 0}
+  ClickClip: {fileID: 0}
 --- !u!1 &3665782554703207554
 GameObject:
   m_ObjectHideFlags: 0

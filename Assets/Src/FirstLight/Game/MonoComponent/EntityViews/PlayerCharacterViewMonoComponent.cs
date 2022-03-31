@@ -357,7 +357,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			// TODO: Trigger PLF animation
+			AnimatorWrapper.SetTrigger(Triggers.PLF);
 		}
 
 		private void HandlePlayerSkydiveLand(EventOnPlayerSkydiveLand callback)

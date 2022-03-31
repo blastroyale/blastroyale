@@ -51,6 +51,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			public static readonly AnimatorWrapper.Trigger Charge = new("charge");
 			public static readonly AnimatorWrapper.Trigger Jump = new("jump");
 			public static readonly AnimatorWrapper.Trigger Melee = new("melee");
+			public static readonly AnimatorWrapper.Trigger PLF = new("plf");
 		}
 
 		/// <summary>

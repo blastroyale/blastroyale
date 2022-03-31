@@ -21,7 +21,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private AnimationClip _smallMiniMapClip;
 		[SerializeField] private AnimationClip _extendedMiniMapClip;
 		[SerializeField] private UiButtonView _closeButton;
-		[SerializeField] private Button _toggleMiniMapViewButton;
+		[SerializeField] private UiButtonView _toggleMiniMapViewButton;
 
 		private enum RenderTextureMode
 		{

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Numerics;
 using Quantum;
@@ -21,6 +22,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			QuantumEvent.Subscribe<EventOnProjectileSuccessHit>(this, OnEventOnProjectileHit);
 			QuantumEvent.Subscribe<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
+		}
+
+		private void OnDestroy()
+		{
+			if (_recoverEffectWhenEndedCoroutine != null)
+			{
+				Services?.CoroutineService?.StopCoroutine(_recoverEffectWhenEndedCoroutine);
+			}
 		}
 
 		private void OnProjectileFailedHit(EventOnProjectileFailedHit callback)

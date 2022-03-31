@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
     <Compile Include="AI\Actions\SkydivePLFAction.cs" />
     <Compile Include="AI\Actions\SkydiveStartAction.cs" />
     <Compile Include="AI\Actions\SkydiveStopAction.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckGameModeDecision.cs" />
-    <Compile Include="AI\Decisions\IsCharacterAtPLFHeightDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.IsCharacterAtPLFHeightDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsCharacterGroundedDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />

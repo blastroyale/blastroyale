@@ -34,6 +34,8 @@ namespace FirstLight.Game.Views
 		
 		private Coroutine _coroutine;
 		private IGameServices _gameService;
+
+		public bool CanAnimate => Anchor != null && Animation != null && ClickClip != null;
 		
 #if UNITY_EDITOR
 		/// <inheritdoc />
@@ -42,8 +44,12 @@ namespace FirstLight.Game.Views
 			RectTransform = RectTransform ? RectTransform : GetComponent<RectTransform>();
 			Animation = Animation ? Animation : GetComponent<Animation>();
 
-			Debug.Assert(Anchor != null, $"Anchor has not been referenced {gameObject.FullGameObjectPath()}");
-			Debug.Assert(Animation.clip != null, $"Animation has not been referenced {gameObject.FullGameObjectPath()}");
+			if (CanAnimate)
+			{
+				Debug.Assert(Anchor != null, $"Anchor has not been referenced {gameObject.FullGameObjectPath()}");
+				Debug.Assert(Animation.clip != null, $"Animation has not been referenced {gameObject.FullGameObjectPath()}");
+			}
+			
 			base.OnValidate();
 		}
 #endif	
@@ -67,6 +73,10 @@ namespace FirstLight.Game.Views
 		protected override void OnDestroy()
 		{
 			base.OnDestroy();
+
+			if (!CanAnimate)
+				return;
+			
 			if (_coroutine != null)
 			{
 				_gameService?.CoroutineService.StopCoroutine(_coroutine);
@@ -77,6 +87,9 @@ namespace FirstLight.Game.Views
 		/// <inheritdoc />
 		public override void OnPointerDown (PointerEventData eventData)
 		{
+			if (!CanAnimate)
+				return;
+
 			if (Animation.isPlaying)
 			{
 				Animation.Stop();
@@ -87,12 +100,16 @@ namespace FirstLight.Game.Views
 				_gameService.CoroutineService.StopCoroutine(_coroutine);
 				_coroutine = null;
 			}
+			
 			_coroutine = _gameService.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(PressedScale));
 		}
 
 		/// <inheritdoc />
 		public override void OnPointerUp(PointerEventData eventData)
 		{
+			if (!CanAnimate)
+				return;
+
 			if (_coroutine != null)
 			{
 				_gameService.CoroutineService.StopCoroutine(_coroutine);

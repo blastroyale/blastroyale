@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (_recoverEffectWhenEndedCoroutine != null)
 			{
-				Services.CoroutineService.StopCoroutine(_recoverEffectWhenEndedCoroutine);
+				Services?.CoroutineService.StopCoroutine(_recoverEffectWhenEndedCoroutine);
 			}
 		}
 

@@ -75,8 +75,10 @@ namespace FirstLight.Game.Views
 			base.OnDestroy();
 
 			if (!CanAnimate)
+			{
 				return;
-			
+			}
+
 			if (_coroutine != null)
 			{
 				_gameService?.CoroutineService.StopCoroutine(_coroutine);
@@ -88,7 +90,9 @@ namespace FirstLight.Game.Views
 		public override void OnPointerDown (PointerEventData eventData)
 		{
 			if (!CanAnimate)
+			{
 				return;
+			}
 
 			if (Animation.isPlaying)
 			{
@@ -108,7 +112,9 @@ namespace FirstLight.Game.Views
 		public override void OnPointerUp(PointerEventData eventData)
 		{
 			if (!CanAnimate)
+			{
 				return;
+			}
 
 			if (_coroutine != null)
 			{

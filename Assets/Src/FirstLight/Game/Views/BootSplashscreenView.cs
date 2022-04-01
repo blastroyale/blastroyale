@@ -89,8 +89,7 @@ namespace FirstLight.Game.Views
 		private void StartSplashScreen()
 		{
 			var json = PlayerPrefs.GetString(nameof(AppData), "");
-			var appData = string.IsNullOrEmpty(json) ? new AppData() : JsonConvert.DeserializeObject<AppData>(json);
-			var isSoundEnabled = appData.SfxEnabled;
+			var isSoundEnabled = string.IsNullOrEmpty(json) || JsonConvert.DeserializeObject<AppData>(json).SfxEnabled;
 			
 			SplashScreen.Begin();
 			SplashScreen.Draw();

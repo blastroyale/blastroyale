@@ -43,18 +43,9 @@ namespace FirstLight.Game.Configs
 		/// Requests the map grid size (Column/Rows Count)
 		/// </summary>
 		/// <param name="getMaxIndicesSizeInstead">If true, will return Count-1 instead, for use with indices.</param>
-		public Vector2Int GetSize(bool getMaxIndicesSizeInstead = false)
+		public Vector2Int GetSize()
 		{
-			int x = _configs[0].Row.Count;
-			int y = _configs.Count;
-
-			if (getMaxIndicesSizeInstead)
-			{
-				x -= 1;
-				y -= 1;
-			}
-			
-			return new Vector2Int(x, y);
+			return new Vector2Int(_configs[0].Row.Count, _configs.Count);
 		}
 
 		/// <summary>

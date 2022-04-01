@@ -580,6 +580,8 @@ namespace I2.Loc
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
 			public static string NameHeroTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameHeroTitle"); } }
+			public static string NameTooLong 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooLong"); } }
+			public static string NameTooShort 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooShort"); } }
 			public static string NewEnemies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewEnemies"); } }
 			public static string NewFeatureUnlocked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewFeatureUnlocked"); } }
 			public static string NewItems 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewItems"); } }

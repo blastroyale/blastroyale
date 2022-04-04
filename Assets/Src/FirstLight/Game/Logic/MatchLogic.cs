@@ -66,6 +66,7 @@ namespace FirstLight.Game.Logic
 				           new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 		}
 
+		/// <inheritdoc />
 		public void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank)
 		{
 			var trophyChange = 0f;

@@ -7,7 +7,6 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class GameConstants
 	{
-		public const bool IS_TOURNAMENT_BUILD = true;
 		public const string FEEDBACK_FORM_LINK = "https://forms.gle/2V4ffFNmRgoVAba89";
 		public const string DISCORD_SERVER_LINK = "https://discord.gg/MehYAERaVp";
 		public const string APP_STORE_IOS_LINK = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";

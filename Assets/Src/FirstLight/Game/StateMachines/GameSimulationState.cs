@@ -55,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			var gameRewards = stateFactory.Wait("Game Rewards Screen");
+			//var gameRewards = stateFactory.Wait("Game Rewards Screen");
 
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -83,11 +83,14 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
 
-			gameResults.WaitingFor(ResultsScreen).Target(gameRewards);
-			gameResults.OnExit(CloseResultScreen);
+			//gameResults.WaitingFor(ResultsScreen).Target(gameRewards);
+			//gameResults.OnExit(CloseResultScreen);
 
-			gameRewards.WaitingFor(RewardsScreen).Target(final);
-			gameRewards.OnExit(CloseRewardScreen);
+			gameResults.WaitingFor(ResultsScreen).Target(final);
+			gameResults.OnExit(CloseResultScreen);
+			
+			//gameRewards.WaitingFor(RewardsScreen).Target(final);
+			//gameRewards.OnExit(CloseRewardScreen);
 
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
@@ -187,7 +190,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
+			/*_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
 			{
 				PlayerMatchData = data,
 				DidPlayerQuit = playerQuit
@@ -200,7 +203,7 @@ namespace FirstLight.Game.StateMachines
 					Players = gameContainer.GetPlayersMatchData(f, out _),
 					LocalPlayerRank = data.PlayerRank
 				});
-			}
+			}*/
 
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
 		}

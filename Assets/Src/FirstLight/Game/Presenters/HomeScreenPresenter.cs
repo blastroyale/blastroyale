@@ -28,11 +28,16 @@ namespace FirstLight.Game.Presenters
 			public Action OnSocialButtonClicked;
 			public Action OnTrophyRoadClicked;
 		}
-		
+
+		[SerializeField] private GameObject _regularButtonRoot;
+		[SerializeField] private GameObject _tournamentButtonRoot;
 		[SerializeField] private Button _playBattleRoyaleButton;
 		[SerializeField] private Button _playDeathmatchButton;
 		[SerializeField] private Button _playOfflineButton;
 		[SerializeField] private Button _playDevButton;
+		[SerializeField] private Button _playTournamentDeathmatchRandom;
+		[SerializeField] private Button _playTournamentDeathmatchOffline;
+		[SerializeField] private Button _playTournamentDeathmatchRoom;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
@@ -55,13 +60,29 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+
+			if (GameConstants.IS_TOURNAMENT_BUILD)
+			{
+				_regularButtonRoot.SetActive(false);
+				_tournamentButtonRoot.SetActive(true);
+				
+				_playTournamentDeathmatchRandom.onClick.AddListener(OnTournamentDeathmatchRandomClicked);
+				_playTournamentDeathmatchOffline.onClick.AddListener(OnTournamentDeathmatchOfflineClicked);
+				_playTournamentDeathmatchRoom.onClick.AddListener(OnTournamentDeathmatchRoomClicked);
+			}
+			else
+			{
+				_regularButtonRoot.SetActive(true);
+				_tournamentButtonRoot.SetActive(false);
+				
+				_playDevButton.gameObject.SetActive(Debug.isDebugBuild);
+				_playOfflineButton.gameObject.SetActive(Debug.isDebugBuild);
+				_playDevButton.onClick.AddListener(OnPlayDevClicked);
+				_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
+				_playDeathmatchButton.onClick.AddListener(OnPlayDeathmatchClicked);
+				_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
+			}
 			
-			_playDevButton.gameObject.SetActive(Debug.isDebugBuild);
-			_playOfflineButton.gameObject.SetActive(Debug.isDebugBuild);
-			_playDevButton.onClick.AddListener(OnPlayDevClicked);
-			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
-			_playDeathmatchButton.onClick.AddListener(OnPlayDeathmatchClicked);
-			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
@@ -70,7 +91,7 @@ namespace FirstLight.Game.Presenters
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
-			
+		
 			_newFeaturesView.gameObject.SetActive(false);
 			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
 		}
@@ -132,6 +153,33 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
 
 			Data.OnPlayButtonClicked();
+		}
+
+		private void OnTournamentDeathmatchRandomClicked()
+		{
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
+			runnerConfigs.IsOfflineMode = false;
+			runnerConfigs.IsDevMode = false;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 1;
+
+			Data.OnPlayButtonClicked();
+		}
+		
+		private void OnTournamentDeathmatchOfflineClicked()
+		{
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
+			runnerConfigs.IsOfflineMode = true;
+			runnerConfigs.IsDevMode = false;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 1;
+
+			Data.OnPlayButtonClicked();
+		}
+		
+		private void OnTournamentDeathmatchRoomClicked()
+		{
+			
 		}
 
 		private void OnTrophyRoadButtonClicked()

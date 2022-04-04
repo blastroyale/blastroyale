@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 1;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = -1;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -155,7 +155,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 1;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = -1;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -166,7 +166,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 1;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = -1;
 
 			Data.OnPlayButtonClicked();
 		}

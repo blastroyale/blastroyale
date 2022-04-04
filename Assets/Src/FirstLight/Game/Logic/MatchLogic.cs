@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -90,6 +91,22 @@ namespace FirstLight.Game.Logic
 			}
 
 			_trophiesResolver.Value = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
+		}
+
+		public void GetCurrentMapInTimedRotation(GameMode mode)
+		{
+			List<int> compatibleMaps = new List<int>();
+
+			if (mode == GameMode.BattleRoyale)
+			{
+				compatibleMaps.AddRange(GameConstants.BATTLE_ROYALE_MAP_IDS);
+			}
+			else if (mode == GameMode.Deathmatch)
+			{
+				compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
+			}
+			
+			// TODO
 		}
 
 		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)

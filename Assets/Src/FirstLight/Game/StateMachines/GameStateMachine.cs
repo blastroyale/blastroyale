@@ -92,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(ftueCheck);
 			initialLoading.OnExit(InitializeGame);
 			
-			ftueCheck.Transition().Condition(IsFtueEnabled).Target(match);
+			//ftueCheck.Transition().Condition(IsFtueEnabled).Target(match);
 			ftueCheck.Transition().Target(mainMenu);
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
@@ -146,12 +146,7 @@ namespace FirstLight.Game.StateMachines
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet, 
 			                               ScriptLocalization.General.NoInternetDescription, button);
 		}
-		
-		private bool IsFtueEnabled()
-		{
-			return _gameLogic.MatchDataProvider.SelectedMapId.Value < GameConstants.FtueAdventuresCount;
-		}
-		
+
 		private async Task LoadCoreAssets()
 		{
 			await VersionUtils.LoadVersionDataAsync();

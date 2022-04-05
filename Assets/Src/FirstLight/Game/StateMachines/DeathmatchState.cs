@@ -50,7 +50,8 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(startCheck);
 			initial.OnExit(SubscribeEvents);
 
-			startCheck.Transition().Condition(IsFtueMap).Target(ftueSpawning);
+			//startCheck.Transition().Condition(IsFtueMap).Target(ftueSpawning);
+			startCheck.Transition().Target(ftueSpawning);
 			startCheck.Transition().Target(countdown);
 			
 			ftueSpawning.Event(_localPlayerAliveEvent).Target(alive);
@@ -95,12 +96,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
-		
-		private bool IsFtueMap()
-		{
-			return _gameDataProvider.MatchDataProvider.SelectedMapId.Value == 0;
-		}
-		
+
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];

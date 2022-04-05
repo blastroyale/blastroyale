@@ -17,11 +17,6 @@ namespace FirstLight.Game.Logic
 	public interface IMatchDataProvider
 	{
 		/// <summary>
-		/// Requests the player's current selected Id
-		/// </summary>
-		IObservableField<int> SelectedMapId { get; }
-
-		/// <summary>
 		/// Requests the player's current selected slot <see cref="MapConfig"/>.
 		/// </summary>
 		MapConfig SelectedMapConfig { get; }
@@ -31,18 +26,19 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
 
-		// TODO - Move this functionality elsewhere? Probably.
 		/// <summary>
-		/// Requests the index of map currently in rotation for a particular gamemode
+		/// Sets the game mode and map for the match
 		/// </summary>
-		/// <param name="mode">Game mode for the map index</param>
-		/// <returns>Index of map in rotation</returns>
-		int GetCurrentMapInTimedRotation(GameMode mode);
+		/// <param name="mapID">Map ID for the game mode. Set to -1 for map in current timed rotation</param>
+		void SetGameMode(GameMode mode, int mapID);
 	}
 
 	/// <inheritdoc />
 	public interface IMatchLogic : IMatchDataProvider
 	{
+		/// <summary>
+		/// TODO:
+		/// </summary>
 		void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank);
 	}
 
@@ -50,12 +46,20 @@ namespace FirstLight.Game.Logic
 	public class MatchLogic : AbstractBaseLogic<PlayerData>, IMatchLogic, IGameLogicInitializer
 	{
 		/// <inheritdoc />
-		public IObservableField<int> SelectedMapId { get; private set; }
+		public MapConfig SelectedMapConfig { get; private set; }
 
 		/// <inheritdoc />
-		public MapConfig SelectedMapConfig => GameLogic.ConfigsProvider.GetConfig<MapConfig>(SelectedMapId.Value);
-
 		public IObservableFieldReader<uint> Trophies { get; private set; }
+
+		public void SetGameMode(GameMode mode, int mapID)
+		{
+			if (mapID == GameConstants.ROTATING_TIMED_MAP_ID)
+			{
+				mapID = GetCurrentMapInTimedRotation(mode);
+			}
+
+			SelectedMapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(mapID);
+		}
 
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
@@ -70,7 +74,7 @@ namespace FirstLight.Game.Logic
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
 
-			SelectedMapId = new ObservableField<int>(configs[configs.Count - 1].Id);
+			SelectedMapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(0);
 			Trophies = _trophiesResolver =
 				           new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 		}
@@ -114,9 +118,8 @@ namespace FirstLight.Game.Logic
 				compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
 			}
 			
-			int targetMapListIndex = 0;
 			DateTime morning = DateTime.Today;
-			DateTime now = DateTime.UtcNow;
+			DateTime now = DateTime.UtcNow.AddMinutes(5);
 			TimeSpan span = now - morning;
 			int timeSegmentIndex = Mathf.RoundToInt((float)span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
 			
@@ -124,7 +127,7 @@ namespace FirstLight.Game.Logic
 			{
 				timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex/compatibleMaps.Count));
 			}
-			
+
 			return compatibleMaps[timeSegmentIndex];
 		}
 

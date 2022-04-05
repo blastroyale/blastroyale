@@ -111,7 +111,8 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = true;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 
+				_gameDataProvider.MatchDataProvider.GetCurrentMapInTimedRotation(GameMode.BattleRoyale);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -122,7 +123,8 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 
+				_gameDataProvider.MatchDataProvider.GetCurrentMapInTimedRotation(GameMode.BattleRoyale);;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -133,7 +135,8 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = -1;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 
+				_gameDataProvider.MatchDataProvider.GetCurrentMapInTimedRotation(GameMode.Deathmatch);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -144,7 +147,8 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 
+				_gameDataProvider.MatchDataProvider.GetCurrentMapInTimedRotation(GameMode.BattleRoyale);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -155,7 +159,8 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = -1;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 
+				_gameDataProvider.MatchDataProvider.GetCurrentMapInTimedRotation(GameMode.Deathmatch);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -166,7 +171,8 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = -1;
+			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 
+				_gameDataProvider.MatchDataProvider.GetCurrentMapInTimedRotation(GameMode.Deathmatch);
 
 			Data.OnPlayButtonClicked();
 		}

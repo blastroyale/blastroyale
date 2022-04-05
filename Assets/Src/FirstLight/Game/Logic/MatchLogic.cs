@@ -30,6 +30,14 @@ namespace FirstLight.Game.Logic
 		/// Request the player's current trophy count.
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
+
+		// TODO - Move this functionality elsewhere? Probably.
+		/// <summary>
+		/// Requests the index of map currently in rotation for a particular gamemode
+		/// </summary>
+		/// <param name="mode">Game mode for the map index</param>
+		/// <returns>Index of map in rotation</returns>
+		int GetCurrentMapInTimedRotation(GameMode mode);
 	}
 
 	/// <inheritdoc />
@@ -106,22 +114,18 @@ namespace FirstLight.Game.Logic
 				compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
 			}
 			
+			int targetMapListIndex = 0;
 			DateTime morning = DateTime.Today;
 			DateTime now = DateTime.UtcNow;
 			TimeSpan span = now - morning;
-			int timeSegmentTarget = (int)Math.Round(span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
-
-			int targetMapListIndex = 0;
+			int timeSegmentIndex = (int)Math.Round(span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
 			
-			for(int i = 0; i < timeSegmentTarget; i++)
+			if (timeSegmentIndex >= compatibleMaps.Count)
 			{
-				targetMapListIndex += 1;
-
-				if (targetMapListIndex > compatibleMaps.Count - 1)
-					targetMapListIndex = 0;
+				timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex/compatibleMaps.Count));
 			}
 			
-			return compatibleMaps[targetMapListIndex];
+			return compatibleMaps[timeSegmentIndex];
 		}
 
 		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)

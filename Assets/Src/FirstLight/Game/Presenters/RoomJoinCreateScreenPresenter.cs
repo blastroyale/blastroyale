@@ -13,7 +13,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenterData<ActionStruct>
+	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenter
 	{
 		[SerializeField] private Button _closeButton;
 		[SerializeField] private Button _createRoomButton;
@@ -35,12 +35,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-		}
-
-		/// <inheritdoc />
-		protected override void OnClosedCompleted()
-		{
-			Data.Execute();
 		}
 
 		protected override void Close()

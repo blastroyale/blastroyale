@@ -95,9 +95,6 @@ namespace Backend.Functions
 
 			rngData.Count += 2;
 
-			playerData.Currencies.Add("HC", 50);
-			playerData.Currencies.Add("SC", 100);
-			
 			playerData.EquippedItems.Add("Weapon", idData.UniqueIdCounter + 1);
 			idData.GameIds.Add(++idData.UniqueIdCounter, _initialWeapons[rngWeapon]);
 

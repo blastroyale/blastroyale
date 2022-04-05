@@ -93,7 +93,7 @@ namespace FirstLight.Game.Logic
 			_trophiesResolver.Value = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
 		}
 
-		public void GetCurrentMapInTimedRotation(GameMode mode)
+		public int GetCurrentMapInTimedRotation(GameMode mode)
 		{
 			List<int> compatibleMaps = new List<int>();
 
@@ -106,7 +106,22 @@ namespace FirstLight.Game.Logic
 				compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
 			}
 			
-			// TODO
+			DateTime morning = DateTime.Today;
+			DateTime now = DateTime.UtcNow;
+			TimeSpan span = now - morning;
+			int timeSegmentTarget = (int)Math.Round(span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
+
+			int targetMapListIndex = 0;
+			
+			for(int i = 0; i < timeSegmentTarget; i++)
+			{
+				targetMapListIndex += 1;
+
+				if (targetMapListIndex > compatibleMaps.Count - 1)
+					targetMapListIndex = 0;
+			}
+			
+			return compatibleMaps[targetMapListIndex];
 		}
 
 		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)

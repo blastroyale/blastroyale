@@ -51,6 +51,7 @@ namespace FirstLight.Game.Utils
 		
 		// Map IDs for timed map rotation
 		public const int FTUE_MAP_ID = 0;
+		public const int ROTATING_TIMED_MAP_ID = -1;
 		public static readonly int[] BATTLE_ROYALE_MAP_IDS =  {6};
 		public static readonly int[] DEATMATCH_MAP_IDS = {1,2,3,4,5};
 		public const float MAP_ROTATION_TIME_MINUTES = 5;

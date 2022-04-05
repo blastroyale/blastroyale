@@ -23,6 +23,11 @@ namespace Src.FirstLight.Modules.Services.Editor
 				var imageCaptureService = target as ImageCaptureService;
 				imageCaptureService.Run();
 			}
+			if (GUILayout.Button("Snapshot"))
+			{
+				var imageCaptureService = target as ImageCaptureService;
+				imageCaptureService.SnapShot();
+			}
 		}
 	}
 }

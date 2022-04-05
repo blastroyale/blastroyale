@@ -258,6 +258,11 @@ namespace Src.FirstLight.Modules.Services.Runtime
 			}
 		}
 
+		public void SnapShot()
+		{
+			RenderToTextureCapture("snapshot");
+		}
+
 		private void RenderToTextureCapture(string filename)
 		{
 			_camera.targetTexture = _renderTexture;
@@ -272,7 +277,7 @@ namespace Src.FirstLight.Modules.Services.Runtime
 			RenderTexture.active = null;
 
 			byte[] bytes = image.EncodeToPNG();
-			Destroy(image);
+			DestroyImmediate(image);
 
 			var path = Path.GetDirectoryName(Application.dataPath) + "/Assets/Captures/" + filename + ".png";
 			File.WriteAllBytes(path, bytes);

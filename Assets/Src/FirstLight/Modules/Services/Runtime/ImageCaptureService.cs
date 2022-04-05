@@ -204,6 +204,12 @@ namespace Src.FirstLight.Modules.Services.Runtime
 				go.transform.localPosition = Vector3.zero;
 				go.transform.localScale = Vector3.one;
 
+
+				var bounds = GetBounds(go);
+				Debug.Log($"{bounds}");
+
+				go.transform.localPosition = -bounds.center;
+
 				for (var j = 0; j < prefabResource.Snapshots.Length; j++)
 				{
 					var snapshot = prefabResource.Snapshots[i];
@@ -274,6 +280,34 @@ namespace Src.FirstLight.Modules.Services.Runtime
 
 			var path = Path.GetDirectoryName(Application.dataPath) + "/Assets/Captures/" + filename + ".png";
 			File.WriteAllBytes(path, bytes);
+		}
+		
+		private Bounds GetBounds(GameObject obj)
+		{
+			Bounds bounds = new Bounds();
+
+			Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+			if (renderers.Length > 0)
+			{
+				foreach (Renderer renderer in renderers)
+				{
+					if (renderer.enabled)
+					{
+						bounds = renderer.bounds;
+						break;
+					}
+				}
+				
+				foreach (Renderer renderer in renderers)
+				{
+					if (renderer.enabled)
+					{
+						bounds.Encapsulate(renderer.bounds);
+					}
+				}
+			}
+
+			return bounds;
 		}
 	}
 }

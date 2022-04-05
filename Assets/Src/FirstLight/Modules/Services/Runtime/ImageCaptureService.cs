@@ -201,13 +201,9 @@ namespace Src.FirstLight.Modules.Services.Runtime
 
 				var go = Instantiate(prefabResource.OwnerPrefab);
 				go.transform.SetParent(_markerTransform);
-				go.transform.localPosition = Vector3.zero;
 				go.transform.localScale = Vector3.one;
 
-
 				var bounds = GetBounds(go);
-				Debug.Log($"{bounds}");
-
 				go.transform.localPosition = -bounds.center;
 
 				for (var j = 0; j < prefabResource.Snapshots.Length; j++)
@@ -282,11 +278,11 @@ namespace Src.FirstLight.Modules.Services.Runtime
 			File.WriteAllBytes(path, bytes);
 		}
 		
-		private Bounds GetBounds(GameObject obj)
+		private Bounds GetBounds(GameObject go)
 		{
 			Bounds bounds = new Bounds();
 
-			Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+			Renderer[] renderers = go.GetComponentsInChildren<Renderer>();
 			if (renderers.Length > 0)
 			{
 				foreach (Renderer renderer in renderers)

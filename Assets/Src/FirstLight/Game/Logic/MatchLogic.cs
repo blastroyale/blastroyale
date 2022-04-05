@@ -119,7 +119,7 @@ namespace FirstLight.Game.Logic
 			}
 			
 			DateTime morning = DateTime.Today;
-			DateTime now = DateTime.UtcNow.AddMinutes(5);
+			DateTime now = DateTime.UtcNow;
 			TimeSpan span = now - morning;
 			int timeSegmentIndex = Mathf.RoundToInt((float)span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
 			

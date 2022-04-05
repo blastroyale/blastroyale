@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 1129085535716983399}
   - component: {fileID: 2694259599135842613}
   m_Layer: 5
-  m_Name: Play Room
+  m_Name: Create Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,16 +741,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f41c4125f1b4ceb934cdb1fc89f053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 0}
-  _introAnimationClip: {fileID: 0}
-  _outroAnimationClip: {fileID: 0}
-  _versionText: {fileID: 0}
-  _fullNameText: {fileID: 0}
-  _closeButton: {fileID: 0}
-  _blockerButton: {fileID: 0}
-  _backgroundMusicToggle: {fileID: 0}
-  _hapticToggle: {fileID: 0}
-  _sfxToggle: {fileID: 0}
+  _animation: {fileID: 4658961072181100194}
+  _introAnimationClip: {fileID: 7400000, guid: fbbfb0c855f314de9859364a45a539e9, type: 2}
+  _outroAnimationClip: {fileID: 7400000, guid: 673445336954748009dcfd33381d6e46, type: 2}
+  _closeButton: {fileID: 8983597388789208175}
+  _createRoomButton: {fileID: 1129085535716983399}
+  _joinRoomButton: {fileID: 1487756606440360030}
 --- !u!114 &8847670435640540833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,7 +1124,7 @@ GameObject:
   - component: {fileID: 1487756606440360030}
   - component: {fileID: 1678697220846403681}
   m_Layer: 5
-  m_Name: Play Random
+  m_Name: Join Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

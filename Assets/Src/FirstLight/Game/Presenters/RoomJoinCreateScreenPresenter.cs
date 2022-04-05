@@ -15,14 +15,9 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenterData<ActionStruct>
 	{
-		[SerializeField] private TextMeshProUGUI _versionText;
-		[SerializeField] private TextMeshProUGUI _fullNameText;
 		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _blockerButton;
-
-		[SerializeField] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField] private UiToggleButtonView _hapticToggle;
-		[SerializeField] private UiToggleButtonView _sfxToggle;
+		[SerializeField] private Button _createRoomButton;
+		[SerializeField] private Button _joinRoomButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -31,24 +26,15 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_versionText.text = VersionUtils.VersionInternal;
-			_fullNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.PlayerDataProvider.NicknameId.Value);
-			
-			_closeButton.onClick.AddListener(Close);
-			_blockerButton.onClick.AddListener(Close);
 
-			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
-			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
-			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
+			_closeButton.onClick.AddListener(Close);
+			_createRoomButton.onClick.AddListener(CreateRoomClicked);
+			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
-			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
-			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
-			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 		}
 
 		/// <inheritdoc />
@@ -57,20 +43,19 @@ namespace FirstLight.Game.Presenters
 			Data.Execute();
 		}
 
-		private void OnBgmChanged(bool value)
+		protected override void Close()
 		{
-			_gameDataProvider.AppDataProvider.IsBgmOn = value;
+			base.Close();
 		}
 
-		private void OnSfxChanged(bool value)
+		private void JoinRoomClicked()
 		{
-			_gameDataProvider.AppDataProvider.IsSfxOn = value;
+			
 		}
 
-		private void OnHapticChanged(bool value)
+		private void CreateRoomClicked()
 		{
-			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-			MMVibrationManager.SetHapticsActive(_gameDataProvider.AppDataProvider.IsHapticOn);
+			
 		}
 	}
 }

@@ -118,7 +118,7 @@ namespace FirstLight.Game.Logic
 			DateTime morning = DateTime.Today;
 			DateTime now = DateTime.UtcNow;
 			TimeSpan span = now - morning;
-			int timeSegmentIndex = (int)Math.Round(span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
+			int timeSegmentIndex = Mathf.RoundToInt((float)span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
 			
 			if (timeSegmentIndex >= compatibleMaps.Count)
 			{

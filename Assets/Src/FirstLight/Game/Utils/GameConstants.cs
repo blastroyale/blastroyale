@@ -49,12 +49,7 @@ namespace FirstLight.Game.Utils
 		// The upper limit for separators on reload bar; if the value is bigger then we don't show separators
 		public const uint MAX_RELOAD_BAR_SEPARATORS_AMOUNT = 6;
 		
-		// Map IDs for timed map rotation
-		public const int FTUE_MAP_ID = 0;
-		public const int ROTATING_TIMED_MAP_ID = -1;
-		public static readonly int[] BATTLE_ROYALE_MAP_IDS =  {6};
-		public static readonly int[] DEATMATCH_MAP_IDS = {1,2,3,4,5};
-		public const float MAP_ROTATION_TIME_MINUTES = 5;
+		public const float MAP_ROTATION_TIME_MINUTES = 10;
 		
 		public const float RadiusToScaleConversionValue = 2f;
 		

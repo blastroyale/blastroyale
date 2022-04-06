@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			var mapConfig = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var mapConfig = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			_contendersLeftText.text = mapConfig.PlayersLimit.ToString();
 		}
 		

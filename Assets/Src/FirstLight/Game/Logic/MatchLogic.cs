@@ -17,20 +17,9 @@ namespace FirstLight.Game.Logic
 	public interface IMatchDataProvider
 	{
 		/// <summary>
-		/// Requests the player's current selected slot <see cref="MapConfig"/>.
-		/// </summary>
-		MapConfig SelectedMapConfig { get; }
-
-		/// <summary>
 		/// Request the player's current trophy count.
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
-
-		/// <summary>
-		/// Sets the game mode and map for the match
-		/// </summary>
-		/// <param name="mapID">Map ID for the game mode. Set to -1 for map in current timed rotation</param>
-		void SetGameMode(GameMode mode, int mapID);
 	}
 
 	/// <inheritdoc />
@@ -46,22 +35,8 @@ namespace FirstLight.Game.Logic
 	public class MatchLogic : AbstractBaseLogic<PlayerData>, IMatchLogic, IGameLogicInitializer
 	{
 		/// <inheritdoc />
-		public MapConfig SelectedMapConfig { get; private set; }
-
-		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies { get; private set; }
-
-		/// <inheritdoc />
-		public void SetGameMode(GameMode mode, int mapID)
-		{
-			if (mapID == GameConstants.ROTATING_TIMED_MAP_ID)
-			{
-				mapID = GetCurrentMapInTimedRotation(mode);
-			}
-
-			SelectedMapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(mapID);
-		}
-
+		
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		private ObservableResolverField<uint> _trophiesResolver;
@@ -73,9 +48,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-
-			SelectedMapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(0);
 			Trophies = _trophiesResolver =
 				           new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 		}
@@ -104,34 +76,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			_trophiesResolver.Value = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
-		}
-		
-		private int GetCurrentMapInTimedRotation(GameMode mode)
-		{
-			var compatibleMaps = new List<int>();
-
-			if (mode == GameMode.BattleRoyale)
-			{
-				compatibleMaps.AddRange(GameConstants.BATTLE_ROYALE_MAP_IDS);
-			}
-			else if (mode == GameMode.Deathmatch)
-			{
-				compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
-			}
-			
-			DateTime morning = DateTime.Today;
-			DateTime now = DateTime.UtcNow;
-			TimeSpan span = now - morning;
-			int timeSegmentIndex = Mathf.RoundToInt((float)span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
-			
-			if (timeSegmentIndex >= compatibleMaps.Count)
-			{
-				timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex/compatibleMaps.Count));
-			}
-
-			DataProvider.GetData<AppData>().MapId.Value = timeSegmentIndex;
-			
-			return compatibleMaps[timeSegmentIndex];
 		}
 
 		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer)

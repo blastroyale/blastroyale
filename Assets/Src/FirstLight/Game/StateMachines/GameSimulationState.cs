@@ -55,7 +55,8 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			//var gameRewards = stateFactory.Wait("Game Rewards Screen");
+			var postResultsChoice = stateFactory.Choice("Post Results Choice");
+			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -83,14 +84,14 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
 
-			//gameResults.WaitingFor(ResultsScreen).Target(gameRewards);
-			//gameResults.OnExit(CloseResultScreen);
-
-			gameResults.WaitingFor(ResultsScreen).Target(final);
+			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
 			
-			//gameRewards.WaitingFor(RewardsScreen).Target(final);
-			//gameRewards.OnExit(CloseRewardScreen);
+			postResultsChoice.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
+			postResultsChoice.Transition().Target(final);
+
+			gameRewards.WaitingFor(RewardsScreen).Target(final);
+			gameRewards.OnExit(CloseRewardScreen);
 
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
@@ -114,9 +115,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
+		private bool HasRewardsToClaim()
+		{
+			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+		}
+
 		private bool IsDeathmatch()
 		{
-			return _gameDataProvider.MatchDataProvider.SelectedMapConfig.GameMode == GameMode.Deathmatch;
+			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -210,7 +216,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var info = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
@@ -338,7 +344,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -355,7 +361,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 
 			var analytics = new Dictionary<string, object>
 			{

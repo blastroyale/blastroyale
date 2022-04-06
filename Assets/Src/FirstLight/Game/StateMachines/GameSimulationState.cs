@@ -55,7 +55,8 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			//var gameRewards = stateFactory.Wait("Game Rewards Screen");
+			var postResultsChoice = stateFactory.Choice("Post Results Choice");
+			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -83,14 +84,14 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
 
-			//gameResults.WaitingFor(ResultsScreen).Target(gameRewards);
-			//gameResults.OnExit(CloseResultScreen);
-
-			gameResults.WaitingFor(ResultsScreen).Target(final);
+			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
 			
-			//gameRewards.WaitingFor(RewardsScreen).Target(final);
-			//gameRewards.OnExit(CloseRewardScreen);
+			postResultsChoice.Transition().Condition(HasRewardsToCollect).Target(gameRewards);
+			postResultsChoice.Transition().Target(final);
+
+			gameRewards.WaitingFor(RewardsScreen).Target(final);
+			gameRewards.OnExit(CloseRewardScreen);
 
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
@@ -112,6 +113,12 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
+		}
+
+		private bool HasRewardsToCollect()
+		{
+			return false;
+			//return _gameDataProvider.PlayerDataProvider.();
 		}
 
 		private bool IsDeathmatch()

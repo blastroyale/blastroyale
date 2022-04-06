@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +14,13 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenter
+	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenterData<RoomJoinCreateScreenPresenter.StateData>
 	{
+		public struct StateData
+		{
+			public Action OnRoomJoinCreateCloseClicked;
+		}
+		
 		[SerializeField] private Button _closeButton;
 		[SerializeField] private Button _createRoomButton;
 		[SerializeField] private Button _joinRoomButton;

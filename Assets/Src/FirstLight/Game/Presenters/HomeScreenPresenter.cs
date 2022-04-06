@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnCratesButtonClicked;
 			public Action OnSocialButtonClicked;
 			public Action OnTrophyRoadClicked;
+			public Action OnRoomJoinCreateClicked;
 		}
 
 		[SerializeField] private GameObject _regularButtonRoot;
@@ -169,6 +170,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnTournamentDeathmatchRoomClicked()
 		{
+			Data.OnRoomJoinCreateClicked();
 		}
 
 		private void OnTrophyRoadButtonClicked()

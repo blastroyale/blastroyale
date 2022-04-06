@@ -16,7 +16,7 @@ using UnityEngine;
 namespace FirstLight.Game.StateMachines
 {
 	/// <summary>
-	/// This object contains the behaviour logic for the Trophy Road Menu State in the <seealso cref="GameStateMachine"/>
+	/// This object contains the behaviour logic for the Room Join Create Menu State in the <seealso cref="GameStateMachine"/>
 	/// </summary>
 	public class RoomJoinCreateMenuState
 	{
@@ -50,7 +50,7 @@ namespace FirstLight.Game.StateMachines
 			var collectLoot = stateFactory.Nest("Collect Loot Menu");
 			var final = stateFactory.Final("Final");
 
-			initial.Transition().Target(trophyRoadState);
+			/*initial.Transition().Target(trophyRoadState);
 			initial.OnExit(SubscribeEvents);
 			
 			trophyRoadState.OnEnter(OpenTrophyRoadUI);
@@ -60,58 +60,9 @@ namespace FirstLight.Game.StateMachines
 			
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(trophyRoadState);
 
-			final.OnEnter(UnsubscribeEvents);
+			final.OnEnter(UnsubscribeEvents);*/
 		}
 
-		private void SubscribeEvents()
-		{
-			_services.MessageBrokerService.Subscribe<TrophyRoadRewardCollectedMessage>(OnTrophyRoadRewardCollectedMessage);
-		}
-
-		private void UnsubscribeEvents()
-		{
-			_services.MessageBrokerService.UnsubscribeAll(this);
-		}
-
-		private void OpenTrophyRoadUI()
-		{
-			var data = new TrophyRoadScreenPresenter.StateData
-			{
-				OnTrophyRoadClosedClicked = () => _statechartTrigger(_backButtonClickedEvent),
-			};
-
-			_uiService.OpenUi<TrophyRoadScreenPresenter, TrophyRoadScreenPresenter.StateData>(data);
-		}
-
-		private void CloseTrophyRoadUI()
-		{
-			_uiService.CloseUi<TrophyRoadScreenPresenter>();
-		}
-		
-		private async void OnTrophyRoadRewardCollectedMessage(TrophyRoadRewardCollectedMessage message)
-		{
-			if (!message.Reward.HasValue)
-			{
-				return;
-			}
-
-			if (message.Reward.Value.RewardId.IsInGroup(GameIdGroup.LootBox))
-			{
-				// TODO: Necessary to not go to an infinite loop on the state machine due to a state machine bug
-				await Task.Yield();
-				
-				_collectLootRewardState.SetLootBoxToOpen(new List<UniqueId> { message.Reward.Value.Value });
-				_statechartTrigger(_crateClickedEvent);
-				return;
-			}
-			
-			_services.MessageBrokerService.Publish(new PlayUiVfxCommandMessage
-			{
-				Id = message.Reward.Value.RewardId,
-				OriginWorldPosition = _uiService.GetUi<GenericDialogIconPresenter>().IconPosition.position,
-				Quantity = (uint) message.Reward.Value.Value
-			});
-		}
 	}
 
 }

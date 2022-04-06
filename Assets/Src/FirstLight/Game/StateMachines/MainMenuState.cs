@@ -393,12 +393,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenRoomJoinCreateMenuUI()
 		{
-			var data = new TrophyRoadScreenPresenter.StateData
+			var data = new RoomJoinCreateScreenPresenter.StateData
 			{
-				OnTrophyRoadClosedClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
+				OnRoomJoinCreateCloseClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>,
 			};
 			
-			_uiService.OpenUi<TrophyRoadScreenPresenter, TrophyRoadScreenPresenter.StateData>(data);
+			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
 		
 		private void CloseRoomJoinCreateMenuUI()
@@ -425,6 +425,7 @@ namespace FirstLight.Game.StateMachines
 				OnSocialButtonClicked = OnTabClickedCallback<SocialScreenPresenter>,
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
 				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
+				OnRoomJoinCreateClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>
 			};
 			
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

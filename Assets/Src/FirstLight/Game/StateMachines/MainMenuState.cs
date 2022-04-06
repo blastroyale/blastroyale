@@ -46,6 +46,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly CratesMenuState _cratesMenuState;
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
+		private readonly RoomJoinCreateMenuState _roomJoinCreateState;
 		private readonly ShopMenuState _shopMenuState;
 		private Type _currentScreen;
 
@@ -62,6 +63,7 @@ namespace FirstLight.Game.StateMachines
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
+			_roomJoinCreateState = new RoomJoinCreateMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 		}
 
@@ -113,6 +115,7 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
+			var roomJoinCreateMenu = stateFactory.Nest("Room Join Create Menu");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -129,6 +132,7 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<TrophyRoadScreenPresenter>).Target(trophyRoadMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<RoomJoinCreateScreenPresenter>).Target(roomJoinCreateMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 			
 			overflowLootMenu.OnEnter(OpenOverflowLootScreen);
@@ -174,6 +178,10 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.OnEnter(OpenTrophyRoadMenuUI);
 			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
+			
+			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
+			roomJoinCreateMenu.Nest(_roomJoinCreateState.Setup).OnTransition(SetCurrentScreen<RoomJoinCreateScreenPresenter>).Target(screenCheck);
+			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 
 			collectLoot.OnEnter(CloseMainMenuUI);
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
@@ -379,6 +387,21 @@ namespace FirstLight.Game.StateMachines
 		}
 		
 		private void CloseTrophyRoadMenuUI()
+		{
+			_uiService.CloseUi<TrophyRoadScreenPresenter>();
+		}
+		
+		private void OpenRoomJoinCreateMenuUI()
+		{
+			var data = new TrophyRoadScreenPresenter.StateData
+			{
+				OnTrophyRoadClosedClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
+			};
+			
+			_uiService.OpenUi<TrophyRoadScreenPresenter, TrophyRoadScreenPresenter.StateData>(data);
+		}
+		
+		private void CloseRoomJoinCreateMenuUI()
 		{
 			_uiService.CloseUi<TrophyRoadScreenPresenter>();
 		}

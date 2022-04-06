@@ -14,6 +14,7 @@ namespace Quantum
 	{
 		public AIParamFP SkydiveHeight;
 		public AIParamFP SkydiveSpeedMultiplier;
+		public AIParamFP SkyDiveFallSpeed;
 
 		public override void Update(Frame f, EntityRef e)
 		{
@@ -25,6 +26,7 @@ namespace Quantum
 
 			transform->Position += FPVector3.Up * SkydiveHeight.Resolve(f, e, bb, null);
 			bb->Set(f, Constants.SpeedModifierKey, SkydiveSpeedMultiplier.Resolve(f, e, bb, null));
+			bb->Set(f, Constants.SkyDiveFallModKey, SkyDiveFallSpeed.Resolve(f, e, bb, null));
 
 			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
 			f.Events.OnLocalPlayerSkydiveDrop(player->Player, e);

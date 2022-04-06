@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Ftue;
@@ -115,16 +116,12 @@ namespace FirstLight.Game.Logic
 		{
 			get
 			{
-				var compatibleMaps = new List<int>();
+				var compatibleMaps = new List<MapConfig>();
 
-				if (SelectedGameMode.Value == GameMode.BattleRoyale)
-				{
-					compatibleMaps.AddRange(GameConstants.BATTLE_ROYALE_MAP_IDS);
-				}
-				else if (SelectedGameMode.Value == GameMode.Deathmatch)
-				{
-					compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
-				}
+				// Filters compatible maps by game mode, and also filters out map ID 0
+				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
+				compatibleMaps.AddRange(GameLogic.ConfigsProvider.GetConfigsList<MapConfig>()
+				                                 .Where(x => x.GameMode == SelectedGameMode.Value && x.Id > 0));
 
 				var morning = DateTime.Today;
 				var now = DateTime.UtcNow;
@@ -136,7 +133,7 @@ namespace FirstLight.Game.Logic
 					timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex / compatibleMaps.Count));
 				}
 
-				return GameLogic.ConfigsProvider.GetConfig<MapConfig>(timeSegmentIndex);
+				return compatibleMaps[timeSegmentIndex];
 			}
 		}
 

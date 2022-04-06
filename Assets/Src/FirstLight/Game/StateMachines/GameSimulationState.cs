@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
 			
-			postResultsChoice.Transition().Condition(HasRewardsToCollect).Target(gameRewards);
+			postResultsChoice.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
 			postResultsChoice.Transition().Target(final);
 
 			gameRewards.WaitingFor(RewardsScreen).Target(final);

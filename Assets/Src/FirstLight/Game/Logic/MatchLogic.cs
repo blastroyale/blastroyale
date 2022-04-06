@@ -48,8 +48,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-			
 			Trophies = _trophiesResolver =
 				           new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 		}

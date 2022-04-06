@@ -70,36 +70,6 @@ namespace FirstLight.Game.Logic
 	{
 		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
-
-		/// <inheritdoc />
-		public MapConfig CurrentMapConfig
-		{
-			get
-			{
-				var compatibleMaps = new List<int>();
-
-				if (SelectedGameMode.Value == GameMode.BattleRoyale)
-				{
-					compatibleMaps.AddRange(GameConstants.BATTLE_ROYALE_MAP_IDS);
-				}
-				else if (SelectedGameMode.Value == GameMode.Deathmatch)
-				{
-					compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
-				}
-
-				var morning = DateTime.Today;
-				var now = DateTime.UtcNow;
-				var span = now - morning;
-				var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
-
-				if (timeSegmentIndex >= compatibleMaps.Count)
-				{
-					timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex / compatibleMaps.Count));
-				}
-
-				return GameLogic.ConfigsProvider.GetConfig<MapConfig>(timeSegmentIndex);
-			}
-		}
 		
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
@@ -139,6 +109,36 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		
+		/// <inheritdoc />
+		public MapConfig CurrentMapConfig
+		{
+			get
+			{
+				var compatibleMaps = new List<int>();
+
+				if (SelectedGameMode.Value == GameMode.BattleRoyale)
+				{
+					compatibleMaps.AddRange(GameConstants.BATTLE_ROYALE_MAP_IDS);
+				}
+				else if (SelectedGameMode.Value == GameMode.Deathmatch)
+				{
+					compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
+				}
+
+				var morning = DateTime.Today;
+				var now = DateTime.UtcNow;
+				var span = now - morning;
+				var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
+
+				if (timeSegmentIndex >= compatibleMaps.Count)
+				{
+					timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex / compatibleMaps.Count));
+				}
+
+				return GameLogic.ConfigsProvider.GetConfig<MapConfig>(timeSegmentIndex);
+			}
+		}
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -151,6 +151,8 @@ namespace FirstLight.Game.Logic
 		{
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
+
+			SelectedGameMode = new ObservableField<GameMode>(0);
 		}
 
 		/// <inheritdoc />

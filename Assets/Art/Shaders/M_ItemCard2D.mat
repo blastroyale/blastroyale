@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AdjectivePattern:
-        m_Texture: {fileID: 2800000, guid: 7919558afc032974cb53994e8fe03496, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9b7f69386bc76224e9331243ca35342c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Back:
-        m_Texture: {fileID: 2800000, guid: 5c8e039866300c64cb8146327b9839f9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3602eeefa1b45fc43be04f40a09b21c4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FX:
@@ -32,11 +32,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Frame:
-        m_Texture: {fileID: 2800000, guid: 53a9f04f99d18ce458af462cde922ddd, type: 3}
+        m_Texture: {fileID: 2800000, guid: bfd028134adbbf64593b61172ec8627a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrameShapeMask:
-        m_Texture: {fileID: 2800000, guid: 055d4960e036e60419fe4e26dbd07fdf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9c9a95b59e5c17540a907d7369f277e9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GradeTag:
+        m_Texture: {fileID: 2800000, guid: b561638059eb9ec40bcdef54de2cdb51, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -44,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NameTag:
-        m_Texture: {fileID: 2800000, guid: 73e6df941d6d91a4fa06417928ab88d0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 506c65fed5c8c7344a0c713df7cafb79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PlusIndicator:
-        m_Texture: {fileID: 2800000, guid: 53c82598800a2d54f84f67c5f69feeef, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3115c7b153d01854897d2d0f195aceee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_4d61330ca2c24d59b6073bf9ce4d570d_Out_0:
@@ -68,6 +72,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Adjective_Amount: 0.2
+    - _FX_Amount: 0.5
+    - _Grade_Amount: 1
+    - _Plus_Amount: 2
     m_Colors: []
   m_BuildTextureStacks: []

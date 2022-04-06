@@ -37,7 +37,7 @@ namespace FirstLight.Game.Logic
 	public interface IMatchLogic : IMatchDataProvider
 	{
 		/// <summary>
-		/// TODO:
+		/// Updates player's trophies (Elo) based on their ranking in the match
 		/// </summary>
 		void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank);
 	}
@@ -51,6 +51,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies { get; private set; }
 
+		/// <inheritdoc />
 		public void SetGameMode(GameMode mode, int mapID)
 		{
 			if (mapID == GameConstants.ROTATING_TIMED_MAP_ID)
@@ -104,10 +105,10 @@ namespace FirstLight.Game.Logic
 
 			_trophiesResolver.Value = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);
 		}
-
-		public int GetCurrentMapInTimedRotation(GameMode mode)
+		
+		private int GetCurrentMapInTimedRotation(GameMode mode)
 		{
-			List<int> compatibleMaps = new List<int>();
+			var compatibleMaps = new List<int>();
 
 			if (mode == GameMode.BattleRoyale)
 			{

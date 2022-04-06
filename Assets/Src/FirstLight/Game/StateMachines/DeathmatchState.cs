@@ -41,21 +41,21 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var startCheck = stateFactory.Choice("Start Game Check");
+			//var startCheck = stateFactory.Choice("Start Game Check");
 			var countdown = stateFactory.TaskWait("Countdown Hud");
-			var ftueSpawning = stateFactory.State("FTUE spawning");
+			//var ftueSpawning = stateFactory.State("FTUE spawning");
 			var alive = stateFactory.State("Alive Hud");
 			var dead = stateFactory.State("Dead Hud");
 
-			initial.Transition().Target(startCheck);
+			initial.Transition().Target(countdown);
 			initial.OnExit(SubscribeEvents);
 
 			//startCheck.Transition().Condition(IsFtueMap).Target(ftueSpawning);
-			startCheck.Transition().Target(ftueSpawning);
-			startCheck.Transition().Target(countdown);
+			//startCheck.Transition().Target(ftueSpawning);
+			//startCheck.Transition().Target(countdown);
 			
-			ftueSpawning.Event(_localPlayerAliveEvent).Target(alive);
-			ftueSpawning.OnExit(PublishMatchStarted);
+			//ftueSpawning.Event(_localPlayerAliveEvent).Target(alive);
+			//ftueSpawning.OnExit(PublishMatchStarted);
 			
 			countdown.OnEnter(OpenAdventureHud);
 			countdown.OnEnter(ShowCountdownHud);

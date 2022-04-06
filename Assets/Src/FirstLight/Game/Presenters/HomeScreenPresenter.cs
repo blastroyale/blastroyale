@@ -60,14 +60,10 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
-
-#if UNITY_EDITOR
-			_regularButtonRoot.gameObject.SetActive(true);
-			_tournamentButtonRoot.gameObject.SetActive(true);
-#else
+			
 			_regularButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
-			_tournamentButtonRoot.gameObject.SetActive(!Debug.isDebugBuild);
-#endif
+			_tournamentButtonRoot.gameObject.SetActive(true);
+
 			_playTournamentDeathmatchRandom.onClick.AddListener(OnTournamentDeathmatchRandomClicked);
 			_playTournamentDeathmatchOffline.onClick.AddListener(OnTournamentDeathmatchOfflineClicked);
 			_playTournamentDeathmatchRoom.onClick.AddListener(OnTournamentDeathmatchRoomClicked);

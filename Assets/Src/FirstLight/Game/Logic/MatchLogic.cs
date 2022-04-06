@@ -129,6 +129,8 @@ namespace FirstLight.Game.Logic
 				timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex/compatibleMaps.Count));
 			}
 
+			DataProvider.GetData<AppData>().MapId.Value = timeSegmentIndex;
+			
 			return compatibleMaps[timeSegmentIndex];
 		}
 

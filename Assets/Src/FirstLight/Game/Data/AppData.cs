@@ -22,6 +22,7 @@ namespace FirstLight.Game.Data
 		public bool IsFirstSession;
 		
 		public DateTime GameReviewDate;
+		public IObservableField<int> MapId { get; private set; }
 		
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
@@ -30,5 +31,10 @@ namespace FirstLight.Game.Data
 		public List<UniqueId> NewUniqueIds = new List<UniqueId>();
 		public List<GameId> GameIdsTagged = new List<GameId>();
 		public List<UnlockSystem> SystemsTagged = new List<UnlockSystem>();
+
+		public AppData()
+		{
+			MapId = new ObservableField<int>();
+		}
 	}
 }

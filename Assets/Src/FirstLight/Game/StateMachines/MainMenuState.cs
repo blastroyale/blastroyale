@@ -617,7 +617,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendPlayClickedEvent()
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			
 			var dictionary = new Dictionary<string, object> 
 			{

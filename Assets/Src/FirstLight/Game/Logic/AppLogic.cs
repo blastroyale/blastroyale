@@ -4,7 +4,10 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Configs;
 using FirstLight.Services;
+using Quantum;
+using UnityEngine;
 
 
 namespace FirstLight.Game.Logic
@@ -18,7 +21,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the current game session is the first time the player is playing the game or not
 		/// </summary>
 		bool IsFirstSession { get; }
-		
+
 		/// <summary>
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
@@ -43,8 +46,20 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
+
+		// TODO - Move to MatchLogic, once that functionality transitions to the backend
+		/// <summary>
+		/// Requests the current selected game mode <see cref="GameMode"/>.
+		/// </summary>
+		IObservableField<GameMode> SelectedGameMode { get; }
+
+		// TODO - Move to MatchLogic, once that functionality transitions to the backend
+		/// <summary>
+		/// Requests the current map config in timed rotation, for the selected game mode
+		/// </summary>
+		MapConfig CurrentMapConfig { get; }
 	}
-	
+
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
@@ -57,7 +72,38 @@ namespace FirstLight.Game.Logic
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		/// <inheritdoc />
+		public MapConfig CurrentMapConfig
+		{
+			get
+			{
+				var compatibleMaps = new List<int>();
+
+				if (SelectedGameMode.Value == GameMode.BattleRoyale)
+				{
+					compatibleMaps.AddRange(GameConstants.BATTLE_ROYALE_MAP_IDS);
+				}
+				else if (SelectedGameMode.Value == GameMode.Deathmatch)
+				{
+					compatibleMaps.AddRange(GameConstants.DEATMATCH_MAP_IDS);
+				}
+
+				var morning = DateTime.Today;
+				var now = DateTime.UtcNow;
+				var span = now - morning;
+				var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
+
+				if (timeSegmentIndex >= compatibleMaps.Count)
+				{
+					timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex / compatibleMaps.Count));
+				}
+
+				return GameLogic.ConfigsProvider.GetConfig<MapConfig>(timeSegmentIndex);
+			}
+		}
+		
+		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
+
 		/// <inheritdoc />
 		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
 
@@ -87,11 +133,14 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public bool IsHapticOn
 		{
-			get => Data.HapticEnabled; 
+			get => Data.HapticEnabled;
 			set => Data.HapticEnabled = value;
 		}
 
-		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) : 
+		/// <inheritdoc />
+		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+
+		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
 		{
 			_audioFxService = audioFxService;
@@ -111,7 +160,7 @@ namespace FirstLight.Game.Logic
 			{
 				throw new LogicException("The game was already reviewed and cannot be reviewed again");
 			}
-			
+
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
 	}

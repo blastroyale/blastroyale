@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDeathmatch()
 		{
-			return _gameDataProvider.MatchDataProvider.SelectedMapConfig.GameMode == GameMode.Deathmatch;
+			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -210,7 +210,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var info = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
@@ -338,7 +338,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -355,7 +355,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 
 			var analytics = new Dictionary<string, object>
 			{

@@ -107,7 +107,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = true;
-			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.BattleRoyale, GameConstants.ROTATING_TIMED_MAP_ID);
+			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.BattleRoyale);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -118,7 +118,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.BattleRoyale, GameConstants.ROTATING_TIMED_MAP_ID);
+			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.BattleRoyale);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -129,7 +129,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.Deathmatch, GameConstants.ROTATING_TIMED_MAP_ID);
+			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.Deathmatch);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -140,7 +140,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.BattleRoyale, GameConstants.ROTATING_TIMED_MAP_ID);
+			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.BattleRoyale);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -151,7 +151,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.Deathmatch, GameConstants.ROTATING_TIMED_MAP_ID);
+			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.Deathmatch);
 
 			Data.OnPlayButtonClicked();
 		}
@@ -162,7 +162,7 @@ namespace FirstLight.Game.Presenters
 
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.Deathmatch, GameConstants.ROTATING_TIMED_MAP_ID);
+			_gameDataProvider.MatchDataProvider.SetGameMode(GameMode.Deathmatch);
 
 			Data.OnPlayButtonClicked();
 		}

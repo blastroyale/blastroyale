@@ -30,7 +30,7 @@ namespace FirstLight.Game.Logic
 		/// Sets the game mode and map for the match
 		/// </summary>
 		/// <param name="mapID">Map ID for the game mode. Set to -1 for map in current timed rotation</param>
-		void SetGameMode(GameMode mode, int mapID);
+		void SetGameMode(GameMode mode, int mapID = GameConstants.ROTATING_TIMED_MAP_ID);
 	}
 
 	/// <inheritdoc />
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Logic
 		public IObservableFieldReader<uint> Trophies { get; private set; }
 
 		/// <inheritdoc />
-		public void SetGameMode(GameMode mode, int mapID)
+		public void SetGameMode(GameMode mode, int mapID = GameConstants.ROTATING_TIMED_MAP_ID)
 		{
 			if (mapID == GameConstants.ROTATING_TIMED_MAP_ID)
 			{

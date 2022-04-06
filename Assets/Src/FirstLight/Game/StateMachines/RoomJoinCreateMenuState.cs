@@ -20,8 +20,7 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class RoomJoinCreateMenuState
 	{
-		private readonly IStatechartEvent _crateClickedEvent = new StatechartEvent("Crate Clicked Event");
-		private readonly IStatechartEvent _backButtonClickedEvent = new StatechartEvent("Trophy Road Back Button Clicked Event");
+		private readonly IStatechartEvent _backButtonClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
 
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
@@ -46,23 +45,26 @@ namespace FirstLight.Game.StateMachines
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
-			var trophyRoadState = stateFactory.State("Loot Menu State");
-			var collectLoot = stateFactory.Nest("Collect Loot Menu");
+			var roomJoinCreateState = stateFactory.State("Room Join Create State");
 			var final = stateFactory.Final("Final");
 
-			/*initial.Transition().Target(trophyRoadState);
+			initial.Transition().Target(roomJoinCreateState);
 			initial.OnExit(SubscribeEvents);
 			
-			trophyRoadState.OnEnter(OpenTrophyRoadUI);
-			trophyRoadState.Event(_backButtonClickedEvent).Target(final);
-			trophyRoadState.Event(_crateClickedEvent).Target(collectLoot);
-			trophyRoadState.OnExit(CloseTrophyRoadUI);
-			
-			collectLoot.Nest(_collectLootRewardState.Setup).Target(trophyRoadState);
+			roomJoinCreateState.Event(_backButtonClickedEvent).Target(final);
 
-			final.OnEnter(UnsubscribeEvents);*/
+			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private void SubscribeEvents()
+		{
+			
+		}
+
+		private void UnsubscribeEvents()
+		{
+			
+		}
 	}
 
 }

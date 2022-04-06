@@ -115,10 +115,9 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private bool HasRewardsToCollect()
+		private bool HasRewardsToClaim()
 		{
-			return false;
-			//return _gameDataProvider.PlayerDataProvider.();
+			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
 		}
 
 		private bool IsDeathmatch()

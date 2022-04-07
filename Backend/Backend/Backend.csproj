@@ -17,4 +17,36 @@
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <Reference Include="FirstLight.AddressablesExtensions, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.AddressablesExtensions.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.AssetImporter, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.AssetImporter.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.DataExtensions, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.DataExtensions.Dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonQuantum, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\PhotonQuantum.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonRealtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\PhotonRealtime.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\UnityEngine.dll</HintPath>
+      </Reference>
+    </ItemGroup>
 </Project>

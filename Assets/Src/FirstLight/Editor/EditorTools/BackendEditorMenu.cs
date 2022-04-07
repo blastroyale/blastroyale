@@ -29,7 +29,7 @@ namespace FirstLight.Editor.EditorTools
 		{
 			// Quantum Dependencies
 			CopyAssembly(_quantumLibPath, "quantum.code.dll");
-			
+			 
 			// Script Assembly Dependencies
 			CopyAssembly(_unityPath,"FirstLight.DataExtensions.dll");
 			CopyAssembly(_unityPath,"FirstLight.Game.dll"); 

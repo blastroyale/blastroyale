@@ -22,7 +22,7 @@ namespace FirstLight.Game.Data
 		public bool IsFirstSession;
 		
 		public DateTime GameReviewDate;
-		
+
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;

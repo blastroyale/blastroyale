@@ -9,6 +9,7 @@ using UnityEngine.Playables;
 public partial class SROptions
 {
 #if DEVELOPMENT_BUILD
+	
 	[Category("Gameplay")]
 	public void KillLocalPlayer()
 	{
@@ -79,17 +80,16 @@ public partial class SROptions
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();
 	}
-	
 #endif
 	
+	
 #if UNITY_EDITOR
-
 	private bool _isRaycastGizmoShowing;
 
 	[Category("Gameplay")]
 	public bool ShowRaycastGizmo
 	{
-		get { return _isRaycastGizmoShowing; }
+		get => _isRaycastGizmoShowing;
 		set
 		{
 			_isRaycastGizmoShowing = value;
@@ -107,12 +107,14 @@ public partial class SROptions
 
 	private void ShowCurrentRaycastShots(float deltaTime)
 	{
-		if (QuantumRunner.Default == null || QuantumRunner.Default.Game.Frames.Verified == null)
+		var runner = QuantumRunner.Default;
+		var f = runner == null ? null : runner.Game?.Frames?.Verified;
+		
+		if (f == null)
 		{
+			Debug.LogWarning("Simulation is not running yet");
 			return;
 		}
-		
-		var f = QuantumRunner.Default.Game.Frames.Verified;
 
 		var raycasts = f.Filter<RaycastShot>();
 
@@ -120,9 +122,10 @@ public partial class SROptions
 		{
 			if (raycastShot.PreviousToLastBulletPosition.ToUnityVector3() != Vector3.zero)
 			{
-				Debug.DrawLine(raycastShot.PreviousToLastBulletPosition.ToUnityVector3(), raycastShot.LastBulletPosition.ToUnityVector3(), Color.magenta, deltaTime);
+				Debug.DrawLine(raycastShot.PreviousToLastBulletPosition.ToUnityVector3(), 
+				               raycastShot.LastBulletPosition.ToUnityVector3(), Color.magenta, deltaTime);
 			}
 		}
 	}
-	#endif
+#endif
 }

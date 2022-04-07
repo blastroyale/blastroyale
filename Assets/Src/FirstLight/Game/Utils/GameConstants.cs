@@ -48,7 +48,9 @@ namespace FirstLight.Game.Utils
 		
 		// The upper limit for separators on reload bar; if the value is bigger then we don't show separators
 		public const uint MAX_RELOAD_BAR_SEPARATORS_AMOUNT = 6;
-
+		
+		public const float MAP_ROTATION_TIME_MINUTES = 10;
+		
 		public const float RadiusToScaleConversionValue = 2f;
 		
 		// The audios default starting volume

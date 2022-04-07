@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -16,16 +17,6 @@ namespace FirstLight.Game.Logic
 	public interface IMatchDataProvider
 	{
 		/// <summary>
-		/// Requests the player's current selected Id
-		/// </summary>
-		IObservableField<int> SelectedMapId { get; }
-
-		/// <summary>
-		/// Requests the player's current selected slot <see cref="MapConfig"/>.
-		/// </summary>
-		MapConfig SelectedMapConfig { get; }
-
-		/// <summary>
 		/// Request the player's current trophy count.
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
@@ -34,23 +25,22 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc />
 	public interface IMatchLogic : IMatchDataProvider
 	{
+		/// <summary>
+		/// Updates player's trophies (Elo) based on their ranking in the match
+		/// </summary>
 		void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank);
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
 	public class MatchLogic : AbstractBaseLogic<PlayerData>, IMatchLogic, IGameLogicInitializer
 	{
+		private ObservableResolverField<uint> _trophiesResolver;
+		
 		/// <inheritdoc />
-		public IObservableField<int> SelectedMapId { get; private set; }
-
-		/// <inheritdoc />
-		public MapConfig SelectedMapConfig => GameLogic.ConfigsProvider.GetConfig<MapConfig>(SelectedMapId.Value);
-
 		public IObservableFieldReader<uint> Trophies { get; private set; }
-
+		
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
-		private ObservableResolverField<uint> _trophiesResolver;
 
 		public MatchLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -59,13 +49,11 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-
-			SelectedMapId = new ObservableField<int>(configs[configs.Count - 1].Id);
 			Trophies = _trophiesResolver =
 				           new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 		}
 
+		/// <inheritdoc />
 		public void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank)
 		{
 			var trophyChange = 0f;

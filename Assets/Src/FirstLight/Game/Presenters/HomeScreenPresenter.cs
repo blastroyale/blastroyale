@@ -28,19 +28,24 @@ namespace FirstLight.Game.Presenters
 			public Action OnSocialButtonClicked;
 			public Action OnTrophyRoadClicked;
 		}
-		
+
+		[SerializeField] private GameObject _regularButtonRoot;
+		[SerializeField] private GameObject _tournamentButtonRoot;
 		[SerializeField] private Button _playBattleRoyaleButton;
 		[SerializeField] private Button _playDeathmatchButton;
 		[SerializeField] private Button _playOfflineButton;
 		[SerializeField] private Button _playDevButton;
+		[SerializeField] private Button _playTournamentDeathmatchRandom;
+		[SerializeField] private Button _playTournamentDeathmatchOffline;
+		[SerializeField] private Button _playTournamentDeathmatchRoom;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
-		
+
 		// Player Information / Trophy Road.
 		[SerializeField] private PlayerProgressBarView _sliderPlayerLevelView;
 		[SerializeField] private Button _trophyRoadButton;
-		
+
 		// Landscape Mode Buttons
 		[SerializeField] private VisualStateButtonView _lootButton;
 		[SerializeField] private VisualStateButtonView _heroesButton;
@@ -56,12 +61,17 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			
-			_playDevButton.gameObject.SetActive(Debug.isDebugBuild);
-			_playOfflineButton.gameObject.SetActive(Debug.isDebugBuild);
+			_regularButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
+
+			_playTournamentDeathmatchRandom.onClick.AddListener(OnTournamentDeathmatchRandomClicked);
+			_playTournamentDeathmatchOffline.onClick.AddListener(OnTournamentDeathmatchOfflineClicked);
+			_playTournamentDeathmatchRoom.onClick.AddListener(OnTournamentDeathmatchRoomClicked);
+
 			_playDevButton.onClick.AddListener(OnPlayDevClicked);
 			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
 			_playDeathmatchButton.onClick.AddListener(OnPlayDeathmatchClicked);
 			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
+			
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
@@ -70,7 +80,7 @@ namespace FirstLight.Game.Presenters
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
-			
+
 			_newFeaturesView.gameObject.SetActive(false);
 			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
 		}
@@ -79,11 +89,11 @@ namespace FirstLight.Game.Presenters
 		{
 			Services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-		
+
 		private void OnXpSliderAnimationCompleted(uint previousLevel, uint newLevel)
 		{
 			var unlockSystems = _gameDataProvider.PlayerDataProvider.GetUnlockSystems(newLevel, previousLevel + 1);
-			
+
 			foreach (var system in unlockSystems)
 			{
 				_newFeaturesView.QueueNewSystemPopUp(system, UnlockSystemButton);
@@ -93,10 +103,10 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayDevClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			
+
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = true;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -104,10 +114,10 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayBattleRoyaleClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			
+
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -115,10 +125,10 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayDeathmatchClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			
+
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 1;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -126,12 +136,38 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayOfflineClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			
+
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.MatchDataProvider.SelectedMapId.Value = 6;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
+		}
+
+		private void OnTournamentDeathmatchRandomClicked()
+		{
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+
+			runnerConfigs.IsOfflineMode = false;
+			runnerConfigs.IsDevMode = false;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+
+			Data.OnPlayButtonClicked();
+		}
+
+		private void OnTournamentDeathmatchOfflineClicked()
+		{
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+
+			runnerConfigs.IsOfflineMode = true;
+			runnerConfigs.IsDevMode = false;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+
+			Data.OnPlayButtonClicked();
+		}
+
+		private void OnTournamentDeathmatchRoomClicked()
+		{
 		}
 
 		private void OnTrophyRoadButtonClicked()
@@ -153,7 +189,6 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnHeroesButtonClicked();
 		}
-		
 
 		private void OpenCratesMenuUI()
 		{
@@ -218,7 +253,7 @@ namespace FirstLight.Game.Presenters
 			var tagged = _gameDataProvider.PlayerDataProvider.SystemsTagged;
 			var info = _gameDataProvider.LootBoxDataProvider.GetLootBoxInventoryInfo();
 			var emphasizeCrates = !info.LootBoxUnlocking.HasValue && info.GetSlotsFilledCount() > 0;
-			
+
 			foreach (var box in info.TimedBoxSlots)
 			{
 				if (box.HasValue && box.Value.GetState(time) == LootBoxState.Unlocked)
@@ -228,7 +263,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
-			_cratesButton.UpdateState(_sliderPlayerLevelView.Level >= unlockLevel, 
+			_cratesButton.UpdateState(_sliderPlayerLevelView.Level >= unlockLevel,
 			                          !tagged.Contains(UnlockSystem.Crates), emphasizeCrates);
 		}
 
@@ -236,7 +271,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var unlocked = _gameDataProvider.PlayerDataProvider.GetUnlockSystems(_sliderPlayerLevelView.Level);
 			var tagged = _gameDataProvider.PlayerDataProvider.SystemsTagged;
-			var lootNew = unlocked.Contains(UnlockSystem.Fusion) && !tagged.Contains(UnlockSystem.Fusion) || 
+			var lootNew = unlocked.Contains(UnlockSystem.Fusion) && !tagged.Contains(UnlockSystem.Fusion) ||
 			              unlocked.Contains(UnlockSystem.Enhancement) && !tagged.Contains(UnlockSystem.Enhancement);
 
 			_sliderPlayerLevelView.UpdateProgressView();
@@ -246,23 +281,25 @@ namespace FirstLight.Game.Presenters
 			{
 				UpdateCratesButtonState();
 			}
-			this.LateCall(1,_lootButton.UpdateShinyState);
-			this.LateCall(2,_cratesButton.UpdateShinyState);
+
+			this.LateCall(1, _lootButton.UpdateShinyState);
+			this.LateCall(2, _cratesButton.UpdateShinyState);
 		}
 
 		private bool ButtonClickSystemCheck(UnlockSystem system)
 		{
 			var unlockLevel = _gameDataProvider.PlayerDataProvider.GetUnlockSystemLevel(system);
-			
+
 			if (_gameDataProvider.PlayerDataProvider.Level.Value < unlockLevel)
 			{
-				var unlockAtText = string.Format(ScriptLocalization.General.UnlockAtPlayerLevel, unlockLevel.ToString());
-				
+				var unlockAtText =
+					string.Format(ScriptLocalization.General.UnlockAtPlayerLevel, unlockLevel.ToString());
+
 				_mainMenuServices.UiVfxService.PlayFloatingText(unlockAtText);
-				
+
 				return false;
 			}
-			
+
 			var tagged = _gameDataProvider.PlayerDataProvider.SystemsTagged;
 
 			if (!tagged.Contains(system))

@@ -55,6 +55,7 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
+			var postResultsChoice = stateFactory.Choice("Post Results Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 
 			initial.Transition().Target(startSimulation);
@@ -83,8 +84,11 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
 
-			gameResults.WaitingFor(ResultsScreen).Target(gameRewards);
+			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
+			
+			postResultsChoice.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
+			postResultsChoice.Transition().Target(final);
 
 			gameRewards.WaitingFor(RewardsScreen).Target(final);
 			gameRewards.OnExit(CloseRewardScreen);
@@ -111,9 +115,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
+		private bool HasRewardsToClaim()
+		{
+			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+		}
+
 		private bool IsDeathmatch()
 		{
-			return _gameDataProvider.MatchDataProvider.SelectedMapConfig.GameMode == GameMode.Deathmatch;
+			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -187,7 +196,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
+			/*_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
 			{
 				PlayerMatchData = data,
 				DidPlayerQuit = playerQuit
@@ -200,14 +209,14 @@ namespace FirstLight.Game.StateMachines
 					Players = gameContainer.GetPlayersMatchData(f, out _),
 					LocalPlayerRank = data.PlayerRank
 				});
-			}
+			}*/
 
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
 		}
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var info = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var startParams = configs.GetDefaultStartParameters(info);
 
@@ -335,7 +344,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -352,7 +361,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 
 			var analytics = new Dictionary<string, object>
 			{

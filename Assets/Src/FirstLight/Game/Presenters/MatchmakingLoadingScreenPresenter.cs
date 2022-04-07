@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Linq;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -7,6 +9,8 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
+using NSubstitute;
+using Photon.Realtime;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -59,11 +63,10 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
-
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
-			{
-				_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
-			}
+			
+			
+			_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
+	
 
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -79,12 +82,13 @@ namespace FirstLight.Game.Presenters
 		protected override async void OnOpened()
 		{
 			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
-
+			var selectedRoomEntryType = _gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value;
+			var selectedRoomName = _gameDataProvider.AppDataProvider.SelectedRoomName.Value;
+			
 			// Only show room code if player is coming from custom game - join/create
-			if (!string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.SelectedRoomName.Value))
+			if (selectedRoomEntryType != RoomEntryID.Matchmaking && !string.IsNullOrEmpty(selectedRoomName))
 			{
-				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName,
-				                                   _services.NetworkService.QuantumClient.CurrentRoom.Name);
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, selectedRoomName);
 			}
 			else
 			{
@@ -115,7 +119,15 @@ namespace FirstLight.Game.Presenters
 
 		private void OnJoinedRoom(MatchJoinedRoomMessage message)
 		{
-			_lockRoomButton.gameObject.SetActive(true);
+			Player masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
+			Player localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
+			bool localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
+			
+			bool canShowLockButton = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
+			                         (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking && localPlayerIsMaster);
+			
+			Debug.LogError("JOINED ROOM, LOCAL IS MASTER? = " + localPlayerIsMaster);
+			_lockRoomButton.gameObject.SetActive(canShowLockButton);
 		}
 
 		private void OnSceneChanged(Scene previous, Scene current)

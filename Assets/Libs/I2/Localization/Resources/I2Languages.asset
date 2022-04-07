@@ -4674,6 +4674,20 @@ MonoBehaviour:
       - 'Room: {0}'
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/RoomCurrentName
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Room: {0}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomLock
+      TermType: 0
+      Description: 
+      Languages:
+      - Lock & Play!
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -4686,7 +4700,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1649324083488
+    Google_LastUpdatedVersion: 1649330536495
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

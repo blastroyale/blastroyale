@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action CloseClicked;
+			public Action PlayClicked;
 		}
 		
 		[SerializeField] private Button _closeButton;
@@ -55,14 +57,21 @@ namespace FirstLight.Game.Presenters
 			                                                    "", confirmButton, true);
 		}
 
-		private void OnRoomJoinClicked(string input)
+		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = roomNameInput;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.JoinRoom;
+			Data.PlayClicked.Invoke();
 		}
 
 		private void CreateRoomClicked()
 		{
+			// Get a short room name code so it's easily shareable, visible on the UI
+			string roomName = Guid.NewGuid().ToString().Substring(0,6);
 			
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = roomName;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.CreateRoom;
+			Data.PlayClicked.Invoke();
 		}
 	}
 }

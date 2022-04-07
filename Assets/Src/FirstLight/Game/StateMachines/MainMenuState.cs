@@ -32,7 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateCloseClicked = new StatechartEvent("Room Join Create Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
@@ -64,7 +64,7 @@ namespace FirstLight.Game.StateMachines
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
-			_roomJoinCreateState = new RoomJoinCreateMenuState(services, uiService, gameDataProvider, statechartTrigger, _roomJoinCreateCloseClicked);
+			_roomJoinCreateState = new RoomJoinCreateMenuState(services, uiService, gameDataProvider, statechartTrigger, _roomJoinCreateCloseClickedEvent);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 		}
 
@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
-			var roomJoinCreateMenu = stateFactory.Nest("Room Join Create Menu");
+			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -181,7 +181,8 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Nest(_roomJoinCreateState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(playClickedCheck);
+			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 			
 			collectLoot.OnEnter(CloseMainMenuUI);
@@ -398,8 +399,12 @@ namespace FirstLight.Game.StateMachines
 			{
 				CloseClicked = () =>
 				{
-					_statechartTrigger(_roomJoinCreateCloseClicked);
+					_statechartTrigger(_roomJoinCreateCloseClickedEvent);
 				},
+				PlayClicked = () =>
+				{
+					_statechartTrigger(_playClickedEvent);
+				}
 			};
 			
 			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);

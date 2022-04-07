@@ -98,7 +98,7 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public OpJoinRandomRoomParams GetJoinRoomParams(MapConfig config)
+		public OpJoinRandomRoomParams GetJoinRandomRoomParams(MapConfig config)
 		{
 			return new OpJoinRandomRoomParams
 			{

@@ -91,7 +91,7 @@ namespace FirstLight.Game.StateMachines
 			var selectedRoomName = _dataProvider.AppDataProvider.SelectedRoomName.Value;
 			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
 			var enterParams = config.GetEnterRoomParams(mapConfig, selectedRoomName, selectedRoomEntryType == RoomEntryID.Matchmaking);
-			var joinRandomParams = config.GetJoinRoomParams(mapConfig);
+			var joinRandomParams = config.GetJoinRandomRoomParams(mapConfig);
 
 			switch (selectedRoomEntryType)
 			{

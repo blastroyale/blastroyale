@@ -186,24 +186,20 @@ namespace FirstLight.Game.StateMachines
 		{
 			Debug.Log($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 			
-			_statechartTrigger(DisconnectedEvent);
-
-			if (_dataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
+			// In case the player cannot rejoin anymore
+			if (returnCode == ErrorCode.OperationNotAllowedInCurrentState)
 			{
-				var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-				var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
-				_networkService.QuantumClient.OpCreateRoom(properties);
+				_statechartTrigger(DisconnectedEvent);
+				return;
 			}
-			else
-			{
-				/*var errorText = string.Format(ScriptLocalization.MainMenu.RoomJoinError, returnCode.ToString());
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK
-				};
 
-				_services.GenericDialogService.OpenDialog(errorText, false, confirmButton);*/
-			}
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var selectedRoomEntryType = _dataProvider.AppDataProvider.SelectedRoomEntryType.Value;
+			var selectedRoomName = _dataProvider.AppDataProvider.SelectedRoomName.Value;
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var enterParams = config.GetEnterRoomParams(mapConfig, selectedRoomName, selectedRoomEntryType == RoomEntryID.Matchmaking);
+
+			_networkService.QuantumClient.OpCreateRoom(enterParams);
 		}
 
 		/// <inheritdoc />

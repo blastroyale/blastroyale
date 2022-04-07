@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+        <PackageReference Include="NUnit" Version="3.13.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+        <PackageReference Include="coverlet.collector" Version="3.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="FirstLight.DataExtensions, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.DataExtensions.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Backend\Backend.csproj" />
+    </ItemGroup>
+
+</Project>

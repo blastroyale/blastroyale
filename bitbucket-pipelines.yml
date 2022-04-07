@@ -1,0 +1,25 @@
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: Test
+            caches:
+              - dotnetcore
+            script:
+              - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
+              - cd Backend && dotnet test 
+        - step:
+            name: Code Analysis
+            caches:
+              - dotnetcore
+            script:
+              - export REPORTS_PATH=linter-reports
+              - cd Backend
+              - dotnet new tool-manifest
+              - dotnet tool install JetBrains.ReSharper.GlobalTools
+              - dotnet tool restore
+              - dotnet jb inspectcode Backend.sln --output="${REPORTS_PATH}/jb-${BITBUCKET_BUILD_NUMBER}.xml"
+            artifacts:
+              - linter-reports/**

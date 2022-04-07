@@ -11,6 +11,5 @@ pipelines:
               - cd Lib
               - ls
               - cd ..
-              - cd Tests
-              - cat Tests.csproj
-              - dotnet test
+              - cd Lib
+              - dotnet test ../Tests

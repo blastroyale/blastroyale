@@ -18,22 +18,22 @@
 
     <ItemGroup>
       <Reference Include="FirstLight.DataExtensions, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>$(SolutionDir)\lib\FirstLight.DataExtensions.dll</HintPath>
+        <HintPath>..\lib\FirstLight.DataExtensions.dll</HintPath>
       </Reference>
       <Reference Include="FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>$(SolutionDir)\Lib\FirstLight.Game.dll</HintPath>
+        <HintPath>..\lib\FirstLight.Game.dll</HintPath>
       </Reference>
       <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>$(SolutionDir)\Lib\FirstLight.Services.dll</HintPath>
+        <HintPath>..\lib\FirstLight.Services.dll</HintPath>
       </Reference>
       <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>$(SolutionDir)\Lib\quantum.code.dll</HintPath>
+        <HintPath>..\lib\quantum.code.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>$(SolutionDir)\UnityLib\UnityEngine.AudioModule.dll</HintPath>
+        <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>$(SolutionDir)\UnityLib\UnityEngine.CoreModule.dll</HintPath>
+        <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>

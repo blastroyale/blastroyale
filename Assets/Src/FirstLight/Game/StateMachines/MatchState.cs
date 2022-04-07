@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -195,9 +196,31 @@ namespace FirstLight.Game.StateMachines
 				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id));
 			}
 
+			var skinId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
+			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId));
+
 			await Task.WhenAll(tasks);
 
 			SceneManager.SetActiveScene(sceneTask.Result);
+
+			// Preload collectables
+			foreach (var id in GameIdGroup.Consumable.GetIds())
+			{
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id);
+			}
+
+			// Preload indicator VFX
+			for (var i = 1; i < (int) IndicatorVfxId.TOTAL; i++)
+			{
+				await _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i);
+			}
+			
+			// Preload weapons
+			// TODO: Remove this once we only spawn equipped weapons (as those get preloaded when players join)
+			foreach (var id in GameIdGroup.Weapon.GetIds())
+			{
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id);
+			}
 
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
@@ -277,9 +300,9 @@ namespace FirstLight.Game.StateMachines
 
 		private async void PreloadPlayerEquipment(Player player)
 		{
-			var equipment = (int[]) player.CustomProperties["Equipment"];
+			var preloadIds = (int[]) player.CustomProperties["PreloadIds"];
 
-			foreach (var item in equipment)
+			foreach (var item in preloadIds)
 			{
 				await _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item);
 			}

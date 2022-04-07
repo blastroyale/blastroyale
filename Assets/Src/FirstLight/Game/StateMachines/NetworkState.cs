@@ -261,16 +261,18 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 
-			var equipmentIds = new List<int>();
+			var preloadIds = new List<int>();
 			foreach (var (key, value) in _dataProvider.EquipmentDataProvider.EquippedItems)
 			{
 				var equipmentDataInfo = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
-				equipmentIds.Add((int) equipmentDataInfo.GameId);
+				preloadIds.Add((int) equipmentDataInfo.GameId);
 			}
+
+			preloadIds.Add((int) _dataProvider.PlayerDataProvider.CurrentSkin.Value);
 
 			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(new Hashtable
 			{
-				{"Equipment", equipmentIds.ToArray()}
+				{"PreloadIds", preloadIds.ToArray()}
 			});
 
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);

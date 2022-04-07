@@ -108,6 +108,10 @@ namespace FirstLight.Game.StateMachines
 					_networkService.QuantumClient.OpCreateRoom(enterParams);
 					break;
 				
+				case RoomEntryID.JoinOrCreateRoom:
+					_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
+					break;
+				
 				default:
 					throw new ArgumentOutOfRangeException();
 			}

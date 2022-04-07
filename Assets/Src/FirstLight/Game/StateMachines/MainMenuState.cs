@@ -393,24 +393,37 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenRoomJoinCreateMenuUI()
 		{
-			var data = new RoomJoinCreateScreenPresenter.StateData
+			/*var data = new RoomJoinCreateScreenPresenter.StateData
 			{
-				CloseClicked = () =>
-				{
-					_statechartTrigger(_roomJoinCreateCloseClickedEvent);
-				},
-				PlayClicked = () =>
-				{
-					_statechartTrigger(_playClickedEvent);
-				}
+				CloseClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>,
 			};
 			
 			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			*/
+			
+			var confirmButton = new GenericDialogButton<string>
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = OnJoinCreateInputClicked
+			};
+			
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomCreateOrJoin, 
+			                                                    "", confirmButton, true);
+		}
+
+		private void OnJoinCreateInputClicked(string input)
+		{
+			if (!string.IsNullOrEmpty(input))
+			{
+				_gameDataProvider.AppDataProvider.SelectedRoomName.Value = input.ToUpper();
+				_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.JoinOrCreateRoom;
+				_statechartTrigger(_playClickedEvent);
+			}
 		}
 		
 		private void CloseRoomJoinCreateMenuUI()
 		{
-			_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
+			//_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
 		}
 
 		private void CloseCratesMenuUI()

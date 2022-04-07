@@ -6,6 +6,7 @@ namespace FirstLight.Game.Ids
 	{
 		Matchmaking,
 		JoinRoom,
-		CreateRoom
+		CreateRoom,
+		JoinOrCreateRoom
 	}
 }

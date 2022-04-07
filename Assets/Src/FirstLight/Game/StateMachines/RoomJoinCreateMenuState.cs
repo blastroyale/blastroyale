@@ -20,23 +20,21 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class RoomJoinCreateMenuState
 	{
-		private readonly IStatechartEvent _backButtonClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
+		private readonly IStatechartEvent _backButtonClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly CollectLootRewardState _collectLootRewardState;
-		
+
 		public RoomJoinCreateMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider,
-		                               Action<IStatechartEvent> statechartTrigger)
+		                               Action<IStatechartEvent> statechartTrigger, IStatechartEvent presenterClosedEvent)
 		{
 			_services = services;
 			_uiService = uiService;
 			_gameDataProvider = gameDataProvider;
 			_statechartTrigger = statechartTrigger;
-			
-			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
+			_backButtonClickedEvent = presenterClosedEvent;
 		}
 
 		/// <summary>

@@ -32,6 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateCloseClicked = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
@@ -63,7 +64,7 @@ namespace FirstLight.Game.StateMachines
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
-			_roomJoinCreateState = new RoomJoinCreateMenuState(services, uiService, gameDataProvider, statechartTrigger);
+			_roomJoinCreateState = new RoomJoinCreateMenuState(services, uiService, gameDataProvider, statechartTrigger, _roomJoinCreateCloseClicked);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 		}
 
@@ -179,10 +180,15 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 			
+			/*roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
+			roomJoinCreateMenu.Nest(_roomJoinCreateState.Setup);
+			roomJoinCreateMenu.Event(_roomJoinCreateCloseClicked).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);*/
+
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Nest(_roomJoinCreateState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
-
+			
 			collectLoot.OnEnter(CloseMainMenuUI);
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
 			collectLoot.OnExit(OpenMainMenuUi);
@@ -395,7 +401,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
 			{
-				OnRoomJoinCreateCloseClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>,
+				CloseClicked = () =>
+				{
+					_statechartTrigger(_roomJoinCreateCloseClicked);
+				},
 			};
 			
 			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);

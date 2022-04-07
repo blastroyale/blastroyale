@@ -18,7 +18,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public Action OnRoomJoinCreateCloseClicked;
+			public Action CloseClicked;
 		}
 		
 		[SerializeField] private Button _closeButton;
@@ -38,14 +38,9 @@ namespace FirstLight.Game.Presenters
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 		}
 
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-		}
-
 		protected override void Close()
 		{
-			base.Close();
+			Data.CloseClicked.Invoke();
 		}
 
 		private void JoinRoomClicked()

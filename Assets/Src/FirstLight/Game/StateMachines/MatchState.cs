@@ -193,11 +193,12 @@ namespace FirstLight.Game.StateMachines
 			foreach (var (key, value) in _gameDataProvider.EquipmentDataProvider.EquippedItems)
 			{
 				var id = _gameDataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value).GameId;
-				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id));
+				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
 			}
 
+			// Preload local player skin
 			var skinId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
-			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId));
+			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId, true, false));
 
 			await Task.WhenAll(tasks);
 
@@ -206,20 +207,21 @@ namespace FirstLight.Game.StateMachines
 			// Preload collectables
 			foreach (var id in GameIdGroup.Consumable.GetIds())
 			{
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id);
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
 			}
 
 			// Preload indicator VFX
 			for (var i = 1; i < (int) IndicatorVfxId.TOTAL; i++)
 			{
-				await _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i);
+				await _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, true,
+					false);
 			}
-			
+
 			// Preload weapons
 			// TODO: Remove this once we only spawn equipped weapons (as those get preloaded when players join)
 			foreach (var id in GameIdGroup.Weapon.GetIds())
 			{
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id);
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
 			}
 
 #if UNITY_EDITOR
@@ -304,7 +306,7 @@ namespace FirstLight.Game.StateMachines
 
 			foreach (var item in preloadIds)
 			{
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item);
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
 			}
 
 			_loadedPlayers++;

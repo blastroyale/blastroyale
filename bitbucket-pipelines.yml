@@ -7,5 +7,10 @@ pipelines:
             name: Test
             script:
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
-              - cd Backend/Tests
+              - cd Backend
+              - cd Lib
+              - ls
+              - cd ..
+              - cd Tests
+              - cat Tests.csproj
               - dotnet test

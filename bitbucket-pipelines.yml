@@ -7,15 +7,5 @@ pipelines:
             name: Test
             script:
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
-              - dotnet test Backend/Tests
-        - step:
-            name: Code Analysis
-            script:
-              - export REPORTS_PATH=linter-reports
-              - cd Backend
-              - dotnet new tool-manifest
-              - dotnet tool install JetBrains.ReSharper.GlobalTools
-              - dotnet tool restore
-              - dotnet jb inspectcode Backend.sln --output="${REPORTS_PATH}/jb-${BITBUCKET_BUILD_NUMBER}.xml"
-            artifacts:
-              - linter-reports/**
+              - cd Backend/Tests
+              - dotnet test

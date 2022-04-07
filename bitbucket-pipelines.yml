@@ -1,0 +1,13 @@
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+clone:
+  lfs: true
+
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: Test
+            script:
+              - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
+              - cd Backend && dotnet test

@@ -309,8 +309,6 @@ namespace FirstLight.Game.StateMachines
 				await _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
 			}
 
-			_loadedPlayers++;
-
 			if (++_loadedPlayers == _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount)
 			{
 				_statechartTrigger(_loadingComplete);

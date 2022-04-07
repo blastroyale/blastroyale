@@ -179,11 +179,6 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.OnEnter(OpenTrophyRoadMenuUI);
 			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
-			
-			/*roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Nest(_roomJoinCreateState.Setup);
-			roomJoinCreateMenu.Event(_roomJoinCreateCloseClicked).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);*/
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Nest(_roomJoinCreateState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);

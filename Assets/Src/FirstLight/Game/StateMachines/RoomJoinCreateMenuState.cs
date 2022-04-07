@@ -45,23 +45,10 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var roomJoinCreateState = stateFactory.State("Room Join Create State");
 			var final = stateFactory.Final("Final");
-
+			
 			initial.Transition().Target(roomJoinCreateState);
-			initial.OnExit(SubscribeEvents);
 			
 			roomJoinCreateState.Event(_backButtonClickedEvent).Target(final);
-
-			final.OnEnter(UnsubscribeEvents);
-		}
-
-		private void SubscribeEvents()
-		{
-			
-		}
-
-		private void UnsubscribeEvents()
-		{
-			
 		}
 	}
 

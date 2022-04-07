@@ -59,6 +59,12 @@ namespace FirstLight.Game.Logic
 		/// Requests the current map config in timed rotation, for the selected game mode
 		/// </summary>
 		MapConfig CurrentMapConfig { get; }
+		
+		// TODO - Move to MatchLogic, once that functionality transitions to the backend
+		/// <summary>
+		/// Requests the current map config in timed rotation, for the selected game mode
+		/// </summary>
+		IObservableField<string> SelectedRoomName { get; }
 	}
 
 	/// <inheritdoc />
@@ -110,6 +116,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		public IObservableField<string> SelectedRoomName { get; private set; }
 		
 		/// <inheritdoc />
 		public MapConfig CurrentMapConfig
@@ -150,6 +157,7 @@ namespace FirstLight.Game.Logic
 			IsBgmOn = IsBgmOn;
 
 			SelectedGameMode = new ObservableField<GameMode>(0);
+			SelectedRoomName = new ObservableField<string>("");
 		}
 
 		/// <inheritdoc />

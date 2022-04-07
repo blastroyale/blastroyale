@@ -86,9 +86,9 @@ namespace FirstLight.Game.StateMachines
 			Debug.Log("OnConnectedToMaster");
 			
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetDefaultEnterRoomParams(info);
-			var joinParams = config.GetDefaultJoinRoomParams(info);
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var enterParams = config.GetDefaultEnterRoomParams(mapConfig);
+			var joinParams = config.GetDefaultJoinRoomParams(mapConfig);
 			
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
 		}

@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
+using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -39,6 +40,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
+		[SerializeField] private GameObject _roomNameRootObject;
+		[SerializeField] private TextMeshProUGUI _roomNameText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -76,7 +79,18 @@ namespace FirstLight.Game.Presenters
 		protected override async void OnOpened()
 		{
 			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
-			
+
+			// Only show room code if player is coming from custom game - join/create
+			if (!string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.SelectedRoomName.Value))
+			{
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName,
+				                                   _services.NetworkService.QuantumClient.CurrentRoom.Name);
+			}
+			else
+			{
+				_roomNameRootObject.SetActive(false);
+			}
+
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;

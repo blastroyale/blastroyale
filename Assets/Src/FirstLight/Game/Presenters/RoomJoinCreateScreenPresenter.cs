@@ -45,6 +45,18 @@ namespace FirstLight.Game.Presenters
 
 		private void JoinRoomClicked()
 		{
+			var confirmButton = new GenericDialogButton<string>
+			{
+				ButtonText = ScriptLocalization.MainMenu.RoomJoinButton,
+				ButtonOnClick = OnRoomJoinClicked
+			};
+			
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode, 
+			                                                    "", confirmButton, true);
+		}
+
+		private void OnRoomJoinClicked(string input)
+		{
 			
 		}
 

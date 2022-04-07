@@ -604,6 +604,9 @@ namespace I2.Loc
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
+			public static string RoomJoinCode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCode"); } }
+			public static string RoomJoinButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinButton"); } }
+			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("General/RoomCurrentName"); } }
 			public static string SFX 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SFX"); } }
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }

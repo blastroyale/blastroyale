@@ -63,7 +63,6 @@ namespace FirstLight.Game.Presenters
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			
 			_regularButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
-			_tournamentButtonRoot.gameObject.SetActive(true);
 
 			_playTournamentDeathmatchRandom.onClick.AddListener(OnTournamentDeathmatchRandomClicked);
 			_playTournamentDeathmatchOffline.onClick.AddListener(OnTournamentDeathmatchOfflineClicked);

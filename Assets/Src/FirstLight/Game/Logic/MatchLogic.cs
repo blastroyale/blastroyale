@@ -34,12 +34,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IAppLogic"/>
 	public class MatchLogic : AbstractBaseLogic<PlayerData>, IMatchLogic, IGameLogicInitializer
 	{
+		private ObservableResolverField<uint> _trophiesResolver;
+		
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies { get; private set; }
 		
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
-		private ObservableResolverField<uint> _trophiesResolver;
 
 		public MatchLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{

@@ -7,9 +7,9 @@ pipelines:
             name: Test
             script:
               - echo $PWD
-              - cp Backend/Lib/* .
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
-              - cd Backend/Tests && dotnet test 
+              - cd Backend
+              - dotnet test
         - step:
             name: Code Analysis
             script:

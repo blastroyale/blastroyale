@@ -1,5 +1,5 @@
-using System;
 using Photon.Deterministic;
+using System;
 
 namespace Quantum
 {
@@ -9,13 +9,15 @@ namespace Quantum
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
-	                   GenerateAssetResetMethod = false)]
-	public class TransformPositionFunction : AIFunction<FPVector3>
+					   GenerateAssetResetMethod = false)]
+	public class StatFunction : AIFunction<FP>
 	{
+		public StatType Stat;
+
 		/// <inheritdoc />
-		public override FPVector3 Execute(Frame f, EntityRef e)
+		public override FP Execute(Frame f, EntityRef e)
 		{
-			return f.Get<Transform3D>(e).Position;
+			return f.Get<Stats>(e).GetStatData(Stat).StatValue;
 		}
 	}
 }

@@ -11,29 +11,30 @@ namespace Quantum
 	                   GenerateAssetResetMethod = false)]
 	public unsafe class PlayerMoveAction : AIAction
 	{
+		public AIParamFP MaxSpeedModifier;
+		public AIParamFPVector3 VelocityModifier;
+
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var velocityModifier = VelocityModifier.Resolve(f, e, bb, null);
+			var maxSpeed = MaxSpeedModifier.Resolve(f, e, bb, null);
+			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
+			var velocity = kcc->Velocity;
 
-			var bb = f.Get<AIBlackboardComponent>(e);
+			velocity.X = velocityModifier.X != FP._0 ? velocityModifier.X : velocity.X;
+			velocity.Y = velocityModifier.Y != FP._0 ? velocityModifier.Y : velocity.Y;
+			velocity.Z = velocityModifier.Z != FP._0 ? velocityModifier.Z : velocity.Z;
 
-			var aimDirection = bb.GetVector2(f, Constants.AimDirectionKey);
-			var speedModifier = bb.GetFP(f, Constants.SpeedModifierKey);
-			var moveDirection = bb.GetVector3(f, Constants.MoveDirectionKey);
-			var maxFallSpeed = bb.GetFP(f, Constants.SkyDiveFallModKey);
-
-			// We need to set this every frame, since player input overwrites it
-			kcc->MaxSpeed *= speedModifier;
+			kcc->MaxSpeed = maxSpeed;
+			kcc->Velocity = velocity;
 
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
 			kcc->Move(f, e, moveDirection);
-
-			//set the falling velocity manually when parachuting
-			if (speedModifier != FP._1)
-				kcc->Velocity.Y = maxFallSpeed;
-
 
 			if (aimDirection.SqrMagnitude > FP._0)
 			{

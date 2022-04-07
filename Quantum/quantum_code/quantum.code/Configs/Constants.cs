@@ -16,8 +16,6 @@ namespace Quantum
 		public static readonly string StunDurationKey = "StunDuration";
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string MoveDirectionKey = "MoveDirection";
-		public static readonly string SpeedModifierKey = "SpeedModifier";
-		public static readonly string SkyDiveFallModKey = "SkyDiveFallMod";
 		public static readonly string AttackCooldownKey = "AttackCooldown";
 		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string IsAimingKey = "IsAiming";

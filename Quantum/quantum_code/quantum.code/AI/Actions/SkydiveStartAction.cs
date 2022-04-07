@@ -13,22 +13,19 @@ namespace Quantum
 	public unsafe class SkydiveStartAction : AIAction
 	{
 		public AIParamFP SkydiveHeight;
-		public AIParamFP SkydiveSpeedMultiplier;
-		public AIParamFP SkyDiveFallSpeed;
 
 		public override void Update(Frame f, EntityRef e)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			player->Activate(f, e);
-
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			
 
 			transform->Position += FPVector3.Up * SkydiveHeight.Resolve(f, e, bb, null);
-			bb->Set(f, Constants.SpeedModifierKey, SkydiveSpeedMultiplier.Resolve(f, e, bb, null));
-			bb->Set(f, Constants.SkyDiveFallModKey, SkyDiveFallSpeed.Resolve(f, e, bb, null));
-
+			
+			player->Activate(f, e);
 			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
+
 			f.Events.OnLocalPlayerSkydiveDrop(player->Player, e);
 			f.Events.OnPlayerSkydiveDrop(player->Player, e);
 		}

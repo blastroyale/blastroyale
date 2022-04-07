@@ -13,10 +13,8 @@ namespace Quantum
 	{
 		public override void Update(Frame f, EntityRef e)
 		{
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			bb->Set(f, Constants.SpeedModifierKey, FP._1);
-
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+
 			f.Events.OnLocalPlayerSkydiveLand(player->Player, e);
 			f.Events.OnPlayerSkydiveLand(player->Player, e);
 		}

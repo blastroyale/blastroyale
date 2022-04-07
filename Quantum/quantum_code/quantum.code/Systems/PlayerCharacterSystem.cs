@@ -131,24 +131,14 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 			var rotation = FPVector2.Zero;
-			var moveVelocity = FPVector3.Zero;
-			var bb = f.Get<AIBlackboardComponent>(filter.Entity);
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+			var movedirection = FPVector2.Zero;
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 
 			if (input->IsMoveButtonDown)
 			{
-				var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
-
-				if (input->IsShootButtonDown)
-				{
-					speed *= weaponConfig.AimingMovementSpeed;
-				}
-
 				rotation = input->Direction;
-				kcc->MaxSpeed = speed;
-				moveVelocity = rotation.XOY * speed;
+				movedirection = rotation;
 			}
 
 			if (input->AimingDirection.SqrMagnitude > FP._0)
@@ -156,9 +146,9 @@ namespace Quantum.Systems
 				rotation = input->AimingDirection;
 			}
 
-			bb.Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
-			bb.Set(f, Constants.AimDirectionKey, rotation);
-			bb.Set(f, Constants.MoveDirectionKey, moveVelocity);
+			bb->Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
+			bb->Set(f, Constants.AimDirectionKey, rotation);
+			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 		}
 	}
 }

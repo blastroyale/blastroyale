@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -54,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(matchmaking);
 			initial.OnExit(SubscribeEvents);
 			
-			matchmaking.OnEnter(StartMatchmaking);
+			matchmaking.OnEnter(ConnectToPhoton);
 			matchmaking.Event(ConnectedEvent).Target(connected);
 			matchmaking.Event(DisconnectedEvent).Target(final);
 
@@ -86,11 +87,29 @@ namespace FirstLight.Game.StateMachines
 			Debug.Log("OnConnectedToMaster");
 			
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var selectedRoomEntryType = _dataProvider.AppDataProvider.SelectedRoomEntryType.Value;
+			var selectedRoomName = _dataProvider.AppDataProvider.SelectedRoomName.Value;
 			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetDefaultEnterRoomParams(mapConfig);
-			var joinParams = config.GetDefaultJoinRoomParams(mapConfig);
-			
-			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
+			var enterParams = config.GetEnterRoomParams(mapConfig, selectedRoomName, selectedRoomEntryType == RoomEntryID.Matchmaking);
+			var joinRandomParams = config.GetJoinRoomParams(mapConfig);
+
+			switch (selectedRoomEntryType)
+			{
+				case RoomEntryID.Matchmaking:
+					_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
+					break;
+				
+				case RoomEntryID.JoinRoom:
+					_networkService.QuantumClient.OpJoinRoom(enterParams);
+					break;
+				
+				case RoomEntryID.CreateRoom:
+					_networkService.QuantumClient.OpCreateRoom(enterParams);
+					break;
+				
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		/// <inheritdoc />
@@ -170,7 +189,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetDefaultEnterRoomParams(info);
+			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
 			
 			_networkService.QuantumClient.OpCreateRoom(properties);
 		}
@@ -258,7 +277,7 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void StartMatchmaking()
+		private void ConnectToPhoton()
 		{
 			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
 

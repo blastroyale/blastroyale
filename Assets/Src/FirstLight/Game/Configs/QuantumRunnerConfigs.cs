@@ -63,11 +63,11 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetDefaultEnterRoomParams(MapConfig config)
+		public EnterRoomParams GetEnterRoomParams(MapConfig config, string roomName = null, bool visible = true)
 		{
 			var roomParams = new EnterRoomParams
 			{
-				RoomName = null,
+				RoomName = roomName,
 				PlayerProperties = new Hashtable(),
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
@@ -84,7 +84,7 @@ namespace FirstLight.Game.Configs
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
-					IsVisible = true,
+					IsVisible = visible,
 					MaxPlayers = (byte)config.PlayersLimit,
 					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000,
 
@@ -98,7 +98,7 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public OpJoinRandomRoomParams GetDefaultJoinRoomParams(MapConfig config)
+		public OpJoinRandomRoomParams GetJoinRoomParams(MapConfig config)
 		{
 			return new OpJoinRandomRoomParams
 			{

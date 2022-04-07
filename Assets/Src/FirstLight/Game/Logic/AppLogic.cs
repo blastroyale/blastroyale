@@ -53,18 +53,24 @@ namespace FirstLight.Game.Logic
 		/// Requests the current selected game mode <see cref="GameMode"/>.
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
-
-		// TODO - Move to MatchLogic, once that functionality transitions to the backend
-		/// <summary>
-		/// Requests the current map config in timed rotation, for the selected game mode
-		/// </summary>
-		MapConfig CurrentMapConfig { get; }
 		
 		// TODO - Move to MatchLogic, once that functionality transitions to the backend
 		/// <summary>
 		/// Requests the current map config in timed rotation, for the selected game mode
 		/// </summary>
 		IObservableField<string> SelectedRoomName { get; }
+		
+		// TODO - Move to MatchLogic, once that functionality transitions to the backend
+		/// <summary>
+		/// Requests the current game entry type
+		/// </summary>
+		IObservableField<RoomEntryID> SelectedRoomEntryType { get; }
+		
+		// TODO - Move to MatchLogic, once that functionality transitions to the backend
+		/// <summary>
+		/// Requests the current map config in timed rotation, for the selected game mode
+		/// </summary>
+		MapConfig CurrentMapConfig { get; }
 	}
 
 	/// <inheritdoc />
@@ -117,6 +123,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 		public IObservableField<string> SelectedRoomName { get; private set; }
+		public IObservableField<RoomEntryID> SelectedRoomEntryType { get; private set; }
 		
 		/// <inheritdoc />
 		public MapConfig CurrentMapConfig
@@ -125,8 +132,8 @@ namespace FirstLight.Game.Logic
 			{
 				var compatibleMaps = new List<MapConfig>();
 
-				// Filters compatible maps by game mode, and also filters out map ID 0
-				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
+				// Filters compatible maps by game mode, and also filters out map ID 0, which is FTUE map, but it imports
+				// as a Deathmatch (because it's set as FTUE mode on GSheets, which is a mode that doesn't exist for now)
 				compatibleMaps.AddRange(GameLogic.ConfigsProvider.GetConfigsList<MapConfig>()
 				                                 .Where(x => x.GameMode == SelectedGameMode.Value && x.Id > 0));
 
@@ -158,6 +165,7 @@ namespace FirstLight.Game.Logic
 
 			SelectedGameMode = new ObservableField<GameMode>(0);
 			SelectedRoomName = new ObservableField<string>("");
+			SelectedRoomEntryType = new ObservableField<RoomEntryID>(RoomEntryID.Matchmaking);
 		}
 
 		/// <inheritdoc />

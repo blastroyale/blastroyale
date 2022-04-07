@@ -4,8 +4,7 @@ using System;
 namespace Quantum
 {
 	/// <summary>
-	/// Fetches the current position of the <see cref="Transform3D"/> of the
-	/// current entity.
+	/// Returns a value of a specified <see cref="StatType"/> of the current entity.
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,

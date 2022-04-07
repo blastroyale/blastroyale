@@ -4,7 +4,7 @@ using System;
 namespace Quantum
 {
 	/// <summary>
-	/// TODO:
+	/// Takes in two <see cref="FP"/>'s and multiplies them.
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,

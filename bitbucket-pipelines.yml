@@ -5,15 +5,11 @@ pipelines:
     - parallel:
         - step:
             name: Test
-            caches:
-              - dotnetcore
             script:
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
               - cd Backend/Tests && dotnet test 
         - step:
             name: Code Analysis
-            caches:
-              - dotnetcore
             script:
               - export REPORTS_PATH=linter-reports
               - cd Backend

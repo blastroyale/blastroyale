@@ -274,7 +274,8 @@ namespace Src.FirstLight.Modules.Services.Runtime
 			image.ReadPixels(new Rect(0, 0, _camera.targetTexture.width, _camera.targetTexture.height), 0, 0);
 			image.Apply();
 			RenderTexture.active = null;
-
+			_camera.targetTexture = null;
+			
 			byte[] bytes = image.EncodeToPNG();
 			DestroyImmediate(image);
 

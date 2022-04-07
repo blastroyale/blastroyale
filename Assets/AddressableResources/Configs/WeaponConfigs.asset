@@ -33,15 +33,14 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 55706
-      AttackHitTime:
-        RawValue: 65536
+      AttackHitSpeed:
+        RawValue: 0
+      AttackAngle: 0
       AttackRange:
         RawValue: 524288
       CanHitSameTarget: 0
-      AttackAngle: 0
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 550000006e000000
     - Id: 31
@@ -59,15 +58,14 @@ MonoBehaviour:
         RawValue: 8192
       AttackCooldown:
         RawValue: 49152
-      AttackHitTime:
-        RawValue: 65536
+      AttackHitSpeed:
+        RawValue: 0
+      AttackAngle: 60
       AttackRange:
         RawValue: 104858
       CanHitSameTarget: 0
-      AttackAngle: 60
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 8d00000000000000
     - Id: 32
@@ -85,15 +83,14 @@ MonoBehaviour:
         RawValue: 9175
       AttackCooldown:
         RawValue: 13107
-      AttackHitTime:
+      AttackHitSpeed:
         RawValue: 65536
+      AttackAngle: 20
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0
-      AttackAngle: 20
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 6e00000066000000
     - Id: 34
@@ -111,15 +108,14 @@ MonoBehaviour:
         RawValue: 6554
       AttackCooldown:
         RawValue: 44564
-      AttackHitTime:
+      AttackHitSpeed:
         RawValue: 65536
+      AttackAngle: 50
       AttackRange:
         RawValue: 262144
       CanHitSameTarget: 1
-      AttackAngle: 50
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 7700000077000000
     - Id: 33
@@ -137,16 +133,15 @@ MonoBehaviour:
         RawValue: 13107
       AttackCooldown:
         RawValue: 58982
-      AttackHitTime:
-        RawValue: 0
+      AttackHitSpeed:
+        RawValue: 425984
+      AttackAngle: 0
       AttackRange:
         RawValue: 458752
       CanHitSameTarget: 0
-      AttackAngle: 0
+      IsProjectile: 1
       SplashRadius:
         RawValue: 131072
-      ProjectileSpeed:
-        RawValue: 425984
       Specials: 660000000a000000
     - Id: 35
       AssetRef:
@@ -163,15 +158,14 @@ MonoBehaviour:
         RawValue: 11141
       AttackCooldown:
         RawValue: 27525
-      AttackHitTime:
+      AttackHitSpeed:
         RawValue: 65536
+      AttackAngle: 0
       AttackRange:
         RawValue: 399770
       CanHitSameTarget: 0
-      AttackAngle: 0
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 0a00000055000000
     - Id: 36
@@ -189,15 +183,14 @@ MonoBehaviour:
         RawValue: 36045
       AttackCooldown:
         RawValue: 13107
-      AttackHitTime:
+      AttackHitSpeed:
         RawValue: 65536
+      AttackAngle: 30
       AttackRange:
         RawValue: 367002
       CanHitSameTarget: 1
-      AttackAngle: 30
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 5900000077000000
     - Id: 23
@@ -215,15 +208,14 @@ MonoBehaviour:
         RawValue: 11141
       AttackCooldown:
         RawValue: 22938
-      AttackHitTime:
+      AttackHitSpeed:
         RawValue: 65536
+      AttackAngle: 0
       AttackRange:
         RawValue: 406323
       CanHitSameTarget: 0
-      AttackAngle: 0
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 7700000066000000
     - Id: 37
@@ -241,14 +233,13 @@ MonoBehaviour:
         RawValue: 26214
       AttackCooldown:
         RawValue: 13107
-      AttackHitTime:
+      AttackHitSpeed:
         RawValue: 65536
+      AttackAngle: 20
       AttackRange:
         RawValue: 380109
       CanHitSameTarget: 1
-      AttackAngle: 20
+      IsProjectile: 0
       SplashRadius:
-        RawValue: 0
-      ProjectileSpeed:
         RawValue: 0
       Specials: 0a0000006e000000

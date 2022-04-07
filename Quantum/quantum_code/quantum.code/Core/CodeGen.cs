@@ -4026,60 +4026,88 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
-  public unsafe partial struct RaycastShot : Quantum.IComponent {
-    public const Int32 SIZE = 136;
+  public unsafe partial struct RaycastShots : Quantum.IComponent {
+    public const Int32 SIZE = 112;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(24)]
-    public FP AttackHitTime;
     [FieldOffset(16)]
+    public UInt32 AttackAngle;
+    [FieldOffset(24)]
     public EntityRef Attacker;
-    [FieldOffset(48)]
+    [FieldOffset(12)]
+    public QBoolean CanHitSameTarget;
+    [FieldOffset(72)]
     public FPVector2 Direction;
-    [FieldOffset(64)]
-    public FPVector3 LastBulletPosition;
     [FieldOffset(8)]
+    [FramePrinter.PtrQListAttribute(typeof(Int32))]
+    private Ptr LinecastQueriesPtr;
+    [FieldOffset(20)]
     public UInt32 PowerAmount;
-    [FieldOffset(88)]
-    public FPVector3 PreviousToLastBulletPosition;
     [FieldOffset(32)]
-    public FP Range;
-    [FieldOffset(112)]
-    public FPVector3 SpawnPosition;
+    public FP PreviousTime;
     [FieldOffset(40)]
+    public FP Range;
+    [FieldOffset(88)]
+    public FPVector3 SpawnPosition;
+    [FieldOffset(48)]
+    public FP Speed;
+    [FieldOffset(56)]
+    public FP SplashRadius;
+    [FieldOffset(64)]
     public FP StartTime;
     [FieldOffset(4)]
     public Int32 TeamSource;
     [FieldOffset(0)]
     public GameId WeaponConfigId;
+    public QListPtr<Int32> LinecastQueries {
+      get {
+        return new QListPtr<Int32>(LinecastQueriesPtr);
+      }
+      set {
+        LinecastQueriesPtr = value.Ptr;
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 463;
-        hash = hash * 31 + AttackHitTime.GetHashCode();
+        hash = hash * 31 + AttackAngle.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + CanHitSameTarget.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
-        hash = hash * 31 + LastBulletPosition.GetHashCode();
+        hash = hash * 31 + LinecastQueriesPtr.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
-        hash = hash * 31 + PreviousToLastBulletPosition.GetHashCode();
+        hash = hash * 31 + PreviousTime.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
         hash = hash * 31 + SpawnPosition.GetHashCode();
+        hash = hash * 31 + Speed.GetHashCode();
+        hash = hash * 31 + SplashRadius.GetHashCode();
         hash = hash * 31 + StartTime.GetHashCode();
         hash = hash * 31 + TeamSource.GetHashCode();
         hash = hash * 31 + (Int32)WeaponConfigId;
         return hash;
       }
     }
+    public void ClearPointers(Frame f, EntityRef entity) {
+      LinecastQueriesPtr = default;
+    }
+    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
+      var p = (RaycastShots*)ptr;
+      p->ClearPointers((Frame)frame, entity);
+    }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (RaycastShot*)ptr;
+        var p = (RaycastShots*)ptr;
         serializer.Stream.Serialize((Int32*)&p->WeaponConfigId);
         serializer.Stream.Serialize(&p->TeamSource);
+        QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
+        QBoolean.Serialize(&p->CanHitSameTarget, serializer);
+        serializer.Stream.Serialize(&p->AttackAngle);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
-        FP.Serialize(&p->AttackHitTime, serializer);
+        FP.Serialize(&p->PreviousTime, serializer);
         FP.Serialize(&p->Range, serializer);
+        FP.Serialize(&p->Speed, serializer);
+        FP.Serialize(&p->SplashRadius, serializer);
         FP.Serialize(&p->StartTime, serializer);
         FPVector2.Serialize(&p->Direction, serializer);
-        FPVector3.Serialize(&p->LastBulletPosition, serializer);
-        FPVector3.Serialize(&p->PreviousToLastBulletPosition, serializer);
         FPVector3.Serialize(&p->SpawnPosition, serializer);
     }
   }
@@ -4462,7 +4490,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.PlayerSpawner>(Quantum.PlayerSpawner.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Projectile>(Quantum.Projectile.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Rage>(Quantum.Rage.Serialize, null, null, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.RaycastShot>(Quantum.RaycastShot.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.RaycastShots>(Quantum.RaycastShots.Serialize, null, Quantum.RaycastShots.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Regeneration>(Quantum.Regeneration.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Shield>(Quantum.Shield.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.ShrinkingCircle>(Quantum.ShrinkingCircle.Serialize, null, null, ComponentFlags.Singleton);
@@ -4555,8 +4583,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.Projectile>();
       BuildSignalsArrayOnComponentAdded<Quantum.Rage>();
       BuildSignalsArrayOnComponentRemoved<Quantum.Rage>();
-      BuildSignalsArrayOnComponentAdded<Quantum.RaycastShot>();
-      BuildSignalsArrayOnComponentRemoved<Quantum.RaycastShot>();
+      BuildSignalsArrayOnComponentAdded<Quantum.RaycastShots>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.RaycastShots>();
       BuildSignalsArrayOnComponentAdded<Quantum.Regeneration>();
       BuildSignalsArrayOnComponentRemoved<Quantum.Regeneration>();
       BuildSignalsArrayOnComponentAdded<Quantum.Shield>();
@@ -7452,7 +7480,7 @@ namespace Quantum {
     public virtual void Visit(Prototypes.Rage_Prototype prototype) {
       VisitFallback(prototype);
     }
-    public virtual void Visit(Prototypes.RaycastShot_Prototype prototype) {
+    public virtual void Visit(Prototypes.RaycastShots_Prototype prototype) {
       VisitFallback(prototype);
     }
     public virtual void Visit(Prototypes.Regeneration_Prototype prototype) {
@@ -7509,6 +7537,7 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeAssetRefGOAPAction;
     public static FrameSerializer.Delegate SerializePlayerMatchData;
     public static FrameSerializer.Delegate SerializeSpecial;
+    public static FrameSerializer.Delegate SerializeInt32;
     public static FrameSerializer.Delegate SerializeModifier;
     public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeStatData;
@@ -7528,6 +7557,7 @@ namespace Quantum {
       SerializeAssetRefGOAPAction = Quantum.AssetRefGOAPAction.Serialize;
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
       SerializeSpecial = Quantum.Special.Serialize;
+      SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeModifier = Quantum.Modifier.Serialize;
       SerializeEntityRef = EntityRef.Serialize;
       SerializeStatData = Quantum.StatData.Serialize;
@@ -7681,7 +7711,7 @@ namespace Quantum {
       Register(typeof(QBoolean), QBoolean.SIZE);
       Register(typeof(RNGSession), RNGSession.SIZE);
       Register(typeof(Quantum.Rage), Quantum.Rage.SIZE);
-      Register(typeof(Quantum.RaycastShot), Quantum.RaycastShot.SIZE);
+      Register(typeof(Quantum.RaycastShots), Quantum.RaycastShots.SIZE);
       Register(typeof(Quantum.Regeneration), Quantum.Regeneration.SIZE);
       Register(typeof(Shape2D), Shape2D.SIZE);
       Register(typeof(Shape3D), Shape3D.SIZE);
@@ -8894,34 +8924,51 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
-  [Prototype(typeof(RaycastShot))]
-  public sealed unsafe partial class RaycastShot_Prototype : ComponentPrototype<RaycastShot> {
+  [Prototype(typeof(RaycastShots))]
+  public sealed unsafe partial class RaycastShots_Prototype : ComponentPrototype<RaycastShots> {
     public MapEntityId Attacker;
     public GameId_Prototype WeaponConfigId;
     public Int32 TeamSource;
+    [DynamicCollectionAttribute()]
+    public Int32[] LinecastQueries = {};
+    public QBoolean CanHitSameTarget;
     public FPVector3 SpawnPosition;
-    public FPVector3 LastBulletPosition;
-    public FPVector3 PreviousToLastBulletPosition;
     public FPVector2 Direction;
     public UInt32 PowerAmount;
+    public UInt32 AttackAngle;
     public FP Range;
-    public FP AttackHitTime;
+    public FP Speed;
+    public FP SplashRadius;
     public FP StartTime;
-    partial void MaterializeUser(Frame frame, ref RaycastShot result, in PrototypeMaterializationContext context);
+    public FP PreviousTime;
+    partial void MaterializeUser(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
-      RaycastShot component = default;
+      RaycastShots component = default;
       Materialize((Frame)f, ref component, in context);
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
-    public void Materialize(Frame frame, ref RaycastShot result, in PrototypeMaterializationContext context) {
-      result.AttackHitTime = this.AttackHitTime;
+    public void Materialize(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context) {
+      result.AttackAngle = this.AttackAngle;
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
+      result.CanHitSameTarget = this.CanHitSameTarget;
       result.Direction = this.Direction;
-      result.LastBulletPosition = this.LastBulletPosition;
+      if (this.LinecastQueries.Length == 0) {
+        result.LinecastQueries = default;
+      } else {
+        var list = frame.AllocateList(result.LinecastQueries, this.LinecastQueries.Length);
+        for (int i = 0; i < this.LinecastQueries.Length; ++i) {
+          Int32 tmp = default;
+          tmp = this.LinecastQueries[i];
+          list.Add(tmp);
+        }
+        result.LinecastQueries = list;
+      }
       result.PowerAmount = this.PowerAmount;
-      result.PreviousToLastBulletPosition = this.PreviousToLastBulletPosition;
+      result.PreviousTime = this.PreviousTime;
       result.Range = this.Range;
       result.SpawnPosition = this.SpawnPosition;
+      result.Speed = this.Speed;
+      result.SplashRadius = this.SplashRadius;
       result.StartTime = this.StartTime;
       result.TeamSource = this.TeamSource;
       result.WeaponConfigId = this.WeaponConfigId;
@@ -9390,7 +9437,7 @@ namespace Quantum.Prototypes {
     [ArrayLength(0, 1)]
     public List<Prototypes.Rage_Prototype> Rage;
     [ArrayLength(0, 1)]
-    public List<Prototypes.RaycastShot_Prototype> RaycastShot;
+    public List<Prototypes.RaycastShots_Prototype> RaycastShots;
     [ArrayLength(0, 1)]
     public List<Prototypes.Regeneration_Prototype> Regeneration;
     [ArrayLength(0, 1)]
@@ -9437,7 +9484,7 @@ namespace Quantum.Prototypes {
       Collect(PlayerSpawner, target);
       Collect(Projectile, target);
       Collect(Rage, target);
-      Collect(RaycastShot, target);
+      Collect(RaycastShots, target);
       Collect(Regeneration, target);
       Collect(Shield, target);
       Collect(ShrinkingCircle, target);
@@ -9520,8 +9567,8 @@ namespace Quantum.Prototypes {
       public override void Visit(Prototypes.Rage_Prototype prototype) {
         Storage.Store(prototype, ref Storage.Rage);
       }
-      public override void Visit(Prototypes.RaycastShot_Prototype prototype) {
-        Storage.Store(prototype, ref Storage.RaycastShot);
+      public override void Visit(Prototypes.RaycastShots_Prototype prototype) {
+        Storage.Store(prototype, ref Storage.RaycastShots);
       }
       public override void Visit(Prototypes.Regeneration_Prototype prototype) {
         Storage.Store(prototype, ref Storage.Regeneration);

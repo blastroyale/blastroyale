@@ -7,6 +7,7 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -16,8 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </remarks>
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
-		[SerializeField] private AdventureCharacterViewMonoComponent _adventureCharacterView;
-		[SerializeField] private bool _isDebugMode;
+		[FormerlySerializedAs("_adventureCharacterView")] [SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		public Transform RootTransform;
 
@@ -49,17 +49,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
-
-			// TODO: Check if we're in BR mode
-			AnimatorWrapper.SetBool(Bools.Flying, true);
 		}
 
-		protected override void OnInit()
+		protected override void OnInit(QuantumGame game)
 		{
-			base.OnInit();
+			base.OnInit(game);
 
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var frame = game.Frames.Verified;
 
+			AnimatorWrapper.SetBool(Bools.Flying, frame.RuntimeConfig.GameMode == GameMode.BattleRoyale);
 			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef)
 				                           ? Triggers.Die
 				                           : Triggers.Spawn);
@@ -241,15 +239,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var weapons = await _adventureCharacterView.EquipWeapon(callback.Weapon.GameId);
+			var weapons = await _characterView.EquipWeapon(callback.Weapon.GameId);
 
-			foreach (var weapon in weapons)
+			for (var i = 0; i < weapons.Count; i++)
 			{
-				var components = weapon.GetComponents<EntityViewBase>();
+				var components = weapons[i].GetComponents<EntityViewBase>();
 
 				foreach (var entityViewBase in components)
 				{
-					entityViewBase.SetEntityView(EntityView);
+					entityViewBase.SetEntityView(callback.Game, EntityView);
 				}
 			}
 		}
@@ -340,13 +338,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_lastPosition = currentPosition;
-
-			if (!_isDebugMode)
-			{
-				return;
-			}
-
-			DebugAttackGizmos(callback.Game);
 		}
 
 
@@ -368,38 +359,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			AnimatorWrapper.SetBool(Bools.Flying, false);
-		}
-
-		private void DebugAttackGizmos(QuantumGame game)
-		{
-#if UNITY_EDITOR
-			var f = game.Frames.Verified;
-
-			if (!f.TryGet<PlayerCharacter>(EntityRef, out var playerCharacter))
-			{
-				return;
-			}
-
-			var weapon =
-				Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) playerCharacter.CurrentWeapon.GameId);
-			var position = _lastPosition + Vector3.up;
-			var angleCount = FPMath.FloorToInt(weapon.AttackAngle / Constants.RaycastAngleSplit) + 1;
-			var angle = -(int) weapon.AttackAngle / FP._2;
-			var angleStep = weapon.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
-			var aimingDirection =
-				f.Get<AIBlackboardComponent>(EntityRef).GetVector2(f, Constants.AimDirectionKey).Normalized *
-				weapon.AttackRange;
-
-			for (var i = 0; i < angleCount; i++)
-			{
-				var direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad);
-
-				Debug.DrawLine(position, position + direction.XOY.ToUnityVector3(),
-				               i == Mathf.FloorToInt(angleCount / 2f) ? Color.red : Color.black);
-
-				angle += angleStep;
-			}
-#endif
 		}
 	}
 }

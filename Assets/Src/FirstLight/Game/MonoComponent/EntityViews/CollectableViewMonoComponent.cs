@@ -28,14 +28,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_animation = _animation ? _animation : GetComponent<Animation>();
 		}
 
-		protected override void OnInit()
+		protected override void OnAwake()
 		{
-			base.OnInit();
-			
-			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 			QuantumEvent.Subscribe<EventOnLocalStartedCollecting>(this, OnLocalStartedCollecting);
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
+		}
 
+		protected override void OnInit(QuantumGame game)
+		{
+			base.OnInit(game);
+			
+			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 			PlayAnimation(_spawnClip);
 
 			this.LateCoroutineCall(_animation.clip.length, () => PlayAnimation(_idleClip));

@@ -14,11 +14,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IObjectPool<ProjectileViewMonoComponent> _pool;
 
-		protected override void OnInit()
+		protected override void OnAwake()
+		{
+			QuantumEvent.Subscribe<EventOnProjectileFired>(this, OnEventOnProjectileFired);
+		}
+
+		protected override void OnInit(QuantumGame game)
 		{
 			_pool = new GameObjectPool<ProjectileViewMonoComponent>(4, _projectile);
-			
-			QuantumEvent.Subscribe<EventOnProjectileFired>(this, OnEventOnProjectileFired);
 		}
 		
 		private void OnEventOnProjectileFired(EventOnProjectileFired callback)
@@ -36,7 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				
 				projectile.OnEntityDestroyed.AddListener(_ => DespawnProjectileAsset(go));
 				
-				go.SetEntityView(projectile);
+				go.SetEntityView(callback.Game, projectile);
 			}
 		}
 

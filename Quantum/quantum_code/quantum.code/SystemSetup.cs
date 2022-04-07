@@ -16,6 +16,7 @@ namespace Quantum
 				// Initial Systems
 				new SystemInitializer(),
 				new AiPreUpdateSystem(),
+				new PreRaycastShotsSystem(),
 				
 				// pre-defined core systems
 				new Core.PhysicsSystem3D(),
@@ -37,7 +38,7 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
-				new RaycastShotSystem(),
+				new RaycastShotsSystem(),
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),

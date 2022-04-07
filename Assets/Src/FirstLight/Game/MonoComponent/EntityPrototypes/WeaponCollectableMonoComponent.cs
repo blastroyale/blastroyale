@@ -32,7 +32,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
 
-			_collectableView.SetEntityView(EntityView);
+			_collectableView.SetEntityView(game, EntityView);
 		}
 	}
 }

@@ -123,6 +123,11 @@ namespace FirstLight.Game.Presenters
 
 		private void OnJoinedRoom(MatchJoinedRoomMessage message)
 		{
+			if (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
+			{
+				return;
+			}
+			
 			var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
 			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
 			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
@@ -148,6 +153,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayersWaitingImages()
 		{
+			if (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
+			{
+				return;
+			}
+			
 			var playersInRoom = (int)_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 			var maxPlayers = (int) _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers;
 			

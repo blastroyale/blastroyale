@@ -9,7 +9,7 @@ pipelines:
               - dotnetcore
             script:
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
-              - cd Backend && dotnet test 
+              - cd Backend/Test && dotnet test 
         - step:
             name: Code Analysis
             caches:

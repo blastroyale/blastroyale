@@ -607,6 +607,7 @@ namespace I2.Loc
 			public static string RoomJoinCode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCode"); } }
 			public static string RoomJoinButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinButton"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
+			public static string RoomJoinError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomErrorJoin"); } }
 			public static string SFX 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SFX"); } }
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }

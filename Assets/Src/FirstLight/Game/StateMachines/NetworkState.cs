@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
+using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -181,23 +182,23 @@ namespace FirstLight.Game.StateMachines
 		{
 			Debug.Log($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 			
-			// In case the player cannot rejoin anymore
-			if (returnCode == ErrorCode.OperationNotAllowedInCurrentState)
-			{
-				_statechartTrigger(DisconnectedEvent);
-				return;
-			}
-
-			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
+			_statechartTrigger(DisconnectedEvent);
 
 			if (_dataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
 			{
+				var info = _dataProvider.AppDataProvider.CurrentMapConfig;
+				var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
 				_networkService.QuantumClient.OpCreateRoom(properties);
 			}
 			else
 			{
-				
+				/*var errorText = string.Format(ScriptLocalization.MainMenu.RoomJoinError, returnCode.ToString());
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK
+				};
+
+				_services.GenericDialogService.OpenDialog(errorText, false, confirmButton);*/
 			}
 		}
 

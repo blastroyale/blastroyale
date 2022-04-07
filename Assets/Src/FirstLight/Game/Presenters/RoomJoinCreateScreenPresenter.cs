@@ -59,7 +59,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = roomNameInput;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = roomNameInput.ToUpper();
 			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.JoinRoom;
 			Data.PlayClicked.Invoke();
 		}
@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters
 		private void CreateRoomClicked()
 		{
 			// Get a short room name code so it's easily shareable, visible on the UI
-			string roomName = Guid.NewGuid().ToString().Substring(0,6);
+			string roomName = Guid.NewGuid().ToString().Substring(0,6).ToUpper();
 			
 			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = roomName;
 			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.CreateRoom;

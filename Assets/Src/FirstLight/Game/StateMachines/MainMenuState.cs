@@ -47,7 +47,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly CratesMenuState _cratesMenuState;
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
-		private readonly RoomJoinCreateMenuState _roomJoinCreateState;
 		private readonly ShopMenuState _shopMenuState;
 		private Type _currentScreen;
 
@@ -64,7 +63,6 @@ namespace FirstLight.Game.StateMachines
 			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
-			_roomJoinCreateState = new RoomJoinCreateMenuState(services, uiService, gameDataProvider, statechartTrigger, _roomJoinCreateCloseClickedEvent);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 		}
 

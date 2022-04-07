@@ -66,8 +66,9 @@ namespace FirstLight.Game.Presenters
 			
 			
 			_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
-	
-
+			_services.MessageBrokerService.Subscribe<PlayerJoinedMatchMessage>(OnPlayerJoinedRoom);
+			_services.MessageBrokerService.Subscribe<PlayerLeftMatchMessage>(OnPlayerLeftRoom);
+			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
@@ -108,8 +109,11 @@ namespace FirstLight.Game.Presenters
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
-			
-			StartCoroutine(TimeUpdateCoroutine(config));
+
+			if (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
+			{
+				StartCoroutine(TimeUpdateCoroutine(config));
+			}
 		}
 
 		protected override void OnClosed()
@@ -119,15 +123,40 @@ namespace FirstLight.Game.Presenters
 
 		private void OnJoinedRoom(MatchJoinedRoomMessage message)
 		{
-			Player masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
-			Player localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
-			bool localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
+			var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
+			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
+			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
 			
-			bool canShowLockButton = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
+			var canShowLockButton = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
 			                         (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking && localPlayerIsMaster);
 			
 			Debug.LogError("JOINED ROOM, LOCAL IS MASTER? = " + localPlayerIsMaster);
 			_lockRoomButton.gameObject.SetActive(canShowLockButton);
+			
+			UpdatePlayersWaitingImages();
+		}
+
+		private void OnPlayerJoinedRoom(PlayerJoinedMatchMessage message)
+		{
+			UpdatePlayersWaitingImages();
+		}
+		
+		private void OnPlayerLeftRoom(PlayerLeftMatchMessage message)
+		{
+			UpdatePlayersWaitingImages();
+		}
+
+		private void UpdatePlayersWaitingImages()
+		{
+			var playersInRoom = (int)_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
+			var maxPlayers = (int) _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers;
+			
+			for (var i = 0; i < _playersWaitingImage.Length; i++)
+			{
+				_playersWaitingImage[i].gameObject.SetActive((i+1) <= playersInRoom);
+			}
+			
+			_playersFoundText.text = $"{playersInRoom.ToString()}/{maxPlayers.ToString()}" ;
 		}
 
 		private void OnSceneChanged(Scene previous, Scene current)

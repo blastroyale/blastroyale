@@ -46,18 +46,18 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var matchmaking = stateFactory.State("Matchmaking");
+			var roomEntry = stateFactory.State("Room Entry");
 			var reconnecting = stateFactory.State("Reconnecting");
 			var connected = stateFactory.State("Connected");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnecting = stateFactory.State("Disconnecting");
 
-			initial.Transition().Target(matchmaking);
+			initial.Transition().Target(roomEntry);
 			initial.OnExit(SubscribeEvents);
 			
-			matchmaking.OnEnter(ConnectToPhoton);
-			matchmaking.Event(ConnectedEvent).Target(connected);
-			matchmaking.Event(DisconnectedEvent).Target(final);
+			roomEntry.OnEnter(ConnectToPhoton);
+			roomEntry.Event(ConnectedEvent).Target(connected);
+			roomEntry.Event(DisconnectedEvent).Target(final);
 
 			connected.Event(DisconnectedEvent).Target(final);
 			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
@@ -190,8 +190,15 @@ namespace FirstLight.Game.StateMachines
 
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
 			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
-			
-			_networkService.QuantumClient.OpCreateRoom(properties);
+
+			if (_dataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
+			{
+				_networkService.QuantumClient.OpCreateRoom(properties);
+			}
+			else
+			{
+				
+			}
 		}
 
 		/// <inheritdoc />
@@ -211,6 +218,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			Debug.Log($"OnPlayerEnteredRoom {player.NickName}");
 
+			_services.MessageBrokerService.Publish(new PlayerJoinedMatchMessage{ player = player });
+			
 			if (_networkService.QuantumClient.CurrentRoom.PlayerCount ==
 			    _networkService.QuantumClient.CurrentRoom.MaxPlayers)
 			{
@@ -222,6 +231,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			Debug.Log($"OnPlayerLeftRoom {player.NickName}");
+			_services.MessageBrokerService.Publish(new PlayerLeftMatchMessage(){ player = player });
 		}
 
 		/// <inheritdoc />

@@ -5,6 +5,7 @@ using Backend.Util;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ServerModels;
 
@@ -25,6 +26,7 @@ namespace Backend.Functions
 		{
 			var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 			var server = new PlayFabServerInstanceAPI(context.ApiSettings, context.AuthenticationContext);
+
 			var request = new UpdateUserDataRequest
 			{
 				Data = context.FunctionArgument.Data, 

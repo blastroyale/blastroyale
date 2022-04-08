@@ -14,6 +14,7 @@ namespace Quantum
 		public AIParamFPVector3 First;
 		public AIParamFPVector3 Second;
 
+		/// <inheritdoc />
 		public override FPVector3 Execute(Frame f, EntityRef e)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);

@@ -12,6 +12,7 @@ namespace Quantum
 	                   GenerateAssetResetMethod = false)]
 	public class TransformPositionFunction : AIFunction<FPVector3>
 	{
+		/// <inheritdoc />
 		public override FPVector3 Execute(Frame f, EntityRef e)
 		{
 			return f.Get<Transform3D>(e).Position;

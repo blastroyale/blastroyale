@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -146,6 +147,7 @@ namespace Quantum {
     Equipment = 12,
     Helmet = 13,
     Boots = 14,
+    BotItem = 4,
     Shield = 15,
     Amulet = 16,
     Armor = 17,

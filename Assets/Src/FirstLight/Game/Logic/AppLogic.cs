@@ -110,32 +110,9 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
-		
+
 		/// <inheritdoc />
-		public MapConfig CurrentMapConfig
-		{
-			get
-			{
-				var compatibleMaps = new List<MapConfig>();
-
-				// Filters compatible maps by game mode, and also filters out map ID 0
-				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
-				compatibleMaps.AddRange(GameLogic.ConfigsProvider.GetConfigsList<MapConfig>()
-				                                 .Where(x => x.GameMode == SelectedGameMode.Value && x.Id > 0));
-
-				var morning = DateTime.Today;
-				var now = DateTime.UtcNow;
-				var span = now - morning;
-				var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
-
-				if (timeSegmentIndex >= compatibleMaps.Count)
-				{
-					timeSegmentIndex -= (compatibleMaps.Count * (timeSegmentIndex / compatibleMaps.Count));
-				}
-
-				return compatibleMaps[timeSegmentIndex];
-			}
-		}
+		public MapConfig CurrentMapConfig => GetCurrentMapConfig();
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -161,6 +138,33 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
+		}
+
+		private MapConfig GetCurrentMapConfig()
+		{
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+			var compatibleMaps = new List<MapConfig>();
+			var now = DateTime.UtcNow;
+			var midnight = DateTime.Now.Date.ToUniversalTime();
+			var span = now - midnight;
+			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
+
+			foreach (var config in configs)
+			{
+				// Filters compatible maps by game mode, and also filters out map ID 0
+				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
+				if (config.Value.GameMode == SelectedGameMode.Value && config.Value.Id > 0)
+				{
+					compatibleMaps.Add(config.Value);
+				}
+			}
+
+			if (timeSegmentIndex >= compatibleMaps.Count)
+			{
+				timeSegmentIndex %= compatibleMaps.Count;
+			}
+
+			return compatibleMaps[timeSegmentIndex];
 		}
 	}
 }

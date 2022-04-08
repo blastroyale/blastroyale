@@ -100,7 +100,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
 		}
 
-		protected override void OnInit()
+		protected override void OnInit(QuantumGame game)
 		{
 			RigidbodyContainerMonoComponent.SetState(false);
 

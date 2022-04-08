@@ -1,0 +1,17 @@
+component RaycastShots
+{
+	entity_ref Attacker;
+	GameId WeaponConfigId;
+	Int32 TeamSource;
+	list<Int32> LinecastQueries;
+	bool CanHitSameTarget;
+	FPVector3 SpawnPosition;
+	FPVector2 Direction;
+	UInt32 PowerAmount;
+	UInt32 AttackAngle;
+	FP Range;
+	FP Speed;
+	FP SplashRadius;
+	FP StartTime;
+	FP PreviousTime;    // The last time tick that this raycast shot was processed
+}

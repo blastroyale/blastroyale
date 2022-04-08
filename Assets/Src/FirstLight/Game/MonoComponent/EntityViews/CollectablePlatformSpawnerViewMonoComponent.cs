@@ -16,9 +16,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private TextMeshPro _text;
 		[SerializeField] private Image _progressIndicator;
 		
-		protected override void OnInit()
+		protected override void OnInit(QuantumGame game)
 		{
-			base.OnInit();
+			base.OnInit(game);
 			
 			_text.text = "";
 			_progressIndicator.fillAmount = 0f;

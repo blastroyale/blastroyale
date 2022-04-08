@@ -9,7 +9,7 @@ using UnityEngine;
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
 	/// <inheritdoc />
-	public class AdventureCharacterViewMonoComponent : CharacterEquipmentMonoComponent
+	public class MatchCharacterViewMonoComponent : CharacterEquipmentMonoComponent
 	{
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
@@ -31,7 +31,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			await Task.WhenAll(list);
 
-			if (this.IsDestroyed())
+			var runner = QuantumRunner.Default;
+
+			if (this.IsDestroyed() || runner == null)
 			{
 				return;
 			}
@@ -44,7 +46,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				foreach (var entityViewBase  in components)
 				{
-					entityViewBase.SetEntityView(entityView);	
+					entityViewBase.SetEntityView(runner.Game, entityView);	
 				}
 			}
 		}

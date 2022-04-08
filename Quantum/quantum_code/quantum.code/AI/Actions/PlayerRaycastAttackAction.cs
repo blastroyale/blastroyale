@@ -24,32 +24,28 @@ namespace Quantum
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
 			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized;
-			var angleCount = FPMath.FloorToInt(weaponConfig.AttackAngle / Constants.RaycastAngleSplit) + 1;
-			var angleStep = weaponConfig.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
-			var angle = -(int) weaponConfig.AttackAngle / FP._2;
+			var raycastShot = new RaycastShots
+			{
+				Attacker = e,
+				WeaponConfigId = weaponConfig.Id,
+				TeamSource = team,
+				SpawnPosition = position,
+				Direction = aimingDirection,
+				StartTime = f.Time,
+				PreviousTime = f.Time,
+				PowerAmount = powerAmount,
+				AttackAngle = weaponConfig.AttackAngle,
+				Range = weaponConfig.AttackRange,
+				Speed = weaponConfig.AttackHitSpeed,
+				SplashRadius = weaponConfig.SplashRadius,
+				CanHitSameTarget = weaponConfig.CanHitSameTarget
+			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
+			
+			f.Add(f.Create(), raycastShot);
 			f.Events.OnPlayerAttack(player, e);
 			f.Events.OnLocalPlayerAttack(player, e);
-			
-			for (var i = 0; i < angleCount; i++)
-			{
-				var raycastShot = new RaycastShot
-				{
-					Attacker = e,
-					WeaponConfigId = weaponConfig.Id,
-					TeamSource = team,
-					SpawnPosition = position,
-					Direction = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).Normalized,
-					PowerAmount = powerAmount,
-					Range = weaponConfig.AttackRange,
-					AttackHitTime = weaponConfig.AttackHitTime
-				};
-				
-				RaycastShot.Create(f, raycastShot);
-				
-				angle += angleStep;
-			}
 		}
 	}
 }

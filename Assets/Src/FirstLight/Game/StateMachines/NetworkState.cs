@@ -87,8 +87,8 @@ namespace FirstLight.Game.StateMachines
 			
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetDefaultEnterRoomParams(info);
-			var joinParams = config.GetDefaultJoinRoomParams(info);
+			var enterParams = config.GetEnterRoomParams(info);
+			var joinParams = config.GetJoinRandomRoomParams(info);
 			
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
 		}
@@ -170,7 +170,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetDefaultEnterRoomParams(info);
+			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
 			
 			_networkService.QuantumClient.OpCreateRoom(properties);
 		}

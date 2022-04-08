@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Quantum;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -19,24 +22,49 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField] private RectTransform _selectedPoint;
 		[SerializeField] private Camera _uiCamera;
-
+		[SerializeField] private AspectRatioFitter _aspectRatioFitter;	
+		[SerializeField] private Image _mapImage;
+		
+		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
+		private RectTransform _rectTransform;
+		private bool _selectionEnabled = false;
+		
 		/// <summary>
 		/// Returns the player's selected point on the map in a normalized state
 		/// </summary>
 		public Vector2 NormalizedSelectionPoint { get; private set; }
 
-		private IGameServices _services;
-		private RectTransform _rectTransform;
-
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_rectTransform = transform as RectTransform;
-
-			SetGridPosition(GetRandomGridPosition());
 		}
 
+		public async void OnEnable()
+		{
+			_mapImage.enabled = false;
+			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_dataProvider.AppDataProvider.CurrentMapConfig.Map, false);
+			_mapImage.enabled = true;
+			
+			_selectionEnabled = _dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.BattleRoyale;
+
+			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
+			_selectedPoint.gameObject.SetActive(_selectionEnabled);
+			
+			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
+			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
+			// images on the UI, but then landing location grid will be completely broken for BR game mode
+			float aspectRatioPercent = (_mapImage.preferredWidth / _mapImage.preferredHeight);
+			_aspectRatioFitter.aspectRatio = aspectRatioPercent;
+
+			if (_selectionEnabled)
+			{
+				SetGridPosition(GetRandomGridPosition());
+			}
+		}
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
@@ -48,7 +76,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 
-			if (!gridConfig.IsValid)
+			if (!gridConfig.IsValid || !_selectionEnabled)
 			{
 				return;
 			}

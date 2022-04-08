@@ -146,7 +146,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.RewardsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/RoomJoinCreateScreen.prefab
-    Layer: 5
+    Layer: 0
     UiType: FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Settings Screen.prefab

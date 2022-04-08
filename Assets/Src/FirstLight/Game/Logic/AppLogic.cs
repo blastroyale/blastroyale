@@ -110,7 +110,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
-		
+
 		/// <inheritdoc />
 		public MapConfig CurrentMapConfig
 		{
@@ -118,8 +118,8 @@ namespace FirstLight.Game.Logic
 			{
 				var compatibleMaps = new List<MapConfig>();
 
-				// Filters compatible maps by game mode, and also filters out map ID 0
-				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
+				// Filters compatible maps by game mode, and also filters out map ID 0, which is FTUE map, but it imports
+				// as a Deathmatch (because it's set as FTUE mode on GSheets, which is a mode that doesn't exist for now)
 				compatibleMaps.AddRange(GameLogic.ConfigsProvider.GetConfigsList<MapConfig>()
 				                                 .Where(x => x.GameMode == SelectedGameMode.Value && x.Id > 0));
 

@@ -3,7 +3,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Services;
 using UnityEngine;
 
-namespace Backend.Game;
+namespace Tests.Stubs;
 
 public class TestServerAudio : IAudioFxService<AudioId>
 {

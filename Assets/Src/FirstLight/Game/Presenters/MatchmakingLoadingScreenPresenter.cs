@@ -82,7 +82,7 @@ namespace FirstLight.Game.Presenters
 			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 			var selectedRoomEntryType = _gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value;
 			var selectedRoomName = _gameDataProvider.AppDataProvider.SelectedRoomName.Value;
-			
+
 			// Only show room code if player is coming from custom game - join/create
 			if (selectedRoomEntryType != RoomEntryID.Matchmaking && !string.IsNullOrEmpty(selectedRoomName))
 			{
@@ -106,6 +106,8 @@ namespace FirstLight.Game.Presenters
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
+			
+			MapSelectionView.InitSelection(_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.BattleRoyale);
 
 			if (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
 			{

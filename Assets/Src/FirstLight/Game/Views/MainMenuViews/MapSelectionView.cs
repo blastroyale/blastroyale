@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -16,25 +17,45 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class MapSelectionView : MonoBehaviour, IPointerClickHandler
 	{
+		[SerializeField] private RectTransform _mapRect;
 		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField] private RectTransform _selectedPoint;
 		[SerializeField] private Camera _uiCamera;
+		[SerializeField] private AspectRatioFitter _aspectRatioFitter;
 
+		private IGameServices _services;
+		private RectTransform _rectTransform;
+		private bool _selectionEnabled = false;
+		
 		/// <summary>
 		/// Returns the player's selected point on the map in a normalized state
 		/// </summary>
 		public Vector2 NormalizedSelectionPoint { get; private set; }
-
-		private IGameServices _services;
-		private RectTransform _rectTransform;
 
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_rectTransform = transform as RectTransform;
+		}
 
-			SetGridPosition(GetRandomGridPosition());
+		public void InitSelection(bool selectionEnabled)
+		{
+			_selectionEnabled = selectionEnabled;
+
+			_selectedDropAreaText.gameObject.SetActive(selectionEnabled);
+			_selectedPoint.gameObject.SetActive(selectionEnabled);
+
+			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
+			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
+			// images on the UI, but then landing location grid will be completely broken for BR game mode
+			float aspectRatioPercent = (_mapRect.rect.width / _mapRect.rect.height);
+			_aspectRatioFitter.aspectRatio = aspectRatioPercent;
+			
+			if (selectionEnabled)
+			{
+				SetGridPosition(GetRandomGridPosition());
+			}
 		}
 
 		/// <inheritdoc />

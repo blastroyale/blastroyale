@@ -28,7 +28,7 @@ namespace Quantum
 		                   uint trophies, GameId skin, Equipment playerWeapon, Equipment[] playerGear)
 		{
 			var blackboard = new AIBlackboardComponent();
-
+			var kcc = new CharacterController3D();
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
 			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, 
@@ -36,8 +36,10 @@ namespace Quantum
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
+			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 
 			f.Add(e, blackboard);
+			f.Add(e, kcc);
 
 			if (!f.WeaponConfigs.GetConfig(playerWeapon.GameId).IsMeleeWeapon)
 			{
@@ -153,6 +155,7 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 
 			f.Events.OnPlayerWeaponChanged(Player, e, weapon);
@@ -256,16 +259,11 @@ namespace Quantum
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)
 		{
-			var kcc = new CharacterController3D();
-
-			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 			QuantumStatCalculator.CalculateStats(f, playerGear, out var armour, out var health, out var speed);
 
 			health += f.GameConfig.PlayerDefaultHealth;
 			speed += f.GameConfig.PlayerDefaultSpeed;
-			kcc.MaxSpeed = speed;
 
-			f.Add(e, kcc);
 			f.Add(e, new Stats(health, 0, speed, armour, f.GameConfig.PlayerDefaultInterimArmour));
 		}
 	}

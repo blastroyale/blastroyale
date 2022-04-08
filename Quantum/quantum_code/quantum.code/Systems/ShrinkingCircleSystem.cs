@@ -81,10 +81,21 @@ namespace Quantum.Systems
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
-			circle->TargetRadius = circle->CurrentRadius * FPMath.Clamp(gameConfig.ShrinkingSizeK * circle->Step, FP._0_10, FP._0_50);
-			circle->TargetCircleCenter += new FPVector2(f.RNG->NextInclusive(-borderK, borderK), 
-			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->CurrentRadius;
-			
+			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
+
+			//the centerpoint of the target circle cannot interesect with the edge of the current circle.
+			//so the target circle position cannot be more than X units away from the current targetCricleCenter
+			//where X is the radius of the current circle - the radius of the target circle 
+
+			FP maxDist = circle->CurrentRadius - circle->TargetRadius;
+			var newCenterPoint = FPVector2.Normalize(new FPVector2(
+				f.RNG->NextInclusive(-maxDist, maxDist),
+				f.RNG->NextInclusive(-maxDist, maxDist)))
+				* maxDist;
+
+
+			circle->TargetCircleCenter = newCenterPoint + circle->CurrentCircleCenter;
+
 			f.Events.OnNewShrinkingCircle(*circle);
 		}
 

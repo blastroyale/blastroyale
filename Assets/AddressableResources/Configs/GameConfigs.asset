@@ -32,15 +32,15 @@ MonoBehaviour:
       GoToNextMatchForceTime:
         RawValue: 655360
       ShrinkingSizeK:
-        RawValue: 19660
+        RawValue: 45875
       ShrinkingBorderK:
-        RawValue: 104857
-      ShrinkingDamageCooldown:
         RawValue: 65536
-      ShrinkingDamage: 40
+      ShrinkingDamageCooldown:
+        RawValue: 13107200
+      ShrinkingDamage: 20
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
-        RawValue: 262144
+        RawValue: 216268
       PlayerDefaultInterimArmour: 1000
       CoinsPerRank: 30
       XpPerRank: 20

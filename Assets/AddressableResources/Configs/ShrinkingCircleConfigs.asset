@@ -20,36 +20,64 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 524288
+        RawValue: 65536
       WarningTime:
-        RawValue: 655360
+        RawValue: 65536
       ShrinkingTime:
-        RawValue: 5898240
+        RawValue: 65536
     - Step: 2
       DelayTime:
-        RawValue: 131072
+        RawValue: 65536
       WarningTime:
-        RawValue: 983040
+        RawValue: 65536
       ShrinkingTime:
-        RawValue: 1310720
+        RawValue: 65536
     - Step: 3
       DelayTime:
-        RawValue: 131072
+        RawValue: 65536
       WarningTime:
-        RawValue: 983040
+        RawValue: 65536
       ShrinkingTime:
-        RawValue: 1966080
+        RawValue: 65536
     - Step: 4
       DelayTime:
-        RawValue: 131072
+        RawValue: 65536
       WarningTime:
-        RawValue: 655360
+        RawValue: 65536
       ShrinkingTime:
-        RawValue: 1310720
+        RawValue: 65536
     - Step: 5
       DelayTime:
-        RawValue: 131072
+        RawValue: 65536
       WarningTime:
-        RawValue: 327680
+        RawValue: 65536
       ShrinkingTime:
-        RawValue: 655360
+        RawValue: 65536
+    - Step: 6
+      DelayTime:
+        RawValue: 65536
+      WarningTime:
+        RawValue: 65536
+      ShrinkingTime:
+        RawValue: 65536
+    - Step: 7
+      DelayTime:
+        RawValue: 65536
+      WarningTime:
+        RawValue: 65536
+      ShrinkingTime:
+        RawValue: 65536
+    - Step: 8
+      DelayTime:
+        RawValue: 65536
+      WarningTime:
+        RawValue: 65536
+      ShrinkingTime:
+        RawValue: 65536
+    - Step: 9
+      DelayTime:
+        RawValue: 65536
+      WarningTime:
+        RawValue: 65536
+      ShrinkingTime:
+        RawValue: 65536

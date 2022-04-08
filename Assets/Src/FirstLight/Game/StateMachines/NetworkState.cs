@@ -97,11 +97,10 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnDisconnected(DisconnectCause cause)
 		{
-			_statechartTrigger(DisconnectedEvent);
-
 			FLog.Info("OnDisconnected " + cause);
 
 			_services.MessageBrokerService.Publish(new MatchDisconnectedMessage {Cause = cause});
+			_statechartTrigger(DisconnectedEvent);
 		}
 
 		/// <inheritdoc />
@@ -137,9 +136,9 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
-			_statechartTrigger(DisconnectedEvent);
-
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
+
+			_statechartTrigger(DisconnectedEvent);
 		}
 
 		/// <inheritdoc />
@@ -148,12 +147,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnJoinedRoom");
 
 			_services.MessageBrokerService.Publish(new MatchJoinedRoomMessage());
-
-			if (!_networkService.QuantumClient.CurrentRoom.IsOpen)
-			{
-				_statechartTrigger(ConnectedEvent);
-				return;
-			}
+			_statechartTrigger(ConnectedEvent);
 
 			StartLockRoomTimer();
 		}
@@ -204,11 +198,6 @@ namespace FirstLight.Game.StateMachines
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
 			FLog.Info("OnRoomPropertiesUpdate");
-
-			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
-			{
-				_statechartTrigger(ConnectedEvent);
-			}
 		}
 
 		/// <inheritdoc />

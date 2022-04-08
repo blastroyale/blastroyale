@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -17,6 +15,7 @@ using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.StateMachines
@@ -28,6 +27,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
 
+		private static readonly IStatechartEvent _roomClosedEvent = new StatechartEvent("Room Closed Event");
 		private static readonly IStatechartEvent _loadingComplete = new StatechartEvent("Loading Complete");
 		private static readonly IStatechartEvent _leaveMatchEvent = new StatechartEvent("Leave Match Event");
 
@@ -64,6 +64,7 @@ namespace FirstLight.Game.StateMachines
 			var connecting = stateFactory.State("Connecting Screen");
 			var connectedCheck = stateFactory.Choice("Connected Check");
 			var assetPreload = stateFactory.State("Asset Preload");
+			var matchmaking = stateFactory.State("Matchmaking");
 			var assetPreloadCheck = stateFactory.Choice("Asset Preload Check");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
@@ -75,21 +76,24 @@ namespace FirstLight.Game.StateMachines
 
 			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
 
-			connectedCheck.Transition().Condition(IsConnected).Target(assetPreloadCheck);
+			connectedCheck.Transition().Condition(IsConnected).Target(matchmaking);
 			connectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
 			connectedCheck.Transition().Target(connecting);
 
-			connecting.Event(NetworkState.ConnectedEvent).Target(assetPreloadCheck);
+			connecting.Event(NetworkState.ConnectedEvent).Target(matchmaking);
 			connecting.Event(NetworkState.DisconnectedEvent).Target(disconnected);
 
-			assetPreloadCheck.Transition().Condition(OnlyLocalPlayer).Target(gameSimulation);
-			assetPreloadCheck.Transition().Condition(IsPreloadCompleted).Target(gameSimulation);
+			matchmaking.Event(_roomClosedEvent).Target(assetPreloadCheck);
+
+			assetPreloadCheck.Transition().Condition(CanSkipPreload).Target(gameSimulation);
 			assetPreloadCheck.Transition().Target(assetPreload);
 
 			assetPreload.Event(_loadingComplete).Target(gameSimulation);
 
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.DisconnectedEvent).Target(disconnected);
+			gameSimulation.OnEnter(() => FLog.Info("PACO", "Game Simulation Enter"));
+			gameSimulation.OnExit(() => FLog.Info("PACO", "Game Simulation Exit"));
 
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.OnEnter(CloseLoadingScreen);
@@ -285,14 +289,10 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private bool IsPreloadCompleted()
+		private bool CanSkipPreload()
 		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount == _loadedPlayers;
-		}
-
-		private bool OnlyLocalPlayer()
-		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount == 1;
+			return _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount == _loadedPlayers ||
+			       _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount == 1;
 		}
 
 		public void OnPlayerEnteredRoom(Player player)
@@ -302,6 +302,7 @@ namespace FirstLight.Game.StateMachines
 			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
 			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers)
 			{
+				_statechartTrigger(_roomClosedEvent);
 				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 			}
 		}
@@ -328,7 +329,10 @@ namespace FirstLight.Game.StateMachines
 
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
-			// Nothing
+			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
+			{
+				_statechartTrigger(_roomClosedEvent);
+			}
 		}
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

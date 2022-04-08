@@ -26,29 +26,8 @@ namespace FirstLight.Game.Commands
 		{
 			var info = gameLogic.EquipmentDataProvider.GetEquipmentInfo(ItemId);
 			var saleCost = info.SellCost;
-			var converter = new StringEnumConverter();
-			
 			gameLogic.EquipmentLogic.Sell(ItemId);
 			gameLogic.CurrencyLogic.AddCurrency(GameId.SC, saleCost);
-
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
-				{
-					Command = nameof(SellItemCommand),
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
-
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 			gameLogic.MessageBrokerService.Publish(new ItemSoldMessage { ItemId = ItemId, SellAmount = saleCost});
 		}
 	}

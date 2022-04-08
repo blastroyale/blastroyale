@@ -25,29 +25,8 @@ namespace FirstLight.Game.Commands
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			gameLogic.MessageBrokerService.Publish(new TrophyRoadRewardCollectingStartedMessage  { Level = Level });
-			
-			var converter = new StringEnumConverter();
 			var info = gameLogic.TrophyRoadLogic.CollectReward(Level);
 			var reward = gameLogic.RewardLogic.GiveReward(info.Reward);
-			
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
-				{
-					Command = nameof(CollectTrophyRoadRewardCommand),
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
-
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 			gameLogic.MessageBrokerService.Publish(new TrophyRoadRewardCollectedMessage
 			{
 				Level = Level,

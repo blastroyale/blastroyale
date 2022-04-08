@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -21,20 +22,20 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent ConnectedEvent = new StatechartEvent("Connected to Quantum Event");
 		public static readonly IStatechartEvent DisconnectedEvent = new StatechartEvent("Disconnected Quantum Event");
 		public static readonly IStatechartEvent ReconnectEvent = new StatechartEvent("Reconnecting to Quantum Event");
-		
+
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public NetworkState(IGameDataProvider dataProvider, IGameServices services, IGameBackendNetworkService networkService, 
-		                    Action<IStatechartEvent> statechartTrigger)
+		public NetworkState(IGameDataProvider dataProvider, IGameServices services,
+		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-			
+
 			_networkService.QuantumClient.AddCallbackTarget(this);
 		}
 
@@ -53,42 +54,42 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(matchmaking);
 			initial.OnExit(SubscribeEvents);
-			
+
 			matchmaking.OnEnter(StartMatchmaking);
 			matchmaking.Event(ConnectedEvent).Target(connected);
 			matchmaking.Event(DisconnectedEvent).Target(final);
 
 			connected.Event(DisconnectedEvent).Target(final);
 			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
-			
+
 			reconnecting.Event(DisconnectedEvent).Target(disconnected);
 			reconnecting.Event(ConnectedEvent).Target(connected);
-			
+
 			disconnected.Event(ReconnectEvent).OnTransition(Reconnect).Target(reconnecting);
-			
+
 			disconnecting.OnEnter(DisconnectQuantum);
 			disconnecting.Event(DisconnectedEvent).Target(final);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		/// <inheritdoc />
 		public void OnConnected()
 		{
-			Debug.Log("OnConnected");
-			
+			FLog.Info("OnConnected");
+
 			_services.MessageBrokerService.Publish(new MatchConnectedMessage());
 		}
-		
+
 		/// <inheritdoc />
 		public void OnConnectedToMaster()
 		{
-			Debug.Log("OnConnectedToMaster");
-			
+			FLog.Info("OnConnectedToMaster");
+
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetDefaultEnterRoomParams(info);
-			var joinParams = config.GetDefaultJoinRoomParams(info);
+			var enterParams = config.GetEnterRoomParams(info);
+			var joinParams = config.GetJoinRandomRoomParams(info);
 			
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
 		}
@@ -96,63 +97,57 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnDisconnected(DisconnectCause cause)
 		{
+			FLog.Info("OnDisconnected " + cause);
+
+			_services.MessageBrokerService.Publish(new MatchDisconnectedMessage {Cause = cause});
 			_statechartTrigger(DisconnectedEvent);
-			
-			Debug.Log("OnDisconnected " + cause);
-			
-			_services.MessageBrokerService.Publish(new MatchDisconnectedMessage { Cause = cause });
 		}
 
 		/// <inheritdoc />
 		public void OnRegionListReceived(RegionHandler regionHandler)
 		{
-			Debug.Log("OnRegionListReceived " + regionHandler.GetResults());
+			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
 		}
 
 		/// <inheritdoc />
 		public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
 		{
-			Debug.Log("OnCustomAuthenticationResponse " + data.Count);
+			FLog.Info("OnCustomAuthenticationResponse " + data.Count);
 		}
 
 		/// <inheritdoc />
 		public void OnCustomAuthenticationFailed(string debugMessage)
 		{
-			Debug.Log("OnCustomAuthenticationResponse " + debugMessage);
+			FLog.Info("OnCustomAuthenticationResponse " + debugMessage);
 		}
 
 		/// <inheritdoc />
 		public void OnFriendListUpdate(List<FriendInfo> friendList)
 		{
-			Debug.Log("OnFriendListUpdate " + friendList.Count);
+			FLog.Info("OnFriendListUpdate " + friendList.Count);
 		}
 
 		/// <inheritdoc />
 		public void OnCreatedRoom()
 		{
-			Debug.Log("OnCreatedRoom");
+			FLog.Info("OnCreatedRoom");
 		}
 
 		/// <inheritdoc />
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
+			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
+
 			_statechartTrigger(DisconnectedEvent);
-			
-			Debug.Log($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 		}
 
 		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
-			Debug.Log("OnJoinedRoom");
-			
-			_services.MessageBrokerService.Publish(new MatchJoinedRoomMessage());
+			FLog.Info("OnJoinedRoom");
 
-			if (!_networkService.QuantumClient.CurrentRoom.IsOpen)
-			{
-				_statechartTrigger(ConnectedEvent);
-				return;
-			}
+			_services.MessageBrokerService.Publish(new MatchJoinedRoomMessage());
+			_statechartTrigger(ConnectedEvent);
 
 			StartLockRoomTimer();
 		}
@@ -160,8 +155,8 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
-			Debug.Log($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
-			
+			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
+
 			// In case the player cannot rejoin anymore
 			if (returnCode == ErrorCode.OperationNotAllowedInCurrentState)
 			{
@@ -170,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetDefaultEnterRoomParams(info);
+			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
 			
 			_networkService.QuantumClient.OpCreateRoom(properties);
 		}
@@ -184,48 +179,37 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnLeftRoom()
 		{
-			Debug.Log("OnLeftRoom");
+			FLog.Info("OnLeftRoom");
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player player)
 		{
-			Debug.Log($"OnPlayerEnteredRoom {player.NickName}");
-
-			if (_networkService.QuantumClient.CurrentRoom.PlayerCount ==
-			    _networkService.QuantumClient.CurrentRoom.MaxPlayers)
-			{
-				LockRoom();
-			}
+			FLog.Info($"OnPlayerEnteredRoom {player.NickName}");
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player player)
 		{
-			Debug.Log($"OnPlayerLeftRoom {player.NickName}");
+			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
 		}
 
 		/// <inheritdoc />
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
-			Debug.Log("OnRoomPropertiesUpdate");
-
-			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
-			{
-				_statechartTrigger(ConnectedEvent);
-			}
+			FLog.Info("OnRoomPropertiesUpdate");
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			Debug.Log("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
+			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 		}
 
 		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
-			Debug.Log("OnMasterClientSwitched " + newMasterClient.NickName);
+			FLog.Info("OnMasterClientSwitched " + newMasterClient.NickName);
 		}
 
 		private void SubscribeEvents()
@@ -265,7 +249,21 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			
+
+			var preloadIds = new List<int>();
+			foreach (var (key, value) in _dataProvider.EquipmentDataProvider.EquippedItems)
+			{
+				var equipmentDataInfo = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
+				preloadIds.Add((int) equipmentDataInfo.GameId);
+			}
+
+			preloadIds.Add((int) _dataProvider.PlayerDataProvider.CurrentSkin.Value);
+
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(new Hashtable
+			{
+				{"PreloadIds", preloadIds.ToArray()}
+			});
+
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
 		}
 
@@ -280,13 +278,14 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-			
+
 			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
 
 			IEnumerator LockRoomCoroutine()
 			{
-				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
-				
+				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime
+				                                         .AsFloat);
+
 				LockRoom();
 			}
 		}

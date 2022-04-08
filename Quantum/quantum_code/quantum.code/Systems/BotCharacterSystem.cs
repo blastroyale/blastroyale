@@ -535,9 +535,18 @@ namespace Quantum.Systems
 		private void AddBots(Frame f, List<PlayerRef> botIds, PlayerRef playerRef)
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
-			var skins = GameIdGroup.PlayerSkin.GetIds();
 			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
+
+			var skinOptions = GameIdGroup.PlayerSkin.GetIds()
+			                             .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
+
+			var equipmentOptions = new Dictionary<GameIdGroup, GameId[]>(Constants.GearSlots.Length);
+			foreach (var group in Constants.GearSlots)
+			{
+				equipmentOptions[group] = group.GetIds()
+				                               .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
+			}
 
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
@@ -566,7 +575,7 @@ namespace Quantum.Systems
 
 				var botCharacter = new BotCharacter
 				{
-					Skin = skins[f.RNG->Next(0, skins.Count)],
+					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
 					                       ItemManufacturer.Military, ItemFaction.Order, 1, 5),
@@ -598,8 +607,8 @@ namespace Quantum.Systems
 				{
 					var slotIndex = f.RNG->Next(0, gearSlots.Count);
 					var slot = gearSlots[slotIndex];
-					var slotItems = slot.GetIds();
-					var rngGearIndex = f.RNG->Next(-1, slotItems.Count);
+					var slotItems = equipmentOptions[slot];
+					var rngGearIndex = f.RNG->Next(-1, slotItems.Length);
 					var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
 					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool,
 					                              ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order,

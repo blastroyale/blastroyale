@@ -181,7 +181,7 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
+			//roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 			
 			collectLoot.OnEnter(CloseMainMenuUI);
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
@@ -404,11 +404,11 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = OnJoinCreateInputClicked
+				ButtonOnClick = OnJoinCreateInputClicked,
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomCreateOrJoin, 
-			                                                    "", confirmButton, true);
+			                                                    "", confirmButton, true, CloseRoomJoinCreateMenuUI);
 		}
 
 		private void OnJoinCreateInputClicked(string input)
@@ -421,8 +421,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private void CloseRoomJoinCreateMenuUI()
+		private void CloseRoomJoinCreateMenuUI(string input)
 		{
+			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
 			//_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
 		}
 

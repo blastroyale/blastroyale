@@ -224,6 +224,12 @@ namespace FirstLight.Game.StateMachines
 				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
 			}
 
+			// Preload bot items
+			foreach (var id in GameIdGroup.BotItem.GetIds())
+			{
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
+			}
+
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif

@@ -315,8 +315,6 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 			
-			
-			
 			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
 
 			IEnumerator LockRoomCoroutine()

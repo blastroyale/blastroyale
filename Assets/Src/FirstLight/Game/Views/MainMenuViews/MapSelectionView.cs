@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 
-			if (!gridConfig.IsValid)
+			if (!gridConfig.IsValid || !_selectionEnabled)
 			{
 				return;
 			}

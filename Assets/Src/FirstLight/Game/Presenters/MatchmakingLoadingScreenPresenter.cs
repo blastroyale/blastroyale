@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -9,8 +8,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
-using NSubstitute;
-using Photon.Realtime;
 using Quantum;
 using TMPro;
 using UnityEngine;

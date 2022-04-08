@@ -134,7 +134,6 @@ namespace FirstLight.Game.Presenters
 			var canShowLockButton = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
 			                         (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking && localPlayerIsMaster);
 			
-			Debug.LogError("JOINED ROOM, LOCAL IS MASTER? = " + localPlayerIsMaster);
 			_lockRoomButton.gameObject.SetActive(canShowLockButton);
 			
 			UpdatePlayersWaitingImages();

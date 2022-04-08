@@ -312,6 +312,9 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 			
+			Debug.LogError(_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode + " " + 
+			               (_dataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking));
+			
 			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
 
 			IEnumerator LockRoomCoroutine()

@@ -57,8 +57,10 @@ namespace FirstLight.Game
 			_gameLogic = gameLogic;
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
+			
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService, configsProvider, 
 			                                         assetResolver, dataService, vfxService);
+			_gameStateMachine.LogsEnabled = true;
 		}
 
 		private void Start()

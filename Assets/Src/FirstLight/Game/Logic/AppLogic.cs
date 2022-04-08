@@ -144,9 +144,7 @@ namespace FirstLight.Game.Logic
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
 			var compatibleMaps = new List<MapConfig>();
-			var now = DateTime.UtcNow;
-			var midnight = DateTime.Now.Date.ToUniversalTime();
-			var span = now - midnight;
+			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
 			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
 
 			foreach (var config in configs)

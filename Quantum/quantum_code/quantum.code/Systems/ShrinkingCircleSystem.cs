@@ -81,7 +81,7 @@ namespace Quantum.Systems
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
-			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
+			circle->TargetRadius = circle->CurrentRadius * FPMath.Min((gameConfig.ShrinkingSizeK * circle->Step), FP._0_50);
 			circle->TargetCircleCenter += new FPVector2(f.RNG->NextInclusive(-borderK, borderK), 
 			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->CurrentRadius;
 			
@@ -96,7 +96,7 @@ namespace Quantum.Systems
 			}
 
 			var newSpell = f.Create();
-
+			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			f.Add(newSpell, new Spell
@@ -108,7 +108,7 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)f.Unsafe.GetPointerSingleton<ShrinkingCircle>()->Step,
+				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)circle->Step,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			});

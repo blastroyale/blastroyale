@@ -108,6 +108,46 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		/// <inheritdoc />
+		public void OnPlayerEnteredRoom(Player player)
+		{
+			PreloadPlayerEquipment(player);
+
+			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
+			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers)
+			{
+				_statechartTrigger(_roomClosedEvent);
+				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
+			}
+		}
+
+		/// <inheritdoc />
+		public void OnPlayerLeftRoom(Player otherPlayer)
+		{
+			// Nothing
+		}
+
+		/// <inheritdoc />
+		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+		{
+			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
+			{
+				_statechartTrigger(_roomClosedEvent);
+			}
+		}
+
+		/// <inheritdoc />
+		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+		{
+			// Nothing
+		}
+
+		/// <inheritdoc />
+		public void OnMasterClientSwitched(Player newMasterClient)
+		{
+			// Nothing
+		}
+
 		private void SubscribeEvents()
 		{
 			// Subscribe to messages here
@@ -295,18 +335,6 @@ namespace FirstLight.Game.StateMachines
 			       _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount == 1;
 		}
 
-		public void OnPlayerEnteredRoom(Player player)
-		{
-			PreloadPlayerEquipment(player);
-
-			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
-			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers)
-			{
-				_statechartTrigger(_roomClosedEvent);
-				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
-			}
-		}
-
 		private async void PreloadPlayerEquipment(Player player)
 		{
 			var preloadIds = (int[]) player.CustomProperties["PreloadIds"];
@@ -320,29 +348,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(_loadingComplete);
 			}
-		}
-
-		public void OnPlayerLeftRoom(Player otherPlayer)
-		{
-			// Nothing
-		}
-
-		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-		{
-			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
-			{
-				_statechartTrigger(_roomClosedEvent);
-			}
-		}
-
-		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-		{
-			// Nothing
-		}
-
-		public void OnMasterClientSwitched(Player newMasterClient)
-		{
-			// Nothing
 		}
 	}
 }

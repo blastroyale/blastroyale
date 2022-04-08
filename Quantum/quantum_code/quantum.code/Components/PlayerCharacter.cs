@@ -141,7 +141,7 @@ namespace Quantum
 		/// <summary>
 		/// Sets the player's weapon to the given <paramref name="slot"/>
 		/// </summary>
-		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot, bool isRespawning = false)
+		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot, bool triggerEvents = true)
 		{
 			CurrentWeaponSlot = slot;
 
@@ -158,7 +158,7 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 
-			if (isRespawning)
+			if (triggerEvents)
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);

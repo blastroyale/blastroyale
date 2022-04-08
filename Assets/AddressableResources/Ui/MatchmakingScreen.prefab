@@ -2143,6 +2143,7 @@ MonoBehaviour:
   _selectedPoint: {fileID: 2035269011694630166}
   _uiCamera: {fileID: 4049522887130303266}
   _aspectRatioFitter: {fileID: 8569928876555111411}
+  _mapImage: {fileID: 794559060278026207}
 --- !u!1 &3729898766117683447
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,7 +3046,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0fd5d80bd4322049bc64f60d1080ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapSelectionView: {fileID: 4794623816901886568}
   _playerCharacterParent: {fileID: 987607125991997567}
   _lockRoomButton: {fileID: 3066388737401384843}
   _mapImage: {fileID: 794559060278026207}
@@ -3088,6 +3088,7 @@ MonoBehaviour:
   _getReadyToRumbleText: {fileID: 2271083543094415811}
   _roomNameRootObject: {fileID: 2297774574124471423}
   _roomNameText: {fileID: 7769827458459980610}
+  MapSelectionView: {fileID: 4794623816901886568}
 --- !u!1 &5015068528759575689
 GameObject:
   m_ObjectHideFlags: 0

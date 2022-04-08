@@ -63,7 +63,7 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetEnterRoomParams(MapConfig config, string roomName = null, bool visible = true)
+		public EnterRoomParams GetEnterRoomParams(MapConfig config, string roomName = null)
 		{
 			var roomParams = new EnterRoomParams
 			{
@@ -84,7 +84,7 @@ namespace FirstLight.Game.Configs
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
-					IsVisible = visible,
+					IsVisible = string.IsNullOrEmpty(roomName),
 					MaxPlayers = (byte)config.PlayersLimit,
 					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000,
 

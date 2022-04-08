@@ -2,12 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
-using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -47,18 +45,18 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var roomEntry = stateFactory.State("Room Entry");
+			var matchmaking = stateFactory.State("Matchmaking");
 			var reconnecting = stateFactory.State("Reconnecting");
 			var connected = stateFactory.State("Connected");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnecting = stateFactory.State("Disconnecting");
 
-			initial.Transition().Target(roomEntry);
+			initial.Transition().Target(matchmaking);
 			initial.OnExit(SubscribeEvents);
 			
-			roomEntry.OnEnter(ConnectToPhoton);
-			roomEntry.Event(ConnectedEvent).Target(connected);
-			roomEntry.Event(DisconnectedEvent).Target(final);
+			matchmaking.OnEnter(StartMatchmaking);
+			matchmaking.Event(ConnectedEvent).Target(connected);
+			matchmaking.Event(DisconnectedEvent).Target(final);
 
 			connected.Event(DisconnectedEvent).Target(final);
 			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
@@ -88,33 +86,11 @@ namespace FirstLight.Game.StateMachines
 			Debug.Log("OnConnectedToMaster");
 			
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var selectedRoomEntryType = _dataProvider.AppDataProvider.SelectedRoomEntryType.Value;
-			var selectedRoomName = _dataProvider.AppDataProvider.SelectedRoomName.Value;
-			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(mapConfig, selectedRoomName, selectedRoomEntryType == RoomEntryID.Matchmaking);
-			var joinRandomParams = config.GetJoinRandomRoomParams(mapConfig);
-
-			switch (selectedRoomEntryType)
-			{
-				case RoomEntryID.Matchmaking:
-					_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
-					break;
-				
-				case RoomEntryID.JoinRoom:
-					_networkService.QuantumClient.OpJoinRoom(enterParams);
-					break;
-				
-				case RoomEntryID.CreateRoom:
-					_networkService.QuantumClient.OpCreateRoom(enterParams);
-					break;
-				
-				case RoomEntryID.JoinOrCreateRoom:
-					_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
-					break;
-				
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
+			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var enterParams = config.GetEnterRoomParams(info);
+			var joinParams = config.GetJoinRandomRoomParams(info);
+			
+			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
 		}
 
 		/// <inheritdoc />
@@ -177,7 +153,7 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(ConnectedEvent);
 				return;
 			}
-			
+
 			StartLockRoomTimer();
 		}
 
@@ -193,13 +169,10 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var selectedRoomEntryType = _dataProvider.AppDataProvider.SelectedRoomEntryType.Value;
-			var selectedRoomName = _dataProvider.AppDataProvider.SelectedRoomName.Value;
-			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(mapConfig, selectedRoomName, selectedRoomEntryType == RoomEntryID.Matchmaking);
-
-			_networkService.QuantumClient.OpCreateRoom(enterParams);
+			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
+			
+			_networkService.QuantumClient.OpCreateRoom(properties);
 		}
 
 		/// <inheritdoc />
@@ -219,8 +192,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			Debug.Log($"OnPlayerEnteredRoom {player.NickName}");
 
-			_services.MessageBrokerService.Publish(new PlayerJoinedMatchMessage{ player = player });
-			
 			if (_networkService.QuantumClient.CurrentRoom.PlayerCount ==
 			    _networkService.QuantumClient.CurrentRoom.MaxPlayers)
 			{
@@ -232,7 +203,6 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			Debug.Log($"OnPlayerLeftRoom {player.NickName}");
-			_services.MessageBrokerService.Publish(new PlayerLeftMatchMessage(){ player = player });
 		}
 
 		/// <inheritdoc />
@@ -288,7 +258,7 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void ConnectToPhoton()
+		private void StartMatchmaking()
 		{
 			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
 
@@ -306,11 +276,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartLockRoomTimer()
 		{
-			Debug.LogError(_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode + " " + 
-			               (_dataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking));
-			
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
-			    _dataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking)
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
 			{
 				return;
 			}

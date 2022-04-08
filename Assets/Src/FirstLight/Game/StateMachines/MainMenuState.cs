@@ -415,8 +415,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!string.IsNullOrEmpty(input))
 			{
-				_gameDataProvider.AppDataProvider.SelectedRoomName.Value = input.ToUpper();
-				_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.JoinOrCreateRoom;
 				_statechartTrigger(_playClickedEvent);
 			}
 		}

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using I2.Loc;
@@ -108,6 +109,8 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = true;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = null;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.Matchmaking;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -119,6 +122,8 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = null;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.Matchmaking;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -130,6 +135,8 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = null;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.Matchmaking;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -141,6 +148,8 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = null;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.Matchmaking;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -152,6 +161,8 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = null;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.Matchmaking;
 
 			Data.OnPlayButtonClicked();
 		}
@@ -163,12 +174,15 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = true;
 			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+			_gameDataProvider.AppDataProvider.SelectedRoomName.Value = null;
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.Matchmaking;
 
 			Data.OnPlayButtonClicked();
 		}
 
 		private void OnTournamentDeathmatchRoomClicked()
 		{
+			_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value = RoomEntryID.JoinOrCreateRoom;
 			Data.OnRoomJoinCreateClicked();
 		}
 

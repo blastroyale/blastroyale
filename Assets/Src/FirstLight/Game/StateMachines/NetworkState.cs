@@ -177,7 +177,7 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(ConnectedEvent);
 				return;
 			}
-
+			
 			StartLockRoomTimer();
 		}
 
@@ -306,7 +306,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartLockRoomTimer()
 		{
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
+			    _dataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking)
 			{
 				return;
 			}

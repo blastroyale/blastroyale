@@ -97,6 +97,7 @@ namespace Quantum.Systems
 
 			var newSpell = f.Create();
 
+
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			f.Add(newSpell, new Spell
 			{
@@ -107,7 +108,7 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = f.GameConfig.ShrinkingDamage,
+				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)f.Unsafe.GetPointerSingleton<ShrinkingCircle>()->Step,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			});

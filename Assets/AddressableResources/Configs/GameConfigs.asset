@@ -40,7 +40,7 @@ MonoBehaviour:
       ShrinkingDamage: 75
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
-        RawValue: 250593
+        RawValue: 262144
       PlayerDefaultInterimArmour: 1000
       CoinsPerRank: 30
       XpPerRank: 20
@@ -96,8 +96,3 @@ MonoBehaviour:
         RawValue: 32768
       TrophyEloRange: 50
       TrophyEloK: 5
-      SkydiveDropHeight: 100
-      SkydiveSpeedModifier:
-        RawValue: 262144
-      SkydivePLFHeight:
-        RawValue: 655360

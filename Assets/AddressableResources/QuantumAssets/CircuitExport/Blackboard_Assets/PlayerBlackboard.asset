@@ -20,6 +20,9 @@ MonoBehaviour:
     Entries:
     - Type: 3
       Key:
+        Key: StunDuration
+    - Type: 3
+      Key:
         Key: AimTime
     - Type: 0
       Key:
@@ -29,10 +32,7 @@ MonoBehaviour:
         Key: AmmoFilled
     - Type: 3
       Key:
-        Key: StunDuration
-    - Type: 3
-      Key:
-        Key: SpeedModifier
+        Key: AimingMovementSpeed
     - Type: 4
       Key:
         Key: AimDirection

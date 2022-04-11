@@ -20,64 +20,55 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 393216
+        RawValue: 655360
       WarningTime:
-        RawValue: 131072
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 131072
+        RawValue: 3932160
+      ShrinkingSizeK:
+        RawValue: 29491
     - Step: 2
       DelayTime:
         RawValue: 131072
       WarningTime:
-        RawValue: 131072
+        RawValue: 327680
       ShrinkingTime:
-        RawValue: 131072
+        RawValue: 655360
+      ShrinkingSizeK:
+        RawValue: 52428
     - Step: 3
       DelayTime:
         RawValue: 131072
       WarningTime:
-        RawValue: 131072
+        RawValue: 327680
       ShrinkingTime:
-        RawValue: 131072
+        RawValue: 327680
+      ShrinkingSizeK:
+        RawValue: 52428
     - Step: 4
       DelayTime:
         RawValue: 131072
       WarningTime:
-        RawValue: 131072
+        RawValue: 2949120
       ShrinkingTime:
-        RawValue: 131072
+        RawValue: 983040
+      ShrinkingSizeK:
+        RawValue: 19660
     - Step: 5
       DelayTime:
         RawValue: 131072
       WarningTime:
-        RawValue: 131072
+        RawValue: 0
       ShrinkingTime:
-        RawValue: 131072
+        RawValue: 3932160
+      ShrinkingSizeK:
+        RawValue: 655
     - Step: 6
       DelayTime:
-        RawValue: 131072
+        RawValue: 3932160
       WarningTime:
-        RawValue: 131072
+        RawValue: 0
       ShrinkingTime:
-        RawValue: 131072
-    - Step: 7
-      DelayTime:
-        RawValue: 131072
-      WarningTime:
-        RawValue: 131072
-      ShrinkingTime:
-        RawValue: 131072
-    - Step: 8
-      DelayTime:
-        RawValue: 131072
-      WarningTime:
-        RawValue: 131072
-      ShrinkingTime:
-        RawValue: 131072
-    - Step: 9
-      DelayTime:
-        RawValue: 131072
-      WarningTime:
-        RawValue: 131072
-      ShrinkingTime:
-        RawValue: 131072
+        RawValue: 0
+      ShrinkingSizeK:
+        RawValue: 655

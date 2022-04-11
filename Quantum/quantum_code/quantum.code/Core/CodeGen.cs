@@ -4116,21 +4116,23 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct ShrinkingCircle : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 72;
+    public const Int32 SIZE = 80;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public FPVector2 CurrentCircleCenter;
     [FieldOffset(8)]
     public FP CurrentRadius;
     [FieldOffset(16)]
     public FP ShrinkingDurationTime;
     [FieldOffset(24)]
+    public FP ShrinkingSizeK;
+    [FieldOffset(32)]
     public FP ShrinkingStartTime;
     [FieldOffset(0)]
     public Int32 Step;
-    [FieldOffset(56)]
+    [FieldOffset(64)]
     public FPVector2 TargetCircleCenter;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     public FP TargetRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -4138,6 +4140,7 @@ namespace Quantum {
         hash = hash * 31 + CurrentCircleCenter.GetHashCode();
         hash = hash * 31 + CurrentRadius.GetHashCode();
         hash = hash * 31 + ShrinkingDurationTime.GetHashCode();
+        hash = hash * 31 + ShrinkingSizeK.GetHashCode();
         hash = hash * 31 + ShrinkingStartTime.GetHashCode();
         hash = hash * 31 + Step.GetHashCode();
         hash = hash * 31 + TargetCircleCenter.GetHashCode();
@@ -4150,6 +4153,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->Step);
         FP.Serialize(&p->CurrentRadius, serializer);
         FP.Serialize(&p->ShrinkingDurationTime, serializer);
+        FP.Serialize(&p->ShrinkingSizeK, serializer);
         FP.Serialize(&p->ShrinkingStartTime, serializer);
         FP.Serialize(&p->TargetRadius, serializer);
         FPVector2.Serialize(&p->CurrentCircleCenter, serializer);
@@ -8976,6 +8980,7 @@ namespace Quantum.Prototypes {
     public FP ShrinkingStartTime;
     public FP ShrinkingDurationTime;
     public Int32 Step;
+    public FP ShrinkingSizeK;
     partial void MaterializeUser(Frame frame, ref ShrinkingCircle result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       ShrinkingCircle component = default;
@@ -8986,6 +8991,7 @@ namespace Quantum.Prototypes {
       result.CurrentCircleCenter = this.CurrentCircleCenter;
       result.CurrentRadius = this.CurrentRadius;
       result.ShrinkingDurationTime = this.ShrinkingDurationTime;
+      result.ShrinkingSizeK = this.ShrinkingSizeK;
       result.ShrinkingStartTime = this.ShrinkingStartTime;
       result.Step = this.Step;
       result.TargetCircleCenter = this.TargetCircleCenter;

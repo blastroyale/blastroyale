@@ -84,22 +84,11 @@ namespace Quantum.Systems
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
 		{
-			var gameConfig = f.GameConfig;
-			//var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;
-
 			circle->Step = config.Step;
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
-
-			if (circle->Step != f.ShrinkingCircleConfigs.QuantumConfigs.Count - 1)
-			{
-				circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
-			}
-			else
-			{
-				circle->TargetRadius = FP._0_01;
-			}
+			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
 
 			FP maxDist = circle->CurrentRadius - circle->TargetRadius;
 			circle->TargetCircleCenter = randomCoordWithinCircle(maxDist, circle->CurrentCircleCenter, f);

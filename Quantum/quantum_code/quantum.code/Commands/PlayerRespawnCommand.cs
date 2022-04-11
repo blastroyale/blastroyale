@@ -17,7 +17,6 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var entity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
 
 			if (!f.TryGet<DeadPlayerCharacter>(entity, out var deadPlayer) || 
 			    f.Time < deadPlayer.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
@@ -25,6 +24,7 @@ namespace Quantum.Commands
 				throw new InvalidOperationException($"The player {playerRef} is not ready to be respawn yet");
 			}
 
+			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
 			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.RespawnEvent);
 		}
 	}

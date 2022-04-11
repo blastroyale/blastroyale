@@ -79,14 +79,19 @@ namespace Quantum
 		internal void Activate(Frame f, EntityRef e)
 		{
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
-
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, EntityRef.None, FP._1);
-
+			
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			stats->SetCurrentHealth(f, e, EntityRef.None, FP._1);
+			
+			var maxHealth = stats->GetStatData(StatType.Health).StatValue;
+			var currentHealth = stats->CurrentHealth;
+			
+			
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
-			f.Events.OnPlayerAlive(Player, e);
-			f.Events.OnLocalPlayerAlive(Player, e);
+			f.Events.OnPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
+			f.Events.OnLocalPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
 		}
 
 		/// <summary>

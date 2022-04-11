@@ -58,7 +58,8 @@ namespace Quantum.Systems
 					return;
 				}
 				
-				filter.PlayerCharacter->Spawn(f, filter.Entity);
+				var agent = f.Unsafe.GetPointer<HFSMAgent>(filter.Entity);
+				HFSMManager.TriggerEvent(f, &agent->Data, filter.Entity, Constants.RespawnEvent);
 			}
 
 			// If a bot is not alive OR a bot is stunned 

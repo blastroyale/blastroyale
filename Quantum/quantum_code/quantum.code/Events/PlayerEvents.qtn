@@ -18,6 +18,8 @@ synced event OnPlayerAlive
 {
 	player_ref Player;
 	entity_ref Entity;
+	Int32 CurrentHealth;
+    Int32 MaxHealth;
 }
 
 synced event OnPlayerSkydiveDrop
@@ -134,6 +136,8 @@ synced event OnLocalPlayerAlive
 {
 	local player_ref Player;
 	entity_ref Entity;
+	Int32 CurrentHealth;
+    Int32 MaxHealth;
 }
 
 synced event OnLocalPlayerSkydiveDrop

@@ -24,7 +24,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 983040
       ShrinkingTime:
-        RawValue: 3932160
+        RawValue: 3276800
       ShrinkingSizeK:
         RawValue: 29491
     - Step: 2
@@ -35,7 +35,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 655360
       ShrinkingSizeK:
-        RawValue: 52428
+        RawValue: 52429
     - Step: 3
       DelayTime:
         RawValue: 131072
@@ -44,7 +44,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 327680
       ShrinkingSizeK:
-        RawValue: 52428
+        RawValue: 52429
     - Step: 4
       DelayTime:
         RawValue: 131072
@@ -53,22 +53,13 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 983040
       ShrinkingSizeK:
-        RawValue: 19660
+        RawValue: 19661
     - Step: 5
       DelayTime:
         RawValue: 131072
       WarningTime:
         RawValue: 0
       ShrinkingTime:
-        RawValue: 3932160
+        RawValue: 2949120
       ShrinkingSizeK:
-        RawValue: 655
-    - Step: 6
-      DelayTime:
-        RawValue: 3932160
-      WarningTime:
-        RawValue: 0
-      ShrinkingTime:
-        RawValue: 0
-      ShrinkingSizeK:
-        RawValue: 655
+        RawValue: 66

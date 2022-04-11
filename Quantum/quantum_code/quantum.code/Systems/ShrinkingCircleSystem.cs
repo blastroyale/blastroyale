@@ -59,7 +59,9 @@ namespace Quantum.Systems
 			{
 				circle->ShrinkingStartTime = FP.MaxValue;
 				circle->ShrinkingDurationTime = FP.MaxValue;
-					
+				circle->CurrentRadius = circle->TargetRadius;
+				circle->CurrentCircleCenter = circle->TargetCircleCenter;
+				
 				return circle;
 			}
 			

@@ -17,7 +17,7 @@ namespace Quantum.Systems
 			
 			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
 		}
-		
+
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
@@ -100,7 +100,7 @@ namespace Quantum.Systems
 			}
 
 			var newSpell = f.Create();
-			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
+			var circle = f.GetSingleton<ShrinkingCircle>();
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			f.Add(newSpell, new Spell
@@ -112,7 +112,7 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)circle->Step,
+				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)circle.Step,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			});
@@ -147,7 +147,6 @@ namespace Quantum.Systems
 				}
 				
 				spellEntity = spellList[i];
-				
 
 				if (removeIfFound)
 				{

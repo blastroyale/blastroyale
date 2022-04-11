@@ -93,6 +93,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_animatorWrapper = new AnimatorWrapper(_animator);
 
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, HandleOnHealthIsZero);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
@@ -156,7 +157,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			var frame = game.Frames.Verified;
 			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-
+			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
 			Dissolve(isBattleRoyale);
@@ -195,6 +196,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.VelocityChange);
 		}
 
+		private void HandleOnPlayerSpawned(EventOnPlayerSpawned evnt)
+		{
+			if (evnt.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+			
+			Undissolve();
+		}
+		
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
 		{
 			if (evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)

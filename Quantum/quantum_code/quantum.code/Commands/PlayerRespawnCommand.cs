@@ -25,7 +25,7 @@ namespace Quantum.Commands
 				throw new InvalidOperationException($"The player {playerRef} is not ready to be respawn yet");
 			}
 
-			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
+			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.RespawnEvent);
 		}
 	}
 }

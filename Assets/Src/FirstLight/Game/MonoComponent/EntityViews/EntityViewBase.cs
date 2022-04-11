@@ -76,6 +76,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			StartCoroutine(DissolveCoroutine(destroyGameObject));
 		}
 
+		protected void Undissolve()
+		{
+			StartCoroutine(UndissolveCoroutine());
+		}
+
 		private IEnumerator DissolveCoroutine(bool destroyGameObject)
 		{
 			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
@@ -102,6 +107,25 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				
 				newMat.DOFloat(GameConstants.DissolveEndAlphaClipValue, _dissolveProperty, GameConstants.DissolveDuration).SetAutoKill(true);
 				
+				return newMat;
+			}
+		}
+
+		private IEnumerator UndissolveCoroutine()
+		{
+			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
+			
+			while (!task.IsCompleted)
+			{
+				yield return null;
+			}
+			
+			RenderersContainerProxy.SetMaterial(SetMaterial, ShadowCastingMode.On, true);
+
+			Material SetMaterial(int index)
+			{
+				var newMat = new Material(task.Result);
+				newMat.SetFloat(_dissolveProperty, 0);
 				return newMat;
 			}
 		}

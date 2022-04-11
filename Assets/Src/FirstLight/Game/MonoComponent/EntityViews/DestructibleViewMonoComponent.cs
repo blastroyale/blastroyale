@@ -83,7 +83,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_animator.SetTrigger(_dieHash);
-
+			
 			this.LateCall(_dissolveDelay, () =>
 			{
 				Dissolve(false);

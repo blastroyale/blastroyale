@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private GameObject _regularButtonRoot;
 		[SerializeField] private GameObject _tournamentButtonRoot;
 		[SerializeField] private Button _playBattleRoyaleButton;
-		[SerializeField] private Button _playDeathmatchButton;
 		[SerializeField] private Button _playOfflineButton;
 		[SerializeField] private Button _playDevButton;
 		[SerializeField] private Button _playTournamentDeathmatchRandom;
@@ -71,7 +70,6 @@ namespace FirstLight.Game.Presenters
 
 			_playDevButton.onClick.AddListener(OnPlayDevClicked);
 			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
-			_playDeathmatchButton.onClick.AddListener(OnPlayDeathmatchClicked);
 			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
 			
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
@@ -120,17 +118,6 @@ namespace FirstLight.Game.Presenters
 			runnerConfigs.IsOfflineMode = false;
 			runnerConfigs.IsDevMode = false;
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
-
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPlayDeathmatchClicked()
-		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-
-			runnerConfigs.IsOfflineMode = false;
-			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 
 			Data.OnPlayButtonClicked();
 		}

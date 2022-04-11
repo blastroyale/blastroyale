@@ -10,6 +10,7 @@ namespace Quantum
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._2;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
 
+		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";
 		public static readonly string StunnedEvent = "OnStunned";
 		public static readonly string StunCancelledEvent = "OnStunCancelled";

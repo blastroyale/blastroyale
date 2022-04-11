@@ -32,7 +32,7 @@ MonoBehaviour:
       GoToNextMatchForceTime:
         RawValue: 655360
       ShrinkingSizeK:
-        RawValue: 45875
+        RawValue: 32768
       ShrinkingBorderK:
         RawValue: 65536
       ShrinkingDamageCooldown:

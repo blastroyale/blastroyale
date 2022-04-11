@@ -13,11 +13,12 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
 		{
-			circle->CurrentRadius = f.Map.WorldSize / FP._2;
+			circle->CurrentRadius = f.Map.WorldSize / 2;
 			
 			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
 		}
 
+		int prevStep = 0;
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
@@ -25,7 +26,7 @@ namespace Quantum.Systems
 			var lerp = FPMath.Max(0, (f.Time - circle->ShrinkingStartTime) / circle->ShrinkingDurationTime);
 			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
 			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
-			
+			var currentStep = circle->Step;
 			radius *= radius;
 			
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
@@ -42,7 +43,16 @@ namespace Quantum.Systems
 				{
 					AddShrinkingDamage(f, pair.Entity, position);
 				}
+
+				//whenever the step changes, update the shrinking damage spell
+				if (prevStep != currentStep)
+				{
+					RemoveShrinkingDamage(f, pair.Entity);
+					AddShrinkingDamage(f, pair.Entity, position);
+				}
 			}
+
+			prevStep = currentStep;
 		}
 
 		private ShrinkingCircle* ProcessShrinkingCircle(Frame f)
@@ -75,28 +85,36 @@ namespace Quantum.Systems
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
 		{
 			var gameConfig = f.GameConfig;
-			var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;
+			//var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;
 
 			circle->Step = config.Step;
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
-			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
 
-			//the centerpoint of the target circle cannot interesect with the edge of the current circle.
-			//so the target circle position cannot be more than X units away from the current targetCricleCenter
-			//where X is the radius of the current circle - the radius of the target circle 
+			if (circle->Step != f.ShrinkingCircleConfigs.QuantumConfigs.Count - 1)
+			{
+				circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
+			}
+			else
+			{
+				circle->TargetRadius = FP._0_01;
+			}
 
 			FP maxDist = circle->CurrentRadius - circle->TargetRadius;
-			var newCenterPoint = FPVector2.Normalize(new FPVector2(
-				f.RNG->NextInclusive(-maxDist, maxDist),
-				f.RNG->NextInclusive(-maxDist, maxDist)))
-				* maxDist;
-
-
-			circle->TargetCircleCenter = newCenterPoint + circle->CurrentCircleCenter;
+			circle->TargetCircleCenter = randomCoordWithinCircle(maxDist, circle->CurrentCircleCenter, f);
 
 			f.Events.OnNewShrinkingCircle(*circle);
+		}
+
+		private FPVector2 randomCoordWithinCircle(FP maxRadius, FPVector2 currentCircle, Frame f)
+		{
+			var randA = f.RNG->NextInclusive(FP._0, FP._1) * 2 * FP.Pi;
+			var randR = f.RNG->NextInclusive(FP._0, maxRadius);
+			var xPos = currentCircle.X + randR * FPMath.Cos(randA);
+			var yPos = currentCircle.Y + randR * FPMath.Sin(randA);
+
+			return new FPVector2(xPos, yPos);
 		}
 
 		private void AddShrinkingDamage(Frame f, EntityRef playerEntity, FPVector3 position)
@@ -154,6 +172,7 @@ namespace Quantum.Systems
 				}
 				
 				spellEntity = spellList[i];
+				
 
 				if (removeIfFound)
 				{

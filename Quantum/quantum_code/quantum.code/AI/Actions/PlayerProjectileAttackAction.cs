@@ -33,7 +33,7 @@ namespace Quantum
 				SourceId = weaponConfig.Id,
 				Range = weaponConfig.AttackRange,
 				SpawnPosition = position,
-				Speed = weaponConfig.ProjectileSpeed,
+				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
 				StunDuration = FP._0,
 				Target = EntityRef.None,

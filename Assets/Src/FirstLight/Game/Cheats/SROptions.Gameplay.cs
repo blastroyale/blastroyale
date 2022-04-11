@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
@@ -105,10 +106,11 @@ public partial class SROptions
 		}
 	}
 
-	private void ShowCurrentRaycastShots(float deltaTime)
+	// TODO: Find a way to have this code without extra parameters in quantum component and without copy/paste the logic from quantum
+	private void ShowCurrentRaycastShots(float dt)
 	{
 		var runner = QuantumRunner.Default;
-		var f = runner == null ? null : runner.Game?.Frames?.Verified;
+		var f = runner == null ? null : runner.Game?.Frames?.PredictedPrevious;
 		
 		if (f == null)
 		{
@@ -116,14 +118,33 @@ public partial class SROptions
 			return;
 		}
 
-		var raycasts = f.Filter<RaycastShot>();
+		var raycasts = f.Filter<RaycastShots>();
 
-		while(raycasts.Next(out var entityRef, out var raycastShot))
+		while(raycasts.Next(out var entityRef, out var shot))
 		{
-			if (raycastShot.PreviousToLastBulletPosition.ToUnityVector3() != Vector3.zero)
+			var speed = shot.Speed;
+			var deltaTime = runner.Game.Frames.Predicted.Time - shot.StartTime;
+			var previousTime = shot.PreviousTime - shot.StartTime;
+			var angleCount = FPMath.FloorToInt(shot.AttackAngle / Constants.RaycastAngleSplit) + 1;
+			var angleStep = shot.AttackAngle / FPMath.Max(FP._1, angleCount - 1);
+			var angle = -(int) shot.AttackAngle / FP._2;
+
+			if (shot.IsInstantShot || deltaTime > shot.Range / speed)
 			{
-				Debug.DrawLine(raycastShot.PreviousToLastBulletPosition.ToUnityVector3(), 
-				               raycastShot.LastBulletPosition.ToUnityVector3(), Color.magenta, deltaTime);
+				speed = FP._1;
+				deltaTime = shot.Range / speed;
+			}
+			
+			for (var i = 0; i < angleCount; i++)
+			{
+				var direction = FPVector2.Rotate(shot.Direction, angle * FP.Deg2Rad).XOY * speed;
+				var previousPosition = shot.SpawnPosition + direction * previousTime;
+				var currentPosition = shot.SpawnPosition + direction * deltaTime;
+				
+				angle += angleStep;
+				
+				Debug.DrawLine(previousPosition.ToUnityVector3(), currentPosition.ToUnityVector3(), Color.magenta, dt);
+				
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -10,17 +11,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
 		[SerializeField] private ParticleSystem _particleSystem;
-		
-		protected override void OnInit()
+
+		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
-			
-			var f = QuantumRunner.Default.Game.Frames.Verified;
-
+		}
+		
+		protected override void OnInit(QuantumGame game)
+		{
+			var f = game.Frames.Verified;
 			var playerCharacter = f.Get<PlayerCharacter>(EntityRef);
+			
 			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId);
 		}
 
@@ -64,19 +68,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void UpdateParticleSystem(int weaponId)
 		{
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(weaponId);
-
-			if (config.AttackHitTime.AsFloat > 0)
+			var main = _particleSystem.main;
+			var emission = _particleSystem.emission;
+			var speed = config.AttackHitSpeed.AsFloat;
+			
+			if (speed < float.Epsilon)
 			{
-				// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
-				var main = _particleSystem.main;
-				main.startLifetime = config.AttackHitTime.AsFloat;
-				main.startSpeed = config.AttackRange.AsFloat / config.AttackHitTime.AsFloat;
-				main.startDelay = 0;
-				main.loop = false;
-				main.maxParticles = 10;
-				var emission = _particleSystem.emission;
-				emission.rateOverTime = 0.1f;
+				return;
 			}
+			
+			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
+			main.startLifetime = speed * config.AttackRange.AsFloat;
+			main.startSpeed = speed;
+			main.startDelay = 0;
+			main.loop = false;
+			main.maxParticles = 10;
+			emission.rateOverTime = 0.1f;
 		}
 	}
 }

@@ -32,6 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
@@ -113,6 +114,7 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
+			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -129,6 +131,7 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<TrophyRoadScreenPresenter>).Target(trophyRoadMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<RoomJoinCreateScreenPresenter>).Target(roomJoinCreateMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 			
 			overflowLootMenu.OnEnter(OpenOverflowLootScreen);
@@ -175,6 +178,11 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
+			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(playClickedCheck);
+			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			//roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
+			
 			collectLoot.OnEnter(CloseMainMenuUI);
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
 			collectLoot.OnExit(OpenMainMenuUi);
@@ -382,6 +390,40 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<TrophyRoadScreenPresenter>();
 		}
+		
+		private void OpenRoomJoinCreateMenuUI()
+		{
+			/*var data = new RoomJoinCreateScreenPresenter.StateData
+			{
+				CloseClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>,
+			};
+			
+			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			*/
+			
+			var confirmButton = new GenericDialogButton<string>
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = OnJoinCreateInputClicked,
+			};
+			
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomCreateOrJoin, 
+			                                                    "", confirmButton, true, CloseRoomJoinCreateMenuUI);
+		}
+
+		private void OnJoinCreateInputClicked(string input)
+		{
+			if (!string.IsNullOrEmpty(input))
+			{
+				_statechartTrigger(_playClickedEvent);
+			}
+		}
+		
+		private void CloseRoomJoinCreateMenuUI(string input)
+		{
+			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
+			//_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
+		}
 
 		private void CloseCratesMenuUI()
 		{
@@ -402,6 +444,7 @@ namespace FirstLight.Game.StateMachines
 				OnSocialButtonClicked = OnTabClickedCallback<SocialScreenPresenter>,
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
 				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
+				OnRoomJoinCreateClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>
 			};
 			
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

@@ -31,9 +31,9 @@ namespace Quantum
 			var kcc = new CharacterController3D();
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
-			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, 
+			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
 			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
-			
+
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
@@ -60,7 +60,7 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 
-			EquipSlotWeapon(f, e, CurrentWeaponSlot);
+			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -77,10 +77,10 @@ namespace Quantum
 		/// </summary>
 		internal void Activate(Frame f, EntityRef e)
 		{
-			var targetable = new Targetable { Team = Player + (int) TeamType.TOTAL };
-			
+			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
+
 			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, EntityRef.None, FP._1);
-			
+
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
@@ -99,9 +99,9 @@ namespace Quantum
 				Killer = killerPlayer,
 				KillerEntity = attacker
 			};
-			
+
 			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, attacker, FP._0);
-			
+
 			// If an entity has NavMeshPathfinder then we stop the movement in case an entity was moving
 			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(e, out var navMeshPathfinder))
 			{
@@ -141,7 +141,7 @@ namespace Quantum
 		/// <summary>
 		/// Sets the player's weapon to the given <paramref name="slot"/>
 		/// </summary>
-		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
+		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot, bool triggerEvents = true)
 		{
 			CurrentWeaponSlot = slot;
 
@@ -158,8 +158,11 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 
-			f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-			f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
+			if (triggerEvents)
+			{
+				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
+			}
 
 			// TODO: Specials should have charges and remember charges used for each weapon
 			for (var i = 0; i < Constants.MAX_SPECIALS; i++)

@@ -188,7 +188,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 			
-			await instance.GetComponent<AdventureCharacterViewMonoComponent>().Init(weapon, gear, EntityView);
+			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(weapon, gear, EntityView);
 			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 

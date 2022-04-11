@@ -40,17 +40,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Sets this entity view reference to be the same of the parent <see cref="Quantum.EntityPrototype"/>
 		/// </summary>
-		public void SetEntityView(EntityView entityView)
+		public void SetEntityView(QuantumGame game, EntityView entityView)
 		{
 			EntityView = entityView;
 			EntityRef = EntityView.EntityRef;
 			
-			OnInit();
+			OnInit(game);
 		}
 		
 		protected virtual void OnAwake() { }
 
-		protected virtual void OnInit() { }
+		protected virtual void OnInit(QuantumGame game) { }
 	}
 	
 	/// <inheritdoc />

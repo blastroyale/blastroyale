@@ -29,11 +29,17 @@ namespace Quantum
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
+			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
+			transform->Position = spawnPosition.Position;
+			transform->Rotation = spawnPosition.Rotation;
 			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
 			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
-
+			
+			BotSDKDebuggerSystem.AddToDebugger(e);
+			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
@@ -47,32 +53,24 @@ namespace Quantum
 			}
 
 			InitStats(f, e, playerGear);
-			Spawn(f, e, spawnPosition, false);
-			//Activate(f, e);
+			
+			f.Add<HFSMAgent>(e);
+			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 		}
 
 		/// <summary>
 		/// Spawns the player with it's initial default values
 		/// </summary>
-		internal void Spawn(Frame f, EntityRef e, Transform3D spawnPosition, bool isRespawning)
+		internal void Spawn(Frame f, EntityRef e)
 		{
-			BotSDKDebuggerSystem.AddToDebugger(e);
+			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-
-			transform->Position = spawnPosition.Position;
-			transform->Rotation = spawnPosition.Rotation;
-
 			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 
 			f.Remove<DeadPlayerCharacter>(e);
-
-			// Init HFSM
-			f.Add<HFSMAgent>(e);
-			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 		}
 
 		/// <summary>

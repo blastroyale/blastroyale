@@ -16,16 +16,16 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var entity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
 
-			if (!f.TryGet<DeadPlayerCharacter>(characterEntity, out var deadPlayer) || f.Time < deadPlayer.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
+			if (!f.TryGet<DeadPlayerCharacter>(entity, out var deadPlayer) || 
+			    f.Time < deadPlayer.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
 			{
 				throw new InvalidOperationException($"The player {playerRef} is not ready to be respawn yet");
 			}
 
-			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f);
-			
-			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->Spawn(f, characterEntity, spawnPoint.Component, true);
+			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
 		}
 	}
 }

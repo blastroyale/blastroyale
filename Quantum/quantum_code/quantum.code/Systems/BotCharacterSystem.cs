@@ -57,10 +57,8 @@ namespace Quantum.Systems
 				{
 					return;
 				}
-
-				var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f);
-
-				filter.PlayerCharacter->Spawn(f, filter.Entity, spawnPoint.Component, true);
+				
+				filter.PlayerCharacter->Spawn(f, filter.Entity);
 			}
 
 			// If a bot is not alive OR a bot is stunned 

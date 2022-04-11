@@ -48,6 +48,7 @@ namespace Quantum
 
 			InitStats(f, e, playerGear);
 			Spawn(f, e, spawnPosition, false);
+			//Activate(f, e);
 		}
 
 		/// <summary>
@@ -55,6 +56,8 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e, Transform3D spawnPosition, bool isRespawning)
 		{
+			BotSDKDebuggerSystem.AddToDebugger(e);
+			
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			transform->Position = spawnPosition.Position;

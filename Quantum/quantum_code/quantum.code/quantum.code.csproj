@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
+    <Compile Include="AI\Actions\TeleportSpawnAction.cs" />
     <Compile Include="AI\Actions\SkydivePLFAction.cs" />
     <Compile Include="AI\Actions\SkydiveStartAction.cs" />
     <Compile Include="AI\Actions\SkydiveStopAction.cs" />

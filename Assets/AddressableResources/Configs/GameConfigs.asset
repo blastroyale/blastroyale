@@ -31,12 +31,8 @@ MonoBehaviour:
         RawValue: 983040
       GoToNextMatchForceTime:
         RawValue: 655360
-      ShrinkingSizeK:
-        RawValue: 32768
-      ShrinkingBorderK:
-        RawValue: 65536
       ShrinkingDamageCooldown:
-        RawValue: 13107200
+        RawValue: 65536
       ShrinkingDamage: 20
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:

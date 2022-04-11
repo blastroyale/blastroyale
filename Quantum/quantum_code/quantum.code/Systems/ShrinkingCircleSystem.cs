@@ -25,7 +25,6 @@ namespace Quantum.Systems
 			var lerp = FPMath.Max(0, (f.Time - circle->ShrinkingStartTime) / circle->ShrinkingDurationTime);
 			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
 			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
-			
 			radius *= radius;
 			
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
@@ -60,7 +59,9 @@ namespace Quantum.Systems
 			{
 				circle->ShrinkingStartTime = FP.MaxValue;
 				circle->ShrinkingDurationTime = FP.MaxValue;
-					
+				circle->CurrentRadius = circle->TargetRadius;
+				circle->CurrentCircleCenter = circle->TargetCircleCenter;
+				
 				return circle;
 			}
 			
@@ -74,16 +75,21 @@ namespace Quantum.Systems
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
 		{
-			var gameConfig = f.GameConfig;
-			var borderK = gameConfig.ShrinkingSizeK * gameConfig.ShrinkingBorderK;
-
 			circle->Step = config.Step;
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
-			circle->TargetRadius = circle->CurrentRadius * gameConfig.ShrinkingSizeK;
-			circle->TargetCircleCenter += new FPVector2(f.RNG->NextInclusive(-borderK, borderK), 
-			                                            f.RNG->NextInclusive(-borderK, borderK)) * circle->CurrentRadius;
+			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
+			
+			var randomR = f.RNG->NextInclusive(FP._0, circle->CurrentRadius - circle->TargetRadius);
+			circle->TargetCircleCenter += FPVector2.Rotate(FPVector2.Left, f.RNG->NextInclusive(FP._0, FP.PiTimes2)) * randomR;
+			
+			// When we change a step of a circle, we need to remove current spell from all players
+			// So in update the up-to-date spell will be added
+			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
+			{
+				RemoveShrinkingDamage(f, pair.Entity);
+			}
 			
 			f.Events.OnNewShrinkingCircle(*circle);
 		}
@@ -96,6 +102,7 @@ namespace Quantum.Systems
 			}
 
 			var newSpell = f.Create();
+			var circle = f.GetSingleton<ShrinkingCircle>();
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
 			f.Add(newSpell, new Spell
@@ -107,7 +114,7 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = f.GameConfig.ShrinkingDamage,
+				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)circle.Step,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			});

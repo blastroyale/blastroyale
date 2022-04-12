@@ -92,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			RenderersContainerProxy.SetMaterial(SetMaterial, ShadowCastingMode.On, true);
 			
-			yield return new WaitForSeconds(GameConstants.DissolveDuration);
+			yield return new WaitForSeconds(duration);
 
 			if (destroyGameObject)
 			{
@@ -107,7 +107,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				
 				if (duration > 0f)
 				{
-					newMat.DOFloat(GameConstants.DissolveEndAlphaClipValue, _dissolveProperty, GameConstants.DissolveDuration).SetAutoKill(true);
+					newMat.DOFloat(endValue, _dissolveProperty, duration).SetAutoKill(true);
 				}
 				else
 				{

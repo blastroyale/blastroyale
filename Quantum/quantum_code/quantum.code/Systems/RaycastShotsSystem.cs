@@ -45,7 +45,7 @@ namespace Quantum.Systems
 				var hits = f.Physics3D.GetQueryHits(linecast);
 
 				if (hits.Count == 0 || hits[0].Entity == filter.RaycastShots->Attacker ||
-				    (filter.RaycastShots->CanHitSameTarget && _hitsDone.Contains(hits[0].Entity)))
+				    !filter.RaycastShots->CanHitSameTarget && _hitsDone.Contains(hits[0].Entity))
 				{
 					continue;
 				}

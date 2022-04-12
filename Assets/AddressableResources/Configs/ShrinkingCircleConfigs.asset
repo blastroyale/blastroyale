@@ -20,50 +20,46 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 983040
+        RawValue: 655360
       WarningTime:
         RawValue: 983040
       ShrinkingTime:
         RawValue: 3276800
+      ShrinkingSizeK:
+        RawValue: 29491
     - Step: 2
       DelayTime:
-        RawValue: 458752
-      WarningTime:
-        RawValue: 327680
-      ShrinkingTime:
-        RawValue: 2293760
-    - Step: 3
-      DelayTime:
-        RawValue: 327680
-      WarningTime:
-        RawValue: 327680
-      ShrinkingTime:
-        RawValue: 1638400
-    - Step: 4
-      DelayTime:
-        RawValue: 262144
-      WarningTime:
-        RawValue: 262144
-      ShrinkingTime:
-        RawValue: 1310720
-    - Step: 5
-      DelayTime:
-        RawValue: 196608
-      WarningTime:
-        RawValue: 262144
-      ShrinkingTime:
-        RawValue: 983040
-    - Step: 6
-      DelayTime:
-        RawValue: 196608
-      WarningTime:
-        RawValue: 262144
-      ShrinkingTime:
-        RawValue: 983040
-    - Step: 7
-      DelayTime:
-        RawValue: 196608
-      WarningTime:
         RawValue: 131072
+      WarningTime:
+        RawValue: 327680
       ShrinkingTime:
         RawValue: 655360
+      ShrinkingSizeK:
+        RawValue: 52429
+    - Step: 3
+      DelayTime:
+        RawValue: 131072
+      WarningTime:
+        RawValue: 327680
+      ShrinkingTime:
+        RawValue: 327680
+      ShrinkingSizeK:
+        RawValue: 52429
+    - Step: 4
+      DelayTime:
+        RawValue: 131072
+      WarningTime:
+        RawValue: 2949120
+      ShrinkingTime:
+        RawValue: 983040
+      ShrinkingSizeK:
+        RawValue: 19661
+    - Step: 5
+      DelayTime:
+        RawValue: 131072
+      WarningTime:
+        RawValue: 0
+      ShrinkingTime:
+        RawValue: 2949120
+      ShrinkingSizeK:
+        RawValue: 66

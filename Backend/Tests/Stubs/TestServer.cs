@@ -1,10 +1,11 @@
 using System;
+using Backend.Game;
+using Backend.Game.Services;
 using FirstLight;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using FirstLight.Services;
 using JetBrains.Annotations;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Tests.Stubs;
 
@@ -12,11 +13,46 @@ namespace Tests.Stubs;
 /// Represents what is needed to run a isolated server testing environment.
 /// </summary>
 public class TestServer
-{
+{	
+	private IServiceProvider _services;
 	private IDataProvider _data;
-	private GameLogic _logic;
-	private GameCommandService _commandService;
+	private GameServerLogic _logic;
+	private static string? _testPlayerId = null;
 	
+	public TestServer()
+	{
+		SetupServices();
+		var cfg = GetService<IConfigsProvider>();
+		var data = GetService<IDataProvider>();
+		_logic = new GameServerLogic(cfg, data);
+		_logic.Init();
+	}
+
+	private void SetupServices()
+	{
+		var services = new ServiceCollection();
+		var logger = new LoggerFactory().CreateLogger("Log");
+		IOCSetup.Setup(services, logger);
+		services.AddSingleton<IDataProvider, ServerTestData>();
+		_services = services.BuildServiceProvider();
+	}
+	
+	public T? GetService<T>()
+	{
+		return (T?)_services.GetService(typeof(T));
+	}
+	
+	public string GetTestPlayerID()
+	{
+		if (_testPlayerId == null)
+		{
+			var server = _services.GetService<IPlayfabServer>();
+			_testPlayerId = TestPlayerSetup.GetTestPlayerId(server as PlayfabServerSettings);
+		}
+		return _testPlayerId;
+	}
+
+
 	[NotNull]
 	public IDataProvider Data
 	{
@@ -25,27 +61,10 @@ public class TestServer
 	}
 
 	[NotNull]
-	public GameLogic Logic
+	public GameServerLogic Logic
 	{
 		get => _logic;
 		set => _logic = value ?? throw new ArgumentNullException(nameof(value));
-	}
-
-	[NotNull]
-	public GameCommandService CommandService
-	{
-		get => _commandService;
-		set => _commandService = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	
-	public TestServer()
-	{
-		var cfg = new ConfigsProvider();
-		cfg.AddSingletonConfig(new MapConfig());
-		_data = new ServerTestData();
-		_commandService = new GameCommandService(_logic, _data);
-		_logic = new ServerTestLogic(cfg, _data);
-		_logic.Init();
 	}
 
 }

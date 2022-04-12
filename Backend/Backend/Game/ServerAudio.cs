@@ -3,9 +3,13 @@ using FirstLight.Game.Ids;
 using FirstLight.Services;
 using UnityEngine;
 
-namespace Tests.Stubs;
+namespace Backend.Game;
 
-public class TestServerAudio : IAudioFxService<AudioId>
+/// <summary>
+/// Just need this.
+/// TODO: Abstract this so we don't need to implement this in server.
+/// </summary>
+public class ServerAudio : IAudioFxService<AudioId>
 {
 
 	public void Dispose()
@@ -55,7 +59,7 @@ public class TestServerAudio : IAudioFxService<AudioId>
 	{
 		get => true;
 		set  { }
-}
+	}
 
 	public bool Is2dSfxMuted
 	{

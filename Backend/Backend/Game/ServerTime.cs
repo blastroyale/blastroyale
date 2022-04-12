@@ -1,13 +1,14 @@
 using System;
 using FirstLight.Services;
 
-namespace Tests.Stubs;
+namespace Backend.Game;
 
 /// <summary>
-/// Server test time for testing purposes.
+/// Server test time.
 /// Starts couting the time when tests instantiates the class.
+/// TODO: Review and validate this
 /// </summary>
-public class ServerTestTime: ITimeService
+public class ServerTime: ITimeService
 {
 	private static readonly DateTime UnixInitialTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -24,7 +25,7 @@ public class ServerTestTime: ITimeService
 	/// <inheritdoc />
 	public long UnixTimeNow => (long)( DateTimeUtcNow - UnixInitialTime ).TotalMilliseconds;
 
-	public ServerTestTime()
+	public ServerTime()
 	{
 		_initialTime = DateTime.Now;
 	}

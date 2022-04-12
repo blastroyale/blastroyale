@@ -29,6 +29,9 @@
         <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
          <ReferencePath>..\Lib\FirstLight.Services.dll</ReferencePath>
       </Reference>
+      <Reference Include="JetBrains.ReSharper.TestRunner.Merged, Version=2.6.2.69, Culture=neutral, PublicKeyToken=5c492ec4f3eccde3">
+        <HintPath>..\..\..\..\..\..\Applications\Rider.app\Contents\lib\ReSharperHost\TestRunner\netcoreapp3.0\JetBrains.ReSharper.TestRunner.Merged.dll</HintPath>
+      </Reference>
       <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.code.dll</HintPath>
          <ReferencePath>..\Lib\quantum.code.dll</ReferencePath>
@@ -41,5 +44,9 @@
         <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
          <ReferencePath>..\UnityLib\UnityEngine.CoreModule.dll</ReferencePath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Backend\Backend.csproj" />
     </ItemGroup>
 </Project>

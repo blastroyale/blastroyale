@@ -50,6 +50,9 @@ namespace Quantum.Systems
 					continue;
 				}
 				
+				// Systems should be stateless to avoid desyncs. This list is used to avoid garbage every frame.
+				// The data is only used on the same context of the update loop and not between loops so is safe
+				// from desyncs and state rollbacks
 				_hitsDone.Add(hits[0].Entity);
 				
 				var spell = Spell.CreateInstant(f, hits[0].Entity, filter.RaycastShots->Attacker, filter.RaycastShots->Attacker,

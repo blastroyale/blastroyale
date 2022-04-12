@@ -38,6 +38,8 @@ namespace Quantum
 			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
 			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
 			
+			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
+			// a list of all currently registered entities and their states.
 			BotSDKDebuggerSystem.AddToDebugger(e);
 			
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
@@ -83,7 +85,7 @@ namespace Quantum
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->SetCurrentHealth(f, e, EntityRef.None, FP._1);
 			
-			var maxHealth = stats->GetStatData(StatType.Health).StatValue;
+			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
 			
 			

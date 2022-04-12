@@ -1,8 +1,10 @@
 using Cinemachine;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 
@@ -20,6 +22,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField] private CinemachineVirtualCamera _specialAimCamera;
 
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
 		private EntityView _playerView;
@@ -27,6 +30,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_localInput = new LocalInput();
 
@@ -82,6 +86,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SetTargetTransform(_playerView.transform);
+
+			if (_dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch)
+			{
+				SetActiveCamera(_adventureCamera);
+			}
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)

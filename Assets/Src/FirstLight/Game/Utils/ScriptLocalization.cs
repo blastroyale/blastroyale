@@ -485,6 +485,8 @@ namespace I2.Loc
 			public static string Hp 		{ get{ return LocalizationManager.GetTranslation ("General/Hp"); } }
 			public static string LeaveFeedback 		{ get{ return LocalizationManager.GetTranslation ("General/LeaveFeedback"); } }
 			public static string Level 		{ get{ return LocalizationManager.GetTranslation ("General/Level"); } }
+			public static string Maintenance 		{ get{ return LocalizationManager.GetTranslation ("General/Maintenance"); } }
+			public static string MaintenanceDescription 		{ get{ return LocalizationManager.GetTranslation ("General/MaintenanceDescription"); } }
 			public static string Map 		{ get{ return LocalizationManager.GetTranslation ("General/Map"); } }
 			public static string MaxCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/MaxCapacity"); } }
 			public static string MaxLevel 		{ get{ return LocalizationManager.GetTranslation ("General/MaxLevel"); } }
@@ -507,7 +509,6 @@ namespace I2.Loc
 			public static string Reloading 		{ get{ return LocalizationManager.GetTranslation ("General/Reloading"); } }
 			public static string Replace 		{ get{ return LocalizationManager.GetTranslation ("General/Replace"); } }
 			public static string RequireWeapon 		{ get{ return LocalizationManager.GetTranslation ("General/RequireWeapon"); } }
-			public static string RoomMatchmakingName 		{ get{ return LocalizationManager.GetTranslation ("General/RoomMatchmakingName"); } }
 			public static string SecondarySpecial 		{ get{ return LocalizationManager.GetTranslation ("General/SecondarySpecial"); } }
 			public static string Select 		{ get{ return LocalizationManager.GetTranslation ("General/Select"); } }
 			public static string Selected 		{ get{ return LocalizationManager.GetTranslation ("General/Selected"); } }
@@ -1201,6 +1202,8 @@ namespace I2.Loc
 		    public const string Hp = "General/Hp";
 		    public const string LeaveFeedback = "General/LeaveFeedback";
 		    public const string Level = "General/Level";
+		    public const string Maintenance = "General/Maintenance";
+		    public const string MaintenanceDescription = "General/MaintenanceDescription";
 		    public const string Map = "General/Map";
 		    public const string MaxCapacity = "General/MaxCapacity";
 		    public const string MaxLevel = "General/MaxLevel";
@@ -1223,7 +1226,6 @@ namespace I2.Loc
 		    public const string Reloading = "General/Reloading";
 		    public const string Replace = "General/Replace";
 		    public const string RequireWeapon = "General/RequireWeapon";
-		    public const string RoomMatchmakingName = "General/RoomMatchmakingName";
 		    public const string SecondarySpecial = "General/SecondarySpecial";
 		    public const string Select = "General/Select";
 		    public const string Selected = "General/Selected";

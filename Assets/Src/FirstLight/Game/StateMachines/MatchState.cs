@@ -20,10 +20,15 @@ using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.StateMachines
 {
+	public interface IMatchState
+	{
+		string Test { get; }
+	}
+	
 	/// <summary>
 	/// This object contains the behaviour logic for the match in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class MatchState : IInRoomCallbacks
+	public class MatchState : IInRoomCallbacks, IMatchState
 	{
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
 
@@ -39,6 +44,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private int _loadedPlayers;
+		
+		public string Test { get; }
 
 		public MatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
@@ -74,6 +81,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(() => _loadedPlayers = 0);
 
+			//loading.OnEnter(StartMatchMaking);
 			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
 
 			connectedCheck.Transition().Condition(IsConnected).Target(matchmaking);

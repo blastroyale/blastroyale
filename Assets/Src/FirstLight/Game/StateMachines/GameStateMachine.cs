@@ -25,10 +25,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
-		private readonly MatchState _matchState;
 		private readonly NetworkState _networkState;
-		private readonly MainMenuState _mainMenuState;
 		private readonly GameLogic _gameLogic;
+		private readonly CoreState _coreState;
 		private readonly IGameServices _services;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
@@ -53,9 +52,8 @@ namespace FirstLight.Game.StateMachines
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger);
-			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_matchState = new MatchState(gameLogic, services, uiService, assetAdderService, Trigger);
+			_coreState = new CoreState(gameLogic, services, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -77,9 +75,7 @@ namespace FirstLight.Game.StateMachines
 			var initialAssets = stateFactory.TaskWait("Initial Asset");
 			var internetCheck = stateFactory.Choice("Internet Check");
 			var initialLoading = stateFactory.Split("Initial Loading");
-			var match = stateFactory.Split("Match");
-			var mainMenu = stateFactory.Nest("Main Menu");
-			var ftueCheck = stateFactory.Choice("FTUE Check");
+			var core = stateFactory.Split("Core");
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
@@ -89,18 +85,14 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
-			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(ftueCheck);
+			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(core);
 			initialLoading.OnExit(InitializeGame);
-
-			ftueCheck.Transition().Target(mainMenu);
 			
-			mainMenu.Nest(_mainMenuState.Setup).Target(match);
-			
-			match.Split(_matchState.Setup, _networkState.Setup).Target(mainMenu);
+			core.Split(_networkState.Setup, _coreState.Setup).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
-
+		
 		private void SubscribeEvents()
 		{
 			// Add any events to subscribe

@@ -86,7 +86,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			this.LateCall(_dissolveDelay, () =>
 			{
-				Dissolve(false);
+				Dissolve(false, 0, GameConstants.DissolveEndAlphaClipValue, GameConstants.DissolveDelay,
+				         GameConstants.DissolveDuration);
 			});
 		}
 	}

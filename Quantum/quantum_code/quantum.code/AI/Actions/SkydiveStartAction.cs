@@ -20,11 +20,10 @@ namespace Quantum
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			
-
 			transform->Position += FPVector3.Up * SkydiveHeight.Resolve(f, e, bb, null);
-			
+
+			player->Spawn(f, e);
 			player->Activate(f, e);
-			HFSMManager.TriggerEvent(f, e, Constants.SpawnedEvent);
 
 			f.Events.OnLocalPlayerSkydiveDrop(player->Player, e);
 			f.Events.OnPlayerSkydiveDrop(player->Player, e);

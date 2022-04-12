@@ -71,16 +71,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackGameDestroyed>(this, HandleGameDestroyed);
 		}
 		
-		protected void Dissolve(bool destroyGameObject)
+		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
-			StartCoroutine(DissolveCoroutine(destroyGameObject));
+			StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay, duration));
 		}
 
-		private IEnumerator DissolveCoroutine(bool destroyGameObject)
+		private IEnumerator DissolveCoroutine(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
 			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
-
-			yield return new WaitForSeconds(GameConstants.DissolveDelay);
+			
+			if (delay > 0)
+			{
+				yield return new WaitForSeconds(delay);
+			}
 
 			while (!task.IsCompleted)
 			{
@@ -89,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			RenderersContainerProxy.SetMaterial(SetMaterial, ShadowCastingMode.On, true);
 			
-			yield return new WaitForSeconds(GameConstants.DissolveDuration);
+			yield return new WaitForSeconds(duration);
 
 			if (destroyGameObject)
 			{
@@ -100,7 +103,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				var newMat = new Material(task.Result);
 				
-				newMat.DOFloat(GameConstants.DissolveEndAlphaClipValue, _dissolveProperty, GameConstants.DissolveDuration).SetAutoKill(true);
+				newMat.SetFloat(_dissolveProperty, startValue);
+				
+				if (duration > 0f)
+				{
+					newMat.DOFloat(endValue, _dissolveProperty, duration).SetAutoKill(true);
+				}
+				else
+				{
+					newMat.SetFloat(_dissolveProperty, endValue);
+				}
 				
 				return newMat;
 			}

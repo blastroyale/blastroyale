@@ -39,8 +39,11 @@ Material:
     m_Floats:
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
+    - Vector1_90e65e7bd40d4c6c9bae307afbd59b6e: 1
     - Vector1_E806FA6B: 0
     - _Death: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - dissolve_amount: 0
     m_Colors:
     - Color_3EC64E69: {r: 16, g: 0.8340815, b: 0, a: 0}

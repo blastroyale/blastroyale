@@ -73,6 +73,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				return;
 			}
 			
+			HealthBarUpdate((float) callback.CurrentHealth / callback.MaxHealth);
+			DamageDoneUpdate((float) callback.CurrentHealth / callback.MaxHealth);
+			
 			gameObject.SetActive(true);
 		}
 

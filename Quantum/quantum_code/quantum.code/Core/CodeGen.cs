@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -5082,11 +5083,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAlive OnPlayerAlive(PlayerRef Player, EntityRef Entity) {
+      public EventOnPlayerAlive OnPlayerAlive(PlayerRef Player, EntityRef Entity, Int32 CurrentHealth, Int32 MaxHealth) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAlive>(EventOnPlayerAlive.ID);
         ev.Player = Player;
         ev.Entity = Entity;
+        ev.CurrentHealth = CurrentHealth;
+        ev.MaxHealth = MaxHealth;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5230,12 +5233,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerAlive OnLocalPlayerAlive(PlayerRef Player, EntityRef Entity) {
+      public EventOnLocalPlayerAlive OnLocalPlayerAlive(PlayerRef Player, EntityRef Entity, Int32 CurrentHealth, Int32 MaxHealth) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerAlive>(EventOnLocalPlayerAlive.ID);
         ev.Player = Player;
         ev.Entity = Entity;
+        ev.CurrentHealth = CurrentHealth;
+        ev.MaxHealth = MaxHealth;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6452,6 +6457,8 @@ namespace Quantum {
     public new const Int32 ID = 34;
     public PlayerRef Player;
     public EntityRef Entity;
+    public Int32 CurrentHealth;
+    public Int32 MaxHealth;
     protected EventOnPlayerAlive(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6471,6 +6478,8 @@ namespace Quantum {
         var hash = 199;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + CurrentHealth.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
         return hash;
       }
     }
@@ -6920,6 +6929,8 @@ namespace Quantum {
     public new const Int32 ID = 50;
     public PlayerRef Player;
     public EntityRef Entity;
+    public Int32 CurrentHealth;
+    public Int32 MaxHealth;
     protected EventOnLocalPlayerAlive(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6939,6 +6950,8 @@ namespace Quantum {
         var hash = 293;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + CurrentHealth.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
         return hash;
       }
     }

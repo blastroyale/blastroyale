@@ -48,7 +48,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void HandleOnPlayerAttacked(EventOnLocalPlayerAttack callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			var cooldown = f.Get<AIBlackboardComponent>(callback.PlayerEntity).GetFP(f, Constants.AttackCooldownKey);
+			var cooldown = f.Get<AIBlackboardComponent>(callback.PlayerEntity)
+			                .GetFP(f, nameof(QuantumWeaponConfig.AttackCooldown));
 			
 			if (!f.Get<PlayerCharacter>(callback.PlayerEntity).HasMeleeWeapon(f, callback.PlayerEntity))
 			{

@@ -202,6 +202,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -250,6 +251,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -298,6 +300,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -309,6 +312,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -322,6 +329,10 @@ PrefabInstance:
       value: -2.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -332,14 +343,6 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e13a191a52c95d54eae2186876394318, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -427,6 +430,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.030000001
       objectReference: {fileID: 0}
@@ -439,6 +446,10 @@ PrefabInstance:
       value: -3.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -449,14 +460,6 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -552,6 +555,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1643990283
@@ -564,6 +568,7 @@ Transform:
   m_LocalRotation: {x: 0.16173004, y: 0.83731836, z: -0.3904479, w: 0.34683114}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -580,6 +585,10 @@ PrefabInstance:
       value: CollectableSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -592,6 +601,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -602,14 +615,6 @@ PrefabInstance:
     - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8215715485309678006, guid: 102ee3daba579f64b9f88788410e09b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

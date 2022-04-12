@@ -17,7 +17,6 @@ MonoBehaviour:
   m_MaxEventBytesPerUpdate: 5242880
   m_MaxQueuedEventsPerUpdate: 1000
   m_CompensateForScreenOrientation: 1
-  m_FilterNoiseOnCurrent: 0
   m_BackgroundBehavior: 0
   m_EditorInputBehaviorInPlayMode: 0
   m_DefaultDeadzoneMin: 0.125

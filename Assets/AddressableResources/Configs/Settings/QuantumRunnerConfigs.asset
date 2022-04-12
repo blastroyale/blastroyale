@@ -26,15 +26,6 @@ MonoBehaviour:
     BotConfigs:
       Id:
         Value: 1550297457877710414
-    MultishotConfigs:
-      Id:
-        Value: 25992991120524083
-    FrontshotConfigs:
-      Id:
-        Value: 2642967239424394741
-    DiagonalshotConfigs:
-      Id:
-        Value: 4377079066132996845
     WeaponConfigs:
       Id:
         Value: 2174339006334179964
@@ -47,9 +38,6 @@ MonoBehaviour:
     SpecialConfigs:
       Id:
         Value: 3242401771564966650
-    HazardConfigs:
-      Id:
-        Value: 374155793228999426
     AssetConfigs:
       Id:
         Value: 1782342916809032400

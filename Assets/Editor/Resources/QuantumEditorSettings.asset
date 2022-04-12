@@ -36,6 +36,10 @@ MonoBehaviour:
   CharacterControllerColor: {r: 1, g: 1, b: 0, a: 1}
   AsleepColliderColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
   DisabledColliderColor: {r: 1, g: 0, b: 0, a: 1}
+  DrawJointGizmos: 6
+  JointGizmosPrimaryColor: {r: 0, g: 1, b: 0, a: 1}
+  JointGizmosSecondaryColor: {r: 0, g: 1, b: 1, a: 1}
+  JointGizmosWarningColor: {r: 1, g: 0, b: 0, a: 1}
   DrawPredictionArea: 1
   PredictionAreaColor: {r: 1, g: 0, b: 0, a: 0.25}
   DrawPathfinderRawPath: 0
@@ -58,6 +62,7 @@ MonoBehaviour:
   UseQuantumAssetInspector: 1
   UseAssetBasePostprocessor: 1
   UseQuantumToolbarUtilities: 1
+  QuantumToolbarZone: 0
   UsePhotonAppVersionsPostprocessor: 1
   EntityComponentInspectorMode: 0
   FPDisplayPrecision: 5

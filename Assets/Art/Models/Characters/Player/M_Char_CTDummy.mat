@@ -66,6 +66,8 @@ Material:
     - _Death: 0
     - _EmissTexAmount: 1
     - _Hit: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _Rage: 0
     m_Colors:
     - Color_1982176cf2404a43b37721aa91e37a76: {r: 5.992157, g: 0, b: 0, a: 0}

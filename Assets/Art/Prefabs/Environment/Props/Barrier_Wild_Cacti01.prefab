@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.21302904, z: -0, w: 0.9770459}
   m_LocalPosition: {x: 0.41, y: 0.84, z: -0.52}
   m_LocalScale: {x: 1.7003317, y: 3.7957776, z: 1.7003317}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4510637174310227468}
   m_RootOrder: 0
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 0}
   Size:
     X:
       RawValue: 65536
@@ -59,7 +61,22 @@ MonoBehaviour:
       RawValue: 65536
     Z:
       RawValue: 65536
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
+    MutableMode: 0
     PhysicsMaterial:
       Id:
         Value: 0
@@ -95,6 +112,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.21393104, z: -0, w: 0.9768488}
   m_LocalPosition: {x: 0.649, y: 0.471, z: 0.927}
   m_LocalScale: {x: 1.7505475, y: 1.1908349, z: 4.419883}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4510637174310227468}
   m_RootOrder: 3
@@ -119,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 0}
   Size:
     X:
       RawValue: 65536
@@ -126,7 +145,22 @@ MonoBehaviour:
       RawValue: 65536
     Z:
       RawValue: 65536
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
+    MutableMode: 0
     PhysicsMaterial:
       Id:
         Value: 0
@@ -160,6 +194,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7038353248059714666}
   - {fileID: 7180782703510733896}
@@ -197,6 +232,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5866653723785573702}
   m_RootOrder: 0
@@ -220,6 +256,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -278,6 +315,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.3556113, z: -0, w: 0.934634}
   m_LocalPosition: {x: -0.434, y: 0.5, z: 0.749}
   m_LocalScale: {x: 1.7505475, y: 2.597694, z: 1.9872679}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4510637174310227468}
   m_RootOrder: 2
@@ -302,6 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 0}
   Size:
     X:
       RawValue: 65536
@@ -309,7 +348,22 @@ MonoBehaviour:
       RawValue: 65536
     Z:
       RawValue: 65536
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
+    MutableMode: 0
     PhysicsMaterial:
       Id:
         Value: 0
@@ -345,6 +399,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.21393104, z: -0, w: 0.9768488}
   m_LocalPosition: {x: 0.634, y: 2.66, z: 1.764}
   m_LocalScale: {x: 0.82804, y: 5.754, z: 0.65966076}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4510637174310227468}
   m_RootOrder: 4
@@ -369,6 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 0}
   Size:
     X:
       RawValue: 65536
@@ -376,7 +432,22 @@ MonoBehaviour:
       RawValue: 65536
     Z:
       RawValue: 65536
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
+    MutableMode: 0
     PhysicsMaterial:
       Id:
         Value: 0
@@ -412,6 +483,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.3556113, z: -0, w: 0.934634}
   m_LocalPosition: {x: -0.549, y: 0.84, z: -1.361}
   m_LocalScale: {x: 1.7505475, y: 2.597694, z: 1.9872679}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4510637174310227468}
   m_RootOrder: 1
@@ -436,6 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 0}
   Size:
     X:
       RawValue: 65536
@@ -443,7 +516,22 @@ MonoBehaviour:
       RawValue: 65536
     Z:
       RawValue: 65536
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
+    MutableMode: 0
     PhysicsMaterial:
       Id:
         Value: 0
@@ -477,6 +565,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6157665363035323941}
   - {fileID: 4510637174310227468}

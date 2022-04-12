@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 772c876c2069d0b488fb2840de6e4f6b
-timeCreated: 1551887845
-licenseType: Free
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
@@ -10,6 +8,8 @@ ShaderImporter:
   - _Distortion: {fileID: 2800000, guid: 82f4b06147155c54da475b309b9e24fa, type: 3}
   - _Mask: {fileID: 2800000, guid: 03e4ee8d0b5f45045bb12e2930ed4058, type: 3}
   - _ColorRamp: {fileID: 2800000, guid: 789405d2635550c4c9df257b8e484c62, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

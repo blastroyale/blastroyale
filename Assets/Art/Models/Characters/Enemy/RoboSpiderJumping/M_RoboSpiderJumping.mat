@@ -69,6 +69,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - BrightenMainTexture: 0.25
     - Vector1_2C41ECC1: 0
     - Vector1_556AE1FB: 1
     - Vector1_67FEC935: 1
@@ -97,6 +98,7 @@ Material:
     - _Hit: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _Rage: 0
     - _ReceiveShadows: 1

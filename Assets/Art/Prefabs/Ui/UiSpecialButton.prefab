@@ -33,6 +33,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3108487524142784147}
   m_Father: {fileID: 0}
@@ -89,7 +90,6 @@ MonoBehaviour:
   _specialPointerDownAdapter: {fileID: 7802728473328082836}
   _specialAimDirectionAdapter: {fileID: 371030962281379524}
   _rectScale: 3
-  _tooltip: {fileID: 0}
   _aimableBackgroundSprite: {fileID: 21300000, guid: 4358f599f237f4186a501d2d73007520, type: 3}
   _nonAimableBackgroundSprite: {fileID: 21300000, guid: 26ba52ed9051d423dbfe823488a7abfc, type: 3}
   _pingAnimation: {fileID: 0}
@@ -216,6 +216,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3108487524142784147}
   m_RootOrder: 2
@@ -291,6 +292,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3108487524142784147}
   m_RootOrder: 1
@@ -366,6 +368,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3108487524142784147}
   m_RootOrder: 0
@@ -439,6 +442,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4768705232888286588}
   - {fileID: 6424247668278337365}

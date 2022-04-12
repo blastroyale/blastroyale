@@ -30,6 +30,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5591684151730893418}
   m_Father: {fileID: 0}
@@ -100,12 +101,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  Animation: {fileID: 5591684151562298098}
+  RectTransform: {fileID: 5591684151562298108}
   PressedEase: 1
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 0.9}
+  HapticType: 9
   TapSoundFx: 18
-  Animation: {fileID: 5591684151562298098}
-  RectTransform: {fileID: 5591684151562298108}
   Anchor: {fileID: 5591684151730893418}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
 --- !u!114 &5591684151562298099
@@ -158,6 +160,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5591684152986601588}
   - {fileID: 3084804813262677588}
@@ -197,6 +200,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5591684151730893418}
   m_RootOrder: 0
@@ -273,6 +277,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5591684151730893418}
   m_RootOrder: 1
@@ -404,6 +409,7 @@ MonoBehaviour:
   CorrectAlignmentForRTL: 1
   AddSpacesToJoinedLanguages: 0
   AllowLocalizedParameters: 1
+  AllowParameters: 1
   TranslatedObjects: []
   LocalizeEvent:
     m_PersistentCalls:

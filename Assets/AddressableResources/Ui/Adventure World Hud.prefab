@@ -157,10 +157,6 @@ MonoBehaviour:
   _neutralTextColor: {r: 1, g: 1, b: 1, a: 1}
   _armourLossTextColor: {r: 1, g: 1, b: 1, a: 1}
   _armourGainTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _floatingTextAnimation: {fileID: 7400000, guid: 98f32ac3ab0a145e6bee3a025f593992, type: 2}
-  _floatingArmourAndTextAnimation: {fileID: 7400000, guid: 78e5e6798cc534f0faa1dfbab1444d2a, type: 2}
-  _floatingFastTextAnimation: {fileID: 7400000, guid: 98f32ac3ab0a145e6bee3a025f593992, type: 2}
-  _floatingFastArmourAndTextAnimation: {fileID: 7400000, guid: 3d62ae258937f47c6817422773f713ca, type: 2}
   _floatingTextRef: {fileID: 1292738112810787622}
   _floatingArmourAndTextRef: {fileID: 6809354617266001813}
 --- !u!223 &5558458926250411287

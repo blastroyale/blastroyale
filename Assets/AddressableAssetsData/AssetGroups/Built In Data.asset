@@ -21,14 +21,10 @@ MonoBehaviour:
     m_Address: EditorSceneList
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: Resources
     m_Address: Resources
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

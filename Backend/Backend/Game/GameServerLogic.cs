@@ -14,7 +14,7 @@ public class GameServerLogic : GameLogic // WIP
 	                                                           data, 
 	                                                           null,
 	                                                           cfg, 
-	                                                           null //new ServerAudio()
+	                                                           new ServerAudio()
 	                                                          )
 	{
 	}

@@ -4159,10 +4159,12 @@ MonoBehaviour:
   _mapTimerView: {fileID: 8018744190964896810}
   _contendersLeftHolderMessageView: {fileID: 2970369840658040710}
   _contendersLeftHolderView: {fileID: 6069077489851740612}
+  _weaponSlotsHolder: {fileID: 9131686192271445966}
   _weaponSlotButtons:
   - {fileID: 1211368993613338518}
   - {fileID: 4789610818284597664}
   - {fileID: 676827649866139840}
+  _minimapHolder: {fileID: 1037634123898096227}
 --- !u!222 &6241638454973851678
 CanvasRenderer:
   m_ObjectHideFlags: 0

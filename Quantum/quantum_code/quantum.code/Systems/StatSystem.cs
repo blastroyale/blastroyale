@@ -16,8 +16,8 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, Stats* component)
 		{
-			component->Modifiers = f.AllocateList<Modifier>(16);
-			component->SpellEffects = f.AllocateList<EntityRef>(16);
+			component->Modifiers = f.AllocateList<Modifier>();
+			component->SpellEffects = f.AllocateList<EntityRef>();
 		}
 
 		/// <inheritdoc />

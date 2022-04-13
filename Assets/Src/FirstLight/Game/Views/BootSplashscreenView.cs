@@ -8,6 +8,8 @@ using Firebase.Analytics;
 using FirstLight.Game.Utils;
 using AppsFlyerSDK;
 using Facebook.Unity;
+using FirstLight.Game.Data;
+using Newtonsoft.Json;
 using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Views
@@ -86,9 +88,16 @@ namespace FirstLight.Game.Views
 
 		private void StartSplashScreen()
 		{
+			var json = PlayerPrefs.GetString(nameof(AppData), "");
+			var isSoundEnabled = string.IsNullOrEmpty(json) || JsonConvert.DeserializeObject<AppData>(json).SfxEnabled;
+			
 			SplashScreen.Begin();
 			SplashScreen.Draw();
-			_audioSource.Play();
+			
+			if (isSoundEnabled)
+			{
+				_audioSource.Play();
+			}
 		}
 
 		private async void MergeScenes(AsyncOperation asyncOperation)

@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
-			_collectablePlatformView.SetEntityView(EntityView);
+			_collectablePlatformView.SetEntityView(game, EntityView);
 		}
 	}
 }

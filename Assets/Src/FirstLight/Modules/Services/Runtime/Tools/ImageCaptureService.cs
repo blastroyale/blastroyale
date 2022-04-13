@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Src.FirstLight.Modules.Services.Runtime.Tools
@@ -204,9 +205,12 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 	
 	public class ImageCaptureService : MonoBehaviour
 	{
-		[SerializeField] private string _exportAbsoluteFolderPath;
-		[SerializeField] private string _importAbsoluteFolderPath;
-		[SerializeField] private string _metadataJsonFilePath;
+		[FolderPath(AbsolutePath = true)]
+		public string _exportAbsoluteFolderPath;
+		[FolderPath(AbsolutePath = true)]
+		public string _importAbsoluteFolderPath;
+		[FilePath(Extensions = "json")]
+		public string _metadataJsonFilePath;
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
 		[SerializeField] private Camera _camera;
@@ -215,6 +219,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 
 		public string ImportAbsoluteFolderPath => _importAbsoluteFolderPath;
 		
+		[Button("Export Metadata Collection")]
 		public void ExportMetadataCollection()
 		{
 			if (_exportAbsoluteFolderPath == "" || !Directory.Exists(_exportAbsoluteFolderPath))
@@ -243,6 +248,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 			Debug.Log($"Loaded [{fileCount} metadata files]");
 		}
 
+		[Button("Export Metadata Json")]
 		public void ExportMetadataJson()
 		{
 			if (_exportAbsoluteFolderPath == "" || !Directory.Exists(_exportAbsoluteFolderPath))
@@ -264,6 +270,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 			Export(_metadataJsonFilePath, backgroundErcRenderable);
 		}
 
+		[Button("Snapshot")]
 		public void SnapShot()
 		{
 			if (_exportAbsoluteFolderPath == "" || !Directory.Exists(_exportAbsoluteFolderPath))
@@ -276,6 +283,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 			RenderToTextureCapture("snapshot");
 		}
 		
+		[Button("Centre Marker Children")]
 		public void CentreMarkerChildren()
 		{
 			for (int i = 0; i < _markerTransform.childCount; i++)

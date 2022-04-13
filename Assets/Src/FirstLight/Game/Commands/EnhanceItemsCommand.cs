@@ -24,31 +24,10 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			var converter = new StringEnumConverter();
+			
 			var info = gameLogic.EquipmentLogic.GetEnhancementInfo(EnhanceItems);
-			
 			gameLogic.CurrencyLogic.DeductCurrency(GameId.SC, info.EnhancementCost);
-			
 			var item = gameLogic.EquipmentLogic.Enhance(EnhanceItems);
-
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
-				{
-					Command = nameof(EnhanceItemsCommand),
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
-
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 			gameLogic.MessageBrokerService.Publish(new ItemsEnhancedMessage { ResultItem = item });
 		}
 	}

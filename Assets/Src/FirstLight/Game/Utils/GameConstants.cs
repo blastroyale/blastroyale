@@ -39,13 +39,18 @@ namespace FirstLight.Game.Utils
 
 		// Duration of haptic feedback when player is damaged
 		public const float HAPTIC_DAMAGE_DURATION = 0.05f;
+
+		public const int PLAYER_NAME_MIN_LENGTH = 3;
+		public const int PLAYER_NAME_MAX_LENGTH = 20;
 		
 		// The name of the parameter in the animator that decides the time of stun outro animation
 		public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 		
 		// The upper limit for separators on reload bar; if the value is bigger then we don't show separators
 		public const uint MAX_RELOAD_BAR_SEPARATORS_AMOUNT = 6;
-
+		
+		public const float MAP_ROTATION_TIME_MINUTES = 10;
+		
 		public const float RadiusToScaleConversionValue = 2f;
 		
 		// The audios default starting volume

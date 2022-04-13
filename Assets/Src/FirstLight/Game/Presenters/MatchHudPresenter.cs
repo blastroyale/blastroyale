@@ -33,7 +33,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private MapTimerView _mapTimerView;
 		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
+		[SerializeField] private GameObject _weaponSlotsHolder;
 		[SerializeField] private Button[] _weaponSlotButtons;
+		[SerializeField] private GameObject _minimapHolder;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -103,6 +105,8 @@ namespace FirstLight.Game.Presenters
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
+			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
+			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 
 			if (isBattleRoyale)
 			{

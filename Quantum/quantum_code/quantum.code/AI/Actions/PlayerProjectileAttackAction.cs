@@ -8,7 +8,7 @@ namespace Quantum
 	/// and it's an projectile speed based attack
 	/// </summary>
 	/// <remarks>
-	/// Use <see cref="PlayerAttackAction"/> if is not a projectile speed base attack
+	/// Use <see cref="PlayerRaycastAttackAction"/> if is not a projectile speed base attack
 	/// </remarks>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
@@ -33,7 +33,7 @@ namespace Quantum
 				SourceId = weaponConfig.Id,
 				Range = weaponConfig.AttackRange,
 				SpawnPosition = position,
-				Speed = weaponConfig.ProjectileSpeed,
+				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
 				StunDuration = FP._0,
 				Target = EntityRef.None,

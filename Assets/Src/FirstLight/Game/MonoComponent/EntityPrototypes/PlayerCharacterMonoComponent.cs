@@ -35,7 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnAwake()
 		{
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandlePlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandlePlayerAlive);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -151,22 +151,22 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			SetWeaponIndicators(callback.Weapon.GameId);
 		}
 
-		private void HandlePlayerSpawned(EventOnPlayerSpawned callback)
+		private void HandlePlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (EntityView.EntityRef != callback.Entity)
 			{
 				return;
 			}
 
-			SpawnVfx();
+			AliveVfx();
 		}
 
-		private void SpawnVfx()
+		private void AliveVfx()
 		{
 			var position = transform.position;
-			var spawnVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
+			var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
 			
-			spawnVfx.transform.position = position;
+			aliveVfx.transform.position = position;
 		}
 		
 		private async void InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
@@ -188,7 +188,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 			
-			await instance.GetComponent<AdventureCharacterViewMonoComponent>().Init(weapon, gear, EntityView);
+			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(weapon, gear, EntityView);
 			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 

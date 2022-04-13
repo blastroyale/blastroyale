@@ -31,16 +31,12 @@ MonoBehaviour:
         RawValue: 983040
       GoToNextMatchForceTime:
         RawValue: 655360
-      ShrinkingSizeK:
-        RawValue: 32768
-      ShrinkingBorderK:
-        RawValue: 60948
       ShrinkingDamageCooldown:
         RawValue: 65536
-      ShrinkingDamage: 75
+      ShrinkingDamage: 20
       PlayerDefaultHealth: 750
       PlayerDefaultSpeed:
-        RawValue: 250593
+        RawValue: 314573
       PlayerDefaultInterimArmour: 1000
       CoinsPerRank: 30
       XpPerRank: 20
@@ -51,7 +47,7 @@ MonoBehaviour:
       XpPerFragDeathRatio:
         RawValue: 2293760
       CollectableCollectTime:
-        RawValue: 131072
+        RawValue: 45875
       PlayerAliveShieldDuration:
         RawValue: 196608
       EquipmentLevelToPowerK: 10
@@ -94,8 +90,5 @@ MonoBehaviour:
         RawValue: 16384
       DeathDropWeaponChance:
         RawValue: 32768
-      ParachuteDropHeight: 100
-      ParachuteSpeedModifier:
-        RawValue: 131072
       TrophyEloRange: 50
       TrophyEloK: 5

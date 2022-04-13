@@ -24,8 +24,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void OnValidate()
 		{
 			EntityView = EntityView ? EntityView : GetComponent<EntityView>();
-			
-			OnEditorValidate();
 		}
 
 		private void Awake()
@@ -72,28 +70,28 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
 		{
-			if (this.IsDestroyed())
+			var runner = QuantumRunner.Default;
+			
+			if (this.IsDestroyed() || runner == null)
 			{
 				Destroy(instance);
 				return;
 			}
 			
-			Instance = instance;
-			
 			var cacheTransform = instance.transform;
 
 			if(instance.TryGetComponent<EntityMainViewBase>(out var mainViewBase))
 			{
-				mainViewBase.SetEntityView(EntityView);
+				mainViewBase.SetEntityView(runner.Game, EntityView);
 			}
 			
 			cacheTransform.SetParent(transform);
 			
+			Instance = instance;
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
 		}
 
-		protected virtual void OnEditorValidate() {}
 		protected virtual void OnAwake() {}
 		protected virtual void OnEntityInstantiated(QuantumGame game) {}
 		protected virtual void OnEntityDestroyed(QuantumGame game) {}

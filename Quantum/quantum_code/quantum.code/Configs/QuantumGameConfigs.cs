@@ -14,8 +14,6 @@ namespace Quantum
 		public FP PlayerRespawnTime;
 		public FP PlayerForceRespawnTime;
 		public FP GoToNextMatchForceTime;
-		public FP ShrinkingSizeK;
-		public FP ShrinkingBorderK;
 		public FP ShrinkingDamageCooldown;
 		public uint ShrinkingDamage;
 		public int PlayerDefaultHealth;
@@ -53,8 +51,6 @@ namespace Quantum
 		public FP DeathDropInterimArmourLargeChance;
 		public FP DeathDropInterimArmourSmallChance;
 		public FP DeathDropWeaponChance;
-		public uint ParachuteDropHeight;
-		public FP ParachuteSpeedModifier;
 		public int TrophyEloRange;
 		public int TrophyEloK;
 	}

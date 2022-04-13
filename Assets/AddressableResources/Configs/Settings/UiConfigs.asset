@@ -145,6 +145,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.RewardsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/RoomJoinCreateScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Settings Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game,
@@ -228,6 +232,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:
     - FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -252,3 +258,5 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -16,14 +16,14 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
       Guid:
-        Value: 2467074483179683324
+        Value: 2718804494547648799
     Entries:
     - Type: 3
       Key:
-        Key: AimTime
-    - Type: 4
+        Key: StunDuration
+    - Type: 3
       Key:
-        Key: AimDirection
+        Key: AimTime
     - Type: 0
       Key:
         Key: IsAiming
@@ -32,13 +32,13 @@ MonoBehaviour:
         Key: AmmoFilled
     - Type: 3
       Key:
-        Key: StunDuration
+        Key: AimingMovementSpeed
+    - Type: 4
+      Key:
+        Key: AimDirection
     - Type: 4
       Key:
         Key: MoveDirection
-    - Type: 3
-      Key:
-        Key: SpeedModifier
     - Type: 0
       Key:
         Key: HasMeleeWeapon

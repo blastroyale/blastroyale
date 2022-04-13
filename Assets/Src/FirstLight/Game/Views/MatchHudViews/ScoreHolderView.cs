@@ -34,12 +34,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			var matchId = _gameDataProvider.MatchDataProvider.SelectedMapId.Value;
-				
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
-			_fragTarget = _services.ConfigsProvider.GetConfig<MapConfig>(matchId).GameEndTarget;
+			_fragTarget = _gameDataProvider.AppDataProvider.CurrentMapConfig.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);

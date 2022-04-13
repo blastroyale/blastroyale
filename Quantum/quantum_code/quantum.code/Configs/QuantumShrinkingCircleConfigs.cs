@@ -11,6 +11,7 @@ namespace Quantum
 		public FP DelayTime;
 		public FP WarningTime;
 		public FP ShrinkingTime;
+		public FP ShrinkingSizeK;
 	}
 
 	/// <summary>

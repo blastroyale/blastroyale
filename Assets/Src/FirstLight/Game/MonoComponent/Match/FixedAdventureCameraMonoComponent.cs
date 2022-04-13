@@ -1,8 +1,10 @@
 using Cinemachine;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 
@@ -20,12 +22,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField] private CinemachineVirtualCamera _specialAimCamera;
 
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
+		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
 		private EntityView _playerView;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_localInput = new LocalInput();
 
 			_localInput.Gameplay.SpecialButton0.started += ctx => SetActiveCamera(_specialAimCamera);
@@ -38,7 +44,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.Subscribe<EventOnLocalPlayerLanded>(this, OnLocalPlayerLanded);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 		}
 
 		private void OnDestroy()
@@ -48,7 +54,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			var follow = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
 
 			SetTargetTransform(follow.transform);
@@ -56,11 +62,11 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			// We place audio listener roughly "in the player character's head"
 			audioListenerTransform.SetParent(follow.transform);
-			audioListenerTransform.position = Vector3.up;
+			audioListenerTransform.localPosition = Vector3.up;
 			audioListenerTransform.rotation = Quaternion.identity;
 		}
 
-		private void OnLocalPlayerLanded(EventOnLocalPlayerLanded callback)
+		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
 			SetActiveCamera(_adventureCamera);
 		}
@@ -78,8 +84,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			_playerView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SetTargetTransform(_playerView.transform);
+
+			if (_dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch)
+			{
+				SetActiveCamera(_adventureCamera);
+			}
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)

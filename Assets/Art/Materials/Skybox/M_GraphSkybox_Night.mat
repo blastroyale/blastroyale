@@ -58,6 +58,8 @@ Material:
     - Vector1_DDEF11E3: 2
     - Vector1_DEBD983F: 0.13
     - Vector1_F8DFA3E9: 0.3
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_49AC444C: {r: 1.0822786, g: 0.84404117, b: 0.84404117, a: 1}
     - Color_A4C1483C: {r: 2, g: 1.529629, b: 0.7484275, a: 0}

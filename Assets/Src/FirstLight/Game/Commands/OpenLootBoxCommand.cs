@@ -25,34 +25,11 @@ namespace FirstLight.Game.Commands
 		{
 			var info = gameLogic.LootBoxLogic.GetLootBoxInfo(LootBoxId);
 			var loot = gameLogic.LootBoxLogic.Open(LootBoxId);
-			var converter = new StringEnumConverter();
-
 			for (var i = 0; i < loot.Count; i++)
 			{
 				var item = loot[i];
-
 				loot[i] = gameLogic.EquipmentLogic.AddToInventory(item.GameId, item.Data.Rarity, item.Data.Level);
 			}
-
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
-				{
-					Command = nameof(OpenLootBoxCommand),
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-						{nameof(RngData), JsonConvert.SerializeObject(dataProvider.GetData<RngData>(), converter)},
-						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
-
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 			gameLogic.MessageBrokerService.Publish(new LootBoxOpenedMessage
 			{
 				LootBoxContent = loot,

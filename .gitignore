@@ -104,4 +104,6 @@ Quantum/quantum_code/packages
 !Backend/Backend/Backend.csproj
 !Backend/Backend.sln
 UserSettings/EditorUserSettings.asset
+UserSettings/Layouts
+ProjectSettings/RiderScriptEditorPersistedState.asset
 build-output.properties

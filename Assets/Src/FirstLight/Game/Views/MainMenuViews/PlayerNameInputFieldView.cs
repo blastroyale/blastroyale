@@ -61,9 +61,41 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnNameSet(string newName)
 		{
+			var title = "";
+			var okButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = OnNameInvalidAcknowledged
+			};
+
+			if (newName.Length < GameConstants.PLAYER_NAME_MIN_LENGTH)
+			{
+				title = string.Format(ScriptLocalization.MainMenu.NameTooShort, GameConstants.PLAYER_NAME_MIN_LENGTH);
+				_services.GenericDialogService.OpenDialog(title,false, okButton);
+				return;
+			}
+			else if (newName.Length > GameConstants.PLAYER_NAME_MAX_LENGTH)
+			{
+				title = string.Format(ScriptLocalization.MainMenu.NameTooLong, GameConstants.PLAYER_NAME_MAX_LENGTH);
+				_services.GenericDialogService.OpenDialog(title,false, okButton);
+				return;
+			}
+
 			_textField.text = newName;
-			
 			_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = newName });
+		}
+
+		private void OnNameInvalidAcknowledged()
+		{
+			var confirmButton = new GenericDialogButton<string>
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = OnNameSet
+			};
+			
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
+			                                                    _gameDataProvider.PlayerDataProvider.Nickname, 
+			                                                    confirmButton, true);
 		}
 	}
 }

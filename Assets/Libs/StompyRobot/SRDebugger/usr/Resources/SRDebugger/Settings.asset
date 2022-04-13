@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   _isEnabled: 0
+  _uiInputMode: 0
   _defaultTab: 0
   _triggerEnableMode: 0
   _triggerBehaviour: 0
@@ -55,6 +56,7 @@ MonoBehaviour:
   _debugCameraDepth: 100
   _apiKey: 
   _enableBugReporter: 0
+  _enableBugReportScreenshot: 1
   _disabledTabs: 
   _profilerAlignment: 2
   _optionsAlignment: 3

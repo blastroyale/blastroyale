@@ -16,6 +16,7 @@ namespace Quantum
 				// Initial Systems
 				new SystemInitializer(),
 				new AiPreUpdateSystem(),
+				new PreRaycastShotsSystem(),
 				
 				// pre-defined core systems
 				new Core.PhysicsSystem3D(),
@@ -37,12 +38,16 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
+				new RaycastShotsSystem(),
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),
 				new SpellSystem(),
 				new TransformOutOfWorldSystem(), // TODO: Remove it when we update Quantum and have Y coordinate in Navmesh
+				
+				// Debugging
+				new BotSDKDebuggerSystem(),
 				
 				// Finalizer systems
 				new GameSystem(),

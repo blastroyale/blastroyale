@@ -15,11 +15,12 @@ namespace Quantum
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
+		public FP AttackHitSpeed;
+		public uint AttackAngle;
 		public FP AttackRange;
 		public bool CanHitSameTarget;
-		public uint AttackAngle;
+		public bool IsProjectile;
 		public FP SplashRadius;
-		public FP ProjectileSpeed;
 		public List<GameId> Specials;
 
 		/// <summary>

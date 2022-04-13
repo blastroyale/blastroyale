@@ -1,13 +1,11 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
-using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 using LayerMask = UnityEngine.LayerMask;
 
-namespace FirstLight.Game.Presenters
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// View for controlling small and extended map views.
@@ -23,7 +21,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private AnimationClip _smallMiniMapClip;
 		[SerializeField] private AnimationClip _extendedMiniMapClip;
 		[SerializeField] private UiButtonView _closeButton;
-		[SerializeField] private Button _toggleMiniMapViewButton;
+		[SerializeField] private UiButtonView _toggleMiniMapViewButton;
 
 		private enum RenderTextureMode
 		{
@@ -33,6 +31,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private IGameServices _services;
+		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private Transform _cameraTransform;
 		private EntityView _playerEntityView;
 		private const float CameraHeight = 10;
@@ -42,6 +41,7 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_cameraTransform = _camera.transform;
 
 			_closeButton.onClick.AddListener(ToggleMiniMapView);
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			_playerEntityView = _services.EntityViewUpdaterService.GetManualView(callback.Entity);
+			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 
 			_services.TickService.SubscribeOnUpdate(UpdateTick);
 		}

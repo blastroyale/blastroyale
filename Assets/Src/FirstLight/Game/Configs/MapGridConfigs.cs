@@ -39,9 +39,8 @@ namespace FirstLight.Game.Configs
 		{
 			_configs = data;
 		}
-
 		/// <summary>
-		/// Requests the map grid size
+		/// Requests the map grid size (Column/Rows Count)
 		/// </summary>
 		public Vector2Int GetSize()
 		{

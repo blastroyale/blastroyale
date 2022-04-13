@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
@@ -56,12 +56,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Actions\ParachuteDropAction.cs" />
-    <Compile Include="AI\Actions\ParachuteStartAction.cs" />
-    <Compile Include="AI\Actions\ParachuteStopAction.cs" />
+    <Compile Include="AI\Actions\PlayerActivateAction.cs" />
+    <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
+    <Compile Include="AI\Actions\PlayerTeleportSpawnAction.cs" />
+    <Compile Include="AI\Actions\SkydivePLFAction.cs" />
+    <Compile Include="AI\Actions\SkydiveStartAction.cs" />
+    <Compile Include="AI\Actions\SkydiveStopAction.cs" />
     <Compile Include="AI\Actions\PlayerAmmoEmptyAction.cs" />
     <Compile Include="AI\Actions\AIAction.cs" />
-    <Compile Include="AI\Actions\PlayerAttackAction.cs" />
+    <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerChangeDefaultWeaponAction.cs" />
     <Compile Include="AI\Actions\PlayerMoveAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
@@ -73,6 +76,11 @@
     <Compile Include="AI\Decisions\HFSM.IsCharacterGroundedDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsPlayerAimingDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.RaycastHitDecision.cs" />
+    <Compile Include="AI\Functions\HFSM.StatFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.FPMultiplierFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />
@@ -190,6 +198,7 @@
     <Compile Include="Components\Equipment.cs" />
     <Compile Include="Components\GameContainer.cs" />
     <Compile Include="Components\PlayerMatchData.cs" />
+    <Compile Include="Components\RaycastShots.cs" />
     <Compile Include="Components\Spawners.cs" />
     <Compile Include="Components\SpecialAirstrike.cs" />
     <Compile Include="Components\Consumable.cs" />
@@ -234,6 +243,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
+    <Compile Include="Systems\PreRaycastShotSytem.cs" />
+    <Compile Include="Systems\RaycastShotsSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
@@ -275,6 +286,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="BotSDK\Samples\.DS_Store" />
+    <Content Include="Components\RaycastShots.qtn" />
     <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />
     <Content Include="Components\Collectable.qtn" />

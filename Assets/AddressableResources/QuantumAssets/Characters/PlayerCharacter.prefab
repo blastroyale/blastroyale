@@ -392,15 +392,13 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 2698857740438036488
+        Value: 3755624209568490467
     BlackboardRef:
       Id:
-        Value: 2467074483179683324
+        Value: 2718804494547648799
     KccConfigRef:
       Id:
         Value: 2480520579551617486
-    SpawnTime:
-      RawValue: 131072
     ProjectileSpawnOffset:
       X:
         RawValue: 10944
@@ -418,17 +416,44 @@ MonoBehaviour:
         Value: 0
       Rarity:
         Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      Faction:
+        Value: 0
       Level: 0
+      Grade: 0
     - GameId:
         Value: 0
       Rarity:
         Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      Faction:
+        Value: 0
       Level: 0
+      Grade: 0
     - GameId:
         Value: 0
       Rarity:
         Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      Faction:
+        Value: 0
       Level: 0
+      Grade: 0
     Specials:
     - SpecialId:
         Value: 0

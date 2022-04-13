@@ -407,9 +407,10 @@ namespace FirstLight.Game.Presenters
 			
 			if (_gameDataProvider.EquipmentDataProvider.IsEquipped(_uniqueId))
 			{
+				var isWeapon = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId).IsWeapon;
+				
 				// Can't unequip your last weapon.
-				if (_gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1 
-				    && _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId).IsWeapon)
+				if (isWeapon && _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1)
 				{
 					var confirmButton = new GenericDialogButton
 					{
@@ -425,14 +426,17 @@ namespace FirstLight.Game.Presenters
 				Services.CommandService.ExecuteCommand(new UnequipItemCommand { ItemId = _uniqueId });
 				
 				// Equip Default/Melee weapon after unequipping a regular one
-				var weapons = _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon);
-				for (int i = 0; i < weapons.Count; i++)
+				if (isWeapon)
 				{
-					if (_gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(weapons[i].GameId)
-					                     .Stats[EquipmentStatType.MaxCapacity] < 0)
+					var weapons = _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon);
+					for (int i = 0; i < weapons.Count; i++)
 					{
-						Services.CommandService.ExecuteCommand(new EquipItemCommand { ItemId = weapons[i].Data.Id });
-						break;
+						if (_gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(weapons[i].GameId)
+						                     .Stats[EquipmentStatType.MaxCapacity] < 0)
+						{
+							Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = weapons[i].Data.Id});
+							break;
+						}
 					}
 				}
 			}

@@ -17,6 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public abstract class EntityViewBase : MonoBehaviour
 	{
 		protected IGameServices Services;
+		protected IEntityViewUpdaterService EntityViewUpdaterService;
 		
 		/// <summary>
 		/// Requests the <see cref="EntityView"/> representing this view execution base
@@ -31,6 +32,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected virtual void Awake()
 		{
 			Services = MainInstaller.Resolve<IGameServices>();
+			EntityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			OnAwake();
 		}
@@ -38,17 +40,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Sets this entity view reference to be the same of the parent <see cref="Quantum.EntityPrototype"/>
 		/// </summary>
-		public void SetEntityView(EntityView entityView)
+		public void SetEntityView(QuantumGame game, EntityView entityView)
 		{
 			EntityView = entityView;
 			EntityRef = EntityView.EntityRef;
 			
-			OnInit();
+			OnInit(game);
 		}
 		
 		protected virtual void OnAwake() { }
 
-		protected virtual void OnInit() { }
+		protected virtual void OnInit(QuantumGame game) { }
 	}
 	
 	/// <inheritdoc />
@@ -69,16 +71,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackGameDestroyed>(this, HandleGameDestroyed);
 		}
 		
-		protected void Dissolve(bool destroyGameObject)
+		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
-			StartCoroutine(DissolveCoroutine(destroyGameObject));
+			StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay, duration));
 		}
 
-		private IEnumerator DissolveCoroutine(bool destroyGameObject)
+		private IEnumerator DissolveCoroutine(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
 			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
-
-			yield return new WaitForSeconds(GameConstants.DissolveDelay);
+			
+			if (delay > 0)
+			{
+				yield return new WaitForSeconds(delay);
+			}
 
 			while (!task.IsCompleted)
 			{
@@ -87,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			RenderersContainerProxy.SetMaterial(SetMaterial, ShadowCastingMode.On, true);
 			
-			yield return new WaitForSeconds(GameConstants.DissolveDuration);
+			yield return new WaitForSeconds(duration);
 
 			if (destroyGameObject)
 			{
@@ -98,7 +103,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				var newMat = new Material(task.Result);
 				
-				newMat.DOFloat(GameConstants.DissolveEndAlphaClipValue, _dissolveProperty, GameConstants.DissolveDuration).SetAutoKill(true);
+				newMat.SetFloat(_dissolveProperty, startValue);
+				
+				if (duration > 0f)
+				{
+					newMat.DOFloat(endValue, _dissolveProperty, duration).SetAutoKill(true);
+				}
+				else
+				{
+					newMat.SetFloat(_dissolveProperty, endValue);
+				}
 				
 				return newMat;
 			}

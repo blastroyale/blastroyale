@@ -22,9 +22,18 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_entity = entity;
 			
 			UpdateHealthText(currentHealth);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 		}
-		
+
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (callback.Entity == _entity)
+			{
+				UpdateHealthText(callback.CurrentHealth);
+			}
+		}
+
 		/// <inheritdoc />
 		public void OnDespawn()
 		{

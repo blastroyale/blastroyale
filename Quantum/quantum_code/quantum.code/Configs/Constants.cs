@@ -10,15 +10,13 @@ namespace Quantum
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._2;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
 
+		public static readonly string DeadEvent = "OnDead";
+		public static readonly string RespawnEvent = "OnRespawn";
 		public static readonly string StunnedEvent = "OnStunned";
 		public static readonly string StunCancelledEvent = "OnStunCancelled";
-		public static readonly string ParachuteLandingEvent = "OnParachuteLanding";
-		public static readonly string SpawnedEvent = "OnSpawned";
 		public static readonly string StunDurationKey = "StunDuration";
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string MoveDirectionKey = "MoveDirection";
-		public static readonly string SpeedModifierKey = "SpeedModifier";
-		public static readonly string AttackCooldownKey = "AttackCooldown";
 		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";

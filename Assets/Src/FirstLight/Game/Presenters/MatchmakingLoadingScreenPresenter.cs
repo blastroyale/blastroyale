@@ -1,11 +1,13 @@
 using System.Collections;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
+using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -16,6 +18,7 @@ using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
+	// TODO - Refactor for both matchmaking & custom game functionality, after NetworkState/matchmaking flow is refactored
 	/// <summary>
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
@@ -27,8 +30,6 @@ namespace FirstLight.Game.Presenters
 			public IUiService UiService;
 		}
 		
-		public MapSelectionView MapSelectionView;
-
 		[SerializeField] private Transform _playerCharacterParent;
 		[SerializeField] private Button _lockRoomButton;
 		[SerializeField] private Image _mapImage;
@@ -39,11 +40,15 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
+		[SerializeField] private GameObject _roomNameRootObject;
+		[SerializeField] private TextMeshProUGUI _roomNameText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
 		private float _rndWaitingTimeBiggest;
+
+		public MapSelectionView MapSelectionView;
 
 		private void Awake()
 		{
@@ -57,11 +62,10 @@ namespace FirstLight.Game.Presenters
 			
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
-			{
-				_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
-			}
-
+			_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
+			//_services.MessageBrokerService.Subscribe<PlayerJoinedMatchMessage>(OnPlayerJoinedRoom);
+			//_services.MessageBrokerService.Subscribe<PlayerLeftMatchMessage>(OnPlayerLeftRoom);
+			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
@@ -73,10 +77,20 @@ namespace FirstLight.Game.Presenters
 		}
 
 		/// <inheritdoc />
-		protected override async void OnOpened()
+		protected override void OnOpened()
 		{
-			var config = _gameDataProvider.MatchDataProvider.SelectedMapConfig;
-			
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+
+			// Only show room code if player is coming from custom game - join/create
+			/*if (selectedRoomEntryType != RoomEntryID.Matchmaking && !string.IsNullOrEmpty(selectedRoomName))
+			{
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, selectedRoomName);
+			}
+			else
+			{
+				_roomNameRootObject.SetActive(false);
+			}*/
+
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
@@ -86,11 +100,7 @@ namespace FirstLight.Game.Presenters
 			SetLayerState(false, false);
 			_animation.Rewind();
 			_animation.Play();
-			
-			_mapImage.enabled = false;
-			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
-			_mapImage.enabled = true;
-			
+
 			StartCoroutine(TimeUpdateCoroutine(config));
 		}
 
@@ -101,7 +111,46 @@ namespace FirstLight.Game.Presenters
 
 		private void OnJoinedRoom(MatchJoinedRoomMessage message)
 		{
-			_lockRoomButton.gameObject.SetActive(true);
+			/*if (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
+			{
+				return;
+			}
+			
+			var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
+			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
+			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
+			
+			var canShowLockButton = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
+			                         (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value != RoomEntryID.Matchmaking && localPlayerIsMaster);
+			
+			_lockRoomButton.gameObject.SetActive(canShowLockButton);
+			
+			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);*/
+
+			var canShowLockButton = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode;
+			_lockRoomButton.gameObject.SetActive(canShowLockButton);
+		}
+
+		private void OnPlayerJoinedRoom(PlayerJoinedMatchMessage message)
+		{
+			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
+		}
+		
+		private void OnPlayerLeftRoom(PlayerLeftMatchMessage message)
+		{
+			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
+		}
+
+		private void UpdatePlayersWaitingImages(int playerAmount)
+		{
+			var maxPlayers = _gameDataProvider.AppDataProvider.CurrentMapConfig.PlayersLimit;
+			
+			for (var i = 0; i < _playersWaitingImage.Length; i++)
+			{
+				_playersWaitingImage[i].gameObject.SetActive((i+1) <= playerAmount);
+			}
+			
+			_playersFoundText.text = $"{playerAmount.ToString()}/{maxPlayers.ToString()}" ;
 		}
 
 		private void OnSceneChanged(Scene previous, Scene current)
@@ -120,9 +169,7 @@ namespace FirstLight.Game.Presenters
 		{
 			for (var i = 0; i < _playersWaitingImage.Length && i < config.PlayersLimit; i++)
 			{
-				_playersWaitingImage[i].gameObject.SetActive(true);
-				_playersFoundText.text = $"{(i + 1).ToString()}/{config.PlayersLimit.ToString()}" ;
-				
+				UpdatePlayersWaitingImages(i + 1);
 				yield return new WaitForSeconds(Random.Range(_rndWaitingTimeLowest, _rndWaitingTimeBiggest));
 			}
 

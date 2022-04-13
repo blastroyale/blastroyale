@@ -996,7 +996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _exportAbsoluteFolderPath: C:\Users\mattj\Documents\blast-royale\Assets\Captures
   _importAbsoluteFolderPath: C:\Users\mattj\Documents\flgnftmetadatagenerator\FlgNFTMetadataGenerator\FlgNFTMetadataGenerator\bin\Debug\nftmetadata\0\0
-  _metadataJsonFilePath: C:\Users\mattj\Documents\flgnftmetadatagenerator\FlgNFTMetadataGenerator\FlgNFTMetadataGenerator\bin\Debug\nftmetadata\0\0\2e0187f87516ccce2f3c2038aada9701cc1cca7f6b33949497c25eb41c40a0e6.json
+  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/0/1ec801858a2fbccaf34970cb031fc8cd8fdf20864864c035796a5aff45558dea.json
   _markerTransform: {fileID: 6467920951248308136}
   _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
   _camera: {fileID: 6467920952292208544}

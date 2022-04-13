@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.AddressablesExtensions;
 using FirstLight.AssetImporter;
-using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.FLogger;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -24,26 +23,27 @@ namespace FirstLight.Game.Services
 		/// given <typeparamref name="TAsset"/> type.
 		/// </summary>
 		bool TryGetAssetReference<TId, TAsset>(TId id, out AssetReference assetReference) where TId : struct;
-		
+
 		/// <summary>
 		/// Loads asynchronously a <see cref="Scene"/> mapped with the given <paramref name="id"/> and the given info.
 		/// It will also return the result in the provided <paramref name="onLoadCallback"/> when the loading is complete
 		/// </summary>
-		Task<SceneInstance> LoadScene<TId>(TId id, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true,
+		Task<SceneInstance> LoadScene<TId>(TId id, LoadSceneMode loadMode = LoadSceneMode.Single,
+		                                   bool activateOnLoad = true,
 		                                   bool setActive = true, Action<TId, SceneInstance> onLoadCallback = null)
 			where TId : struct;
-		
+
 		/// <summary>
 		/// Requests the given <typeparamref name="TAsset"/> of the given <paramref name="id"/>.
 		/// If <paramref name="loadAsynchronously"/> is true then will load asynchronously.
 		/// It will also return the result in the provided <paramref name="onLoadCallback"/> when the loading is complete
 		/// and will instantiate the asset if the given <paramref name="instantiate"/> is true
 		/// </summary>
-		Task<TAsset>  RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true, bool instantiate = true, 
-		                                        Action<TId, TAsset, bool> onLoadCallback = null)
+		Task<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true, bool instantiate = true,
+		                                       Action<TId, TAsset, bool> onLoadCallback = null)
 			where TId : struct
 			where TAsset : Object;
-		
+
 		/// <summary>
 		/// Requests the given <typeparamref name="TAsset"/> of the given <paramref name="id"/> while passing the
 		/// given <paramref name="data"/> to the <paramref name="onLoadCallback"/> call.
@@ -51,8 +51,9 @@ namespace FirstLight.Game.Services
 		/// It will also return the result in the provided <paramref name="onLoadCallback"/> when the loading is complete
 		/// and will instantiate the asset if the given <paramref name="instantiate"/> is true
 		/// </summary>
-		Task<TAsset>  RequestAsset<TId, TAsset, TData>(TId id, TData data, bool loadAsynchronously = true, bool instantiate = true, 
-		                                               Action<TId, TAsset, TData, bool> onLoadCallback = null)
+		Task<TAsset> RequestAsset<TId, TAsset, TData>(TId id, TData data, bool loadAsynchronously = true,
+		                                              bool instantiate = true,
+		                                              Action<TId, TAsset, TData, bool> onLoadCallback = null)
 			where TId : struct
 			where TAsset : Object;
 
@@ -107,7 +108,8 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IAssetResolverService" />
 	public class AssetResolverService : AddressablesAssetLoader, IAssetAdderService
 	{
-		private readonly IDictionary<Type, IDictionary<Type, IDictionary>> _assetMap = new Dictionary<Type, IDictionary<Type, IDictionary>>();
+		private readonly IDictionary<Type, IDictionary<Type, IDictionary>> _assetMap =
+			new Dictionary<Type, IDictionary<Type, IDictionary>>();
 
 		private Sprite _errorSprite;
 		private GameObject _errorCube;
@@ -122,7 +124,7 @@ namespace FirstLight.Game.Services
 			if (dictionary == null)
 			{
 				assetReference = default;
-				
+
 				return false;
 			}
 
@@ -130,7 +132,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public async Task<SceneInstance> LoadScene<TId>(TId id, LoadSceneMode loadMode = LoadSceneMode.Single, 
+		public async Task<SceneInstance> LoadScene<TId>(TId id, LoadSceneMode loadMode = LoadSceneMode.Single,
 		                                                bool activateOnLoad = true, bool setActive = true,
 		                                                Action<TId, SceneInstance> onLoadCallback = null)
 			where TId : struct
@@ -139,46 +141,52 @@ namespace FirstLight.Game.Services
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
-				throw new MissingMemberException($"The {nameof(AssetResolverService)} does not have the {nameof(AssetReference)}" +
-				                                 $"config to load the scene with the given {id} id of {typeof(TId)} type");
+				throw new
+					MissingMemberException($"The {nameof(AssetResolverService)} does not have the {nameof(AssetReference)}" +
+					                       $"config to load the scene with the given {id} id of {typeof(TId)} type");
 			}
-			
+
 			if (!assetReference.OperationHandle.IsValid())
 			{
+				FLog.Verbose($"Loading Scene: ID({typeof(TId).Name}.{id})");
 				assetReference.LoadSceneAsync(loadMode, activateOnLoad);
 			}
-			
+
 			if (!assetReference.IsDone)
 			{
 				await assetReference.OperationHandle.Task;
 			}
-			
+
 			var sceneOperation = assetReference.OperationHandle.Convert<SceneInstance>();
 
 			if (setActive)
 			{
 				SceneManager.SetActiveScene(sceneOperation.Result.Scene);
 			}
-			
+
 			onLoadCallback?.Invoke(id, sceneOperation.Result);
 
 			return sceneOperation.Result;
 		}
 
 		/// <inheritdoc />
-		public async Task<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true, bool instantiate = true, 
+		public async Task<TAsset> RequestAsset<TId, TAsset>(TId id, bool loadAsynchronously = true,
+		                                                    bool instantiate = true,
 		                                                    Action<TId, TAsset, bool> onLoadCallback = null)
 			where TId : struct
 			where TAsset : Object
 		{
-			return await RequestAsset<TId, TAsset, int>(id, 0, loadAsynchronously, instantiate, 
-			                                            (arg1, arg2, arg3, arg4) => onLoadCallback?.Invoke(arg1, arg2, arg4));
+			return await RequestAsset<TId, TAsset, int>(id, 0, loadAsynchronously, instantiate,
+			                                            (arg1, arg2, _, arg4) =>
+				                                            onLoadCallback?.Invoke(arg1, arg2, arg4));
 		}
 
 		/// <inheritdoc />
-		public async Task<TAsset> RequestAsset<TId, TAsset, TData>(TId id, TData data, bool loadAsynchronously = true, bool instantiate = true,
-		                                                     Action<TId, TAsset, TData, bool> onLoadCallback = null) 
-			where TId : struct 
+		public async Task<TAsset> RequestAsset<TId, TAsset, TData>(TId id, TData data, bool loadAsynchronously = true,
+		                                                           bool instantiate = true,
+		                                                           Action<TId, TAsset, TData, bool> onLoadCallback =
+			                                                           null)
+			where TId : struct
 			where TAsset : Object
 		{
 			var dictionary = GetDictionary<TId, TAsset>();
@@ -189,9 +197,10 @@ namespace FirstLight.Game.Services
 				                                 $"{nameof(AssetReference)} config to load the necessary asset for the " +
 				                                 $"given {typeof(TAsset)} type with the given {id} id of {typeof(TId)} type");
 			}
-			
+
 			if (!assetReference.OperationHandle.IsValid())
 			{
+				FLog.Verbose($"Loading Asset: ID({typeof(TId).Name}.{id}), Type({typeof(TAsset).Name}), DATA({data})");
 				assetReference.LoadAssetAsync<TAsset>();
 			}
 
@@ -199,14 +208,14 @@ namespace FirstLight.Game.Services
 			{
 				assetReference.OperationHandle.WaitForCompletion();
 			}
-			
+
 			if (!assetReference.IsDone)
 			{
 				await assetReference.OperationHandle.Task;
 			}
-			
+
 			var asset = Convert<TAsset>(assetReference, instantiate);
-				
+
 			onLoadCallback?.Invoke(id, asset, data, instantiate);
 
 			return asset;
@@ -225,9 +234,9 @@ namespace FirstLight.Game.Services
 			}
 
 			var sceneOperation = assetReference.OperationHandle.Convert<SceneInstance>();
-			
+
 			await assetReference.UnLoadScene().Task;
-			
+
 			onUnloadCallback?.Invoke(id, sceneOperation.Result);
 		}
 
@@ -246,7 +255,7 @@ namespace FirstLight.Game.Services
 					asset.Value.ReleaseAsset();
 				}
 			}
-				
+
 			if (clearReferences)
 			{
 				_assetMap[assetType].Remove(idType);
@@ -254,7 +263,8 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UnloadAssets<TId, TAsset>(bool clearReferences, AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
+		public void UnloadAssets<TId, TAsset>(bool clearReferences,
+		                                      AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
 			where TId : struct
 		{
 			var dictionary = GetDictionary<TId, TAsset>();
@@ -265,12 +275,12 @@ namespace FirstLight.Game.Services
 				{
 					continue;
 				}
-						
+
 				if (asset.IsValid())
 				{
 					asset.ReleaseAsset();
 				}
-							
+
 				if (clearReferences)
 				{
 					dictionary.Remove(pair.Key);
@@ -295,7 +305,7 @@ namespace FirstLight.Game.Services
 				{
 					asset.ReleaseAsset();
 				}
-							
+
 				if (clearReferences)
 				{
 					dictionary.Remove(id);
@@ -304,14 +314,14 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> assetConfigs) 
+		public void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
 			where TId : struct
 		{
 			var idType = typeof(TId);
 			var assetType = assetConfigs.AssetType;
 			var configs = assetConfigs.Configs;
 			var assetReferences = new Dictionary<TId, AssetReference>(configs.Count);
-			
+
 			for (var i = 0; i < configs.Count; i++)
 			{
 				assetReferences.Add(configs[i].Key, configs[i].Value);
@@ -323,8 +333,8 @@ namespace FirstLight.Game.Services
 
 				_assetMap.Add(assetType, map);
 			}
-			
-			if(map.TryGetValue(idType, out var dictionary))
+
+			if (map.TryGetValue(idType, out var dictionary))
 			{
 				var assets = dictionary as Dictionary<TId, AssetReference>;
 
@@ -343,7 +353,8 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void AddDebugConfigs(Sprite errorSprite, GameObject errorCube, Material errorMaterial, AudioClip errorClip)
+		public void AddDebugConfigs(Sprite errorSprite, GameObject errorCube, Material errorMaterial,
+		                            AudioClip errorClip)
 		{
 			_errorSprite = errorSprite;
 			_errorCube = errorCube;
@@ -363,7 +374,7 @@ namespace FirstLight.Game.Services
 			if (type == goType)
 			{
 				var asset = !assetReference.IsDone ? _errorCube : assetReference.Asset as GameObject;
-				
+
 				return instantiate ? Object.Instantiate(asset) as TAsset : asset as TAsset;
 			}
 
@@ -375,7 +386,7 @@ namespace FirstLight.Game.Services
 			if (type == materialType)
 			{
 				var asset = !assetReference.IsDone ? _errorMaterial : assetReference.Asset as Material;
-				
+
 				return instantiate ? new Material(asset) as TAsset : asset as TAsset;
 			}
 

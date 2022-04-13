@@ -24,29 +24,9 @@ namespace FirstLight.Game.Commands
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			var cost = gameLogic.LootBoxLogic.GetLootBoxInventoryInfo().GetUnlockExtraBoxesCost(gameLogic.TimeService.DateTimeUtcNow);
-			var converter = new StringEnumConverter();
-
 			// Spend Hard currency
 			gameLogic.CurrencyLogic.DeductCurrency(GameId.HC, cost);
 			gameLogic.LootBoxLogic.SpeedUpAllExtraTimedBoxes();
-
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
-				{
-					Command = nameof(SpeedUpAllExtraTimedBoxesCommand),
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
-
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 		}
 	}
 }

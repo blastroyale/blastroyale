@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -100,6 +102,12 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void UnequipItem(GameIdGroup slotType)
 		{
+			if (!_equipment.ContainsKey(slotType))
+			{
+				Debug.LogWarning($"Cannot unequip item of type {slotType} - _equipment does not contain Key of this type");
+				return;
+			}
+
 			var items = _equipment[slotType];
 			
 			for (var i = 0; i < items.Count; i++)

@@ -128,7 +128,6 @@ namespace FirstLight.Game.Logic
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
 				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
-				stats.Add(EquipmentStatType.ProjectileSpeed, weaponConfig.ProjectileSpeed.AsFloat);
 				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.Damage, damage.AsFloat);
@@ -552,7 +551,7 @@ namespace FirstLight.Game.Logic
 					throw new LogicException($"The player already has the given item Id '{itemId}' equipped");
 				}
 				
-				_equippedItems.Remove(slot);
+				Unequip(equippedId);
 			}
 			
 			_equippedItems.Add(slot, itemId);

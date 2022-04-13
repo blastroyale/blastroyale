@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4917092701593437076}
+  - component: {fileID: 3400798811224870892}
   m_Layer: 0
   m_Name: Wep_AssaultRifle_Apc
   m_TagString: Untagged
@@ -119,6 +120,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3400798811224870892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258266935109727718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 6316392606771560213}
+  - {fileID: 6316392606771560213}
+  - {fileID: 6541011517505886094}
+  - {fileID: 6541011517505886094}
+  - {fileID: 6374036140367453765}
+  - {fileID: 6374036140367453765}
+  - {fileID: 971879674902225146}
+  - {fileID: 971879674902225146}
+  - {fileID: 6043951081537740413}
+  - {fileID: 6043951081537740413}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 8432996538249640066}
+  - {fileID: 5212699377125306133}
+  - {fileID: 7010711622383291565}
+  - {fileID: 2158192494696003406}
+  - {fileID: 7937869803984064161}
 --- !u!1 &610661010484463263
 GameObject:
   m_ObjectHideFlags: 0

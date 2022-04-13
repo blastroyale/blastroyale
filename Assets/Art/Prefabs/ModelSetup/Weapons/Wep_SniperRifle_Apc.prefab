@@ -405,6 +405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1350752186546809005}
+  - component: {fileID: 2147667614679605212}
   m_Layer: 0
   m_Name: Wep_SniperRifle_Apc
   m_TagString: Untagged
@@ -433,6 +434,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2147667614679605212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658071991904089073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 4649453273738639549}
+  - {fileID: 4649453273738639549}
+  - {fileID: 4487852545786480743}
+  - {fileID: 4487852545786480743}
+  - {fileID: 5308606349360784527}
+  - {fileID: 5308606349360784527}
+  - {fileID: 9040650546455581807}
+  - {fileID: 9040650546455581807}
+  - {fileID: 8706114305563911668}
+  - {fileID: 8706114305563911668}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 1405411831532367345}
+  - {fileID: 7825519084394314458}
+  - {fileID: 4357824867348387504}
+  - {fileID: 4189116771606977980}
+  - {fileID: 3718619432104077399}
+  - {fileID: 4305544654271046005}
 --- !u!1 &8467531785806725968
 GameObject:
   m_ObjectHideFlags: 0

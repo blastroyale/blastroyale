@@ -552,6 +552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 838138622771307404}
+  - component: {fileID: 4026214644973466400}
   m_Layer: 0
   m_Name: Wep_RocketLauncher_Apc
   m_TagString: Untagged
@@ -580,6 +581,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4026214644973466400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439019096752642498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 4794554174588485289}
+  - {fileID: 4794554174588485289}
+  - {fileID: 3334307516073987422}
+  - {fileID: 3334307516073987422}
+  - {fileID: 3167688627500842857}
+  - {fileID: 3167688627500842857}
+  - {fileID: 992998112764515836}
+  - {fileID: 992998112764515836}
+  - {fileID: 2858890843340654559}
+  - {fileID: 2858890843340654559}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 3352755322329086343}
+  - {fileID: 3783756687296724116}
+  - {fileID: 2951136679457820548}
+  - {fileID: 8673818314254300017}
+  - {fileID: 5050991572039337926}
+  - {fileID: 3691189833647279581}
 --- !u!1 &8568891040215337918
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5a414781436fe4aba0375c3d781ded, type: 3}
+  m_Name: EquipmentSnapshotResource
+  m_EditorClassIdentifier: 
+  Categories:
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData:
+    - GameObjects:
+      - {fileID: 6658071991904089073, guid: 8ad47ef5fc6c08142b5e7df9eff645a4, type: 3}
+      - {fileID: 4043739398884827765, guid: f03fbb8b4cc729f47816a4358a05b21e, type: 3}
+      - {fileID: 3535324171632636973, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
+      - {fileID: 8439019096752642498, guid: 26dfc77d80440c7409eb62002811b6cf, type: 3}
+      - {fileID: 4047048294545191193, guid: 3dd62554a6c2e784ebc7cfbb81fdf88e, type: 3}
+      - {fileID: 462211274428392523, guid: 7c621e9d50df54546871ff5e53f48ed2, type: 3}
+      - {fileID: 258266935109727718, guid: eba21cc7b4f482c4c90b46d018b4db80, type: 3}

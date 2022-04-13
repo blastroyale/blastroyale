@@ -373,6 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7992025883738130915}
+  - component: {fileID: 2143234306778765241}
   m_Layer: 0
   m_Name: Wep_CrossBow_Apc
   m_TagString: Untagged
@@ -401,6 +402,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2143234306778765241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043739398884827765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 4473272392546736156}
+  - {fileID: 4473272392546736156}
+  - {fileID: 4143785169624991515}
+  - {fileID: 4143785169624991515}
+  - {fileID: 2970626235238344594}
+  - {fileID: 2970626235238344594}
+  - {fileID: 8738784127577487356}
+  - {fileID: 8738784127577487356}
+  - {fileID: 4117925403589787642}
+  - {fileID: 4117925403589787642}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 4606655388711484537}
+  - {fileID: 629299319880469258}
+  - {fileID: 8802534760822150359}
+  - {fileID: 1859061430199215358}
+  - {fileID: 2516278120641560483}
+  - {fileID: 4632540455018994069}
 --- !u!1 &4117925403589787642
 GameObject:
   m_ObjectHideFlags: 0

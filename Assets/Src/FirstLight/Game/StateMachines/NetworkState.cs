@@ -87,11 +87,6 @@ namespace FirstLight.Game.StateMachines
 			_services?.TickService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
 		}
-		
-		private void DisconnectQuantum()
-		{
-			_networkService.QuantumClient.Disconnect();
-		}
 
 		private void ConnectQuantum()
 		{
@@ -116,6 +111,11 @@ namespace FirstLight.Game.StateMachines
 			});
 
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
+		}
+		
+		private void DisconnectQuantum()
+		{
+			_networkService.QuantumClient.Disconnect();
 		}
 
 		private void ReconnectQuantum()
@@ -180,6 +180,8 @@ namespace FirstLight.Game.StateMachines
 
 			_services.MessageBrokerService.Publish(new JoinedRoomMessage());
 			_statechartTrigger(ConnectedEvent);
+
+			StartMatchmakingLockRoomTimer();
 		}
 
 		/// <inheritdoc />

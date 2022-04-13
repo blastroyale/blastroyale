@@ -52,28 +52,30 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(runningCheckToMenu);
 
 			mainMenu.Nest(_mainMenuState.Setup).Target(runningCheckToMatch);
-			runningCheckToMatch.Transition().Condition(IsCoreRunning).Target(match);
+			runningCheckToMatch.Transition().Condition(CanRunCoreState).Target(match);
 			runningCheckToMatch.Transition().Target(final);
 			
 			match.Nest(_matchState.Setup).Target(runningCheckToMenu);
-			runningCheckToMatch.Transition().Condition(IsCoreRunning).Target(mainMenu);
-			runningCheckToMatch.Transition().Target(final);
+			runningCheckToMenu.Transition().Condition(CanRunCoreState).Target(mainMenu);
+			runningCheckToMenu.Transition().Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private void SubscribeEvents()
 		{
-			
 		}
 
 		private void UnsubscribeEvents()
 		{
-			
+			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
-
-		private bool IsCoreRunning()
+		
+		private bool CanRunCoreState()
 		{
+			// For now this is always true. In the future, we might want to be able to exit the core state loop
+			// in the state machine to transition to some other special state (e.g. a game update state where the game 
+			// downloads updated assets (like the initial load), and then goes back into this core state afterwards
 			return true;
 		}
 	}

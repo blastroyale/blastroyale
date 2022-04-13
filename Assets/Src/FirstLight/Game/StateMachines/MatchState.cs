@@ -92,8 +92,6 @@ namespace FirstLight.Game.StateMachines
 
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.DisconnectedEvent).Target(disconnected);
-			gameSimulation.OnEnter(() => FLog.Info("PACO", "Game Simulation Enter"));
-			gameSimulation.OnExit(() => FLog.Info("PACO", "Game Simulation Exit"));
 
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.OnEnter(CloseLoadingScreen);

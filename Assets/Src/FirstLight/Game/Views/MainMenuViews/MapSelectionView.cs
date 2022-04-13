@@ -35,16 +35,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public Vector2 NormalizedSelectionPoint { get; private set; }
 
-		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-		private void Awake()
+		public async void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_rectTransform = transform as RectTransform;
-		}
-
-		public async void OnEnable()
-		{
+		
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_dataProvider.AppDataProvider.CurrentMapConfig.Map, false);
 			_mapImage.enabled = true;

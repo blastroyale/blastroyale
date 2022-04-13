@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		public UniqueId ItemId { get; protected set; } = UniqueId.Invalid;
 
-		protected void Awake()
+		protected void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

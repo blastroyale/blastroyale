@@ -27,7 +27,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_textField = _textField == null ? GetComponent<TextMeshProUGUI>() : _textField;
 		}
 
-		private void Awake()
+		private void Start()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();

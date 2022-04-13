@@ -60,7 +60,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private Coroutine _coroutineTime;
 		private float _skipBaseCost;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

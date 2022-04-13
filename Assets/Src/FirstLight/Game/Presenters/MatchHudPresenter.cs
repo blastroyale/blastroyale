@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -40,8 +42,9 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private void Awake()
+		private void Start()
 		{
+			FLog.Info("PACO", "Awake");
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mapStatusText.text = "";

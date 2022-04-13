@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private IGameDataProvider _gameDataProvider;
 		
-		protected override void OnAwake()
+		protected override void OnStart()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			

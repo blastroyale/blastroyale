@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_canvasGroup = _canvasGroup ? _canvasGroup : GetComponent<CanvasGroup>();
 		}
 
-		private void Awake()
+		private void Start()
 		{
 			_safeArea = Screen.safeArea;
 			_screenRect = new Rect(0, 0, Screen.width, Screen.height);

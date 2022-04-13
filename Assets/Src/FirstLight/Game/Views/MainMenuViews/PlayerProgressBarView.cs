@@ -56,7 +56,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public uint Level { get; private set; }
 
-		private void Awake()
+		private void Start()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();

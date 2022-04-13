@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 		
 		private readonly List<ShopItemView> _shopItemViews = new List<ShopItemView>();
 
-		private void Awake()
+		private void Start()
 		{
 			_backButton.onClick.AddListener(OnBackButtonPressed);
 		}

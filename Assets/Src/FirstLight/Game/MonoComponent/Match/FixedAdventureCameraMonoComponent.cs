@@ -1,5 +1,4 @@
 using Cinemachine;
-using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.EntityViews;
@@ -84,8 +83,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			FLog.Info("PACO", "OnLocalPlayerAlive");
-
 			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SetTargetTransform(_playerView.transform);
 

@@ -25,7 +25,7 @@ namespace FirstLight.Game.Presenters
 		private IObjectPool<Image> _imagePool;
 		private IObjectPool<MainMenuFloatingTextView> _floatingTextPool;
 
-		private void Awake()
+		private void Start()
 		{
 			_imagePool = new GameObjectPool<Image>(10, _imageRef);
 			_floatingTextPool = new GameObjectPool<MainMenuFloatingTextView>(10, _floatingTextRef);

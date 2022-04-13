@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private RewardView [] _rewards;
 		private IGameDataProvider _gameDataProvider;
 
-		private void Awake()
+		private void Start()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			

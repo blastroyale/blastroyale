@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using FirstLight.FLogger;
+﻿using System.Collections;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {

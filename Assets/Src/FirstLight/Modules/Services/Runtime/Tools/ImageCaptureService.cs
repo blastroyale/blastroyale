@@ -205,33 +205,34 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 	
 	public class ImageCaptureService : MonoBehaviour
 	{
-		[FolderPath(AbsolutePath = true)]
-		public string _exportAbsoluteFolderPath;
-		[FolderPath(AbsolutePath = true)]
-		public string _importAbsoluteFolderPath;
-		[FilePath(Extensions = "json")]
+		[BoxGroup("Folder Paths")]
+		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
+		public string _exportFolderPath;
+		[BoxGroup("Folder Paths")]
+		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
+		public string _importFolderPath;
+		[FilePath(Extensions = "json", RequireExistingPath = true)]
 		public string _metadataJsonFilePath;
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private GameObject _background;
 		[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
-
-		public string ImportAbsoluteFolderPath => _importAbsoluteFolderPath;
+		
 		
 		[Button("Export Metadata Collection")]
 		public void ExportMetadataCollection()
 		{
-			if (_exportAbsoluteFolderPath == "" || !Directory.Exists(_exportAbsoluteFolderPath))
+			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
-				Debug.LogError($"Invalid export folder path [{_exportAbsoluteFolderPath}]");
+				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
 				
 				return;
 			}
 			
-			if (_importAbsoluteFolderPath == "" || !Directory.Exists(_importAbsoluteFolderPath))
+			if (_importFolderPath == "" || !Directory.Exists(_importFolderPath))
 			{
-				Debug.LogError($"Invalid import folder path [{_importAbsoluteFolderPath}]");
+				Debug.LogError($"Invalid import folder path [{_importFolderPath}]");
 				
 				return;
 			}
@@ -239,7 +240,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 			var backgroundErcRenderable = _background.GetComponent<IErcRenderable>();
 
 			var fileCount = 0;
-			foreach (var filePath in Directory.EnumerateFiles(_importAbsoluteFolderPath, "*.json"))
+			foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
 			{
 				Export(filePath, backgroundErcRenderable);
 				fileCount++;
@@ -251,9 +252,9 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 		[Button("Export Metadata Json")]
 		public void ExportMetadataJson()
 		{
-			if (_exportAbsoluteFolderPath == "" || !Directory.Exists(_exportAbsoluteFolderPath))
+			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
-				Debug.LogError($"Invalid export folder path [{_exportAbsoluteFolderPath}]");
+				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
 				
 				return;
 			}
@@ -273,9 +274,9 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 		[Button("Snapshot")]
 		public void SnapShot()
 		{
-			if (_exportAbsoluteFolderPath == "" || !Directory.Exists(_exportAbsoluteFolderPath))
+			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
-				Debug.LogError($"Invalid export path [{_exportAbsoluteFolderPath}]");
+				Debug.LogError($"Invalid export path [{_exportFolderPath}]");
 				
 				return;
 			}
@@ -376,7 +377,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 			byte[] bytes = image.EncodeToPNG();
 			DestroyImmediate(image);
 			
-			var path = Path.Combine(_exportAbsoluteFolderPath,filename + ".png");
+			var path = Path.Combine(_exportFolderPath,filename + ".png");
 			Debug.Log($"[ Exporting capture image {path} ]");
 			File.WriteAllBytes(path, bytes);
 		}

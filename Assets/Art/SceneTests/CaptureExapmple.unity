@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.7019337, g: 0.47999316, b: 0.7285409, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -994,9 +994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45df1080ac3b9c468a95497369f5ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exportAbsoluteFolderPath: C:\Users\mattj\Documents\blast-royale\Assets\Captures
-  _importAbsoluteFolderPath: C:\Users\mattj\Documents\flgnftmetadatagenerator\FlgNFTMetadataGenerator\FlgNFTMetadataGenerator\bin\Debug\nftmetadata\0\0
-  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/0/1ec801858a2fbccaf34970cb031fc8cd8fdf20864864c035796a5aff45558dea.json
+  _exportFolderPath: C:/Users/mattj/Documents/blast-royale/Assets/Captures
+  _importFolderPath: C:/Users/mattj/Documents/flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/0
+  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/0/0b548dc6c52a045b9b7b89c3b9efdb3dd67916a23c6f624ad7357029688f4838.json
   _markerTransform: {fileID: 6467920951248308136}
   _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
   _camera: {fileID: 6467920952292208544}

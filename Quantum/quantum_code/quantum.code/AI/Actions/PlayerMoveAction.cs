@@ -17,6 +17,11 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
+			if (f.Has<BotCharacter>(e))
+			{
+				return;
+			}
+			
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var velocityModifier = VelocityModifier.Resolve(f, e, bb, null);

@@ -20,7 +20,7 @@ public interface IPlayerSetupService
 	/// </summary>
 	/// <param name="playFabId"></param>
 	/// <returns></returns>
-	public ServerData GetInitialDataRequest(string playFabId);
+	public ServerState GetInitialState(string playFabId);
 }
 
 /// <inheritdoc />
@@ -37,12 +37,12 @@ public class PlayerSetupService : IPlayerSetupService
 	};
 
 	/// <inheritdoc />
-	public ServerData GetInitialDataRequest(string playFabId)
+	public ServerState GetInitialState(string playFabId)
 	{
 		var rngData = SetupInitialRngData(playFabId.GetHashCode());
 		var idData = new IdData();
 		var playerData = SetupInitialPlayerData(idData, rngData);
-		return new ServerData()
+		return new ServerState()
 		{
 			{nameof(IdData), JsonConvert.SerializeObject(idData)},
 			{nameof(RngData), JsonConvert.SerializeObject(rngData)},

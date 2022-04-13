@@ -1,7 +1,7 @@
 using System;
 using PlayFab;
 
-namespace Backend.Game;
+namespace Backend.Game.Services;
 
 /// <summary>
 /// Interface of creating playfab server configuration.
@@ -21,8 +21,11 @@ public interface IPlayfabServer
 /// </summary>
 public class PlayfabServerSettings : IPlayfabServer
 {
-	private string _secretKey = Environment.GetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY") ?? "***REMOVED***";
-	private string _titleId = Environment.GetEnvironmentVariable("PLAYFAB_TITLE") ?? "DDD52";
+	private string _secretKey = Environment.GetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY") 
+	                            ?? "***REMOVED***";
+	
+	private string _titleId = Environment.GetEnvironmentVariable("PLAYFAB_TITLE") 
+	                          ?? "DDD52";
 	
 	public PlayfabServerSettings()
 	{

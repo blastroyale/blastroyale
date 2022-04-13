@@ -14,23 +14,23 @@ namespace Backend.Game;
 /// </summary>
 public class ServerPlayerDataProvider : IDataProvider
 {
-	private readonly ServerData _data;
+	private readonly ServerState _state;
 	
-	public ServerPlayerDataProvider(ServerData data)
+	public ServerPlayerDataProvider(ServerState state)
 	{
-		_data = data;
+		_state = state;
 	}
 
 	/// <inheritdoc />
 	public bool TryGetData<T>(out T dat) where T : class
 	{
-		dat = _data.GetModel<T>();
+		dat = _state.GetModel<T>();
 		return dat != null;
 	}
 
 	/// <inheritdoc />
 	public T GetData<T>() where T : class
 	{
-		return _data.GetModel<T>(); // TODO: Cache deserialized model.
+		return _state.GetModel<T>(); // TODO: Cache deserialized model.
 	}
 }

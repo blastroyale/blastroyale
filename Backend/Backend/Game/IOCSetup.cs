@@ -24,7 +24,7 @@ public static class IOCSetup
 		// Server
 		services.AddSingleton<IPlayerSetupService, PlayerSetupService>();
 		services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
-		services.AddSingleton<IServerDataService, PlayfabGameDataService>();
+		services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 		services.AddSingleton<ILogger, ILogger>(l => log);
 		services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();

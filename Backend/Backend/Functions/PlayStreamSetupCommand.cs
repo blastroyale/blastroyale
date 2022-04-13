@@ -18,12 +18,12 @@ namespace Backend.Functions;
 public class PlayStreamSetupCommand
 {
 	private readonly IPlayerSetupService _setupService;
-	private readonly PlayfabGameDataService _dataService;
+	private readonly PlayfabGameStateService _stateService;
 	
-	public PlayStreamSetupCommand(IPlayerSetupService service, IServerDataService dataService)
+	public PlayStreamSetupCommand(IPlayerSetupService service, IServerStateService stateService)
 	{
 		_setupService = service;
-		_dataService = (PlayfabGameDataService)dataService; // TODO: Fix cast  when server env setup is done
+		_stateService = (PlayfabGameStateService)stateService; // TODO: Fix cast  when server env setup is done
 	}
 	
 	/// <summary>
@@ -34,7 +34,7 @@ public class PlayStreamSetupCommand
 	                                  HttpRequestMessage req, ILogger log)
 	{
 		var context = await ContextProcessor.ProcessPlayStreamContext(req);
-		var serverData = _setupService.GetInitialDataRequest(context.PlayFabId);
-		_dataService.UpdatePlayerData(context.PlayFabId, serverData);
+		var serverData = _setupService.GetInitialState(context.PlayFabId);
+		_stateService.UpdatePlayerState(context.PlayFabId, serverData);
 	}
 }

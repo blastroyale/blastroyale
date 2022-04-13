@@ -12,13 +12,13 @@ namespace FirstLight.Game.Logic;
 /// Represents stored server data.
 /// Stores { type names : serialized type } in its internal data. 
 /// </summary>
-public class ServerData : Dictionary<string, string>
+public class ServerState : Dictionary<string, string>
 {
-	public ServerData() 
+	public ServerState() 
 	{
 	}
 
-	public ServerData(Dictionary<string, string> data): base(data)
+	public ServerState(Dictionary<string, string> data): base(data)
 	{
 	}
 

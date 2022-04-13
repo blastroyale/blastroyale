@@ -30,9 +30,9 @@ namespace FirstLight.Game.MonoComponent
 		
 		public void Initialise(Erc721Metadata metadata)
 		{
-			var rarityId = metadata.attributes.FirstOrDefault(a => a.trait_type == "rarity").value;
-			var materialId = metadata.attributes.FirstOrDefault(a => a.trait_type == "material").value;
-			var adjectiveId = metadata.attributes.FirstOrDefault(a => a.trait_type == "adjective").value;
+			var rarityId = metadata.attibutesDictionary["rarity"];
+			var materialId = metadata.attibutesDictionary["material"];
+			var adjectiveId = metadata.attibutesDictionary["adjective"];;
 			
 						
 			_propBlock ??= new MaterialPropertyBlock();

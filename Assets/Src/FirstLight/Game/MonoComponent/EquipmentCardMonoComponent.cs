@@ -35,12 +35,12 @@ namespace FirstLight.Game.MonoComponent
 			_propBlock ??= new MaterialPropertyBlock();
 			
 			_nameText.text = metadata.name;
-			_gradeText.text = _gradeRomanNumerals[metadata.attributes.FirstOrDefault(a => a.trait_type == "grade").value];
-			var factionId = metadata.attributes.FirstOrDefault(a => a.trait_type == "faction").value;
-
-			var rarityId = metadata.attributes.FirstOrDefault(a => a.trait_type == "rarity").value;
-			var adjectiveId = metadata.attributes.FirstOrDefault(a => a.trait_type == "adjective").value;
-			var materialId = metadata.attributes.FirstOrDefault(a => a.trait_type == "material").value;
+			_gradeText.text = _gradeRomanNumerals[metadata.attibutesDictionary["grade"]];
+			
+			var factionId = metadata.attibutesDictionary["faction"];
+			var rarityId = metadata.attibutesDictionary["rarity"];
+			var adjectiveId = metadata.attibutesDictionary["adjective"];
+			var materialId = metadata.attibutesDictionary["material"];
 			
 			_factionSpriteRenderer.sprite = _itemCardSpriteData.FactionSprites[factionId];
 			_factionShadowSpriteRenderer.sprite = _itemCardSpriteData.FactionSprites[factionId];

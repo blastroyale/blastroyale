@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,13 +20,25 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 		public string trait_type;
 		public int value;
 	}
-		
-	public struct Erc721Metadata
+	
+	public struct Erc721Metadata 
 	{
 		public string name;
 		public string description;
 		public string image;
 		public TraitAttribute[] attributes;
+		public Dictionary<string, int> attibutesDictionary;
+		
+		[OnDeserialized]
+		internal void OnDeserializedMethod(StreamingContext context)
+		{
+			attibutesDictionary = new Dictionary<string, int>(attributes.Length);
+
+			for (var i=0; i<attributes.Length; i++)
+			{
+				attibutesDictionary.Add(attributes[i].trait_type, attributes[i].value);
+			}
+		}
 	}
 	
 	[Serializable]

@@ -43,7 +43,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

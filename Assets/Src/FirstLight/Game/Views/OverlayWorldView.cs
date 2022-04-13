@@ -19,7 +19,12 @@ namespace FirstLight.Game.Views
 		private Transform _target;
 		private Vector3 _position;
 		private Camera _camera;
-			
+
+		private void Start()
+		{
+			_camera = Camera.main;
+		}
+
 		private void OnValidate()
 		{
 			_rectTransform = _rectTransform ? _rectTransform : GetComponent<RectTransform>();
@@ -61,7 +66,6 @@ namespace FirstLight.Game.Views
 			_target = target;
 			_isTargetFollow = true;
 			_screenOffset = offset;
-			_camera = Camera.main;
 		}
 
 		/// <summary>
@@ -80,7 +84,6 @@ namespace FirstLight.Game.Views
 			_position = target;
 			_isTargetFollow = false;
 			_screenOffset = offset;
-			_camera = Camera.main;
 		}
 	}
 }

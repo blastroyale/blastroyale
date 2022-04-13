@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private GameObject _fusedItemObject;
 		private GameObject [] _fusionMaterials;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

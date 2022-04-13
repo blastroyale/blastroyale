@@ -23,7 +23,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private EntityRef Entity { get; set; }
 
-		private void Awake()
+		private void Start()
 		{
 			_vignetteImage.enabled = false;
 			

@@ -34,7 +34,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		
 		private readonly IDictionary<EntityRef, Queue<MessageData>> _queue = new Dictionary<EntityRef, Queue<MessageData>>(7);
 		
-		private void Awake()
+		private void Start()
 		{
 			_floatingTextRef.gameObject.SetActive(false);
 			_floatingArmourAndTextRef.gameObject.SetActive(false);

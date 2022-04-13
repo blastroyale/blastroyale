@@ -16,7 +16,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private int _quantity;
 
-		private void Awake()
+		private void Start()
 		{
 			_lootBoxImage.enabled = false;
 			_quantityText.enabled = false;

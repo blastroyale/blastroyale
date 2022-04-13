@@ -106,7 +106,7 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_propBlock = new MaterialPropertyBlock();

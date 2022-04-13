@@ -20,7 +20,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public UnityEvent<GameIdGroup> OnClick = new UnityEvent<GameIdGroup>();
 
-		protected void Awake()
+		protected void Start()
 		{
 			_button.onClick.AddListener(OnButtonClick);
 		}

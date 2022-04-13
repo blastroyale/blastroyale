@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 		private Coroutine _coroutine;
 		private Coroutine _skipCoroutine;
 
-		private void Awake()
+		private void Start()
 		{
 			_skipButton.onClick.AddListener(Skip);
 		}

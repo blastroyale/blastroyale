@@ -18,7 +18,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
 		
-		private void Awake()
+		private void Start()
 		{
 			_indicator.enabled = false;
 			_playerTransform ??= transform;

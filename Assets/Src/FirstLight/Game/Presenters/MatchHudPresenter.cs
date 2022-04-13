@@ -44,7 +44,6 @@ namespace FirstLight.Game.Presenters
 
 		private void Start()
 		{
-			FLog.Info("PACO", "Awake");
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mapStatusText.text = "";

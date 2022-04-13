@@ -1,10 +1,10 @@
 using Cinemachine;
+using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 
@@ -27,7 +27,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private LocalInput _localInput;
 		private EntityView _playerView;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -84,6 +84,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
+			FLog.Info("PACO", "OnLocalPlayerAlive");
+
 			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SetTargetTransform(_playerView.transform);
 

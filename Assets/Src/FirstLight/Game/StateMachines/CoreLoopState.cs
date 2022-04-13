@@ -17,7 +17,7 @@ namespace FirstLight.Game.StateMachines
 	/// <summary>
 	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class CoreState
+	public class CoreLoopState
 	{
 		private static readonly IStatechartEvent _testEvent = new StatechartEvent("Core Event");
 		
@@ -27,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public CoreState(GameLogic gameLogic, IGameServices services, IGameUiService uiService, IGameDataProvider dataProvider,
+		public CoreLoopState(GameLogic gameLogic, IGameServices services, IGameUiService uiService, IGameDataProvider dataProvider,
 		                 IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;

@@ -77,6 +77,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
+			
+			_services.MessageBrokerService.Subscribe<RoomRandomClickedMessage>(StartRandomMatchmaking);
 		}
 
 		private void UnsubscribeEvents()
@@ -133,16 +135,17 @@ namespace FirstLight.Game.StateMachines
 		public void OnConnectedToMaster()
 		{
 			FLog.Info("OnConnectedToMaster");
+			_services.MessageBrokerService.Publish(new QuantumMasterConnectedMessage());
+		}
 
+		public void StartRandomMatchmaking(RoomRandomClickedMessage msg)
+		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
 			var enterParams = config.GetEnterRoomParams(info);
 			var joinParams = config.GetJoinRandomRoomParams(info);
 
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
-
-			_services.MessageBrokerService.Publish(new QuantumMasterConnectedMessage());
 		}
 
 		/// <inheritdoc />

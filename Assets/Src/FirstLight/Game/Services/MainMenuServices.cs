@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Services;
 
 namespace FirstLight.Game.Services
 {
@@ -12,6 +13,8 @@ namespace FirstLight.Game.Services
 	/// </remarks>
 	public interface IMainMenuServices : IDisposable
 	{
+		/// <inheritdoc cref="IMessageBrokerService"/>
+		IMessageBrokerService MessageBrokerService { get; }
 		/// <inheritdoc cref="IUiVfxService"/>
 		IUiVfxService UiVfxService { get; }
 	}
@@ -21,14 +24,19 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IUiVfxInternalService _uiVfxService;
 		private readonly IAssetResolverService _assetResolverService;
+		private readonly IMessageBrokerService _messageBrokerService;
+
+		/// <inheritdoc />
+		public IMessageBrokerService MessageBrokerService => _messageBrokerService;
 
 		/// <inheritdoc />
 		public IUiVfxService UiVfxService => _uiVfxService;
 		
-		public MainMenuServices(IAssetResolverService assetResolverService, IUiVfxInternalService uiVfxService)
+		public MainMenuServices(IAssetResolverService assetResolverService, IUiVfxInternalService uiVfxService, IMessageBrokerService messageBrokerService)
 		{
 			_assetResolverService = assetResolverService;
 			_uiVfxService = uiVfxService;
+			_messageBrokerService = messageBrokerService;
 		}
 		
 		/// <inheritdoc />

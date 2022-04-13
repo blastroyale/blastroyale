@@ -11,6 +11,7 @@ using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
@@ -30,6 +31,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
+		private readonly IStatechartEvent _roomJoinedEvent = new StatechartEvent("Room Joined Event");
+		private readonly IStatechartEvent _roomJoinFailedEvent = new StatechartEvent("Room Join Failed Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
@@ -113,6 +116,7 @@ namespace FirstLight.Game.StateMachines
 			var socialMenu = stateFactory.State("Social Menu");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
+			var roomWaitingState = stateFactory.State("Room Joined Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			
@@ -150,9 +154,12 @@ namespace FirstLight.Game.StateMachines
 			
 			playClickedCheck.OnEnter(SendPlayClickedEvent);
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
-			playClickedCheck.Transition().Target(final);
-
-			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(final);
+			playClickedCheck.Transition().Target(roomWaitingState);
+			
+			roomWaitingState.Event(_roomJoinedEvent).Target(final);
+			roomWaitingState.Event(_roomJoinFailedEvent).Target(screenCheck);
+			
+			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
 			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
@@ -179,7 +186,7 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(_playClickedEvent).Target(playClickedCheck);
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWaitingState);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			//roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 			
@@ -199,6 +206,8 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnRewardsCollectedMessage);
 			_services.MessageBrokerService.Subscribe<MenuWorldLootBoxClickedMessage>(OnRequestOpenCratesScreenMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_services.MessageBrokerService.Subscribe<JoinedRoomMessage>(OnRoomJoinedMessage);
+			_services.MessageBrokerService.Subscribe<JoinRoomFailedMessage>(OnRoomJoinFailedMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -589,7 +598,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
-			var mainMenuServices = new MainMenuServices(_services.AssetResolverService, uiVfxService);
+			var mainMenuServices = new MainMenuServices(_services.AssetResolverService, uiVfxService, _services.MessageBrokerService);
 			var configProvider = _services.ConfigsProvider;
 			
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
@@ -656,6 +665,16 @@ namespace FirstLight.Game.StateMachines
 			}*/
 				
 			_statechartTrigger(_playClickedEvent);
+		}
+
+		private void OnRoomJoinedMessage(JoinedRoomMessage msg)
+		{
+			_statechartTrigger(_roomJoinedEvent);
+		}
+		
+		private void OnRoomJoinFailedMessage(JoinRoomFailedMessage msg)
+		{
+			_statechartTrigger(_roomJoinFailedEvent);
 		}
 
 		private void SendPlayClickedEvent()

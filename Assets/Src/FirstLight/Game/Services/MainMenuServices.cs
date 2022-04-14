@@ -22,10 +22,7 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IUiVfxInternalService _uiVfxService;
 		private readonly IAssetResolverService _assetResolverService;
-		private readonly IMessageBrokerService _messageBrokerService;
 
-		/// <inheritdoc />
-		public IMessageBrokerService MessageBrokerService => _messageBrokerService;
 
 		/// <inheritdoc />
 		public IUiVfxService UiVfxService => _uiVfxService;
@@ -34,7 +31,6 @@ namespace FirstLight.Game.Services
 		{
 			_assetResolverService = assetResolverService;
 			_uiVfxService = uiVfxService;
-			_messageBrokerService = messageBrokerService;
 		}
 		
 		/// <inheritdoc />

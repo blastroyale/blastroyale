@@ -24,4 +24,8 @@ namespace FirstLight.Game.Messages
 	public struct EnhanceSequenceReadyMessage : IMessage { public List<UniqueId> EnhanceList; }
 	public struct EnhanceCompletedMessage : IMessage {  }
 	public struct CrateClickedMessage : IMessage { public UniqueId LootBoxId; }
+	public struct RoomRandomClickedMessage : IMessage { }
+	public struct RoomJoinCreateClickedMessage : IMessage { }
+	public struct RoomJoinClickedMessage : IMessage { }
+	public struct RoomCreateClickedMessage : IMessage { }
 }

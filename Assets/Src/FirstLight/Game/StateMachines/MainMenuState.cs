@@ -11,6 +11,7 @@ using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
@@ -113,6 +114,7 @@ namespace FirstLight.Game.StateMachines
 			var socialMenu = stateFactory.State("Social Menu");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
+			var roomWaitingState = stateFactory.State("Room Joined Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			
@@ -150,9 +152,12 @@ namespace FirstLight.Game.StateMachines
 			
 			playClickedCheck.OnEnter(SendPlayClickedEvent);
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
-			playClickedCheck.Transition().Target(final);
-
-			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(final);
+			playClickedCheck.Transition().Target(roomWaitingState);
+			
+			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
+			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(screenCheck);
+			
+			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
 			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
@@ -179,7 +184,7 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(_playClickedEvent).Target(playClickedCheck);
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWaitingState);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			//roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 			
@@ -589,7 +594,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
-			var mainMenuServices = new MainMenuServices(_services.AssetResolverService, uiVfxService);
+			var mainMenuServices = new MainMenuServices(_services.AssetResolverService, uiVfxService, _services.MessageBrokerService);
 			var configProvider = _services.ConfigsProvider;
 			
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
@@ -634,27 +639,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private void PlayButtonClicked()
 		{
-			/*var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
-			var playerLevel = _gameDataProvider.PlayerDataProvider.Level.Value;
-			
-			if (playerLevel < adventureIdOffset)
-			{
-				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = (int) playerLevel;
-			}
-			else
-			{
-				var timespan = _services.TimeService.DateTimeUtcNow - new DateTime(0);
-					
-				// "timespan.TotalMinutes / X" - X is the interval in minutes to rotate maps
-				var mapTick = (int) (timespan.TotalMinutes / 3);
-					
-				// "mapTick % X + Z" - X is how many adventures are in rotation; Z is the offset on ftue adventures and onboarding adventures
-				var adventureId = mapTick % GameConstants.RotationAdventuresCount + adventureIdOffset;
-					
-				// With X == 3, for instance, possible Adventure IDs will be (0, 1 and 2) + ftueAdventuresCount
-				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = adventureId;
-			}*/
-				
 			_statechartTrigger(_playClickedEvent);
 		}
 

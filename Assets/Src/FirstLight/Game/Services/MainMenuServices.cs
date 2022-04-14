@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Services;
 
 namespace FirstLight.Game.Services
 {
@@ -22,10 +23,11 @@ namespace FirstLight.Game.Services
 		private readonly IUiVfxInternalService _uiVfxService;
 		private readonly IAssetResolverService _assetResolverService;
 
+
 		/// <inheritdoc />
 		public IUiVfxService UiVfxService => _uiVfxService;
 		
-		public MainMenuServices(IAssetResolverService assetResolverService, IUiVfxInternalService uiVfxService)
+		public MainMenuServices(IAssetResolverService assetResolverService, IUiVfxInternalService uiVfxService, IMessageBrokerService messageBrokerService)
 		{
 			_assetResolverService = assetResolverService;
 			_uiVfxService = uiVfxService;

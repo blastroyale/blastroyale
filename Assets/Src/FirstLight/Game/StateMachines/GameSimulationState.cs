@@ -228,9 +228,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopSimulation()
 		{
-			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
-
 			QuantumRunner.ShutdownAll();
+			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 		}
 
 		private void PlayMusic()

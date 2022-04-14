@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using I2.Loc;
 using FirstLight.Game.Services;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
 using Button = UnityEngine.UI.Button;
@@ -55,22 +56,26 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
+		private IGameServices _services;
+		
+		// TODO - remove when appropriate
 		private IMainMenuServices _mainMenuServices;
 
 		private void Start()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_regularButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
 
-			_playTournamentDeathmatchRandom.onClick.AddListener(OnTournamentDeathmatchRandomClicked);
-			_playTournamentDeathmatchOffline.onClick.AddListener(OnTournamentDeathmatchOfflineClicked);
-			_playTournamentDeathmatchRoom.onClick.AddListener(OnTournamentDeathmatchRoomClicked);
+			_playTournamentDeathmatchRandom.onClick.AddListener(OnPlayDeathmatchClicked);
+			_playTournamentDeathmatchOffline.onClick.AddListener(OnPlayDeathmatchOfflineClicked);
+			_playTournamentDeathmatchRoom.onClick.AddListener(OnRoomJoinCreatelicked);
 
-			_playDevButton.onClick.AddListener(OnPlayDevClicked);
+			_playDevButton.onClick.AddListener(OnPlayBattleRoyaleDevClicked);
 			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
-			_playOfflineButton.onClick.AddListener(OnPlayOfflineClicked);
+			_playOfflineButton.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
 			
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
@@ -99,18 +104,7 @@ namespace FirstLight.Game.Presenters
 				_newFeaturesView.QueueNewSystemPopUp(system, UnlockSystemButton);
 			}
 		}
-
-		private void OnPlayDevClicked()
-		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-
-			runnerConfigs.IsOfflineMode = false;
-			runnerConfigs.IsDevMode = true;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
-
-			Data.OnPlayButtonClicked();
-		}
-
+		
 		private void OnPlayBattleRoyaleClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -120,9 +114,22 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
-		private void OnPlayOfflineClicked()
+		private void OnPlayBattleRoyaleDevClicked()
+		{
+			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+
+			runnerConfigs.IsOfflineMode = false;
+			runnerConfigs.IsDevMode = true;
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+
+			Data.OnPlayButtonClicked();
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+		}
+
+		private void OnPlayBattleRoyaleOfflineClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
@@ -131,9 +138,10 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
-		private void OnTournamentDeathmatchRandomClicked()
+		private void OnPlayDeathmatchClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
@@ -142,9 +150,10 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 
 			Data.OnPlayButtonClicked();
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
-		private void OnTournamentDeathmatchOfflineClicked()
+		private void OnPlayDeathmatchOfflineClicked()
 		{
 			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
@@ -153,9 +162,10 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 
 			Data.OnPlayButtonClicked();
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
-		private void OnTournamentDeathmatchRoomClicked()
+		private void OnRoomJoinCreatelicked()
 		{
 			Data.OnRoomJoinCreateClicked();
 		}

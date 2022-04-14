@@ -62,7 +62,7 @@ namespace FirstLight.Game.Presenters
 			
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 
-			_services.MessageBrokerService.Subscribe<MatchJoinedRoomMessage>(OnJoinedRoom);
+			_services.MessageBrokerService.Subscribe<JoinedRoomMessage>(OnJoinedRoom);
 			//_services.MessageBrokerService.Subscribe<PlayerJoinedMatchMessage>(OnPlayerJoinedRoom);
 			//_services.MessageBrokerService.Subscribe<PlayerLeftMatchMessage>(OnPlayerLeftRoom);
 			
@@ -109,7 +109,7 @@ namespace FirstLight.Game.Presenters
 			SetLayerState(true, false);
 		}
 
-		private void OnJoinedRoom(MatchJoinedRoomMessage message)
+		private void OnJoinedRoom(JoinedRoomMessage message)
 		{
 			/*if (_gameDataProvider.AppDataProvider.SelectedRoomEntryType.Value == RoomEntryID.Matchmaking)
 			{
@@ -131,12 +131,12 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.gameObject.SetActive(canShowLockButton);
 		}
 
-		private void OnPlayerJoinedRoom(PlayerJoinedMatchMessage message)
+		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage message)
 		{
 			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
 		}
 		
-		private void OnPlayerLeftRoom(PlayerLeftMatchMessage message)
+		private void OnPlayerLeftRoom(PlayerLeftRoomMessage message)
 		{
 			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
 		}

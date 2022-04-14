@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Realtime;
@@ -63,12 +65,22 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetEnterRoomParams(MapConfig config, string roomName = null)
+		public EnterRoomParams GetEnterRoomParams(IGameDataProvider dataProvider, MapConfig config, string roomName = null)
 		{
+			var preloadIds = new List<int>();
+			
+			foreach (var (key, value) in dataProvider.EquipmentDataProvider.EquippedItems)
+			{
+				var equipmentDataInfo = dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
+				preloadIds.Add((int) equipmentDataInfo.GameId);
+			}
+
+			preloadIds.Add((int) dataProvider.PlayerDataProvider.CurrentSkin.Value);
+			
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = roomName,
-				PlayerProperties = new Hashtable(),
+				PlayerProperties = new Hashtable {{"PreloadIds", preloadIds.ToArray()}},
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions

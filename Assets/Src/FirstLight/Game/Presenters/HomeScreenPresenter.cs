@@ -56,12 +56,16 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
+		private IGameServices _services;
+		
+		// TODO - remove when appropriate
 		private IMainMenuServices _mainMenuServices;
 
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_regularButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
 
@@ -110,7 +114,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
-			_mainMenuServices.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnPlayBattleRoyaleDevClicked()
@@ -122,7 +126,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
-			_mainMenuServices.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnPlayBattleRoyaleOfflineClicked()
@@ -134,7 +138,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
-			_mainMenuServices.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnPlayDeathmatchClicked()
@@ -146,7 +150,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 
 			Data.OnPlayButtonClicked();
-			_mainMenuServices.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnPlayDeathmatchOfflineClicked()
@@ -158,7 +162,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 
 			Data.OnPlayButtonClicked();
-			_mainMenuServices.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnRoomJoinCreatelicked()

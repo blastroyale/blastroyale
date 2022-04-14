@@ -13,8 +13,6 @@ namespace FirstLight.Game.Services
 	/// </remarks>
 	public interface IMainMenuServices : IDisposable
 	{
-		/// <inheritdoc cref="IMessageBrokerService"/>
-		IMessageBrokerService MessageBrokerService { get; }
 		/// <inheritdoc cref="IUiVfxService"/>
 		IUiVfxService UiVfxService { get; }
 	}

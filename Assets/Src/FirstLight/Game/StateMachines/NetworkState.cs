@@ -107,24 +107,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
 
-			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
-			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
-			_networkService.QuantumClient.EnableProtocolFallback = true;
-
-			var preloadIds = new List<int>();
-			foreach (var (key, value) in _dataProvider.EquipmentDataProvider.EquippedItems)
-			{
-				var equipmentDataInfo = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
-				preloadIds.Add((int) equipmentDataInfo.GameId);
-			}
-
-			preloadIds.Add((int) _dataProvider.PlayerDataProvider.CurrentSkin.Value);
-
-			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(new Hashtable
-			{
-				{"PreloadIds", preloadIds.ToArray()}
-			});
-
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
 		}
 		
@@ -136,6 +118,13 @@ namespace FirstLight.Game.StateMachines
 		private void ReconnectPhoton()
 		{
 			_networkService.QuantumClient.ReconnectAndRejoin();
+		}
+
+		private void SetPreRoomProperties()
+		{
+			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
+			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
+			_networkService.QuantumClient.EnableProtocolFallback = true;
 		}
 
 		/// <inheritdoc />
@@ -158,9 +147,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(info);
+			var enterParams = config.GetEnterRoomParams(_dataProvider, info);
 			var joinParams = config.GetJoinRandomRoomParams(info);
-
+			SetPreRoomProperties();
+			
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
 		}
 

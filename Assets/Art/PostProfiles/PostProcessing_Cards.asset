@@ -1,27 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7881386371572809245
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
-  m_Name: SplitToning
-  m_EditorClassIdentifier: 
-  active: 0
-  shadows:
-    m_OverrideState: 1
-    m_Value: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
-  highlights:
-    m_OverrideState: 1
-    m_Value: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
-  balance:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!114 &-7232415928590201926
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -40,7 +18,7 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 10
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1.4980392, g: 1.2627451, b: 1.2392157, a: 1}
@@ -49,47 +27,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 1
---- !u!114 &-3911395687090252278
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
-  m_Name: Bloom
-  m_EditorClassIdentifier: 
-  active: 1
-  threshold:
-    m_OverrideState: 1
-    m_Value: 0.8
-  intensity:
-    m_OverrideState: 1
-    m_Value: 1
-  scatter:
-    m_OverrideState: 0
-    m_Value: 0.7
-  clamp:
-    m_OverrideState: 0
-    m_Value: 65472
-  tint:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
-  highQualityFiltering:
-    m_OverrideState: 0
-    m_Value: 0
-  skipIterations:
-    m_OverrideState: 0
-    m_Value: 1
-  dirtTexture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
-  dirtIntensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_Value: 4
 --- !u!114 &-2660854953957658396
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -134,8 +72,6 @@ MonoBehaviour:
   - {fileID: -2660854953957658396}
   - {fileID: -7232415928590201926}
   - {fileID: 8177660527363326796}
-  - {fileID: -3911395687090252278}
-  - {fileID: -7881386371572809245}
 --- !u!114 &8177660527363326796
 MonoBehaviour:
   m_ObjectHideFlags: 3

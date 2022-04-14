@@ -1899,7 +1899,6 @@ MonoBehaviour:
   m_Name: Vfx/PlayVfxMarker
   m_EditorClassIdentifier: 
   m_Time: 1
-  createAtPlayerPosition: 1
   _vfxId: 0
 --- !u!114 &5226110588722613708
 MonoBehaviour:

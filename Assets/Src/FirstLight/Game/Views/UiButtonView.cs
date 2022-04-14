@@ -54,9 +54,9 @@ namespace FirstLight.Game.Views
 		}
 #endif	
 		/// <inheritdoc />
-		protected override void Awake()
+		protected override void Start()
 		{
-			base.Awake();
+			base.Start();
 #if UNITY_EDITOR
 			if (Application.isPlaying)
 #endif

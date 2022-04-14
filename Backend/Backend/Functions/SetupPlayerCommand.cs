@@ -18,12 +18,12 @@ namespace Backend.Functions;
 public class SetupPlayerCommand
 {
 	private readonly IPlayerSetupService _setupService;
-	private readonly PlayfabGameDataService _dataService;
+	private readonly IServerStateService _stateService;
 	
-	public SetupPlayerCommand(IPlayerSetupService service, IServerDataService dataService)
+	public SetupPlayerCommand(IPlayerSetupService service, IServerStateService stateService)
 	{
 		_setupService = service;
-		_dataService = (PlayfabGameDataService)dataService; // TODO: Fix cast  when server env setup is done
+		_stateService = stateService;
 	}
 	/// <summary>
 	/// Command Execution
@@ -33,8 +33,8 @@ public class SetupPlayerCommand
 	                                                                    HttpRequestMessage req, ILogger log)
 	{
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
-		var serverData = _setupService.GetInitialDataRequest(context.AuthenticationContext.PlayFabId);
-		_dataService.UpdatePlayerData(context.AuthenticationContext.PlayFabId, serverData);
+		var serverData = _setupService.GetInitialState(context.AuthenticationContext.PlayFabId);
+		_stateService.UpdatePlayerState(context.AuthenticationContext.PlayFabId, serverData);
 		return new PlayFabResult<LogicResult>
 		{
 			Result = new LogicResult

@@ -4756,7 +4756,6 @@ MonoBehaviour:
   _regularButtonRoot: {fileID: 4217779122758098135}
   _tournamentButtonRoot: {fileID: 5739586600127366950}
   _playBattleRoyaleButton: {fileID: 6087636188564769885}
-  _playDeathmatchButton: {fileID: 0}
   _playOfflineButton: {fileID: 3323600364797992703}
   _playDevButton: {fileID: 3625654455836904506}
   _playTournamentDeathmatchRandom: {fileID: 5211914012748641792}

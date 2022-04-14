@@ -27,13 +27,16 @@ namespace FirstLight.Game.Presenters
 		private Quantum.Input _quantumInput;
 		private EntityRef _entity;
 
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
-
 			_localInput.Gameplay.SetCallbacks(this);
+		}
 
+		private void Start()
+		{
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);

@@ -152,21 +152,32 @@ namespace FirstLight.Game.StateMachines
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #else
+			//Config for "Dev_Backend"
+			//PlayFabSettings.TitleId = "***REMOVED***";
+			//quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #endif
 		}
 
 		private void ProcessAuthentication(LoginResult result, IWaitActivity activity)
 		{
+			var titleData = result.InfoResultPayload.TitleData;
+			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 			_services.AnalyticsService.LoginEvent(result.PlayFabId);
 			InitializeGameData(result, activity.Split());
-			ApplePass(result);
+			//AppleApprovalHack(result);
 				
-			if (IsOutdated(result.InfoResultPayload.TitleData[nameof(Application.version)]))
+			if (IsOutdated(titleData[nameof(Application.version)]))
 			{
 				OpenGameUpdateDialog();
+				return;
+			}
+			
+			if (titleData.TryGetValue($"{nameof(Application.version)} block", out var version) && IsOutdated(version))
+			{
+				OpenGameBlockedDialog();
 				return;
 			}
 
@@ -210,12 +221,11 @@ namespace FirstLight.Game.StateMachines
 			void OnPlayerSetup(ExecuteFunctionResult result)
 			{
 				var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
-				var converter = new StringEnumConverter();
-				
-				_dataService.AddData(JsonConvert.DeserializeObject<RngData>(logicResult.Result.Data[nameof(RngData)], converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<IdData>(logicResult.Result.Data[nameof(IdData)], converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<PlayerData>(logicResult.Result.Data[nameof(PlayerData)], converter));
-				
+
+				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(logicResult.Result.Data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(logicResult.Result.Data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(logicResult.Result.Data));
+
 				cacheActivity.Complete();
 			}
 		}
@@ -238,11 +248,9 @@ namespace FirstLight.Game.StateMachines
 			}
 			else
 			{
-				var converter = new StringEnumConverter();
-				
-				_dataService.AddData(JsonConvert.DeserializeObject<RngData>(data[nameof(RngData)].Value, converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<IdData>(data[nameof(IdData)].Value, converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<PlayerData>(data[nameof(PlayerData)].Value, converter));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
 			}
 
 			activity.Complete();
@@ -270,15 +278,38 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		// To help pass apple approval tests
-		private async void ApplePass(LoginResult result)
+		private void OpenGameBlockedDialog()
 		{
+			var confirmButton = new AlertButton
+			{
+				Text = ScriptLocalization.General.Confirm,
+				Style = AlertButtonStyle.Default,
+				Callback = Application.Quit
+			};
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, 
+			                               ScriptLocalization.General.MaintenanceDescription, confirmButton);
+		}
+
+		/// <summary>
+		/// To help pass apple approval submission tests hack.
+		/// This forces all communication with quantum to be TCP and not UDP with a flag from the backend, but just
+		/// to be turned on during submission because sometimes Apple testers have their home network setup wrong.
+		/// </summary>
+		private async void AppleApprovalHack(LoginResult result)
+		{
+			var titleData = result.InfoResultPayload.TitleData;
 			var address = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
 			var config = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(address);
+			var connection = ConnectionProtocol.Udp;
 			
-			config.PhotonServerSettings.AppSettings.Protocol = result.InfoResultPayload.TitleData.ContainsKey("connection")
-				                                                   ? ConnectionProtocol.Tcp
-				                                                   : ConnectionProtocol.Udp;
+			if (!titleData.TryGetValue($"{nameof(Application.version)} apple", out var version) || 
+			    version != Application.version)
+			{
+				connection = ConnectionProtocol.Tcp;
+			}
+			
+			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
 		}

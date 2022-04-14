@@ -39,7 +39,7 @@ namespace FirstLight.Game.Presenters
 		private EntityRef _playerWinnerEntity;
 		private IEntityViewUpdaterService _entityService;
 		
-		private void Awake()
+		private void Start()
 		{
 			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			

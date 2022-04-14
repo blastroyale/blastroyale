@@ -551,6 +551,20 @@ MonoBehaviour:
       - New Game Update
       Flags: 00
       Languages_Touch: []
+    - Term: General/Maintenance
+      TermType: 0
+      Description: 
+      Languages:
+      - Game in Maintenance
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/MaintenanceDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Game devs are running around like Bored Blast Apes in Royale Club
+      Flags: 00
+      Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
       TermType: 0
       Description: 
@@ -1557,6 +1571,104 @@ MonoBehaviour:
       Description: 
       Languages:
       - WEAPON IS AT MAX LEVEL
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NameTooShort
+      TermType: 0
+      Description: 
+      Languages:
+      - The name must be at least {0} characters long.
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NameTooLong
+      TermType: 0
+      Description: 
+      Languages:
+      - The name must not exceed {0} characters.
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchPlayOnline
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Online
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchPlayOffline
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Offline
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchPlayRoom
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Game
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Game
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/CreateRoom
+      TermType: 0
+      Description: 
+      Languages:
+      - Create
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/JoinRoom
+      TermType: 0
+      Description: 
+      Languages:
+      - Join
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomCreateOrJoin
+      TermType: 0
+      Description: 
+      Languages:
+      - Create or join a room with a code
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCode
+      TermType: 0
+      Description: 
+      Languages:
+      - Enter a valid room code
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Join
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomCurrentName
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Room: {0}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomLock
+      TermType: 0
+      Description: 
+      Languages:
+      - Lock & Play!
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomErrorJoin
+      TermType: 0
+      Description: 
+      Languages:
+      - Cannot join room - {0}
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -3022,88 +3134,11 @@ MonoBehaviour:
       - Claim Your Loot!
       Flags: 00
       Languages_Touch: []
-    - Term: Shop/com.hard.currency.bundle.1
-      TermType: 0
-      Description: 
-      Languages:
-      - 50 GEMS
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.hard.currency.bundle.2
-      TermType: 0
-      Description: 
-      Languages:
-      - 180 GEMS
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.hard.currency.bundle.3
-      TermType: 0
-      Description: 
-      Languages:
-      - 320 GEMS
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.soft.currency.bundle.1
-      TermType: 0
-      Description: 
-      Languages:
-      - 2500 COINS
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.soft.currency.bundle.2
-      TermType: 0
-      Description: 
-      Languages:
-      - 8000 COINS
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.soft.currency.bundle.3
-      TermType: 0
-      Description: 
-      Languages:
-      - 13500 COINS
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.core.epic.1
-      TermType: 0
-      Description: 
-      Languages:
-      - BRONZE CORE
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.core.legendary.1
-      TermType: 0
-      Description: 
-      Languages:
-      - GOLDEN CORE
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.core.legendary.2
-      TermType: 0
-      Description: 
-      Languages:
-      - x5 GOLDEN CORES
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/ConfirmPurchase
-      TermType: 0
-      Description: 
-      Languages:
-      - PURCHASE {0}?
-      Flags: 00
-      Languages_Touch: []
-    - Term: Shop/com.core.rare.1
-      TermType: 0
-      Description: 
-      Languages:
-      - STEEL CORE
-      Flags: 00
-      Languages_Touch: []
     - Term: GameIds/AK47
       TermType: 0
       Description: 
       Languages:
-      - AK 47
+      - Wolf
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/AK47Description
@@ -3138,7 +3173,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Assault Rifle
+      - Dingo
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/AssaultRifleDescription
@@ -3152,7 +3187,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Minigun
+      - Hippo
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/BFGDescription
@@ -3362,7 +3397,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hammer
+      - Turtle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/HammerDescription
@@ -3425,7 +3460,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Laser
+      - Colibri
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/LaserDescription
@@ -3474,7 +3509,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - M60
+      - Lion
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/M60Description
@@ -3614,7 +3649,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RPG
+      - Moose
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/RPGDescription
@@ -3775,7 +3810,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shotgun
+      - Piranha
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ShotgunDescription
@@ -3796,7 +3831,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sniper Rifle
+      - Eagle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SniperRifleDescription
@@ -4282,6 +4317,83 @@ MonoBehaviour:
       - Weapon
       Flags: 00
       Languages_Touch: []
+    - Term: Shop/com.hard.currency.bundle.1
+      TermType: 0
+      Description: 
+      Languages:
+      - 50 GEMS
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.hard.currency.bundle.2
+      TermType: 0
+      Description: 
+      Languages:
+      - 180 GEMS
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.hard.currency.bundle.3
+      TermType: 0
+      Description: 
+      Languages:
+      - 320 GEMS
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.soft.currency.bundle.1
+      TermType: 0
+      Description: 
+      Languages:
+      - 2500 COINS
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.soft.currency.bundle.2
+      TermType: 0
+      Description: 
+      Languages:
+      - 8000 COINS
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.soft.currency.bundle.3
+      TermType: 0
+      Description: 
+      Languages:
+      - 13500 COINS
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.core.epic.1
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE CORE
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.core.legendary.1
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLDEN CORE
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.core.legendary.2
+      TermType: 0
+      Description: 
+      Languages:
+      - x5 GOLDEN CORES
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/ConfirmPurchase
+      TermType: 0
+      Description: 
+      Languages:
+      - PURCHASE {0}?
+      Flags: 00
+      Languages_Touch: []
+    - Term: Shop/com.core.rare.1
+      TermType: 0
+      Description: 
+      Languages:
+      - STEEL CORE
+      Flags: 00
+      Languages_Touch: []
     - Term: AdventureMenu/AskForHelp
       TermType: 0
       Description: 
@@ -4597,111 +4709,6 @@ MonoBehaviour:
       - '{0} PLAYERS REMAINING'
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/NameTooShort
-      TermType: 0
-      Description: 
-      Languages:
-      - The name must be at least {0} characters long.
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/NameTooLong
-      TermType: 0
-      Description: 
-      Languages:
-      - The name must not exceed {0} characters.
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Custom Game
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/CreateRoom
-      TermType: 0
-      Description: 
-      Languages:
-      - Create
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/JoinRoom
-      TermType: 0
-      Description: 
-      Languages:
-      - Join
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchPlayOnline
-      TermType: 0
-      Description: 
-      Languages:
-      - Play Online
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchPlayOffline
-      TermType: 0
-      Description: 
-      Languages:
-      - Play Offline
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchPlayRoom
-      TermType: 0
-      Description: 
-      Languages:
-      - Custom Game
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCode
-      TermType: 0
-      Description: 
-      Languages:
-      - Enter a valid room code
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Join
-      Flags: 00
-      Languages_Touch: []
-    - Term: General/RoomMatchmakingName
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Room: {0}'
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomCurrentName
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Room: {0}'
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomLock
-      TermType: 0
-      Description: 
-      Languages:
-      - Lock & Play!
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomCreateOrJoin
-      TermType: 0
-      Description: 
-      Languages:
-      - Create or join a room with a code
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/RoomErrorJoin
-      TermType: 0
-      Description: 
-      Languages:
-      - Cannot join room - {0}
-      Flags: 00
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -4714,7 +4721,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1649346135322
+    Google_LastUpdatedVersion: 1649801578160
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

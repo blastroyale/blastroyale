@@ -66,6 +66,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - BrightenMainTexture: 0.25
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_54501CA6: 0.1
@@ -74,6 +75,8 @@ Material:
     - _Death: 0
     - _EmissTexAmount: 0
     - _Hit: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _Rage: 0
     m_Colors:
     - Color_1982176cf2404a43b37721aa91e37a76: {r: 42.72251, g: 0, b: 0, a: 0}

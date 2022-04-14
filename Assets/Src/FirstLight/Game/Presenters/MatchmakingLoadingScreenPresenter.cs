@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
 
 		public MapSelectionView MapSelectionView;
 
-		private void Awake()
+		private void Start()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();

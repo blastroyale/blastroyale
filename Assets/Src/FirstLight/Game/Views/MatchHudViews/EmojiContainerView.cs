@@ -18,7 +18,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IObjectPool<EmojiPoolObject> _pool;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -26,6 +27,8 @@ namespace FirstLight.Game.Services
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
 		private readonly JsonConverter _formatter;
+	
+		public static readonly string CommandFieldName = nameof(IGameCommand);
 		
 		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
@@ -39,9 +42,9 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
-				// ExecuteCommandServerSide(command); // TODO: Add me
+				//ExecuteCommandServerSide(command); 
 				command.Execute(_gameLogic, _dataProvider);
-				ForceServerDataUpdate(command); // TODO: Remove me
+				ForceServerDataUpdate(command); // TODO: Add menu toggle for debugging
 			}
 			catch (Exception e)
 			{
@@ -82,47 +85,46 @@ namespace FirstLight.Game.Services
 		/// This will also always send the Rng data to the server in case there's any rng rolls.
 		/// TODO: In case of error, rollback client state.
 		/// </summary>
-		/// <param name="command"></param>
 		private void ExecuteCommandServerSide(IGameCommand command)
 		{
 			var data = new Dictionary<string, string>
 			{
-				{nameof(IGameCommand), SerializeCommandToServer(command)},
+				{CommandFieldName, ModelSerializer.Serialize(command).Value},
 			};
 			ExecuteServerCommand(command, data);
 		}
 
 		/// <summary>
-		/// Serializes the command as a Dictionary.
-		/// </summary>
-		/// <param name="command">Command to be serialized</param>
-		/// <returns>A dictionary with the serialized command</returns>
-		public string SerializeCommandToServer(IGameCommand command)
-		{
-			return JsonConvert.SerializeObject(command, _formatter);
-		}
-		
-		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.
 		/// Will only be enabled for testing and debugging purposes.
 		/// </summary>
-		/// <param name="command">Command to be sent</param>
 		private void ForceServerDataUpdate(IGameCommand command)
 		{
-			var data = new Dictionary<string, string>
-			{
-				{nameof(IdData), JsonConvert.SerializeObject(_dataProvider.GetData<IdData>(), _formatter)},
-				{nameof(RngData), JsonConvert.SerializeObject(_dataProvider.GetData<RngData>(), _formatter)},
-				{nameof(PlayerData), JsonConvert.SerializeObject(_dataProvider.GetData<PlayerData>(), _formatter)}
-			};
+			var data = new Dictionary<string, string>();
+			AddSerializedModels(data, 
+				_dataProvider.GetData<IdData>(),
+				_dataProvider.GetData<RngData>(),
+				_dataProvider.GetData<PlayerData>());
 			ExecuteServerCommand(command, data);
+		}
+		
+		/// <summary>
+		/// Add serialized models to the data dictionary.
+		/// Keys will be a string repr. of the model type name
+		/// Values will be the serialized model data.
+		/// </summary>
+		private void AddSerializedModels(Dictionary<string, string> dict, params object [] models)
+		{
+			foreach (var model in models)
+			{
+				var (modelKey, modelValue) = ModelSerializer.Serialize(model);
+				dict[modelKey] = modelValue;
+			}
 		}
 		
 		/// <summary>
 		/// Sends a command to the server.
 		/// </summary>
-		/// <param name="command">Command to be ran in server</param>
-		/// <param name="data">Command parameters to be sent</param>
 		private void ExecuteServerCommand(IGameCommand command, Dictionary<string, string> data) 
 		{
 			var request = new ExecuteFunctionRequest
@@ -131,7 +133,7 @@ namespace FirstLight.Game.Services
 				GeneratePlayStreamEvent = true,
 				FunctionParameter = new LogicRequest
 				{
-					Command = command.GetType().Name,
+					Command = command.GetType().FullName,
 					Platform = Application.platform.ToString(),
 					Data = data
 				},

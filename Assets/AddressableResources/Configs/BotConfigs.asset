@@ -21,7 +21,7 @@ MonoBehaviour:
     - BehaviourType: 1
       Difficulty: 1
       DecisionInterval:
-        RawValue: 62915
+        RawValue: 78643
       LookForTargetsToShootAtInterval:
         RawValue: 39322
       VisionRangeSqr:
@@ -33,7 +33,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 6554
+        RawValue: 13107
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -56,7 +56,7 @@ MonoBehaviour:
     - BehaviourType: 2
       Difficulty: 1
       DecisionInterval:
-        RawValue: 52429
+        RawValue: 65536
       LookForTargetsToShootAtInterval:
         RawValue: 26214
       VisionRangeSqr:
@@ -68,7 +68,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 11469
+        RawValue: 22938
       ChanceToSeekEnemies:
         RawValue: 49152
       ChanceToSeekReplenishSpecials:
@@ -91,7 +91,7 @@ MonoBehaviour:
     - BehaviourType: 0
       Difficulty: 1
       DecisionInterval:
-        RawValue: 78643
+        RawValue: 98304
       LookForTargetsToShootAtInterval:
         RawValue: 32768
       VisionRangeSqr:
@@ -103,7 +103,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 3277
+        RawValue: 6554
       ChanceToSeekEnemies:
         RawValue: 13107
       ChanceToSeekReplenishSpecials:
@@ -126,7 +126,7 @@ MonoBehaviour:
     - BehaviourType: 1
       Difficulty: 1
       DecisionInterval:
-        RawValue: 78643
+        RawValue: 98304
       LookForTargetsToShootAtInterval:
         RawValue: 42598
       VisionRangeSqr:
@@ -138,7 +138,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 4915200
       ChanceToSeekWeapons:
-        RawValue: 16384
+        RawValue: 32768
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -161,7 +161,7 @@ MonoBehaviour:
     - BehaviourType: 2
       Difficulty: 1
       DecisionInterval:
-        RawValue: 62915
+        RawValue: 78643
       LookForTargetsToShootAtInterval:
         RawValue: 29491
       VisionRangeSqr:
@@ -173,7 +173,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 327680
       ChanceToSeekWeapons:
-        RawValue: 21299
+        RawValue: 42598
       ChanceToSeekEnemies:
         RawValue: 65536
       ChanceToSeekReplenishSpecials:

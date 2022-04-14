@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Backend.Models;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -18,9 +19,7 @@ public interface IPlayerSetupService
 	/// <summary>
 	/// Generates initial player state and returns as server data.
 	/// </summary>
-	/// <param name="playFabId"></param>
-	/// <returns></returns>
-	public ServerData GetInitialDataRequest(string playFabId);
+	public ServerState GetInitialState(string playFabId);
 }
 
 /// <inheritdoc />
@@ -37,24 +36,21 @@ public class PlayerSetupService : IPlayerSetupService
 	};
 
 	/// <inheritdoc />
-	public ServerData GetInitialDataRequest(string playFabId)
+	public ServerState GetInitialState(string playFabId)
 	{
 		var rngData = SetupInitialRngData(playFabId.GetHashCode());
 		var idData = new IdData();
 		var playerData = SetupInitialPlayerData(idData, rngData);
-		return new ServerData()
-		{
-			{nameof(IdData), JsonConvert.SerializeObject(idData)},
-			{nameof(RngData), JsonConvert.SerializeObject(rngData)},
-			{nameof(PlayerData), JsonConvert.SerializeObject(playerData)},
-		};
+		var serverState = new ServerState();
+		serverState.SetModel(idData);
+		serverState.SetModel(rngData);
+		serverState.SetModel(playerData);
+		return serverState;
 	}
 
 	/// <summary>
 	/// Initializes player RngData
 	/// </summary>
-	/// <param name="seed"></param>
-	/// <returns></returns>
 	private static RngData SetupInitialRngData(int seed)
 	{
 		return new RngData
@@ -68,9 +64,6 @@ public class PlayerSetupService : IPlayerSetupService
 	/// <summary>
 	/// Setup initial player data contents.
 	/// </summary>
-	/// <param name="idData"></param>
-	/// <param name="rngData"></param>
-	/// <returns></returns>
 	private static PlayerData SetupInitialPlayerData(IdData idData, RngData rngData)
 	{
 		var rngSkin = Rng.Range(0, _initialSkins.Count, rngData.State, false);

@@ -1,5 +1,6 @@
 
 using Backend.Game.Services;
+using Backend.Models;
 using FirstLight.Game.Logic;
 using NUnit.Framework;
 using Tests.Stubs;
@@ -9,13 +10,13 @@ namespace Tests;
 public class TestDataService
 {
 	private TestServer _server = null!;
-	private IServerDataService? _service;
+	private IServerStateService? _service;
 
 	[SetUp]
 	public void Setup()
 	{
 		_server = new TestServer();
-		_service = _server.GetService<IServerDataService>();
+		_service = _server.GetService<IServerStateService>();
 	}
 
 	/// <summary>
@@ -26,13 +27,13 @@ public class TestDataService
 	public void TestSaveLoadPlayerData()
 	{
 		var playerId = _server.GetTestPlayerID();
-		var data = new ServerData()
+		var data = new ServerState()
 		{
 			{"test_key", "test_value"}
 		};
-		_service?.UpdatePlayerData(playerId, data);
+		_service?.UpdatePlayerState(playerId, data);
 		
-		var readData = _service.GetPlayerData(playerId);
+		var readData = _service.GetPlayerState(playerId);
 		Assert.AreEqual(data["test_key"], readData["test_key"]);
 	}
 

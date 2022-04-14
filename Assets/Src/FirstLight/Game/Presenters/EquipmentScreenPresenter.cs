@@ -85,7 +85,7 @@ namespace FirstLight.Game.Presenters
 		private UniqueId _uniqueId = UniqueId.Invalid;
 		private List<UniqueId> _showNotifications;
 
-		private void Awake()
+		private void Start()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();

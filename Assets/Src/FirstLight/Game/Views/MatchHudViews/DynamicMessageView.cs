@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			public DynamicMessageEntryView MessageEntry;
 		}
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

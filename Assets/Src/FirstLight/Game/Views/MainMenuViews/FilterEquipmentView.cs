@@ -24,7 +24,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_button ??= GetComponent<Button>();
 		}
 
-		protected void Awake()
+		protected void Start()
 		{
 			_button.onClick.AddListener(OnButtonClick);
 		}

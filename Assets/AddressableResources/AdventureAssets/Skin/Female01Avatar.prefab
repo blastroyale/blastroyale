@@ -3109,8 +3109,7 @@ MonoBehaviour:
   _animator: {fileID: 4319060388601058623}
   _projectileHitVfx: 8
   _vfxLocalScale: {x: 1, y: 1, z: 1}
-  _adventureCharacterView: {fileID: 1414882643384918647}
-  _isDebugMode: 0
+  _characterView: {fileID: 1414882643384918647}
   RootTransform: {fileID: 5867917834371223597}
 --- !u!114 &110069269171416769
 MonoBehaviour:
@@ -3177,6 +3176,105 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbodies:
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
+  - {fileID: 1512585895}
+  - {fileID: 743609020}
+  - {fileID: 1712940808}
+  - {fileID: 113743111}
+  - {fileID: 794525799}
+  - {fileID: 1123223454}
+  - {fileID: 1950100436}
+  - {fileID: 720462056}
+  - {fileID: 760666892}
+  - {fileID: 1238621277}
+  - {fileID: 26772134}
   - {fileID: 1512585895}
   - {fileID: 743609020}
   - {fileID: 1712940808}

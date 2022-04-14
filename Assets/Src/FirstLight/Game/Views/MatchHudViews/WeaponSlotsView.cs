@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -23,16 +19,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnEventOnLocalPlayerWeaponAdded);
-		}
-
-		private void Start()
-		{
+			
 			UpdateWeaponSlot(GameId.Hammer, 0);
 		}
 		

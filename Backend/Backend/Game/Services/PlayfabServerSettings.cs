@@ -1,7 +1,7 @@
 using System;
 using PlayFab;
 
-namespace Backend.Game;
+namespace Backend.Game.Services;
 
 /// <summary>
 /// Interface of creating playfab server configuration.
@@ -11,8 +11,6 @@ public interface IPlayfabServer
 	/// <summary>
 	/// Creates and returns a playfab server configuration.
 	/// </summary>
-	/// <param name="playfabId"></param>
-	/// <returns>A PlayFabServerInstanceAPI instance</returns>
 	public PlayFabServerInstanceAPI CreateServer(string playfabId);
 }
 
@@ -21,8 +19,11 @@ public interface IPlayfabServer
 /// </summary>
 public class PlayfabServerSettings : IPlayfabServer
 {
-	private string _secretKey = Environment.GetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY") ?? "***REMOVED***";
-	private string _titleId = Environment.GetEnvironmentVariable("PLAYFAB_TITLE") ?? "DDD52";
+	private string _secretKey = Environment.GetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", EnvironmentVariableTarget.Process) 
+	                            ?? "***REMOVED***";
+	
+	private string _titleId = Environment.GetEnvironmentVariable("PLAYFAB_TITLE", EnvironmentVariableTarget.Process) 
+	                          ?? "DDD52";
 	
 	public PlayfabServerSettings()
 	{

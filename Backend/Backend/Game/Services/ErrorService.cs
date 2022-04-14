@@ -15,8 +15,6 @@ public interface IErrorService<T>
 	/// <summary>
 	/// Handles error, logs it. Convert any type of error to a Logic Exception.
 	/// </summary>
-	/// <param name="error"></param>
-	/// <returns></returns>
 	public LogicException HandleError(T error);
 }
 

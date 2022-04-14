@@ -23,8 +23,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 95
+        RawValue: 65536
+      MaxAmmo: 14
       PowerRatioToBase:
         RawValue: 45875
       AimingMovementSpeed:
@@ -62,7 +62,7 @@ MonoBehaviour:
         RawValue: 0
       AttackAngle: 60
       AttackRange:
-        RawValue: 104858
+        RawValue: 111411
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -73,8 +73,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 600
+        RawValue: 65536
+      MaxAmmo: 86
       PowerRatioToBase:
         RawValue: 5243
       AimingMovementSpeed:
@@ -98,8 +98,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 110
+        RawValue: 65536
+      MaxAmmo: 16
       PowerRatioToBase:
         RawValue: 13107
       AimingMovementSpeed:
@@ -123,8 +123,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 100
+        RawValue: 65536
+      MaxAmmo: 15
       PowerRatioToBase:
         RawValue: 27853
       AimingMovementSpeed:
@@ -148,8 +148,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 262
+        RawValue: 65536
+      MaxAmmo: 38
       PowerRatioToBase:
         RawValue: 12780
       AimingMovementSpeed:
@@ -173,8 +173,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 225
+        RawValue: 65536
+      MaxAmmo: 33
       PowerRatioToBase:
         RawValue: 3441
       AimingMovementSpeed:
@@ -198,8 +198,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 343
+        RawValue: 65536
+      MaxAmmo: 49
       PowerRatioToBase:
         RawValue: 10813
       AimingMovementSpeed:
@@ -223,8 +223,8 @@ MonoBehaviour:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
-        RawValue: 6554
-      MaxAmmo: 300
+        RawValue: 65536
+      MaxAmmo: 43
       PowerRatioToBase:
         RawValue: 3768
       AimingMovementSpeed:

@@ -27,13 +27,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		// Will be used in the future for new delta deadzone input processor
 		private Vector2 _deltaLastFrame = Vector2.zero;
 		
-		private void Awake()
+		private void Start()
 		{
 			_defaultJoystickPos = MainJoystick.anchoredPosition;
-		}
-		
-		private void OnEnable()
-		{
+			
 			SetDefaultUI();
 		}
 

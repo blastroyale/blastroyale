@@ -16,7 +16,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	{
 		private IGameServices _services;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 		}

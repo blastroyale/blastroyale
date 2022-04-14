@@ -20,15 +20,15 @@ namespace FirstLight.Game.Presenters
 
 		private Action _closeCallback;
 
-		private void Awake()
+		private void Start()
 		{
 			CloseButton.onClick.AddListener(Close);
 			BlockerButton.onClick.AddListener(Close);
 
-			OnAwake();
+			OnStart();
 		}
 
-		protected virtual void OnAwake() { }
+		protected virtual void OnStart() { }
 
 		protected override void Close()
 		{

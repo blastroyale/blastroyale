@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private Coroutine _cooldownCoroutine;
 
-		private void Awake()
+		private void Start()
 		{
 			QuantumEvent.Subscribe<EventOnLocalSpecialUsed>(this, OnEventOnLocalSpecialUsed);
 			QuantumEvent.Subscribe<EventOnLocalSpecialAvailable>(this, HandleLocalSpecialAvailable);

@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private int _materialIndex;
 		private float _currentShowTime;
 		
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			

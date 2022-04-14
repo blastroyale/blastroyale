@@ -1,4 +1,5 @@
 using System.Linq;
+using Backend.Models;
 using FirstLight.Game.Logic;
 using Microsoft.Extensions.Logging;
 using PlayFab;
@@ -9,34 +10,29 @@ namespace Backend.Game.Services;
 /// <summary>
 /// Service responsible for reading and saving player data.
 /// </summary>
-public interface IServerDataService
+public interface IServerStateService
 {
 	/// <summary>
 	/// Saves the current ServerData referencing the specified PlayerId.
 	/// </summary>
-	/// <param name="playerId"></param>
-	/// <param name="data"></param>
-	/// <returns>A result object containing the modifications</returns>
-	public UpdateUserDataResult UpdatePlayerData(string playerId, ServerData data);
+	public UpdateUserDataResult UpdatePlayerState(string playerId, ServerState state);
 	
 	/// <summary>
 	/// Reads the player data and returns it as a ServerData type.
 	/// </summary>
-	/// <param name="playerId"></param>
-	/// <returns></returns>
-	public ServerData GetPlayerData(string playerId);
+	public ServerState GetPlayerState(string playerId);
 }
 
 /// <summary>
 /// Implements fetching & saving data to Playfab provider.
 /// </summary>
-public class PlayfabGameDataService : IServerDataService
+public class PlayfabGameStateService : IServerStateService
 {
 	private readonly ILogger _log;
 	private IErrorService<PlayFabError> _errorService;
 	private IPlayfabServer _server;
 	
-	public PlayfabGameDataService(ILogger log, IErrorService<PlayFabError> errorService, IPlayfabServer server)
+	public PlayfabGameStateService(ILogger log, IErrorService<PlayFabError> errorService, IPlayfabServer server)
 	{
 		_log = log;
 		_errorService = errorService;
@@ -44,14 +40,13 @@ public class PlayfabGameDataService : IServerDataService
 	}
 
 	/// <inheritdoc />
-	public UpdateUserDataResult UpdatePlayerData(string playerId, ServerData data)
+	public UpdateUserDataResult UpdatePlayerState(string playerId, ServerState state)
 	{
 		var request = new UpdateUserDataRequest()
 		{
-			Data = data,
+			Data = state,
 			PlayFabId = playerId
 		};
-		_log.Log(LogLevel.Information, $"{request.PlayFabId} is executing - PlayStreamSetupCommand");
 		var server = _server.CreateServer(playerId);
 		var req = server.UpdateUserReadOnlyDataAsync(request);
 		req.Wait();
@@ -64,7 +59,7 @@ public class PlayfabGameDataService : IServerDataService
 	}
 	
 	/// <inheritdoc />
-	public ServerData GetPlayerData(string playfabId)
+	public ServerState GetPlayerState(string playfabId)
 	{
 		var server = _server.CreateServer(playfabId);
 		var task = server.GetUserReadOnlyDataAsync(new GetUserDataRequest()
@@ -81,6 +76,6 @@ public class PlayfabGameDataService : IServerDataService
 		var fabResult = result.Result.Data.ToDictionary(
 		                                                entry => entry.Key,
 		                                                entry => entry.Value.Value);
-		return new ServerData(fabResult);
+		return new ServerState(fabResult);
 	}
 }

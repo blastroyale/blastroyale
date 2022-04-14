@@ -30,19 +30,19 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 21626
       AimTime:
-        RawValue: 26214
+        RawValue: 16384
       AttackCooldown:
-        RawValue: 62259
+        RawValue: 49152
       AttackHitSpeed:
-        RawValue: 5898240
+        RawValue: 5242880
       AttackAngle: 5
       AttackRange:
-        RawValue: 524288
+        RawValue: 589824
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 550000006e000000
+      Specials: 0000000066000000
     - Id: 31
       AssetRef:
         Id:
@@ -62,7 +62,7 @@ MonoBehaviour:
         RawValue: 0
       AttackAngle: 60
       AttackRange:
-        RawValue: 163840
+        RawValue: 216268
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -84,15 +84,15 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 6553
       AttackHitSpeed:
-        RawValue: 851968
-      AttackAngle: 20
+        RawValue: 2162688
+      AttackAngle: 25
       AttackRange:
-        RawValue: 360448
+        RawValue: 393216
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 6e00000066000000
+      Specials: 0000000066000000
     - Id: 34
       AssetRef:
         Id:
@@ -103,21 +103,21 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 32768
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 21626
       AimTime:
-        RawValue: 6553
+        RawValue: 13107
       AttackCooldown:
-        RawValue: 32768
+        RawValue: 39321
       AttackHitSpeed:
         RawValue: 1966080
       AttackAngle: 33
       AttackRange:
-        RawValue: 294912
+        RawValue: 327680
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 7700000077000000
+      Specials: 0000000066000000
     - Id: 33
       AssetRef:
         Id:
@@ -126,23 +126,23 @@ MonoBehaviour:
         RawValue: 65536
       MaxAmmo: 15
       PowerRatioToBase:
-        RawValue: 39321
+        RawValue: 52428
       AimingMovementSpeed:
         RawValue: 26214
       AimTime:
-        RawValue: 26214
+        RawValue: 19660
       AttackCooldown:
-        RawValue: 49152
+        RawValue: 45875
       AttackHitSpeed:
         RawValue: 425984
       AttackAngle: 0
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
         RawValue: 196608
-      Specials: 660000000a000000
+      Specials: 0000000066000000
     - Id: 35
       AssetRef:
         Id:
@@ -153,21 +153,21 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 21626
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 39321
       AimTime:
         RawValue: 6553
       AttackCooldown:
         RawValue: 21626
       AttackHitSpeed:
-        RawValue: 1966080
+        RawValue: 1638400
       AttackAngle: 0
       AttackRange:
-        RawValue: 393216
+        RawValue: 458752
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 0a00000055000000
+      Specials: 0000000066000000
     - Id: 36
       AssetRef:
         Id:
@@ -184,15 +184,15 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 4587
       AttackHitSpeed:
-        RawValue: 3670016
+        RawValue: 1966080
       AttackAngle: 0
       AttackRange:
-        RawValue: 327680
+        RawValue: 393216
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 5900000077000000
+      Specials: 0000000066000000
     - Id: 23
       AssetRef:
         Id:
@@ -203,21 +203,21 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 10813
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 39321
       AimTime:
         RawValue: 6553
       AttackCooldown:
         RawValue: 10813
       AttackHitSpeed:
-        RawValue: 1966080
+        RawValue: 1638400
       AttackAngle: 0
       AttackRange:
-        RawValue: 393216
+        RawValue: 458752
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 7700000066000000
+      Specials: 0000000066000000
     - Id: 37
       AssetRef:
         Id:
@@ -237,9 +237,9 @@ MonoBehaviour:
         RawValue: 983040
       AttackAngle: 25
       AttackRange:
-        RawValue: 425984
+        RawValue: 524288
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 0a0000006e000000
+      Specials: 0000000066000000

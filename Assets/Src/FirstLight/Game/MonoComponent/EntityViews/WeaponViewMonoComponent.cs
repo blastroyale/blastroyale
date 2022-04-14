@@ -76,9 +76,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
-			main.startLifetime = speed * config.AttackRange.AsFloat;
+			main.startLifetime = config.AttackRange.AsFloat / speed;
 			main.startSpeed = speed;
 			main.startDelay = 0;
 			main.loop = false;

@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -23,10 +24,9 @@ namespace FirstLight.Game.StateMachines
 	/// <summary>
 	/// This object contains the behaviour logic for the match in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class MatchState : IInRoomCallbacks
+	public class MatchState
 	{
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
-		private static readonly IStatechartEvent _roomClosedEvent = new StatechartEvent("Room Closed Event");
 		private static readonly IStatechartEvent _loadingComplete = new StatechartEvent("Loading Complete");
 		private static readonly IStatechartEvent _leaveMatchEvent = new StatechartEvent("Leave Match Event");
 
@@ -72,18 +72,17 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(() => _loadedPlayers = 0);
-
-			//loading.OnEnter(StartMatchMaking);
+			
 			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
 
 			connectedCheck.Transition().Condition(IsConnected).Target(matchmaking);
 			connectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
-			connectedCheck.Transition().Target(connecting);
+			connectedCheck.Transition().Target(matchmaking);
 
-			connecting.Event(NetworkState.PhotonMasterConnectedEvent).Target(matchmaking);
-			connecting.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
+			//connecting.Event(NetworkState.PhotonMasterConnectedEvent).Target(matchmaking);
+			//connecting.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
-			matchmaking.Event(_roomClosedEvent).Target(assetPreloadCheck);
+			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreloadCheck);
 
 			assetPreloadCheck.Transition().Condition(CanSkipPreload).Target(gameSimulation);
 			assetPreloadCheck.Transition().Target(assetPreload);
@@ -91,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			assetPreload.Event(_loadingComplete).Target(gameSimulation);
 
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
+			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(disconnected);
 			gameSimulation.OnEnter(() => FLog.Info("PACO", "Game Simulation Enter"));
 			gameSimulation.OnExit(() => FLog.Info("PACO", "Game Simulation Exit"));
 
@@ -109,31 +108,15 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		/// <inheritdoc />
-		public void OnPlayerEnteredRoom(Player player)
+		public void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
 		{
-			PreloadPlayerEquipment(player);
-
-			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
-			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers)
-			{
-				_statechartTrigger(_roomClosedEvent);
-				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
-			}
+			PreloadPlayerEquipment(msg.Player);
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			// Nothing
-		}
-
-		/// <inheritdoc />
-		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-		{
-			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
-			{
-				_statechartTrigger(_roomClosedEvent);
-			}
 		}
 
 		/// <inheritdoc />
@@ -150,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			// Subscribe to messages here
+			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
 		}
 
 		private void UnsubscribeEvents()

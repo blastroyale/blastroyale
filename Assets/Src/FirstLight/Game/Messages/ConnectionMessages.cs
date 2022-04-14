@@ -17,6 +17,7 @@ namespace FirstLight.Game.Messages
 	public struct PlayerLeftRoomMessage : IMessage { public Player Player;  }
 	public struct MasterClientSwichedMessage : IMessage { public Player NewMaster; }
 	public struct RoomPropertiesUpdatedMessage : IMessage { public Hashtable ChangedProps; }
+	public struct RoomClosedMessage : IMessage {}
 	public struct PlayerPropertiesUpdatedMessage : IMessage { public Player Player; public Hashtable ChangedProps; }
 	public struct RegionListReceivedMessage : IMessage { public RegionHandler RegionHandler; }
 	public struct CustomAuthResponseMessage : IMessage { public Dictionary<string, object> Data; }

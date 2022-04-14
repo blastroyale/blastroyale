@@ -67,6 +67,7 @@ namespace Quantum
 		{
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			
+			CurrentWeaponSlot = 0;
 			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);

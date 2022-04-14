@@ -130,7 +130,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnJoinedRoom(JoinedRoomMessage message)
 		{
-			Debug.LogError(CurrentRoom.IsVisible);
 			if (CurrentRoom.IsVisible)
 			{
 				return;
@@ -223,6 +222,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
+			_lockRoomButton.gameObject.SetActive(false);
 		}
 	}
 }

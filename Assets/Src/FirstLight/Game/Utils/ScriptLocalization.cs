@@ -628,6 +628,7 @@ namespace I2.Loc
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
 			public static string RoomCreateOrJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCreateOrJoin"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
+			public static string RoomErrorCreate 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomErrorCreate"); } }
 			public static string RoomErrorJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomErrorJoin"); } }
 			public static string RoomJoinButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinButton"); } }
 			public static string RoomJoinCode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCode"); } }
@@ -1345,6 +1346,7 @@ namespace I2.Loc
 		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
 		    public const string RoomCreateOrJoin = "MainMenu/RoomCreateOrJoin";
 		    public const string RoomCurrentName = "MainMenu/RoomCurrentName";
+		    public const string RoomErrorCreate = "MainMenu/RoomErrorCreate";
 		    public const string RoomErrorJoin = "MainMenu/RoomErrorJoin";
 		    public const string RoomJoinButton = "MainMenu/RoomJoinButton";
 		    public const string RoomJoinCode = "MainMenu/RoomJoinCode";

@@ -26,6 +26,6 @@ namespace FirstLight.Game.Messages
 	public struct CrateClickedMessage : IMessage { public UniqueId LootBoxId; }
 	public struct RoomRandomClickedMessage : IMessage { }
 	public struct RoomJoinCreateClickedMessage : IMessage { }
-	public struct RoomJoinClickedMessage : IMessage { }
-	public struct RoomCreateClickedMessage : IMessage { }
+	public struct RoomJoinClickedMessage : IMessage { public string RoomName; }
+	public struct RoomCreateClickedMessage : IMessage { public string RoomName; }
 }

@@ -42,9 +42,9 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
-				//ExecuteCommandServerSide(command); 
+				ExecuteCommandServerSide(command); 
 				command.Execute(_gameLogic, _dataProvider);
-				ForceServerDataUpdate(command); // TODO: Add menu toggle for debugging
+				// ForceServerDataUpdate(command);
 			}
 			catch (Exception e)
 			{
@@ -78,6 +78,20 @@ namespace FirstLight.Game.Services
 		{
 			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, error.ErrorMessage);
 		}
+		
+		/// <summary>
+		/// Sends a command to override playfab data with what the client is sending.
+		/// Will only be enabled for testing and debugging purposes.
+		/// </summary>
+		public void ForceServerDataUpdate()
+		{
+			var data = new Dictionary<string, string>();
+			AddSerializedModels(data, 
+				_dataProvider.GetData<IdData>(),
+				_dataProvider.GetData<RngData>(),
+				_dataProvider.GetData<PlayerData>());
+			ExecuteServerCommand(null, data);
+		}
 
 		/// <summary>
 		/// Serializes a given command and sends it to the server. The server should run the command logic server-side.
@@ -94,20 +108,6 @@ namespace FirstLight.Game.Services
 			ExecuteServerCommand(command, data);
 		}
 
-		/// <summary>
-		/// Sends a command to override playfab data with what the client is sending.
-		/// Will only be enabled for testing and debugging purposes.
-		/// </summary>
-		private void ForceServerDataUpdate(IGameCommand command)
-		{
-			var data = new Dictionary<string, string>();
-			AddSerializedModels(data, 
-				_dataProvider.GetData<IdData>(),
-				_dataProvider.GetData<RngData>(),
-				_dataProvider.GetData<PlayerData>());
-			ExecuteServerCommand(command, data);
-		}
-		
 		/// <summary>
 		/// Add serialized models to the data dictionary.
 		/// Keys will be a string repr. of the model type name
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Services
 				GeneratePlayStreamEvent = true,
 				FunctionParameter = new LogicRequest
 				{
-					Command = command.GetType().FullName,
+					Command = command?.GetType().FullName,
 					Platform = Application.platform.ToString(),
 					Data = data
 				},

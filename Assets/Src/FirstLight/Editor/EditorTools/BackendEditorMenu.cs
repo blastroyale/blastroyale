@@ -1,4 +1,6 @@
 using System.IO;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,6 +36,14 @@ namespace FirstLight.Editor.EditorTools
 			CopyAssembly(_unityPath,"FirstLight.DataExtensions.dll");
 			CopyAssembly(_unityPath,"FirstLight.Game.dll"); 
 			CopyAssembly(_unityPath,"FirstLight.Services.dll");
+		}
+		
+		[MenuItem("First Light Games/Backend/Force Update")]
+		private static void ForceUpdate()
+		{
+			var services = MainInstaller.Resolve<IGameServices>();
+			((GameCommandService)services.CommandService).ForceServerDataUpdate();
+			Debug.Log("Force Update Sent to Server");
 		}
 	}
 }

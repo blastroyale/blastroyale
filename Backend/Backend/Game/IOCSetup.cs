@@ -3,7 +3,6 @@ using FirstLight;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -28,6 +27,7 @@ public static class IOCSetup
 		services.AddSingleton<ILogger, ILogger>(l => log);
 		services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
+		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		
 		// Logic
 		services.AddSingleton<IGameCommandService, GameCommandService>();

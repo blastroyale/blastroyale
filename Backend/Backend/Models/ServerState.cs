@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Backend.Game;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using FirstLight.Game.Utils;
 
-namespace FirstLight.Game.Logic;
+namespace Backend.Models;
 
 
 /// <summary>
@@ -22,14 +18,17 @@ public class ServerState : Dictionary<string, string>
 	{
 	}
 
+	public void SetModel(object model)
+	{
+		var (typeName, data) = ModelSerializer.Serialize(model);
+		this[typeName] = data;
+	}
+
 	/// <summary>
 	/// Obtains a serialized model inside server's data.
 	/// </summary>
-	/// <typeparam name="T">Model type</typeparam>
-	/// <returns>Returns an instance of the serialized model if present, else Null.</returns>
-	public T GetModel<T>()
+	public T DeserializeModel<T>()
 	{
-		string data;
-		return TryGetValue(typeof(T).Name, out data) ? ModelSerializer.Deserialize<T>(data) : default(T);
+		return TryGetValue(typeof(T).FullName, out var data) ? ModelSerializer.Deserialize<T>(data) : default(T);
 	}
 }

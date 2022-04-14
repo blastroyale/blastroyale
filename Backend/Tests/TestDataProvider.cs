@@ -1,8 +1,10 @@
 
 using Backend.Game;
 using Backend.Game.Services;
+using Backend.Models;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Tests.Stubs;
 
@@ -32,7 +34,6 @@ public class TestDataProvider
 		var service = _server?.GetService<IServerStateService>();
 		service?.UpdatePlayerState(_playerId, serverData);
 	}
-	
 	
 	/// <summary>
 	/// Makes sure we are able to use the data provider from any read data.

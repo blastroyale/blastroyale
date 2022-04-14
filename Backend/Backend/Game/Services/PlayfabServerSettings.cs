@@ -11,8 +11,6 @@ public interface IPlayfabServer
 	/// <summary>
 	/// Creates and returns a playfab server configuration.
 	/// </summary>
-	/// <param name="playfabId"></param>
-	/// <returns>A PlayFabServerInstanceAPI instance</returns>
 	public PlayFabServerInstanceAPI CreateServer(string playfabId);
 }
 
@@ -21,10 +19,10 @@ public interface IPlayfabServer
 /// </summary>
 public class PlayfabServerSettings : IPlayfabServer
 {
-	private string _secretKey = Environment.GetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY") 
+	private string _secretKey = Environment.GetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", EnvironmentVariableTarget.Process) 
 	                            ?? "***REMOVED***";
 	
-	private string _titleId = Environment.GetEnvironmentVariable("PLAYFAB_TITLE") 
+	private string _titleId = Environment.GetEnvironmentVariable("PLAYFAB_TITLE", EnvironmentVariableTarget.Process) 
 	                          ?? "DDD52";
 	
 	public PlayfabServerSettings()

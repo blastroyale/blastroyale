@@ -18,12 +18,12 @@ namespace Backend.Functions;
 public class PlayStreamSetupCommand
 {
 	private readonly IPlayerSetupService _setupService;
-	private readonly PlayfabGameStateService _stateService;
+	private readonly IServerStateService _stateService;
 	
 	public PlayStreamSetupCommand(IPlayerSetupService service, IServerStateService stateService)
 	{
 		_setupService = service;
-		_stateService = (PlayfabGameStateService)stateService; // TODO: Fix cast  when server env setup is done
+		_stateService = stateService;
 	}
 	
 	/// <summary>

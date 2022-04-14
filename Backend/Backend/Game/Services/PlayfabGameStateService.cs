@@ -1,4 +1,5 @@
 using System.Linq;
+using Backend.Models;
 using FirstLight.Game.Logic;
 using Microsoft.Extensions.Logging;
 using PlayFab;
@@ -14,16 +15,11 @@ public interface IServerStateService
 	/// <summary>
 	/// Saves the current ServerData referencing the specified PlayerId.
 	/// </summary>
-	/// <param name="playerId"></param>
-	/// <param name="state></param>
-	/// <returns>A result object containing the modifications</returns>
 	public UpdateUserDataResult UpdatePlayerState(string playerId, ServerState state);
 	
 	/// <summary>
 	/// Reads the player data and returns it as a ServerData type.
 	/// </summary>
-	/// <param name="playerId"></param>
-	/// <returns></returns>
 	public ServerState GetPlayerState(string playerId);
 }
 
@@ -51,7 +47,6 @@ public class PlayfabGameStateService : IServerStateService
 			Data = state,
 			PlayFabId = playerId
 		};
-		_log.Log(LogLevel.Information, $"{request.PlayFabId} is executing - PlayStreamSetupCommand");
 		var server = _server.CreateServer(playerId);
 		var req = server.UpdateUserReadOnlyDataAsync(request);
 		req.Wait();

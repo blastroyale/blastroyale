@@ -132,6 +132,10 @@ public partial class SROptions
 			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
 		}
 
+		var data = new Dictionary<string, string>();
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
 		var request = new ExecuteFunctionRequest
 		{
 			FunctionName = "ExecuteCommand",
@@ -139,12 +143,7 @@ public partial class SROptions
 			FunctionParameter = new LogicRequest
 			{
 				Command = "CheatUnlockAllEquipments",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-					{nameof(RngData), JsonConvert.SerializeObject(dataProvider.GetData<RngData>(), converter)},
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-				}
+				Data = data
 			},
 			AuthenticationContext = PlayFabSettings.staticPlayer
 		};
@@ -252,9 +251,13 @@ public partial class SROptions
 	{
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-			
+		
+		// TODO: Remove Logic outside command
 		gameLogic.PlayerLogic.AddXp(amount);
 
+		var data = new Dictionary<string, string>();
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
+		
 		var request = new ExecuteFunctionRequest
 		{
 			FunctionName = "ExecuteCommand",
@@ -262,10 +265,7 @@ public partial class SROptions
 			FunctionParameter = new LogicRequest
 			{
 				Command = "CheatAddXpCommand",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>())}
-				}
+				Data = data
 			},
 			AuthenticationContext = PlayFabSettings.staticPlayer
 		};

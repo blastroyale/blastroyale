@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Backend.Game;
 using Backend.Game.Services;
+using FirstLight.Game.Logic;
 using Microsoft.Extensions.DependencyInjection;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -45,15 +46,12 @@ public class TestPlayerSetup: ITestPlayerSetup
 		{
 			PlayFabId = playfabId
 		});
-		var removeTask = PlayFabServerAPI.UpdateUserDataAsync(new PlayFab.ServerModels.UpdateUserDataRequest()
+		PlayFabServerAPI.UpdateUserDataAsync(new PlayFab.ServerModels.UpdateUserDataRequest()
 		{
 			PlayFabId = playfabId,
 			KeysToRemove = res.Result.Result.Data.Keys.ToList(),
 			Data = new Dictionary<string, string>()
 		});
-		removeTask.Wait();
-		var result = removeTask.Result;
-		var asd = 123;
 	}
 	
 	public string GetTestPlayerId()

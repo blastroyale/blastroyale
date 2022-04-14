@@ -210,12 +210,11 @@ namespace FirstLight.Game.StateMachines
 			void OnPlayerSetup(ExecuteFunctionResult result)
 			{
 				var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
-				var converter = new StringEnumConverter();
-				
-				_dataService.AddData(JsonConvert.DeserializeObject<RngData>(logicResult.Result.Data[nameof(RngData)], converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<IdData>(logicResult.Result.Data[nameof(IdData)], converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<PlayerData>(logicResult.Result.Data[nameof(PlayerData)], converter));
-				
+
+				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(logicResult.Result.Data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(logicResult.Result.Data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(logicResult.Result.Data));
+
 				cacheActivity.Complete();
 			}
 		}
@@ -238,11 +237,9 @@ namespace FirstLight.Game.StateMachines
 			}
 			else
 			{
-				var converter = new StringEnumConverter();
-				
-				_dataService.AddData(JsonConvert.DeserializeObject<RngData>(data[nameof(RngData)].Value, converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<IdData>(data[nameof(IdData)].Value, converter));
-				_dataService.AddData(JsonConvert.DeserializeObject<PlayerData>(data[nameof(PlayerData)].Value, converter));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
 			}
 
 			activity.Complete();

@@ -18,12 +18,12 @@ namespace Backend.Functions;
 public class SetupPlayerCommand
 {
 	private readonly IPlayerSetupService _setupService;
-	private readonly PlayfabGameStateService _stateService;
+	private readonly IServerStateService _stateService;
 	
 	public SetupPlayerCommand(IPlayerSetupService service, IServerStateService stateService)
 	{
 		_setupService = service;
-		_stateService = (PlayfabGameStateService)stateService; // TODO: Fix cast  when server env setup is done
+		_stateService = stateService;
 	}
 	/// <summary>
 	/// Command Execution

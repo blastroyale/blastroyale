@@ -1,5 +1,6 @@
 
 using Backend.Game.Services;
+using Backend.Models;
 using FirstLight.Game.Logic;
 using NUnit.Framework;
 using Tests.Stubs;

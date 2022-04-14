@@ -38,6 +38,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
+		private readonly IStatechartEvent _roomErrorDismissClicked = new StatechartEvent("Room Error Dismiss Clicked");
 		
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
@@ -118,7 +119,7 @@ namespace FirstLight.Game.StateMachines
 			var roomWaitingState = stateFactory.State("Room Joined Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			
+			var roomErrorState = stateFactory.State("Room Error");
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
@@ -187,6 +188,9 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWaitingState);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(homeMenu);
+			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 			
 			collectLoot.OnEnter(CloseMainMenuUI);
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
@@ -400,7 +404,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
 			{
-				CloseClicked = CloseRoomJoinCreateMenuUI,
+				CloseClicked = RoomJoinCreateCloseClicked,
 				PlayClicked = PlayButtonClicked
 			};
 			
@@ -410,7 +414,17 @@ namespace FirstLight.Game.StateMachines
 		private void CloseRoomJoinCreateMenuUI()
 		{
 			_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
-			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
+		}
+		
+		private void OpenRoomErrorUI()
+		{
+			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorCreate, "message");
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 		}
 
 		private void CloseCratesMenuUI()
@@ -622,6 +636,11 @@ namespace FirstLight.Game.StateMachines
 		private void PlayButtonClicked()
 		{
 			_statechartTrigger(_playClickedEvent);
+		}
+
+		private void RoomJoinCreateCloseClicked()
+		{
+			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
 		}
 
 		private void SendPlayClickedEvent()

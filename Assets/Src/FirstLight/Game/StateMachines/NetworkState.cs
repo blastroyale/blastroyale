@@ -42,14 +42,16 @@ namespace FirstLight.Game.StateMachines
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
+		private readonly IGameUiService _uiService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public NetworkState(IGameDataProvider dataProvider, IGameServices services,
+		public NetworkState(IGameDataProvider dataProvider, IGameServices services, IGameUiService uiService,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
+			_uiService = uiService;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
 
@@ -227,7 +229,11 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
 			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorCreate, message);
-			var confirmButton = new GenericDialogButton {ButtonText = ScriptLocalization.General.OK};
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 			
 			_statechartTrigger(CreateRoomFailedEvent);
@@ -251,7 +257,11 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 			
 			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorJoin, message);
-			var confirmButton = new GenericDialogButton {ButtonText = ScriptLocalization.General.OK};
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK, 
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 			
 			_statechartTrigger(JoinRoomFailedEvent);

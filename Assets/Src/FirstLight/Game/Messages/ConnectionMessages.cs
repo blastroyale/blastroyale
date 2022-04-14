@@ -5,9 +5,9 @@ using Photon.Realtime;
 
 namespace FirstLight.Game.Messages
 {
-	public struct QuantumBaseConnectedMessage : IMessage { }
-	public struct QuantumMasterConnectedMessage : IMessage { }
-	public struct QuantumDisconnectedMessage : IMessage { public DisconnectCause Cause; }
+	public struct PhotonBaseConnectedMessage : IMessage { }
+	public struct PhotonMasterConnectedMessage : IMessage { }
+	public struct PhotonDisconnectedMessage : IMessage { public DisconnectCause Cause; }
 	public struct CreatedRoomMessage : IMessage { }
 	public struct CreateRoomFailedMessage : IMessage { }
 	public struct JoinedRoomMessage : IMessage { }

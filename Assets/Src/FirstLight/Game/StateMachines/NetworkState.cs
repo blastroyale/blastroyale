@@ -55,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
 
-			initialConnection.OnEnter(ConnectQuantum);
+			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(ConnectedEvent).Target(connected);
 			initialConnection.Event(DisconnectedEvent).Target(final);
 
@@ -65,9 +65,9 @@ namespace FirstLight.Game.StateMachines
 			reconnecting.Event(DisconnectedEvent).Target(disconnected);
 			reconnecting.Event(ConnectedEvent).Target(connected);
 
-			disconnected.Event(ReconnectEvent).OnTransition(ReconnectQuantum).Target(reconnecting);
+			disconnected.Event(ReconnectEvent).OnTransition(ReconnectPhoton).Target(reconnecting);
 
-			disconnecting.OnEnter(DisconnectQuantum);
+			disconnecting.OnEnter(DisconnectPhoton);
 			disconnecting.Event(DisconnectedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void ConnectQuantum()
+		private void ConnectPhoton()
 		{
 			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
 
@@ -113,12 +113,12 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
 		}
 		
-		private void DisconnectQuantum()
+		private void DisconnectPhoton()
 		{
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void ReconnectQuantum()
+		private void ReconnectPhoton()
 		{
 			_networkService.QuantumClient.ReconnectAndRejoin();
 		}
@@ -128,14 +128,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnConnected");
 
-			_services.MessageBrokerService.Publish(new QuantumBaseConnectedMessage());
+			_services.MessageBrokerService.Publish(new PhotonBaseConnectedMessage());
 		}
 
 		/// <inheritdoc />
 		public void OnConnectedToMaster()
 		{
 			FLog.Info("OnConnectedToMaster");
-			_services.MessageBrokerService.Publish(new QuantumMasterConnectedMessage());
+			_services.MessageBrokerService.Publish(new PhotonMasterConnectedMessage());
 		}
 
 		public void StartRandomMatchmaking(RoomRandomClickedMessage msg)
@@ -154,7 +154,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnDisconnected " + cause);
 
 			_statechartTrigger(DisconnectedEvent);
-			_services.MessageBrokerService.Publish(new QuantumDisconnectedMessage() {Cause = cause});
+			_services.MessageBrokerService.Publish(new PhotonDisconnectedMessage() {Cause = cause});
 		}
 
 		/// <inheritdoc />
@@ -317,7 +317,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnApplicationQuit(ApplicationQuitMessage data)
 		{
-			DisconnectQuantum();
+			DisconnectPhoton();
 		}
 	}
 }

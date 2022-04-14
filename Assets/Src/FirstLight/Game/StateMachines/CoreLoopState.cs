@@ -52,10 +52,12 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(runningCheckToMenu);
 
 			mainMenu.Nest(_mainMenuState.Setup).Target(runningCheckToMatch);
+			
 			runningCheckToMatch.Transition().Condition(CanRunCoreState).Target(match);
 			runningCheckToMatch.Transition().Target(final);
 			
 			match.Nest(_matchState.Setup).Target(runningCheckToMenu);
+			
 			runningCheckToMenu.Transition().Condition(CanRunCoreState).Target(mainMenu);
 			runningCheckToMenu.Transition().Target(final);
 			

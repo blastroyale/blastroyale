@@ -20,15 +20,10 @@ using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.StateMachines
 {
-	public interface IMatchState
-	{
-		string Test { get; }
-	}
-	
 	/// <summary>
 	/// This object contains the behaviour logic for the match in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class MatchState : IInRoomCallbacks, IMatchState
+	public class MatchState : IInRoomCallbacks
 	{
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
 

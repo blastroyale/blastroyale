@@ -602,22 +602,25 @@ namespace Quantum.Systems
 
 				botNamesIndices.RemoveAt(listNamesIndex);
 
-				for (var j = 0; j < gearPieces; j++)
+				if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
 				{
-					var slotIndex = f.RNG->Next(0, gearSlots.Count);
-					var slot = gearSlots[slotIndex];
-					var slotItems = equipmentOptions[slot];
-					var rngGearIndex = f.RNG->Next(-1, slotItems.Length);
-					var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
-					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool,
-					                              ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order,
-					                              rngGearIndex < 0 ? 0u : 1u, 5);
+					for (var j = 0; j < gearPieces; j++)
+					{
+						var slotIndex = f.RNG->Next(0, gearSlots.Count);
+						var slot = gearSlots[slotIndex];
+						var slotItems = equipmentOptions[slot];
+						var rngGearIndex = f.RNG->Next(-1, slotItems.Length);
+						var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
+						var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool,
+						                              ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order,
+						                              rngGearIndex < 0 ? 0u : 1u, 5);
 
-					gear[j] = equipment;
-					botCharacter.Gear[j] = equipment;
-					gearSlots.RemoveAt(slotIndex);
+						gear[j] = equipment;
+						botCharacter.Gear[j] = equipment;
+						gearSlots.RemoveAt(slotIndex);
+					}
 				}
-
+				
 				playerSpawners[rngSpawnIndex].Component->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 				if (playerSpawners.Count > 1)

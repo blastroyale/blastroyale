@@ -379,7 +379,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
+			    !_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
 			{
 				return;
 			}

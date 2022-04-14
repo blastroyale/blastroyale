@@ -291,15 +291,25 @@ namespace FirstLight.Game.StateMachines
 			                               ScriptLocalization.General.MaintenanceDescription, confirmButton);
 		}
 
-		// To help pass apple approval submission tests hack
+		/// <summary>
+		/// To help pass apple approval submission tests hack.
+		/// This forces all communication with quantum to be TCP and not UDP with a flag from the backend, but just
+		/// to be turned on during submission because sometimes Apple testers have their home network setup wrong.
+		/// </summary>
 		private async void AppleApprovalHack(LoginResult result)
 		{
+			var titleData = result.InfoResultPayload.TitleData;
 			var address = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
 			var config = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(address);
+			var connection = ConnectionProtocol.Udp;
 			
-			config.PhotonServerSettings.AppSettings.Protocol = result.InfoResultPayload.TitleData.ContainsKey("connection")
-				                                                   ? ConnectionProtocol.Tcp
-				                                                   : ConnectionProtocol.Udp;
+			if (!titleData.TryGetValue($"{nameof(Application.version)} apple", out var version) || 
+			    version != Application.version)
+			{
+				connection = ConnectionProtocol.Tcp;
+			}
+			
+			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
 		}

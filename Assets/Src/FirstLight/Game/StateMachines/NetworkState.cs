@@ -19,10 +19,25 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks
 	{
-		public static readonly IStatechartEvent ConnectedEvent = new StatechartEvent("Connected to Quantum Event");
-		public static readonly IStatechartEvent DisconnectedEvent = new StatechartEvent("Disconnected Quantum Event");
-		public static readonly IStatechartEvent ReconnectEvent = new StatechartEvent("Reconnecting to Quantum Event");
-
+		public static readonly IStatechartEvent PhotonBaseConnectedEvent = new StatechartEvent("Photon Base Connected Event");
+		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("Photon Master Connected Event");
+		public static readonly IStatechartEvent PhotonDisconnectedEvent= new StatechartEvent("Photon Disconnected Event");
+		public static readonly IStatechartEvent CreatedRoomEvent = new StatechartEvent("Created Room Event Event");
+		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("Create Room Failed Event");
+		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("Joined Room Event");
+		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("Join Room Fail Event");
+		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("Left Room Event");
+		public static readonly IStatechartEvent PlayerJoinedRoomEvent = new StatechartEvent("PLayer Joined Room Event");
+		public static readonly IStatechartEvent PlayerLeftRoomEvent = new StatechartEvent("Player Left Room Event");
+		public static readonly IStatechartEvent MasterClientSwitchedEvent = new StatechartEvent("Master Client Switched Event");
+		public static readonly IStatechartEvent RoomPropertiesUpdatedEvent = new StatechartEvent("Room Properties Updated Event");
+		public static readonly IStatechartEvent PlayerPropertiesUpdatedEvent = new StatechartEvent("Player Properties Updated Event Event");
+		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("Region List Received Event");
+		public static readonly IStatechartEvent CustomAuthResponseEvent = new StatechartEvent("Custom Auth Response Event");
+		public static readonly IStatechartEvent CustomAuthFailedEvent = new StatechartEvent("Custom Auth Failed Event");
+		public static readonly IStatechartEvent FriendListUpdateEvent = new StatechartEvent("Friend List Updated Event");
+		public static readonly IStatechartEvent PhotonTryReconnectEvent = new StatechartEvent("Photon Try Reconnect Event");
+		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameBackendNetworkService _networkService;
@@ -56,19 +71,19 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			initialConnection.OnEnter(ConnectPhoton);
-			initialConnection.Event(ConnectedEvent).Target(connected);
-			initialConnection.Event(DisconnectedEvent).Target(final);
+			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
+			initialConnection.Event(PhotonDisconnectedEvent).Target(final);
 
-			connected.Event(DisconnectedEvent).Target(final);
+			connected.Event(PhotonDisconnectedEvent).Target(final);
 			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
 
-			reconnecting.Event(DisconnectedEvent).Target(disconnected);
-			reconnecting.Event(ConnectedEvent).Target(connected);
+			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
+			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
 
-			disconnected.Event(ReconnectEvent).OnTransition(ReconnectPhoton).Target(reconnecting);
+			disconnected.Event(PhotonTryReconnectEvent).OnTransition(ReconnectPhoton).Target(reconnecting);
 
 			disconnecting.OnEnter(DisconnectPhoton);
-			disconnecting.Event(DisconnectedEvent).Target(final);
+			disconnecting.Event(PhotonDisconnectedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -127,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnConnected()
 		{
 			FLog.Info("OnConnected");
-
+			_statechartTrigger(PhotonBaseConnectedEvent);
 			_services.MessageBrokerService.Publish(new PhotonBaseConnectedMessage());
 		}
 
@@ -135,6 +150,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnConnectedToMaster()
 		{
 			FLog.Info("OnConnectedToMaster");
+			_statechartTrigger(PhotonMasterConnectedEvent);
 			_services.MessageBrokerService.Publish(new PhotonMasterConnectedMessage());
 		}
 
@@ -153,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnDisconnected " + cause);
 
-			_statechartTrigger(DisconnectedEvent);
+			_statechartTrigger(PhotonDisconnectedEvent);
 			_services.MessageBrokerService.Publish(new PhotonDisconnectedMessage() {Cause = cause});
 		}
 
@@ -161,6 +177,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnCreatedRoom()
 		{
 			FLog.Info("OnCreatedRoom");
+			_statechartTrigger(CreatedRoomEvent);
 			_services.MessageBrokerService.Publish(new CreatedRoomMessage());
 		}
 
@@ -169,7 +186,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
-			_statechartTrigger(DisconnectedEvent);
+			_statechartTrigger(CreateRoomFailedEvent);
 			_services.MessageBrokerService.Publish(new CreateRoomFailedMessage());
 		}
 
@@ -178,8 +195,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnJoinedRoom");
 
+			_statechartTrigger(JoinedRoomEvent);
 			_services.MessageBrokerService.Publish(new JoinedRoomMessage());
-			_statechartTrigger(ConnectedEvent);
 
 			StartMatchmakingLockRoomTimer();
 		}
@@ -192,16 +209,16 @@ namespace FirstLight.Game.StateMachines
 			// In case the player cannot rejoin anymore
 			if (returnCode == ErrorCode.OperationNotAllowedInCurrentState)
 			{
-				_statechartTrigger(DisconnectedEvent);
 				return;
 			}
 
-			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
+			/*var info = _dataProvider.AppDataProvider.CurrentMapConfig;
 			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
 
-			_networkService.QuantumClient.OpCreateRoom(properties);
-			_services.MessageBrokerService.Publish(new JoinRoomFailedMessage()
-				                                       {ReturnCode = returnCode, Message = message});
+			_networkService.QuantumClient.OpCreateRoom(properties);*/
+			
+			_statechartTrigger(JoinRoomFailedEvent);
+			_services.MessageBrokerService.Publish(new JoinRoomFailedMessage() {ReturnCode = returnCode, Message = message});
 		}
 
 		/// <inheritdoc />
@@ -214,6 +231,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnLeftRoom()
 		{
 			FLog.Info("OnLeftRoom");
+			_statechartTrigger(LeftRoomEvent);
 			_services.MessageBrokerService.Publish(new LeftRoomMessage());
 		}
 
@@ -221,6 +239,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerEnteredRoom(Player player)
 		{
 			FLog.Info($"OnPlayerEnteredRoom {player.NickName}");
+			_statechartTrigger(PlayerJoinedRoomEvent);
 			_services.MessageBrokerService.Publish(new PlayerJoinedRoomMessage() {Player = player});
 		}
 
@@ -228,6 +247,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
+			_statechartTrigger(PlayerLeftRoomEvent);
 			_services.MessageBrokerService.Publish(new PlayerLeftRoomMessage() {Player = player});
 		}
 
@@ -235,6 +255,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnRoomPropertiesUpdate(Hashtable changedProps)
 		{
 			FLog.Info("OnRoomPropertiesUpdate");
+			_statechartTrigger(RoomPropertiesUpdatedEvent);
 			_services.MessageBrokerService.Publish(new RoomPropertiesUpdatedMessage() {ChangedProps = changedProps});
 		}
 
@@ -242,14 +263,15 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
-			_services.MessageBrokerService.Publish(new PlayerPropertiesUpdatedMessage()
-				                                       {Player = targetPlayer, ChangedProps = changedProps});
+			_statechartTrigger(PlayerPropertiesUpdatedEvent);
+			_services.MessageBrokerService.Publish(new PlayerPropertiesUpdatedMessage() {Player = targetPlayer, ChangedProps = changedProps});
 		}
 
 		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
 			FLog.Info("OnMasterClientSwitched " + newMasterClient.NickName);
+			_statechartTrigger(MasterClientSwitchedEvent);
 			_services.MessageBrokerService.Publish(new MasterClientSwichedMessage() {NewMaster = newMasterClient});
 		}
 		
@@ -257,6 +279,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnRegionListReceived(RegionHandler regionHandler)
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
+			_statechartTrigger(RegionListReceivedEvent);
 			_services.MessageBrokerService.Publish(new RegionListReceivedMessage() {RegionHandler = regionHandler});
 		}
 
@@ -264,6 +287,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
 		{
 			FLog.Info("OnCustomAuthenticationResponse " + data.Count);
+			_statechartTrigger(CustomAuthResponseEvent);
 			_services.MessageBrokerService.Publish(new CustomAuthResponseMessage() {Data = data});
 		}
 
@@ -271,6 +295,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnCustomAuthenticationFailed(string debugMessage)
 		{
 			FLog.Info("OnCustomAuthenticationResponse " + debugMessage);
+			_statechartTrigger(CustomAuthFailedEvent);
 			_services.MessageBrokerService.Publish(new CustomAuthFailedMessage() {Message = debugMessage});
 		}
 
@@ -278,6 +303,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnFriendListUpdate(List<FriendInfo> friendList)
 		{
 			FLog.Info("OnFriendListUpdate " + friendList.Count);
+			_statechartTrigger(FriendListUpdateEvent);
 			_services.MessageBrokerService.Publish(new FriendListUpdateMessage() {FriendList = friendList});
 		}
 		

@@ -31,8 +31,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-		private readonly IStatechartEvent _roomJoinedEvent = new StatechartEvent("Room Joined Event");
-		private readonly IStatechartEvent _roomJoinFailedEvent = new StatechartEvent("Room Join Failed Event");
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
@@ -156,8 +154,8 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
 			playClickedCheck.Transition().Target(roomWaitingState);
 			
-			roomWaitingState.Event(_roomJoinedEvent).Target(final);
-			roomWaitingState.Event(_roomJoinFailedEvent).Target(screenCheck);
+			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
+			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(screenCheck);
 			
 			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
@@ -206,8 +204,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnRewardsCollectedMessage);
 			_services.MessageBrokerService.Subscribe<MenuWorldLootBoxClickedMessage>(OnRequestOpenCratesScreenMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
-			_services.MessageBrokerService.Subscribe<JoinedRoomMessage>(OnRoomJoinedMessage);
-			_services.MessageBrokerService.Subscribe<JoinRoomFailedMessage>(OnRoomJoinFailedMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -643,38 +639,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void PlayButtonClicked()
 		{
-			/*var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
-			var playerLevel = _gameDataProvider.PlayerDataProvider.Level.Value;
-			
-			if (playerLevel < adventureIdOffset)
-			{
-				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = (int) playerLevel;
-			}
-			else
-			{
-				var timespan = _services.TimeService.DateTimeUtcNow - new DateTime(0);
-					
-				// "timespan.TotalMinutes / X" - X is the interval in minutes to rotate maps
-				var mapTick = (int) (timespan.TotalMinutes / 3);
-					
-				// "mapTick % X + Z" - X is how many adventures are in rotation; Z is the offset on ftue adventures and onboarding adventures
-				var adventureId = mapTick % GameConstants.RotationAdventuresCount + adventureIdOffset;
-					
-				// With X == 3, for instance, possible Adventure IDs will be (0, 1 and 2) + ftueAdventuresCount
-				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = adventureId;
-			}*/
-				
 			_statechartTrigger(_playClickedEvent);
-		}
-
-		private void OnRoomJoinedMessage(JoinedRoomMessage msg)
-		{
-			_statechartTrigger(_roomJoinedEvent);
-		}
-		
-		private void OnRoomJoinFailedMessage(JoinRoomFailedMessage msg)
-		{
-			_statechartTrigger(_roomJoinFailedEvent);
 		}
 
 		private void SendPlayClickedEvent()

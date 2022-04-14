@@ -343,8 +343,7 @@ namespace FirstLight.Game.StateMachines
 
 			IEnumerator LockRoomCoroutine()
 			{
-				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime
-				                                         .AsFloat);
+				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
 
 				LockRoom();
 			}

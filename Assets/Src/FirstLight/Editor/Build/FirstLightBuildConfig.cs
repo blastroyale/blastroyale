@@ -47,6 +47,7 @@ namespace FirstLight.Editor.Build
 		private const string _appStoreProvisioningProfile = "5e8c665e-2785-4475-b33a-895e67a5374c";
 		private const string _adHocProvisioningProfile = "d9d0f661-89f4-409a-a7eb-13bde78abba1";
 		private const string _enterpriseProvisioningProfile = "60c610e2-d50d-4ae4-a72e-e84bac64eabc";
+		private const string _keystoreName = "firstlightgames.keystore";
 		private const int _facebookDevAppIdSelectedIndex = 1;
 		private const int _facebookAppIdSelectedIndex = 0;
 		
@@ -177,7 +178,7 @@ namespace FirstLight.Editor.Build
 			var buildConfig = new BuildPlayerOptions { target = BuildTarget.iOS };
 			
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _appStoreProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _adHocProvisioningProfile;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
@@ -268,10 +269,10 @@ namespace FirstLight.Editor.Build
 		public static void SetAndroidKeystore()
 		{
 			PlayerSettings.Android.useCustomKeystore = true;
-			PlayerSettings.Android.keystoreName = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Certificates", "phoenix.keystore"));
+			PlayerSettings.Android.keystoreName = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Certificates", _keystoreName));
 			PlayerSettings.Android.keystorePass = "***REMOVED***";
-			PlayerSettings.Android.keyaliasName = "upload";
-			PlayerSettings.Android.keyaliasPass = "JuMREKEi&B5^55mv";
+			PlayerSettings.Android.keyaliasName = "blastroyale";
+			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
 
 		private static void SetScenesFromEditor(ref BuildPlayerOptions buildPlayerOptions)

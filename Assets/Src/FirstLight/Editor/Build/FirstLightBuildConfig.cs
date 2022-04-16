@@ -21,9 +21,14 @@ namespace FirstLight.Editor.Build
 		public const string DevelopmentSymbol = "DEVELOPMENT_BUILD";
 		
 		/// <summary>
-		/// Scripting define that disables all non-production features.
+		/// Scripting define that disables all non-production features in a release ad hoc environment.
 		/// </summary>
 		public const string ReleaseSymbol = "RELEASE_BUILD";
+		
+		/// <summary>
+		/// Scripting define the build to publish to the stores.
+		/// </summary>
+		public const string StoreSymbol = "STORE_BUILD";
 
 		/// <summary>
 		/// Scripting defines used in every build.
@@ -36,11 +41,12 @@ namespace FirstLight.Editor.Build
 		};
 		
 		private const string _appEnterpriseIdentifier = "com.firstlightgames.phoenixenterprise";
-		private const string _appReleaseIdentifier = "com.firstlightgames.phoenix";
+		private const string _appReleaseIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightEnterpriseAppleTeamId = "LR745QRAJR";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
-		private const string _appStoreProvisioningProfile = "2a3b4bba-c2eb-48be-8071-26e10fe30bb3";
-		private const string _enterpriseUniversalDistributionProvisioningProfile = "60c610e2-d50d-4ae4-a72e-e84bac64eabc";
+		private const string _appStoreProvisioningProfile = "5e8c665e-2785-4475-b33a-895e67a5374c";
+		private const string _adHocProvisioningProfile = "d9d0f661-89f4-409a-a7eb-13bde78abba1";
+		private const string _enterpriseProvisioningProfile = "60c610e2-d50d-4ae4-a72e-e84bac64eabc";
 		private const int _facebookDevAppIdSelectedIndex = 1;
 		private const int _facebookAppIdSelectedIndex = 0;
 		
@@ -56,6 +62,7 @@ namespace FirstLight.Editor.Build
 			
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			SetScenesFromEditor(ref buildConfig);
 			SetCommonAndroidConfig();
 			PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
@@ -74,6 +81,7 @@ namespace FirstLight.Editor.Build
 			
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			SetScenesFromEditor(ref buildConfig);
 			SetCommonAndroidConfig();
 			PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
@@ -92,6 +100,26 @@ namespace FirstLight.Editor.Build
 			
 			PlayerSettings.Android.useAPKExpansionFiles = true;
 			
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
+			SetScenesFromEditor(ref buildConfig);
+			SetCommonAndroidConfig();
+			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
+			SetReleaseBuildConfig(BuildTargetGroup.Android);
+			
+			return buildConfig;
+		}
+		
+		/// <summary>
+		/// Configure an android store build.
+		/// </summary>
+		[MenuItem("First Light Games/Simulate/Android/Store Build")]
+		public static BuildPlayerOptions ConfigureAndroidStoreBuild()
+		{
+			var buildConfig = new BuildPlayerOptions { target = BuildTarget.Android };
+			
+			PlayerSettings.Android.useAPKExpansionFiles = true;
+			
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
 			SetScenesFromEditor(ref buildConfig);
 			SetCommonAndroidConfig();
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
@@ -109,9 +137,10 @@ namespace FirstLight.Editor.Build
 			var buildConfig = new BuildPlayerOptions { target = BuildTarget.iOS };
 			
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseUniversalDistributionProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = true;
 			
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			SetScenesFromEditor(ref buildConfig);
 			SetCommonIosConfig(ref buildConfig);
 			SetLocalBuildConfig(BuildTargetGroup.iOS, ref buildConfig);
@@ -128,9 +157,10 @@ namespace FirstLight.Editor.Build
 			var buildConfig = new BuildPlayerOptions { target = BuildTarget.iOS };
 			
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseUniversalDistributionProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			SetScenesFromEditor(ref buildConfig);
 			SetCommonIosConfig(ref buildConfig);
 			SetDevelopmentBuildConfig(BuildTargetGroup.iOS, ref buildConfig);
@@ -150,6 +180,27 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _appStoreProvisioningProfile;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
+			SetScenesFromEditor(ref buildConfig);
+			SetCommonIosConfig(ref buildConfig);
+			SetReleaseBuildConfig(BuildTargetGroup.iOS);
+			
+			return buildConfig;
+		}
+		
+		/// <summary>
+		/// Configure an ios store build.
+		/// </summary>
+		[MenuItem("First Light Games/Simulate/iOS/Store Build")]
+		public static BuildPlayerOptions ConfigureIosStoreBuild()
+		{
+			var buildConfig = new BuildPlayerOptions { target = BuildTarget.iOS };
+			
+			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _appStoreProvisioningProfile;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
+			
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
 			SetScenesFromEditor(ref buildConfig);
 			SetCommonIosConfig(ref buildConfig);
 			SetReleaseBuildConfig(BuildTargetGroup.iOS);

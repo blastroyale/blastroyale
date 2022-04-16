@@ -315,12 +315,7 @@ namespace FirstLight.Editor.Build
 		{
 			Debug.Log($"FirstLightBuildConfig.PrepareFirebase Executing {symbol}");
 			
-			var environment = symbol == "RELEASE_BUILD" ? "-prod" : "-dev";
-			
-#if RELEASE_BUILD
-			environment = "-prod";
-#endif
-			
+			var environment = symbol == "DEVELOPMENT_BUILD" ? "-dev" : "-prod";
 			var origPath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Configs");
 			var destPath = Application.streamingAssetsPath;
 			var iosOrig = Path.Combine(origPath, $"GoogleService-Info{environment}.plist");

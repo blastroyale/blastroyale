@@ -1,6 +1,4 @@
-using System.Linq;
 using FirstLight.Game.Data;
-using Src.FirstLight.Modules.Services.Runtime.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -30,7 +28,7 @@ namespace FirstLight.Game.MonoComponent
 			_propBlock = new MaterialPropertyBlock();
 		}
 		
-		public void Initialise(Erc721Metadata metadata)
+		public void Initialise(Erc721MetaData metadata)
 		{
 			_propBlock ??= new MaterialPropertyBlock();
 			

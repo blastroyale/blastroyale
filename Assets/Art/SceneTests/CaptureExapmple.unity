@@ -317,7 +317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 8d1a83c94e8044c48b0002cfc8e87d27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf115092bf0ebe742bb117795684462a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Submachine Gun
+  m_text: TikTok Amulet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.35
+  m_fontSize: 31.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -717,84 +717,6 @@ Transform:
   m_Father: {fileID: 6467920952026055729}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &871158007
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6467920951248308136}
-    m_Modifications:
-    - target: {fileID: 957998476171624734, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.13820472
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.03665386
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.10018663
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3050147798113005163, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3535324171632636973, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_Name
-      value: Wep_Shotgun_Apc
-      objectReference: {fileID: 0}
-    - target: {fileID: 5714334729943466548, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5875966253035870530, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
---- !u!4 &871158008 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2922117807469184601, guid: 0936d9e7392623b4c8be47a1aed76909, type: 3}
-  m_PrefabInstance: {fileID: 871158007}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1090151614
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +844,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8d1a83c94e8044c48b0002cfc8e87d27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf115092bf0ebe742bb117795684462a, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.69411767}
   m_FlipX: 0
   m_FlipY: 0
@@ -1060,26 +982,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2554072801437375283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6467920952247878496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45df1080ac3b9c468a95497369f5ec2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _exportFolderPath: C:/Users/Biffb/Documents/blast-royale/Assets/Captures
-  _importFolderPath: C:/Users/Biffb/Documents/blast-royale/Assets/ItemData
-  _metadataJsonFilePath: Assets/ItemData/0d7fbf4d87bc6ed6e400d94ac50b69bb97cc631734f165413bcf56f001919099.json
-  _markerTransform: {fileID: 6467920951248308136}
-  _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
-  _camera: {fileID: 6467920952292208544}
-  _background: {fileID: 6467920952026055733}
-  _equipmentSnapshotResource: {fileID: 11400000, guid: 200883254577576428950bd7f2f08250, type: 2}
 --- !u!4 &6467920951248308136
 Transform:
   m_ObjectHideFlags: 0
@@ -1091,8 +993,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 871158008}
+  m_Children: []
   m_Father: {fileID: 6467920952343623421}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -7.215, y: -53.91, z: -8.94}
@@ -1241,7 +1142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6467920952247878497}
-  - component: {fileID: 2554072801437375283}
+  - component: {fileID: 6467920952247878498}
   m_Layer: 0
   m_Name: ImageCaptureService
   m_TagString: Untagged
@@ -1264,6 +1165,26 @@ Transform:
   m_Father: {fileID: 6467920952343623421}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6467920952247878498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6467920952247878496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a96ae0777883d14cbec3f41652ba1bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _importFolderPath: 
+  _exportFolderPath: C:/Users/mattj/Documents/blast-royale/Assets/Captures
+  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1/0a65c3ae1889f1d9c688c61c2f740f98087ec3bf11a3d063cfc8032f9d0c505c.json
+  _markerTransform: {fileID: 6467920951248308136}
+  _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
+  _camera: {fileID: 6467920952292208544}
+  _background: {fileID: 6467920952026055733}
+  _equipmentSnapshotResource: {fileID: 11400000, guid: 200883254577576428950bd7f2f08250, type: 2}
 --- !u!20 &6467920952292208544
 Camera:
   m_ObjectHideFlags: 0
@@ -1274,7 +1195,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1315,7 +1236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6467920952292208546}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.89820075, y: 0, z: 0}
+  m_LocalPosition: {x: -1.091946, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1363,7 +1284,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0

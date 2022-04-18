@@ -1,11 +1,14 @@
-using System.Linq;
 using FirstLight.Game.Data;
-using Src.FirstLight.Modules.Services.Runtime.Tools;
 using UnityEngine;
 
 
 namespace FirstLight.Game.MonoComponent
 {
+	public interface IErcRenderable
+	{
+		public void Initialise(Erc721MetaData metadata);
+	}
+	
 	public class EquipmentErcMonoComponent : MonoBehaviour, IErcRenderable
 	{
 		[SerializeField] private GameObject[] _equipmentRarityGameObjects;
@@ -28,7 +31,7 @@ namespace FirstLight.Game.MonoComponent
 			_renderers = GetComponentsInChildren<Renderer>(true);
 		}
 		
-		public void Initialise(Erc721Metadata metadata)
+		public void Initialise(Erc721MetaData metadata)
 		{
 			var rarityId = metadata.attibutesDictionary["rarity"];
 			var materialId = metadata.attibutesDictionary["material"];

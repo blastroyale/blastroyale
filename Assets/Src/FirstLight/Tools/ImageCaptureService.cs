@@ -1,46 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
+using FirstLight.Game.Data;
+using FirstLight.Game.MonoComponent;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Src.FirstLight.Modules.Services.Runtime.Tools
+namespace Src.FirstLight.Tools
 {
-	public interface IErcRenderable
-	{
-		public void Initialise(Erc721Metadata metadata);
-	}
-	
-	public struct TraitAttribute
-	{
-		public string trait_type;
-		public int value;
-	}
-	
-	public struct Erc721Metadata 
-	{
-		public string name;
-		public string description;
-		public string image;
-		public TraitAttribute[] attributes;
-		public Dictionary<string, int> attibutesDictionary;
-		
-		[OnDeserialized]
-		internal void OnDeserializedMethod(StreamingContext context)
-		{
-			attibutesDictionary = new Dictionary<string, int>(attributes.Length);
-
-			for (var i=0; i<attributes.Length; i++)
-			{
-				attibutesDictionary.Add(attributes[i].trait_type, attributes[i].value);
-			}
-		}
-	}
-	
 	[Serializable]
 	public struct CaptureSnaphotData
 	{
@@ -220,10 +188,10 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 	{
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
-		public string _exportFolderPath;
+		public string _importFolderPath;
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
-		public string _importFolderPath;
+		public string _exportFolderPath;
 		[FilePath(Extensions = "json", RequireExistingPath = true)]
 		public string _metadataJsonFilePath;
 		[SerializeField] private Transform _markerTransform;
@@ -322,7 +290,7 @@ namespace Src.FirstLight.Modules.Services.Runtime.Tools
 		{
 			var jsonData = File.ReadAllText(filePath);
 			
-			var metadata = JsonConvert.DeserializeObject<Erc721Metadata>(jsonData);
+			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(jsonData);
 			
 			Debug.Log($"Loading Erc721Metadata JSON file [{filePath}]");
 				

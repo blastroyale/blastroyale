@@ -1,8 +1,7 @@
 using System;
-using Src.FirstLight.Modules.Services.Runtime.Tools;
 using UnityEngine;
 
-namespace Src.FirstLight.Modules.Services.Runtime
+namespace Src.FirstLight.Tools
 {
 	[Serializable]
 	public struct CaptureSnapshot

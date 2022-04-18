@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: EquipmentSnapshotResource
   m_EditorClassIdentifier: 
   Categories:
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData: []
+  - ManufacturerPrefabData: []
   - ManufacturerPrefabData:
     - GameObjects:
       - {fileID: 6658071991904089073, guid: 8ad47ef5fc6c08142b5e7df9eff645a4, type: 3}
@@ -22,7 +26,3 @@ MonoBehaviour:
       - {fileID: 4047048294545191193, guid: 3dd62554a6c2e784ebc7cfbb81fdf88e, type: 3}
       - {fileID: 462211274428392523, guid: 7c621e9d50df54546871ff5e53f48ed2, type: 3}
       - {fileID: 258266935109727718, guid: eba21cc7b4f482c4c90b46d018b4db80, type: 3}
-  - ManufacturerPrefabData: []
-  - ManufacturerPrefabData: []
-  - ManufacturerPrefabData: []
-  - ManufacturerPrefabData: []

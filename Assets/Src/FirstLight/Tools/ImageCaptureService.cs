@@ -196,6 +196,7 @@ namespace Src.FirstLight.Tools
 		public string _metadataJsonFilePath;
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
+		[SerializeField] private RenderTexture _renderTextureStandalone;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private GameObject _background;
 		[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
@@ -262,7 +263,9 @@ namespace Src.FirstLight.Tools
 				return;
 			}
 			
-			RenderToTextureCapture("snapshot");
+			_background.SetActive(true);
+			
+			RenderToTextureCapture("snapshot", _renderTexture);
 		}
 		
 		[Button("Centre Marker Children")]
@@ -324,28 +327,38 @@ namespace Src.FirstLight.Tools
 				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
 
 				_camera.transform.position = new Vector3(-dist, 0, 0);
-
-	
-					
+				
+				_background.SetActive(true);
+				
 				backgroundErcRenderable?.Initialise(metadata);
-					
-				RenderToTextureCapture(Path.GetFileName(metadata.image));
+				
+				RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
+				
+				_background.SetActive(false);
+				
+				RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
 				
 				DestroyImmediate(go);
 			}
 			else
 			{
+				_background.SetActive(true);
+				
 				backgroundErcRenderable?.Initialise(metadata);
 				
-				RenderToTextureCapture(Path.GetFileName(metadata.image));
+				RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
+				
+				_background.SetActive(false);
+				
+				RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
 			}
 		}
 
-		private void RenderToTextureCapture(string filename)
+		private void RenderToTextureCapture(string filename, RenderTexture renderTexture)
 		{
-			_camera.targetTexture = _renderTexture;
+			_camera.targetTexture = renderTexture;
 
-			RenderTexture.active = _renderTexture;
+			RenderTexture.active = renderTexture;
 
 			_camera.Render();
 

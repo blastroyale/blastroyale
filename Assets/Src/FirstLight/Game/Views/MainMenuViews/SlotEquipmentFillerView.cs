@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public bool IsFilled => ItemId != UniqueId.Invalid;
 
-		private void Start()
+		private void Awake()
 		{
 			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
 

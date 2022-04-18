@@ -22,7 +22,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private IObjectPool<PlayerHealthBarPoolObject> _healthBarPlayerPool;
 		private LocalPlayerHealthBarPoolObject _healthBarLocalPlayer;
 		
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);

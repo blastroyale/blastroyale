@@ -13,7 +13,7 @@ namespace FirstLight.Game.Presenters
 
 		private Action _closeCallback;
 
-		private void Start()
+		private void Awake()
 		{
 			_closeButton.onClick.AddListener(Close);
 		}

@@ -53,7 +53,7 @@ namespace FirstLight.Game.Presenters
 		private List<UniqueId> _showNotifications;
 		private GameIdGroup _sortGroup;
 
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			Services = MainInstaller.Resolve<IGameServices>();

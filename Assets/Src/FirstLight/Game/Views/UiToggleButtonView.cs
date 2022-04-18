@@ -52,9 +52,9 @@ namespace FirstLight.UiService
 		}
 #endif	
 		/// <inheritdoc />
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
+			base.Awake();
 #if UNITY_EDITOR
 			if (Application.isPlaying)
 #endif	

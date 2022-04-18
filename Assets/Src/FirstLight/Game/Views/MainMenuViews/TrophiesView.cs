@@ -14,7 +14,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private IGameDataProvider _dataProvider;
 
-		private void Start()
+		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 

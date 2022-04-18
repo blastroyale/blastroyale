@@ -15,7 +15,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			

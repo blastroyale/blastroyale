@@ -59,7 +59,7 @@ namespace FirstLight.Game.Presenters
 		private List<UniqueId> _showNotifications;
 		private GameIdGroup _sortGroup;
 
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_showNotifications = new List<UniqueId>();
@@ -78,6 +78,7 @@ namespace FirstLight.Game.Presenters
 			_enhanceButtonHolder.SetActive(false);
 			_closeButton.onClick.AddListener(OnCloseClicked);
 			_enhanceButton.onClick.AddListener(OnEnhanceClicked);
+			
 		}
 
 		protected override void OnInitialized()

@@ -2,6 +2,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
+using Button = UnityEngine.UI.Button;
 using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.Views.MatchHudViews
@@ -37,7 +38,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private bool _smallMapActivated = true;
 		private RenderTextureMode _renderTextureMode = RenderTextureMode.None;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();

@@ -35,10 +35,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public bool State => NotificationImage.enabled;
 
-		protected virtual void Start()
+		protected virtual void Awake()
 		{
 			DataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			Services = MainInstaller.Resolve<IGameServices>();
+			
+			OnAwake();
 		}
 
 		/// <summary>
@@ -61,6 +63,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 				NotificationAnimation.Play();
 			}
 		}
+
+		protected virtual void OnAwake() { }
 	}
 	
 	/// <inheritdoc />
@@ -69,9 +73,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </remarks>
 	public abstract class NotificationNewViewBase : NotificationViewBase
 	{
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
+			base.Awake();
 			DataProvider.UniqueIdDataProvider.NewIds.Observe(OnUniqueIdChanged);
 		}
 		
@@ -89,9 +93,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </remarks>
 	public abstract class NotificationUpgradeViewBase : NotificationViewBase
 	{
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
+			base.Awake();
 			DataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 		}
 		

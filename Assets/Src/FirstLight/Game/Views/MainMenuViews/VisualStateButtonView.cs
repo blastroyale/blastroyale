@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public bool IsShinyState => _image.color == _button.colors.normalColor &&
 		                            _notifications.Any(notification => notification.State);
 
-		private void Start()
+		private void Awake()
 		{
 			_shiny.enabled = false;
 			
@@ -44,7 +44,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				notification.SetNotificationState(false, false);
 			}
 
-			OnStart();
+			OnAwake();
 		}
 
 		/// <summary>
@@ -102,7 +102,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_image.sprite = emphasize ? _notificationOnSprite : _notificationOffSprite;
 		}
 
-		protected virtual void OnStart() { }
+		protected virtual void OnAwake() { }
 	}
 }
 

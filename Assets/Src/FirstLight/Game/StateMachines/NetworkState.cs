@@ -336,6 +336,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (changedProps.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
+				Debug.LogError("ROOM CLOSED");
 				_statechartTrigger(RoomClosedEvent);
 				_services.MessageBrokerService.Publish(new RoomClosedMessage());
 			}

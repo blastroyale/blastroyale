@@ -1668,7 +1668,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cannot join room - {0}
+      - 'Cannot join room. Error: {0}'
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -4709,6 +4709,13 @@ MonoBehaviour:
       - '{0} PLAYERS REMAINING'
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/RoomErrorCreate
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Cannot create room. Error: {0}'
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -4721,7 +4728,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1649801578160
+    Google_LastUpdatedVersion: 1649945140085
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

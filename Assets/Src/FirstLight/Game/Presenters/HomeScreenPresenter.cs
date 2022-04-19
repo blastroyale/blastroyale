@@ -168,6 +168,7 @@ namespace FirstLight.Game.Presenters
 		private void OnRoomJoinCreatelicked()
 		{
 			Data.OnRoomJoinCreateClicked();
+			_services.MessageBrokerService.Publish(new RoomJoinCreateClickedMessage());
 		}
 
 		private void OnTrophyRoadButtonClicked()

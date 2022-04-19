@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
+using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -41,14 +42,16 @@ namespace FirstLight.Game.StateMachines
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
+		private readonly IGameUiService _uiService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public NetworkState(IGameDataProvider dataProvider, IGameServices services,
+		public NetworkState(IGameDataProvider dataProvider, IGameServices services, IGameUiService uiService,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
+			_uiService = uiService;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
 
@@ -94,7 +97,9 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
-			_services.MessageBrokerService.Subscribe<RoomRandomClickedMessage>(StartRandomMatchmaking);
+			_services.MessageBrokerService.Subscribe<RoomRandomClickedMessage>(OnRoomRandomClickedMessage);
+			_services.MessageBrokerService.Subscribe<RoomJoinClickedMessage>(OnRoomJoinClickedMessage);
+			_services.MessageBrokerService.Subscribe<RoomCreateClickedMessage>(OnRoomCreateClicked);
 		}
 		
 		private void UnsubscribeEvents()
@@ -133,9 +138,24 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
 		}
 		
-		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage obj)
+		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage msg)
 		{
 			LeaveRoom();
+		}
+
+		private void OnRoomRandomClickedMessage(RoomRandomClickedMessage msg)
+		{
+			StartRandomMatchmaking();	
+		}
+		
+		private void OnRoomCreateClicked(RoomCreateClickedMessage msg)
+		{
+			CreateRoom(msg.RoomName);
+		}
+		
+		private void OnRoomJoinClickedMessage(RoomJoinClickedMessage msg)
+		{
+			JoinRoom(msg.RoomName);
 		}
 
 		/// <inheritdoc />
@@ -155,17 +175,37 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PhotonMasterConnectedMessage());
 		}
 
-		private void StartRandomMatchmaking(RoomRandomClickedMessage msg)
+		private void StartRandomMatchmaking()
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(_dataProvider, info);
-			var joinParams = config.GetJoinRandomRoomParams(info);
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig);
+			var joinParams = config.GetJoinRandomRoomParams(mapConfig);
 			UpdateQuantumClientProperties();
 			
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
 		}
-		
+
+		private void JoinRoom(string roomName)
+		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig, roomName);
+			UpdateQuantumClientProperties();
+			
+			_networkService.QuantumClient.OpJoinRoom(enterParams);
+		}
+
+		private void CreateRoom(string roomName)
+		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig, roomName);
+			UpdateQuantumClientProperties();
+			
+			_networkService.QuantumClient.OpCreateRoom(enterParams);
+		}
+
 		/// <inheritdoc />
 		public void OnDisconnected(DisconnectCause cause)
 		{
@@ -188,6 +228,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
+			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorCreate, message);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+			
 			_statechartTrigger(CreateRoomFailedEvent);
 			_services.MessageBrokerService.Publish(new CreateRoomFailedMessage());
 		}
@@ -207,17 +255,14 @@ namespace FirstLight.Game.StateMachines
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
-
-			// In case the player cannot rejoin anymore
-			if (returnCode == ErrorCode.OperationNotAllowedInCurrentState)
+			
+			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorJoin, message);
+			var confirmButton = new GenericDialogButton
 			{
-				return;
-			}
-
-			/*var info = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var properties = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().GetEnterRoomParams(info);
-
-			_networkService.QuantumClient.OpCreateRoom(properties);*/
+				ButtonText = ScriptLocalization.General.OK, 
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 			
 			_statechartTrigger(JoinRoomFailedEvent);
 			_services.MessageBrokerService.Publish(new JoinRoomFailedMessage() {ReturnCode = returnCode, Message = message});
@@ -267,14 +312,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnRoomPropertiesUpdate");
 			_statechartTrigger(RoomPropertiesUpdatedEvent);
+			_services.MessageBrokerService.Publish(new RoomPropertiesUpdatedMessage() {ChangedProps = changedProps});
 			
 			if (changedProps.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
 				_statechartTrigger(RoomClosedEvent);
 				_services.MessageBrokerService.Publish(new RoomClosedMessage());
 			}
-			
-			_services.MessageBrokerService.Publish(new RoomPropertiesUpdatedMessage() {ChangedProps = changedProps});
 		}
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -334,7 +378,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode)
+			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
+			    !_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
 			{
 				return;
 			}

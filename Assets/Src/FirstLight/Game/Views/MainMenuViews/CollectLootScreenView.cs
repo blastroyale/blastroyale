@@ -53,7 +53,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private List<UniqueId> _lootBoxToOpen = new List<UniqueId>();
 		private GameId _currentBoxGameId;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

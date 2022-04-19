@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_emojiImage = _emojiImage ? _emojiImage : GetComponent<Image>();
 		}
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			

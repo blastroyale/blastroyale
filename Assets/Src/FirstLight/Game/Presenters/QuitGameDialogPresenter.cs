@@ -19,7 +19,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _cancelButton;
 		[SerializeField] private Button _blockerButton;
 
-		private void Start()
+		private void Awake()
 		{
 			_confirmButton.onClick.AddListener(OnConfirmClicked);
 			_cancelButton.onClick.AddListener(Close);

@@ -22,7 +22,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
 		
-		private void Start()
+		private void Awake()
 		{
 			_indicator.enabled = false;
 		}

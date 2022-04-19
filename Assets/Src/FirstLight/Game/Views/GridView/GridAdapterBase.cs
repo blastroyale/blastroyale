@@ -20,11 +20,11 @@ namespace FirstLight.Game.Views.GridViews
 		public IList Data { get; private set; }
 		public List<TItem> List { get; private set; }
 
-		protected override void Start()
+		protected override void Awake()
 		{
 			_size = new SimpleDataHelper<int>(this);
 
-			base.Start();
+			base.Awake();
 		}
 
 		/// <summary>

@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private IObjectPool<KillTrackerView> _killTrackerPool;
 		private IGameServices _services;
 		
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			

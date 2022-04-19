@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -42,7 +40,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

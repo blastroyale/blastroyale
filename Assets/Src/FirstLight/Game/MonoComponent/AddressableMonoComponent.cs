@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent
 
 		private GameObject _gameObject;
 
-		private async void Start()
+		private async void Awake()
 		{
 			_gameObject = await Addressables.InstantiateAsync(_addressable.GetConfig().Address, transform).Task;
 		}

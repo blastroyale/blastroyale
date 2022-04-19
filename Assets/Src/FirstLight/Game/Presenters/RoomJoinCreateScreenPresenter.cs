@@ -7,6 +7,7 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
 
@@ -30,7 +31,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -60,13 +61,16 @@ namespace FirstLight.Game.Presenters
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
 			Data.PlayClicked.Invoke();
+			_services.MessageBrokerService.Publish(new RoomJoinClickedMessage(){ RoomName = roomNameInput });
 		}
 
 		private void CreateRoomClicked()
 		{
 			// Get a short room name code so it's easily shareable, visible on the UI
 			string roomName = Guid.NewGuid().ToString().Substring(0,6).ToUpper();
+
 			Data.PlayClicked.Invoke();
+			_services.MessageBrokerService.Publish(new RoomCreateClickedMessage(){ RoomName = roomName });
 		}
 	}
 }

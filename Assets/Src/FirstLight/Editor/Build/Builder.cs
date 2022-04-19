@@ -104,6 +104,11 @@ namespace FirstLight.Editor.Build
 					buildReport = FirstLightBuildJobs.BuildAndroidRelease(outputPath);
 					break;
 				}
+				case FirstLightBuildConfig.StoreSymbol:
+				{
+					buildReport = FirstLightBuildJobs.BuildAndroidStore(outputPath);
+					break;
+				}
 				default:
 				{
 					Debug.LogError($"Unrecognised build symbol: {buildSymbol}");
@@ -130,6 +135,11 @@ namespace FirstLight.Editor.Build
 				case FirstLightBuildConfig.ReleaseSymbol:
 				{
 					buildReport = FirstLightBuildJobs.BuildIosRelease(outputPath);
+					break;
+				}
+				case FirstLightBuildConfig.StoreSymbol:
+				{
+					buildReport = FirstLightBuildJobs.BuildIosStore(outputPath);
 					break;
 				}
 				default:

@@ -39,7 +39,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 		private LootBoxInventoryInfo _info;
 		
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_rewardRef.gameObject.SetActive(false);

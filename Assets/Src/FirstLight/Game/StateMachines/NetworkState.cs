@@ -136,6 +136,21 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
+			
+			var preloadIds = new List<int>();
+			
+			foreach (var (key, value) in _dataProvider.EquipmentDataProvider.EquippedItems)
+			{
+				var equipmentDataInfo = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
+				preloadIds.Add((int) equipmentDataInfo.GameId);
+			}
+
+			preloadIds.Add((int) _dataProvider.PlayerDataProvider.CurrentSkin.Value);
+			
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(new Hashtable
+			{
+				{"PreloadIds", preloadIds.ToArray()}
+			});
 		}
 		
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
@@ -184,7 +199,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig);
+			var enterParams = config.GetEnterRoomParams(mapConfig);
 			var joinParams = config.GetJoinRandomRoomParams(mapConfig);
 			UpdateQuantumClientProperties();
 			
@@ -195,7 +210,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig, roomName);
+			var enterParams = config.GetEnterRoomParams(mapConfig, roomName);
 			UpdateQuantumClientProperties();
 			
 			_networkService.QuantumClient.OpJoinRoom(enterParams);
@@ -205,7 +220,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
-			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig, roomName);
+			var enterParams = config.GetEnterRoomParams(mapConfig, roomName);
 			UpdateQuantumClientProperties();
 			
 			_networkService.QuantumClient.OpCreateRoom(enterParams);

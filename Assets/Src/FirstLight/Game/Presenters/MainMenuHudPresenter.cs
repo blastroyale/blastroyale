@@ -43,6 +43,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
 			
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			//Debug.LogError("AWAKE");
 		}
 
 		private void OnDestroy()
@@ -53,6 +54,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			Debug.LogError("OPEN");
 			_softCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.SC].ToString()}";
 			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
 			

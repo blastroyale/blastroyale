@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			assetPreload.Event(_loadingComplete).Target(gameSimulation);
 
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(disconnected);
+			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.OnEnter(CloseLoadingScreen);

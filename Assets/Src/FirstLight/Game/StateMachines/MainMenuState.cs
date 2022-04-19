@@ -79,6 +79,7 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
+
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 
 			initial.Transition().Target(mainMenuLoading);
@@ -275,6 +276,11 @@ namespace FirstLight.Game.StateMachines
 		private bool CheckUnclaimedRewards()
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+		}
+
+		private bool IsConnectedAndReady()
+		{
+			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		/// <summary>

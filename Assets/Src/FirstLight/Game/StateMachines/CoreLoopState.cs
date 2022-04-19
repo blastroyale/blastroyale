@@ -43,13 +43,18 @@ namespace FirstLight.Game.StateMachines
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
+			var initialConnectionCheck = stateFactory.State("Initial Connection Check");
 			var final = stateFactory.Final("Final");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var runningCheckToMatch = stateFactory.Choice("Running Check To Match");
 			var runningCheckToMenu = stateFactory.Choice("Running Check To Menu");
+			var connectionCheckToMenu = stateFactory.Choice("Connection Check To Menu");
+			var reconnectWaitToMenu = stateFactory.State("Reconnect Attempt To Menu");
 			
-			initial.Transition().Target(runningCheckToMenu);
+			initial.Transition().Target(initialConnectionCheck);
+
+			initialConnectionCheck.Event(NetworkState.PhotonMasterConnectedEvent).Target(runningCheckToMenu);
 
 			mainMenu.Nest(_mainMenuState.Setup).Target(runningCheckToMatch);
 			
@@ -58,8 +63,13 @@ namespace FirstLight.Game.StateMachines
 			
 			match.Nest(_matchState.Setup).Target(runningCheckToMenu);
 			
-			runningCheckToMenu.Transition().Condition(CanRunCoreState).Target(mainMenu);
+			runningCheckToMenu.Transition().Condition(CanRunCoreState).Target(connectionCheckToMenu);
 			runningCheckToMenu.Transition().Target(final);
+			
+			connectionCheckToMenu.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
+			connectionCheckToMenu.Transition().Target(reconnectWaitToMenu);
+			
+			reconnectWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -75,10 +85,22 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool CanRunCoreState()
 		{
+			// Similar method can be found in NetworkState.
 			// For now this is always true. In the future, we might want to be able to exit the core state loop
 			// in the state machine to transition to some other special state (e.g. a game update state where the game 
 			// downloads updated assets (like the initial load), and then goes back into this core state afterwards
 			return true;
 		}
+
+		private bool IsConnectedAndReady()
+		{
+			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		private void TryReconnectToPhoton()
+		{
+			//_statechartTrigger(NetworkState.PhotonTryReconnectEvent);
+		}
 	}
 }
+

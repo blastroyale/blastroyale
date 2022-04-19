@@ -84,7 +84,7 @@ namespace Quantum
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
 			
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->SetCurrentHealth(f, e, EntityRef.None, FP._1);
+			stats->SetCurrentHealthPercentage(f, e, EntityRef.None, FP._1);
 			
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
@@ -109,7 +109,7 @@ namespace Quantum
 				KillerEntity = attacker
 			};
 
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealth(f, e, attacker, FP._0);
+			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealthPercentage(f, e, attacker, FP._0);
 
 			// If an entity has NavMeshPathfinder then we stop the movement in case an entity was moving
 			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(e, out var navMeshPathfinder))

@@ -33,17 +33,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_textButton.onClick.AddListener(OnSetPlayerButtonClicked);
-			_gameDataProvider.PlayerDataProvider.NicknameId.InvokeObserve(OnPlayerNameChanged);
+			_gameDataProvider.AppDataProvider.NicknameId.InvokeObserve(OnPlayerNameChanged);
 		}
 
 		private void OnDestroy()
 		{
-			_gameDataProvider?.PlayerDataProvider?.NicknameId?.StopObserving(OnPlayerNameChanged);
+			_gameDataProvider?.AppDataProvider?.NicknameId?.StopObserving(OnPlayerNameChanged);
 		}
 
 		private void OnPlayerNameChanged(string previousValue, string newValue)
 		{
-			_textField.text = _gameDataProvider.PlayerDataProvider.Nickname;
+			_textField.text = _gameDataProvider.AppDataProvider.Nickname;
 		}
 
 		private void OnSetPlayerButtonClicked()
@@ -55,7 +55,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _gameDataProvider.PlayerDataProvider.Nickname, 
+			                                                    _gameDataProvider.AppDataProvider.Nickname, 
 			                                                    confirmButton, true);
 		}
 
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_textField.text = newName;
-			_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = newName });
+			_services.PlayfabService.UpdateNickname(newName);
 		}
 
 		private void OnNameInvalidAcknowledged()
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _gameDataProvider.PlayerDataProvider.Nickname, 
+			                                                    _gameDataProvider.AppDataProvider.Nickname, 
 			                                                    confirmButton, true);
 		}
 	}

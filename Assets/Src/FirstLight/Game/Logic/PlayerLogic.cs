@@ -13,14 +13,7 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface IPlayerDataProvider
 	{
-		/// <summary>
-		/// Requests the player's Nickname
-		/// </summary>
-		string Nickname { get; }
-		/// <summary>
-		/// Requests the player's Nickname
-		/// </summary>
-		IObservableFieldReader<string> NicknameId { get; }
+
 		/// <summary>
 		/// Requests the player's level
 		/// </summary>
@@ -70,11 +63,6 @@ namespace FirstLight.Game.Logic
 	public interface IPlayerLogic : IPlayerDataProvider
 	{
 		/// <summary>
-		/// Requests the player's Nickname
-		/// </summary>
-		new IObservableField<string> NicknameId { get; }
-		
-		/// <summary>
 		/// Adds the given <paramref name="amount"/> of XP to the Player.
 		/// </summary>
 		void AddXp(uint amount);
@@ -96,12 +84,6 @@ namespace FirstLight.Game.Logic
 		private IObservableField<GameId> _currentSkin;
 		
 		/// <inheritdoc />
-		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
-			                          "" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
-
-		/// <inheritdoc />
-		IObservableFieldReader<string> IPlayerDataProvider.NicknameId => NicknameId;
-		/// <inheritdoc />
 		public IObservableFieldReader<uint> Level => _level;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Xp => _xp;
@@ -115,8 +97,6 @@ namespace FirstLight.Game.Logic
 		public List<UnlockSystem> CurrentUnlockedSystems => GetUnlockSystems(_level.Value);
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
-		/// <inheritdoc />
-		public IObservableField<string> NicknameId { get; private set; }
 
 		private AppData AppData => DataProvider.GetData<AppData>();
 
@@ -132,7 +112,6 @@ namespace FirstLight.Game.Logic
 			_emoji = new ObservableList<GameId>(Data.Emoji);
 			_currentSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId,skin => Data.PlayerSkinId =skin);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
-			NicknameId = new ObservableField<string>(AppData.NickNameId);
 		}
 
 		/// <inheritdoc />
@@ -150,7 +129,6 @@ namespace FirstLight.Game.Logic
 				
 			return new PlayerInfo
 			{
-				Nickname = Nickname,
 				Level = level,
 				Xp = _xp.Value,
 				TotalCollectedXp = totalXp,

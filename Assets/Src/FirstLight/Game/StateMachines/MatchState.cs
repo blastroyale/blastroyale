@@ -60,7 +60,7 @@ namespace FirstLight.Game.StateMachines
 			var loading = stateFactory.TaskWait("Loading Assets");
 			var connecting = stateFactory.State("Connecting Screen");
 			var connectedCheck = stateFactory.Choice("Connected Check");
-			var assetPreload = stateFactory.State("Asset Preload");
+			var assetPreload = stateFactory.TaskWait("Asset Preload");
 			var matchmaking = stateFactory.State("Matchmaking");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
@@ -78,8 +78,7 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.Event(NetworkState.LeftRoomEvent).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreload);
 
-			assetPreload.OnEnter(PreloadPlayerEquipment);
-			assetPreload.Event(_loadingComplete).Target(gameSimulation);
+			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(gameSimulation);
 
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
@@ -273,23 +272,24 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async void PreloadPlayerEquipment()
+		private async Task PreloadPlayerEquipment()
 		{
+			var tasks = new List<Task>();
+			
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
 				var preloadIds = (int[]) player.Value.CustomProperties["PreloadIds"];
 
 				foreach (var item in preloadIds)
 				{
-					await _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
+					var newTask = _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
+					tasks.Add(newTask);
 				}
 			}
 			
-			// This method is called OnEnter of assetPreload state, and the statechart trigger can call even on the same
-			// frame if the device is fast enough, which breaks the loading flow. Wait 1 frame to prevent.
-			await Task.Yield();
+			await Task.WhenAll(tasks);
 			
-			_statechartTrigger(_loadingComplete);
+			Debug.LogError("ALL LOADED");
 		}
 	}
 }

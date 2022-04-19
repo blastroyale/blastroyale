@@ -64,10 +64,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
-
-			// TODO - Subscribe to the event instead of calling this, when this presenter is available from main menu state
-			// TODO - Currently the callbacks won't trigger as room is joined in main menu state, and presenter is spawned in match state
-			Invoke(nameof(FakeOnJoinedRoom),1f);
+			
 			//_services.MessageBrokerService.Subscribe<JoinedRoomMessage>(OnJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerLeftRoomMessage>(OnPlayerLeftRoom);
@@ -109,39 +106,24 @@ namespace FirstLight.Game.Presenters
 			
 			if (CurrentRoom.IsVisible)
 			{
+				_lockRoomButton.gameObject.SetActive(false);
 				StartCoroutine(TimeUpdateCoroutine(config));
 			}
 			else
 			{
+				var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
+				var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
+				var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
+
+				_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
+
 				UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 			}
-		}
-
-		// TODO - Remove in next pass, when this presenter is moved to main menu
-		private void FakeOnJoinedRoom()
-		{
-			OnJoinedRoom(new JoinedRoomMessage());
 		}
 
 		protected override void OnClosed()
 		{
 			SetLayerState(true, false);
-		}
-
-		private void OnJoinedRoom(JoinedRoomMessage message)
-		{
-			if (CurrentRoom.IsVisible)
-			{
-				return;
-			}
-			
-			var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
-			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
-			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
-
-			_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
-			
-			UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 		}
 
 		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage message)
@@ -223,6 +205,8 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 			_lockRoomButton.gameObject.SetActive(false);
+			_getReadyToRumbleText.gameObject.SetActive(true);
+			_playersFoundText.enabled = false;
 		}
 	}
 }

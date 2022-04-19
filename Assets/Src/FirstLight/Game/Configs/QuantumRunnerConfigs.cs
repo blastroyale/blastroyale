@@ -65,7 +65,7 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetEnterRoomParams(IGameDataProvider dataProvider, MapConfig config, string roomName = null, bool isVisible = true)
+		public EnterRoomParams GetEnterRoomParams(IGameDataProvider dataProvider, MapConfig config, string roomName = null)
 		{
 			var preloadIds = new List<int>();
 			

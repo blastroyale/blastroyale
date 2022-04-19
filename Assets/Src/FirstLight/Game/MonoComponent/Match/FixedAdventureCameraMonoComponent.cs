@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private LocalInput _localInput;
 		private EntityView _playerView;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();

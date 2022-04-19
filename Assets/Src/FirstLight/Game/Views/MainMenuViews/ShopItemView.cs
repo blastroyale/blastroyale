@@ -30,14 +30,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_animation = _animation ? _animation : GetComponent<Animation>();
 		}
 		
-		private void Start()
+		private void Awake()
 		{
 			_buyButton.onClick.AddListener(Buy);
 
-			OnStart();
+			OnAwake();
 		}
 
-		protected virtual void OnStart()
+		protected virtual void OnAwake()
 		{
 		}
 		

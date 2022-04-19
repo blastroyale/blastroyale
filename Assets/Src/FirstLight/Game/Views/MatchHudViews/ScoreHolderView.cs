@@ -1,7 +1,12 @@
-﻿using FirstLight.Game.Logic;
+﻿using System;
+using System.Collections;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
+using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -24,7 +29,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private IGameDataProvider _gameDataProvider;
 		private int _fragTarget;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

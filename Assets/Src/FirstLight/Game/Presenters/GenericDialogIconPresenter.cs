@@ -40,7 +40,7 @@ namespace FirstLight.Game.Presenters
 			_icon.sprite = sprite;
 		}
 
-		protected override void OnStart()
+		protected override void OnAwake()
 		{
 			_defaultIconSize = _icon.rectTransform.sizeDelta;
 		}

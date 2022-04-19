@@ -109,7 +109,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 		}
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 		}

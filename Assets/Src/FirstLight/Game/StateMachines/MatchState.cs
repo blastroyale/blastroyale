@@ -273,11 +273,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private bool CanSkipPreload()
-		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount == 1;
-		}
-
 		private async void PreloadPlayerEquipment()
 		{
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
@@ -290,7 +285,10 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 			
-			Debug.LogError("LOADED EVERYONE");
+			// This method is called OnEnter of assetPreload state, and the statechart trigger can call even on the same
+			// frame if the device is fast enough, which breaks the loading flow. Wait 1 frame to prevent.
+			await Task.Yield();
+			
 			_statechartTrigger(_loadingComplete);
 		}
 	}

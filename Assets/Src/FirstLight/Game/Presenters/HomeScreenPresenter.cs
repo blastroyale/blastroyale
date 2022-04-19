@@ -61,7 +61,7 @@ namespace FirstLight.Game.Presenters
 		// TODO - remove when appropriate
 		private IMainMenuServices _mainMenuServices;
 
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();

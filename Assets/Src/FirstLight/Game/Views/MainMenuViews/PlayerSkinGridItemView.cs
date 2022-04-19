@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

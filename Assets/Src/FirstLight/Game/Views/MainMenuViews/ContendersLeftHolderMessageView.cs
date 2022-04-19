@@ -27,21 +27,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		private int _playersLeft;
-
+		
 		private void Awake()
-		{
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-		}
-
-		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_contendersLeftText.text = "";
-
+			
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 		}
-
+		
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);

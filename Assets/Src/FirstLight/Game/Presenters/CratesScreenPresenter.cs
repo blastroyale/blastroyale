@@ -56,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		private Coroutine _coroutineTime;
 		
 
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			

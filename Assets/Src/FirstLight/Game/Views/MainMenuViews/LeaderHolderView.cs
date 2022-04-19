@@ -21,7 +21,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private PlayerRef? _currentLeader;
 		
-		private void Start()
+		private void Awake()
 		{
 			_currentLeaderFragsText.text = "0";
 			_leaderNameText.text = "";

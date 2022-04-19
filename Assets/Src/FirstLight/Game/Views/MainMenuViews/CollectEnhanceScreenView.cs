@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private GameObject _enhancedItemObject;
 		private GameObject [] _enhanceMaterials;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();

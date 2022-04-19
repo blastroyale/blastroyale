@@ -18,7 +18,7 @@ namespace FirstLight.Game.Presenters
 	
 		[SerializeField] private Button _continueButton;
 
-		private void Start()
+		private void Awake()
 		{
 			_continueButton.onClick.AddListener(OnContinueButtonClicked);
 		}

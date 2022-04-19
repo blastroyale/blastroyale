@@ -47,7 +47,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -55,12 +55,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnEquipCompletedMessage);
 			_services.MessageBrokerService.Subscribe<ItemUpgradedMessage>(OnUpgradeCompletedMessage);
 			_button.onClick.AddListener(OnButtonClick);
+			OnAwake();
 		}
 
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
+		
+		protected virtual void OnAwake() {}
 
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{

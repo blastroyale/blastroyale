@@ -20,10 +20,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] protected AnimationClip _introAnimationClip;
 		[SerializeField] protected AnimationClip _outroAnimationClip;
 
-		private void Start()
+		private void Awake()
 		{
 			_emojiHubButton.onClick.AddListener(OnEmojiHubButtonPressed);
+		}
 
+		private void Start()
+		{
 			var emojis = GameIdGroup.Emoji.GetIds();
 
 			for (var i = 0; i < _emojiButtonViews.Length; i++)

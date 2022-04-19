@@ -84,16 +84,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 
-			// Only show room code if player is coming from custom game - join/create
-			if (CurrentRoom.IsVisible)
-			{
-				_roomNameRootObject.SetActive(false);
-			}
-			else
-			{
-				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
-			}
-
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
@@ -106,11 +96,14 @@ namespace FirstLight.Game.Presenters
 			
 			if (CurrentRoom.IsVisible)
 			{
+				_roomNameRootObject.SetActive(false);
 				_lockRoomButton.gameObject.SetActive(false);
 				StartCoroutine(TimeUpdateCoroutine(config));
 			}
 			else
 			{
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
+				
 				var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
 				var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
 				var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;

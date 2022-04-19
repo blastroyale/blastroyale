@@ -318,7 +318,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(RoomClosedEvent);
 				_services.MessageBrokerService.Publish(new RoomClosedMessage());
-				Debug.LogError("ROOM CLOSED");
 			}
 		}
 		/// <inheritdoc />

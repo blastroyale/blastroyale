@@ -125,9 +125,10 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
 			_standings.gameObject.SetActive(true);
-			_standings.Initialise(playerData, false);
+			_standings.Initialise(playerData, isBattleRoyale);
 		}
 
 		private void OnWeaponSlotClicked(int weaponSlotIndex)

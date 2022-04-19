@@ -32,6 +32,7 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField] private Transform _playerCharacterParent;
 		[SerializeField] private Button _lockRoomButton;
+		[SerializeField] private Button _leaveRoomButton;
 		[SerializeField] private Image _mapImage;
 		[SerializeField] private Image [] _playersWaitingImage;
 		[SerializeField] private Animation _animation;
@@ -63,8 +64,8 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
+			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			
-			//_services.MessageBrokerService.Subscribe<JoinedRoomMessage>(OnJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerLeftRoomMessage>(OnPlayerLeftRoom);
 			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
@@ -89,6 +90,7 @@ namespace FirstLight.Game.Presenters
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
 			
 			_lockRoomButton.gameObject.SetActive(false);
+			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			transform.SetParent(null);
 			SetLayerState(false, false);
@@ -98,7 +100,6 @@ namespace FirstLight.Game.Presenters
 			if (CurrentRoom.IsVisible)
 			{
 				_roomNameRootObject.SetActive(false);
-				_lockRoomButton.gameObject.SetActive(false);
 				StartCoroutine(TimeUpdateCoroutine(config));
 			}
 			else
@@ -119,7 +120,12 @@ namespace FirstLight.Game.Presenters
 			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
 			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
 
-			_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
+			// Only custom rooms can show room controls
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
+			{
+				_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
+				_leaveRoomButton.gameObject.SetActive(true);
+			}
 		}
 		
 		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
@@ -201,9 +207,15 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 			_lockRoomButton.gameObject.SetActive(false);
+			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(true);
 			_playersFoundText.gameObject.SetActive(false);
 			_findingPlayersText.gameObject.SetActive(false);
+		}
+
+		private void OnLeaveRoomClicked()
+		{
+			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
 		}
 	}
 }

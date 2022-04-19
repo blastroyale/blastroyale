@@ -78,8 +78,7 @@ namespace FirstLight.Game.StateMachines
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
 			initialConnection.Event(PhotonDisconnectedEvent).Target(final);
 
-			connected.Event(PhotonDisconnectedEvent).Target(final);
-			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
+			connected.Event(PhotonDisconnectedEvent).Target(disconnecting);
 
 			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
 			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
@@ -100,6 +99,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomRandomClickedMessage>(OnRoomRandomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomJoinClickedMessage>(OnRoomJoinClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomCreateClickedMessage>(OnRoomCreateClicked);
+			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 		}
 		
 		private void UnsubscribeEvents()
@@ -136,6 +136,11 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
+		}
+		
+		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
+		{
+			LeaveRoom();
 		}
 		
 		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage msg)
@@ -396,6 +401,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void LockRoom()
 		{
+			Debug.LogError("ROOM LOCKED ");
 			if (_networkService.QuantumClient.CurrentRoom.IsOpen)
 			{
 				_networkService.QuantumClient.CurrentRoom.IsOpen = false;

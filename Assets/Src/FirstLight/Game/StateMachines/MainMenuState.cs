@@ -157,7 +157,8 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Target(roomWaitingState);
 			
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
-			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(screenCheck);
+			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			
 			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
 			enterNameDialog.OnExit(CloseEnterNameDialog);

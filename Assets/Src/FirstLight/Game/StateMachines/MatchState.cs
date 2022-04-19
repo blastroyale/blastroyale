@@ -79,9 +79,7 @@ namespace FirstLight.Game.StateMachines
 			connectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
 			connectedCheck.Transition().Target(matchmaking);
 
-			//connecting.Event(NetworkState.PhotonMasterConnectedEvent).Target(matchmaking);
-			//connecting.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-
+			matchmaking.Event(NetworkState.LeftRoomEvent).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreloadCheck);
 
 			assetPreloadCheck.Transition().Condition(CanSkipPreload).Target(gameSimulation);
@@ -104,31 +102,7 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-
-		/// <inheritdoc />
-		public void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
-		{
-			PreloadPlayerEquipment(msg.Player);
-		}
-
-		/// <inheritdoc />
-		public void OnPlayerLeftRoom(Player otherPlayer)
-		{
-			// Nothing
-		}
-
-		/// <inheritdoc />
-		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-		{
-			// Nothing
-		}
-
-		/// <inheritdoc />
-		public void OnMasterClientSwitched(Player newMasterClient)
-		{
-			// Nothing
-		}
-
+		
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
@@ -137,6 +111,11 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
+		}
+		
+		public void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
+		{
+			PreloadPlayerEquipment(msg.Player);
 		}
 
 		private void OpenLoadingScreen()

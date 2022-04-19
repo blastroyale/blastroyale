@@ -63,12 +63,6 @@ namespace FirstLight.Game
 			_gameStateMachine.LogsEnabled = true;
 		}
 
-		private void Update()
-		{
-			if(_services != null)
-				Debug.LogError(_services.NetworkService.QuantumClient.IsConnectedAndReady);
-		}
-
 		private void Start()
 		{
 			FB.Init(FacebookInit);

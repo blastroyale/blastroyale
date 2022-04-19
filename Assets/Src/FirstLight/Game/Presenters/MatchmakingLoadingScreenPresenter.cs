@@ -19,7 +19,6 @@ using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
-	// TODO - Refactor for both matchmaking & custom game functionality, after NetworkState/matchmaking flow is refactored
 	/// <summary>
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
@@ -68,6 +67,7 @@ namespace FirstLight.Game.Presenters
 			//_services.MessageBrokerService.Subscribe<JoinedRoomMessage>(OnJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerLeftRoomMessage>(OnPlayerLeftRoom);
+			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -88,6 +88,7 @@ namespace FirstLight.Game.Presenters
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
 			
+			_lockRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			transform.SetParent(null);
 			SetLayerState(false, false);
@@ -103,13 +104,6 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
-				
-				var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
-				var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
-				var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
-
-				_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
-
 				UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 			}
 		}
@@ -119,12 +113,21 @@ namespace FirstLight.Game.Presenters
 			SetLayerState(true, false);
 		}
 
-		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage message)
+		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
+		{
+			var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
+			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
+			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
+
+			_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
+		}
+		
+		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
 		{
 			UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 		}
 		
-		private void OnPlayerLeftRoom(PlayerLeftRoomMessage message)
+		private void OnPlayerLeftRoom(PlayerLeftRoomMessage msg)
 		{
 			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
 		}
@@ -199,7 +202,8 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 			_lockRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(true);
-			_playersFoundText.enabled = false;
+			_playersFoundText.gameObject.SetActive(false);
+			_findingPlayersText.gameObject.SetActive(false);
 		}
 	}
 }

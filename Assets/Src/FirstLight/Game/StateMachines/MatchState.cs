@@ -258,6 +258,8 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
+			
+			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
 		}
 
 		private async Task UnloadMatchAssets()

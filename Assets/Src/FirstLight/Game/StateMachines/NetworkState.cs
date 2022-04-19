@@ -312,14 +312,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnRoomPropertiesUpdate");
 			_statechartTrigger(RoomPropertiesUpdatedEvent);
+			_services.MessageBrokerService.Publish(new RoomPropertiesUpdatedMessage() {ChangedProps = changedProps});
 			
 			if (changedProps.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
 				_statechartTrigger(RoomClosedEvent);
 				_services.MessageBrokerService.Publish(new RoomClosedMessage());
+				Debug.LogError("ROOM CLOSED");
 			}
-			
-			_services.MessageBrokerService.Publish(new RoomPropertiesUpdatedMessage() {ChangedProps = changedProps});
 		}
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

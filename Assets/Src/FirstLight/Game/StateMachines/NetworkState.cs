@@ -290,12 +290,12 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.MessageBrokerService.Publish(new PlayerJoinedRoomMessage() {Player = player});
 			
+			// Close matchmaking room if max players
 			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
-			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers)
+			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers &&
+			    _services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
 			{
 				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
-				_statechartTrigger(RoomClosedEvent);
-				_services.MessageBrokerService.Publish(new RoomClosedMessage());
 			}
 		}
 

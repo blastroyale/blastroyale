@@ -10,6 +10,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -66,8 +67,8 @@ namespace FirstLight.Game.Presenters
 
 		private void CreateRoomClicked()
 		{
-			// Get a short room name code so it's easily shareable, visible on the UI
-			string roomName = Guid.NewGuid().ToString().Substring(0,6).ToUpper();
+			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
+			string roomName = Random.Range(0, 999999).ToString("N6");
 
 			Data.PlayClicked.Invoke();
 			_services.MessageBrokerService.Publish(new RoomCreateClickedMessage(){ RoomName = roomName });

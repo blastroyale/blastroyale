@@ -311,7 +311,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsNameNotSet()
 		{
-			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
+			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName || 
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter

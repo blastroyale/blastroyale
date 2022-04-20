@@ -243,18 +243,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
 		}
 
-		private void CloseLoadingScreen()
-		{
-			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
-			{
-				_uiService.UnloadUi<MatchmakingLoadingScreenPresenter>();
-			}
-			else
-			{
-				_uiService.CloseUi<LoadingScreenPresenter>();
-			}
-		}
-
 		private void OpenAdventureWorldHud()
 		{
 			_uiService.OpenUi<AdventureWorldHudPresenter>();
@@ -312,12 +300,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<RewardsScreenPresenter>();
 		}
+		
+		private void CloseMatchmakingScreen()
+		{
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+		}
 
 		private void PrepareMatch()
 		{
 			MatchStartAnalytics();
 			SetPlayerMatchData();
-			CloseLoadingScreen();
+			CloseMatchmakingScreen();
 
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}

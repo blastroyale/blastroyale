@@ -296,14 +296,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(PlayerJoinedRoomEvent);
 			
 			_services.MessageBrokerService.Publish(new PlayerJoinedRoomMessage() {Player = player});
-			
-			// Close matchmaking room if max players
-			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
-			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers &&
-			    _services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
-			{
-				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
-			}
 		}
 
 		/// <inheritdoc />
@@ -385,8 +377,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsDevMode ||
-			    !_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
 			{
 				return;
 			}

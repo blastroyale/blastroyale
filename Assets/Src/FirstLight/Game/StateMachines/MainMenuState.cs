@@ -11,6 +11,7 @@ using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
@@ -34,12 +35,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
+		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-		private readonly IStatechartEvent _roomErrorDismissClicked = new StatechartEvent("Room Error Dismiss Clicked");
-		
+
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -51,6 +52,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
 		private readonly ShopMenuState _shopMenuState;
+		private readonly EnterNameState _enterNameState;
 		private Type _currentScreen;
 
 		public MainMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider,
@@ -67,6 +69,7 @@ namespace FirstLight.Game.StateMachines
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
+			_enterNameState = new EnterNameState(services, uiService, gameDataProvider, statechartTrigger);
 		}
 
 		/// <summary>
@@ -79,7 +82,6 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
-
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 
 			initial.Transition().Target(mainMenuLoading);
@@ -94,6 +96,7 @@ namespace FirstLight.Game.StateMachines
 			
 			mainMenuTransition.Transition().Target(mainMenu);
 
+			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
@@ -118,9 +121,11 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
-			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
+			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
+			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var roomErrorState = stateFactory.State("Room Error");
+			var postNameCheck = stateFactory.Choice("Post Name Check");
+			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
@@ -151,18 +156,23 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
+			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			
 			playClickedCheck.OnEnter(SendPlayClickedEvent);
-			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
+			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
 			playClickedCheck.Transition().Target(roomWaitingState);
 			
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			
-			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
-			enterNameDialog.OnExit(CloseEnterNameDialog);
+			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
+			
+			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
+
+			postNameCheck.Transition().Condition(IsInRoom).Target(final);
+			postNameCheck.Transition().Target(roomWaitingState);
 			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
@@ -300,10 +310,16 @@ namespace FirstLight.Game.StateMachines
 			
 			return autoLoot.Count > 0;
 		}
+
+		private bool IsInRoom()
+		{
+			return _services.NetworkService.QuantumClient.InRoom;
+		}
 		
 		private bool IsNameNotSet()
 		{
-			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
+			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName || 
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -453,6 +469,7 @@ namespace FirstLight.Game.StateMachines
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
 				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
 				OnRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
+				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent)
 			};
 			
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
@@ -495,32 +512,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<SocialScreenPresenter>();
 		}
-
-		private void OpenEnterNameDialog(IWaitActivity activity)
-		{
-			var closureActivity = activity;
-			var confirmButton = new GenericDialogButton<string>
-			{
-				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = OnNameSet
-			};
-			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _gameDataProvider.AppDataProvider.Nickname, 
-			                                                    confirmButton, false, OnNameSet);
-
-			void OnNameSet(string newName)
-			{
-				_services.PlayfabService.UpdateNickname(newName);
-				closureActivity.Complete();
-			}
-		}
-
-		private void CloseEnterNameDialog()
-		{
-			_services.GenericDialogService.CloseDialog();
-		}
-
+		
 		private void OpenSettingsMenuUI()
 		{
 			_uiService.OpenUi<SettingsScreenPresenter, ActionStruct>(new ActionStruct(CloseScreen));
@@ -530,28 +522,16 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(_settingsCloseClickedEvent);
 			}
 		}
-
-		private void OpenMatchmakingLoadingScreen()
-		{
-			/*
-			 This is ugly but unfortunately saving the main character view state will over-engineer the simplicity to
-			 just request the object and also to Inject the UiService to a presenter and give it control to the entire UI.
-			 Because this is only executed once before the loading of a the game map, it is ok to have garbage and a slow 
-			 call as it all be cleaned up in the end of the loading.
-			 Feel free to improve this solution if it doesn't over-engineer the entire tech.
-			 */
-			var data = new MatchmakingLoadingScreenPresenter.StateData
-			{
-				UiService = _uiService
-			};
-
-			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
-		}
-
+		
 		private void LoadingComplete()
 		{
 			_uiService.CloseUi<LoadingScreenPresenter>();
 			SetCurrentScreen<HomeScreenPresenter>();
+		}
+		
+		private void OpenLoadingScreen()
+		{
+			_uiService.OpenUi<LoadingScreenPresenter>();
 		}
 		
 		private void InvalidScreen()
@@ -563,6 +543,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<MainMenuHudPresenter>();
 		}
+		
 
 		private void OpenMainMenuUi()
 		{
@@ -607,7 +588,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-			
+
 			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
@@ -621,14 +602,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			var mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			var configProvider = _services.ConfigsProvider;
-
-			await _uiService.LoadUiAsync<MatchmakingLoadingScreenPresenter>();
 			
 			Camera.main.gameObject.SetActive(false);
 			_uiService.UnloadUiSet((int)UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
-			OpenMatchmakingLoadingScreen();
-			
+
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 			

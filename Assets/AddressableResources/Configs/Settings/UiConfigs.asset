@@ -94,7 +94,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Loading Screen.prefab
-    Layer: 6
+    Layer: 8
     UiType: FirstLight.Game.Presenters.LoadingScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Loot Options Screen.prefab
@@ -198,6 +198,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.TalkingHeadDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.MatchmakingLoadingScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:
     - FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,

@@ -4737,7 +4737,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130999
 --- !u!114 &3454108812518405659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4761,6 +4761,7 @@ MonoBehaviour:
   _playTournamentDeathmatchRandom: {fileID: 5211914012748641792}
   _playTournamentDeathmatchOffline: {fileID: 6116792104479826378}
   _playTournamentDeathmatchRoom: {fileID: 8013290780847940207}
+  _nameChangeButton: {fileID: 4546196267103155345}
   _settingsButton: {fileID: 6714092112816563466}
   _feedbackButton: {fileID: 7818139860001795659}
   _newFeaturesView: {fileID: 8541075219287720584}
@@ -8018,7 +8019,7 @@ GameObject:
   - component: {fileID: 9141596318766330766}
   - component: {fileID: 6233844105187540611}
   - component: {fileID: 7484577527224371565}
-  - component: {fileID: 7663129478837462470}
+  - component: {fileID: 3278819863498798594}
   m_Layer: 0
   m_Name: TopBarCellHolder_Name
   m_TagString: Untagged
@@ -8088,7 +8089,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7663129478837462470
+--- !u!114 &3278819863498798594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8097,10 +8098,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6988279239440060066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce87db123855058419ce0c95902f27cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 3efccc46074214ee0b63c0895acb8e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textButton: {fileID: 4546196267103155345}
   _textField: {fileID: 5507252373428401353}
 --- !u!1 &6995334084107200448
 GameObject:

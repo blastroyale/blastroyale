@@ -43,12 +43,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_rectTransform = transform as RectTransform;
 		}
 
-		public async void OnEnable()
+		/// <summary>
+		/// Setup the map visuals to look awesome on the screen and selects a random point in battle royale mode
+		/// </summary>
+		public async void SetupMapView()
 		{
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_dataProvider.AppDataProvider.CurrentMapConfig.Map, false);
 			_mapImage.enabled = true;
-			
 			_selectionEnabled = _dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.BattleRoyale;
 
 			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
@@ -57,8 +59,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
 			// images on the UI, but then landing location grid will be completely broken for BR game mode
-			float aspectRatioPercent = (_mapImage.preferredWidth / _mapImage.preferredHeight);
-			_aspectRatioFitter.aspectRatio = aspectRatioPercent;
+			_aspectRatioFitter.aspectRatio = (_mapImage.preferredWidth / _mapImage.preferredHeight);
 
 			if (_selectionEnabled)
 			{
@@ -113,8 +114,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)
 		{
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, pointer, _uiCamera,
-			                                                        out var localPos);
+			var pointerVec3 = new Vector3(pointer.x, pointer.y, 0);
+			var screenPoint = RectTransformUtility.WorldToScreenPoint(_uiCamera, pointerVec3);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, screenPoint, _uiCamera, out var localPos);
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var size = mapGridConfigs.GetSize()  - Vector2Int.one;

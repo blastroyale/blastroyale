@@ -30,6 +30,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnSocialButtonClicked;
 			public Action OnTrophyRoadClicked;
 			public Action OnRoomJoinCreateClicked;
+			public Action OnNameChangeClicked;
 		}
 
 		[SerializeField] private GameObject _regularButtonRoot;
@@ -40,6 +41,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _playTournamentDeathmatchRandom;
 		[SerializeField] private Button _playTournamentDeathmatchOffline;
 		[SerializeField] private Button _playTournamentDeathmatchRoom;
+		[SerializeField] private Button _nameChangeButton;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
@@ -77,6 +79,7 @@ namespace FirstLight.Game.Presenters
 			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
 			_playOfflineButton.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
 			
+			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
@@ -169,6 +172,11 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnRoomJoinCreateClicked();
 			_services.MessageBrokerService.Publish(new RoomJoinCreateClickedMessage());
+		}
+
+		private void OnNameChangeClicked()
+		{
+			Data.OnNameChangeClicked();
 		}
 
 		private void OnTrophyRoadButtonClicked()

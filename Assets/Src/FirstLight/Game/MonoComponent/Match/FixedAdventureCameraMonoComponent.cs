@@ -4,8 +4,8 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -15,11 +15,11 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class FixedAdventureCameraMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private CinemachineBrain _cinemachineBrain;
-		[SerializeField] private CinemachineVirtualCamera _spawnCamera;
-		[SerializeField] private CinemachineVirtualCamera _adventureCamera;
-		[SerializeField] private CinemachineVirtualCamera _deathCamera;
-		[SerializeField] private CinemachineVirtualCamera _specialAimCamera;
+		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
+		[SerializeField, Required] private CinemachineVirtualCamera _spawnCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _adventureCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;

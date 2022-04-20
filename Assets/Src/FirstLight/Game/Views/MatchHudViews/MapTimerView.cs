@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
@@ -16,13 +14,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class MapTimerView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _mapStatusText;
-		[SerializeField] private GameObject _timerHolder;
-		[SerializeField] private TextMeshProUGUI _timerText;
-		[SerializeField] private Animation _mapStatusTextAnimation;
-		[SerializeField] private GameObject _timerOutline;
-		[SerializeField] private Animation _mapShrinkingTimerAnimation;
-		[SerializeField] private Transform _safeAreaRadialTransform;
+		[SerializeField, Required] private TextMeshProUGUI _mapStatusText;
+		[SerializeField, Required] private GameObject _timerHolder;
+		[SerializeField, Required] private TextMeshProUGUI _timerText;
+		[SerializeField, Required] private Animation _mapStatusTextAnimation;
+		[SerializeField, Required] private GameObject _timerOutline;
+		[SerializeField, Required] private Animation _mapShrinkingTimerAnimation;
+		[SerializeField, Required] private Transform _safeAreaRadialTransform;
 		
 		private IGameServices _services;
 		private Transform _cameraTransform;

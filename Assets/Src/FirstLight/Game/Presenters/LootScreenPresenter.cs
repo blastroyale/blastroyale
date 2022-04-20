@@ -1,5 +1,4 @@
 using System;
-using FirstLight.Game.Configs;
 using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Ids;
@@ -9,6 +8,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
@@ -28,17 +28,17 @@ namespace FirstLight.Game.Presenters
 			public Action OnLootBackButtonClicked;
 		}
 		
-		[SerializeField] private FilterLootView[] _filterButtons;
-		[SerializeField] private EquippedLootView[] _equipmentButtons;
-		[SerializeField] private Button _allGearButton;
-		[SerializeField] private Button _changeSkinButton;
-		[SerializeField] private Button _backButton;
-		[SerializeField] private TextMeshProUGUI _playerNameText;
-		[SerializeField] private TextMeshProUGUI _playerLevelText;
-		[SerializeField] private TextMeshProUGUI _powerRatingText;
-		[SerializeField] private TextMeshProUGUI _powerValueText;
-		[SerializeField] private Slider _playerLevelSlider;
-		[SerializeField] private Image _playerLevelBadge;
+		[SerializeField, Required] private FilterLootView[] _filterButtons;
+		[SerializeField, Required] private EquippedLootView[] _equipmentButtons;
+		[SerializeField, Required] private Button _allGearButton;
+		[SerializeField, Required] private Button _changeSkinButton;
+		[SerializeField, Required] private Button _backButton;
+		[SerializeField, Required] private TextMeshProUGUI _playerNameText;
+		[SerializeField, Required] private TextMeshProUGUI _playerLevelText;
+		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;
+		[SerializeField, Required] private TextMeshProUGUI _powerValueText;
+		[SerializeField, Required] private Slider _playerLevelSlider;
+		[SerializeField, Required] private Image _playerLevelBadge;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

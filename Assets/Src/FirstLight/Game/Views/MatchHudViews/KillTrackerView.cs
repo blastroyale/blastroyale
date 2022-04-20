@@ -1,12 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using DG.Tweening;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
+﻿using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,17 +16,16 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class KillTrackerView : MonoBehaviour, IPoolEntityObject<KillTrackerView>
 	{
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _animationClipFadeIn;
-		[SerializeField] private AnimationClip _animationClipFadeOut;
-		
-		[SerializeField] private TextMeshProUGUI _killerName;
-		[SerializeField] private TextMeshProUGUI _killedName;
-		[SerializeField] private TextMeshProUGUI _suicideName;
-		[SerializeField] private GameObject _killerNameHolder;
-		[SerializeField] private GameObject _killedNameHolder;
-		[SerializeField] private GameObject _suicideNameHolder;
-		[SerializeField] private Image _skullImage;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _animationClipFadeIn;
+		[SerializeField, Required] private AnimationClip _animationClipFadeOut;
+		[SerializeField, Required] private TextMeshProUGUI _killerName;
+		[SerializeField, Required] private TextMeshProUGUI _killedName;
+		[SerializeField, Required] private TextMeshProUGUI _suicideName;
+		[SerializeField, Required] private GameObject _killerNameHolder;
+		[SerializeField, Required] private GameObject _killedNameHolder;
+		[SerializeField, Required] private GameObject _suicideNameHolder;
+		[SerializeField, Required] private Image _skullImage;
 		
 		private IGameServices _services;
 		private IObjectPool<KillTrackerView> _pool;

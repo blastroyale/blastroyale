@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 

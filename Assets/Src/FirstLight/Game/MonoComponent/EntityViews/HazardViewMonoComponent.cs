@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;

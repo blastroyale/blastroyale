@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -21,8 +20,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private float _maxOffsetX = 50f;
 		[SerializeField] private float _minOffsetY = 50f;
 		[SerializeField] private float _maxOffsetY = 75f;
-		[SerializeField] private AnimationCurve _yPositionAnimCurve;
-		[SerializeField] private AnimationCurve _scaleCurve;
+		[SerializeField, Required] private AnimationCurve _yPositionAnimCurve;
+		[SerializeField, Required] private AnimationCurve _scaleCurve;
 		
 		
 		[Header("Objects that will be affected by the float sequence")]

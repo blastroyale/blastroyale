@@ -1,17 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using Coffee.UIEffects;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using I2.Loc;
-using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -23,8 +15,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class NewFeatureUnlockedView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _unlockedText;
-		[SerializeField] private Animation _animation;
+		[SerializeField, Required] private TextMeshProUGUI _unlockedText;
+		[SerializeField, Required] private Animation _animation;
 
 		private readonly Queue<KeyValuePair<UnlockSystem, Action<UnlockSystem>>> _queue = 
 			new Queue<KeyValuePair<UnlockSystem, Action<UnlockSystem>>>();

@@ -1,6 +1,7 @@
 ﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -11,12 +12,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class PlayerResultEntryView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _playerNameText;
-		[SerializeField] private TextMeshProUGUI _playerRankText;
-		[SerializeField] private TextMeshProUGUI _killsText;
-		[SerializeField] private TextMeshProUGUI _deathsText;
-		[SerializeField] private TextMeshProUGUI _xpText;
-		[SerializeField] private TextMeshProUGUI _coinsText;
+		[SerializeField, Required] private TextMeshProUGUI _playerNameText;
+		[SerializeField, Required] private TextMeshProUGUI _playerRankText;
+		[SerializeField, Required] private TextMeshProUGUI _killsText;
+		[SerializeField, Required] private TextMeshProUGUI _deathsText;
+		[SerializeField, Required] private TextMeshProUGUI _xpText;
+		[SerializeField, Required] private TextMeshProUGUI _coinsText;
 
 		private IGameDataProvider _dataProvider;
 

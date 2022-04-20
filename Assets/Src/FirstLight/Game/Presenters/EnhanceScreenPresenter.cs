@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -14,6 +13,7 @@ using FirstLight.Game.Infos;
 using I2.Loc;
 using FirstLight.Game.Messages;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.UI;
 
@@ -31,29 +31,29 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Header("Enhance Dialog / OSA")]
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private GenericGridView _gridView;
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private TextMeshProUGUI _noItemsCollectedText;
-		[SerializeField] private FilterEquipmentView[] _filterButtons;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private TextMeshProUGUI _noItemsCollectedText;
+		[SerializeField, Required] private FilterEquipmentView[] _filterButtons;
 		
 		[Header("Enhance Info Panel")]
-		[SerializeField] private TextMeshProUGUI _descriptionText;
-		[SerializeField] private GameObject _enhanceButtonHolder;
-		[SerializeField] private Button _enhanceButton;
-		[SerializeField] private TextMeshProUGUI _itemsNeededText;
-		[SerializeField] private TextMeshProUGUI _fuseCostText;
-		[SerializeField] private TextMeshProUGUI _itemCraftedText;
-		[SerializeField] private TextMeshProUGUI _questionMarkText;
-		[SerializeField] private TextMeshProUGUI _questionMarkResultText;
-		[SerializeField] private Image _enhanceCardImage;
-		[SerializeField] private Image _enhanceCardResultImage;
-		[SerializeField] private Image _enhancedItemImage;
-		[SerializeField] private Image _enhancedResultImage;
-		[SerializeField] private Sprite _fuseEmptySprite;
+		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
+		[SerializeField, Required] private GameObject _enhanceButtonHolder;
+		[SerializeField, Required] private Button _enhanceButton;
+		[SerializeField, Required] private TextMeshProUGUI _itemsNeededText;
+		[SerializeField, Required] private TextMeshProUGUI _fuseCostText;
+		[SerializeField, Required] private TextMeshProUGUI _itemCraftedText;
+		[SerializeField, Required] private TextMeshProUGUI _questionMarkText;
+		[SerializeField, Required] private TextMeshProUGUI _questionMarkResultText;
+		[SerializeField, Required] private Image _enhanceCardImage;
+		[SerializeField, Required] private Image _enhanceCardResultImage;
+		[SerializeField, Required] private Image _enhancedItemImage;
+		[SerializeField, Required] private Image _enhancedResultImage;
+		[SerializeField, Required] private Sprite _fuseEmptySprite;
 		
 		[Header("Enhance Slots")]
-		[SerializeField] private SlotEquipmentFillerView [] _slotViews;
+		[SerializeField, Required] private SlotEquipmentFillerView [] _slotViews;
 		
 		private IGameDataProvider _gameDataProvider;
 		private List<UniqueId> _showNotifications;

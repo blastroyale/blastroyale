@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,11 +20,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class MapSelectionView : MonoBehaviour, IPointerClickHandler
 	{
-		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
-		[SerializeField] private RectTransform _selectedPoint;
-		[SerializeField] private Camera _uiCamera;
-		[SerializeField] private AspectRatioFitter _aspectRatioFitter;	
-		[SerializeField] private Image _mapImage;
+		[SerializeField, Required] private TextMeshProUGUI _selectedDropAreaText;
+		[SerializeField, Required] private RectTransform _selectedPoint;
+		[SerializeField, Required] private Camera _uiCamera;
+		[SerializeField, Required] private AspectRatioFitter _aspectRatioFitter;	
+		[SerializeField, Required] private Image _mapImage;
 		
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;

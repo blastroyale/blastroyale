@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
@@ -13,12 +14,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class EmojiHubButtonView : MonoBehaviour
 	{
-		[SerializeField] private Button _emojiHubButton;
-		[SerializeField] private EmojiButtonView [] _emojiButtonViews;
-		
-		[SerializeField] protected Animation _animation;
-		[SerializeField] protected AnimationClip _introAnimationClip;
-		[SerializeField] protected AnimationClip _outroAnimationClip;
+		[SerializeField, Required] private Button _emojiHubButton;
+		[SerializeField, Required] private EmojiButtonView [] _emojiButtonViews;
+		[SerializeField, Required] protected Animation _animation;
+		[SerializeField, Required] protected AnimationClip _introAnimationClip;
+		[SerializeField, Required] protected AnimationClip _outroAnimationClip;
 
 		private void Awake()
 		{

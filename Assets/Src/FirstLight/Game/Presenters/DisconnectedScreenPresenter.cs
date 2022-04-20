@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
-using FirstLight.Services;
 using FirstLight.UiService;
 using I2.Loc;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +24,8 @@ namespace FirstLight.Game.Presenters
 			public Action MainMenuClicked;
 		}
 		
-		[SerializeField] private Button _reconnectButton;
-		[SerializeField] private Button _leaveButton;
+		[SerializeField, Required] private Button _reconnectButton;
+		[SerializeField, Required] private Button _leaveButton;
 
 		private IGameServices _services;
 

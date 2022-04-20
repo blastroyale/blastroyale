@@ -6,13 +6,10 @@ using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider; 
 using System;
 using System.Collections;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
-using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using TMPro;
-using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
@@ -27,11 +24,11 @@ namespace FirstLight.Game.Presenters
 			public Action HomeButtonClicked;
 		}
 
-		[SerializeField] private Button _gotoMainMenuButton;
-		[SerializeField] private Button _gotoNextButton;
-		[SerializeField] private Slider _goToNextSlider;
-		[SerializeField] private StandingsHolderView _standings;
-		[SerializeField] private TextMeshProUGUI _debugTotalMatchTimeText;
+		[SerializeField, Required] private Button _gotoMainMenuButton;
+		[SerializeField, Required] private Button _gotoNextButton;
+		[SerializeField, Required] private Slider _goToNextSlider;
+		[SerializeField, Required] private StandingsHolderView _standings;
+		[SerializeField, Required] private TextMeshProUGUI _debugTotalMatchTimeText;
 		
 		private IGameServices _services;
 

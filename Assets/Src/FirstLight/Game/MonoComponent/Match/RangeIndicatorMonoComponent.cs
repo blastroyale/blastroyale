@@ -1,4 +1,5 @@
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -9,7 +10,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	public class RangeIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		[SerializeField] private float _localHeight = 0.25f;
-		[SerializeField] private MeshRenderer _indicator;
+		[SerializeField, Required] private MeshRenderer _indicator;
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;

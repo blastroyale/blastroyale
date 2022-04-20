@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -6,8 +5,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
@@ -23,8 +22,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Color _neutralTextColor = Color.white;
 		[SerializeField] private Color _armourLossTextColor = Color.white;
 		[SerializeField] private Color _armourGainTextColor = Color.cyan;
-		[SerializeField] private GameObject _floatingTextRef;
-		[SerializeField] private GameObject _floatingArmourAndTextRef;
+		[SerializeField, Required] private GameObject _floatingTextRef;
+		[SerializeField, Required] private GameObject _floatingArmourAndTextRef;
 		
 		private IGameServices _services;
 		private IEntityViewUpdaterService _entityViewUpdaterService;

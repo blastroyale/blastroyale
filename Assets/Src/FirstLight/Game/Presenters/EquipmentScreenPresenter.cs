@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -17,6 +16,7 @@ using I2.Loc;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Commands;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.UI;
 
@@ -34,45 +34,45 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Header("Equipment Dialog / OSA")]
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private GenericGridView _gridView;
-		[SerializeField] private TextMeshProUGUI _screenTitleText;
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private TextMeshProUGUI _noItemsCollectedText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private TextMeshProUGUI _screenTitleText;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private TextMeshProUGUI _noItemsCollectedText;
 		
 		[Header("Equipment Info Panel")]
-		[SerializeField] private TextMeshProUGUI _descriptionText;
-		[SerializeField] private Button _equipUnequipButton;
-		[SerializeField] private Button _sellButton;
-		[SerializeField] private Button _upgradeButton;
-		[SerializeField] private EquipmentStatInfoView _statInfoViewPoolRef;
-		[SerializeField] private EquipmentStatSpecialInfoView _specialStatInfoViewPoolRef;
-		[SerializeField] private TextMeshProUGUI _itemTitleText;
-		[SerializeField] private TextMeshProUGUI _itemLevelText;
-		[SerializeField] private GameObject _actionButtonHolder;
-		[SerializeField] private GameObject _equippedStatusObject;
-		[SerializeField] private GameObject _itemLevelObject;
-		[SerializeField] private GameObject _upgradeCostHolder;
-		[SerializeField] private TextMeshProUGUI _equipButtonText;
-		[SerializeField] private TextMeshProUGUI _upgradeCostText;
-		[SerializeField] private TextMeshProUGUI _sellCostText;
-		[SerializeField] private Animation _itemLevelHolderAnimation;
+		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
+		[SerializeField, Required] private Button _equipUnequipButton;
+		[SerializeField, Required] private Button _sellButton;
+		[SerializeField, Required] private Button _upgradeButton;
+		[SerializeField, Required] private EquipmentStatInfoView _statInfoViewPoolRef;
+		[SerializeField, Required] private EquipmentStatSpecialInfoView _specialStatInfoViewPoolRef;
+		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
+		[SerializeField, Required] private TextMeshProUGUI _itemLevelText;
+		[SerializeField, Required] private GameObject _actionButtonHolder;
+		[SerializeField, Required] private GameObject _equippedStatusObject;
+		[SerializeField, Required] private GameObject _itemLevelObject;
+		[SerializeField, Required] private GameObject _upgradeCostHolder;
+		[SerializeField, Required] private TextMeshProUGUI _equipButtonText;
+		[SerializeField, Required] private TextMeshProUGUI _upgradeCostText;
+		[SerializeField, Required] private TextMeshProUGUI _sellCostText;
+		[SerializeField, Required] private Animation _itemLevelHolderAnimation;
 
-		[SerializeField] private Image _upgradeCoinImage;
-		[SerializeField] private Image _upgradeButtonImage;
-		[SerializeField] private Sprite _maxUpgradeButtonSprite;
-		[SerializeField] private Sprite _upgradeButtonSprite;
+		[SerializeField, Required] private Image _upgradeCoinImage;
+		[SerializeField, Required] private Image _upgradeButtonImage;
+		[SerializeField, Required] private Sprite _maxUpgradeButtonSprite;
+		[SerializeField, Required] private Sprite _upgradeButtonSprite;
 
-		[SerializeField] private GameObject _rarityHolder;
-		[SerializeField] private Image _weaponTypeImage;
-		[SerializeField] private Button _weaponTypeButton;
-		[SerializeField] private Button _movieButton;
-		[SerializeField] private Image [] _rarityImage;
-		[SerializeField] private TextMeshProUGUI _rarityText;
-		[SerializeField] private TextMeshProUGUI _weaponTypeText;
-		[SerializeField] private TextMeshProUGUI _powerRatingText;
-		[SerializeField] private TextMeshProUGUI _powerChangeText;
-		[SerializeField] private Animation _powerChangeAnimation;
+		[SerializeField, Required] private GameObject _rarityHolder;
+		[SerializeField, Required] private Image _weaponTypeImage;
+		[SerializeField, Required] private Button _weaponTypeButton;
+		[SerializeField, Required] private Button _movieButton;
+		[SerializeField, Required] private Image [] _rarityImage;
+		[SerializeField, Required] private TextMeshProUGUI _rarityText;
+		[SerializeField, Required] private TextMeshProUGUI _weaponTypeText;
+		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;
+		[SerializeField, Required] private TextMeshProUGUI _powerChangeText;
+		[SerializeField, Required] private Animation _powerChangeAnimation;
 		
 		[SerializeField] private Color _autoFireColor;
 		[SerializeField] private Color _manualFireColor;

@@ -1,4 +1,3 @@
-using FirstLight.UiService;
 using System;
 using UnityEngine;
 using UnityEngine.UI;

@@ -6,6 +6,7 @@ using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class PlayerCharacterMonoComponent : HealthEntityBase, LocalInput.IGameplayActions
 	{
-		[SerializeField] private Transform _emojiAnchor;
+		[SerializeField, Required] private Transform _emojiAnchor;
 
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly Pair<ITransformIndicator, QuantumSpecialConfig>[] _specialIndicators = 

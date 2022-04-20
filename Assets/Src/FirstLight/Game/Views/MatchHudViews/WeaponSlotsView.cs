@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +14,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class WeaponSlotsView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI[] _weaponText;
-		[SerializeField] private Image[] _weaponImage;
+		[SerializeField, Required] private TextMeshProUGUI[] _weaponText;
+		[SerializeField, Required] private Image[] _weaponImage;
 		
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;

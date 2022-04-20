@@ -1,6 +1,5 @@
 using System.Collections;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -9,7 +8,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
 using Photon.Realtime;
-using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,18 +29,18 @@ namespace FirstLight.Game.Presenters
 			public IUiService UiService;
 		}
 		
-		[SerializeField] private Transform _playerCharacterParent;
-		[SerializeField] private Button _lockRoomButton;
-		[SerializeField] private Image _mapImage;
-		[SerializeField] private Image [] _playersWaitingImage;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private TextMeshProUGUI _firstToXKillsText;
-		[SerializeField] private TextMeshProUGUI _nextArenaText;
-		[SerializeField] private TextMeshProUGUI _playersFoundText;
-		[SerializeField] private TextMeshProUGUI _findingPlayersText;
-		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField] private GameObject _roomNameRootObject;
-		[SerializeField] private TextMeshProUGUI _roomNameText;
+		[SerializeField, Required] private Transform _playerCharacterParent;
+		[SerializeField, Required] private Button _lockRoomButton;
+		[SerializeField, Required] private Image _mapImage;
+		[SerializeField, Required] private Image [] _playersWaitingImage;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private TextMeshProUGUI _firstToXKillsText;
+		[SerializeField, Required] private TextMeshProUGUI _nextArenaText;
+		[SerializeField, Required] private TextMeshProUGUI _playersFoundText;
+		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
+		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
+		[SerializeField, Required] private GameObject _roomNameRootObject;
+		[SerializeField, Required] private TextMeshProUGUI _roomNameText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

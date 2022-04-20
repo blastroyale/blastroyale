@@ -1,5 +1,6 @@
 ﻿using System;
 using FirstLight.Game.Services;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace FirstLight.Game.Presenters
 	/// <inheritdoc />
 	public class GenericDialogInputFieldPresenter : GenericDialogPresenterBase
 	{
-		[SerializeField] private TMP_InputField _textField;
+		[SerializeField, Required] private TMP_InputField _textField;
 
 		private GenericDialogButton<string> _confirmButton;
 		private Action<string> _closeCallback;

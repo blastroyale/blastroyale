@@ -1,10 +1,9 @@
-﻿using System;
-using FirstLight.Game.Commands;
+﻿using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +15,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class PlayerNameInputFieldView : MonoBehaviour
 	{
-		[SerializeField] private Button _textButton;
-		[SerializeField] private TextMeshProUGUI _textField;
+		[SerializeField, Required] private Button _textButton;
+		[SerializeField, Required] private TextMeshProUGUI _textField;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

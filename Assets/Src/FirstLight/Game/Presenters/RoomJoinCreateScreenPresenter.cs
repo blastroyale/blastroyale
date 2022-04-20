@@ -1,15 +1,12 @@
 using System;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using I2.Loc;
-using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
 
 namespace FirstLight.Game.Presenters
 {
@@ -24,9 +21,9 @@ namespace FirstLight.Game.Presenters
 			public Action PlayClicked;
 		}
 		
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _createRoomButton;
-		[SerializeField] private Button _joinRoomButton;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _createRoomButton;
+		[SerializeField, Required] private Button _joinRoomButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

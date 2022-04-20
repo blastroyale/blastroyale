@@ -1,15 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Coffee.UIEffects;
-using DG.Tweening;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,19 +24,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class PlayerProgressBarView : MonoBehaviour
 	{
-		[SerializeField] private Image _iconImage;
-		[SerializeField] private TextMeshProUGUI _levelText;
-		[SerializeField] private VisualStateButtonView _stateButtonView;
-		[SerializeField] private Transform _xpAnimationTarget;
-		[SerializeField] private Slider _xpSlider;
-		[SerializeField] private Image _xpSliderFillImage; 
-		[SerializeField] private UIShiny _shiny;
+		[SerializeField, Required] private Image _iconImage;
+		[SerializeField, Required] private TextMeshProUGUI _levelText;
+		[SerializeField, Required] private VisualStateButtonView _stateButtonView;
+		[SerializeField, Required] private Transform _xpAnimationTarget;
+		[SerializeField, Required] private Slider _xpSlider;
+		[SerializeField, Required] private Image _xpSliderFillImage; 
+		[SerializeField, Required] private UIShiny _shiny;
 		[SerializeField] private float _sliderAnimationTime = 1.5f;
-		[SerializeField] private Image _currentRewardImage;
-		[SerializeField] private Animation _claimRewardAnimation;
-		[SerializeField] private AnimationClip _claimAppearClip;
-		[SerializeField] private AnimationClip _claimRewardLoopClip;
-		[SerializeField] private GameObject _claimRewardObject;
+		[SerializeField, Required] private Image _currentRewardImage;
+		[SerializeField, Required] private Animation _claimRewardAnimation;
+		[SerializeField, Required] private AnimationClip _claimAppearClip;
+		[SerializeField, Required] private AnimationClip _claimRewardLoopClip;
+		[SerializeField, Required] private GameObject _claimRewardObject;
 		
 		/// <summary>
 		/// Triggered when the Xp slider animation is completed when the player levels up

@@ -7,6 +7,7 @@ using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
 
 namespace FirstLight.Game.Presenters
 {
@@ -15,14 +16,13 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class SettingsScreenPresenter : AnimatedUiPresenterData<ActionStruct>
 	{
-		[SerializeField] private TextMeshProUGUI _versionText;
-		[SerializeField] private TextMeshProUGUI _fullNameText;
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _blockerButton;
-
-		[SerializeField] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField] private UiToggleButtonView _hapticToggle;
-		[SerializeField] private UiToggleButtonView _sfxToggle;
+		[SerializeField, Required] private TextMeshProUGUI _versionText;
+		[SerializeField, Required] private TextMeshProUGUI _fullNameText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _blockerButton;
+		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
+		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
+		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

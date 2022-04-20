@@ -1,6 +1,6 @@
 using System.Linq;
 using Coffee.UIEffects;
-using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,13 +11,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class VisualStateButtonView : MonoBehaviour
 	{
-		[SerializeField] private Image _image;
-		[SerializeField] private UiButtonView _button;
-		[SerializeField] private Sprite _notificationOnSprite;
-		[SerializeField] private Sprite _notificationOffSprite;
-		[SerializeField] private NotificationViewBase[] _notifications;
-		[SerializeField] private UIShiny _shiny;
-		[SerializeField] private Animation _stateAnimation;
+		[SerializeField, Required] private Image _image;
+		[SerializeField, Required] private UiButtonView _button;
+		[SerializeField, Required] private Sprite _notificationOnSprite;
+		[SerializeField, Required] private Sprite _notificationOffSprite;
+		[SerializeField, Required] private NotificationViewBase[] _notifications;
+		[SerializeField, Required] private UIShiny _shiny;
+		[SerializeField, Required] private Animation _stateAnimation;
 		
 		/// <summary>
 		/// Requests the <see cref="Button"/> referencing this view on the PlayScreen

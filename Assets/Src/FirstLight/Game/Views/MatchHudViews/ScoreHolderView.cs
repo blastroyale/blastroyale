@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,11 +15,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class ScoreHolderView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _currentRankText;
-		[SerializeField] private TextMeshProUGUI _currentFragsText;
-		[SerializeField] private TextMeshProUGUI _targetFragsText;
-		[SerializeField] private Slider _progressSlider;
-		[SerializeField] private Animation _rankChangeAnimation;
+		[SerializeField, Required] private TextMeshProUGUI _currentRankText;
+		[SerializeField, Required] private TextMeshProUGUI _currentFragsText;
+		[SerializeField, Required] private TextMeshProUGUI _targetFragsText;
+		[SerializeField, Required] private Slider _progressSlider;
+		[SerializeField, Required] private Animation _rankChangeAnimation;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

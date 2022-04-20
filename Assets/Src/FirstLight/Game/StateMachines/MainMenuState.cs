@@ -120,7 +120,7 @@ namespace FirstLight.Game.StateMachines
 			var roomWaitingState = stateFactory.State("Room Joined Check");
 			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var roomErrorState = stateFactory.State("Room Error");
+			var postNameCheck = stateFactory.Choice("Post Name Check");
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
@@ -161,8 +161,11 @@ namespace FirstLight.Game.StateMachines
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			
-			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
+			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(postNameCheck);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
+			
+			postNameCheck.Transition().Condition(IsInRoom).Target(final);
+			postNameCheck.Transition().Target(roomWaitingState);
 			
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
@@ -299,6 +302,11 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			return autoLoot.Count > 0;
+		}
+
+		private bool IsInRoom()
+		{
+			return _services.NetworkService.QuantumClient.InRoom;
 		}
 		
 		private bool IsNameNotSet()

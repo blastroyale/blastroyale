@@ -12,6 +12,7 @@ namespace FirstLight.Game.Messages
 	public struct LootScreenClosedMessage : IMessage { }
 	public struct CratesScreenClosedMessage : IMessage { }
 	public struct SocialScreenOpenedMessage : IMessage { }
+	public struct NameChangeOpened : IMessage { }
 	
 	/// <summary>
 	/// Requests the Crates Screen to open. Triggered when tapping on a 3D Loot Box instead of a UI Element.

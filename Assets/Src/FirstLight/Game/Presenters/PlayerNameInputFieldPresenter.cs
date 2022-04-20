@@ -2,8 +2,10 @@
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.UiService;
 using I2.Loc;
 using TMPro;
 using UnityEngine;
@@ -14,40 +16,21 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// <summary>
 	/// Player name input field. Let the user input his name, will appear above the player in the game.
 	/// </summary>
-	public class PlayerNameInputFieldView : MonoBehaviour
+	public class PlayerNameInputFieldPresenter : UiPresenterData<PlayerNameInputFieldPresenter.StateData>
 	{
-		[SerializeField] private Button _textButton;
-		[SerializeField] private TextMeshProUGUI _textField;
+		public struct StateData
+		{
+			public Action OnNameSet;
+		}
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private void OnValidate()
-		{
-			_textField = _textField == null ? GetComponent<TextMeshProUGUI>() : _textField;
-		}
-
-		private void Awake()
+		protected override void OnOpened()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_textButton.onClick.AddListener(OnSetPlayerButtonClicked);
-			_gameDataProvider.AppDataProvider.NicknameId.InvokeObserve(OnPlayerNameChanged);
-		}
-
-		private void OnDestroy()
-		{
-			_gameDataProvider?.AppDataProvider?.NicknameId?.StopObserving(OnPlayerNameChanged);
-		}
-
-		private void OnPlayerNameChanged(string previousValue, string newValue)
-		{
-			_textField.text = _gameDataProvider.AppDataProvider.Nickname;
-		}
-
-		private void OnSetPlayerButtonClicked()
-		{
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.Yes,
@@ -58,7 +41,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			                                                    _gameDataProvider.AppDataProvider.Nickname, 
 			                                                    confirmButton, true);
 		}
-
 		private void OnNameSet(string newName)
 		{
 			var title = "";
@@ -81,8 +63,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 
-			_textField.text = newName;
-			_services.PlayfabService.UpdateNickname(newName);
+			if (newName != _gameDataProvider.AppDataProvider.Nickname)
+			{
+				_services.PlayfabService.UpdateNickname(newName);
+			}
+
+			Data.OnNameSet();
 		}
 
 		private void OnNameInvalidAcknowledged()

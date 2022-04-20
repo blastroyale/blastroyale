@@ -11,6 +11,7 @@ using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
@@ -34,12 +35,13 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
+		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-		private readonly IStatechartEvent _roomErrorDismissClicked = new StatechartEvent("Room Error Dismiss Clicked");
-		
+		private readonly IStatechartEvent _nameSetEvent = new StatechartEvent("Name Set Event");
+
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -118,9 +120,11 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
-			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
+			var enterNameDialogToMenu = stateFactory.State("Enter Name Dialog to Menu");
+			var enterNameDialogToMatch = stateFactory.State("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var postNameCheck = stateFactory.Choice("Post Name Check");
+			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
@@ -151,18 +155,24 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
+			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			
 			playClickedCheck.OnEnter(SendPlayClickedEvent);
-			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
+			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
 			playClickedCheck.Transition().Target(roomWaitingState);
 			
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+
+			enterNameDialogToMenu.OnEnter(OpenEnterNameDialog);
+			enterNameDialogToMenu.Event(_nameSetEvent).Target(homeMenu);
+			enterNameDialogToMenu.OnExit(CloseEnterNameDialog);
 			
-			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(postNameCheck);
-			enterNameDialog.OnExit(CloseEnterNameDialog);
+			enterNameDialogToMatch.OnEnter(OpenEnterNameDialog);
+			enterNameDialogToMatch.Event(_nameSetEvent).Target(postNameCheck);
+			enterNameDialogToMatch.OnExit(CloseEnterNameDialog);
 			
 			postNameCheck.Transition().Condition(IsInRoom).Target(final);
 			postNameCheck.Transition().Target(roomWaitingState);
@@ -505,29 +515,20 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<SocialScreenPresenter>();
 		}
 
-		private void OpenEnterNameDialog(IWaitActivity activity)
+		private void OpenEnterNameDialog()
 		{
-			var closureActivity = activity;
-			var confirmButton = new GenericDialogButton<string>
+			var data = new PlayerNameInputFieldPresenter.StateData
 			{
-				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = OnNameSet
+				OnNameSet = () => _statechartTrigger(_nameSetEvent),
 			};
 			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _gameDataProvider.AppDataProvider.Nickname, 
-			                                                    confirmButton, false, OnNameSet);
-
-			void OnNameSet(string newName)
-			{
-				_services.PlayfabService.UpdateNickname(newName);
-				closureActivity.Complete();
-			}
+			_uiService.OpenUi<PlayerNameInputFieldPresenter, PlayerNameInputFieldPresenter.StateData>(data);
+			_services.MessageBrokerService.Publish(new NameChangeOpened());
 		}
 
 		private void CloseEnterNameDialog()
 		{
-			_services.GenericDialogService.CloseDialog();
+			_uiService.CloseUi<PlayerNameInputFieldPresenter>();
 		}
 
 		private void OpenSettingsMenuUI()

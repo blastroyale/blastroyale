@@ -82,6 +82,18 @@ namespace FirstLight.Game.Presenters
 		{
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
+
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+
+			_mapTimerView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
+			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
+			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
+			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
+			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 		}
 
 		private void OnQuitClicked()
@@ -99,14 +111,6 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-
-			_mapTimerView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
-			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
-			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 
 			if (isBattleRoyale)
 			{

@@ -251,8 +251,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: Certificates/phoenix.keystore'
-  AndroidKeyaliasName: upload
+  AndroidKeystoreName: '{inproject}: Certificates/firstlightgames.keystore'
+  AndroidKeyaliasName: blastroyale
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

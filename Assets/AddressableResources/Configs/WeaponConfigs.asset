@@ -87,8 +87,8 @@ MonoBehaviour:
         RawValue: 2162688
       AttackAngle: 20
       AttackRange:
-        RawValue: 393216
-      CanHitSameTarget: 0
+        RawValue: 360448
+      CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
         RawValue: 1966080
       AttackAngle: 33
       AttackRange:
-        RawValue: 360448
+        RawValue: 294912
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -137,11 +137,11 @@ MonoBehaviour:
         RawValue: 425984
       AttackAngle: 0
       AttackRange:
-        RawValue: 425984
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
-        RawValue: 196608
+        RawValue: 163840
       Specials: 0a00000066000000
     - Id: 35
       AssetRef:
@@ -160,9 +160,9 @@ MonoBehaviour:
         RawValue: 21626
       AttackHitSpeed:
         RawValue: 1966080
-      AttackAngle: 0
+      AttackAngle: 5
       AttackRange:
-        RawValue: 458752
+        RawValue: 425984
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -184,8 +184,8 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 3932
       AttackHitSpeed:
-        RawValue: 1966080
-      AttackAngle: 0
+        RawValue: 3276800
+      AttackAngle: 10
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0
@@ -210,9 +210,9 @@ MonoBehaviour:
         RawValue: 10813
       AttackHitSpeed:
         RawValue: 1966080
-      AttackAngle: 0
+      AttackAngle: 5
       AttackRange:
-        RawValue: 458752
+        RawValue: 425984
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -234,11 +234,11 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 16384
       AttackHitSpeed:
-        RawValue: 2293760
-      AttackAngle: 10
+        RawValue: 1966080
+      AttackAngle: 15
       AttackRange:
-        RawValue: 524288
-      CanHitSameTarget: 1
+        RawValue: 458752
+      CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0

@@ -28,4 +28,5 @@ namespace FirstLight.Game.Messages
 	public struct RoomJoinCreateClickedMessage : IMessage { }
 	public struct RoomJoinClickedMessage : IMessage { public string RoomName; }
 	public struct RoomCreateClickedMessage : IMessage { public string RoomName; }
+	public struct RoomLeaveClickedMessage : IMessage { }
 }

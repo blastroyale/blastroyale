@@ -4716,6 +4716,20 @@ MonoBehaviour:
       - 'Cannot create room. Error: {0}'
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/RoomError
+      TermType: 0
+      Description: 
+      Languages:
+      - "Room Error: \n{0}"
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomLeaveButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -4728,7 +4742,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1649945140085
+    Google_LastUpdatedVersion: 1650361030099
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

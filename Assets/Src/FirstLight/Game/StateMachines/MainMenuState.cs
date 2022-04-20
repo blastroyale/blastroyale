@@ -79,6 +79,7 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
+
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 
 			initial.Transition().Target(mainMenuLoading);
@@ -157,7 +158,8 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Target(roomWaitingState);
 			
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
-			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(screenCheck);
+			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			
 			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(roomWaitingState);
 			enterNameDialog.OnExit(CloseEnterNameDialog);
@@ -274,6 +276,11 @@ namespace FirstLight.Game.StateMachines
 		private bool CheckUnclaimedRewards()
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+		}
+
+		private bool IsConnectedAndReady()
+		{
+			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		/// <summary>

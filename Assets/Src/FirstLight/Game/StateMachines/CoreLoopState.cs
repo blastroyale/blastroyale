@@ -43,23 +43,25 @@ namespace FirstLight.Game.StateMachines
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
+			var initialConnectionCheck = stateFactory.State("Initial Connection Check");
 			var final = stateFactory.Final("Final");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
-			var runningCheckToMatch = stateFactory.Choice("Running Check To Match");
-			var runningCheckToMenu = stateFactory.Choice("Running Check To Menu");
+			var connectionCheckToMenu = stateFactory.Choice("Connection Check To Menu");
+			var reconnectWaitToMenu = stateFactory.State("Reconnect Attempt To Menu");
 			
-			initial.Transition().Target(runningCheckToMenu);
+			initial.Transition().Target(initialConnectionCheck);
 
-			mainMenu.Nest(_mainMenuState.Setup).Target(runningCheckToMatch);
+			initialConnectionCheck.Event(NetworkState.PhotonMasterConnectedEvent).Target(connectionCheckToMenu);
+
+			mainMenu.Nest(_mainMenuState.Setup).Target(match);
+
+			match.Nest(_matchState.Setup).Target(connectionCheckToMenu);
+
+			connectionCheckToMenu.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
+			connectionCheckToMenu.Transition().Target(reconnectWaitToMenu);
 			
-			runningCheckToMatch.Transition().Condition(CanRunCoreState).Target(match);
-			runningCheckToMatch.Transition().Target(final);
-			
-			match.Nest(_matchState.Setup).Target(runningCheckToMenu);
-			
-			runningCheckToMenu.Transition().Condition(CanRunCoreState).Target(mainMenu);
-			runningCheckToMenu.Transition().Target(final);
+			reconnectWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -73,12 +75,10 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
-		private bool CanRunCoreState()
+		private bool IsConnectedAndReady()
 		{
-			// For now this is always true. In the future, we might want to be able to exit the core state loop
-			// in the state machine to transition to some other special state (e.g. a game update state where the game 
-			// downloads updated assets (like the initial load), and then goes back into this core state afterwards
-			return true;
+			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 	}
 }
+

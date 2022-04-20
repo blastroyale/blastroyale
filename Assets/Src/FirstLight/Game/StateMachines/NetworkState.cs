@@ -22,7 +22,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent PhotonBaseConnectedEvent = new StatechartEvent("Photon Base Connected Event");
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("Photon Master Connected Event");
-		public static readonly IStatechartEvent PhotonDisconnectedEvent= new StatechartEvent("Photon Disconnected Event");
+		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("Photon Disconnected Event");
 		public static readonly IStatechartEvent CreatedRoomEvent = new StatechartEvent("Created Room Event Event");
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("Joined Room Event");
@@ -63,31 +63,22 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{
-			var initial = stateFactory.Initial("Initial");
-			var final = stateFactory.Final("Final");
-			var initialConnection = stateFactory.State("Initial Connection");
-			var reconnecting = stateFactory.State("Reconnecting");
-			var connected = stateFactory.State("Connected");
-			var disconnected = stateFactory.State("Disconnected");
-			var disconnecting = stateFactory.State("Disconnecting");
+			var initial = stateFactory.Initial("NETWORK - Initial");
+			var final = stateFactory.Final("NETWORK - Final");
+			var initialConnection = stateFactory.State("NETWORK - Initial Connection");
+			var connected = stateFactory.State("NETWORK - Connected");
+			var disconnected = stateFactory.State("NETWORK - Disconnected");
 
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
 
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
-			initialConnection.Event(PhotonDisconnectedEvent).Target(final);
 
-			connected.Event(PhotonDisconnectedEvent).Target(final);
-			connected.Event(MatchState.MatchEndedEvent).Target(disconnecting);
+			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
 
-			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
-			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
-
-			disconnected.Event(PhotonTryReconnectEvent).OnTransition(ReconnectPhoton).Target(reconnecting);
-
-			disconnecting.OnEnter(DisconnectPhoton);
-			disconnecting.Event(PhotonDisconnectedEvent).Target(final);
+			disconnected.OnEnter(ConnectPhoton);
+			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -100,6 +91,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomRandomClickedMessage>(OnRoomRandomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomJoinClickedMessage>(OnRoomJoinClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomCreateClickedMessage>(OnRoomCreateClicked);
+			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 		}
 		
 		private void UnsubscribeEvents()
@@ -121,11 +113,6 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void ReconnectPhoton()
-		{
-			_networkService.QuantumClient.ReconnectAndRejoin();
-		}
-		
 		private void LeaveRoom()
 		{
 			_networkService.QuantumClient.OpLeaveRoom(false, true);
@@ -136,6 +123,26 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 			_networkService.QuantumClient.NickName = _dataProvider.AppDataProvider.Nickname;
+			
+			var preloadIds = new List<int>();
+			
+			foreach (var (key, value) in _dataProvider.EquipmentDataProvider.EquippedItems)
+			{
+				var equipmentDataInfo = _dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
+				preloadIds.Add((int) equipmentDataInfo.GameId);
+			}
+
+			preloadIds.Add((int) _dataProvider.PlayerDataProvider.CurrentSkin.Value);
+			
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(new Hashtable
+			{
+				{"PreloadIds", preloadIds.ToArray()}
+			});
+		}
+		
+		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
+		{
+			LeaveRoom();
 		}
 		
 		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage msg)
@@ -290,12 +297,12 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.MessageBrokerService.Publish(new PlayerJoinedRoomMessage() {Player = player});
 			
+			// Close matchmaking room if max players
 			if (_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount ==
-			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers)
+			    _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers &&
+			    _services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
 			{
 				_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
-				_statechartTrigger(RoomClosedEvent);
-				_services.MessageBrokerService.Publish(new RoomClosedMessage());
 			}
 		}
 

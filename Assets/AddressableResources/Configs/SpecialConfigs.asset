@@ -27,9 +27,9 @@ MonoBehaviour:
         RawValue: 229376
       PowerAmount: 600
       Speed:
-        RawValue: 196608
+        RawValue: 163840
       MinRange:
-        RawValue: 229376
+        RawValue: 0
       MaxRange:
         RawValue: 655360
     - Id: 85
@@ -41,11 +41,11 @@ MonoBehaviour:
         RawValue: 98304
       PowerAmount: 1
       Speed:
-        RawValue: 131072
+        RawValue: 98304
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 589824
+        RawValue: 458752
     - Id: 89
       SpecialType: 2
       Indicator: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 0
-      PowerAmount: 4
+      PowerAmount: 2
       Speed:
         RawValue: 0
       MinRange:
@@ -64,7 +64,7 @@ MonoBehaviour:
       SpecialType: 3
       Indicator: 6
       Cooldown:
-        RawValue: 327680
+        RawValue: 98304
       Radius:
         RawValue: 180224
       PowerAmount: 600
@@ -97,11 +97,11 @@ MonoBehaviour:
         RawValue: 163840
       PowerAmount: 300
       Speed:
-        RawValue: 49152
+        RawValue: 65536
       MinRange:
-        RawValue: 163840
+        RawValue: 0
       MaxRange:
-        RawValue: 393216
+        RawValue: 524288
     - Id: 141
       SpecialType: 4
       Indicator: 2

@@ -37,7 +37,7 @@ MonoBehaviour:
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
         RawValue: 314573
-      PlayerDefaultInterimArmour: 200
+      PlayerDefaultInterimArmour: 400
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:
@@ -47,7 +47,7 @@ MonoBehaviour:
       XpPerFragDeathRatio:
         RawValue: 2293760
       CollectableCollectTime:
-        RawValue: 45875
+        RawValue: 39321
       PlayerAliveShieldDuration:
         RawValue: 196608
       EquipmentLevelToPowerK: 10

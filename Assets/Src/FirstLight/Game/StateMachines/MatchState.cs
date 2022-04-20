@@ -288,8 +288,6 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			await Task.WhenAll(tasks);
-			
-			Debug.LogError("ALL LOADED");
 		}
 	}
 }

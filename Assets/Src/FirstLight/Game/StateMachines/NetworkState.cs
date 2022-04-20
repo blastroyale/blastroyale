@@ -67,7 +67,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("NETWORK - Final");
 			var initialConnection = stateFactory.State("NETWORK - Initial Connection");
 			var connected = stateFactory.State("NETWORK - Connected");
-			var disconnectedCheck = stateFactory.Choice("NETWORK - Disconnected Check");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
 
 			initial.Transition().Target(initialConnection);
@@ -76,11 +75,8 @@ namespace FirstLight.Game.StateMachines
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
 
-			connected.Event(PhotonDisconnectedEvent).Target(disconnectedCheck);
-			
-			disconnectedCheck.Transition().Condition(CanRunNetworkState).Target(disconnected);
-			disconnectedCheck.Transition().Target(final);
-			
+			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
+
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
@@ -103,15 +99,6 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.TickService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
-		}
-		
-		private bool CanRunNetworkState()
-		{
-			// Similar method can be found in CoreLoopState.
-			// For now this is always true. In the future, we might want to be able to exit the network state loop
-			// in the state machine to transition to some other special state (e.g. a game update state where the game 
-			// downloads updated assets (like the initial load), and then goes back into this core state afterwards
-			return true;
 		}
 
 		private void ConnectPhoton()
@@ -230,7 +217,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnDisconnected(DisconnectCause cause)
 		{
 			FLog.Info("OnDisconnected " + cause);
-			Debug.LogError("OnDisconnected " + cause);
+
 			_statechartTrigger(PhotonDisconnectedEvent);
 			_services.MessageBrokerService.Publish(new PhotonDisconnectedMessage() {Cause = cause});
 		}
@@ -336,7 +323,6 @@ namespace FirstLight.Game.StateMachines
 			
 			if (changedProps.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
-				Debug.LogError("ROOM CLOSED");
 				_statechartTrigger(RoomClosedEvent);
 				_services.MessageBrokerService.Publish(new RoomClosedMessage());
 			}

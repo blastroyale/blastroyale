@@ -43,7 +43,6 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
 			
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
-			//Debug.LogError("AWAKE");
 		}
 
 		private void OnDestroy()

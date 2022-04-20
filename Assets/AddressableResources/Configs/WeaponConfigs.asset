@@ -126,7 +126,7 @@ MonoBehaviour:
         RawValue: 65536
       MaxAmmo: 15
       PowerRatioToBase:
-        RawValue: 43253
+        RawValue: 39321
       AimingMovementSpeed:
         RawValue: 26214
       AimTime:

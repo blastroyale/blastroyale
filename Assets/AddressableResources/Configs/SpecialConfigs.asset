@@ -97,11 +97,11 @@ MonoBehaviour:
         RawValue: 163840
       PowerAmount: 300
       Speed:
-        RawValue: 196608
+        RawValue: 49152
       MinRange:
         RawValue: 163840
       MaxRange:
-        RawValue: 458752
+        RawValue: 393216
     - Id: 141
       SpecialType: 4
       Indicator: 2

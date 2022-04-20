@@ -620,8 +620,6 @@ namespace Quantum.Systems
 						gearSlots.RemoveAt(slotIndex);
 					}
 				}
-				
-				playerSpawners[rngSpawnIndex].Component->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 				if (playerSpawners.Count > 1)
 				{

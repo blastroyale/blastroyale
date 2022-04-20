@@ -92,6 +92,7 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
+			MapSelectionView.SetupMapView();
 
 			if (CurrentRoom.IsVisible)
 			{

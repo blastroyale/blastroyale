@@ -17,14 +17,15 @@ namespace FirstLight.Game.StateMachines
 	public class DeathmatchState
 	{
 		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
+		private readonly IStatechartEvent _localPlayerRespawnEvent = new StatechartEvent("Local Player Respawn");
 		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
-		
+
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new Dictionary<PlayerRef, Pair<int, int>>();
-		
+		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new();
+
 		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                       Action<IStatechartEvent> statechartTrigger)
 		{
@@ -33,7 +34,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 		}
-		
+
 		/// <summary>
 		/// Setups the Deathmatch gameplay state
 		/// </summary>
@@ -44,6 +45,7 @@ namespace FirstLight.Game.StateMachines
 			var countdown = stateFactory.TaskWait("Countdown Hud");
 			var alive = stateFactory.State("Alive Hud");
 			var dead = stateFactory.State("Dead Hud");
+			var respawning = stateFactory.State("Respawning");
 
 			initial.Transition().Target(countdown);
 			initial.OnExit(SubscribeEvents);
@@ -52,7 +54,7 @@ namespace FirstLight.Game.StateMachines
 			countdown.OnEnter(ShowCountdownHud);
 			countdown.WaitingFor(Countdown).Target(alive);
 			countdown.OnExit(PublishMatchStarted);
-			
+
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(dead);
 			alive.OnExit(CloseControlsHud);
@@ -60,8 +62,11 @@ namespace FirstLight.Game.StateMachines
 			dead.OnEnter(CloseAdventureHud);
 			dead.OnEnter(OpenKilledHud);
 			dead.Event(_localPlayerAliveEvent).OnTransition(OpenAdventureHud).Target(alive);
+			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenAdventureHud).Target(respawning);
 			dead.OnExit(CloseKilledHud);
-			
+
+			respawning.Event(_localPlayerAliveEvent).Target(alive);
+
 			final.OnEnter(CloseAdventureHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -71,11 +76,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
+
+			_services.MessageBrokerService.Subscribe<RespawnClickedMessage>(RespawnClickedMessage);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			_services.MessageBrokerService.Unsubscribe<RespawnClickedMessage>(RespawnClickedMessage);
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
@@ -92,42 +100,42 @@ namespace FirstLight.Game.StateMachines
 		{
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var deadData = callback.PlayersMatchData[callback.PlayerDead];
-			
+
 			// "Key" = Number of times I killed this player, "Value" = number of times that player killed me.
 			if (deadData.IsLocalPlayer || killerData.IsLocalPlayer)
 			{
 				var recordName = deadData.IsLocalPlayer ? killerData.Data.Player : deadData.Data.Player;
-				
+
 				if (!_killsDictionary.TryGetValue(recordName, out var recordPair))
 				{
 					recordPair = new Pair<int, int>();
-					
+
 					_killsDictionary.Add(recordName, recordPair);
 				}
-				
+
 				recordPair.Key += deadData.IsLocalPlayer ? 0 : 1;
 				recordPair.Value += deadData.IsLocalPlayer ? 1 : 0;
-				
+
 				_killsDictionary[recordName] = recordPair;
 			}
 		}
-		
+
 		private void PublishMatchStarted()
 		{
 			_killsDictionary.Clear();
 			_services.MessageBrokerService.Publish(new MatchStartedMessage());
 		}
-		
+
 		private void OpenControlsHud()
 		{
 			_uiService.OpenUi<MatchControlsHudPresenter>();
 		}
-		
+
 		private void CloseControlsHud()
 		{
 			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
-		
+
 		private void OpenAdventureHud()
 		{
 			_uiService.OpenUi<MatchHudPresenter>();
@@ -137,17 +145,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<MatchHudPresenter>();
 		}
-		
+
 		private void OpenKilledHud()
 		{
 			var data = new DeathmatchDeadScreenPresenter.StateData
 			{
 				KillerData = _killsDictionary
 			};
-			
+
 			_uiService.OpenUi<DeathmatchDeadScreenPresenter, DeathmatchDeadScreenPresenter.StateData>(data);
 		}
-		
+
 		private void CloseKilledHud()
 		{
 			_uiService.CloseUi<DeathmatchDeadScreenPresenter>();
@@ -157,10 +165,15 @@ namespace FirstLight.Game.StateMachines
 		{
 			await Task.Delay(3000);
 		}
-		
+
 		private void ShowCountdownHud()
 		{
 			_uiService.OpenUi<GameCountdownScreenPresenter>();
+		}
+
+		private void RespawnClickedMessage(RespawnClickedMessage _)
+		{
+			_statechartTrigger(_localPlayerRespawnEvent);
 		}
 	}
 }

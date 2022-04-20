@@ -81,7 +81,6 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
 			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
-
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 
 			initial.Transition().Target(mainMenuLoading);
@@ -617,12 +616,13 @@ namespace FirstLight.Game.StateMachines
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-			
+
 			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 			
+			Debug.LogError("load menu assets");
 			uiVfxService.Init(_uiService);
 			_services.AudioFxService.PlayMusic(AudioId.MenuMainLoop);
 		}
@@ -648,6 +648,8 @@ namespace FirstLight.Game.StateMachines
 			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();
+			
+			Debug.LogError("unload menu assets");
 		}
 		
 		private void PlayButtonClicked()

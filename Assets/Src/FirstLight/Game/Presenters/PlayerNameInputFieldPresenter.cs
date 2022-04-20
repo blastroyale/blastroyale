@@ -11,7 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.MainMenuViews
+namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// Player name input field. Let the user input his name, will appear above the player in the game.
@@ -26,11 +26,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		protected override void OnOpened()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+		}
+		
+		protected override void OnOpened()
+		{
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.Yes,
@@ -56,7 +59,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				_services.GenericDialogService.OpenDialog(title,false, okButton);
 				return;
 			}
-			else if (newName.Length > GameConstants.PLAYER_NAME_MAX_LENGTH)
+			if (newName.Length > GameConstants.PLAYER_NAME_MAX_LENGTH)
 			{
 				title = string.Format(ScriptLocalization.MainMenu.NameTooLong, GameConstants.PLAYER_NAME_MAX_LENGTH);
 				_services.GenericDialogService.OpenDialog(title,false, okButton);

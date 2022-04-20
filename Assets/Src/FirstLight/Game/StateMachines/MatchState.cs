@@ -65,7 +65,7 @@ namespace FirstLight.Game.StateMachines
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
 			var disconnected = stateFactory.State("Disconnected Screen");
-
+			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
 
@@ -74,9 +74,11 @@ namespace FirstLight.Game.StateMachines
 			connectedCheck.Transition().Condition(IsConnected).Target(matchmaking);
 			connectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
 			connectedCheck.Transition().Target(matchmaking);
-
+			
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
 			matchmaking.Event(NetworkState.LeftRoomEvent).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreload);
+			matchmaking.OnExit(CloseMatchmakingScreen);
 
 			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(gameSimulation);
 
@@ -92,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.WaitingFor(UnloadMatchAssets).Target(final);
-
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -106,7 +108,11 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 
-
+		private void CloseMatchmakingScreen()
+		{
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+		}
+		
 		private void OpenLoadingScreen()
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();
@@ -219,6 +225,7 @@ namespace FirstLight.Game.StateMachines
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
 
+			Debug.LogError("loaded match");
 			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
 		}
 
@@ -242,6 +249,8 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			Resources.UnloadUnusedAssets();
+			
+			Debug.LogError("unloaded match");
 		}
 
 		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)

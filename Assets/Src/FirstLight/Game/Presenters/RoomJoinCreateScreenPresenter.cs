@@ -68,7 +68,7 @@ namespace FirstLight.Game.Presenters
 		private void CreateRoomClicked()
 		{
 			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
-			string roomName = Random.Range(0, 999999).ToString("N6");
+			string roomName = Random.Range(100000, 999999).ToString("F0");
 
 			Data.PlayClicked.Invoke();
 			_services.MessageBrokerService.Publish(new RoomCreateClickedMessage(){ RoomName = roomName });

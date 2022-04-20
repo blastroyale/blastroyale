@@ -68,30 +68,24 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
-
+			
+			loading.OnEnter(OpenMatchmakingScreen);
+			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
 
 			connectedCheck.Transition().Condition(IsConnected).Target(matchmaking);
-			connectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
 			connectedCheck.Transition().Target(matchmaking);
 			
-			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
-			matchmaking.Event(NetworkState.LeftRoomEvent).Target(unloading);
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
+			matchmaking.Event(NetworkState.LeftRoomEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreload);
-			matchmaking.OnExit(CloseMatchmakingScreen);
 
 			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(gameSimulation);
-
+			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-
-			disconnected.OnEnter(OpenDisconnectedScreen);
-			disconnected.OnEnter(CloseLoadingScreen);
-			disconnected.Event(NetworkState.PhotonTryReconnectEvent).Target(connecting);
-			disconnected.Event(_leaveMatchEvent).Target(unloading);
-			disconnected.OnExit(OpenLoadingScreen);
-			disconnected.OnExit(CloseDisconnectedScreen);
-
+			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
+			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
+			
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.WaitingFor(UnloadMatchAssets).Target(final);
 			
@@ -108,6 +102,23 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 
+		private void OpenMatchmakingScreen()
+		{
+			/*
+			 This is ugly but unfortunately saving the main character view state will over-engineer the simplicity to
+			 just request the object and also to Inject the UiService to a presenter and give it control to the entire UI.
+			 Because this is only executed once before the loading of a the game map, it is ok to have garbage and a slow 
+			 call as it all be cleaned up in the end of the loading.
+			 Feel free to improve this solution if it doesn't over-engineer the entire tech.
+			 */
+			var data = new MatchmakingLoadingScreenPresenter.StateData
+			{
+				UiService = _uiService
+			};
+
+			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
+		}
+		
 		private void CloseMatchmakingScreen()
 		{
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
@@ -117,7 +128,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();
 		}
-
+		
 		private void CloseLoadingScreen()
 		{
 			_uiService.CloseUi<LoadingScreenPresenter>();
@@ -142,11 +153,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsConnected()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
-		}
-
-		private bool IsDisconnected()
-		{
-			return _services.NetworkService.QuantumClient.DisconnectedCause != DisconnectCause.None;
 		}
 
 		private List<Task> LoadQuantumAssets(string map)
@@ -224,8 +230,7 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
-
-			Debug.LogError("loaded match");
+			
 			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
 		}
 
@@ -249,8 +254,6 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			Resources.UnloadUnusedAssets();
-			
-			Debug.LogError("unloaded match");
 		}
 
 		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)

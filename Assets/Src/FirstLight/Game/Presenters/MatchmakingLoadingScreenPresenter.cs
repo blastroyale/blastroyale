@@ -92,11 +92,7 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
-			transform.SetParent(null);
-			SetLayerState(false, false);
-			_animation.Rewind();
-			_animation.Play();
-			
+
 			if (CurrentRoom.IsVisible)
 			{
 				_roomNameRootObject.SetActive(false);
@@ -107,11 +103,6 @@ namespace FirstLight.Game.Presenters
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
 				UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 			}
-		}
-
-		protected override void OnClosed()
-		{
-			SetLayerState(true, false);
 		}
 
 		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
@@ -157,9 +148,6 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
-			// Little hack to avoid UIs to spam over this screen
-			SetLayerState(false, true);
 		}
 
 		private IEnumerator TimeUpdateCoroutine(MapConfig config)

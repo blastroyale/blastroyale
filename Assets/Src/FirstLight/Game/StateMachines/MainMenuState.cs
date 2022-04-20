@@ -95,6 +95,7 @@ namespace FirstLight.Game.StateMachines
 			
 			mainMenuTransition.Transition().Target(mainMenu);
 
+			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
@@ -539,28 +540,16 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(_settingsCloseClickedEvent);
 			}
 		}
-
-		private void OpenMatchmakingLoadingScreen()
-		{
-			/*
-			 This is ugly but unfortunately saving the main character view state will over-engineer the simplicity to
-			 just request the object and also to Inject the UiService to a presenter and give it control to the entire UI.
-			 Because this is only executed once before the loading of a the game map, it is ok to have garbage and a slow 
-			 call as it all be cleaned up in the end of the loading.
-			 Feel free to improve this solution if it doesn't over-engineer the entire tech.
-			 */
-			var data = new MatchmakingLoadingScreenPresenter.StateData
-			{
-				UiService = _uiService
-			};
-
-			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
-		}
-
+		
 		private void LoadingComplete()
 		{
 			_uiService.CloseUi<LoadingScreenPresenter>();
 			SetCurrentScreen<HomeScreenPresenter>();
+		}
+		
+		private void OpenLoadingScreen()
+		{
+			_uiService.OpenUi<LoadingScreenPresenter>();
 		}
 		
 		private void InvalidScreen()
@@ -572,6 +561,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<MainMenuHudPresenter>();
 		}
+		
 
 		private void OpenMainMenuUi()
 		{
@@ -622,7 +612,6 @@ namespace FirstLight.Game.StateMachines
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 			
-			Debug.LogError("load menu assets");
 			uiVfxService.Init(_uiService);
 			_services.AudioFxService.PlayMusic(AudioId.MenuMainLoop);
 		}
@@ -631,14 +620,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			var mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			var configProvider = _services.ConfigsProvider;
-
-			await _uiService.LoadUiAsync<MatchmakingLoadingScreenPresenter>();
 			
 			Camera.main.gameObject.SetActive(false);
 			_uiService.UnloadUiSet((int)UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
-			OpenMatchmakingLoadingScreen();
-			
+
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 			
@@ -648,8 +634,6 @@ namespace FirstLight.Game.StateMachines
 			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();
-			
-			Debug.LogError("unload menu assets");
 		}
 		
 		private void PlayButtonClicked()

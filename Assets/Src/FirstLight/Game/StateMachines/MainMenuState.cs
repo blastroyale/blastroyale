@@ -40,7 +40,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-		private readonly IStatechartEvent _nameSetEvent = new StatechartEvent("Name Set Event");
 
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
@@ -53,6 +52,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly CollectLootRewardState _collectLootRewardState;
 		private readonly TrophyRoadMenuState _trophyRoadState;
 		private readonly ShopMenuState _shopMenuState;
+		private readonly EnterNameState _enterNameState;
 		private Type _currentScreen;
 
 		public MainMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider,
@@ -69,6 +69,7 @@ namespace FirstLight.Game.StateMachines
 			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
+			_enterNameState = new EnterNameState(services, uiService, gameDataProvider, statechartTrigger);
 		}
 
 		/// <summary>
@@ -120,8 +121,8 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
-			var enterNameDialogToMenu = stateFactory.State("Enter Name Dialog to Menu");
-			var enterNameDialogToMatch = stateFactory.State("Enter Name Dialog Match");
+			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
+			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var postNameCheck = stateFactory.Choice("Post Name Check");
 			
@@ -165,15 +166,11 @@ namespace FirstLight.Game.StateMachines
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			
+			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
+			
+			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
 
-			enterNameDialogToMenu.OnEnter(OpenEnterNameDialog);
-			enterNameDialogToMenu.Event(_nameSetEvent).Target(homeMenu);
-			enterNameDialogToMenu.OnExit(CloseEnterNameDialog);
-			
-			enterNameDialogToMatch.OnEnter(OpenEnterNameDialog);
-			enterNameDialogToMatch.Event(_nameSetEvent).Target(postNameCheck);
-			enterNameDialogToMatch.OnExit(CloseEnterNameDialog);
-			
 			postNameCheck.Transition().Condition(IsInRoom).Target(final);
 			postNameCheck.Transition().Target(roomWaitingState);
 			
@@ -472,6 +469,7 @@ namespace FirstLight.Game.StateMachines
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
 				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
 				OnRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
+				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent)
 			};
 			
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
@@ -514,23 +512,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<SocialScreenPresenter>();
 		}
-
-		private void OpenEnterNameDialog()
-		{
-			var data = new PlayerNameInputFieldPresenter.StateData
-			{
-				OnNameSet = () => _statechartTrigger(_nameSetEvent),
-			};
-			
-			_uiService.OpenUi<PlayerNameInputFieldPresenter, PlayerNameInputFieldPresenter.StateData>(data);
-			_services.MessageBrokerService.Publish(new NameChangeOpened());
-		}
-
-		private void CloseEnterNameDialog()
-		{
-			_uiService.CloseUi<PlayerNameInputFieldPresenter>();
-		}
-
+		
 		private void OpenSettingsMenuUI()
 		{
 			_uiService.OpenUi<SettingsScreenPresenter, ActionStruct>(new ActionStruct(CloseScreen));

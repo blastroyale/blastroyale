@@ -64,7 +64,9 @@ namespace Quantum.Systems
 
 			// If a bot is not alive OR a bot is stunned 
 			// then we don't go further with the behaviour
-			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity))
+			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) || 
+			    // Hack to prevent the bots to act while player's camera animation is still playing
+			    f.Time < f.GameConfig.PlayerRespawnTime * FP._2)
 			{
 				return;
 			}
@@ -620,8 +622,6 @@ namespace Quantum.Systems
 						gearSlots.RemoveAt(slotIndex);
 					}
 				}
-				
-				playerSpawners[rngSpawnIndex].Component->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 				if (playerSpawners.Count > 1)
 				{

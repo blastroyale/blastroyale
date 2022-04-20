@@ -467,7 +467,7 @@ MonoBehaviour:
         X:
           RawValue: 788872
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -1501640
       Rotation:
@@ -536,7 +536,7 @@ MonoBehaviour:
         X:
           RawValue: 124720
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -1867529
       Rotation:
@@ -605,7 +605,7 @@ MonoBehaviour:
         X:
           RawValue: -269059
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -1236273
       Rotation:
@@ -674,7 +674,7 @@ MonoBehaviour:
         X:
           RawValue: -1284867
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -662833
       Rotation:
@@ -743,7 +743,7 @@ MonoBehaviour:
         X:
           RawValue: -1512416
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -43801
       Rotation:
@@ -812,7 +812,7 @@ MonoBehaviour:
         X:
           RawValue: -1252099
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: 1630926
       Rotation:
@@ -881,7 +881,7 @@ MonoBehaviour:
         X:
           RawValue: -249929
         Y:
-          RawValue: 80609
+          RawValue: 16384
         Z:
           RawValue: 1106601
       Rotation:
@@ -950,7 +950,7 @@ MonoBehaviour:
         X:
           RawValue: 705019
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: 1148652
       Rotation:
@@ -1019,7 +1019,7 @@ MonoBehaviour:
         X:
           RawValue: 1079980
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: 678769
       Rotation:
@@ -1088,7 +1088,7 @@ MonoBehaviour:
         X:
           RawValue: 337149
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -433457
       Rotation:
@@ -1157,7 +1157,7 @@ MonoBehaviour:
         X:
           RawValue: 1493384
         Y:
-          RawValue: 0
+          RawValue: 16384
         Z:
           RawValue: -895432
       Rotation:
@@ -1226,7 +1226,7 @@ MonoBehaviour:
         X:
           RawValue: -593994
         Y:
-          RawValue: 80609
+          RawValue: 16384
         Z:
           RawValue: 369321
       Rotation:

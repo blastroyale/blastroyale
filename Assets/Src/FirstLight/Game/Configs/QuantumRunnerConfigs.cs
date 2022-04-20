@@ -139,7 +139,7 @@ namespace FirstLight.Game.Configs
 				GameMode = IsOfflineMode ? DeterministicGameMode.Local : gameMode,
 				InitialFrame = 0,
 				RunnerId = "DEFAULT",
-				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.Disconnect,
+				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoom,
 				LocalPlayerCount = 1,
 				RecordingFlags = RecordingFlags.All,
 				ResourceManagerOverride = null,

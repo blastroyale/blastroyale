@@ -34,10 +34,10 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       ShrinkingDamage: 20
-      PlayerDefaultHealth: 750
+      PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
         RawValue: 314573
-      PlayerDefaultInterimArmour: 1000
+      PlayerDefaultInterimArmour: 200
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:

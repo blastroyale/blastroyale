@@ -90,7 +90,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var level = _gameDataProvider.PlayerDataProvider.Level.Value;
 			
-			_playerNameText.text = _gameDataProvider.PlayerDataProvider.Nickname;
+			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
 			_playerLevelText.text = level.ToString("N0");
 			_playerLevelSlider.value = GetXpSliderValue();
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;

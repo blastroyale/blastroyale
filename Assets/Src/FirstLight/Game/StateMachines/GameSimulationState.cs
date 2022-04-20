@@ -330,7 +330,7 @@ namespace FirstLight.Game.StateMachines
 
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
-				PlayerName = _gameDataProvider.PlayerDataProvider.Nickname,
+				PlayerName = _gameDataProvider.AppDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,

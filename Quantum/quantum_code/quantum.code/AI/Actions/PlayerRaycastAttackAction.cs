@@ -19,7 +19,7 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
-			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
+			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;

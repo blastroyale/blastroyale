@@ -59,11 +59,25 @@ namespace FirstLight.Game.Logic
 		/// Requests the current map config in timed rotation, for the selected game mode
 		/// </summary>
 		MapConfig CurrentMapConfig { get; }
+		
+		/// <summary>
+		/// Requests the player's Nickname
+		/// </summary>
+		string Nickname { get; }
+		
+		/// <summary>
+		/// Requests the player's Nickname
+		/// </summary>
+		IObservableFieldReader<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
+		/// <summary>
+		/// Requests and sets player nickname
+		/// </summary>
+		new IObservableField<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -112,6 +126,16 @@ namespace FirstLight.Game.Logic
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
 		/// <inheritdoc />
+		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
+			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+
+		/// <inheritdoc />
+		public IObservableField<string> NicknameId { get; private set; }
+		
+		/// <inheritdoc />
 		public MapConfig CurrentMapConfig => GetCurrentMapConfig();
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
@@ -127,6 +151,7 @@ namespace FirstLight.Game.Logic
 			IsBgmOn = IsBgmOn;
 
 			SelectedGameMode = new ObservableField<GameMode>(0);
+			NicknameId = new ObservableField<string>(Data.NickNameId);
 		}
 
 		/// <inheritdoc />

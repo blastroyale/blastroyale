@@ -24,25 +24,25 @@ MonoBehaviour:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 65536
-      MaxAmmo: 14
+      MaxAmmo: 8
       PowerRatioToBase:
-        RawValue: 45875
+        RawValue: 65536
       AimingMovementSpeed:
-        RawValue: 39322
+        RawValue: 21626
       AimTime:
-        RawValue: 13107
+        RawValue: 16384
       AttackCooldown:
-        RawValue: 62259
+        RawValue: 49152
       AttackHitSpeed:
-        RawValue: 5898240
-      AttackAngle: 0
+        RawValue: 5242880
+      AttackAngle: 5
       AttackRange:
         RawValue: 589824
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 550000006e000000
+      Specials: 0000000066000000
     - Id: 31
       AssetRef:
         Id:
@@ -62,7 +62,7 @@ MonoBehaviour:
         RawValue: 0
       AttackAngle: 60
       AttackRange:
-        RawValue: 111411
+        RawValue: 216268
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -74,25 +74,25 @@ MonoBehaviour:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 65536
-      MaxAmmo: 86
+      MaxAmmo: 80
       PowerRatioToBase:
-        RawValue: 5243
+        RawValue: 6553
       AimingMovementSpeed:
-        RawValue: 52429
+        RawValue: 45875
       AimTime:
-        RawValue: 3277
+        RawValue: 6553
       AttackCooldown:
-        RawValue: 13107
+        RawValue: 6553
       AttackHitSpeed:
-        RawValue: 1114112
-      AttackAngle: 20
+        RawValue: 2162688
+      AttackAngle: 25
       AttackRange:
-        RawValue: 478413
-      CanHitSameTarget: 1
+        RawValue: 393216
+      CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 6e00000066000000
+      Specials: 0000000066000000
     - Id: 34
       AssetRef:
         Id:
@@ -101,23 +101,23 @@ MonoBehaviour:
         RawValue: 65536
       MaxAmmo: 16
       PowerRatioToBase:
-        RawValue: 13107
-      AimingMovementSpeed:
         RawValue: 32768
+      AimingMovementSpeed:
+        RawValue: 21626
       AimTime:
-        RawValue: 3277
+        RawValue: 13107
       AttackCooldown:
-        RawValue: 44564
+        RawValue: 39321
       AttackHitSpeed:
-        RawValue: 1703936
-      AttackAngle: 50
+        RawValue: 1966080
+      AttackAngle: 33
       AttackRange:
-        RawValue: 360448
+        RawValue: 327680
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 7700000077000000
+      Specials: 0000000066000000
     - Id: 33
       AssetRef:
         Id:
@@ -126,13 +126,13 @@ MonoBehaviour:
         RawValue: 65536
       MaxAmmo: 15
       PowerRatioToBase:
-        RawValue: 27853
+        RawValue: 52428
       AimingMovementSpeed:
-        RawValue: 32768
+        RawValue: 26214
       AimTime:
-        RawValue: 13107
+        RawValue: 19660
       AttackCooldown:
-        RawValue: 58982
+        RawValue: 45875
       AttackHitSpeed:
         RawValue: 425984
       AttackAngle: 0
@@ -141,105 +141,105 @@ MonoBehaviour:
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
-        RawValue: 131072
-      Specials: 660000000a000000
+        RawValue: 196608
+      Specials: 0000000066000000
     - Id: 35
       AssetRef:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 65536
-      MaxAmmo: 38
+      MaxAmmo: 35
       PowerRatioToBase:
-        RawValue: 12780
+        RawValue: 21626
       AimingMovementSpeed:
-        RawValue: 45875
+        RawValue: 39321
       AimTime:
-        RawValue: 7864
+        RawValue: 6553
       AttackCooldown:
-        RawValue: 27525
+        RawValue: 21626
       AttackHitSpeed:
-        RawValue: 917504
+        RawValue: 1638400
       AttackAngle: 0
       AttackRange:
-        RawValue: 491520
+        RawValue: 458752
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 0a00000055000000
+      Specials: 0000000066000000
     - Id: 36
       AssetRef:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 65536
-      MaxAmmo: 33
+      MaxAmmo: 100
       PowerRatioToBase:
-        RawValue: 3441
+        RawValue: 9830
       AimingMovementSpeed:
-        RawValue: 22938
+        RawValue: 9830
       AimTime:
         RawValue: 36045
       AttackCooldown:
-        RawValue: 13107
+        RawValue: 4587
       AttackHitSpeed:
-        RawValue: 3670016
-      AttackAngle: 30
+        RawValue: 1966080
+      AttackAngle: 0
       AttackRange:
-        RawValue: 380109
-      CanHitSameTarget: 1
+        RawValue: 393216
+      CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 5900000077000000
+      Specials: 0000000066000000
     - Id: 23
       AssetRef:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 65536
-      MaxAmmo: 49
+      MaxAmmo: 70
       PowerRatioToBase:
         RawValue: 10813
       AimingMovementSpeed:
-        RawValue: 45875
+        RawValue: 39321
       AimTime:
-        RawValue: 9830
+        RawValue: 6553
       AttackCooldown:
-        RawValue: 22938
+        RawValue: 10813
       AttackHitSpeed:
-        RawValue: 851968
+        RawValue: 1638400
       AttackAngle: 0
       AttackRange:
-        RawValue: 504627
+        RawValue: 458752
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 7700000066000000
+      Specials: 0000000066000000
     - Id: 37
       AssetRef:
         Id:
           Value: 4070827363264793974
       InitialAmmoFilled:
         RawValue: 65536
-      MaxAmmo: 43
+      MaxAmmo: 50
       PowerRatioToBase:
-        RawValue: 3768
+        RawValue: 16384
       AimingMovementSpeed:
         RawValue: 26214
       AimTime:
         RawValue: 26214
       AttackCooldown:
-        RawValue: 13107
+        RawValue: 16384
       AttackHitSpeed:
-        RawValue: 3801088
-      AttackAngle: 20
+        RawValue: 983040
+      AttackAngle: 25
       AttackRange:
-        RawValue: 425984
+        RawValue: 524288
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 0a0000006e000000
+      Specials: 0000000066000000

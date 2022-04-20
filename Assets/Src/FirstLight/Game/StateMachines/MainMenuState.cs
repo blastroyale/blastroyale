@@ -303,7 +303,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsNameNotSet()
 		{
-			return _gameDataProvider.PlayerDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
+			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -506,12 +506,12 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _gameDataProvider.PlayerDataProvider.Nickname, 
+			                                                    _gameDataProvider.AppDataProvider.Nickname, 
 			                                                    confirmButton, false, OnNameSet);
 
 			void OnNameSet(string newName)
 			{
-				_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = newName });
+				_services.PlayfabService.UpdateNickname(newName);
 				closureActivity.Complete();
 			}
 		}

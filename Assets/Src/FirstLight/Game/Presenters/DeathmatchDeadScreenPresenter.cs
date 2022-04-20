@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 			var playerData = frame.GetSingleton<GameContainer>().PlayersData;
 			var deadPlayer = frame.Get<DeadPlayerCharacter>(playerData[localPlayer].Entity);
 			var killerMatchData = new QuantumPlayerMatchData(frame, playerData[deadPlayer.Killer]);
-			var localName = _gameDataProvider.PlayerDataProvider.Nickname;
+			var localName = _gameDataProvider.AppDataProvider.Nickname;
 			
 			_killTrackerHolder.SetActive(!killerMatchData.IsLocalPlayer);
 			

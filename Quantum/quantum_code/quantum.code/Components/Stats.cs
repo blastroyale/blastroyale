@@ -116,7 +116,7 @@ namespace Quantum
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="percentage"/> (between 0 - 1)
 		/// </summary>
-		internal void SetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
+		internal void SetCurrentHealthPercentage(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
 		{
 			var maxHealth = GetStatData(StatType.Health).StatValue;
 
@@ -130,10 +130,10 @@ namespace Quantum
 		{
 			var previousHealth = CurrentHealth;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			
+
 			CurrentHealth = Math.Min(maxHealth, amount);
 			CurrentHealth = Math.Max(CurrentHealth, 0);
-			
+
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{
 				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
@@ -154,7 +154,7 @@ namespace Quantum
 				return;
 			}
 
-			SetCurrentHealth(f, entity, attacker, (uint) CurrentHealth + amount);
+			SetCurrentHealth(f, entity, attacker, (int) (CurrentHealth + amount));
 		}
 
 		/// <summary>
@@ -189,7 +189,7 @@ namespace Quantum
 			{
 				var armourDamage = damageAmount - (uint) currentDamageAmount;
 				var healthDamage = (uint) currentDamageAmount;
-				
+
 				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
 				                         healthDamage, damageAmount, maxHealth, maxInterimArmour);
 				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,

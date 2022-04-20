@@ -118,7 +118,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.PlayerDataProvider.Nickname);
+			_networkService.QuantumClient.ConnectUsingSettings(settings, _dataProvider.AppDataProvider.Nickname);
 		}
 		
 		private void DisconnectPhoton()
@@ -135,7 +135,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_networkService.QuantumClient.NickName = _dataProvider.PlayerDataProvider.Nickname;
+			_networkService.QuantumClient.NickName = _dataProvider.AppDataProvider.Nickname;
 			
 			var preloadIds = new List<int>();
 			

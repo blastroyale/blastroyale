@@ -5,7 +5,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 
@@ -76,14 +75,11 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
-
-			_services.MessageBrokerService.Subscribe<RespawnClickedMessage>(RespawnClickedMessage);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
-			_services.MessageBrokerService.Unsubscribe<RespawnClickedMessage>(RespawnClickedMessage);
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
@@ -150,7 +146,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DeathmatchDeadScreenPresenter.StateData
 			{
-				KillerData = _killsDictionary
+				KillerData = _killsDictionary,
+				OnRespawnClicked = OnRespawnClicked
 			};
 
 			_uiService.OpenUi<DeathmatchDeadScreenPresenter, DeathmatchDeadScreenPresenter.StateData>(data);
@@ -171,7 +168,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<GameCountdownScreenPresenter>();
 		}
 
-		private void RespawnClickedMessage(RespawnClickedMessage _)
+		private void OnRespawnClicked()
 		{
 			_statechartTrigger(_localPlayerRespawnEvent);
 		}

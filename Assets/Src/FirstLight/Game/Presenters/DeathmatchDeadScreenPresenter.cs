@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
@@ -25,6 +26,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public Action OnRespawnClicked;
 			public Dictionary<PlayerRef, Pair<int, int>> KillerData;
 		}
 
@@ -139,7 +141,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRespawnPressed()
 		{
-			_services.MessageBrokerService.Publish(new RespawnClickedMessage());
+			Data.OnRespawnClicked();
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}
 	}

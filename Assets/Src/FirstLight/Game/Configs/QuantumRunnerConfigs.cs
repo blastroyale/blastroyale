@@ -65,7 +65,7 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetEnterRoomParams(IGameDataProvider dataProvider, MapConfig config, string roomName = null)
+		public EnterRoomParams GetEnterRoomParams(IGameDataProvider dataProvider, MapConfig mapConfig, string roomName = null)
 		{
 			var preloadIds = new List<int>();
 			
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Configs
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreationRoomProperties(config),
+					CustomRoomProperties = GetCreationRoomProperties(mapConfig),
 					CustomRoomPropertiesForLobby = GetRoomPropertiesToExposeInLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -104,9 +104,8 @@ namespace FirstLight.Game.Configs
 					EmptyRoomTtl = 0,
 					IsOpen = true,
 					IsVisible = string.IsNullOrEmpty(roomName),
-					MaxPlayers = (byte)config.PlayersLimit,
-					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000,
-
+					MaxPlayers = (byte)mapConfig.PlayersLimit,
+					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000
 				}
 			};
 			
@@ -117,12 +116,12 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public OpJoinRandomRoomParams GetJoinRandomRoomParams(MapConfig config)
+		public OpJoinRandomRoomParams GetJoinRandomRoomParams(MapConfig mapConfig)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetMatchMakingRoomProperties(config),
-				ExpectedMaxPlayers = (byte) config.PlayersLimit,
+				ExpectedCustomRoomProperties = GetMatchMakingRoomProperties(mapConfig),
+				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -134,9 +133,9 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(MapConfig config)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(MapConfig mapConfig)
 		{
-			var gameMode = config.PlayersLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+			var gameMode = mapConfig.PlayersLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
 			
 			return new QuantumRunner.StartParameters
 			{
@@ -152,20 +151,20 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = InstantReplaySettings.Default,
 				HeapExtraCount = 0,
-				PlayerCount = config.PlayersLimit
+				PlayerCount = mapConfig.PlayersLimit
 			};
 		}
 
-		private Hashtable GetCreationRoomProperties(MapConfig config)
+		private Hashtable GetCreationRoomProperties(MapConfig mapConfig)
 		{
-			var properties = GetMatchMakingRoomProperties(config);
+			var properties = GetMatchMakingRoomProperties(mapConfig);
 			
 			properties.Add(_roomPropertyKeyStartTime, DateTime.UtcNow.Ticks);
 
 			return properties;
 		}
 		
-		private Hashtable GetMatchMakingRoomProperties(MapConfig config)
+		private Hashtable GetMatchMakingRoomProperties(MapConfig mapConfig)
 		{
 			var properties = new Hashtable
 			{
@@ -173,7 +172,7 @@ namespace FirstLight.Game.Configs
 				{ _roomPropertyKeyGitCommit, VersionUtils.Commit },
 				
 				// Set the game map Id for the same matchmaking
-				{ _roomPropertyKeyMap, config.Id },
+				{ _roomPropertyKeyMap, mapConfig.Id },
 				
 				// Set if only dev mode players match together
 				{ _roomPropertyKeyDevMode, IsDevMode },

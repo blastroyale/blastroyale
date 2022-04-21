@@ -380,12 +380,9 @@ namespace FirstLight.Game.StateMachines
 			// Check if all players loaded match
 			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
-				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var isLoaded))
+				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var isLoaded) && (bool) isLoaded == false)
 				{
-					if ((bool) isLoaded == false)
-					{
-						return;
-					}
+					return;
 				}
 			}
 			
@@ -394,15 +391,12 @@ namespace FirstLight.Game.StateMachines
 		}
 		private void CheckAllLoadedEquipment()
 		{
-			// Check if all players loaded match
+			// Check if all players loaded equipment
 			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
-				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var isLoaded))
+				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var isLoaded) && (bool) isLoaded == false)
 				{
-					if ((bool) isLoaded == false)
-					{
-						return;
-					}
+					return;
 				}
 			}
 			

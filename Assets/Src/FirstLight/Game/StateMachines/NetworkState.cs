@@ -401,13 +401,11 @@ namespace FirstLight.Game.StateMachines
 				{
 					if ((bool) isLoaded == false)
 					{
-						Debug.LogError("NOT ALL LOADED EQUIP");
 						return;
 					}
 				}
 			}
 			
-			Debug.LogError("ALL LOADED EQUIP");
 			_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
 		}
 		

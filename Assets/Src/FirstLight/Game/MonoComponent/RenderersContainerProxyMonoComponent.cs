@@ -88,6 +88,14 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public void DisableParticles()
+		{
+			foreach (var renderersContainer in _renderersContainers)
+			{
+				renderersContainer.DisableParticles();
+			}
+		}
+
 		/// <inheritdoc />
 		public void ResetToOriginalMaterials()
 		{

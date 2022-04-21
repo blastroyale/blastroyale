@@ -214,7 +214,10 @@ namespace FirstLight.Game.MonoComponent
 				_renderers[i].materials = newMaterials;
 				_renderers[i].shadowCastingMode = mode;
 			}
-			
+		}
+
+		public void DisableParticles()
+		{
 			foreach (var render in _particleRenderers)
 			{
 				render.enabled = false;
@@ -225,11 +228,6 @@ namespace FirstLight.Game.MonoComponent
 		public void ResetToOriginalMaterials()
 		{
 			SetMaterial(i => _originalMaterials[i], ShadowCastingMode.On, false);
-
-			foreach (var render in _particleRenderers)
-			{
-				render.enabled = true;
-			}
 		}
 	}
 }

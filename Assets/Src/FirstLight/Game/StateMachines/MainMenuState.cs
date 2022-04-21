@@ -630,7 +630,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendPlayClickedEvent()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfigInRotation;
 			
 			var dictionary = new Dictionary<string, object> 
 			{

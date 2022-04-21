@@ -223,7 +223,7 @@ namespace FirstLight.Game.StateMachines
 		private void StartRandomMatchmaking()
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfigInRotation;
 			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig);
 			var joinParams = config.GetJoinRandomRoomParams(mapConfig);
 			UpdateQuantumClientProperties();
@@ -234,7 +234,7 @@ namespace FirstLight.Game.StateMachines
 		private void JoinRoom(string roomName)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfigInRotation;
 			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig, roomName);
 			UpdateQuantumClientProperties();
 			
@@ -244,7 +244,7 @@ namespace FirstLight.Game.StateMachines
 		private void CreateRoom(string roomName)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfig;
+			var mapConfig = _dataProvider.AppDataProvider.CurrentMapConfigInRotation;
 			var enterParams = config.GetEnterRoomParams(_dataProvider, mapConfig, roomName);
 			UpdateQuantumClientProperties();
 			

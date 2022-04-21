@@ -198,7 +198,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMatchAssets()
 		{
 			var tasks = new List<Task>();
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.CurrentMapConfigInRotation;
 			var map = config.Map.ToString();
 			var entityService =
 				new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();

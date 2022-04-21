@@ -325,7 +325,7 @@ namespace FirstLight.Game.StateMachines
 			
 			await Task.WhenAll(tasks);
 			
-			_services.MessageBrokerService.Publish(new PlayerAssetsLoadedMessage());
+			_services.MessageBrokerService.Publish(new EquipmentAssetsLoadedMessage());
 		}
 	}
 }

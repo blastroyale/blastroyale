@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<EnteredMatchmakingStateMessage>(OnEnteredMatchmakingStateMessage);
 			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
-			_services.MessageBrokerService.Subscribe<PlayerAssetsLoadedMessage>(OnPlayerAssetsLoadedMessage);
+			_services.MessageBrokerService.Subscribe<EquipmentAssetsLoadedMessage>(OnPlayerAssetsLoadedMessage);
 			_services.MessageBrokerService.Subscribe<RoomDevClickedMessage>(OnRoomDevClicked);
 		}
 		
@@ -163,16 +163,6 @@ namespace FirstLight.Game.StateMachines
 			StartRandomMatchmaking();	
 		}
 		
-		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
-		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{ GameConstants.PLAYER_PROPS_LOADED_MATCH, true }
-			};
-			
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
-		}
-		
 		private void OnRoomDevClicked(RoomDevClickedMessage msg)
 		{
 			CreateRoom(msg.RoomName);
@@ -193,7 +183,17 @@ namespace FirstLight.Game.StateMachines
 			StartMatchmakingLockRoomTimer();
 		}
 		
-		private void OnPlayerAssetsLoadedMessage(PlayerAssetsLoadedMessage msg)
+		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{ GameConstants.PLAYER_PROPS_LOADED_MATCH, true }
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+		}
+		
+		private void OnPlayerAssetsLoadedMessage(EquipmentAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{
@@ -410,11 +410,13 @@ namespace FirstLight.Game.StateMachines
 
 			if (allPlayersLoadedMatch)
 			{
+				Debug.LogError("ALL LOADED MATCH");
 				_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
 			}
 
 			if (allPlayersLoadedEquipment)
 			{
+				Debug.LogError("ALL LOADED EQUIP");
 				_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
 			}
 		}

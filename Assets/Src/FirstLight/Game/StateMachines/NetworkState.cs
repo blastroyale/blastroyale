@@ -365,21 +365,18 @@ namespace FirstLight.Game.StateMachines
 			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var loadedMatch) && (bool) loadedMatch)
 			{
 				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage(){ Player = targetPlayer });
+				CheckAllLoadedMatch();
 			}
 			
 			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var loadedEquip) && (bool) loadedEquip)
 			{
 				_services.MessageBrokerService.Publish(new PlayerLoadedEquipmentMessage(){ Player = targetPlayer });
+				CheckAllLoadedEquipment();
 			}
-			
-			CheckAllPlayersLoaded();
 		}
 		
-		private void CheckAllPlayersLoaded()
+		private void CheckAllLoadedMatch()
 		{
-			bool allPlayersLoadedMatch = true;
-			bool allPlayersLoadedEquipment = true;
-			
 			// Check if all players loaded match
 			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
@@ -387,13 +384,18 @@ namespace FirstLight.Game.StateMachines
 				{
 					if ((bool) isLoaded == false)
 					{
-						allPlayersLoadedMatch = false;
 						Debug.LogError("NOT ALL LOADED MATCH");
-						break;
+						return;
 					}
 				}
 			}
 			
+			Debug.LogError("ALL LOADED MATCH");
+			_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
+
+		}
+		private void CheckAllLoadedEquipment()
+		{
 			// Check if all players loaded match
 			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
@@ -401,24 +403,14 @@ namespace FirstLight.Game.StateMachines
 				{
 					if ((bool) isLoaded == false)
 					{
-						allPlayersLoadedEquipment = false;
 						Debug.LogError("NOT ALL LOADED EQUIP");
-						break;
+						return;
 					}
 				}
 			}
-
-			if (allPlayersLoadedMatch)
-			{
-				Debug.LogError("ALL LOADED MATCH");
-				_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
-			}
-
-			if (allPlayersLoadedEquipment)
-			{
-				Debug.LogError("ALL LOADED EQUIP");
-				_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
-			}
+			
+			Debug.LogError("ALL LOADED EQUIP");
+			_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
 		}
 		
 		/// <inheritdoc />

@@ -384,13 +384,11 @@ namespace FirstLight.Game.StateMachines
 				{
 					if ((bool) isLoaded == false)
 					{
-						Debug.LogError("NOT ALL LOADED MATCH");
 						return;
 					}
 				}
 			}
 			
-			Debug.LogError("ALL LOADED MATCH");
 			_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
 
 		}

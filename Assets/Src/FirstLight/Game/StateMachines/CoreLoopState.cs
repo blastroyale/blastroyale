@@ -43,25 +43,22 @@ namespace FirstLight.Game.StateMachines
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
-			var initialConnectionCheck = stateFactory.State("Initial Connection Check");
 			var final = stateFactory.Final("Final");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
-			var connectionCheckToMenu = stateFactory.Choice("Connection Check To Menu");
-			var reconnectWaitToMenu = stateFactory.State("Reconnect Attempt To Menu");
+			var connectionCheck = stateFactory.Choice("Connection Check");
+			var connectionWaitToMenu = stateFactory.State("Connection Wait to Menu");
 			
-			initial.Transition().Target(initialConnectionCheck);
+			initial.Transition().Target(connectionCheck);
 
-			initialConnectionCheck.Event(NetworkState.PhotonMasterConnectedEvent).Target(connectionCheckToMenu);
+			connectionCheck.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
+			connectionCheck.Transition().Target(connectionWaitToMenu);
+			
+			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
-			match.Nest(_matchState.Setup).Target(connectionCheckToMenu);
-
-			connectionCheckToMenu.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
-			connectionCheckToMenu.Transition().Target(reconnectWaitToMenu);
-			
-			reconnectWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
+			match.Nest(_matchState.Setup).Target(connectionCheck);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}

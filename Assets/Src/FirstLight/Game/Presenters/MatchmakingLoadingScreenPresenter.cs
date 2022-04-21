@@ -209,12 +209,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLockRoomClicked()
 		{
-			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(true);
 			_playersFoundText.gameObject.SetActive(false);
 			_findingPlayersText.gameObject.SetActive(false);
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
 		}
 
 		private void OnLeaveRoomClicked()

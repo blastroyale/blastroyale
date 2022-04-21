@@ -42,6 +42,10 @@ namespace FirstLight.Game.Utils
 
 		public const int PLAYER_NAME_MIN_LENGTH = 3;
 		public const int PLAYER_NAME_MAX_LENGTH = 20;
+
+		public const string PLAYER_PROPS_PRELOAD_IDS = "PreloadIds";
+		public const string PLAYER_PROPS_LOADED_MATCH = "LoadedMatch";
+		public const string PLAYER_PROPS_LOADED_EQUIPMENT = "LoadedEquip";
 		
 		// The name of the parameter in the animator that decides the time of stun outro animation
 		public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
@@ -71,10 +75,5 @@ namespace FirstLight.Game.Utils
 		public const string NotificationIdleBoxesChannel = "idle_boxes";
 		public const string NotificationBoxesChannel = "loot_boxes";
 		
-		public static GameId [] TUTORIAL_VIDEO_IDS = { GameId.SniperRifle };
-
-		public const int FtueAdventuresCount = 1;
-		public const int OnboardingAdventuresCount = 0;
-		public const int RotationAdventuresCount = 1;
 	}
 }

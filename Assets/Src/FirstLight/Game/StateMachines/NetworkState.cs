@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Realtime;
@@ -92,6 +93,8 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomJoinClickedMessage>(OnRoomJoinClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomCreateClickedMessage>(OnRoomCreateClicked);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
+			_services.MessageBrokerService.Subscribe<EnteredMatchmakingStateMessage>(OnEnteredMatchmakingState);
+			_services.MessageBrokerService.Subscribe<RoomDevClickedMessage>(OnRoomDevClicked);
 		}
 		
 		private void UnsubscribeEvents()
@@ -134,10 +137,14 @@ namespace FirstLight.Game.StateMachines
 
 			preloadIds.Add((int) _dataProvider.PlayerDataProvider.CurrentSkin.Value);
 			
-			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(new Hashtable
+			var playerProps = new Hashtable
 			{
-				{"PreloadIds", preloadIds.ToArray()}
-			});
+				{GameConstants.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
+				{GameConstants.PLAYER_PROPS_LOADED_MATCH, false},
+				{GameConstants.PLAYER_PROPS_LOADED_EQUIPMENT, false},
+			};
+			
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
 		}
 		
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
@@ -155,6 +162,11 @@ namespace FirstLight.Game.StateMachines
 			StartRandomMatchmaking();	
 		}
 		
+		private void OnRoomDevClicked(RoomDevClickedMessage msg)
+		{
+			CreateRoom(msg.RoomName);
+		}
+		
 		private void OnRoomCreateClicked(RoomCreateClickedMessage msg)
 		{
 			CreateRoom(msg.RoomName);
@@ -163,6 +175,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnRoomJoinClickedMessage(RoomJoinClickedMessage msg)
 		{
 			JoinRoom(msg.RoomName);
+		}
+		
+		private void OnEnteredMatchmakingState(EnteredMatchmakingStateMessage msg)
+		{
+			StartMatchmakingLockRoomTimer();
 		}
 
 		/// <inheritdoc />
@@ -254,8 +271,6 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(JoinedRoomEvent);
 			_services.MessageBrokerService.Publish(new JoinedRoomMessage());
-
-			StartMatchmakingLockRoomTimer();
 		}
 
 		/// <inheritdoc />
@@ -377,7 +392,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
+			// Return if custom match (not visible), or local player not master
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible ||
+			    !_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
 				return;
 			}

@@ -76,11 +76,18 @@ namespace FirstLight.Game.Configs
 			}
 
 			preloadIds.Add((int) dataProvider.PlayerDataProvider.CurrentSkin.Value);
+
+			var playerProps = new Hashtable
+			{
+				{GameConstants.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
+				{GameConstants.PLAYER_PROPS_LOADED_MATCH, false},
+				{GameConstants.PLAYER_PROPS_LOADED_EQUIPMENT, false},
+			};
 			
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = roomName,
-				PlayerProperties = new Hashtable {{"PreloadIds", preloadIds.ToArray()}},
+				PlayerProperties = playerProps,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions

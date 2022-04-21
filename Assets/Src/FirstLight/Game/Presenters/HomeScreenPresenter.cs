@@ -129,7 +129,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 
 			Data.OnPlayButtonClicked();
-			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomDevClickedMessage() {RoomName = UnityEngine.Random.Range(100, 999).ToString("F0")});
 		}
 
 		private void OnPlayBattleRoyaleOfflineClicked()

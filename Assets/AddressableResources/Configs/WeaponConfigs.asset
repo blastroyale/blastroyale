@@ -137,7 +137,7 @@ MonoBehaviour:
         RawValue: 458752
       AttackAngle: 0
       AttackRange:
-        RawValue: 524288
+        RawValue: 557056
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:

@@ -35,9 +35,9 @@ MonoBehaviour:
         RawValue: 49152
       AttackHitSpeed:
         RawValue: 5898240
-      AttackAngle: 5
+      AttackAngle: 1
       AttackRange:
-        RawValue: 557056
+        RawValue: 655360
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:

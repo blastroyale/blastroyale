@@ -25,6 +25,7 @@ namespace FirstLight.Game.Messages
 	public struct EnhanceCompletedMessage : IMessage {  }
 	public struct CrateClickedMessage : IMessage { public UniqueId LootBoxId; }
 	public struct RoomRandomClickedMessage : IMessage { }
+	public struct RoomDevClickedMessage : IMessage { public string RoomName; }
 	public struct RoomJoinCreateClickedMessage : IMessage { }
 	public struct RoomJoinClickedMessage : IMessage { public string RoomName; }
 	public struct RoomCreateClickedMessage : IMessage { public string RoomName; }

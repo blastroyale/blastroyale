@@ -19,6 +19,10 @@ namespace FirstLight.Game.Messages
 	public struct RoomPropertiesUpdatedMessage : IMessage { public Hashtable ChangedProps; }
 	public struct RoomClosedMessage : IMessage {}
 	public struct PlayerPropertiesUpdatedMessage : IMessage { public Player Player; public Hashtable ChangedProps; }
+	public struct PlayerLoadedMatchMessage : IMessage { public Player Player; }
+	public struct PlayerLoadedEquipmentMessage : IMessage { public Player Player; }
+	public struct AllPlayersLoadedMatchMessage : IMessage {}
+	public struct AllPlayersLoadedEquipmentMessage : IMessage {}
 	public struct RegionListReceivedMessage : IMessage { public RegionHandler RegionHandler; }
 	public struct CustomAuthResponseMessage : IMessage { public Dictionary<string, object> Data; }
 	public struct CustomAuthFailedMessage : IMessage { public string Message; }

@@ -27,9 +27,10 @@ namespace FirstLight.Game.StateMachines
 	public class MatchState
 	{
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
-		private static readonly IStatechartEvent _loadingComplete = new StatechartEvent("Loading Complete");
+		
 		private static readonly IStatechartEvent _leaveMatchEvent = new StatechartEvent("Leave Match Event");
-
+		private static readonly IStatechartEvent _allPlayersReadyEvent = new StatechartEvent("All Players Ready");
+		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
@@ -58,13 +59,13 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var loading = stateFactory.TaskWait("Loading Assets");
-			var connecting = stateFactory.State("Connecting Screen");
 			var connectedCheck = stateFactory.Choice("Connected Check");
+			var roomCheck = stateFactory.Choice("Room Check");
 			var assetPreload = stateFactory.TaskWait("Asset Preload");
 			var matchmaking = stateFactory.State("Matchmaking");
+			var playerReadyWait = stateFactory.State("Player Ready Check");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
-			var disconnected = stateFactory.State("Disconnected Screen");
 			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
@@ -73,14 +74,20 @@ namespace FirstLight.Game.StateMachines
 			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
 
-			connectedCheck.Transition().Condition(IsConnected).Target(matchmaking);
-			connectedCheck.Transition().Target(matchmaking);
+			connectedCheck.Transition().Condition(IsConnected).Target(roomCheck);
+			connectedCheck.Transition().Target(unloading);
 			
+			roomCheck.Transition().Condition(RoomIsClosed).Target(assetPreload);
+			roomCheck.Transition().Target(matchmaking);
+			
+			matchmaking.OnEnter(SendMatchmakingStageMessage);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.LeftRoomEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreload);
 
-			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(gameSimulation);
+			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(playerReadyWait);
+			
+			playerReadyWait.Event(_allPlayersReadyEvent).Target(gameSimulation);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
@@ -94,12 +101,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-	
+			_services.MessageBrokerService.Subscribe<AllPlayersLoadedEquipmentMessage>(OnAllPlayersLoadedEquipmentMessage);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		private void SendMatchmakingStageMessage()
+		{
+			_services.MessageBrokerService.Publish(new EnteredMatchmakingStateMessage());
 		}
 
 		private void OpenMatchmakingScreen()
@@ -153,6 +165,16 @@ namespace FirstLight.Game.StateMachines
 		private bool IsConnected()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		private bool RoomIsClosed()
+		{
+			return _services.NetworkService.QuantumClient.CurrentRoom.IsOpen == false;
+		}
+		
+		private void OnAllPlayersLoadedEquipmentMessage(AllPlayersLoadedEquipmentMessage msg)
+		{
+			_statechartTrigger(_allPlayersReadyEvent);
 		}
 
 		private List<Task> LoadQuantumAssets(string map)
@@ -300,6 +322,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			await Task.WhenAll(tasks);
+			
+			_services.MessageBrokerService.Publish(new EquipmentAssetsLoadedMessage());
 		}
 	}
 }

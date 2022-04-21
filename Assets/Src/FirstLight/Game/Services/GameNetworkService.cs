@@ -19,10 +19,12 @@ namespace FirstLight.Game.Services
 		/// Requests the user unique ID for this device
 		/// </summary>
 		string UserId { get; }
+		
 		/// <summary>
 		/// Requests the ping status with the quantum server
 		/// </summary>
 		IObservableFieldReader<bool> HasLag { get; }
+		
 		/// <inheritdoc cref="QuantumLoadBalancingClient" />
 		QuantumLoadBalancingClient QuantumClient { get; }
 	}
@@ -51,6 +53,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		string IGameNetworkService.UserId => UserId.Value;
+		
 		/// <inheritdoc />
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 

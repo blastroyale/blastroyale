@@ -48,6 +48,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
 		private float _rndWaitingTimeBiggest;
+		private bool _allPlayersLoadedMatch = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 
@@ -68,7 +69,7 @@ namespace FirstLight.Game.Presenters
 			
 			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerLeftRoomMessage>(OnPlayerLeftRoom);
-			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AllPlayersLoadedMatchMessage>(OnAllPlayersLoadedMatchMessage);
 			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -84,6 +85,8 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+
+			_allPlayersLoadedMatch = false;
 
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
@@ -106,28 +109,40 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
+		private void OnAllPlayersLoadedMatchMessage(AllPlayersLoadedMatchMessage msg)
 		{
-			var masterClientPlayer = _services.NetworkService.QuantumClient.CurrentRoom.GetPlayer(0, true);
-			var localPlayer = _services.NetworkService.QuantumClient.LocalPlayer;
-			var localPlayerIsMaster = localPlayer.UserId == masterClientPlayer.UserId;
-
+			_allPlayersLoadedMatch = true;
+			
 			// Only custom rooms can show room controls
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 
+			    _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				_lockRoomButton.gameObject.SetActive(true);
+			}
+
 			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
 			{
-				_lockRoomButton.gameObject.SetActive(localPlayerIsMaster);
 				_leaveRoomButton.gameObject.SetActive(true);
 			}
 		}
 		
 		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
 		{
+			_allPlayersLoadedMatch = false;
+			_lockRoomButton.gameObject.SetActive(false);
 			UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 		}
 		
 		private void OnPlayerLeftRoom(PlayerLeftRoomMessage msg)
 		{
 			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
+			
+			// Only custom rooms can show room controls
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 
+			    _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && _allPlayersLoadedMatch)
+			{
+				_lockRoomButton.gameObject.SetActive(true);
+			}
 		}
 
 		private void UpdatePlayersWaitingImages(int playerAmount)

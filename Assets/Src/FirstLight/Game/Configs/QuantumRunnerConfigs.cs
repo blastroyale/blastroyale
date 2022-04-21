@@ -81,7 +81,7 @@ namespace FirstLight.Game.Configs
 			{
 				{GameConstants.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
 				{GameConstants.PLAYER_PROPS_LOADED_MATCH, false},
-				{GameConstants.PLAYER_PROPS_LOADED_EQUIPMENT, false},
+				{GameConstants.PLAYER_PROPS_LOADED_EQUIP, false}
 			};
 			
 			var roomParams = new EnterRoomParams

@@ -93,7 +93,9 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomJoinClickedMessage>(OnRoomJoinClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomCreateClickedMessage>(OnRoomCreateClicked);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
-			_services.MessageBrokerService.Subscribe<EnteredMatchmakingStateMessage>(OnEnteredMatchmakingState);
+			_services.MessageBrokerService.Subscribe<EnteredMatchmakingStateMessage>(OnEnteredMatchmakingStateMessage);
+			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<PlayerAssetsLoadedMessage>(OnPlayerAssetsLoadedMessage);
 			_services.MessageBrokerService.Subscribe<RoomDevClickedMessage>(OnRoomDevClicked);
 		}
 		
@@ -140,8 +142,7 @@ namespace FirstLight.Game.StateMachines
 			var playerProps = new Hashtable
 			{
 				{GameConstants.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.PLAYER_PROPS_LOADED_MATCH, false},
-				{GameConstants.PLAYER_PROPS_LOADED_EQUIPMENT, false},
+				{GameConstants.PLAYER_PROPS_LOADED_EQUIP, false}
 			};
 			
 			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
@@ -162,6 +163,16 @@ namespace FirstLight.Game.StateMachines
 			StartRandomMatchmaking();	
 		}
 		
+		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{ GameConstants.PLAYER_PROPS_LOADED_MATCH, true }
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+		}
+		
 		private void OnRoomDevClicked(RoomDevClickedMessage msg)
 		{
 			CreateRoom(msg.RoomName);
@@ -177,9 +188,19 @@ namespace FirstLight.Game.StateMachines
 			JoinRoom(msg.RoomName);
 		}
 		
-		private void OnEnteredMatchmakingState(EnteredMatchmakingStateMessage msg)
+		private void OnEnteredMatchmakingStateMessage(EnteredMatchmakingStateMessage msg)
 		{
 			StartMatchmakingLockRoomTimer();
+		}
+		
+		private void OnPlayerAssetsLoadedMessage(PlayerAssetsLoadedMessage msg)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{GameConstants.PLAYER_PROPS_LOADED_EQUIP, true}
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
 		/// <inheritdoc />
@@ -340,8 +361,64 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			_statechartTrigger(PlayerPropertiesUpdatedEvent);
 			_services.MessageBrokerService.Publish(new PlayerPropertiesUpdatedMessage() {Player = targetPlayer, ChangedProps = changedProps});
+			
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var loadedMatch) && (bool) loadedMatch)
+			{
+				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage(){ Player = targetPlayer });
+			}
+			
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var loadedEquip) && (bool) loadedEquip)
+			{
+				_services.MessageBrokerService.Publish(new PlayerLoadedEquipmentMessage(){ Player = targetPlayer });
+			}
+			
+			CheckAllPlayersLoaded();
 		}
+		
+		private void CheckAllPlayersLoaded()
+		{
+			bool allPlayersLoadedMatch = true;
+			bool allPlayersLoadedEquipment = true;
+			
+			// Check if all players loaded match
+			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
+			{
+				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var isLoaded))
+				{
+					if ((bool) isLoaded == false)
+					{
+						allPlayersLoadedMatch = false;
+						Debug.LogError("NOT ALL LOADED MATCH");
+						break;
+					}
+				}
+			}
+			
+			// Check if all players loaded match
+			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
+			{
+				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var isLoaded))
+				{
+					if ((bool) isLoaded == false)
+					{
+						allPlayersLoadedEquipment = false;
+						Debug.LogError("NOT ALL LOADED EQUIP");
+						break;
+					}
+				}
+			}
 
+			if (allPlayersLoadedMatch)
+			{
+				_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
+			}
+
+			if (allPlayersLoadedEquipment)
+			{
+				_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
+			}
+		}
+		
 		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{

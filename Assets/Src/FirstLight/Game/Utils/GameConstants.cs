@@ -45,7 +45,7 @@ namespace FirstLight.Game.Utils
 
 		public const string PLAYER_PROPS_PRELOAD_IDS = "PreloadIds";
 		public const string PLAYER_PROPS_LOADED_MATCH = "LoadedMatch";
-		public const string PLAYER_PROPS_LOADED_EQUIPMENT = "LoadedEquip";
+		public const string PLAYER_PROPS_LOADED_EQUIP = "LoadedEquip";
 		
 		// The name of the parameter in the animator that decides the time of stun outro animation
 		public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";

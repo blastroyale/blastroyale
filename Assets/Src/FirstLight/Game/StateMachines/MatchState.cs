@@ -103,7 +103,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-	
+			_services.MessageBrokerService.Subscribe<AllPlayersLoadedEquipmentMessage>(OnAllPlayersLoadedEquipmentMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -172,6 +172,11 @@ namespace FirstLight.Game.StateMachines
 		private bool RoomIsClosed()
 		{
 			return _services.NetworkService.QuantumClient.CurrentRoom.IsOpen == false;
+		}
+		
+		private void OnAllPlayersLoadedEquipmentMessage(AllPlayersLoadedEquipmentMessage msg)
+		{
+			_statechartTrigger(_allPlayersReadyEvent);
 		}
 
 		private List<Task> LoadQuantumAssets(string map)
@@ -319,6 +324,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			await Task.WhenAll(tasks);
+			
+			_services.MessageBrokerService.Publish(new PlayerAssetsLoadedMessage());
 		}
 	}
 }

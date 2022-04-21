@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var mapConfig = _gameDataProvider.AppDataProvider.CurrentMapConfigInRotation;
+			var mapConfig = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 
 			_animation.clip = _firstToXKillsCountdownClip;
 			_animation.Play();

@@ -54,6 +54,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the current selected game mode <see cref="GameMode"/>.
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
+		
+		/// <summary>
+		/// Requests the last map that was played
+		/// </summary>
+		IObservableField<MapConfig> SelectedMap { get; }
 
 		// TODO - Move to MatchLogic, once that functionality transitions to the backend
 		/// <summary>
@@ -131,6 +136,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
+		public IObservableField<MapConfig> SelectedMap { get; private set; }
+
 		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
 			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
@@ -156,7 +163,10 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+			
 			SelectedGameMode = new ObservableField<GameMode>(0);
+			SelectedMap = new ObservableField<MapConfig>(configs[0]);
 			NicknameId = new ObservableField<string>(Data.NickNameId);
 		}
 

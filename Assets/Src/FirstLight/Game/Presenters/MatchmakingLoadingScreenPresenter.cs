@@ -84,7 +84,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfigInRotation;
+			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 
 			_allPlayersLoadedMatch = false;
 
@@ -147,7 +147,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayersWaitingImages(int playerAmount)
 		{
-			var maxPlayers = _gameDataProvider.AppDataProvider.CurrentMapConfigInRotation.PlayersLimit;
+			var maxPlayers = _gameDataProvider.AppDataProvider.SelectedMap.Value.PlayersLimit;
 			
 			for (var i = 0; i < _playersWaitingImage.Length; i++)
 			{

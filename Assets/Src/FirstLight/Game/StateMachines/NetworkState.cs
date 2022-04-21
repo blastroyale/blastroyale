@@ -165,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnRoomDevClicked(RoomDevClickedMessage msg)
 		{
-			CreateRoom(msg.RoomName);
+			StartRandomMatchmaking();
 		}
 		
 		private void OnRoomCreateClicked(RoomCreateClickedMessage msg)
@@ -190,7 +190,7 @@ namespace FirstLight.Game.StateMachines
 				{ GameConstants.PLAYER_PROPS_LOADED_MATCH, true }
 			};
 			
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 		
 		private void OnPlayerAssetsLoadedMessage(EquipmentAssetsLoadedMessage msg)
@@ -200,7 +200,7 @@ namespace FirstLight.Game.StateMachines
 				{GameConstants.PLAYER_PROPS_LOADED_EQUIP, true}
 			};
 			
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
 		/// <inheritdoc />
@@ -290,6 +290,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnJoinedRoom");
 
+			var mapConfig = _dataProvider.AppDataProvider.GetMapConfigFromRoom(_networkService.QuantumClient.CurrentRoom);
+			_dataProvider.AppDataProvider.SelectedMap.Value = mapConfig;
+
 			_statechartTrigger(JoinedRoomEvent);
 			_services.MessageBrokerService.Publish(new JoinedRoomMessage());
 		}
@@ -378,7 +381,7 @@ namespace FirstLight.Game.StateMachines
 		private void CheckAllLoadedMatch()
 		{
 			// Check if all players loaded match
-			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
+			foreach (var playerKvp in _networkService.QuantumClient.CurrentRoom.Players)
 			{
 				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var isLoaded) && (bool) isLoaded == false)
 				{
@@ -392,7 +395,7 @@ namespace FirstLight.Game.StateMachines
 		private void CheckAllLoadedEquipment()
 		{
 			// Check if all players loaded equipment
-			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
+			foreach (var playerKvp in _networkService.QuantumClient.CurrentRoom.Players)
 			{
 				if (playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var isLoaded) && (bool) isLoaded == false)
 				{
@@ -454,8 +457,8 @@ namespace FirstLight.Game.StateMachines
 		private void StartMatchmakingLockRoomTimer()
 		{
 			// Return if custom match (not visible), or local player not master
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible ||
-			    !_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			if (!_networkService.QuantumClient.CurrentRoom.IsVisible ||
+			    !_networkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
 				return;
 			}

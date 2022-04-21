@@ -48,6 +48,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
 		private float _rndWaitingTimeBiggest;
+		private bool _allPlayersLoadedMatch = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 
@@ -85,6 +86,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
 
+			_allPlayersLoadedMatch = false;
+
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
@@ -108,6 +111,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnAllPlayersLoadedMatchMessage(AllPlayersLoadedMatchMessage msg)
 		{
+			_allPlayersLoadedMatch = true;
+			
 			_leaveRoomButton.gameObject.SetActive(true);
 			
 			// Only custom rooms can show room controls
@@ -120,6 +125,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
 		{
+			_allPlayersLoadedMatch = false;
 			_lockRoomButton.gameObject.SetActive(false);
 			UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 		}
@@ -127,6 +133,13 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayerLeftRoom(PlayerLeftRoomMessage msg)
 		{
 			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
+			
+			// Only custom rooms can show room controls
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 
+			    _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && _allPlayersLoadedMatch)
+			{
+				_lockRoomButton.gameObject.SetActive(true);
+			}
 		}
 
 		private void UpdatePlayersWaitingImages(int playerAmount)

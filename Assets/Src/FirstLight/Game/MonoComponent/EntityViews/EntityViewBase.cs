@@ -91,6 +91,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			
 			RenderersContainerProxy.SetMaterial(SetMaterial, ShadowCastingMode.On, true);
+			RenderersContainerProxy.DisableParticles();
 			
 			yield return new WaitForSeconds(duration);
 

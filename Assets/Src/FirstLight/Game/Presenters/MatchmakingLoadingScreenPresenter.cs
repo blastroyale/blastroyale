@@ -113,13 +113,16 @@ namespace FirstLight.Game.Presenters
 		{
 			_allPlayersLoadedMatch = true;
 			
-			_leaveRoomButton.gameObject.SetActive(true);
-			
 			// Only custom rooms can show room controls
 			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 
 			    _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
+			}
+
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
+			{
+				_leaveRoomButton.gameObject.SetActive(true);
 			}
 		}
 		

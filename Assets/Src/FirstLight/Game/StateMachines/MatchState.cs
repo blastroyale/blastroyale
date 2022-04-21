@@ -59,15 +59,13 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var loading = stateFactory.TaskWait("Loading Assets");
-			var connecting = stateFactory.State("Connecting Screen");
 			var connectedCheck = stateFactory.Choice("Connected Check");
 			var roomCheck = stateFactory.Choice("Room Check");
 			var assetPreload = stateFactory.TaskWait("Asset Preload");
 			var matchmaking = stateFactory.State("Matchmaking");
-			var playerReadyCheck = stateFactory.State("Player Ready Check");
+			var playerReadyWait = stateFactory.State("Player Ready Check");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
-			var disconnected = stateFactory.State("Disconnected Screen");
 			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
@@ -87,9 +85,9 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.Event(NetworkState.LeftRoomEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreload);
 
-			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(playerReadyCheck);
+			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(playerReadyWait);
 			
-			playerReadyCheck.Event(_allPlayersReadyEvent).Target(gameSimulation);
+			playerReadyWait.Event(_allPlayersReadyEvent).Target(gameSimulation);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);

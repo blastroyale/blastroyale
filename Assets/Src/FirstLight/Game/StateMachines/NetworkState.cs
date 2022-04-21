@@ -289,9 +289,11 @@ namespace FirstLight.Game.StateMachines
 		public void OnJoinedRoom()
 		{
 			FLog.Info("OnJoinedRoom");
-
-			var mapConfig = _dataProvider.AppDataProvider.GetMapConfigFromRoom(_networkService.QuantumClient.CurrentRoom);
-			_dataProvider.AppDataProvider.SelectedMap.Value = mapConfig;
+			
+			if (_networkService.QuantumClient.CurrentRoom.CustomProperties.TryGetValue(GameConstants.ROOM_PROPS_MAP, out var mapID))
+			{
+				_dataProvider.AppDataProvider.SelectedMap.Value = _services.ConfigsProvider.GetConfig<MapConfig>((int) mapID);
+			}
 
 			_statechartTrigger(JoinedRoomEvent);
 			_services.MessageBrokerService.Publish(new JoinedRoomMessage());
@@ -464,7 +466,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
-
+		
 			IEnumerator LockRoomCoroutine()
 			{
 				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);

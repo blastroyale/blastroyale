@@ -67,11 +67,6 @@ namespace FirstLight.Game.Logic
 		MapConfig CurrentMapConfigInRotation { get; }
 
 		/// <summary>
-		/// Extracts custom room property from a Photon room, and returns it as map config
-		/// </summary>
-		MapConfig GetMapConfigFromRoom(Room room);
-
-		/// <summary>
 		/// Requests the player's Nickname
 		/// </summary>
 		string Nickname { get; }
@@ -136,6 +131,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
+		/// <inheritdoc />
 		public IObservableField<MapConfig> SelectedMap { get; private set; }
 
 		/// <inheritdoc />
@@ -179,18 +175,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
-		}
-		
-		public MapConfig GetMapConfigFromRoom(Room room)
-		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-			
-			if (room.CustomProperties.TryGetValue(GameConstants.ROOM_PROPS_MAP, out var mapID))
-			{
-				return configs[(int) mapID];
-			}
-			
-			throw new LogicException("Room does not contain custom map property.");
 		}
 
 		private MapConfig GetCurrentMapConfig()

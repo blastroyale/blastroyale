@@ -39,6 +39,10 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		void SetMaterial(Func<int, Material> materialResolver, ShadowCastingMode mode, bool keepTexture);
 		/// <summary>
+		/// Disables all particle systems
+		/// </summary>
+		public void DisableParticles();
+		/// <summary>
 		/// Resets all this game object and his children <see cref="Renderer"/> to their original materials
 		/// </summary>
 		void ResetToOriginalMaterials();
@@ -216,6 +220,7 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		/// <inheritdoc />
 		public void DisableParticles()
 		{
 			foreach (var render in _particleRenderers)

@@ -317,7 +317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9776ead14e47dde45b1bf84e6fe412bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V
+  m_text: I
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sniper Rifle
+  m_text: Assault Rifle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.95
+  m_fontSize: 33.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -691,7 +691,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 798466086}
-  - component: {fileID: 798466087}
   m_Layer: 5
   m_Name: Root
   m_TagString: Untagged
@@ -708,7 +707,7 @@ Transform:
   m_GameObject: {fileID: 798466085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 1}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 537103968}
@@ -718,24 +717,6 @@ Transform:
   m_Father: {fileID: 6467920952026055729}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &798466087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798466085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4f0f0875a202dc4e90c522b5b416380, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nameText: {fileID: 723161745}
-  _gradeText: {fileID: 690674405}
-  _factionSpriteRenderer: {fileID: 273750591}
-  _factionShadowSpriteRenderer: {fileID: 1152886309}
-  _itemCardSpriteData: {fileID: 11400000, guid: a364ed7137118e343821b12518f2c2e5, type: 2}
-  _renderer: {fileID: 537103969}
 --- !u!1 &1090151614
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +844,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9776ead14e47dde45b1bf84e6fe412bf, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.69411767}
   m_FlipX: 0
   m_FlipY: 0
@@ -1126,13 +1107,32 @@ GameObject:
   - component: {fileID: 6467920952026055728}
   - component: {fileID: 6467920952026055731}
   - component: {fileID: 6467920952026055730}
+  - component: {fileID: 6467920952026055734}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!114 &6467920952026055734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6467920952026055733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f0f0875a202dc4e90c522b5b416380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameText: {fileID: 723161745}
+  _gradeText: {fileID: 690674405}
+  _factionSpriteRenderer: {fileID: 273750591}
+  _factionShadowSpriteRenderer: {fileID: 1152886309}
+  _itemCardSpriteData: {fileID: 11400000, guid: a364ed7137118e343821b12518f2c2e5, type: 2}
+  _renderer: {fileID: 537103969}
 --- !u!1 &6467920952247878496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,16 +1178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _importFolderPath: C:/Users/mattj/Documents/flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1
-  _exportFolderPath: C:/Users/mattj/Documents/Render Textures
-  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1/00a724f35a3a0f7eabb22f35620f10d149602c35a271a272cfcf804d04ca160e.json
-  _metadataAttributesJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/nftequipmentattributes.json
+  _exportFolderPath: C:/Users/mattj/Documents/blast-royale/Assets/Captures
+  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1/f203bbdca10e8f052494ca1e14d71f4fe9318257824faab7739b24f581a6eace.json
   _markerTransform: {fileID: 6467920951248308136}
   _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
   _renderTextureStandalone: {fileID: 8400000, guid: 92dead6c74f18f2439c00c61464552a2, type: 2}
   _camera: {fileID: 6467920952292208544}
-  _canvasRootGameObject: {fileID: 798466085}
+  _background: {fileID: 6467920952026055733}
   _equipmentSnapshotResource: {fileID: 11400000, guid: 200883254577576428950bd7f2f08250, type: 2}
-  _renderTextureMode: 0
 --- !u!20 &6467920952292208544
 Camera:
   m_ObjectHideFlags: 0
@@ -1239,7 +1237,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6467920952292208546}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.4079416, y: 0, z: 0}
+  m_LocalPosition: {x: -1.0706946, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

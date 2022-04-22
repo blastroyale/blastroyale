@@ -279,8 +279,8 @@ namespace Src.FirstLight.Tools
 			Debug.Log($"Loaded [{fileCount} metadata files]");
 		}
 
-		[Button("Export Metadata Json")]
-		public void ExportMetadataJson()
+		[Button("Export [Metadata Json]")]
+		public void ExportRenderTextureFromMetadataJson()
 		{
 			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
@@ -317,8 +317,8 @@ namespace Src.FirstLight.Tools
 		}
 		
 		
-		[Button("Export Image Combinations")]
-		private void ExportImageCombinations()
+		[Button("Export All Render Textures")]
+		private void ExportAllRenderTextures()
 		{
 			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
@@ -474,6 +474,9 @@ namespace Src.FirstLight.Tools
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
 
+		/// <summary>
+		/// Export a render texture image given a metadata json file path and renderable background
+		/// </summary>
 		private void ExportRenderTexture(string filePath, IErcRenderable backgroundErcRenderable)
 		{
 			var jsonData = File.ReadAllText(filePath);
@@ -485,7 +488,10 @@ namespace Src.FirstLight.Tools
 			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 		}
 		
-			private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
+		/// <summary>
+		/// Export a render texture image given a metadata object and renderable background
+		/// </summary>
+		private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 		{
 			var manufacturerId = metadata.attibutesDictionary["manufacturer"];
 			var categoryId = metadata.attibutesDictionary["category"];
@@ -557,6 +563,9 @@ namespace Src.FirstLight.Tools
 			}
 		}
 
+		/// <summary>
+		///  Write render texture image to disk given a file path and render texture object
+		/// </summary>
 		private void WriteRenderTextureToDisk(string filename, RenderTexture renderTexture)
 		{
 			_canvasRoot.transform.localScale = new Vector3(renderTexture.width / _referenceResolution.x,
@@ -582,7 +591,7 @@ namespace Src.FirstLight.Tools
 		}
 		
 		/// <summary>
-		///  Load Equipment NFT attributes JSON data from disk
+		///  Load Equipment NFT attributes JSON data from disk.
 		/// </summary>
 		private void LoadEquipmentAttributesData(string filePath)
 		{
@@ -591,6 +600,9 @@ namespace Src.FirstLight.Tools
 			_nftEquipmentAttributes = JsonConvert.DeserializeObject<NftEquipmentAttributes>(jsonData);
 		}
 		
+		/// <summary>
+		/// Query bounding box for a given game object
+		/// </summary>
 		private Bounds GetBounds(GameObject go)
 		{
 			Bounds bounds = new Bounds();

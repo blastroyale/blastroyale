@@ -37,7 +37,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
-			_fragTarget = _gameDataProvider.AppDataProvider.CurrentMapConfig.GameEndTarget;
+			_fragTarget = _gameDataProvider.AppDataProvider.SelectedMap.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);

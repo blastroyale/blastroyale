@@ -58,8 +58,8 @@ namespace FirstLight.Game.Logic
 		{
 			var rewards = new Dictionary<GameId, int>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var mapConfig = GameLogic.AppDataProvider.CurrentMapConfig;
-			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
+			var mapConfig = GameLogic.AppDataProvider.SelectedMap;
+			var rankValue = mapConfig.Value.PlayersLimit + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
 			

@@ -19,11 +19,6 @@ namespace FirstLight.Game.Configs
 	[CreateAssetMenu(fileName = "QuantumRunner Configs", menuName = "ScriptableObjects/QuantumRunner Configs")]
 	public class QuantumRunnerConfigs : ScriptableObject
 	{
-		private const string _roomPropertyKeyStartTime = "t";
-		private const string _roomPropertyKeyGitCommit = "g";
-		private const string _roomPropertyKeyMap = "m";
-		private const string _roomPropertyKeyDevMode = "dev";
-		
 		[SerializeField] private RuntimeConfig _runtimeConfig;
 		[SerializeField] private DeterministicSessionConfigAsset _deterministicConfigAsset;
 		[SerializeField] private PhotonServerSettings _serverSettings;
@@ -159,7 +154,7 @@ namespace FirstLight.Game.Configs
 		{
 			var properties = GetMatchMakingRoomProperties(mapConfig);
 			
-			properties.Add(_roomPropertyKeyStartTime, DateTime.UtcNow.Ticks);
+			properties.Add(GameConstants.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
 
 			return properties;
 		}
@@ -169,13 +164,13 @@ namespace FirstLight.Game.Configs
 			var properties = new Hashtable
 			{
 				// The commit should guarantee the same Quantum build version + App version etc.
-				{ _roomPropertyKeyGitCommit, VersionUtils.Commit },
+				{ GameConstants.ROOM_PROPS_COMMIT, VersionUtils.Commit },
 				
 				// Set the game map Id for the same matchmaking
-				{ _roomPropertyKeyMap, mapConfig.Id },
+				{ GameConstants.ROOM_PROPS_MAP, mapConfig.Id },
 				
 				// Set if only dev mode players match together
-				{ _roomPropertyKeyDevMode, IsDevMode },
+				{ GameConstants.ROOM_PROPS_DEV_MODE, IsDevMode },
 			};
 			
 			return properties;
@@ -189,9 +184,9 @@ namespace FirstLight.Game.Configs
 		{
 			return new []
 			{
-				_roomPropertyKeyGitCommit,
-				_roomPropertyKeyMap,
-				_roomPropertyKeyDevMode
+				GameConstants.ROOM_PROPS_COMMIT,
+				GameConstants.ROOM_PROPS_MAP,
+				GameConstants.ROOM_PROPS_DEV_MODE
 			};
 		}
 	}

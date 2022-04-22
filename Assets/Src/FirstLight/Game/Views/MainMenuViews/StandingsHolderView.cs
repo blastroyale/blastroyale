@@ -31,7 +31,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var adventureInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			_playerResultPool =
 				new GameObjectPool<PlayerResultEntryView>((uint) adventureInfo.PlayersLimit, _resultEntryViewRef);
 

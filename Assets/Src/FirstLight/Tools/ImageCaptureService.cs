@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
 using Newtonsoft.Json;
@@ -9,6 +12,37 @@ using UnityEngine;
 
 namespace Src.FirstLight.Tools
 {
+	public struct IntFloatKeyValue
+	{
+		public int Key;
+		public float Value;
+	}
+	
+	public struct StringIntKeyValue
+	{
+		public string Key;
+		public int Value;
+	}
+	
+	public struct NftEquipmentAttributes
+	{
+		public string EquipmentMetadataDescription;
+		public StringIntKeyValue[] AttributeIntTypes;
+		public string[][] SubCategoryNames;
+		public IntFloatKeyValue[] CategoryValues;
+		public IntFloatKeyValue[][] SubCategoryValues;
+		public IntFloatKeyValue[] AdjectiveValues;
+		public IntFloatKeyValue[] RarityValues;
+		public IntFloatKeyValue[] MaterialValues;
+		public IntFloatKeyValue[] ManufacturerValues;
+		public IntFloatKeyValue[] FactionValues;
+		public IntFloatKeyValue[] GradeValues;
+		public int MinDurability;
+		public int MaxDurability;
+		public float[] MaxLevelValues;
+		public int InitialReplicationCounter;
+	}
+	
 	[Serializable]
 	public struct CaptureSnaphotData
 	{
@@ -186,6 +220,13 @@ namespace Src.FirstLight.Tools
 	
 	public class ImageCaptureService : MonoBehaviour
 	{
+		private enum RenderTextureMode
+		{
+			Standard,
+			Standalone,
+			Both
+		}
+
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _importFolderPath;
@@ -194,13 +235,19 @@ namespace Src.FirstLight.Tools
 		public string _exportFolderPath;
 		[FilePath(Extensions = "json", RequireExistingPath = true)]
 		public string _metadataJsonFilePath;
+		[FilePath(Extensions = "json", RequireExistingPath = true)]
+		public string _metadataAttributesJsonFilePath;
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
 		[SerializeField] private RenderTexture _renderTextureStandalone;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private GameObject _background;
 		[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
+		[SerializeField] private RenderTextureMode _renderTextureMode;
 		
+		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
+		private Dictionary<string, int> _attributeTypes = new Dictionary<string, int>();
+		private NftEquipmentAttributes _nftEquipmentAttributes;
 		
 		[Button("Export Metadata Collection")]
 		public void ExportMetadataCollection()
@@ -289,18 +336,13 @@ namespace Src.FirstLight.Tools
 			}
 		}
 
-		private void Export(string filePath, IErcRenderable backgroundErcRenderable)
+		private void ExportFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 		{
-			var jsonData = File.ReadAllText(filePath);
+			var manufacturerId = metadata.attibutesDictionary["manufacturer"];
+			var categoryId = metadata.attibutesDictionary["category"];
+			var subcategoryId = metadata.attibutesDictionary["subCategory"];
 			
-			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(jsonData);
-			
-			Debug.Log($"Loading Erc721Metadata JSON file [{filePath}]");
-				
-			var manufacturerId = (long)metadata.attributes.FirstOrDefault(a => a.trait_type == "manufacturer").value;
-			var categoryId = (long)metadata.attributes.FirstOrDefault(a => a.trait_type == "category").value;
-			var subcategoryId = (long)metadata.attributes.FirstOrDefault(a => a.trait_type == "subCategory").value;
-			
+
 			var categoryPrefabData = _equipmentSnapshotResource.Categories[categoryId];
 			if (categoryPrefabData.ManufacturerPrefabData.Length > manufacturerId &&
 			    categoryPrefabData.ManufacturerPrefabData[manufacturerId].GameObjects.Length > subcategoryId)
@@ -331,13 +373,19 @@ namespace Src.FirstLight.Tools
 				_background.SetActive(true);
 				
 				backgroundErcRenderable?.Initialise(metadata);
-				
-				RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
-				
+
+				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
+				{
+					RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
+				}
+
 				_background.SetActive(false);
-				
-				RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
-				
+
+				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
+				{
+					RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+				}
+
 				DestroyImmediate(go);
 			}
 			else
@@ -345,13 +393,187 @@ namespace Src.FirstLight.Tools
 				_background.SetActive(true);
 				
 				backgroundErcRenderable?.Initialise(metadata);
-				
-				RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
-				
+
+				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
+				{
+					RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
+				}
+
 				_background.SetActive(false);
-				
-				RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+
+				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
+				{
+					RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+				}
 			}
+		}
+
+		[Button("Export Image Combinations")]
+		private void ExportImageCombinations()
+		{
+			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+			{
+				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
+				
+				return;
+			}
+			
+			if (_metadataAttributesJsonFilePath == "" || !File.Exists(_metadataAttributesJsonFilePath))
+			{
+				Debug.LogError($"Invalid meta attributes file path [{_metadataAttributesJsonFilePath}]");
+				
+				return;
+			}
+			
+			LoadEquipmentAttributesData(_metadataAttributesJsonFilePath);
+			
+			var backgroundErcRenderable = _background.GetComponent<IErcRenderable>();
+
+			var metadata = new Erc721MetaData()
+			{
+				attributes = new[]
+				{
+					new TraitAttribute()
+					{
+						trait_type = "id",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "generation",
+						value = 1
+					},
+					new TraitAttribute()
+					{
+						trait_type = "edition",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "category",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "subCategory",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "adjective",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "rarity",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "material",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "manufacturer",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "faction",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "grade",
+						value = 0
+					},
+					new TraitAttribute()
+					{
+						trait_type = "initialReplicationCounter",
+						value = _nftEquipmentAttributes.InitialReplicationCounter
+					},
+					new TraitAttribute()
+					{
+						trait_type = "maxDurability",
+						value = 0,
+					},
+					new TraitAttribute()
+					{
+						trait_type = "maxLevel",
+						value = 0,
+					},
+					new TraitAttribute()
+					{
+						trait_type = "tuning",
+						value = 0
+					}
+				}
+			};
+			
+			metadata.attibutesDictionary = new Dictionary<string, int>(metadata.attributes.Length);
+			for (var index = 0; index < metadata.attributes.Length; index++)
+			{
+				metadata.attibutesDictionary.Add(metadata.attributes[index].trait_type, metadata.attributes[index].value);
+			}
+								
+			var imagesExportedCount = 0;
+			
+			for (var i = 0; i < _equipmentSnapshotResource.Categories.Length; i++)
+			{
+				var category = _equipmentSnapshotResource.Categories[i];
+
+				for (var j = 0; j < category.ManufacturerPrefabData.Length; j++)
+				{
+					var manufacturer = category.ManufacturerPrefabData[j];
+
+					for (var k = 0; k < manufacturer.GameObjects.Length; k++)
+					{
+						for (var l = 0; l < _nftEquipmentAttributes.RarityValues.Length; l++)
+						{
+							for (var m = 0; m < _nftEquipmentAttributes.MaterialValues.Length; m++)
+							{
+								for (var f = 0; f < _nftEquipmentAttributes.FactionValues.Length; f++)
+								{
+									for (var g = 0; g < _nftEquipmentAttributes.GradeValues.Length; g++)
+									{
+										metadata.attibutesDictionary["category"] = i;
+										metadata.attibutesDictionary["manufacturer"] = j;
+										metadata.attibutesDictionary["subCategory"] = k;
+										metadata.attibutesDictionary["rarity"] = l;
+										metadata.attibutesDictionary["material"] = m;
+										metadata.attibutesDictionary["faction"] = f;
+										metadata.attibutesDictionary["grade"] = g;
+										metadata.name = _nftEquipmentAttributes.SubCategoryNames[i][metadata.attributes[k].value];
+
+										using (var sha256Hash = SHA256.Create())
+										{
+											var hash = GetHash(sha256Hash, JsonConvert.SerializeObject(metadata));
+											metadata.image = $"{_webMarketplaceUri}/nftimages/{hash}.png";
+										}
+										
+										ExportFromMetadata(metadata, backgroundErcRenderable);
+										imagesExportedCount++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
+		}
+
+		private void Export(string filePath, IErcRenderable backgroundErcRenderable)
+		{
+			var jsonData = File.ReadAllText(filePath);
+			
+			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(jsonData);
+			
+			Debug.Log($"Loading Erc721Metadata JSON file [{filePath}]");
+			
+			ExportFromMetadata(metadata, backgroundErcRenderable);
 		}
 
 		private void RenderToTextureCapture(string filename, RenderTexture renderTexture)
@@ -374,6 +596,22 @@ namespace Src.FirstLight.Tools
 			var path = Path.Combine(_exportFolderPath,filename + ".png");
 			Debug.Log($"[ Exporting capture image {path} ]");
 			File.WriteAllBytes(path, bytes);
+		}
+		
+		/// <summary>
+		///  Load Equipment NFT attributes JSON data from disk
+		/// </summary>
+		public void LoadEquipmentAttributesData(string filePath)
+		{
+			if (!File.Exists(filePath)) throw new Exception($"File not found {filePath}");
+			var jsonData = File.ReadAllText(filePath);
+			_nftEquipmentAttributes = JsonConvert.DeserializeObject<NftEquipmentAttributes>(jsonData);
+
+			_attributeTypes = new Dictionary<string, int>(_nftEquipmentAttributes.AttributeIntTypes.Length);
+			for (int i = 0; i < _nftEquipmentAttributes.AttributeIntTypes.Length; i++)
+			{
+				_attributeTypes.Add(_nftEquipmentAttributes.AttributeIntTypes[i].Key, _nftEquipmentAttributes.AttributeIntTypes[i].Value);
+			}
 		}
 		
 		private Bounds GetBounds(GameObject go)
@@ -404,6 +642,23 @@ namespace Src.FirstLight.Tools
 			}
 
 			return bounds;
+		}
+		
+		/// <summary>
+		/// Query string hash for a given string input given hash algorithm 
+		/// </summary>
+		private string GetHash(HashAlgorithm hashAlgorithm, string input)
+		{
+			byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+			
+			var sBuilder = new StringBuilder();
+			
+			for (int i = 0; i < data.Length; i++)
+			{
+				sBuilder.Append(data[i].ToString("x2"));
+			}
+			
+			return sBuilder.ToString();
 		}
 	}
 }

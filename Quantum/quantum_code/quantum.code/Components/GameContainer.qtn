@@ -8,6 +8,7 @@ singleton component GameContainer
 
 enum GameMode
 {
+	Tutorial,
 	Deathmatch,
 	BattleRoyale
 }

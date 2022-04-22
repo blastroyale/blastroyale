@@ -89,7 +89,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			_allPlayersLoadedMatch = false;
-
+			
+			_getReadyToRumbleText.gameObject.SetActive(false);
+			_findingPlayersText.enabled = true;
+			_playersFoundText.enabled = true;
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
@@ -248,12 +251,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLockRoomClicked()
 		{
-			_services.NetworkService.QuantumClient.CurrentRoom.IsOpen = false;
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(true);
 			_playersFoundText.gameObject.SetActive(false);
 			_findingPlayersText.gameObject.SetActive(false);
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
 		}
 
 		private void OnLeaveRoomClicked()

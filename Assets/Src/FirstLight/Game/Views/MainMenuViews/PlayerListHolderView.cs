@@ -98,7 +98,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OrderPlayerList()
 		{
-			_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName)
+			_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
 
 			for (int i = 0; i < _activePlayerEntries.Count - 1; i++)
 			{

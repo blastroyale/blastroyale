@@ -164,6 +164,7 @@ namespace Quantum {
     Platform = 37,
   }
   public enum GameMode : int {
+    Tutorial,
     Deathmatch,
     BattleRoyale,
   }

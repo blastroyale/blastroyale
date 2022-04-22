@@ -146,22 +146,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoadingScreenPresenter>();
 		}
 
-		private void OpenDisconnectedScreen()
-		{
-			var data = new DisconnectedScreenPresenter.StateData
-			{
-				MainMenuClicked = () => _statechartTrigger(_leaveMatchEvent),
-				ReconnectClicked = () => _statechartTrigger(NetworkState.PhotonTryReconnectEvent)
-			};
-
-			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>();
-		}
-
 		private bool IsConnected()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
@@ -200,11 +184,9 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			var map = config.Map.ToString();
-			var entityService =
-				new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var sceneTask =
-				_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
@@ -214,40 +196,11 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
-
-			// Preload local player skin
-			var skinId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
-			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId, true, false));
+			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);
 
 			SceneManager.SetActiveScene(sceneTask.Result);
-
-			// Preload collectables
-			foreach (var id in GameIdGroup.Consumable.GetIds())
-			{
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
-			}
-
-			// Preload indicator VFX
-			for (var i = 1; i < (int) IndicatorVfxId.TOTAL; i++)
-			{
-				await _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, true,
-					false);
-			}
-
-			// Preload weapons
-			// TODO: Remove this once we only spawn equipped weapons (as those get preloaded when players join)
-			foreach (var id in GameIdGroup.Weapon.GetIds())
-			{
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
-			}
-
-			// Preload bot items
-			foreach (var id in GameIdGroup.BotItem.GetIds())
-			{
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false);
-			}
 
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
@@ -278,6 +231,63 @@ namespace FirstLight.Game.StateMachines
 			Resources.UnloadUnusedAssets();
 		}
 
+		private List<Task> PreloadGameAssets()
+		{
+			var tasks = new List<Task>();
+			var skinId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
+
+			// Preload local player skin
+			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId, true, false));
+
+			// Preload collectables
+			foreach (var id in GameIdGroup.Consumable.GetIds())
+			{
+				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			}
+
+			// Preload indicator VFX
+			for (var i = 1; i < (int) IndicatorVfxId.TOTAL; i++)
+			{
+				tasks.Add(_services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, true,
+					          false));
+			}
+
+			// Preload weapons
+			// TODO: Remove this once we only spawn equipped weapons (as those get preloaded when players join)
+			foreach (var id in GameIdGroup.Weapon.GetIds())
+			{
+				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			}
+
+			// Preload bot items
+			foreach (var id in GameIdGroup.BotItem.GetIds())
+			{
+				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			}
+
+			return tasks;
+		}
+
+		private async Task PreloadPlayerEquipment()
+		{
+			var tasks = new List<Task>();
+			
+			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
+			{
+				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.PLAYER_PROPS_PRELOAD_IDS];
+
+				foreach (var item in preloadIds)
+				{
+					var newTask = _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
+					tasks.Add(newTask);
+				}
+			}
+			
+			await Task.WhenAll(tasks);
+			
+			_services.MessageBrokerService.Publish(new EquipmentAssetsLoadedMessage());
+		}
+
 		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)
 		{
 			if (!SROptions.Current.IsMultiClient)
@@ -304,26 +314,6 @@ namespace FirstLight.Game.StateMachines
 					                       ItemManufacturer.Futuristic, ItemFaction.Chaos, 1, 1)
 				};
 			}
-		}
-
-		private async Task PreloadPlayerEquipment()
-		{
-			var tasks = new List<Task>();
-			
-			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
-			{
-				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.PLAYER_PROPS_PRELOAD_IDS];
-
-				foreach (var item in preloadIds)
-				{
-					var newTask = _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
-					tasks.Add(newTask);
-				}
-			}
-			
-			await Task.WhenAll(tasks);
-			
-			_services.MessageBrokerService.Publish(new EquipmentAssetsLoadedMessage());
 		}
 	}
 }

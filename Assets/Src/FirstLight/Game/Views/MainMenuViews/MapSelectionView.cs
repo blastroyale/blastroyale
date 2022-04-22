@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public async void SetupMapView()
 		{
 			_mapImage.enabled = false;
-			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_dataProvider.AppDataProvider.CurrentMapConfig.Map, false);
+			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_dataProvider.AppDataProvider.SelectedMap.Value.Map, false);
 			_mapImage.enabled = true;
 			_selectionEnabled = _dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.BattleRoyale;
 

@@ -182,7 +182,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMatchAssets()
 		{
 			var tasks = new List<Task>();
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -274,7 +274,7 @@ namespace FirstLight.Game.StateMachines
 			
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
-				var preloadIds = (int[]) player.Value.CustomProperties["PreloadIds"];
+				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.PLAYER_PROPS_PRELOAD_IDS];
 
 				foreach (var item in preloadIds)
 				{

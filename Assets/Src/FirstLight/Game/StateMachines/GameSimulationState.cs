@@ -216,9 +216,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var mapConfig = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var startParams = configs.GetDefaultStartParameters(info);
+			var startParams = configs.GetDefaultStartParameters(mapConfig);
 
 			startParams.NetworkClient = _services.NetworkService.QuantumClient;
 
@@ -335,7 +335,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -352,7 +352,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 
 			var analytics = new Dictionary<string, object>
 			{

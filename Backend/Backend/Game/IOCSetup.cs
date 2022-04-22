@@ -28,10 +28,9 @@ public static class IOCSetup
 		services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
+		services.AddSingleton<GameServer>();
 		
 		// Logic
-		services.AddSingleton<IGameCommandService, GameCommandService>();
-		services.AddSingleton<IGameLogic, GameServerLogic>();
 		services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
 		{
 			var cfg = new ConfigsProvider();

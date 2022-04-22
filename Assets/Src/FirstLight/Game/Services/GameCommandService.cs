@@ -76,7 +76,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public static void OnPlayFabError(PlayFabError error)
 		{
-			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, error.ErrorMessage);
+			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
 		}
 		
 		/// <summary>

@@ -23,15 +23,11 @@ namespace Backend.Functions;
 /// </summary>
 public class ExecuteCommand
 {
-	private readonly IConfigsProvider _cfg;
-	private readonly IServerStateService _serverState;
-	private readonly IServerCommahdHandler _serverCommandHandler;
+	private GameServer _server;
 	
-	public ExecuteCommand(IConfigsProvider cfg, IServerStateService serverState, IServerCommahdHandler commands)
+	public ExecuteCommand(GameServer server)
 	{
-		_cfg = cfg;
-		_serverState = serverState;
-		_serverCommandHandler = commands;
+		_server = server;
 	}
 
 	/// <summary>
@@ -52,24 +48,15 @@ public class ExecuteCommand
 		if (ForceUpdateBackwardsCompability(context))
 		{
 			log.Log(LogLevel.Information, $"Running backwards compatible force update for {playerId}");
-			return await new ForceUpdate(_serverState).RunForceUpdate(context, log);
+			return await new ForceUpdate(_server).RunForceUpdate(context, log);
 		}
 		#endregion
-		
-	
-		var cmdType = context.FunctionArgument.Command;
-		var cmdData = context.FunctionArgument.Data;
-		var commandInstance = _serverCommandHandler.BuildCommandInstance(cmdData, cmdType);
-		log.Log(LogLevel.Information, $"Player {playerId} running server command {commandInstance.GetType().Name}");
-		var newState = RunCommand(playerId, commandInstance);
-		return new PlayFabResult<LogicResult>
+
+		var logicRequest = context.FunctionArgument;
+		var result = _server.RunLogic(playerId, logicRequest);
+		return new PlayFabResult<BackendLogicResult>
 		{
-			Result = new LogicResult
-			{
-				PlayFabId = playerId,
-				Command = context.FunctionArgument.Command,
-				Data = newState
-			}
+			Result = result
 		};
 	}
 
@@ -83,16 +70,5 @@ public class ExecuteCommand
 		return data.ContainsKey(nameof(PlayerData)) || data.ContainsKey(typeof(PlayerData).FullName);
 	}
 
-	/// <summary>
-	/// Executes the command on the server and updates the server state.
-	/// Returns the new state after the logic updates.
-	/// </summary>
-	private ServerState RunCommand(string playerId, IGameCommand commandInstance)
-	{
-		var currentPlayerState = _serverState.GetPlayerState(playerId);
-		var newState = _serverCommandHandler.ExecuteCommand(commandInstance, currentPlayerState);
-		_serverState.UpdatePlayerState(playerId, newState);
-		return newState;
-	}
 
 }

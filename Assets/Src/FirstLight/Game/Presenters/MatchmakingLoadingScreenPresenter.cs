@@ -84,10 +84,13 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 
 			_allPlayersLoadedMatch = false;
-
+			
+			_getReadyToRumbleText.gameObject.SetActive(false);
+			_findingPlayersText.enabled = true;
+			_playersFoundText.enabled = true;
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
 			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
@@ -104,6 +107,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				_roomNameRootObject.SetActive(true);
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
 				UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
 			}
@@ -147,7 +151,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayersWaitingImages(int playerAmount)
 		{
-			var maxPlayers = _gameDataProvider.AppDataProvider.CurrentMapConfig.PlayersLimit;
+			var maxPlayers = _gameDataProvider.AppDataProvider.SelectedMap.Value.PlayersLimit;
 			
 			for (var i = 0; i < _playersWaitingImage.Length; i++)
 			{

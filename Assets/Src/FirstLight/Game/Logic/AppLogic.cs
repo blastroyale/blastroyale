@@ -7,6 +7,7 @@ using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Configs;
 using FirstLight.Services;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 
@@ -53,13 +54,18 @@ namespace FirstLight.Game.Logic
 		/// Requests the current selected game mode <see cref="GameMode"/>.
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
+		
+		/// <summary>
+		/// Requests the last map that was played
+		/// </summary>
+		IObservableField<MapConfig> SelectedMap { get; }
 
 		// TODO - Move to MatchLogic, once that functionality transitions to the backend
 		/// <summary>
 		/// Requests the current map config in timed rotation, for the selected game mode
 		/// </summary>
-		MapConfig CurrentMapConfig { get; }
-		
+		MapConfig CurrentMapConfigInRotation { get; }
+
 		/// <summary>
 		/// Requests the player's Nickname
 		/// </summary>
@@ -126,6 +132,9 @@ namespace FirstLight.Game.Logic
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
 		/// <inheritdoc />
+		public IObservableField<MapConfig> SelectedMap { get; private set; }
+
+		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
 			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
 
@@ -136,7 +145,7 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> NicknameId { get; private set; }
 		
 		/// <inheritdoc />
-		public MapConfig CurrentMapConfig => GetCurrentMapConfig();
+		public MapConfig CurrentMapConfigInRotation => GetCurrentMapConfig();
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -150,7 +159,10 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+			
 			SelectedGameMode = new ObservableField<GameMode>(0);
+			SelectedMap = new ObservableField<MapConfig>(configs[0]);
 			NicknameId = new ObservableField<string>(Data.NickNameId);
 		}
 

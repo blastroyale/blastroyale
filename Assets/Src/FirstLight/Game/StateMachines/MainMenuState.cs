@@ -159,7 +159,6 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			
-			playClickedCheck.OnEnter(SendPlayClickedEvent);
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
 			playClickedCheck.Transition().Target(roomWaitingState);
 			
@@ -213,6 +212,8 @@ namespace FirstLight.Game.StateMachines
 			
 			socialMenu.OnEnter(OpenSocialMenuUI);
 			socialMenu.OnExit(CloseSocialMenuUI);
+			
+			final.OnEnter(SendPlayClickedEvent);
 		}
 
 		private void SubscribeEvents()
@@ -630,7 +631,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendPlayClickedEvent()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
 			
 			var dictionary = new Dictionary<string, object> 
 			{

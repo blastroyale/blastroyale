@@ -4730,6 +4730,34 @@ MonoBehaviour:
       - Leave
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusLoading
+      TermType: 0
+      Description: 
+      Languages:
+      - LOADING...
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusReady
+      TermType: 0
+      Description: 
+      Languages:
+      - READY
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusHost
+      TermType: 0
+      Description: 
+      Languages:
+      - HOST
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - STATUS
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -4742,7 +4770,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1650361030099
+    Google_LastUpdatedVersion: 1650626006864
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

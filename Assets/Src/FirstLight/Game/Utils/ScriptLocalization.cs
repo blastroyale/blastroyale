@@ -39,6 +39,10 @@ namespace I2.Loc
 			public static string NoRewardsCollected 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NoRewardsCollected"); } }
 			public static string PlayerLeft 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/PlayerLeft"); } }
 			public static string PlayerWon 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/PlayerWon"); } }
+			public static string ReadyStatusHost 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/ReadyStatusHost"); } }
+			public static string ReadyStatusLoading 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/ReadyStatusLoading"); } }
+			public static string ReadyStatusReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/ReadyStatusReady"); } }
+			public static string ReadyStatusTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/ReadyStatusTitle"); } }
 			public static string Remaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Remaining"); } }
 			public static string RespawnTime 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/RespawnTime"); } }
 			public static string Revives 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Revives"); } }
@@ -628,11 +632,13 @@ namespace I2.Loc
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
 			public static string RoomCreateOrJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCreateOrJoin"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
+			public static string RoomError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomError"); } }
 			public static string RoomErrorCreate 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomErrorCreate"); } }
 			public static string RoomErrorJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomErrorJoin"); } }
 			public static string RoomJoinButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinButton"); } }
 			public static string RoomJoinCode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCode"); } }
 			public static string RoomJoinCreateTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateTitle"); } }
+			public static string RoomLeaveButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLeaveButton"); } }
 			public static string RoomLock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLock"); } }
 			public static string SFX 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SFX"); } }
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
@@ -757,6 +763,10 @@ namespace I2.Loc
 		    public const string NoRewardsCollected = "AdventureMenu/NoRewardsCollected";
 		    public const string PlayerLeft = "AdventureMenu/PlayerLeft";
 		    public const string PlayerWon = "AdventureMenu/PlayerWon";
+		    public const string ReadyStatusHost = "AdventureMenu/ReadyStatusHost";
+		    public const string ReadyStatusLoading = "AdventureMenu/ReadyStatusLoading";
+		    public const string ReadyStatusReady = "AdventureMenu/ReadyStatusReady";
+		    public const string ReadyStatusTitle = "AdventureMenu/ReadyStatusTitle";
 		    public const string Remaining = "AdventureMenu/Remaining";
 		    public const string RespawnTime = "AdventureMenu/RespawnTime";
 		    public const string Revives = "AdventureMenu/Revives";
@@ -1346,11 +1356,13 @@ namespace I2.Loc
 		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
 		    public const string RoomCreateOrJoin = "MainMenu/RoomCreateOrJoin";
 		    public const string RoomCurrentName = "MainMenu/RoomCurrentName";
+		    public const string RoomError = "MainMenu/RoomError";
 		    public const string RoomErrorCreate = "MainMenu/RoomErrorCreate";
 		    public const string RoomErrorJoin = "MainMenu/RoomErrorJoin";
 		    public const string RoomJoinButton = "MainMenu/RoomJoinButton";
 		    public const string RoomJoinCode = "MainMenu/RoomJoinCode";
 		    public const string RoomJoinCreateTitle = "MainMenu/RoomJoinCreateTitle";
+		    public const string RoomLeaveButton = "MainMenu/RoomLeaveButton";
 		    public const string RoomLock = "MainMenu/RoomLock";
 		    public const string SFX = "MainMenu/SFX";
 		    public const string SelectGameMap = "MainMenu/SelectGameMap";

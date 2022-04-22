@@ -146,22 +146,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoadingScreenPresenter>();
 		}
 
-		private void OpenDisconnectedScreen()
-		{
-			var data = new DisconnectedScreenPresenter.StateData
-			{
-				MainMenuClicked = () => _statechartTrigger(_leaveMatchEvent),
-				ReconnectClicked = () => _statechartTrigger(NetworkState.PhotonTryReconnectEvent)
-			};
-
-			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>();
-		}
-
 		private bool IsConnected()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;

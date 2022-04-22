@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using FirstLight.Game.Data;
@@ -241,13 +240,15 @@ namespace Src.FirstLight.Tools
 		[SerializeField] private RenderTexture _renderTexture;
 		[SerializeField] private RenderTexture _renderTextureStandalone;
 		[SerializeField] private Camera _camera;
-		[SerializeField] private GameObject _background;
+		[SerializeField] private GameObject _canvas;
+		[SerializeField] private GameObject _canvasRoot;
 		[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
 		[SerializeField] private RenderTextureMode _renderTextureMode;
 		
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
-		private Dictionary<string, int> _attributeTypes = new Dictionary<string, int>();
 		private NftEquipmentAttributes _nftEquipmentAttributes;
+		private readonly Vector2 _referenceResolution = new(1660, 2048);
+		
 		
 		[Button("Export Metadata Collection")]
 		public void ExportMetadataCollection()
@@ -266,12 +267,12 @@ namespace Src.FirstLight.Tools
 				return;
 			}
 			
-			var backgroundErcRenderable = _background.GetComponent<IErcRenderable>();
+			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
 			var fileCount = 0;
 			foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
 			{
-				Export(filePath, backgroundErcRenderable);
+				ExportRenderTexture(filePath, backgroundErcRenderable);
 				fileCount++;
 			}
 			
@@ -295,13 +296,13 @@ namespace Src.FirstLight.Tools
 				return;
 			}
 			
-			var backgroundErcRenderable = _background.GetComponent<IErcRenderable>();
+			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 			
-			Export(_metadataJsonFilePath, backgroundErcRenderable);
+			ExportRenderTexture(_metadataJsonFilePath, backgroundErcRenderable);
 		}
 
-		[Button("Snapshot")]
-		public void SnapShot()
+		[Button("Generate Image Snapshot")]
+		public void GenerateImageSnapShot()
 		{
 			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
@@ -310,104 +311,12 @@ namespace Src.FirstLight.Tools
 				return;
 			}
 			
-			_background.SetActive(true);
+			_canvas.SetActive(true);
 			
-			RenderToTextureCapture("snapshot", _renderTexture);
+			WriteRenderTextureToDisk("snapshot", _renderTexture);
 		}
 		
-		[Button("Centre Marker Children")]
-		public void CentreMarkerChildren()
-		{
-			for (int i = 0; i < _markerTransform.childCount; i++)
-			{
-				var child = _markerTransform.GetChild(i).gameObject;
-				child.transform.localPosition = Vector3.zero;
-				var bounds = GetBounds(child);
-				child.transform.localPosition = -bounds.center;
-				child.transform.localRotation = Quaternion.identity;
-
-				var max = bounds.size;
-				var radius = max.magnitude / 2f;
-				var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
-				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-				_camera.transform.position = new Vector3(-dist, 0, 0);
-			}
-		}
-
-		private void ExportFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
-		{
-			var manufacturerId = metadata.attibutesDictionary["manufacturer"];
-			var categoryId = metadata.attibutesDictionary["category"];
-			var subcategoryId = metadata.attibutesDictionary["subCategory"];
-			
-
-			var categoryPrefabData = _equipmentSnapshotResource.Categories[categoryId];
-			if (categoryPrefabData.ManufacturerPrefabData.Length > manufacturerId &&
-			    categoryPrefabData.ManufacturerPrefabData[manufacturerId].GameObjects.Length > subcategoryId)
-			{
-				var prefabResource = _equipmentSnapshotResource.Categories[categoryId].ManufacturerPrefabData[manufacturerId].GameObjects[subcategoryId];
-
-				var go = Instantiate(prefabResource);
-				
-				var ercRenderable = go.GetComponent<IErcRenderable>();
-				ercRenderable.Initialise(metadata);
-				
-				go.transform.SetParent(_markerTransform);
-				go.transform.localScale = Vector3.one;
-
-				go.transform.localPosition = Vector3.zero;
-				var bounds = GetBounds(go);
-				go.transform.localPosition = -bounds.center;
-				go.transform.localRotation = Quaternion.identity;
-
-				var max = bounds.size;
-				var radius = max.magnitude / 2f;
-				var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
-				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-				_camera.transform.position = new Vector3(-dist, 0, 0);
-				
-				_background.SetActive(true);
-				
-				backgroundErcRenderable?.Initialise(metadata);
-
-				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
-				{
-					RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
-				}
-
-				_background.SetActive(false);
-
-				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
-				{
-					RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
-				}
-
-				DestroyImmediate(go);
-			}
-			else
-			{
-				_background.SetActive(true);
-				
-				backgroundErcRenderable?.Initialise(metadata);
-
-				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
-				{
-					RenderToTextureCapture(Path.GetFileName(metadata.image), _renderTexture);
-				}
-
-				_background.SetActive(false);
-
-				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
-				{
-					RenderToTextureCapture($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
-				}
-			}
-		}
-
+		
 		[Button("Export Image Combinations")]
 		private void ExportImageCombinations()
 		{
@@ -427,7 +336,7 @@ namespace Src.FirstLight.Tools
 			
 			LoadEquipmentAttributesData(_metadataAttributesJsonFilePath);
 			
-			var backgroundErcRenderable = _background.GetComponent<IErcRenderable>();
+			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
 			var metadata = new Erc721MetaData()
 			{
@@ -552,7 +461,7 @@ namespace Src.FirstLight.Tools
 											metadata.image = $"{_webMarketplaceUri}/nftimages/{hash}.png";
 										}
 										
-										ExportFromMetadata(metadata, backgroundErcRenderable);
+										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 										imagesExportedCount++;
 									}
 								}
@@ -565,7 +474,7 @@ namespace Src.FirstLight.Tools
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
 
-		private void Export(string filePath, IErcRenderable backgroundErcRenderable)
+		private void ExportRenderTexture(string filePath, IErcRenderable backgroundErcRenderable)
 		{
 			var jsonData = File.ReadAllText(filePath);
 			
@@ -573,11 +482,85 @@ namespace Src.FirstLight.Tools
 			
 			Debug.Log($"Loading Erc721Metadata JSON file [{filePath}]");
 			
-			ExportFromMetadata(metadata, backgroundErcRenderable);
+			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+		}
+		
+			private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
+		{
+			var manufacturerId = metadata.attibutesDictionary["manufacturer"];
+			var categoryId = metadata.attibutesDictionary["category"];
+			var subcategoryId = metadata.attibutesDictionary["subCategory"];
+			
+
+			var categoryPrefabData = _equipmentSnapshotResource.Categories[categoryId];
+			if (categoryPrefabData.ManufacturerPrefabData.Length > manufacturerId &&
+			    categoryPrefabData.ManufacturerPrefabData[manufacturerId].GameObjects.Length > subcategoryId)
+			{
+				var prefabResource = _equipmentSnapshotResource.Categories[categoryId].ManufacturerPrefabData[manufacturerId].GameObjects[subcategoryId];
+
+				var go = Instantiate(prefabResource);
+				
+				var ercRenderable = go.GetComponent<IErcRenderable>();
+				ercRenderable.Initialise(metadata);
+				
+				go.transform.SetParent(_markerTransform);
+				go.transform.localScale = Vector3.one;
+
+				go.transform.localPosition = Vector3.zero;
+				var bounds = GetBounds(go);
+				go.transform.localPosition = -bounds.center;
+				go.transform.localRotation = Quaternion.identity;
+
+				var max = bounds.size;
+				var radius = max.magnitude / 2f;
+				var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
+				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
+				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
+
+				_camera.transform.position = new Vector3(-dist, 0, 0);
+				
+				_canvas.SetActive(true);
+				
+				backgroundErcRenderable?.Initialise(metadata);
+
+				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
+				{
+					WriteRenderTextureToDisk(Path.GetFileName(metadata.image), _renderTexture);
+				}
+
+				_canvas.SetActive(false);
+
+				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
+				{
+					WriteRenderTextureToDisk($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+				}
+
+				DestroyImmediate(go);
+			}
+			else
+			{
+				_canvas.SetActive(true);
+				
+				backgroundErcRenderable?.Initialise(metadata);
+
+				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
+				{
+					WriteRenderTextureToDisk(Path.GetFileName(metadata.image), _renderTexture);
+				}
+
+				_canvas.SetActive(false);
+
+				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
+				{
+					WriteRenderTextureToDisk($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+				}
+			}
 		}
 
-		private void RenderToTextureCapture(string filename, RenderTexture renderTexture)
+		private void WriteRenderTextureToDisk(string filename, RenderTexture renderTexture)
 		{
+			_canvasRoot.transform.localScale = new Vector3(renderTexture.width / _referenceResolution.x,
+			                                               renderTexture.height / _referenceResolution.y, 1);
 			_camera.targetTexture = renderTexture;
 
 			RenderTexture.active = renderTexture;
@@ -601,17 +584,11 @@ namespace Src.FirstLight.Tools
 		/// <summary>
 		///  Load Equipment NFT attributes JSON data from disk
 		/// </summary>
-		public void LoadEquipmentAttributesData(string filePath)
+		private void LoadEquipmentAttributesData(string filePath)
 		{
 			if (!File.Exists(filePath)) throw new Exception($"File not found {filePath}");
 			var jsonData = File.ReadAllText(filePath);
 			_nftEquipmentAttributes = JsonConvert.DeserializeObject<NftEquipmentAttributes>(jsonData);
-
-			_attributeTypes = new Dictionary<string, int>(_nftEquipmentAttributes.AttributeIntTypes.Length);
-			for (int i = 0; i < _nftEquipmentAttributes.AttributeIntTypes.Length; i++)
-			{
-				_attributeTypes.Add(_nftEquipmentAttributes.AttributeIntTypes[i].Key, _nftEquipmentAttributes.AttributeIntTypes[i].Value);
-			}
 		}
 		
 		private Bounds GetBounds(GameObject go)

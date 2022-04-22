@@ -43,6 +43,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
 		[SerializeField] private GameObject _roomNameRootObject;
 		[SerializeField] private TextMeshProUGUI _roomNameText;
+		[SerializeField] private GameObject _playerMatchmakingRootObject;
+		[SerializeField] private PlayerListHolderView _playerListHolder;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -70,6 +72,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
 			_services.MessageBrokerService.Subscribe<PlayerLeftRoomMessage>(OnPlayerLeftRoom);
 			_services.MessageBrokerService.Subscribe<AllPlayersLoadedMatchMessage>(OnAllPlayersLoadedMatchMessage);
+			_services.MessageBrokerService.Subscribe<PlayerLoadedMatchMessage>(OnPlayerLoadedMatchMessage);
 			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -85,7 +88,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
-
 			_allPlayersLoadedMatch = false;
 
 			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
@@ -96,16 +98,31 @@ namespace FirstLight.Game.Presenters
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			MapSelectionView.SetupMapView();
-
+			_playerListHolder.WipeAllSlots();
+			
 			if (CurrentRoom.IsVisible)
 			{
+				_playerListHolder.gameObject.SetActive(false);
+				_playerMatchmakingRootObject.SetActive(true);
+				
 				_roomNameRootObject.SetActive(false);
 				StartCoroutine(TimeUpdateCoroutine(config));
 			}
 			else
 			{
+				_playerListHolder.gameObject.SetActive(true);
+				_playerMatchmakingRootObject.SetActive(false);
+				
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
-				UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
+				AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
+			}
+		}
+
+		private void AddOrUpdatePlayerInListHolder(Player player, string status)
+		{
+			if (!CurrentRoom.IsVisible)
+			{
+				_playerListHolder.AddOrUpdatePlayer(player.NickName, status, player.IsMasterClient);
 			}
 		}
 
@@ -125,17 +142,35 @@ namespace FirstLight.Game.Presenters
 				_leaveRoomButton.gameObject.SetActive(true);
 			}
 		}
-		
+
+		private void OnPlayerLoadedMatchMessage(PlayerLoadedMatchMessage msg)
+		{
+			string status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+			
+			if (msg.Player.IsMasterClient)
+			{
+				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+			}
+			
+			AddOrUpdatePlayerInListHolder(msg.Player, status);
+		}
+
 		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
 		{
 			_allPlayersLoadedMatch = false;
 			_lockRoomButton.gameObject.SetActive(false);
 			UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
+			AddOrUpdatePlayerInListHolder(msg.Player, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
 		}
 		
 		private void OnPlayerLeftRoom(PlayerLeftRoomMessage msg)
 		{
 			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
+
+			if (!CurrentRoom.IsVisible)
+			{
+				_playerListHolder.RemovePlayer(msg.Player.NickName);
+			}
 			
 			// Only custom rooms can show room controls
 			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 

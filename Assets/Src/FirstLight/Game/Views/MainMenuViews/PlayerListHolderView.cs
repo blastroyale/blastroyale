@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Logic;
@@ -25,19 +26,40 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries;
 
-		private void Awake()
+		public void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var mapInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value; _playerNamePool =
-				new GameObjectPool<PlayerNameEntryView>((uint) mapInfo.PlayersLimit, _nameEntryViewRef);
+			
+			var mapInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+
+			_activePlayerEntries = new List<PlayerNameEntryView>();
+			_playerNamePool = new GameObjectPool<PlayerNameEntryView>((uint) mapInfo.PlayersLimit, _nameEntryViewRef);
 
 			for (var i = 0; i < mapInfo.PlayersLimit; i++)
 			{
-				_activePlayerEntries.Add(_playerNamePool.Spawn());
+				var newEntry = _playerNamePool.Spawn();
+				_activePlayerEntries.Add(newEntry);
+				newEntry.SetInfo("", "", false, false);
 			}
 			
 			_nameEntryViewRef.gameObject.SetActive(false);
+		}
+
+		/// <summary>
+		/// Adds a player to the list, or updates them if already there
+		/// </summary>
+		public void WipeAllSlots()
+		{
+			if (_activePlayerEntries == null)
+			{
+				return;
+			}
+			
+			foreach (var player in _activePlayerEntries)
+			{
+				player.SetInfo("","", false);
+			}
 		}
 
 		/// <summary>
@@ -55,6 +77,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				GetNextEmptyPlayerEntrySlot().SetInfo(playerName,status,isHost);
 			}
+			
+			OrderPlayerList();
 		}
 
 		/// <summary>
@@ -67,6 +91,18 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (existingEntry != null)
 			{
 				existingEntry.SetInfo("","",false);
+			}
+			
+			OrderPlayerList();
+		}
+
+		private void OrderPlayerList()
+		{
+			_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName)
+
+			for (int i = 0; i < _activePlayerEntries.Count - 1; i++)
+			{
+				_activePlayerEntries[i].transform.SetSiblingIndex(i);
 			}
 		}
 

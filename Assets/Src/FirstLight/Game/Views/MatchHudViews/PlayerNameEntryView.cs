@@ -13,21 +13,26 @@ namespace FirstLight.Game.Views.MatchHudViews
 	{
 		[SerializeField] private TextMeshProUGUI _playerNameText;
 		[SerializeField] private TextMeshProUGUI _playerStatus;
-		
+		[SerializeField] private Color _regularColor;
+		[SerializeField] private Color _localColor;
+		[SerializeField] private Color _hostColor;
 		private IGameDataProvider _dataProvider;
 		
 		public string PlayerName { get; private set; }
 		public bool IsHost { get; private set; }
-
+		public bool IsLocal { get; private set; }
+		
 		/// <summary>
 		/// Set the information of this player entry based on the given strings and host status
 		/// </summary>
-		public void SetInfo(string playerName, string status, bool isHost = false)
+		public void SetInfo(string playerName, string status, bool isLocal = false, bool isHost = false)
 		{
 			IsHost = isHost;
+			IsLocal = isLocal;
 			PlayerName = playerName;
 			
-			var col = IsHost ? Color.yellow : Color.white;
+			var col = IsHost ? _hostColor : _regularColor;
+			col = isLocal ? _localColor : col;
 
 			_playerNameText.text = playerName;
 			_playerStatus.text = status;

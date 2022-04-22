@@ -999,7 +999,7 @@ GameObject:
   - component: {fileID: 7135453422724151899}
   - component: {fileID: 1399992347883582534}
   m_Layer: 5
-  m_Name: SmearImage (1)
+  m_Name: SmearImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1022,7 +1022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -2, y: 8}
+  m_AnchoredPosition: {x: -2, y: 215}
   m_SizeDelta: {x: 560, y: 26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7135453422724151899
@@ -1876,7 +1876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -127}
+  m_AnchoredPosition: {x: 0, y: 83}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8684873817626529325
@@ -3414,6 +3414,8 @@ MonoBehaviour:
   _getReadyToRumbleText: {fileID: 2271083543094415811}
   _roomNameRootObject: {fileID: 2297774574124471423}
   _roomNameText: {fileID: 7769827458459980610}
+  _playerMatchmakingRootObject: {fileID: 5813237726447687209}
+  _playerListHolder: {fileID: 4707810532674525334}
   MapSelectionView: {fileID: 4794623816901886568}
 --- !u!1 &5015068528759575689
 GameObject:
@@ -4043,7 +4045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 203, y: -127}
+  m_AnchoredPosition: {x: 203, y: 80.00003}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5882696044635714152
@@ -4182,7 +4184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 444, y: -21}
+  m_AnchoredPosition: {x: 444, y: -174}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2579976444488815014
@@ -5463,7 +5465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64, y: -127}
+  m_AnchoredPosition: {x: -64, y: 80.00003}
   m_SizeDelta: {x: 348.6, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1743329339472819639
@@ -5629,7 +5631,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -238}
+  m_AnchoredPosition: {x: 0, y: -51.999992}
   m_SizeDelta: {x: 600, y: 156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &38633254373982776
@@ -6595,10 +6597,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 761809297641062941}
     m_Modifications:
-    - target: {fileID: 211842408717765768, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
-      propertyPath: m_fontSize
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 300813310893906576, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6735,10 +6733,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -20
       objectReference: {fileID: 0}
-    - target: {fileID: 3317401147812236400, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
-      propertyPath: m_fontSize
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 3489039357579188718, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6846,3 +6840,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2323421733989674673, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
   m_PrefabInstance: {fileID: 428467817384367810}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4707810532674525334 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4947126714574147156, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
+  m_PrefabInstance: {fileID: 428467817384367810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cea70c2232c8489f8ec6d71007e1e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

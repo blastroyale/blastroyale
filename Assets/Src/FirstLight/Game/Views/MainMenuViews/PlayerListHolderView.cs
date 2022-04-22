@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -14,87 +15,69 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class PlayerListHolderView : MonoBehaviour
 	{
-		[SerializeField] private PlayerNameEntryView _resultEntryViewRef;
-		[SerializeField] private GameObject _xpHolder;
-		[SerializeField] private GameObject _coinsHolder;
+		[SerializeField] private PlayerNameEntryView _nameEntryViewRef;
 		[SerializeField] private RectTransform _contentTransform;
-		[SerializeField] private int _verticalEntrySpacing = 14;
-		[SerializeField] private UnityEngine.UI.Button _blockerButton;
 
-		private IObjectPool<PlayerNameEntryView> _playerResultPool;
+		private IObjectPool<PlayerNameEntryView> _playerNamePool;
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
 		private bool _showExtra;
+		private List<PlayerNameEntryView> _activePlayerEntries;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value;
-			_playerResultPool =
-				new GameObjectPool<PlayerNameEntryView>((uint) adventureInfo.PlayersLimit, _resultEntryViewRef);
+			var mapInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value; _playerNamePool =
+				new GameObjectPool<PlayerNameEntryView>((uint) mapInfo.PlayersLimit, _nameEntryViewRef);
 
-			for (var i = 0; i < adventureInfo.PlayersLimit; i++)
+			for (var i = 0; i < mapInfo.PlayersLimit; i++)
 			{
-				_playerResultPool.Spawn();
+				_activePlayerEntries.Add(_playerNamePool.Spawn());
 			}
-
-			if (adventureInfo.PlayersLimit < 10)
-			{
-				var entryHeight = ((RectTransform) _resultEntryViewRef.transform).sizeDelta.y;
-				_contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x,
-				                                          (entryHeight + _verticalEntrySpacing) *
-				                                          (adventureInfo.PlayersLimit + 1));
-			}
-
-			_blockerButton.onClick.AddListener(OnCloseClicked);
-
-
-			_resultEntryViewRef.gameObject.SetActive(false);
-			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer,
-			                                                  onlyIfActiveAndEnabled: true);
+			
+			_nameEntryViewRef.gameObject.SetActive(false);
 		}
 
 		/// <summary>
-		/// Initialises the Standings Holder with current player ranks, kills and deaths.
-		/// If _showExtra is set to true, also shows XP and coins earned.
+		/// Adds a player to the list, or updates them if already there
 		/// </summary>
-		public void Initialise(List<QuantumPlayerMatchData> playerData, bool showExtra = true,
-		                       bool enableBlockerButton = true)
+		public void AddOrUpdatePlayer(string playerName, string status, bool isHost = false)
 		{
-			_coinsHolder.SetActive(showExtra);
-			_xpHolder.SetActive(showExtra);
-			_blockerButton.gameObject.SetActive(enableBlockerButton);
-			_showExtra = showExtra;
+			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == playerName);
 
-			Setup(playerData);
+			if (existingEntry != null)
+			{
+				existingEntry.SetInfo(playerName,status,isHost);
+			}
+			else
+			{
+				GetNextEmptyPlayerEntrySlot().SetInfo(playerName,status,isHost);
+			}
 		}
 
-		private void Setup(List<QuantumPlayerMatchData> playerData)
+		/// <summary>
+		/// Removes player from the list view based on the provided name
+		/// </summary>
+		public void RemovePlayer(string playerName)
 		{
-			var pool = _playerResultPool.SpawnedReadOnly;
-			playerData.SortByPlayerRank();
-			playerData.Reverse();
-
-			// Do the descending order. From the highest to the lowest value
-			for (var i = 0; i < pool.Count; i++)
+			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == playerName);
+			
+			if (existingEntry != null)
 			{
-				pool[i].SetInfo(playerData[i], _showExtra);
+				existingEntry.SetInfo("","",false);
 			}
+		}
+
+		private PlayerNameEntryView GetNextEmptyPlayerEntrySlot()
+		{
+			return _activePlayerEntries.FirstOrDefault(x => string.IsNullOrEmpty(x.PlayerName));
 		}
 
 		private void OnCloseClicked()
 		{
 			gameObject.SetActive(false);
-		}
-
-		/// <summary>
-		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
-		/// </summary>
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
-		{
-			Setup(new List<QuantumPlayerMatchData>(callback.PlayersMatchData));
 		}
 	}
 }

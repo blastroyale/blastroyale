@@ -12,39 +12,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class PlayerNameEntryView : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _playerNameText;
-		[SerializeField] private TextMeshProUGUI _playerRankText;
-		[SerializeField] private TextMeshProUGUI _killsText;
-		[SerializeField] private TextMeshProUGUI _deathsText;
-		[SerializeField] private TextMeshProUGUI _xpText;
-		[SerializeField] private TextMeshProUGUI _coinsText;
-
+		[SerializeField] private TextMeshProUGUI _playerStatus;
+		
 		private IGameDataProvider _dataProvider;
+		
+		public string PlayerName { get; private set; }
+		public bool IsHost { get; private set; }
 
 		/// <summary>
-		/// Set the information of this player entry ranking based on the given <paramref name="data"/> & <paramref name="awards"/>
+		/// Set the information of this player entry based on the given strings and host status
 		/// </summary>
-		public void SetInfo(QuantumPlayerMatchData data, bool showExtra = true)
+		public void SetInfo(string playerName, string status, bool isHost = false)
 		{
-			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
+			IsHost = isHost;
+			PlayerName = playerName;
+			
+			var col = IsHost ? Color.yellow : Color.white;
 
-			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
-			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
-
-			_playerNameText.text = data.GetPlayerName();
-			_playerRankText.text = $"{data.PlayerRank.ToString()}.";
-			_killsText.text = data.Data.PlayersKilledCount.ToString();
-			_deathsText.text = data.Data.DeathCount.ToString();
-
-			_coinsText.enabled = showExtra;
-			_coinsText.text = rewards.TryGetValue(GameId.HC, out var cs) ? cs.ToString() : "0";
-			_xpText.enabled = showExtra;
-			_xpText.text = data.Data.PlayerTrophies.ToString();
-
+			_playerNameText.text = playerName;
+			_playerStatus.text = status;
+			
 			_playerNameText.color = col;
-			_playerRankText.color = col;
-			_killsText.color = col;
-			_deathsText.color = col;
-			_coinsText.color = col;
+			_playerStatus.color = col;
 		}
 	}
 }

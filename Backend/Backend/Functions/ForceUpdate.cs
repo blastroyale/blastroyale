@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
+using Backend.Game;
 using Backend.Game.Services;
 using Backend.Models;
 using FirstLight.Game.Logic;
@@ -22,11 +23,11 @@ namespace Backend.Functions;
 /// </summary>
 public class ForceUpdate
 {
-	private readonly IServerStateService _serverState;
+	private readonly GameServer _server;
 
-	public ForceUpdate(IServerStateService serverState)
+	public ForceUpdate(GameServer server)
 	{
-		_serverState = serverState;
+		_server = server;
 	}
 	
 	public async Task<dynamic> RunForceUpdate(FunctionContext<LogicRequest> context, ILogger log)
@@ -34,12 +35,12 @@ public class ForceUpdate
 		var playerId = context.AuthenticationContext.PlayFabId;
 		log.Log(LogLevel.Information, $"Executing force update for {playerId}");
 		var newState = new ServerState(context.FunctionArgument.Data);
-		_serverState.UpdatePlayerState(playerId, newState);
-		return new PlayFabResult<LogicResult>
+		_server.State.UpdatePlayerState(playerId, newState);
+		return new PlayFabResult<BackendLogicResult>
 		{
 			Error = null,
 			CustomData = null,
-			Result = new LogicResult
+			Result = new BackendLogicResult
 			{
 				PlayFabId = playerId,
 				Command = context.FunctionArgument.Command,

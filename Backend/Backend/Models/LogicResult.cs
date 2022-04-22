@@ -11,7 +11,7 @@ namespace FirstLight.Game.Logic;
 // PlayFab.Internal which client does not have.
 /// </summary>
 [Serializable]
-public class LogicResult : PlayFabResultCommon
+public class BackendLogicResult : PlayFabResultCommon
 {
     /// <summary>
     /// Player Id

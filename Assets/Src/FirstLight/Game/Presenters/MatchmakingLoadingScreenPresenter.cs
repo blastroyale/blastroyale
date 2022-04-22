@@ -114,7 +114,11 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(false);
 				
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
-				AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
+
+				foreach (var playerKvp in CurrentRoom.Players)
+				{
+					AddOrUpdatePlayerInListHolder(playerKvp.Value, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
+				}
 			}
 		}
 

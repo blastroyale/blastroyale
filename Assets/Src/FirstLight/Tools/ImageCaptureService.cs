@@ -244,6 +244,8 @@ namespace Src.FirstLight.Tools
 		[SerializeField] private GameObject _canvasRoot;
 		[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
 		[SerializeField] private RenderTextureMode _renderTextureMode;
+		[SerializeField] private int _subFolderId;
+		[SerializeField] private int _collectionId;
 		
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 		private NftEquipmentAttributes _nftEquipmentAttributes;
@@ -340,6 +342,7 @@ namespace Src.FirstLight.Tools
 
 			var metadata = new Erc721MetaData()
 			{
+			    description = _nftEquipmentAttributes.EquipmentMetadataDescription,
 				attributes = new[]
 				{
 					new TraitAttribute()
@@ -457,7 +460,7 @@ namespace Src.FirstLight.Tools
 										using (var sha256Hash = SHA256.Create())
 										{
 											var hash = GetHash(sha256Hash, JsonConvert.SerializeObject(metadata));
-											metadata.image = $"{_webMarketplaceUri}/nftimages/{hash}.png";
+											metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 										}
 										
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);

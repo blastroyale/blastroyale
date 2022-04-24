@@ -227,14 +227,14 @@ namespace Src.FirstLight.Tools
 		}
 
 		[BoxGroup("Folder Paths")]
-		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
+		[FolderPath(AbsolutePath = true)]
 		public string _importFolderPath;
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _exportFolderPath;
-		[FilePath(Extensions = "json", RequireExistingPath = true)]
+		[FilePath(Extensions = "json")]
 		public string _metadataJsonFilePath;
-		[FilePath(Extensions = "json", RequireExistingPath = true)]
+		[FilePath(Extensions = "json")]
 		public string _metadataAttributesJsonFilePath;
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
@@ -428,33 +428,32 @@ namespace Src.FirstLight.Tools
 								
 			var imagesExportedCount = 0;
 			
-			for (var i = 0; i < _equipmentSnapshotResource.Categories.Length; i++)
+			for (var categoryIndex = 0; categoryIndex < _equipmentSnapshotResource.Categories.Length; categoryIndex++)
 			{
-				var category = _equipmentSnapshotResource.Categories[i];
+				var categoryPrefabData = _equipmentSnapshotResource.Categories[categoryIndex];
 
-				for (var j = 0; j < category.ManufacturerPrefabData.Length; j++)
+				for (var manufacturerIndex = 0; manufacturerIndex < categoryPrefabData.ManufacturerPrefabData.Length; manufacturerIndex++)
 				{
-					var manufacturer = category.ManufacturerPrefabData[j];
+					var gameObjectDimensionalData = categoryPrefabData.ManufacturerPrefabData[manufacturerIndex];
 
-					for (var k = 0; k < manufacturer.GameObjects.Length; k++)
+					for (var subCategoryIndex = 0; subCategoryIndex < gameObjectDimensionalData.GameObjects.Length; subCategoryIndex++)
 					{
-						for (var l = 0; l < _nftEquipmentAttributes.RarityValues.Length; l++)
+						for (var rarityIndex = 0; rarityIndex < _nftEquipmentAttributes.RarityValues.Length; rarityIndex++)
 						{
-							for (var m = 0; m < _nftEquipmentAttributes.MaterialValues.Length; m++)
+							for (var materialIndex = 0; materialIndex < _nftEquipmentAttributes.MaterialValues.Length; materialIndex++)
 							{
-								for (var f = 0; f < _nftEquipmentAttributes.FactionValues.Length; f++)
+								for (var factionIndex = 0; factionIndex < _nftEquipmentAttributes.FactionValues.Length; factionIndex++)
 								{
-									for (var g = 0; g < _nftEquipmentAttributes.GradeValues.Length; g++)
+									for (var gradeIndex = 0; gradeIndex < _nftEquipmentAttributes.GradeValues.Length; gradeIndex++)
 									{
-										metadata.attibutesDictionary["category"] = i;
-										metadata.attibutesDictionary["manufacturer"] = j;
-										metadata.attibutesDictionary["subCategory"] = k;
-										metadata.attibutesDictionary["rarity"] = l;
-										metadata.attibutesDictionary["material"] = m;
-										metadata.attibutesDictionary["faction"] = f;
-										metadata.attibutesDictionary["grade"] = g;
-										metadata.name = _nftEquipmentAttributes.SubCategoryNames[i][metadata.attributes[k].value];
-
+										metadata.attibutesDictionary["category"] = categoryIndex;
+										metadata.attibutesDictionary["manufacturer"] = manufacturerIndex;
+										metadata.attibutesDictionary["subCategory"] = subCategoryIndex;
+										metadata.attibutesDictionary["rarity"] = rarityIndex;
+										metadata.attibutesDictionary["material"] = materialIndex;
+										metadata.attibutesDictionary["faction"] = factionIndex;
+										metadata.attibutesDictionary["grade"] = gradeIndex;
+										metadata.name = _nftEquipmentAttributes.SubCategoryNames[categoryIndex][metadata.attributes[subCategoryIndex].value];
 										using (var sha256Hash = SHA256.Create())
 										{
 											var hash = GetHash(sha256Hash, JsonConvert.SerializeObject(metadata));
@@ -462,6 +461,7 @@ namespace Src.FirstLight.Tools
 										}
 										
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+										
 										imagesExportedCount++;
 									}
 								}
@@ -505,26 +505,29 @@ namespace Src.FirstLight.Tools
 				var prefabResource = _equipmentSnapshotResource.Categories[categoryId].ManufacturerPrefabData[manufacturerId].GameObjects[subcategoryId];
 
 				var go = Instantiate(prefabResource);
-				
-				var ercRenderable = go.GetComponent<IErcRenderable>();
-				ercRenderable.Initialise(metadata);
-				
 				go.transform.SetParent(_markerTransform);
 				go.transform.localScale = Vector3.one;
-
 				go.transform.localPosition = Vector3.zero;
-				var bounds = GetBounds(go);
-				go.transform.localPosition = -bounds.center;
-				go.transform.localRotation = Quaternion.identity;
-
-				var max = bounds.size;
-				var radius = max.magnitude / 2f;
-				var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
-				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-				_camera.transform.position = new Vector3(-dist, 0, 0);
 				
+				var ercRenderable = go.GetComponent<IErcRenderable>();
+
+				if (ercRenderable != null)
+				{
+					ercRenderable.Initialise(metadata);
+
+					var bounds = GetBounds(go);
+					go.transform.localPosition = -bounds.center;
+					go.transform.localRotation = Quaternion.identity;
+
+					var max = bounds.size;
+					var radius = max.magnitude / 2f;
+					var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
+					var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
+					var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
+
+					_camera.transform.position = new Vector3(-dist, 0, 0);
+				}
+
 				_canvas.SetActive(true);
 				
 				backgroundErcRenderable?.Initialise(metadata);

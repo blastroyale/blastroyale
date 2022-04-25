@@ -1664,11 +1664,25 @@ MonoBehaviour:
       - Lock & Play!
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/RoomErrorJoin
+    - Term: MainMenu/RoomError
       TermType: 0
       Description: 
       Languages:
-      - 'Cannot join room. Error: {0}'
+      - "Room Error: \n{0}"
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RoomLeaveButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/Loading
+      TermType: 0
+      Description: 
+      Languages:
+      - Loading...
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -4709,25 +4723,32 @@ MonoBehaviour:
       - '{0} PLAYERS REMAINING'
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/RoomErrorCreate
+    - Term: AdventureMenu/ReadyStatusLoading
       TermType: 0
       Description: 
       Languages:
-      - 'Cannot create room. Error: {0}'
+      - LOADING...
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/RoomError
+    - Term: AdventureMenu/ReadyStatusReady
       TermType: 0
       Description: 
       Languages:
-      - "Room Error: \n{0}"
+      - READY
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/RoomLeaveButton
+    - Term: AdventureMenu/ReadyStatusHost
       TermType: 0
       Description: 
       Languages:
-      - Leave
+      - HOST
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - STATUS
       Flags: 00
       Languages_Touch: []
     CaseInsensitiveTerms: 0
@@ -4742,7 +4763,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1650361030099
+    Google_LastUpdatedVersion: 1650879568627
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

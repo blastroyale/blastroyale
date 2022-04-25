@@ -11,7 +11,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class JoystickView : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 	{
-		[SerializeField, Required] private RectTransform[] _joysticks;
+		[SerializeField] private RectTransform[] _joysticks;
 		[SerializeField, Required] private Image _handleImage;
 		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;

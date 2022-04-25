@@ -19,7 +19,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class DynamicMessageView : MonoBehaviour
 	{
-		[SerializeField, Required] private List<DynamicMessageEntryView> _messages;
+		[SerializeField] private List<DynamicMessageEntryView> _messages;
 		[SerializeField] private AudioId[] _killedEnemyAudioIds; 
 		
 		private const int _doubleKillCount = 2;

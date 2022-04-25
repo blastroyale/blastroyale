@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	public class GenericDialogLootInfoPresenter : GenericDialogPresenterBase
 	{
 		[SerializeField, Required] private TextMeshProUGUI _itemsText;
-		[SerializeField, Required] private PossibleRarityCardView [] _possibleRarityCards;
+		[SerializeField] private PossibleRarityCardView [] _possibleRarityCards;
 		[SerializeField, Required] private Image _lootBoxImage;
 		[SerializeField, Required] private GameObject _possibleRewardsHolder;
 		

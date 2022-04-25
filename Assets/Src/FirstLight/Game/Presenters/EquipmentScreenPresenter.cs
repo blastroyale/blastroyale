@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Image _weaponTypeImage;
 		[SerializeField, Required] private Button _weaponTypeButton;
 		[SerializeField, Required] private Button _movieButton;
-		[SerializeField, Required] private Image [] _rarityImage;
+		[SerializeField] private Image [] _rarityImage;
 		[SerializeField, Required] private TextMeshProUGUI _rarityText;
 		[SerializeField, Required] private TextMeshProUGUI _weaponTypeText;
 		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;

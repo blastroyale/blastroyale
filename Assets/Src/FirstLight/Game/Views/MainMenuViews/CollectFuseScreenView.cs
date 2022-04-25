@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private PlayableDirector _timeline;
 		[SerializeField, Required] private CollectedLootView _lootCardRef;
 		[SerializeField, Required] private Transform _targetGrid;
-		[SerializeField, Required] private Transform[] _fusionTransforms;
+		[SerializeField] private Transform[] _fusionTransforms;
 		[SerializeField, Required] private Transform _newItemTransform;
 		
 		private IGameServices _services;

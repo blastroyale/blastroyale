@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class EmojiHubButtonView : MonoBehaviour
 	{
 		[SerializeField, Required] private Button _emojiHubButton;
-		[SerializeField, Required] private EmojiButtonView [] _emojiButtonViews;
+		[SerializeField] private EmojiButtonView [] _emojiButtonViews;
 		[SerializeField, Required] protected Animation _animation;
 		[SerializeField, Required] protected AnimationClip _introAnimationClip;
 		[SerializeField, Required] protected AnimationClip _outroAnimationClip;

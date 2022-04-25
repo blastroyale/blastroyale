@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private UiButtonView _button;
 		[SerializeField, Required] private Sprite _notificationOnSprite;
 		[SerializeField, Required] private Sprite _notificationOffSprite;
-		[SerializeField, Required] private NotificationViewBase[] _notifications;
+		[SerializeField] private NotificationViewBase[] _notifications;
 		[SerializeField, Required] private UIShiny _shiny;
 		[SerializeField, Required] private Animation _stateAnimation;
 		

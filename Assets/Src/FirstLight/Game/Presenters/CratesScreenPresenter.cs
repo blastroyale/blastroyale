@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _crateContentsHolder;
 		[SerializeField, Required] private GameObject _unlockingHolder;
 		[SerializeField, Required] private GameObject _hardCurrencyHolder;
-		[SerializeField, Required] private PossibleRarityCardView [] _possibleRarityCards;
+		[SerializeField] private PossibleRarityCardView [] _possibleRarityCards;
 
 		private IGameDataProvider _gameDataProvider;
 		private int _selectedSlot;

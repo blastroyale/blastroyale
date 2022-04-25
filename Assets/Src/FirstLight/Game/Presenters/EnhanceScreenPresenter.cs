@@ -35,7 +35,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GenericGridView _gridView;
 		[SerializeField, Required] private TextMeshProUGUI _titleText;
 		[SerializeField, Required] private TextMeshProUGUI _noItemsCollectedText;
-		[SerializeField, Required] private FilterEquipmentView[] _filterButtons;
+		[SerializeField] private FilterEquipmentView[] _filterButtons;
 		
 		[Header("Enhance Info Panel")]
 		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
@@ -53,7 +53,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Sprite _fuseEmptySprite;
 		
 		[Header("Enhance Slots")]
-		[SerializeField, Required] private SlotEquipmentFillerView [] _slotViews;
+		[SerializeField] private SlotEquipmentFillerView [] _slotViews;
 		
 		private IGameDataProvider _gameDataProvider;
 		private List<UniqueId> _showNotifications;

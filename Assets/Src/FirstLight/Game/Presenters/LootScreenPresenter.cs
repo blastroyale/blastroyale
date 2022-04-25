@@ -28,8 +28,8 @@ namespace FirstLight.Game.Presenters
 			public Action OnLootBackButtonClicked;
 		}
 		
-		[SerializeField, Required] private FilterLootView[] _filterButtons;
-		[SerializeField, Required] private EquippedLootView[] _equipmentButtons;
+		[SerializeField] private FilterLootView[] _filterButtons;
+		[SerializeField] private EquippedLootView[] _equipmentButtons;
 		[SerializeField, Required] private Button _allGearButton;
 		[SerializeField, Required] private Button _changeSkinButton;
 		[SerializeField, Required] private Button _backButton;

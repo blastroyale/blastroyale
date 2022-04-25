@@ -11,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	/// </remarks>
 	public class TimedVfxMonoComponent : Vfx<VfxId>
 	{
-		[SerializeField, Required] private float _activeTime;
+		[SerializeField] private float _activeTime;
 		
 		protected override void OnSpawned()
 		{

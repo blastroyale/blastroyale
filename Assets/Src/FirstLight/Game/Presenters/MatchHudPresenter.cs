@@ -25,7 +25,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private AnimationClip _introAnimationClip;
 		[SerializeField, Required] private GameObject _connectionIcon;
 		[SerializeField, Required] private Button _quitButton;
-		[SerializeField, Required] private Button[] _standingsButtons;
+		[SerializeField] private Button[] _standingsButtons;
 		[SerializeField, Required] private Button _leaderButton;
 		[SerializeField, Required] private StandingsHolderView _standings;
 		[SerializeField, Required] private TextMeshProUGUI _mapStatusText;
@@ -35,7 +35,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _weaponSlotsHolder;
-		[SerializeField, Required] private Button[] _weaponSlotButtons;
+		[SerializeField] private Button[] _weaponSlotButtons;
 		[SerializeField, Required] private GameObject _minimapHolder;
 
 		private IGameServices _services;

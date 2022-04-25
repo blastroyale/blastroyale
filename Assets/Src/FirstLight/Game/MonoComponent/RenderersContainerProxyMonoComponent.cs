@@ -16,7 +16,7 @@ namespace FirstLight.Game.MonoComponent
 	public class RenderersContainerProxyMonoComponent : MonoBehaviour, IRendersContainer
 	{
 		[SerializeField, Required] private RenderersContainerMonoComponent _mainRenderersContainer;
-		[SerializeField, Required] private List<RenderersContainerMonoComponent> _renderersContainers = new List<RenderersContainerMonoComponent>();
+		[SerializeField] private List<RenderersContainerMonoComponent> _renderersContainers = new List<RenderersContainerMonoComponent>();
 		
 		
 		private void OnValidate()

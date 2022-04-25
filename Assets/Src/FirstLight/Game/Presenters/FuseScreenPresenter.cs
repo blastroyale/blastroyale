@@ -42,12 +42,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
 		[SerializeField, Required] private TextMeshProUGUI _fuseCostText;
 		[SerializeField, Required] private TextMeshProUGUI _itemCraftedText;
-		[SerializeField, Required] private FuseChanceItemView[] _fuseItemChances;
+		[SerializeField] private FuseChanceItemView[] _fuseItemChances;
 		[SerializeField, Required] private Image _fuseChangeItemImage;
 		[SerializeField, Required] private Sprite _fuseEmptySprite;
 		
 		[Header("Fusion Slots")]
-		[SerializeField, Required] private SlotEquipmentFillerView [] _fuseSlotViews;
+		[SerializeField] private SlotEquipmentFillerView [] _fuseSlotViews;
 		
 		private IGameDataProvider _gameDataProvider;
 		private List<UniqueId> _showNotifications;

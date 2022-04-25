@@ -21,7 +21,7 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField, Required] private SpecialButtonView _specialButton0;
 		[SerializeField, Required] private SpecialButtonView _specialButton1;
-		[SerializeField, Required] private GameObject[] _disableWhileParachuting;
+		[SerializeField] private GameObject[] _disableWhileParachuting;
 
 		private IGameServices _services;
 		private LocalInput _localInput;

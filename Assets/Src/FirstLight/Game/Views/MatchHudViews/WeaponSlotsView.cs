@@ -14,8 +14,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class WeaponSlotsView : MonoBehaviour
 	{
-		[SerializeField, Required] private TextMeshProUGUI[] _weaponText;
-		[SerializeField, Required] private Image[] _weaponImage;
+		[SerializeField] private TextMeshProUGUI[] _weaponText;
+		[SerializeField] private Image[] _weaponImage;
 		
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;

@@ -137,9 +137,20 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
+
+			if (config.IsOfflineMode)
+			{
+				LockRoom();
+			}
+			else
+			{
+				StartMatchmakingLockRoomTimer();
+			}
 		}
 
 		/// <inheritdoc />
@@ -254,7 +265,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
 			var mapConfig = GetRotationMapConfig(msg.GameMode);
-			var config = StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
+			
+			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
 		}
 		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
@@ -275,11 +287,6 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
-			
-			if (_networkService.QuantumClient.CurrentRoom.IsVisible)
-			{
-				StartMatchmakingLockRoomTimer();
-			}
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage data)
@@ -287,7 +294,7 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private QuantumRunnerConfigs StartRandomMatchmaking(MapConfig mapConfig, bool isOfflineMode)
+		private void StartRandomMatchmaking(MapConfig mapConfig, bool isOfflineMode)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var enterParams = config.GetEnterRoomParams(mapConfig, null);
@@ -297,8 +304,6 @@ namespace FirstLight.Game.StateMachines
 			
 			UpdateQuantumClientProperties();
 			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
-
-			return config;
 		}
 
 		private void JoinRoom(string roomName)

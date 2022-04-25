@@ -308,6 +308,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void JoinRoom(string roomName)
 		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var enterParams = new EnterRoomParams
 			{
 				RoomName = roomName,
@@ -316,6 +317,8 @@ namespace FirstLight.Game.StateMachines
 				Lobby = TypedLobby.Default,
 				RoomOptions = null
 			};
+			
+			config.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
 			
@@ -327,6 +330,8 @@ namespace FirstLight.Game.StateMachines
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var mapConfig = GetRotationMapConfig(mode);
 			var enterParams = config.GetEnterRoomParams(mapConfig, roomName);
+
+			config.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
 			
@@ -344,7 +349,7 @@ namespace FirstLight.Game.StateMachines
 		private void StartMatchmakingLockRoomTimer()
 		{
 			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
-		
+
 			IEnumerator LockRoomCoroutine()
 			{
 				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);

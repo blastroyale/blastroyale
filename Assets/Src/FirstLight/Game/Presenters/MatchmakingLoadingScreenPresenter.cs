@@ -124,8 +124,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayerLoadedMatchMessage(PlayerLoadedMatchMessage msg)
 		{
 			string status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
-			
-			
+
 			if (msg.Player.IsMasterClient)
 			{
 				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;

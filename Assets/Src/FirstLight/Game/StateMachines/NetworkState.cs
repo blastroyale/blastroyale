@@ -210,10 +210,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.ContainsKey(GameConstants.PLAYER_PROPS_LOADED) && 
-			    _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
-				_statechartTrigger(MatchState.AllPlayersReadyEvent);
+				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
+
+				if (_networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+				{
+					_statechartTrigger(MatchState.AllPlayersReadyEvent);
+				}
 			}
 		}
 		

@@ -3586,6 +3586,8 @@ MonoBehaviour:
   _roomNameText: {fileID: 7769827458459980610}
   _loadingText: {fileID: 3344349076559296637}
   _roomNameRootObject: {fileID: 2297774574124471423}
+  _playerMatchmakingRootObject: {fileID: 5813237726447687209}
+  _playerListHolder: {fileID: 4707810532674525334}
 --- !u!1 &5015068528759575689
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,3 +7056,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2323421733989674673, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
   m_PrefabInstance: {fileID: 428467817384367810}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4707810532674525334 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4947126714574147156, guid: bf76a09d7cb2b4d008b78aa32003960d, type: 3}
+  m_PrefabInstance: {fileID: 428467817384367810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cea70c2232c8489f8ec6d71007e1e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -295,10 +295,10 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the Firebase config files to the current system build config
 		/// </summary>
-		[MenuItem("First Light Games/Setup/Firebase")]
+		[MenuItem("First Light Games/Setup Firebase")]
 		public static void SetupFirebase()
 		{
-			PrepareFirebase("-dev");
+			PrepareFirebase("DEVELOPMENT_BUILD");
 		}
 
 		public static void SetScriptingDefineSymbols(string buildSymbol, BuildTargetGroup targetGroup)

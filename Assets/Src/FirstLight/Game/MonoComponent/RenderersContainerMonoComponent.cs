@@ -4,7 +4,6 @@ using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.VFX;
@@ -57,7 +56,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField] private List<Material> _originalMaterials = new List<Material>();
 		[SerializeField] private List<Renderer> _renderers = new List<Renderer>();
 		[SerializeField] private List<Renderer> _particleRenderers = new List<Renderer>();
-		[SerializeField, Required] private Renderer _mainRenderer;
+		[SerializeField] private Renderer _mainRenderer;
 		
 		private IGameServices _services;
 		private MaterialPropertyBlock _propBlock;

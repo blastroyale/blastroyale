@@ -450,18 +450,16 @@ namespace Src.FirstLight.Tools
 									for (var gradeIndex = 0; gradeIndex < _nftEquipmentAttributes.GradeValues.Length; gradeIndex++)
 									{
 										metadata.attibutesDictionary["category"] = categoryIndex;
-										metadata.attibutesDictionary["manufacturer"] = manufacturerIndex;
 										metadata.attibutesDictionary["subCategory"] = subCategoryIndex;
+										metadata.attibutesDictionary["manufacturer"] = manufacturerIndex;
 										metadata.attibutesDictionary["rarity"] = rarityIndex;
 										metadata.attibutesDictionary["material"] = materialIndex;
 										metadata.attibutesDictionary["faction"] = factionIndex;
 										metadata.attibutesDictionary["grade"] = gradeIndex;
 										metadata.name = _nftEquipmentAttributes.SubCategoryNames[categoryIndex][metadata.attributes[subCategoryIndex].value];
-										using (var sha256Hash = SHA256.Create())
-										{
-											var hash = GetHash(sha256Hash, JsonConvert.SerializeObject(metadata));
-											metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
-										}
+
+										var hash = GenerateImageFilenameHash(metadata);
+										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 										
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 										
@@ -566,6 +564,28 @@ namespace Src.FirstLight.Tools
 				{
 					WriteRenderTextureToDisk($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
 				}
+			}
+		}
+
+		
+		/// <summary>
+		/// Generate image filename unique hash given metadata object
+		/// </summary>
+		private string GenerateImageFilenameHash(Erc721MetaData metadata)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.Append(metadata.attibutesDictionary["category"]);
+			stringBuilder.Append(metadata.attibutesDictionary["subCategory"]);
+			stringBuilder.Append(metadata.attibutesDictionary["manufacturer"]);
+			stringBuilder.Append(metadata.attibutesDictionary["rarity"]);
+			stringBuilder.Append(metadata.attibutesDictionary["material"]);
+			stringBuilder.Append(metadata.attibutesDictionary["faction"]);
+			stringBuilder.Append(metadata.attibutesDictionary["grade"]);
+			
+			using (var sha256Hash = SHA256.Create())
+			{
+				var hash = GetHash(sha256Hash, stringBuilder.ToString());
+				return hash;
 			}
 		}
 

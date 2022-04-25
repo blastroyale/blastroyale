@@ -128,7 +128,10 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
-			// Do Nothing
+			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
+			{
+				ReadyToPlay();
+			}
 		}
 
 		/// <inheritdoc />
@@ -208,18 +211,23 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLockRoomClicked()
 		{
-			_loadingText.SetActive(true);
-			_lockRoomButton.gameObject.SetActive(false);
-			_leaveRoomButton.gameObject.SetActive(false);
-			_getReadyToRumbleText.gameObject.SetActive(true);
-			_playersFoundText.gameObject.SetActive(false);
-			_findingPlayersText.gameObject.SetActive(false);
+			ReadyToPlay();
 			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
 		}
 
 		private void OnLeaveRoomClicked()
 		{
 			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
+		}
+
+		private void ReadyToPlay()
+		{
+			_loadingText.SetActive(true);
+			_lockRoomButton.gameObject.SetActive(false);
+			_leaveRoomButton.gameObject.SetActive(false);
+			_getReadyToRumbleText.gameObject.SetActive(true);
+			_playersFoundText.gameObject.SetActive(false);
+			_findingPlayersText.gameObject.SetActive(false);
 		}
 	}
 }

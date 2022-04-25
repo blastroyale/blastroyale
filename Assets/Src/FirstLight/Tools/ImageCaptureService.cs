@@ -42,13 +42,6 @@ namespace Src.FirstLight.Tools
 		public int InitialReplicationCounter;
 	}
 	
-	[Serializable]
-	public struct CaptureSnaphotData
-	{
-		public int category;
-		public int subCategory;
-		public CaptureSnapshotResource PrefabResource;
-	}
 	
 	[Serializable]
 	public struct GameObjectDimensional
@@ -61,161 +54,6 @@ namespace Src.FirstLight.Tools
 	{
 		public GameObjectDimensional[] ManufacturerPrefabData;
 	}
-
-	[Serializable]
-	public struct CaptureData
-	{
-		public CaptureSnaphotData[] PrefabCaptureData;
-	}
-
-	[Serializable]
-	public struct DataBinding
-	{
-		public string Source;
-		public string Target;
-	}
-
-	[Serializable]
-	public struct StringDataWeighted
-	{
-		public string Id;
-		[Range(0, 1)] public float Weight; //0-1
-	}
-
-	[Serializable]
-	public struct ColorInterpolation
-	{
-		public Color Color0;
-		public Color Color1;
-	}
-
-	[Serializable]
-	public struct VectorInterpolation
-	{
-		public Vector3 Vector0;
-		public Vector3 Vector1;
-	}
-
-	[Serializable]
-	public struct StringDataWeightedColorInterpolation
-	{
-		public StringDataWeighted StringDataWeighted;
-		public ColorInterpolation Value;
-	}
-
-	[Serializable]
-	public struct StringDataWeightedColor
-	{
-		public StringDataWeighted StringDataWeighted;
-		public Color Value;
-	}
-
-	[Serializable]
-	public struct StringDataWeightedVector
-	{
-		public StringDataWeighted StringDataWeighted;
-		public Vector3 Value;
-	}
-
-	[Serializable]
-	public struct StringDataVectorBinding
-	{
-		public DataBinding Binding;
-		public Vector3 Value;
-	}
-
-	[Serializable]
-	public struct StringDataColorBinding
-	{
-		public DataBinding Binding;
-		public Color Value;
-	}
-
-	[Serializable]
-	public struct MaterialFloatAttribute
-	{
-		public string PropertyId;
-		public float Value;
-	}
-
-	[Serializable]
-	public struct MaterialFloatRangeAttribute
-	{
-		public string PropertyId;
-		public float MinimumValue;
-		public float MaximumValue;
-	}
-
-	[Serializable]
-	public struct MaterialIntAttribute
-	{
-		public string PropertyId;
-		public int Value;
-	}
-
-	[Serializable]
-	public struct MaterialVector3Attribute
-	{
-		public string PropertyId;
-		public Vector3 Value;
-	}
-
-	[Serializable]
-	public struct MaterialColorAttribute
-	{
-		public string PropertyId;
-		public Color Value;
-	}
-
-	[Serializable]
-	public struct MaterialVectorRangeAttribute
-	{
-		public string PropertyId;
-		public Vector3 MinimumValue;
-		public Vector3 MaximumValue;
-	}
-
-	[Serializable]
-	public struct MaterialTextureAttribute
-	{
-		public string PropertyId;
-		public Texture Value;
-	}
-
-	[Serializable]
-	public struct StringDataFloatBinding
-	{
-		public DataBinding Binding;
-		public float Value;
-	}
-
-	[Serializable]
-	public struct StringDataBoolBinding
-	{
-		public DataBinding Binding;
-		public bool Value;
-	}
-
-	[Serializable]
-	public struct StringDataGameObjectBinding
-	{
-		public DataBinding Binding;
-		public GameObject Value;
-	}
-
-	[Serializable]
-	public struct StringDataMaterialBinding
-	{
-		public DataBinding Binding;
-		public Material Value;
-		public MaterialTextureAttribute[] MaterialTextureAttributes;
-		public MaterialColorAttribute[] MaterialColorAttributes;
-		public MaterialVector3Attribute[] MaterialVector3Attributes;
-		public MaterialFloatAttribute[] MaterialFloatAttributes;
-		public MaterialFloatRangeAttribute[] MaterialFloatRangeAttributes;
-		public MaterialIntAttribute[] MaterialIntAttributes;
-	}
-
 	
 	public class ImageCaptureService : MonoBehaviour
 	{
@@ -252,7 +90,7 @@ namespace Src.FirstLight.Tools
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
 		
 		
-		[Button("Export Metadata Collection")]
+		[Button("Export Render Textures [Metadata Json Collection]")]
 		public void ExportMetadataCollection()
 		{
 			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
@@ -281,7 +119,7 @@ namespace Src.FirstLight.Tools
 			Debug.Log($"Loaded [{fileCount} metadata files]");
 		}
 
-		[Button("Export [Metadata Json]")]
+		[Button("Export Render Texture [Metadata Json]")]
 		public void ExportRenderTextureFromMetadataJson()
 		{
 			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))

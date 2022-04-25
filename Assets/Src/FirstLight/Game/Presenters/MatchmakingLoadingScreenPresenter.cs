@@ -43,11 +43,15 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _roomNameText;
 		[SerializeField] private GameObject _loadingText;
 		[SerializeField] private GameObject _roomNameRootObject;
+		[SerializeField] private GameObject _playerMatchmakingRootObject;
+		[SerializeField] private PlayerListHolderView _playerListHolder;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
 		private float _rndWaitingTimeBiggest;
+
+		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 
 		private void Awake()
 		{
@@ -148,6 +152,15 @@ namespace FirstLight.Game.Presenters
 				_lockRoomButton.gameObject.SetActive(true);
 			}
 		}
+		
+		private void AddOrUpdatePlayerInListHolder(Player player, string status)
+		{
+			if (!CurrentRoom.IsVisible)
+			{
+				_playerListHolder.AddOrUpdatePlayer(player.NickName, status, player.IsMasterClient);
+			}
+		}
+
 
 		private void UpdatePlayersWaitingImages(int maxPlayers, int playerAmount)
 		{

@@ -144,6 +144,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
+			AddOrUpdatePlayerInListHolder(newPlayer, ScriptLocalization.AdventureMenu.ReadyStatusReady);
+			
 			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 		}
 
@@ -151,6 +153,8 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			
+			AddOrUpdatePlayerInListHolder(otherPlayer, ScriptLocalization.AdventureMenu.ReadyStatusReady);
 			
 			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 		}

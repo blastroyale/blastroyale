@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// Handles logic for the Score Holder view in Deathmatch mode. IE: How many kills you have versus how many the leading player has 
@@ -37,7 +32,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
-			_fragTarget = _gameDataProvider.AppDataProvider.SelectedMap.Value.GameEndTarget;
+			_fragTarget = _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Messages
 {
@@ -24,10 +25,18 @@ namespace FirstLight.Game.Messages
 	public struct EnhanceSequenceReadyMessage : IMessage { public List<UniqueId> EnhanceList; }
 	public struct EnhanceCompletedMessage : IMessage {  }
 	public struct CrateClickedMessage : IMessage { public UniqueId LootBoxId; }
-	public struct RoomRandomClickedMessage : IMessage { }
-	public struct RoomDevClickedMessage : IMessage { public string RoomName; }
-	public struct RoomJoinClickedMessage : IMessage { public string RoomName; }
-	public struct RoomCreateClickedMessage : IMessage { public string RoomName; }
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage { }
+	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
+	public struct PlayRandomClickedMessage : IMessage
+	{
+		public bool IsOfflineMode;
+		public GameMode GameMode;
+	}
+
+	public struct PlayCreateRoomClickedMessage : IMessage
+	{
+		public string RoomName; 
+		public GameMode GameMode;
+	}
 }

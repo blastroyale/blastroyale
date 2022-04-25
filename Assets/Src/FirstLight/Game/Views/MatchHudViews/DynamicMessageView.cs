@@ -52,24 +52,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+			
+			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			
 			foreach (var message in _messages)
 			{
 				message.gameObject.SetActive(false);
 			}
 
+			_killConfigTimer = config.DoubleKillTimeLimit;
+			_killTarget = mapConfig.GameEndTarget;
+			_killWarningLimit = (_killTarget / 3) * 2;
+			_playerKillStreak = new int[mapConfig.PlayersLimit];
+			_playerDominating = new bool[mapConfig.PlayersLimit];
+			_playerGodlike = new bool[mapConfig.PlayersLimit];
+			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventGameEnd);
-			
-			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = adventureInfo.GameEndTarget;
-			_killWarningLimit = (_killTarget / 3) * 2;
-
-			_playerKillStreak = new int[adventureInfo.PlayersLimit];
-			_playerDominating = new bool[adventureInfo.PlayersLimit];
-			_playerGodlike = new bool[adventureInfo.PlayersLimit];
 		}
 		
 		private void OnEventGameEnd(EventOnGameEnded callback)

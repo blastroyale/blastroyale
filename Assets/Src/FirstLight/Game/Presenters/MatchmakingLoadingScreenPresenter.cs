@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -15,6 +16,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
@@ -23,12 +25,14 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class MatchmakingLoadingScreenPresenter : UiPresenterData<MatchmakingLoadingScreenPresenter.StateData>
+	public class MatchmakingLoadingScreenPresenter : UiPresenterData<MatchmakingLoadingScreenPresenter.StateData>, IInRoomCallbacks
 	{
 		public struct StateData
 		{
 			public IUiService UiService;
 		}
+
+		public MapSelectionView MapSelectionView;
 		
 		[SerializeField] private Transform _playerCharacterParent;
 		[SerializeField] private Button _lockRoomButton;
@@ -41,18 +45,14 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField] private GameObject _roomNameRootObject;
 		[SerializeField] private TextMeshProUGUI _roomNameText;
+		[SerializeField] private GameObject _loadingText;
+		[SerializeField] private GameObject _roomNameRootObject;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
 		private float _rndWaitingTimeBiggest;
-		private bool _allPlayersLoadedMatch = false;
-
-		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
-
-		public MapSelectionView MapSelectionView;
 
 		private void Awake()
 		{
@@ -64,18 +64,16 @@ namespace FirstLight.Game.Presenters
 				image.gameObject.SetActive(false);
 			}
 			
+			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
-			
-			_services.MessageBrokerService.Subscribe<PlayerJoinedRoomMessage>(OnPlayerJoinedRoom);
-			_services.MessageBrokerService.Subscribe<PlayerLeftRoomMessage>(OnPlayerLeftRoom);
-			_services.MessageBrokerService.Subscribe<AllPlayersLoadedMatchMessage>(OnAllPlayersLoadedMatchMessage);
 			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
 		private void OnDestroy()
 		{
+			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			
 			SceneManager.activeSceneChanged -= OnSceneChanged;
@@ -84,75 +82,76 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
-			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
-
-			_allPlayersLoadedMatch = false;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
-			_getReadyToRumbleText.gameObject.SetActive(false);
 			_findingPlayersText.enabled = true;
 			_playersFoundText.enabled = true;
-			_playersFoundText.text = $"{0}/{config.PlayersLimit.ToString()}" ;
-			_rndWaitingTimeLowest = 2f / config.PlayersLimit;
-			_rndWaitingTimeBiggest = 8f / config.PlayersLimit;
+			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
+			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
+			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
 			
-			_lockRoomButton.gameObject.SetActive(false);
-			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
-			MapSelectionView.SetupMapView();
+			MapSelectionView.SetupMapView(room.GetMapId());
 
-			if (CurrentRoom.IsVisible)
+			if (room.IsVisible)
 			{
+				_lockRoomButton.gameObject.SetActive(false);
+				_leaveRoomButton.gameObject.SetActive(false);
+				_loadingText.SetActive(true);
 				_roomNameRootObject.SetActive(false);
-				StartCoroutine(TimeUpdateCoroutine(config));
+				StartCoroutine(TimeUpdateCoroutine(room.MaxPlayers));
+
+				return;
 			}
-			else
-			{
-				_roomNameRootObject.SetActive(true);
-				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
-				UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
-			}
+			
+			_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.Name);
+			
+			_leaveRoomButton.gameObject.SetActive(true);
+			_lockRoomButton.gameObject.SetActive(_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient);
+			_roomNameRootObject.SetActive(true);
+				
+			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 		}
 
-		private void OnAllPlayersLoadedMatchMessage(AllPlayersLoadedMatchMessage msg)
+		/// <inheritdoc />
+		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
-			_allPlayersLoadedMatch = true;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
-			// Only custom rooms can show room controls
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 
-			    _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
+		}
+
+		/// <inheritdoc />
+		public void OnPlayerLeftRoom(Player otherPlayer)
+		{
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			
+			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
+		}
+
+		/// <inheritdoc />
+		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+		{
+			// Do Nothing
+		}
+
+		/// <inheritdoc />
+		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+		{
+			// Do Nothing
+		}
+
+		/// <inheritdoc />
+		public void OnMasterClientSwitched(Player newMasterClient)
+		{
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && newMasterClient.IsLocal)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 			}
-
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible)
-			{
-				_leaveRoomButton.gameObject.SetActive(true);
-			}
-		}
-		
-		private void OnPlayerJoinedRoom(PlayerJoinedRoomMessage msg)
-		{
-			_allPlayersLoadedMatch = false;
-			_lockRoomButton.gameObject.SetActive(false);
-			UpdatePlayersWaitingImages(CurrentRoom.PlayerCount);
-		}
-		
-		private void OnPlayerLeftRoom(PlayerLeftRoomMessage msg)
-		{
-			UpdatePlayersWaitingImages(_services.NetworkService.QuantumClient.CurrentRoom.PlayerCount);
-			
-			// Only custom rooms can show room controls
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && 
-			    _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && _allPlayersLoadedMatch)
-			{
-				_lockRoomButton.gameObject.SetActive(true);
-			}
 		}
 
-		private void UpdatePlayersWaitingImages(int playerAmount)
+		private void UpdatePlayersWaitingImages(int maxPlayers, int playerAmount)
 		{
-			var maxPlayers = _gameDataProvider.AppDataProvider.SelectedMap.Value.PlayersLimit;
-			
 			for (var i = 0; i < _playersWaitingImage.Length; i++)
 			{
 				_playersWaitingImage[i].gameObject.SetActive((i+1) <= playerAmount);
@@ -170,11 +169,11 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private IEnumerator TimeUpdateCoroutine(MapConfig config)
+		private IEnumerator TimeUpdateCoroutine(int maxPlayers)
 		{
-			for (var i = 0; i < _playersWaitingImage.Length && i < config.PlayersLimit; i++)
+			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
 			{
-				UpdatePlayersWaitingImages(i + 1);
+				UpdatePlayersWaitingImages(maxPlayers, i + 1);
 				yield return new WaitForSeconds(Random.Range(_rndWaitingTimeLowest, _rndWaitingTimeBiggest));
 			}
 
@@ -213,6 +212,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLockRoomClicked()
 		{
+			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(true);

@@ -31,26 +31,25 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var adventureInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value;
-			_playerResultPool =
-				new GameObjectPool<PlayerResultEntryView>((uint) adventureInfo.PlayersLimit, _resultEntryViewRef);
 
-			for (var i = 0; i < adventureInfo.PlayersLimit; i++)
+			var playersLimit = _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers;
+			
+			_playerResultPool = new GameObjectPool<PlayerResultEntryView>(playersLimit, _resultEntryViewRef);
+
+			for (var i = 0; i < playersLimit; i++)
 			{
 				_playerResultPool.Spawn();
 			}
 
-			if (adventureInfo.PlayersLimit < 10)
+			if (playersLimit < 10)
 			{
 				var entryHeight = ((RectTransform) _resultEntryViewRef.transform).sizeDelta.y;
 				_contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x,
 				                                          (entryHeight + _verticalEntrySpacing) *
-				                                          (adventureInfo.PlayersLimit + 1));
+				                                          (playersLimit + 1));
 			}
 
 			_blockerButton.onClick.AddListener(OnCloseClicked);
-
-
 			_resultEntryViewRef.gameObject.SetActive(false);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer,
 			                                                  onlyIfActiveAndEnabled: true);

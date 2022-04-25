@@ -9,6 +9,7 @@ using UnityEngine;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.Game.Views.MatchHudViews;
 using Quantum.Commands;
 using Button = UnityEngine.UI.Button;
 

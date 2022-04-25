@@ -6,7 +6,7 @@ namespace Quantum
 	partial class RuntimeConfig
 	{
 		// Non Serialized Map Data
-		[NonSerialized] public GameId MapId;
+		[NonSerialized] public int MapId;
 		[NonSerialized] public int BotDifficultyLevel;
 		[NonSerialized] public int PlayersLimit;
 		[NonSerialized] public int GameEndTarget;
@@ -24,10 +24,9 @@ namespace Quantum
 		
 		partial void SerializeUserData(BitStream stream)
 		{
-			var mapId = (int) MapId;
 			var gameMode = (int) GameMode;
 			
-			stream.Serialize(ref mapId);
+			stream.Serialize(ref MapId);
 			stream.Serialize(ref gameMode);
 			stream.Serialize(ref BotDifficultyLevel);
 			stream.Serialize(ref PlayersLimit);
@@ -42,7 +41,6 @@ namespace Quantum
 			stream.Serialize(ref DestructibleConfigs);
 			stream.Serialize(ref ShrinkingCircleConfigs);
 			
-			MapId = (GameId) mapId;
 			GameMode = (GameMode) gameMode;
 		}
 	}

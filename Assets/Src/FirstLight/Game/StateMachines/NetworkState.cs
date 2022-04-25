@@ -24,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("Photon Disconnected Event");
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("Create Room Failed Event");
+		public static readonly IStatechartEvent PlayerPropertiesUpdatedEvent = new StatechartEvent("Player Properties Updated Event Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("Joined Room Event");
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("Join Room Fail Event");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("Left Room Event");
@@ -212,15 +213,27 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (CheckPlayerProperties(GameConstants.PLAYER_PROPS_LOADED_MATCH))
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_MATCH, out var loadedMatch) && (bool) loadedMatch)
 			{
-				_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
+				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage(){ Player = targetPlayer });
+				
+				if (CheckAllPlayerPropertiesTrue(GameConstants.PLAYER_PROPS_LOADED_MATCH))
+				{
+					_services.MessageBrokerService.Publish(new AllPlayersLoadedMatchMessage());
+				}
 			}
 			
-			if (CheckPlayerProperties(GameConstants.PLAYER_PROPS_LOADED_EQUIP))
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED_EQUIP, out var loadedEquip) && (bool) loadedEquip)
 			{
-				_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
+				_services.MessageBrokerService.Publish(new PlayerLoadedEquipmentMessage(){ Player = targetPlayer });
+				
+				if (CheckAllPlayerPropertiesTrue(GameConstants.PLAYER_PROPS_LOADED_EQUIP))
+				{
+					_services.MessageBrokerService.Publish(new AllPlayersLoadedEquipmentMessage());
+				}
 			}
+			
+			_statechartTrigger(PlayerPropertiesUpdatedEvent);
 		}
 		
 		/// <inheritdoc />
@@ -258,7 +271,7 @@ namespace FirstLight.Game.StateMachines
 			LockRoom();
 		}
 
-		private bool CheckPlayerProperties(string property)
+		private bool CheckAllPlayerPropertiesTrue(string property)
 		{
 			foreach (var playerKvp in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{

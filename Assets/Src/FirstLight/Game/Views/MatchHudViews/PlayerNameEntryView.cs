@@ -16,6 +16,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _regularColor;
 		[SerializeField] private Color _localColor;
 		[SerializeField] private Color _hostColor;
+		[SerializeField] private GameObject _hostIconObject;
+		
 		private IGameDataProvider _dataProvider;
 		
 		public string PlayerName { get; private set; }
@@ -33,6 +35,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var col = IsHost ? _hostColor : _regularColor;
 			col = isLocal ? _localColor : col;
+			
+			_hostIconObject.SetActive(isHost);
 
 			_playerNameText.text = playerName;
 			_playerStatus.text = status;

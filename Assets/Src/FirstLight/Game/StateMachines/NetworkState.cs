@@ -255,15 +255,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var mapConfig = GetRotationMapConfig(msg.GameMode);
 			var config = StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
-
-			if (config.IsOfflineMode)
-			{
-				LockRoom();
-			}
-			else
-			{
-				StartMatchmakingLockRoomTimer();
-			}
 		}
 		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
@@ -284,6 +275,11 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			
+			if (_networkService.QuantumClient.CurrentRoom.IsVisible)
+			{
+				StartMatchmakingLockRoomTimer();
+			}
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage data)

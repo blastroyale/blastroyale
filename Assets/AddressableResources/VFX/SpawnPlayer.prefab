@@ -56,7 +56,7 @@ VisualEffect:
       - m_Value: -6
         m_Name: ImpactOffset
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 3
         m_Name: LightningDelay
         m_Overridden: 1
       - m_Value: 8
@@ -195,4 +195,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 4
-  _activeTime: 3
+  _activeTime: 4

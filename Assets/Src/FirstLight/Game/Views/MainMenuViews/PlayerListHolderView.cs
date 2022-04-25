@@ -24,7 +24,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameDataProvider _gameDataProvider;
 
 		private bool _showExtra;
-		private List<PlayerNameEntryView> _activePlayerEntries;
+		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
 
 		public void Awake()
 		{
@@ -51,11 +51,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void WipeAllSlots()
 		{
-			if (_activePlayerEntries == null)
-			{
-				return;
-			}
-			
 			foreach (var player in _activePlayerEntries)
 			{
 				player.SetInfo("","", false);
@@ -100,6 +95,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
 
+			_activePlayerEntries.Sort();
 			for (int i = 0; i < _activePlayerEntries.Count - 1; i++)
 			{
 				_activePlayerEntries[i].transform.SetSiblingIndex(i);

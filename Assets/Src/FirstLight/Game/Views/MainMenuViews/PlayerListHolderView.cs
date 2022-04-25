@@ -30,8 +30,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
-			var mapInfo = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+
+			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
 
 			_activePlayerEntries = new List<PlayerNameEntryView>();
 			_playerNamePool = new GameObjectPool<PlayerNameEntryView>((uint) mapInfo.PlayersLimit, _nameEntryViewRef);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
@@ -12,11 +11,9 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Photon.Deterministic;
-using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.StateMachines
@@ -26,10 +23,7 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class MatchState
 	{
-		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
-		
-		private static readonly IStatechartEvent _leaveMatchEvent = new StatechartEvent("Leave Match Event");
-		private static readonly IStatechartEvent _allPlayersReadyEvent = new StatechartEvent("All Players Ready");
+		public static readonly IStatechartEvent AllPlayersReadyEvent = new StatechartEvent("All Players Ready");
 		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
@@ -59,11 +53,10 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var loading = stateFactory.TaskWait("Loading Assets");
-			var connectedCheck = stateFactory.Choice("Connected Check");
 			var roomCheck = stateFactory.Choice("Room Check");
-			var assetPreload = stateFactory.TaskWait("Asset Preload");
 			var matchmaking = stateFactory.State("Matchmaking");
-			var playerReadyWait = stateFactory.State("Player Ready Check");
+			var playerReadyCheck = stateFactory.Choice("Player Ready Check");
+			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
 			
@@ -72,22 +65,21 @@ namespace FirstLight.Game.StateMachines
 			
 			loading.OnEnter(OpenMatchmakingScreen);
 			loading.OnEnter(CloseLoadingScreen);
-			loading.WaitingFor(LoadMatchAssets).Target(connectedCheck);
-
-			connectedCheck.Transition().Condition(IsConnected).Target(roomCheck);
-			connectedCheck.Transition().Target(unloading);
+			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
 			
-			roomCheck.Transition().Condition(RoomIsClosed).Target(assetPreload);
+			roomCheck.Transition().Condition(IsDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
+			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			roomCheck.Transition().Target(matchmaking);
 			
-			matchmaking.OnEnter(SendMatchmakingStageMessage);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.LeftRoomEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
-			matchmaking.Event(NetworkState.RoomClosedEvent).Target(assetPreload);
-
-			assetPreload.WaitingFor(PreloadPlayerEquipment).Target(playerReadyWait);
+			matchmaking.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
 			
-			playerReadyWait.Event(_allPlayersReadyEvent).Target(gameSimulation);
+			playerReadyCheck.Transition().Condition(AreAllPlayersReady).Target(gameSimulation);
+			playerReadyCheck.Transition().Target(playerReadyWait);
+			
+			playerReadyWait.OnEnter(PreloadAllPlayersAssets);
+			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
@@ -101,17 +93,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<AllPlayersLoadedEquipmentMessage>(OnAllPlayersLoadedEquipmentMessage);
+			// Do Nothing
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
-		}
-
-		private void SendMatchmakingStageMessage()
-		{
-			_services.MessageBrokerService.Publish(new EnteredMatchmakingStateMessage());
 		}
 
 		private void OpenMatchmakingScreen()
@@ -146,19 +133,19 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoadingScreenPresenter>();
 		}
 
-		private bool IsConnected()
+		private bool IsDisconnected()
 		{
-			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+			return !_services.NetworkService.QuantumClient.IsConnected;
 		}
 
-		private bool RoomIsClosed()
+		private bool IsRoomClosed()
 		{
 			return _services.NetworkService.QuantumClient.CurrentRoom.IsOpen == false;
 		}
-		
-		private void OnAllPlayersLoadedEquipmentMessage(AllPlayersLoadedEquipmentMessage msg)
+
+		private bool AreAllPlayersReady()
 		{
-			_statechartTrigger(_allPlayersReadyEvent);
+			return _services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
 		}
 
 		private List<Task> LoadQuantumAssets(string map)
@@ -182,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMatchAssets()
 		{
 			var tasks = new List<Task>();
-			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -205,14 +192,11 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
-			
-			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
 		}
 
 		private async Task UnloadMatchAssets()
 		{
-			var mapId = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig.MapId;
-			var scene = SceneManager.GetSceneByName(mapId.ToString());
+			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
@@ -220,7 +204,6 @@ namespace FirstLight.Game.StateMachines
 			Camera.main.gameObject.SetActive(false);
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
-			_statechartTrigger(MatchEndedEvent);
 
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
@@ -234,10 +217,6 @@ namespace FirstLight.Game.StateMachines
 		private List<Task> PreloadGameAssets()
 		{
 			var tasks = new List<Task>();
-			var skinId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
-
-			// Preload local player skin
-			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId, true, false));
 
 			// Preload collectables
 			foreach (var id in GameIdGroup.Consumable.GetIds())
@@ -252,13 +231,6 @@ namespace FirstLight.Game.StateMachines
 					          false));
 			}
 
-			// Preload weapons
-			// TODO: Remove this once we only spawn equipped weapons (as those get preloaded when players join)
-			foreach (var id in GameIdGroup.Weapon.GetIds())
-			{
-				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
-			}
-
 			// Preload bot items
 			foreach (var id in GameIdGroup.BotItem.GetIds())
 			{
@@ -268,24 +240,24 @@ namespace FirstLight.Game.StateMachines
 			return tasks;
 		}
 
-		private async Task PreloadPlayerEquipment()
+		private async void PreloadAllPlayersAssets()
 		{
 			var tasks = new List<Task>();
 			
+			// Preload players assets
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
 				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.PLAYER_PROPS_PRELOAD_IDS];
 
 				foreach (var item in preloadIds)
 				{
-					var newTask = _services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false);
-					tasks.Add(newTask);
+					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false));
 				}
 			}
 			
 			await Task.WhenAll(tasks);
-			
-			_services.MessageBrokerService.Publish(new EquipmentAssetsLoadedMessage());
+
+			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
 		}
 
 		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)

@@ -1,6 +1,8 @@
 using ExitGames.Client.Photon;
 using FirstLight.Game.Infos;
 using FirstLight;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Utils;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
@@ -27,6 +29,12 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="QuantumLoadBalancingClient" />
 		QuantumLoadBalancingClient QuantumClient { get; }
+		
+		/// <summary>
+		/// Requests the current <see cref="MapConfig"/> for the map set on the current connected room.
+		/// If the player is not connected to any room then it return NULL without a value
+		/// </summary>
+		MapConfig? CurrentRoomMapConfig { get; }
 	}
 
 	/// <inheritdoc />
@@ -51,6 +59,8 @@ namespace FirstLight.Game.Services
 	{
 		private const int _lagRoundtripThreshold = 500; // yellow > 200
 
+		private IConfigsProvider _configsProvider;
+
 		/// <inheritdoc />
 		string IGameNetworkService.UserId => UserId.Value;
 		
@@ -62,14 +72,28 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public QuantumLoadBalancingClient QuantumClient { get; }
 
+		/// <inheritdoc />
+		public MapConfig? CurrentRoomMapConfig
+		{
+			get
+			{
+				if (!QuantumClient.InRoom)
+				{
+					return null;
+				}
+
+				return _configsProvider.GetConfig<MapConfig>(QuantumClient.CurrentRoom.GetMapId());
+			}
+		}
+
 		private IObservableField<bool> HasLag { get; }
 
-		public GameNetworkService()
+		public GameNetworkService(IConfigsProvider configsProvider)
 		{
+			_configsProvider = configsProvider;
 			QuantumClient = new QuantumLoadBalancingClient();
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
-
 			UserId.Value = PlayFabSettings.DeviceUniqueIdentifier;
 		}
 

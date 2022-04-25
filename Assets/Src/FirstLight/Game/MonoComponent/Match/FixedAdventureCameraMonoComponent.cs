@@ -87,7 +87,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SetTargetTransform(_playerView.transform);
 
-			if (_dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch)
+			if (callback.Game.Frames.Verified.RuntimeConfig.GameMode == GameMode.Deathmatch)
 			{
 				SetActiveCamera(_adventureCamera);
 			}

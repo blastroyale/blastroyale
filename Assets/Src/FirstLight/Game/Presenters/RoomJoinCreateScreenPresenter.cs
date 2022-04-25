@@ -1,15 +1,12 @@
 using System;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using I2.Loc;
-using MoreMountains.NiceVibrations;
+using Quantum;
+using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
@@ -26,7 +23,8 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _createRoomButton;
+		[SerializeField] private Button _createDeathmatchRoomButton;
+		[SerializeField] private Button _createBattleRoyaleRoomButton;
 		[SerializeField] private Button _joinRoomButton;
 
 		private IGameDataProvider _gameDataProvider;
@@ -36,9 +34,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			
+			_createBattleRoyaleRoomButton.gameObject.SetActive(Debug.isDebugBuild);
 
 			_closeButton.onClick.AddListener(Close);
-			_createRoomButton.onClick.AddListener(CreateRoomClicked);
+			_createDeathmatchRoomButton.onClick.AddListener(CreateDeathmatchRoom);
+			_createBattleRoyaleRoomButton.onClick.AddListener(CreateBattleRoyaleRoom);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 		}
 
@@ -61,17 +62,32 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			Data.PlayClicked.Invoke();
-			_services.MessageBrokerService.Publish(new RoomJoinClickedMessage(){ RoomName = roomNameInput });
+			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage{ RoomName = roomNameInput });
+			Data.PlayClicked();
 		}
 
-		private void CreateRoomClicked()
+		private void CreateDeathmatchRoom()
+		{
+			CreateRoomClicked(GameMode.Deathmatch);
+		}
+
+		private void CreateBattleRoyaleRoom()
+		{
+			CreateRoomClicked(GameMode.BattleRoyale);
+		}
+
+		private void CreateRoomClicked(GameMode gameMode)
 		{
 			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
-			string roomName = Random.Range(100000, 999999).ToString("F0");
+			var roomName = Random.Range(100000, 999999).ToString("F0");
+			var message = new PlayCreateRoomClickedMessage
+			{
+				RoomName = roomName,
+				GameMode = gameMode
+			};
 
-			Data.PlayClicked.Invoke();
-			_services.MessageBrokerService.Publish(new RoomCreateClickedMessage(){ RoomName = roomName });
+			_services.MessageBrokerService.Publish(message);
+			Data.PlayClicked();
 		}
 	}
 }

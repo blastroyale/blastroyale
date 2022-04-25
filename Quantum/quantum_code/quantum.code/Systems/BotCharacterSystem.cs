@@ -66,7 +66,7 @@ namespace Quantum.Systems
 			// then we don't go further with the behaviour
 			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) || 
 			    // Hack to prevent the bots to act while player's camera animation is still playing
-			    f.Time < f.GameConfig.PlayerRespawnTime * FP._2)
+			    f.Time < f.GameConfig.PlayerRespawnTime)
 			{
 				return;
 			}

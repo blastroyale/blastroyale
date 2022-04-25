@@ -39,7 +39,7 @@ namespace FirstLight.Game
 			var dataService = new DataService();
 			var configsProvider = new ConfigsProvider();
 			var uiService = new GameUiService(new UiAssetLoader());
-			var networkService = new GameNetworkService();
+			var networkService = new GameNetworkService(configsProvider);
 			var assetResolver = new AssetResolverService();
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
@@ -57,7 +57,6 @@ namespace FirstLight.Game
 			_gameLogic = gameLogic;
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
-			
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService, configsProvider, 
 			                                         assetResolver, dataService, vfxService);
 		}

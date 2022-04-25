@@ -99,7 +99,7 @@ namespace FirstLight.Editor.Build
 		{
 			var buildConfig = new BuildPlayerOptions { target = BuildTarget.Android };
 			
-			PlayerSettings.Android.useAPKExpansionFiles = true;
+			PlayerSettings.Android.useAPKExpansionFiles = false;
 			
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
 			SetScenesFromEditor(ref buildConfig);

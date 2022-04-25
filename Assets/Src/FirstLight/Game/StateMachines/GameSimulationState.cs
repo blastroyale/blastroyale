@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
@@ -122,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDeathmatch()
 		{
-			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch;
+			return QuantumRunner.Default.Game.Frames.Verified.RuntimeConfig.GameMode == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -216,11 +217,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSimulation()
 		{
-			var mapConfig = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+			var client = _services.NetworkService.QuantumClient;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var startParams = configs.GetDefaultStartParameters(mapConfig);
+			var startParams = configs.GetDefaultStartParameters(client.CurrentRoom.MaxPlayers);
 
-			startParams.NetworkClient = _services.NetworkService.QuantumClient;
+			startParams.NetworkClient = client;
 
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
@@ -335,7 +336,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var config = _services.ConfigsProvider.GetConfig<MapConfig>(room.GetMapId());
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -352,7 +354,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+			var config = _services.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
 
 			var analytics = new Dictionary<string, object>
 			{

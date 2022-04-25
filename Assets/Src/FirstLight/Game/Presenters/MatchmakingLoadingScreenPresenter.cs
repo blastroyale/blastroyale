@@ -34,14 +34,9 @@ namespace FirstLight.Game.Presenters
 
 		public MapSelectionView MapSelectionView;
 		
-		[SerializeField] private Transform _playerCharacterParent;
 		[SerializeField] private Button _lockRoomButton;
 		[SerializeField] private Button _leaveRoomButton;
-		[SerializeField] private Image _mapImage;
 		[SerializeField] private Image [] _playersWaitingImage;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private TextMeshProUGUI _firstToXKillsText;
-		[SerializeField] private TextMeshProUGUI _nextArenaText;
 		[SerializeField] private TextMeshProUGUI _playersFoundText;
 		[SerializeField] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
@@ -90,6 +85,7 @@ namespace FirstLight.Game.Presenters
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
 			
+			_loadingText.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			MapSelectionView.SetupMapView(room.GetMapId());
 

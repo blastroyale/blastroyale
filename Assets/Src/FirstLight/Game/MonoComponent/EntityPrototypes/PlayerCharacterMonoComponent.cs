@@ -157,13 +157,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-
-			SpawnAliveVfx();
-		}
-
-		private void SpawnAliveVfx()
-		{
-			var position = transform.position;
+			
+			var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
 			var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
 			
 			aliveVfx.transform.position = position;

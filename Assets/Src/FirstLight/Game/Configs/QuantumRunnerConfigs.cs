@@ -32,10 +32,6 @@ namespace FirstLight.Game.Configs
 		/// </summary>
 		public bool IsOfflineMode { get; set; } = false;
 		/// <summary>
-		/// Marks the Quantum simulation to run in dev mode
-		/// </summary>
-		public bool IsDevMode { get; set; } = false;
-		/// <summary>
 		/// Returns the <see cref="RuntimeConfig"/> used to build the simulation from the client side
 		/// </summary>
 		public RuntimeConfig RuntimeConfig => _runtimeConfig;
@@ -49,7 +45,7 @@ namespace FirstLight.Game.Configs
 			
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
 			_runtimeConfig.BotDifficultyLevel = 1;
-			_runtimeConfig.MapId = config.Map;
+			_runtimeConfig.MapId = config.Id;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
 			_runtimeConfig.PlayersLimit = config.PlayersLimit;
 			_runtimeConfig.GameMode = config.GameMode;
@@ -60,29 +56,12 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values that can be used or adapted to the custom situation
 		/// </remarks>
-		public EnterRoomParams GetEnterRoomParams(IGameDataProvider dataProvider, MapConfig mapConfig, string roomName = null)
+		public EnterRoomParams GetEnterRoomParams(MapConfig mapConfig, string roomName)
 		{
-			var preloadIds = new List<int>();
-			
-			foreach (var (key, value) in dataProvider.EquipmentDataProvider.EquippedItems)
-			{
-				var equipmentDataInfo = dataProvider.EquipmentDataProvider.GetEquipmentDataInfo(value);
-				preloadIds.Add((int) equipmentDataInfo.GameId);
-			}
-
-			preloadIds.Add((int) dataProvider.PlayerDataProvider.CurrentSkin.Value);
-
-			var playerProps = new Hashtable
-			{
-				{GameConstants.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.PLAYER_PROPS_LOADED_MATCH, false},
-				{GameConstants.PLAYER_PROPS_LOADED_EQUIP, false}
-			};
-			
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = roomName,
-				PlayerProperties = playerProps,
+				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
@@ -128,9 +107,9 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(MapConfig mapConfig)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerLimit)
 		{
-			var gameMode = mapConfig.PlayersLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+			var gameMode = playerLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
 			
 			return new QuantumRunner.StartParameters
 			{
@@ -146,7 +125,7 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = InstantReplaySettings.Default,
 				HeapExtraCount = 0,
-				PlayerCount = mapConfig.PlayersLimit
+				PlayerCount =playerLimit
 			};
 		}
 
@@ -168,9 +147,6 @@ namespace FirstLight.Game.Configs
 				
 				// Set the game map Id for the same matchmaking
 				{ GameConstants.ROOM_PROPS_MAP, mapConfig.Id },
-				
-				// Set if only dev mode players match together
-				{ GameConstants.ROOM_PROPS_DEV_MODE, IsDevMode },
 			};
 			
 			return properties;
@@ -185,8 +161,7 @@ namespace FirstLight.Game.Configs
 			return new []
 			{
 				GameConstants.ROOM_PROPS_COMMIT,
-				GameConstants.ROOM_PROPS_MAP,
-				GameConstants.ROOM_PROPS_DEV_MODE
+				GameConstants.ROOM_PROPS_MAP
 			};
 		}
 	}

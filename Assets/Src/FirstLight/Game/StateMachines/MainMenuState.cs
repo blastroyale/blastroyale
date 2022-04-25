@@ -212,8 +212,6 @@ namespace FirstLight.Game.StateMachines
 			
 			socialMenu.OnEnter(OpenSocialMenuUI);
 			socialMenu.OnExit(CloseSocialMenuUI);
-			
-			final.OnEnter(SendPlayClickedEvent);
 		}
 
 		private void SubscribeEvents()
@@ -287,11 +285,6 @@ namespace FirstLight.Game.StateMachines
 		private bool CheckUnclaimedRewards()
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
-		}
-
-		private bool IsConnectedAndReady()
-		{
-			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		/// <summary>
@@ -439,17 +432,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
 		}
-		
-		private void OpenRoomErrorUI()
-		{
-			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorCreate, "message");
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
-		}
 
 		private void CloseCratesMenuUI()
 		{
@@ -469,7 +451,7 @@ namespace FirstLight.Game.StateMachines
 				OnSocialButtonClicked = OnTabClickedCallback<SocialScreenPresenter>,
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
 				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
-				OnRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
+				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent)
 			};
 			
@@ -627,20 +609,6 @@ namespace FirstLight.Game.StateMachines
 		private void RoomJoinCreateCloseClicked()
 		{
 			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
-		}
-
-		private void SendPlayClickedEvent()
-		{
-			var config = _gameDataProvider.AppDataProvider.SelectedMap.Value;
-			
-			var dictionary = new Dictionary<string, object> 
-			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
-			};
-			
-			_services.AnalyticsService.LogEvent("play_clicked", dictionary);
 		}
 	}
 }

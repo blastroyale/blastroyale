@@ -56,7 +56,7 @@ VisualEffect:
       - m_Value: -6
         m_Name: ImpactOffset
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 2
         m_Name: LightningDelay
         m_Overridden: 1
       - m_Value: 8

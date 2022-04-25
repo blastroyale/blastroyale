@@ -49,6 +49,7 @@ namespace FirstLight.Game.Services
 		public static void OnPlayFabError(PlayFabError error)
 		{
 			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			
 			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
 		}
 
@@ -100,7 +101,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sends a command to the server.
 		/// </summary>
-		private void ExecuteServerCommand(IGameCommand command) 
+		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -108,7 +109,7 @@ namespace FirstLight.Game.Services
 				GeneratePlayStreamEvent = true,
 				FunctionParameter = new LogicRequest
 				{
-					Command = command?.GetType().FullName,
+					Command = command.GetType().FullName,
 					Platform = Application.platform.ToString(),
 					Data = new Dictionary<string, string>
 					{
@@ -117,7 +118,7 @@ namespace FirstLight.Game.Services
 				},
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, null, OnPlayFabError);
 		}
 	}
 }

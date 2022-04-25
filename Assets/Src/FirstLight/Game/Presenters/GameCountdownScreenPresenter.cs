@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
 using FirstLight.UiService;
 using FirstLight.Game.Signals;
 using FirstLight.Game.Utils;
@@ -21,23 +22,23 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private AnimationClip _firstToXKillsCountdownClip;
 		[SerializeField] private TextMeshProUGUI _firstToXKillsText;
 
-		private IGameDataProvider _gameDataProvider;
+		private IGameServices _services;
 
 		protected void Awake()
 		{
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void OnOpened()
 		{
-			var mapConfig = _gameDataProvider.AppDataProvider.SelectedMap.Value;
+			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 
 			_animation.clip = _firstToXKillsCountdownClip;
 			_animation.Play();
 
 			_firstToXKillsText.text =  string.Format(ScriptLocalization.AdventureMenu.FirstToXKills, mapConfig.GameEndTarget.ToString());
 			
-			this.LateCall(_animation.clip.length, Close);
+			this.LateCoroutineCall(_animation.clip.length, Close);
 		}
 	}
 }

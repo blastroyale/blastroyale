@@ -29,18 +29,16 @@ namespace FirstLight.Game.Presenters
 			public Action OnCratesButtonClicked;
 			public Action OnSocialButtonClicked;
 			public Action OnTrophyRoadClicked;
-			public Action OnRoomJoinCreateClicked;
+			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 		}
 
-		[SerializeField] private GameObject _regularButtonRoot;
-		[SerializeField] private GameObject _tournamentButtonRoot;
-		[SerializeField] private Button _playBattleRoyaleButton;
-		[SerializeField] private Button _playOfflineButton;
-		[SerializeField] private Button _playDevButton;
-		[SerializeField] private Button _playTournamentDeathmatchRandom;
-		[SerializeField] private Button _playTournamentDeathmatchOffline;
-		[SerializeField] private Button _playTournamentDeathmatchRoom;
+		[SerializeField] private GameObject _battleRoyaleButtonRoot;
+		[SerializeField] private Button _playBattleRoyaleRandom;
+		[SerializeField] private Button _playBattleRoyaleOffline;
+		[SerializeField] private Button _playDeathmatchRandom;
+		[SerializeField] private Button _playDeathmatchOffline;
+		[SerializeField] private Button _playRoom;
 		[SerializeField] private Button _nameChangeButton;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
@@ -69,15 +67,13 @@ namespace FirstLight.Game.Presenters
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_regularButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
+			_battleRoyaleButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
 
-			_playTournamentDeathmatchRandom.onClick.AddListener(OnPlayDeathmatchClicked);
-			_playTournamentDeathmatchOffline.onClick.AddListener(OnPlayDeathmatchOfflineClicked);
-			_playTournamentDeathmatchRoom.onClick.AddListener(OnRoomJoinCreatelicked);
-
-			_playDevButton.onClick.AddListener(OnPlayBattleRoyaleDevClicked);
-			_playBattleRoyaleButton.onClick.AddListener(OnPlayBattleRoyaleClicked);
-			_playOfflineButton.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
+			_playRoom.onClick.AddListener(OnPlayRoomlicked);
+			_playDeathmatchRandom.onClick.AddListener(OnPlayDeathmatchClicked);
+			_playDeathmatchOffline.onClick.AddListener(OnPlayDeathmatchOfflineClicked);
+			_playBattleRoyaleRandom.onClick.AddListener(OnPlayBattleRoyaleClicked);
+			_playBattleRoyaleOffline.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
 			
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
@@ -110,67 +106,55 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnPlayBattleRoyaleClicked()
 		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var message = new PlayRandomClickedMessage
+			{
+				IsOfflineMode = false,
+				GameMode = GameMode.BattleRoyale
+			};
 
-			runnerConfigs.IsOfflineMode = false;
-			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
-
+			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
-			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
-		}
-
-		private void OnPlayBattleRoyaleDevClicked()
-		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-
-			runnerConfigs.IsOfflineMode = false;
-			runnerConfigs.IsDevMode = true;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
-
-			Data.OnPlayButtonClicked();
-			_services.MessageBrokerService.Publish(new RoomDevClickedMessage());
 		}
 
 		private void OnPlayBattleRoyaleOfflineClicked()
 		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var message = new PlayRandomClickedMessage
+			{
+				IsOfflineMode = true,
+				GameMode = GameMode.BattleRoyale
+			};
 
-			runnerConfigs.IsOfflineMode = true;
-			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
-
+			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
-			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnPlayDeathmatchClicked()
 		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var message = new PlayRandomClickedMessage
+			{
+				IsOfflineMode = false,
+				GameMode = GameMode.Deathmatch
+			};
 
-			runnerConfigs.IsOfflineMode = false;
-			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
-
+			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
-			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
 		private void OnPlayDeathmatchOfflineClicked()
 		{
-			var runnerConfigs = Services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var message = new PlayRandomClickedMessage
+			{
+				IsOfflineMode = true,
+				GameMode = GameMode.Deathmatch
+			};
 
-			runnerConfigs.IsOfflineMode = true;
-			runnerConfigs.IsDevMode = false;
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
-
+			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
-			_services.MessageBrokerService.Publish(new RoomRandomClickedMessage());
 		}
 
-		private void OnRoomJoinCreatelicked()
+		private void OnPlayRoomlicked()
 		{
-			Data.OnRoomJoinCreateClicked();
+			Data.OnPlayRoomJoinCreateClicked();
 		}
 
 		private void OnNameChangeClicked()

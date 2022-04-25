@@ -66,6 +66,7 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
+			_services.MessageBrokerService.Subscribe<PlayerLoadedMatchMessage>(OnPlayerLoadedMatchMessage);
 			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
@@ -83,34 +84,60 @@ namespace FirstLight.Game.Presenters
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
+			_lockRoomButton.gameObject.SetActive(false);
+			_leaveRoomButton.gameObject.SetActive(false);
+			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
+			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
-			
-			_loadingText.SetActive(false);
-			_getReadyToRumbleText.gameObject.SetActive(false);
+
 			MapSelectionView.SetupMapView(room.GetMapId());
+			_playerListHolder.WipeAllSlots();
 
 			if (room.IsVisible)
 			{
-				_lockRoomButton.gameObject.SetActive(false);
-				_leaveRoomButton.gameObject.SetActive(false);
-				_loadingText.SetActive(true);
+				_playerListHolder.gameObject.SetActive(false);
+				_playerMatchmakingRootObject.SetActive(true);
+
 				_roomNameRootObject.SetActive(false);
 				StartCoroutine(TimeUpdateCoroutine(room.MaxPlayers));
-
-				return;
+				UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 			}
-			
-			_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.Name);
-			
-			_leaveRoomButton.gameObject.SetActive(true);
-			_lockRoomButton.gameObject.SetActive(_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient);
-			_roomNameRootObject.SetActive(true);
+			else
+			{
+				_playerListHolder.gameObject.SetActive(true);
+				_playerMatchmakingRootObject.SetActive(false);
 				
-			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
+				_roomNameRootObject.SetActive(true);
+				
+				foreach (var playerKvp in CurrentRoom.Players)
+				{
+					AddOrUpdatePlayerInListHolder(playerKvp.Value, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
+				}
+			}
+		}
+		
+		private void OnPlayerLoadedMatchMessage(PlayerLoadedMatchMessage msg)
+		{
+			string status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+			
+			
+			if (msg.Player.IsMasterClient)
+			{
+				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+			}
+
+			if (msg.Player.IsLocal)
+			{
+				_leaveRoomButton.gameObject.SetActive(true);
+				_lockRoomButton.gameObject.SetActive(_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient);
+			}
+
+			AddOrUpdatePlayerInListHolder(msg.Player, status);
 		}
 
 		/// <inheritdoc />
@@ -238,9 +265,13 @@ namespace FirstLight.Game.Presenters
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
-			_getReadyToRumbleText.gameObject.SetActive(true);
-			_playersFoundText.gameObject.SetActive(false);
-			_findingPlayersText.gameObject.SetActive(false);
+
+			if (CurrentRoom.IsVisible)
+			{
+				_getReadyToRumbleText.gameObject.SetActive(true);
+				_playersFoundText.gameObject.SetActive(false);
+				_findingPlayersText.gameObject.SetActive(false);
+			}
 		}
 	}
 }

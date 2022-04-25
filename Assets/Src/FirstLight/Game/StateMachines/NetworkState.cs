@@ -29,7 +29,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("Join Room Fail Event");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("Left Room Event");
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("Room Closed Event");
-		public static readonly IStatechartEvent PhotonTryReconnectEvent = new StatechartEvent("Photon Try Reconnect Event");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;

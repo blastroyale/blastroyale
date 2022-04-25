@@ -373,14 +373,14 @@ namespace Src.FirstLight.Tools
 
 				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
 				{
-					WriteRenderTextureToDisk(Path.GetFileName(metadata.image), _renderTexture);
+					WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
 				}
 
 				_canvas.SetActive(false);
 
 				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
 				{
-					WriteRenderTextureToDisk($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+					WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
 				}
 
 				DestroyImmediate(go);
@@ -393,14 +393,14 @@ namespace Src.FirstLight.Tools
 
 				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
 				{
-					WriteRenderTextureToDisk(Path.GetFileName(metadata.image), _renderTexture);
+					WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
 				}
 
 				_canvas.SetActive(false);
 
 				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
 				{
-					WriteRenderTextureToDisk($"{Path.GetFileName(metadata.image)}_standalone", _renderTextureStandalone);
+					WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
 				}
 			}
 		}
@@ -449,7 +449,7 @@ namespace Src.FirstLight.Tools
 			byte[] bytes = image.EncodeToPNG();
 			DestroyImmediate(image);
 			
-			var path = Path.Combine(_exportFolderPath,filename + ".png");
+			var path = Path.Combine(_exportFolderPath, filename + ".png");
 			Debug.Log($"[ Exporting capture image {path} ]");
 			File.WriteAllBytes(path, bytes);
 		}

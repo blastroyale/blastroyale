@@ -1,5 +1,10 @@
+using System;
 using Backend.Game.Services;
+using Backend.Models;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
+using FirstLight.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Backend.Game;
@@ -13,8 +18,9 @@ public class GameServer
 	private IServerCommahdHandler _cmdHandler;
 	private ILogger _log;
 	private IServerStateService _state;
+
+	public bool DevMode => Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
 	
-	public IServerStateService State => _state;
 	
 	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state)
 	{
@@ -33,6 +39,9 @@ public class GameServer
 		_log.Log(LogLevel.Information, $"Player {playerId} running server command {cmdType}");
 		var commandInstance = _cmdHandler.BuildCommandInstance(cmdData, cmdType);
 		var currentPlayerState = _state.GetPlayerState(playerId);
+		if (!HasAccess(currentPlayerState, commandInstance))
+			throw new LogicException("Insuficient permissions to run command");
+		
 		var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
 		_state.UpdatePlayerState(playerId, newState);
 		return new BackendLogicResult()
@@ -43,4 +52,12 @@ public class GameServer
 		};
 	}
 
+	/// <summary>
+	/// Checks if a given player has enough permissions to run a given command.
+	/// </summary>
+	private bool HasAccess(ServerState playerState, IGameCommand cmd)
+	{
+		// TODO: Validate player access level in player state
+		return DevMode || cmd.AccessLevel == CommandAccessLevel.Player;
+	}
 }

@@ -153,10 +153,8 @@ namespace FirstLight.Game.StateMachines
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #else
 			//Config for "Dev_Backend"
-			//PlayFabSettings.TitleId = "***REMOVED***";
-			//quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
 		}
 

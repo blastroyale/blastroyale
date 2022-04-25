@@ -79,8 +79,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
-			_findingPlayersText.enabled = true;
-			_playersFoundText.enabled = true;
+			_playersFoundText.gameObject.SetActive(true);
+			_findingPlayersText.gameObject.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
@@ -176,8 +176,8 @@ namespace FirstLight.Game.Presenters
 			yield return new WaitForSeconds(0.5f);
 			
 			_getReadyToRumbleText.gameObject.SetActive(true);
-			_findingPlayersText.enabled = false;
-			_playersFoundText.enabled = false;
+			_playersFoundText.gameObject.SetActive(false);
+			_findingPlayersText.gameObject.SetActive(false);
 		}
 
 		private void SetLayerState(bool state, bool forceUiAwakeCalls)

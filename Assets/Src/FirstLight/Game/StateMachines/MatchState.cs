@@ -201,8 +201,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task UnloadMatchAssets()
 		{
-			var mapId = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig.MapId;
-			var scene = SceneManager.GetSceneByName(mapId.ToString());
+			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 

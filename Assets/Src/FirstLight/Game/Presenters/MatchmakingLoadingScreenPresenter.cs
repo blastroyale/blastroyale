@@ -67,7 +67,6 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
-			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 			
 			SceneManager.activeSceneChanged += OnSceneChanged;
@@ -152,23 +151,7 @@ namespace FirstLight.Game.Presenters
 				AddOrUpdatePlayerInListHolder(playerKvp.Value, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
 			}
 		}
-		
-		private void OnAllMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
-		{
-			string status = "";
-			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
-			{
-				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
-			}
-			else
-			{
-				status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
-			}
-			
-			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
-		}
-		
+
 		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{

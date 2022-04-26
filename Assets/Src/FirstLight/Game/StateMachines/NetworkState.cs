@@ -123,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
-			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorCreate, message);
+			var title = string.Format(ScriptLocalization.MainMenu.RoomError, message);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -158,7 +158,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 			
-			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorJoin, message);
+			var title = string.Format(ScriptLocalization.MainMenu.RoomError, message);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK, 

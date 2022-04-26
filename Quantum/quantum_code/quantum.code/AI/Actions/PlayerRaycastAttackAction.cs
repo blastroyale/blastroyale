@@ -39,7 +39,7 @@ namespace Quantum
 				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
 				CanHitSameTarget = weaponConfig.CanHitSameTarget,
-				NumShots = weaponConfig.NumberOfShots
+				NumberOfShots = weaponConfig.NumberOfShots
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);

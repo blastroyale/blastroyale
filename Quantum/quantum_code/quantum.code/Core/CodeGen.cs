@@ -4042,7 +4042,7 @@ namespace Quantum {
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
     private Ptr LinecastQueriesPtr;
     [FieldOffset(20)]
-    public UInt32 NumShots;
+    public UInt32 NumberOfShots;
     [FieldOffset(24)]
     public UInt32 PowerAmount;
     [FieldOffset(40)]
@@ -4077,7 +4077,7 @@ namespace Quantum {
         hash = hash * 31 + CanHitSameTarget.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
         hash = hash * 31 + LinecastQueriesPtr.GetHashCode();
-        hash = hash * 31 + NumShots.GetHashCode();
+        hash = hash * 31 + NumberOfShots.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + PreviousTime.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
@@ -4104,7 +4104,7 @@ namespace Quantum {
         QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         QBoolean.Serialize(&p->CanHitSameTarget, serializer);
         serializer.Stream.Serialize(&p->AttackAngle);
-        serializer.Stream.Serialize(&p->NumShots);
+        serializer.Stream.Serialize(&p->NumberOfShots);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         FP.Serialize(&p->PreviousTime, serializer);
@@ -8962,7 +8962,7 @@ namespace Quantum.Prototypes {
     public FP SplashRadius;
     public FP StartTime;
     public FP PreviousTime;
-    public UInt32 NumShots;
+    public UInt32 NumberOfShots;
     partial void MaterializeUser(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       RaycastShots component = default;
@@ -8985,7 +8985,7 @@ namespace Quantum.Prototypes {
         }
         result.LinecastQueries = list;
       }
-      result.NumShots = this.NumShots;
+      result.NumberOfShots = this.NumberOfShots;
       result.PowerAmount = this.PowerAmount;
       result.PreviousTime = this.PreviousTime;
       result.Range = this.Range;

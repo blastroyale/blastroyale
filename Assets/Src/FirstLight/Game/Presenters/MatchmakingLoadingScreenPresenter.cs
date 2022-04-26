@@ -136,7 +136,8 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
-			if (!CurrentRoom.IsVisible)
+			// For custom games, only show leave room button if we are not loading straight into the match (if host locked room while we were loading)
+			if (!CurrentRoom.IsVisible && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
 			{
 				_loadingText.SetActive(false);
 				_leaveRoomButton.gameObject.SetActive(true);
@@ -144,21 +145,17 @@ namespace FirstLight.Game.Presenters
 			
 			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsVisible)
 			{
-				if (!CurrentRoom.IsVisible)
-				{
-					_lockRoomButton.gameObject.SetActive(true);
-					status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
-				}
-				
+				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+				_lockRoomButton.gameObject.SetActive(true);
 			}
 			
 			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
-
+			
 			_loadedCoreMatchAssets = true;
 		}
-
+		
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
 		{
 			foreach (var playerKvp in CurrentRoom.Players)

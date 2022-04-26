@@ -80,7 +80,8 @@ namespace FirstLight.Game.StateMachines
 			playerReadyCheck.Transition().Target(playerReadyWait);
 			
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
-			
+			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
+
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
 			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);

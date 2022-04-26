@@ -27,7 +27,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Set the information of this player entry based on the given strings and host status
 		/// </summary>
-		public void SetInfo(string playerName, string status, bool isLocal = false, bool isHost = false)
+		public void SetInfo(string playerName, string status, bool isLocal, bool isHost)
 		{
 			IsHost = isHost;
 			IsLocal = isLocal;
@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var col = IsHost ? _hostColor : _regularColor;
 			col = isLocal ? _localColor : col;
-			
+
 			_hostIconObject.SetActive(isHost);
 
 			_playerNameText.text = playerName;

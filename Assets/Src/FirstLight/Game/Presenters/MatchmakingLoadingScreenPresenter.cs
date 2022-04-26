@@ -67,7 +67,8 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_services.MessageBrokerService.Subscribe<PlayerLoadedMatchMessage>(OnPlayerLoadedMatchMessage);
-			
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
@@ -116,14 +117,49 @@ namespace FirstLight.Game.Presenters
 				
 				foreach (var playerKvp in CurrentRoom.Players)
 				{
-					AddOrUpdatePlayerInListHolder(playerKvp.Value, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
+					var status = "";
+					
+					if (playerKvp.Value.IsLocal)
+					{
+						status = ScriptLocalization.AdventureMenu.ReadyStatusLoading;
+					}
+					else
+					{
+						status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+					}
+					
+					AddOrUpdatePlayerInListHolder(playerKvp.Value, status);
 				}
 			}
 		}
 		
+		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
+		{
+			foreach (var playerKvp in CurrentRoom.Players)
+			{
+				AddOrUpdatePlayerInListHolder(playerKvp.Value, ScriptLocalization.AdventureMenu.ReadyStatusLoading);
+			}
+		}
+		
+		private void OnMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		{
+			string status = "";
+			
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+			}
+			else
+			{
+				status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+			}
+			
+			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
+		}
+		
 		private void OnPlayerLoadedMatchMessage(PlayerLoadedMatchMessage msg)
 		{
-			string status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 
 			if (msg.Player.IsMasterClient)
 			{
@@ -187,11 +223,10 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!CurrentRoom.IsVisible)
 			{
-				_playerListHolder.AddOrUpdatePlayer(player.NickName, status, player.IsMasterClient);
+				_playerListHolder.AddOrUpdatePlayer(player.NickName, status, player.IsLocal, player.IsMasterClient);
 			}
 		}
-
-
+		
 		private void UpdatePlayersWaitingImages(int maxPlayers, int playerAmount)
 		{
 			for (var i = 0; i < _playersWaitingImage.Length; i++)

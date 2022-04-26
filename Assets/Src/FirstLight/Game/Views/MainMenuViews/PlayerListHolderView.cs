@@ -53,24 +53,24 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			foreach (var player in _activePlayerEntries)
 			{
-				player.SetInfo("","", false);
+				player.SetInfo("","", false, false);
 			}
 		}
 
 		/// <summary>
 		/// Adds a player to the list, or updates them if already there
 		/// </summary>
-		public void AddOrUpdatePlayer(string playerName, string status, bool isHost = false)
+		public void AddOrUpdatePlayer(string playerName, string status, bool isLocal, bool isHost)
 		{
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == playerName);
-
+			
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(playerName,status,isHost);
+				existingEntry.SetInfo(playerName,status,isLocal,isHost);
 			}
 			else
 			{
-				GetNextEmptyPlayerEntrySlot().SetInfo(playerName,status,isHost);
+				GetNextEmptyPlayerEntrySlot().SetInfo(playerName,status,isLocal,isHost);
 			}
 			
 			OrderPlayerList();
@@ -85,10 +85,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 			
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo("","",false);
+				existingEntry.SetInfo("","",false,false);
+				
+				OrderPlayerList();
 			}
-			
-			OrderPlayerList();
 		}
 
 		private void OrderPlayerList()

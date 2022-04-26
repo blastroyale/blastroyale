@@ -242,6 +242,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async void PreloadAllPlayersAssets()
 		{
+			_services.MessageBrokerService.Publish(new StartedFinalPreloadMessage());
+			
 			var tasks = new List<Task>();
 			
 			// Preload players assets
@@ -257,7 +259,7 @@ namespace FirstLight.Game.StateMachines
 			
 			await Task.WhenAll(tasks);
 
-			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
+			_services.MessageBrokerService.Publish(new AllMatchAssetsLoadedMessage());
 		}
 
 		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)

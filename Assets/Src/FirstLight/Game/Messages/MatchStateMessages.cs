@@ -7,5 +7,6 @@ namespace FirstLight.Game.Messages
 	public struct MatchReadyMessage : IMessage { }
 	public struct MatchStartedMessage : IMessage { }
 	public struct MatchEndedMessage : IMessage { }
-	public struct MatchAssetsLoadedMessage : IMessage { }
+	public struct AllMatchAssetsLoadedMessage : IMessage { }
+	public struct StartedFinalPreloadMessage : IMessage { }
 }

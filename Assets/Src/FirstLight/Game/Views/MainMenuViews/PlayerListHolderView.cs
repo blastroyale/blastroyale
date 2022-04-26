@@ -93,7 +93,21 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OrderPlayerList()
 		{
-			_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
+			//_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
+			
+			_activePlayerEntries.Sort((a, b) =>
+			{
+				var rank = a.IsLocal.CompareTo(b.IsLocal) + a.IsHost.CompareTo(b.IsHost);
+
+				if (rank == 0)
+				{
+					rank = a.PlayerName.Length.CompareTo(b.PlayerName.Length);
+				}
+
+				return rank;
+			});
+
+			_activePlayerEntries.Reverse();
 			
 			for (int i = 0; i < _activePlayerEntries.Count - 1; i++)
 			{

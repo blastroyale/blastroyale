@@ -50,6 +50,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
 		private float _rndWaitingTimeBiggest;
+		private bool _loadedCoreMatchAssets = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 
@@ -135,7 +136,14 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
+			
+			Invoke(nameof(Test), 2f);
+		}
+
+		private void Test()
+		{
 			_loadingText.SetActive(false);
+			
 			_leaveRoomButton.gameObject.SetActive(true);
 			
 			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
@@ -147,6 +155,8 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
+
+			_loadedCoreMatchAssets = true;
 		}
 		
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
@@ -207,7 +217,10 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && newMasterClient.IsLocal)
 			{
-				_lockRoomButton.gameObject.SetActive(true);
+				if (_loadedCoreMatchAssets)
+				{
+					_lockRoomButton.gameObject.SetActive(true);
+				}
 			}
 		}
 		

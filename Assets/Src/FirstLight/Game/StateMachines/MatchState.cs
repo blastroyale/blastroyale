@@ -186,6 +186,8 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);
+			
+			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 
 			SceneManager.SetActiveScene(sceneTask.Result);
 

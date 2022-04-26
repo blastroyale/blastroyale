@@ -66,8 +66,10 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
-			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
+			
 			SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
@@ -132,6 +134,17 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 		
+		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
+		{
+			_loadingText.SetActive(false);
+			_leaveRoomButton.gameObject.SetActive(true);
+			
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				_lockRoomButton.gameObject.SetActive(true);
+			}
+		}
+		
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
 		{
 			foreach (var playerKvp in CurrentRoom.Players)
@@ -140,7 +153,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 		
-		private void OnMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		private void OnAllMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
 		{
 			string status = "";
 			
@@ -195,12 +208,6 @@ namespace FirstLight.Game.Presenters
 				if (targetPlayer.IsMasterClient)
 				{
 					status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
-				}
-
-				if (targetPlayer.IsLocal)
-				{
-					_leaveRoomButton.gameObject.SetActive(true);
-					_lockRoomButton.gameObject.SetActive(_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient);
 				}
 
 				AddOrUpdatePlayerInListHolder(targetPlayer, status);

@@ -36,6 +36,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 5898240
       AttackAngle: 1
+      NumShots: 2
       AttackRange:
         RawValue: 655360
       CanHitSameTarget: 0
@@ -61,6 +62,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 0
       AttackAngle: 60
+      NumShots: 0
       AttackRange:
         RawValue: 131072
       CanHitSameTarget: 0
@@ -86,6 +88,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 2162688
       AttackAngle: 20
+      NumShots: 2
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0
@@ -111,6 +114,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 3276800
       AttackAngle: 33
+      NumShots: 5
       AttackRange:
         RawValue: 327680
       CanHitSameTarget: 1
@@ -136,6 +140,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 458752
       AttackAngle: 0
+      NumShots: 1
       AttackRange:
         RawValue: 557056
       CanHitSameTarget: 0
@@ -161,6 +166,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       AttackAngle: 0
+      NumShots: 1
       AttackRange:
         RawValue: 425984
       CanHitSameTarget: 0
@@ -186,6 +192,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 3276800
       AttackAngle: 0
+      NumShots: 1
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0
@@ -211,6 +218,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       AttackAngle: 0
+      NumShots: 1
       AttackRange:
         RawValue: 425984
       CanHitSameTarget: 0
@@ -236,6 +244,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1966080
       AttackAngle: 15
+      NumShots: 1
       AttackRange:
         RawValue: 491520
       CanHitSameTarget: 0

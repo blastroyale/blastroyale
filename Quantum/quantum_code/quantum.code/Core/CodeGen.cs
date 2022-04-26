@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -4029,32 +4028,34 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RaycastShots : Quantum.IComponent {
-    public const Int32 SIZE = 112;
+    public const Int32 SIZE = 120;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public UInt32 AttackAngle;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public EntityRef Attacker;
     [FieldOffset(12)]
     public QBoolean CanHitSameTarget;
-    [FieldOffset(72)]
+    [FieldOffset(80)]
     public FPVector2 Direction;
     [FieldOffset(8)]
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
     private Ptr LinecastQueriesPtr;
     [FieldOffset(20)]
+    public UInt32 NumShots;
+    [FieldOffset(24)]
     public UInt32 PowerAmount;
-    [FieldOffset(32)]
-    public FP PreviousTime;
     [FieldOffset(40)]
-    public FP Range;
-    [FieldOffset(88)]
-    public FPVector3 SpawnPosition;
+    public FP PreviousTime;
     [FieldOffset(48)]
-    public FP Speed;
+    public FP Range;
+    [FieldOffset(96)]
+    public FPVector3 SpawnPosition;
     [FieldOffset(56)]
-    public FP SplashRadius;
+    public FP Speed;
     [FieldOffset(64)]
+    public FP SplashRadius;
+    [FieldOffset(72)]
     public FP StartTime;
     [FieldOffset(4)]
     public Int32 TeamSource;
@@ -4076,6 +4077,7 @@ namespace Quantum {
         hash = hash * 31 + CanHitSameTarget.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
         hash = hash * 31 + LinecastQueriesPtr.GetHashCode();
+        hash = hash * 31 + NumShots.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + PreviousTime.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
@@ -4102,6 +4104,7 @@ namespace Quantum {
         QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         QBoolean.Serialize(&p->CanHitSameTarget, serializer);
         serializer.Stream.Serialize(&p->AttackAngle);
+        serializer.Stream.Serialize(&p->NumShots);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         FP.Serialize(&p->PreviousTime, serializer);
@@ -8959,6 +8962,7 @@ namespace Quantum.Prototypes {
     public FP SplashRadius;
     public FP StartTime;
     public FP PreviousTime;
+    public UInt32 NumShots;
     partial void MaterializeUser(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       RaycastShots component = default;
@@ -8981,6 +8985,7 @@ namespace Quantum.Prototypes {
         }
         result.LinecastQueries = list;
       }
+      result.NumShots = this.NumShots;
       result.PowerAmount = this.PowerAmount;
       result.PreviousTime = this.PreviousTime;
       result.Range = this.Range;

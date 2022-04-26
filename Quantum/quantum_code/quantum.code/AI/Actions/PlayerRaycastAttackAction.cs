@@ -38,7 +38,8 @@ namespace Quantum
 				Range = weaponConfig.AttackRange,
 				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
-				CanHitSameTarget = weaponConfig.CanHitSameTarget
+				CanHitSameTarget = weaponConfig.CanHitSameTarget,
+				NumShots = weaponConfig.NumShots
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);

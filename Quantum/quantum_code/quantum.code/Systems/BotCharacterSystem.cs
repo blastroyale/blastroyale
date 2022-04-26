@@ -71,6 +71,11 @@ namespace Quantum.Systems
 				return;
 			}
 
+			if (f.Has<AlivePlayerCharacter>(filter.Entity))
+			{
+				return;
+			}
+
 			// If a bot has a valid target then we correct the bot's speed according
 			// to the weapon they carry and turn the bot towards the target
 			// otherwise we return speed to normal and let automatic navigation turn the bot

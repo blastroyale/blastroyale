@@ -17,6 +17,7 @@ namespace Quantum
 		public FP AttackCooldown;
 		public FP AttackHitSpeed;
 		public uint AttackAngle;
+		public uint NumShots;
 		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;

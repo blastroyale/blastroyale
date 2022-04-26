@@ -73,7 +73,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				GetNextEmptyPlayerEntrySlot().SetInfo(playerName,status,isLocal,isHost);
 			}
 			
-			OrderPlayerList();
+			SortPlayerList();
 		}
 
 		/// <summary>
@@ -87,11 +87,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				existingEntry.SetInfo("","",false,false);
 				
-				OrderPlayerList();
+				SortPlayerList();
 			}
 		}
 
-		private void OrderPlayerList()
+		private void SortPlayerList()
 		{
 			//_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
 			

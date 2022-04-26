@@ -1,27 +1,7 @@
-using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Views.MainMenuViews;
-using TMPro;
-using UnityEngine;
-using System.Linq;
-using System.Threading.Tasks;
-using FirstLight.Game.Infos;
-using FirstLight.Services;
-using I2.Loc;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Commands;
-using Quantum;
-using Button = UnityEngine.UI.Button;
-using FirstLight.Game.Configs.AssetConfigs;
-using UnityEngine.UI;
 
-namespace FirstLight.Game.Presenters
+namespace FirstLight.Game.Utils
 {
 	/// <summary>
 	/// This View handles the Equipment / Loot Menu.

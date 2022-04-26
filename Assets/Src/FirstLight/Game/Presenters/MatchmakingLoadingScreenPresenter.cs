@@ -66,7 +66,6 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
-			_services.MessageBrokerService.Subscribe<PlayerLoadedMatchMessage>(OnPlayerLoadedMatchMessage);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 			SceneManager.activeSceneChanged += OnSceneChanged;
@@ -133,7 +132,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 		
-		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
+		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
 		{
 			foreach (var playerKvp in CurrentRoom.Players)
 			{
@@ -157,24 +156,6 @@ namespace FirstLight.Game.Presenters
 			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
 		}
 		
-		private void OnPlayerLoadedMatchMessage(PlayerLoadedMatchMessage msg)
-		{
-			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
-
-			if (msg.Player.IsMasterClient)
-			{
-				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
-			}
-
-			if (msg.Player.IsLocal)
-			{
-				_leaveRoomButton.gameObject.SetActive(true);
-				_lockRoomButton.gameObject.SetActive(_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient);
-			}
-
-			AddOrUpdatePlayerInListHolder(msg.Player, status);
-		}
-
 		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
@@ -207,7 +188,23 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			// Do Nothing
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			{
+				var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+
+				if (targetPlayer.IsMasterClient)
+				{
+					status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+				}
+
+				if (targetPlayer.IsLocal)
+				{
+					_leaveRoomButton.gameObject.SetActive(true);
+					_lockRoomButton.gameObject.SetActive(_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient);
+				}
+
+				AddOrUpdatePlayerInListHolder(targetPlayer, status);
+			}
 		}
 
 		/// <inheritdoc />

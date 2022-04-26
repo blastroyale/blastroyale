@@ -136,29 +136,29 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
-			
-			Invoke(nameof(Test), 2f);
-		}
-
-		private void Test()
-		{
-			_loadingText.SetActive(false);
-			
-			_leaveRoomButton.gameObject.SetActive(true);
+			if (!CurrentRoom.IsVisible)
+			{
+				_loadingText.SetActive(false);
+				_leaveRoomButton.gameObject.SetActive(true);
+			}
 			
 			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 			
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
-				_lockRoomButton.gameObject.SetActive(true);
-				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+				if (!CurrentRoom.IsVisible)
+				{
+					_lockRoomButton.gameObject.SetActive(true);
+					status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
+				}
+				
 			}
 			
 			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
 
 			_loadedCoreMatchAssets = true;
 		}
-		
+
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
 		{
 			foreach (var playerKvp in CurrentRoom.Players)

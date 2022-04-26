@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 
@@ -79,9 +80,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Removes player from the list view based on the provided name
 		/// </summary>
-		public void RemovePlayer(string playerName)
+		public void RemovePlayer(Player player)
 		{
-			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == playerName);
+			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == player.NickName);
 			
 			if (existingEntry != null)
 			{

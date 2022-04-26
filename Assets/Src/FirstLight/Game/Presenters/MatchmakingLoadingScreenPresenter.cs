@@ -138,10 +138,15 @@ namespace FirstLight.Game.Presenters
 			_loadingText.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(true);
 			
+			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
+			
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
+				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
 			}
+			
+			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
 		}
 		
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
@@ -167,7 +172,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
-			AddOrUpdatePlayerInListHolder(otherPlayer, ScriptLocalization.AdventureMenu.ReadyStatusReady);
+			_playerListHolder.RemovePlayer(otherPlayer);
 			
 			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 		}

@@ -20,7 +20,6 @@ namespace Quantum
 		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
-		//public static readonly FP RaycastAngleSplit = FP._1 * 10;
 		
 		public static readonly GameIdGroup[] EquipmentSlots = new GameIdGroup[Constants.EQUIPMENT_SLOT_COUNT]
 		{

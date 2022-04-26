@@ -80,7 +80,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
-			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 		}
 
 		private void UnsubscribeEvents()
@@ -210,10 +210,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.ContainsKey(GameConstants.PLAYER_PROPS_LOADED) && 
-			    _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
-				_statechartTrigger(MatchState.AllPlayersReadyEvent);
+				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
+
+				if (_networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+				{
+					_statechartTrigger(MatchState.AllPlayersReadyEvent);
+				}
 			}
 		}
 		
@@ -279,7 +283,7 @@ namespace FirstLight.Game.StateMachines
 			JoinRoom(msg.RoomName);
 		}
 		
-		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
+		private void OnMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{

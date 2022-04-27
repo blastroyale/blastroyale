@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 4908465120433501779}
   - component: {fileID: 8565772704126552877}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: NameInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1450,7 +1450,11 @@ MonoBehaviour:
   _animation: {fileID: 883844809517885863}
   _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
-  _closeButton: {fileID: 0}
+  _emailInputField: {fileID: 4128133359603046180}
+  _nameInputField: {fileID: 4908465120433501779}
+  _passwordInputField: {fileID: 4133704773946751923}
+  _goToLoginButton: {fileID: 3819700087749635873}
+  _registerButton: {fileID: 7548042188771319651}
 --- !u!1 &4194012447175886297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1469,7 @@ GameObject:
   - component: {fileID: 4133704773946751923}
   - component: {fileID: 1695140822314128307}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: PasswordInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1578,8 +1582,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -1942,7 +1946,7 @@ GameObject:
   - component: {fileID: 4128133359603046180}
   - component: {fileID: 4187825964414952515}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: EmailInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2055,14 +2059,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 6
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 7
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 7
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 20

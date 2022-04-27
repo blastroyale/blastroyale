@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using I2.Loc;
 using Quantum;
+using TMPro;
 using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
 
@@ -18,10 +19,16 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public Action LoginClicked;
+			public Action<string,string> LoginClicked;
 			public Action GoToRegisterClicked;
 		}
+		
+		[SerializeField] private TMP_InputField _emailInputField;
+		[SerializeField] private TMP_InputField _passwordInputField;
 
+		[SerializeField] private Button _goToRegisterButton;
+		[SerializeField] private Button _loginButton;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
@@ -29,8 +36,19 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			
+			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
+			_loginButton.onClick.AddListener(LoginClicked);
+		}
+		
+		private void LoginClicked()
+		{
+			Data.LoginClicked(_emailInputField.text, _passwordInputField.text);
+		}
 
-			_closeButton.onClick.AddListener(Close);
+		private void GoToRegisterClicked()
+		{
+			Data.GoToRegisterClicked();
 		}
 	}
 }

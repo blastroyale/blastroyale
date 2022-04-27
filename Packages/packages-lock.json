@@ -17,7 +17,7 @@
       "hash": "b43e40508b167d143330d8b9eff0d5c9965cdf3c"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.169.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.170.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}

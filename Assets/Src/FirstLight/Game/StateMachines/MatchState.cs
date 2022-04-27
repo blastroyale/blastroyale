@@ -66,7 +66,6 @@ namespace FirstLight.Game.StateMachines
 			loading.OnEnter(OpenMatchmakingScreen);
 			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
-			loading.OnExit(PublishMatchLoadedMessage);
 			
 			roomCheck.Transition().Condition(IsDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
@@ -79,8 +78,10 @@ namespace FirstLight.Game.StateMachines
 			playerReadyCheck.Transition().Condition(AreAllPlayersReady).Target(gameSimulation);
 			playerReadyCheck.Transition().Target(playerReadyWait);
 			
+			playerReadyWait.OnEnter(PreloadAllPlayersAssets);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
-			
+			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
+
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
 			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
@@ -99,11 +100,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
-		}
-
-		private void PublishMatchLoadedMessage()
-		{
-			_services.MessageBrokerService.Publish(new MatchAssetsLoadedMessage());
 		}
 
 		private void OpenMatchmakingScreen()
@@ -191,6 +187,8 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);
+			
+			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 
 			SceneManager.SetActiveScene(sceneTask.Result);
 
@@ -222,10 +220,6 @@ namespace FirstLight.Game.StateMachines
 		private List<Task> PreloadGameAssets()
 		{
 			var tasks = new List<Task>();
-			var skinId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
-
-			// Preload local player skin
-			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(skinId, true, false));
 
 			// Preload collectables
 			foreach (var id in GameIdGroup.Consumable.GetIds())
@@ -240,18 +234,20 @@ namespace FirstLight.Game.StateMachines
 					          false));
 			}
 
-			// Preload weapons
-			// TODO: Remove this once we only spawn equipped weapons (as those get preloaded when players join)
-			foreach (var id in GameIdGroup.Weapon.GetIds())
-			{
-				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
-			}
-
 			// Preload bot items
 			foreach (var id in GameIdGroup.BotItem.GetIds())
 			{
 				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
 			}
+
+			return tasks;
+		}
+
+		private async void PreloadAllPlayersAssets()
+		{
+			_services.MessageBrokerService.Publish(new StartedFinalPreloadMessage());
+			
+			var tasks = new List<Task>();
 			
 			// Preload players assets
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
@@ -263,8 +259,10 @@ namespace FirstLight.Game.StateMachines
 					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false));
 				}
 			}
+			
+			await Task.WhenAll(tasks);
 
-			return tasks;
+			_services.MessageBrokerService.Publish(new AllMatchAssetsLoadedMessage());
 		}
 
 		private void SetQuantumMultiClient(QuantumRunnerConfigs runnerConfigs, EntityViewUpdaterService entityService)

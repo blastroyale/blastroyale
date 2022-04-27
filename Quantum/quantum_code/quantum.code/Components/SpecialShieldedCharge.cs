@@ -77,7 +77,7 @@ namespace Quantum
 				ChargeStartPos = attackerPosition,
 				ChargeEndPos = targetPosition,
 				ChargeStartTime = f.Time,
-				PowerAmount = special.PowerAmount
+				PowerAmount = (UInt32)special.PowerAmount
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);

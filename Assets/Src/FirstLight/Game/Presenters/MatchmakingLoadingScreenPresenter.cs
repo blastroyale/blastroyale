@@ -212,6 +212,8 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
+			AddOrUpdatePlayerInListHolder(newMasterClient, ScriptLocalization.AdventureMenu.ReadyStatusHost);
+			
 			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && newMasterClient.IsLocal)
 			{
 				if (_loadedCoreMatchAssets)

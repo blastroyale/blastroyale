@@ -2553,14 +2553,14 @@ namespace Quantum {
   public unsafe partial struct Special {
     public const Int32 SIZE = 56;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
-    public FP AvailableTime;
-    [FieldOffset(24)]
-    public FP Cooldown;
-    [FieldOffset(32)]
-    public FP MaxRange;
     [FieldOffset(8)]
-    public UInt32 PowerAmount;
+    public FP AvailableTime;
+    [FieldOffset(16)]
+    public FP Cooldown;
+    [FieldOffset(24)]
+    public FP MaxRange;
+    [FieldOffset(32)]
+    public FP PowerAmount;
     [FieldOffset(40)]
     public FP Radius;
     [FieldOffset(0)]
@@ -2587,10 +2587,10 @@ namespace Quantum {
         var p = (Special*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SpecialId);
         serializer.Stream.Serialize((Int32*)&p->SpecialType);
-        serializer.Stream.Serialize(&p->PowerAmount);
         FP.Serialize(&p->AvailableTime, serializer);
         FP.Serialize(&p->Cooldown, serializer);
         FP.Serialize(&p->MaxRange, serializer);
+        FP.Serialize(&p->PowerAmount, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->Speed, serializer);
     }
@@ -4028,32 +4028,34 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RaycastShots : Quantum.IComponent {
-    public const Int32 SIZE = 112;
+    public const Int32 SIZE = 120;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public UInt32 AttackAngle;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public EntityRef Attacker;
     [FieldOffset(12)]
     public QBoolean CanHitSameTarget;
-    [FieldOffset(72)]
+    [FieldOffset(80)]
     public FPVector2 Direction;
     [FieldOffset(8)]
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
     private Ptr LinecastQueriesPtr;
     [FieldOffset(20)]
+    public UInt32 NumberOfShots;
+    [FieldOffset(24)]
     public UInt32 PowerAmount;
-    [FieldOffset(32)]
-    public FP PreviousTime;
     [FieldOffset(40)]
-    public FP Range;
-    [FieldOffset(88)]
-    public FPVector3 SpawnPosition;
+    public FP PreviousTime;
     [FieldOffset(48)]
-    public FP Speed;
+    public FP Range;
+    [FieldOffset(96)]
+    public FPVector3 SpawnPosition;
     [FieldOffset(56)]
-    public FP SplashRadius;
+    public FP Speed;
     [FieldOffset(64)]
+    public FP SplashRadius;
+    [FieldOffset(72)]
     public FP StartTime;
     [FieldOffset(4)]
     public Int32 TeamSource;
@@ -4075,6 +4077,7 @@ namespace Quantum {
         hash = hash * 31 + CanHitSameTarget.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
         hash = hash * 31 + LinecastQueriesPtr.GetHashCode();
+        hash = hash * 31 + NumberOfShots.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + PreviousTime.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
@@ -4101,6 +4104,7 @@ namespace Quantum {
         QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         QBoolean.Serialize(&p->CanHitSameTarget, serializer);
         serializer.Stream.Serialize(&p->AttackAngle);
+        serializer.Stream.Serialize(&p->NumberOfShots);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         FP.Serialize(&p->PreviousTime, serializer);
@@ -8958,6 +8962,7 @@ namespace Quantum.Prototypes {
     public FP SplashRadius;
     public FP StartTime;
     public FP PreviousTime;
+    public UInt32 NumberOfShots;
     partial void MaterializeUser(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       RaycastShots component = default;
@@ -8980,6 +8985,7 @@ namespace Quantum.Prototypes {
         }
         result.LinecastQueries = list;
       }
+      result.NumberOfShots = this.NumberOfShots;
       result.PowerAmount = this.PowerAmount;
       result.PreviousTime = this.PreviousTime;
       result.Range = this.Range;
@@ -9070,7 +9076,7 @@ namespace Quantum.Prototypes {
     public SpecialType_Prototype SpecialType;
     public FP Cooldown;
     public FP Radius;
-    public UInt32 PowerAmount;
+    public FP PowerAmount;
     public FP Speed;
     public FP MaxRange;
     public FP AvailableTime;

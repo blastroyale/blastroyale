@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using I2.Loc;
 using Quantum;
+using TMPro;
 using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
 
@@ -57,7 +58,7 @@ namespace FirstLight.Game.Presenters
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode, 
-			                                                    "", confirmButton, true);
+			                                                    "", confirmButton, true, TMP_InputField.ContentType.IntegerNumber);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)

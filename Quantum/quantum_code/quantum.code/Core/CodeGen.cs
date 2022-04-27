@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -2554,14 +2553,14 @@ namespace Quantum {
   public unsafe partial struct Special {
     public const Int32 SIZE = 56;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
-    public FP AvailableTime;
-    [FieldOffset(24)]
-    public FP Cooldown;
-    [FieldOffset(32)]
-    public FP MaxRange;
     [FieldOffset(8)]
-    public UInt32 PowerAmount;
+    public FP AvailableTime;
+    [FieldOffset(16)]
+    public FP Cooldown;
+    [FieldOffset(24)]
+    public FP MaxRange;
+    [FieldOffset(32)]
+    public FP PowerAmount;
     [FieldOffset(40)]
     public FP Radius;
     [FieldOffset(0)]
@@ -2588,10 +2587,10 @@ namespace Quantum {
         var p = (Special*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SpecialId);
         serializer.Stream.Serialize((Int32*)&p->SpecialType);
-        serializer.Stream.Serialize(&p->PowerAmount);
         FP.Serialize(&p->AvailableTime, serializer);
         FP.Serialize(&p->Cooldown, serializer);
         FP.Serialize(&p->MaxRange, serializer);
+        FP.Serialize(&p->PowerAmount, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->Speed, serializer);
     }
@@ -9071,7 +9070,7 @@ namespace Quantum.Prototypes {
     public SpecialType_Prototype SpecialType;
     public FP Cooldown;
     public FP Radius;
-    public UInt32 PowerAmount;
+    public FP PowerAmount;
     public FP Speed;
     public FP MaxRange;
     public FP AvailableTime;

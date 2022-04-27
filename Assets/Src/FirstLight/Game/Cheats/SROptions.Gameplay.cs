@@ -125,9 +125,9 @@ public partial class SROptions
 			var speed = shot.Speed;
 			var deltaTime = runner.Game.Frames.Predicted.Time - shot.StartTime;
 			var previousTime = shot.PreviousTime - shot.StartTime;
-
-			var angleCount = shot.NumberOfShots + 1;
-			var angleStep = shot.AttackAngle / (FP)angleCount;
+			
+			// We increase number of shots on 1 to count angleStep for gaps rather than for shots
+			var angleStep = shot.AttackAngle / (FP)(shot.NumberOfShots + 1);
 			var angle = -(int) shot.AttackAngle / FP._2;
 
 			if (shot.IsInstantShot || deltaTime > shot.Range / speed)
@@ -136,7 +136,7 @@ public partial class SROptions
 				deltaTime = shot.Range / speed;
 			}
 			
-			for (var i = 0; i < angleCount - 1; i++)
+			for (var i = 0; i < shot.NumberOfShots; i++)
 			{
 
 				angle += angleStep;

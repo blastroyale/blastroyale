@@ -294,7 +294,7 @@ namespace Src.FirstLight.Tools
 										metadata.attibutesDictionary["material"] = materialIndex;
 										metadata.attibutesDictionary["faction"] = factionIndex;
 										metadata.attibutesDictionary["grade"] = gradeIndex;
-										metadata.name = _nftEquipmentAttributes.SubCategoryNames[categoryIndex][metadata.attributes[subCategoryIndex].value];
+										metadata.name = _nftEquipmentAttributes.SubCategoryNames[categoryIndex][subCategoryIndex];
 
 										var hash = GenerateImageFilenameHash(metadata);
 										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";

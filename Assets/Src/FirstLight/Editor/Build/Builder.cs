@@ -15,7 +15,7 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Sets the symbols for the Unity build
 		/// </summary>
-		public static void SetSymbols()
+		public static void ConfigureBuild()
 		{
 			var arguments = Environment.GetCommandLineArgs();
 			
@@ -24,21 +24,31 @@ namespace FirstLight.Editor.Build
 				Debug.LogError("Could not get build symbol from command line args.");
 				EditorApplication.Exit(1);
 			}
-
-			BuildTargetGroup targetGroup;
-#if UNITY_ANDROID
-			targetGroup = BuildTargetGroup.Android;
-#elif UNITY_IOS
-			targetGroup = BuildTargetGroup.iOS;
-#else
-			Debug.LogError("No builds configured for this platform.");
-			EditorApplication.Exit(1);
-			return;
-#endif
-
-			FirstLightBuildConfig.PrepareFirebase(buildSymbol);
-		
-			FirstLightBuildConfig.SetScriptingDefineSymbols(buildSymbol, targetGroup);
+			
+			switch (buildSymbol)
+			{
+				case FirstLightBuildConfig.DevelopmentSymbol:
+				{
+					FirstLightBuildConfig.SetupDevelopmentConfig();
+					break;
+				}
+				case FirstLightBuildConfig.ReleaseSymbol:
+				{
+					FirstLightBuildConfig.SetupReleaseConfig();
+					break;
+				}
+				case FirstLightBuildConfig.StoreSymbol:
+				{
+					FirstLightBuildConfig.SetupStoreConfig();
+					break;
+				}
+				default:
+				{
+					Debug.LogError($"Unrecognised build symbol: {buildSymbol}");
+					EditorApplication.Exit(1);
+					break;
+				}
+			}
 		}
 
 		/// <summary>
@@ -46,13 +56,19 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public static void JenkinsBuild()
 		{
-#if !UNITY_ANDROID && !UNITY_IOS
+			var buildTarget = BuildTarget.NoTarget;
+			var arguments = Environment.GetCommandLineArgs();
+			
+#if UNITY_ANDROID
+			buildTarget = BuildTarget.Android;
+#elif UNITY_IOS
+			buildTarget = BuildTarget.iOS;
+#else
 			Debug.LogError("No builds configured for this platform.");
 			EditorApplication.Exit(1);
 			return;
 #endif
-			
-			var arguments = Environment.GetCommandLineArgs();
+
 			if (!FirstLightBuildUtil.TryGetBuildSymbolFromCommandLineArgs(out var buildSymbol, arguments))
 			{
 				Debug.LogError("Could not get build symbol from command line args.");
@@ -69,88 +85,18 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.SplashScreen.showUnityLogo = false;
 			
 			AddressableAssetSettings.BuildPlayerContent();
+			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
 			
-			BuildReport buildReport;
-#if UNITY_ANDROID
-			VersionEditorUtils.TrySetAndroidVersionCodeFromCommandLineArgs(arguments);
-			buildReport = BuildForAndroid(buildSymbol, fileName);
-#elif UNITY_IOS
-			VersionEditorUtils.TrySetIosBuildNumberFromCommandLineArgs(arguments);
-			buildReport = BuildForIos(buildSymbol, fileName);
-#endif
-
+			var isDevelopmentBuild = buildSymbol == FirstLightBuildConfig.DevelopmentSymbol;
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, isDevelopmentBuild);
+			var buildReport = BuildPipeline.BuildPlayer(options);
+			
 			LogBuildReport(buildReport);
 
 			if (buildReport.summary.result != BuildResult.Succeeded)
 			{
 				EditorApplication.Exit(1);
 			}
-		}
-
-		private static BuildReport BuildForAndroid(string buildSymbol, string outputPath)
-		{
-			Debug.Log($"Build Defined Symbols {PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android)}");
-			
-			BuildReport buildReport;
-			switch (buildSymbol)
-			{
-				case FirstLightBuildConfig.DevelopmentSymbol:
-				{
-					buildReport = FirstLightBuildJobs.BuildAndroidDevelopment(outputPath);
-					break;
-				}
-				case FirstLightBuildConfig.ReleaseSymbol:
-				{
-					buildReport = FirstLightBuildJobs.BuildAndroidRelease(outputPath);
-					break;
-				}
-				case FirstLightBuildConfig.StoreSymbol:
-				{
-					buildReport = FirstLightBuildJobs.BuildAndroidStore(outputPath);
-					break;
-				}
-				default:
-				{
-					Debug.LogError($"Unrecognised build symbol: {buildSymbol}");
-					EditorApplication.Exit(1);
-					return null;
-				}
-			}
-
-			return buildReport;
-		}
-	
-		private static BuildReport BuildForIos(string buildSymbol, string outputPath)
-		{
-			Debug.Log($"Build Defined Symbols {PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS)}");
-			
-			BuildReport buildReport;
-			switch (buildSymbol)
-			{
-				case FirstLightBuildConfig.DevelopmentSymbol:
-				{
-					buildReport = FirstLightBuildJobs.BuildIosDevelopment(outputPath);
-					break;
-				}
-				case FirstLightBuildConfig.ReleaseSymbol:
-				{
-					buildReport = FirstLightBuildJobs.BuildIosRelease(outputPath);
-					break;
-				}
-				case FirstLightBuildConfig.StoreSymbol:
-				{
-					buildReport = FirstLightBuildJobs.BuildIosStore(outputPath);
-					break;
-				}
-				default:
-				{
-					Debug.LogError($"Unrecognised build symbol: {buildSymbol}");
-					EditorApplication.Exit(1);
-					return null;
-				}
-			}
-
-			return buildReport;
 		}
 
 		private static void LogBuildReport(BuildReport buildReport)

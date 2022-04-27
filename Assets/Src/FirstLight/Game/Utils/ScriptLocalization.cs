@@ -601,6 +601,7 @@ namespace I2.Loc
 			public static string ItemEnhancedText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ItemEnhancedText"); } }
 			public static string Items 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Items"); } }
 			public static string JoinRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/JoinRoom"); } }
+			public static string Loading 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loading"); } }
 			public static string Locked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Locked"); } }
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
@@ -1323,6 +1324,7 @@ namespace I2.Loc
 		    public const string ItemEnhancedText = "MainMenu/ItemEnhancedText";
 		    public const string Items = "MainMenu/Items";
 		    public const string JoinRoom = "MainMenu/JoinRoom";
+		    public const string Loading = "MainMenu/Loading";
 		    public const string Locked = "MainMenu/Locked";
 		    public const string Loot = "MainMenu/Loot";
 		    public const string ManualFire = "MainMenu/ManualFire";

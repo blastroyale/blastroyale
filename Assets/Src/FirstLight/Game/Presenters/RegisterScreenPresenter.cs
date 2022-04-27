@@ -22,8 +22,6 @@ namespace FirstLight.Game.Presenters
 			public Action GoToRegisterClicked;
 		}
 		
-		[SerializeField] private Button _closeButton;
-
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
@@ -31,8 +29,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-
-			_closeButton.onClick.AddListener(Close);
 		}
 	}
 }

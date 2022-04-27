@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 4471146387942396933}
   - component: {fileID: 883844809517885863}
   m_Layer: 5
-  m_Name: LoginBackground
+  m_Name: BackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1332,6 +1332,7 @@ GameObject:
   - component: {fileID: 4073292402343234598}
   - component: {fileID: 5863388544096724369}
   - component: {fileID: 7306112839653272446}
+  - component: {fileID: 5333132521454334551}
   m_Layer: 5
   m_Name: RegisterScreen
   m_TagString: Untagged
@@ -1434,6 +1435,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5333132521454334551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073292402343234599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c0fa0bd7b03a4d64802cc1585f37998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animation: {fileID: 883844809517885863}
+  _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
+  _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
+  _closeButton: {fileID: 0}
 --- !u!1 &4194012447175886297
 GameObject:
   m_ObjectHideFlags: 0

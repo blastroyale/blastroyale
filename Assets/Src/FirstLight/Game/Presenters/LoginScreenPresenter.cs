@@ -21,8 +21,6 @@ namespace FirstLight.Game.Presenters
 			public Action LoginClicked;
 			public Action GoToRegisterClicked;
 		}
-		
-		[SerializeField] private Button _closeButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

@@ -80,7 +80,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
-			_services.MessageBrokerService.Subscribe<MatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 		}
 
 		private void UnsubscribeEvents()
@@ -123,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
-			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorCreate, message);
+			var title = string.Format(ScriptLocalization.MainMenu.RoomError, message);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -158,7 +158,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 			
-			var title = string.Format(ScriptLocalization.MainMenu.RoomErrorJoin, message);
+			var title = string.Format(ScriptLocalization.MainMenu.RoomError, message);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK, 
@@ -210,10 +210,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.ContainsKey(GameConstants.PLAYER_PROPS_LOADED) && 
-			    _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
-				_statechartTrigger(MatchState.AllPlayersReadyEvent);
+				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
+
+				if (_networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+				{
+					_statechartTrigger(MatchState.AllPlayersReadyEvent);
+				}
 			}
 		}
 		
@@ -279,7 +283,7 @@ namespace FirstLight.Game.StateMachines
 			JoinRoom(msg.RoomName);
 		}
 		
-		private void OnMatchAssetsLoaded(MatchAssetsLoadedMessage msg)
+		private void OnMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{
@@ -303,7 +307,11 @@ namespace FirstLight.Game.StateMachines
 			config.IsOfflineMode = isOfflineMode || mapConfig.PlayersLimit == 1;
 			
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
+			}
 		}
 
 		private void JoinRoom(string roomName)
@@ -321,8 +329,11 @@ namespace FirstLight.Game.StateMachines
 			config.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
-			
-			_networkService.QuantumClient.OpJoinRoom(enterParams);
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpJoinRoom(enterParams);
+			}
 		}
 
 		private void CreateRoom(GameMode mode, string roomName)
@@ -334,8 +345,11 @@ namespace FirstLight.Game.StateMachines
 			config.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
-			
-			_networkService.QuantumClient.OpCreateRoom(enterParams);
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpCreateRoom(enterParams);
+			}
 		}
 		
 		private void TickQuantumServer(float deltaTime)
@@ -376,7 +390,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void LeaveRoom()
 		{
-			_networkService.QuantumClient.OpLeaveRoom(false, true);
+			if (_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpLeaveRoom(false, true);
+			}
 		}
 
 		private void UpdateQuantumClientProperties()

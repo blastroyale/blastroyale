@@ -26,6 +26,15 @@ namespace FirstLight.Game.Views
 
 		private void Awake()
 		{
+			// Hack to stop errors after build:
+			// Unity: NullReferenceException: Object reference not set to an instance of an object.
+			// 	at UnityEngine.Rendering.DebugManager.UpdateActions () [0x00000] in <00000000000000000000000000000000>:0
+			// at UnityEngine.Rendering.DebugUpdater.Update () [0x00000] in <00000000000000000000000000000000>:0
+			//
+			// Know more and follow the Unity issue in https://issuetracker.unity3d.com/issues/isdebugbuild-returns-false-in-the-editor-when-its-value-is-checked-after-a-build
+			// Remove once Unity solves it and we have a patched version
+			DebugManager.instance.enableRuntimeUI = false;
+			
 			var appsFlyerReceiver = new GameObject(nameof(AppsFlyerReceiver)).AddComponent<AppsFlyerReceiver>();
 			
 			DontDestroyOnLoad(appsFlyerReceiver.gameObject);

@@ -82,8 +82,8 @@ namespace Quantum
 		internal void Activate(Frame f, EntityRef e)
 		{
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
-			
 			var stats = f.Unsafe.GetPointer<Stats>(e);
+			
 			stats->SetCurrentHealthPercentage(f, e, EntityRef.None, FP._1);
 			
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);

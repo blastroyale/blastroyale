@@ -295,10 +295,10 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the Firebase config files to the current system build config
 		/// </summary>
-		[MenuItem("First Light Games/Setup/Firebase")]
+		[MenuItem("First Light Games/Setup Firebase")]
 		public static void SetupFirebase()
 		{
-			PrepareFirebase("-dev");
+			PrepareFirebase(DevelopmentSymbol);
 		}
 
 		public static void SetScriptingDefineSymbols(string buildSymbol, BuildTargetGroup targetGroup)
@@ -315,7 +315,7 @@ namespace FirstLight.Editor.Build
 		{
 			Debug.Log($"FirstLightBuildConfig.PrepareFirebase Executing {symbol}");
 			
-			var environment = symbol == "DEVELOPMENT_BUILD" ? "-dev" : "-prod";
+			var environment = symbol == DevelopmentSymbol ? "-dev" : "-prod";
 			var origPath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Configs");
 			var destPath = Application.streamingAssetsPath;
 			var iosOrig = Path.Combine(origPath, $"GoogleService-Info{environment}.plist");

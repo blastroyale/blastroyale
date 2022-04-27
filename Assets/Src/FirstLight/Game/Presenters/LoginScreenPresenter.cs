@@ -29,14 +29,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _goToRegisterButton;
 		[SerializeField] private Button _loginButton;
 		
-		private IGameDataProvider _gameDataProvider;
-		private IGameServices _services;
-
 		private void Awake()
 		{
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_services = MainInstaller.Resolve<IGameServices>();
-			
 			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
 		}

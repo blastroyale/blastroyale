@@ -128,8 +128,6 @@ public partial class SROptions
 
 			var angleCount = shot.NumberOfShots + 1;
 			var angleStep = shot.AttackAngle / (FP)angleCount;
-			Debug.Log(angleStep);
-			Debug.Log(angleCount);
 			var angle = -(int) shot.AttackAngle / FP._2;
 
 			if (shot.IsInstantShot || deltaTime > shot.Range / speed)

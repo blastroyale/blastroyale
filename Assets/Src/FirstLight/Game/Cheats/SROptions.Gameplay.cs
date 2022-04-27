@@ -126,8 +126,10 @@ public partial class SROptions
 			var deltaTime = runner.Game.Frames.Predicted.Time - shot.StartTime;
 			var previousTime = shot.PreviousTime - shot.StartTime;
 
-			var angleCount = FPMath.Max(FP._1, shot.NumberOfShots) + 1;
-			var angleStep = shot.AttackAngle / angleCount;
+			var angleCount = shot.NumberOfShots + 1;
+			var angleStep = shot.AttackAngle / (FP)angleCount;
+			Debug.Log(angleStep);
+			Debug.Log(angleCount);
 			var angle = -(int) shot.AttackAngle / FP._2;
 
 			if (shot.IsInstantShot || deltaTime > shot.Range / speed)

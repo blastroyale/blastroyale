@@ -24,8 +24,8 @@ namespace Quantum.Systems
 			var deltaTime = f.Time - shot->StartTime;
 			var previousTime = shot->PreviousTime - shot->StartTime;
 
-			var angleCount = FPMath.Max(FP._1, shot->NumberOfShots) + 1;
-			var angleStep = shot->AttackAngle / angleCount;
+			var angleCount = shot->NumberOfShots + 1;
+			var angleStep = shot->AttackAngle / (FP)angleCount;
 			var angle = -(int) shot->AttackAngle / FP._2;
 
 			if (shot->IsInstantShot || deltaTime > shot->Range / speed)

@@ -27,6 +27,13 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
+		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
+		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
+		private readonly IStatechartEvent _loginClickedEvent = new StatechartEvent("Login Clicked Event");
+		private readonly IStatechartEvent _registerClickedEvent = new StatechartEvent("Register Clicked Event");
+		private readonly IStatechartEvent _authenticationSuccessEvent = new StatechartEvent("Authentication Success Event");
+		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
+		
 		private readonly GameLogic _gameLogic;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
@@ -60,7 +67,7 @@ namespace FirstLight.Game.StateMachines
 				Style = AlertButtonStyle.Negative,
 				Text = "Quit Game"
 			};
-			
+
 			NativeUiService.ShowAlertPopUp(false, "Game Error", error.ErrorMessage, button);
 		}
 
@@ -71,14 +78,26 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var authentication = stateFactory.Wait("Authentication");
+			var login = stateFactory.State("Login");
+			var register = stateFactory.State("Register");
+			var authenticateLogin = stateFactory.Wait("Authentication");
+			var authenticateRegister = stateFactory.Wait("Register Authentication");
 			var photonAuthentication = stateFactory.Wait("PlayFab Photon Authentication");
 
-			initial.Transition().Target(authentication);
+			initial.Transition().Target(login);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(SetQuantumSettings);
+
+			login.Event(_goToRegisterClickedEvent).Target(register);
+			login.Event(_loginClickedEvent).Target(authenticateLogin);
 			
-			authentication.OnEnter(SetQuantumSettings);
-			authentication.WaitingFor(Authenticate).Target(photonAuthentication);
+			register.Event(_goToLoginClickedEvent).Target(login);
+			register.Event(_registerClickedEvent).Target(authenticateRegister);
+			
+			authenticateLogin.WaitingFor(AuthenticateLogin).Target(photonAuthentication);
+			authenticateLogin.Event(_authenticationFailEvent).Target(login);
+			
+			authenticateRegister.WaitingFor(AuthenticateRegister).Target(login);
 			
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			
@@ -95,7 +114,32 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void Authenticate(IWaitActivity activity)
+		private void OpenLoginScreen()
+		{
+			
+		}
+
+		private void CloseLoginScreen()
+		{
+			
+		}
+
+		private void OpenRegisterScreen()
+		{
+			
+		}
+
+		private void CloseRegisterScreen()
+		{
+			
+		}
+
+		private void AuthenticateRegister(IWaitActivity activity)
+		{
+			activity.Complete();
+		}
+
+		private void AuthenticateLogin(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var infoParams = new GetPlayerCombinedInfoRequestParams
@@ -141,6 +185,12 @@ namespace FirstLight.Game.StateMachines
 			void OnLoginSuccess(LoginResult result)
 			{
 				ProcessAuthentication(result, cacheActivity);
+			}
+
+			void OnLoginFail(PlayFabError error)
+			{
+				_statechartTrigger(_authenticationFailEvent);
+				OnPlayFabError(error);
 			}
 		}
 

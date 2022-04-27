@@ -2297,7 +2297,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public GameId GameId;
     [FieldOffset(24)]
-    public UInt32 Grade;
+    public UInt32 GradeIndex;
     [FieldOffset(28)]
     public UInt32 Level;
     [FieldOffset(12)]
@@ -2312,7 +2312,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)Adjective;
         hash = hash * 31 + (Int32)Faction;
         hash = hash * 31 + (Int32)GameId;
-        hash = hash * 31 + Grade.GetHashCode();
+        hash = hash * 31 + GradeIndex.GetHashCode();
         hash = hash * 31 + Level.GetHashCode();
         hash = hash * 31 + (Int32)Manufacturer;
         hash = hash * 31 + (Int32)Material;
@@ -2328,7 +2328,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Manufacturer);
         serializer.Stream.Serialize((Int32*)&p->Material);
         serializer.Stream.Serialize((Int32*)&p->Rarity);
-        serializer.Stream.Serialize(&p->Grade);
+        serializer.Stream.Serialize(&p->GradeIndex);
         serializer.Stream.Serialize(&p->Level);
     }
   }
@@ -8540,13 +8540,13 @@ namespace Quantum.Prototypes {
     public ItemManufacturer_Prototype Manufacturer;
     public ItemFaction_Prototype Faction;
     public UInt32 Level;
-    public UInt32 Grade;
+    public UInt32 GradeIndex;
     partial void MaterializeUser(Frame frame, ref Equipment result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Equipment result, in PrototypeMaterializationContext context) {
       result.Adjective = this.Adjective;
       result.Faction = this.Faction;
       result.GameId = this.GameId;
-      result.Grade = this.Grade;
+      result.GradeIndex = this.GradeIndex;
       result.Level = this.Level;
       result.Manufacturer = this.Manufacturer;
       result.Material = this.Material;

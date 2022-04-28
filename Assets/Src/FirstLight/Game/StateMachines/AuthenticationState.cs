@@ -40,7 +40,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private AuthenticationSaveData _authSaveData;
+		
 		private string _selectedAuthEmail;
 		private string _selectedAuthName;
 		private string _selectedAuthPass;
@@ -132,14 +132,9 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCachedLoginEmail()
 		{
-			_dataService.TryGetData<AuthenticationSaveData>(out _authSaveData);
-
-			if (_authSaveData == null)
-			{
-				return false;
-			}
-
-			if (string.IsNullOrEmpty(_authSaveData.LastLoginEmail))
+			var authSaveData = _dataService.LoadData<AuthenticationSaveData>();
+			
+			if (string.IsNullOrEmpty(authSaveData.LastLoginEmail))
 			{
 				return false;
 			}
@@ -199,6 +194,10 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLoginSuccess(LoginResult result)
 			{
+				var authSaveData = _dataService.GetData<AuthenticationSaveData>();
+				authSaveData.LastLoginEmail = _selectedAuthEmail;
+
+				LinkDeviceID(cacheActivity.Split());
 				ProcessAuthentication(result, cacheActivity);
 			}
 
@@ -206,6 +205,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(_authenticationFailEvent);
 				OnPlayFabError(error);
+				cacheActivity.Complete();
 			}
 		}
 
@@ -287,7 +287,7 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.LoginEvent(result.PlayFabId);
 			InitializeGameData(result, activity.Split());
 			//AppleApprovalHack(result);
-				
+
 			if (IsOutdated(titleData[nameof(Application.version)]))
 			{
 				OpenGameUpdateDialog();
@@ -301,6 +301,52 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			activity.Complete();
+		}
+
+		private void LinkDeviceID(IWaitActivity activity)
+		{
+#if UNITY_EDITOR
+			var link = new LinkCustomIDRequest
+			{
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+			};
+			
+			PlayFabClientAPI.LinkCustomID(link, OnLinkSuccess, OnLinkFail);
+			
+#elif UNITY_ANDROID
+			var login = new LoginWithAndroidDeviceIDRequest()
+			{
+				CreateAccount = true,
+				AndroidDevice = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				InfoRequestParameters = infoParams
+			};
+			
+			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnPlayFabError);
+#elif UNITY_IOS
+			var login = new LoginWithIOSDeviceIDRequest()
+			{
+				CreateAccount = true,
+				DeviceModel = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				InfoRequestParameters = infoParams
+			};
+			
+			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnPlayFabError);
+#endif
+			
+			void OnLinkSuccess(LinkCustomIDResult result)
+			{
+				activity.Complete();
+			}
+
+			void OnLinkFail(PlayFabError error)
+			{
+				OnPlayFabError(error);
+				activity.Complete();
+			}
 		}
 
 		private void PhotonAuthentication(IWaitActivity activity)

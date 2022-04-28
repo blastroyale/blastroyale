@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -13,15 +12,26 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Destructible* Destructible;
+			public Transform3D* Transform;
+			public Targetable* Targetable;
+			public Stats* Stats;
 		}
 		
 		/// <inheritdoc />
 		public override void Update(Frame f, ref DestructibleFilter filter)
 		{
-			if (filter.Destructible->IsDestructing && f.Time >= filter.Destructible->TimeToDestroy)
+			if (!filter.Destructible->IsDestructing || f.Time < filter.Destructible->TimeToDestroy)
 			{
-				f.Add<EntityDestroyer>(filter.Entity);
+				return;
 			}
+			
+			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
+			var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, power,
+			                                filter.Transform->Position);
+
+			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);
+			
+			f.Add<EntityDestroyer>(filter.Entity);
 		}
 		
 		/// <inheritdoc />
@@ -32,34 +42,10 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
-			var stats = f.Get<Stats>(entity);
-			var spawnPosition = transform->Position;
-			var projectileData = new ProjectileData
-			{
-				Attacker = entity,
-				ProjectileAssetRef = destructible->ProjectileAssetRef.Id.Value,
-				NormalizedDirection = FPVector3.Down,
-				SpawnPosition = spawnPosition + FPVector3.Up * Constants.FAKE_PROJECTILE_Y_OFFSET,
-				TeamSource = (int) TeamType.Neutral,
-				IsHealing = false,
-				PowerAmount = (uint) stats.Values[(int) StatType.Power].StatValue.AsInt,
-				Speed = Constants.PROJECTILE_MAX_SPEED,
-				Range = Constants.FAKE_PROJECTILE_Y_OFFSET,
-				SplashRadius = destructible->SplashRadius,
-				StunDuration = FP._0,
-				Target = EntityRef.None,
-				IsHitOnRangeLimit = true,
-				IsHitOnlyOnRangeLimit = true,
-				LaunchTime = f.Time + destructible->DestructionLengthTime
-			};
-			
-			var projectile = Projectile.Create(f, projectileData);
-			
 			destructible->TimeToDestroy = f.Time + destructible->DestructionLengthTime;
 			destructible->IsDestructing = true;
 			
-			f.Events.OnDestructibleScheduled(entity, *destructible, projectile, projectileData);
+			f.Events.OnDestructibleScheduled(entity, *destructible);
 		}
 	}
 }

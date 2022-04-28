@@ -25,11 +25,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
-		private readonly AdventureState _adventureState;
-		private readonly GameSimulationState _gameSimulationState;
 		private readonly NetworkState _networkState;
-		private readonly MainMenuState _mainMenuState;
 		private readonly GameLogic _gameLogic;
+		private readonly CoreLoopState _coreLoopState;
 		private readonly IGameServices _services;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
@@ -54,10 +52,8 @@ namespace FirstLight.Game.StateMachines
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger);
-			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_adventureState = new AdventureState(gameLogic, services, uiService, assetAdderService, Trigger);
-			_gameSimulationState = new GameSimulationState(gameLogic, services, uiService, Trigger);
+			_coreLoopState = new CoreLoopState(gameLogic, services, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -79,10 +75,7 @@ namespace FirstLight.Game.StateMachines
 			var initialAssets = stateFactory.TaskWait("Initial Asset");
 			var internetCheck = stateFactory.Choice("Internet Check");
 			var initialLoading = stateFactory.Split("Initial Loading");
-			var adventure = stateFactory.Split("Adventure");
-			var playAgainCheck = stateFactory.Choice("Play Again Check");
-			var mainMenu = stateFactory.Nest("Main Menu");
-			var ftueCheck = stateFactory.Choice("FTUE Check");
+			var core = stateFactory.Split("Core");
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
@@ -92,27 +85,14 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
-			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(ftueCheck);
+			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(core);
 			initialLoading.OnExit(InitializeGame);
 			
-			ftueCheck.Transition().Condition(IsFtueEnabled).Target(adventure);
-			ftueCheck.Transition().Target(mainMenu);
-			
-			mainMenu.Nest(_mainMenuState.Setup).Target(adventure);
-			
-			adventure.Split(AdventureSetup, _networkState.Setup).Target(playAgainCheck);
-			
-			playAgainCheck.Transition().Condition(IsPlayAgainMarked).Target(adventure);
-			playAgainCheck.Transition().Target(mainMenu);
+			core.Split(_networkState.Setup, _coreLoopState.Setup).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
-
-			void AdventureSetup(IStateFactory factory)
-			{
-				_adventureState.Setup(factory, _gameSimulationState);
-			}
 		}
-
+		
 		private void SubscribeEvents()
 		{
 			// Add any events to subscribe
@@ -128,11 +108,6 @@ namespace FirstLight.Game.StateMachines
 			return Application.internetReachability == NetworkReachability.NotReachable;
 		}
 
-		private bool IsPlayAgainMarked()
-		{
-			return _gameSimulationState.IsPlayAgainMarked || IsFtueEnabled();
-		}
-
 		private void InitializeGame()
 		{
 			_gameLogic.Init();
@@ -140,9 +115,9 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.AudioListener.enabled = true;
 			
 			// Just marking the default name to avoid missing names
-			if (string.IsNullOrWhiteSpace(_gameLogic.PlayerLogic.NicknameId.Value))
+			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
 			{
-				_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = PlayerLogic.DefaultPlayerName });
+				_services.PlayfabService.UpdateNickname(PlayerLogic.DefaultPlayerName);
 			}
 			
 			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest { CatalogVersion = StoreService.StoreCatalogVersion }, 
@@ -162,12 +137,7 @@ namespace FirstLight.Game.StateMachines
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet, 
 			                               ScriptLocalization.General.NoInternetDescription, button);
 		}
-		
-		private bool IsFtueEnabled()
-		{
-			return _gameLogic.AdventureDataProvider.AdventureSelectedId.Value < GameConstants.FtueAdventuresCount;
-		}
-		
+
 		private async Task LoadCoreAssets()
 		{
 			await VersionUtils.LoadVersionDataAsync();
@@ -184,25 +154,6 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
-		}
-		
-		private void PlayIntroVideo(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-
-			var data = new FullScreenVideoPresenter.VideoData
-			{
-				OnVideoCompleted = CloseScreen,
-				VideoAddress = AddressableId.Video_Intro.GetConfig().Address
-			};
-			
-			_uiService.OpenUi<FullScreenVideoPresenter, FullScreenVideoPresenter.VideoData>(data);
-
-			void CloseScreen()
-			{
-				_uiService.CloseUi<FullScreenVideoPresenter>();
-				cacheActivity.Complete();
-			}
 		}
 	}
 }

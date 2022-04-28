@@ -14,7 +14,7 @@ namespace FirstLight.Editor.SheetImporters
 	public class GameConfigsImporter : GoogleSheetSingleConfigImporter<QuantumGameConfig, GameConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1TZuc8gOMgrN6nJWRFJymxmf2SR2QNyQfx0x-STtIN-M/edit#gid=1302509779";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1302509779";
 
 		/// <inheritdoc />
 		protected override QuantumGameConfig Deserialize(List<Dictionary<string, string>> data)

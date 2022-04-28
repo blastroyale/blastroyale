@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Photon.Deterministic;
 using System;
 using Quantum.Core;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -19,6 +19,36 @@ using Quantum.Prototypes;
 using System.Reflection;
 using Quantum.Task;
 using System.Runtime.CompilerServices;
+
+// Core/CommandSetup.cs
+
+namespace Quantum {
+  public static partial class DeterministicCommandSetup {
+    public static IDeterministicCommandFactory[] GetCommandFactories(RuntimeConfig gameConfig, SimulationConfig simulationConfig) {
+      var factories = new List<IDeterministicCommandFactory>() {
+        // pre-defined core commands
+        Core.DebugCommand.CreateCommand(),
+        new DeterministicCommandPool<Core.CompoundCommand>(),
+      };
+
+      AddCommandFactoriesUser(factories, gameConfig, simulationConfig);
+      
+#pragma warning disable 618 // Use of obsolete members
+      var obsoleteCommandsCreated = CommandSetup.CreateCommands(gameConfig, simulationConfig);
+      if (obsoleteCommandsCreated != null && obsoleteCommandsCreated.Length > 0) {
+        Log.Warn("'CommandSetup.CreateCommands' is now deprecated. " +
+                 "Implement a partial declaration of '" + nameof(DeterministicCommandSetup) + "." + nameof(AddCommandFactoriesUser) + "' instead, as shown on 'CommandSetup.User.cs' available on the SDK package." +
+                 "Command instances can be used as factories of their own type.");
+        factories.AddRange(obsoleteCommandsCreated);
+      }
+#pragma warning restore 618
+
+      return factories.ToArray();
+    }
+
+    static partial void AddCommandFactoriesUser(ICollection<IDeterministicCommandFactory> factories, RuntimeConfig gameConfig, SimulationConfig simulationConfig);
+  }
+}
 
 // Core/Collision.cs
 
@@ -241,6 +271,7 @@ namespace Quantum {
     public const int DumpFlag_PrintRawValues               = 1 << 8;
     public const int DumpFlag_ComponentChecksums           = 1 << 9;
     public const int DumpFlag_AssetDBCheckums              = 1 << 10;
+    public const int DumpFlag_NoIsVerified                 = 1 << 11;
 
     [Obsolete("Use DumpFlag_ComponentChecksums")]
     public const int DumpFlag_PrintComponentChecksums     = DumpFlag_ComponentChecksums;
@@ -712,8 +743,12 @@ namespace Quantum {
       printer.IsRawPrintEnabled = ((dumpFlags & DumpFlag_PrintRawValues) == DumpFlag_PrintRawValues);
 
       // frame info
-      printer.AddLine($"#### FRAME DUMP FOR {Number} IsVerified={IsVerified} ####");
-
+      if ((dumpFlags & DumpFlag_NoIsVerified) == DumpFlag_NoIsVerified) {
+        printer.AddLine($"#### FRAME DUMP FOR {Number} ####");
+      } else {
+        printer.AddLine($"#### FRAME DUMP FOR {Number} IsVerified={IsVerified} ####");
+      }
+      
       if ((dumpFlags & DumpFlag_NoSimulationConfig) != DumpFlag_NoSimulationConfig) {
         printer.AddLine();
         printer.AddObject("# " + nameof(SimulationConfig), SimulationConfig);
@@ -905,13 +940,23 @@ namespace Quantum {
       FreeUser();
     }
 
+    [Obsolete("Use SystemIsEnabledSelf instead.")]
+    public Boolean SystemIsEnabled<T>() where T : SystemBase {
+      return SystemIsEnabledSelf<T>();
+    }
+    
+    [Obsolete("Use SystemIsEnabledSelf instead.")]
+    public Boolean SystemIsEnabled(Type t) {
+      return SystemIsEnabledSelf(t);
+    }
+
     /// <summary>
     /// Test if a system is enabled.
     /// </summary>
     /// <typeparam name="T">System type</typeparam>
     /// <returns>True if the system is enabled</returns>
     /// Logs an error if the system type is not found.
-    public Boolean SystemIsEnabled<T>() where T : SystemBase {
+    public Boolean SystemIsEnabledSelf<T>() where T : SystemBase {
       var system = FindSystem<T>();
       if (system.Item0 == null) {
         return false;
@@ -919,14 +964,44 @@ namespace Quantum {
 
       return _globals->Systems.IsSet(system.Item1);
     }
-    
-    public Boolean SystemIsEnabled(Type t) {
+
+    public Boolean SystemIsEnabledSelf(Type t) {
       var system = FindSystem(t);
       if (system.Item0 == null) {
         return false;
       }
 
       return _globals->Systems.IsSet(system.Item1);
+    }
+
+    public Boolean SystemIsEnabledSelf(SystemBase s) {
+      if (s == null) {
+        return false;
+      }
+
+      return _globals->Systems.IsSet(s.RuntimeIndex);
+    }
+
+    public Boolean SystemIsEnabledInHierarchy<T>() where T : SystemBase {
+      var system = FindSystem<T>();
+      return SystemIsEnabledInHierarchy(system.Item0);
+    }
+
+    public Boolean SystemIsEnabledInHierarchy(Type t) {
+      var system = FindSystem(t);
+      return SystemIsEnabledInHierarchy(system.Item0);
+    }
+
+    public Boolean SystemIsEnabledInHierarchy(SystemBase system) {
+      if (system == null)
+        return false;
+
+      if (_globals->Systems.IsSet(system.RuntimeIndex) == false)
+        return false;
+      if (system.ParentSystem == null)
+        return true;
+
+      return SystemIsEnabledInHierarchy(system.ParentSystem);
     }
 
     /// <summary>
@@ -948,10 +1023,13 @@ namespace Quantum {
         // set flag
         _globals->Systems.Set(system.Item1);
 
-        try {
-          system.Item0.OnEnabled(this);
-        } catch (Exception exn) {
-          Log.Exception(exn);
+        // Fire callback only if it becomes enabled in hierarchy
+        if (system.Item0.ParentSystem == null || SystemIsEnabledInHierarchy(system.Item0.ParentSystem)) {
+          try {
+            system.Item0.OnEnabled(this);
+          } catch (Exception exn) {
+            Log.Exception(exn);
+          }
         }
       }
     }
@@ -977,7 +1055,7 @@ namespace Quantum {
     }
 
     public void SystemDisable<T>(T system) where T : SystemBase {
-      SystemDisable(typeof(T));
+      SystemDisable(system.GetType());
     }
 
     public void SystemDisable(Type t) {
@@ -990,10 +1068,13 @@ namespace Quantum {
         // clear flag
         _globals->Systems.Clear(system.Item1);
 
-        try {
-          system.Item0.OnDisabled(this);
-        } catch (Exception exn) {
-          Log.Exception(exn);
+        // Fire callback only if it was previously enabled in hierarchy
+        if (system.Item0.ParentSystem == null || SystemIsEnabledInHierarchy(system.Item0.ParentSystem)) {
+          try {
+            system.Item0.OnDisabled(this);
+          } catch (Exception exn) {
+            Log.Exception(exn);
+          }
         }
       }
     }
@@ -1025,7 +1106,7 @@ namespace Quantum {
           var component = (T*)componentData;
           var systems   = &(_globals->Systems);
           for (Int32 i = 0; i < array.Length; ++i) {
-            if (systems->IsSet(array[i].RuntimeIndex)) {
+            if (SystemIsEnabledInHierarchy((SystemBase)array[i])) {
               array[i].OnAdded(this, entity, component);
             }
           }
@@ -1044,7 +1125,7 @@ namespace Quantum {
           var component = (T*)componentData;
           var systems   = &(_globals->Systems);
           for (Int32 i = 0; i < array.Length; ++i) {
-            if (systems->IsSet(array[i].RuntimeIndex)) {
+            if (SystemIsEnabledInHierarchy((SystemBase)array[i])) {
               array[i].OnRemoved(this, entity, component);
             }
           }
@@ -1161,7 +1242,13 @@ namespace Quantum {
 
               // set mask
               set |= 1UL << FPMath.Clamp(i, 0, 63);
+#if DEBUG
+            } catch (Exception e) {
+              Log.Error("## RuntimePlayer Deserialization Threw Exception ##");
+              Log.Exception(e);
+#else
             } catch {
+#endif
               _playerData = playerDataOriginal;
             }
           }
@@ -1239,7 +1326,7 @@ namespace Quantum {
         return _f.FindAsset<NavMeshAgentConfig>(assetRef.Id);
       }
 
-      public SimulationConfig TerrainCollider(AssetRefSimulationConfig assetRef) {
+      public SimulationConfig SimulationConfig(AssetRefSimulationConfig assetRef) {
         return _f.FindAsset<SimulationConfig>(assetRef.Id);
       }
 
@@ -1320,10 +1407,9 @@ namespace Quantum {
 
       public void OnPlayerDataSet(PlayerRef player) {
         var array   = _f._ISignalOnPlayerDataSet;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnPlayerDataSet(_f, player);
           }
         }
@@ -1331,10 +1417,9 @@ namespace Quantum {
 
       public void OnMapChanged(AssetRefMap previousMap) {
         var array = _f._ISignalOnMapChangedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnMapChanged(_f, previousMap);
           }
         }
@@ -1342,10 +1427,9 @@ namespace Quantum {
 
       public void OnEntityPrototypeMaterialized(EntityRef entity, EntityPrototypeRef prototypeRef) {
         var array = _f._ISignalOnEntityPrototypeMaterializedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnEntityPrototypeMaterialized(_f, entity, prototypeRef);
           }
         }
@@ -1353,10 +1437,9 @@ namespace Quantum {
 
       public void OnPlayerConnected(PlayerRef player) {
         var array = _f._ISignalOnPlayerConnectedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnPlayerConnected(_f, player);
           }
         }
@@ -1364,10 +1447,9 @@ namespace Quantum {
 
       public void OnPlayerDisconnected(PlayerRef player) {
         var array = _f._ISignalOnPlayerDisconnectedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnPlayerDisconnected(_f, player);
           }
         }
@@ -1375,10 +1457,9 @@ namespace Quantum {
 
       public void OnNavMeshWaypointReached(EntityRef entity, FPVector3 waypoint, Navigation.WaypointFlag waypointFlags, ref bool resetAgent) {
         var array   = _f._ISignalOnNavMeshWaypointReachedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnNavMeshWaypointReached(_f, entity, waypoint, waypointFlags, ref resetAgent);
           }
         }
@@ -1386,10 +1467,9 @@ namespace Quantum {
 
       public void OnNavMeshSearchFailed(EntityRef entity, ref bool resetAgent) {
         var array   = _f._ISignalOnNavMeshSearchFailedSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnNavMeshSearchFailed(_f, entity, ref resetAgent);
           }
         }
@@ -1397,10 +1477,9 @@ namespace Quantum {
 
       public void OnNavMeshMoveAgent(EntityRef entity, FPVector2 desiredDirection) {
         var array = _f._ISignalOnNavMeshMoveAgentSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnNavMeshMoveAgent(_f, entity, desiredDirection);
           }
         }
@@ -1408,10 +1487,9 @@ namespace Quantum {
 
       public void OnCollision2D(CollisionInfo2D info) {
         var array   = _f._ISignalOnCollision2DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCollision2D(_f, info);
           }
         }
@@ -1419,10 +1497,9 @@ namespace Quantum {
 
       public void OnCollisionEnter2D(CollisionInfo2D info) {
         var array   = _f._ISignalOnCollisionEnter2DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCollisionEnter2D(_f, info);
           }
         }
@@ -1430,10 +1507,9 @@ namespace Quantum {
 
       public void OnCollisionExit2D(ExitInfo2D info) {
         var array   = _f._ISignalOnCollisionExit2DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCollisionExit2D(_f, info);
           }
         }
@@ -1441,10 +1517,9 @@ namespace Quantum {
       
       public void OnTrigger2D(TriggerInfo2D info) {
         var array   = _f._ISignalOnTrigger2DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnTrigger2D(_f, info);
           }
         }
@@ -1452,10 +1527,9 @@ namespace Quantum {
 
       public void OnTriggerEnter2D(TriggerInfo2D info) {
         var array   = _f._ISignalOnTriggerEnter2DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnTriggerEnter2D(_f, info);
           }
         }
@@ -1463,10 +1537,9 @@ namespace Quantum {
 
       public void OnTriggerExit2D(ExitInfo2D info) {
         var array   = _f._ISignalOnTriggerExit2DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnTriggerExit2D(_f, info);
           }
         }
@@ -1474,10 +1547,9 @@ namespace Quantum {
       
       public void OnCollision3D(CollisionInfo3D info) {
         var array   = _f._ISignalOnCollision3DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCollision3D(_f, info);
           }
         }
@@ -1485,10 +1557,9 @@ namespace Quantum {
 
       public void OnCollisionEnter3D(CollisionInfo3D info) {
         var array   = _f._ISignalOnCollisionEnter3DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCollisionEnter3D(_f, info);
           }
         }
@@ -1496,10 +1567,9 @@ namespace Quantum {
 
       public void OnCollisionExit3D(ExitInfo3D info) {
         var array   = _f._ISignalOnCollisionExit3DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCollisionExit3D(_f, info);
           }
         }
@@ -1507,10 +1577,9 @@ namespace Quantum {
       
       public void OnTrigger3D(TriggerInfo3D info) {
         var array   = _f._ISignalOnTrigger3DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnTrigger3D(_f, info);
           }
         }
@@ -1518,10 +1587,9 @@ namespace Quantum {
 
       public void OnTriggerEnter3D(TriggerInfo3D info) {
         var array   = _f._ISignalOnTriggerEnter3DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnTriggerEnter3D(_f, info);
           }
         }
@@ -1529,10 +1597,9 @@ namespace Quantum {
 
       public void OnTriggerExit3D(ExitInfo3D info) {
         var array   = _f._ISignalOnTriggerExit3DSystems;
-        var systems = &(_f._globals->Systems);
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
-          if (systems->IsSet(s.RuntimeIndex)) {
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnTriggerExit3D(_f, info);
           }
         }
@@ -1654,7 +1721,7 @@ namespace Quantum {
     public static Byte[] ToByteArray(RuntimeConfig config) {
       BitStream stream;
       
-      stream = new BitStream(new Byte[1024]);
+      stream = new BitStream(new Byte[8192]);
       stream.Writing = true;
 
       config.Serialize(stream);
@@ -2276,9 +2343,28 @@ namespace Quantum {
 // Game/QuantumGame.cs
 
 namespace Quantum {
+  /// <summary>
+  /// This class contains values for flags that will be accessible with <see cref="QuantumGame.GameFlags"/>.
+  /// Built-in flags control some aspects of QuantumGame inner workings, without affecting the simulation
+  /// outcome.
+  /// </summary>
   public partial class QuantumGameFlags {
+    /// <summary>
+    /// Starts the game in the server mode. 
+    /// When this flag is not set, all the events marked with "server" get culled immediatelly.
+    /// If this flag is set, all the events marked with "client" get culled immediatelly.
+    /// </summary>
     public const int Server = 1 << 0;
+    /// <summary>
+    /// By default, QuantumGame uses a single shared checksum serializer to reduce allocations. 
+    /// The serializer is *not* static - it is only shared between frames comming from the same QuantumGame.
+    /// Set this flag if you want to disable this behaviour, for example if you calculate
+    /// checksums for multiple frames using multiple threads.
+    /// </summary>
     public const int DisableSharedChecksumSerializer = 1 << 1;
+    /// <summary>
+    /// Custom user flags start from this value. Flags are accessible with <see cref="QuantumGame.GameFlags"/>.
+    /// </summary>
     public const int CustomFlagsStart = 1 << 16;
   }
 
@@ -2444,6 +2530,22 @@ namespace Quantum {
     }
 
     /// <summary>
+    /// Send data for the local player to join the online match.
+    /// If the client has multiple local players, the data will be sent for the first of them (smallest player index).
+    /// </summary>
+    /// <param name="data">Player data</param>
+    /// After starting, joining the Quantum Game and after the OnGameStart signal has been fired each player needs to call the SendPlayerData method to be added as a player in every ones simulation.\n
+    /// The reason this needs to be called explicitly is that it greatly simplifies late-joining players.
+    public void SendPlayerData(RuntimePlayer data) {
+      var players = GetLocalPlayers();
+      if (players.Length > 0) {
+        Session.SetPlayerData(players[0], RuntimePlayer.ToByteArray(data));
+      } else {
+        Log.Error("No local player found to send player data for.");
+      }
+    }
+
+    /// <summary>
     /// Send data for one local player to join the online match.
     /// </summary>
     /// <param name="player">Local player index</param>
@@ -2453,6 +2555,11 @@ namespace Quantum {
     public void SendPlayerData(Int32 player, RuntimePlayer data) {
       Session.SetPlayerData(player, RuntimePlayer.ToByteArray(data));
     }
+
+    /// <summary>
+    /// <see cref="QuantumGameFlags"/>
+    /// </summary>
+    public int GameFlags => _flags;
 
     public void OnDestroy() {
       SnapshotsOnDestroy();
@@ -2497,7 +2604,7 @@ namespace Quantum {
         Configurations.Simulation = assetDB.FindAsset<SimulationConfig>(Configurations.Runtime.SimulationConfig.Id, true);
 
         // register commands
-        Session.CommandSerializer.RegisterPrototypes(CommandSetup.CreateCommands(Configurations.Runtime, Configurations.Simulation));
+        Session.CommandSerializer.RegisterFactories(DeterministicCommandSetup.GetCommandFactories(Configurations.Runtime, Configurations.Simulation));
 
         // initialize systems
         _systemsRoot = SystemSetup.CreateSystems(Configurations.Runtime, Configurations.Simulation).Where(x => x != null).ToArray();
@@ -2665,7 +2772,7 @@ namespace Quantum {
         var systems = &f.Global->Systems;
 
         for (Int32 i = 0; i < _systemsRoot.Length; ++i) {
-          if (systems->IsSet(_systemsRoot[i].RuntimeIndex)) {
+          if (f.SystemIsEnabledSelf(_systemsRoot[i])) {
             try {
               handle = _systemsRoot[i].OnSchedule(f, handle);
             } catch (Exception exn) {
@@ -3184,6 +3291,9 @@ namespace Quantum {
     UserCallbackIdStart,
   }
 
+  /// <summary>
+  /// Callback called when the simulation queries local input.
+  /// </summary>
   public sealed class CallbackPollInput : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.PollInput;
     internal CallbackPollInput(QuantumGame game) : base(ID, game) { }
@@ -3207,26 +3317,41 @@ namespace Quantum {
     public DeterministicInputFlags Flags { get; private set; }
   }
 
+  /// <summary>
+  /// Callback called when the game has been started.
+  /// </summary>
   public sealed class CallbackGameStarted : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.GameStarted;
     internal CallbackGameStarted(QuantumGame game) : base(ID, game) { }
   }
 
+  /// <summary>
+  /// Callback called when the game has been re-synchronized from a snapshot.
+  /// </summary>
   public sealed class CallbackGameResynced : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.GameResynced;
     internal CallbackGameResynced(QuantumGame game) : base(ID, game) { }
   }
 
+  /// <summary>
+  /// Callback called when the game was destroyed.
+  /// </summary>
   public sealed class CallbackGameDestroyed : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.GameDestroyed;
     internal CallbackGameDestroyed(QuantumGame game) : base(ID, game) { }
   }
 
+  /// <summary>
+  /// Callback guaranteed to be called every rendered frame.
+  /// </summary>
   public sealed class CallbackUpdateView : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.UpdateView;
     internal CallbackUpdateView(QuantumGame game) : base(ID, game) { }
   }
 
+  /// <summary>
+  /// Callback called when frame simulation has completed.
+  /// </summary>
   public sealed class CallbackSimulateFinished : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.SimulateFinished;
     internal CallbackSimulateFinished(QuantumGame game) : base(ID, game) { }
@@ -3234,6 +3359,10 @@ namespace Quantum {
     public Frame Frame;
   }
 
+  /// <summary>
+  /// Callback called when an event raised in a predicted frame was canceled in a verified frame due to a roll-back / missed prediction.
+  /// Synchronised events are only raised on verified frames and thus will never be canceled; this is useful to graciously discard non-sync'ed events in the view.
+  /// </summary>
   public sealed class CallbackEventCanceled : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.EventCanceled;
     internal CallbackEventCanceled(QuantumGame game) : base(ID, game) { }
@@ -3241,6 +3370,9 @@ namespace Quantum {
     public EventKey EventKey;
   }
 
+  /// <summary>
+  /// Callback called when an event was confirmed by a verified frame.
+  /// </summary>
   public sealed class CallbackEventConfirmed : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.EventConfirmed;
     internal CallbackEventConfirmed(QuantumGame game) : base(ID, game) { }
@@ -3248,6 +3380,9 @@ namespace Quantum {
     public EventKey EventKey;
   }
 
+  /// <summary>
+  /// Callback called on a checksum error.
+  /// </summary>
   public sealed class CallbackChecksumError : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.ChecksumError;
     internal CallbackChecksumError(QuantumGame game) : base(ID, game) { }
@@ -3272,6 +3407,9 @@ namespace Quantum {
     }
   }
 
+  /// <summary>
+  /// Callback called when due to a checksum error a frame is dumped.
+  /// </summary>
   public sealed class CallbackChecksumErrorFrameDump : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.ChecksumErrorFrameDump;
     internal CallbackChecksumErrorFrameDump(QuantumGame game) : base(ID, game) { }
@@ -3364,7 +3502,7 @@ namespace Quantum {
       get {
         if (!_frameDump.Item0) {
           if (Frame != null) {
-            int dumpFlags = Frame.DumpFlag_NoHeap;
+            int dumpFlags = Frame.DumpFlag_NoHeap | Frame.DumpFlag_NoIsVerified;
             if (RuntimeConfig == null) {
               dumpFlags |= Frame.DumpFlag_NoRuntimeConfig;
             }
@@ -3459,12 +3597,18 @@ namespace Quantum {
     }
   }
 
+  /// <summary>
+  /// Callback when local input was confirmed.
+  /// </summary>
   public sealed class CallbackInputConfirmed : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.InputConfirmed;
     internal CallbackInputConfirmed(QuantumGame game) : base(ID, game) { }
     public DeterministicFrameInputTemp Input;
   }
 
+  /// <summary>
+  /// Callback called when a checksum has been computed.
+  /// </summary>
   public sealed class CallbackChecksumComputed : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.ChecksumComputed;
     internal CallbackChecksumComputed(QuantumGame game) : base(ID, game) { }
@@ -3473,6 +3617,9 @@ namespace Quantum {
     public UInt64 Checksum;
   }
 
+  /// <summary>
+  /// Callback called when the local client is disconnected by the plugin.
+  /// </summary>
   public sealed class CallbackPluginDisconnect : QuantumGame.CallbackBase {
     public new const Int32 ID = (int)CallbackId.PluginDisconnect;
     internal CallbackPluginDisconnect(QuantumGame game) : base(ID, game) { }
@@ -4948,8 +5095,13 @@ namespace Quantum.Task {
 
     public virtual int SlicesCount => MAX_SLICES_COUNT / 2;
 
-    public override void OnInit(Frame f) {
+    public sealed override void OnInit(Frame f) {
       f.Context.TaskContext.RegisterDelegate(TaskArrayComponent, GetType().Name + ".Update", ref _arrayTaskDelegateHandle);
+      OnInitUser(f);
+    }
+
+    protected virtual void OnInitUser(Frame f) {
+
     }
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
@@ -4987,11 +5139,16 @@ namespace Quantum.Task {
 
     public virtual ComponentSet Any => default;
 
-    public override void OnInit(Frame f) {
+    public sealed override void OnInit(Frame f) {
       _filterMeta = ComponentFilterStructMeta.Create<T>();
       Assert.Check(_filterMeta.ComponentCount > 0, "Filter Struct '{0}' must have at least one component pointer.", typeof(T));
       
       f.Context.TaskContext.RegisterDelegate(TaskArrayFilter, GetType().Name + ".Update", ref _arrayTaskDelegateHandle);
+      OnInitUser(f);
+    }
+
+    protected virtual void OnInitUser(Frame f) {
+
     }
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
@@ -5034,6 +5191,7 @@ namespace Quantum {
   public abstract partial class SystemBase {
     Int32? _runtimeIndex;
     String _scheduleSample;
+    SystemBase _parentSystem;
 
     public Int32 RuntimeIndex {
       get {
@@ -5045,6 +5203,15 @@ namespace Quantum {
         } else {
           _runtimeIndex = value;
         }
+      }
+    }
+
+    public SystemBase ParentSystem {
+      get {
+        return _parentSystem;
+      } 
+      internal set {
+        _parentSystem = value;
       }
     }
 
@@ -5124,13 +5291,16 @@ namespace Quantum {
 
     public SystemGroup(String name, params SystemBase[] children) : base(name + ".Schedule") {
       _children = children;
+
+      for (int i = 0; i < _children.Length; i++) {
+        _children[i].ParentSystem = this;
+      }
     }
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       if (_children != null) {
-        var systems = &f.Global->Systems;
         for (var i = 0; i < _children.Length; ++i) {
-          if (systems->IsSet(_children[i].RuntimeIndex)) {
+          if (f.SystemIsEnabledSelf(_children[i])) {
             try {
               taskHandle = _children[i].OnSchedule(f, taskHandle);
             } catch (Exception exn) {
@@ -5142,6 +5312,26 @@ namespace Quantum {
 
       return taskHandle;
     }
+
+    public override void OnEnabled(Frame f) {
+      base.OnEnabled(f);
+
+      for (int i = 0; i < _children.Length; ++i) {
+        if (f.SystemIsEnabledSelf(_children[i])) {
+          _children[i].OnEnabled(f);
+        }
+      }
+    }
+
+    public override void OnDisabled(Frame f) {
+      base.OnDisabled(f);
+
+      for (int i = 0; i < _children.Length; ++i) {
+        if (f.SystemIsEnabledSelf(_children[i])) {
+          _children[i].OnEnabled(f);
+        }
+      }
+    }
   }
 }
 
@@ -5150,26 +5340,15 @@ namespace Quantum {
 namespace Quantum {
   public abstract unsafe class SystemMainThread : SystemBase {
     TaskDelegateHandle _updateHandle;
-    SystemMainThread[] _children;
 
     String _update;
 
-    public sealed override IEnumerable<SystemBase> ChildSystems {
-      get { return _children; }
+    public SystemMainThread(string name) {
+      _update = name + ".Update";
     }
 
     public SystemMainThread() {
       _update   = GetType().Name + ".Update";
-      _children = new SystemMainThread[0];
-    }
-
-    protected SystemMainThread(string name, params SystemMainThread[] children)
-      : base(name + ".Schedule") {
-      Assert.Check(name != null);
-      Assert.Check(children != null);
-
-      _children = children;
-      _update   = name + ".Update";
     }
 
     protected TaskHandle ScheduleUpdate(Frame f, TaskHandle taskHandle) {
@@ -5189,27 +5368,6 @@ namespace Quantum {
 
       if (((FrameBase)frame).CommitCommandsMode == CommitCommandsModes.InBetweenSystems) {
         ((FrameBase)frame).Unsafe.CommitAllCommands();
-      }
-
-      if (_children != null) {
-#if DEBUG
-        var profiler = frame.Context.ProfilerContext.GetProfilerForTaskThread(frame.Thread);
-#endif
-
-        for (int i = 0; i < _children.Length; ++i) {
-#if DEBUG
-          try {
-            profiler.Start(_children[i]._update);
-#endif
-
-            _children[i].TaskCallback(frame, start, count, arg);
-#if DEBUG
-          }
-          finally {
-            profiler.End();
-          }
-#endif
-        }
       }
     }
 
@@ -5255,10 +5413,61 @@ namespace Quantum {
 }
 
 // Systems/Base/SystemMainThreadGroup.cs
+
 namespace Quantum {
-  public class SystemMainThreadGroup : SystemMainThread {
-    public SystemMainThreadGroup(string update, params SystemMainThread[] children)
-      : base(update, children) {
+  public unsafe class SystemMainThreadGroup : SystemMainThread {
+    SystemMainThread[] _children;
+
+    public SystemMainThreadGroup(string name, params SystemMainThread[] children)
+      : base(name + ".Schedule") {
+      Assert.Check(name != null);
+      Assert.Check(children != null);
+
+      _children = children;
+
+      for (int i = 0; i < _children.Length; i++) {
+        _children[i].ParentSystem = this;
+      }
+    }
+
+    public sealed override IEnumerable<SystemBase> ChildSystems {
+      get { return _children; }
+    }
+
+    protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
+      if (_children != null) {
+        for (var i = 0; i < _children.Length; ++i) {
+          if (f.SystemIsEnabledSelf(_children[i])) {
+            try {
+              taskHandle = _children[i].OnSchedule(f, taskHandle);
+            } catch (Exception exn) {
+              Log.Exception(exn);
+            }
+          }
+        }
+      }
+
+      return taskHandle;
+    }
+
+    public override void OnEnabled(Frame f) {
+      base.OnEnabled(f);
+
+      for (int i = 0; i < _children.Length; ++i) {
+        if (f.SystemIsEnabledSelf(_children[i])) {
+          _children[i].OnEnabled(f);
+        }
+      }
+    }
+
+    public override void OnDisabled(Frame f) {
+      base.OnDisabled(f);
+
+      for (int i = 0; i < _children.Length; ++i) {
+        if (f.SystemIsEnabledSelf(_children[i])) {
+          _children[i].OnDisabled(f);
+        }
+      }
     }
 
     public sealed override void Update(Frame f) {
@@ -5288,8 +5497,13 @@ namespace Quantum.Task {
 
     public virtual int SliceSize => DEFAULT_SLICE_SIZE;
 
-    public override void OnInit(Frame f) {
+    public sealed override void OnInit(Frame f) {
       f.Context.TaskContext.RegisterDelegate(TaskThreadedComponent, GetType().Name + ".Update", ref _threadedTaskDelegateHandle);
+      OnInitUser(f);
+    }
+
+    protected virtual void OnInitUser(Frame f) {
+
     }
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
@@ -5341,8 +5555,13 @@ namespace Quantum.Task {
 
     public virtual ComponentSet Any => default;
 
-    public override void OnInit(Frame f) {
+    public sealed override void OnInit(Frame f) {
       f.Context.TaskContext.RegisterDelegate(TaskThreadedFilter, GetType().Name + ".Update", ref _threadedTaskDelegateHandle);
+      OnInitUser(f);
+    }
+
+    protected virtual void OnInitUser(Frame f) {
+
     }
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {

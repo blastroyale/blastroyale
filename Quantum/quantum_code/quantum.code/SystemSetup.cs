@@ -1,6 +1,4 @@
 using Quantum.Systems;
-using Quantum.Systems.Collectables;
-using Quantum.Systems.Spawners;
 
 namespace Quantum 
 {
@@ -18,6 +16,7 @@ namespace Quantum
 				// Initial Systems
 				new SystemInitializer(),
 				new AiPreUpdateSystem(),
+				new PreRaycastShotsSystem(),
 				
 				// pre-defined core systems
 				new Core.PhysicsSystem3D(),
@@ -30,19 +29,25 @@ namespace Quantum
 				new MatchDataSystem(),		// Must be the first to guarantee that receives all the events before entities are deleted
 				new NavMeshAgentSystem(),
 				new StatusModifierSystemGroup(),
-				new CollectableSystemGroup(),
-				new PowerUpsSystemGroup(),
 				new DummyCharacterSystem(),
+				new CollectableSystem(),
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
-				new PlatformSpawnerSystemGroup(),
+				new ShrinkingCircleSystem(),
+				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
+				new RaycastShotsSystem(),
+				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
 				new StatSystem(),
+				new SpellSystem(),
 				new TransformOutOfWorldSystem(), // TODO: Remove it when we update Quantum and have Y coordinate in Navmesh
+				
+				// Debugging
+				new BotSDKDebuggerSystem(),
 				
 				// Finalizer systems
 				new GameSystem(),

@@ -48,21 +48,10 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>();
+			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
-			for(var i = 0; i < container.PlayersData.Length; i++)
-			{
-				if (!container.PlayersData[i].IsValid)
-				{
-					continue;
-				}
-				
-				var playerMatchData = new QuantumPlayerMatchData(frame,container.PlayersData[i]);
-				
-				playerData.Add(playerMatchData);
-			}
-			
-			_standings.Initialise(playerData);
+			_standings.Initialise(playerData, isBattleRoyale);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

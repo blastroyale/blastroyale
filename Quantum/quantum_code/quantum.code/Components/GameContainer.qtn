@@ -3,6 +3,14 @@ singleton component GameContainer
 	array<PlayerMatchData>[PLAYER_COUNT] PlayersData;
 	UInt32 CurrentProgress;
 	UInt32 TargetProgress;
+	bool IsGameOver;
+}
+
+enum GameMode
+{
+	Tutorial,
+	Deathmatch,
+	BattleRoyale
 }
 
 signal GameEnded();

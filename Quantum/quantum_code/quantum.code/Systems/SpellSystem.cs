@@ -1,9 +1,11 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Spell"/>
 	/// </summary>
-	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalPlayerAttackHit
+	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>
 	{
 		public struct SpellFilter
 		{
@@ -14,21 +16,47 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref SpellFilter filter)
 		{
-			f.Signals.SpellHit(filter.Entity, filter.Spell);
-			f.Remove<Spell>(filter.Entity);
-		}
-
-		/// <inheritdoc />
-		public void PlayerAttackHit(Frame f, PlayerRef player, EntityRef playerEntity, EntityRef hitEntity)
-		{
-			var spell = new Spell
+			if (f.Time > filter.Spell->EndTime)
 			{
-				IsHealing = false,
-				PowerAmount = (uint) f.Get<Stats>(playerEntity).GetStatData(StatType.Power).StatValue.AsInt,
-				Attacker = playerEntity
-			};
+				f.Remove<Spell>(filter.Entity);
+			}
+			
+			if (f.Time < filter.Spell->NextHitTime)
+			{
+				return;
+			}
 
-			f.Add(hitEntity, spell);
+			filter.Spell->NextHitTime += filter.Spell->NextHitTime < FP.SmallestNonZero
+				                             ? f.Time + filter.Spell->Cooldown
+				                             : filter.Spell->Cooldown;
+			
+			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
+			{
+				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Spell->Victim, 
+				                           filter.Spell->OriginalHitPosition);
+			}
+			
+			HandleHealth(f, filter.Spell, false);
+		}
+		
+		private void HandleHealth(Frame f, Spell* spell, bool isHealing)
+		{
+			if (!f.Unsafe.TryGetPointer<Stats>(spell->Victim, out var stats) || spell->PowerAmount == 0)
+			{
+				return;
+			}
+			
+			var armour = f.Get<Stats>(spell->Victim).Values[(int) StatType.Armour].StatValue;
+			var damage = FPMath.Max(spell->PowerAmount - armour, 0).AsInt;
+			
+			if (isHealing)
+			{
+				stats->GainHealth(f, spell->Victim, spell->Attacker, spell->PowerAmount);
+			}
+			else if(damage > 0)
+			{
+				stats->ReduceHealth(f, spell->Victim, spell->Attacker, (uint) damage);
+			}
 		}
 	}
 }

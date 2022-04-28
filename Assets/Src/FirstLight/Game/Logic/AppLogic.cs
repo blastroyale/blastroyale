@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Configs;
 using FirstLight.Services;
+using Photon.Realtime;
+using Quantum;
+using UnityEngine;
 
 
 namespace FirstLight.Game.Logic
@@ -18,7 +23,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the current game session is the first time the player is playing the game or not
 		/// </summary>
 		bool IsFirstSession { get; }
-		
+
 		/// <summary>
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
@@ -43,11 +48,25 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
+
+		/// <summary>
+		/// Requests the player's Nickname
+		/// </summary>
+		string Nickname { get; }
+		
+		/// <summary>
+		/// Requests the player's Nickname
+		/// </summary>
+		IObservableFieldReader<string> NicknameId { get; }
 	}
-	
+
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
+		/// <summary>
+		/// Requests and sets player nickname
+		/// </summary>
+		new IObservableField<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -58,6 +77,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
+
 		/// <inheritdoc />
 		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
 
@@ -87,11 +107,21 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public bool IsHapticOn
 		{
-			get => Data.HapticEnabled; 
+			get => Data.HapticEnabled;
 			set => Data.HapticEnabled = value;
 		}
 
-		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) : 
+		/// <inheritdoc />
+		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
+			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+
+		/// <inheritdoc />
+		public IObservableField<string> NicknameId { get; private set; }
+
+		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
 		{
 			_audioFxService = audioFxService;
@@ -102,6 +132,7 @@ namespace FirstLight.Game.Logic
 		{
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
+			NicknameId = new ObservableField<string>(Data.NickNameId);
 		}
 
 		/// <inheritdoc />
@@ -111,7 +142,7 @@ namespace FirstLight.Game.Logic
 			{
 				throw new LogicException("The game was already reviewed and cannot be reviewed again");
 			}
-			
+
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
 	}

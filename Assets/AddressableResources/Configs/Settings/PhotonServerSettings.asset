@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: ***REMOVED***
+    AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 1.0
@@ -28,3 +29,4 @@ MonoBehaviour:
     EnableLobbyStatistics: 0
     NetworkLogging: 1
   PlayerTtlInSeconds: 30
+  EmptyRoomTtlInSeconds: 0

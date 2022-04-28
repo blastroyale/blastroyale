@@ -40,19 +40,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_rarityImage.sprite = await _services.AssetResolverService.RequestAsset<ItemRarity, Sprite>(info.Data.Rarity);
 			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(info.GameId);
 			IconImage.enabled = true;
-
-			if (info.GameId.IsInGroup(GameIdGroup.Weapon))
-			{
-				var weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) info.GameId);
-				
-				_autoFireIcon.enabled = weaponConfig.IsAutoShoot;
-				_manualFireIcon.enabled = !weaponConfig.IsAutoShoot;
-			}
-			else
-			{
-				_autoFireIcon.enabled = false;
-				_manualFireIcon.enabled = false;
-			}
 		}
 
 		/// <summary>

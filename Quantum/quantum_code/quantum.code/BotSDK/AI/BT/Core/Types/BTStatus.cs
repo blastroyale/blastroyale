@@ -1,8 +1,11 @@
-﻿namespace Quantum {
-	public enum BTStatus {
+﻿namespace Quantum
+{
+	public enum BTStatus
+	{
 		Inactive,
 		Success,
 		Failure,
-		Running
+		Running,
+		Abort
 	}
 }

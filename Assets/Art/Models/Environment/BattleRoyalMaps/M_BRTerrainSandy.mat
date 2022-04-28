@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_BRTerrainSandy
+  m_Shader: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - MetRough:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_80E45D9B:
+        m_Texture: {fileID: 2800000, guid: 7feca4d8f8ad56349842846313775643, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Distort: 1
+    - DistortAmount: 1.15
+    - DistortScale: 0.3
+    - NormalStrength: 0.1
+    - Vector1_1B1866F0: 1.5
+    - Vector1_35A109C9: 0.32
+    - Vector1_652EF29: 0.94
+    - Vector1_904B25EC: 0.79
+    - Vector1_976BFC4: 1.5
+    - Vector1_C53D494A: 0
+    - Vector1_C53F84B0: 0.15
+    - Vector1_CDB3DABE: 0.1
+    m_Colors:
+    - Color_1E8D7265: {r: 8.47419, g: 5.4044547, b: 3.796437, a: 1}
+    - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_FD0C58A4: {r: 0.1, g: 0.1, b: 1, a: 1}
+    - Vector4_F799D26D: {r: 2, g: 1, b: 0, a: 90}
+  m_BuildTextureStacks: []
+--- !u!114 &2403895492975836737
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

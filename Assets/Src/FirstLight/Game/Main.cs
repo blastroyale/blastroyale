@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Facebook.Unity;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -9,7 +10,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.UiService;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 namespace FirstLight.Game
 {
@@ -18,8 +18,6 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
-		[SerializeField] private EntityViewUpdaterService _entityViewUpdaterService;
-
 		public IGameUiServiceInit UiService;
 		
 		private GameStateMachine _gameStateMachine;
@@ -32,22 +30,24 @@ namespace FirstLight.Game
 		{
 			Application.targetFrameRate = 30;
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-			
+
+			FLog.Init();
+
 			var messageBroker = new MessageBrokerService();
 			var analyticsService = new AnalyticsService();
 			var timeService = new TimeService();
 			var dataService = new DataService();
 			var configsProvider = new ConfigsProvider();
 			var uiService = new GameUiService(new UiAssetLoader());
-			var networkService = new GameNetworkService();
+			var networkService = new GameNetworkService(configsProvider);
 			var assetResolver = new AssetResolverService();
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, analyticsService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider,
-			                                    gameLogic, dataService, genericDialogService, _entityViewUpdaterService, 
-			                                    assetResolver, analyticsService, vfxService, audioFxService);
+			                                    gameLogic, dataService, genericDialogService, assetResolver, analyticsService, 
+			                                    vfxService, audioFxService);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);

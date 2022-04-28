@@ -97,11 +97,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ignore
-  - m_GUID: 310f2253699374e478212efe767726c0
-    m_Address: DummyAssets
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Ignore
   - m_GUID: 0c7a161c5a66842a991358994dd6ae53
     m_Address: Timeline
     m_ReadOnly: 0

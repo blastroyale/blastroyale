@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_versionText.text = VersionUtils.VersionInternal;
-			_fullNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.PlayerDataProvider.NicknameId.Value);
+			_fullNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.NicknameId.Value);
 			
 			_closeButton.onClick.AddListener(Close);
 			_blockerButton.onClick.AddListener(Close);

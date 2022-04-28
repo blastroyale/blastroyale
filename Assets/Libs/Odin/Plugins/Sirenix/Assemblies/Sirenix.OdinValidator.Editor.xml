@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sirenix.OdinValidator.Editor</name>
+    </assembly>
+    <members>
+        <member name="F:Sirenix.OdinValidator.Editor.ValidationSession.ValidationSessionResult.ValidationSessionResultType.Ignore">
+            <summary>
+            Result can be null.
+            </summary>
+        </member>
+        <member name="F:Sirenix.OdinValidator.Editor.ValidationSession.ValidationSessionResult.ValidationSessionResultType.ObjectDeleted">
+            <summary>
+            Result will be null if the object is deleted.
+            </summary>
+        </member>
+    </members>
+</doc>

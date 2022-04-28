@@ -3,9 +3,11 @@ struct PlayerMatchData
 	player_ref Player;
 	entity_ref Entity;
 	UInt32 PlayerLevel;
+	UInt32 PlayerTrophies;
 	GameId PlayerSkin;
+	Int32 BotNameIndex;
 	
-	UInt32 CurrentKillRank;
+	FP FirstDeathTime;
 	UInt32 PlayersKilledCount;
 	UInt32 DamageDone;
 	UInt32 HealingDone;
@@ -13,5 +15,5 @@ struct PlayerMatchData
 	UInt32 HealingReceived;
 	UInt32 DeathCount;
 	UInt32 SuicideCount;
-	UInt32 SpecialUsedCount;
+	UInt32 SpecialsUsedCount;
 }

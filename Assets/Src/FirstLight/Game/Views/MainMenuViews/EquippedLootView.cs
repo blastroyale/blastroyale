@@ -57,30 +57,43 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (_gameDataProvider.EquipmentDataProvider.EquippedItems.TryGetValue(_slot, out var uniqueId))
 			{
 				var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(uniqueId);
-
-				_levelText.text = $"{ScriptLocalization.General.Level} {info.DataInfo.Data.Level.ToString()}";
-				_iconImage.enabled = true;
-				_slotImage.enabled = false;
-				_rarityImage.enabled = true;
-				_rarityImage.sprite = await _services.AssetResolverService.RequestAsset<ItemRarity, Sprite>(info.DataInfo.Data.Rarity);
-
-				if (ItemId != uniqueId)
+				
+				// Don't show Default/Melee weapon
+				if (info.IsWeapon && info.Stats[EquipmentStatType.MaxCapacity] < 0)
 				{
-					_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(info.DataInfo.GameId);
+					ClearSlot();
 				}
+				else
+				{
+					_levelText.text = $"{ScriptLocalization.General.Level} {info.DataInfo.Data.Level.ToString()}";
+					_iconImage.enabled = true;
+					_slotImage.enabled = false;
+					_rarityImage.enabled = true;
+					_rarityImage.sprite = await _services.AssetResolverService.RequestAsset<ItemRarity, Sprite>(info.DataInfo.Data.Rarity);
 
-				ItemId = uniqueId;
+					if (ItemId != uniqueId)
+					{
+						_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(info.DataInfo.GameId);
+					}
+
+					ItemId = uniqueId;
+				}
 			}
 			else
 			{
-				ItemId = UniqueId.Invalid;
-				_levelText.text = "";
-				_iconImage.enabled = false;
-				_slotImage.enabled = true;
-				_rarityImage.enabled = false;
+				ClearSlot();
 			}
 			
 			_notificationUniqueIdUpgradeView.SetUniqueId(ItemId);
+		}
+
+		private void ClearSlot()
+		{
+			ItemId = UniqueId.Invalid;
+			_levelText.text = "";
+			_iconImage.enabled = false;
+			_slotImage.enabled = true;
+			_rarityImage.enabled = false;
 		}
 
 		private void OnItemUnequipped(ItemUnequippedMessage itemMessage)

@@ -3,7 +3,7 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 22
+  serializedVersion: 23
   productGUID: ae3300aef67fd478fab5b9adeadcb99c
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: First Light Games
-  productName: Blast Lands
+  productName: Blast Royale
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -136,7 +136,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.11.0
+  bundleVersion: 0.1.0
   preloadedAssets:
   - {fileID: 11400000, guid: c3452a039b34041249d840c527f7b803, type: 2}
   metroInputSource: 0
@@ -164,7 +164,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 19
+  AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -220,6 +220,7 @@ PlayerSettings:
   iOSLaunchScreeniPadCustomStoryboardPath: 
   iOSDeviceRequirements: []
   iOSURLSchemes: []
+  macOSURLSchemes: []
   iOSBackgroundModes: 0
   iOSMetalForceHardShadows: 0
   metalEditorSupport: 1
@@ -250,8 +251,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: Certificates/phoenix.keystore'
-  AndroidKeyaliasName: upload
+  AndroidKeystoreName: '{inproject}: Certificates/firstlightgames.keystore'
+  AndroidKeyaliasName: blastroyale
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -525,7 +526,7 @@ PlayerSettings:
     m_Automatic: 1
   - m_BuildTarget: AndroidPlayer
     m_APIs: 150000000b000000
-    m_Automatic: 0
+    m_Automatic: 1
   - m_BuildTarget: WebGLSupport
     m_APIs: 0b000000
     m_Automatic: 0
@@ -541,6 +542,7 @@ PlayerSettings:
   m_BuildTargetGroupLightmapEncodingQuality: []
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetNormalMapEncoding: []
+  m_BuildTargetDefaultTextureCompressionFormat: []
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -690,7 +692,9 @@ PlayerSettings:
   switchPlayerConnectionEnabled: 1
   switchUseNewStyleFilepaths: 0
   switchUseMicroSleepForYield: 1
+  switchEnableRamDiskSupport: 0
   switchMicroSleepForYieldTime: 25
+  switchRamDiskSpaceSize: 12
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 
@@ -761,7 +765,6 @@ PlayerSettings:
   ps4videoRecordingFeaturesUsed: 0
   ps4contentSearchFeaturesUsed: 0
   ps4CompatibilityPS5: 0
-  ps4AllowPS5Detection: 0
   ps4GPU800MHz: 1
   ps4attribEyeToEyeDistanceSettingVR: 0
   ps4IncludedModules: []
@@ -787,21 +790,22 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS
-    4: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS;QUANTUM_ADDRESSABLES
-    7: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS
-    13: TextMeshPro;QUANTUM_ADDRESSABLES
-    14: TextMeshPro;QUANTUM_ADDRESSABLES
-    19: TextMeshPro;QUANTUM_ADDRESSABLES
-    21: TextMeshPro;QUANTUM_ADDRESSABLES
-    25: TextMeshPro;QUANTUM_ADDRESSABLES
-    27: TextMeshPro;QUANTUM_ADDRESSABLES
-    28: TextMeshPro;QUANTUM_ADDRESSABLES
-    29: TextMeshPro;QUANTUM_ADDRESSABLES
-    30: TextMeshPro;QUANTUM_ADDRESSABLES
-    31: TextMeshPro;QUANTUM_ADDRESSABLES
-    32: TextMeshPro;QUANTUM_ADDRESSABLES
-    33: TextMeshPro;QUANTUM_ADDRESSABLES
+    Android: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS
+    CloudRendering: TextMeshPro;QUANTUM_ADDRESSABLES
+    EmbeddedLinux: TextMeshPro
+    GameCoreScarlett: TextMeshPro;QUANTUM_ADDRESSABLES
+    GameCoreXboxOne: TextMeshPro;QUANTUM_ADDRESSABLES
+    Lumin: TextMeshPro;QUANTUM_ADDRESSABLES
+    Nintendo Switch: TextMeshPro;QUANTUM_ADDRESSABLES
+    PS4: TextMeshPro;QUANTUM_ADDRESSABLES
+    PS5: TextMeshPro;QUANTUM_ADDRESSABLES
+    Stadia: TextMeshPro;QUANTUM_ADDRESSABLES
+    Standalone: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
+    WebGL: TextMeshPro;QUANTUM_ADDRESSABLES
+    Windows Store Apps: TextMeshPro;QUANTUM_ADDRESSABLES
+    XboxOne: TextMeshPro;QUANTUM_ADDRESSABLES
+    iPhone: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS;QUANTUM_ADDRESSABLES;LOG_LEVEL_INFO;ODIN_VALIDATOR;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_INSPECTOR_3_1
+    tvOS: TextMeshPro;QUANTUM_ADDRESSABLES
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -822,7 +826,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform:
     Android: 6
     Standalone: 3
-    iOS: 3
+    iPhone: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Project Phoenix
@@ -851,6 +855,7 @@ PlayerSettings:
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 
+  vcxProjDefaultLanguage: 
   XboxOneProductId: 
   XboxOneUpdateKey: 
   XboxOneSandboxId: 
@@ -884,7 +889,8 @@ PlayerSettings:
     Build: 0
     Collab: 0
     Game Performance: 1
-    Purchasing: 1
+    Purchasing: 0
+    UDP: 0
     Unity Ads: 0
   luminIcon:
     m_Name: 
@@ -899,11 +905,13 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: 6c319abf-d163-42f9-b3bd-3b4ca2e31c41
+  cloudProjectId: ***REMOVED***
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Project Phoenix
+  projectName: Blast Royale
   organizationId: first-light-games-***REMOVED***
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
+  playerDataPath: 
+  forceSRGBBlit: 1
   virtualTexturingSupportEnabled: 0

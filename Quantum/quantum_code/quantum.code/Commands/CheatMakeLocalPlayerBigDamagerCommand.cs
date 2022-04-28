@@ -31,6 +31,8 @@ namespace Quantum.Commands
 			};
 			
 			stats->AddModifier(f, powerModifier);
+
+			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->GainAmmo(f, characterEntity, FP._1);
 		}
 	}
 }

@@ -1,9 +1,9 @@
-using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using Photon.Deterministic;
+using System;
+using System.Collections;
+using System.Numerics;
 using Quantum;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -13,54 +13,68 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class ProjectileViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private VfxId _projectileHitVfx;
-		[SerializeField] private VfxId _projectileFailedHitVfx;
-		[SerializeField] private VfxId _projectileSplashVfx = VfxId.SplashProjectile;
+		[SerializeField] private ParticleSystem _hitEffect;
+		[SerializeField] private ParticleSystem _failedHitEffect;
+		
+		private Coroutine _recoverEffectWhenEndedCoroutine;
 
-		protected override void OnInit()
+		protected override void OnAwake()
 		{
-			QuantumEvent.Subscribe<EventOnProjectileHit>(this, OnEventOnProjectileHit);
-			QuantumEvent.Subscribe<EventOnProjectileFailedHitDestroy>(this, OnProjectileFailedHitDestroy);
+			QuantumEvent.Subscribe<EventOnProjectileSuccessHit>(this, OnEventOnProjectileHit);
+			QuantumEvent.Subscribe<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
 		}
 
-		private void OnProjectileFailedHitDestroy(EventOnProjectileFailedHitDestroy callback)
+		private void OnDestroy()
+		{
+			if (_recoverEffectWhenEndedCoroutine != null)
+			{
+				Services?.CoroutineService?.StopCoroutine(_recoverEffectWhenEndedCoroutine);
+			}
+		}
+
+		private void OnProjectileFailedHit(EventOnProjectileFailedHit callback)
 		{
 			if (callback.Projectile != EntityRef)
 			{
 				return;
 			}
 			
-			Services.VfxService.Spawn(_projectileFailedHitVfx).transform.position = transform.position;
+			PlayEffect(_failedHitEffect, callback.LastPosition.ToUnityVector3());
 		}
 
-		private void OnEventOnProjectileHit(EventOnProjectileHit callback)
+		private void OnEventOnProjectileHit(EventOnProjectileSuccessHit callback)
 		{
-			if (callback.HitData.Projectile != EntityRef)
+			if (callback.Projectile != EntityRef)
 			{
 				return;
 			}
 			
-			var hitPosition = callback.HitData.IsStaticHit ? transform.position : callback.HitData.HitPosition.ToUnityVector3();
-			
-			// If it's not Splash then we create either FailedHitVfx (if it hits the wall) or regular HitVfx in other cases
-			if (callback.ProjectileData.SplashRadius == FP._0)
+			PlayEffect(_hitEffect, callback.HitPosition.ToUnityVector3());
+		}
+
+		private void PlayEffect(ParticleSystem effect, Vector3 position)
+		{
+			if (_recoverEffectWhenEndedCoroutine != null)
 			{
-				var vfx = callback.HitData.IsStaticHit ? _projectileFailedHitVfx : _projectileHitVfx;
-				
-				Services.VfxService.Spawn(vfx).transform.position = hitPosition;
-				
-				return;
+				Services.CoroutineService.StopCoroutine(_recoverEffectWhenEndedCoroutine);
 			}
 			
-			// If it's Splash then we create regular HitVfx and then SplashProjectile Vfx
-			var regularHitVfx = Services.VfxService.Spawn(_projectileHitVfx);
-			var splashProjectile = Services.VfxService.Spawn(_projectileSplashVfx);
-			var scale = (callback.ProjectileData.SplashRadius * 2).AsFloat * Vector3.one;
-			var projectileTransform = splashProjectile.transform;
+			var effectTransform = effect.transform;
 			
-			regularHitVfx.transform.position = hitPosition;
-			projectileTransform.position = hitPosition;
-			projectileTransform.localScale = scale;
+			_recoverEffectWhenEndedCoroutine = Services.CoroutineService.StartCoroutine(RecoverEffectWhenEnded(effect));
+
+			effectTransform.SetParent(null);
+			effectTransform.position = position;
+			effect.Play();
+		}
+
+		private IEnumerator RecoverEffectWhenEnded(ParticleSystem effect)
+		{
+			yield return new WaitForSeconds(effect.main.duration);
+			
+			effect.transform.SetParent(transform);
+
+			_recoverEffectWhenEndedCoroutine = null;
 		}
 	}
 }

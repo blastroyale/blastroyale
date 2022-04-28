@@ -18,364 +18,101 @@ MonoBehaviour:
       Guid:
         Value: 3242401771564966650
     QuantumConfigs:
-    - Id: 80
+    - Id: 10
       SpecialType: 0
       Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
       Cooldown:
-        RawValue: 327680
-      SplashRadius:
         RawValue: 98304
-      PowerAmount: 1000
-      Speed:
-        RawValue: 196608
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 655360
-    - Id: 81
-      SpecialType: 1
-      Indicator: 0
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 0
-      Speed:
-        RawValue: 0
-      ExtraId: 94
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
-    - Id: 82
-      SpecialType: 2
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 262144
-      PowerAmount: 5
-      Speed:
-        RawValue: 196608
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
-    - Id: 83
-      SpecialType: 0
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
+      Radius:
         RawValue: 229376
       PowerAmount: 600
       Speed:
-        RawValue: 557056
-      ExtraId: 0
+        RawValue: 163840
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 786432
-    - Id: 84
-      SpecialType: 3
-      Indicator: 0
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 3
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
+        RawValue: 655360
     - Id: 85
-      SpecialType: 6
+      SpecialType: 1
       Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
       Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 147456
-      PowerAmount: 3
+        RawValue: 98304
+      Radius:
+        RawValue: 98304
+      PowerAmount: 2
       Speed:
         RawValue: 98304
-      ExtraId: 0
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 655360
-    - Id: 86
-      SpecialType: 4
-      Indicator: 0
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 5
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
-    - Id: 87
-      SpecialType: 7
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 196608
-      PowerAmount: 8
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 655360
-    - Id: 88
-      SpecialType: 10
-      Indicator: 0
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 131072
-      PowerAmount: 30
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
+        RawValue: 458752
     - Id: 89
-      SpecialType: 5
+      SpecialType: 2
       Indicator: 0
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
       Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 3
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
-    - Id: 90
-      SpecialType: 9
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
         RawValue: 98304
-      PowerAmount: 4
+      Radius:
+        RawValue: 0
+      PowerAmount: 2
       Speed:
         RawValue: 0
-      ExtraId: 0
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 655360
-    - Id: 91
-      SpecialType: 11
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 131072
-      PowerAmount: 30
-      Speed:
-        RawValue: 196608
-      ExtraId: 0
-      MinRange:
         RawValue: 0
-      MaxRange:
-        RawValue: 655360
-    - Id: 92
-      SpecialType: 8
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 131072
-      PowerAmount: 4
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 655360
     - Id: 110
-      SpecialType: 13
+      SpecialType: 3
       Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
       Cooldown:
-        RawValue: 327680
-      SplashRadius:
+        RawValue: 98304
+      Radius:
         RawValue: 180224
-      PowerAmount: 0
+      PowerAmount: 600
       Speed:
         RawValue: 45875
-      ExtraId: 112
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 786432
-    - Id: 111
-      SpecialType: 12
-      Indicator: 0
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 8
-      Speed:
-        RawValue: 0
-      ExtraId: 0
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 0
-    - Id: 117
-      SpecialType: 14
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 131072
-      PowerAmount: 0
-      Speed:
-        RawValue: 98304
-      ExtraId: 118
-      MinRange:
-        RawValue: 0
-      MaxRange:
-        RawValue: 655360
     - Id: 119
-      SpecialType: 15
+      SpecialType: 4
       Indicator: 2
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
       Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 250
-      Speed:
-        RawValue: 1048576
-      ExtraId: 0
-      MinRange:
-        RawValue: 196608
-      MaxRange:
-        RawValue: 524288
-    - Id: 102
-      SpecialType: 16
-      Indicator: 6
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 327680
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 147456
-      PowerAmount: 400
-      Speed:
         RawValue: 98304
-      ExtraId: 0
-      MinRange:
+      Radius:
         RawValue: 0
-      MaxRange:
-        RawValue: 655360
-    - Id: 141
-      SpecialType: 15
-      Indicator: 2
-      BaseCharges: 1
-      MaxCharges: 1
-      InitialCooldown:
-        RawValue: 0
-      Cooldown:
-        RawValue: 327680
-      SplashRadius:
-        RawValue: 0
-      PowerAmount: 250
+      PowerAmount: 200
       Speed:
         RawValue: 1048576
-      ExtraId: 0
       MinRange:
         RawValue: 196608
       MaxRange:
+        RawValue: 458752
+    - Id: 102
+      SpecialType: 5
+      Indicator: 6
+      Cooldown:
+        RawValue: 98304
+      Radius:
+        RawValue: 163840
+      PowerAmount: 300
+      Speed:
+        RawValue: 65536
+      MinRange:
+        RawValue: 0
+      MaxRange:
         RawValue: 524288
+    - Id: 141
+      SpecialType: 4
+      Indicator: 2
+      Cooldown:
+        RawValue: 0
+      Radius:
+        RawValue: 0
+      PowerAmount: 200
+      Speed:
+        RawValue: 1048576
+      MinRange:
+        RawValue: 196608
+      MaxRange:
+        RawValue: 458752

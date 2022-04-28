@@ -23,17 +23,6 @@ namespace FirstLight.Game.Messages
 	{
 		public List<RewardData> Rewards;
 	}
-
-	public struct AdventureFirstTimeRewardsCollectingStartedMessage : IMessage
-	{
-		public int AdventureId;
-	}
-
-	public struct AdventureFirstTimeRewardsCollectedMessage : IMessage
-	{
-		public int AdventureId;
-		public List<RewardData> Rewards;
-	}
 	
 	public struct GameCompletedRewardsMessage : IMessage
 	{

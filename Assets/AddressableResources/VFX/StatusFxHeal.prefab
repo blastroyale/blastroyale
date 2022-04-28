@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371803325089375393}
   - component: {fileID: 8983657958151232221}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StatusFxHeal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8395110327329983820}
   m_Father: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 8395110327329983820}
   - component: {fileID: 8395110327329983818}
   - component: {fileID: 8395110327329983819}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VFX_Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,6 +75,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3371803325089375393}
   m_RootOrder: 0
@@ -182,6 +184,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &8395110327329983819
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -191,6 +194,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -198,13 +202,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

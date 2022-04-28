@@ -6,7 +6,7 @@ using FirstLight.UiService;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using FirstLight.Game.Views.MainMenuViews;
+using I2.Loc;
 using MoreMountains.NiceVibrations;
 using Quantum;
 
@@ -19,6 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MainMenuHudPresenter : UiPresenter
 	{
+		[SerializeField] private Transform _scTooltipAnchor;
+		[SerializeField] private Transform _hcTooltipAnchor;
 		[SerializeField] private TextMeshProUGUI _softCurrencyText;
 		[SerializeField] private TextMeshProUGUI _hardCurrencyText;
 		[SerializeField] private Transform _scAnimationTarget;
@@ -51,8 +53,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var sc = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.SC];
-
 			_softCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.SC].ToString()}";
 			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
 			
@@ -117,6 +117,16 @@ namespace FirstLight.Game.Presenters
 				
 				DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
 			}
+		}
+
+		private void OnSCClicked()
+		{
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_SC, _scTooltipAnchor.position, TooltipArrowPosition.Top);
+		}
+		
+		private void OnHCClicked()
+		{
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_HC, _hcTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 
 		private void SoftCurrencyRackupUpdate(float value)

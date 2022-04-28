@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2898866349958468882}
   - component: {fileID: 2898866349958468884}
   - component: {fileID: 2898866349958468883}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2898866350378729406}
   m_RootOrder: 1
@@ -4782,6 +4783,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 4
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -4805,6 +4807,10 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0
 --- !u!1 &2898866350378729405
 GameObject:
@@ -4815,7 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2898866350378729406}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Refill_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4832,6 +4838,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2898866350572010009}
   - {fileID: 2898866349958468882}
@@ -4849,7 +4856,7 @@ GameObject:
   - component: {fileID: 2898866350572010009}
   - component: {fileID: 2898866350572010011}
   - component: {fileID: 2898866350572010010}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Outershell 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4866,6 +4873,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000067977235, y: 0.4080007, z: 0.0000012014061}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2898866350378729406}
   m_RootOrder: 0

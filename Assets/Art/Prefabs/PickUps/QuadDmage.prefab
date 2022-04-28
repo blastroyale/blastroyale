@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 659910550253777241}
   - component: {fileID: 1534359906560029314}
   - component: {fileID: 7977861132670699672}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Rage (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7052118638972558067}
   m_RootOrder: 2
@@ -217,6 +218,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &7977861132670699672
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -234,13 +236,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,7 +267,7 @@ GameObject:
   - component: {fileID: 3417575882302238943}
   - component: {fileID: 2770041350295012068}
   - component: {fileID: 7337000596040198428}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BoxingGlove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,6 +284,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.023863649, y: 0.61874706, z: 0.000000014305114}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7052118638972558067}
   m_RootOrder: 0
@@ -354,7 +350,7 @@ GameObject:
   - component: {fileID: 7317006229996636199}
   - component: {fileID: 3481162591738653903}
   - component: {fileID: 5299980654030676022}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,6 +367,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.6189891, z: -0.025824126}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7052118638972558067}
   m_RootOrder: 1
@@ -434,7 +431,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7052118638972558067}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: QuadDmage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,6 +448,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3417575882302238943}
   - {fileID: 7317006229996636199}
@@ -470,7 +468,7 @@ GameObject:
   - component: {fileID: 6613234949948822158}
   - component: {fileID: 2337069496180255095}
   - component: {fileID: 7197527808165944888}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GloveParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,6 +485,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7052118638972558067}
   m_RootOrder: 3
@@ -5241,6 +5240,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 4
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -5264,4 +5264,8 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0

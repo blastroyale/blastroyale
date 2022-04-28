@@ -14,10 +14,10 @@ UnityConnectSettings:
   CrashReportingSettings:
     m_EventUrl: https://perf-events.cloud.unity3d.com
     m_Enabled: 1
-    m_LogBufferSize: 10
+    m_LogBufferSize: 50
     m_CaptureEditorExceptions: 0
   UnityPurchasingSettings:
-    m_Enabled: 1
+    m_Enabled: 0
     m_TestMode: 0
   UnityAnalyticsSettings:
     m_Enabled: 1

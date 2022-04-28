@@ -1,6 +1,8 @@
 using System;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Presenters;
+using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -72,7 +74,7 @@ namespace FirstLight.Game.Services
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
 		void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
-		                          bool showCloseButton, Action<string> closeCallback = null);
+		                          bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null);
 		
 		/// <summary>
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
@@ -83,6 +85,11 @@ namespace FirstLight.Game.Services
 		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
 		/// </summary>
 		void OpenLootInfoDialog(GenericDialogButton button, LootBoxInfo boxInfo, Action closeCallback = null);
+
+		/// <summary>
+		/// Opens up a tooltip dialog to show informative text.
+		/// </summary>
+		void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition);
 
 		/// <summary>
 		/// Opens up a Talking Head Dialog.
@@ -150,13 +157,13 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
-		                                 bool showCloseButton, Action<string> closeCallback = null)
+		                                 bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericDialogInputFieldPresenter>();
 
 			_openDialogType = ui.GetType();
 			
-			ui.SetInfo(title, initialInputText, button, showCloseButton, closeCallback);
+			ui.SetInfo(title, initialInputText, button, showCloseButton, contentType, closeCallback);
 		}
 
 		/// <summary>
@@ -170,7 +177,14 @@ namespace FirstLight.Game.Services
 			
 			ui.SetInfo(button, boxInfo, closeCallback);
 		}
-		
+
+		/// <inheritdoc />
+		public void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition)
+		{
+			var ui = _uiService.OpenUi<UiTooltipPresenter>();
+			ui.ShowTooltip(locTag, worldPos, tooltipArrowPosition);
+		}
+
 		/// <summary>
 		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
 		/// </summary>

@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Quantum;
 using TMPro;
@@ -15,38 +16,29 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private TextMeshPro _text;
 		[SerializeField] private Image _progressIndicator;
 		
-		protected override void OnInit()
+		protected override void OnInit(QuantumGame game)
 		{
-			base.OnInit();
+			base.OnInit(game);
 			
 			_text.text = "";
 			_progressIndicator.fillAmount = 0f;
 			
-			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 		}
 
-		private void OnEntityDestroyed(QuantumGame game)
-		{
-			QuantumCallback.UnsubscribeListener(this);
-		}
-		
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
 			var spawner = frame.Get<CollectablePlatformSpawner>(EntityRef);
-
 			var remaining = spawner.NextSpawnTime.AsFloat - frame.Time.AsFloat;
 
 			if (remaining > 0)
 			{
 				var intervalTime = spawner.IntervalTime.AsFloat;
 				var normalizedValue = remaining / intervalTime;
-				
 				var sec = intervalTime * normalizedValue;
 				
 				_text.text = ((int)sec).ToString();	
-				
 				_progressIndicator.fillAmount = normalizedValue;
 			}
 			else

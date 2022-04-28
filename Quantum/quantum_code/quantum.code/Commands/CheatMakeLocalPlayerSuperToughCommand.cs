@@ -32,7 +32,7 @@ namespace Quantum.Commands
 			};
 			
 			stats->AddModifier(f, healthModifier);
-			stats->SetCurrentHealth(f, characterEntity, FP._1);
+			stats->SetCurrentHealthPercentage(f, characterEntity, characterEntity, FP._1);
 		}
 	}
 }

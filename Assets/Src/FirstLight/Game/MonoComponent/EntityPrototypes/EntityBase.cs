@@ -24,8 +24,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void OnValidate()
 		{
 			EntityView = EntityView ? EntityView : GetComponent<EntityView>();
-			
-			OnEditorValidate();
 		}
 
 		private void Awake()
@@ -38,9 +36,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected T GetComponentData<T>(QuantumGame game) where T : unmanaged, IComponent
 		{
-			var frame = EntityView.BindBehaviour == EntityViewBindBehaviour.Verified ? game.Frames.Verified : game.Frames.Predicted;
-			
-			return frame.Get<T>(EntityView.EntityRef);
+			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
+				       ? GetComponentVerifiedData<T>(game)
+				       : GetComponentPredictedData<T>(game);
 		}
 
 		protected T GetComponentPredictedData<T>(QuantumGame game) where T : unmanaged, IComponent
@@ -50,33 +48,50 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected T GetComponentVerifiedData<T>(QuantumGame game) where T : unmanaged, IComponent
 		{
-			return game.Frames.Predicted.Get<T>(EntityView.EntityRef);
+			return game.Frames.Verified.Get<T>(EntityView.EntityRef);
+		}
+
+		protected bool TryGetComponentData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
+		{
+			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
+				       ? TryGetComponentVerifiedData(game, out component)
+				       : TryGetComponentPredictedData(game, out component);
+		}
+
+		protected bool TryGetComponentPredictedData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
+		{
+			return game.Frames.Predicted.TryGet(EntityView.EntityRef, out component);
+		}
+
+		protected bool TryGetComponentVerifiedData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
+		{
+			return game.Frames.Verified.TryGet(EntityView.EntityRef, out component);
 		}
 
 		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
 		{
-			if (this.IsDestroyed())
+			var runner = QuantumRunner.Default;
+			
+			if (this.IsDestroyed() || runner == null)
 			{
 				Destroy(instance);
 				return;
 			}
 			
-			Instance = instance;
-			
 			var cacheTransform = instance.transform;
 
 			if(instance.TryGetComponent<EntityMainViewBase>(out var mainViewBase))
 			{
-				mainViewBase.SetEntityView(EntityView);
+				mainViewBase.SetEntityView(runner.Game, EntityView);
 			}
 			
 			cacheTransform.SetParent(transform);
 			
+			Instance = instance;
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
 		}
 
-		protected virtual void OnEditorValidate() {}
 		protected virtual void OnAwake() {}
 		protected virtual void OnEntityInstantiated(QuantumGame game) {}
 		protected virtual void OnEntityDestroyed(QuantumGame game) {}

@@ -21,7 +21,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		public struct PlayerSkinGridItemData
 		{
-			public PlayerSkinConfig Config;
+			public GameId Skin;
 			public bool IsSelected;
 			public Action<GameId> OnAvatarClicked;
 		}
@@ -51,16 +51,16 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_frameImage.color = data.IsSelected ? _selectedColor : _regularColor;
 
 			_data = data;
-			Text.text = data.Config.Id.GetTranslation();
+			Text.text = data.Skin.GetTranslation();
 
-			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value == _data.Config.Id;
+			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value == _data.Skin;
 			_selectedFrameImage.SetActive(data.IsSelected);
-			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_data.Config.Id);
+			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_data.Skin);
 		}
 
 		private void OnButtonClick()
 		{
-			Data.OnAvatarClicked(_data.Config.Id);
+			Data.OnAvatarClicked(_data.Skin);
 		}
 	}
 }

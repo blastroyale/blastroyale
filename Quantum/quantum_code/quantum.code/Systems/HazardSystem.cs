@@ -3,15 +3,15 @@ using Photon.Deterministic;
 namespace Quantum.Systems
 {
 	/// <summary>
-	/// Handles Hazards
+	/// TODO: DELETE THE HAZARD SYSTEM
 	/// </summary>
-	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>, ISignalOnTrigger3D,
-	                                   ISignalProjectileTargetHit
+	public unsafe class HazardSystem : SystemMainThreadFilter<HazardSystem.HazardFilter>
 	{
 		public struct HazardFilter
 		{
 			public EntityRef Entity;
 			public Hazard* Hazard;
+			public Transform3D* Transform;
 		}
 		
 		/// <inheritdoc />
@@ -19,107 +19,45 @@ namespace Quantum.Systems
 		{
 			var hazard = filter.Hazard;
 			
-			if (f.Time >= hazard->NextApplyTime)
+			if (f.Time > hazard->EndTime)
 			{
-				hazard->NextApplyTime += hazard->Interval;
-				hazard->IsActive = true;
-			}
-			else if (hazard->IsActive)
-			{
-				hazard->IsActive = false;
-			}
-			
-			if (f.Time >= hazard->DestroyTime)
-			{
-				if (hazard->GameId == GameId.AggroBeaconHazard)
-				{
-					f.Add<EntityDestroyer>(hazard->Attacker);
-				}
-				
 				f.Add<EntityDestroyer>(filter.Entity);
 			}
-		}
-		
-		/// <inheritdoc />
-		public void OnTrigger3D(Frame f, TriggerInfo3D info)
-		{
-			if (info.IsStatic || !f.TryGet<Hazard>(info.Entity, out var hazard) || !hazard.IsActive)
+			
+			if (f.Time < hazard->NextTickTime)
 			{
 				return;
 			}
+
+			var spell = new Spell
+			{
+				Id = Spell.DefaultId,
+				Attacker = hazard->Attacker,
+				Cooldown = FP._0,
+				EndTime = FP._0,
+				NextHitTime = FP._0,
+				OriginalHitPosition = filter.Transform->Position,
+				PowerAmount = hazard->PowerAmount,
+				SpellSource = filter.Entity,
+				TeamSource = hazard->TeamSource,
+				Victim = default
+			};
 			
-			if (f.TryGet<Targetable>(info.Other, out var targetable) &&
-			    ((targetable.Team != hazard.TeamSource && !hazard.IsHealing) ||
-			     (targetable.Team == hazard.TeamSource && hazard.IsHealing)))
-			{
-				var hazardHitData = new HazardHitData
-				{
-					TargetHit = info.Other,
-					Hazard = info.Entity,
-					HitPosition = f.Get<Transform3D>(info.Other).Position
-				};
-				
-				var hitData = new ProjectileHitData
-				{
-					TargetHit = info.Other,
-					Projectile = info.Entity,
-					HitPosition = hazardHitData.HitPosition
-				};
-				
-				var projectileProxyData = new ProjectileData
-				{
-					Attacker = hazard.Attacker,
-					ProjectileAssetRef = 0,
-					NormalizedDirection = FPVector3.Zero,
-					SpawnPosition = hazardHitData.HitPosition,
-					TeamSource = hazard.TeamSource,
-					IsHealing = hazard.IsHealing,
-					PowerAmount = hazard.PowerAmount,
-					Speed = FP._0,
-					Range = Constants.PROJECTILE_MAX_RANGE,
-					SplashRadius = FP._0,
-				};
-				
-				LocalPlayerHitEvents(f, &projectileProxyData, &hitData);
-				
-				f.Signals.HazardTargetHit(&hazardHitData);
-			}
+			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
+			
+			QuantumHelpers.ProcessAreaHit(f, hazard->Radius, spell, hazard->MaxHitCount, OnHit);
 		}
-		
-		/// <inheritdoc />
-		public void ProjectileTargetHit(Frame f, ProjectileHitData* data)
-		{
-			var pData = f.Get<Projectile>(data->Projectile).Data;
-			var source = pData.Attacker;
-			var teamSource = pData.TeamSource;
 
-			if (pData.SpawnHazardId != 0)
-			{
-				Hazard.Create(f, pData.SpawnHazardId, data->HitPosition, source, teamSource);
-			}
-			else if (f.TryGet<Weapon>(source, out var weapon))
-			{
-				var hazardId = f.WeaponConfigs.QuantumConfigs.Find(config => config.Id == weapon.GameId).HazardId;
-
-				if (hazardId != 0)
-				{
-					Hazard.Create(f, hazardId, data->HitPosition, source, teamSource);
-				}
-			}
-		}
-		
-		private void LocalPlayerHitEvents(Frame f, ProjectileData* data, ProjectileHitData* hitData)
+		private void OnHit(Frame f, Spell spell)
 		{
-			if (f.Exists(data->Attacker) && f.TryGet<PlayerCharacter>(data->Attacker, out var playerAttacker))
+			var source = f.Get<Hazard>(spell.SpellSource);
+			
+			if (source.StunDuration > FP._0)
 			{
-				// Player's projectile hit someone
-				f.Events.OnLocalPlayerProjectileHit(playerAttacker.Player, *hitData, *data);
+				StatusModifiers.AddStatusModifierToEntity(f, spell.Victim, StatusModifierType.Stun, source.StunDuration);
 			}
-			else if (f.TryGet<PlayerCharacter>(hitData->TargetHit, out var playerHit))
-			{
-				// Someone's projectile hit a player
-				f.Events.OnLocalPlayerHit(playerHit.Player, *hitData, *data);
-			}
+			
+			f.Events.OnHazardHit(spell.Attacker, spell.Victim, source, spell.OriginalHitPosition);
 		}
 	}
 }

@@ -23,39 +23,9 @@ MonoBehaviour:
     GameConfigs:
       Id:
         Value: 2168878361177007176
-    MapConfigs:
-      Id:
-        Value: 22960179855089054
     BotConfigs:
       Id:
         Value: 1550297457877710414
-    EnemyConfigs:
-      Id:
-        Value: 2393585214740519735
-    EnemyWaveConfigs:
-      Id:
-        Value: 708547131024446588
-    EnemyWaveLayoutConfigs:
-      Id:
-        Value: 4290984004441149879
-    SpawnOnDeathConfigs:
-      Id:
-        Value: 236213860816656681
-    MultishotConfigs:
-      Id:
-        Value: 25992991120524083
-    FrontshotConfigs:
-      Id:
-        Value: 2642967239424394741
-    DiagonalshotConfigs:
-      Id:
-        Value: 4377079066132996845
-    LifestealConfigs:
-      Id:
-        Value: 268914726391290792
-    WallBounceConfigs:
-      Id:
-        Value: 2157413871213122957
     WeaponConfigs:
       Id:
         Value: 2174339006334179964
@@ -65,26 +35,17 @@ MonoBehaviour:
     ConsumableConfigs:
       Id:
         Value: 3521447524462001825
-    PillConfigs:
-      Id:
-        Value: 3343352028377025524
     SpecialConfigs:
       Id:
         Value: 3242401771564966650
-    HazardConfigs:
-      Id:
-        Value: 374155793228999426
     AssetConfigs:
       Id:
         Value: 1782342916809032400
     DestructibleConfigs:
       Id:
         Value: 4393632908210870598
-    LootBoxConfigs:
+    ShrinkingCircleConfigs:
       Id:
-        Value: 1941196573164950699
-    EnemySpawnerConfigs:
-      Id:
-        Value: 3897611654662675749
+        Value: 3083889286552435639
   _deterministicConfigAsset: {fileID: 11400000, guid: f751724b9805d468883f1b6feb3bc2de, type: 2}
   _serverSettings: {fileID: 11400000, guid: 36ac09ddba67042d388dbb80f6fa2ccb, type: 2}

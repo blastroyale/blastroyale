@@ -9,7 +9,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialAirstrike
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special airstrike, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
@@ -22,7 +22,7 @@ namespace Quantum
 				var iterator = f.GetComponentIterator<Targetable>();
 				foreach (var target in iterator)
 				{
-					if (!QuantumHelpers.IsAttackable(f, target.Entity) || (team == target.Component.Team) || 
+					if (!QuantumHelpers.IsAttackable(f, target.Entity, team) || 
 					    !QuantumHelpers.IsEntityInRange(f, e, target.Entity, FP._0, maxRange))
 					{
 						continue;
@@ -41,33 +41,26 @@ namespace Quantum
 			else
 			{
 				targetPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange).XOY;
-				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, e, targetPosition, out var newPos) ? newPos : targetPosition;
+				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
-			var spawnPosition = new FPVector3(targetPosition.X, targetPosition.Y + FP._10, targetPosition.Z);
-			var direction = targetPosition - spawnPosition;
-			
-			var projectileData = new ProjectileData
+			var hazardData = new Hazard
 			{
-				ProjectileId = airstrike.SpecialGameId,
 				Attacker = e,
-				ProjectileAssetRef = f.AssetConfigs.PlayerBulletPrototype.Id.Value,
-				NormalizedDirection = direction.Normalized,
-				SpawnPosition = spawnPosition,
-				TeamSource = team,
-				IsHealing = false,
-				PowerAmount = airstrike.PowerAmount,
-				Speed = airstrike.Speed,
-				Range = FP._10,
-				SplashRadius = airstrike.SplashRadius,
+				EndTime = f.Time + special.Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
+				NextTickTime = f.Time + special.Speed,
+				PowerAmount = special.PowerAmount,
+				Radius = special.Radius,
 				StunDuration = FP._0,
-				Target = EntityRef.None,
-				IsHitOnRangeLimit = true
+				TeamSource = team,
+				MaxHitCount = uint.MaxValue
 			};
 			
-			var projectile = Projectile.Create(f, projectileData);
+			var hazard = Hazard.Create(f, hazardData, targetPosition);
 			
-			f.Events.OnAirstrikeUsed(projectile, targetPosition, projectileData);
+			f.Events.OnAirstrikeUsed(hazard, targetPosition, hazardData);
 			
 			return true;
 		}

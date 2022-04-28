@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6951558053818259267}
   - component: {fileID: 6951558053818259265}
   - component: {fileID: 6951558053818259264}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.17, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6951558054759797563}
   m_RootOrder: 1
@@ -4782,6 +4783,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 4
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -4805,6 +4807,10 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0
 --- !u!1 &6951558054064997036
 GameObject:
@@ -4817,7 +4823,7 @@ GameObject:
   - component: {fileID: 6951558054064997037}
   - component: {fileID: 6951558054064997035}
   - component: {fileID: 6951558054064997034}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4834,6 +4840,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.17, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6951558054759797563}
   m_RootOrder: 3
@@ -9588,6 +9595,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 4
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -9611,6 +9619,10 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0
 --- !u!1 &6951558054655268889
 GameObject:
@@ -9623,7 +9635,7 @@ GameObject:
   - component: {fileID: 6951558054655268902}
   - component: {fileID: 6951558054655268900}
   - component: {fileID: 6951558054655268903}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Outershell 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9640,6 +9652,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000067977235, y: 0.4080007, z: 0.0000012014061}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6951558054759797563}
   m_RootOrder: 0
@@ -9703,7 +9716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6951558054759797563}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Refill_Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9720,6 +9733,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6951558054655268902}
   - {fileID: 6951558053818259267}
@@ -9739,7 +9753,7 @@ GameObject:
   - component: {fileID: 6951558055007514970}
   - component: {fileID: 6951558055007514968}
   - component: {fileID: 6951558055007514971}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightningBolt (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9756,6 +9770,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6951558054759797563}
   m_RootOrder: 2
@@ -14510,6 +14525,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 4
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -14533,4 +14549,8 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0

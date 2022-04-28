@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0.107898146, y: -0.38321158, z: 0.080403276, w: 0.9138065}
   m_LocalPosition: {x: 7.138108, y: -2.2707267, z: 14.948139}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2560029150890898065}
   m_RootOrder: 1
@@ -4840,6 +4841,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 0
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -4863,6 +4865,10 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0
 --- !u!1 &6299462765599264814
 GameObject:
@@ -4890,6 +4896,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4039408483731628097}
   m_Father: {fileID: 0}
@@ -4924,6 +4931,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2560029150890898065}
   m_RootOrder: 2
@@ -5001,6 +5009,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -5076,14 +5085,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6874aeaa4088b0d47accc60bead181fd, type: 3}
---- !u!4 &4039408483731628097 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6874aeaa4088b0d47accc60bead181fd, type: 3}
-  m_PrefabInstance: {fileID: 4576895135156570026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2560029150890898065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2018572587114149179, guid: 6874aeaa4088b0d47accc60bead181fd, type: 3}
+  m_PrefabInstance: {fileID: 4576895135156570026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4039408483731628097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6874aeaa4088b0d47accc60bead181fd, type: 3}
   m_PrefabInstance: {fileID: 4576895135156570026}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &5644452577762602652 stripped

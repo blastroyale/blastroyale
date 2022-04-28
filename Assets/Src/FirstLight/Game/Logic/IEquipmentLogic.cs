@@ -27,6 +27,13 @@ namespace FirstLight.Game.Logic
 		/// Thrown if the item with the given <paramref name="itemId"/> is not present in the inventory
 		/// </exception>
 		EquipmentDataInfo GetEquipmentDataInfo(UniqueId itemId);
+		/// <summary>
+		/// Requests the <see cref="EquipmentData"/> representing the item with the given equipment <paramref name="slot"/>
+		/// </summary>
+		/// <exception cref="LogicException">
+		/// Thrown if the item with the given <paramref name="slot"/> is not equipped or a valid slot
+		/// </exception>
+		EquipmentDataInfo GetEquipmentDataInfo(GameIdGroup slot);
 
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> representing the given <paramref name="itemId"/>
@@ -39,7 +46,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> representing a generic equipment of the given data
 		/// </summary>
-		EquipmentInfo GetEquipmentInfo(GameId gameId, ItemRarity rarity, uint level);
+		EquipmentInfo GetEquipmentInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective,
+		                               ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade);
 
 		/// <summary>
 		/// Requests the list of items that can have the given <paramref name="rarity"/>
@@ -57,7 +65,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the <see cref="WeaponInfo"/> representing a generic equipment of the given <paramref name="gameId"/>
 		/// </summary>
-		WeaponInfo GetWeaponInfo(GameId gameId, ItemRarity rarity, uint level);
+		WeaponInfo GetWeaponInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective,
+		                         ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade);
 		/// <summary>
 		/// If the given <paramref name="itemId"/> is of gear type it will request the <see cref="GearInfo"/> representing it
 		/// </summary>
@@ -74,7 +83,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the <see cref="GearInfo"/> representing a generic equipment of the given <paramref name="gameId"/>
 		/// </summary>
-		GearInfo GetGearInfo(GameId gameId, ItemRarity rarity, uint level);
+		GearInfo GetGearInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective,
+		                     ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade);
 		/// <summary>
 		/// If the given <paramref name="itemId"/> is of gear type it will request the <see cref="GearInfo"/> representing it
 		/// </summary>

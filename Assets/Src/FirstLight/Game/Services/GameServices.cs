@@ -26,7 +26,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
-		IEntityViewUpdaterService EntityViewUpdaterService { get; }
 		/// <inheritdoc cref="IGuidService"/>
 		IGuidService GuidService { get; }
 
@@ -58,6 +57,8 @@ namespace FirstLight.Game.Services
 		IAudioFxService<AudioId> AudioFxService { get; }
 		/// <inheritdoc cref="INotificationService"/>
 		INotificationService NotificationService { get; }
+		/// <inheritdoc cref="IPlayfabService"/>
+		IPlayfabService PlayfabService { get; }
 	}
 
 	/// <inheritdoc />
@@ -67,8 +68,6 @@ namespace FirstLight.Game.Services
 		public IDataSaver DataSaver { get; }
 		/// <inheritdoc />
 		public IConfigsProvider ConfigsProvider { get; }
-		/// <inheritdoc />
-		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 		/// <inheritdoc />
 		public IGuidService GuidService { get; }
 
@@ -100,14 +99,15 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		/// <inheritdoc />
 		public INotificationService NotificationService { get; }
+		/// <inheritdoc />
+		public IPlayfabService PlayfabService { get; }
 		
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService, 
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic, IDataProvider dataProvider, IGenericDialogService genericDialogService, 
-		                    IEntityViewUpdaterService entityViewUpdaterService, IAssetResolverService assetResolverService, 
-		                    IAnalyticsService analyticsService, IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService, 
+		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
-			EntityViewUpdaterService = entityViewUpdaterService;
 			NetworkService = networkService;
 			AnalyticsService = analyticsService;
 			MessageBrokerService = messageBrokerService;
@@ -125,6 +125,7 @@ namespace FirstLight.Game.Services
 			TickService =  new TickService();
 			CoroutineService = new CoroutineService();
 			StoreService = new StoreService(CommandService);
+			PlayfabService = new PlayfabService(gameLogic.AppLogic);
 			NotificationService = new MobileNotificationService(
 				new GameNotificationChannel(GameConstants.NotificationBoxesChannel, GameConstants.NotificationBoxesChannel,GameConstants.NotificationBoxesChannel),
 				new GameNotificationChannel(GameConstants.NotificationIdleBoxesChannel, GameConstants.NotificationIdleBoxesChannel,GameConstants.NotificationIdleBoxesChannel));

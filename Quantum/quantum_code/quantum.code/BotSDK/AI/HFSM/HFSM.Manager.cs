@@ -1,128 +1,92 @@
 ﻿using Photon.Deterministic;
 using System;
+using System.Runtime.CompilerServices;
 
-namespace Quantum {
-  public static unsafe class HFSMManager
-  {
-    public static Action<EntityRef, long, string> StateChanged;
+namespace Quantum
+{
+	public static unsafe partial class HFSMManager
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    /// <summary>
-    /// Initializes the HFSM, making the current state to be equals the initial state
-    /// </summary>
-    public static unsafe void Init(Frame f, EntityRef e, HFSMRoot root)
-    {
-      if (f.Unsafe.TryGetPointer(e, out HFSMAgent* hfsmAgent))
-      {
-        HFSMData* hfsmData = &hfsmAgent->Data;
-        Init(f, hfsmData, e, root);
-      }
-      else
-      {
-        Log.Error("[Bot SDK] Tried to initialize an entity which has no HfsmAgent component");
-      }
-    }
+		public static Action<EntityRef, long, string> StateChanged;
 
-    /// <summary>
-    /// Initializes the HFSM, making the current state to be equals the initial state
-    /// </summary>
-    public static unsafe void Init(Frame f, HFSMData* hfsm, EntityRef e, HFSMRoot root) {
-      hfsm->Root = root;
-      if (hfsm->Root.Equals(default) == false)
-      {
-        HFSMState initialState = f.FindAsset<HFSMState>(root.InitialState.Id);
-        ChangeState(initialState, f, hfsm, e, "");
-      }
-    }
+		// ========== PUBLIC METHODS ==================================================================================
 
+		/// <summary>
+		/// Initializes the HFSM, making the current state to be equals the initial state
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static unsafe void Init(Frame frame, EntityRef entity, HFSMRoot root)
+		{
+			ThreadSafe.Init((FrameThreadSafe)frame, entity, root);
+		}
 
-    /// <summary>
-    /// Update the state of the HFSM.
-    /// </summary>
-    /// <param name="deltaTime">Usually the current deltaTime so the HFSM accumulates the time stood on the current state</param>
-    public static void Update(Frame f, FP deltaTime, EntityRef e)
-    {
-      if(f.Unsafe.TryGetPointer(e, out HFSMAgent* hfsmAgent)){ 
-        HFSMData* hfsmData = &hfsmAgent->Data;
-        Update(f, deltaTime, hfsmData, e);
-      }
-      else
-      {
-        Log.Error("[Bot SDK] Tried to update an entity which has no HFSMAgent component");
-      }
-    }
+		/// <summary>
+		/// Initializes the HFSM, making the current state to be equals the initial state
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static unsafe void Init(Frame frame, HFSMData* hfsm, EntityRef entity, HFSMRoot root)
+		{
+			ThreadSafe.Init((FrameThreadSafe)frame, hfsm, entity, root);
+		}
 
-    /// <summary>
-    /// Update the state of the HFSM.
-    /// </summary>
-    /// <param name="deltaTime">Usually the current deltaTime so the HFSM accumulates the time stood on the current state</param>
-    public static void Update(Frame f, FP deltaTime, HFSMData* hfsmData, EntityRef e) {
-      HFSMState curentState = f.FindAsset<HFSMState>(hfsmData->CurrentState.Id);
-      curentState.UpdateState(f, deltaTime, hfsmData, e);
-    }
+		/// <summary>
+		/// Update the state of the HFSM.
+		/// </summary>
+		/// <param name="deltaTime">Usually the current deltaTime so the HFSM accumulates the time stood on the current state</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void Update(Frame frame, FP deltaTime, EntityRef entity)
+		{
+			ThreadSafe.Update((FrameThreadSafe)frame, deltaTime, entity);
+		}
+
+		/// <summary>
+		/// Update the state of the HFSM.
+		/// </summary>
+		/// <param name="deltaTime">Usually the current deltaTime so the HFSM accumulates the time stood on the current state</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void Update(Frame frame, FP deltaTime, HFSMData* hfsmData, EntityRef entity)
+		{
+			ThreadSafe.Update((FrameThreadSafe)frame, deltaTime, hfsmData, entity);
+		}
 
 
-    /// <summary>
-    /// Triggers an event if the target HFSM listens to it
-    /// </summary>
-    public static unsafe void TriggerEvent(Frame f, EntityRef e, string eventName)
-    {
-      if (f.Unsafe.TryGetPointer(e, out HFSMAgent* hfsmAgent))
-      {
-        HFSMData* hfsmData = &hfsmAgent->Data;
-        TriggerEvent(f, hfsmData, e, eventName);
-      }
-      else
-      {
-        Log.Error("[Bot SDK] Tried to trigger an event to an entity which has no HFSMAgent component");
-      }
-    }
+		/// <summary>
+		/// Triggers an event if the target HFSM listens to it
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static unsafe void TriggerEvent(Frame frame, EntityRef entity, string eventName)
+		{
+			ThreadSafe.TriggerEvent((FrameThreadSafe)frame, entity, eventName);
+		}
 
-    /// <summary>
-    /// Triggers an event if the target HFSM listens to it
-    /// </summary>
-    public static unsafe void TriggerEvent(Frame f, HFSMData* hfsmData, EntityRef e, string eventName) {
-      Int32 eventInt = 0;
+		/// <summary>
+		/// Triggers an event if the target HFSM listens to it
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static unsafe void TriggerEvent(Frame frame, HFSMData* hfsmData, EntityRef entity, string eventName)
+		{
+			ThreadSafe.TriggerEvent((FrameThreadSafe)frame, hfsmData, entity, eventName);
+		}
 
-      HFSMRoot hfsmRoot = f.FindAsset<HFSMRoot>(hfsmData->Root.Id);
-      if(hfsmRoot.RegisteredEvents.TryGetValue(eventName, out eventInt)) {
-        if (hfsmData->CurrentState.Equals(default) == false)
-        {
-          HFSMState currentState = f.FindAsset<HFSMState>(hfsmData->CurrentState.Id);
-          currentState.Event(f, hfsmData, e, eventInt);
-        }
-      }
-    }
+		/// <summary>
+		/// Triggers an event if the target HFSM listens to it
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static unsafe void TriggerEventNumber(Frame frame, HFSMData* hfsmData, EntityRef entity, Int32 eventInt)
+		{
+			ThreadSafe.TriggerEventNumber((FrameThreadSafe)frame, hfsmData, entity, eventInt);
+		}
 
-    /// <summary>
-    /// Triggers an event if the target HFSM listens to it
-    /// </summary>
-    public static unsafe void TriggerEventNumber(Frame f, HFSMData* hfsmData, EntityRef e, Int32 eventInt)
-    {
-      if (hfsmData->CurrentState.Equals(default) == false)
-      {
-        HFSMState currentState = f.FindAsset<HFSMState>(hfsmData->CurrentState.Id);
-        currentState.Event(f, hfsmData, e, eventInt);
-      }
-    }
+		// ========== INTERNAL METHODS ================================================================================
 
-    /// <summary>
-    /// Executes the On Exit actions for the current state, then changes the current state
-    /// </summary>
-    internal static void ChangeState(HFSMState nextState, Frame f, HFSMData* hfsmData, EntityRef e, string transitionId)
-    {
-      Assert.Check(nextState != null, "Tried to change HFSM to a null state");
-
-      HFSMState currentState = f.FindAsset<HFSMState>(hfsmData->CurrentState.Id);
-      currentState?.ExitState(nextState, f, hfsmData, e);
-      
-      hfsmData->CurrentState = nextState;
-
-      if (f.IsVerified == true && e != default(EntityRef))
-      {
-        StateChanged?.Invoke(e, hfsmData->CurrentState.Id.Value, transitionId);
-      }
-
-      nextState.EnterState(f, hfsmData, e);
-    }
-  }
+		/// <summary>
+		/// Executes the On Exit actions for the current state, then changes the current state
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ChangeState(HFSMState nextState, Frame frame, HFSMData* hfsmData, EntityRef entity, string transitionId)
+		{
+			ThreadSafe.ChangeState(nextState, (FrameThreadSafe)frame, hfsmData, entity, transitionId);
+		}
+	}
 }

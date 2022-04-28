@@ -1,6 +1,8 @@
 using System;
 using Cinemachine;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
+using FirstLight.Game.Timeline;
 using FirstLight.Game.TimelinePlayables;
 using FirstLight.Game.Utils;
 using I2.Loc;
@@ -35,9 +37,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _gotoResultsMenuButton;
 
 		private EntityRef _playerWinnerEntity;
+		private IEntityViewUpdaterService _entityService;
 		
 		private void Awake()
 		{
+			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			
 			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
 			
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
@@ -46,10 +51,10 @@ namespace FirstLight.Game.Presenters
 		public void OnNotify(Playable origin, INotification notification, object context)
 		{
 			var playVfxMarker = notification as PlayVfxMarker;
+			
 			if (playVfxMarker != null)
 			{
-				var fx = Services.VfxService.Spawn(playVfxMarker._vfxId);
-				fx.transform.position = _playerProxyCamera.LookAt.position;
+				Services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
 			}
 		}
 
@@ -70,20 +75,10 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var data = container.PlayersData;
-			var playerWinner = data[0];
+			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = matchData[leader];
 
-			
-			for(var i = 1; i < data.Length; i++)
-			{
-				if (data[i].PlayersKilledCount > playerWinner.PlayersKilledCount ||
-				    data[i].PlayersKilledCount == playerWinner.PlayersKilledCount && data[i].DeathCount < playerWinner.DeathCount)
-				{
-					playerWinner = data[i];
-				}
-			}
-
-			if (game.PlayerIsLocal(playerWinner.Player))
+			if (game.PlayerIsLocal(leader))
 			{
 				_emojiImage.sprite = _happyEmojiSprite;
 				_titleText.text = ScriptLocalization.General.Victory_;
@@ -94,22 +89,22 @@ namespace FirstLight.Game.Presenters
 				_titleText.text = ScriptLocalization.General.DEFEATED;
 			}
 
-			var matchData = new QuantumPlayerMatchData(frame, playerWinner);
-			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, matchData.GetPlayerName());
+			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());
 			
 			Services.AudioFxService.PlayClip2D(AudioId.Victory1);
 			
-			if (Services.EntityViewUpdaterService.TryGetView(playerWinner.Entity, out var entityView))
+			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
+				
 				_playerProxyCamera.Follow = entityViewTransform;
 				_playerProxyCamera.LookAt = entityViewTransform;
-
 				_director.time = 0;
+				
 				_director.Play();
 			}
 			
-			_playerWinnerEntity = playerWinner.Entity;
+			_playerWinnerEntity = playerWinner.Data.Entity;
 		}
 
 		private void OnContinueButtonClicked()

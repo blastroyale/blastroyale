@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22d0686b87e105489c9486c3e6e9339, type: 3}
+  m_Name: MapConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Id: 0
+    Map: 5
+    GameMode: 0
+    PlayersLimit: 1
+    GameEndTarget: 1
+  - Id: 1
+    Map: 137
+    GameMode: 1
+    PlayersLimit: 10
+    GameEndTarget: 10
+  - Id: 2
+    Map: 143
+    GameMode: 1
+    PlayersLimit: 10
+    GameEndTarget: 10
+  - Id: 3
+    Map: 144
+    GameMode: 1
+    PlayersLimit: 10
+    GameEndTarget: 10
+  - Id: 4
+    Map: 7
+    GameMode: 1
+    PlayersLimit: 10
+    GameEndTarget: 10
+  - Id: 5
+    Map: 8
+    GameMode: 1
+    PlayersLimit: 10
+    GameEndTarget: 10
+  - Id: 6
+    Map: 9
+    GameMode: 2
+    PlayersLimit: 30
+    GameEndTarget: 29

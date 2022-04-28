@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
-using FirstLight.Game.MonoComponent.Adventure;
 using FirstLight.Game.MonoComponent.EntityViews;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -35,7 +35,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnAwake()
 		{
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandlePlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -66,11 +66,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// <inheritdoc />
 		public void OnAim(InputAction.CallbackContext context)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
 			var direction = context.ReadValue<Vector2>();
+			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
+			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
 			_shootIndicator.SetTransformState(direction);
-			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, frame.Get<Weapon>(EntityView.EntityRef).Emptied);
+			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
 		}
 
 		/// <inheritdoc />
@@ -82,12 +85,15 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// <inheritdoc />
 		public void OnAimButton(InputAction.CallbackContext context)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
 			var isDown = context.ReadValueAsButton();
+			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
+			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
 			_playerView.SetMovingState(isDown);
-			_shootIndicator.SetVisualState(isDown, frame.Get<Weapon>(EntityView.EntityRef).Emptied);
+			_shootIndicator.SetVisualState(isDown, isEmptied);
 		}
 
 		/// <inheritdoc />
@@ -102,7 +108,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_specialAimIndicator.Key?.SetVisualState(true);
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key?.SetVisualProperties(config.SplashRadius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
@@ -119,11 +125,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_specialAimIndicator.Key?.SetVisualState(true);
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key?.SetVisualProperties(config.SplashRadius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
-		private void HandleOnLocalPlayerFailedShoot(EventOnLocalPlayerFailedShoot callback)
+		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
 			var shootState = _shootIndicator?.VisualState ?? false;
 			
@@ -142,25 +148,20 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			SetWeaponIndicators(callback.WeaponGameId);
+			SetWeaponIndicators(callback.Weapon.GameId);
 		}
 
-		private void HandlePlayerSpawned(EventOnPlayerSpawned callback)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
 			if (EntityView.EntityRef != callback.Entity)
 			{
 				return;
 			}
-
-			SpawnVfx();
-		}
-
-		private void SpawnVfx()
-		{
-			var position = transform.position;
-			var spawnVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
 			
-			spawnVfx.transform.position = position;
+			var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
+			var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
+			
+			aliveVfx.transform.position = position;
 		}
 		
 		private async void InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
@@ -182,13 +183,15 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 			
-			await instance.GetComponent<AdventureCharacterViewMonoComponent>().Init(weapon, gear, EntityView);
+			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(weapon, gear, EntityView);
 			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
-				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, stats.CurrentStatusModifierDuration.AsFloat);
+				var time = stats.CurrentStatusModifierEndTime - frame.Time;
+				
+				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
 		}
 
@@ -229,7 +232,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
-			QuantumEvent.Subscribe<EventOnLocalPlayerFailedShoot>(this, HandleOnLocalPlayerFailedShoot);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
 		private void SetWeaponIndicators(GameId weapon)
@@ -237,15 +240,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var configProvider = Services.ConfigsProvider;
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
 			var config = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
-			var range = config.TargetRange.AsFloat;
+			var range = config.AttackRange.AsFloat;
 			var shootState = _shootIndicator?.VisualState ?? false;
-			var angleInRad = config.IsDiagonalshot
-				                 ? configProvider.GetConfig<QuantumDiagonalshotConfig>((int) config.Id).BaseAngle
-				                 : config.BulletSpreadAngle;
+			var angleInRad = config.AttackAngle;
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
+			var indicator = angleInRad > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
-			if (range <= Constants.MELEE_WEAPON_RANGE_THRESHOLD.AsFloat && config.SplashRadius > FP._0)
+			if (config.Id == GameId.Hammer && config.SplashRadius > FP._0)
 			{
 				range += config.SplashRadius.AsFloat;
 				size = config.SplashRadius.AsFloat * 2f;
@@ -253,7 +255,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_shootIndicator?.SetVisualState(false);
 			
-			_shootIndicator = _indicators[(int) config.Indicator] as ITransformIndicator;
+			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
 			
 			_indicators[(int) IndicatorVfxId.Range].SetVisualProperties(range, 0, range);
 			_indicators[(int) IndicatorVfxId.Range].SetVisualState(shootState);

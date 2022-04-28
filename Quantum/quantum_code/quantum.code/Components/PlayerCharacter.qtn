@@ -1,12 +1,8 @@
-#define PLAYER_COUNT 15
+#define PLAYER_COUNT 32
+#define MAX_WEAPONS 3
 #pragma max_players PLAYER_COUNT
 
 // COMPONENTS
-
-component SpawnPlayerCharacter
-{
-	FP EndSpawnTime;
-}
 
 component AlivePlayerCharacter
 {
@@ -24,25 +20,21 @@ component PlayerCharacter
 	AssetRefHFSMRoot HfsmRootRef;
 	AssetRefAIBlackboard BlackboardRef;
 	AssetRefCharacterController3DConfig KccConfigRef;
-	FP SpawnTime;
-	AssetRefEntityPrototype Projectile;
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
-	[HideInInspector] Equipment DefaultWeapon;
+	[HideInInspector] Int32 CurrentWeaponSlot;
+	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
+	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }
 
-component PlayerCharacterCharging
+component PlayerCharging
 {
 	FPVector3 ChargeStartPos;
 	FPVector3 ChargeEndPos;
 	FP ChargeDuration;
-	FP ChargeEndTime;
+	FP ChargeStartTime;
+	UInt32 PowerAmount;
 }
 
-signal PlayerLeft(player_ref player, entity_ref entity);
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
-
-// New Shape Cast signals - Move up when the feature is fully integrated
-
-signal PlayerAttackHit(player_ref player, entity_ref playerEntity, entity_ref hitEntity);

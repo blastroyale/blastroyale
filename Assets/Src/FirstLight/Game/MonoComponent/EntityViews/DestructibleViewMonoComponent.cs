@@ -19,10 +19,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		[SerializeField] private Animator _animator;
 		[SerializeField] private float _dissolveDelay = 1f;
-		
-		protected override void OnInit()
+
+		protected override void OnAwake()
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			QuantumEvent.Subscribe<EventOnDestructibleScheduled>(this, HandleDestructionScheduled);
+			QuantumEvent.Subscribe<EventOnProjectileTargetableHit>(this, HandleProjectileHit);
+		}
+		
+		protected override void OnInit(QuantumGame game)
+		{
+			var frame = game.Frames.Verified;
 
 			if (frame.TryGet<Destructible>(EntityView.EntityRef, out var destructible) && destructible.IsDestructing)
 			{
@@ -32,8 +38,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
-			QuantumEvent.Subscribe<EventOnDestructibleScheduled>(this, HandleDestructionScheduled);
-			QuantumEvent.Subscribe<EventOnProjectileHit>(this, HandleProjectileHit);
 		}
 
 		private void OnEntityDestroyed(QuantumGame game)
@@ -41,9 +45,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			transform.parent = null;
 		}
 
-		private void HandleProjectileHit(EventOnProjectileHit callback)
+		private void HandleProjectileHit(EventOnProjectileTargetableHit callback)
 		{
-			if (callback.HitData.TargetHit != EntityRef)
+			if (callback.HitEntity != EntityRef)
 			{
 				return;
 			}
@@ -53,7 +57,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleDestructionScheduled(EventOnDestructibleScheduled callback)
 		{
-			if (callback.ProjectileData.Attacker != EntityView.EntityRef)
+			if (callback.Entity != EntityView.EntityRef)
 			{
 				return;
 			}
@@ -79,11 +83,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_animator.SetTrigger(_dieHash);
-			MMVibrationManager.Haptic(HapticTypes.HeavyImpact);
 			
 			this.LateCall(_dissolveDelay, () =>
 			{
-				Dissolve(false);
+				Dissolve(false, 0, GameConstants.DissolveEndAlphaClipValue, GameConstants.DissolveDelay,
+				         GameConstants.DissolveDuration);
 			});
 		}
 	}

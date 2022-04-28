@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Messages
 {
@@ -12,7 +13,7 @@ namespace FirstLight.Game.Messages
 	public struct LootScreenClosedMessage : IMessage { }
 	public struct CratesScreenClosedMessage : IMessage { }
 	public struct SocialScreenOpenedMessage : IMessage { }
-
+	
 	/// <summary>
 	/// Requests the Crates Screen to open. Triggered when tapping on a 3D Loot Box instead of a UI Element.
 	/// </summary>
@@ -24,4 +25,17 @@ namespace FirstLight.Game.Messages
 	public struct EnhanceSequenceReadyMessage : IMessage { public List<UniqueId> EnhanceList; }
 	public struct EnhanceCompletedMessage : IMessage {  }
 	public struct CrateClickedMessage : IMessage { public UniqueId LootBoxId; }
+	public struct RoomLeaveClickedMessage : IMessage { }
+	public struct RoomLockClickedMessage : IMessage { }
+	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
+	public struct PlayRandomClickedMessage : IMessage
+	{
+		public bool IsOfflineMode;
+		public GameMode GameMode;
+	}
+	public struct PlayCreateRoomClickedMessage : IMessage
+	{
+		public string RoomName; 
+		public GameMode GameMode;
+	}
 }

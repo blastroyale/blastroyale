@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8921230505373304175}
   m_Father: {fileID: 0}
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reloadColor: {r: 1, g: 0.2509804, b: 0.4627451, a: 1}
   _indicator: {fileID: 8921230505373304169}
-  _localHeight: 0.025
+  _localHeight: 0.25
 --- !u!1 &8921230505373304171
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,6 +76,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0.2, z: 0.6666667}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 39875542609533644}
   m_RootOrder: 0

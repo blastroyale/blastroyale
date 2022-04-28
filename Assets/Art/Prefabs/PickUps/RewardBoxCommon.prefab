@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2163303769570039}
   - component: {fileID: 7304812428695501332}
   - component: {fileID: 3186300899324829529}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.774128, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3229451167751575072}
   m_RootOrder: 0
@@ -51,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 7293291373776261012}
   - component: {fileID: 1145754726887845870}
   - component: {fileID: 1675122634903270425}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: InnerGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,6 +111,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: -0.00000014982407}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2529370907185660625}
   m_RootOrder: 1
@@ -132,6 +135,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -173,7 +177,7 @@ GameObject:
   - component: {fileID: 5703154453923024412}
   - component: {fileID: 2973345413360475569}
   - component: {fileID: 2700829634507669828}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,6 +194,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5456526, y: 0.81349826, z: 0.0000013705271}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2904786436457032406}
   m_RootOrder: 2
@@ -213,6 +218,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -252,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2934297658176259986}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RewardBoxCommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,6 +275,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2529370907185660625}
   - {fileID: 2904786436457032406}
@@ -287,7 +294,7 @@ GameObject:
   - component: {fileID: 2529370907185660625}
   - component: {fileID: 4932845874913810769}
   - component: {fileID: 4624422814031540882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,6 +311,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1637174402480694179}
   - {fileID: 7293291373776261012}
@@ -329,6 +337,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -370,7 +379,7 @@ GameObject:
   - component: {fileID: 6517747683086468462}
   - component: {fileID: 8525109055359171870}
   - component: {fileID: 3453637228043586756}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,6 +396,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0000009536743, y: 0.81349826, z: -0.54565233}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2904786436457032406}
   m_RootOrder: 4
@@ -410,6 +420,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -451,7 +462,7 @@ GameObject:
   - component: {fileID: 1637174402480694179}
   - component: {fileID: 5188319448216233236}
   - component: {fileID: 7751130510114652265}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,6 +479,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.4228136, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2529370907185660625}
   m_RootOrder: 0
@@ -491,6 +503,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -532,7 +545,7 @@ GameObject:
   - component: {fileID: 8975249147530690225}
   - component: {fileID: 6158375844327229099}
   - component: {fileID: 3575782978546508702}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Clamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,6 +562,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3363896582052985232}
   m_Father: {fileID: 2904786436457032406}
@@ -573,6 +587,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -614,7 +629,7 @@ GameObject:
   - component: {fileID: 6728428169250763996}
   - component: {fileID: 4963164199675873679}
   - component: {fileID: 6099463193465821486}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,6 +646,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000009536743, y: 0.81349826, z: 0.5456526}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2904786436457032406}
   m_RootOrder: 3
@@ -654,6 +670,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -693,7 +710,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2904786436457032406}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxLid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,6 +727,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8975249147530690225}
   - {fileID: 1059609070369579654}
@@ -730,7 +748,7 @@ GameObject:
   - component: {fileID: 3229451167751575072}
   - component: {fileID: 7240346483658816353}
   - component: {fileID: 2565987153378434542}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootBoxSolid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,6 +765,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2163303769570039}
   m_Father: {fileID: 2934297658176259986}
@@ -771,6 +790,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -812,7 +832,7 @@ GameObject:
   - component: {fileID: 1059609070369579654}
   - component: {fileID: 7647862182104159767}
   - component: {fileID: 4266071856688430300}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lid01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,6 +849,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.54565316, y: 0.81349826, z: -0.000001070879}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2904786436457032406}
   m_RootOrder: 1
@@ -852,6 +873,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -893,7 +915,7 @@ GameObject:
   - component: {fileID: 3363896582052985232}
   - component: {fileID: 2582495492462439268}
   - component: {fileID: 5643449381630259014}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -910,6 +932,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8975249147530690225}
   m_RootOrder: 0
@@ -933,6 +956,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

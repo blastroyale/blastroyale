@@ -2,47 +2,64 @@
 using System;
 using System.Collections.Generic;
 
-namespace Quantum {
-  [Serializable]
-  public unsafe partial class BTRoot : BTDecorator {
-    [BotSDKHidden] public Int32 NodesAmount;
+namespace Quantum
+{
+	[Serializable]
+	public unsafe partial class BTRoot : BTDecorator
+	{
+		// ========== PUBLIC MEMBERS ==================================================================================
 
-    public override BTNodeType NodeType {
-      get {
-        return BTNodeType.Root;
-      }
-    }
+		[BotSDKHidden] public Int32 NodesAmount;
 
-    protected unsafe override BTStatus OnUpdate(BTParams p) {
+		// ========== BTDecorator INTERFACE ===========================================================================
 
-      p.BtAgent->Current = this;
+		public override BTNodeType NodeType
+		{
+			get
+			{
+				return BTNodeType.Root;
+			}
+		}
 
-      if (_childInstance != null) {
-        return _childInstance.RunUpdate(p);
-      }
+		protected unsafe override BTStatus OnUpdate(BTParams btParams)
+		{
+			btParams.Agent->Current = this;
 
-      return BTStatus.Success;
-    }
+			if (_childInstance != null)
+			{
+				return _childInstance.RunUpdate(btParams);
+			}
 
-    public void InitializeTree(Frame frame, BTAgent* btAgent, AIBlackboardComponent* bbComponent)
-    {
-      InitNodesRecursively(frame, this, btAgent, bbComponent);
-    }
+			return BTStatus.Success;
+		}
 
-    private static void InitNodesRecursively(Frame frame, BTNode node, BTAgent* btAgent, AIBlackboardComponent* bbComponent) {
-      node.Init(frame, bbComponent, btAgent);
+		// ========== PUBLIC METHODS ==================================================================================
 
-      if (node is BTDecorator decoratorNode) {
-        BTNode childNode = frame.FindAsset<BTNode>(decoratorNode.Child.Id);
-        InitNodesRecursively(frame, childNode, btAgent, bbComponent);
-      }
+		public void InitializeTree(Frame frame, BTAgent* agent, AIBlackboardComponent* blackboard)
+		{
+			InitNodesRecursively(frame, this, agent, blackboard);
+		}
 
-      if (node is BTComposite compositeNode) {
-        foreach (var child in compositeNode.Children) {
-          BTNode childNode = frame.FindAsset<BTNode>(child.Id);
-          InitNodesRecursively(frame, childNode, btAgent, bbComponent);
-        }
-      }
-    }
-  }
+		// ========== PRIVATE METHODS =================================================================================
+
+		private static void InitNodesRecursively(Frame frame, BTNode node, BTAgent* agent, AIBlackboardComponent* blackboard)
+		{
+			node.Init(frame, blackboard, agent);
+
+			if (node is BTDecorator decoratorNode)
+			{
+				BTNode childNode = frame.FindAsset<BTNode>(decoratorNode.Child.Id);
+				InitNodesRecursively(frame, childNode, agent, blackboard);
+			}
+
+			if (node is BTComposite compositeNode)
+			{
+				foreach (var child in compositeNode.Children)
+				{
+					BTNode childNode = frame.FindAsset<BTNode>(child.Id);
+					InitNodesRecursively(frame, childNode, agent, blackboard);
+				}
+			}
+		}
+	}
 }

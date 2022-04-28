@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using I2.Loc;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -114,6 +115,25 @@ namespace FirstLight.Game.Utils
 		{
 			await LateCallAwaitable(component, duration, onCallback);
 		}
+
+		/// <summary>
+		/// Uses a coroutine to call the given <paramref name="onCallback"/> after the given <paramref name="duration"/> is completed and
+		/// only if the given <paramref name="component"/> is still alive
+		/// </summary>
+		/// <remarks>
+		/// Coroutines only get executed if the game object is active and alive. Use <see cref="LateCall"/> for other purposes.
+		/// </remarks>
+		public static void LateCoroutineCall(this MonoBehaviour component, float duration, Action onCallback)
+		{
+			component.StartCoroutine(DelayCoroutine(duration, onCallback));
+
+			IEnumerator DelayCoroutine(float time, Action callback)
+			{
+				yield return new WaitForSeconds(time);
+				
+				callback?.Invoke();
+			}
+		}
 		
 		/// <inheritdoc cref="LateCall"/>
 		/// <remarks>
@@ -219,7 +239,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetPlayerName(this QuantumPlayerMatchData data)
 		{
-			if (data.IsBot)
+			if (data.Data.IsBot)
 			{
 				return GetBotName(data.PlayerName);
 			}
@@ -253,6 +273,41 @@ namespace FirstLight.Game.Utils
 		{
 			graph.Stop();
 			graph.GetRootPlayable(0).SetSpeed(0);
+		}
+
+		/// <summary>
+		/// Requests the Verified state of the current <see cref="Frame"/> that triggered the given <paramref name="eventBase"/>.
+		/// Returns TRUE if this frame was verified by all running clients, FALSE otherwise
+		/// </summary>
+		public static bool IsVerifiedFrame(this EventBase eventBase)
+		{
+			return eventBase.Game.Session.IsFrameVerified(eventBase.Tick);
+		}
+
+		/// <summary>
+		/// Obtains the current selected map id in the given <paramref name="room"/>
+		/// </summary>
+		public static int GetMapId(this Room room)
+		{
+			return (int) room.CustomProperties[GameConstants.ROOM_PROPS_MAP];
+		}
+
+		/// <summary>
+		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
+		/// based on loading state of all players assets
+		/// </summary>
+		public static bool AreAllPlayersReady(this Room room)
+		{
+			foreach (var playerKvp in room.Players)
+			{
+				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var propertyValue) ||
+				    !(bool) propertyValue)
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 }

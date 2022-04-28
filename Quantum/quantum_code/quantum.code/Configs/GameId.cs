@@ -158,21 +158,9 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Diagonalshot, new List<GameIdGroup>
+					GameId.BRGenesis, new List<GameIdGroup>
 					{
-						GameIdGroup.PowerUp
-					}.AsReadOnly()
-				},
-				{
-					GameId.Multishot, new List<GameIdGroup>
-					{
-						GameIdGroup.PowerUp
-					}.AsReadOnly()
-				},
-				{
-					GameId.Frontshot, new List<GameIdGroup>
-					{
-						GameIdGroup.PowerUp
+						GameIdGroup.Map
 					}.AsReadOnly()
 				},
 				{
@@ -193,14 +181,16 @@ namespace Quantum
 					GameId.GoldenBoots, new List<GameIdGroup>
 					{
 						GameIdGroup.Boots,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierBoots, new List<GameIdGroup>
 					{
 						GameIdGroup.Boots,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -214,14 +204,16 @@ namespace Quantum
 					GameId.TikTokAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.RoadSignArmour, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -326,14 +318,16 @@ namespace Quantum
 					GameId.SoldierArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -361,14 +355,16 @@ namespace Quantum
 					GameId.SoldierHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.RiotHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -382,14 +378,16 @@ namespace Quantum
 					GameId.MouseShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -408,13 +406,15 @@ namespace Quantum
 				{
 					GameId.Male02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -541,133 +541,28 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Airstrike, new List<GameIdGroup>
+					GameId.ChestCommon, new List<GameIdGroup>
 					{
-						GameIdGroup.Projectile
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.PointProjectile, new List<GameIdGroup>
+					GameId.ChestRare, new List<GameIdGroup>
 					{
-						GameIdGroup.Projectile
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.BulletSniper, new List<GameIdGroup>
+					GameId.ChestLegendary, new List<GameIdGroup>
 					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletHammer, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletLaserbolt, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletRPG, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletSimple, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletInvisible, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletBFG, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletM60, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletShotgun, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletLaserboltHeal, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletGuidedMissileFat, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletSmallAirstrike, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletEnergyBall, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletInvisibleSnakeBoss, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.BulletEnergyBallGreen, new List<GameIdGroup>
-					{
-						GameIdGroup.Projectile
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialAirstrikeSimple, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialHealingField, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialStunSplash, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.SpecialAimingAirstrike, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialRageSelf, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
 					}.AsReadOnly()
@@ -679,61 +574,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.SpecialInvisibilitySelf, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialAimingRageArea, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialHealAround, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
 					GameId.SpecialShieldSelf, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
 					}.AsReadOnly()
 				},
 				{
-					GameId.SpecialAimingShieldArea, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialAimingHealArea, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialAimingInvisibilityArea, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
 					GameId.SpecialSkyLaserBeam, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialHealingMode, new List<GameIdGroup>
-					{
-						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.SpecialAggroBeaconGrenade, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
 					}.AsReadOnly()
@@ -754,48 +601,6 @@ namespace Quantum
 					GameId.SpecialDefaultDash, new List<GameIdGroup>
 					{
 						GameIdGroup.Special
-					}.AsReadOnly()
-				},
-				{
-					GameId.DamageHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
-					}.AsReadOnly()
-				},
-				{
-					GameId.HealingFieldHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
-					}.AsReadOnly()
-				},
-				{
-					GameId.StarStatusHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
-					}.AsReadOnly()
-				},
-				{
-					GameId.SkyLaserBeamHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
-					}.AsReadOnly()
-				},
-				{
-					GameId.CollisionDamageHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
-					}.AsReadOnly()
-				},
-				{
-					GameId.AggroBeaconHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
-					}.AsReadOnly()
-				},
-				{
-					GameId.BeamAttackHazard, new List<GameIdGroup>
-					{
-						GameIdGroup.Hazard
 					}.AsReadOnly()
 				},
 				{
@@ -896,15 +701,8 @@ namespace Quantum
 						GameId.FtueDeck,
 						GameId.SmallWilderness,
 						GameId.FloodCitySimple,
-						GameId.BlimpDeck
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.PowerUp, new List<GameId>
-					{
-						GameId.Diagonalshot,
-						GameId.Multishot,
-						GameId.Frontshot
+						GameId.BlimpDeck,
+						GameId.BRGenesis
 					}.AsReadOnly()
 				},
 				{
@@ -975,6 +773,23 @@ namespace Quantum
 						GameId.MouseBoots,
 						GameId.RiotBoots,
 						GameId.WarriorBoots
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.BotItem, new List<GameId>
+					{
+						GameId.GoldenBoots,
+						GameId.SoldierBoots,
+						GameId.TikTokAmulet,
+						GameId.RoadSignArmour,
+						GameId.SoldierArmor,
+						GameId.WarriorArmor,
+						GameId.SoldierHelmet,
+						GameId.RiotHelmet,
+						GameId.MouseShield,
+						GameId.SoldierShield,
+						GameId.Male02Avatar,
+						GameId.Female01Avatar
 					}.AsReadOnly()
 				},
 				{
@@ -1063,7 +878,10 @@ namespace Quantum
 						GameId.AmmoSmall,
 						GameId.AmmoLarge,
 						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge
+						GameId.InterimArmourLarge,
+						GameId.ChestCommon,
+						GameId.ChestRare,
+						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
 				{
@@ -1074,65 +892,22 @@ namespace Quantum
 						GameId.AmmoSmall,
 						GameId.AmmoLarge,
 						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Projectile, new List<GameId>
-					{
-						GameId.Airstrike,
-						GameId.PointProjectile,
-						GameId.BulletSniper,
-						GameId.BulletHammer,
-						GameId.BulletLaserbolt,
-						GameId.BulletRPG,
-						GameId.BulletSimple,
-						GameId.BulletInvisible,
-						GameId.BulletBFG,
-						GameId.BulletM60,
-						GameId.BulletShotgun,
-						GameId.BulletLaserboltHeal,
-						GameId.BulletGuidedMissileFat,
-						GameId.BulletSmallAirstrike,
-						GameId.BulletEnergyBall,
-						GameId.BulletInvisibleSnakeBoss,
-						GameId.BulletEnergyBallGreen
+						GameId.InterimArmourLarge,
+						GameId.ChestCommon,
+						GameId.ChestRare,
+						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Special, new List<GameId>
 					{
-						GameId.SpecialAirstrikeSimple,
-						GameId.SpecialHealingField,
-						GameId.SpecialStunSplash,
 						GameId.SpecialAimingAirstrike,
-						GameId.SpecialRageSelf,
 						GameId.SpecialAimingStunGrenade,
-						GameId.SpecialInvisibilitySelf,
-						GameId.SpecialAimingRageArea,
-						GameId.SpecialHealAround,
 						GameId.SpecialShieldSelf,
-						GameId.SpecialAimingShieldArea,
-						GameId.SpecialAimingHealArea,
-						GameId.SpecialAimingInvisibilityArea,
 						GameId.SpecialSkyLaserBeam,
-						GameId.SpecialHealingMode,
-						GameId.SpecialAggroBeaconGrenade,
 						GameId.SpecialShieldedCharge,
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Hazard, new List<GameId>
-					{
-						GameId.DamageHazard,
-						GameId.HealingFieldHazard,
-						GameId.StarStatusHazard,
-						GameId.SkyLaserBeamHazard,
-						GameId.CollisionDamageHazard,
-						GameId.AggroBeaconHazard,
-						GameId.BeamAttackHazard
 					}.AsReadOnly()
 				},
 				{

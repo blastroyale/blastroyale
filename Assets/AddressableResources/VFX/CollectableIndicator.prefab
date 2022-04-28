@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6650924514108190406}
   - component: {fileID: 6369629610119479141}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollectableIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6650924515329124941}
   m_Father: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 6650924515104287631}
   - component: {fileID: 6650924515104287629}
   - component: {fileID: 6650924515104287630}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,6 +75,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6650924515329124941}
   m_RootOrder: 0
@@ -131,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6650924515329124941}
   - component: {fileID: 6650924515329124940}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +150,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6650924515104287631}
   m_Father: {fileID: 6650924514108190406}

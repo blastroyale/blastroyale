@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -70,7 +72,7 @@ namespace FirstLight.Game.MonoComponent
 			}
 
 			var childCount = instance.transform.childCount;
-
+			
 			for(var i = 0; i < Mathf.Max(childCount, 1); i++)
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
@@ -80,10 +82,8 @@ namespace FirstLight.Game.MonoComponent
 				
 				piece.localPosition = Vector3.zero;
 				piece.localRotation = Quaternion.identity;
-
-				var renderContainer = piece.GetComponent<RenderersContainerMonoComponent>();
 				
-				if (renderContainer)
+				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 				}
@@ -102,6 +102,12 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void UnequipItem(GameIdGroup slotType)
 		{
+			if (!_equipment.ContainsKey(slotType))
+			{
+				Debug.LogWarning($"Cannot unequip item of type {slotType} - _equipment does not contain Key of this type");
+				return;
+			}
+
 			var items = _equipment[slotType];
 			
 			for (var i = 0; i < items.Count; i++)

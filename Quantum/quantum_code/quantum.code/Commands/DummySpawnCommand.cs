@@ -32,7 +32,6 @@ namespace Quantum.Commands
 			transform->Position = Position;
 			transform->Rotation = Rotation;
 			targetable.Team = (int) TeamType.Neutral;
-			targetable.IsUntargetable = false;
 			
 			f.Add(e, targetable);
 			f.Add(e, new Stats(dummyHealth, 0, 0, 0, 0));

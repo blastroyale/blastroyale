@@ -17,18 +17,12 @@ MonoBehaviour:
       Path: AddressableResources/Configs/CustomAssetConfigs
       Guid:
         Value: 1782342916809032400
-    HazardPrototype:
-      Id:
-        Value: 830040999928004567
     PlayerCharacterPrototype:
       Id:
         Value: 1494014866598569848
     PlayerBulletPrototype:
       Id:
         Value: 727426939994474453
-    BotNavMeshConfig:
-      Id:
-        Value: 1093005050644660195
     DummyCharacterPrototype:
       Id:
         Value: 754640765234653046
@@ -38,6 +32,9 @@ MonoBehaviour:
     ConsumablePlatformPrototype:
       Id:
         Value: 2403753126067035639
+    BotNavMeshConfig:
+      Id:
+        Value: 1093005050644660195
   ErrorCube:
     m_AssetGUID: a9651f376caf92241bf234d75cb584ea
     m_SubObjectName: 

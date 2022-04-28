@@ -1,37 +1,37 @@
 component Collectable
 {
-	GameId GameId;
-	array<FP>[PLAYER_COUNT] CollectorsEndTime;
+	[HideInInspector] GameId GameId;
+	[HideInInspector] array<FP>[PLAYER_COUNT] CollectorsEndTime;
+	[HideInInspector] bool IsCollected;
 }
 
 synced event OnLocalStartedCollecting
 {
-	local player_ref Player;
-	entity_ref PlayerEntity;
 	entity_ref CollectableEntity;
 	Collectable Collectable;
+	local player_ref Player;
+	entity_ref PlayerEntity;
 }
 
 synced event OnLocalStoppedCollecting
 {
-	local player_ref Player;
 	entity_ref CollectableEntity;
+	local player_ref Player;
+	entity_ref PlayerEntity;
 }
 
 synced event OnLocalCollectableCollected
 {
 	GameId CollectableId;
+	entity_ref CollectableEntity;
 	local player_ref Player;
 	entity_ref PlayerEntity;
-	entity_ref CollectableEntity;
 }
 
 synced event OnCollectableCollected
 {
 	GameId CollectableId;
+	entity_ref CollectableEntity;
 	player_ref Player;
 	entity_ref PlayerEntity;
-	entity_ref CollectableEntity;
 }
-
-signal CollectablePicked(entity_ref entity, entity_ref playerEntity, player_ref player);

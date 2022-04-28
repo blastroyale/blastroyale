@@ -8,6 +8,8 @@ using Firebase.Analytics;
 using FirstLight.Game.Utils;
 using AppsFlyerSDK;
 using Facebook.Unity;
+using FirstLight.Game.Data;
+using Newtonsoft.Json;
 using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Views
@@ -24,6 +26,15 @@ namespace FirstLight.Game.Views
 
 		private void Awake()
 		{
+			// Hack to stop errors after build:
+			// Unity: NullReferenceException: Object reference not set to an instance of an object.
+			// 	at UnityEngine.Rendering.DebugManager.UpdateActions () [0x00000] in <00000000000000000000000000000000>:0
+			// at UnityEngine.Rendering.DebugUpdater.Update () [0x00000] in <00000000000000000000000000000000>:0
+			//
+			// Know more and follow the Unity issue in https://issuetracker.unity3d.com/issues/isdebugbuild-returns-false-in-the-editor-when-its-value-is-checked-after-a-build
+			// Remove once Unity solves it and we have a patched version
+			DebugManager.instance.enableRuntimeUI = false;
+			
 			var appsFlyerReceiver = new GameObject(nameof(AppsFlyerReceiver)).AddComponent<AppsFlyerReceiver>();
 			
 			DontDestroyOnLoad(appsFlyerReceiver.gameObject);
@@ -80,27 +91,22 @@ namespace FirstLight.Game.Views
 				                                  $"Firebase could not be initialized properly. Status: {dependencyStatus}");
 			}
 			
-			//TODO# @mr change to read google-services.json file 
-#if UNITY_ANDROID
-			if (!Debug.isDebugBuild)
-			{
-				var appOptions = AppOptions.LoadFromJsonConfig("{  \"project_info\": {     \"project_number\": \"705357047706\",     \"firebase_url\": \"https://phoenix-515d2-default-rtdb.europe-west1.firebasedatabase.app\",     \"project_id\": \"phoenix-515d2\",     \"storage_bucket\": \"phoenix-515d2.appspot.com\"   },   \"client\": [     {       \"client_info\": {         \"mobilesdk_app_id\": \"1:705357047706:android:e492ea23f28056e315bc23\",         \"android_client_info\": {           \"package_name\": \"com.firstlightgames.phoenix\"         }       },       \"oauth_client\": [         {           \"client_id\": \"705357047706-hmm2dotje81gklfjc0d182p307fs52g4.apps.googleusercontent.com\",           \"client_type\": 3         }       ],       \"api_key\": [         {           \"current_key\": \"***REMOVED***\"         }       ],       \"services\": {         \"appinvite_service\": {           \"other_platform_oauth_client\": [             {               \"client_id\": \"705357047706-hmm2dotje81gklfjc0d182p307fs52g4.apps.googleusercontent.com\",               \"client_type\": 3             },             {               \"client_id\": \"705357047706-45mojo26ucv4cnkvabpmcedmltn7cgkc.apps.googleusercontent.com\",               \"client_type\": 2,               \"ios_info\": {                 \"bundle_id\": \"com.firstlightgames.phoenix\"               }             }           ]         }       }     }   ],   \"configuration_version\": \"1\" }");
-				FirebaseApp.Create(appOptions);
-			}
-			else		
-#endif
-			{
-				FirebaseApp.Create();
-			}
-			
+			FirebaseApp.Create();
 			FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
 		}
 
 		private void StartSplashScreen()
 		{
+			var json = PlayerPrefs.GetString(nameof(AppData), "");
+			var isSoundEnabled = string.IsNullOrEmpty(json) || JsonConvert.DeserializeObject<AppData>(json).SfxEnabled;
+			
 			SplashScreen.Begin();
 			SplashScreen.Draw();
-			_audioSource.Play();
+			
+			if (isSoundEnabled)
+			{
+				_audioSource.Play();
+			}
 		}
 
 		private async void MergeScenes(AsyncOperation asyncOperation)

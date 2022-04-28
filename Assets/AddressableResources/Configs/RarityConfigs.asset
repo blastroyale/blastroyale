@@ -22,7 +22,7 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.1
     UpgradeBasePrice: 150
     UpgradePriceLevelPowerOf: 1.1
-  - Rarity: 1
+  - Rarity: 2
     MaxLevel: 15
     FusionCost: 1300
     EnhancementCost: 4000
@@ -31,7 +31,7 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.1
     UpgradeBasePrice: 250
     UpgradePriceLevelPowerOf: 1.1
-  - Rarity: 2
+  - Rarity: 4
     MaxLevel: 20
     FusionCost: 3000
     EnhancementCost: 13000
@@ -40,7 +40,7 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.05
     UpgradeBasePrice: 400
     UpgradePriceLevelPowerOf: 1.05
-  - Rarity: 3
+  - Rarity: 6
     MaxLevel: 25
     FusionCost: 7000
     EnhancementCost: 39000
@@ -49,7 +49,7 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.02
     UpgradeBasePrice: 625
     UpgradePriceLevelPowerOf: 1.02
-  - Rarity: 4
+  - Rarity: 8
     MaxLevel: 30
     FusionCost: 7000
     EnhancementCost: 0

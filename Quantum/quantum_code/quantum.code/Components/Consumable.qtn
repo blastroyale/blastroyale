@@ -1,24 +1,23 @@
 component Consumable
 {
 	[HideInInspector] ConsumableType ConsumableType;
-	[HideInInspector] UInt32 PowerAmount;
+	[HideInInspector] FP Amount;
+	[HideInInspector] FP CollectTime;
 }
 
 enum ConsumableType
 {
 	Health,
 	Rage,
-	Weapon,
 	Ammo,
 	InterimArmour,
+	Stash,
 }
 
 synced event OnConsumablePicked
 {
-	player_ref Player;
-	entity_ref PlayerEntity;
 	entity_ref ConsumableEntity;
 	Consumable Consumable;
+	player_ref Player;
+	entity_ref PlayerEntity;
 }
-
-signal ConsumablePicked(player_ref player, entity_ref consumable);

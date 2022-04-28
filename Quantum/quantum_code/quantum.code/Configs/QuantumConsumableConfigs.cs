@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -7,9 +8,10 @@ namespace Quantum
 	public partial struct QuantumConsumableConfig
 	{
 		public GameId Id;
-		public ConsumableType ConsumableType;
 		public AssetRefEntityPrototype AssetRef; 
-		public uint PowerAmount;
+		public ConsumableType ConsumableType;
+		public FP Amount;
+		public FP ConsumableCollectTime;
 	}
 
 	/// <summary>

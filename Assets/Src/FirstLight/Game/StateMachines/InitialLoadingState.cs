@@ -144,19 +144,17 @@ namespace FirstLight.Game.StateMachines
 			return new List<Task>
 			{
 				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => _configsAdder.AddSingletonConfig(asset.Config)),
-				LoadConfig<PlayerSkinConfigs>(AddressableId.Configs_PlayerSkinConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<AdventureConfigs>(AddressableId.Configs_AdventureConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
+				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<RarityConfigs>(AddressableId.Configs_RarityConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
 				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
-				LoadConfig<MultishotConfigs>(AddressableId.Configs_MultishotConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<DiagonalshotConfigs>(AddressableId.Configs_DiagonalshotConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<FrontshotConfigs>(AddressableId.Configs_FrontshotConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<LootBoxConfigs>(AddressableId.Configs_LootBoxConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => _configsAdder.AddConfigs(data => data.Step, asset.Configs)),
 			};
 		}
 

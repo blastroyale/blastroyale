@@ -14,7 +14,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private float _gracefulFinishDuration = 4f;
 		[SerializeField] private bool _doNotScaleView = false;
 		
-		protected override void OnInit()
+		protected override void OnInit(QuantumGame game)
 		{
 			EntityView.OnEntityDestroyed.AddListener(HandleOnEntityDestroyed);
 		}

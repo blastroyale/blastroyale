@@ -61,18 +61,17 @@ namespace Quantum
 		/// <summary>
 		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
 		/// </summary>
-		public static bool IsAttackable(Frame f, EntityRef e)
-		{
-			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) && !targetable.IsUntargetable;
-		}
-		
-		/// <summary>
-		/// Determines if <paramref name="e"/> entity is valid, exists, not marked on destroy and targetable
-		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			return !IsDestroyed(f, e) && 
-			       f.TryGet<Targetable>(e, out var targetable) && !targetable.IsUntargetable && targetable.Team != attackerTeam;
+			var neutral = (int)TeamType.Neutral;
+			
+			if (f.GetSingleton<GameContainer>().IsGameOver)
+			{
+				return false;
+			}
+			
+			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
+			       (targetable.Team != attackerTeam || targetable.Team == neutral || attackerTeam == neutral);
 		}
 		
 		/// <summary>
@@ -81,6 +80,72 @@ namespace Quantum
 		public static bool IsDestroyed(Frame f, EntityRef e)
 		{
 			return !f.Exists(e) || !e.IsValid || f.Has<EntityDestroyer>(e);
+		}
+
+		/// <summary>
+		/// Process an AOE attack in the given <paramref name="radius"/> from the given <paramref name="spell"/> to be processed.
+		/// On each hit, the <paramref name="onHitCallback"/> will be called.
+		/// Return true if at least one hit was successful, false otherwise.
+		/// </summary>
+		public static bool ProcessAreaHit(Frame f, FP radius, Spell spell, uint maxHitCount = uint.MaxValue,
+		                                  Action<Frame, Spell> onHitCallback = null)
+		{
+			if (f.GetSingleton<GameContainer>().IsGameOver)
+			{
+				return false;
+			}
+			
+			var hitCount = 0;
+			var shape = Shape3D.CreateSphere(radius);
+			var hits = f.Physics3D.OverlapShape(spell.OriginalHitPosition, FPQuaternion.Identity, shape, 
+			                                    f.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			
+			hits.SortCastDistance();
+
+			for (var j = 0; j < hits.Count; j++)
+			{
+				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
+				                                   spell.PowerAmount, hits[j].Point, spell.TeamSource);
+
+				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
+				{
+					continue;
+				}
+				
+				hitCount++;
+					
+				onHitCallback?.Invoke(f, hitSpell);
+
+				if (hitCount >= maxHitCount)
+				{
+					break;
+				}
+			}
+
+			return hitCount > 0;
+		}
+
+		/// <summary>
+		/// Process a hit source from the given <paramref name="spell"/> to be processed.
+		/// Returns true if the hit was successful and false otherwise
+		/// </summary>
+		public static bool ProcessHit(Frame f, Spell spell)
+		{
+			if (!IsAttackable(f, spell.Victim, spell.TeamSource))
+			{
+				return false;
+			}
+
+			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
+			{
+				stats->ReduceHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);
+
+				return true;
+			}
+
+			f.Add(f.Create(), spell);
+
+			return true;
 		}
 		
 		/// <summary>
@@ -172,24 +237,24 @@ namespace Quantum
 		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f)
 		{
 			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
-			var entity = EntityRef.None;
 
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
 			{
 				if (f.Time < pair.Component->ActivationTime)
 				{
-					entity = !entity.IsValid || f.Get<PlayerSpawner>(entity).ActivationTime > pair.Component->ActivationTime ? pair.Entity : entity;
 					continue;
 				}
 				
 				spawners.Add(pair);
 			}
 
-			if (spawners.Count > 0)
+			if (spawners.Count == 0)
 			{
-				entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+				Log.Error($"There is no {nameof(PlayerSpawner)} active to spawn new a player");
 			}
 
+			var entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+			
 			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 			return new EntityComponentPair<Transform3D>
@@ -202,11 +267,24 @@ namespace Quantum
 		/// <summary>
 		/// Tries to find a closest position on NavMesh to <paramref name="initialPosition"/>
 		/// </summary>
-		public static bool TryFindPosOnNavMesh(Frame f, EntityRef e, FPVector3 initialPosition, out FPVector3 correctedPosition)
+		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, out FPVector3 correctedPosition)
 		{
+			var radius = FP._1_50;
 			var navMesh = f.NavMesh;
-			return navMesh.FindClosestTriangle(initialPosition, FP._1_50, NavMeshRegionMask.Default, out int _,
-			                                  out correctedPosition);
+
+			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default, 
+			                                     out correctedPosition))
+			{
+				return true;
+			}
+
+			if (navMesh.FindClosestTriangle(initialPosition, radius * 2, NavMeshRegionMask.Default, out var triangle, 
+			                                out correctedPosition))
+			{
+				return navMesh.FindRandomPointOnTriangle(triangle, f.RNG, out correctedPosition);
+			}
+
+			return false;
 		}
 	}
 }

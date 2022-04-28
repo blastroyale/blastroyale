@@ -4,7 +4,7 @@ using Quantum.Systems;
 namespace Quantum.Commands
 {
 	/// <summary>
-	/// This cheat command destroys entity references of DumbAi components in the simulation.
+	/// This command tries to use a special with the SpecialIndex index
 	/// </summary>
 	public unsafe class SpecialUsedCommand : CommandBase
 	{
@@ -22,22 +22,12 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
+			var special = playerCharacter->Specials.GetPointer(SpecialIndex);
 			
-			if (QuantumHelpers.IsDestroyed(f, characterEntity) || !f.Has<Targetable>(characterEntity) || 
-			    !f.Unsafe.TryGetPointer<Weapon>(characterEntity, out var weapon))
+			if (special->IsValid || !special->IsSpecialAvailable(f))
 			{
-				return;
-			}
-
-			var special = weapon->Specials.GetPointer(SpecialIndex);
-			if (!special->IsValid || !special->IsSpecialAvailable(f))
-			{
-				return;
-			}
-			
-			if (special->TryUse(f, characterEntity, AimInput))
-			{
-				special->HandleUsed(f, characterEntity, playerRef);
+				special->TryActivate(f, characterEntity, AimInput, SpecialIndex);
 			}
 		}
 	}

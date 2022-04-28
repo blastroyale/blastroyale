@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Environment Object
   - Non Playable Target
   - Playable Target
   - Default Silhouette
@@ -21,7 +21,7 @@ TagManager:
   - Indicator
   - Player Only
   - Non Playable Static Target
-  - 
+  - Mini Map Object
   - 
   - 
   - 

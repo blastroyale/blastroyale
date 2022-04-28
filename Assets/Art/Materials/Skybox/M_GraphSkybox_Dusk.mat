@@ -18,7 +18,20 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - Vector1_25ED908C: 25
     - Vector1_35733DCC: 1
@@ -32,6 +45,8 @@ Material:
     - Vector1_DDEF11E3: 2
     - Vector1_DEBD983F: 0.13
     - Vector1_F8DFA3E9: 0.3
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_49AC444C: {r: 3.9999995, g: 1.4004896, b: 0.6492144, a: 1}
     - Color_A4C1483C: {r: 2, g: 1.529629, b: 0.7484275, a: 0}
@@ -41,3 +56,16 @@ Material:
     - Vector3_75B35D82: {r: 0.5, g: 0.08, b: 3.39, a: 0}
     - _SunDirection: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &396644829795841966
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

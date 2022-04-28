@@ -10,7 +10,7 @@ namespace Quantum
 		/// <summary>
 		/// Add a PlayerMatchData to the container linked to a specific PlayerRef.
 		/// </summary>
-		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin)
+		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin, uint playerTrophies)
 		{
 			PlayersData[player] = new PlayerMatchData
 			{
@@ -18,6 +18,8 @@ namespace Quantum
 				Player = player,
 				PlayerLevel = playerLevel,
 				PlayerSkin = skin,
+				PlayerTrophies = playerTrophies,
+				BotNameIndex = f.TryGet<BotCharacter>(playerEntity, out var bot) ? bot.BotNameIndex : 0
 			};
 		}
 
@@ -40,47 +42,120 @@ namespace Quantum
 		/// </summary>
 		internal void UpdateGameProgress(Frame f, uint amount)
 		{
+			if (amount <= 0)
+			{
+				return;
+			}
+			
 			var previousProgress = CurrentProgress;
 			
 			CurrentProgress += amount;
 
 			f.Events.OnGameProgressUpdated(previousProgress, CurrentProgress, TargetProgress);
 
-			if (CurrentProgress < TargetProgress)
+			if (CurrentProgress >= TargetProgress)
 			{
-				return;
+				f.Signals.GameEnded();
 			}
-
-			f.Signals.GameEnded();
 		}
 
 		/// <summary>
-		/// Updates the current game ranks based on the player's performance.
-		/// More frags == higher rank
-		/// Same frags && more deaths == lower rank 
+		/// Request all players match data.
+		/// Battle Roayle Ranking: More frags == higher rank and Dead longer == lower rank
+		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		internal void UpdateRanks(Frame f)
+		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
+			var matchData = new QuantumPlayerMatchData[f.RuntimeConfig.PlayersLimit];
+			var gameMode = f.RuntimeConfig.GameMode;
 			
-			for (var i = 0; i < f.RuntimeConfig.TotalFightersLimit; i++)
-			{
-				var pos = 1u;
+			leader = PlayerRef.None;
 
-				for (var j = 0; j < i; j++)
+			for (var i = 0; i < f.RuntimeConfig.PlayersLimit; i++)
+			{
+				matchData[i] = new QuantumPlayerMatchData(f, data[i]);
+
+				if (gameMode == GameMode.Deathmatch)
 				{
-					if (data[i].PlayersKilledCount < data[j].PlayersKilledCount)
+					ProcessDeathmatchRanks(matchData, i, ref leader);
+				}
+				else if (gameMode == GameMode.BattleRoyale)
+				{
+					ProcessBattleRoyaleRanks(matchData, i, ref leader);
+				}
+			}
+
+			return matchData;
+		}
+
+		private void ProcessDeathmatchRanks(QuantumPlayerMatchData[] data, int i, ref PlayerRef leader)
+		{
+			var pos = 1u;
+			
+			for (var j = 0; j < i; j++)
+			{
+				if (data[i].Data.PlayersKilledCount < data[j].Data.PlayersKilledCount)
+				{
+					pos++;
+				}
+				else if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount || 
+				         data[i].Data.DeathCount < data[j].Data.DeathCount)
+				{
+					data[j].PlayerRank++;
+				}
+
+				if (data[j].PlayerRank == 1)
+				{
+					leader = j;
+				}
+			}
+			
+			data[i].PlayerRank = pos;
+
+			if (data[i].PlayerRank == 1)
+			{
+				leader = i;
+			}
+		}
+
+		private void ProcessBattleRoyaleRanks(QuantumPlayerMatchData[] data, int i, ref PlayerRef leader)
+		{
+			var pos = 1u;
+			
+			for (var j = 0; j < i; j++)
+			{
+				if (data[i].Data.DeathCount == data[j].Data.DeathCount)
+				{
+					if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount)
+					{
+						data[j].PlayerRank++;
+					}
+					else
 					{
 						pos++;
 					}
-					else if (data[i].PlayersKilledCount > data[j].PlayersKilledCount || 
-					         data[i].DeathCount < data[j].DeathCount)
-					{
-						data.GetPointer(j)->CurrentKillRank++;
-					}
+				}
+				else if(data[i].Data.FirstDeathTime > data[j].Data.FirstDeathTime && data[j].Data.DeathCount > 0)
+				{
+					data[j].PlayerRank++;
+				}
+				else
+				{
+					pos++;
 				}
 
-				data.GetPointer(i)->CurrentKillRank = pos;
+				if (data[j].PlayerRank == 1)
+				{
+					leader = j;
+				}
+			}
+			
+			data[i].PlayerRank = pos;
+
+			if (data[i].PlayerRank == 1)
+			{
+				leader = i;
 			}
 		}
 	}

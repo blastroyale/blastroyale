@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8668351811668818366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073916347998987016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 781b4dfb212300a4c84a677a2de2e536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animatorController: {fileID: 22100000, guid: 1c7c2c20934b0af45a505af66e39413c, type: 2}
 --- !u!1 &2651802977412885594
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1694434566156761522}
   m_Father: {fileID: 0}
@@ -121,13 +109,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f439f8bde8320044bdee42452c7b22e, type: 3}
---- !u!1 &2073916347998987016 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f439f8bde8320044bdee42452c7b22e, type: 3}
-  m_PrefabInstance: {fileID: 1155575999821766233}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1694434566156761522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1f439f8bde8320044bdee42452c7b22e, type: 3}
   m_PrefabInstance: {fileID: 1155575999821766233}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2073916347998987016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f439f8bde8320044bdee42452c7b22e, type: 3}
+  m_PrefabInstance: {fileID: 1155575999821766233}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8668351811668818366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073916347998987016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781b4dfb212300a4c84a677a2de2e536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatorController: {fileID: 22100000, guid: 1c7c2c20934b0af45a505af66e39413c, type: 2}

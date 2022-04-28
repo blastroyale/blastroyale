@@ -9,32 +9,24 @@ namespace Quantum
 	{
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef;
-		public ItemRarity StartingRarity;
-		public IndicatorVfxId Indicator;
+		public FP InitialAmmoFilled;
+		public int MaxAmmo;
 		public FP PowerRatioToBase;
-		public bool IsAutoShoot;
-		public FP AimingMovementSpeedMultiplier;
+		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
-		public uint InitialCapacity;
-		public uint MaxCapacity;
-		public uint MinCapacityToShoot;
-		public ReloadType ReloadType;
-		public FP ReloadSpeed;
-		public TargetingType TargetingType;
+		public FP AttackHitSpeed;
+		public uint AttackAngle;
+		public FP AttackRange;
+		public bool CanHitSameTarget;
+		public bool IsProjectile;
 		public FP SplashRadius;
-		public FP TargetRange;
-		public GameId ProjectileId;
-		public GameId ProjectileHealingId;
-		public uint BulletSpreadAngle;
-		public FP ProjectileSpeed;
-		public FP ProjectileRange;
-		public FP ProjectileStunDuration;
-		public GameId HazardId;
 		public List<GameId> Specials;
-		public bool IsDiagonalshot;
-		public bool IsMultishot;
-		public bool IsFrontshot;
+
+		/// <summary>
+		/// Requests if this config is from a melee weapon
+		/// </summary>
+		public bool IsMeleeWeapon => MaxAmmo < 0;
 	}
 
 	/// <summary>

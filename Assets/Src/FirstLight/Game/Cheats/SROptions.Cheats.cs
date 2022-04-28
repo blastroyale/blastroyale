@@ -113,38 +113,6 @@ public partial class SROptions
 	}
 		
 	[Category("Cheats")]
-	public void UnlockAllAdventures()
-	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
-		var adventureConfigs = services.ConfigsProvider.GetConfigsList<AdventureConfig>();
-		var converter = new StringEnumConverter();
-
-		foreach (var config in adventureConfigs)
-		{
-			gameLogic.AdventureLogic.MarkAdventureCompleted(config.Id, true);
-		}
-
-		var request = new ExecuteFunctionRequest
-		{
-			FunctionName = "ExecuteCommand",
-			GeneratePlayStreamEvent = true,
-			FunctionParameter = new LogicRequest
-			{
-				Command = "UnlockAllAdventures",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-				}
-			},
-			AuthenticationContext = PlayFabSettings.staticPlayer
-		};
-
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
-	}
-		
-	[Category("Cheats")]
 	public void UnlockAllEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
@@ -156,7 +124,7 @@ public partial class SROptions
 
 		foreach (var config in weaponConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
+			gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
 		}
 		
 		foreach (var config in gearConfigs)
@@ -164,6 +132,10 @@ public partial class SROptions
 			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
 		}
 
+		var data = new Dictionary<string, string>();
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
 		var request = new ExecuteFunctionRequest
 		{
 			FunctionName = "ExecuteCommand",
@@ -171,12 +143,7 @@ public partial class SROptions
 			FunctionParameter = new LogicRequest
 			{
 				Command = "CheatUnlockAllEquipments",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-					{nameof(RngData), JsonConvert.SerializeObject(dataProvider.GetData<RngData>(), converter)},
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-				}
+				Data = data
 			},
 			AuthenticationContext = PlayFabSettings.staticPlayer
 		};
@@ -260,20 +227,20 @@ public partial class SROptions
 	{
 		var uiService = Object.FindObjectOfType<Main>().UiService;
 
-		if (uiService.GetUi<AdventureHudPresenter>().IsOpen)
+		if (uiService.GetUi<MatchHudPresenter>().IsOpen)
 		{
-			uiService.CloseUi<AdventureHudPresenter>();
+			uiService.CloseUi<MatchHudPresenter>();
 			
-			foreach (var renderer in uiService.GetUi<AdventureControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
 			{
 				renderer.enabled = false;
 			}
 		}
 		else
 		{
-			uiService.OpenUi<AdventureHudPresenter>();
+			uiService.OpenUi<MatchHudPresenter>();
 			
-			foreach (var renderer in uiService.GetUi<AdventureControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
 			{
 				renderer.enabled = true;
 			}
@@ -284,9 +251,13 @@ public partial class SROptions
 	{
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-			
+		
+		// TODO: Remove Logic outside command
 		gameLogic.PlayerLogic.AddXp(amount);
 
+		var data = new Dictionary<string, string>();
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
+		
 		var request = new ExecuteFunctionRequest
 		{
 			FunctionName = "ExecuteCommand",
@@ -294,10 +265,7 @@ public partial class SROptions
 			FunctionParameter = new LogicRequest
 			{
 				Command = "CheatAddXpCommand",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>())}
-				}
+				Data = data
 			},
 			AuthenticationContext = PlayFabSettings.staticPlayer
 		};

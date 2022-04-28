@@ -89,38 +89,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -161,38 +158,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -233,38 +227,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -305,38 +296,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -377,38 +365,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -449,38 +434,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -521,38 +503,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -593,38 +572,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -665,38 +641,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -737,38 +710,35 @@ MonoBehaviour:
     BotCharacter: []
     Collectable: []
     CollectablePlatformSpawner: []
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -808,47 +778,36 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 40
-      InitialSpawnDelayInSec: 60
-      GameId:
-        Value: 64
-    CollisionDamage: []
+    CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
+    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
-    PlayerSpawner: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -868,11 +827,1370 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -30146
+          RawValue: -734658
         Y:
           RawValue: 0
         Z:
-          RawValue: -334888
+          RawValue: 761528
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 657981
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -631111
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -97648
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -488898
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 95682
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 463339
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 477757
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 96337
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -467927
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -92405
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 564920
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1105592
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1099694
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -575406
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1213726
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 826408
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -846069
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 1226178
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -269352
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 654049
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -637009
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 263454
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 266731
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -650117
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 642252
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -294912
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 40
+      InitialSpawnDelayInSec: 60
+      GameId:
+        Value: 64
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -13762
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -23592
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 25
+      InitialSpawnDelayInSec: 25
+      GameId:
+        Value: 129
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1051197
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 1065615
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 25
+      InitialSpawnDelayInSec: 25
+      GameId:
+        Value: 129
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1064304
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1056440
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 25
+      InitialSpawnDelayInSec: 25
+      GameId:
+        Value: 129
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 769392
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -188088
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 25
+      InitialSpawnDelayInSec: 25
+      GameId:
+        Value: 129
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 146800
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -761528
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 25
+      InitialSpawnDelayInSec: 25
+      GameId:
+        Value: 129
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -475791
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 467271
       Rotation:
         X:
           RawValue: 0
@@ -898,37 +2216,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -978,37 +2293,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1058,37 +2370,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1138,37 +2447,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1218,37 +2524,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1298,37 +2601,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1378,37 +2678,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1458,37 +2755,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1538,37 +2832,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1618,37 +2909,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1698,37 +2986,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1778,37 +3063,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1858,37 +3140,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -1938,37 +3217,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2018,37 +3294,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2098,37 +3371,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2178,37 +3448,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2258,37 +3525,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2338,37 +3602,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2418,37 +3679,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2498,37 +3756,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2578,37 +3833,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2658,37 +3910,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2738,37 +3987,34 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner: []
     CharacterController2D: []
@@ -2818,36 +4064,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 30
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -2898,36 +4141,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 36
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -2978,36 +4218,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 33
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3058,36 +4295,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 32
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3138,36 +4372,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 37
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3217,37 +4448,34 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 32
-    CollisionDamage: []
+        Value: 23
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3298,36 +4526,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 34
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3378,36 +4603,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 35
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3458,36 +4680,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 35
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3538,36 +4757,33 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 32
-    CollisionDamage: []
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3617,37 +4833,34 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 35
-    CollisionDamage: []
+        Value: 23
     Consumable: []
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
-    Diagonalshot: []
     DummyCharacter: []
     EntityDestroyer: []
-    Frontshot: []
     GOAPAgent: []
+    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
     Invisibility: []
-    Multishot: []
     PlayerCharacter: []
-    PlayerCharacterCharging: []
+    PlayerCharging: []
     PlayerSpawner: []
     Projectile: []
     Rage: []
+    RaycastShots: []
     Regeneration: []
     Shield: []
-    SpawnPlayerCharacter: []
+    ShrinkingCircle: []
     Spell: []
     Star: []
     Stats: []
     Stun: []
     Targetable: []
     UTAgent: []
-    Weapon: []
     WeaponCollectable: []
     WeaponPlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3673,6 +4886,83 @@ MonoBehaviour:
           RawValue: 0
         Z:
           RawValue: 1015808
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 36
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -48496
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -370933
       Rotation:
         X:
           RawValue: 0

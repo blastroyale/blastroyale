@@ -95,8 +95,6 @@ namespace FirstLight.Game.Presenters
 			
 			_closeButton.onClick.AddListener(Close);
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
-			_movieButton.onClick.AddListener(OnMovieClicked);
-			_weaponTypeButton.onClick.AddListener(OnMovieClicked);
 			_sellButton.onClick.AddListener(OnSellClicked);
 			_upgradeButton.onClick.AddListener(OnUpgradeClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
@@ -144,6 +142,20 @@ namespace FirstLight.Game.Presenters
 			UpdateEquipmentMenu();
 			SetStats();
 		}
+
+		private void ShowStatsForEmptySlot()
+		{
+			_screenTitleText.text = Data.EquipmentSlot.GetTranslation();
+			_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
+			_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
+				
+			_rarityHolder.SetActive(false);
+			_weaponTypeButton.gameObject.SetActive(false);
+			_movieButton.gameObject.SetActive(false);
+			_itemLevelObject.SetActive(false);
+			_actionButtonHolder.SetActive(false);
+			_powerRatingText.text = "";
+		}
 		
 		private void SetStats()
 		{
@@ -156,22 +168,20 @@ namespace FirstLight.Game.Presenters
 
 			if (_uniqueId == UniqueId.Invalid)
 			{
-				_screenTitleText.text = Data.EquipmentSlot.GetTranslation();
-				_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
-				_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
-				
-				_rarityHolder.SetActive(false);
-				_weaponTypeButton.gameObject.SetActive(false);
-				_movieButton.gameObject.SetActive(false);
-				_itemLevelObject.SetActive(false);
-				_actionButtonHolder.SetActive(false);
-				_powerRatingText.text = "";
-
+				ShowStatsForEmptySlot();
 				return;
 			}
 			
 			var info = equipmentProvider.GetEquipmentInfo(_uniqueId);
-			var maxLevelInfo = equipmentProvider.GetEquipmentInfo(info.DataInfo.GameId, info.DataInfo.Data.Rarity, info.MaxLevel);
+			
+			// Don't show Default/Melee weapon
+			if (info.IsWeapon && info.Stats[EquipmentStatType.MaxCapacity] < 0)
+			{
+				ShowStatsForEmptySlot();
+				return;
+			}
+			
+			var maxLevelInfo = equipmentProvider.GetEquipmentInfo(info.DataInfo.GameId, info.DataInfo.Data.Rarity, info.DataInfo.Data.Adjective, info.DataInfo.Data.Material, info.DataInfo.Data.Manufacturer, info.DataInfo.Data.Faction, info.MaxLevel, info.DataInfo.Data.Grade);
 			var descriptionID = info.DataInfo.GameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
 			var isWeapon = info.DataInfo.GameId.IsInGroup(GameIdGroup.Weapon);
 
@@ -208,14 +218,6 @@ namespace FirstLight.Game.Presenters
 				_rarityImage[i].enabled = i == (int) info.DataInfo.Data.Rarity;
 			}
 			
-			if (info.IsWeapon)
-			{
-				var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) info.DataInfo.GameId);
-				
-				_weaponTypeText.text = config.IsAutoShoot ? ScriptLocalization.MainMenu.AutoFire : ScriptLocalization.MainMenu.ManualFire;
-				_weaponTypeImage.color = config.IsAutoShoot ? _autoFireColor : _manualFireColor;
-			}
-			
 			_movieButton.gameObject.SetActive(isWeapon);
 			_weaponTypeButton.gameObject.SetActive(isWeapon);
 			_rarityHolder.SetActive(true);
@@ -241,14 +243,14 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnUpgradeClicked()
 		{
-			if (_upgradeButtonImage.sprite == _maxUpgradeButtonSprite)
+			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
+			
+			if (info.IsMaxLevel)
 			{
 				_mainMenuServices.UiVfxService.PlayFloatingText(ScriptLocalization.MainMenu.WeaponIsAtMaxLevel);
 				
 				return;
 			}
-
-			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
 			
 			if (info.UpgradeCost <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.SC))
 			{
@@ -293,7 +295,7 @@ namespace FirstLight.Game.Presenters
 					var statText = selectedValue.ToString(format);
 					var delta = statType == EquipmentStatType.ReloadSpeed ? selectedValue - equippedValue : Mathf.RoundToInt(selectedValue) - Mathf.RoundToInt(equippedValue);
 
-					if (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1)
+					if (selectedValue > 0 && (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1))
 					{
 						GetSpecialIconInfo(selectedStats[i].Key, _statSpecialInfoViewPool.Spawn(), (GameId) selectedValue); 
 					}
@@ -316,7 +318,7 @@ namespace FirstLight.Game.Presenters
 					continue;
 				}
 				
-				if (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1)
+				if (selectedStats[i].Value > 0 && (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1))
 				{
 					GetSpecialIconInfo(selectedStats[i].Key, _statSpecialInfoViewPool.Spawn(), (GameId) selectedStats[i].Value); 
 				}
@@ -333,7 +335,7 @@ namespace FirstLight.Game.Presenters
 					}
 					
 					var infoAtNextLevel = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(selectedInfo.DataInfo.GameId, 
-						selectedInfo.DataInfo.Data.Rarity, selectedInfo.DataInfo.Data.Level + 1);
+						selectedInfo.DataInfo.Data.Rarity, selectedInfo.DataInfo.Data.Adjective, selectedInfo.DataInfo.Data.Material, selectedInfo.DataInfo.Data.Manufacturer, selectedInfo.DataInfo.Data.Faction, selectedInfo.DataInfo.Data.Level + 1, selectedInfo.DataInfo.Data.Grade);
 					var equippedStats = infoAtNextLevel.Stats.ToList();
 					var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
 					var equippedValue = equippedStats[i].Value * statsBeautifier;
@@ -405,9 +407,10 @@ namespace FirstLight.Game.Presenters
 			
 			if (_gameDataProvider.EquipmentDataProvider.IsEquipped(_uniqueId))
 			{
+				var isWeapon = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId).IsWeapon;
+				
 				// Can't unequip your last weapon.
-				if (_gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1 
-				    && _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId).IsWeapon)
+				if (isWeapon && _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1)
 				{
 					var confirmButton = new GenericDialogButton
 					{
@@ -421,6 +424,21 @@ namespace FirstLight.Game.Presenters
 				}
 				
 				Services.CommandService.ExecuteCommand(new UnequipItemCommand { ItemId = _uniqueId });
+				
+				// Equip Default/Melee weapon after unequipping a regular one
+				if (isWeapon)
+				{
+					var weapons = _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon);
+					for (int i = 0; i < weapons.Count; i++)
+					{
+						if (_gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(weapons[i].GameId)
+						                     .Stats[EquipmentStatType.MaxCapacity] < 0)
+						{
+							Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = weapons[i].Data.Id});
+							break;
+						}
+					}
+				}
 			}
 			else
 			{
@@ -429,36 +447,12 @@ namespace FirstLight.Game.Presenters
 			
 			ShowPowerChange((int) previousPower);
 		}
-
-		private void OnMovieClicked()
-		{
-			if (!_gameDataProvider.EquipmentDataProvider.TryGetWeaponInfo(_uniqueId, out var info))
-			{
-				return;
-			}
-			
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.AWESOME,
-				ButtonOnClick = Services.GenericDialogService.CloseDialog
-			};
-
-			var title = info.WeaponConfig.IsAutoShoot ? 
-				            ScriptLocalization.MainMenu.AutoFire : 
-				            ScriptLocalization.MainMenu.ManualFire;
-			var description = info.WeaponConfig.IsAutoShoot ? 
-				                  ScriptLocalization.MainMenu.HoldToFireDescription : 
-				                  ScriptLocalization.MainMenu.DragAndReleaseToFireDescription;
-			var videoId = info.WeaponConfig.IsAutoShoot ? GameId.AssaultRifle : GameId.SniperRifle;
-			
-			Services.GenericDialogService.OpenVideoDialog(title, description, videoId, false, confirmButton);
-		}
 		
 		private void OnSellClicked()
 		{
 			var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(_uniqueId);
 			
-			// Selling your last weapon isn't allowed. In the future we may allow players to enter the game without any weapon.
+			// Selling your last weapon isn't allowed
 			if (info.IsWeapon && _gameDataProvider.EquipmentDataProvider.GetInventoryInfo(GameIdGroup.Weapon).Count == 1)
 			{
 				var confirmButton = new GenericDialogButton
@@ -515,6 +509,14 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < inventory.Count; i++)
 			{
 				var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(inventory[i].Id);
+				
+				if (!info.DataInfo.GameId.IsInGroup(Data.EquipmentSlot)
+				    // Don't show Default/Melee weapon
+				    || (info.IsWeapon && info.Stats[EquipmentStatType.MaxCapacity] < 0))
+				{
+					continue;
+				}
+
 				var viewData = new EquipmentGridItemView.EquipmentGridItemData
 				{
 					Info = info,
@@ -523,11 +525,8 @@ namespace FirstLight.Game.Presenters
 					IsSelectable = true,
 					OnEquipmentClicked = OnEquipmentClicked
 				};
-
-				if (info.DataInfo.GameId.IsInGroup(Data.EquipmentSlot))
-				{
-					list.Add(viewData);
-				}
+					
+				list.Add(viewData);
 			}
 
 			_noItemsCollectedText.enabled = (list.Count == 0);

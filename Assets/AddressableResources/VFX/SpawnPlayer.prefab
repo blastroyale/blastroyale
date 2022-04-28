@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4551299319499327461}
   - component: {fileID: 4551299319499327462}
   - component: {fileID: 4551299319499327463}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LightningBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4551299321156392629}
   m_RootOrder: 0
@@ -55,7 +56,7 @@ VisualEffect:
       - m_Value: -6
         m_Name: ImpactOffset
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 2
         m_Name: LightningDelay
         m_Overridden: 1
       - m_Value: 8
@@ -110,6 +111,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &4551299319499327463
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,15 +129,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4551299321156392629}
   - component: {fileID: -3547817792561891256}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpawnPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,6 +176,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4551299319499327461}
   m_Father: {fileID: 0}

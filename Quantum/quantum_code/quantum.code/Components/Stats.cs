@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 using Quantum.Collections;
 
@@ -12,7 +13,7 @@ namespace Quantum
 			Type = statType;
 		}
 	}
-	
+
 	public unsafe partial struct Stats
 	{
 		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxInterimArmour)
@@ -24,6 +25,7 @@ namespace Quantum
 			CurrentStatusModifierType = StatusModifierType.None;
 			IsImmune = false;
 			ModifiersPtr = Ptr.Null;
+			SpellEffectsPtr = Ptr.Null;
 
 			Values[(int) StatType.Health] = new StatData(baseHealth, baseHealth, StatType.Health);
 			Values[(int) StatType.InterimArmour] = new StatData(0, maxInterimArmour, StatType.InterimArmour);
@@ -39,7 +41,7 @@ namespace Quantum
 		{
 			return Values[(int) stat];
 		}
-		
+
 		/// <summary>
 		/// Removes an effect of modifier from the stats data
 		/// </summary>
@@ -59,7 +61,7 @@ namespace Quantum
 		{
 			var list = f.ResolveList(Modifiers);
 
-			for (var i = list.Count - 1; i > -1 ; i--)
+			for (var i = list.Count - 1; i > -1; i--)
 			{
 				if (list[i].Id == id)
 				{
@@ -69,7 +71,7 @@ namespace Quantum
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Adds a new modifier to the stats data
 		/// </summary>
@@ -80,15 +82,15 @@ namespace Quantum
 
 			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
 			Values[(int) modifier.Type] = statData;
-			
+
 			f.ResolveList(Modifiers).Add(modifier);
 		}
-		
+
 		/// <summary>
 		/// Gives the given interim armour <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// This interim armour gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent (Ex: consumable).
+		/// or non existent anymore.
 		/// </summary>
 		internal void GainInterimArmour(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
@@ -96,109 +98,114 @@ namespace Quantum
 			{
 				return;
 			}
-			
+
 			var previousInterimArmour = CurrentInterimArmour;
 			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
 
-			CurrentInterimArmour = CurrentInterimArmour + amount > maxInterimArmour ? maxInterimArmour : CurrentInterimArmour + amount;
-			
+			CurrentInterimArmour = CurrentInterimArmour + amount > maxInterimArmour
+				                       ? maxInterimArmour
+				                       : CurrentInterimArmour + amount;
+
 			if (CurrentInterimArmour != previousInterimArmour)
 			{
-				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour, maxInterimArmour);
+				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
+				                                maxInterimArmour);
 			}
 		}
 
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="percentage"/> (between 0 - 1)
 		/// </summary>
-		internal void SetCurrentHealth(Frame f, EntityRef entity, FP percentage)
+		internal void SetCurrentHealthPercentage(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
 		{
-			var previousHealth = CurrentHealth;
-			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
-			
-			CurrentHealth = FPMath.RoundToInt(Values[(int) StatType.Health].StatValue * FPMath.Clamp01(percentage));
-			
-			f.Events.OnHealthChanged(entity, EntityRef.None, previousHealth, CurrentHealth, maxHealth);
+			var maxHealth = GetStatData(StatType.Health).StatValue;
+
+			SetCurrentHealth(f, entity, attacker, FPMath.RoundToInt(maxHealth * FPMath.Clamp01(percentage)));
 		}
-		
+
 		/// <summary>
-		/// Gives the given health <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
-		/// This health gain was induced by the given <paramref name="attacker"/>.
-		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent (Ex: consumable).
+		/// Sets the entity health based on the given <paramref name="amount"/> (between 0 - max health)
 		/// </summary>
-		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		internal void SetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
-			if (IsImmune)
-			{
-				return;
-			}
-			
 			var previousHealth = CurrentHealth;
-			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
+			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 
-			CurrentHealth = CurrentHealth + amount > maxHealth ? maxHealth : CurrentHealth + amount;
+			CurrentHealth = Math.Min(maxHealth, amount);
+			CurrentHealth = Math.Max(CurrentHealth, 0);
 
-			if (CurrentHealth != previousHealth)
+			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{
 				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
 				f.Signals.HealthChanged(entity, attacker, previousHealth);
 			}
 		}
-		
+
 		/// <summary>
-		/// Reduces the given health <paramref name="damageAmount"/> to this <paramref name="entity"/> and notifies the change.
-		/// This health gain was induced by the given <paramref name="attacker"/> from a specific given <paramref name="hitSource"/>.
+		/// Gives the given health <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
+		/// This health gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent.
-		/// The <paramref name="hitSource"/> is always the damage output source for this damage reduction
+		/// or non existent anymore.
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, EntityRef hitSource, int damageAmount)
+		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, uint amount)
 		{
-			var amount = damageAmount;
-			
 			if (IsImmune)
 			{
 				return;
 			}
-			
-			// If there's Interim Armour then we reduce it first
-			// and if the damage is bigger than armour then we proceed to remove health as well
-			if (CurrentInterimArmour > 0)
-			{
-				var previousInterimArmour = CurrentInterimArmour;
-				var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
-				
-				CurrentInterimArmour = amount > CurrentInterimArmour ? 0 : previousInterimArmour - amount;
-				
-				// Reduce the damage value on the amount of armour
-				amount = previousInterimArmour < amount ? amount - previousInterimArmour : 0;
-				
-				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour, maxInterimArmour);
-			}
 
-			if (amount <= 0)
-			{
-				return;
-			}
-			
+			SetCurrentHealth(f, entity, attacker, (int) (CurrentHealth + amount));
+		}
+
+		/// <summary>
+		/// Reduces the given health <paramref name="damageAmount"/> to this <paramref name="entity"/> and notifies the change.
+		/// First reduces the entity's armour before reducing it's health
+		/// </summary>
+		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, uint damageAmount)
+		{
+			var currentDamageAmount = (int) damageAmount;
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
-			var direction = f.Get<Transform3D>(entity).Position - f.Get<Transform3D>(attacker).Position;
+			var previousInterimArmour = CurrentInterimArmour;
+			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
 
-			CurrentHealth = amount > CurrentHealth ? 0 : previousHealth - amount;
-				
-			if (CurrentHealth == previousHealth)
+			if (IsImmune)
 			{
 				return;
 			}
-			
-			f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
-			f.Signals.HealthChanged(entity, attacker, previousHealth);
+
+			// If there's Interim Armour then we reduce it first
+			// and if the damage is bigger than armour then we proceed to remove health as well
+			if (previousInterimArmour > 0)
+			{
+				CurrentInterimArmour = Math.Max(previousInterimArmour - currentDamageAmount, 0);
+				currentDamageAmount = Math.Max(currentDamageAmount - previousInterimArmour, 0);
+
+				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
+				                                maxInterimArmour);
+			}
+
+			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
+			{
+				var armourDamage = damageAmount - (uint) currentDamageAmount;
+				var healthDamage = (uint) currentDamageAmount;
+
+				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
+				                         healthDamage, damageAmount, maxHealth, maxInterimArmour);
+				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
+				                              healthDamage, damageAmount, maxHealth, maxInterimArmour);
+			}
+
+			if (currentDamageAmount <= 0)
+			{
+				return;
+			}
+
+			SetCurrentHealth(f, entity, attacker, previousHealth - currentDamageAmount);
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, attacker, direction, damageAmount);
+				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount, maxHealth);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
 		}

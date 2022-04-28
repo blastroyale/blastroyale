@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
   m_Name: UniversalRenderPipelineAsset_Med_Renderer
   m_EditorClassIdentifier: 
+  debugShaders:
+    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
   m_RendererFeatures:
   - {fileID: 7247114711759782801}
   - {fileID: 5049321258399068766}
@@ -99,6 +101,7 @@ MonoBehaviour:
   - {fileID: -3791164114979841850}
   - {fileID: 6329697942786215620}
   m_RendererFeatureMap: 9103f3f86eec92645e72b49beeca12460b2329d67d41f984a34e84a3e12fe441cce12d9e5469fe1cc6186be9521463cbc40e4b27be9ad757
+  m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
@@ -109,12 +112,17 @@ MonoBehaviour:
     stencilDeferredPS: {fileID: 4800000, guid: e9155b26e1bc55942a41e518703fe304, type: 3}
     fallbackErrorPS: {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
     materialErrorPS: {fileID: 4800000, guid: 5fd9a8feb75a4b5894c241777f519d4e, type: 3}
+    coreBlitPS: {fileID: 4800000, guid: 93446b5c5339d4f00b85c159e1159b7c, type: 3}
+    coreBlitColorAndDepthPS: {fileID: 4800000, guid: d104b2fc1ca6445babb8e90b0758136b, type: 3}
+    cameraMotionVector: {fileID: 4800000, guid: c56b7e0d4c7cb484e959caeeedae9bbf, type: 3}
+    objectMotionVector: {fileID: 4800000, guid: 7b3ede40266cd49a395def176e1bc486, type: 3}
+  m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 4919
+    m_Bits: 70583
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 13111
+    m_Bits: 78775
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 0
@@ -124,7 +132,11 @@ MonoBehaviour:
     zFailOperation: 2
   m_ShadowTransparentReceive: 0
   m_RenderingMode: 0
+  m_DepthPrimingMode: 0
   m_AccurateGbufferNormals: 0
+  m_ClusteredRendering: 0
+  m_TileSize: 32
+  m_IntermediateTextureMode: 0
 --- !u!114 &2089223089298465228
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Backend.Data;
-using Backend.Models;
-using Backend.Util;
+
+using Backend.Context;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
-using PlayFab.Json;
 using PlayFab.ServerModels;
 
 namespace Backend.Functions
@@ -29,9 +30,9 @@ namespace Backend.Functions
 			var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 			var server = new PlayFabServerInstanceAPI(context.ApiSettings, context.AuthenticationContext);
 			var itemId = context.FunctionArgument.Data["item_id"];
-			var result = new PlayFabResult<LogicResult>
+			var result = new PlayFabResult<BackendLogicResult>
 			{
-				Result = new LogicResult
+				Result = new BackendLogicResult
 				{
 					PlayFabId = context.AuthenticationContext.PlayFabId,
 					Data = new Dictionary<string, string>()
@@ -56,7 +57,7 @@ namespace Backend.Functions
 		}
 
 		private static async Task<CatalogItem> GetPurchaseItem(PlayFabServerInstanceAPI server, 
-		                                                       PlayFabResult<LogicResult> result,
+		                                                       PlayFabResult<BackendLogicResult> result,
 		                                                       string item)
 		{
 			var request = new GetCatalogItemsRequest { CatalogVersion = "Store" };

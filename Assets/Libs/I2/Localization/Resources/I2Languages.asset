@@ -1720,11 +1720,11 @@ MonoBehaviour:
       - Password
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/NicknameTitle
+    - Term: MainMenu/UsernameTitle
       TermType: 0
       Description: 
       Languages:
-      - Nickname
+      - Username
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/LoginButton
@@ -4833,7 +4833,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1651153261867
+    Google_LastUpdatedVersion: 1651156110662
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

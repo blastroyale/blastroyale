@@ -41,9 +41,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private AuthenticationSaveData _authSaveData;
-		private string _lastAuthEmail;
-		private string _lastAuthName;
-		private string _lastAuthPass;
+		private string _selectedAuthEmail;
+		private string _selectedAuthName;
+		private string _selectedAuthPass;
 		
 		public AuthenticationState(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
@@ -103,7 +103,7 @@ namespace FirstLight.Game.StateMachines
 			login.OnExit(CloseLoginScreen);
 			
 			register.OnEnter(OpenRegisterScreen);
-			register.Event(_goToLoginClickedEvent).Target(login);
+			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_registerClickedEvent).Target(authRegister);
 			register.OnExit(CloseRegisterScreen);
 			
@@ -114,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginEmail.Event(_authenticationFailEvent).Target(login);
 			
 			authRegister.WaitingFor(AuthenticateRegister).Target(login);
-
+			
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
@@ -147,76 +147,15 @@ namespace FirstLight.Game.StateMachines
 			return true;
 		}
 
-		private void LoginClicked(string email, string password)
-		{
-			_lastAuthEmail = email;
-			_lastAuthPass = password;
-		}
-
-		private void RegisterClicked(string email, string nickname, string password)
-		{
-			_lastAuthEmail = email;
-			_lastAuthName = nickname;
-			_lastAuthPass = password;
-			
-		}
-
-		private void GoToRegisterClicked()
-		{
-			_statechartTrigger(_goToRegisterClickedEvent);
-		}
-
-		private void GoToLoginClicked()
-		{
-			_statechartTrigger(_goToLoginClickedEvent);
-		}
-		
-		private void CloseLoadingScreen()
-		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
-		}
-
-		private void OpenLoginScreen()
-		{
-			var data = new LoginScreenPresenter.StateData
-			{
-				LoginClicked = LoginClicked,
-				GoToRegisterClicked = GoToRegisterClicked
-			};
-			
-			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
-		}
-
-		private void CloseLoginScreen()
-		{
-			_uiService.CloseUi<LoginScreenPresenter>();
-		}
-
-		private void OpenRegisterScreen()
-		{
-			var data = new RegisterScreenPresenter.StateData
-			{
-				RegisterClicked = RegisterClicked,
-				GoToLoginClicked = GoToLoginClicked
-			};
-			
-			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
-		}
-
-		private void CloseRegisterScreen()
-		{
-			_uiService.CloseUi<RegisterScreenPresenter>();
-		}
-
 		private void AuthenticateRegister(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			
 			var register = new RegisterPlayFabUserRequest
 			{
-				Email = _lastAuthEmail,
-				DisplayName = _lastAuthName,
-				Password = _lastAuthPass
+				Email = _selectedAuthEmail,
+				Username = _selectedAuthName,
+				Password = _selectedAuthPass
 			};
 			
 			PlayFabClientAPI.RegisterPlayFabUser(register, OnRegisterSuccess, OnRegisterFail);
@@ -241,7 +180,33 @@ namespace FirstLight.Game.StateMachines
 
 		private void LoginWithEmail(IWaitActivity activity)
 		{
-			activity.Complete();
+			var cacheActivity = activity;
+			var infoParams = new GetPlayerCombinedInfoRequestParams
+			{
+				GetUserAccountInfo = true,
+				GetUserReadOnlyData = true,
+				GetTitleData = true
+			};
+			
+			var login = new LoginWithEmailAddressRequest()
+			{
+				Email = _selectedAuthEmail,
+				Password = _selectedAuthPass,
+				InfoRequestParameters = infoParams
+			};
+			
+			PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnLoginFail);
+
+			void OnLoginSuccess(LoginResult result)
+			{
+				ProcessAuthentication(result, cacheActivity);
+			}
+
+			void OnLoginFail(PlayFabError error)
+			{
+				_statechartTrigger(_authenticationFailEvent);
+				OnPlayFabError(error);
+			}
 		}
 
 		private void LoginWithDevice(IWaitActivity activity)
@@ -262,7 +227,7 @@ namespace FirstLight.Game.StateMachines
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnPlayFabError);
+			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnLoginFail);
 			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
@@ -466,6 +431,73 @@ namespace FirstLight.Game.StateMachines
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
+		}
+		
+		private void LoginClicked(string email, string password)
+		{
+			_selectedAuthEmail = email;
+			_selectedAuthPass = password;
+			_statechartTrigger(_loginClickedEvent);
+		}
+
+		private void RegisterClicked(string email, string username, string password)
+		{
+			_selectedAuthEmail = email;
+			_selectedAuthName = username;
+			_selectedAuthPass = password;
+			_statechartTrigger(_registerClickedEvent);
+		}
+
+		private void GoToRegisterClicked()
+		{
+			_statechartTrigger(_goToRegisterClickedEvent);
+		}
+
+		private void GoToLoginClicked()
+		{
+			_statechartTrigger(_goToLoginClickedEvent);
+		}
+		
+		private void OpenLoadingScreen()
+		{
+			_uiService.OpenUi<LoadingScreenPresenter>();
+		}
+		
+		private void CloseLoadingScreen()
+		{
+			_uiService.CloseUi<LoadingScreenPresenter>();
+		}
+
+		private void OpenLoginScreen()
+		{
+			var data = new LoginScreenPresenter.StateData
+			{
+				LoginClicked = LoginClicked,
+				GoToRegisterClicked = GoToRegisterClicked
+			};
+			
+			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
+		}
+
+		private void CloseLoginScreen()
+		{
+			_uiService.CloseUi<LoginScreenPresenter>();
+		}
+
+		private void OpenRegisterScreen()
+		{
+			var data = new RegisterScreenPresenter.StateData
+			{
+				RegisterClicked = RegisterClicked,
+				GoToLoginClicked = GoToLoginClicked
+			};
+			
+			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+		}
+
+		private void CloseRegisterScreen()
+		{
+			_uiService.CloseUi<RegisterScreenPresenter>();
 		}
 
 		private bool IsOutdated(string version)

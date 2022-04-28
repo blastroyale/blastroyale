@@ -31,6 +31,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private TextMeshProUGUI _mapStatusText;
 		[SerializeField] private LeaderHolderView _leaderHolderView;
 		[SerializeField] private ScoreHolderView _scoreHolderView;
+		[SerializeField] private KillHolderView _killHolderView;
 		[SerializeField] private MapTimerView _mapTimerView;
 		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;

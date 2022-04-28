@@ -35,9 +35,9 @@ public class SetupPlayerCommand
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 		var serverData = _setupService.GetInitialState(context.AuthenticationContext.PlayFabId);
 		_stateService.UpdatePlayerState(context.AuthenticationContext.PlayFabId, serverData);
-		return new PlayFabResult<LogicResult>
+		return new PlayFabResult<BackendLogicResult>
 		{
-			Result = new LogicResult
+			Result = new BackendLogicResult
 			{
 				PlayFabId = context.AuthenticationContext.PlayFabId,
 				Data = serverData

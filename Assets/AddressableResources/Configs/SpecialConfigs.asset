@@ -22,38 +22,41 @@ MonoBehaviour:
       SpecialType: 0
       Indicator: 6
       Cooldown:
-        RawValue: 327680
+        RawValue: 98304
       Radius:
         RawValue: 229376
-      PowerAmount: 750
+      PowerAmount:
+        RawValue: 39321600
       Speed:
         RawValue: 163840
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 786432
+        RawValue: 655360
     - Id: 85
       SpecialType: 1
       Indicator: 6
       Cooldown:
-        RawValue: 327680
+        RawValue: 98304
       Radius:
-        RawValue: 147456
-      PowerAmount: 3
+        RawValue: 98304
+      PowerAmount:
+        RawValue: 131072
       Speed:
         RawValue: 98304
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 655360
+        RawValue: 458752
     - Id: 89
       SpecialType: 2
       Indicator: 0
       Cooldown:
-        RawValue: 327680
+        RawValue: 98304
       Radius:
         RawValue: 0
-      PowerAmount: 3
+      PowerAmount:
+        RawValue: 131072
       Speed:
         RawValue: 0
       MinRange:
@@ -64,10 +67,11 @@ MonoBehaviour:
       SpecialType: 3
       Indicator: 6
       Cooldown:
-        RawValue: 327680
+        RawValue: 98304
       Radius:
         RawValue: 180224
-      PowerAmount: 600
+      PowerAmount:
+        RawValue: 39321600
       Speed:
         RawValue: 45875
       MinRange:
@@ -78,30 +82,32 @@ MonoBehaviour:
       SpecialType: 4
       Indicator: 2
       Cooldown:
-        RawValue: 327680
+        RawValue: 98304
       Radius:
         RawValue: 0
-      PowerAmount: 250
+      PowerAmount:
+        RawValue: 13107200
       Speed:
         RawValue: 1048576
       MinRange:
         RawValue: 196608
       MaxRange:
-        RawValue: 524288
+        RawValue: 458752
     - Id: 102
       SpecialType: 5
       Indicator: 6
       Cooldown:
-        RawValue: 327680
-      Radius:
-        RawValue: 147456
-      PowerAmount: 500
-      Speed:
         RawValue: 98304
+      Radius:
+        RawValue: 163840
+      PowerAmount:
+        RawValue: 19660800
+      Speed:
+        RawValue: 65536
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 655360
+        RawValue: 524288
     - Id: 141
       SpecialType: 4
       Indicator: 2
@@ -109,10 +115,11 @@ MonoBehaviour:
         RawValue: 0
       Radius:
         RawValue: 0
-      PowerAmount: 250
+      PowerAmount:
+        RawValue: 13107200
       Speed:
         RawValue: 1048576
       MinRange:
         RawValue: 196608
       MaxRange:
-        RawValue: 524288
+        RawValue: 458752

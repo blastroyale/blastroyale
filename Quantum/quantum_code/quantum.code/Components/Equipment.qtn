@@ -9,7 +9,7 @@ struct Equipment
 	ItemManufacturer Manufacturer;
 	ItemFaction Faction;
 	UInt32 Level;
-	UInt32 Grade;
+	UInt32 GradeIndex;
 }
 
 enum ItemRarity

@@ -237,24 +237,24 @@ namespace Quantum
 		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f)
 		{
 			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
-			var entity = EntityRef.None;
 
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
 			{
 				if (f.Time < pair.Component->ActivationTime)
 				{
-					entity = !entity.IsValid || f.Get<PlayerSpawner>(entity).ActivationTime > pair.Component->ActivationTime ? pair.Entity : entity;
 					continue;
 				}
 				
 				spawners.Add(pair);
 			}
 
-			if (spawners.Count > 0)
+			if (spawners.Count == 0)
 			{
-				entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+				Log.Error($"There is no {nameof(PlayerSpawner)} active to spawn new a player");
 			}
 
+			var entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+			
 			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 			return new EntityComponentPair<Transform3D>

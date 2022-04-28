@@ -9,6 +9,7 @@ using UnityEngine;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.Game.Views.MatchHudViews;
 using Quantum.Commands;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
@@ -83,6 +84,18 @@ namespace FirstLight.Game.Presenters
 		{
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
+
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+
+			_mapTimerView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
+			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
+			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
+			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
+			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 		}
 
 		private void OnQuitClicked()
@@ -101,14 +114,6 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
-			_mapTimerView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
-			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
-			_minimapHolder.gameObject.SetActive(isBattleRoyale);
-
 			if (isBattleRoyale)
 			{
 				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
@@ -126,9 +131,10 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
 			_standings.gameObject.SetActive(true);
-			_standings.Initialise(playerData, false);
+			_standings.Initialise(playerData, isBattleRoyale);
 		}
 
 		private void OnWeaponSlotClicked(int weaponSlotIndex)

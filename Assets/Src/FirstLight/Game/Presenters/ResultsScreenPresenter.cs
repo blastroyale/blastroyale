@@ -46,8 +46,9 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
-			
-			_standings.Initialise(playerData);
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+
+			_standings.Initialise(playerData, isBattleRoyale);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

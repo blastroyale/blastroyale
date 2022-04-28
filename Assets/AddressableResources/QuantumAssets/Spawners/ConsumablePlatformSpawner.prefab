@@ -698,7 +698,6 @@ GameObject:
   - component: {fileID: 7683011403056505119}
   - component: {fileID: 5023752328150327353}
   - component: {fileID: 8564872045192622887}
-  - component: {fileID: 8298653029915991725}
   m_Layer: 7
   m_Name: Root
   m_TagString: Untagged
@@ -776,21 +775,6 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 5023752328150327353}
   _text: {fileID: 2028910323031296239}
   _progressIndicator: {fileID: 972804737065937719}
---- !u!114 &8298653029915991725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4753864322123932040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8f0f7a3f7faaf4ea32fa2ad42c8f75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainRenderersContainer: {fileID: 7683011403056505119}
-  _renderersContainers:
-  - {fileID: 7683011403056505119}
 --- !u!1 &6519122020125035133
 GameObject:
   m_ObjectHideFlags: 0

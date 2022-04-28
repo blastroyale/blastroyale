@@ -8,7 +8,7 @@ namespace Quantum
 		public bool IsValid => Level > 0 && GameId != GameId.Random;
 		
 		public Equipment(GameId gameId, ItemRarity rarity, ItemAdjective adjective, ItemMaterial material,
-		                 ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
+		                 ItemManufacturer manufacturer, ItemFaction faction, uint level, uint gradeIndex)
 		{
 			GameId = gameId;
 			Rarity = rarity;
@@ -17,7 +17,7 @@ namespace Quantum
 			Manufacturer = manufacturer;
 			Faction = faction;
 			Level = level;
-			Grade = grade;
+			GradeIndex = gradeIndex;
 		}
 	}
 }

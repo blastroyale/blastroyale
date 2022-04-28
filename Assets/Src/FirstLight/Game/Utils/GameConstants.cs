@@ -8,7 +8,7 @@ namespace FirstLight.Game.Utils
 	public static class GameConstants
 	{
 		public const string FEEDBACK_FORM_LINK = "https://forms.gle/2V4ffFNmRgoVAba89";
-		public const string DISCORD_SERVER_LINK = "https://discord.gg/MehYAERaVp";
+		public const string DISCORD_SERVER_LINK = "https://discord.gg/blastroyale";
 		public const string APP_STORE_IOS_LINK = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 		public const string APP_STORE_GOOGLE_PLAY_LINK = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
 		
@@ -43,11 +43,14 @@ namespace FirstLight.Game.Utils
 		public const int PLAYER_NAME_MIN_LENGTH = 3;
 		public const int PLAYER_NAME_MAX_LENGTH = 20;
 		
+		public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
+		public const string PLAYER_PROPS_LOADED = "propsLoaded";
+		public const string ROOM_PROPS_START_TIME = "startTime";
+		public const string ROOM_PROPS_COMMIT = "commit";
+		public const string ROOM_PROPS_MAP = "mapId";
+		
 		// The name of the parameter in the animator that decides the time of stun outro animation
 		public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
-		
-		// The upper limit for separators on reload bar; if the value is bigger then we don't show separators
-		public const uint MAX_RELOAD_BAR_SEPARATORS_AMOUNT = 6;
 		
 		public const float MAP_ROTATION_TIME_MINUTES = 10;
 		
@@ -57,8 +60,6 @@ namespace FirstLight.Game.Utils
 		public const float Sfx2dDefaultVolume = 0.2f;
 		public const float Sfx3dDefaultVolume = 0.4f;
 		public const float BgmDefaultVolume = 0.45f;
-
-		public const float ExtraMatchmakingRandomTime = 2f;
 		public const float DissolveDuration = 1.15f;
 		public const float DissolveDelay = 2.5f;
 		public const float HitDuration = 0.5f;
@@ -71,10 +72,5 @@ namespace FirstLight.Game.Utils
 		public const string NotificationIdleBoxesChannel = "idle_boxes";
 		public const string NotificationBoxesChannel = "loot_boxes";
 		
-		public static GameId [] TUTORIAL_VIDEO_IDS = { GameId.SniperRifle };
-
-		public const int FtueAdventuresCount = 1;
-		public const int OnboardingAdventuresCount = 0;
-		public const int RotationAdventuresCount = 1;
 	}
 }

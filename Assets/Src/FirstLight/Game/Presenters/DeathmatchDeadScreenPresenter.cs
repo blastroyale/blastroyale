@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
@@ -26,6 +27,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public Action OnRespawnClicked;
 			public Dictionary<PlayerRef, Pair<int, int>> KillerData;
 		}
 		
@@ -42,13 +44,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _enemyScoreText;
 		
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider; 
+		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			_button.onClick.AddListener(OnExitGamePressed);
 			_respawnButton.onClick.AddListener(OnRespawnPressed);
 			_respawnButton.gameObject.SetActive(false);
@@ -64,10 +66,10 @@ namespace FirstLight.Game.Presenters
 			var playerData = frame.GetSingleton<GameContainer>().PlayersData;
 			var deadPlayer = frame.Get<DeadPlayerCharacter>(playerData[localPlayer].Entity);
 			var killerMatchData = new QuantumPlayerMatchData(frame, playerData[deadPlayer.Killer]);
-			var localName = _gameDataProvider.PlayerDataProvider.Nickname;
-			
+			var localName = _gameDataProvider.AppDataProvider.Nickname;
+
 			_killTrackerHolder.SetActive(!killerMatchData.IsLocalPlayer);
-			
+
 			if (killerMatchData.IsLocalPlayer)
 			{
 				_fraggedByText.text = ScriptLocalization.AdventureMenu.ChooseDeath;
@@ -107,23 +109,23 @@ namespace FirstLight.Game.Presenters
 			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var totalForceTimeFp = config.PlayerForceRespawnTime - config.PlayerRespawnTime;
 			var totalForceTime = totalForceTimeFp.AsFloat;
-		
+
 			_respawnButton.gameObject.SetActive(false);
-			
+
 			yield return new WaitForSeconds(config.PlayerRespawnTime.AsFloat);
-			
+
 			var endTime = Time.time + totalForceTime;
-			
+
 			_respawnSlider.value = 0;
 			_respawnButton.gameObject.SetActive(true);
-			
+
 			while (Time.time < endTime)
 			{
-				_respawnSlider.value = 1 - (endTime - Time.time) / totalForceTime; 
+				_respawnSlider.value = 1 - (endTime - Time.time) / totalForceTime;
 
 				yield return null;
 			}
-			
+
 			_respawnSlider.value = 1f;
 
 			OnRespawnPressed();
@@ -133,12 +135,13 @@ namespace FirstLight.Game.Presenters
 		{
 			var container = f.GetSingleton<GameContainer>();
 			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(f, out _));
-			
+
 			_standings.Initialise(playerData, false, false);
 		}
 
 		private void OnRespawnPressed()
 		{
+			Data.OnRespawnClicked();
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}
 	}

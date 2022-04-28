@@ -24,7 +24,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_contendersLeftText.text = _gameDataProvider.AppDataProvider.CurrentMapConfig.PlayersLimit.ToString();
+			
+			_contendersLeftText.text = _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers.ToString();
 			
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 		}

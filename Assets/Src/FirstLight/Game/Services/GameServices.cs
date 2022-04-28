@@ -57,6 +57,8 @@ namespace FirstLight.Game.Services
 		IAudioFxService<AudioId> AudioFxService { get; }
 		/// <inheritdoc cref="INotificationService"/>
 		INotificationService NotificationService { get; }
+		/// <inheritdoc cref="IPlayfabService"/>
+		IPlayfabService PlayfabService { get; }
 	}
 
 	/// <inheritdoc />
@@ -97,6 +99,8 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		/// <inheritdoc />
 		public INotificationService NotificationService { get; }
+		/// <inheritdoc />
+		public IPlayfabService PlayfabService { get; }
 		
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService, 
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
@@ -121,6 +125,7 @@ namespace FirstLight.Game.Services
 			TickService =  new TickService();
 			CoroutineService = new CoroutineService();
 			StoreService = new StoreService(CommandService);
+			PlayfabService = new PlayfabService(gameLogic.AppLogic);
 			NotificationService = new MobileNotificationService(
 				new GameNotificationChannel(GameConstants.NotificationBoxesChannel, GameConstants.NotificationBoxesChannel,GameConstants.NotificationBoxesChannel),
 				new GameNotificationChannel(GameConstants.NotificationIdleBoxesChannel, GameConstants.NotificationIdleBoxesChannel,GameConstants.NotificationIdleBoxesChannel));

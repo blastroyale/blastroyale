@@ -46,20 +46,19 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
-			var runningCheckToMatch = stateFactory.Choice("Running Check To Match");
-			var runningCheckToMenu = stateFactory.Choice("Running Check To Menu");
+			var connectionCheck = stateFactory.Choice("Connection Check");
+			var connectionWaitToMenu = stateFactory.State("Connection Wait to Menu");
 			
-			initial.Transition().Target(runningCheckToMenu);
+			initial.Transition().Target(connectionCheck);
 
-			mainMenu.Nest(_mainMenuState.Setup).Target(runningCheckToMatch);
+			connectionCheck.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
+			connectionCheck.Transition().Target(connectionWaitToMenu);
 			
-			runningCheckToMatch.Transition().Condition(CanRunCoreState).Target(match);
-			runningCheckToMatch.Transition().Target(final);
-			
-			match.Nest(_matchState.Setup).Target(runningCheckToMenu);
-			
-			runningCheckToMenu.Transition().Condition(CanRunCoreState).Target(mainMenu);
-			runningCheckToMenu.Transition().Target(final);
+			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
+
+			mainMenu.Nest(_mainMenuState.Setup).Target(match);
+
+			match.Nest(_matchState.Setup).Target(connectionCheck);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -73,12 +72,10 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
-		private bool CanRunCoreState()
+		private bool IsConnectedAndReady()
 		{
-			// For now this is always true. In the future, we might want to be able to exit the core state loop
-			// in the state machine to transition to some other special state (e.g. a game update state where the game 
-			// downloads updated assets (like the initial load), and then goes back into this core state afterwards
-			return true;
+			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 	}
 }
+

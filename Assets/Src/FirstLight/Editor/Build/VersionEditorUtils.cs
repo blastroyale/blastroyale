@@ -34,6 +34,9 @@ namespace FirstLight.Editor.Build
 			SaveVersionData(newVersionDataSerialized);
 		}
 
+		/// <summary>
+		/// Loads the game version saved in disk into string format
+		/// </summary>
 		public static string LoadVersionDataSerializedSync ()
 		{
 			var textAsset = Resources.Load<TextAsset>(VersionUtils.VersionDataFilename);
@@ -118,12 +121,11 @@ namespace FirstLight.Editor.Build
 			var daysSinceJan1st2020 = (int) delta.TotalDays;
 			return daysSinceJan1st2020;
 		}
-
+		
 		/// <summary>
-		/// If unity has started in batch mode try and set the android version code to the passed
-		/// in build number.
+		/// If unity has started in batch mode try and set the version code of the build
 		/// </summary>
-		public static void TrySetAndroidVersionCodeFromCommandLineArgs(string[] args)
+		public static void TrySetBuildNumberFromCommandLineArgs(string[] args)
 		{
 			if (!FirstLightBuildUtil.TryGetBuildNumberFromCommandLineArgs(out var buildNumber, args))
 			{
@@ -131,19 +133,6 @@ namespace FirstLight.Editor.Build
 			}
 
 			PlayerSettings.Android.bundleVersionCode = buildNumber;
-		}
-		
-		/// <summary>
-		/// If unity has started in batch mode try and set the ios version code to the passed
-		/// in build number.
-		/// </summary>
-		public static void TrySetIosBuildNumberFromCommandLineArgs(string[] args)
-		{
-			if (!FirstLightBuildUtil.TryGetBuildNumberFromCommandLineArgs(out var buildNumber, args))
-			{
-				return;
-			}
-
 			PlayerSettings.iOS.buildNumber = buildNumber.ToString();
 		}
 		

@@ -7,13 +7,20 @@ using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
+	/// <summary>
+	/// Defines the required user permission level to access a given command.
+	/// </summary>
+	public enum CommandAccessLevel
+	{
+		Player, Admin
+	}
+	
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
 	{
@@ -26,25 +33,33 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
-		private readonly JsonConverter _formatter;
-	
+
 		public static readonly string CommandFieldName = nameof(IGameCommand);
 		
 		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
-			_formatter = new StringEnumConverter();
 		}
 		
+		/// <summary>
+		/// Generic PlayFab error that is being called on PlayFab responses.
+		/// Will throw an <see cref="PlayFabException"/> to be shown to the player.
+		/// </summary>
+		public static void OnPlayFabError(PlayFabError error)
+		{
+			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			
+			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
+		}
+
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
 		{
 			try
 			{
-				ExecuteCommandServerSide(command); 
+				ExecuteServerCommand(command); 
 				command.Execute(_gameLogic, _dataProvider);
-				// ForceServerDataUpdate(command);
 			}
 			catch (Exception e)
 			{
@@ -64,68 +79,29 @@ namespace FirstLight.Game.Services
 				{
 					title = "PlayFab Exception";
 				}
-				
 				NativeUiService.ShowAlertPopUp(false, title, e.Message, button);
 				throw;
 			}
 		}
 
 		/// <summary>
-		/// Generic PlayFab error that is being called on PlayFab responses.
-		/// Will throw an <see cref="PlayFabException"/> to be shown to the player.
-		/// </summary>
-		public static void OnPlayFabError(PlayFabError error)
-		{
-			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, error.ErrorMessage);
-		}
-		
-		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.
 		/// Will only be enabled for testing and debugging purposes.
 		/// </summary>
 		public void ForceServerDataUpdate()
 		{
-			var data = new Dictionary<string, string>();
-			AddSerializedModels(data, 
-				_dataProvider.GetData<IdData>(),
-				_dataProvider.GetData<RngData>(),
-				_dataProvider.GetData<PlayerData>());
-			ExecuteServerCommand(null, data);
+			ExecuteServerCommand(new ForceUpdateCommand()
+			{
+				IdData = _dataProvider.GetData<IdData>(),
+				RngData = _dataProvider.GetData<RngData>(),
+				PlayerData = _dataProvider.GetData<PlayerData>()
+			});
 		}
 
-		/// <summary>
-		/// Serializes a given command and sends it to the server. The server should run the command logic server-side.
-		/// If no errors are provided in return, assume the server and client are in sync.
-		/// This will also always send the Rng data to the server in case there's any rng rolls.
-		/// TODO: In case of error, rollback client state.
-		/// </summary>
-		private void ExecuteCommandServerSide(IGameCommand command)
-		{
-			var data = new Dictionary<string, string>
-			{
-				{CommandFieldName, ModelSerializer.Serialize(command).Value},
-			};
-			ExecuteServerCommand(command, data);
-		}
-
-		/// <summary>
-		/// Add serialized models to the data dictionary.
-		/// Keys will be a string repr. of the model type name
-		/// Values will be the serialized model data.
-		/// </summary>
-		private void AddSerializedModels(Dictionary<string, string> dict, params object [] models)
-		{
-			foreach (var model in models)
-			{
-				var (modelKey, modelValue) = ModelSerializer.Serialize(model);
-				dict[modelKey] = modelValue;
-			}
-		}
-		
 		/// <summary>
 		/// Sends a command to the server.
 		/// </summary>
-		private void ExecuteServerCommand(IGameCommand command, Dictionary<string, string> data) 
+		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -133,13 +109,16 @@ namespace FirstLight.Game.Services
 				GeneratePlayStreamEvent = true,
 				FunctionParameter = new LogicRequest
 				{
-					Command = command?.GetType().FullName,
+					Command = command.GetType().FullName,
 					Platform = Application.platform.ToString(),
-					Data = data
+					Data = new Dictionary<string, string>
+					{
+						{CommandFieldName, ModelSerializer.Serialize(command).Value},
+					}
 				},
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, null, OnPlayFabError);
 		}
 	}
 }

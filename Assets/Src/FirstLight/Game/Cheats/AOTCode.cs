@@ -43,7 +43,6 @@ namespace FirstLight.Game.Cheats
 			services.CommandService.ExecuteCommand(new SpeedUpLootBoxCommand());
 			services.CommandService.ExecuteCommand(new StartUnlockingLootBoxCommand());
 			services.CommandService.ExecuteCommand(new UnequipItemCommand());
-			services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand());
 			services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand());
 		}
 	}

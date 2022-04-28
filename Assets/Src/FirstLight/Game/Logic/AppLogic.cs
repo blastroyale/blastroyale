@@ -7,6 +7,7 @@ using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Configs;
 using FirstLight.Services;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 
@@ -48,22 +49,24 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void MarkGameAsReviewed();
 
-		// TODO - Move to MatchLogic, once that functionality transitions to the backend
 		/// <summary>
-		/// Requests the current selected game mode <see cref="GameMode"/>.
+		/// Requests the player's Nickname
 		/// </summary>
-		IObservableField<GameMode> SelectedGameMode { get; }
-
-		// TODO - Move to MatchLogic, once that functionality transitions to the backend
+		string Nickname { get; }
+		
 		/// <summary>
-		/// Requests the current map config in timed rotation, for the selected game mode
+		/// Requests the player's Nickname
 		/// </summary>
-		MapConfig CurrentMapConfig { get; }
+		IObservableFieldReader<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
+		/// <summary>
+		/// Requests and sets player nickname
+		/// </summary>
+		new IObservableField<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -71,7 +74,7 @@ namespace FirstLight.Game.Logic
 	{
 		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
-		
+
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -109,10 +112,14 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
+			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
 
 		/// <inheritdoc />
-		public MapConfig CurrentMapConfig => GetCurrentMapConfig();
+		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+
+		/// <inheritdoc />
+		public IObservableField<string> NicknameId { get; private set; }
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -125,8 +132,7 @@ namespace FirstLight.Game.Logic
 		{
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
-
-			SelectedGameMode = new ObservableField<GameMode>(0);
+			NicknameId = new ObservableField<string>(Data.NickNameId);
 		}
 
 		/// <inheritdoc />
@@ -138,31 +144,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
-		}
-
-		private MapConfig GetCurrentMapConfig()
-		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-			var compatibleMaps = new List<MapConfig>();
-			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
-			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
-
-			foreach (var config in configs)
-			{
-				// Filters compatible maps by game mode, and also filters out map ID 0
-				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
-				if (config.Value.GameMode == SelectedGameMode.Value && config.Value.Id > 0)
-				{
-					compatibleMaps.Add(config.Value);
-				}
-			}
-
-			if (timeSegmentIndex >= compatibleMaps.Count)
-			{
-				timeSegmentIndex %= compatibleMaps.Count;
-			}
-
-			return compatibleMaps[timeSegmentIndex];
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using System.IO;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using PlayFab;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace FirstLight.Editor.EditorTools
 	{
 		private static readonly string _unityPath = $"{Application.dataPath}/../Library/ScriptAssemblies/";
 		private static readonly string _quantumLibPath = $"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
-		
+
 		private static void CopyAssembly(string from, string assemblyName)
 		{
 			var gameDllPath = $"{from}{assemblyName}";
@@ -44,6 +45,13 @@ namespace FirstLight.Editor.EditorTools
 			var services = MainInstaller.Resolve<IGameServices>();
 			((GameCommandService)services.CommandService).ForceServerDataUpdate();
 			Debug.Log("Force Update Sent to Server");
+		}
+		
+		[MenuItem("First Light Games/Backend/Local Server")]
+		private static void ToggleLocalServer()
+		{
+			PlayFabSettings.LocalApiServer = "https://localhost:7274";
+			Debug.Log("Requests will go to local server now");
 		}
 	}
 }

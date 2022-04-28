@@ -1,7 +1,4 @@
-using FirstLight.Game.Ids;
 using FirstLight.Services;
-using Photon.Realtime;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Messages
 {
@@ -10,5 +7,7 @@ namespace FirstLight.Game.Messages
 	public struct MatchReadyMessage : IMessage { }
 	public struct MatchStartedMessage : IMessage { }
 	public struct MatchEndedMessage : IMessage { }
-	public struct MatchAssetsLoadedMessage : IMessage { }
+	public struct CoreMatchAssetsLoadedMessage : IMessage { }
+	public struct AllMatchAssetsLoadedMessage : IMessage { }
+	public struct StartedFinalPreloadMessage : IMessage { }
 }

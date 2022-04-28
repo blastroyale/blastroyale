@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
@@ -122,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDeathmatch()
 		{
-			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch;
+			return QuantumRunner.Default.Game.Frames.Verified.RuntimeConfig.GameMode == GameMode.Deathmatch;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -216,11 +217,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSimulation()
 		{
-			var info = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var client = _services.NetworkService.QuantumClient;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var startParams = configs.GetDefaultStartParameters(info);
+			var startParams = configs.GetDefaultStartParameters(client.CurrentRoom.MaxPlayers);
 
-			startParams.NetworkClient = _services.NetworkService.QuantumClient;
+			startParams.NetworkClient = client;
 
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
@@ -241,18 +242,6 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
-		}
-
-		private void CloseLoadingScreen()
-		{
-			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
-			{
-				_uiService.UnloadUi<MatchmakingLoadingScreenPresenter>();
-			}
-			else
-			{
-				_uiService.CloseUi<LoadingScreenPresenter>();
-			}
 		}
 
 		private void OpenAdventureWorldHud()
@@ -312,12 +301,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<RewardsScreenPresenter>();
 		}
+		
+		private void CloseMatchmakingScreen()
+		{
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+		}
 
 		private void PrepareMatch()
 		{
 			MatchStartAnalytics();
 			SetPlayerMatchData();
-			CloseLoadingScreen();
+			CloseMatchmakingScreen();
 
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}
@@ -330,7 +324,7 @@ namespace FirstLight.Game.StateMachines
 
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
-				PlayerName = _gameDataProvider.PlayerDataProvider.Nickname,
+				PlayerName = _gameDataProvider.AppDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
@@ -342,7 +336,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var config = _services.ConfigsProvider.GetConfig<MapConfig>(room.GetMapId());
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -359,7 +354,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
+			var config = _services.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
 
 			var analytics = new Dictionary<string, object>
 			{

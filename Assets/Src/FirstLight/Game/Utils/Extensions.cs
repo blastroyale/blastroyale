@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using I2.Loc;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -281,6 +282,32 @@ namespace FirstLight.Game.Utils
 		public static bool IsVerifiedFrame(this EventBase eventBase)
 		{
 			return eventBase.Game.Session.IsFrameVerified(eventBase.Tick);
+		}
+
+		/// <summary>
+		/// Obtains the current selected map id in the given <paramref name="room"/>
+		/// </summary>
+		public static int GetMapId(this Room room)
+		{
+			return (int) room.CustomProperties[GameConstants.ROOM_PROPS_MAP];
+		}
+
+		/// <summary>
+		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
+		/// based on loading state of all players assets
+		/// </summary>
+		public static bool AreAllPlayersReady(this Room room)
+		{
+			foreach (var playerKvp in room.Players)
+			{
+				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var propertyValue) ||
+				    !(bool) propertyValue)
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 }

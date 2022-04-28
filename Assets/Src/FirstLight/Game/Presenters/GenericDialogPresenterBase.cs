@@ -59,6 +59,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			CloseButton.gameObject.SetActive(showCloseButton);
+			BlockerButton.enabled = showCloseButton;
 		}
 
 		protected override void OnClosedCompleted()

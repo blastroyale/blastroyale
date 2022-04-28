@@ -52,7 +52,7 @@ namespace FirstLight.Game.StateMachines
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger);
-			_networkState = new NetworkState(gameLogic, services, uiService, networkService, Trigger);
+			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_coreLoopState = new CoreLoopState(gameLogic, services, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
@@ -115,9 +115,9 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.AudioListener.enabled = true;
 			
 			// Just marking the default name to avoid missing names
-			if (string.IsNullOrWhiteSpace(_gameLogic.PlayerLogic.NicknameId.Value))
+			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
 			{
-				_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = PlayerLogic.DefaultPlayerName });
+				_services.PlayfabService.UpdateNickname(PlayerLogic.DefaultPlayerName);
 			}
 			
 			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest { CatalogVersion = StoreService.StoreCatalogVersion }, 
@@ -154,25 +154,6 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
-		}
-		
-		private void PlayIntroVideo(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-
-			var data = new FullScreenVideoPresenter.VideoData
-			{
-				OnVideoCompleted = CloseScreen,
-				VideoAddress = AddressableId.Video_Intro.GetConfig().Address
-			};
-			
-			_uiService.OpenUi<FullScreenVideoPresenter, FullScreenVideoPresenter.VideoData>(data);
-
-			void CloseScreen()
-			{
-				_uiService.CloseUi<FullScreenVideoPresenter>();
-				cacheActivity.Complete();
-			}
 		}
 	}
 }

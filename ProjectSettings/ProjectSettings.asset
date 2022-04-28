@@ -251,8 +251,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: Certificates/phoenix.keystore'
-  AndroidKeyaliasName: upload
+  AndroidKeystoreName: '{inproject}: Certificates/firstlightgames.keystore'
+  AndroidKeyaliasName: blastroyale
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -800,7 +800,7 @@ PlayerSettings:
     PS4: TextMeshPro;QUANTUM_ADDRESSABLES
     PS5: TextMeshPro;QUANTUM_ADDRESSABLES
     Stadia: TextMeshPro;QUANTUM_ADDRESSABLES
-    Standalone: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS
+    Standalone: TextMeshPro;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFAB_BETA;DEVELOPMENT_BUILD;QUANTUM_ADDRESSABLES;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS;ODIN_INSPECTOR_EDITOR_ONLY;ODIN_VALIDATOR;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
     WebGL: TextMeshPro;QUANTUM_ADDRESSABLES
     Windows Store Apps: TextMeshPro;QUANTUM_ADDRESSABLES
     XboxOne: TextMeshPro;QUANTUM_ADDRESSABLES

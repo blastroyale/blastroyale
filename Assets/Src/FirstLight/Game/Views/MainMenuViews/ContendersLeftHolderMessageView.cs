@@ -41,8 +41,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			var mapConfig = _gameDataProvider.AppDataProvider.CurrentMapConfig;
-			_contendersLeftText.text = mapConfig.PlayersLimit.ToString();
+			_contendersLeftText.text = _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers.ToString();
 		}
 		
 		/// <summary>
@@ -50,13 +49,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>() );
+			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, 
+			                                         callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>() );
 			
 			_animation.clip = _animationClipFadeIn;
 			_animation.Rewind();
 			_animation.Play();
 			
-			this.LateCall(_animation.clip.length, PlayFadeOutAnimation);
+			this.LateCoroutineCall(_animation.clip.length, PlayFadeOutAnimation);
 		}
 		
 		private void PlayFadeOutAnimation()

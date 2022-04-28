@@ -40,6 +40,10 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private AuthenticationSaveData _authSaveData;
+		private string _lastAuthEmail;
+		private string _lastAuthName;
+		private string _lastAuthPass;
 		
 		public AuthenticationState(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
@@ -79,26 +83,38 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var login = stateFactory.State("Login");
+			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var register = stateFactory.State("Register");
-			var authenticateLogin = stateFactory.Wait("Authentication");
-			var authenticateRegister = stateFactory.Wait("Register Authentication");
+			var authLoginEmail = stateFactory.Wait("Login Email Authentication");
+			var authLoginDevice = stateFactory.Wait("Login Device Authentication");
+			var authRegister = stateFactory.Wait("Register Authentication");
 			var photonAuthentication = stateFactory.Wait("PlayFab Photon Authentication");
 
-			initial.Transition().Target(login);
+			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetQuantumSettings);
-
+			
+			autoAuthCheck.Transition().Condition(HasCachedLoginEmail).Target(authLoginDevice);
+			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
+			
+			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).Target(register);
-			login.Event(_loginClickedEvent).Target(authenticateLogin);
+			login.Event(_loginClickedEvent).Target(authLoginEmail);
+			login.OnExit(CloseLoginScreen);
 			
+			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).Target(login);
-			register.Event(_registerClickedEvent).Target(authenticateRegister);
+			register.Event(_registerClickedEvent).Target(authRegister);
+			register.OnExit(CloseRegisterScreen);
 			
-			authenticateLogin.WaitingFor(AuthenticateLogin).Target(photonAuthentication);
-			authenticateLogin.Event(_authenticationFailEvent).Target(login);
+			authLoginDevice.WaitingFor(LoginWithDevice).Target(photonAuthentication);
+			authLoginDevice.Event(_authenticationFailEvent).Target(login);
 			
-			authenticateRegister.WaitingFor(AuthenticateRegister).Target(login);
+			authLoginEmail.WaitingFor(LoginWithEmail).Target(photonAuthentication);
+			authLoginEmail.Event(_authenticationFailEvent).Target(login);
 			
+			authRegister.WaitingFor(AuthenticateRegister).Target(login);
+
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
@@ -114,32 +130,121 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
+		private bool HasCachedLoginEmail()
+		{
+			_dataService.TryGetData<AuthenticationSaveData>(out _authSaveData);
+
+			if (_authSaveData == null)
+			{
+				return false;
+			}
+
+			if (string.IsNullOrEmpty(_authSaveData.LastLoginEmail))
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		private void LoginClicked(string email, string password)
+		{
+			_lastAuthEmail = email;
+			_lastAuthPass = password;
+		}
+
+		private void RegisterClicked(string email, string nickname, string password)
+		{
+			_lastAuthEmail = email;
+			_lastAuthName = nickname;
+			_lastAuthPass = password;
+			
+		}
+
+		private void GoToRegisterClicked()
+		{
+			_statechartTrigger(_goToRegisterClickedEvent);
+		}
+
+		private void GoToLoginClicked()
+		{
+			_statechartTrigger(_goToLoginClickedEvent);
+		}
+		
+		private void CloseLoadingScreen()
+		{
+			_uiService.CloseUi<LoadingScreenPresenter>();
+		}
+
 		private void OpenLoginScreen()
 		{
+			var data = new LoginScreenPresenter.StateData
+			{
+				LoginClicked = LoginClicked,
+				GoToRegisterClicked = GoToRegisterClicked
+			};
 			
+			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
 		}
 
 		private void CloseLoginScreen()
 		{
-			
+			_uiService.CloseUi<LoginScreenPresenter>();
 		}
 
 		private void OpenRegisterScreen()
 		{
+			var data = new RegisterScreenPresenter.StateData
+			{
+				RegisterClicked = RegisterClicked,
+				GoToLoginClicked = GoToLoginClicked
+			};
 			
+			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
 		}
 
 		private void CloseRegisterScreen()
 		{
-			
+			_uiService.CloseUi<RegisterScreenPresenter>();
 		}
 
 		private void AuthenticateRegister(IWaitActivity activity)
 		{
+			var cacheActivity = activity;
+			
+			var register = new RegisterPlayFabUserRequest
+			{
+				Email = _lastAuthEmail,
+				DisplayName = _lastAuthName,
+				Password = _lastAuthPass
+			};
+			
+			PlayFabClientAPI.RegisterPlayFabUser(register, OnRegisterSuccess, OnRegisterFail);
+
+			void OnRegisterSuccess(RegisterPlayFabUserResult result)
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = () => { cacheActivity.Complete(); }
+				};
+				
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.RegisterSuccess,false, confirmButton);
+			}
+
+			void OnRegisterFail(PlayFabError error)
+			{
+				OnPlayFabError(error);
+				cacheActivity.Complete();
+			}
+		}
+
+		private void LoginWithEmail(IWaitActivity activity)
+		{
 			activity.Complete();
 		}
 
-		private void AuthenticateLogin(IWaitActivity activity)
+		private void LoginWithDevice(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var infoParams = new GetPlayerCombinedInfoRequestParams
@@ -158,6 +263,7 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnPlayFabError);
+			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{

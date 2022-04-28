@@ -22,15 +22,17 @@ namespace FirstLight.Game.Presenters
 			public Action<string,string> LoginClicked;
 			public Action GoToRegisterClicked;
 		}
-		
+
 		[SerializeField] private TMP_InputField _emailInputField;
 		[SerializeField] private TMP_InputField _passwordInputField;
 
+		[SerializeField] private GameObject _registerRootObject;
 		[SerializeField] private Button _goToRegisterButton;
 		[SerializeField] private Button _loginButton;
 		
 		private void Awake()
 		{
+			_registerRootObject.SetActive(Debug.isDebugBuild);
 			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
 		}

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Services;
 using FirstLight.Game.Ids;
@@ -11,6 +10,7 @@ using TMPro;
 using UnityEngine.Events;
 using FirstLight.Game.Messages;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews

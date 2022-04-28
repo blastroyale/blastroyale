@@ -313,6 +313,7 @@ namespace FirstLight.Game.StateMachines
 			
 			PlayFabClientAPI.LinkCustomID(link, OnLinkSuccess, OnLinkFail);
 			
+			// TODO - LINK PROPERLY ANDROID/IOS
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{

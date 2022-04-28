@@ -92,7 +92,6 @@ namespace FirstLight.Game.Presenters
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);

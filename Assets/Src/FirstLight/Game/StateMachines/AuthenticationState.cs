@@ -91,13 +91,15 @@ namespace FirstLight.Game.StateMachines
 			register.OnExit(CloseRegisterScreen);
 			
 			authLoginDevice.WaitingFor(LoginWithDevice).Target(photonAuthentication);
-			authLoginDevice.Event(_authenticationFailEvent).Target(login);
+			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
+			authLoginDevice.OnEnter(OpenLoadingScreen);
 			authLoginEmail.WaitingFor(LoginWithEmail).Target(photonAuthentication);
-			authLoginEmail.Event(_authenticationFailEvent).Target(login);
+			authLoginEmail.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
+			authLoginDevice.OnEnter(OpenLoadingScreen);
 			authRegister.WaitingFor(AuthenticateRegister).Target(login);
-			authRegister.Event(_registerFailEvent).Target(register);
+			authRegister.Event(_registerFailEvent).OnTransition(CloseLoadingScreen).Target(register);
 			
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			

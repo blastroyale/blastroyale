@@ -109,22 +109,10 @@ namespace FirstLight.Game.Presenters
 			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var totalForceTimeFp = config.PlayerForceRespawnTime - config.PlayerRespawnTime;
 			var totalForceTime = totalForceTimeFp.AsFloat;
-			var localPlayer = QuantumRunner.Default.Game.GetLocalPlayers()[0];
 
 			_respawnButton.gameObject.SetActive(false);
 
 			yield return new WaitForSeconds(config.PlayerRespawnTime.AsFloat);
-
-			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var entity = f.GetSingleton<GameContainer>().PlayersData[localPlayer].Entity;
-
-			// Check if there is still time missing before allowing player to respawn.
-			// This is due to mis sync between Quantum Logic and Unity's view
-			if (f.TryGet<DeadPlayerCharacter>(entity, out var deadPlayer) &&
-			    f.Time < deadPlayer.TimeOfDeath + config.PlayerRespawnTime)
-			{
-				yield return new WaitForSeconds((deadPlayer.TimeOfDeath + config.PlayerRespawnTime - f.Time).AsFloat);
-			}
 
 			var endTime = Time.time + totalForceTime;
 

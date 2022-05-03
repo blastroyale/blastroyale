@@ -607,6 +607,8 @@ namespace I2.Loc
 			public static string LoginButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginButton"); } }
 			public static string LoginOrText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginOrText"); } }
 			public static string LoginTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginTitle"); } }
+			public static string LogoutButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutButton"); } }
+			public static string LogoutConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutConfirm"); } }
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
@@ -620,7 +622,6 @@ namespace I2.Loc
 			public static string NewUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewUnlock"); } }
 			public static string NextArena 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextArena"); } }
 			public static string NextGoal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextGoal"); } }
-			public static string NicknameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NicknameTitle"); } }
 			public static string NoAdventuresAvailable 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NoAdventuresAvailable"); } }
 			public static string NotEnoughSpace 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpace"); } }
 			public static string NotEnoughSpaceWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpaceWarning"); } }
@@ -668,6 +669,7 @@ namespace I2.Loc
 			public static string UnlockCrateNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UnlockCrateNow"); } }
 			public static string UnlockInProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UnlockInProgress"); } }
 			public static string UseCrateSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UseCrateSlot"); } }
+			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
 		}
@@ -1340,6 +1342,8 @@ namespace I2.Loc
 		    public const string LoginButton = "MainMenu/LoginButton";
 		    public const string LoginOrText = "MainMenu/LoginOrText";
 		    public const string LoginTitle = "MainMenu/LoginTitle";
+		    public const string LogoutButton = "MainMenu/LogoutButton";
+		    public const string LogoutConfirm = "MainMenu/LogoutConfirm";
 		    public const string Loot = "MainMenu/Loot";
 		    public const string ManualFire = "MainMenu/ManualFire";
 		    public const string Meters = "MainMenu/Meters";
@@ -1353,7 +1357,6 @@ namespace I2.Loc
 		    public const string NewUnlock = "MainMenu/NewUnlock";
 		    public const string NextArena = "MainMenu/NextArena";
 		    public const string NextGoal = "MainMenu/NextGoal";
-		    public const string NicknameTitle = "MainMenu/NicknameTitle";
 		    public const string NoAdventuresAvailable = "MainMenu/NoAdventuresAvailable";
 		    public const string NotEnoughSpace = "MainMenu/NotEnoughSpace";
 		    public const string NotEnoughSpaceWarning = "MainMenu/NotEnoughSpaceWarning";
@@ -1401,6 +1404,7 @@ namespace I2.Loc
 		    public const string UnlockCrateNow = "MainMenu/UnlockCrateNow";
 		    public const string UnlockInProgress = "MainMenu/UnlockInProgress";
 		    public const string UseCrateSlot = "MainMenu/UseCrateSlot";
+		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
 		}

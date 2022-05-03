@@ -322,7 +322,7 @@ namespace FirstLight.Game.StateMachines
 				activity.Complete();
 				_authData.LinkedDevice = true;
 			}
-
+			
 			void OnLinkFail(PlayFabError error)
 			{
 				OnPlayFabError(error);
@@ -346,12 +346,6 @@ namespace FirstLight.Game.StateMachines
 				_authData.LinkedDevice = true;
 			}
 
-			void OnLinkFail(PlayFabError error)
-			{
-				OnPlayFabError(error);
-				activity.Complete();
-			}
-			
 #elif UNITY_IOS
 			var link = new LinkIOSDeviceIDRequest
 			{
@@ -367,12 +361,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				activity.Complete();
 				_authData.LinkedDevice = true;
-			}
-
-			void OnLinkFail(PlayFabError error)
-			{
-				OnPlayFabError(error);
-				activity.Complete();
 			}
 #endif
 		}

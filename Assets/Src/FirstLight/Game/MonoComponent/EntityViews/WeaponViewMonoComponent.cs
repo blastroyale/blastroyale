@@ -48,6 +48,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 			_particleSystem.time = 0;
 			_particleSystem.Play();
+
+			QuantumWeaponConfig config = callback.WeaponConfig;
+
+			//only do this if we are not firing a projectile
+			if(!config.IsProjectile)
+			{
+				//sets the direction and arc of the particle system
+				var shape = _particleSystem.shape;
+				var arc = 0;
+				float rotation = -90;
+				if (config.NumberOfShots > 1) //depending on whether or not the weapon is multishot or not
+				{
+					arc = (int)config.AttackAngle;
+					rotation = -(90 - (shape.arc / 2));
+				}
+				
+				shape.arc = arc;
+				shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
+				shape.rotation = new Vector3(90, rotation, 0);
+			}
+ 
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
@@ -72,7 +93,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;
 			
-			if (speed < float.Epsilon)
+			//dont set VFX values if the weapon is a projectile or doesn't travel
+			if (speed < float.Epsilon || config.IsProjectile)
 			{
 				return;
 			}
@@ -83,7 +105,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			main.startDelay = 0;
 			main.loop = false;
 			main.maxParticles = 10;
-			emission.rateOverTime = 0.1f;
+			emission.rateOverTime = 0f;
+
+			
+			emission.burstCount = 1;
+			var burst = emission.GetBurst(0);
+			burst.count = config.NumberOfShots;
+			burst.repeatInterval = config.AttackCooldown.AsFloat;
+			emission.SetBurst(0, burst);
 		}
 	}
 }

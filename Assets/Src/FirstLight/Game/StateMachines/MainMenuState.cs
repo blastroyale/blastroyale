@@ -705,11 +705,23 @@ namespace FirstLight.Game.StateMachines
 				authData.LinkedDevice = false;
 				_dataService.SaveData<AuthenticationSaveData>();
 
+#if UNITY_EDITOR
+				var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+					ButtonOnClick = () => { UnityEditor.EditorApplication.isPlaying = false; }
+				};
+
+				_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+				return;
+#endif
+				
 				var button = new AlertButton
 				{
 					Callback = Application.Quit,
 					Style = AlertButtonStyle.Positive,
-					Text = "Quit Game"
+					Text = ScriptLocalization.MainMenu.QuitGameButton
 				};
 
 				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,

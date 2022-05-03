@@ -312,7 +312,8 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var link = new LinkCustomIDRequest
 			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
 			};
 			
 			PlayFabClientAPI.LinkCustomID(link, OnLinkSuccess, OnLinkFail);

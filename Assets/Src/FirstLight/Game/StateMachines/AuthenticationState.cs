@@ -312,32 +312,7 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			PlayFabClientAPI.LinkCustomID(link, OnLinkSuccess, OnLinkFail);
-			
-			// TODO - LINK PROPERLY ANDROID/IOS
-#elif UNITY_ANDROID
-			var login = new LoginWithAndroidDeviceIDRequest()
-			{
-				CreateAccount = true,
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				InfoRequestParameters = infoParams
-			};
-			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnPlayFabError);
-#elif UNITY_IOS
-			var login = new LoginWithIOSDeviceIDRequest()
-			{
-				CreateAccount = true,
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				InfoRequestParameters = infoParams
-			};
-			
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnPlayFabError);
-#endif
-			
+
 			void OnLinkSuccess(LinkCustomIDResult result)
 			{
 				activity.Complete();
@@ -348,6 +323,52 @@ namespace FirstLight.Game.StateMachines
 				OnPlayFabError(error);
 				activity.Complete();
 			}
+
+			// TODO - LINK PROPERLY ANDROID/IOS
+#elif UNITY_ANDROID
+			var link = new LinkAndroidDeviceIDRequest
+			{
+				AndroidDevice = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkAndroidDeviceID(link, OnLinkSuccess, OnLinkFail);
+			
+			void OnLinkSuccess(LinkAndroidDeviceIDResult result)
+			{
+				activity.Complete();
+			}
+
+			void OnLinkFail(PlayFabError error)
+			{
+				OnPlayFabError(error);
+				activity.Complete();
+			}
+			
+#elif UNITY_IOS
+			var link = new LinkIOSDeviceIDRequest
+			{
+				DeviceModel = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkIOSDeviceID(link, OnLinkSuccess, OnLinkFail);
+			
+			void OnLinkSuccess(LinkIOSDeviceIDResult result)
+			{
+				activity.Complete();
+			}
+
+			void OnLinkFail(PlayFabError error)
+			{
+				OnPlayFabError(error);
+				activity.Complete();
+			}
+#endif
 		}
 
 		private void PhotonAuthentication(IWaitActivity activity)

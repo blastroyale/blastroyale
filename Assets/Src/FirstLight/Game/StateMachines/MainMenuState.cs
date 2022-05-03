@@ -658,20 +658,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				UnlinkComplete();
 			}
-
-			void OnUnlinkFail(PlayFabError error)
-			{
-				_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
-				var button = new AlertButton
-				{
-					Callback = Application.Quit,
-					Style = AlertButtonStyle.Negative,
-					Text = ScriptLocalization.MainMenu.QuitGameButton
-				};
-
-				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
-			}
 #elif UNITY_ANDROID
 			var unlink = new UnlinkAndroidDeviceIDRequest
 			{
@@ -697,6 +683,20 @@ namespace FirstLight.Game.StateMachines
 				UnlinkComplete();
 			}
 #endif
+			
+			void OnUnlinkFail(PlayFabError error)
+			{
+				_services.AnalyticsService.CrashLog(error.ErrorMessage);
+
+				var button = new AlertButton
+				{
+					Callback = Application.Quit,
+					Style = AlertButtonStyle.Negative,
+					Text = ScriptLocalization.MainMenu.QuitGameButton
+				};
+
+				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
+			}
 
 			void UnlinkComplete()
 			{

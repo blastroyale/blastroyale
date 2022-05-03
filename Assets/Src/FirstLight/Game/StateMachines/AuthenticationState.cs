@@ -322,13 +322,7 @@ namespace FirstLight.Game.StateMachines
 				activity.Complete();
 				_authData.LinkedDevice = true;
 			}
-			
-			void OnLinkFail(PlayFabError error)
-			{
-				OnPlayFabError(error);
-				activity.Complete();
-			}
-			
+
 #elif UNITY_ANDROID
 			var link = new LinkAndroidDeviceIDRequest
 			{
@@ -363,6 +357,12 @@ namespace FirstLight.Game.StateMachines
 				_authData.LinkedDevice = true;
 			}
 #endif
+			
+			void OnLinkFail(PlayFabError error)
+			{
+				OnPlayFabError(error);
+				activity.Complete();
+			}
 		}
 
 		private void PhotonAuthentication(IWaitActivity activity)

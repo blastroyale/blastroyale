@@ -31,8 +31,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
 		private readonly IStatechartEvent _loginClickedEvent = new StatechartEvent("Login Clicked Event");
 		private readonly IStatechartEvent _registerClickedEvent = new StatechartEvent("Register Clicked Event");
-		private readonly IStatechartEvent _authenticationSuccessEvent = new StatechartEvent("Authentication Success Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
+		private readonly IStatechartEvent _registerFailEvent = new StatechartEvent("Register Failed Event");
 		
 		private readonly GameLogic _gameLogic;
 		private readonly IGameServices _services;
@@ -56,24 +56,6 @@ namespace FirstLight.Game.StateMachines
 			_dataService = dataService;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-		}
-
-		/// <summary>
-		/// Callback to be used during PlayFab initial authentication proccess
-		/// </summary>
-		/// <param name="error"></param>
-		public void OnPlayFabError(PlayFabError error) 
-		{
-			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
-			var button = new AlertButton
-			{
-				Callback = Application.Quit,
-				Style = AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
 		}
 
 		/// <summary>
@@ -115,6 +97,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginEmail.Event(_authenticationFailEvent).Target(login);
 			
 			authRegister.WaitingFor(AuthenticateRegister).Target(login);
+			authRegister.Event(_registerFailEvent).Target(register);
 			
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			
@@ -169,6 +152,7 @@ namespace FirstLight.Game.StateMachines
 
 			void OnRegisterFail(PlayFabError error)
 			{
+				_statechartTrigger(_registerFailEvent);
 				OnPlayFabError(error);
 				cacheActivity.Complete();
 			}
@@ -260,6 +244,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(_authenticationFailEvent);
 				OnPlayFabError(error);
+				cacheActivity.Complete();
 			}
 		}
 
@@ -319,9 +304,9 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLinkSuccess(LinkCustomIDResult result)
 			{
-				activity.Complete();
 				_authData.LinkedDevice = true;
 				_dataService.SaveData<AuthenticationSaveData>();
+				activity.Complete();
 			}
 
 #elif UNITY_ANDROID
@@ -337,9 +322,9 @@ namespace FirstLight.Game.StateMachines
 			
 			void OnLinkSuccess(LinkAndroidDeviceIDResult result)
 			{
-				activity.Complete();
 				_authData.LinkedDevice = true;
 				_dataService.SaveData<AuthenticationSaveData>();
+				activity.Complete();
 			}
 
 #elif UNITY_IOS
@@ -355,9 +340,9 @@ namespace FirstLight.Game.StateMachines
 			
 			void OnLinkSuccess(LinkIOSDeviceIDResult result)
 			{
-				activity.Complete();
 				_authData.LinkedDevice = true;
 				_dataService.SaveData<AuthenticationSaveData>();
+				activity.Complete();
 			}
 #endif
 			
@@ -374,7 +359,7 @@ namespace FirstLight.Game.StateMachines
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
 			
-			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnPlayFabError);
+			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
 
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
@@ -400,7 +385,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 			
-			PlayFabCloudScriptAPI.ExecuteFunction(request, OnPlayerSetup, OnPlayFabError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, OnPlayerSetup, OnCriticalPlayFabError);
 			
 			void OnPlayerSetup(ExecuteFunctionResult result)
 			{
@@ -438,6 +423,37 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			activity.Complete();
+		}
+		
+		/// <summary>
+		/// Callback for game-stopping errors. Prompts user to close the game.
+		/// </summary>
+		public void OnCriticalPlayFabError(PlayFabError error) 
+		{
+			_services.AnalyticsService.CrashLog(error.ErrorMessage);
+
+			var button = new AlertButton
+			{
+				Callback = Application.Quit,
+				Style = AlertButtonStyle.Negative,
+				Text = ScriptLocalization.MainMenu.QuitGameButton
+			};
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
+		}
+		
+		/// <summary>
+		/// Callback for regular authentication errors. Dismissable popup.
+		/// </summary>
+		public void OnPlayFabError(PlayFabError error) 
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 
 		private void OpenGameUpdateDialog()

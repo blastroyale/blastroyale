@@ -33,34 +33,19 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-
-		private readonly IStatechartEvent _currentTabButtonClickedEvent =
-			new StatechartEvent("Current Tab Button Clicked Event");
-
+		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-
-		private readonly IStatechartEvent _settingsMenuClickedEvent =
-			new StatechartEvent("Settings Menu Button Clicked Event");
-
-		private readonly IStatechartEvent _settingsCloseClickedEvent =
-			new StatechartEvent("Settings Close Button Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
-			new StatechartEvent("Room Join Create Button Clicked Event");
-
+		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
+		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
-			new StatechartEvent("Room Join Create Close Button Clicked Event");
-
-		private readonly IStatechartEvent _closeOverflowScreenClickedEvent =
-			new StatechartEvent("Close Overflow Loot Screen Clicked Event");
-
-		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent =
-			new StatechartEvent("Speed Up Overflow Clicked Event");
-
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
+		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
+		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-
+		private readonly IStatechartEvent _logoutConfirmClickedEvent = new StatechartEvent("Logout Confirm Clicked Event");
+		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
+		
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IDataService _dataService;
@@ -142,6 +127,7 @@ namespace FirstLight.Game.StateMachines
 			var cratesMenu = stateFactory.Nest("Crates Menu");
 			var socialMenu = stateFactory.State("Social Menu");
 			var settingsMenu = stateFactory.State("Settings Menu");
+			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
 			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
@@ -199,6 +185,11 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
 			settingsMenu.Event(_currentTabButtonClickedEvent).Target(homeMenu);
+			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
+
+			logoutWait.OnEnter(CloseSettingsMenuUI);
+			logoutWait.OnEnter(TryLogOut);
+			logoutWait.Event(_logoutFailedEvent).Target(homeMenu);
 
 			shopMenu.OnEnter(OpenShopMenuUI);
 			shopMenu.Nest(_shopMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
@@ -526,7 +517,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new SettingsScreenPresenter.StateData
 			{
-				LogoutClicked = LogoutConfirm,
+				LogoutClicked = TryLogOut,
 				OnClose = CloseScreen
 			};
 			
@@ -536,6 +527,11 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(_settingsCloseClickedEvent);
 			}
+		}
+
+		private void CloseSettingsMenuUI()
+		{
+			_uiService.CloseUi<SettingsScreenPresenter>();
 		}
 
 		private void LoadingComplete()
@@ -644,7 +640,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
 		}
 
-		private void LogoutConfirm()
+		private void TryLogOut()
 		{
 #if UNITY_EDITOR
 			var unlink = new UnlinkCustomIDRequest
@@ -683,19 +679,17 @@ namespace FirstLight.Game.StateMachines
 				UnlinkComplete();
 			}
 #endif
-			
 			void OnUnlinkFail(PlayFabError error)
 			{
 				_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
-				var button = new AlertButton
+				
+				var confirmButton = new GenericDialogButton
 				{
-					Callback = Application.Quit,
-					Style = AlertButtonStyle.Negative,
-					Text = ScriptLocalization.MainMenu.QuitGameButton
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
 				};
 
-				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
+				_services.GenericDialogService.OpenDialog(error.ErrorMessage,false, confirmButton);
 			}
 
 			void UnlinkComplete()

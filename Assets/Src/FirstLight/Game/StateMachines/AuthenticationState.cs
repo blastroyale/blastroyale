@@ -97,7 +97,7 @@ namespace FirstLight.Game.StateMachines
 			
 			autoAuthCheck.Transition().Condition(HasCachedLoginEmail).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
-			
+
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).Target(register);
 			login.Event(_loginClickedEvent).Target(authLoginEmail);
@@ -196,12 +196,6 @@ namespace FirstLight.Game.StateMachines
 			void OnLoginSuccess(LoginResult result)
 			{
 				_authData.LastLoginEmail = _selectedAuthEmail;
-
-				if (!_authData.LinkedDevice)
-				{
-					LinkDeviceID(cacheActivity.Split());
-				}
-				
 				ProcessAuthentication(result, cacheActivity);
 			}
 
@@ -285,6 +279,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void ProcessAuthentication(LoginResult result, IWaitActivity activity)
 		{
+			if (!_authData.LinkedDevice)
+			{
+				LinkDeviceID(activity.Split());
+			}
+			
 			var titleData = result.InfoResultPayload.TitleData;
 			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
@@ -322,6 +321,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				activity.Complete();
 				_authData.LinkedDevice = true;
+				_dataService.SaveData<AuthenticationSaveData>();
 			}
 
 #elif UNITY_ANDROID
@@ -339,6 +339,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				activity.Complete();
 				_authData.LinkedDevice = true;
+				_dataService.SaveData<AuthenticationSaveData>();
 			}
 
 #elif UNITY_IOS
@@ -356,6 +357,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				activity.Complete();
 				_authData.LinkedDevice = true;
+				_dataService.SaveData<AuthenticationSaveData>();
 			}
 #endif
 			

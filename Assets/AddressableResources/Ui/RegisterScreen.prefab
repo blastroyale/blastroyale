@@ -1680,7 +1680,7 @@ MonoBehaviour:
   _passwordInputField: {fileID: 4133704773946751923}
   _goToLoginButton: {fileID: 3819700087749635873}
   _registerButton: {fileID: 7548042188771319651}
-  _frontBlocker: {fileID: 950077273083359700}
+  _frontDimBlocker: {fileID: 950077273083359700}
 --- !u!1 &4194012447175886297
 GameObject:
   m_ObjectHideFlags: 0

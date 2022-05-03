@@ -81,25 +81,25 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
-			login.Event(_goToRegisterClickedEvent).Target(register);
+			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
 			login.Event(_loginClickedEvent).Target(authLoginEmail);
-			login.OnExit(CloseLoginScreen);
 			
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_registerClickedEvent).Target(authRegister);
-			register.OnExit(CloseRegisterScreen);
-			
+
 			authLoginDevice.WaitingFor(LoginWithDevice).Target(photonAuthentication);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
-			authLoginDevice.OnEnter(OpenLoadingScreen);
-			authLoginEmail.WaitingFor(LoginWithEmail).Target(photonAuthentication);
-			authLoginEmail.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
+			authLoginEmail.OnEnter(()=>{ DimLoginScreen(true);});
+			authLoginEmail.WaitingFor(LoginWithEmail).OnTransition(()=>{ CloseLoginScreen(); OpenLoadingScreen(); }).Target(photonAuthentication);
+			authLoginEmail.Event(_authenticationFailEvent).Target(login);
+			authLoginEmail.OnExit(()=>{ DimLoginScreen(false);});
 			
-			authLoginDevice.OnEnter(OpenLoadingScreen);
-			authRegister.WaitingFor(AuthenticateRegister).Target(login);
-			authRegister.Event(_registerFailEvent).OnTransition(CloseLoadingScreen).Target(register);
+			authRegister.OnEnter(()=>{ DimRegisterScreen(true);});
+			authRegister.WaitingFor(AuthenticateRegister).OnTransition(CloseRegisterScreen).Target(login);
+			authRegister.Event(_registerFailEvent).Target(register);
+			authRegister.OnExit(()=>{ DimRegisterScreen(false);});
 			
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			
@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 				var confirmButton = new GenericDialogButton
 				{
 					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = () => { cacheActivity.Complete(); }
+					ButtonOnClick = ()=>{ cacheActivity.Complete(); }
 				};
 				
 				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.RegisterSuccess,false, confirmButton);
@@ -581,6 +581,16 @@ namespace FirstLight.Game.StateMachines
 		private void CloseRegisterScreen()
 		{
 			_uiService.CloseUi<RegisterScreenPresenter>();
+		}
+
+		private void DimRegisterScreen(bool dimmed)
+		{
+			_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+		}
+
+		private void DimLoginScreen(bool dimmed)
+		{
+			_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
 		}
 
 		private bool IsOutdated(string version)

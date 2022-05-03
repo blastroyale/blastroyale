@@ -30,10 +30,17 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _goToLoginButton;
 		[SerializeField] private Button _registerButton;
 
+		[SerializeField] private GameObject _frontDimBlocker;
+
 		private void Awake()
 		{
 			_goToLoginButton.onClick.AddListener(GoToLoginClicked);
 			_registerButton.onClick.AddListener(RegisterClicked);
+		}
+
+		private void OnEnable()
+		{
+			SetFrontDimBlockerActive(false);
 		}
 
 		private void RegisterClicked()
@@ -44,6 +51,14 @@ namespace FirstLight.Game.Presenters
 		private void GoToLoginClicked()
 		{
 			Data.GoToLoginClicked();
+		}
+		
+		/// <summary>
+		/// Sets the activity of the dimmed blocker image that covers the presenter
+		/// </summary>
+		public void SetFrontDimBlockerActive(bool active)
+		{
+			_frontDimBlocker.SetActive(active);
 		}
 	}
 }

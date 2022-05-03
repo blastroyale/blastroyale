@@ -44,6 +44,7 @@ namespace FirstLight.Game.StateMachines
 		private string _selectedAuthEmail;
 		private string _selectedAuthName;
 		private string _selectedAuthPass;
+		private AuthenticationSaveData _authData;
 		
 		public AuthenticationState(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
@@ -132,9 +133,9 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCachedLoginEmail()
 		{
-			var authSaveData = _dataService.LoadData<AuthenticationSaveData>();
+			_authData = _dataService.LoadData<AuthenticationSaveData>();
 			
-			if (string.IsNullOrEmpty(authSaveData.LastLoginEmail))
+			if (string.IsNullOrEmpty(_authData.LastLoginEmail))
 			{
 				return false;
 			}
@@ -194,10 +195,13 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLoginSuccess(LoginResult result)
 			{
-				var authSaveData = _dataService.GetData<AuthenticationSaveData>();
-				authSaveData.LastLoginEmail = _selectedAuthEmail;
+				_authData.LastLoginEmail = _selectedAuthEmail;
 
-				LinkDeviceID(cacheActivity.Split());
+				if (!_authData.LinkedDevice)
+				{
+					LinkDeviceID(cacheActivity.Split());
+				}
+				
 				ProcessAuthentication(result, cacheActivity);
 			}
 
@@ -316,6 +320,7 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess(LinkCustomIDResult result)
 			{
 				activity.Complete();
+				_authData.LinkedDevice = true;
 			}
 
 			void OnLinkFail(PlayFabError error)
@@ -323,8 +328,7 @@ namespace FirstLight.Game.StateMachines
 				OnPlayFabError(error);
 				activity.Complete();
 			}
-
-			// TODO - LINK PROPERLY ANDROID/IOS
+			
 #elif UNITY_ANDROID
 			var link = new LinkAndroidDeviceIDRequest
 			{
@@ -339,6 +343,7 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess(LinkAndroidDeviceIDResult result)
 			{
 				activity.Complete();
+				_authData.LinkedDevice = true;
 			}
 
 			void OnLinkFail(PlayFabError error)
@@ -361,6 +366,7 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess(LinkIOSDeviceIDResult result)
 			{
 				activity.Complete();
+				_authData.LinkedDevice = true;
 			}
 
 			void OnLinkFail(PlayFabError error)

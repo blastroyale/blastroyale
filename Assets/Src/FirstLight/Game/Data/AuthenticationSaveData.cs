@@ -12,5 +12,8 @@ public class AuthenticationSaveData
 {
 	[JsonProperty]
 	public string LastLoginEmail { get; set; }
+	
+	[JsonProperty]
+	public bool LinkedDevice { get; set; }
 }
 

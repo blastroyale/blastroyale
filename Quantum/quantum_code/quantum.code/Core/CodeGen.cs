@@ -65,6 +65,7 @@ namespace Quantum {
     FloodCitySimple = 7,
     BlimpDeck = 8,
     BRGenesis = 9,
+    TestScene = 11,
     AssaultRifle = 23,
     MausHelmet = 24,
     GoldenBoots = 25,

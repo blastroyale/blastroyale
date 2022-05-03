@@ -36,6 +36,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private GameObject _battleRoyaleButtonRoot;
 		[SerializeField] private Button _playBattleRoyaleRandom;
 		[SerializeField] private Button _playBattleRoyaleOffline;
+		[SerializeField] private Button _playBattleRoyaleTestMap;
 		[SerializeField] private Button _playDeathmatchRandom;
 		[SerializeField] private Button _playDeathmatchOffline;
 		[SerializeField] private Button _playRoom;
@@ -74,6 +75,7 @@ namespace FirstLight.Game.Presenters
 			_playDeathmatchOffline.onClick.AddListener(OnPlayDeathmatchOfflineClicked);
 			_playBattleRoyaleRandom.onClick.AddListener(OnPlayBattleRoyaleClicked);
 			_playBattleRoyaleOffline.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
+			_playBattleRoyaleTestMap.onClick.AddListener(OnPlayBattleRoyaleTestMapClicked);
 			
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
@@ -122,6 +124,18 @@ namespace FirstLight.Game.Presenters
 			{
 				IsOfflineMode = true,
 				GameMode = GameMode.BattleRoyale
+			};
+
+			_services.MessageBrokerService.Publish(message);
+			Data.OnPlayButtonClicked();
+		}
+		
+		private void OnPlayBattleRoyaleTestMapClicked()
+		{
+			var message = new PlayMapClickedMessage
+			{
+				IsOfflineMode = true,
+				MapId = 7
 			};
 
 			_services.MessageBrokerService.Publish(message);

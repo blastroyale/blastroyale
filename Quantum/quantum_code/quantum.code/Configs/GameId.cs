@@ -164,6 +164,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TestScene, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.AssaultRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
@@ -702,7 +708,8 @@ namespace Quantum
 						GameId.SmallWilderness,
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
-						GameId.BRGenesis
+						GameId.BRGenesis,
+						GameId.TestScene
 					}.AsReadOnly()
 				},
 				{

@@ -70,10 +70,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = Application.Quit,
 				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
+				Text = ScriptLocalization.MainMenu.QuitGameButton
 			};
 
-			NativeUiService.ShowAlertPopUp(false, "Game Error", error.ErrorMessage, button);
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
 		}
 
 		/// <summary>

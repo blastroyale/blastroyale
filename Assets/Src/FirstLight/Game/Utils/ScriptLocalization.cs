@@ -609,6 +609,8 @@ namespace I2.Loc
 			public static string LoginTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginTitle"); } }
 			public static string LogoutButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutButton"); } }
 			public static string LogoutConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutConfirm"); } }
+			public static string LogoutSuccessDesc 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessDesc"); } }
+			public static string LogoutSuccessTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessTitle"); } }
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
@@ -631,11 +633,13 @@ namespace I2.Loc
 			public static string PasswordTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PasswordTitle"); } }
 			public static string PlayGame 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayGame"); } }
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
+			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
 			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Power"); } }
 			public static string PowerRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerRating"); } }
 			public static string PowerTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerTotal"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
+			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
@@ -1344,6 +1348,8 @@ namespace I2.Loc
 		    public const string LoginTitle = "MainMenu/LoginTitle";
 		    public const string LogoutButton = "MainMenu/LogoutButton";
 		    public const string LogoutConfirm = "MainMenu/LogoutConfirm";
+		    public const string LogoutSuccessDesc = "MainMenu/LogoutSuccessDesc";
+		    public const string LogoutSuccessTitle = "MainMenu/LogoutSuccessTitle";
 		    public const string Loot = "MainMenu/Loot";
 		    public const string ManualFire = "MainMenu/ManualFire";
 		    public const string Meters = "MainMenu/Meters";
@@ -1366,11 +1372,13 @@ namespace I2.Loc
 		    public const string PasswordTitle = "MainMenu/PasswordTitle";
 		    public const string PlayGame = "MainMenu/PlayGame";
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
+		    public const string PlayfabError = "MainMenu/PlayfabError";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
 		    public const string Power = "MainMenu/Power";
 		    public const string PowerRating = "MainMenu/PowerRating";
 		    public const string PowerTotal = "MainMenu/PowerTotal";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
+		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
 		    public const string RegisterButton = "MainMenu/RegisterButton";

@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +18,14 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : AnimatedUiPresenterData<ActionStruct>
+	public class SettingsScreenPresenter : AnimatedUiPresenterData<SettingsScreenPresenter.StateData>
 	{
+		public struct StateData
+		{
+			public Action LogoutClicked;
+			public Action OnClose;
+		}
+
 		[SerializeField] private TextMeshProUGUI _versionText;
 		[SerializeField] private TextMeshProUGUI _fullNameText;
 		[SerializeField] private Button _closeButton;
@@ -31,13 +38,11 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		private IDataService _dataService;
 
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_dataService = MainInstaller.Resolve<IDataService>();
 
 			_versionText.text = VersionUtils.VersionInternal;
 			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
@@ -60,11 +65,11 @@ namespace FirstLight.Game.Presenters
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 		}
-
+		
 		/// <inheritdoc />
 		protected override void OnClosedCompleted()
 		{
-			Data.Execute();
+			Data.OnClose();
 		}
 
 		private void OnBgmChanged(bool value)
@@ -89,73 +94,10 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = LogoutConfirm
+				ButtonOnClick = () => { Data.LogoutClicked();}
 			};
 
 			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
-		}
-
-		private void LogoutConfirm()
-		{
-#if UNITY_EDITOR
-			var unlink = new UnlinkCustomIDRequest
-			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier
-			};
-
-			PlayFabClientAPI.UnlinkCustomID(unlink, OnUnlinkSuccess, OnUnlinkFail);
-			
-			void OnUnlinkSuccess(UnlinkCustomIDResult result)
-			{
-				UnlinkComplete();
-			}
-
-			void OnUnlinkFail(PlayFabError error)
-			{
-				_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
-				var button = new AlertButton
-				{
-					Callback = Application.Quit,
-					Style = AlertButtonStyle.Negative,
-					Text = "Quit Game"
-				};
-
-				NativeUiService.ShowAlertPopUp(false, "Game Error", error.ErrorMessage, button);
-			}
-#elif UNITY_ANDROID
-			var unlink = new UnlinkAndroidDeviceIDRequest
-			{
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-			};
-			
-			PlayFabClientAPI.UnlinkAndroidDeviceID(unlink,OnUnlinkSuccess,OnUnlinkFail);
-			
-			void OnUnlinkSuccess(UnlinkAndroidDeviceIDResult result)
-			{
-				UnlinkComplete();
-			}
-#elif UNITY_IOS
-			var unlink = new UnlinkIOSDeviceIDRequest
-			{
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-			};
-
-			PlayFabClientAPI.UnlinkIOSDeviceID(unlink, OnUnlinkSuccess, OnUnlinkFail);
-			
-			void OnUnlinkSuccess(UnlinkIOSDeviceIDResult result)
-			{
-				UnlinkComplete();
-			}
-#endif
-
-			void UnlinkComplete()
-			{
-				var authData = _dataService.GetData<AuthenticationSaveData>();
-				authData.LastLoginEmail = "";
-				authData.LinkedDevice = false;
-				_dataService.SaveData<AuthenticationSaveData>();
-			}
 		}
 	}
 }

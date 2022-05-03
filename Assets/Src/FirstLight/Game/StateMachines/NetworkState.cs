@@ -324,7 +324,11 @@ namespace FirstLight.Game.StateMachines
 			config.IsOfflineMode = isOfflineMode || mapConfig.PlayersLimit == 1;
 			
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
+			}
 		}
 
 		private void JoinRoom(string roomName)
@@ -342,8 +346,11 @@ namespace FirstLight.Game.StateMachines
 			config.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
-			
-			_networkService.QuantumClient.OpJoinRoom(enterParams);
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpJoinRoom(enterParams);
+			}
 		}
 
 		private void CreateRoom(GameMode mode, string roomName)
@@ -355,8 +362,11 @@ namespace FirstLight.Game.StateMachines
 			config.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
-			
-			_networkService.QuantumClient.OpCreateRoom(enterParams);
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpCreateRoom(enterParams);
+			}
 		}
 		
 		private void TickQuantumServer(float deltaTime)
@@ -397,7 +407,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void LeaveRoom()
 		{
-			_networkService.QuantumClient.OpLeaveRoom(false, true);
+			if (_networkService.QuantumClient.InRoom)
+			{
+				_networkService.QuantumClient.OpLeaveRoom(false, true);
+			}
 		}
 
 		private void UpdateQuantumClientProperties()

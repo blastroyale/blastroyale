@@ -12,7 +12,7 @@ namespace Quantum
 		public IndicatorVfxId Indicator;
 		public FP Cooldown;
 		public FP Radius;
-		public uint PowerAmount;
+		public FP PowerAmount;
 		public FP Speed;
 		public FP MinRange;
 		public FP MaxRange;

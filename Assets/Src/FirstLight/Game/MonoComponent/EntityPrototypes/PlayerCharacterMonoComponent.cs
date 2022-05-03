@@ -189,7 +189,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
-				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, stats.CurrentStatusModifierDuration.AsFloat);
+				var time = stats.CurrentStatusModifierEndTime - frame.Time;
+				
+				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
 		}
 

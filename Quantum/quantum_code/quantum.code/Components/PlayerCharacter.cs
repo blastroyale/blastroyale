@@ -82,8 +82,8 @@ namespace Quantum
 		internal void Activate(Frame f, EntityRef e)
 		{
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
-			
 			var stats = f.Unsafe.GetPointer<Stats>(e);
+			
 			stats->SetCurrentHealthPercentage(f, e, EntityRef.None, FP._1);
 			
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
@@ -161,7 +161,7 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var power = QuantumStatCalculator.CalculateStatValue(weapon.Rarity, weaponConfig.PowerRatioToBase,
-			                                                     weapon.Level, f.GameConfig, StatType.Power);
+			                                                     weapon.Level, weapon.GradeIndex, f.GameConfig, StatType.Power);
 
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);

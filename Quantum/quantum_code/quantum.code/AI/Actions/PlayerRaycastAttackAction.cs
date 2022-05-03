@@ -24,8 +24,6 @@ namespace Quantum
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
 			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized;
-			
-
 			var raycastShot = new RaycastShots
 			{
 				Attacker = e,
@@ -47,7 +45,7 @@ namespace Quantum
 			playerCharacter->ReduceAmmo(f, e, 1);
 			
 			f.Add(f.Create(), raycastShot);
-			f.Events.OnPlayerAttack(player, e, weaponConfig);
+			f.Events.OnPlayerAttack(player, e);
 			f.Events.OnLocalPlayerAttack(player, e);
 		}
 	}

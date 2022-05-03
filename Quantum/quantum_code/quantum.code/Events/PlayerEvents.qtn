@@ -89,7 +89,6 @@ synced event OnPlayerAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
-	QuantumWeaponConfig WeaponConfig;
 }
 
 synced event OnPlayerDamaged

@@ -51,14 +51,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			QuantumWeaponConfig config = callback.WeaponConfig;
 
-			//only do this if we are not firing a projectile
+			
 			if(!config.IsProjectile)
 			{
-				//sets the direction and arc of the particle system
 				var shape = _particleSystem.shape;
 				var arc = 0;
 				float rotation = -90;
-				if (config.NumberOfShots > 1) //depending on whether or not the weapon is multishot or not
+				if (config.NumberOfShots > 1)
 				{
 					arc = (int)config.AttackAngle;
 					rotation = -(90 - (shape.arc / 2));
@@ -93,7 +92,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;
 			
-			//dont set VFX values if the weapon is a projectile or doesn't travel
 			if (speed < float.Epsilon || config.IsProjectile)
 			{
 				return;

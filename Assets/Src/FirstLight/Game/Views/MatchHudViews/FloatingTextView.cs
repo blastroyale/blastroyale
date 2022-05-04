@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This view displays floating text and plays a legacy animation.
@@ -24,11 +22,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private AnimationCurve _yPositionAnimCurve;
 		[SerializeField] private AnimationCurve _scaleCurve;
 		
-		
 		[Header("Objects that will be affected by the float sequence")]
 		[SerializeField] private RectTransform[] _objectsToFloat;
 		
-
 		private Tweener _tweener;
 
 		/// <summary>

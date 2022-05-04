@@ -9,7 +9,6 @@ using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {

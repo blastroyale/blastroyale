@@ -339,7 +339,6 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess(LinkAndroidDeviceIDResult result)
 			{
 				_dataService.GetData<AppData>().LinkedDevice = true;
-				_dataService.SaveData<AuthenticationSaveData>();
 				activity.Complete();
 			}
 
@@ -357,7 +356,6 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess(LinkIOSDeviceIDResult result)
 			{
 				_dataService.GetData<AppData>().LinkedDevice = true;
-				_dataService.SaveData<AuthenticationSaveData>();
 				activity.Complete();
 			}
 #endif

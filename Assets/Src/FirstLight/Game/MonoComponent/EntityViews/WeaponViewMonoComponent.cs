@@ -18,6 +18,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
+
 		}
 		
 		protected override void OnInit(QuantumGame game)
@@ -49,17 +50,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.time = 0;
 			_particleSystem.Play();
 
-			QuantumWeaponConfig config = callback.WeaponConfig;
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(callback.WeaponID);
 
-			
-			if(!config.IsProjectile)
+			if (!config.IsProjectile)
 			{
 				var shape = _particleSystem.shape;
 				var arc = 0;
-				float rotation = -90;
+				float rotation = -(90 + callback.ShotDir.AsFloat);
+
 				if (config.NumberOfShots > 1)
 				{
-					arc = (int)config.AttackAngle;
+					arc = (int)callback.AttackAngle;
 					rotation = -(90 - (shape.arc / 2));
 				}
 				
@@ -67,7 +68,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
 				shape.rotation = new Vector3(90, rotation, 0);
 			}
- 
+
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)

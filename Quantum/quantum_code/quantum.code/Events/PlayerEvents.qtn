@@ -89,7 +89,9 @@ synced event OnPlayerAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
-	QuantumWeaponConfig WeaponConfig;
+	int WeaponID;
+	FP ShotDir;
+	uint AttackAngle;
 }
 
 synced event OnPlayerDamaged

@@ -1,6 +1,4 @@
 ﻿using FirstLight.Game.Logic;
-using FirstLight.Game.Utils;
-using Quantum;
 using TMPro;
 using UnityEngine;
 

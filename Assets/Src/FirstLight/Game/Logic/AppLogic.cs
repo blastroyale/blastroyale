@@ -58,6 +58,18 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's Nickname
 		/// </summary>
 		IObservableFieldReader<string> NicknameId { get; }
+		
+		/// <summary>
+		/// Sets the device link status, which dictates whether the game should try to link device to playfab
+		/// account during initial auhentication phase.
+		/// </summary>
+		void SetDeviceLinkedStatus(bool linked);
+
+		/// <summary>
+		/// Sets the cached last login email, which is used during authentication to check if a player should be
+		/// logged using device ID, or whether they should go to email login/device linking phase
+		/// </summary>
+		void SetLastLoginEmail(string email);
 	}
 
 	/// <inheritdoc />
@@ -117,6 +129,16 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+
+		public void SetDeviceLinkedStatus(bool linked)
+		{
+			Data.LinkedDevice = linked;
+		}
+
+		public void SetLastLoginEmail(string email)
+		{
+			Data.LastLoginEmail = email;
+		}
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }

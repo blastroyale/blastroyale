@@ -32,7 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
 		
-		private readonly GameLogic _gameLogic;
+		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
@@ -43,12 +43,12 @@ namespace FirstLight.Game.StateMachines
 		private string _selectedAuthName;
 		private string _selectedAuthPass;
 		
-		public AuthenticationState(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
+		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
-			_gameLogic = gameLogic;
 			_services = services;
+			_dataProvider = dataProvider;
 			_uiService = uiService;
 			_dataService = dataService;
 			_networkService = networkService;
@@ -210,7 +210,7 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLoginSuccess(LoginResult result)
 			{
-				_dataService.GetData<AppData>().LastLoginEmail = _selectedAuthEmail;
+				_dataProvider.AppDataProvider.SetLastLoginEmail(_selectedAuthEmail);
 				ProcessAuthentication(result, cacheActivity);
 			}
 		}
@@ -321,7 +321,7 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLinkSuccess(LinkCustomIDResult result)
 			{
-				_dataService.GetData<AppData>().LinkedDevice = true;
+				_dataProvider.AppDataProvider.SetDeviceLinkedStatus(true);
 				activity.Complete();
 			}
 
@@ -338,7 +338,7 @@ namespace FirstLight.Game.StateMachines
 			
 			void OnLinkSuccess(LinkAndroidDeviceIDResult result)
 			{
-				_dataService.GetData<AppData>().LinkedDevice = true;
+				_dataProvider.AppDataProvider.SetDeviceLinkedStatus(true);
 				activity.Complete();
 			}
 
@@ -355,7 +355,7 @@ namespace FirstLight.Game.StateMachines
 			
 			void OnLinkSuccess(LinkIOSDeviceIDResult result)
 			{
-				_dataService.GetData<AppData>().LinkedDevice = true;
+				_dataProvider.AppDataProvider.SetDeviceLinkedStatus(true);
 				activity.Complete();
 			}
 #endif

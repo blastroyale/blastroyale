@@ -18,6 +18,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using Quantum;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class SROptions
 {
@@ -231,7 +232,7 @@ public partial class SROptions
 		{
 			uiService.CloseUi<MatchHudPresenter>();
 			
-			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
 			{
 				renderer.enabled = false;
 			}
@@ -240,7 +241,7 @@ public partial class SROptions
 		{
 			uiService.OpenUi<MatchHudPresenter>();
 			
-			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
 			{
 				renderer.enabled = true;
 			}

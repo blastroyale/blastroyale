@@ -4159,6 +4159,7 @@ MonoBehaviour:
   _animation: {fileID: 6399237491093553249}
   _introAnimationClip: {fileID: 7400000, guid: 212305e0282e1034f8ba76d46fe9117b, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: 1b1b12a8838cc2147ac815844cbee78f, type: 2}
+  _playOnlineButton: {fileID: 5211914012748641792}
   _playOfflineDebugButton: {fileID: 6116792104479826378}
   _playRoom: {fileID: 8013290780847940207}
   _nameChangeButton: {fileID: 4546196267103155345}

@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnGameModeClicked;
 		}
 
+		[SerializeField] private Button _playOnlineButton;
 		[SerializeField] private Button _playOfflineDebugButton;
 		[SerializeField] private Button _playRoom;
 		[SerializeField] private Button _nameChangeButton;
@@ -65,6 +66,7 @@ namespace FirstLight.Game.Presenters
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
+			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
 			_playRoom.onClick.AddListener(OnPlayRoomlicked);
 
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
@@ -98,19 +100,18 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 		
-		/*
-		private void OnPlayBattleRoyaleClicked()
+		private void OnPlayOnlineClicked()
 		{
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = false,
-				GameMode = GameMode.BattleRoyale
+				GameMode = GameMode.BattleRoyale // TODO 
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
-		*/
+		
 
 		private void OnPlayRoomlicked()
 		{

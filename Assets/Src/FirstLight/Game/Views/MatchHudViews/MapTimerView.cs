@@ -111,16 +111,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var targetPosLocal = _cameraTransform.InverseTransformPoint(targetCircleCenter);
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
 			var isArrowActive = _safeAreaRadialTransform.gameObject.activeSelf;
-			var circleRadiusPow = circleRadius * circleRadius;
+			var circleRadiusSq = circleRadius * circleRadius;
 			var distanceSqrt = (targetCircleCenter - _cameraTransform.position).sqrMagnitude;
 
 			_safeAreaRadialTransform.eulerAngles = new Vector3(0, 0, targetAngle);
 
-			if (distanceSqrt < circleRadiusPow && isArrowActive)
+			if (distanceSqrt < circleRadiusSq && isArrowActive)
 			{
 				_safeAreaRadialTransform.gameObject.SetActive(false);
 			}
-			else if (distanceSqrt > circleRadiusPow && !isArrowActive)
+			else if (distanceSqrt > circleRadiusSq && !isArrowActive)
 			{
 				_safeAreaRadialTransform.gameObject.SetActive(true);
 			}

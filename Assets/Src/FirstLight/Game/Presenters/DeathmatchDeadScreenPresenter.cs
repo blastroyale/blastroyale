@@ -141,6 +141,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRespawnPressed()
 		{
+			_respawnButton.gameObject.SetActive(false);
 			Data.OnRespawnClicked();
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}

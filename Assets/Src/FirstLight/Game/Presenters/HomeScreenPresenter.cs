@@ -34,7 +34,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnGameModeClicked;
 		}
 
-		[SerializeField] private GameObject _gameModeButtonRoot;
+		[SerializeField] private Button _playOfflineDebugButton;
 		[SerializeField] private Button _playRoom;
 		[SerializeField] private Button _nameChangeButton;
 		[SerializeField] private Button _settingsButton;
@@ -78,6 +78,7 @@ namespace FirstLight.Game.Presenters
 			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
+			_playOfflineDebugButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
 			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
 		}

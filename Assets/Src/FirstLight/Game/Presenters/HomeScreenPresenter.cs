@@ -135,11 +135,26 @@ namespace FirstLight.Game.Presenters
 			var message = new PlayMapClickedMessage
 			{
 				IsOfflineMode = true,
-				MapId = 7
+				MapId = GetFirstTestMapId()
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
+		}
+
+		private int GetFirstTestMapId()
+		{
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+
+			foreach(var config in configs)
+			{
+				if(config.Value.IsTestMap)
+				{
+					return config.Value.Id;
+				}
+			}
+
+			return 0;
 		}
 
 		private void OnPlayDeathmatchClicked()

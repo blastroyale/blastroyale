@@ -111,14 +111,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
-			if (isBattleRoyale)
+			if (frame.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
-				if (frame.TryGetSingleton<ShrinkingCircle>(out var circle))
-				{
-					_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, circle);	
-				}
+				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, circle);	
 			}
 		}
 

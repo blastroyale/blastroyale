@@ -279,15 +279,6 @@ namespace FirstLight.Game.StateMachines
 			var mapConfig = GetMapConfigById(msg.MapId);
 			
 			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
-
-			// if (msg.IsOfflineMode)
-			// {
-			// 	LockRoom();
-			// }
-			// else
-			// {
-			// 	StartMatchmakingLockRoomTimer();
-			// }
 		}
 		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)

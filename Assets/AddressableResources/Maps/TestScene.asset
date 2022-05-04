@@ -485,6 +485,111 @@ MonoBehaviour:
     ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
+    DummyCharacter:
+    - Health:
+        RawValue: 6553600000
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 32768
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 49152
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 26214
+          Y:
+            RawValue: 49152
+          Z:
+            RawValue: 26214
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 9
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 448
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 884080
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 679211
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 11796480
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    ConsumablePlatformSpawner: []
+    DeadPlayerCharacter: []
+    Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
     GOAPAgent: []
@@ -31464,7 +31569,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -31541,7 +31646,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -31618,7 +31723,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -31695,7 +31800,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -31772,7 +31877,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -31849,7 +31954,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -31926,7 +32031,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32003,7 +32108,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32080,7 +32185,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32157,7 +32262,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32234,10 +32339,10 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 127
+        Value: 128
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -32285,11 +32390,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 937021
+          RawValue: 649068
         Y:
           RawValue: 0
         Z:
-          RawValue: 561131
+          RawValue: 905445
       Rotation:
         X:
           RawValue: 0
@@ -32311,10 +32416,10 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 127
+        Value: 128
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -32362,11 +32467,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 835071
+          RawValue: 515899
         Y:
           RawValue: 0
         Z:
-          RawValue: 663081
+          RawValue: 904921
       Rotation:
         X:
           RawValue: 0
@@ -32388,7 +32493,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32465,7 +32570,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32542,7 +32647,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32619,7 +32724,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32696,7 +32801,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32773,7 +32878,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32850,7 +32955,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -32927,7 +33032,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -33004,7 +33109,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -33081,7 +33186,7 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 0
+      RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 127
@@ -33137,6 +33242,160 @@ MonoBehaviour:
           RawValue: 0
         Z:
           RawValue: -1458831
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 5
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 128
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 779091
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 905445
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 5
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 128
+    Consumable: []
+    ConsumablePlatformSpawner:
+    - _empty_prototype_dummy_field_: 0
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    WeaponCollectable: []
+    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 918028
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 905445
       Rotation:
         X:
           RawValue: 0

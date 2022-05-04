@@ -115,7 +115,10 @@ namespace FirstLight.Game.Presenters
 
 			if (isBattleRoyale)
 			{
-				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
+				if (frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+				{
+					_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, circle);	
+				}
 			}
 		}
 

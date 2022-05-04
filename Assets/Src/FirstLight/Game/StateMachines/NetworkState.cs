@@ -447,7 +447,7 @@ namespace FirstLight.Game.StateMachines
 
 			foreach (var config in configs)
 			{
-				if (config.Value.GameMode == gameMode)
+				if (config.Value.GameMode == gameMode && !config.Value.IsTestMap)
 				{
 					compatibleMaps.Add(config.Value);
 				}

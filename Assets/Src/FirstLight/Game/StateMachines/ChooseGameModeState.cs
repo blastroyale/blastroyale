@@ -92,12 +92,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			// TODO: Change Game Mode to Battle Royale.
 			// GameMode = GameMode.BattleRoyale
+
+			_statechartTrigger(_gameModeSetEvent);
 		}
 		
 		private void OnDeathmatchSelected()
 		{
 			// TODO: Change Game Mode to Deathmatch.
 			// GameMode = GameMode.Deathmatch
+			
+			_statechartTrigger(_gameModeSetEvent);
 		}
 	}
 }

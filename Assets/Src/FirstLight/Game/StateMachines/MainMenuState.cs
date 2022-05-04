@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
@@ -186,8 +187,8 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
 			settingsMenu.Event(_currentTabButtonClickedEvent).Target(homeMenu);
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
-
-			logoutWait.OnEnter(CloseSettingsMenuUI);
+			settingsMenu.OnExit(CloseSettingsMenuUI);
+			
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(homeMenu);
 
@@ -694,10 +695,9 @@ namespace FirstLight.Game.StateMachines
 
 			void UnlinkComplete()
 			{
-				var authData = _dataService.GetData<AuthenticationSaveData>();
-				authData.LastLoginEmail = "";
-				authData.LinkedDevice = false;
-				_dataService.SaveData<AuthenticationSaveData>();
+				var appData = _dataService.GetData<AppData>();
+				appData.LastLoginEmail = "";
+				appData.LinkedDevice = false;
 
 #if UNITY_EDITOR
 				var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);

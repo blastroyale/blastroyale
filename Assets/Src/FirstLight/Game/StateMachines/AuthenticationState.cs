@@ -29,8 +29,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
-		private readonly IStatechartEvent _loginClickedEvent = new StatechartEvent("Login Clicked Event");
-		private readonly IStatechartEvent _registerClickedEvent = new StatechartEvent("Register Clicked Event");
+		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
 		private readonly IStatechartEvent _registerFailEvent = new StatechartEvent("Register Failed Event");
 		
@@ -44,7 +43,6 @@ namespace FirstLight.Game.StateMachines
 		private string _selectedAuthEmail;
 		private string _selectedAuthName;
 		private string _selectedAuthPass;
-		private AuthenticationSaveData _authData;
 		
 		public AuthenticationState(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
@@ -76,23 +74,24 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetQuantumSettings);
+			initial.OnExit(LoadAppData);
 			
 			autoAuthCheck.Transition().Condition(HasCachedLoginEmail).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
-			login.Event(_loginClickedEvent).Target(authLoginEmail);
+			login.Event(_loginRegisterTransitionEvent).Target(authLoginEmail);
 			
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
-			register.Event(_registerClickedEvent).Target(authRegister);
+			register.Event(_loginRegisterTransitionEvent).Target(authRegister);
 
 			authLoginDevice.WaitingFor(LoginWithDevice).Target(photonAuthentication);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
 			authLoginEmail.OnEnter(()=>{ DimLoginScreen(true);});
-			authLoginEmail.WaitingFor(LoginWithEmail).OnTransition(()=>{ CloseLoginScreen(); OpenLoadingScreen(); }).Target(photonAuthentication);
+			authLoginEmail.WaitingFor(LoginWithEmail).OnTransition(OnEmailLoginTransition).Target(photonAuthentication);
 			authLoginEmail.Event(_authenticationFailEvent).Target(login);
 			authLoginEmail.OnExit(()=>{ DimLoginScreen(false);});
 			
@@ -116,16 +115,20 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
+		private void LoadAppData()
+		{
+			_dataService.LoadData<AppData>();
+		}
+
+		private void OnEmailLoginTransition()
+		{
+			CloseLoginScreen(); 
+			OpenLoadingScreen();
+		}
+
 		private bool HasCachedLoginEmail()
 		{
-			_authData = _dataService.LoadData<AuthenticationSaveData>();
-			
-			if (string.IsNullOrEmpty(_authData.LastLoginEmail))
-			{
-				return false;
-			}
-
-			return true;
+			return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
 		}
 
 		private void AuthenticateRegister(IWaitActivity activity)
@@ -181,7 +184,7 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLoginSuccess(LoginResult result)
 			{
-				_authData.LastLoginEmail = _selectedAuthEmail;
+				_dataService.GetData<AppData>().LastLoginEmail = _selectedAuthEmail;
 				ProcessAuthentication(result, cacheActivity);
 			}
 
@@ -266,7 +269,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void ProcessAuthentication(LoginResult result, IWaitActivity activity)
 		{
-			if (!_authData.LinkedDevice)
+			if (!_dataService.GetData<AppData>().LinkedDevice)
 			{
 				LinkDeviceID(activity.Split());
 			}
@@ -306,8 +309,7 @@ namespace FirstLight.Game.StateMachines
 
 			void OnLinkSuccess(LinkCustomIDResult result)
 			{
-				_authData.LinkedDevice = true;
-				_dataService.SaveData<AuthenticationSaveData>();
+				_dataService.GetData<AppData>().LinkedDevice = true;
 				activity.Complete();
 			}
 
@@ -404,7 +406,7 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeGameData(LoginResult result, IWaitActivity activity)
 		{
 			var data = result.InfoResultPayload.UserReadOnlyData;
-			var appData = _dataService.LoadData<AppData>();
+			var appData = _dataService.GetData<AppData>();
 			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
@@ -447,7 +449,7 @@ namespace FirstLight.Game.StateMachines
 		/// <summary>
 		/// Callback for regular authentication errors. Dismissable popup.
 		/// </summary>
-		public void OnPlayFabError(PlayFabError error) 
+		private void OnPlayFabError(PlayFabError error) 
 		{
 			var confirmButton = new GenericDialogButton
 			{
@@ -520,7 +522,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_selectedAuthEmail = email;
 			_selectedAuthPass = password;
-			_statechartTrigger(_loginClickedEvent);
+			_statechartTrigger(_loginRegisterTransitionEvent);
 		}
 
 		private void RegisterClicked(string email, string username, string password)
@@ -528,7 +530,7 @@ namespace FirstLight.Game.StateMachines
 			_selectedAuthEmail = email;
 			_selectedAuthName = username;
 			_selectedAuthPass = password;
-			_statechartTrigger(_registerClickedEvent);
+			_statechartTrigger(_loginRegisterTransitionEvent);
 		}
 
 		private void GoToRegisterClicked()

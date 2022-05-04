@@ -1,0 +1,4 @@
+component DummyCharacter
+{
+	FP Health;
+}

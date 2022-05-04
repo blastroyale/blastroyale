@@ -62,7 +62,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 0
       AttackAngle: 60
-      NumberOfShots: 6
+      NumberOfShots: 1
       AttackRange:
         RawValue: 131072
       CanHitSameTarget: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 3276800
       AttackAngle: 33
-      NumberOfShots: 5
+      NumberOfShots: 4
       AttackRange:
         RawValue: 327680
       CanHitSameTarget: 1

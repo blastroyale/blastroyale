@@ -31,7 +31,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
-		private readonly IStatechartEvent _registerFailEvent = new StatechartEvent("Register Failed Event");
 		
 		private readonly GameLogic _gameLogic;
 		private readonly IGameServices _services;
@@ -97,12 +96,46 @@ namespace FirstLight.Game.StateMachines
 			
 			authRegister.OnEnter(()=>{ DimRegisterScreen(true);});
 			authRegister.WaitingFor(AuthenticateRegister).OnTransition(CloseRegisterScreen).Target(login);
-			authRegister.Event(_registerFailEvent).Target(register);
+			authRegister.Event(_authenticationFailEvent).Target(register);
 			authRegister.OnExit(()=>{ DimRegisterScreen(false);});
 			
 			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
+		}
+		/// <summary>
+		/// Callback for game-stopping errors. Prompts user to close the game.
+		/// </summary>
+		public void OnCriticalPlayFabError(PlayFabError error) 
+		{
+			_services.AnalyticsService.CrashLog(error.ErrorMessage);
+
+			var button = new AlertButton
+			{
+				Callback = Application.Quit,
+				Style = AlertButtonStyle.Negative,
+				Text = ScriptLocalization.MainMenu.QuitGameButton
+			};
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
+		}
+		
+		private void OnPlayFabError(PlayFabError error) 
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+		}
+		
+		private void OnAuthenticationFail(PlayFabError error, IWaitActivity activity)
+		{
+			_statechartTrigger(_authenticationFailEvent);
+			OnPlayFabError(error);
+			activity.Complete();
 		}
 
 		private void SubscribeEvents()
@@ -142,7 +175,7 @@ namespace FirstLight.Game.StateMachines
 				Password = _selectedAuthPass
 			};
 			
-			PlayFabClientAPI.RegisterPlayFabUser(register, OnRegisterSuccess, OnRegisterFail);
+			PlayFabClientAPI.RegisterPlayFabUser(register, OnRegisterSuccess, (error => {OnAuthenticationFail(error, activity); }));
 
 			void OnRegisterSuccess(RegisterPlayFabUserResult result)
 			{
@@ -153,13 +186,6 @@ namespace FirstLight.Game.StateMachines
 				};
 				
 				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.RegisterSuccess,false, confirmButton);
-			}
-
-			void OnRegisterFail(PlayFabError error)
-			{
-				_statechartTrigger(_registerFailEvent);
-				OnPlayFabError(error);
-				cacheActivity.Complete();
 			}
 		}
 
@@ -180,19 +206,12 @@ namespace FirstLight.Game.StateMachines
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnLoginFail);
+			PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, (error => { OnAuthenticationFail(error, activity); }));
 
 			void OnLoginSuccess(LoginResult result)
 			{
 				_dataService.GetData<AppData>().LastLoginEmail = _selectedAuthEmail;
 				ProcessAuthentication(result, cacheActivity);
-			}
-
-			void OnLoginFail(PlayFabError error)
-			{
-				_statechartTrigger(_authenticationFailEvent);
-				OnPlayFabError(error);
-				cacheActivity.Complete();
 			}
 		}
 
@@ -214,7 +233,7 @@ namespace FirstLight.Game.StateMachines
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnLoginFail);
+			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, (error => { OnAuthenticationFail(error, activity); }));
 			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
@@ -243,13 +262,6 @@ namespace FirstLight.Game.StateMachines
 			void OnLoginSuccess(LoginResult result)
 			{
 				ProcessAuthentication(result, cacheActivity);
-			}
-
-			void OnLoginFail(PlayFabError error)
-			{
-				_statechartTrigger(_authenticationFailEvent);
-				OnPlayFabError(error);
-				cacheActivity.Complete();
 			}
 		}
 
@@ -427,37 +439,6 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			activity.Complete();
-		}
-		
-		/// <summary>
-		/// Callback for game-stopping errors. Prompts user to close the game.
-		/// </summary>
-		public void OnCriticalPlayFabError(PlayFabError error) 
-		{
-			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
-			var button = new AlertButton
-			{
-				Callback = Application.Quit,
-				Style = AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
-		}
-		
-		/// <summary>
-		/// Callback for regular authentication errors. Dismissable popup.
-		/// </summary>
-		private void OnPlayFabError(PlayFabError error) 
-		{
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 
 		private void OpenGameUpdateDialog()

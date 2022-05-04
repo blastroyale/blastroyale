@@ -1,11 +1,12 @@
 ﻿using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View handles the Kill Tracker View in the UI:

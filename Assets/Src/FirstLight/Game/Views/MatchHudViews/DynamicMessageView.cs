@@ -9,7 +9,6 @@ using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {

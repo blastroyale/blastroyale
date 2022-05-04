@@ -578,6 +578,7 @@ namespace I2.Loc
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
+			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
 			public static string Enhance 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Enhance"); } }
 			public static string EnhanceDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceDescription"); } }
 			public static string EnhanceItemsNeeded 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceItemsNeeded"); } }
@@ -603,6 +604,13 @@ namespace I2.Loc
 			public static string JoinRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/JoinRoom"); } }
 			public static string Loading 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loading"); } }
 			public static string Locked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Locked"); } }
+			public static string LoginButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginButton"); } }
+			public static string LoginOrText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginOrText"); } }
+			public static string LoginTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginTitle"); } }
+			public static string LogoutButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutButton"); } }
+			public static string LogoutConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutConfirm"); } }
+			public static string LogoutSuccessDesc 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessDesc"); } }
+			public static string LogoutSuccessTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessTitle"); } }
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
@@ -622,15 +630,22 @@ namespace I2.Loc
 			public static string OpenCrate 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenCrate"); } }
 			public static string OpenCrateNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenCrateNow"); } }
 			public static string OpenNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenNow"); } }
+			public static string PasswordTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PasswordTitle"); } }
 			public static string PlayGame 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayGame"); } }
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
+			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
 			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Power"); } }
 			public static string PowerRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerRating"); } }
 			public static string PowerTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerTotal"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
+			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
+			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
+			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
+			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
+			public static string RememberMe 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RememberMe"); } }
 			public static string RoomCreateOrJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCreateOrJoin"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
 			public static string RoomError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomError"); } }
@@ -658,6 +673,7 @@ namespace I2.Loc
 			public static string UnlockCrateNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UnlockCrateNow"); } }
 			public static string UnlockInProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UnlockInProgress"); } }
 			public static string UseCrateSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UseCrateSlot"); } }
+			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
 		}
@@ -1301,6 +1317,7 @@ namespace I2.Loc
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
+		    public const string EmailTitle = "MainMenu/EmailTitle";
 		    public const string Enhance = "MainMenu/Enhance";
 		    public const string EnhanceDescription = "MainMenu/EnhanceDescription";
 		    public const string EnhanceItemsNeeded = "MainMenu/EnhanceItemsNeeded";
@@ -1326,6 +1343,13 @@ namespace I2.Loc
 		    public const string JoinRoom = "MainMenu/JoinRoom";
 		    public const string Loading = "MainMenu/Loading";
 		    public const string Locked = "MainMenu/Locked";
+		    public const string LoginButton = "MainMenu/LoginButton";
+		    public const string LoginOrText = "MainMenu/LoginOrText";
+		    public const string LoginTitle = "MainMenu/LoginTitle";
+		    public const string LogoutButton = "MainMenu/LogoutButton";
+		    public const string LogoutConfirm = "MainMenu/LogoutConfirm";
+		    public const string LogoutSuccessDesc = "MainMenu/LogoutSuccessDesc";
+		    public const string LogoutSuccessTitle = "MainMenu/LogoutSuccessTitle";
 		    public const string Loot = "MainMenu/Loot";
 		    public const string ManualFire = "MainMenu/ManualFire";
 		    public const string Meters = "MainMenu/Meters";
@@ -1345,15 +1369,22 @@ namespace I2.Loc
 		    public const string OpenCrate = "MainMenu/OpenCrate";
 		    public const string OpenCrateNow = "MainMenu/OpenCrateNow";
 		    public const string OpenNow = "MainMenu/OpenNow";
+		    public const string PasswordTitle = "MainMenu/PasswordTitle";
 		    public const string PlayGame = "MainMenu/PlayGame";
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
+		    public const string PlayfabError = "MainMenu/PlayfabError";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
 		    public const string Power = "MainMenu/Power";
 		    public const string PowerRating = "MainMenu/PowerRating";
 		    public const string PowerTotal = "MainMenu/PowerTotal";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
+		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
+		    public const string RegisterButton = "MainMenu/RegisterButton";
+		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
+		    public const string RegisterTitle = "MainMenu/RegisterTitle";
+		    public const string RememberMe = "MainMenu/RememberMe";
 		    public const string RoomCreateOrJoin = "MainMenu/RoomCreateOrJoin";
 		    public const string RoomCurrentName = "MainMenu/RoomCurrentName";
 		    public const string RoomError = "MainMenu/RoomError";
@@ -1381,6 +1412,7 @@ namespace I2.Loc
 		    public const string UnlockCrateNow = "MainMenu/UnlockCrateNow";
 		    public const string UnlockInProgress = "MainMenu/UnlockInProgress";
 		    public const string UseCrateSlot = "MainMenu/UseCrateSlot";
+		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
 		}

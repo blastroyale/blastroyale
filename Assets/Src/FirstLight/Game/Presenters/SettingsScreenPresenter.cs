@@ -12,6 +12,7 @@ using I2.Loc;
 using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.Events;
 
 namespace FirstLight.Game.Presenters
 {
@@ -94,7 +95,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = () => { Data.LogoutClicked();}
+				ButtonOnClick = new UnityAction(Data.LogoutClicked)
 			};
 
 			_services.GenericDialogService.OpenDialog(title, true, confirmButton);

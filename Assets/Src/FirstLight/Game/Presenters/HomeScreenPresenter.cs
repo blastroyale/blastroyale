@@ -31,17 +31,15 @@ namespace FirstLight.Game.Presenters
 			public Action OnTrophyRoadClicked;
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
+			public Action OnGameModeClicked;
 		}
 
-		[SerializeField] private GameObject _battleRoyaleButtonRoot;
-		[SerializeField] private Button _playBattleRoyaleRandom;
-		[SerializeField] private Button _playBattleRoyaleOffline;
-		[SerializeField] private Button _playDeathmatchRandom;
-		[SerializeField] private Button _playDeathmatchOffline;
+		[SerializeField] private GameObject _gameModeButtonRoot;
 		[SerializeField] private Button _playRoom;
 		[SerializeField] private Button _nameChangeButton;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
+		[SerializeField] private Button _gameModeButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
 
 		// Player Information / Trophy Road.
@@ -66,15 +64,9 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			
-			_battleRoyaleButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
 
 			_playRoom.onClick.AddListener(OnPlayRoomlicked);
-			_playDeathmatchRandom.onClick.AddListener(OnPlayDeathmatchClicked);
-			_playDeathmatchOffline.onClick.AddListener(OnPlayDeathmatchOfflineClicked);
-			_playBattleRoyaleRandom.onClick.AddListener(OnPlayBattleRoyaleClicked);
-			_playBattleRoyaleOffline.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
-			
+
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
@@ -84,6 +76,7 @@ namespace FirstLight.Game.Presenters
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
+			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
 			_newFeaturesView.gameObject.SetActive(false);
 			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
@@ -104,6 +97,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 		
+		/*
 		private void OnPlayBattleRoyaleClicked()
 		{
 			var message = new PlayRandomClickedMessage
@@ -115,42 +109,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
-
-		private void OnPlayBattleRoyaleOfflineClicked()
-		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = true,
-				GameMode = GameMode.BattleRoyale
-			};
-
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPlayDeathmatchClicked()
-		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = false,
-				GameMode = GameMode.Deathmatch
-			};
-
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPlayDeathmatchOfflineClicked()
-		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = true,
-				GameMode = GameMode.Deathmatch
-			};
-
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
+		*/
 
 		private void OnPlayRoomlicked()
 		{
@@ -202,6 +161,12 @@ namespace FirstLight.Game.Presenters
 			Data.OnShopButtonClicked();
 		}
 
+		private void OpenGameModeClicked()
+		{
+			Data.OnGameModeClicked();
+		}
+
+		
 		private void OpenSocialMenuUI()
 		{
 			Data.OnSocialButtonClicked();

@@ -931,6 +931,13 @@ MonoBehaviour:
       - Autofire
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      Flags: 00
+      Languages_Touch: []
     - Term: MainMenu/BGM
       TermType: 0
       Description: 
@@ -971,6 +978,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - CANCEL
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/ChooseGameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - CHOOSE GAME MODE
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/ChangePlayerSkin
@@ -1050,6 +1064,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - CURRENT XP {0}
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Demo
@@ -1157,6 +1178,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - ONE OR MORE ITEMS SELECTED HAS ALREADY BEEN UPGRADED. DO YOU WANT TO PROCEED?
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/GameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME MODE
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/HOME
@@ -1683,6 +1711,118 @@ MonoBehaviour:
       Description: 
       Languages:
       - Loading...
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LoginTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Login to an existing account
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RegisterTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Register a new account
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RememberMe
+      TermType: 0
+      Description: 
+      Languages:
+      - Remember Me
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/EmailTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Email
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/PasswordTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Password
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/UsernameTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Username
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LoginButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Login
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RegisterButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Register
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LoginOrText
+      TermType: 0
+      Description: 
+      Languages:
+      - Or
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/RegisterSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Account has been created successfully.
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LogoutButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Logout
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LogoutConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to log out?
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LogoutSuccessTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Logged out successfully
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/LogoutSuccessDesc
+      TermType: 0
+      Description: 
+      Languages:
+      - Restart the game to log in to a new account.
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/PlayfabError
+      TermType: 0
+      Description: 
+      Languages:
+      - Game Error
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/QuitGameButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Quit
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -4763,7 +4903,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1650879594147
+    Google_LastUpdatedVersion: 1651664547024
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

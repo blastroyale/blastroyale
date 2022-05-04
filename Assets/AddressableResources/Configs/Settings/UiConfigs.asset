@@ -65,6 +65,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameTimeOverScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GenericChoiceDialog.prefab
+    Layer: 3
+    UiType: FirstLight.Game.Presenters.GenericChoiceDialogPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericDialog.prefab
     Layer: 3
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -236,6 +240,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.GenericChoiceDialogPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:
     - FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,

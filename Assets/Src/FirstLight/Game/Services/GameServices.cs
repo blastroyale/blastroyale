@@ -28,7 +28,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
 		/// <inheritdoc cref="IGuidService"/>
 		IGuidService GuidService { get; }
-
 		/// <inheritdoc cref="IStoreService"/>
 		IStoreService StoreService { get; }
 		/// <inheritdoc cref="IGameNetworkService"/>

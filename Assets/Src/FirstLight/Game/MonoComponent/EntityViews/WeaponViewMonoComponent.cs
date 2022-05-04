@@ -72,18 +72,38 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;
 			
-			if (speed < float.Epsilon)
+			if (speed < float.Epsilon || config.IsProjectile)
 			{
 				return;
 			}
-
+			
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
 			main.startLifetime = config.AttackRange.AsFloat / speed;
 			main.startSpeed = speed;
 			main.startDelay = 0;
 			main.loop = false;
 			main.maxParticles = 10;
-			emission.rateOverTime = 0.1f;
+			emission.rateOverTime = 0f;
+			
+			emission.burstCount = 1;
+			var burst = emission.GetBurst(0);
+			burst.count = config.NumberOfShots;
+			burst.repeatInterval = config.AttackCooldown.AsFloat;
+			emission.SetBurst(0, burst);
+			
+			var shape = _particleSystem.shape;
+			var arc = 0;
+			var rotation = -90f;
+			
+			if (config.NumberOfShots > 1)
+			{
+				arc = (int)config.AttackAngle;
+				rotation = -(90 - (shape.arc / 2));
+			}
+			
+			shape.arc = arc;
+			shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
+			shape.rotation = new Vector3(90, rotation, 0);
 		}
 	}
 }

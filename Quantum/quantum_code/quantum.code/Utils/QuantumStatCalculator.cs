@@ -28,9 +28,9 @@ namespace Quantum
 				
 				var config = f.GearConfigs.GetConfig(item.GameId);
 					
-				health += CalculateStatValue(item.Rarity, config.HpRatioToBase, item.Level, gameConfig, StatType.Health).AsInt;
-				speed += CalculateStatValue(item.Rarity, config.SpeedRatioToBase, item.Level, gameConfig, StatType.Speed).AsInt;
-				armour += CalculateStatValue(item.Rarity, config.ArmorRatioToBase, item.Level, gameConfig, StatType.Armour).AsInt;
+				health += CalculateStatValue(item.Rarity, config.HpRatioToBase, item.Level, item.GradeIndex, gameConfig, StatType.Health).AsInt;
+				speed += CalculateStatValue(item.Rarity, config.SpeedRatioToBase, item.Level, item.GradeIndex, gameConfig, StatType.Speed).AsInt;
+				armour += CalculateStatValue(item.Rarity, config.ArmorRatioToBase, item.Level, item.GradeIndex, gameConfig, StatType.Armour).AsInt;
 			}
 		}
 
@@ -52,28 +52,32 @@ namespace Quantum
 		/// <summary>
 		/// Requests the rarity value based on the given stat information on the pre defined formula
 		/// </summary>
-		public static FP CalculateStatValue(ItemRarity rarity, FP ratioBaseValue, uint level, QuantumGameConfig config, StatType statType)
+		public static FP CalculateStatValue(ItemRarity rarity, FP ratioBaseValue, uint level, uint gradeIndex, QuantumGameConfig config, StatType statType)
 		{
 			switch (statType)
 			{
 				case StatType.Health:
 					return FPMath.CeilToInt(CalculateStatValue(config.StatsHpBaseValue, ratioBaseValue, rarity, 
 					                                           config.StatsHpRarityMultiplier, (int) level, 
-					                                           config.StatsHpLevelStepMultiplier));
+					                                           config.StatsHpLevelStepMultiplier,
+					                                           (int) gradeIndex, config.StatsHpGradeStepMultiplier));
 				case StatType.Power:
 					return FPMath.CeilToInt(CalculateStatValue(config.StatsPowerBaseValue, ratioBaseValue, rarity, 
 					                                           config.StatsPowerRarityMultiplier, (int) level, 
-					                                           config.StatsPowerLevelStepMultiplier));
+					                                           config.StatsPowerLevelStepMultiplier,
+					                                           (int) gradeIndex, config.StatsPowerGradeStepMultiplier));
 				case StatType.Speed:
 					
 					return CalculateStatValue(config.StatsSpeedBaseValue, ratioBaseValue, rarity, 
 					                          config.StatsSpeedRarityMultiplier, (int) level, 
-					                          config.StatsSpeedLevelStepMultiplier);
+					                          config.StatsSpeedLevelStepMultiplier,
+					                          (int) gradeIndex,config.StatsSpeedGradeStepMultiplier);
 				case StatType.Armour:
 					
 					return FPMath.CeilToInt(CalculateStatValue(config.StatsArmorBaseValue, ratioBaseValue, rarity, 
 					                                           config.StatsArmorRarityMultiplier, (int) level, 
-					                                           config.StatsArmorLevelStepMultiplier));
+					                                           config.StatsArmorLevelStepMultiplier,
+					                                           (int) gradeIndex, config.StatsArmorGradeStepMultiplier));
 				default:
 					throw new ArgumentOutOfRangeException(nameof(statType), statType, "The stat type is not defined");
 			}
@@ -83,10 +87,12 @@ namespace Quantum
 		/// Requests the rarity value based on the given stat information on the pre defined formula
 		/// </summary>
 		public static FP CalculateStatValue(FP baseValue, FP ratioBaseValue, ItemRarity rarity,
-		                                        FP rarityMultiplier, int level, FP levelStepMultiplier)
+		                                        FP rarityMultiplier, int level, FP levelStepMultiplier,
+		                                        int gradeIndex, FP gradeStepMultiplier)
 		{
 			var baseValueForRarity = baseValue * ratioBaseValue * Pow(rarityMultiplier, (uint) rarity);
-			return baseValueForRarity + baseValueForRarity * levelStepMultiplier * (level - 1);
+			return baseValueForRarity + baseValueForRarity * levelStepMultiplier * (level - 1)
+			                          + baseValueForRarity * gradeStepMultiplier * (gradeIndex - 1);
 		}
 	}
 }

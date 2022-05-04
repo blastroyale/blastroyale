@@ -14,4 +14,5 @@ component RaycastShots
 	FP SplashRadius;
 	FP StartTime;
 	FP PreviousTime;    // The last time tick that this raycast shot was processed
+	UInt32 NumberOfShots;
 }

@@ -103,7 +103,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public EquipmentInfo GetEquipmentInfo(GameId gameId, ItemRarity rarity, ItemAdjective adjective,
-		                                      ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint grade)
+		                                      ItemMaterial material, ItemManufacturer manufacturer, ItemFaction faction, uint level, uint gradeIndex)
 		{
 			if (!gameId.IsInGroup(GameIdGroup.Equipment))
 			{
@@ -112,7 +112,7 @@ namespace FirstLight.Game.Logic
 			
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityConfig>((int) rarity);
-			var data = new EquipmentDataInfo(gameId, rarity, adjective, material, manufacturer, faction, level, grade);
+			var data = new EquipmentDataInfo(gameId, rarity, adjective, material, manufacturer, faction, level, gradeIndex);
 			var stats = new Dictionary<EquipmentStatType, float>(new EquipmentStatTypeComparer());
 			var baseRarity = rarity;
 			var isWeapon = false;
@@ -120,7 +120,7 @@ namespace FirstLight.Game.Logic
 			if (gameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) gameId);
-				var damage = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, gameConfig, StatType.Power);
+				var damage = QuantumStatCalculator.CalculateStatValue(rarity, weaponConfig.PowerRatioToBase, level, gradeIndex, gameConfig, StatType.Power);
 
 				baseRarity = ItemRarity.Common;
 				isWeapon = true;
@@ -135,9 +135,9 @@ namespace FirstLight.Game.Logic
 			else
 			{
 				var gearConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGearConfig>((int) gameId);
-				var hp = QuantumStatCalculator.CalculateStatValue(rarity, gearConfig.HpRatioToBase, level, gameConfig, StatType.Health);
-				var speed = QuantumStatCalculator.CalculateStatValue(rarity, gearConfig.SpeedRatioToBase, level, gameConfig, StatType.Speed);
-				var armor = QuantumStatCalculator.CalculateStatValue(rarity, gearConfig.ArmorRatioToBase, level, gameConfig, StatType.Armour);
+				var hp = QuantumStatCalculator.CalculateStatValue(rarity, gearConfig.HpRatioToBase, level, gradeIndex, gameConfig, StatType.Health);
+				var speed = QuantumStatCalculator.CalculateStatValue(rarity, gearConfig.SpeedRatioToBase, level, gradeIndex, gameConfig, StatType.Speed);
+				var armor = QuantumStatCalculator.CalculateStatValue(rarity, gearConfig.ArmorRatioToBase, level, gradeIndex, gameConfig, StatType.Armour);
 				
 				stats.Add(EquipmentStatType.Hp, hp.AsFloat);
 				stats.Add(EquipmentStatType.Speed, speed.AsFloat);

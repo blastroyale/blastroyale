@@ -317,7 +317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b92473f53c73026409b6d5c3049b2693, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V
+  m_text: I
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -582,7 +582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -841}
+  m_AnchoredPosition: {x: 0, y: -810}
   m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723161745
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sniper Rifle
+  m_text: Crossbow
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.1
+  m_fontSize: 38.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -640,7 +640,7 @@ MonoBehaviour:
   m_fontSizeMax: 60
   m_fontStyle: 17
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -707,7 +707,7 @@ Transform:
   m_GameObject: {fileID: 798466085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16024096, y: 0.1665039, z: 1}
+  m_LocalScale: {x: 0.32108435, y: 0.3330078, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 537103968}
@@ -844,7 +844,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b92473f53c73026409b6d5c3049b2693, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.69411767}
   m_FlipX: 0
   m_FlipY: 0
@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _importFolderPath: 
   _exportFolderPath: C:/Users/mattj/Documents/1
-  _metadataJsonFilePath: 
+  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1/000eb550be618111396ee6586b52b29461abfa94eaa79db00f22c5ff577724e0.json
   _metadataAttributesJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/nftequipmentattributes.json
   _markerTransform: {fileID: 6467920951248308136}
   _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   _canvas: {fileID: 6467920952026055733}
   _canvasRoot: {fileID: 798466085}
   _equipmentSnapshotResource: {fileID: 11400000, guid: 200883254577576428950bd7f2f08250, type: 2}
-  _renderTextureMode: 0
+  _renderTextureMode: 1
   _subFolderId: 0
   _collectionId: 1
 --- !u!20 &6467920952292208544

@@ -18,11 +18,13 @@ namespace Quantum.Systems
 		{
 			if (filter.Transform->Position.Y < Constants.OUT_OF_WORLD_Y_THRESHOLD && f.Has<AlivePlayerCharacter>(filter.Entity))
 			{
-				var stats = f.Get<Stats>(filter.Entity);
-				var currentHealth = stats.CurrentHealth;
+				var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
+				var currentHealth = stats->CurrentHealth;
+				
+				stats->SetInterimArmour(f, filter.Entity, EntityRef.None, 0);
 				
 				f.Signals.HealthIsZero(filter.Entity, filter.Entity);
-				f.Events.OnHealthIsZero(filter.Entity, filter.Entity, currentHealth, stats.Values[(int)StatType.Health].StatValue.AsInt);
+				f.Events.OnHealthIsZero(filter.Entity, filter.Entity, currentHealth, stats->Values[(int)StatType.Health].StatValue.AsInt);
 			}
 		}
 	}

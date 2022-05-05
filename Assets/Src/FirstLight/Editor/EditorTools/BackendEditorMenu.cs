@@ -50,7 +50,7 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("First Light Games/Backend/Local Server")]
 		private static void ToggleLocalServer()
 		{
-			PlayFabSettings.LocalApiServer = "https://localhost:7274";
+			PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			Debug.Log("Requests will go to local server now");
 		}
 	}

@@ -155,8 +155,6 @@ namespace FirstLight.Game.Services
 				Text = "Quit Game"
 			};
 			NativeUiService.ShowAlertPopUp(false, "Game Error", "Server Desync", button);
-			_commandQueue.TryPeek(out var current);
-			throw new LogicException($"Server desync on command {current?.GetType().Name}");
 		}
 
 		/// <summary>

@@ -30,6 +30,22 @@ namespace FirstLight.Game.Services
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand;
 	}
 
+	/// <summary>
+	/// Refers to dictionary keys used in the data sent to server.
+	/// </summary>
+	public static class CommandFields
+	{
+		/// <summary>
+		/// Key where the command data is serialized.
+		/// </summary>
+		public static readonly string Command = nameof(IGameCommand);
+		
+		/// <summary>
+		/// Field containing the client timestamp for when the command was issued.
+		/// </summary>
+		public static readonly string Timestamp = nameof(Timestamp);
+	}
+
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
@@ -37,7 +53,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameLogic _gameLogic;
 		private readonly Queue<IGameCommand> _commandQueue;
 
-		public static readonly string CommandFieldName = nameof(IGameCommand);
+		
 		
 		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
@@ -158,7 +174,8 @@ namespace FirstLight.Game.Services
 					Platform = Application.platform.ToString(),
 					Data = new Dictionary<string, string>
 					{
-						{CommandFieldName, ModelSerializer.Serialize(command).Value},
+						{CommandFields.Command, ModelSerializer.Serialize(command).Value},
+						{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() }
 					}
 				},
 				AuthenticationContext = PlayFabSettings.staticPlayer

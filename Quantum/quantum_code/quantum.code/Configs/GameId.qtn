@@ -5,6 +5,8 @@ enum GameId
 	RealMoney = 125,
 	SC = 1,
 	HC = 2,
+	EQXP = 15,
+	CS = 14,
 	XP = 3,
 	HcBundle1 = 146,
 	HcBundle2 = 147,

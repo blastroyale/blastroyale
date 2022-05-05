@@ -14,14 +14,14 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out _))
+			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) && player.IsLocalPlayer)
 			{
 				PlayerEnteredBuilding(other.gameObject);
 			}
 		}
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out _))
+			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) && player.IsLocalPlayer)
 			{
 				PlayerExitedBuilding(other.gameObject);
 			}		

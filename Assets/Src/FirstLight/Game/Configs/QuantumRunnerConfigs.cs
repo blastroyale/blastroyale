@@ -50,6 +50,7 @@ namespace FirstLight.Game.Configs
 			_runtimeConfig.PlayersLimit = config.PlayersLimit;
 			_runtimeConfig.GameMode = config.GameMode;
 			_runtimeConfig.GameEndTarget = config.GameEndTarget;
+			_runtimeConfig.IsTestMap = config.IsTestMap;
 		}
 
 		/// <inheritdoc cref="EnterRoomParams"/>

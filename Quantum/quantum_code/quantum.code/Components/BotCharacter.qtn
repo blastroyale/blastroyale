@@ -5,10 +5,6 @@ enum BotBehaviourType
 	Aggressive,
 }
 
-component DummyCharacter
-{
-}
-
 component BotCharacter
 {
 	BotBehaviourType BehaviourType;

@@ -18,7 +18,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
-
 		}
 		
 		protected override void OnInit(QuantumGame game)
@@ -52,23 +51,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(callback.WeaponID);
 
-			if (!config.IsProjectile)
+			if (config.IsProjectile)
 			{
-				var shape = _particleSystem.shape;
-				var arc = 0;
-				float rotation = -(90 + callback.ShotDir.AsFloat);
-
-				if (config.NumberOfShots > 1)
-				{
-					arc = (int)callback.AttackAngle;
-					rotation = -(90 - (shape.arc / 2));
-				}
-				
-				shape.arc = arc;
-				shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
-				shape.rotation = new Vector3(90, rotation, 0);
+				return;
 			}
+			
+			var shape = _particleSystem.shape;
+			var arc = 0;
+			float rotation = -(90 + callback.ShotDir.AsFloat);
 
+			if (config.NumberOfShots > 1)
+			{
+				arc = (int)callback.AttackAngle;
+				rotation = -(90 - (shape.arc / 2));
+			}
+			
+			shape.arc = arc;
+			shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
+			shape.rotation = new Vector3(90, rotation, 0);
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
@@ -97,7 +97,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
+			
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
 			main.startLifetime = config.AttackRange.AsFloat / speed;
 			main.startSpeed = speed;
@@ -105,7 +105,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			main.loop = false;
 			main.maxParticles = 10;
 			emission.rateOverTime = 0f;
-
 			
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);

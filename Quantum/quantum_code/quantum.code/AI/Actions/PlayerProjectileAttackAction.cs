@@ -41,6 +41,7 @@ namespace Quantum
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
+			// TODO: Implement accuracy for projectile weapons as well 
 			f.Events.OnPlayerAttack(player, e, (int)playerCharacter->CurrentWeapon.GameId, 0, 0);
 			f.Events.OnLocalPlayerAttack(player, e);
 			Projectile.Create(f, projectile);

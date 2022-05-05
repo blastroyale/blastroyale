@@ -46,8 +46,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var frame = game.Frames.Verified;
 			
 			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
-
-			
 		}
 
 		protected override void OnEntityDestroyed(QuantumGame game)
@@ -161,10 +159,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-
+			
 			var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
 			var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
-
+			
 			aliveVfx.transform.position = position;
 		}
 		
@@ -299,10 +297,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				_specialIndicators[i] = pair;
 			}
 		}
-
-
-	
-
+		
 		private void GetPlayerEquipmentSet(Frame f, PlayerRef player, out GameId skin, out Equipment weapon, out Equipment[] gear)
 		{
 			if (f.TryGet<BotCharacter>(EntityView.EntityRef, out var botCharacter))

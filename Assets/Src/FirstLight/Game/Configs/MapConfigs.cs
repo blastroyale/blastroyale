@@ -15,6 +15,7 @@ namespace FirstLight.Game.Configs
 		public GameMode GameMode;
 		public int PlayersLimit;
 		public int GameEndTarget;
+		public bool IsTestMap;
 	}
 
 	/// <summary>

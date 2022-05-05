@@ -53,7 +53,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
-			_selectionEnabled = config.GameMode == GameMode.BattleRoyale;
+			_selectionEnabled = config.GameMode == GameMode.BattleRoyale && !config.IsTestMap;
 
 			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
 			_selectedPoint.gameObject.SetActive(_selectionEnabled);

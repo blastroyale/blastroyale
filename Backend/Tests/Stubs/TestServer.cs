@@ -1,9 +1,11 @@
 using System;
+using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
 using FirstLight;
 using FirstLight.Services;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -21,11 +23,17 @@ public class TestServer
 
 	public TestServer()
 	{
+		SetupTestEnv();
 		_services = SetupServices().BuildServiceProvider();
 		var cfg = GetService<IConfigsProvider>();
 		var data = GetService<IDataProvider>();
 		_logic = new GameServerLogic(cfg, data);
 		_logic.Init();
+	}
+
+	private void SetupTestEnv()
+	{
+		Environment.SetEnvironmentVariable("SqlConnectionString", "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;");
 	}
 
 	public void UpdateDependencies(Action<IServiceCollection> collectionAction)
@@ -40,6 +48,7 @@ public class TestServer
 		var services = new ServiceCollection();
 		var logger = new LoggerFactory().CreateLogger("Log");
 		IOCSetup.Setup(services, logger);
+		DbSetup.Setup(services);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
 		return services;

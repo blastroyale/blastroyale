@@ -5,6 +5,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Services;
+using Login.Db;
 using Microsoft.Extensions.Logging;
 
 namespace Backend.Game;
@@ -18,15 +19,16 @@ public class GameServer
 	private IServerCommahdHandler _cmdHandler;
 	private ILogger _log;
 	private IServerStateService _state;
+	private IServerMutex _mutex;
 
 	public bool DevMode => Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
 	
-	
-	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state)
+	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex)
 	{
 		_cmdHandler = cmdHandler;
 		_log = log;
 		_state = state;
+		_mutex = mutex;
 	}
 	
 	/// <summary>
@@ -36,20 +38,28 @@ public class GameServer
 	{
 		var cmdType = logicRequest.Command;
 		var cmdData = logicRequest.Data;
-		_log.Log(LogLevel.Information, $"Player {playerId} running server command {cmdType}");
-		var commandInstance = _cmdHandler.BuildCommandInstance(cmdData, cmdType);
-		var currentPlayerState = _state.GetPlayerState(playerId);
-		if (!HasAccess(currentPlayerState, commandInstance))
-			throw new LogicException("Insuficient permissions to run command");
-		
-		var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
-		_state.UpdatePlayerState(playerId, newState);
-		return new BackendLogicResult()
+		try
 		{
-			Command = cmdType,
-			Data = newState,
-			PlayFabId = playerId
-		};
+			_mutex.Lock(playerId);
+			_log.Log(LogLevel.Information, $"Player {playerId} running server command {cmdType}");
+			var commandInstance = _cmdHandler.BuildCommandInstance(cmdData, cmdType);
+			var currentPlayerState = _state.GetPlayerState(playerId);
+			if (!HasAccess(currentPlayerState, commandInstance))
+				throw new LogicException("Insuficient permissions to run command");
+
+			var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
+			_state.UpdatePlayerState(playerId, newState);
+			return new BackendLogicResult()
+			{
+				Command = cmdType,
+				Data = newState,
+				PlayFabId = playerId
+			};
+		}
+		finally
+		{
+			_mutex.Unlock(playerId);
+		}
 	}
 
 	/// <summary>

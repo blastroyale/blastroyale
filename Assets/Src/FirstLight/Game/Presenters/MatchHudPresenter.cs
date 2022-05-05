@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -7,7 +8,6 @@ using Quantum;
 using TMPro;
 using UnityEngine;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum.Commands;
@@ -62,10 +62,6 @@ namespace FirstLight.Game.Presenters
 			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
-
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
-
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
@@ -91,7 +87,6 @@ namespace FirstLight.Game.Presenters
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
@@ -105,23 +100,6 @@ namespace FirstLight.Game.Presenters
 		private void OnLag(bool previous, bool hasLag)
 		{
 			_connectionIcon.SetActive(hasLag);
-		}
-
-		private void OnMatchStarted(MatchStartedMessage message)
-		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-
-			if (isBattleRoyale)
-			{
-				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
-			}
-		}
-
-		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
-		{
-			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
 		}
 
 		private void OnStandingsClicked()

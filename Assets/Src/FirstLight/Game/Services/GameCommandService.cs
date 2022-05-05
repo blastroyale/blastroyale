@@ -8,7 +8,9 @@ using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
+using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using PlayFab.SharedModels;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -33,6 +35,7 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
+		private readonly Queue<IGameCommand> _commandQueue;
 
 		public static readonly string CommandFieldName = nameof(IGameCommand);
 		
@@ -40,6 +43,7 @@ namespace FirstLight.Game.Services
 		{
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
+			_commandQueue = new Queue<IGameCommand>();
 		}
 		
 		/// <summary>
@@ -49,7 +53,6 @@ namespace FirstLight.Game.Services
 		public static void OnPlayFabError(PlayFabError error)
 		{
 			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
-			
 			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
 		}
 
@@ -58,7 +61,7 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
-				ExecuteServerCommand(command); 
+				EnqueueCommandToServer(command);
 				command.Execute(_gameLogic, _dataProvider);
 			}
 			catch (Exception e)
@@ -99,9 +102,51 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
+		/// Adds a given command to the "to send to server queue".
+		/// We send one command at a time to server, this queue ensure that.
+		/// </summary>
+		private void EnqueueCommandToServer<TCommand>(TCommand cmd) where TCommand : struct, IGameCommand
+		{
+			_commandQueue.Enqueue(cmd);
+			if (_commandQueue.Count == 1)
+			{
+				ExecuteServerCommand(cmd);
+			}
+		}
+
+		/// <summary>
+		/// Called when server has successfully finished running the given command.
+		/// </summary>
+		private void OnServerExecutionFinished<TCommand>(TCommand cmd)
+		{
+			_commandQueue.Dequeue();
+			if (_commandQueue.TryPeek(out var next))
+			{
+				ExecuteServerCommand(next);
+			}
+		}
+		
+		/// <summary>
+		/// Rolls back client state to the current server state.
+		/// Current implementation it simply closes the game.
+		/// </summary>
+		private void Rollback()
+		{
+			var button = new AlertButton
+			{
+				Callback = Application.Quit,
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"
+			};
+			NativeUiService.ShowAlertPopUp(false, "Game Error", "Server Desync", button);
+			_commandQueue.TryPeek(out var current);
+			throw new LogicException($"Server desync on command {current?.GetType().Name}");
+		}
+
+		/// <summary>
 		/// Sends a command to the server.
 		/// </summary>
-		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
+		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -118,7 +163,25 @@ namespace FirstLight.Game.Services
 				},
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, OnPlayFabError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, OnCommandSuccess, OnCommandError);
+		}
+		
+		private void OnCommandError(PlayFabError error)
+		{
+			Rollback();
+			OnPlayFabError(error);
+		}
+
+		private void OnCommandSuccess(ExecuteFunctionResult result)
+		{
+			_commandQueue.TryPeek(out var current);
+			var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
+			if (logicResult.Result.Command != current.GetType().FullName)
+			{
+				Rollback();
+				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
+			}
+			OnServerExecutionFinished(current);
 		}
 	}
 }

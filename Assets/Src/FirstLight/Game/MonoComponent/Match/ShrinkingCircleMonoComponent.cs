@@ -34,7 +34,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void HandleUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Predicted;
-			var circle = frame.GetSingleton<ShrinkingCircle>();
+			if (!frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+			{
+				return;
+			}
+			
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;
 			var lerp = Mathf.Max(0, (frame.Time.AsFloat - circle.ShrinkingStartTime.AsFloat) / circle.ShrinkingDurationTime.AsFloat);

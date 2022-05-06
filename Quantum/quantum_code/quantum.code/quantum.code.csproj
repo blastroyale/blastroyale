@@ -286,6 +286,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="BotSDK\Samples\.DS_Store" />
+    <Content Include="Components\DummyCharacter.qtn" />
     <Content Include="Components\RaycastShots.qtn" />
     <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />

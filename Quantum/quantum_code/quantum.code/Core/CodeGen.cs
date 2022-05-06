@@ -64,6 +64,7 @@ namespace Quantum {
     FloodCitySimple = 7,
     BlimpDeck = 8,
     BRGenesis = 9,
+    TestScene = 11,
     AssaultRifle = 23,
     MausHelmet = 24,
     GoldenBoots = 25,
@@ -3551,18 +3552,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct DummyCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public FP Health;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 389;
+        hash = hash * 31 + Health.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (DummyCharacter*)ptr;
+        FP.Serialize(&p->Health, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -8485,8 +8488,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(DummyCharacter))]
   public sealed unsafe partial class DummyCharacter_Prototype : ComponentPrototype<DummyCharacter> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public FP Health;
     partial void MaterializeUser(Frame frame, ref DummyCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       DummyCharacter component = default;
@@ -8494,6 +8496,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref DummyCharacter result, in PrototypeMaterializationContext context) {
+      result.Health = this.Health;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

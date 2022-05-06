@@ -15,7 +15,7 @@ namespace Quantum.Systems
 			
 			gameContainer->TargetProgress = (uint) f.RuntimeConfig.GameEndTarget;
 
-			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
+			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale && !f.RuntimeConfig.IsTestMap)
 			{
 				f.SystemEnable<ShrinkingCircleSystem>();
 				f.GetOrAddSingleton<ShrinkingCircle>();

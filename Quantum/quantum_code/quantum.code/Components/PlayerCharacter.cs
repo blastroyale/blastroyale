@@ -74,6 +74,8 @@ namespace Quantum
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 
 			f.Remove<DeadPlayerCharacter>(e);
+
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 		}
 
 		/// <summary>
@@ -95,6 +97,10 @@ namespace Quantum
 
 			f.Events.OnPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
 			f.Events.OnLocalPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
+			
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
+			
+			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, f.GameConfig.PlayerAliveShieldDuration);
 		}
 
 		/// <summary>

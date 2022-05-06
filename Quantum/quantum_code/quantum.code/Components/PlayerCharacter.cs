@@ -108,6 +108,8 @@ namespace Quantum
 		/// </summary>
 		internal void Dead(Frame f, EntityRef e, PlayerRef killerPlayer, EntityRef attacker)
 		{
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
+			
 			var deadPlayer = new DeadPlayerCharacter
 			{
 				TimeOfDeath = f.Time,

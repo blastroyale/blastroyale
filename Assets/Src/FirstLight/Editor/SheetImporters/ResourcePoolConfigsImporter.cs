@@ -3,7 +3,7 @@ using FirstLight.Game.Configs;
 namespace FirstLight.Editor.SheetImporters
 {
 	/// <inheritdoc />
-	public class CurrencyPoolConfigsImporter : GoogleSheetQuantumConfigsImporter<CurrencyPoolConfig, CurrencyPoolConfigs>
+	public class ResourcePoolConfigsImporter : GoogleSheetQuantumConfigsImporter<ResourcePoolConfig, ResourcePoolConfigs>
 	{
 		/// <inheritdoc />
 		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1724818392";

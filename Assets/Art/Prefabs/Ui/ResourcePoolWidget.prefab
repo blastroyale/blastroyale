@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7555332774374130231}
   - component: {fileID: 6023984868716181131}
   m_Layer: 5
-  m_Name: CurrencyPoolWidget
+  m_Name: ResourcePoolWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

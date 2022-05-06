@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e3a63d6c1f1d47d09a29d76cb5f2b02, type: 3}
-  m_Name: CurrencyPoolConfigs
+  m_Name: ResourcePoolConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - CurrencyID: 14
+  - Id: 14
     PoolCapacity: 300
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
-  - CurrencyID: 15
+  - Id: 17
     PoolCapacity: 500
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720

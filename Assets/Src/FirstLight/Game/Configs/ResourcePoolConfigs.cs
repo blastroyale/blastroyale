@@ -6,9 +6,9 @@ using UnityEngine;
 namespace FirstLight.Game.Configs
 {
 	[Serializable]
-	public struct CurrencyPoolConfig
+	public struct ResourcePoolConfig
 	{
-		public GameId CurrencyID;
+		public GameId Id;
 		public uint PoolCapacity;
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
@@ -17,14 +17,14 @@ namespace FirstLight.Game.Configs
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="RarityConfig"/> sheet data
 	/// </summary>
-	[CreateAssetMenu(fileName = "CurrencyPoolConfigs", menuName = "ScriptableObjects/Configs/CurrencyPoolConfigs")]
-	public class CurrencyPoolConfigs : ScriptableObject, IConfigsContainer<CurrencyPoolConfig>
+	[CreateAssetMenu(fileName = "ResourcePoolConfigs", menuName = "ScriptableObjects/Configs/ResourcePoolConfigs")]
+	public class ResourcePoolConfigs : ScriptableObject, IConfigsContainer<ResourcePoolConfig>
 	{
-		[SerializeField] private List<CurrencyPoolConfig> _configs = new List<CurrencyPoolConfig>();
+		[SerializeField] private List<ResourcePoolConfig> _configs = new List<ResourcePoolConfig>();
 
 		// ReSharper disable once ConvertToAutoProperty
 		/// <inheritdoc />
-		public List<CurrencyPoolConfig> Configs
+		public List<ResourcePoolConfig> Configs
 		{
 			get => _configs;
 			set => _configs = value;

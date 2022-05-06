@@ -8,12 +8,14 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
-	public class CurrencyPoolWidgetView : MonoBehaviour
+	public class ResourcePoolWidgetView : MonoBehaviour
 	{
-		[SerializeField] private GameId _currencyPoolToObserve;
+		[SerializeField] private GameId _poolToObserve = GameId.CS;
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
+		private ResourcePoolConfig _resourcePool;
+		
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -27,8 +29,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateView()
 		{
-			// TODO - FIX
-			var meme = _services.ConfigsProvider.GetConfigsList<CurrencyPoolConfig>();
+			var configs = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>();
 			 Debug.LogError("meme");
 		}
 	}

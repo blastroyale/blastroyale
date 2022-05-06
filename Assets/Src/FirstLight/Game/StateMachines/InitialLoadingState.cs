@@ -155,6 +155,7 @@ namespace FirstLight.Game.StateMachines
 				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => _configsAdder.AddConfigs(data => data.Step, asset.Configs)),
+				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs))
 			};
 		}
 

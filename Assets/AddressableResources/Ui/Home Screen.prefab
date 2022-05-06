@@ -10970,7 +10970,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 760325910646758196, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_Name
-      value: CurrencyPoolWidget
+      value: ResourcePoolWidget
       objectReference: {fileID: 0}
     - target: {fileID: 1257257405583313601, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_Pivot.x

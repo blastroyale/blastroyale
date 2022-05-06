@@ -32,6 +32,10 @@ namespace FirstLight.Game.Utils
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.3f;
 		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;
 #endif
+		
+		// Min/max amounts of haptic vibration sharpness when a player is damaged
+		public const float DYNAMIC_RES_HIGH = 1f;
+		public const float DYNAMIC_RES_LOW = 0.4f; 
 
 		// Min/max amounts of haptic vibration sharpness when a player is damaged
 		public const float HAPTIC_IOS_DAMAGE_SHARPNESS_MIN = 0.3f;

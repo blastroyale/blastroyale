@@ -45,6 +45,11 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
+		/// Is high res mode on device enabled?
+		/// </summary>
+		bool IsHighResModeEnabled { get; set; }
+		
+		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
@@ -58,6 +63,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's Nickname
 		/// </summary>
 		IObservableFieldReader<string> NicknameId { get; }
+
+		/// <summary>
+		/// Switches on high/low dynamic resolution mode
+		/// </summary>
+		void SetDynamicResolutionMode(bool useHighResMode);
 	}
 
 	/// <inheritdoc />
@@ -110,6 +120,13 @@ namespace FirstLight.Game.Logic
 			get => Data.HapticEnabled;
 			set => Data.HapticEnabled = value;
 		}
+		
+		/// <inheritdoc />
+		public bool IsHighResModeEnabled
+		{
+			get => Data.HighResModeEnabled;
+			set => Data.HighResModeEnabled = value;
+		}
 
 		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
@@ -117,6 +134,18 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+
+		public void SetDynamicResolutionMode(bool useHighResMode)
+		{
+			if (useHighResMode)
+			{
+				ScalableBufferManager.ResizeBuffers(GameConstants.DYNAMIC_RES_HIGH,GameConstants.DYNAMIC_RES_HIGH);
+			}
+			else
+			{
+				ScalableBufferManager.ResizeBuffers(GameConstants.DYNAMIC_RES_LOW,GameConstants.DYNAMIC_RES_LOW);
+			}
+		}
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }

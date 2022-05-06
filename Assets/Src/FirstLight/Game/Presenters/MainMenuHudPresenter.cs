@@ -57,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
 			
 			MMVibrationManager.SetHapticsActive(_dataProvider.AppDataProvider.IsHapticOn);
+			_dataProvider.AppDataProvider.SetDynamicResolutionMode(_dataProvider.AppDataProvider.IsHighResModeEnabled);
 		}
 		
 		private void OnCurrencyChanged(GameId currency, ulong previous, ulong newAmount, ObservableUpdateType updateType)

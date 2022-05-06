@@ -217,5 +217,27 @@ namespace Quantum
 				f.Signals.HealthIsZero(entity, attacker);
 			}
 		}
+
+		/// <summary>
+		/// Resets all the stats and removes all modifiers
+		/// </summary>
+		internal void ResetStats(Frame f, EntityRef entity)
+		{
+			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
+			SetInterimArmour(f, entity, EntityRef.None, 0);
+			
+			CurrentStatusModifierDuration = FP._0;
+			CurrentStatusModifierEndTime = FP._0;
+			CurrentStatusModifierType = StatusModifierType.None;
+			IsImmune = false;
+			
+			var list = f.ResolveList(Modifiers);
+			
+			for (var i = list.Count - 1; i > -1; i--)
+			{
+				RemoveModifier(f, list[i]);
+				list.RemoveAt(i);
+			}
+		}
 	}
 }

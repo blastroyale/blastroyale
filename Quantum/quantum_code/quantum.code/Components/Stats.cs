@@ -219,25 +219,24 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Resets all the stats and removes all modifiers
+		/// Removes all modifiers, removes immunity, resets health and interim armour
 		/// </summary>
 		internal void ResetStats(Frame f, EntityRef entity)
 		{
-			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
-			SetInterimArmour(f, entity, EntityRef.None, 0);
-			
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
 			IsImmune = false;
 			
 			var list = f.ResolveList(Modifiers);
-			
 			for (var i = list.Count - 1; i > -1; i--)
 			{
 				RemoveModifier(f, list[i]);
-				list.RemoveAt(i);
 			}
+			list.Clear();
+			
+			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
+			SetInterimArmour(f, entity, EntityRef.None, 0);
 		}
 	}
 }

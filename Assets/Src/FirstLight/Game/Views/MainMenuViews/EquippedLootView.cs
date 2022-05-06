@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Services;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using I2.Loc;
@@ -11,6 +10,7 @@ using TMPro;
 using UnityEngine.Events;
 using FirstLight.Game.Messages;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -21,12 +21,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class EquippedLootView : MonoBehaviour
 	{
 		[SerializeField] protected GameIdGroup _slot;
-		[SerializeField] protected Image _iconImage;
-		[SerializeField] protected Image _rarityImage;
-		[SerializeField] protected Image _slotImage;
-		[SerializeField] protected Button _button;
-		[SerializeField] protected TextMeshProUGUI _levelText;
-		[SerializeField] protected NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
+		[SerializeField, Required] protected Image _iconImage;
+		[SerializeField, Required] protected Image _rarityImage;
+		[SerializeField, Required] protected Image _slotImage;
+		[SerializeField, Required] protected Button _button;
+		[SerializeField, Required] protected TextMeshProUGUI _levelText;
+		[SerializeField, Required] protected NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
 		
 		public UnityEvent<GameIdGroup> OnClick = new UnityEvent<GameIdGroup>();
 

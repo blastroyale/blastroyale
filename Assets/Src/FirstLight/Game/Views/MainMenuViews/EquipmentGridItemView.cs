@@ -9,7 +9,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Infos;
-using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -29,19 +29,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 			public Action<UniqueId> OnEquipmentClicked;
 		}
 		
-		[SerializeField] private EquipmentIconItemView _equipmentIconView;
-		[SerializeField] private TextMeshProUGUI _sliderLevelText;
-		[SerializeField] private Button _button;
-		[SerializeField] private Image _equippedImage;
-		[SerializeField] private GameObject _selectedFrameImage;
-		[SerializeField] private GameObject _hideSelectionImage;
-		[SerializeField] private Image _autoFireIcon;
-		[SerializeField] private Image _manualFireIcon;
-		[SerializeField] private NotificationUniqueIdView _notificationUniqueIdView;
-		[SerializeField] private NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
-		[SerializeField] private Animation _cardItemAnimation;
-		[SerializeField] private AnimationClip _upgradeCardAnimationClip;
-		[SerializeField] private AnimationClip _equipCardAnimationClip;
+		[SerializeField, Required] private EquipmentIconItemView _equipmentIconView;
+		[SerializeField, Required] private TextMeshProUGUI _sliderLevelText;
+		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private Image _equippedImage;
+		[SerializeField, Required] private GameObject _selectedFrameImage;
+		[SerializeField, Required] private GameObject _hideSelectionImage;
+		[SerializeField, Required] private Image _autoFireIcon;
+		[SerializeField, Required] private Image _manualFireIcon;
+		[SerializeField, Required] private NotificationUniqueIdView _notificationUniqueIdView;
+		[SerializeField, Required] private NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
+		[SerializeField, Required] private Animation _cardItemAnimation;
+		[SerializeField, Required] private AnimationClip _upgradeCardAnimationClip;
+		[SerializeField, Required] private AnimationClip _equipCardAnimationClip;
 		
 		private long _uniqueId;
 		private IGameServices _services;

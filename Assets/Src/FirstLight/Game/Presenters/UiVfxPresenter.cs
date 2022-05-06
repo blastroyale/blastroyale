@@ -3,7 +3,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Services;
 using FirstLight.UiService;
-using TMPro;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,11 +16,11 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class UiVfxPresenter : UiPresenter
 	{
-		[SerializeField] private Image _imageRef;
-		[SerializeField] private DOTweenAnimation _moveAnimation;
-		[SerializeField] private DOTweenAnimation _scaleAnimation;
-		[SerializeField] private Transform _defaultFloatingTextTransform;
-		[SerializeField] private MainMenuFloatingTextView _floatingTextRef;
+		[SerializeField, Required] private Image _imageRef;
+		[SerializeField, Required] private DOTweenAnimation _moveAnimation;
+		[SerializeField, Required] private DOTweenAnimation _scaleAnimation;
+		[SerializeField, Required] private Transform _defaultFloatingTextTransform;
+		[SerializeField, Required] private MainMenuFloatingTextView _floatingTextRef;
 
 		private IObjectPool<Image> _imagePool;
 		private IObjectPool<MainMenuFloatingTextView> _floatingTextPool;

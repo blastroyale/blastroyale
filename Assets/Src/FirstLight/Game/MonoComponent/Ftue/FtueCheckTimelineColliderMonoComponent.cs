@@ -1,8 +1,7 @@
-using System;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Playables;
 
 namespace FirstLight.Game.MonoComponent.Ftue
@@ -13,7 +12,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 	[RequireComponent(typeof(Collider))]
 	public class FtueCheckTimelineColliderMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private PlayableDirector _timeline;
+		[SerializeField, Required] private PlayableDirector _timeline;
 		[SerializeField] private bool _newPlayingState = true;
 
 		private void OnTriggerEnter(Collider other)

@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -10,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private static readonly int _color = Shader.PropertyToID("_Color");
 		
 		[SerializeField] private Color _reloadColor = new Color(255, 64, 118);
-		[SerializeField] private MeshRenderer _indicator;
+		[SerializeField, Required] private MeshRenderer _indicator;
 		[SerializeField] private float _localHeight = 0.25f;
 
 		private Quaternion _rotation;

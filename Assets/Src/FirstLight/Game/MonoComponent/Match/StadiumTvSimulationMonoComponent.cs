@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -20,9 +21,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			public float ShowTime;
 		}
 		
-		[SerializeField] private Renderer _mainRenderer;
+		[SerializeField, Required] private Renderer _mainRenderer;
 		[SerializeField] private StadiumMaterial[] _stadiumScreenMaterials;
-		[SerializeField] private StandingsHolderView _standings;
+		[SerializeField, Required] private StandingsHolderView _standings;
 		
 		private IGameServices _services;
 		private int _materialIndex;

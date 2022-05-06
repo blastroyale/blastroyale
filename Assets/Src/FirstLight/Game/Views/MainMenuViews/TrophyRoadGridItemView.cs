@@ -1,5 +1,4 @@
 ﻿using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,6 +10,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -25,27 +25,27 @@ namespace FirstLight.Game.Views.MainMenuViews
 			public TrophyRoadRewardInfo Info;
 		}
 		
-		[SerializeField] private Button _button;
-		[SerializeField] private Slider _slider;
-		[SerializeField] private TextMeshProUGUI _levelText;
-		[SerializeField] private TextMeshProUGUI _rewardText;
-		[SerializeField] private TextMeshProUGUI _xpText;
-		[SerializeField] private TextMeshProUGUI _largeLevelNumberText;
-		[SerializeField] private TextMeshProUGUI _currentXpText;
-		[SerializeField] private TextMeshProUGUI _collectText;
-		[SerializeField] private Image _rewardImage;
-		[SerializeField] private Image _rewardClaimedImage;
-		[SerializeField] private Button _infoButton;
-		[SerializeField] private GameObject _newItemsHolder;
-		[SerializeField] private GameObject _currentXPHolder;
-		[SerializeField] private GameObject _sliderHandle;
-		[SerializeField] private Image _sliderHandleImage;
-		[SerializeField] private TrophyRoadUnlockView _smallCardRef;
-		[SerializeField] private TrophyRoadUnlockView _largeCardRef;
-		[SerializeField] private Animation _collectAnimation;
-		[SerializeField] private Image _rewardButtonImage;
-		[SerializeField] private Sprite _collectButtonSprite;
-		[SerializeField] private Sprite _rewardButtonSprite;
+		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private Slider _slider;
+		[SerializeField, Required] private TextMeshProUGUI _levelText;
+		[SerializeField, Required] private TextMeshProUGUI _rewardText;
+		[SerializeField, Required] private TextMeshProUGUI _xpText;
+		[SerializeField, Required] private TextMeshProUGUI _largeLevelNumberText;
+		[SerializeField, Required] private TextMeshProUGUI _currentXpText;
+		[SerializeField, Required] private TextMeshProUGUI _collectText;
+		[SerializeField, Required] private Image _rewardImage;
+		[SerializeField, Required] private Image _rewardClaimedImage;
+		[SerializeField, Required] private Button _infoButton;
+		[SerializeField, Required] private GameObject _newItemsHolder;
+		[SerializeField, Required] private GameObject _currentXPHolder;
+		[SerializeField, Required] private GameObject _sliderHandle;
+		[SerializeField, Required] private Image _sliderHandleImage;
+		[SerializeField, Required] private TrophyRoadUnlockView _smallCardRef;
+		[SerializeField, Required] private TrophyRoadUnlockView _largeCardRef;
+		[SerializeField, Required] private Animation _collectAnimation;
+		[SerializeField, Required] private Image _rewardButtonImage;
+		[SerializeField, Required] private Sprite _collectButtonSprite;
+		[SerializeField, Required] private Sprite _rewardButtonSprite;
 
 		private IObjectPool<TrophyRoadUnlockView> _smallCardPool;
 		private IObjectPool<TrophyRoadUnlockView> _largeCardPool;

@@ -1,6 +1,5 @@
-using System;
-using DG.Tweening;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +12,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class CollectablePlatformSpawnerViewMonoComponent : EntityMainViewBase
 	{
-		[SerializeField] private TextMeshPro _text;
-		[SerializeField] private Image _progressIndicator;
+		[SerializeField, Required] private TextMeshPro _text;
+		[SerializeField, Required] private Image _progressIndicator;
 		
 		protected override void OnInit(QuantumGame game)
 		{

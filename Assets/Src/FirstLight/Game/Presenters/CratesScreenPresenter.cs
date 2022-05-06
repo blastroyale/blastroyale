@@ -13,7 +13,7 @@ using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Quantum;
-using SRDebugger.UI.Controls.Data;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,21 +32,21 @@ namespace FirstLight.Game.Presenters
 			public Action<UniqueId> LootBoxOpenClicked;
 		}
 
-		[SerializeField] private Button _backButton;
-		[SerializeField] private GenericGridView _gridView;
-		[SerializeField] private TextMeshProUGUI _itemsText;
-		[SerializeField] private TextMeshProUGUI _descriptionText;
-		[SerializeField] private TextMeshProUGUI _itemTitleText;
-		[SerializeField] private TextMeshProUGUI _crateTierText;
-		[SerializeField] private TextMeshProUGUI _hardCurrencyAmountText;
-		[SerializeField] private Image _avatarImage;
-		[SerializeField] private Image _hardCurrencyImage;
-		[SerializeField] private Button _unlockButton;
-		[SerializeField] private TextMeshProUGUI _unlockButtonText;
-		[SerializeField] private TextMeshProUGUI _possibleRewardsText;
-		[SerializeField] private GameObject _crateContentsHolder;
-		[SerializeField] private GameObject _unlockingHolder;
-		[SerializeField] private GameObject _hardCurrencyHolder;
+		[SerializeField, Required] private Button _backButton;
+		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private TextMeshProUGUI _itemsText;
+		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
+		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
+		[SerializeField, Required] private TextMeshProUGUI _crateTierText;
+		[SerializeField, Required] private TextMeshProUGUI _hardCurrencyAmountText;
+		[SerializeField, Required] private Image _avatarImage;
+		[SerializeField, Required] private Image _hardCurrencyImage;
+		[SerializeField, Required] private Button _unlockButton;
+		[SerializeField, Required] private TextMeshProUGUI _unlockButtonText;
+		[SerializeField, Required] private TextMeshProUGUI _possibleRewardsText;
+		[SerializeField, Required] private GameObject _crateContentsHolder;
+		[SerializeField, Required] private GameObject _unlockingHolder;
+		[SerializeField, Required] private GameObject _hardCurrencyHolder;
 		[SerializeField] private PossibleRarityCardView [] _possibleRarityCards;
 
 		private IGameDataProvider _gameDataProvider;

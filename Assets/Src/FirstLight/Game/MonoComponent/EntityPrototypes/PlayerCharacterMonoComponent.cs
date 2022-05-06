@@ -257,8 +257,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
 			
-			_indicators[(int) IndicatorVfxId.Range].SetVisualProperties(range, 0, range);
-			_indicators[(int) IndicatorVfxId.Range].SetVisualState(shootState);
+			//_indicators[(int) IndicatorVfxId.Range].SetVisualProperties(range, 0, range);
+			//_indicators[(int) IndicatorVfxId.Range].SetVisualState(shootState);
 			_shootIndicator?.SetVisualProperties(size, 0, range);
 			_shootIndicator?.SetVisualState(shootState);
 

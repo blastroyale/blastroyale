@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views.MapViews
 {
+	/// <inheritdoc/>
+	/// <remarks>
+	/// Responsible of hiding the top of a building when a player enters it
+	/// </remarks>
 	public class BuildingTopRemovalView : MonoBehaviour
 	{
 		private static readonly int _topAnimatorPlayerInsideParamNameHash = Animator.StringToHash("PlayerInside");
 			
 		[SerializeField] private Animator _topRemovalAnimator;
-
-		private HashSet<int> _playersInside = new ();
 
 		private void OnTriggerEnter(Collider other)
 		{
@@ -29,21 +31,17 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void PlayerEnteredBuilding(GameObject player)
 		{
-			_playersInside.Add(player.GetInstanceID());
-
-			UpdateBuildingTop();
+			UpdateBuildingTop(true);
 		}
 
 		private void PlayerExitedBuilding(GameObject player)
 		{
-			_playersInside.Remove(player.GetInstanceID());
-
-			UpdateBuildingTop();
+			UpdateBuildingTop(false);
 		}
 
-		private void UpdateBuildingTop()
+		private void UpdateBuildingTop(bool playerInside)
 		{
-			_topRemovalAnimator.SetBool(_topAnimatorPlayerInsideParamNameHash, _playersInside.Count > 0);
+			_topRemovalAnimator.SetBool(_topAnimatorPlayerInsideParamNameHash, playerInside);
 		}
 	}
 }

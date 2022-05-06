@@ -21,6 +21,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Vector3 _lastPosition;
 
+		/// <summary>
+		/// Indicates if this is the local player
+		/// </summary>
 		public bool IsLocalPlayer
 		{
 			get;

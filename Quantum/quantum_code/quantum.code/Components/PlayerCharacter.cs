@@ -84,11 +84,10 @@ namespace Quantum
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			
-			stats->SetCurrentHealthPercentage(f, e, EntityRef.None, FP._1);
+			stats->ResetStats(f, e);
 			
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
-			
 			
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);

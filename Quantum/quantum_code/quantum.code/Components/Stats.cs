@@ -87,6 +87,25 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Sets the entity interim armour based on the given <paramref name="amount"/>
+		/// </summary>
+		internal void SetInterimArmour(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		{
+			var previousInterimArmour = CurrentInterimArmour;
+			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
+
+			CurrentInterimArmour = amount > maxInterimArmour
+				                       ? maxInterimArmour
+				                       : amount;
+			
+			if (CurrentInterimArmour != previousInterimArmour)
+			{
+				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
+				                                maxInterimArmour);
+			}
+		}
+
+		/// <summary>
 		/// Gives the given interim armour <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// This interim armour gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
@@ -98,19 +117,8 @@ namespace Quantum
 			{
 				return;
 			}
-
-			var previousInterimArmour = CurrentInterimArmour;
-			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
-
-			CurrentInterimArmour = CurrentInterimArmour + amount > maxInterimArmour
-				                       ? maxInterimArmour
-				                       : CurrentInterimArmour + amount;
-
-			if (CurrentInterimArmour != previousInterimArmour)
-			{
-				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
-				                                maxInterimArmour);
-			}
+			
+			SetInterimArmour(f, entity, attacker, CurrentInterimArmour + amount);
 		}
 
 		/// <summary>
@@ -208,6 +216,27 @@ namespace Quantum
 				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount, maxHealth);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
+		}
+
+		/// <summary>
+		/// Removes all modifiers, removes immunity, resets health and interim armour
+		/// </summary>
+		internal void ResetStats(Frame f, EntityRef entity)
+		{
+			CurrentStatusModifierDuration = FP._0;
+			CurrentStatusModifierEndTime = FP._0;
+			CurrentStatusModifierType = StatusModifierType.None;
+			IsImmune = false;
+			
+			var list = f.ResolveList(Modifiers);
+			for (var i = list.Count - 1; i > -1; i--)
+			{
+				RemoveModifier(f, list[i]);
+			}
+			list.Clear();
+			
+			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
+			SetInterimArmour(f, entity, EntityRef.None, 0);
 		}
 	}
 }

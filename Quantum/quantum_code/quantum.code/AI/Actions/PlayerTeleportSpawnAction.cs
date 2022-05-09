@@ -17,8 +17,7 @@ namespace Quantum
 			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f);
 			
 			transform->Position = spawnPoint.Component.Position;
-			
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, f.GameConfig.PlayerAliveShieldDuration);
+
 			player->Spawn(f, e);
 		}
 	}

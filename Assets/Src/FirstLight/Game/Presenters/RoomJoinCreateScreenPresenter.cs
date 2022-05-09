@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using UnityEngine;
 using FirstLight.Game.Utils;
@@ -25,8 +27,8 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField] private Button _closeButton;
 		[SerializeField] private Button _createDeathmatchRoomButton;
-		[SerializeField] private Button _createBattleRoyaleRoomButton;
 		[SerializeField] private Button _joinRoomButton;
+		[SerializeField] private TMP_Dropdown _mapSelection;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -36,11 +38,10 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_createBattleRoyaleRoomButton.gameObject.SetActive(Debug.isDebugBuild);
+			FillMapSelectionList();
 
 			_closeButton.onClick.AddListener(Close);
-			_createDeathmatchRoomButton.onClick.AddListener(CreateDeathmatchRoom);
-			_createBattleRoyaleRoomButton.onClick.AddListener(CreateBattleRoyaleRoom);
+			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 		}
 
@@ -67,28 +68,51 @@ namespace FirstLight.Game.Presenters
 			Data.PlayClicked();
 		}
 
-		private void CreateDeathmatchRoom()
-		{
-			CreateRoomClicked(GameMode.Deathmatch);
-		}
-
-		private void CreateBattleRoyaleRoom()
-		{
-			CreateRoomClicked(GameMode.BattleRoyale);
-		}
-
-		private void CreateRoomClicked(GameMode gameMode)
+		private void CreateRoomClicked()
 		{
 			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
 			var roomName = Random.Range(100000, 999999).ToString("F0");
+
+			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
+			
 			var message = new PlayCreateRoomClickedMessage
 			{
 				RoomName = roomName,
-				GameMode = gameMode
+				MapConfig = mapConfig
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.PlayClicked();
+		}
+
+		private void FillMapSelectionList()
+		{
+			_mapSelection.options.Clear();
+			
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+
+			foreach (var config in configs.Values)
+			{
+				if (Debug.isDebugBuild)
+				{
+					var roomName = config.Map + " - " + config.GameMode + (config.IsTestMap ? " (Test)" : "");
+					_mapSelection.options.Add(new DropdownMenuOption(roomName, config));
+				}
+				else if (config.GameMode == GameMode.Deathmatch && !config.IsTestMap)
+				{
+					_mapSelection.options.Add(new DropdownMenuOption(config.Map.GetTranslation(), config));
+				}
+
+			}
+		}
+
+		private class DropdownMenuOption : TMP_Dropdown.OptionData
+		{
+			public MapConfig MapConfig { get; set; }
+			public DropdownMenuOption(string text, MapConfig mapConfig) : base(text)
+			{
+				MapConfig = mapConfig;
+			}
 		}
 	}
 }

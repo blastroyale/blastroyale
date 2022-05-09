@@ -21,17 +21,17 @@ MonoBehaviour:
   - Id: 1
     Map: 137
     GameMode: 1
-    PlayersLimit: 10
+    PlayersLimit: 12
     GameEndTarget: 10
   - Id: 2
     Map: 143
     GameMode: 1
-    PlayersLimit: 10
+    PlayersLimit: 8
     GameEndTarget: 10
   - Id: 3
     Map: 144
     GameMode: 1
-    PlayersLimit: 10
+    PlayersLimit: 7
     GameEndTarget: 10
   - Id: 4
     Map: 7
@@ -41,7 +41,7 @@ MonoBehaviour:
   - Id: 5
     Map: 8
     GameMode: 1
-    PlayersLimit: 10
+    PlayersLimit: 8
     GameEndTarget: 10
   - Id: 6
     Map: 9

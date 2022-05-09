@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
@@ -36,6 +37,6 @@ namespace FirstLight.Game.Messages
 	public struct PlayCreateRoomClickedMessage : IMessage
 	{
 		public string RoomName; 
-		public GameMode GameMode;
+		public MapConfig MapConfig;
 	}
 }

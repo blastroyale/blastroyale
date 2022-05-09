@@ -1633,7 +1633,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Play Offline
+      - Play With Bots
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/DeathmatchPlayRoom
@@ -4919,7 +4919,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1651848312065
+    Google_LastUpdatedVersion: 1651873754892
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

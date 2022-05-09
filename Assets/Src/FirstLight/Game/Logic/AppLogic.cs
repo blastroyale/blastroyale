@@ -45,6 +45,11 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
+		/// Is high res mode on device enabled?
+		/// </summary>
+		bool IsHighResModeEnabled { get; set; }
+		
+		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
@@ -109,6 +114,20 @@ namespace FirstLight.Game.Logic
 		{
 			get => Data.HapticEnabled;
 			set => Data.HapticEnabled = value;
+		}
+		
+		/// <inheritdoc />
+		public bool IsHighResModeEnabled
+		{
+			get => Data.HighResModeEnabled;
+			set
+			{
+				var resolution = value ? GameConstants.DYNAMIC_RES_HIGH : GameConstants.DYNAMIC_RES_LOW;
+					
+				Data.HighResModeEnabled = value;
+				
+				ScalableBufferManager.ResizeBuffers(resolution,resolution);
+			}
 		}
 
 		/// <inheritdoc />

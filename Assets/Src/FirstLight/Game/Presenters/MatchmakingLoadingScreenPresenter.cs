@@ -68,7 +68,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 			
-			SceneManager.activeSceneChanged += OnSceneChanged;
+			//SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
 		private void OnDestroy()
@@ -76,7 +76,7 @@ namespace FirstLight.Game.Presenters
 			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			
-			SceneManager.activeSceneChanged -= OnSceneChanged;
+			//SceneManager.activeSceneChanged -= OnSceneChanged;
 		}
 
 		/// <inheritdoc />
@@ -214,13 +214,10 @@ namespace FirstLight.Game.Presenters
 		{
 			AddOrUpdatePlayerInListHolder(newMasterClient, ScriptLocalization.AdventureMenu.ReadyStatusHost);
 			
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && newMasterClient.IsLocal)
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && newMasterClient.IsLocal && _loadedCoreMatchAssets)
 			{
-				if (_loadedCoreMatchAssets)
-				{
-					_lockRoomButton.gameObject.SetActive(true);
-					_botsToggle.gameObject.SetActive(true);
-				}
+				_lockRoomButton.gameObject.SetActive(true);
+				_botsToggle.gameObject.SetActive(true);
 			}
 		}
 		
@@ -242,15 +239,6 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{playerAmount.ToString()}/{maxPlayers.ToString()}" ;
 		}
 
-		private void OnSceneChanged(Scene previous, Scene current)
-		{
-			// Ignore scene changes that are not levels
-			if (current.buildIndex != -1)
-			{
-				return;
-			}
-		}
-
 		private IEnumerator TimeUpdateCoroutine(int maxPlayers)
 		{
 			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
@@ -264,32 +252,6 @@ namespace FirstLight.Game.Presenters
 			_getReadyToRumbleText.gameObject.SetActive(true);
 			_playersFoundText.gameObject.SetActive(false);
 			_findingPlayersText.gameObject.SetActive(false);
-		}
-
-		private void SetLayerState(bool state, bool forceUiAwakeCalls)
-		{
-			// Little hack to avoid UIs to spam over this screen
-			for (var i = 0; i < Data.UiService.TotalLayers; i++)
-			{
-				if (!Data.UiService.TryGetLayer(i, out var layer))
-				{
-					continue;
-				}
-
-				if (forceUiAwakeCalls)
-				{
-					layer.SetActive(!state);
-				
-					foreach (var canvas in layer.GetComponentsInChildren<UiPresenter>(true))
-					{
-						// To force the UI awake calls
-						canvas.gameObject.SetActive(true);
-						canvas.gameObject.SetActive(false);
-					}
-				}
-				
-				layer.SetActive(state);
-			}
 		}
 
 		private void OnLockRoomClicked()
@@ -322,5 +284,43 @@ namespace FirstLight.Game.Presenters
 				_findingPlayersText.gameObject.SetActive(false);
 			}
 		}
+
+		/* This code is not needed at the moment. This is legacy code an necessary when adding the character 3D model
+		 again to the screen. Talk with Miguel about it 
+		 
+		private void OnSceneChanged(Scene previous, Scene current)
+		{
+			// Ignore scene changes that are not levels
+			if (current.buildIndex != -1)
+			{
+				return;
+			}
+		}
+
+		private void SetLayerState(bool state, bool forceUiAwakeCalls)
+		{
+			// Little hack to avoid UIs to spam over this screen
+			for (var i = 0; i < Data.UiService.TotalLayers; i++)
+			{
+				if (!Data.UiService.TryGetLayer(i, out var layer))
+				{
+					continue;
+				}
+
+				if (forceUiAwakeCalls)
+				{
+					layer.SetActive(!state);
+				
+					foreach (var canvas in layer.GetComponentsInChildren<UiPresenter>(true))
+					{
+						// To force the UI awake calls
+						canvas.gameObject.SetActive(true);
+						canvas.gameObject.SetActive(false);
+					}
+				}
+				
+				layer.SetActive(state);
+			}
+		}*/
 	}
 }

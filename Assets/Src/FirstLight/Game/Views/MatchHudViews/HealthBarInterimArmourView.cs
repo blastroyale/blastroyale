@@ -2,6 +2,7 @@ using FirstLight.Services;
 using Quantum;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
@@ -12,6 +13,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	{
 		public TextMeshProUGUI InterimArmourText;
 		public GameObject InterimArmourIcon;
+		public Slider ArmourSlider;
+		public Color _Colour = Color.blue;
+		public Image _fillImage;
 
 		private EntityRef _entity;
 
@@ -21,7 +25,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		public void SetupView(EntityRef entity, int currentInterimArmour)
 		{
 			_entity = entity;
-			
 			UpdateInterimArmourText(currentInterimArmour);
 			QuantumEvent.Subscribe<EventOnInterimArmourChanged>(this, OnInterimArmourUpdate);
 		}
@@ -38,10 +41,19 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			if (callback.Entity == _entity)
 			{
-				UpdateInterimArmourText(callback.CurrentInterimArmour);
+				
+				UpdateInterimArmourBar((float)callback.CurrentInterimArmour / callback.MaxInterimArmour);
+				
 			}
 		}
-		
+
+		private void UpdateInterimArmourBar(float interimArmour)
+		{
+			ArmourSlider.value = interimArmour;
+			InterimArmourIcon.SetActive(interimArmour > 0);
+			_fillImage.color = _Colour;
+		}
+
 		private void UpdateInterimArmourText(int interimArmour)
 		{
 			InterimArmourText.text = interimArmour.ToString("###0");

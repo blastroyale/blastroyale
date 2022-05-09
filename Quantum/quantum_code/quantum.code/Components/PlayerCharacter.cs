@@ -58,6 +58,8 @@ namespace Quantum
 			
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
+			
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 		}
 
 		/// <summary>
@@ -74,8 +76,6 @@ namespace Quantum
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 
 			f.Remove<DeadPlayerCharacter>(e);
-
-			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 		}
 
 		/// <summary>

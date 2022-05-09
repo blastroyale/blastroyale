@@ -49,7 +49,7 @@ MonoBehaviour:
       CollectableCollectTime:
         RawValue: 39321
       PlayerAliveShieldDuration:
-        RawValue: 327680
+        RawValue: 360448
       EquipmentLevelToPowerK: 10
       EquipmentRarityToPowerK: 50
       LootboxSlotsMaxNumber: 4

@@ -314,7 +314,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsOutdated(string version)
 		{
-			var appVersion = Application.version.Split('.');
+			var appVersion = VersionUtils.VersionExternal.Split('.');
 			var serverVersion = version.Split('.');
 			var majorApp = int.Parse(appVersion[0]);
 			var majorServer = int.Parse(serverVersion[0]);

@@ -98,13 +98,11 @@ namespace FirstLight.Game.Presenters
 					var roomName = config.Map + " - " + config.GameMode + (config.IsTestMap ? " (Test)" : "");
 					_mapSelection.options.Add(new DropdownMenuOption(roomName, config));
 				}
-				else
+				else if (config.GameMode == GameMode.Deathmatch && !config.IsTestMap)
 				{
-					if (config.GameMode == GameMode.Deathmatch && !config.IsTestMap)
-					{
-						_mapSelection.options.Add(new DropdownMenuOption(config.Map.ToString(), config));
-					}
+					_mapSelection.options.Add(new DropdownMenuOption(config.Map.GetTranslation(), config));
 				}
+
 			}
 		}
 

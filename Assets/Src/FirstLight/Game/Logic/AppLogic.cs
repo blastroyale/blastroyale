@@ -63,11 +63,6 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's Nickname
 		/// </summary>
 		IObservableFieldReader<string> NicknameId { get; }
-
-		/// <summary>
-		/// Switches on high/low dynamic resolution mode
-		/// </summary>
-		void SetDynamicResolutionMode(bool useHighResMode);
 	}
 
 	/// <inheritdoc />
@@ -125,7 +120,14 @@ namespace FirstLight.Game.Logic
 		public bool IsHighResModeEnabled
 		{
 			get => Data.HighResModeEnabled;
-			set => Data.HighResModeEnabled = value;
+			set
+			{
+				var resolution = value ? GameConstants.DYNAMIC_RES_HIGH : GameConstants.DYNAMIC_RES_LOW;
+					
+				Data.HighResModeEnabled = value;
+				
+				ScalableBufferManager.ResizeBuffers(resolution,resolution);
+			}
 		}
 
 		/// <inheritdoc />
@@ -134,18 +136,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
-
-		public void SetDynamicResolutionMode(bool useHighResMode)
-		{
-			if (useHighResMode)
-			{
-				ScalableBufferManager.ResizeBuffers(GameConstants.DYNAMIC_RES_HIGH,GameConstants.DYNAMIC_RES_HIGH);
-			}
-			else
-			{
-				ScalableBufferManager.ResizeBuffers(GameConstants.DYNAMIC_RES_LOW,GameConstants.DYNAMIC_RES_LOW);
-			}
-		}
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }

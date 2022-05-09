@@ -78,7 +78,6 @@ namespace FirstLight.Game.Presenters
 		private void OnHighResModeChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHighResModeEnabled = value;
-			_gameDataProvider.AppDataProvider.SetDynamicResolutionMode(value);
 		}
 	}
 }

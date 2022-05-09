@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -10,7 +8,6 @@ using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
 using Photon.Realtime;
-using Quantum;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,6 +42,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private GameObject _roomNameRootObject;
 		[SerializeField] private GameObject _playerMatchmakingRootObject;
 		[SerializeField] private PlayerListHolderView _playerListHolder;
+		[SerializeField] private Toggle _botsToggle;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -91,6 +89,7 @@ namespace FirstLight.Game.Presenters
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
+			_botsToggle.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
@@ -149,6 +148,7 @@ namespace FirstLight.Game.Presenters
 			{
 				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
 				_lockRoomButton.gameObject.SetActive(true);
+				_botsToggle.gameObject.SetActive(true);
 			}
 			
 			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
@@ -219,6 +219,7 @@ namespace FirstLight.Game.Presenters
 				if (_loadedCoreMatchAssets)
 				{
 					_lockRoomButton.gameObject.SetActive(true);
+					_botsToggle.gameObject.SetActive(true);
 				}
 			}
 		}
@@ -294,6 +295,11 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
+			if (!_botsToggle.isOn)
+			{
+				var room = _services.NetworkService.QuantumClient.CurrentRoom;
+				_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig.PlayersLimit = room.PlayerCount;
+			}
 			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
 		}
 
@@ -307,6 +313,7 @@ namespace FirstLight.Game.Presenters
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
+			_botsToggle.gameObject.SetActive(false);
 
 			if (CurrentRoom.IsVisible)
 			{

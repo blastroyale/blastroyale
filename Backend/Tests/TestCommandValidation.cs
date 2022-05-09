@@ -1,5 +1,7 @@
 
+using System;
 using System.Collections.Generic;
+using Backend;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Models;
@@ -31,6 +33,7 @@ public class TestCommandValidation
 		_gameServer = new TestServer().GetService<GameServer>();
 		_commandData = new Dictionary<string, string>();
 		_commandData[CommandFields.Timestamp] = "1";
+		_commandData[CommandFields.ClientVersion] = ServerConfiguration.GetConfig().MinClientVersion;
 		_command = new UpdatePlayerSkinCommand();
 		ModelSerializer.SerializeToData(_commandData, _command);
 	}
@@ -69,6 +72,20 @@ public class TestCommandValidation
 	public void TestMissingTimestampValidation()
 	{
 		_commandData?.Remove(CommandFields.Timestamp);
+		Assert.Throws<LogicException>(() => _gameServer?.ValidateCommand(_state, _command, _commandData));
+	}
+	
+	[Test]
+	public void TestMissingVersion()
+	{
+		_commandData?.Remove(CommandFields.ClientVersion);
+		Assert.Throws<LogicException>(() => _gameServer?.ValidateCommand(_state, _command, _commandData));
+	}
+	
+	[Test]
+	public void TestOutdatedClient()
+	{
+		_commandData[CommandFields.ClientVersion] = "0.0.1";
 		Assert.Throws<LogicException>(() => _gameServer?.ValidateCommand(_state, _command, _commandData));
 	}
 }

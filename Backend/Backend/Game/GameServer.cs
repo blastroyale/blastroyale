@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Backend.Game.Services;
 using Backend.Models;
 using FirstLight.Game.Commands;
@@ -19,7 +20,7 @@ public class GameServer
 	private ILogger _log;
 	private IServerStateService _state;
 	private IServerMutex _mutex;
-
+	
 	/// <summary>
 	/// Returns if the server is setup to run dev-mode. In dev-mode all players are admin and cheating will be enabled.
 	/// </summary>
@@ -76,6 +77,18 @@ public class GameServer
 		if (!cmdData.TryGetValue(CommandFields.Timestamp, out var currentCommandTimeString))
 		{
 			throw new LogicException($"Command data requires a timestamp to be ran: Key {CommandFields.Timestamp}");
+		}
+
+		if (!cmdData.TryGetValue(CommandFields.ClientVersion, out var clientVersionString))
+		{
+			throw new LogicException($"Command data requires a version to be ran: Key {CommandFields.ClientVersion}");
+		}
+
+		var minVersion = new Version(ServerConfiguration.GetConfig().MinClientVersion);
+		var clientVersion = new Version(clientVersionString);
+		if (clientVersion < minVersion)
+		{
+			throw new LogicException($"Outdated client {clientVersion} but expected minimal version {minVersion}");
 		}
 		
 		state.TryGetValue(CommandFields.Timestamp, out var lastCommandTime);

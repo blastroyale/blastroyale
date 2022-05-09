@@ -34,13 +34,11 @@ public class PlayfabServerSettings : IPlayfabServer
 	public string SecretKey
 	{
 		get => _secretKey;
-		set => _secretKey = value;
 	}
 
 	public string TitleId
 	{
 		get => _titleId;
-		set => _titleId = value;
 	}
 
 	/// <inheritdoc />

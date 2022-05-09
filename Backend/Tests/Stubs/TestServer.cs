@@ -47,8 +47,7 @@ public class TestServer
 	{
 		var services = new ServiceCollection();
 		var logger = new LoggerFactory().CreateLogger("Log");
-		IOCSetup.Setup(services, logger);
-		DbSetup.Setup(services);
+		ServerStartup.Setup(services, logger);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
 		return services;

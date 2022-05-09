@@ -1,12 +1,6 @@
-using System.IO;
 using System.Text;
-using Backend.Db;
 using Backend.Game;
 using FirstLight.Game.Logic;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
@@ -20,8 +14,7 @@ ILogger logger = loggerFactory.CreateLogger<Program>();
 
 // Setup Application
 var builder = WebApplication.CreateBuilder(args);
-IOCSetup.Setup(builder.Services, logger);
-DbSetup.Setup(builder.Services);
+ServerStartup.Setup(builder.Services, logger);
 var app = builder.Build();
 
 app.MapGet("/", () => "Standalone Server is running !");

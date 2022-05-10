@@ -46,6 +46,68 @@ namespace Quantum {
     CarryingTarget = 2,
     TargetDelivered = 4,
   }
+  public enum EquipmentAdjective : int {
+    Regular,
+    Cool,
+    Ornate,
+    Posh,
+    Exquisite,
+    Majestic,
+    Marvelous,
+    Magnificent,
+    Royal,
+    Divine,
+    TOTAL,
+  }
+  public enum EquipmentEdition : int {
+    Genesis,
+    TOTAL,
+  }
+  public enum EquipmentFaction : int {
+    Order,
+    Chaos,
+    Organic,
+    Dark,
+    Shadow,
+    Celestial,
+    Dimensional,
+    TOTAL,
+  }
+  public enum EquipmentGrade : int {
+    GradeI,
+    GradeII,
+    GradeIII,
+    GradeIV,
+    GradeV,
+    TOTAL,
+  }
+  public enum EquipmentManufacturer : int {
+    Military,
+    Futuristic,
+    Apocalyptic,
+    TOTAL,
+  }
+  public enum EquipmentMaterial : int {
+    Plastic,
+    Steel,
+    Bronze,
+    Carbon,
+    Golden,
+    TOTAL,
+  }
+  public enum EquipmentRarity : int {
+    Common,
+    CommonPlus,
+    Uncommon,
+    UncommonPlus,
+    Rare,
+    RarePlus,
+    Epic,
+    EpicPlus,
+    Legendary,
+    LegendaryPlus,
+    TOTAL,
+  }
   public enum GameId : int {
     Random = 0,
     RealMoney = 125,
@@ -173,56 +235,6 @@ namespace Quantum {
     Tutorial,
     Deathmatch,
     BattleRoyale,
-  }
-  public enum ItemAdjective : int {
-    Regular,
-    Cool,
-    Ornate,
-    Posh,
-    Exquisite,
-    Majestic,
-    Marvelous,
-    Magnificent,
-    Royal,
-    Divine,
-    TOTAL,
-  }
-  public enum ItemFaction : int {
-    Order,
-    Chaos,
-    Organic,
-    Dark,
-    Shadow,
-    Celestial,
-    Dimensional,
-    TOTAL,
-  }
-  public enum ItemManufacturer : int {
-    Military,
-    Futuristic,
-    Apocalyptic,
-    TOTAL,
-  }
-  public enum ItemMaterial : int {
-    Plastic,
-    Steel,
-    Bronze,
-    Carbon,
-    Golden,
-    TOTAL,
-  }
-  public enum ItemRarity : int {
-    Common,
-    CommonPlus,
-    Uncommon,
-    UncommonPlus,
-    Rare,
-    RarePlus,
-    Epic,
-    EpicPlus,
-    Legendary,
-    LegendaryPlus,
-    TOTAL,
   }
   public enum SpecialType : int {
     Airstrike,
@@ -2295,48 +2307,72 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Equipment {
-    public const Int32 SIZE = 32;
+    public const Int32 SIZE = 56;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(4)]
-    public ItemAdjective Adjective;
-    [FieldOffset(8)]
-    public ItemFaction Faction;
     [FieldOffset(0)]
-    public GameId GameId;
-    [FieldOffset(24)]
-    public UInt32 GradeIndex;
+    public EquipmentAdjective Adjective;
+    [FieldOffset(32)]
+    public UInt32 Durability;
+    [FieldOffset(4)]
+    public EquipmentEdition Edition;
+    [FieldOffset(8)]
+    public EquipmentFaction Faction;
     [FieldOffset(28)]
-    public UInt32 Level;
+    public GameId GameId;
+    [FieldOffset(36)]
+    public UInt32 Generation;
     [FieldOffset(12)]
-    public ItemManufacturer Manufacturer;
+    public EquipmentGrade Grade;
+    [FieldOffset(40)]
+    public UInt32 Level;
     [FieldOffset(16)]
-    public ItemMaterial Material;
+    public EquipmentManufacturer Manufacturer;
     [FieldOffset(20)]
-    public ItemRarity Rarity;
+    public EquipmentMaterial Material;
+    [FieldOffset(44)]
+    public UInt32 MaxDurability;
+    [FieldOffset(24)]
+    public EquipmentRarity Rarity;
+    [FieldOffset(48)]
+    public UInt32 ReplicationCounter;
+    [FieldOffset(52)]
+    public UInt32 Tuning;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 241;
         hash = hash * 31 + (Int32)Adjective;
+        hash = hash * 31 + Durability.GetHashCode();
+        hash = hash * 31 + (Int32)Edition;
         hash = hash * 31 + (Int32)Faction;
         hash = hash * 31 + (Int32)GameId;
-        hash = hash * 31 + GradeIndex.GetHashCode();
+        hash = hash * 31 + Generation.GetHashCode();
+        hash = hash * 31 + (Int32)Grade;
         hash = hash * 31 + Level.GetHashCode();
         hash = hash * 31 + (Int32)Manufacturer;
         hash = hash * 31 + (Int32)Material;
+        hash = hash * 31 + MaxDurability.GetHashCode();
         hash = hash * 31 + (Int32)Rarity;
+        hash = hash * 31 + ReplicationCounter.GetHashCode();
+        hash = hash * 31 + Tuning.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Equipment*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->GameId);
         serializer.Stream.Serialize((Int32*)&p->Adjective);
+        serializer.Stream.Serialize((Int32*)&p->Edition);
         serializer.Stream.Serialize((Int32*)&p->Faction);
+        serializer.Stream.Serialize((Int32*)&p->Grade);
         serializer.Stream.Serialize((Int32*)&p->Manufacturer);
         serializer.Stream.Serialize((Int32*)&p->Material);
         serializer.Stream.Serialize((Int32*)&p->Rarity);
-        serializer.Stream.Serialize(&p->GradeIndex);
+        serializer.Stream.Serialize((Int32*)&p->GameId);
+        serializer.Stream.Serialize(&p->Durability);
+        serializer.Stream.Serialize(&p->Generation);
         serializer.Stream.Serialize(&p->Level);
+        serializer.Stream.Serialize(&p->MaxDurability);
+        serializer.Stream.Serialize(&p->ReplicationCounter);
+        serializer.Stream.Serialize(&p->Tuning);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3247,7 +3283,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 392;
+    public const Int32 SIZE = 560;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3273,7 +3309,7 @@ namespace Quantum {
     public FP DecisionInterval;
     [FieldOffset(168)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 6)]
-    private fixed Byte _Gear_[192];
+    private fixed Byte _Gear_[336];
     [FieldOffset(88)]
     public FP LookForTargetsToShootAtInterval;
     [FieldOffset(96)]
@@ -3298,11 +3334,11 @@ namespace Quantum {
     public FP VisionRangeSqr;
     [FieldOffset(160)]
     public FP WanderRadius;
-    [FieldOffset(360)]
+    [FieldOffset(504)]
     public Equipment Weapon;
     public FixedArray<Equipment> Gear {
       get {
-        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 32, 6); }
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 56, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -3837,7 +3873,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 272;
+    public const Int32 SIZE = 344;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -3856,14 +3892,14 @@ namespace Quantum {
     public PlayerRef Player;
     [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(160)]
+    [FieldOffset(232)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
     [FieldOffset(64)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 3)]
-    private fixed Byte _Weapons_[96];
+    private fixed Byte _Weapons_[168];
     public FixedArray<Special> Specials {
       get {
         fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 56, 2); }
@@ -3871,7 +3907,7 @@ namespace Quantum {
     }
     public FixedArray<Equipment> Weapons {
       get {
-        fixed (byte* p = _Weapons_) { return new FixedArray<Equipment>(p, 32, 3); }
+        fixed (byte* p = _Weapons_) { return new FixedArray<Equipment>(p, 56, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -7692,6 +7728,13 @@ namespace Quantum {
       Register(typeof(EntityPrototypeRef), EntityPrototypeRef.SIZE);
       Register(typeof(EntityRef), EntityRef.SIZE);
       Register(typeof(Quantum.Equipment), Quantum.Equipment.SIZE);
+      Register(typeof(Quantum.EquipmentAdjective), 4);
+      Register(typeof(Quantum.EquipmentEdition), 4);
+      Register(typeof(Quantum.EquipmentFaction), 4);
+      Register(typeof(Quantum.EquipmentGrade), 4);
+      Register(typeof(Quantum.EquipmentManufacturer), 4);
+      Register(typeof(Quantum.EquipmentMaterial), 4);
+      Register(typeof(Quantum.EquipmentRarity), 4);
       Register(typeof(FP), FP.SIZE);
       Register(typeof(FPBounds2), FPBounds2.SIZE);
       Register(typeof(FPBounds3), FPBounds3.SIZE);
@@ -7719,11 +7762,6 @@ namespace Quantum {
       Register(typeof(Quantum.Input), Quantum.Input.SIZE);
       Register(typeof(Quantum.InputButtons), 4);
       Register(typeof(Quantum.Invisibility), Quantum.Invisibility.SIZE);
-      Register(typeof(Quantum.ItemAdjective), 4);
-      Register(typeof(Quantum.ItemFaction), 4);
-      Register(typeof(Quantum.ItemManufacturer), 4);
-      Register(typeof(Quantum.ItemMaterial), 4);
-      Register(typeof(Quantum.ItemRarity), 4);
       Register(typeof(Joint), Joint.SIZE);
       Register(typeof(Joint3D), Joint3D.SIZE);
       Register(typeof(LayerMask), LayerMask.SIZE);
@@ -7822,15 +7860,17 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.BotBehaviourType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.ConsumableType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EWorldState>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentAdjective>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentEdition>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentFaction>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentGrade>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentManufacturer>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentMaterial>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentRarity>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameId>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameMode>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemAdjective>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemFaction>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemManufacturer>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemMaterial>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ItemRarity>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpecialType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
@@ -7887,6 +7927,83 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentAdjective))]
+  public unsafe partial struct EquipmentAdjective_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentAdjective(EquipmentAdjective_Prototype value) {
+        return (EquipmentAdjective)value.Value;
+    }
+    public static implicit operator EquipmentAdjective_Prototype(EquipmentAdjective value) {
+        return new EquipmentAdjective_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentEdition))]
+  public unsafe partial struct EquipmentEdition_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentEdition(EquipmentEdition_Prototype value) {
+        return (EquipmentEdition)value.Value;
+    }
+    public static implicit operator EquipmentEdition_Prototype(EquipmentEdition value) {
+        return new EquipmentEdition_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentFaction))]
+  public unsafe partial struct EquipmentFaction_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentFaction(EquipmentFaction_Prototype value) {
+        return (EquipmentFaction)value.Value;
+    }
+    public static implicit operator EquipmentFaction_Prototype(EquipmentFaction value) {
+        return new EquipmentFaction_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentGrade))]
+  public unsafe partial struct EquipmentGrade_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentGrade(EquipmentGrade_Prototype value) {
+        return (EquipmentGrade)value.Value;
+    }
+    public static implicit operator EquipmentGrade_Prototype(EquipmentGrade value) {
+        return new EquipmentGrade_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentManufacturer))]
+  public unsafe partial struct EquipmentManufacturer_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentManufacturer(EquipmentManufacturer_Prototype value) {
+        return (EquipmentManufacturer)value.Value;
+    }
+    public static implicit operator EquipmentManufacturer_Prototype(EquipmentManufacturer value) {
+        return new EquipmentManufacturer_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentMaterial))]
+  public unsafe partial struct EquipmentMaterial_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentMaterial(EquipmentMaterial_Prototype value) {
+        return (EquipmentMaterial)value.Value;
+    }
+    public static implicit operator EquipmentMaterial_Prototype(EquipmentMaterial value) {
+        return new EquipmentMaterial_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentRarity))]
+  public unsafe partial struct EquipmentRarity_Prototype {
+    public Int32 Value;
+    public static implicit operator EquipmentRarity(EquipmentRarity_Prototype value) {
+        return (EquipmentRarity)value.Value;
+    }
+    public static implicit operator EquipmentRarity_Prototype(EquipmentRarity value) {
+        return new EquipmentRarity_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(GameId))]
   public unsafe partial struct GameId_Prototype {
     public Int32 Value;
@@ -7917,61 +8034,6 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator GameMode_Prototype(GameMode value) {
         return new GameMode_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(ItemAdjective))]
-  public unsafe partial struct ItemAdjective_Prototype {
-    public Int32 Value;
-    public static implicit operator ItemAdjective(ItemAdjective_Prototype value) {
-        return (ItemAdjective)value.Value;
-    }
-    public static implicit operator ItemAdjective_Prototype(ItemAdjective value) {
-        return new ItemAdjective_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(ItemFaction))]
-  public unsafe partial struct ItemFaction_Prototype {
-    public Int32 Value;
-    public static implicit operator ItemFaction(ItemFaction_Prototype value) {
-        return (ItemFaction)value.Value;
-    }
-    public static implicit operator ItemFaction_Prototype(ItemFaction value) {
-        return new ItemFaction_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(ItemManufacturer))]
-  public unsafe partial struct ItemManufacturer_Prototype {
-    public Int32 Value;
-    public static implicit operator ItemManufacturer(ItemManufacturer_Prototype value) {
-        return (ItemManufacturer)value.Value;
-    }
-    public static implicit operator ItemManufacturer_Prototype(ItemManufacturer value) {
-        return new ItemManufacturer_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(ItemMaterial))]
-  public unsafe partial struct ItemMaterial_Prototype {
-    public Int32 Value;
-    public static implicit operator ItemMaterial(ItemMaterial_Prototype value) {
-        return (ItemMaterial)value.Value;
-    }
-    public static implicit operator ItemMaterial_Prototype(ItemMaterial value) {
-        return new ItemMaterial_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(ItemRarity))]
-  public unsafe partial struct ItemRarity_Prototype {
-    public Int32 Value;
-    public static implicit operator ItemRarity(ItemRarity_Prototype value) {
-        return (ItemRarity)value.Value;
-    }
-    public static implicit operator ItemRarity_Prototype(ItemRarity value) {
-        return new ItemRarity_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -8556,23 +8618,35 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(Equipment))]
   public sealed unsafe partial class Equipment_Prototype : StructPrototype {
     public GameId_Prototype GameId;
-    public ItemRarity_Prototype Rarity;
-    public ItemAdjective_Prototype Adjective;
-    public ItemMaterial_Prototype Material;
-    public ItemManufacturer_Prototype Manufacturer;
-    public ItemFaction_Prototype Faction;
+    public EquipmentEdition_Prototype Edition;
+    public EquipmentRarity_Prototype Rarity;
+    public EquipmentGrade_Prototype Grade;
+    public EquipmentFaction_Prototype Faction;
+    public EquipmentAdjective_Prototype Adjective;
+    public EquipmentMaterial_Prototype Material;
+    public EquipmentManufacturer_Prototype Manufacturer;
+    public UInt32 MaxDurability;
+    public UInt32 Tuning;
     public UInt32 Level;
-    public UInt32 GradeIndex;
+    public UInt32 Generation;
+    public UInt32 ReplicationCounter;
+    public UInt32 Durability;
     partial void MaterializeUser(Frame frame, ref Equipment result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Equipment result, in PrototypeMaterializationContext context) {
       result.Adjective = this.Adjective;
+      result.Durability = this.Durability;
+      result.Edition = this.Edition;
       result.Faction = this.Faction;
       result.GameId = this.GameId;
-      result.GradeIndex = this.GradeIndex;
+      result.Generation = this.Generation;
+      result.Grade = this.Grade;
       result.Level = this.Level;
       result.Manufacturer = this.Manufacturer;
       result.Material = this.Material;
+      result.MaxDurability = this.MaxDurability;
       result.Rarity = this.Rarity;
+      result.ReplicationCounter = this.ReplicationCounter;
+      result.Tuning = this.Tuning;
       MaterializeUser(frame, ref result, in context);
     }
   }

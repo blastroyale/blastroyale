@@ -1,4 +1,3 @@
-using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -26,7 +25,7 @@ namespace Quantum
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
 			var collectable = f.Get<Collectable>(entity);
-			var equipment = new Equipment(collectable.GameId, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order, 1, 1);
+			var equipment = new Equipment(collectable.GameId);
 			
 			playerCharacter->AddWeapon(f, player, equipment);
 			playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);

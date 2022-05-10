@@ -35,8 +35,7 @@ namespace Quantum
 			CurrentWeaponSlot = 0;
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
-			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
-			                           ItemManufacturer.Military, ItemFaction.Order, 1, 1);
+			Weapons[0] = new Equipment(GameId.Hammer);
 			
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
@@ -167,8 +166,7 @@ namespace Quantum
 			var weapon = CurrentWeapon;
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var power = QuantumStatCalculator.CalculateStatValue(weapon.Rarity, weaponConfig.PowerRatioToBase,
-			                                                     weapon.Level, weapon.GradeIndex, f.GameConfig, StatType.Power);
+			var power = QuantumStatCalculator.CalculateWeaponPower(f, weapon);
 
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
@@ -280,7 +278,7 @@ namespace Quantum
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)
 		{
-			QuantumStatCalculator.CalculateStats(f, playerGear, out var armour, out var health, out var speed);
+			QuantumStatCalculator.CalculateGearStats(f, playerGear, out var armour, out var health, out var speed);
 
 			health += f.GameConfig.PlayerDefaultHealth;
 			speed += f.GameConfig.PlayerDefaultSpeed;

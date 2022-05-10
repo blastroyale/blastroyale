@@ -1,5 +1,6 @@
 using System.Text;
 using Backend.Game;
+using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using PlayFab;
 using PlayFab.CloudScriptModels;
@@ -30,21 +31,50 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var playerId = functionRequest?.AuthenticationContext.PlayFabId;
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
-	var res = new ExecuteFunctionResult()
+
+	if (functionRequest.FunctionName == "SetupPlayerCommand")
 	{
-		FunctionName = "ExecuteCommand",
-		FunctionResult = new PlayFabResult<BackendLogicResult?>
+		var serverData = app.Services.GetService<IPlayerSetupService>().GetInitialState(playerId);
+		app.Services.GetService<IServerStateService>().UpdatePlayerState(playerId, serverData);
+		
+		var res = new ExecuteFunctionResult()
 		{
-			Result =  app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest)
-		}
-	};
-	ctx.Response.StatusCode = 200;
-	await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()
+			FunctionName = "ExecuteCommand",
+			FunctionResult = new PlayFabResult<BackendLogicResult?>
+			{
+				Result =  new BackendLogicResult
+				{
+					PlayFabId = playerId,
+					Data = serverData
+				}
+			}
+		};
+		ctx.Response.StatusCode = 200;
+		await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()
+		{
+			code = 200,
+			status = "OK",
+			data = res
+		}));
+	}
+	else
 	{
-		code = 200,
-		status = "OK",
-		data = res
-	}));
+		var res = new ExecuteFunctionResult()
+		{
+			FunctionName = "ExecuteCommand",
+			FunctionResult = new PlayFabResult<BackendLogicResult?>
+			{
+				Result =  app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest)
+			}
+		};
+		ctx.Response.StatusCode = 200;
+		await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()
+		{
+			code = 200,
+			status = "OK",
+			data = res
+		}));
+	}
 });
 
 app.Run();

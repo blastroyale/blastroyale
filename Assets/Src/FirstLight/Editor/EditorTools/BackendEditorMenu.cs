@@ -57,13 +57,15 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Force Update Sent to Server");
 		}
 		
-		[MenuItem("First Light Games/Backend/Local Server")]
+		[MenuItem("First Light Games/Backend/Use Local Server")]
 		private static void ToggleLocalServer()
 		{
 			// Reverse whatever current local server mode is currently stored in saved in prefs
 			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, !EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY));
 
-			if (EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY))
+			bool usingLocalServer = EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY);
+
+			if (usingLocalServer)
 			{
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 				Debug.Log("Requests will go to LOCAL server now");

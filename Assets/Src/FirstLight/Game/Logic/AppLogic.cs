@@ -64,6 +64,11 @@ namespace FirstLight.Game.Logic
 		//
 		// Make sure to add a summary comment, like all the other properties above 
 		// Rider has a shortcut for making summaries, just do triple slash /// above a property/function
+		
+		/// <summary>
+		/// Requests a game mode
+		/// </summary>
+		IObservableField<GameMode> SelectedGameMode { get; }
 	}
 
 	/// <inheritdoc />
@@ -130,6 +135,8 @@ namespace FirstLight.Game.Logic
 		// EVE
 		// Declare IObservableField with the same name (SelectedGameMode), like you declared in IAppDataProvider
 		// Make it { get; private set; } like NicknameID above
+		
+		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -145,6 +152,7 @@ namespace FirstLight.Game.Logic
 			NicknameId = new ObservableField<string>(Data.NickNameId);
 			// EVE
 			// Initialize SelectedGameMode, like NicknameID above. For the parameter, give it GameMode.BattleRoyale
+			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 		}
 
 		/// <inheritdoc />

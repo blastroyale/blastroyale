@@ -3,13 +3,9 @@ using FirstLight.Game.Services;
 using UnityEngine;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
-using TMPro;
 using Button = UnityEngine.UI.Button;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -42,7 +38,8 @@ namespace FirstLight.Game.Presenters
 		{
 			// EVE
 			// Set AppLogic game mode to deathmatch
-			// Call Data.GameModeChosen event. This will be used to move state machine forward in main menu
+			// Call Data.GameModeChosen event. This will be used to move state machine forward in main 
+			
 		}
 
 		private void BattleRoyaleClicked()

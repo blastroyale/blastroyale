@@ -110,7 +110,7 @@ namespace FirstLight.Game.Presenters
 				
 				// EVE
 				// Get game mode from _gameDataProvider.AppDataProvider.SelectedGameMode (that you implemented)
-				GameMode = GameMode.BattleRoyale 
+				GameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value
 			};
 
 			_services.MessageBrokerService.Publish(message);
@@ -124,7 +124,7 @@ namespace FirstLight.Game.Presenters
 				IsOfflineMode = true,
 				// EVE
 				// Get game mode from _gameDataProvider.AppDataProvider.SelectedGameMode (that you implemented)
-				GameMode = GameMode.BattleRoyale // TODO 
+				GameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value //GameMode.BattleRoyale // TODO 
 			};
 
 			_services.MessageBrokerService.Publish(message);

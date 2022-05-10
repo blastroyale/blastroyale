@@ -1,6 +1,7 @@
 using DG.Tweening;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -13,14 +14,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class HealthBarView : MonoBehaviour, IPoolEntityDespawn
 	{
-		[SerializeField] private Slider _damageDealtSlider;
-		[SerializeField] private Slider _slider;
-		[SerializeField] private Image _damageDealtImage;
-		[SerializeField] private Image _fillImage;
+		[SerializeField, Required] private Slider _damageDealtSlider;
+		[SerializeField, Required] private Slider _slider;
+		[SerializeField, Required] private Image _damageDealtImage;
+		[SerializeField, Required] private Image _fillImage;
 		[SerializeField] private Color _primaryHitColor = Color.green;
 		[SerializeField] private Color _secondaryHitColor = Color.yellow;
 		[SerializeField] private Color _tertiaryHitColor = Color.red;
-		[SerializeField] private UnityEvent _healthIncreasedEvent;
+		[SerializeField, Required] private UnityEvent _healthIncreasedEvent;
 		
 		/// <summary>
 		/// Requests the entity that this health bar represents

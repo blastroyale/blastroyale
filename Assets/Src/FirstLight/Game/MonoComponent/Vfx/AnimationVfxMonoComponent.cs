@@ -1,5 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx
@@ -10,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	/// </remarks>
 	public class AnimationVfxMonoComponent : Vfx<VfxId>
 	{
-		[SerializeField] private Animation _animation;
+		[SerializeField, Required] private Animation _animation;
 
 		private void OnValidate()
 		{

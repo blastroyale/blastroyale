@@ -13,7 +13,6 @@ namespace Backend.Db;
 /// </summary>
 public static class DbSetup
 {
-
 	public static string ConnectionString =>
 		Environment.GetEnvironmentVariable("SqlConnectionString", EnvironmentVariableTarget.Process);
 	

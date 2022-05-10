@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using I2.Loc;
@@ -10,6 +9,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -33,28 +33,28 @@ namespace FirstLight.Game.Presenters
 			public Action OnNameChangeClicked;
 		}
 
-		[SerializeField] private GameObject _battleRoyaleButtonRoot;
-		[SerializeField] private Button _playBattleRoyaleRandom;
-		[SerializeField] private Button _playBattleRoyaleOffline;
-		[SerializeField] private Button _playBattleRoyaleTestMap;
-		[SerializeField] private Button _playDeathmatchRandom;
-		[SerializeField] private Button _playDeathmatchOffline;
-		[SerializeField] private Button _playRoom;
-		[SerializeField] private Button _nameChangeButton;
-		[SerializeField] private Button _settingsButton;
-		[SerializeField] private Button _feedbackButton;
-		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
+		[SerializeField, Required] private GameObject _battleRoyaleButtonRoot;
+		[SerializeField, Required] private Button _playBattleRoyaleRandom;
+		[SerializeField, Required] private Button _playBattleRoyaleOffline;
+		[SerializeField, Required] private Button _playBattleRoyaleTestMap;
+		[SerializeField, Required] private Button _playDeathmatchRandom;
+		[SerializeField, Required] private Button _playDeathmatchOffline;
+		[SerializeField, Required] private Button _playRoom;
+		[SerializeField, Required] private Button _nameChangeButton;
+		[SerializeField, Required] private Button _settingsButton;
+		[SerializeField, Required] private Button _feedbackButton;
+		[SerializeField, Required] private NewFeatureUnlockedView _newFeaturesView;
 
 		// Player Information / Trophy Road.
-		[SerializeField] private PlayerProgressBarView _sliderPlayerLevelView;
-		[SerializeField] private Button _trophyRoadButton;
+		[SerializeField, Required] private PlayerProgressBarView _sliderPlayerLevelView;
+		[SerializeField, Required] private Button _trophyRoadButton;
 
 		// Landscape Mode Buttons
-		[SerializeField] private VisualStateButtonView _lootButton;
-		[SerializeField] private VisualStateButtonView _heroesButton;
-		[SerializeField] private VisualStateButtonView _cratesButton;
-		[SerializeField] private VisualStateButtonView _shopButton;
-		[SerializeField] private Button _discordButton;
+		[SerializeField, Required] private VisualStateButtonView _lootButton;
+		[SerializeField, Required] private VisualStateButtonView _heroesButton;
+		[SerializeField, Required] private VisualStateButtonView _cratesButton;
+		[SerializeField, Required] private VisualStateButtonView _shopButton;
+		[SerializeField, Required] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

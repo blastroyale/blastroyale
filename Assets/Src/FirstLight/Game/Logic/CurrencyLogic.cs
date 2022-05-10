@@ -2,6 +2,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
 using FirstLight;
+using FirstLight.Game.Data.DataTypes;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -11,6 +12,11 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface ICurrencyDataProvider
 	{
+		/// <summary>
+		/// Requests the player's resource pool data. <see cref="IObservableDictionary"/>
+		/// </summary>
+		IObservableDictionaryReader<GameId, ResourcePoolData> ResourcePools { get; }
+		
 		/// <summary>
 		/// Requests the player's <seealso cref="GameIdGroup.Currency"/> <see cref="IObservableDictionary"/>
 		/// </summary>
@@ -48,9 +54,13 @@ namespace FirstLight.Game.Logic
 	public class CurrencyLogic : AbstractBaseLogic<PlayerData>, ICurrencyLogic, IGameLogicInitializer
 	{
 		private IObservableDictionary<GameId, ulong> _currencies;
-
+		private IObservableDictionary<GameId, ResourcePoolData> _resourcePools;
+		
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ulong> Currencies => _currencies;
+		
+		/// <inheritdoc />
+		public IObservableDictionaryReader<GameId, ResourcePoolData> ResourcePools => _resourcePools;
 
 		public CurrencyLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -60,6 +70,7 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_currencies = new ObservableDictionary<GameId, ulong>(Data.Currencies);
+			_resourcePools = new ObservableDictionary<GameId, ResourcePoolData>(Data.ResourcePools);
 		}
 
 		/// <inheritdoc />

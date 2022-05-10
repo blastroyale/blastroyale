@@ -2,6 +2,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.AdventureHudViews
@@ -11,7 +12,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class DamageFlashView : MonoBehaviour
 	{
-		[SerializeField] private Animation _damageFlashAnimation;
+		[SerializeField, Required] private Animation _damageFlashAnimation;
 		
 		private EntityRef Entity { get; set; }
 		

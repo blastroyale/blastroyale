@@ -1,7 +1,7 @@
-using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
@@ -11,8 +11,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class WeaponCollectableMonoComponent : EntityBase
 	{
-		[SerializeField] private Transform _itemTransform;
-		[SerializeField] private CollectableViewMonoComponent _collectableView;
+		[SerializeField, Required] private Transform _itemTransform;
+		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
 		
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{

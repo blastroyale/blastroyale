@@ -12,9 +12,19 @@ namespace FirstLight.Editor.EditorTools
 	/// </summary>
 	public static class BackendMenu
 	{
+		private const string USE_LOCAL_SERVER_KEY = "UseLocalServer";
+		
 		private static readonly string _unityPath = $"{Application.dataPath}/../Library/ScriptAssemblies/";
 		private static readonly string _quantumLibPath = $"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 
+		static BackendMenu()
+		{
+			if (!EditorPrefs.HasKey(USE_LOCAL_SERVER_KEY))
+			{
+				EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, true);
+			}
+		}
+		
 		private static void CopyAssembly(string from, string assemblyName)
 		{
 			var gameDllPath = $"{from}{assemblyName}";
@@ -50,8 +60,17 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("First Light Games/Backend/Local Server")]
 		private static void ToggleLocalServer()
 		{
-			PlayFabSettings.LocalApiServer = "http://localhost:7274";
-			Debug.Log("Requests will go to local server now");
+			// Reverse whatever current local server mode is currently stored in saved in prefs
+			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, !EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY));
+
+			if (EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY))
+			{
+				Debug.Log("Requests will go to LOCAL server now");
+			}
+			else
+			{
+				Debug.Log("Requests will go to CLOUD server now");
+			}
 		}
 	}
 }

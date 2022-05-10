@@ -1,16 +1,14 @@
 using System;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Infos;
 using UnityEngine;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Game.Views;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
@@ -28,12 +26,12 @@ namespace FirstLight.Game.Presenters
 			public Action SpeedUpAllBoxes;
 		}
 
-		[SerializeField] private Button _confirmButton;
-		[SerializeField] private Button _declineButton;
-		[SerializeField] private Transform _gridLayout;
-		[SerializeField] private ScrollRect _scrollRect;
-		[SerializeField] private RewardView _rewardRef;
-		[SerializeField] private TextMeshProUGUI _hardCurrencyCostText;
+		[SerializeField, Required] private Button _confirmButton;
+		[SerializeField, Required] private Button _declineButton;
+		[SerializeField, Required] private Transform _gridLayout;
+		[SerializeField, Required] private ScrollRect _scrollRect;
+		[SerializeField, Required] private RewardView _rewardRef;
+		[SerializeField, Required] private TextMeshProUGUI _hardCurrencyCostText;
 
 		private IObjectPool<RewardView> _rewardPool;
 		private IGameDataProvider _gameDataProvider;

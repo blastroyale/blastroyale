@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +16,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class MainMenuRewardView : MonoBehaviour
 	{
-		[SerializeField] private Image _backgroundImage;
-		[SerializeField] private Image _rewardIconImage;
-		[SerializeField] private TextMeshProUGUI _itemName;
-		[SerializeField] private Button _button;
-		[SerializeField] private Image _infoIcon;
+		[SerializeField, Required] private Image _backgroundImage;
+		[SerializeField, Required] private Image _rewardIconImage;
+		[SerializeField, Required] private TextMeshProUGUI _itemName;
+		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private Image _infoIcon;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

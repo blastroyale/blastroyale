@@ -1,6 +1,7 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class NoConnectionScreenPresenter : UiPresenter
 	{
-		[SerializeField] private Button _reconnectButton;
+		[SerializeField, Required] private Button _reconnectButton;
 
 		private IGameServices _services;
 

@@ -1,18 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
+﻿using UnityEngine;
 using FirstLight.Game.Configs;
-using UnityEngine.Events;
+using Sirenix.OdinInspector;
 using UnityEngine.UI;
 using TMPro;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Utils;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
-using FirstLight.Services;
-using I2.Loc;
-using Quantum;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -23,13 +13,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		[SerializeField] private Image _image;
 
-		[SerializeField] private Sprite _shopSprite;
-		[SerializeField] private Sprite _cratesSprite;
-		[SerializeField] private Sprite _fusionSprite;
-		[SerializeField] private Sprite _enhanceSprite;
-		[SerializeField] private TextMeshProUGUI _newItemsText;
-		[SerializeField] private TextMeshProUGUI _newItemNameText;
-		[SerializeField] private Image _unlockedImage;
+		[SerializeField, Required] private Sprite _shopSprite;
+		[SerializeField, Required] private Sprite _cratesSprite;
+		[SerializeField, Required] private Sprite _fusionSprite;
+		[SerializeField, Required] private Sprite _enhanceSprite;
+		[SerializeField, Required] private TextMeshProUGUI _newItemsText;
+		[SerializeField, Required] private TextMeshProUGUI _newItemNameText;
+		[SerializeField, Required] private Image _unlockedImage;
 		
 		/// <summary>
 		/// Set Loot information here; Rarity, Level, Quantity, etc.

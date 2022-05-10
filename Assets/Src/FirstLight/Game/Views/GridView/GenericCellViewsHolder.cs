@@ -1,5 +1,4 @@
-﻿using Com.TheFallenGames.OSA.CustomAdapters.GridView;
-
+﻿
 namespace FirstLight.Game.Views.GridViews
 {
 	/// <summary>

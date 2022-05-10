@@ -5,6 +5,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.AdventureHudViews
@@ -14,9 +15,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class HealthBarContainerView : MonoBehaviour
 	{
-		[SerializeField] private OverlayWorldView _healthBarLocalPlayerRef;
-		[SerializeField] private OverlayWorldView _healthBarPlayerRef;
-		[SerializeField] private OverlayWorldView _healthBarEnemyRef;
+		[SerializeField, Required] private OverlayWorldView _healthBarLocalPlayerRef;
+		[SerializeField, Required] private OverlayWorldView _healthBarPlayerRef;
+		[SerializeField, Required] private OverlayWorldView _healthBarEnemyRef;
 
 		private IGameServices _services;
 		private IObjectPool<PlayerHealthBarPoolObject> _healthBarPlayerPool;

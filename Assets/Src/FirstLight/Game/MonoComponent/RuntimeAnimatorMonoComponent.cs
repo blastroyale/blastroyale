@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent
@@ -8,7 +9,7 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public class RuntimeAnimatorMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private RuntimeAnimatorController _animatorController;
+		[SerializeField, Required] private RuntimeAnimatorController _animatorController;
 		
 		public RuntimeAnimatorController AnimatorController => _animatorController;
 	}

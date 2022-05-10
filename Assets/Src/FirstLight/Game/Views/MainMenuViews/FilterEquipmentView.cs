@@ -1,4 +1,5 @@
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using Button = UnityEngine.UI.Button;
@@ -12,7 +13,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class FilterEquipmentView : MonoBehaviour
 	{
 		[SerializeField] private GameIdGroup _slot;
-		[SerializeField] private Button _button;
+		[SerializeField, Required] private Button _button;
 
 		/// <summary>
 		/// Triggered when the button is clicked and passing the <see cref="GameIdGroup"/> slot referencing the button

@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;

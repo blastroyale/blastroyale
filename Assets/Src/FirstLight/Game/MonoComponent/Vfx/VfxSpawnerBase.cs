@@ -1,6 +1,5 @@
 using System;
-using FirstLight.Game.Ids;
-using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx
@@ -10,7 +9,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	/// </summary>
 	public abstract class VfxSpawnerBase : MonoBehaviour
 	{
-		[SerializeField] protected Transform _target;
+		[SerializeField, Required] protected Transform _target;
 		[SerializeField] protected Vector3 _offset = Vector3.zero;
 		[SerializeField] private Vector3 _additionalRotation = Vector3.zero;
 

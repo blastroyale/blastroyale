@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -10,7 +9,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
 using Photon.Realtime;
-using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,17 +33,17 @@ namespace FirstLight.Game.Presenters
 
 		public MapSelectionView MapSelectionView;
 		
-		[SerializeField] private Button _lockRoomButton;
-		[SerializeField] private Button _leaveRoomButton;
+		[SerializeField, Required] private Button _lockRoomButton;
+		[SerializeField, Required] private Button _leaveRoomButton;
 		[SerializeField] private Image [] _playersWaitingImage;
-		[SerializeField] private TextMeshProUGUI _playersFoundText;
-		[SerializeField] private TextMeshProUGUI _findingPlayersText;
-		[SerializeField] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField] private TextMeshProUGUI _roomNameText;
-		[SerializeField] private GameObject _loadingText;
-		[SerializeField] private GameObject _roomNameRootObject;
-		[SerializeField] private GameObject _playerMatchmakingRootObject;
-		[SerializeField] private PlayerListHolderView _playerListHolder;
+		[SerializeField, Required] private TextMeshProUGUI _playersFoundText;
+		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
+		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
+		[SerializeField, Required] private TextMeshProUGUI _roomNameText;
+		[SerializeField, Required] private GameObject _loadingText;
+		[SerializeField, Required] private GameObject _roomNameRootObject;
+		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
+		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

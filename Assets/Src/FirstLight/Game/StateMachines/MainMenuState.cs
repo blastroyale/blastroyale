@@ -444,6 +444,8 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			
+			Debug.LogError(_gameDataProvider.CurrencyDataProvider.ResourcePools);
 		}
 
 		private void CloseRoomJoinCreateMenuUI()

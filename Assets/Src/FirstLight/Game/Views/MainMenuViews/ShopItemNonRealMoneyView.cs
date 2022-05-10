@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
@@ -13,7 +14,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class ShopItemNonRealMoneyView : ShopItemView
 	{
-		[SerializeField] private Button _infoButton;
+		[SerializeField, Required] private Button _infoButton;
 		
 		private IGameDataProvider _gameDataProvider;
 		

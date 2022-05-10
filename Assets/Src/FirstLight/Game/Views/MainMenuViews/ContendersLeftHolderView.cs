@@ -2,6 +2,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class ContendersLeftHolderView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _contendersLeftText;
-		[SerializeField] private Animation _animation;
+		[SerializeField, Required] private TextMeshProUGUI _contendersLeftText;
+		[SerializeField, Required] private Animation _animation;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

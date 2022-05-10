@@ -8,6 +8,7 @@ using FirstLight.UiService;
 using MoreMountains.NiceVibrations;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,8 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
-		[SerializeField] private SpecialButtonView _specialButton0;
-		[SerializeField] private SpecialButtonView _specialButton1;
+		[SerializeField, Required] private SpecialButtonView _specialButton0;
+		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
 
 		private IGameServices _services;

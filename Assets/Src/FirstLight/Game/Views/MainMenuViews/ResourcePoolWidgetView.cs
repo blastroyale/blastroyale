@@ -30,7 +30,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void UpdateView()
 		{
 			var configs = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>();
-			 Debug.LogError("meme");
 		}
 	}
 }

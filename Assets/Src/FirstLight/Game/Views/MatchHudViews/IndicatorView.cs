@@ -1,5 +1,6 @@
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.AdventureHudViews
@@ -11,7 +12,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class IndicatorView : MonoBehaviour, IPoolEntityDespawn
 	{
 		// Check on I2Localization the Term reference
-		[SerializeField] private CanvasGroup _canvasGroup;
+		[SerializeField, Required] private CanvasGroup _canvasGroup;
 		[SerializeField] private float _clampScreenPadding;
 		
 		private EntityView _targetEntityView;

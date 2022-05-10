@@ -65,10 +65,12 @@ namespace FirstLight.Editor.EditorTools
 
 			if (EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY))
 			{
+				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 				Debug.Log("Requests will go to LOCAL server now");
 			}
 			else
 			{
+				PlayFabSettings.LocalApiServer = null;
 				Debug.Log("Requests will go to CLOUD server now");
 			}
 		}

@@ -79,6 +79,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetOrdinalTranslation(this int number)
 		{
+			number = number > 19 ? 19 : number;
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/Ordinal{number.ToString()}");
 		}
 

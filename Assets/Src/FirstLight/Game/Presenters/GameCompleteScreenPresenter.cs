@@ -90,7 +90,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var playerRankNumber = playerData.FindIndex(data => game.PlayerIsLocal(data.Data.Player)) + 1;
 				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = "You finished "+ playerRankNumber + playerRankNumber.GetOrdinalTranslation();
+				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, playerRankNumber + playerRankNumber.GetOrdinalTranslation());
 			}
 
 			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());

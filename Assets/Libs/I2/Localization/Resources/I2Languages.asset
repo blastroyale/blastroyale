@@ -565,6 +565,13 @@ MonoBehaviour:
       - Game devs are running around like Bored Blast Apes in Royale Club
       Flags: 00
       Languages_Touch: []
+    - Term: General/PlacementMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - You finished {0}
+      Flags: 00
+      Languages_Touch: []
     - Term: General/Ordinal1
       TermType: 0
       Description: 
@@ -5052,7 +5059,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1652199434225
+    Google_LastUpdatedVersion: 1652202895850
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

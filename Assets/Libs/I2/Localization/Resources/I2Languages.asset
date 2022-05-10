@@ -565,6 +565,146 @@ MonoBehaviour:
       - Game devs are running around like Bored Blast Apes in Royale Club
       Flags: 00
       Languages_Touch: []
+    - Term: General/PlacementMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - You finished {0}
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal1
+      TermType: 0
+      Description: 
+      Languages:
+      - st
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal2
+      TermType: 0
+      Description: 
+      Languages:
+      - nd
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal3
+      TermType: 0
+      Description: 
+      Languages:
+      - rd
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal4
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal5
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal6
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal7
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal8
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal9
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal10
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal11
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal12
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal13
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal14
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal15
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal16
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal17
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal18
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal19
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
       TermType: 0
       Description: 
@@ -4919,7 +5059,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1651873754892
+    Google_LastUpdatedVersion: 1652202895850
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

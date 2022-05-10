@@ -257,11 +257,18 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			if (!_botsToggle.isOn)
 			{
-				var room = _services.NetworkService.QuantumClient.CurrentRoom;
 				_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig.PlayersLimit = room.PlayerCount;
 			}
+
+			// If we only have 1 human player we force the game to he offline
+			if (room.PlayerCount == 1)
+			{
+				_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = true;
+			}
+			
 			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
 		}
 

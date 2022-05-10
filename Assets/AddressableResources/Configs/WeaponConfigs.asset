@@ -159,7 +159,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 21627
       AttackHitSpeed:
-        RawValue: 1638400
+        RawValue: 2162688
       AttackAngle: 0
       AttackRange:
         RawValue: 425984
@@ -167,7 +167,7 @@ MonoBehaviour:
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
-      Specials: 7700000066000000
+      Specials: 7700000055000000
     - Id: 36
       AssetRef:
         Id:
@@ -235,7 +235,7 @@ MonoBehaviour:
         RawValue: 16384
       AttackHitSpeed:
         RawValue: 1966080
-      AttackAngle: 15
+      AttackAngle: 10
       AttackRange:
         RawValue: 491520
       CanHitSameTarget: 0

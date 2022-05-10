@@ -1157,8 +1157,8 @@ MonoBehaviour:
   InterimArmourText: {fileID: 5544634030074067788}
   InterimArmourIcon: {fileID: 3926728958259038136}
   ArmourSlider: {fileID: 7097059804059640381}
-  _Colour: {r: 0.45882356, g: 0.52156866, b: 0.9333334, a: 1}
-  _fillImage: {fileID: 1903691661228798366}
+  Colour: {r: 0, g: 0, b: 1, a: 1}
+  FillImage: {fileID: 1903691661228798366}
 --- !u!1 &6302985694074709166
 GameObject:
   m_ObjectHideFlags: 0

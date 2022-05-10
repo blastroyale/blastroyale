@@ -1,17 +1,6 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using FirstLight.Game.Services;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
-using I2.Loc;
-using FirstLight.Game.Utils;
-using FirstLight.Game.Logic;
 using TMPro;
-using UnityEngine.Events;
-using FirstLight.Game.Messages;
-using FirstLight.Services;
-using Quantum;
-using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -20,8 +9,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class MainMenuFloatingTextView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _floatingText;
-		[SerializeField] private Animation _animation;
+		[SerializeField, Required] private TextMeshProUGUI _floatingText;
+		[SerializeField, Required] private Animation _animation;
 
 		/// <summary>
 		/// Requests the Floating text animation play lenght

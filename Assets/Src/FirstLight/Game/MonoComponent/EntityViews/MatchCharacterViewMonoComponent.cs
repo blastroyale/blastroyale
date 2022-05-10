@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FirstLight.Game.Infos;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {

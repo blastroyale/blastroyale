@@ -76,6 +76,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<PlayRandomClickedMessage>(OnPlayRandomClickedMessage);
+			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
@@ -273,6 +274,13 @@ namespace FirstLight.Game.StateMachines
 			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
 		}
 		
+		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
+		{
+			var mapConfig = GetMapConfigById(msg.MapId);
+			
+			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
+		}
+		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
 			CreateRoom(msg.GameMode, msg.RoomName);
@@ -430,7 +438,7 @@ namespace FirstLight.Game.StateMachines
 
 			foreach (var config in configs)
 			{
-				if (config.Value.GameMode == gameMode)
+				if (config.Value.GameMode == gameMode && !config.Value.IsTestMap)
 				{
 					compatibleMaps.Add(config.Value);
 				}
@@ -442,6 +450,11 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			return compatibleMaps[timeSegmentIndex];
+		}
+
+		private MapConfig GetMapConfigById(int mapId)
+		{
+			return _services.ConfigsProvider.GetConfigsDictionary<MapConfig>()[mapId];
 		}
 	}
 }

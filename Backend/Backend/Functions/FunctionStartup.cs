@@ -1,10 +1,16 @@
 
+using System;
+using System.Data;
+using System.Data.SqlTypes;
+using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Services;
+using Login.Db;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PlayFab;
@@ -21,6 +27,8 @@ public class FunctionStartup : FunctionsStartup
 	public override void Configure(IFunctionsHostBuilder builder)
 	{
 		var log = new LoggerFactory().CreateLogger("Log"); // TODO: Get proper azure log 
-		IOCSetup.Setup(builder.Services, log);
+		ServerStartup.Setup(builder.Services, log);
 	}
+
+
 }

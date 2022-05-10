@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
-using MoreMountains.NiceVibrations;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
@@ -17,7 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _onfireHash = Animator.StringToHash("onfire");
 		private static readonly int _hitHash = Animator.StringToHash("hit");
 		
-		[SerializeField] private Animator _animator;
+		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private float _dissolveDelay = 1f;
 
 		protected override void OnAwake()

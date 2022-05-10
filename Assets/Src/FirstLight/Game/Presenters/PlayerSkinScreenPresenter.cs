@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -12,6 +9,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,14 +28,14 @@ namespace FirstLight.Game.Presenters
 			public Action OnCloseClicked;
 		}
 
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private GenericGridView _gridView;
-		[SerializeField] private TextMeshProUGUI _descriptionText;
-		[SerializeField] private TextMeshProUGUI _itemTitleText;
-		[SerializeField] private Image _avatarImage;
-		[SerializeField] private Button _selectButton;
-		[SerializeField] private Button _selectedButton;
-		[SerializeField] private GameObject _selectedGameHolder;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
+		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
+		[SerializeField, Required] private Image _avatarImage;
+		[SerializeField, Required] private Button _selectButton;
+		[SerializeField, Required] private Button _selectedButton;
+		[SerializeField, Required] private GameObject _selectedGameHolder;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

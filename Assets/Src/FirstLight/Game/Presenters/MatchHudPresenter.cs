@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -7,10 +8,10 @@ using Quantum;
 using TMPro;
 using UnityEngine;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum.Commands;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -21,23 +22,22 @@ namespace FirstLight.Game.Presenters
 	/// </summary>		
 	public class MatchHudPresenter : UiPresenter
 	{
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _introAnimationClip;
-		[SerializeField] private GameObject _connectionIcon;
-		[SerializeField] private Button _quitButton;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _introAnimationClip;
+		[SerializeField, Required] private GameObject _connectionIcon;
+		[SerializeField, Required] private Button _quitButton;
 		[SerializeField] private Button[] _standingsButtons;
-		[SerializeField] private Button _leaderButton;
-		[SerializeField] private StandingsHolderView _standings;
-		[SerializeField] private TextMeshProUGUI _mapStatusText;
-		[SerializeField] private LeaderHolderView _leaderHolderView;
-		[SerializeField] private ScoreHolderView _scoreHolderView;
-		[SerializeField] private KillHolderView _killHolderView;
-		[SerializeField] private MapTimerView _mapTimerView;
-		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
-		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
-		[SerializeField] private GameObject _weaponSlotsHolder;
+		[SerializeField, Required] private Button _leaderButton;
+		[SerializeField, Required] private StandingsHolderView _standings;
+		[SerializeField, Required] private TextMeshProUGUI _mapStatusText;
+		[SerializeField, Required] private LeaderHolderView _leaderHolderView;
+		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
+		[SerializeField, Required] private MapTimerView _mapTimerView;
+		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
+		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
+		[SerializeField, Required] private GameObject _weaponSlotsHolder;
 		[SerializeField] private Button[] _weaponSlotButtons;
-		[SerializeField] private GameObject _minimapHolder;
+		[SerializeField, Required] private GameObject _minimapHolder;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -63,10 +63,6 @@ namespace FirstLight.Game.Presenters
 			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
-
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
-
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
@@ -105,23 +101,6 @@ namespace FirstLight.Game.Presenters
 		private void OnLag(bool previous, bool hasLag)
 		{
 			_connectionIcon.SetActive(hasLag);
-		}
-
-		private void OnMatchStarted(MatchStartedMessage message)
-		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-
-			if (isBattleRoyale)
-			{
-				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
-			}
-		}
-
-		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
-		{
-			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
 		}
 
 		private void OnStandingsClicked()

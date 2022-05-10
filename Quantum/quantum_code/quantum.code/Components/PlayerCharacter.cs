@@ -36,7 +36,7 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 			Weapons[0] = new Equipment(GameId.Hammer, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
-			                           ItemManufacturer.Military, ItemFaction.Order, 1, 5);
+			                           ItemManufacturer.Military, ItemFaction.Order, 1, 1);
 			
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.

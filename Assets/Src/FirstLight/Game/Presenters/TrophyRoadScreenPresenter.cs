@@ -1,26 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Views.MainMenuViews;
 using TMPro;
 using UnityEngine;
-using System.Linq;
 using System.Threading.Tasks;
-using FirstLight.Game.Infos;
-using FirstLight.Services;
-using I2.Loc;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Commands;
-using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
-using FirstLight.Game.Configs.AssetConfigs;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
 {
@@ -37,9 +26,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Header("OSA")]
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private GenericGridView _gridView;
-		[SerializeField] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
 
 		private IGameDataProvider _gameDataProvider;
 

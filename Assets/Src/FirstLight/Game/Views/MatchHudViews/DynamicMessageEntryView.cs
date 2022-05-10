@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using TMPro;
 
@@ -14,11 +11,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class DynamicMessageEntryView : MonoBehaviour
 	{
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _introClip;
-		[SerializeField] private AnimationClip _outroClip;
-		[SerializeField] private TextMeshProUGUI _textTop;
-		[SerializeField] private TextMeshProUGUI _textBottom;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _introClip;
+		[SerializeField, Required] private AnimationClip _outroClip;
+		[SerializeField, Required] private TextMeshProUGUI _textTop;
+		[SerializeField, Required] private TextMeshProUGUI _textBottom;
 
 		/// <summary>
 		/// Sets the Text on this dynamic message.

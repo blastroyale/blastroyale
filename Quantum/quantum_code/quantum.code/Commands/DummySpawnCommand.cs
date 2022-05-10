@@ -24,17 +24,12 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var targetable = new Targetable();
 			var e = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.DummyCharacterPrototype.Id));
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			var dummyHealth = Health;
-			
+
 			transform->Position = Position;
 			transform->Rotation = Rotation;
-			targetable.Team = (int) TeamType.Neutral;
-			
-			f.Add(e, targetable);
-			f.Add(e, new Stats(dummyHealth, 0, 0, 0, 0));
+
 			f.Add(e, new DummyCharacter());
 		}
 	}

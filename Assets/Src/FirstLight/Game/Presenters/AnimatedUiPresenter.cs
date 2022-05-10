@@ -3,6 +3,7 @@ using System.Collections;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Presenters
@@ -13,9 +14,9 @@ namespace FirstLight.Game.Presenters
 	/// </remarks>
 	public abstract class AnimatedUiPresenter : UiCloseActivePresenter
 	{
-		[SerializeField] protected Animation _animation;
-		[SerializeField] protected AnimationClip _introAnimationClip;
-		[SerializeField] protected AnimationClip _outroAnimationClip;
+		[SerializeField, Required] protected Animation _animation;
+		[SerializeField, Required] protected AnimationClip _introAnimationClip;
+		[SerializeField, Required] protected AnimationClip _outroAnimationClip;
 
 		protected IGameServices Services;
 		protected bool IsOpenedComplete;

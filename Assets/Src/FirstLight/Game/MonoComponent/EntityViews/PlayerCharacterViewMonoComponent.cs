@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -22,6 +20,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public Transform RootTransform;
 
 		private Vector3 _lastPosition;
+
+		/// <summary>
+		/// Indicates if this is the local player
+		/// </summary>
+		public bool IsLocalPlayer
+		{
+			get;
+			private set;
+		}
 
 		private static class PlayerFloats
 		{
@@ -60,6 +67,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef)
 				                           ? Triggers.Die
 				                           : Triggers.Spawn);
+			IsLocalPlayer = frame.Context.IsLocalPlayer(frame.Get<PlayerCharacter>(EntityRef).Player);
 		}
 
 		/// <summary>

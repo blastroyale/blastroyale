@@ -1,6 +1,6 @@
 using System;
-using System.Threading.Tasks;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +11,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class EmojiView : MonoBehaviour
 	{
-		[SerializeField] private Animation _animation;
-		[SerializeField] private Image _image;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private Image _image;
 		
 		private Action _despawner;
 		

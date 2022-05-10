@@ -1,12 +1,9 @@
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
-using Newtonsoft.Json;
-using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Purchasing;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -16,11 +13,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class ShopItemView : MonoBehaviour
 	{
-		[SerializeField] private Image _image;
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private TextMeshProUGUI _priceText;
-		[SerializeField] private UiButtonView _buyButton;
-		[SerializeField] private Animation _animation;
+		[SerializeField, Required] private Image _image;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private TextMeshProUGUI _priceText;
+		[SerializeField, Required] private UiButtonView _buyButton;
+		[SerializeField, Required] private Animation _animation;
 		
 		protected IGameServices GameServices;
 		protected ProductData Product;

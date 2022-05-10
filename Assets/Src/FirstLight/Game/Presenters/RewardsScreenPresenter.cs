@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Data.DataTypes;
 using UnityEngine;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Views;
 using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
@@ -25,13 +23,13 @@ namespace FirstLight.Game.Presenters
 			public Action MainMenuClicked;
 		}
 		
-		[SerializeField] private Button _gotoMainMenuButton;
-		[SerializeField] private Button _rewindButton;
-		[SerializeField] private Button _screenButton;
-		[SerializeField] private GameObject _yourLootObject;
-		[SerializeField] private Transform _gridLayout;
-		[SerializeField] private RewardView _rewardRef;
-		[SerializeField] private TextMeshProUGUI _yourLootText;
+		[SerializeField, Required] private Button _gotoMainMenuButton;
+		[SerializeField, Required] private Button _rewindButton;
+		[SerializeField, Required] private Button _screenButton;
+		[SerializeField, Required] private GameObject _yourLootObject;
+		[SerializeField, Required] private Transform _gridLayout;
+		[SerializeField, Required] private RewardView _rewardRef;
+		[SerializeField, Required] private TextMeshProUGUI _yourLootText;
 		
 		private RewardView [] _rewards;
 		private IGameDataProvider _gameDataProvider;

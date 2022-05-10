@@ -8,7 +8,6 @@ using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
-using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
@@ -30,14 +29,33 @@ namespace FirstLight.Game.Services
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand;
 	}
 
+	/// <summary>
+	/// Refers to dictionary keys used in the data sent to server.
+	/// </summary>
+	public static class CommandFields
+	{
+		/// <summary>
+		/// Key where the command data is serialized.
+		/// </summary>
+		public static readonly string Command = nameof(IGameCommand);
+		
+		/// <summary>
+		/// Field containing the client timestamp for when the command was issued.
+		/// </summary>
+		public static readonly string Timestamp = nameof(Timestamp);
+
+		/// <summary>
+		/// Field about the version the game client is currently running
+		/// </summary>
+		public static readonly string ClientVersion = nameof(ClientVersion);
+	}
+
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
 		private readonly Queue<IGameCommand> _commandQueue;
-
-		public static readonly string CommandFieldName = nameof(IGameCommand);
 		
 		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
@@ -139,8 +157,6 @@ namespace FirstLight.Game.Services
 				Text = "Quit Game"
 			};
 			NativeUiService.ShowAlertPopUp(false, "Game Error", "Server Desync", button);
-			_commandQueue.TryPeek(out var current);
-			throw new LogicException($"Server desync on command {current?.GetType().Name}");
 		}
 
 		/// <summary>
@@ -158,7 +174,9 @@ namespace FirstLight.Game.Services
 					Platform = Application.platform.ToString(),
 					Data = new Dictionary<string, string>
 					{
-						{CommandFieldName, ModelSerializer.Serialize(command).Value},
+						{ CommandFields.Command, ModelSerializer.Serialize(command).Value},
+						{ CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
+						{ CommandFields.ClientVersion, VersionUtils.VersionExternal }
 					}
 				},
 				AuthenticationContext = PlayFabSettings.staticPlayer
@@ -166,12 +184,18 @@ namespace FirstLight.Game.Services
 			PlayFabCloudScriptAPI.ExecuteFunction(request, OnCommandSuccess, OnCommandError);
 		}
 		
+		/// <summary>
+		/// Whenever the HTTP request to proccess a command does not return 200
+		/// </summary>
 		private void OnCommandError(PlayFabError error)
 		{
 			Rollback();
 			OnPlayFabError(error);
 		}
 
+		/// <summary>
+		/// Whenever the HTTP request to proccess a command returns 200
+		/// </summary>
 		private void OnCommandSuccess(ExecuteFunctionResult result)
 		{
 			_commandQueue.TryPeek(out var current);

@@ -1,8 +1,4 @@
-using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx

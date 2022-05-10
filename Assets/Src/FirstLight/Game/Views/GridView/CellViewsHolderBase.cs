@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using Com.TheFallenGames.OSA.CustomAdapters.GridView;
+﻿using Com.TheFallenGames.OSA.CustomAdapters.GridView;
 using UnityEngine.UI;
 using System.Collections;
 

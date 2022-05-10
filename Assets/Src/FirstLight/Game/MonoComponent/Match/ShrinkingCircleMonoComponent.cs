@@ -1,6 +1,7 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -10,9 +11,9 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class ShrinkingCircleMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private CircleLineRendererMonoComponent _shrinkingCircleLinerRenderer;
-		[SerializeField] private CircleLineRendererMonoComponent _safeAreaCircleLinerRenderer;
-		[SerializeField] private Transform _damageZoneTransform;
+		[SerializeField, Required] private CircleLineRendererMonoComponent _shrinkingCircleLinerRenderer;
+		[SerializeField, Required] private CircleLineRendererMonoComponent _safeAreaCircleLinerRenderer;
+		[SerializeField, Required] private Transform _damageZoneTransform;
 
 		private QuantumShrinkingCircleConfig _config;
 		private IGameServices _services;
@@ -33,7 +34,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void HandleUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Predicted;
-			var circle = frame.GetSingleton<ShrinkingCircle>();
+			if (!frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+			{
+				return;
+			}
+			
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;
 			var lerp = Mathf.Max(0, (frame.Time.AsFloat - circle.ShrinkingStartTime.AsFloat) / circle.ShrinkingDurationTime.AsFloat);

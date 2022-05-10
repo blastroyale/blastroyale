@@ -1,12 +1,4 @@
-using System.Collections;
-using DG.Tweening;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.Services;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 // ReSharper disable CheckNamespace
 

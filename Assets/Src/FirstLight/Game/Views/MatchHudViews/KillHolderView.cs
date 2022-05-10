@@ -3,6 +3,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.MatchHudViews
@@ -13,7 +14,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class KillHolderView : MonoBehaviour
 	{
-		[SerializeField] private KillTrackerView _killTrackerRef;
+		[SerializeField, Required] private KillTrackerView _killTrackerRef;
 
 		private IObjectPool<KillTrackerView> _killTrackerPool;
 		private IGameServices _services;

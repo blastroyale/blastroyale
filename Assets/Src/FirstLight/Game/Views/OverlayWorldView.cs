@@ -1,6 +1,6 @@
 using System;
-using Cinemachine;
 using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views
@@ -12,8 +12,8 @@ namespace FirstLight.Game.Views
 	[RequireComponent(typeof(RectTransform))]
 	public class OverlayWorldView : MonoBehaviour, IPoolEntityDespawn
 	{
-		[SerializeField] private RectTransform _rectTransform;
-		[SerializeField] private Vector2 _screenOffset;
+		[SerializeField, Required] private RectTransform _rectTransform;
+		[SerializeField, Required] private Vector2 _screenOffset;
 
 		private bool _isTargetFollow;
 		private Transform _target;

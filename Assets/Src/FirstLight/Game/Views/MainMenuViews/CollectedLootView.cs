@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -15,14 +16,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class CollectedLootView : MonoBehaviour
 	{
-		[SerializeField] private DOTweenAnimation _doTweenAnimation;
-		[SerializeField] private TextMeshProUGUI LevelText;
-		[SerializeField] private TextMeshProUGUI QuantityText;
-		[SerializeField] private TextMeshProUGUI ItemText;
-		[SerializeField] private Image IconImage;
-		[SerializeField] private Image _rarityImage;
-		[SerializeField] private Image _autoFireIcon;
-		[SerializeField] private Image _manualFireIcon;
+		[SerializeField, Required] private DOTweenAnimation _doTweenAnimation;
+		[SerializeField, Required] private TextMeshProUGUI LevelText;
+		[SerializeField, Required] private TextMeshProUGUI QuantityText;
+		[SerializeField, Required] private TextMeshProUGUI ItemText;
+		[SerializeField, Required] private Image IconImage;
+		[SerializeField, Required] private Image _rarityImage;
+		[SerializeField, Required] private Image _autoFireIcon;
+		[SerializeField, Required] private Image _manualFireIcon;
 		
 		private IGameServices _services;
 		

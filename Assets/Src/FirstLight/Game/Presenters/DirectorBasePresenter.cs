@@ -1,4 +1,5 @@
 using FirstLight.UiService;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -10,8 +11,8 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public abstract class DirectorBasePresenter : UiPresenter
 	{
-		[SerializeField] private PlayableDirector _appearDirector;
-		[SerializeField] private PlayableDirector _unloadDirector;
+		[SerializeField, Required] private PlayableDirector _appearDirector;
+		[SerializeField, Required] private PlayableDirector _unloadDirector;
 		
 		/// <summary>
 		/// Play the appear director timeline

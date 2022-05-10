@@ -42,7 +42,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 
-			if (frame.RuntimeConfig.GameMode == GameMode.BattleRoyale)
+			if (frame.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
 				StartCoroutine(UpdateShrinkingCircleTimer(frame));
 			}

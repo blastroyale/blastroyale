@@ -55,7 +55,7 @@ public class TestCommandManager
 		};
 		var args = new Dictionary<string, string>();
 		var (cmdTypeName, cmdData) = ModelSerializer.Serialize(sentCommand);
-		args[GameCommandService.CommandFieldName] = cmdData;
+		args[CommandFields.Command] = cmdData;
 		
 		var receivedCommand = (UpdatePlayerSkinCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
 

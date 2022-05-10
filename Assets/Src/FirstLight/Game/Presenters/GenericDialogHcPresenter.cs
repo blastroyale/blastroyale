@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-using UnityEngine.Video;
 
 namespace FirstLight.Game.Presenters
 {
@@ -16,9 +13,9 @@ namespace FirstLight.Game.Presenters
 	/// </remarks>
 	public class GenericDialogHcPresenter : GenericDialogPresenterBase
 	{
-		[SerializeField] private Image _hcImage;
-		[SerializeField] private Image _scImage;
-		[SerializeField] private TextMeshProUGUI _hardCurrencyCostText;
+		[SerializeField, Required] private Image _hcImage;
+		[SerializeField, Required] private Image _scImage;
+		[SerializeField, Required] private TextMeshProUGUI _hardCurrencyCostText;
 
 		/// <inheritdoc cref="GenericDialogService.OpenHcDialog"/>
 		public  void SetInfo(string title, string cost, bool showCloseButton, 

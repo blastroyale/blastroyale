@@ -1,5 +1,6 @@
 using System.Collections;
 using FirstLight.UiService;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +18,15 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class UiTooltipPresenter : UiPresenter
 	{
-        [SerializeField] private Transform _tooltipHelperTransform;
-        [SerializeField] private RectTransform _rectTransform;
-        [SerializeField] private Canvas _canvas;
-        [SerializeField] private Animator _animator;
-        [SerializeField] private TextMeshProUGUI _tooltipText;
-        [SerializeField] private RectTransform _tooltipArrow;
+        [SerializeField, Required] private Transform _tooltipHelperTransform;
+        [SerializeField, Required] private RectTransform _rectTransform;
+        [SerializeField, Required] private Canvas _canvas;
+        [SerializeField, Required] private Animator _animator;
+        [SerializeField, Required] private TextMeshProUGUI _tooltipText;
+        [SerializeField, Required] private RectTransform _tooltipArrow;
+        [SerializeField, Required] private CanvasGroup _canvasGroup;
+        
         [SerializeField] private int _arrowYOffset;
-        [SerializeField] private CanvasGroup _canvasGroup;
         
         private bool _isActive;
         

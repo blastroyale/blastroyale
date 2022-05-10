@@ -5,9 +5,9 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace FirstLight.Game.MonoComponent.MainMenu
 {
@@ -20,9 +20,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private readonly int _equipBodyHash = Animator.StringToHash("equip_body");
 		private readonly int _victoryHash = Animator.StringToHash("victory");
 
-		[SerializeField] private UnityEvent _characterLoadedEvent;
-		[SerializeField] private Transform _frontEndLootCamera;
-		[SerializeField] private Transform _characterAnchor;
+		[SerializeField, Required] private UnityEvent _characterLoadedEvent;
+		[SerializeField, Required] private Transform _frontEndLootCamera;
+		[SerializeField, Required] private Transform _characterAnchor;
 		
 		private Quaternion _defaultCharacterRotation;
 		private MainMenuCharacterViewComponent _characterViewComponent;

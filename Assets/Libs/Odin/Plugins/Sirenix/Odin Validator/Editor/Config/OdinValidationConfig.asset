@@ -334,6 +334,6 @@ MonoBehaviour:
     description: Scans all scenes from build options, including scene asset dependencies.
     IncludeScenesFromBuildOptions: 1
     IncludeOpenScenes: 0
-    IncludeAssetDependencies: 1
+    IncludeAssetDependencies: 0
     ScenePaths: []
     ExcludeScenePaths: []

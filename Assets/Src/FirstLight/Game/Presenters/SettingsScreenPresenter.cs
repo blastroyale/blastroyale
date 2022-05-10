@@ -6,12 +6,9 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
-using FirstLight.NativeUi;
-using FirstLight.Services;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
-using PlayFab;
-using PlayFab.ClientModels;
+using Sirenix.OdinInspector;
 using UnityEngine.Events;
 
 namespace FirstLight.Game.Presenters
@@ -27,15 +24,15 @@ namespace FirstLight.Game.Presenters
 			public Action OnClose;
 		}
 
-		[SerializeField] private TextMeshProUGUI _versionText;
-		[SerializeField] private TextMeshProUGUI _fullNameText;
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _blockerButton;
-		[SerializeField] private Button _logoutButton;
+		[SerializeField, Required] private TextMeshProUGUI _versionText;
+		[SerializeField, Required] private TextMeshProUGUI _fullNameText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _blockerButton;
+		[SerializeField, Required] private Button _logoutButton;
 
-		[SerializeField] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField] private UiToggleButtonView _hapticToggle;
-		[SerializeField] private UiToggleButtonView _sfxToggle;
+		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
+		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
+		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

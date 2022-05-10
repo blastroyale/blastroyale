@@ -2,6 +2,7 @@ using Cinemachine;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.MainMenu
@@ -11,13 +12,14 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// </summary>
 	public class MainMenuCameraMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private CinemachineVirtualCamera _shopCamera;
-		[SerializeField] private CinemachineVirtualCamera _lootCamera;
-		[SerializeField] private CinemachineVirtualCamera _mainCamera;
-		[SerializeField] private CinemachineVirtualCamera _socialCamera;
-		[SerializeField] private CinemachineVirtualCamera _cratesCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _shopCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _lootCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _mainCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _socialCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _cratesCamera;
+		
 		[HideInInspector]
-		[SerializeField] private CinemachineBrain _cinemachineBrain;
+		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
 		
 		private IGameServices _services;
 		

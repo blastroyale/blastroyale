@@ -5,6 +5,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -14,13 +15,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class StandingsHolderView : MonoBehaviour
 	{
-		[SerializeField] private PlayerResultEntryView _resultEntryViewRef;
-		[SerializeField] private GameObject _xpHolder;
-		[SerializeField] private GameObject _coinsHolder;
-		[SerializeField] private RectTransform _contentTransform;
+		[SerializeField, Required] private PlayerResultEntryView _resultEntryViewRef;
+		[SerializeField, Required] private GameObject _xpHolder;
+		[SerializeField, Required] private GameObject _coinsHolder;
+		[SerializeField, Required] private RectTransform _contentTransform;
 		[SerializeField] private int _verticalEntrySpacing = 14;
-		[SerializeField] private UnityEngine.UI.Button _blockerButton;
-
+		[SerializeField, Required] private UnityEngine.UI.Button _blockerButton;
+		
 		private IObjectPool<PlayerResultEntryView> _playerResultPool;
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

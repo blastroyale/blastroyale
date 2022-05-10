@@ -1,11 +1,11 @@
 ﻿using System;
 using FirstLight.Game.Infos;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +15,10 @@ namespace FirstLight.Game.Presenters
 	/// <inheritdoc />
 	public class GenericDialogLootInfoPresenter : GenericDialogPresenterBase
 	{
-		[SerializeField] private TextMeshProUGUI _itemsText;
+		[SerializeField, Required] private TextMeshProUGUI _itemsText;
 		[SerializeField] private PossibleRarityCardView [] _possibleRarityCards;
-		[SerializeField] private Image _lootBoxImage;
-		[SerializeField] private GameObject _possibleRewardsHolder;
+		[SerializeField, Required] private Image _lootBoxImage;
+		[SerializeField, Required] private GameObject _possibleRewardsHolder;
 		
 		/// <summary>
 		/// Shows the Generic Dialog PopUp with the given <paramref name="title"/> and the <paramref name="button"/> information.

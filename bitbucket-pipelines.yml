@@ -3,6 +3,15 @@ image: mcr.microsoft.com/dotnet/sdk:6.0
 clone:
   lfs: true
 
+definitions:
+  services:
+    postgres:
+      image: postgres
+      environment:
+        POSTGRES_DB: localDatabase
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: localPassword
+
 pipelines:
   default:
     - parallel:
@@ -11,3 +20,5 @@ pipelines:
             script:
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
               - cd Backend && dotnet test
+            services:
+              - postgres

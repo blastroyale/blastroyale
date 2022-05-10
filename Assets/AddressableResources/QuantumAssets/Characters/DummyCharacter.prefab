@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 9100407106362044458}
   - component: {fileID: 9100407106362044459}
   - component: {fileID: 1278261865814492973}
+  - component: {fileID: 6200409989629866430}
   m_Layer: 9
   m_Name: DummyCharacter
   m_TagString: Untagged
@@ -258,6 +259,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityView: {fileID: 9100407106362044459}
   _healthBarAnchor: {fileID: 6195588820050874286}
+--- !u!114 &6200409989629866430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100407106362044460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d4bf3ef7bd8fc41a2c038208c5a361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Health:
+      RawValue: 6553600
 --- !u!114 &-6204203526727587837
 MonoBehaviour:
   m_ObjectHideFlags: 0

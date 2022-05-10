@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -24,11 +25,11 @@ namespace FirstLight.Game.Presenters
 			public Action OnEnhanceClicked;
 			public Action OnLootBackButtonClicked;
 		}
-		[SerializeField] private VisualStateButtonView _equipmentButton;
-		[SerializeField] private VisualStateButtonView _fuseButton;
-		[SerializeField] private VisualStateButtonView _enhanceButton;
-		[SerializeField] private Button _changeSkinButton;
-		[SerializeField] private Button _backButton;
+		[SerializeField, Required] private VisualStateButtonView _equipmentButton;
+		[SerializeField, Required] private VisualStateButtonView _fuseButton;
+		[SerializeField, Required] private VisualStateButtonView _enhanceButton;
+		[SerializeField, Required] private Button _changeSkinButton;
+		[SerializeField, Required] private Button _backButton;
 
 		private IMainMenuServices _mainMenuServices;
 		private IGameDataProvider _gameDataProvider;

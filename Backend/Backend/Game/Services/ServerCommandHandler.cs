@@ -56,13 +56,15 @@ public class ServerCommandHandler : IServerCommahdHandler
 	/// <inheritdoc/>
 	public IGameCommand BuildCommandInstance(Dictionary<string, string> callData, string commandTypeName)
 	{
-		if (!callData.TryGetValue(GameCommandService.CommandFieldName, out var commandData))
-			throw new LogicException($"Input dict requires field key for cmd: {GameCommandService.CommandFieldName}");
-
+		if (!callData.TryGetValue(CommandFields.Command, out var commandData))
+		{
+			throw new LogicException($"Input dict requires field key for cmd: {CommandFields.Command}");
+		}
 		var commandType = GetCommandType(commandTypeName);
-		if(commandType == null)
+		if (commandType == null)
+		{
 			throw new LogicException($"Invalid command type: {commandTypeName}");
-
+		}
 		return ModelSerializer.Deserialize<IGameCommand>(commandData, commandType);
 	}
 	

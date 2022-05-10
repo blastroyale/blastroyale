@@ -22,6 +22,9 @@ using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
+	
+	// EVE - Delete this whole file in the project (ChooseGameModeState)
+	
 	/// <summary>
 	/// This object contains the behaviour logic for player's authentication in the game in the <seealso cref="GameStateMachine"/>
 	/// </summary>
@@ -85,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = OnDeathmatchSelected
 			};
 			
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.MainMenu.ChooseGameMode, choice1Button, choice2Button);
+			//_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.MainMenu.ChooseGameMode, choice1Button, choice2Button);
 		}
 
 		private void OnBattleRoyaleSelected()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6407388045241032014}
   - component: {fileID: 8465143649444952213}
   m_Layer: 5
-  m_Name: Choice2Button
+  m_Name: DMButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 5220584762333831833}
   - component: {fileID: 7298820235276831839}
   m_Layer: 5
-  m_Name: Choice1Button
+  m_Name: BRButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,10 +726,10 @@ GameObject:
   - component: {fileID: 4073292402343234596}
   - component: {fileID: 4073292402343234598}
   - component: {fileID: 5863388544096724369}
-  - component: {fileID: 2662432769406096417}
   - component: {fileID: 7306112839653272446}
+  - component: {fileID: 3914861132513996972}
   m_Layer: 5
-  m_Name: GenericChoiceDialog
+  m_Name: GameModeSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -818,28 +818,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &2662432769406096417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4073292402343234599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30a6dbd3f86658b49a626d527f45d56d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animation: {fileID: 883844809517885863}
-  _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
-  _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
-  TitleText: {fileID: 1940752216395673198}
-  ConfirmButtonText: {fileID: 2469494543220072900}
-  CloseButton: {fileID: 4659360397123794202}
-  ConfirmButton: {fileID: 7298820235276831839}
-  BlockerButton: {fileID: 4659360397123794202}
-  Choice2Button: {fileID: 8465143649444952213}
-  Choice2ButtonText: {fileID: 664003592626534087}
 --- !u!225 &7306112839653272446
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -852,6 +830,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3914861132513996972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073292402343234599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ac378d1be5c4a62a57f6d762e6008f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animation: {fileID: 883844809517885863}
+  _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
+  _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
+  _battleRoyaleButton: {fileID: 7298820235276831839}
+  _deathmatchButton: {fileID: 8465143649444952213}
 --- !u!1 &4422085721905576558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1178,7 @@ GameObject:
   - component: {fileID: 2293422624880511337}
   - component: {fileID: 4852054978157724941}
   - component: {fileID: 1940752216395673198}
+  - component: {fileID: 5926205333228679311}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -1307,6 +1303,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5926205333228679311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8294354937542000587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: MainMenu/ChooseGameMode
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1 &9104858107941504966
 GameObject:
   m_ObjectHideFlags: 0

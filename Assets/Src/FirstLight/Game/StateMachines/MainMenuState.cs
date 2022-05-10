@@ -41,6 +41,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
+		// EVE - Add new event '_gameModeChosenEvent'
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
@@ -61,7 +62,10 @@ namespace FirstLight.Game.StateMachines
 		private readonly TrophyRoadMenuState _trophyRoadState;
 		private readonly ShopMenuState _shopMenuState;
 		private readonly EnterNameState _enterNameState;
+		
+		// EVE - Remove this
 		private readonly ChooseGameModeState _chooseGameModeState;
+		
 		private Type _currentScreen;
 
 		public MainMenuState(IGameServices services, IDataService dataService, IGameUiService uiService,
@@ -81,6 +85,8 @@ namespace FirstLight.Game.StateMachines
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameDataProvider, statechartTrigger);
+			
+			// EVE - Remove this
 			_chooseGameModeState = new ChooseGameModeState(services, uiService, gameDataProvider, statechartTrigger);
 		}
 
@@ -134,7 +140,10 @@ namespace FirstLight.Game.StateMachines
 			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
+			
+			// EVE - Change this to a .State instead of .Nest
 			var chooseGameMode = stateFactory.Nest("Enter Choose Game Mode");
+			
 			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
 			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
@@ -181,7 +190,12 @@ namespace FirstLight.Game.StateMachines
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 
+			// EVE
+			// Add an .OnEnter(OpenGameModeSelectionUI) block
+			// Change this to .State(_gameModeChosenEvent) and target home menu. The event that you made up top.
 			chooseGameMode.Nest(_chooseGameModeState.Setup).Target(homeMenu);
+			// Add an .OnExit(CloseGameModeSelectionUI) block
+			// We will need to create (Open/Close GameModeSelectionUI functions) See below
 
 			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
 
@@ -204,8 +218,7 @@ namespace FirstLight.Game.StateMachines
 			shopMenu.OnExit(CloseShopMenuUI);
 
 			lootOptionsMenu.OnEnter(OpenLootOptionsMenuUI);
-			lootOptionsMenu.Nest(_lootOptionsMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
-			               .Target(screenCheck);
+			lootOptionsMenu.Nest(_lootOptionsMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			lootOptionsMenu.OnExit(CloseLootOptionsMenuUI);
 
 			lootMenu.OnEnter(OpenLootMenuUI);
@@ -216,8 +229,7 @@ namespace FirstLight.Game.StateMachines
 			heroesMenu.OnExit(CloseHeroesMenuUI);
 
 			trophyRoadMenu.OnEnter(OpenTrophyRoadMenuUI);
-			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
-			              .Target(screenCheck);
+			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
@@ -231,8 +243,7 @@ namespace FirstLight.Game.StateMachines
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
 			collectLoot.OnExit(OpenMainMenuUi);
 
-			cratesMenu.Nest(_cratesMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
-			          .Target(screenCheck);
+			cratesMenu.Nest(_cratesMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			cratesMenu.OnExit(CloseCratesMenuUI);
 
 			socialMenu.OnEnter(OpenSocialMenuUI);
@@ -377,6 +388,20 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<OverflowLootDialogPresenter>();
 		}
+		
+		// EVE
+		//
+		// We need to make functions for opening/closing the game mode selection UI, properly.
+		// We can base the code on the Open/Close LootOptionsMenuUI functions below this pseudo code.
+		//
+		// ---Make OpenGameModeSelectionUI function
+		// -Make a data object of type GameModeSelectionPresenter.StateData and bind event of choosing game mode within, like this:
+		//		GameModeChosen = () => {_statechartTrigger(_chosenGameModeEvent)}
+		// -Call UI service to open GameModeSelectionPresenter
+		//
+		// ---Make CloseGameModeSelectionUI function
+		// -Call UI service to close UI of type GameModeSelectionPresenter
+		//
 
 		private void OpenLootOptionsMenuUI()
 		{

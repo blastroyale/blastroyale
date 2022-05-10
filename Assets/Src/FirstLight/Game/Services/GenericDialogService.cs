@@ -44,13 +44,6 @@ namespace FirstLight.Game.Services
 		void OpenDialog(string title, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
 		
 		/// <summary>
-		/// Shows the Generic Dialog box PopUp with the given information without an option for the user except
-		/// to click on the close button.
-		/// </summary>
-		void OpenChoiceDialog(string title, GenericDialogButton button1, GenericDialogButton button2);
-		
-		
-		/// <summary>
 		/// Shows the Generic Dialog with an icon box PopUp with the given information without an option for
 		/// the user except to click on the close button.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
@@ -125,17 +118,6 @@ namespace FirstLight.Game.Services
 			_openDialogType = ui.GetType();
 			
 			ui.SetInfo(title, showCloseButton, button, closeCallback);
-		}
-		
-		/// <inheritdoc />
-		public void OpenChoiceDialog(string title,  GenericDialogButton button1 = new GenericDialogButton(), 
-		                             GenericDialogButton button2 = new GenericDialogButton())
-		{
-			var ui = _uiService.OpenUi<GenericChoiceDialogPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, button1, button2);
 		}
 
 		/// <inheritdoc />

@@ -67,6 +67,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
+			_playOfflineDebugButton.onClick.AddListener(OnPlayOfflineClicked);
 			_playRoom.onClick.AddListener(OnPlayRoomlicked);
 
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
@@ -102,9 +103,27 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnPlayOnlineClicked()
 		{
+			
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = false,
+				
+				// EVE
+				// Get game mode from _gameDataProvider.AppDataProvider.SelectedGameMode (that you implemented)
+				GameMode = GameMode.BattleRoyale 
+			};
+
+			_services.MessageBrokerService.Publish(message);
+			Data.OnPlayButtonClicked();
+		}
+		
+		private void OnPlayOfflineClicked()
+		{
+			var message = new PlayRandomClickedMessage
+			{
+				IsOfflineMode = true,
+				// EVE
+				// Get game mode from _gameDataProvider.AppDataProvider.SelectedGameMode (that you implemented)
 				GameMode = GameMode.BattleRoyale // TODO 
 			};
 

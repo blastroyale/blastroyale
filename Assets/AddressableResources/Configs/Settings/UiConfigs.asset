@@ -57,6 +57,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GameModeSelection.prefab
+    Layer: 3
+    UiType: FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameQuitOver Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game,
@@ -64,10 +68,6 @@ MonoBehaviour:
   - AddressableAddress: Ui/GameTimeOver Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameTimeOverScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/GenericChoiceDialog.prefab
-    Layer: 3
-    UiType: FirstLight.Game.Presenters.GenericChoiceDialogPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericDialog.prefab
     Layer: 3
@@ -252,7 +252,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GenericChoiceDialogPresenter, FirstLight.Game, Version=0.0.0.0,
+    - FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:

@@ -26,25 +26,17 @@ namespace Quantum
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
 			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized;
 
-			var cSpeed = kcc->Velocity.Magnitude;
-			var maxSpeed = kcc->MaxSpeed;
+			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
+			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
 
-			//targetAttackAngle is found by lerping between the minimum and maximum attack angles
+			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
-				cSpeed / maxSpeed);
+			                                    cVelocitySqr / maxSpeedSqr);
 			
-
-			//accuracy is found by getting a random angle between the min and max accuracy values,
-			//and then passing that through into the shot
-
-			//this randomizes the direction of the bullet each time you fire it
-			//this value is only needed if you are firing a single shot weapon
-			var shotAngle = FP._0;
-			FP angle = targetAttackAngle / FP._2;
-			if (weaponConfig.NumberOfShots == 1)
-			{
-				shotAngle = f.RNG->Next(-angle, angle);
-			}
+			//accuracy modifier is found by getting a random angle between the min and max angle values,
+			//and then passing that through into the shot; Works only for single shot weapons
+			var angle = targetAttackAngle / FP._2;
+			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
 
 			var raycastShot = new RaycastShots
 			{

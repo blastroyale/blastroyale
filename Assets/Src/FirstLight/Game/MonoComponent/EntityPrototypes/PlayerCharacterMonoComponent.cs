@@ -242,11 +242,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var kcc = frame.Get<CharacterController3D>(EntityView.EntityRef);
-			var velocity = kcc.Velocity.Magnitude.AsFloat;
+			var velocitySqr = kcc.Velocity.SqrMagnitude.AsFloat;
 			var range = _currentWeaponConfig.AttackRange.AsFloat;
-			var angleInRad = _currentWeaponConfig.MaxAttackAngle == _currentWeaponConfig.MinAttackAngle ?
-				                 _currentWeaponConfig.MaxAttackAngle :
-				                 Mathf.Lerp((float)_currentWeaponConfig.MinAttackAngle, (float)_currentWeaponConfig.MaxAttackAngle, velocity / kcc.MaxSpeed.AsFloat);
+			var minAttackAngle = _currentWeaponConfig.MinAttackAngle;
+			var maxAttackAngle = _currentWeaponConfig.MaxAttackAngle;
+			var maxSpeedSqr = (kcc.MaxSpeed * kcc.MaxSpeed).AsFloat;
+			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle :
+				                 Mathf.Lerp(minAttackAngle, maxAttackAngle, velocitySqr / maxSpeedSqr);
+			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
 			
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator

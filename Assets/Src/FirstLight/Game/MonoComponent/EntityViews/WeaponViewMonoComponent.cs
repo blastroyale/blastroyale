@@ -58,7 +58,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var shape = _particleSystem.shape;
 			var arc = 0;
-			float rotation = -(90 + callback.ShotDir.AsFloat);
+			var rotation = -(90f + callback.ShotDir.AsFloat);
 
 			if (config.NumberOfShots > 1)
 			{

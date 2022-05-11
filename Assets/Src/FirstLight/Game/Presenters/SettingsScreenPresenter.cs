@@ -51,6 +51,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
+			_highResModeToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHighResModeEnabled);
 		}
 
 		/// <inheritdoc />
@@ -72,7 +73,7 @@ namespace FirstLight.Game.Presenters
 		private void OnHapticChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-			MMVibrationManager.SetHapticsActive(_gameDataProvider.AppDataProvider.IsHapticOn);
+			
 		}
 
 		private void OnHighResModeChanged(bool value)

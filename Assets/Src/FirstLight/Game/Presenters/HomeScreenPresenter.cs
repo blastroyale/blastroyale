@@ -28,7 +28,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnLootButtonClicked;
 			public Action OnHeroesButtonClicked;
 			public Action OnSocialButtonClicked;
-			public Action OnTrophyRoadClicked;
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
@@ -77,7 +76,6 @@ namespace FirstLight.Game.Presenters
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
-			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
 			_playOfflineDebugButton.gameObject.SetActive(Debug.isDebugBuild);
@@ -138,11 +136,6 @@ namespace FirstLight.Game.Presenters
 		private void OnNameChangeClicked()
 		{
 			Data.OnNameChangeClicked();
-		}
-
-		private void OnTrophyRoadButtonClicked()
-		{
-			Data.OnTrophyRoadClicked();
 		}
 
 		private void OnSettingsButtonClicked()

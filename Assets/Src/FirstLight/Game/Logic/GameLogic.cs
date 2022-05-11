@@ -39,8 +39,6 @@ namespace FirstLight.Game.Logic
 		IEquipmentDataProvider EquipmentDataProvider { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardDataProvider RewardDataProvider { get; }
-		/// <inheritdoc cref="ITrophyRoadDataProvider"/>
-		ITrophyRoadDataProvider TrophyRoadDataProvider { get; }
 	}
 
 	/// <summary>
@@ -75,8 +73,6 @@ namespace FirstLight.Game.Logic
 		IEquipmentLogic EquipmentLogic { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardLogic RewardLogic { get; }
-		/// <inheritdoc cref="ITrophyRoadLogic"/>
-		ITrophyRoadLogic TrophyRoadLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
@@ -109,9 +105,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IRewardDataProvider RewardDataProvider => RewardLogic;
 		/// <inheritdoc />
-		public ITrophyRoadDataProvider TrophyRoadDataProvider => TrophyRoadLogic;
-
-		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
 		/// <inheritdoc />
 		public IUniqueIdLogic UniqueIdLogic { get; }
@@ -128,8 +121,6 @@ namespace FirstLight.Game.Logic
 		public IEquipmentLogic EquipmentLogic { get; }
 		/// <inheritdoc />
 		public IRewardLogic RewardLogic { get; }
-		/// <inheritdoc />
-		public ITrophyRoadLogic TrophyRoadLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
 		                 IAnalyticsService analyticsService, IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
@@ -147,7 +138,6 @@ namespace FirstLight.Game.Logic
 			EquipmentLogic = new EquipmentLogic(this, dataProvider);
 			MatchLogic = new MatchLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
-			TrophyRoadLogic = new TrophyRoadLogic(this, dataProvider);
 		}
 
 		/// <inheritdoc />

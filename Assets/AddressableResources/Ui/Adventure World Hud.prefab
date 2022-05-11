@@ -151,12 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23875815e55e30a45a73639574b25cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _queueWaitTime: 0.5
-  _hitTextColor: {r: 0.8627451, g: 0.26666668, b: 0.6784314, a: 1}
+  _queueWaitTime: 0.1
+  _hitTextColor: {r: 0.8627451, g: 0.35659638, b: 0.2666667, a: 1}
   _healTextColor: {r: 0.47058824, g: 0.8666667, b: 0.31764707, a: 1}
   _neutralTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _armourLossTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _armourGainTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _armourLossTextColor: {r: 0.4149163, g: 0.8047976, b: 0.9245283, a: 1}
+  _armourGainTextColor: {r: 0.60248786, g: 0.1992956, b: 0.8962264, a: 1}
   _floatingTextRef: {fileID: 1292738112810787622}
   _floatingArmourAndTextRef: {fileID: 6809354617266001813}
 --- !u!223 &5558458926250411287
@@ -545,6 +545,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1277865584023240925}
     m_Modifications:
+    - target: {fileID: 2263545074234733016, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3446900733002889849, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -553,9 +557,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6003537713835125811, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6003537713835125811, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6141457868737774336, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
       propertyPath: m_Name
       value: HealthBarPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753578618962864965, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7343022191646436938, guid: 09f69606d027f1e41929b66c13f9821a, type: 3}
       propertyPath: m_Pivot.x
@@ -794,6 +810,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3446900733002889849, guid: 81ed11acbbabb6a46afab42547ad06eb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939744060655699930, guid: 81ed11acbbabb6a46afab42547ad06eb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}

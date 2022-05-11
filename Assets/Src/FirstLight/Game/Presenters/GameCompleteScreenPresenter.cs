@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cinemachine;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
@@ -76,6 +77,8 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var playerData = new List<QuantumPlayerMatchData>(matchData);
+			playerData.SortByPlayerRank();
 			var playerWinner = matchData[leader];
 
 			if (game.PlayerIsLocal(leader))
@@ -85,8 +88,9 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				var localPlayerData = playerData.Find(data => game.PlayerIsLocal(data.Data.Player));
 				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = ScriptLocalization.General.DEFEATED;
+				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + ((int)localPlayerData.PlayerRank).GetOrdinalTranslation());
 			}
 
 			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());

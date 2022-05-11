@@ -4155,7 +4155,6 @@ MonoBehaviour:
   _mapStatusText: {fileID: 7562021623555054913}
   _leaderHolderView: {fileID: 2811348743788715574}
   _scoreHolderView: {fileID: 2766772532731751132}
-  _killHolderView: {fileID: 5220903528525012257}
   _mapTimerView: {fileID: 8018744190964896810}
   _contendersLeftHolderMessageView: {fileID: 2970369840658040710}
   _contendersLeftHolderView: {fileID: 6069077489851740612}
@@ -6062,7 +6061,7 @@ RectTransform:
   m_GameObject: {fileID: 6742222992870921708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4467557019976619698}
@@ -6071,8 +6070,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -39}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 220}
+  m_SizeDelta: {x: -199.99995, y: -220}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &643674413337477290
 MonoBehaviour:

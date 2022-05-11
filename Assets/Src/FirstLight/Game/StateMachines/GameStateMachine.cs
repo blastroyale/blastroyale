@@ -11,6 +11,7 @@ using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
+using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEditor;
@@ -115,8 +116,10 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeGame()
 		{
 			_gameLogic.Init();
-			
+
 			_services.AudioFxService.AudioListener.enabled = true;
+			_gameLogic.AppLogic.SetResolutionMode(_gameLogic.AppLogic.IsHighResModeEnabled);
+			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 			
 			// Just marking the default name to avoid missing names
 			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))

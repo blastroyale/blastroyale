@@ -7,6 +7,7 @@ using FirstLight.Game.MonoComponent.Ftue;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Configs;
 using FirstLight.Services;
+using MoreMountains.NiceVibrations;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -45,6 +46,11 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
+		/// Is high res mode on device enabled?
+		/// </summary>
+		bool IsHighResModeEnabled { get; set; }
+		
+		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
@@ -58,6 +64,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's Nickname
 		/// </summary>
 		IObservableFieldReader<string> NicknameId { get; }
+
+		/// <summary>
+		/// Sets the resolution mode for the 3D rendering of the app
+		/// </summary>
+		void SetResolutionMode(bool highRes);
 		
 		/// <summary>
 		/// Sets the device link status, which dictates whether the game should try to link device to playfab
@@ -120,7 +131,22 @@ namespace FirstLight.Game.Logic
 		public bool IsHapticOn
 		{
 			get => Data.HapticEnabled;
-			set => Data.HapticEnabled = value;
+			set
+			{
+				Data.HapticEnabled = value;
+				MMVibrationManager.SetHapticsActive(value);
+			}
+		}
+
+		/// <inheritdoc />
+		public bool IsHighResModeEnabled
+		{
+			get => Data.HighResModeEnabled;
+			set
+			{
+				Data.HighResModeEnabled = value;
+				SetResolutionMode(value);
+			}
 		}
 
 		/// <inheritdoc />
@@ -166,6 +192,14 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
+		}
+		
+		/// <inheritdoc />
+		public void SetResolutionMode(bool highRes)
+		{
+			var resolution = highRes ? GameConstants.DYNAMIC_RES_HIGH : GameConstants.DYNAMIC_RES_LOW;
+
+			ScalableBufferManager.ResizeBuffers(resolution,resolution);
 		}
 	}
 }

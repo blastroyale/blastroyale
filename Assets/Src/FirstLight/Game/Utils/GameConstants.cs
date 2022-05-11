@@ -32,6 +32,10 @@ namespace FirstLight.Game.Utils
 		public const float HAPTIC_DAMAGE_INTENSITY_MIN = 0.3f;
 		public const float HAPTIC_DAMAGE_INTENSITY_MAX = 1f;
 #endif
+		
+		// Min/max amounts of haptic vibration sharpness when a player is damaged
+		public const float DYNAMIC_RES_HIGH = 1f;
+		public const float DYNAMIC_RES_LOW = 0.55f; 
 
 		// Min/max amounts of haptic vibration sharpness when a player is damaged
 		public const float HAPTIC_IOS_DAMAGE_SHARPNESS_MIN = 0.3f;
@@ -55,6 +59,8 @@ namespace FirstLight.Game.Utils
 		public const float MAP_ROTATION_TIME_MINUTES = 10;
 		
 		public const float RadiusToScaleConversionValue = 2f;
+
+		public const string GameHasBots = "GameHasBots";
 		
 		// The audios default starting volume
 		public const float Sfx2dDefaultVolume = 0.2f;

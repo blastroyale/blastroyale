@@ -693,6 +693,7 @@ namespace I2.Loc
 			public static string StartUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/StartUnlock"); } }
 			public static string Talents 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Talents"); } }
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
+			public static string TokenRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TokenRestockTime"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
 			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
 			public static string TrophyRoad 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoad"); } }
@@ -1460,6 +1461,7 @@ namespace I2.Loc
 		    public const string StartUnlock = "MainMenu/StartUnlock";
 		    public const string Talents = "MainMenu/Talents";
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
+		    public const string TokenRestockTime = "MainMenu/TokenRestockTime";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
 		    public const string TotalPower = "MainMenu/TotalPower";
 		    public const string TrophyRoad = "MainMenu/TrophyRoad";

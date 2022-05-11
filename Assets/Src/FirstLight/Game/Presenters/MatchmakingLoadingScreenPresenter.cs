@@ -89,6 +89,7 @@ namespace FirstLight.Game.Presenters
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
+			_botsToggle.isOn = true;
 			_botsToggle.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
@@ -258,12 +259,6 @@ namespace FirstLight.Game.Presenters
 		{
 			ReadyToPlay();
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			
-			// If we only have 1 human player we force the game to he offline
-			if (room.PlayerCount == 1)
-			{
-				_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().IsOfflineMode = true;
-			}
 			
 			room.SetCustomProperties(new Hashtable{{GameConstants.GameHasBots, _botsToggle.isOn}});
 			

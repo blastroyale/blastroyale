@@ -4,6 +4,7 @@ using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -24,8 +25,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-		private ResourcePoolConfig? _poolConfig;
-		private ResourcePoolData? _currentPoolData;
+		private ResourcePoolConfig _poolConfig;
+		private ResourcePoolData _currentPoolData;
 		private DateTime _nextRestockTime;
 		
 		private void Awake()
@@ -39,25 +40,31 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnEnable()
 		{
+			_services.MessageBrokerService.Subscribe<ResourcePoolRestockedMessage>(OnResourcePoolRestockedMessage);
 			UpdateView();
+		}
+
+		private void OnDisable()
+		{
+			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void UpdateView()
 		{
 			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
-
-			if (!_currentPoolData.HasValue || !_poolConfig.HasValue)
-			{
-				return;
-			}
-
-			_nextRestockTime = _currentPoolData.Value.LastPoolRestockTime.AddMinutes(_poolConfig.Value.RestockIntervalMinutes);
+			_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(_poolConfig.RestockIntervalMinutes);
 
 			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount,
-			                                 _currentPoolData.Value.CurrentResourceAmountInPool.ToString(),
-			                                 _poolConfig.Value.PoolCapacity);
+			                                 _currentPoolData.CurrentResourceAmountInPool.ToString(),
+			                                 _poolConfig.PoolCapacity);
 
 			StartCoroutine(RestockTimeCoroutine());
+		}
+
+		private void OnResourcePoolRestockedMessage(ResourcePoolRestockedMessage msg)
+		{
+			StopAllCoroutines();
+			UpdateView();
 		}
 
 		private IEnumerator RestockTimeCoroutine()
@@ -68,7 +75,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 
 				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime,
-				                                  _poolConfig.Value.RestockPerInterval, timeDiffText);
+				                                  _poolConfig.RestockPerInterval, timeDiffText);
 				
 				var nextTimerUpdateTime = DateTime.UtcNow.AddMinutes(1);
 				

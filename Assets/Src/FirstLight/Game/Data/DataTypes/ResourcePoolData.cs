@@ -17,7 +17,7 @@ namespace FirstLight.Game.Data.DataTypes
 			CurrentResourceAmountInPool = currentResourceAmountInPool;
 			LastPoolRestockTime = lastPoolRestockTime;
 		}
-		
+
 		/// <inheritdoc />
 		public bool Equals(ResourcePoolData other)
 		{

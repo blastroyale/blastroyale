@@ -1,7 +1,10 @@
+using System;
+using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
 using FirstLight;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using Quantum;
 
@@ -48,6 +51,12 @@ namespace FirstLight.Game.Logic
 		/// or if the given <paramref name="amount"/> is higher than the current amount in the player's wallet
 		/// </exception>
 		void DeductCurrency(GameId currency, ulong amount);
+
+		/// <summary>
+		/// Tries to restock a resource pool of given <paramref name="pool"/> ID.
+		/// </summary>
+		/// <returns>Data of the pool that was restocked.</returns>
+		ResourcePoolData? TryRestockResourcePool(GameId pool);
 	}
 	
 	/// <inheritdoc cref="ICurrencyLogic"/>
@@ -55,13 +64,14 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableDictionary<GameId, ulong> _currencies;
 		private IObservableDictionary<GameId, ResourcePoolData> _resourcePools;
+		private AppData AppData => DataProvider.GetData<AppData>();
 		
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ulong> Currencies => _currencies;
 		
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ResourcePoolData> ResourcePools => _resourcePools;
-
+		
 		public CurrencyLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
@@ -112,6 +122,33 @@ namespace FirstLight.Game.Logic
 			}
 			
 			_currencies[currency] = oldAmount - amount;
+		}
+
+		public ResourcePoolData? TryRestockResourcePool(GameId pool)
+		{
+			var currentPoolData = ResourcePools[pool];
+			var poolConfig =  GameLogic.ConfigsProvider.GetConfigsList<ResourcePoolConfig>().FirstOrDefault(x => x.Id == pool);
+
+			if (DateTime.UtcNow < currentPoolData.LastPoolRestockTime)
+			{
+				return null;
+			}
+			
+			// Code below should probably be a restock function within ResourcePoolData, but currently the way 
+			// the ResourcePoolConfigs are set up in PlayerData (entirely on backend side, SetupPlayerCommand),
+			// I can't pass in config data when setting up the pools (like capacity), as backend doesn't have access to
+			// it. Thus the code that handles restock, and max capacity, is here.
+			// Once SetupPlayerCommand is handled the same way as other commands, it'd be very easy to refactor.
+			currentPoolData.CurrentResourceAmountInPool += poolConfig.RestockPerInterval;
+
+			if (currentPoolData.CurrentResourceAmountInPool > poolConfig.PoolCapacity)
+			{
+				currentPoolData.CurrentResourceAmountInPool = poolConfig.PoolCapacity;
+			}
+
+			Data.ResourcePools[pool] = currentPoolData;
+			
+			return currentPoolData;
 		}
 	}
 }

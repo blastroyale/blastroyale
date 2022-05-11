@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -92,26 +93,20 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator ResourcePoolCsTimerCoroutine()
 		{
 			var poolToObserve = GameId.CS;
-			var currentPoolData = (ResourcePoolData?) _dataProvider.CurrencyDataProvider.ResourcePools[poolToObserve];
-			var poolConfig = (ResourcePoolConfig?) _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
+			var currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[poolToObserve];
+			var poolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
 			                                                              .FirstOrDefault(x => x.Id == poolToObserve);
-			if (!currentPoolData.HasValue || !poolConfig.HasValue)
-			{
-				yield break;
-			}
-			
+
 			while (true)
 			{
-				var nextRestockTime = currentPoolData.Value.LastPoolRestockTime.AddMinutes(poolConfig.Value.RestockIntervalMinutes);
-				
-				var timeDiff = nextRestockTime - DateTime.UtcNow;
-				
+				var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes + 1);
+
 				while (DateTime.UtcNow < nextRestockTime)
 				{
 					yield return null;
 				}
 				
-				// TODO - CALL COMMAND TO CHECK AND DO RESTOCK
+				_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand { PoolId = GameId.CS });
 			}
 		}
 	}

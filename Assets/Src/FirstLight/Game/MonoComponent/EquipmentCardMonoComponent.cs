@@ -21,7 +21,7 @@ namespace FirstLight.Game.MonoComponent
 		private readonly int _frameShapeMaskId = Shader.PropertyToID("_FrameShapeMask");
 		private readonly int _nameTagId = Shader.PropertyToID("_NameTag");
 		private readonly int _adjectivePatternId = Shader.PropertyToID("_AdjectivePattern");
-		private readonly int _plusAmountGradePatternId = Shader.PropertyToID("_PlusAmountGradePattern");
+		private readonly int _plusAmountGradePatternId = Shader.PropertyToID("_PlusIndicator");
 		
 		private void Awake()
 		{

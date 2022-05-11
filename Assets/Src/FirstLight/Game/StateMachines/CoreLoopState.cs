@@ -100,12 +100,11 @@ namespace FirstLight.Game.StateMachines
 				yield break;
 			}
 			
-			var nextRestockTime = currentPoolData.Value.LastPoolRestockTime.AddMinutes(poolConfig.Value.RestockIntervalMinutes);
-			
 			while (true)
 			{
+				var nextRestockTime = currentPoolData.Value.LastPoolRestockTime.AddMinutes(poolConfig.Value.RestockIntervalMinutes);
+				
 				var timeDiff = nextRestockTime - DateTime.UtcNow;
-				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 				
 				while (DateTime.UtcNow < nextRestockTime)
 				{

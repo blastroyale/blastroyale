@@ -10,6 +10,8 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
+using TMPro;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -42,6 +44,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private Button _gameModeButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
+		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
 
 		// Player Information / Trophy Road.
 		[SerializeField] private PlayerProgressBarView _sliderPlayerLevelView;
@@ -100,10 +103,15 @@ namespace FirstLight.Game.Presenters
 				_newFeaturesView.QueueNewSystemPopUp(system, UnlockSystemButton);
 			}
 		}
+
+		protected override void OnOpened()
+		{
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeText,
+				_gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString());
+		}
 		
 		private void OnPlayOnlineClicked()
 		{
-			
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = false,

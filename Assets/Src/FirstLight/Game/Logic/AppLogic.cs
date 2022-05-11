@@ -135,7 +135,6 @@ namespace FirstLight.Game.Logic
 		// EVE
 		// Declare IObservableField with the same name (SelectedGameMode), like you declared in IAppDataProvider
 		// Make it { get; private set; } like NicknameID above
-		
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :

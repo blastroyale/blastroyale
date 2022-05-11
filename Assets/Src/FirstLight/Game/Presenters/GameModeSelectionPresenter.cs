@@ -39,7 +39,9 @@ namespace FirstLight.Game.Presenters
 			// EVE
 			// Set AppLogic game mode to deathmatch
 			// Call Data.GameModeChosen event. This will be used to move state machine forward in main 
-			
+			//_gameDataProvider.AppDataProvider.SelectedGameMode.Value //GameMode.BattleRoyale
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+			Data.GameModeChosen();
 		}
 
 		private void BattleRoyaleClicked()
@@ -47,6 +49,8 @@ namespace FirstLight.Game.Presenters
 			// EVE
 			// Set AppLogic game mode to battle royale
 			// Call Data.GameModeChosen event. This will be used to move state machine forward in main menu
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+			Data.GameModeChosen();
 		}
 	}
 }

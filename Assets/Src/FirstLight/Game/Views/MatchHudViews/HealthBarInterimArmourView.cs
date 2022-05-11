@@ -14,7 +14,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		public TextMeshProUGUI InterimArmourText;
 		public GameObject InterimArmourIcon;
 		public Slider ArmourSlider;
-		public Color Colour = Color.blue;
 		public Image FillImage;
 
 		private EntityRef _entity;
@@ -50,8 +49,15 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private void UpdateInterimArmourBar(float interimArmour)
 		{
 			ArmourSlider.value = interimArmour;
-			InterimArmourIcon.SetActive(interimArmour > 0);
-			FillImage.color = Colour;
+			if (!InterimArmourIcon.activeSelf && interimArmour > 0)
+			{
+				InterimArmourIcon.SetActive(true);
+			}
+			else if (InterimArmourIcon.activeSelf && interimArmour < float.Epsilon)
+			{
+				InterimArmourIcon.SetActive(false);
+			}
+			
 		}
 
 		private void UpdateInterimArmourText(int interimArmour)

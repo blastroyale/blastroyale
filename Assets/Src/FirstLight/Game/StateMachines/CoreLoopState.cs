@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Services;
 using FirstLight.Statechart;
+using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -59,6 +62,7 @@ namespace FirstLight.Game.StateMachines
 			
 			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 
+			mainMenu.OnEnter(SetupResourcePoolTimers);
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(connectionCheck);
@@ -78,6 +82,38 @@ namespace FirstLight.Game.StateMachines
 		private bool IsConnectedAndReady()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		private void SetupResourcePoolTimers()
+		{
+			_services.CoroutineService.StartCoroutine(ResourcePoolCsTimerCoroutine());
+		}
+
+		private IEnumerator ResourcePoolCsTimerCoroutine()
+		{
+			var poolToObserve = GameId.CS;
+			var currentPoolData = (ResourcePoolData?) _dataProvider.CurrencyDataProvider.ResourcePools[poolToObserve];
+			var poolConfig = (ResourcePoolConfig?) _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
+			                                                              .FirstOrDefault(x => x.Id == poolToObserve);
+			if (!currentPoolData.HasValue || !poolConfig.HasValue)
+			{
+				yield break;
+			}
+			
+			var nextRestockTime = currentPoolData.Value.LastPoolRestockTime.AddMinutes(poolConfig.Value.RestockIntervalMinutes);
+			
+			while (true)
+			{
+				var timeDiff = nextRestockTime - DateTime.UtcNow;
+				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
+				
+				while (DateTime.UtcNow < nextRestockTime)
+				{
+					yield return null;
+				}
+				
+				// TODO - CALL COMMAND TO CHECK AND DO RESTOCK
+			}
 		}
 	}
 }

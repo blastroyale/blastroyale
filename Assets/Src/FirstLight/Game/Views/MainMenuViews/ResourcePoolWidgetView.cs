@@ -46,7 +46,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
 
-			if (_currentPoolData == null || _poolConfig == null)
+			if (!_currentPoolData.HasValue || !_poolConfig.HasValue)
 			{
 				return;
 			}
@@ -62,7 +62,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private IEnumerator RestockTimeCoroutine()
 		{
-			while (DateTime.UtcNow < _nextRestockTime)
+			while (true)
 			{
 				var timeDiff = _nextRestockTime - DateTime.UtcNow;
 				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");

@@ -49,6 +49,7 @@ namespace FirstLight.Game.Configs
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
 			_runtimeConfig.GameMode = config.GameMode;
 			_runtimeConfig.GameEndTarget = config.GameEndTarget;
+			_runtimeConfig.IsTestMap = config.IsTestMap;
 		}
 
 		/// <inheritdoc cref="EnterRoomParams"/>

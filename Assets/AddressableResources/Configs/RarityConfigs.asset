@@ -22,6 +22,15 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.1
     UpgradeBasePrice: 150
     UpgradePriceLevelPowerOf: 1.1
+  - Rarity: 1
+    MaxLevel: 12
+    FusionCost: 1300
+    EnhancementCost: 4000
+    EnhancementItemAmount: 2
+    SellBasePrice: 125
+    SellPriceLevelPowerOf: 1.1
+    UpgradeBasePrice: 250
+    UpgradePriceLevelPowerOf: 1.1
   - Rarity: 2
     MaxLevel: 15
     FusionCost: 1300
@@ -31,6 +40,15 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.1
     UpgradeBasePrice: 250
     UpgradePriceLevelPowerOf: 1.1
+  - Rarity: 3
+    MaxLevel: 17
+    FusionCost: 3000
+    EnhancementCost: 13000
+    EnhancementItemAmount: 3
+    SellBasePrice: 200
+    SellPriceLevelPowerOf: 1.05
+    UpgradeBasePrice: 400
+    UpgradePriceLevelPowerOf: 1.05
   - Rarity: 4
     MaxLevel: 20
     FusionCost: 3000
@@ -40,6 +58,15 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.05
     UpgradeBasePrice: 400
     UpgradePriceLevelPowerOf: 1.05
+  - Rarity: 5
+    MaxLevel: 22
+    FusionCost: 7000
+    EnhancementCost: 39000
+    EnhancementItemAmount: 4
+    SellBasePrice: 313
+    SellPriceLevelPowerOf: 1.02
+    UpgradeBasePrice: 625
+    UpgradePriceLevelPowerOf: 1.02
   - Rarity: 6
     MaxLevel: 25
     FusionCost: 7000
@@ -49,12 +76,30 @@ MonoBehaviour:
     SellPriceLevelPowerOf: 1.02
     UpgradeBasePrice: 625
     UpgradePriceLevelPowerOf: 1.02
-  - Rarity: 8
-    MaxLevel: 30
+  - Rarity: 7
+    MaxLevel: 27
     FusionCost: 7000
-    EnhancementCost: 0
-    EnhancementItemAmount: 0
+    EnhancementCost: 100
+    EnhancementItemAmount: 5
     SellBasePrice: 482
     SellPriceLevelPowerOf: 1.02
     UpgradeBasePrice: 963
     UpgradePriceLevelPowerOf: 1.02
+  - Rarity: 8
+    MaxLevel: 30
+    FusionCost: 7000
+    EnhancementCost: 100
+    EnhancementItemAmount: 5
+    SellBasePrice: 482
+    SellPriceLevelPowerOf: 1.02
+    UpgradeBasePrice: 963
+    UpgradePriceLevelPowerOf: 1.02
+  - Rarity: 9
+    MaxLevel: 35
+    FusionCost: 7000
+    EnhancementCost: 100
+    EnhancementItemAmount: 5
+    SellBasePrice: 500
+    SellPriceLevelPowerOf: 1.1
+    UpgradeBasePrice: 1000
+    UpgradePriceLevelPowerOf: 1.1

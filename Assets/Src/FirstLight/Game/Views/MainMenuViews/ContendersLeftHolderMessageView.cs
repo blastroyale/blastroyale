@@ -1,14 +1,10 @@
-
-using System;
-using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.AdventureHudViews;
-using FirstLight.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -19,10 +15,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class ContendersLeftHolderMessageView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _contendersLeftText;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _animationClipFadeIn;
-		[SerializeField] private AnimationClip _animationClipFadeOut;
+		[SerializeField, Required] private TextMeshProUGUI _contendersLeftText;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _animationClipFadeIn;
+		[SerializeField, Required] private AnimationClip _animationClipFadeOut;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

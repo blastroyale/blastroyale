@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
@@ -315,8 +317,20 @@ namespace FirstLight.Game.Utils
 					return false;
 				}
 			}
-
 			return true;
+		}
+		
+		/// <summary>
+		/// Copy properties from one model to another.
+		/// Only a shallow copy.
+		/// </summary>
+		public static void CopyPropertiesShallowTo<T>(this T source, T dest)
+		{
+			var a = dest.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			foreach (var property in a)
+			{
+				property.SetValue(dest, property.GetValue(source));
+			}
 		}
 	}
 }

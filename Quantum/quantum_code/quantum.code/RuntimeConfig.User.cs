@@ -10,6 +10,7 @@ namespace Quantum
 		[NonSerialized] public int BotDifficultyLevel;
 		[NonSerialized] public int GameEndTarget;
 		[NonSerialized] public GameMode GameMode;
+		[NonSerialized] public bool IsTestMap;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumBotConfigs BotConfigs;
@@ -29,6 +30,7 @@ namespace Quantum
 			stream.Serialize(ref gameMode);
 			stream.Serialize(ref BotDifficultyLevel);
 			stream.Serialize(ref GameEndTarget);
+			stream.Serialize(ref IsTestMap);
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref BotConfigs);
 			stream.Serialize(ref WeaponConfigs);

@@ -2,8 +2,8 @@
 using System.Collections;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,14 +15,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class RewardView : MonoBehaviour
 	{
-		[SerializeField] private Image _image;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _appearAnimationClip;
-		[SerializeField] private AnimationClip _holdAnimationClip;
-		[SerializeField] private AnimationClip _unpackAnimationClip;
-		[SerializeField] private AnimationClip _summaryAnimationClip;
-		[SerializeField] private TextMeshProUGUI _quantityText;
-		[SerializeField] private TextMeshProUGUI _itemNameText;
+		[SerializeField, Required] private Image _image;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _appearAnimationClip;
+		[SerializeField, Required] private AnimationClip _holdAnimationClip;
+		[SerializeField, Required] private AnimationClip _unpackAnimationClip;
+		[SerializeField, Required] private AnimationClip _summaryAnimationClip;
+		[SerializeField, Required] private TextMeshProUGUI _quantityText;
+		[SerializeField, Required] private TextMeshProUGUI _itemNameText;
 
 		public Action OnRewardAnimationComplete;
 		public Action OnSummaryAnimationComplete;

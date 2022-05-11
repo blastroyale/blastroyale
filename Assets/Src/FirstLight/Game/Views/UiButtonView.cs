@@ -4,6 +4,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,8 +19,8 @@ namespace FirstLight.Game.Views
 	public class UiButtonView : Button
 	{
 		// Legacy animation component 
-		[HideInInspector] public Animation Animation;
-		[HideInInspector] public RectTransform RectTransform;
+		[HideInInspector, Required] public Animation Animation;
+		[HideInInspector, Required] public RectTransform RectTransform;
 		
 		// Ease for select and unselect scale tween playback
 		public Ease PressedEase = Ease.Linear;

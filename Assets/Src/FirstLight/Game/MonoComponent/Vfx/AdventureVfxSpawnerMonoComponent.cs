@@ -1,10 +1,6 @@
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx
 {

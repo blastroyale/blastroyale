@@ -1,6 +1,7 @@
 using Quantum;
 using Quantum.Commands;
 using Quantum.Prototypes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Ftue
@@ -10,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 	/// </summary>
 	public class FtueCollectablePlatformSpawnerMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private CollectablePlatformSpawner_Prototype _collectable;
+		[SerializeField, Required] private CollectablePlatformSpawner_Prototype _collectable;
 		
 		private void Start()
 		{

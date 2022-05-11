@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -14,7 +15,7 @@ namespace FirstLight.Game.MonoComponent
 	[RequireComponent(typeof(RenderersContainerMonoComponent))]
 	public class RenderersContainerProxyMonoComponent : MonoBehaviour, IRendersContainer
 	{
-		[SerializeField] private RenderersContainerMonoComponent _mainRenderersContainer;
+		[SerializeField, Required] private RenderersContainerMonoComponent _mainRenderersContainer;
 		[SerializeField] private List<RenderersContainerMonoComponent> _renderersContainers = new List<RenderersContainerMonoComponent>();
 		
 		

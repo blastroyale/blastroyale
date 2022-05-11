@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Numerics;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -13,8 +12,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class ProjectileViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private ParticleSystem _hitEffect;
-		[SerializeField] private ParticleSystem _failedHitEffect;
+		[SerializeField, Required] private ParticleSystem _hitEffect;
+		[SerializeField, Required] private ParticleSystem _failedHitEffect;
 		
 		private Coroutine _recoverEffectWhenEndedCoroutine;
 

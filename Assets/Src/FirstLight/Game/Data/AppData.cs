@@ -21,6 +21,9 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 		
+		public string LastLoginEmail;
+		public bool LinkedDevice;
+		
 		public DateTime GameReviewDate;
 
 		public bool SfxEnabled = true;

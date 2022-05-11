@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
@@ -25,10 +26,10 @@ namespace FirstLight.Game.Presenters
 			public Action PlayClicked;
 		}
 		
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _createDeathmatchRoomButton;
-		[SerializeField] private Button _joinRoomButton;
-		[SerializeField] private TMP_Dropdown _mapSelection;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _createDeathmatchRoomButton;
+		[SerializeField, Required] private Button _joinRoomButton;
+		[SerializeField, Required] private TMP_Dropdown _mapSelection;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

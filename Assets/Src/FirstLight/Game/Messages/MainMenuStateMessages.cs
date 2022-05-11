@@ -34,6 +34,11 @@ namespace FirstLight.Game.Messages
 		public bool IsOfflineMode;
 		public GameMode GameMode;
 	}
+	public struct PlayMapClickedMessage : IMessage
+	{
+		public bool IsOfflineMode;
+		public int MapId;
+	}
 	public struct PlayCreateRoomClickedMessage : IMessage
 	{
 		public string RoomName; 

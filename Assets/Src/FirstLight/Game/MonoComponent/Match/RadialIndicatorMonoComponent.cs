@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -10,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	{
 		protected static readonly int _color = Shader.PropertyToID("Color");
 		
-		[SerializeField] protected VisualEffect _indicator;
+		[SerializeField, Required] protected VisualEffect _indicator;
 		[SerializeField] protected float _localHeight = 0.025f;
 		[SerializeField] protected bool _initiallyEnabled = false;
 		

@@ -1,5 +1,6 @@
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -11,7 +12,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 	/// </summary>
 	public class FtueCheckDummiesKilledMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private PlayableDirector _timeline;
+		[SerializeField, Required] private PlayableDirector _timeline;
 		[SerializeField] private int _dummiesMaxCount;
 
 		private void Awake()

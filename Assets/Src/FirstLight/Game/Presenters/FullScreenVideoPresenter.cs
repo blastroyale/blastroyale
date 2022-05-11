@@ -1,13 +1,10 @@
 using System;
 using System.Collections;
-using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using I2.Loc;
-using TMPro;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -24,8 +21,8 @@ namespace FirstLight.Game.Presenters
 			public string VideoAddress;
 		}
 		
-		[SerializeField] private Button _skipButton;
-		[SerializeField] private VideoPlayer _videoPlayer;
+		[SerializeField, Required] private Button _skipButton;
+		[SerializeField, Required] private VideoPlayer _videoPlayer;
 
 		private IGameServices _gameServices;
 		private Coroutine _coroutine;

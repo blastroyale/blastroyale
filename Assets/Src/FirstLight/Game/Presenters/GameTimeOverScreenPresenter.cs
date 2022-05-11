@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Ids;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
@@ -16,7 +17,7 @@ namespace FirstLight.Game.Presenters
 			public Action ContinueClicked;
 		}
 	
-		[SerializeField] private Button _continueButton;
+		[SerializeField, Required] private Button _continueButton;
 
 		private void Awake()
 		{

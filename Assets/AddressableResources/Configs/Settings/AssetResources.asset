@@ -77,6 +77,11 @@ MonoBehaviour:
         Id:
           Value: 460409690867305906
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLF_7]
+    - Path: AddressableResources/Maps/TestScene_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 477379078662942642
+      Address: Maps/TestScene_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityView
       AssetRef:
         Id:
@@ -152,6 +157,11 @@ MonoBehaviour:
         Id:
           Value: 777370431441378297
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerActivateAction_3]
+    - Path: AddressableResources/Maps/TestScene
+      AssetRef:
+        Id:
+          Value: 803407184028536169
+      Address: Maps/TestScene.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPVector3SumFunction_2
       AssetRef:
         Id:
@@ -514,6 +524,11 @@ MonoBehaviour:
         Id:
           Value: 3521447524462001825
       Address: Configs/ConsumableConfigs.asset
+    - Path: AddressableResources/Maps/TestScene_NavMesh
+      AssetRef:
+        Id:
+          Value: 3526647891069364318
+      Address: Maps/TestScene_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_8
       AssetRef:
         Id:
@@ -539,6 +554,11 @@ MonoBehaviour:
         Id:
           Value: 3771170270947748885
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Activate_5]
+    - Path: AddressableResources/Maps/TestScene_mesh
+      AssetRef:
+        Id:
+          Value: 3801973863776343812
+      Address: Maps/TestScene_mesh.asset
     - Path: AddressableResources/Maps/MainDeck_NavMesh
       AssetRef:
         Id:

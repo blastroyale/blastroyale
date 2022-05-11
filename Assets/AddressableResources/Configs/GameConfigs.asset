@@ -36,8 +36,8 @@ MonoBehaviour:
       ShrinkingDamage: 20
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
-        RawValue: 294912
-      PlayerDefaultInterimArmour: 600
+        RawValue: 314573
+      PlayerDefaultInterimArmour: 400
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:
@@ -47,9 +47,9 @@ MonoBehaviour:
       XpPerFragDeathRatio:
         RawValue: 2293760
       CollectableCollectTime:
-        RawValue: 39321
+        RawValue: 39322
       PlayerAliveShieldDuration:
-        RawValue: 262144
+        RawValue: 196608
       EquipmentLevelToPowerK: 10
       EquipmentRarityToPowerK: 50
       LootboxSlotsMaxNumber: 4
@@ -65,23 +65,31 @@ MonoBehaviour:
       StatsPowerRarityMultiplier:
         RawValue: 131072
       StatsPowerLevelStepMultiplier:
-        RawValue: 13107
+        RawValue: 2261
+      StatsPowerGradeStepMultiplier:
+        RawValue: 16384
       StatsHpBaseValue: 100
       StatsHpRarityMultiplier:
         RawValue: 78643
       StatsHpLevelStepMultiplier:
-        RawValue: 3277
+        RawValue: 1134
+      StatsHpGradeStepMultiplier:
+        RawValue: 8192
       StatsSpeedBaseValue:
         RawValue: 6554
       StatsSpeedRarityMultiplier:
         RawValue: 78643
       StatsSpeedLevelStepMultiplier:
-        RawValue: 6554
+        RawValue: 2294
+      StatsSpeedGradeStepMultiplier:
+        RawValue: 16384
       StatsArmorBaseValue: 5
       StatsArmorRarityMultiplier:
         RawValue: 78643
       StatsArmorLevelStepMultiplier:
-        RawValue: 6554
+        RawValue: 1507
+      StatsArmorGradeStepMultiplier:
+        RawValue: 10945
       DeathDropHealthChance:
         RawValue: 65536
       DeathDropInterimArmourLargeChance:

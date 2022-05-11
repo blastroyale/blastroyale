@@ -1,8 +1,8 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Button = UnityEngine.UI.Button;
 using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.Views.MatchHudViews
@@ -12,16 +12,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
-		[SerializeField] private RenderTexture _shrinkingCircleRenderTexture;
-		[SerializeField] private Transform _playerRadarPing;
-		[SerializeField] private Camera _camera;
-		[SerializeField] private RectTransform _defaultImageRectTransform;
-		[SerializeField] private RectTransform _circleImageRectTransform;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _smallMiniMapClip;
-		[SerializeField] private AnimationClip _extendedMiniMapClip;
-		[SerializeField] private UiButtonView _closeButton;
-		[SerializeField] private UiButtonView _toggleMiniMapViewButton;
+		[SerializeField, Required] private RenderTexture _shrinkingCircleRenderTexture;
+		[SerializeField, Required] private Transform _playerRadarPing;
+		[SerializeField, Required] private Camera _camera;
+		[SerializeField, Required] private RectTransform _defaultImageRectTransform;
+		[SerializeField, Required] private RectTransform _circleImageRectTransform;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _smallMiniMapClip;
+		[SerializeField, Required] private AnimationClip _extendedMiniMapClip;
+		[SerializeField, Required] private UiButtonView _closeButton;
+		[SerializeField, Required] private UiButtonView _toggleMiniMapViewButton;
 
 		private enum RenderTextureMode
 		{

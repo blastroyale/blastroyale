@@ -1,7 +1,7 @@
-using System;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Ftue
@@ -11,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 	/// </summary>
 	public class FtueArrowIndicatorMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private LineRenderer _lineRenderer;
+		[SerializeField, Required] private LineRenderer _lineRenderer;
 		
 		private Transform _playerTransform;
 		

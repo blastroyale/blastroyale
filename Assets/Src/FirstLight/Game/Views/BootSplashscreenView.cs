@@ -8,6 +8,7 @@ using FirstLight.Game.Utils;
 using AppsFlyerSDK;
 using FirstLight.Game.Data;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Views
@@ -20,7 +21,7 @@ namespace FirstLight.Game.Views
 		private const string _bootSceneName = "Boot";
 		private const string _mainSceneName = "Main";
 		
-		[SerializeField] private AudioSource _audioSource;
+		[SerializeField, Required] private AudioSource _audioSource;
 
 		private void Awake()
 		{

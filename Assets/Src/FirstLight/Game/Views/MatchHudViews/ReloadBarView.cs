@@ -1,6 +1,7 @@
 using System.Collections;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class ReloadBarView : MonoBehaviour, IPoolEntityDespawn
 	{
-		[SerializeField] private Slider _slider;
-		[SerializeField] private GameObject _separatorRef;
-		[SerializeField] private Animation _capacityUsedAnimation;
-		[SerializeField] private Image _reloadBarImage;
+		[SerializeField, Required] private Slider _slider;
+		[SerializeField, Required] private GameObject _separatorRef;
+		[SerializeField, Required] private Animation _capacityUsedAnimation;
+		[SerializeField, Required] private Image _reloadBarImage;
 		[SerializeField] private Color _primaryReloadColor;
 		[SerializeField] private Color _secondaryReloadColor;
 		

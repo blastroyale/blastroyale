@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,23 +8,31 @@ using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : AnimatedUiPresenterData<ActionStruct>
+	public class SettingsScreenPresenter : AnimatedUiPresenterData<SettingsScreenPresenter.StateData>
 	{
-		[SerializeField] private TextMeshProUGUI _versionText;
-		[SerializeField] private TextMeshProUGUI _fullNameText;
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _blockerButton;
-
-		[SerializeField] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField] private UiToggleButtonView _hapticToggle;
-		[SerializeField] private UiToggleButtonView _sfxToggle;
-		[SerializeField] private UiToggleButtonView _highResModeToggle;
+		public struct StateData
+		{
+			public Action LogoutClicked;
+			public Action OnClose;
+		}
+		
+		[SerializeField, Required] private TextMeshProUGUI _versionText;
+		[SerializeField, Required] private TextMeshProUGUI _fullNameText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _blockerButton;
+		[SerializeField, Required] private Button _logoutButton;
+		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
+		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
+		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
+		[SerializeField, Required] private UiToggleButtonView _highResModeToggle;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -32,11 +41,14 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+
 			_versionText.text = VersionUtils.VersionInternal;
-			_fullNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.NicknameId.Value);
-			
+			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
+			                                   _gameDataProvider.AppDataProvider.NicknameId.Value);
+
 			_closeButton.onClick.AddListener(Close);
 			_blockerButton.onClick.AddListener(Close);
+			_logoutButton.onClick.AddListener(OnLogoutClicked);
 
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
@@ -53,11 +65,11 @@ namespace FirstLight.Game.Presenters
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_highResModeToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHighResModeEnabled);
 		}
-
+		
 		/// <inheritdoc />
 		protected override void OnClosedCompleted()
 		{
-			Data.Execute();
+			Data.OnClose();
 		}
 
 		private void OnBgmChanged(bool value)
@@ -79,6 +91,18 @@ namespace FirstLight.Game.Presenters
 		private void OnHighResModeChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHighResModeEnabled = value;
+		}
+
+		private void OnLogoutClicked()
+		{
+			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = new UnityAction(Data.LogoutClicked)
+			};
+
+			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
 		}
 	}
 }

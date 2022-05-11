@@ -54,7 +54,7 @@ namespace FirstLight.Game.StateMachines
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(gameLogic, services, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(gameLogic, services, dataService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -125,7 +125,7 @@ namespace FirstLight.Game.StateMachines
 			
 			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest { CatalogVersion = StoreService.StoreCatalogVersion }, 
 			                                 catalog => _services.StoreService.Init(catalog.Catalog), 
-			                                 _authenticationState.OnPlayFabError);
+			                                 _authenticationState.OnCriticalPlayFabError);
 		}
 
 		private void OpenNoInternetPopUp()

@@ -9,6 +9,7 @@ using DG.Tweening;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
 using Quantum;
+using Sirenix.OdinInspector;
 
 namespace FirstLight.Game.Presenters
 {
@@ -19,12 +20,12 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MainMenuHudPresenter : UiPresenter
 	{
-		[SerializeField] private Transform _scTooltipAnchor;
-		[SerializeField] private Transform _hcTooltipAnchor;
-		[SerializeField] private TextMeshProUGUI _softCurrencyText;
-		[SerializeField] private TextMeshProUGUI _hardCurrencyText;
-		[SerializeField] private Transform _scAnimationTarget;
-		[SerializeField] private Transform _hcAnimationTarget;
+		[SerializeField, Required] private Transform _scTooltipAnchor;
+		[SerializeField, Required] private Transform _hcTooltipAnchor;
+		[SerializeField, Required] private TextMeshProUGUI _softCurrencyText;
+		[SerializeField, Required] private TextMeshProUGUI _hardCurrencyText;
+		[SerializeField, Required] private Transform _scAnimationTarget;
+		[SerializeField, Required] private Transform _hcAnimationTarget;
 		[SerializeField] private int _rackupTextAnimationDuration = 5;
 
 		private IGameDataProvider _dataProvider;

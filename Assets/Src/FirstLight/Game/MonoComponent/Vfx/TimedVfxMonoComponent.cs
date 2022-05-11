@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx

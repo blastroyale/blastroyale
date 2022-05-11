@@ -27,12 +27,21 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
+		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
+		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
+		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
+		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
+		
 		private readonly GameLogic _gameLogic;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		
+		private string _selectedAuthEmail;
+		private string _selectedAuthName;
+		private string _selectedAuthPass;
 		
 		public AuthenticationState(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
@@ -47,10 +56,57 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		/// <summary>
-		/// Callback to be used during PlayFab initial authentication proccess
+		/// Setups the Initial Loading state
 		/// </summary>
-		/// <param name="error"></param>
-		public void OnPlayFabError(PlayFabError error) 
+		public void Setup(IStateFactory stateFactory)
+		{
+			var initial = stateFactory.Initial("Initial");
+			var final = stateFactory.Final("Final");
+			var login = stateFactory.State("Login");
+			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
+			var register = stateFactory.State("Register");
+			var authLoginEmail = stateFactory.Wait("Login Email Authentication");
+			var authLoginDevice = stateFactory.Wait("Login Device Authentication");
+			var authRegister = stateFactory.Wait("Register Authentication");
+			var photonAuthentication = stateFactory.Wait("PlayFab Photon Authentication");
+
+			initial.Transition().Target(autoAuthCheck);
+			initial.OnExit(SubscribeEvents);
+			initial.OnExit(SetQuantumSettings);
+			initial.OnExit(LoadAppData);
+			
+			autoAuthCheck.Transition().Condition(HasCachedLoginEmail).Target(authLoginDevice);
+			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
+
+			login.OnEnter(OpenLoginScreen);
+			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
+			login.Event(_loginRegisterTransitionEvent).Target(authLoginEmail);
+			
+			register.OnEnter(OpenRegisterScreen);
+			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
+			register.Event(_loginRegisterTransitionEvent).Target(authRegister);
+
+			authLoginDevice.WaitingFor(LoginWithDevice).Target(photonAuthentication);
+			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
+			
+			authLoginEmail.OnEnter(()=>{ DimLoginScreen(true);});
+			authLoginEmail.WaitingFor(LoginWithEmail).OnTransition(OnEmailLoginTransition).Target(photonAuthentication);
+			authLoginEmail.Event(_authenticationFailEvent).Target(login);
+			authLoginEmail.OnExit(()=>{ DimLoginScreen(false);});
+			
+			authRegister.OnEnter(()=>{ DimRegisterScreen(true);});
+			authRegister.WaitingFor(AuthenticateRegister).OnTransition(CloseRegisterScreen).Target(login);
+			authRegister.Event(_authenticationFailEvent).Target(register);
+			authRegister.OnExit(()=>{ DimRegisterScreen(false);});
+			
+			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
+			
+			final.OnEnter(UnsubscribeEvents);
+		}
+		/// <summary>
+		/// Callback for game-stopping errors. Prompts user to close the game.
+		/// </summary>
+		public void OnCriticalPlayFabError(PlayFabError error) 
 		{
 			_services.AnalyticsService.CrashLog(error.ErrorMessage);
 
@@ -58,31 +114,28 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = Application.Quit,
 				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
+				Text = ScriptLocalization.MainMenu.QuitGameButton
 			};
-			
-			NativeUiService.ShowAlertPopUp(false, "Game Error", error.ErrorMessage, button);
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
 		}
-
-		/// <summary>
-		/// Setups the Initial Loading state
-		/// </summary>
-		public void Setup(IStateFactory stateFactory)
+		
+		private void OnPlayFabError(PlayFabError error) 
 		{
-			var initial = stateFactory.Initial("Initial");
-			var final = stateFactory.Final("Final");
-			var authentication = stateFactory.Wait("Authentication");
-			var photonAuthentication = stateFactory.Wait("PlayFab Photon Authentication");
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
 
-			initial.Transition().Target(authentication);
-			initial.OnExit(SubscribeEvents);
-			
-			authentication.OnEnter(SetQuantumSettings);
-			authentication.WaitingFor(Authenticate).Target(photonAuthentication);
-			
-			photonAuthentication.WaitingFor(PhotonAuthentication).Target(final);
-			
-			final.OnEnter(UnsubscribeEvents);
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+		}
+		
+		private void OnAuthenticationFail(PlayFabError error, IWaitActivity activity)
+		{
+			_statechartTrigger(_authenticationFailEvent);
+			OnPlayFabError(error);
+			activity.Complete();
 		}
 
 		private void SubscribeEvents()
@@ -95,7 +148,74 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void Authenticate(IWaitActivity activity)
+		private void LoadAppData()
+		{
+			_dataService.LoadData<AppData>();
+		}
+
+		private void OnEmailLoginTransition()
+		{
+			CloseLoginScreen(); 
+			OpenLoadingScreen();
+		}
+
+		private bool HasCachedLoginEmail()
+		{
+			return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
+		}
+
+		private void AuthenticateRegister(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+			
+			var register = new RegisterPlayFabUserRequest
+			{
+				Email = _selectedAuthEmail,
+				Username = _selectedAuthName,
+				Password = _selectedAuthPass
+			};
+			
+			PlayFabClientAPI.RegisterPlayFabUser(register, OnRegisterSuccess, (error => {OnAuthenticationFail(error, activity); }));
+
+			void OnRegisterSuccess(RegisterPlayFabUserResult result)
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = ()=>{ cacheActivity.Complete(); }
+				};
+				
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.RegisterSuccess,false, confirmButton);
+			}
+		}
+
+		private void LoginWithEmail(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+			var infoParams = new GetPlayerCombinedInfoRequestParams
+			{
+				GetUserAccountInfo = true,
+				GetUserReadOnlyData = true,
+				GetTitleData = true
+			};
+			
+			var login = new LoginWithEmailAddressRequest()
+			{
+				Email = _selectedAuthEmail,
+				Password = _selectedAuthPass,
+				InfoRequestParameters = infoParams
+			};
+			
+			PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, (error => { OnAuthenticationFail(error, activity); }));
+
+			void OnLoginSuccess(LoginResult result)
+			{
+				_dataService.GetData<AppData>().LastLoginEmail = _selectedAuthEmail;
+				ProcessAuthentication(result, cacheActivity);
+			}
+		}
+
+		private void LoginWithDevice(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var infoParams = new GetPlayerCombinedInfoRequestParams
@@ -113,7 +233,8 @@ namespace FirstLight.Game.StateMachines
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnPlayFabError);
+			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, (error => { OnAuthenticationFail(error, activity); }));
+			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
@@ -160,13 +281,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void ProcessAuthentication(LoginResult result, IWaitActivity activity)
 		{
+			if (!_dataService.GetData<AppData>().LinkedDevice)
+			{
+				LinkDeviceID(activity.Split());
+			}
+			
 			var titleData = result.InfoResultPayload.TitleData;
 			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 			_services.AnalyticsService.LoginEvent(result.PlayFabId);
 			InitializeGameData(result, activity.Split());
 			//AppleApprovalHack(result);
-				
+
 			if (IsOutdated(titleData[nameof(Application.version)]))
 			{
 				OpenGameUpdateDialog();
@@ -182,13 +308,72 @@ namespace FirstLight.Game.StateMachines
 			activity.Complete();
 		}
 
+		private void LinkDeviceID(IWaitActivity activity)
+		{
+#if UNITY_EDITOR
+			var link = new LinkCustomIDRequest
+			{
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkCustomID(link, OnLinkSuccess, OnLinkFail);
+
+			void OnLinkSuccess(LinkCustomIDResult result)
+			{
+				_dataService.GetData<AppData>().LinkedDevice = true;
+				activity.Complete();
+			}
+
+#elif UNITY_ANDROID
+			var link = new LinkAndroidDeviceIDRequest
+			{
+				AndroidDevice = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkAndroidDeviceID(link, OnLinkSuccess, OnLinkFail);
+			
+			void OnLinkSuccess(LinkAndroidDeviceIDResult result)
+			{
+				_dataService.GetData<AppData>().LinkedDevice = true;
+				activity.Complete();
+			}
+
+#elif UNITY_IOS
+			var link = new LinkIOSDeviceIDRequest
+			{
+				DeviceModel = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkIOSDeviceID(link, OnLinkSuccess, OnLinkFail);
+			
+			void OnLinkSuccess(LinkIOSDeviceIDResult result)
+			{
+				_dataService.GetData<AppData>().LinkedDevice = true;
+				activity.Complete();
+			}
+#endif
+			
+			void OnLinkFail(PlayFabError error)
+			{
+				OnPlayFabError(error);
+				activity.Complete();
+			}
+		}
+
 		private void PhotonAuthentication(IWaitActivity activity)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
 			
-			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnPlayFabError);
+			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
 
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
@@ -214,7 +399,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 			
-			PlayFabCloudScriptAPI.ExecuteFunction(request, OnPlayerSetup, OnPlayFabError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, OnPlayerSetup, OnCriticalPlayFabError);
 			
 			void OnPlayerSetup(ExecuteFunctionResult result)
 			{
@@ -231,7 +416,7 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeGameData(LoginResult result, IWaitActivity activity)
 		{
 			var data = result.InfoResultPayload.UserReadOnlyData;
-			var appData = _dataService.LoadData<AppData>();
+			var appData = _dataService.GetData<AppData>();
 			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
@@ -310,6 +495,83 @@ namespace FirstLight.Game.StateMachines
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
+		}
+		
+		private void LoginClicked(string email, string password)
+		{
+			_selectedAuthEmail = email;
+			_selectedAuthPass = password;
+			_statechartTrigger(_loginRegisterTransitionEvent);
+		}
+
+		private void RegisterClicked(string email, string username, string password)
+		{
+			_selectedAuthEmail = email;
+			_selectedAuthName = username;
+			_selectedAuthPass = password;
+			_statechartTrigger(_loginRegisterTransitionEvent);
+		}
+
+		private void GoToRegisterClicked()
+		{
+			_statechartTrigger(_goToRegisterClickedEvent);
+		}
+
+		private void GoToLoginClicked()
+		{
+			_statechartTrigger(_goToLoginClickedEvent);
+		}
+		
+		private void OpenLoadingScreen()
+		{
+			_uiService.OpenUi<LoadingScreenPresenter>();
+		}
+		
+		private void CloseLoadingScreen()
+		{
+			_uiService.CloseUi<LoadingScreenPresenter>();
+		}
+
+		private void OpenLoginScreen()
+		{
+			var data = new LoginScreenPresenter.StateData
+			{
+				LoginClicked = LoginClicked,
+				GoToRegisterClicked = GoToRegisterClicked
+			};
+			
+			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
+		}
+
+		private void CloseLoginScreen()
+		{
+			_uiService.CloseUi<LoginScreenPresenter>();
+		}
+
+		private void OpenRegisterScreen()
+		{
+			var data = new RegisterScreenPresenter.StateData
+			{
+				RegisterClicked = RegisterClicked,
+				GoToLoginClicked = GoToLoginClicked
+			};
+			
+			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+		}
+
+		private void CloseRegisterScreen()
+		{
+			_uiService.CloseUi<RegisterScreenPresenter>();
+		}
+
+		private void DimRegisterScreen(bool dimmed)
+		{
+			_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+		}
+
+		private void DimLoginScreen(bool dimmed)
+		{
+			_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
 		}
 
 		private bool IsOutdated(string version)

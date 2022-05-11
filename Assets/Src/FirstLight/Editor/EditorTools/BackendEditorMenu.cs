@@ -58,23 +58,19 @@ namespace FirstLight.Editor.EditorTools
 		}
 		
 		[MenuItem("First Light Games/Backend/Use Local Server")]
-		private static void ToggleLocalServer()
+		private static void UseLocalServer()
 		{
-			// Reverse whatever current local server mode is currently stored in saved in prefs
-			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, !EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY));
+			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, true);
+			PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			Debug.Log("Requests will go to LOCAL server now");
+		}
 
-			bool usingLocalServer = EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY);
-
-			if (usingLocalServer)
-			{
-				PlayFabSettings.LocalApiServer = "http://localhost:7274";
-				Debug.Log("Requests will go to LOCAL server now");
-			}
-			else
-			{
-				PlayFabSettings.LocalApiServer = null;
-				Debug.Log("Requests will go to CLOUD server now");
-			}
+		[MenuItem("First Light Games/Backend/Use Cloud Server")]
+		private static void UseCloudServer()
+		{
+			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
+			PlayFabSettings.LocalApiServer = null;
+			Debug.Log("Requests will go to CLOUD server now");
 		}
 	}
 }

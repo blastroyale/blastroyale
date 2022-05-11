@@ -12,6 +12,8 @@ namespace FirstLight.Game.Configs
 		public uint PoolCapacity;
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
+
+		public uint RestockPerInterval => PoolCapacity / (TotalRestockIntervalMinutes / RestockIntervalMinutes);
 	}
 
 	/// <summary>

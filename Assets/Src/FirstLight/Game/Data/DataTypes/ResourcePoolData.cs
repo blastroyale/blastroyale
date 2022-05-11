@@ -9,13 +9,13 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public GameId Id;
 		public ulong CurrentResourceAmountInPool;
-		public DateTime LastPoolRefreshTime;
+		public DateTime LastPoolRestockTime;
 		
-		public ResourcePoolData(GameId id, ulong currentResourceAmountInPool, DateTime lastPoolRefreshTime)
+		public ResourcePoolData(GameId id, ulong currentResourceAmountInPool, DateTime lastPoolRestockTime)
 		{
 			Id = id;
 			CurrentResourceAmountInPool = currentResourceAmountInPool;
-			LastPoolRefreshTime = lastPoolRefreshTime;
+			LastPoolRestockTime = lastPoolRestockTime;
 		}
 		
 		/// <inheritdoc />

@@ -59,6 +59,8 @@ namespace FirstLight.Game.Utils
 		public const float MAP_ROTATION_TIME_MINUTES = 10;
 		
 		public const float RadiusToScaleConversionValue = 2f;
+
+		public const string GameHasBots = "GameHasBots";
 		
 		// The audios default starting volume
 		public const float Sfx2dDefaultVolume = 0.2f;

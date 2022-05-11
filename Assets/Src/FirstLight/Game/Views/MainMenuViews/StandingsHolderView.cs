@@ -58,8 +58,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			if (_playerResultPool == null)
 			{
-				var playersLimit = (uint) _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig
-				                                   .PlayersLimit;
+				var playersLimit = (uint)playerData.Count;
 				
 				_playerResultPool = new GameObjectPool<PlayerResultEntryView>(playersLimit, _resultEntryViewRef);
 

@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -7,7 +6,6 @@ using Firebase;
 using Firebase.Analytics;
 using FirstLight.Game.Utils;
 using AppsFlyerSDK;
-using Facebook.Unity;
 using FirstLight.Game.Data;
 using Newtonsoft.Json;
 using UnityEngine.Analytics;

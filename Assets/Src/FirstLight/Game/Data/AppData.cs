@@ -26,6 +26,7 @@ namespace FirstLight.Game.Data
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
+		public bool HighResModeEnabled = true;
 		
 		public List<UniqueId> NewUniqueIds = new List<UniqueId>();
 		public List<GameId> GameIdsTagged = new List<GameId>();

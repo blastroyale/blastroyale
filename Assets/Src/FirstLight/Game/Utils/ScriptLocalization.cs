@@ -503,6 +503,26 @@ namespace I2.Loc
 			public static string NotEnoughGems 		{ get{ return LocalizationManager.GetTranslation ("General/NotEnoughGems"); } }
 			public static string OK 		{ get{ return LocalizationManager.GetTranslation ("General/OK"); } }
 			public static string Open 		{ get{ return LocalizationManager.GetTranslation ("General/Open"); } }
+			public static string Ordinal1 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal1"); } }
+			public static string Ordinal10 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal10"); } }
+			public static string Ordinal11 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal11"); } }
+			public static string Ordinal12 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal12"); } }
+			public static string Ordinal13 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal13"); } }
+			public static string Ordinal14 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal14"); } }
+			public static string Ordinal15 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal15"); } }
+			public static string Ordinal16 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal16"); } }
+			public static string Ordinal17 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal17"); } }
+			public static string Ordinal18 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal18"); } }
+			public static string Ordinal19 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal19"); } }
+			public static string Ordinal2 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal2"); } }
+			public static string Ordinal3 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal3"); } }
+			public static string Ordinal4 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal4"); } }
+			public static string Ordinal5 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal5"); } }
+			public static string Ordinal6 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal6"); } }
+			public static string Ordinal7 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal7"); } }
+			public static string Ordinal8 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal8"); } }
+			public static string Ordinal9 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal9"); } }
+			public static string PlacementMessage 		{ get{ return LocalizationManager.GetTranslation ("General/PlacementMessage"); } }
 			public static string PrimarySpecial 		{ get{ return LocalizationManager.GetTranslation ("General/PrimarySpecial"); } }
 			public static string ProjectileArmor 		{ get{ return LocalizationManager.GetTranslation ("General/ProjectileArmor"); } }
 			public static string ProjectileSpeed 		{ get{ return LocalizationManager.GetTranslation ("General/ProjectileSpeed"); } }
@@ -554,12 +574,14 @@ namespace I2.Loc
 			public static string All_Gear 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/All Gear"); } }
 			public static string AutoFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/AutoFire"); } }
 			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BGM"); } }
+			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
 			public static string BeatLevelFirst 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirst"); } }
 			public static string BeatLevelFirstWithDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirstWithDifficulty"); } }
 			public static string BossKilledTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BossKilledTimes"); } }
 			public static string BossLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BossLevel"); } }
 			public static string Cancel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Cancel"); } }
 			public static string ChangePlayerSkin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ChangePlayerSkin"); } }
+			public static string ChooseGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ChooseGameMode"); } }
 			public static string ClaimReward 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ClaimReward"); } }
 			public static string Collect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Collect"); } }
 			public static string CollectedCrates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CollectedCrates"); } }
@@ -571,6 +593,7 @@ namespace I2.Loc
 			public static string Crates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Crates"); } }
 			public static string CreateRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CreateRoom"); } }
 			public static string CurrentXP 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CurrentXP"); } }
+			public static string Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Deathmatch"); } }
 			public static string DeathmatchPlayOffline 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayOffline"); } }
 			public static string DeathmatchPlayOnline 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayOnline"); } }
 			public static string DeathmatchPlayRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayRoom"); } }
@@ -578,6 +601,7 @@ namespace I2.Loc
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
+			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
 			public static string Enhance 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Enhance"); } }
 			public static string EnhanceDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceDescription"); } }
 			public static string EnhanceItemsNeeded 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceItemsNeeded"); } }
@@ -589,8 +613,10 @@ namespace I2.Loc
 			public static string FuseDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseDescription"); } }
 			public static string FuseResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseResults"); } }
 			public static string FusionWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FusionWarning"); } }
+			public static string GameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameMode"); } }
 			public static string HOME 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HOME"); } }
 			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Haptic"); } }
+			public static string HighResMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighResMode"); } }
 			public static string HoldToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFire"); } }
 			public static string HoldToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFireDescription"); } }
 			public static string HowToPlay 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HowToPlay"); } }
@@ -603,6 +629,13 @@ namespace I2.Loc
 			public static string JoinRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/JoinRoom"); } }
 			public static string Loading 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loading"); } }
 			public static string Locked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Locked"); } }
+			public static string LoginButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginButton"); } }
+			public static string LoginOrText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginOrText"); } }
+			public static string LoginTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginTitle"); } }
+			public static string LogoutButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutButton"); } }
+			public static string LogoutConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutConfirm"); } }
+			public static string LogoutSuccessDesc 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessDesc"); } }
+			public static string LogoutSuccessTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessTitle"); } }
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
@@ -622,15 +655,22 @@ namespace I2.Loc
 			public static string OpenCrate 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenCrate"); } }
 			public static string OpenCrateNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenCrateNow"); } }
 			public static string OpenNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenNow"); } }
+			public static string PasswordTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PasswordTitle"); } }
 			public static string PlayGame 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayGame"); } }
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
+			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
 			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Power"); } }
 			public static string PowerRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerRating"); } }
 			public static string PowerTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerTotal"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
+			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
+			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
+			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
+			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
+			public static string RememberMe 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RememberMe"); } }
 			public static string RoomCreateOrJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCreateOrJoin"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
 			public static string RoomError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomError"); } }
@@ -650,6 +690,7 @@ namespace I2.Loc
 			public static string StartUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/StartUnlock"); } }
 			public static string Talents 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Talents"); } }
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
+			public static string TokenRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TokenRestockTime"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
 			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
 			public static string TrophyRoad 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoad"); } }
@@ -658,6 +699,7 @@ namespace I2.Loc
 			public static string UnlockCrateNow 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UnlockCrateNow"); } }
 			public static string UnlockInProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UnlockInProgress"); } }
 			public static string UseCrateSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UseCrateSlot"); } }
+			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
 		}
@@ -1226,6 +1268,26 @@ namespace I2.Loc
 		    public const string NotEnoughGems = "General/NotEnoughGems";
 		    public const string OK = "General/OK";
 		    public const string Open = "General/Open";
+		    public const string Ordinal1 = "General/Ordinal1";
+		    public const string Ordinal10 = "General/Ordinal10";
+		    public const string Ordinal11 = "General/Ordinal11";
+		    public const string Ordinal12 = "General/Ordinal12";
+		    public const string Ordinal13 = "General/Ordinal13";
+		    public const string Ordinal14 = "General/Ordinal14";
+		    public const string Ordinal15 = "General/Ordinal15";
+		    public const string Ordinal16 = "General/Ordinal16";
+		    public const string Ordinal17 = "General/Ordinal17";
+		    public const string Ordinal18 = "General/Ordinal18";
+		    public const string Ordinal19 = "General/Ordinal19";
+		    public const string Ordinal2 = "General/Ordinal2";
+		    public const string Ordinal3 = "General/Ordinal3";
+		    public const string Ordinal4 = "General/Ordinal4";
+		    public const string Ordinal5 = "General/Ordinal5";
+		    public const string Ordinal6 = "General/Ordinal6";
+		    public const string Ordinal7 = "General/Ordinal7";
+		    public const string Ordinal8 = "General/Ordinal8";
+		    public const string Ordinal9 = "General/Ordinal9";
+		    public const string PlacementMessage = "General/PlacementMessage";
 		    public const string PrimarySpecial = "General/PrimarySpecial";
 		    public const string ProjectileArmor = "General/ProjectileArmor";
 		    public const string ProjectileSpeed = "General/ProjectileSpeed";
@@ -1277,12 +1339,14 @@ namespace I2.Loc
 		    public const string All_Gear = "MainMenu/All Gear";
 		    public const string AutoFire = "MainMenu/AutoFire";
 		    public const string BGM = "MainMenu/BGM";
+		    public const string BattleRoyale = "MainMenu/BattleRoyale";
 		    public const string BeatLevelFirst = "MainMenu/BeatLevelFirst";
 		    public const string BeatLevelFirstWithDifficulty = "MainMenu/BeatLevelFirstWithDifficulty";
 		    public const string BossKilledTimes = "MainMenu/BossKilledTimes";
 		    public const string BossLevel = "MainMenu/BossLevel";
 		    public const string Cancel = "MainMenu/Cancel";
 		    public const string ChangePlayerSkin = "MainMenu/ChangePlayerSkin";
+		    public const string ChooseGameMode = "MainMenu/ChooseGameMode";
 		    public const string ClaimReward = "MainMenu/ClaimReward";
 		    public const string Collect = "MainMenu/Collect";
 		    public const string CollectedCrates = "MainMenu/CollectedCrates";
@@ -1294,6 +1358,7 @@ namespace I2.Loc
 		    public const string Crates = "MainMenu/Crates";
 		    public const string CreateRoom = "MainMenu/CreateRoom";
 		    public const string CurrentXP = "MainMenu/CurrentXP";
+		    public const string Deathmatch = "MainMenu/Deathmatch";
 		    public const string DeathmatchPlayOffline = "MainMenu/DeathmatchPlayOffline";
 		    public const string DeathmatchPlayOnline = "MainMenu/DeathmatchPlayOnline";
 		    public const string DeathmatchPlayRoom = "MainMenu/DeathmatchPlayRoom";
@@ -1301,6 +1366,7 @@ namespace I2.Loc
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
+		    public const string EmailTitle = "MainMenu/EmailTitle";
 		    public const string Enhance = "MainMenu/Enhance";
 		    public const string EnhanceDescription = "MainMenu/EnhanceDescription";
 		    public const string EnhanceItemsNeeded = "MainMenu/EnhanceItemsNeeded";
@@ -1312,8 +1378,10 @@ namespace I2.Loc
 		    public const string FuseDescription = "MainMenu/FuseDescription";
 		    public const string FuseResults = "MainMenu/FuseResults";
 		    public const string FusionWarning = "MainMenu/FusionWarning";
+		    public const string GameMode = "MainMenu/GameMode";
 		    public const string HOME = "MainMenu/HOME";
 		    public const string Haptic = "MainMenu/Haptic";
+		    public const string HighResMode = "MainMenu/HighResMode";
 		    public const string HoldToFire = "MainMenu/HoldToFire";
 		    public const string HoldToFireDescription = "MainMenu/HoldToFireDescription";
 		    public const string HowToPlay = "MainMenu/HowToPlay";
@@ -1326,6 +1394,13 @@ namespace I2.Loc
 		    public const string JoinRoom = "MainMenu/JoinRoom";
 		    public const string Loading = "MainMenu/Loading";
 		    public const string Locked = "MainMenu/Locked";
+		    public const string LoginButton = "MainMenu/LoginButton";
+		    public const string LoginOrText = "MainMenu/LoginOrText";
+		    public const string LoginTitle = "MainMenu/LoginTitle";
+		    public const string LogoutButton = "MainMenu/LogoutButton";
+		    public const string LogoutConfirm = "MainMenu/LogoutConfirm";
+		    public const string LogoutSuccessDesc = "MainMenu/LogoutSuccessDesc";
+		    public const string LogoutSuccessTitle = "MainMenu/LogoutSuccessTitle";
 		    public const string Loot = "MainMenu/Loot";
 		    public const string ManualFire = "MainMenu/ManualFire";
 		    public const string Meters = "MainMenu/Meters";
@@ -1345,15 +1420,22 @@ namespace I2.Loc
 		    public const string OpenCrate = "MainMenu/OpenCrate";
 		    public const string OpenCrateNow = "MainMenu/OpenCrateNow";
 		    public const string OpenNow = "MainMenu/OpenNow";
+		    public const string PasswordTitle = "MainMenu/PasswordTitle";
 		    public const string PlayGame = "MainMenu/PlayGame";
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
+		    public const string PlayfabError = "MainMenu/PlayfabError";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
 		    public const string Power = "MainMenu/Power";
 		    public const string PowerRating = "MainMenu/PowerRating";
 		    public const string PowerTotal = "MainMenu/PowerTotal";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
+		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
+		    public const string RegisterButton = "MainMenu/RegisterButton";
+		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
+		    public const string RegisterTitle = "MainMenu/RegisterTitle";
+		    public const string RememberMe = "MainMenu/RememberMe";
 		    public const string RoomCreateOrJoin = "MainMenu/RoomCreateOrJoin";
 		    public const string RoomCurrentName = "MainMenu/RoomCurrentName";
 		    public const string RoomError = "MainMenu/RoomError";
@@ -1373,6 +1455,7 @@ namespace I2.Loc
 		    public const string StartUnlock = "MainMenu/StartUnlock";
 		    public const string Talents = "MainMenu/Talents";
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
+		    public const string TokenRestockTime = "MainMenu/TokenRestockTime";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
 		    public const string TotalPower = "MainMenu/TotalPower";
 		    public const string TrophyRoad = "MainMenu/TrophyRoad";
@@ -1381,6 +1464,7 @@ namespace I2.Loc
 		    public const string UnlockCrateNow = "MainMenu/UnlockCrateNow";
 		    public const string UnlockInProgress = "MainMenu/UnlockInProgress";
 		    public const string UseCrateSlot = "MainMenu/UseCrateSlot";
+		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
 		}

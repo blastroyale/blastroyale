@@ -36,8 +36,8 @@ MonoBehaviour:
       ShrinkingDamage: 20
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
-        RawValue: 314573
-      PlayerDefaultInterimArmour: 400
+        RawValue: 294912
+      PlayerDefaultInterimArmour: 600
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:
@@ -49,7 +49,7 @@ MonoBehaviour:
       CollectableCollectTime:
         RawValue: 39321
       PlayerAliveShieldDuration:
-        RawValue: 196608
+        RawValue: 262144
       EquipmentLevelToPowerK: 10
       EquipmentRarityToPowerK: 50
       LootboxSlotsMaxNumber: 4

@@ -23,7 +23,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private UiToggleButtonView _backgroundMusicToggle;
 		[SerializeField] private UiToggleButtonView _hapticToggle;
 		[SerializeField] private UiToggleButtonView _sfxToggle;
-
+		[SerializeField] private UiToggleButtonView _highResModeToggle;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
@@ -40,6 +41,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
+			_highResModeToggle.onValueChanged.AddListener(OnHighResModeChanged);
 		}
 
 		protected override void OnOpened()
@@ -49,6 +51,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
+			_highResModeToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHighResModeEnabled);
 		}
 
 		/// <inheritdoc />
@@ -70,7 +73,12 @@ namespace FirstLight.Game.Presenters
 		private void OnHapticChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-			MMVibrationManager.SetHapticsActive(_gameDataProvider.AppDataProvider.IsHapticOn);
+			
+		}
+
+		private void OnHighResModeChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.IsHighResModeEnabled = value;
 		}
 	}
 }

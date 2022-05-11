@@ -115,7 +115,6 @@ namespace FirstLight.Game.Presenters
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = false,
-				GameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value
 			};
 
 			_services.MessageBrokerService.Publish(message);
@@ -127,14 +126,12 @@ namespace FirstLight.Game.Presenters
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = true,
-				GameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
 		
-
 		private void OnPlayRoomlicked()
 		{
 			Data.OnPlayRoomJoinCreateClicked();

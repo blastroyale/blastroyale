@@ -1,11 +1,9 @@
-using System;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Playables;
 
 namespace FirstLight.Game.MonoComponent.Ftue
 {

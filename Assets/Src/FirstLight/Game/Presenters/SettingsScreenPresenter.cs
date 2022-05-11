@@ -6,12 +6,9 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
-using FirstLight.NativeUi;
-using FirstLight.Services;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
-using PlayFab;
-using PlayFab.ClientModels;
+using Sirenix.OdinInspector;
 using UnityEngine.Events;
 
 namespace FirstLight.Game.Presenters
@@ -26,17 +23,17 @@ namespace FirstLight.Game.Presenters
 			public Action LogoutClicked;
 			public Action OnClose;
 		}
-
-		[SerializeField] private TextMeshProUGUI _versionText;
-		[SerializeField] private TextMeshProUGUI _fullNameText;
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _blockerButton;
-		[SerializeField] private Button _logoutButton;
-
-		[SerializeField] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField] private UiToggleButtonView _hapticToggle;
-		[SerializeField] private UiToggleButtonView _sfxToggle;
-
+		
+		[SerializeField, Required] private TextMeshProUGUI _versionText;
+		[SerializeField, Required] private TextMeshProUGUI _fullNameText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _blockerButton;
+		[SerializeField, Required] private Button _logoutButton;
+		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
+		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
+		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
+		[SerializeField, Required] private UiToggleButtonView _highResModeToggle;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
@@ -56,6 +53,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
+			_highResModeToggle.onValueChanged.AddListener(OnHighResModeChanged);
 		}
 
 		protected override void OnOpened()
@@ -65,6 +63,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
+			_highResModeToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHighResModeEnabled);
 		}
 		
 		/// <inheritdoc />
@@ -86,7 +85,12 @@ namespace FirstLight.Game.Presenters
 		private void OnHapticChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-			MMVibrationManager.SetHapticsActive(_gameDataProvider.AppDataProvider.IsHapticOn);
+			
+		}
+
+		private void OnHighResModeChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.IsHighResModeEnabled = value;
 		}
 
 		private void OnLogoutClicked()

@@ -1,6 +1,3 @@
-using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UI;

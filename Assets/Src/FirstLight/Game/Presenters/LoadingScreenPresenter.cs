@@ -1,9 +1,6 @@
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +13,9 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class LoadingScreenPresenter : UiPresenter
 	{
-		[SerializeField] private Animation _animation;
-		[SerializeField] private Slider _loadingBar;
-		[SerializeField] private TextMeshProUGUI _loadingBarText;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private Slider _loadingBar;
+		[SerializeField, Required] private TextMeshProUGUI _loadingBarText;
 
 		/// <summary>
 		/// Requests the loading game percentage value

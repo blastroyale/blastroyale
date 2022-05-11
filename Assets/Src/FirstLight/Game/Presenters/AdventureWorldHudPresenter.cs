@@ -1,4 +1,5 @@
 using FirstLight.UiService;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Presenters
@@ -9,6 +10,6 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class AdventureWorldHudPresenter : UiPresenter
 	{
-		[SerializeField] public Transform _healthBarContainer;
+		[SerializeField, Required] public Transform _healthBarContainer;
 	}
 }

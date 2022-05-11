@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -8,7 +9,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class MovementIndicatorMonoComponent: MonoBehaviour, ITransformIndicator
 	{
-		[SerializeField] private VisualEffect _indicator;
+		[SerializeField, Required] private VisualEffect _indicator;
 		[SerializeField] private float _playerDistance = 2f;
 		[SerializeField] private float _localHeight = 0.025f;
 

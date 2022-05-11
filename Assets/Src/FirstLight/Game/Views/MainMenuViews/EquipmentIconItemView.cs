@@ -1,9 +1,9 @@
-using FirstLight.Game.Configs;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,9 +15,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class EquipmentIconItemView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _levelText;
-		[SerializeField] private Image _iconImage;
-		[SerializeField] private Image _rarityImage;
+		[SerializeField, Required] private TextMeshProUGUI _levelText;
+		[SerializeField, Required] private Image _iconImage;
+		[SerializeField, Required] private Image _rarityImage;
 
 		private IGameServices _services;
 		

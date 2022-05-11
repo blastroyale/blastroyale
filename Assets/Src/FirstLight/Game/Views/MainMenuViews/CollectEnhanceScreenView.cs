@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Data.DataTypes;
+﻿using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Signals;
 using FirstLight.Game.TimelinePlayables;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -30,15 +22,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		private const float _tweenDelayInc = 0.1f;
 		
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private GameObject _summaryHolder;
-		[SerializeField] private Button _leaveButton;
-		[SerializeField] private Button _tapToSkipButton;
-		[SerializeField] private PlayableDirector _timeline;
-		[SerializeField] private CollectedLootView _lootCardRef;
-		[SerializeField] private Transform _targetGrid;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private GameObject _summaryHolder;
+		[SerializeField, Required] private Button _leaveButton;
+		[SerializeField, Required] private Button _tapToSkipButton;
+		[SerializeField, Required] private PlayableDirector _timeline;
+		[SerializeField, Required] private CollectedLootView _lootCardRef;
+		[SerializeField, Required] private Transform _targetGrid;
 		[SerializeField] private Transform[] _enhanceTransforms;
-		[SerializeField] private Transform _newItemTransform;
+		[SerializeField, Required] private Transform _newItemTransform;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;

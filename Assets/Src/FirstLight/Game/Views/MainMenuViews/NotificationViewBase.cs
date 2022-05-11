@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +18,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public abstract class NotificationViewBase : MonoBehaviour
 	{
-		[SerializeField] protected Image NotificationImage;
-		[SerializeField] protected Animation NotificationAnimation;
+		[SerializeField, Required] protected Image NotificationImage;
+		[SerializeField, Required] protected Animation NotificationAnimation;
 		
 		[SerializeField] protected TextMeshProUGUI _notificationText;
 

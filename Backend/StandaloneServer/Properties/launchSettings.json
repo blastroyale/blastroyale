@@ -12,13 +12,29 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7274;",
+      "useSSL": false,
+      "applicationUrl": "http://localhost:7274;",
       "environmentVariables": {
         "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
         "PLAYFAB_TITLE": "***REMOVED***"
       }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "DockerfileRunArguments": "-v $(pwd)/host-folder:/container-folder:ro",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "http://+:7274",
+        "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
+        "PLAYFAB_TITLE": "***REMOVED***"
+      },
+      "httpPort": 7274,
+      "useSSL": false
     },
     "IIS Express": {
       "commandName": "IISExpress",

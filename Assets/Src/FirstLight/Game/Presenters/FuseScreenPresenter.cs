@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -13,6 +12,7 @@ using System.Linq;
 using I2.Loc;
 using FirstLight.Game.Messages;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.UI;
 
@@ -30,21 +30,21 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Header("Fuse Dialog / OSA")]
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private GenericGridView _gridView;
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private TextMeshProUGUI _noItemsCollectedText;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private TextMeshProUGUI _noItemsCollectedText;
 
 		[Header("Fuse Info Panel")]
-		[SerializeField] private TextMeshProUGUI _descriptionText;
-		[SerializeField] private GameObject _fuseButtonHolder;
-		[SerializeField] private Button _fuseButton;
-		[SerializeField] private TextMeshProUGUI _itemTitleText;
-		[SerializeField] private TextMeshProUGUI _fuseCostText;
-		[SerializeField] private TextMeshProUGUI _itemCraftedText;
+		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
+		[SerializeField, Required] private GameObject _fuseButtonHolder;
+		[SerializeField, Required] private Button _fuseButton;
+		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
+		[SerializeField, Required] private TextMeshProUGUI _fuseCostText;
+		[SerializeField, Required] private TextMeshProUGUI _itemCraftedText;
 		[SerializeField] private FuseChanceItemView[] _fuseItemChances;
-		[SerializeField] private Image _fuseChangeItemImage;
-		[SerializeField] private Sprite _fuseEmptySprite;
+		[SerializeField, Required] private Image _fuseChangeItemImage;
+		[SerializeField, Required] private Sprite _fuseEmptySprite;
 		
 		[Header("Fusion Slots")]
 		[SerializeField] private SlotEquipmentFillerView [] _fuseSlotViews;

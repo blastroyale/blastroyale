@@ -1,5 +1,5 @@
-using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 
@@ -10,7 +10,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private ParticleSystem _particleSystem;
+		[SerializeField, Required] private ParticleSystem _particleSystem;
 
 		protected override void OnAwake()
 		{

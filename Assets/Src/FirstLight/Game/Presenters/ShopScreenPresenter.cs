@@ -1,15 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
-using FirstLight.Services;
-using I2.Loc;
-using Newtonsoft.Json;
-using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Button = UnityEngine.UI.Button;
@@ -26,8 +19,8 @@ namespace FirstLight.Game.Presenters
 			public Action OnShopBackButtonClicked;
 		}
 
-		[SerializeField] private Transform _contentTransform;
-		[SerializeField] private Button _backButton;
+		[SerializeField, Required] private Transform _contentTransform;
+		[SerializeField, Required] private Button _backButton;
 		[SerializeField] private float _iapItemAppearDuration = 0.1f;  
 		
 		private readonly List<ShopItemView> _shopItemViews = new List<ShopItemView>();

@@ -1,5 +1,4 @@
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {

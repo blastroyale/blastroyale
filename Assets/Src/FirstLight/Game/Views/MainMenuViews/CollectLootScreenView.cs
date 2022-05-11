@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
@@ -15,6 +12,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -30,17 +28,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		private const float _tweenDelayInc = 0.1f;
 		
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private GameObject _summaryHolder;
-		[SerializeField] private Transform _targetGrid;
-		[SerializeField] private Transform _lootBoxTransform;
-		[SerializeField] private Transform _instantiateTransform;
-		[SerializeField] private Button _startSequenceButton;
-		[SerializeField] private Button _leaveButton;
-		[SerializeField] private Button _tapToSkipButton;
-		[SerializeField] private PlayableDirector _timelineBox;
-		[SerializeField] private PlayableDirector _timelineCore;
-		[SerializeField] private CollectedLootView _lootCardRef;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private GameObject _summaryHolder;
+		[SerializeField, Required] private Transform _targetGrid;
+		[SerializeField, Required] private Transform _lootBoxTransform;
+		[SerializeField, Required] private Transform _instantiateTransform;
+		[SerializeField, Required] private Button _startSequenceButton;
+		[SerializeField, Required] private Button _leaveButton;
+		[SerializeField, Required] private Button _tapToSkipButton;
+		[SerializeField, Required] private PlayableDirector _timelineBox;
+		[SerializeField, Required] private PlayableDirector _timelineCore;
+		[SerializeField, Required] private CollectedLootView _lootCardRef;
 
 		private PlayableDirector _director;
 		private IGameServices _services;

@@ -1,5 +1,6 @@
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class TrophiesView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI trophiesText;
+		[SerializeField, Required] private TextMeshProUGUI trophiesText;
 
 		private IGameDataProvider _dataProvider;
 

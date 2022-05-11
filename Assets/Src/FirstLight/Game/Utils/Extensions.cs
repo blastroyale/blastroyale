@@ -77,6 +77,15 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Requests the localized text representing the ordinal of the given <paramref name="number"/>
+		/// </summary>
+		public static string GetOrdinalTranslation(this int number)
+		{
+			number = number > 19 ? 19 : number;
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/Ordinal{number.ToString()}");
+		}
+
+		/// <summary>
 		/// Sets the Layer of a game object and if include children is set to true, also sets all child objects to that layer too.
 		/// </summary>
 		public static void SetLayer(this GameObject parent, int layer, bool includeChildren = true)

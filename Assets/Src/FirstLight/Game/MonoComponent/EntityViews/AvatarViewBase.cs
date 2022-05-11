@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -69,7 +68,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[FormerlySerializedAs("_rigidbodyContainerMonoComponent")] [SerializeField]
 		protected RigidbodyContainerMonoComponent RigidbodyContainerMonoComponent;
 
-		[SerializeField] private Animator _animator;
+		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private VfxId _projectileHitVfx;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 

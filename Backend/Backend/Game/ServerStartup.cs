@@ -1,3 +1,4 @@
+using Backend.Db;
 using Backend.Game.Services;
 using FirstLight;
 using FirstLight.Game.Configs;
@@ -16,10 +17,13 @@ namespace Backend.Game;
 /// This is where we can declare specific implementations of the server like for instance, where we read data from.
 /// Currently, its all setup for Playfab.
 /// </summary>
-public static class IOCSetup
+public static class ServerStartup
 {
 	public static void Setup(IServiceCollection services, ILogger log)
 	{
+		ServerConfiguration.LoadConfiguration();
+		DbSetup.Setup(services);
+		
 		// Server
 		services.AddSingleton<IPlayerSetupService, PlayerSetupService>();
 		services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
@@ -38,4 +42,5 @@ public static class IOCSetup
 			return cfg;
 		});
 	}
+	
 }

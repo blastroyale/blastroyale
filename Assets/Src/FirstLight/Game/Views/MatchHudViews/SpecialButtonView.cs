@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,19 +17,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
 	{
-		[SerializeField] private UiButtonView _buttonView;
-		[SerializeField] private int _specialIndex;
-		[SerializeField] private Image _specialIconImage;
-		[SerializeField] private Image _specialIconBackgroundImage;
-		[SerializeField] private Image _outerRingImage;
+		[SerializeField, Required] private UiButtonView _buttonView;
+		[SerializeField, Required] private int _specialIndex;
+		[SerializeField, Required] private Image _specialIconImage;
+		[SerializeField, Required] private Image _specialIconBackgroundImage;
+		[SerializeField, Required] private Image _outerRingImage;
 		[SerializeField] private Color _activeColor;
 		[SerializeField] private Color _cooldownColor;
-		[SerializeField] private UnityInputScreenControl _specialPointerDownAdapter;
-		[SerializeField] private UnityInputScreenControl _specialAimDirectionAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
 		[SerializeField] private float _rectScale = 1f;
-		[SerializeField] private Sprite _aimableBackgroundSprite;
-		[SerializeField] private Sprite _nonAimableBackgroundSprite;
-		[SerializeField] private Animation _pingAnimation;
+		[SerializeField, Required] private Sprite _aimableBackgroundSprite;
+		[SerializeField, Required] private Sprite _nonAimableBackgroundSprite;
+		[SerializeField, Required] private Animation _pingAnimation;
 		
 		private IGameServices _services;
 		private Coroutine _cooldownCoroutine;

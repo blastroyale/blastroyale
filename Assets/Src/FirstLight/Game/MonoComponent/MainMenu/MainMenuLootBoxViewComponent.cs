@@ -1,8 +1,7 @@
-using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,8 +12,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// </summary>
 	public class MainMenuLootBoxViewComponent : MonoBehaviour, IPointerClickHandler
 	{
-		[SerializeField] private GameObject _vfxGlow;
-		[SerializeField] private GameObject _glow;
+		[SerializeField, Required] private GameObject _vfxGlow;
+		[SerializeField, Required] private GameObject _glow;
 		
 		private IGameServices _services;
 		

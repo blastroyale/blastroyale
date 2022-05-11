@@ -1,11 +1,10 @@
 ﻿using System;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.GridViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,14 +25,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 			public Action<GameId> OnAvatarClicked;
 		}
 		
-		[SerializeField] private TextMeshProUGUI Text;
-		[SerializeField] private Image IconImage;
-		[SerializeField] private Button Button;
-		[SerializeField] private Image SelectedImage;
-		[SerializeField] private Image _frameImage;
+		[SerializeField, Required] private TextMeshProUGUI Text;
+		[SerializeField, Required] private Image IconImage;
+		[SerializeField, Required] private Button Button;
+		[SerializeField, Required] private Image SelectedImage;
+		[SerializeField, Required] private Image _frameImage;
 		[SerializeField] private Color _regularColor;
 		[SerializeField] private Color _selectedColor;
-		[SerializeField] private GameObject _selectedFrameImage;
+		[SerializeField, Required] private GameObject _selectedFrameImage;
 		
 		private PlayerSkinGridItemData _data;
 		private IGameServices _services;

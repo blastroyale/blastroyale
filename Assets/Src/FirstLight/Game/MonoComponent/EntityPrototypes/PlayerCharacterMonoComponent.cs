@@ -93,7 +93,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
 			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
-			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
 			_playerView.SetMovingState(isDown);
 			_shootIndicator.SetVisualState(isDown, isEmptied);
 		}
@@ -220,7 +219,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_indicators[(int) IndicatorVfxId.Movement] = _movementIndicator = movementTask.Result.GetComponent<MovementIndicatorMonoComponent>();
 			_indicators[(int) IndicatorVfxId.None] = null;
 			_indicators[(int) IndicatorVfxId.Radial] = radialTask.Result.GetComponent<RadialIndicatorMonoComponent>();
-			_indicators[(int) IndicatorVfxId.Range] = rangeTask.Result.GetComponent<RangeIndicatorMonoComponent>();
 			_indicators[(int) IndicatorVfxId.ScalableLine] = scalableLineTask.Result.GetComponent<ScalableLineIndicatorMonoComponent>();
 
 			foreach (var indicator in _indicators)
@@ -270,20 +268,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
 			var shootState = _shootIndicator?.VisualState ?? false;
 			var indicator = _currentWeaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			var range = _currentWeaponConfig.AttackRange.AsFloat;
-			
-			// For a melee weapon with a splash damage we use an additional calculation for an indicator
-			if (_currentWeaponConfig.Id == GameId.Hammer && _currentWeaponConfig.SplashRadius > FP._0)
-			{
-				range += _currentWeaponConfig.SplashRadius.AsFloat;
-			}
 			
 			_shootIndicator?.SetVisualState(false);
-			
 			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
-			
-			_indicators[(int) IndicatorVfxId.Range].SetVisualProperties(range, 0, range);
-			_indicators[(int) IndicatorVfxId.Range].SetVisualState(shootState);
 			UpdateShootIndicator();
 			_shootIndicator?.SetVisualState(shootState);
 

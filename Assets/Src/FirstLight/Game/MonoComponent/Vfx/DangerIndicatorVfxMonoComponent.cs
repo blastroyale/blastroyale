@@ -1,6 +1,4 @@
 using FirstLight.Game.Utils;
-using Photon.Deterministic;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx

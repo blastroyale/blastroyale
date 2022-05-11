@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
@@ -10,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -20,8 +19,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// </summary>
 	public class MainMenuLootBoxMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private Transform _frontEndCratesCamera;
-		[SerializeField] private TextMeshPro _unlockTimeText;
+		[SerializeField, Required] private Transform _frontEndCratesCamera;
+		[SerializeField, Required] private TextMeshPro _unlockTimeText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

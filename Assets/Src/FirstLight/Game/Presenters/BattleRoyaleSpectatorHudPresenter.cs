@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
@@ -24,8 +25,8 @@ namespace FirstLight.Game.Presenters
 			public PlayerRef Killer;
 		}
 		
-		[SerializeField] private Button _button;
-		[SerializeField] private TextMeshProUGUI _killerText;
+		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private TextMeshProUGUI _killerText;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider; 

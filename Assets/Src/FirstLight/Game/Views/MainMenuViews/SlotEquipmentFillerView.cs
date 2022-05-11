@@ -2,8 +2,8 @@
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Ids;
+using Sirenix.OdinInspector;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -13,8 +13,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class SlotEquipmentFillerView : MonoBehaviour
 	{
-		[SerializeField] private EquipmentIconItemView _equipmentIconView;
-		[SerializeField] private Button _button;
+		[SerializeField, Required] private EquipmentIconItemView _equipmentIconView;
+		[SerializeField, Required] private Button _button;
 		[SerializeField] private int _slotId;
 
 		/// <summary>

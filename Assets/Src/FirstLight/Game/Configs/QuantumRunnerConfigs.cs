@@ -47,7 +47,6 @@ namespace FirstLight.Game.Configs
 			_runtimeConfig.BotDifficultyLevel = 1;
 			_runtimeConfig.MapId = config.Id;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
-			_runtimeConfig.PlayersLimit = config.PlayersLimit;
 			_runtimeConfig.GameMode = config.GameMode;
 			_runtimeConfig.GameEndTarget = config.GameEndTarget;
 			_runtimeConfig.IsTestMap = config.IsTestMap;

@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent
@@ -7,7 +8,7 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public class AnimationBindMonoComponent : MonoBehaviour
 	{
-		[SerializeField] private Animation _animation;
+		[SerializeField, Required] private Animation _animation;
 
 		/// <summary>
 		/// Rewind and play legacy animation component

@@ -115,10 +115,6 @@ namespace FirstLight.Game.Presenters
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = false,
-				
-				// EVE
-				// Get game mode from _gameDataProvider.AppDataProvider.SelectedGameMode (that you implemented)
-				GameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value
 			};
 
 			_services.MessageBrokerService.Publish(message);
@@ -130,16 +126,12 @@ namespace FirstLight.Game.Presenters
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = true,
-				// EVE
-				// Get game mode from _gameDataProvider.AppDataProvider.SelectedGameMode (that you implemented)
-				GameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value //GameMode.BattleRoyale // TODO 
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
 		
-
 		private void OnPlayRoomlicked()
 		{
 			Data.OnPlayRoomJoinCreateClicked();

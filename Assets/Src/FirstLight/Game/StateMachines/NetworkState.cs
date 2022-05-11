@@ -269,7 +269,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
-			var mapConfig = GetRotationMapConfig(msg.GameMode);
+			var mapConfig = GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value);
 			
 			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
 		}

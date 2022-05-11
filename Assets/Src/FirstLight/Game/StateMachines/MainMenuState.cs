@@ -37,7 +37,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
 		// EVE - Add new event '_gameModeChosenEvent'
 		
-		private readonly IStatechartEvent _gameModeChosenEvent = new StatechartEvent(" Game Mode Chosen Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
@@ -133,7 +132,7 @@ namespace FirstLight.Game.StateMachines
 			var roomWaitingState = stateFactory.State("Room Joined Check");
 			
 			// EVE - Change this to a .State instead of .Nest
-			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
+			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
 			
 			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
 			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
@@ -180,9 +179,8 @@ namespace FirstLight.Game.StateMachines
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
-
-			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
-			chooseGameMode.Event(_gameModeChosenEvent).Target(homeMenu);
+			
+			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
 			
 			
@@ -406,12 +404,15 @@ namespace FirstLight.Game.StateMachines
 		//DataObject myDataObject = new DataObject();
 
 
-		private void OpenGameModeSelectionUI()
+		private void OpenGameModeSelectionUI(IWaitActivity activity)
 		{
+			var cacheActivity = activity;
+			
 			var data = new GameModeSelectionPresenter.StateData
 			{
-				GameModeChosen = () => { _statechartTrigger(_gameModeChosenEvent); }
+				GameModeChosen = () => { cacheActivity.Complete(); }
 			};
+			
 			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 		

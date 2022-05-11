@@ -131,10 +131,7 @@ namespace FirstLight.Game.StateMachines
 			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
-			
-			// EVE - Change this to a .State instead of .Nest
 			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
-			
 			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
 			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
@@ -185,19 +182,6 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.Event(_gameModeChosenEvent).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
 			
-			
-			// EVE
-			// Add an .OnEnter(OpenGameModeSelectionUI) block
-			// Change this to .State(_gameModeChosenEvent) and target home menu. The event that you made up top.
-			//chooseGameMode.State(_gameModeChosenEvent).Target(_gameModeChosenEvent);
-			// Add an .OnExit(CloseGameModeSelectionUI) block
-			// We will need to create (Open/Close GameModeSelectionUI functions) See below
-			
-			//chooseGameMode.State(_gameModeChosenEvent).Target(_gameModeChosenEvent);
-
-			
-			//private readonly IStatechartEvent _gameModeChosenEvent = new StatechartEvent(" Game Mode Chosen Event");
-
 			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
@@ -389,21 +373,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<OverflowLootDialogPresenter>();
 		}
-		
-		// EVE
-		//
-		// We need to make functions for opening/closing the game mode selection UI, properly.
-		// We can base the code on the Open/Close LootOptionsMenuUI functions below this pseudo code.
-		//
-		// ---Make OpenGameModeSelectionUI function
-		// -Make a data object of type GameModeSelectionPresenter.StateData and bind event of choosing game moƒde within, like this:
-		//		nGameModeChose = () => {_statechartTrigger(_chosenGameModeEvent)}
-		// -Call UI service to open GameModeSelectionPresenter
-		//
-		// ---Make CloseGameModeSelectionUI function
-		// -Call UI service to close UI of type GameModeSelectionPresenter
-		//
-		//DataObject myDataObject = new DataObject();
 
 
 		private void OpenGameModeSelectionUI()

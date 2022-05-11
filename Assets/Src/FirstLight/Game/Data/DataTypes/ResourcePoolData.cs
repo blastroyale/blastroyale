@@ -1,16 +1,17 @@
 using System;
 using FirstLight.Game.Ids;
+using Quantum;
 
 namespace FirstLight.Game.Data.DataTypes
 {
 	[Serializable]
 	public struct ResourcePoolData : IEquatable<ResourcePoolData>
 	{
-		public UniqueId Id;
+		public GameId Id;
 		public ulong CurrentResourceAmountInPool;
 		public DateTime LastPoolRefreshTime;
 		
-		public ResourcePoolData(UniqueId id, ulong currentResourceAmountInPool, DateTime lastPoolRefreshTime)
+		public ResourcePoolData(GameId id, ulong currentResourceAmountInPool, DateTime lastPoolRefreshTime)
 		{
 			Id = id;
 			CurrentResourceAmountInPool = currentResourceAmountInPool;

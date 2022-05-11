@@ -81,8 +81,8 @@ public class PlayerSetupService : IPlayerSetupService
 		playerData.Currencies.Add(GameId.HC, 0);
 		playerData.Currencies.Add(GameId.SC, 0);
 		
-		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(idData.UniqueIdCounter + 1, int.MaxValue, DateTime.UtcNow));
-		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(idData.UniqueIdCounter + 1, int.MaxValue, DateTime.UtcNow));
+		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, int.MaxValue, DateTime.UtcNow));
+		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, int.MaxValue, DateTime.UtcNow));
 		
 		playerData.EquippedItems.Add(GameIdGroup.Weapon, idData.UniqueIdCounter + 1);
 		idData.GameIds.Add(++idData.UniqueIdCounter, _initialWeapons[rngWeapon]);

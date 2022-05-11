@@ -64,7 +64,7 @@ namespace Quantum
 				{
 					GameId.RealMoney, new List<GameIdGroup>
 					{
-						GameIdGroup.GameDesign
+						GameIdGroup.Currency
 					}.AsReadOnly()
 				},
 				{
@@ -80,9 +80,27 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.CS, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
+					GameId.BLST, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.XP, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerValue
+						GameIdGroup.Resource
+					}.AsReadOnly()
+				},
+				{
+					GameId.EquipmentXP, new List<GameIdGroup>
+					{
+						GameIdGroup.Resource
 					}.AsReadOnly()
 				},
 				{
@@ -547,6 +565,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.ShieldCapacitySmall, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ShieldCapacityLarge, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.ChestCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -671,21 +703,24 @@ namespace Quantum
 				{
 					GameIdGroup.GameDesign, new List<GameId>
 					{
-						GameId.Random,
-						GameId.RealMoney
+						GameId.Random
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Currency, new List<GameId>
 					{
+						GameId.RealMoney,
 						GameId.SC,
-						GameId.HC
+						GameId.HC,
+						GameId.CS,
+						GameId.BLST
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.PlayerValue, new List<GameId>
+					GameIdGroup.Resource, new List<GameId>
 					{
-						GameId.XP
+						GameId.XP,
+						GameId.EquipmentXP
 					}.AsReadOnly()
 				},
 				{
@@ -886,6 +921,8 @@ namespace Quantum
 						GameId.AmmoLarge,
 						GameId.InterimArmourSmall,
 						GameId.InterimArmourLarge,
+						GameId.ShieldCapacitySmall,
+						GameId.ShieldCapacityLarge,
 						GameId.ChestCommon,
 						GameId.ChestRare,
 						GameId.ChestLegendary
@@ -900,6 +937,8 @@ namespace Quantum
 						GameId.AmmoLarge,
 						GameId.InterimArmourSmall,
 						GameId.InterimArmourLarge,
+						GameId.ShieldCapacitySmall,
+						GameId.ShieldCapacityLarge,
 						GameId.ChestCommon,
 						GameId.ChestRare,
 						GameId.ChestLegendary

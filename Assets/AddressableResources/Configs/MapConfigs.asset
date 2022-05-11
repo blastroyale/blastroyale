@@ -34,13 +34,13 @@ MonoBehaviour:
   - Id: 3
     Map: 144
     GameMode: 1
-    PlayersLimit: 8
+    PlayersLimit: 7
     GameEndTarget: 10
     IsTestMap: 0
   - Id: 4
     Map: 7
     GameMode: 1
-    PlayersLimit: 12
+    PlayersLimit: 10
     GameEndTarget: 10
     IsTestMap: 0
   - Id: 5

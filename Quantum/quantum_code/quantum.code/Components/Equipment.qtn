@@ -12,6 +12,8 @@ struct Equipment
 	EquipmentManufacturer Manufacturer;
 	
 	UInt32 MaxDurability;
+	UInt32 MaxLevel;
+	UInt32 InitialReplicationCounter;
 	UInt32 Tuning;
 	
 	UInt32 Level;

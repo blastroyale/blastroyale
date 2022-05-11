@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using Quantum;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -15,16 +16,18 @@ namespace FirstLight.Game.Views.MainMenuViews
 			for (var i = 0; i < DataProvider.EquipmentDataProvider.Inventory.Count; i++)
 			{
 				var equipment = DataProvider.EquipmentDataProvider.Inventory[i];
-				var info = DataProvider.EquipmentDataProvider.GetEquipmentInfo(equipment.Id);
+				var upgradeCost = DataProvider.EquipmentDataProvider.GetUpgradeCost(equipment);
 
-				if (!info.IsMaxLevel && info.DataInfo.GameId.IsInGroup(_groupId) && (!info.DataInfo.GameId.IsInGroup(GameIdGroup.Weapon)) && sc >= info.UpgradeCost)
+				if (!equipment.IsMaxLevel() && equipment.GameId.IsInGroup(_groupId) &&
+				    !equipment.GameId.IsInGroup(GameIdGroup.Weapon) &&
+				    sc >= upgradeCost)
 				{
 					numInGroup++;
 				}
 			}
 
-			NotificationText.SetText(numInGroup.ToString() );
-			
+			NotificationText.SetText(numInGroup.ToString());
+
 			return numInGroup > 0;
 		}
 	}

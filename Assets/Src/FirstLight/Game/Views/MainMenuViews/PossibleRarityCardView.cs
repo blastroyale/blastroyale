@@ -10,7 +10,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class PossibleRarityCardView : MonoBehaviour
 	{
-		public ItemRarity Rarity;
+		public EquipmentRarity Rarity;
 		
 		[SerializeField, Required] private TextMeshProUGUI _possibleItemsText;
 		[SerializeField, Required] private GameObject _holder;

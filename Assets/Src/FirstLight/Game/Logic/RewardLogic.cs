@@ -127,10 +127,6 @@ namespace FirstLight.Game.Logic
 			{
 				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
 			}
-			else if (groups.Contains(GameIdGroup.LootBox))
-			{
-				reward.Value = (int) GameLogic.LootBoxLogic.AddToInventory(reward.Value);
-			}
 			else
 			{
 				throw new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");

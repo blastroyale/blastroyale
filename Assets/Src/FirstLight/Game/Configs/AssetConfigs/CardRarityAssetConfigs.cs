@@ -8,7 +8,7 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	/// Scriptable object containing all the game's <see cref="ItemRarity"/> sprite assets configurations
 	/// </summary>
 	[CreateAssetMenu(fileName = "CardRarityAssetConfigs", menuName = "ScriptableObjects/AssetConfigs/CardRarityAssetConfigs")]
-	public class CardRarityAssetConfigs : AssetConfigsScriptableObject<ItemRarity, Sprite>
+	public class CardRarityAssetConfigs : AssetConfigsScriptableObject<EquipmentRarity, Sprite>
 	{
 	}
 }

@@ -1,5 +1,4 @@
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Messages
@@ -19,21 +18,5 @@ namespace FirstLight.Game.Messages
 		public UniqueId ItemId;
 		public uint PreviousLevel;
 		public uint NewLevel;
-	}
-	
-	public struct ItemSoldMessage : IMessage
-	{
-		public UniqueId ItemId;
-		public uint SellAmount;
-	}
-	
-	public struct ItemsFusedMessage : IMessage
-	{
-		public EquipmentDataInfo ResultItem;
-	}
-	
-	public struct ItemsEnhancedMessage : IMessage
-	{
-		public EquipmentDataInfo ResultItem;
 	}
 }

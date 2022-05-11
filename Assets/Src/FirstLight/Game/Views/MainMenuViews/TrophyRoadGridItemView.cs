@@ -169,9 +169,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 					ButtonOnClick = _services.GenericDialogService.CloseDialog
 				};
 
-				var coreBoxInfo = _gameDataProvider.LootBoxDataProvider.GetLootBoxInfo(_data.Info.Reward.Value);
+				//var coreBoxInfo = _gameDataProvider.LootBoxDataProvider.GetLootBoxInfo(_data.Info.Reward.Value);
 				
-				_services.GenericDialogService.OpenLootInfoDialog(confirmButton, coreBoxInfo);
+				//_services.GenericDialogService.OpenLootInfoDialog(confirmButton, coreBoxInfo);
 			}
 		}
 		

@@ -39,8 +39,6 @@ namespace FirstLight.Game.Logic
 		IEquipmentDataProvider EquipmentDataProvider { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardDataProvider RewardDataProvider { get; }
-		/// <inheritdoc cref="ILootBoxDataProvider"/>
-		ILootBoxDataProvider LootBoxDataProvider { get; }
 		/// <inheritdoc cref="ITrophyRoadDataProvider"/>
 		ITrophyRoadDataProvider TrophyRoadDataProvider { get; }
 	}
@@ -77,8 +75,6 @@ namespace FirstLight.Game.Logic
 		IEquipmentLogic EquipmentLogic { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardLogic RewardLogic { get; }
-		/// <inheritdoc cref="ILootBoxLogic"/>
-		ILootBoxLogic LootBoxLogic { get; }
 		/// <inheritdoc cref="ITrophyRoadLogic"/>
 		ITrophyRoadLogic TrophyRoadLogic { get; }
 	}
@@ -113,8 +109,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IRewardDataProvider RewardDataProvider => RewardLogic;
 		/// <inheritdoc />
-		public ILootBoxDataProvider LootBoxDataProvider => LootBoxLogic;
-		/// <inheritdoc />
 		public ITrophyRoadDataProvider TrophyRoadDataProvider => TrophyRoadLogic;
 
 		/// <inheritdoc />
@@ -135,8 +129,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IRewardLogic RewardLogic { get; }
 		/// <inheritdoc />
-		public ILootBoxLogic LootBoxLogic { get; }
-		/// <inheritdoc />
 		public ITrophyRoadLogic TrophyRoadLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
@@ -155,7 +147,6 @@ namespace FirstLight.Game.Logic
 			EquipmentLogic = new EquipmentLogic(this, dataProvider);
 			MatchLogic = new MatchLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
-			LootBoxLogic = new LootBoxLogic(this, dataProvider);
 			TrophyRoadLogic = new TrophyRoadLogic(this, dataProvider);
 		}
 

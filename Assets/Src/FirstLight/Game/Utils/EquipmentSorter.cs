@@ -6,7 +6,7 @@ namespace FirstLight.Game.Utils
 	/// <summary>
 	/// This View handles the Equipment / Loot Menu.
 	/// </summary>
-	public class EquipmentSorter: IComparer<EquipmentGridItemView.EquipmentGridItemData>
+	public class EquipmentSorter : IComparer<EquipmentGridItemView.EquipmentGridItemData>
 	{
 		public enum EquipmentSortState
 		{
@@ -15,9 +15,9 @@ namespace FirstLight.Game.Utils
 			Rarity,
 			Size,
 		}
-		
+
 		private readonly EquipmentSortState _equipmentSortState;
-		
+
 		public EquipmentSorter(EquipmentSortState equipmentSortState)
 		{
 			_equipmentSortState = equipmentSortState;
@@ -30,10 +30,10 @@ namespace FirstLight.Game.Utils
 			switch (_equipmentSortState)
 			{
 				case EquipmentSortState.Rarity:
-					compare = ((int) x.Info.DataInfo.Data.Rarity).CompareTo((int) y.Info.DataInfo.Data.Rarity);
+					compare = ((int) x.Equipment.Rarity).CompareTo((int) y.Equipment.Rarity);
 					break;
 				case EquipmentSortState.Type:
-					compare = ((int) x.Info.DataInfo.GameId.GetSlot()).CompareTo((int) y.Info.DataInfo.GameId.GetSlot());
+					compare = ((int) x.Equipment.GameId.GetSlot()).CompareTo((int) y.Equipment.GameId.GetSlot());
 					break;
 			}
 
@@ -42,14 +42,14 @@ namespace FirstLight.Game.Utils
 				return compare;
 			}
 
-			compare = ((int) x.Info.DataInfo.GameId).CompareTo((int) y.Info.DataInfo.GameId);
+			compare = ((int) x.Equipment.GameId).CompareTo((int) y.Equipment.GameId);
 
 			if (compare != 0)
 			{
 				return compare;
 			}
 
-			return x.Info.DataInfo.Data.Id.CompareTo(y.Info.DataInfo.Data.Id);
+			return x.Id.CompareTo(y.Id);
 		}
 	}
 }

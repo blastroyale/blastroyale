@@ -116,40 +116,41 @@ public partial class SROptions
 	[Category("Cheats")]
 	public void UnlockAllEquipment()
 	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-		var converter = new StringEnumConverter();
-
-		foreach (var config in weaponConfigs)
-		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
-		}
-		
-		foreach (var config in gearConfigs)
-		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
-		}
-
-		var data = new Dictionary<string, string>();
-		ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
-		ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
-		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-		var request = new ExecuteFunctionRequest
-		{
-			FunctionName = "ExecuteCommand",
-			GeneratePlayStreamEvent = true,
-			FunctionParameter = new LogicRequest
-			{
-				Command = "CheatUnlockAllEquipments",
-				Data = data
-			},
-			AuthenticationContext = PlayFabSettings.staticPlayer
-		};
-
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+		// TODO mihak
+		// var services = MainInstaller.Resolve<IGameServices>();
+		// var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		// var dataProvider = services.DataSaver as IDataService;
+		// var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
+		// var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+		// var converter = new StringEnumConverter();
+		//
+		// foreach (var config in weaponConfigs)
+		// {
+		// 	gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
+		// }
+		//
+		// foreach (var config in gearConfigs)
+		// {
+		// 	gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
+		// }
+		//
+		// var data = new Dictionary<string, string>();
+		// ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
+		// ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
+		// ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
+		// var request = new ExecuteFunctionRequest
+		// {
+		// 	FunctionName = "ExecuteCommand",
+		// 	GeneratePlayStreamEvent = true,
+		// 	FunctionParameter = new LogicRequest
+		// 	{
+		// 		Command = "CheatUnlockAllEquipments",
+		// 		Data = data
+		// 	},
+		// 	AuthenticationContext = PlayFabSettings.staticPlayer
+		// };
+		//
+		// PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 		
 	[Category("Cheats")]

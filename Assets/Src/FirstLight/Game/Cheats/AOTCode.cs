@@ -30,18 +30,11 @@ namespace FirstLight.Game.Cheats
 		{
 			var services = MainInstaller.Resolve<IGameServices>();
 			
-			services.CommandService.ExecuteCommand(new CleanExtraTimedBoxesCommand());
 			services.CommandService.ExecuteCommand(new CollectTrophyRoadRewardCommand());
 			services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 			services.CommandService.ExecuteCommand(new ConsumeIapCommand());
-			services.CommandService.ExecuteCommand(new EnhanceItemsCommand());
 			services.CommandService.ExecuteCommand(new EquipItemCommand());
 			services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand());
-			services.CommandService.ExecuteCommand(new OpenLootBoxCommand());
-			services.CommandService.ExecuteCommand(new SellItemCommand());
-			services.CommandService.ExecuteCommand(new SpeedUpAllExtraTimedBoxesCommand());
-			services.CommandService.ExecuteCommand(new SpeedUpLootBoxCommand());
-			services.CommandService.ExecuteCommand(new StartUnlockingLootBoxCommand());
 			services.CommandService.ExecuteCommand(new UnequipItemCommand());
 			services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand());
 		}

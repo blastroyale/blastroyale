@@ -2307,7 +2307,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Equipment {
-    public const Int32 SIZE = 56;
+    public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public EquipmentAdjective Adjective;
@@ -2324,18 +2324,22 @@ namespace Quantum {
     [FieldOffset(12)]
     public EquipmentGrade Grade;
     [FieldOffset(40)]
+    public UInt32 InitialReplicationCounter;
+    [FieldOffset(44)]
     public UInt32 Level;
     [FieldOffset(16)]
     public EquipmentManufacturer Manufacturer;
     [FieldOffset(20)]
     public EquipmentMaterial Material;
-    [FieldOffset(44)]
+    [FieldOffset(48)]
     public UInt32 MaxDurability;
+    [FieldOffset(52)]
+    public UInt32 MaxLevel;
     [FieldOffset(24)]
     public EquipmentRarity Rarity;
-    [FieldOffset(48)]
+    [FieldOffset(56)]
     public UInt32 ReplicationCounter;
-    [FieldOffset(52)]
+    [FieldOffset(60)]
     public UInt32 Tuning;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2347,10 +2351,12 @@ namespace Quantum {
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + Generation.GetHashCode();
         hash = hash * 31 + (Int32)Grade;
+        hash = hash * 31 + InitialReplicationCounter.GetHashCode();
         hash = hash * 31 + Level.GetHashCode();
         hash = hash * 31 + (Int32)Manufacturer;
         hash = hash * 31 + (Int32)Material;
         hash = hash * 31 + MaxDurability.GetHashCode();
+        hash = hash * 31 + MaxLevel.GetHashCode();
         hash = hash * 31 + (Int32)Rarity;
         hash = hash * 31 + ReplicationCounter.GetHashCode();
         hash = hash * 31 + Tuning.GetHashCode();
@@ -2369,8 +2375,10 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->GameId);
         serializer.Stream.Serialize(&p->Durability);
         serializer.Stream.Serialize(&p->Generation);
+        serializer.Stream.Serialize(&p->InitialReplicationCounter);
         serializer.Stream.Serialize(&p->Level);
         serializer.Stream.Serialize(&p->MaxDurability);
+        serializer.Stream.Serialize(&p->MaxLevel);
         serializer.Stream.Serialize(&p->ReplicationCounter);
         serializer.Stream.Serialize(&p->Tuning);
     }
@@ -3283,7 +3291,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 560;
+    public const Int32 SIZE = 616;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3309,7 +3317,7 @@ namespace Quantum {
     public FP DecisionInterval;
     [FieldOffset(168)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 6)]
-    private fixed Byte _Gear_[336];
+    private fixed Byte _Gear_[384];
     [FieldOffset(88)]
     public FP LookForTargetsToShootAtInterval;
     [FieldOffset(96)]
@@ -3334,11 +3342,11 @@ namespace Quantum {
     public FP VisionRangeSqr;
     [FieldOffset(160)]
     public FP WanderRadius;
-    [FieldOffset(504)]
+    [FieldOffset(552)]
     public Equipment Weapon;
     public FixedArray<Equipment> Gear {
       get {
-        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 56, 6); }
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -3873,7 +3881,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 344;
+    public const Int32 SIZE = 368;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -3892,14 +3900,14 @@ namespace Quantum {
     public PlayerRef Player;
     [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(232)]
+    [FieldOffset(64)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
-    [FieldOffset(64)]
+    [FieldOffset(176)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 3)]
-    private fixed Byte _Weapons_[168];
+    private fixed Byte _Weapons_[192];
     public FixedArray<Special> Specials {
       get {
         fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 56, 2); }
@@ -3907,7 +3915,7 @@ namespace Quantum {
     }
     public FixedArray<Equipment> Weapons {
       get {
-        fixed (byte* p = _Weapons_) { return new FixedArray<Equipment>(p, 56, 3); }
+        fixed (byte* p = _Weapons_) { return new FixedArray<Equipment>(p, 64, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -3934,8 +3942,8 @@ namespace Quantum {
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
         FP.Serialize(&p->DisconnectedDuration, serializer);
         FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
-        FixedArray.Serialize(p->Weapons, serializer, StaticDelegates.SerializeEquipment);
         FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
+        FixedArray.Serialize(p->Weapons, serializer, StaticDelegates.SerializeEquipment);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -8626,6 +8634,8 @@ namespace Quantum.Prototypes {
     public EquipmentMaterial_Prototype Material;
     public EquipmentManufacturer_Prototype Manufacturer;
     public UInt32 MaxDurability;
+    public UInt32 MaxLevel;
+    public UInt32 InitialReplicationCounter;
     public UInt32 Tuning;
     public UInt32 Level;
     public UInt32 Generation;
@@ -8640,10 +8650,12 @@ namespace Quantum.Prototypes {
       result.GameId = this.GameId;
       result.Generation = this.Generation;
       result.Grade = this.Grade;
+      result.InitialReplicationCounter = this.InitialReplicationCounter;
       result.Level = this.Level;
       result.Manufacturer = this.Manufacturer;
       result.Material = this.Material;
       result.MaxDurability = this.MaxDurability;
+      result.MaxLevel = this.MaxLevel;
       result.Rarity = this.Rarity;
       result.ReplicationCounter = this.ReplicationCounter;
       result.Tuning = this.Tuning;

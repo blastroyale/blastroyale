@@ -1,6 +1,6 @@
 namespace Quantum
 {
-	public unsafe partial struct Equipment
+	public partial struct Equipment
 	{
 		/// <summary>
 		/// Requests if this current <see cref="Equipment"/> is a valid possible equipment
@@ -19,6 +19,8 @@ namespace Quantum
 		                 EquipmentMaterial material = EquipmentMaterial.Bronze,
 		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
 		                 uint maxDurability = 100,
+		                 uint maxLevel = 10,
+		                 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
 		                 uint level = 0,
 		                 uint generation = 0,
@@ -36,6 +38,8 @@ namespace Quantum
 			Manufacturer = manufacturer;
 
 			MaxDurability = maxDurability;
+			MaxLevel = maxLevel;
+			InitialReplicationCounter = initialReplicationCounter;
 			Tuning = tuning;
 
 			Level = level;

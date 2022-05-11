@@ -6,14 +6,14 @@ using UnityEngine;
 namespace FirstLight.Game.Configs
 {
 	[Serializable]
-	public partial struct LootBoxConfig
+	public struct LootBoxConfig
 	{
 		public int Id;
 		public int Tier;
 		public GameId LootBoxId;
-		public List<ItemRarity> GuaranteeDrop;
-		public List<Pair<uint, ItemRarity>> Rarities;
-		public List<Pair<GameId, ItemRarity>> FixedItems;
+		public List<EquipmentRarity> GuaranteeDrop;
+		public List<Pair<uint, EquipmentRarity>> Rarities;
+		public List<Pair<GameId, EquipmentRarity>> FixedItems;
 		public uint ItemsAmount;
 		public uint SecondsToOpen;
 
@@ -29,7 +29,7 @@ namespace FirstLight.Game.Configs
 	[CreateAssetMenu(fileName = "LootBoxConfigs", menuName = "ScriptableObjects/Configs/LootBoxConfigs")]
 	public class LootBoxConfigs : ScriptableObject, IConfigsContainer<LootBoxConfig>
 	{
-		[SerializeField] private List<LootBoxConfig> _configs = new List<LootBoxConfig>();
+		[SerializeField] private List<LootBoxConfig> _configs = new();
 		
 		// ReSharper disable once ConvertToAutoProperty
 		public List<LootBoxConfig> Configs

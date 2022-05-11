@@ -27,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly CollectLootRewardState _collectLootRewardState;
+		//private readonly CollectLootRewardState _collectLootRewardState;
 		
 		public TrophyRoadMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -37,7 +37,7 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider = gameDataProvider;
 			_statechartTrigger = statechartTrigger;
 			
-			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
+			//_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace FirstLight.Game.StateMachines
 			trophyRoadState.Event(_crateClickedEvent).Target(collectLoot);
 			trophyRoadState.OnExit(CloseTrophyRoadUI);
 			
-			collectLoot.Nest(_collectLootRewardState.Setup).Target(trophyRoadState);
+			//collectLoot.Nest(_collectLootRewardState.Setup).Target(trophyRoadState);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -100,7 +100,7 @@ namespace FirstLight.Game.StateMachines
 				// TODO: Necessary to not go to an infinite loop on the state machine due to a state machine bug
 				await Task.Yield();
 				
-				_collectLootRewardState.SetLootBoxToOpen(new List<UniqueId> { message.Reward.Value.Value });
+				//_collectLootRewardState.SetLootBoxToOpen(new List<UniqueId> { message.Reward.Value.Value });
 				_statechartTrigger(_crateClickedEvent);
 				return;
 			}

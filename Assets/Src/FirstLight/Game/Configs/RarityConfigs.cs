@@ -8,13 +8,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct RarityConfig
 	{
-		public ItemRarity Rarity;
+		public EquipmentRarity Rarity;
 		public uint MaxLevel;
-		public uint FusionCost;
-		public uint EnhancementCost;
-		public uint EnhancementItemAmount;
-		public uint SellBasePrice;
-		public float SellPriceLevelPowerOf;
 		public uint UpgradeBasePrice;
 		public float UpgradePriceLevelPowerOf;
 	}

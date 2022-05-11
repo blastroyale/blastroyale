@@ -4,7 +4,6 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -24,22 +23,23 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Image _rarityImage;
 		[SerializeField, Required] private Image _autoFireIcon;
 		[SerializeField, Required] private Image _manualFireIcon;
-		
+
 		private IGameServices _services;
-		
+
 		/// <summary>
 		/// Set Loot information here; Rarity, Level, Quantity, etc.
 		/// </summary>
-		public async void SetInfo(EquipmentDataInfo info)
+		public async void SetInfo(Equipment equipment)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			
-			ItemText.text = info.GameId.GetTranslation();
-			LevelText.text = $"LV {info.Data.Level.ToString()}";
+
+			ItemText.text = equipment.GameId.GetTranslation();
+			LevelText.text = $"LV {equipment.Level.ToString()}";
 			QuantityText.enabled = false;
 			IconImage.enabled = false;
-			_rarityImage.sprite = await _services.AssetResolverService.RequestAsset<ItemRarity, Sprite>(info.Data.Rarity);
-			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(info.GameId);
+			_rarityImage.sprite =
+				await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
+			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
 			IconImage.enabled = true;
 		}
 
@@ -57,5 +57,3 @@ namespace FirstLight.Game.Views.MainMenuViews
 		}
 	}
 }
-
-

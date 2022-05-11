@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 
@@ -24,9 +25,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			for (var i = 0; i < DataProvider.EquipmentDataProvider.Inventory.Count; i++)
 			{
 				var equipment = DataProvider.EquipmentDataProvider.Inventory[i];
-				var info = DataProvider.EquipmentDataProvider.GetEquipmentInfo(equipment.Id);
+				var upgradeCost = DataProvider.EquipmentDataProvider.GetUpgradeCost(equipment);
 
-				if (!info.IsMaxLevel && info.DataInfo.GameId.IsInGroup(_groupId) && sc >= info.UpgradeCost)
+				if (!equipment.IsMaxLevel() && equipment.GameId.IsInGroup(_groupId) && sc >= upgradeCost)
 				{
 					numInGroup++;
 				}

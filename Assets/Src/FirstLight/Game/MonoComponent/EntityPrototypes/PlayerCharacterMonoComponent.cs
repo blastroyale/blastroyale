@@ -6,6 +6,7 @@ using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class PlayerCharacterMonoComponent : HealthEntityBase, LocalInput.IGameplayActions
 	{
-		[SerializeField] private Transform _emojiAnchor;
+		[SerializeField, Required] private Transform _emojiAnchor;
 
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly Pair<ITransformIndicator, QuantumSpecialConfig>[] _specialIndicators = 
@@ -269,7 +270,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var shootState = _shootIndicator?.VisualState ?? false;
 			var indicator = _currentWeaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
-			_shootIndicator?.SetVisualState(false);
 			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
 			UpdateShootIndicator();
 			_shootIndicator?.SetVisualState(shootState);

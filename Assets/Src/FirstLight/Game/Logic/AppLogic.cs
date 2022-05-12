@@ -69,6 +69,11 @@ namespace FirstLight.Game.Logic
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
 		void SetResolutionMode(bool highRes);
+		
+		/// <summary>
+		/// Requests current selected game mode
+		/// </summary>
+		IObservableField<GameMode> SelectedGameMode { get; }
 	}
 
 	/// <inheritdoc />
@@ -147,6 +152,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
 
+		/// <inheritdoc />
+		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
 		{
@@ -159,6 +167,7 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableField<string>(Data.NickNameId);
+			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 		}
 
 		/// <inheritdoc />

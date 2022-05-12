@@ -55,6 +55,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 52538998560082273}
     m_Modifications:
+    - target: {fileID: 3261151642630776559, guid: cb6be932b918413448c7384fcc5b7402, type: 3}
+      propertyPath: m_DrawDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6495226316418725565, guid: cb6be932b918413448c7384fcc5b7402, type: 3}
       propertyPath: m_RootOrder
       value: 0

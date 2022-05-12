@@ -55,8 +55,14 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Tries to restock a resource pool of given <paramref name="pool"/> ID.
 		/// </summary>
-		/// <returns>Data of the pool that was restocked.</returns>
-		ResourcePoolData? TryRestockResourcePool(GameId pool);
+		/// <returns>Data of the pool that was restocked. Null if not restocked.</returns>
+		ResourcePoolData? TryRestockResourcePool(GameId pool, ResourcePoolConfig poolConfig);
+		
+		/// <summary>
+		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
+		/// </summary>
+		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
+		ulong AwardFromResourcePool(ulong amountToAward, GameId pool, ResourcePoolConfig poolConfig);
 	}
 	
 	/// <inheritdoc cref="ICurrencyLogic"/>
@@ -123,32 +129,28 @@ namespace FirstLight.Game.Logic
 			
 			_currencies[currency] = oldAmount - amount;
 		}
-
-		public ResourcePoolData? TryRestockResourcePool(GameId pool)
+		
+		/// <inheritdoc />
+		public ResourcePoolData? TryRestockResourcePool(GameId pool, ResourcePoolConfig poolConfig)
 		{
 			var currentPoolData = ResourcePools[pool];
-			var poolConfig =  GameLogic.ConfigsProvider.GetConfigsList<ResourcePoolConfig>().FirstOrDefault(x => x.Id == pool);
 
 			if (DateTime.UtcNow < currentPoolData.LastPoolRestockTime)
 			{
 				return null;
 			}
 			
-			// Code below should probably be a restock function within ResourcePoolData, but currently the way 
-			// the ResourcePoolConfigs are set up in PlayerData (entirely on backend side, SetupPlayerCommand),
-			// I can't pass in config data when setting up the pools (like capacity), as backend doesn't have access to
-			// it. Thus the code that handles restock, and max capacity, is here.
-			// Once SetupPlayerCommand is handled the same way as other commands, it'd be very easy to refactor.
-			currentPoolData.CurrentResourceAmountInPool += poolConfig.RestockPerInterval;
+			Data.ResourcePools[pool].Restock(poolConfig);
 
-			if (currentPoolData.CurrentResourceAmountInPool > poolConfig.PoolCapacity)
-			{
-				currentPoolData.CurrentResourceAmountInPool = poolConfig.PoolCapacity;
-			}
-
-			Data.ResourcePools[pool] = currentPoolData;
-			
 			return currentPoolData;
+		}
+		/// <inheritdoc />
+		public ulong AwardFromResourcePool(ulong amountToAward, GameId pool, ResourcePoolConfig poolConfig)
+		{
+			ulong amountWithdrawn = Data.ResourcePools[pool].Withdraw(amountToAward, poolConfig);
+			AddCurrency(pool, amountWithdrawn);
+			
+			return amountWithdrawn;
 		}
 	}
 }

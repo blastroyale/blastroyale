@@ -25,7 +25,7 @@ namespace FirstLight.Game.StateMachines
 	public class CoreLoopState
 	{
 		private static readonly IStatechartEvent _testEvent = new StatechartEvent("Core Event");
-		
+
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
 		private readonly IGameServices _services;
@@ -33,15 +33,17 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public CoreLoopState(GameLogic gameLogic, IGameServices services, IDataService dataService, IGameUiService uiService, IGameDataProvider dataProvider,
-		                 IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
+		public CoreLoopState(GameLogic gameLogic, IGameServices services, IDataService dataService,
+		                     IGameUiService uiService, IGameDataProvider dataProvider,
+		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
 			_dataService = dataService;
 			_statechartTrigger = statechartTrigger;
 			_matchState = new MatchState(gameLogic, services, uiService, assetAdderService, statechartTrigger);
-			_mainMenuState = new MainMenuState(services, dataService, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_mainMenuState = new MainMenuState(services, dataService, uiService, gameLogic, assetAdderService,
+			                                   statechartTrigger);
 		}
 
 		/// <summary>
@@ -55,19 +57,19 @@ namespace FirstLight.Game.StateMachines
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var connectionCheck = stateFactory.Choice("Connection Check");
 			var connectionWaitToMenu = stateFactory.State("Connection Wait to Menu");
-			
+
 			initial.Transition().Target(connectionCheck);
 
 			connectionCheck.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
 			connectionCheck.Transition().Target(connectionWaitToMenu);
-			
+
 			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 
 			mainMenu.OnEnter(SetupResourcePoolTimers);
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(connectionCheck);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -79,7 +81,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
-		
+
 		private bool IsConnectedAndReady()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
@@ -95,20 +97,20 @@ namespace FirstLight.Game.StateMachines
 			var poolToObserve = GameId.CS;
 			var currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[poolToObserve];
 			var poolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
-			                                                              .FirstOrDefault(x => x.Id == poolToObserve);
+			                          .FirstOrDefault(x => x.Id == poolToObserve);
 
-			//while (true)
+			var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes + 1);
+
+			while (DateTime.UtcNow < nextRestockTime)
 			{
-				var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes + 1);
-
-				while (DateTime.UtcNow < nextRestockTime)
-				{
-					yield return null;
-				}
-				
-				_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand { PoolId = GameId.CS });
+				yield return null;
 			}
+
+			_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand
+			{
+				PoolId = GameId.CS,
+				PoolConfig = poolConfig
+			});
 		}
 	}
 }
-

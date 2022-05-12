@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Messages
 {
@@ -10,6 +11,6 @@ namespace FirstLight.Game.Messages
 	public struct UnclaimedRewardsCollectedMessage : IMessage { public List<RewardData> Rewards; }
 	public struct GameCompletedRewardsMessage : IMessage { public List<RewardData> Rewards; }
 	public struct ResourcePoolRestockedMessage : IMessage { public ResourcePoolData? PoolRestocked; }
-	
+	public struct AwardedResourceFromPoolMessage : IMessage { public GameId ResourceId; public ulong AmountAwarded; }
 	
 }

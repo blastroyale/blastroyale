@@ -40,13 +40,12 @@ namespace FirstLight.Editor.Build
 			"TextMeshPro",
 		};
 		
-		private const string _appEnterpriseIdentifier = "com.firstlightgames.phoenixenterprise";
+		private const string _appEnterpriseIdentifier = "com.firstlightgames.blastroyaleenterprise";
 		private const string _appReleaseIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightEnterpriseAppleTeamId = "LR745QRAJR";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
-		private const string _appStoreProvisioningProfile = "5e8c665e-2785-4475-b33a-895e67a5374c";
-		private const string _adHocProvisioningProfile = "d9d0f661-89f4-409a-a7eb-13bde78abba1";
-		private const string _enterpriseProvisioningProfile = "60c610e2-d50d-4ae4-a72e-e84bac64eabc";
+		private const string _appStoreProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
+		private const string _enterpriseProvisioningProfile = "6573b280-9534-4ec7-83f2-b64ea455239e";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const int _facebookDevAppIdSelectedIndex = 1;

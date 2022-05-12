@@ -6,6 +6,7 @@ using Firebase.Analytics;
 using UnityEngine.Analytics;
 using AppsFlyerSDK;
 using Facebook.Unity;
+using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ClientModels;
 
@@ -76,7 +77,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public static Dictionary<string, object> LoginData => new Dictionary<string, object>
 		{
-			{"version", Application.version},
+			{"version", VersionUtils.VersionExternal },
 			{"platform", Application.platform.ToString()},
 			{"device", SystemInfo.deviceModel},
 			{"tablet", IsTablet},

@@ -238,7 +238,6 @@ namespace Quantum {
     Speed,
     Armour,
     InterimArmour,
-    InterimArmourCellValue,
   }
   public enum StatusModifierType : int {
     None,

@@ -60,7 +60,7 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 3
       Amount:
-        RawValue: 6553600
+        RawValue: 13107200
       ConsumableCollectTime:
         RawValue: 14746
     - Id: 129
@@ -69,7 +69,7 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 3
       Amount:
-        RawValue: 16384000
+        RawValue: 26214400
       ConsumableCollectTime:
         RawValue: 22118
     - Id: 17
@@ -78,7 +78,7 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 4
       Amount:
-        RawValue: 65536
+        RawValue: 6553600
       ConsumableCollectTime:
         RawValue: 22118
     - Id: 18
@@ -87,7 +87,7 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 4
       Amount:
-        RawValue: 131072
+        RawValue: 13107200
       ConsumableCollectTime:
         RawValue: 22118
     - Id: 13

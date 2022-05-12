@@ -21,7 +21,6 @@ enum StatType
 	Speed,
 	Armour,
 	InterimArmour,
-	InterimArmourCellValue,
 }
 
 struct StatData

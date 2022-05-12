@@ -19,7 +19,7 @@ namespace Quantum
 		public int PlayerDefaultHealth;
 		public FP PlayerDefaultSpeed;
 		public int PlayerMaxInterimArmour;
-		public int PlayerInterimArmourCellValue;
+		public int PlayerStartingInterimArmour;
 		public int CoinsPerRank;
 		public int XpPerRank;
 		public FP DeathSignificance;

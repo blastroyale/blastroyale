@@ -248,7 +248,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void TryRestockResourcePools()
 		{
-			_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand { PoolId = GameId.CS });
+			//_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand { PoolId = GameId.CS });
 		}
 
 		private void OnRequestOpenCratesScreenMessage(MenuWorldLootBoxClickedMessage message)

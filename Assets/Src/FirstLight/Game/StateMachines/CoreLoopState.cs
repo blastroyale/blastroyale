@@ -97,7 +97,7 @@ namespace FirstLight.Game.StateMachines
 			var poolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
 			                                                              .FirstOrDefault(x => x.Id == poolToObserve);
 
-			while (true)
+			//while (true)
 			{
 				var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes + 1);
 

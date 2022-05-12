@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private IEnumerator RestockTimeCoroutine()
 		{
-			while (true)
+			//while (true)
 			{
 				var timeDiff = _nextRestockTime - DateTime.UtcNow;
 				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");

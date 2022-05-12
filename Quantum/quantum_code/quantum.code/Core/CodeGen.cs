@@ -4038,15 +4038,17 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RaycastShots : Quantum.IComponent {
-    public const Int32 SIZE = 120;
+    public const Int32 SIZE = 128;
     public const Int32 ALIGNMENT = 8;
+    [FieldOffset(40)]
+    public FP AccuracyModifier;
     [FieldOffset(16)]
     public UInt32 AttackAngle;
     [FieldOffset(32)]
     public EntityRef Attacker;
     [FieldOffset(12)]
     public QBoolean CanHitSameTarget;
-    [FieldOffset(80)]
+    [FieldOffset(88)]
     public FPVector2 Direction;
     [FieldOffset(8)]
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
@@ -4055,17 +4057,17 @@ namespace Quantum {
     public UInt32 NumberOfShots;
     [FieldOffset(24)]
     public UInt32 PowerAmount;
-    [FieldOffset(40)]
-    public FP PreviousTime;
     [FieldOffset(48)]
-    public FP Range;
-    [FieldOffset(96)]
-    public FPVector3 SpawnPosition;
+    public FP PreviousTime;
     [FieldOffset(56)]
-    public FP Speed;
+    public FP Range;
+    [FieldOffset(104)]
+    public FPVector3 SpawnPosition;
     [FieldOffset(64)]
-    public FP SplashRadius;
+    public FP Speed;
     [FieldOffset(72)]
+    public FP SplashRadius;
+    [FieldOffset(80)]
     public FP StartTime;
     [FieldOffset(4)]
     public Int32 TeamSource;
@@ -4082,6 +4084,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 463;
+        hash = hash * 31 + AccuracyModifier.GetHashCode();
         hash = hash * 31 + AttackAngle.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + CanHitSameTarget.GetHashCode();
@@ -4117,6 +4120,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->NumberOfShots);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
+        FP.Serialize(&p->AccuracyModifier, serializer);
         FP.Serialize(&p->PreviousTime, serializer);
         FP.Serialize(&p->Range, serializer);
         FP.Serialize(&p->Speed, serializer);
@@ -5203,11 +5207,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity) {
+      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, Int32 WeaponID, FP ShotDir, UInt32 AttackAngle) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttack>(EventOnPlayerAttack.ID);
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
+        ev.WeaponID = WeaponID;
+        ev.ShotDir = ShotDir;
+        ev.AttackAngle = AttackAngle;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6809,6 +6816,9 @@ namespace Quantum {
     public new const Int32 ID = 45;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
+    public Int32 WeaponID;
+    public FP ShotDir;
+    public UInt32 AttackAngle;
     protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6828,6 +6838,9 @@ namespace Quantum {
         var hash = 269;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + WeaponID.GetHashCode();
+        hash = hash * 31 + ShotDir.GetHashCode();
+        hash = hash * 31 + AttackAngle.GetHashCode();
         return hash;
       }
     }
@@ -9019,6 +9032,7 @@ namespace Quantum.Prototypes {
     public FP StartTime;
     public FP PreviousTime;
     public UInt32 NumberOfShots;
+    public FP AccuracyModifier;
     partial void MaterializeUser(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       RaycastShots component = default;
@@ -9026,6 +9040,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref RaycastShots result, in PrototypeMaterializationContext context) {
+      result.AccuracyModifier = this.AccuracyModifier;
       result.AttackAngle = this.AttackAngle;
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
       result.CanHitSameTarget = this.CanHitSameTarget;

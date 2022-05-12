@@ -90,11 +90,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1915981856542320675}
-  _minDuration: 0.5
-  _maxDuration: 1.25
-  _maxOffsetX: 60
-  _minOffsetY: 50
-  _maxOffsetY: 30
+  _minDuration: 0.75
+  _maxDuration: 1.5
+  _maxOffsetX: 180
+  _minOffsetY: 0
+  _maxOffsetY: 120
   _yPositionAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -132,46 +132,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0016288757
-      value: 0
-      inSlope: 3.3153324
-      outSlope: 3.3153324
+      time: -0.0058021545
+      value: 1.0055542
+      inSlope: 1.2543536
+      outSlope: 1.2543536
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.3
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.3865549
+      value: 1.4977087
+      inSlope: -3.2474828
+      outSlope: -3.2474828
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.14413784
-    - serializedVersion: 3
-      time: 0.75
-      value: 1
-      inSlope: 0.03051703
-      outSlope: 0.03051703
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09609547
-    - serializedVersion: 3
-      time: 0.95
-      value: 0
-      inSlope: -0.033209454
-      outSlope: -0.033209454
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.161892
-      outWeight: 0.33333334
+      outWeight: 0.13541172
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -2.4414713
+      outSlope: -2.4414713
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -254,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.45882356, g: 0.52156866, b: 0.9333334, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -346,8 +328,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4293821813
+  m_fontColor: {r: 0.45882353, g: 0.52156866, b: 0.93333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

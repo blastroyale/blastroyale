@@ -565,6 +565,146 @@ MonoBehaviour:
       - Game devs are running around like Bored Blast Apes in Royale Club
       Flags: 00
       Languages_Touch: []
+    - Term: General/PlacementMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - You finished {0}
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal1
+      TermType: 0
+      Description: 
+      Languages:
+      - st
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal2
+      TermType: 0
+      Description: 
+      Languages:
+      - nd
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal3
+      TermType: 0
+      Description: 
+      Languages:
+      - rd
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal4
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal5
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal6
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal7
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal8
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal9
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal10
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal11
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal12
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal13
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal14
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal15
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal16
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal17
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal18
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Ordinal19
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      Flags: 00
+      Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
       TermType: 0
       Description: 
@@ -931,6 +1071,13 @@ MonoBehaviour:
       - Autofire
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      Flags: 00
+      Languages_Touch: []
     - Term: MainMenu/BGM
       TermType: 0
       Description: 
@@ -971,6 +1118,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - CANCEL
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/ChooseGameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - CHOOSE GAME MODE
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/ChangePlayerSkin
@@ -1050,6 +1204,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - CURRENT XP {0}
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Demo
@@ -1159,6 +1320,13 @@ MonoBehaviour:
       - ONE OR MORE ITEMS SELECTED HAS ALREADY BEEN UPGRADED. DO YOU WANT TO PROCEED?
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/GameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME MODE
+      Flags: 00
+      Languages_Touch: []
     - Term: MainMenu/HOME
       TermType: 0
       Description: 
@@ -1171,6 +1339,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - Haptic Feedback
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/HighResMode
+      TermType: 0
+      Description: 
+      Languages:
+      - High Res Mode
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/HoldToFire
@@ -1598,7 +1773,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Play Offline
+      - Play With Bots
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/DeathmatchPlayRoom
@@ -1795,6 +1970,29 @@ MonoBehaviour:
       Description: 
       Languages:
       - Quit
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/ResourceRestockTime
+      TermType: 0
+      Description: 
+      Languages:
+      - '+{0} in
+
+        {1}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/ResourceAmount
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} / {1}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/SelectedGameModeText
+      TermType: 0
+      Description: 
+      Languages:
+      - "Game Mode: \n{0}"
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -4875,7 +5073,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1651575046330
+    Google_LastUpdatedVersion: 1652275826377
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -28,7 +28,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private Pair<ITransformIndicator, QuantumSpecialConfig> _specialAimIndicator;
 		private ITransformIndicator _shootIndicator;
 		private ITransformIndicator _movementIndicator;
-		
+		private QuantumWeaponConfig _currentWeaponConfig;
+
 		/// <summary>
 		/// The <see cref="Transform"/> anchor values to attach the avatar emoji
 		/// </summary>
@@ -73,6 +74,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
 			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
+			UpdateShootIndicator();
 			_shootIndicator.SetTransformState(direction);
 			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
 		}
@@ -92,7 +94,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
 			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
-			_indicators[(int) IndicatorVfxId.Range].SetVisualState(isDown);
 			_playerView.SetMovingState(isDown);
 			_shootIndicator.SetVisualState(isDown, isEmptied);
 		}
@@ -219,7 +220,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_indicators[(int) IndicatorVfxId.Movement] = _movementIndicator = movementTask.Result.GetComponent<MovementIndicatorMonoComponent>();
 			_indicators[(int) IndicatorVfxId.None] = null;
 			_indicators[(int) IndicatorVfxId.Radial] = radialTask.Result.GetComponent<RadialIndicatorMonoComponent>();
-			_indicators[(int) IndicatorVfxId.Range] = rangeTask.Result.GetComponent<RangeIndicatorMonoComponent>();
 			_indicators[(int) IndicatorVfxId.ScalableLine] = scalableLineTask.Result.GetComponent<ScalableLineIndicatorMonoComponent>();
 
 			foreach (var indicator in _indicators)
@@ -236,38 +236,49 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
+		private void UpdateShootIndicator()
+		{
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var kcc = frame.Get<CharacterController3D>(EntityView.EntityRef);
+			var velocitySqr = kcc.Velocity.SqrMagnitude.AsFloat;
+			var range = _currentWeaponConfig.AttackRange.AsFloat;
+			var minAttackAngle = _currentWeaponConfig.MinAttackAngle;
+			var maxAttackAngle = _currentWeaponConfig.MaxAttackAngle;
+			var maxSpeedSqr = (kcc.MaxSpeed * kcc.MaxSpeed).AsFloat;
+			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle :
+				                 Mathf.Lerp(minAttackAngle, maxAttackAngle, velocitySqr / maxSpeedSqr);
+			// We use a formula to calculate the scale of a shooting indicator
+			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
+			
+			// For a melee weapon with a splash damage we use a separate calculation for an indicator
+			if (_currentWeaponConfig.Id == GameId.Hammer && _currentWeaponConfig.SplashRadius > FP._0)
+			{
+				range += _currentWeaponConfig.SplashRadius.AsFloat;
+				size = _currentWeaponConfig.SplashRadius.AsFloat * 2f;
+			}
+			
+			_shootIndicator.SetVisualProperties(size, 0, range);
+		}
+
 		private void SetWeaponIndicators(GameId weapon)
 		{
 			var configProvider = Services.ConfigsProvider;
+			_currentWeaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
+			
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
-			var config = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
-			var range = config.AttackRange.AsFloat;
 			var shootState = _shootIndicator?.VisualState ?? false;
-			var angleInRad = config.AttackAngle;
-			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
-			var indicator = angleInRad > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			
-			// For a melee weapon with a splash damage we use a separate calculation for an indicator
-			if (config.Id == GameId.Hammer && config.SplashRadius > FP._0)
-			{
-				range += config.SplashRadius.AsFloat;
-				size = config.SplashRadius.AsFloat * 2f;
-			}
-			
-			_shootIndicator?.SetVisualState(false);
+			var indicator = _currentWeaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
 			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
-			
-			_indicators[(int) IndicatorVfxId.Range].SetVisualProperties(range, 0, range);
-			_indicators[(int) IndicatorVfxId.Range].SetVisualState(shootState);
-			_shootIndicator?.SetVisualProperties(size, 0, range);
+			UpdateShootIndicator();
 			_shootIndicator?.SetVisualState(shootState);
 
 			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
 			{
 				var pair = new Pair<ITransformIndicator, QuantumSpecialConfig>();
 				
-				if (specialConfigs.TryGetValue((int) config.Specials[i], out var specialConfig))
+				if (specialConfigs.TryGetValue((int) _currentWeaponConfig.Specials[i], out var specialConfig))
 				{
 					pair.Key = _indicators[(int) specialConfig.Indicator] as ITransformIndicator;
 					pair.Value = specialConfig;
@@ -276,7 +287,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				_specialIndicators[i] = pair;
 			}
 		}
-
+		
 		private void GetPlayerEquipmentSet(Frame f, PlayerRef player, out GameId skin, out Equipment weapon, out Equipment[] gear)
 		{
 			if (f.TryGet<BotCharacter>(EntityView.EntityRef, out var botCharacter))

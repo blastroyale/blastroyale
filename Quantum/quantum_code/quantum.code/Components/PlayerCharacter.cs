@@ -58,6 +58,8 @@ namespace Quantum
 			
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
+			
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 		}
 
 		/// <summary>
@@ -84,17 +86,20 @@ namespace Quantum
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			
-			stats->SetCurrentHealthPercentage(f, e, EntityRef.None, FP._1);
+			stats->ResetStats(f, e);
 			
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
-			
 			
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
 			f.Events.OnPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
 			f.Events.OnLocalPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
+			
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
+			
+			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, f.GameConfig.PlayerAliveShieldDuration);
 		}
 
 		/// <summary>
@@ -102,6 +107,8 @@ namespace Quantum
 		/// </summary>
 		internal void Dead(Frame f, EntityRef e, PlayerRef killerPlayer, EntityRef attacker)
 		{
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
+			
 			var deadPlayer = new DeadPlayerCharacter
 			{
 				TimeOfDeath = f.Time,

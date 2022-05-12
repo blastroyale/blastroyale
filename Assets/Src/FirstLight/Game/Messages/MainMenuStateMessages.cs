@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
@@ -28,11 +29,7 @@ namespace FirstLight.Game.Messages
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage { }
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
-	public struct PlayRandomClickedMessage : IMessage
-	{
-		public bool IsOfflineMode;
-		public GameMode GameMode;
-	}
+	public struct PlayRandomClickedMessage : IMessage { public bool IsOfflineMode; }
 	public struct PlayMapClickedMessage : IMessage
 	{
 		public bool IsOfflineMode;
@@ -41,6 +38,6 @@ namespace FirstLight.Game.Messages
 	public struct PlayCreateRoomClickedMessage : IMessage
 	{
 		public string RoomName; 
-		public GameMode GameMode;
+		public MapConfig MapConfig;
 	}
 }

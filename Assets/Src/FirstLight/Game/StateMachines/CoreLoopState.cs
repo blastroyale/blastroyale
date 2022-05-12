@@ -61,7 +61,8 @@ namespace FirstLight.Game.StateMachines
 			var connectionWaitToMenu = stateFactory.State("Connection Wait to Menu");
 
 			initial.Transition().Target(connectionCheck);
-
+			initial.OnExit(SubscribeEvents);
+			
 			connectionCheck.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
 			connectionCheck.Transition().Target(connectionWaitToMenu);
 
@@ -118,7 +119,7 @@ namespace FirstLight.Game.StateMachines
 			var poolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
 			                          .FirstOrDefault(x => x.Id == poolToObserve);
 
-			var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes + 1);
+			var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes);
 
 			while (DateTime.UtcNow < nextRestockTime)
 			{

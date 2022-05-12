@@ -2,6 +2,7 @@ using System;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Data.DataTypes
 {

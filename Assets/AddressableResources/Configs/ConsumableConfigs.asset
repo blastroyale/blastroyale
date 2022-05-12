@@ -72,11 +72,29 @@ MonoBehaviour:
         RawValue: 16384000
       ConsumableCollectTime:
         RawValue: 22118
-    - Id: 13
+    - Id: 17
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 4
+      Amount:
+        RawValue: 65536
+      ConsumableCollectTime:
+        RawValue: 22118
+    - Id: 18
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      ConsumableType: 4
+      Amount:
+        RawValue: 131072
+      ConsumableCollectTime:
+        RawValue: 22118
+    - Id: 13
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      ConsumableType: 5
       Amount:
         RawValue: 65536
       ConsumableCollectTime:
@@ -85,7 +103,7 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 240296495379453662
-      ConsumableType: 4
+      ConsumableType: 5
       Amount:
         RawValue: 131072
       ConsumableCollectTime:
@@ -94,7 +112,7 @@ MonoBehaviour:
       AssetRef:
         Id:
           Value: 240296495379453662
-      ConsumableType: 4
+      ConsumableType: 5
       Amount:
         RawValue: 196608
       ConsumableCollectTime:

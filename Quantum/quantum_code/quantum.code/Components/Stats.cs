@@ -16,10 +16,11 @@ namespace Quantum
 
 	public unsafe partial struct Stats
 	{
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxInterimArmour)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxInterimArmour, int ShieldCellAmount)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentInterimArmour = 0;
+			CurrentShieldCapacity = ShieldCellAmount;
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
@@ -29,6 +30,7 @@ namespace Quantum
 
 			Values[(int) StatType.Health] = new StatData(baseHealth, baseHealth, StatType.Health);
 			Values[(int) StatType.InterimArmour] = new StatData(0, maxInterimArmour, StatType.InterimArmour);
+			Values[(int)StatType.InterimArmourCellValue] = new StatData(0, ShieldCellAmount, StatType.InterimArmourCellValue);
 			Values[(int) StatType.Power] = new StatData(basePower, basePower, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
@@ -94,13 +96,9 @@ namespace Quantum
 		/// </summary>
 		internal void GainInterimArmour(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
-			if (IsImmune)
-			{
-				return;
-			}
 
 			var previousInterimArmour = CurrentInterimArmour;
-			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
+			var maxInterimArmour = CurrentShieldCapacity;
 
 			CurrentInterimArmour = CurrentInterimArmour + amount > maxInterimArmour
 				                       ? maxInterimArmour
@@ -112,6 +110,34 @@ namespace Quantum
 				                                maxInterimArmour);
 			}
 		}
+
+
+		/// <summary>
+		/// Adds <paramref name="amount"/> interm armour cell capacity to this <paramref name="entity"/> and notifies the change.
+		/// This shield capacity gain was induced by the given <paramref name="attacker"/>.
+		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
+		/// or non existent anymore.
+		/// </summary>
+		internal void IncreaseShieldCapacity(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		{
+
+			var previousShieldCapacity = CurrentShieldCapacity;
+			var maxShieldCapacity = Values[(int)StatType.InterimArmour].StatValue.AsInt;
+			var ShieldCellValue = Values[(int)StatType.InterimArmourCellValue].StatValue.AsInt;
+
+			CurrentShieldCapacity = CurrentShieldCapacity + amount * ShieldCellValue > maxShieldCapacity
+									   ? maxShieldCapacity
+									   : CurrentShieldCapacity + amount;
+
+			if (CurrentShieldCapacity != previousShieldCapacity)
+			{
+				f.Events.OnShieldCapacityChanged(entity, previousShieldCapacity, CurrentShieldCapacity,
+												maxShieldCapacity);
+				f.Events.OnInterimArmourChanged(entity, attacker, previousShieldCapacity, CurrentInterimArmour,
+												maxShieldCapacity);
+			}
+		}
+
 
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="percentage"/> (between 0 - 1)
@@ -149,11 +175,6 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, uint amount)
 		{
-			if (IsImmune)
-			{
-				return;
-			}
-
 			SetCurrentHealth(f, entity, attacker, (int) (CurrentHealth + amount));
 		}
 

@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -183,8 +184,6 @@ namespace Quantum {
     AmmoLarge = 128,
     InterimArmourSmall = 126,
     InterimArmourLarge = 129,
-    ShieldCapacitySmall = 17,
-    ShieldCapacityLarge = 18,
     ChestCommon = 13,
     ChestRare = 16,
     ChestLegendary = 19,

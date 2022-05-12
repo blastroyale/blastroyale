@@ -57,11 +57,11 @@ enum EquipmentFaction
 {
 	Order,
 	Chaos,
-    Organic,
-    Dark,
-    Shadow,
-    Celestial,
-    Dimensional,
+	Organic,
+	Dark,
+	Shadow,
+	Celestial,
+	Dimensional,
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 

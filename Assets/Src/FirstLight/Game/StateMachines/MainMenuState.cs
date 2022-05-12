@@ -272,25 +272,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
 
-		private void OpenLootOptionsMenuUI()
-		{
-			var data = new LootOptionsScreenPresenter.StateData
-			{
-				OnLootBackButtonClicked = OnTabClickedCallback<LootOptionsScreenPresenter>,
-			};
-
-			_uiService.OpenUi<LootOptionsScreenPresenter, LootOptionsScreenPresenter.StateData>(data);
-			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
-		}
-
-		
-
-		private void CloseLootOptionsMenuUI()
-		{
-			_uiService.CloseUi<LootOptionsScreenPresenter>();
-			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
-		}
-
 		private void OpenLootMenuUI()
 		{
 			var data = new LootScreenPresenter.StateData

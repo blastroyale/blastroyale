@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using FirstLight.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -222,7 +223,37 @@ public partial class SROptions
 			PlayerMatchData = new QuantumPlayerMatchData()// { EnemiesKilledCount = 10 },
 		});
 	}
+
+	[Category("Cheats")]
+	public void AwardCsFromPool()
+	{
+		IGameServices services = MainInstaller.Resolve<IGameServices>();
+		ResourcePoolConfig poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
+		                                         .FirstOrDefault(x => x.Id == GameId.CS);
+		
+		services.CommandService.ExecuteCommand(new AwardFromResourcePoolCommand
+		{
+			PoolId = GameId.CS,
+			PoolConfig = poolConfig,
+			AmountToAward = 100
+		});
+	}
 	
+	[Category("Cheats")]
+	public void RestockCsPool()
+	{
+		IGameServices services = MainInstaller.Resolve<IGameServices>();
+		
+		ResourcePoolConfig poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
+		                                        .FirstOrDefault(x => x.Id == GameId.CS);
+		
+		services.CommandService.ExecuteCommand(new RestockResourcePoolCommand
+		{
+			PoolId = GameId.CS,
+			PoolConfig = poolConfig,
+		});
+	}
+
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

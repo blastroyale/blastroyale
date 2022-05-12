@@ -106,6 +106,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			base.OnOpened();
+			
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeText,
 				_gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString());
 		}

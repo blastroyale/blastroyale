@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -8,11 +7,9 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
@@ -20,11 +17,8 @@ using FirstLight.UiService;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
-using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -40,6 +34,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
+		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
+		// EVE - Add new event '_gameModeChosenEvent'
+		
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
 		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
@@ -60,6 +57,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly TrophyRoadMenuState _trophyRoadState;
 		private readonly ShopMenuState _shopMenuState;
 		private readonly EnterNameState _enterNameState;
+
 		private Type _currentScreen;
 
 		public MainMenuState(IGameServices services, IDataService dataService, IGameUiService uiService,
@@ -79,6 +77,7 @@ namespace FirstLight.Game.StateMachines
 			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
 			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameDataProvider, statechartTrigger);
+			
 		}
 
 		/// <summary>
@@ -132,6 +131,7 @@ namespace FirstLight.Game.StateMachines
 			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWaitingState = stateFactory.State("Room Joined Check");
+			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
 			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
 			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
@@ -168,6 +168,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
+			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.OnExit(ClosePlayMenuUI);
 
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
@@ -176,7 +177,10 @@ namespace FirstLight.Game.StateMachines
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
-
+			
+			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
+			chooseGameMode.OnExit(CloseGameModeSelectionUI);
+			
 			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
@@ -198,8 +202,7 @@ namespace FirstLight.Game.StateMachines
 			shopMenu.OnExit(CloseShopMenuUI);
 
 			lootOptionsMenu.OnEnter(OpenLootOptionsMenuUI);
-			lootOptionsMenu.Nest(_lootOptionsMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
-			               .Target(screenCheck);
+			lootOptionsMenu.Nest(_lootOptionsMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			lootOptionsMenu.OnExit(CloseLootOptionsMenuUI);
 
 			lootMenu.OnEnter(OpenLootMenuUI);
@@ -210,8 +213,7 @@ namespace FirstLight.Game.StateMachines
 			heroesMenu.OnExit(CloseHeroesMenuUI);
 
 			trophyRoadMenu.OnEnter(OpenTrophyRoadMenuUI);
-			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
-			              .Target(screenCheck);
+			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
@@ -225,8 +227,7 @@ namespace FirstLight.Game.StateMachines
 			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
 			collectLoot.OnExit(OpenMainMenuUi);
 
-			cratesMenu.Nest(_cratesMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
-			          .Target(screenCheck);
+			cratesMenu.Nest(_cratesMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			cratesMenu.OnExit(CloseCratesMenuUI);
 
 			socialMenu.OnEnter(OpenSocialMenuUI);
@@ -377,6 +378,24 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<OverflowLootDialogPresenter>();
 		}
 
+
+		private void OpenGameModeSelectionUI(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+			
+			var data = new GameModeSelectionPresenter.StateData
+			{
+				GameModeChosen = () => { cacheActivity.Complete(); }
+			};
+			
+			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
+		}
+		
+		private void CloseGameModeSelectionUI()
+		{
+			_uiService.CloseUi<GameModeSelectionPresenter>();
+		}
+
 		private void OpenLootOptionsMenuUI()
 		{
 			var data = new LootOptionsScreenPresenter.StateData
@@ -387,6 +406,8 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<LootOptionsScreenPresenter, LootOptionsScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
 		}
+
+		
 
 		private void CloseLootOptionsMenuUI()
 		{
@@ -478,7 +499,8 @@ namespace FirstLight.Game.StateMachines
 				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
 				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
 				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
-				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent)
+				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
+				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 			};
 
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

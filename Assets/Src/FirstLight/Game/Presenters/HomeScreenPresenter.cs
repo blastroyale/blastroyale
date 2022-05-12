@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using I2.Loc;
@@ -9,7 +10,8 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
-using Sirenix.OdinInspector;
+using TMPro;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -31,30 +33,29 @@ namespace FirstLight.Game.Presenters
 			public Action OnTrophyRoadClicked;
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
+			public Action OnGameModeClicked;
 		}
 
-		[SerializeField, Required] private GameObject _battleRoyaleButtonRoot;
-		[SerializeField, Required] private Button _playBattleRoyaleRandom;
-		[SerializeField, Required] private Button _playBattleRoyaleOffline;
-		[SerializeField, Required] private Button _playBattleRoyaleTestMap;
-		[SerializeField, Required] private Button _playDeathmatchRandom;
-		[SerializeField, Required] private Button _playDeathmatchOffline;
-		[SerializeField, Required] private Button _playRoom;
-		[SerializeField, Required] private Button _nameChangeButton;
-		[SerializeField, Required] private Button _settingsButton;
-		[SerializeField, Required] private Button _feedbackButton;
-		[SerializeField, Required] private NewFeatureUnlockedView _newFeaturesView;
+		[SerializeField] private Button _playOnlineButton;
+		[SerializeField] private Button _playOfflineDebugButton;
+		[SerializeField] private Button _playRoom;
+		[SerializeField] private Button _nameChangeButton;
+		[SerializeField] private Button _settingsButton;
+		[SerializeField] private Button _feedbackButton;
+		[SerializeField] private Button _gameModeButton;
+		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
+		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
 
 		// Player Information / Trophy Road.
-		[SerializeField, Required] private PlayerProgressBarView _sliderPlayerLevelView;
-		[SerializeField, Required] private Button _trophyRoadButton;
+		[SerializeField] private PlayerProgressBarView _sliderPlayerLevelView;
+		[SerializeField] private Button _trophyRoadButton;
 
 		// Landscape Mode Buttons
-		[SerializeField, Required] private VisualStateButtonView _lootButton;
-		[SerializeField, Required] private VisualStateButtonView _heroesButton;
-		[SerializeField, Required] private VisualStateButtonView _cratesButton;
-		[SerializeField, Required] private VisualStateButtonView _shopButton;
-		[SerializeField, Required] private Button _discordButton;
+		[SerializeField] private VisualStateButtonView _lootButton;
+		[SerializeField] private VisualStateButtonView _heroesButton;
+		[SerializeField] private VisualStateButtonView _cratesButton;
+		[SerializeField] private VisualStateButtonView _shopButton;
+		[SerializeField] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -67,16 +68,11 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			
-			_battleRoyaleButtonRoot.gameObject.SetActive(Debug.isDebugBuild);
 
+			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
+			_playOfflineDebugButton.onClick.AddListener(OnPlayOfflineClicked);
 			_playRoom.onClick.AddListener(OnPlayRoomlicked);
-			_playDeathmatchRandom.onClick.AddListener(OnPlayDeathmatchClicked);
-			_playDeathmatchOffline.onClick.AddListener(OnPlayDeathmatchOfflineClicked);
-			_playBattleRoyaleRandom.onClick.AddListener(OnPlayBattleRoyaleClicked);
-			_playBattleRoyaleOffline.onClick.AddListener(OnPlayBattleRoyaleOfflineClicked);
-			_playBattleRoyaleTestMap.onClick.AddListener(OnPlayBattleRoyaleTestMapClicked);
-			
+
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
@@ -86,7 +82,9 @@ namespace FirstLight.Game.Presenters
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
+			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
+			_playOfflineDebugButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
 			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
 		}
@@ -105,82 +103,37 @@ namespace FirstLight.Game.Presenters
 				_newFeaturesView.QueueNewSystemPopUp(system, UnlockSystemButton);
 			}
 		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeText,
+				_gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString());
+		}
 		
-		private void OnPlayBattleRoyaleClicked()
+		private void OnPlayOnlineClicked()
 		{
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = false,
-				GameMode = GameMode.BattleRoyale
-			};
-
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPlayBattleRoyaleOfflineClicked()
-		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = true,
-				GameMode = GameMode.BattleRoyale
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
 		
-		private void OnPlayBattleRoyaleTestMapClicked()
-		{
-			var message = new PlayMapClickedMessage
-			{
-				IsOfflineMode = true,
-				MapId = GetFirstTestMapId()
-			};
-
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
-
-		private int GetFirstTestMapId()
-		{
-			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-
-			foreach(var config in configs)
-			{
-				if(config.Value.IsTestMap)
-				{
-					return config.Value.Id;
-				}
-			}
-
-			return 0;
-		}
-
-		private void OnPlayDeathmatchClicked()
-		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = false,
-				GameMode = GameMode.Deathmatch
-			};
-
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPlayDeathmatchOfflineClicked()
+		private void OnPlayOfflineClicked()
 		{
 			var message = new PlayRandomClickedMessage
 			{
 				IsOfflineMode = true,
-				GameMode = GameMode.Deathmatch
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
-
+		
 		private void OnPlayRoomlicked()
 		{
 			Data.OnPlayRoomJoinCreateClicked();
@@ -231,6 +184,12 @@ namespace FirstLight.Game.Presenters
 			Data.OnShopButtonClicked();
 		}
 
+		private void OpenGameModeClicked()
+		{
+			Data.OnGameModeClicked();
+		}
+
+		
 		private void OpenSocialMenuUI()
 		{
 			Data.OnSocialButtonClicked();

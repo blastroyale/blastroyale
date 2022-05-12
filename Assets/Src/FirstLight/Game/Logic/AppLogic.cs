@@ -71,6 +71,9 @@ namespace FirstLight.Game.Logic
 		void SetResolutionMode(bool highRes);
 		
 		/// <summary>
+		/// Requests current selected game mode
+		/// </summary>
+		IObservableField<GameMode> SelectedGameMode { get; }
 		/// Sets the device link status, which dictates whether the game should try to link device to playfab
 		/// account during initial auhentication phase.
 		/// </summary>
@@ -169,6 +172,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
 
+		/// <inheritdoc />
+		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
 		{
@@ -181,6 +187,7 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableField<string>(Data.NickNameId);
+			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 		}
 
 		/// <inheritdoc />

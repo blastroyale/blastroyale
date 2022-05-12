@@ -29,11 +29,7 @@ namespace FirstLight.Game.Messages
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage { }
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
-	public struct PlayRandomClickedMessage : IMessage
-	{
-		public bool IsOfflineMode;
-		public GameMode GameMode;
-	}
+	public struct PlayRandomClickedMessage : IMessage { public bool IsOfflineMode; }
 	public struct PlayMapClickedMessage : IMessage
 	{
 		public bool IsOfflineMode;

@@ -57,6 +57,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GameModeSelection.prefab
+    Layer: 3
+    UiType: FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameQuitOver Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game,
@@ -248,6 +252,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:
     - FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,

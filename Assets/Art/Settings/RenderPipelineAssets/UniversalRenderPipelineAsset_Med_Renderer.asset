@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Settings:
-    technique: 0
+    technique: 2
     maxDrawDistance: 1000
     dBufferSettings:
       surfaceData: 2

@@ -9,9 +9,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class RadialIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
 	{
-		protected static readonly int _color = Shader.PropertyToID("Color");
-		
-		[SerializeField, Required] protected VisualEffect _indicator;
+		[SerializeField, Required] protected GameObject _indicator;
 		[SerializeField] protected float _localHeight = 0.025f;
 		[SerializeField] protected bool _initiallyEnabled = false;
 		
@@ -20,11 +18,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		protected float _maxRange;
 
 		/// <inheritdoc />
-		public bool VisualState => _indicator.enabled;
+		public bool VisualState => _indicator.activeSelf;
 		
 		protected virtual void Awake()
 		{
-			_indicator.enabled = _initiallyEnabled;
+			_indicator.SetActive(_initiallyEnabled);
 			_playerTransform = transform;
 		}
 
@@ -36,10 +34,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualState(bool isVisible, bool isEmphasized = false)
 		{
-			_indicator.enabled = isVisible;
-
-			var color = isEmphasized ? Color.red : Color.yellow;
-			_indicator.SetVector4(_color, new Vector4(color.r, color.g, color.b, color.a));
+			_indicator.SetActive(isVisible);
 		}
 
 		/// <inheritdoc />

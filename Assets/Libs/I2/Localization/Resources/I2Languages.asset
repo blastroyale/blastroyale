@@ -1078,13 +1078,6 @@ MonoBehaviour:
       - Battle Royale
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/BattleRoyale
-      TermType: 0
-      Description: 
-      Languages:
-      - Battle Royale
-      Flags: 00
-      Languages_Touch: []
     - Term: MainMenu/BGM
       TermType: 0
       Description: 
@@ -1125,13 +1118,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - CANCEL
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/ChooseGameMode
-      TermType: 0
-      Description: 
-      Languages:
-      - CHOOSE GAME MODE
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/ChooseGameMode
@@ -1218,13 +1204,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - CURRENT XP {0}
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/Deathmatch
-      TermType: 0
-      Description: 
-      Languages:
-      - Deathmatch
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Deathmatch
@@ -1339,13 +1318,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - ONE OR MORE ITEMS SELECTED HAS ALREADY BEEN UPGRADED. DO YOU WANT TO PROCEED?
-      Flags: 00
-      Languages_Touch: []
-    - Term: MainMenu/GameMode
-      TermType: 0
-      Description: 
-      Languages:
-      - GAME MODE
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/GameMode
@@ -2000,13 +1972,20 @@ MonoBehaviour:
       - Quit
       Flags: 00
       Languages_Touch: []
-    - Term: MainMenu/TokenRestockTime
+    - Term: MainMenu/ResourceRestockTime
       TermType: 0
       Description: 
       Languages:
-      - '+{0} tokens in
+      - '+{0} in
 
         {1}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/ResourceAmount
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} / {1}'
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/SelectedGameModeText
@@ -5094,7 +5073,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1651575046330
+    Google_LastUpdatedVersion: 1652275826377
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -129,6 +129,7 @@ public partial class SROptions
 			// We increase number of shots on 1 to count angleStep for gaps rather than for shots
 			var angleStep = shot.AttackAngle / (FP)(shot.NumberOfShots + 1);
 			var angle = -(int) shot.AttackAngle / FP._2;
+			angle += shot.AccuracyModifier;
 
 			if (shot.IsInstantShot || deltaTime > shot.Range / speed)
 			{

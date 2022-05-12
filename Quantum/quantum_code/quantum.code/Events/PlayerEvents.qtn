@@ -89,6 +89,9 @@ synced event OnPlayerAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
+	int WeaponID;
+	FP ShotDir;
+	uint AttackAngle;
 }
 
 synced event OnPlayerDamaged

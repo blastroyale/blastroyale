@@ -32,12 +32,6 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 3
-    Value:
-      m_AssetGUID: 0fa67bb2e755db245b0c4b328436f032
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 4
     Value:
       m_AssetGUID: 6c8f5ac1624779b45ab5af470c743d04
@@ -47,12 +41,6 @@ MonoBehaviour:
   - Key: 5
     Value:
       m_AssetGUID: ab1705c9901047d48ad6a4a073465c68
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 6
-    Value:
-      m_AssetGUID: 81c66bad48d7cf7458042d1ef168b966
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -71,42 +59,6 @@ MonoBehaviour:
   - Key: 9
     Value:
       m_AssetGUID: 8140946ee16124946ad9494beef4ab23
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 11
-    Value:
-      m_AssetGUID: 598f9de965a680c4db13412417b8ba9b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 12
-    Value:
-      m_AssetGUID: 6d5a1524347a9514ba4c38edce00fdc5
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 13
-    Value:
-      m_AssetGUID: 3a5bd5456539c874e8323e6ac9bbb7d7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 14
-    Value:
-      m_AssetGUID: 4807e731e8f1ddf4eb83aac3f303c7c5
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 15
-    Value:
-      m_AssetGUID: 1ad47c33799306a49b66b0d8aa07fe82
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 16
-    Value:
-      m_AssetGUID: d84a934bfb7cca44b983e7db9963ca3b
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -143,18 +95,6 @@ MonoBehaviour:
   - Key: 22
     Value:
       m_AssetGUID: dd50928c86c912546a809dda57123635
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 23
-    Value:
-      m_AssetGUID: c8de7c6df73107b429aca3e16e5be9f2
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 24
-    Value:
-      m_AssetGUID: e157e97abc7655d479088c716363c1dc
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -206,87 +146,9 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 35
-    Value:
-      m_AssetGUID: a8a5c2145a35f77468a1b5c687af8cef
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 36
-    Value:
-      m_AssetGUID: 9c802c5f88c66b442b6969f21289a411
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 37
-    Value:
-      m_AssetGUID: bbf2b8a788b98464d9113773df29ea7e
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 38
     Value:
       m_AssetGUID: f199b4d54e284a54eb2cc64b922ab0c2
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 39
-    Value:
-      m_AssetGUID: fa98eb12b0e57b54e9a3a52dae4602a8
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 40
-    Value:
-      m_AssetGUID: 4a206ce3634c8344786ae57b2f850928
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 41
-    Value:
-      m_AssetGUID: da245cccee4587342adcb2fb69c77db7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 42
-    Value:
-      m_AssetGUID: 2fcdbec44f8fc5a468c21b773ab20213
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 43
-    Value:
-      m_AssetGUID: 7a2acb1725a818b428aab64604b94db9
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 44
-    Value:
-      m_AssetGUID: e170af2ce8b6dad4cb91c849ef4ff80b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 45
-    Value:
-      m_AssetGUID: f30a07fbdb102d24e82fb68c1394c9de
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 46
-    Value:
-      m_AssetGUID: d75e099a13df3d645adbda738158669e
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 47
-    Value:
-      m_AssetGUID: d63fe1ab74ad0f64984461231d5af00b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 48
-    Value:
-      m_AssetGUID: 9cf32f487a1860e4c9d9f0d003c30372
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

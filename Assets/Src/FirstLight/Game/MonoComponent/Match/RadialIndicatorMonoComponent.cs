@@ -61,6 +61,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			_position = new Vector3(move.x, _localHeight, move.y);;
 			transform.position = _playerTransform.position + _position;
+			var ray = new Ray(transform.position, Vector3.down);
+			Physics.Raycast(ray,out var raycastHit);
+			_indicator.transform.position = raycastHit.point;
 		}
 	}
 }

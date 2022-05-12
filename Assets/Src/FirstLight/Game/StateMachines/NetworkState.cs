@@ -283,7 +283,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			CreateRoom(msg.GameMode, msg.RoomName);
+			CreateRoom(msg.MapConfig, msg.RoomName);
 		}
 		
 		private void OnPlayJoinRoomClickedMessage(PlayJoinRoomClickedMessage msg)
@@ -344,10 +344,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CreateRoom(GameMode mode, string roomName)
+		private void CreateRoom(MapConfig mapConfig, string roomName)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var mapConfig = GetRotationMapConfig(mode);
 			var enterParams = config.GetEnterRoomParams(mapConfig, roomName);
 
 			config.IsOfflineMode = false;

@@ -33,6 +33,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
+		private Coroutine _csPoolTimerCoroutine;
+
 		public CoreLoopState(GameLogic gameLogic, IGameServices services, IDataService dataService,
 		                     IGameUiService uiService, IGameDataProvider dataProvider,
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
@@ -65,7 +67,7 @@ namespace FirstLight.Game.StateMachines
 
 			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 
-			mainMenu.OnEnter(SetupResourcePoolTimers);
+			mainMenu.OnEnter(StartResourcePoolTimers);
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(connectionCheck);
@@ -75,6 +77,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_services.MessageBrokerService.Subscribe<ResourcePoolRestockedMessage>(OnResourcePoolRestockedMessage);
+			_services.MessageBrokerService.Subscribe<AwardedResourceFromPoolMessage>(OnAwardedResourceFromPoolMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -87,9 +91,24 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
-		private void SetupResourcePoolTimers()
+		private void OnResourcePoolRestockedMessage(ResourcePoolRestockedMessage msg)
 		{
-			_services.CoroutineService.StartCoroutine(ResourcePoolCsTimerCoroutine());
+			StartResourcePoolTimers();
+		}
+		
+		private void OnAwardedResourceFromPoolMessage(AwardedResourceFromPoolMessage msg)
+		{
+			StartResourcePoolTimers();
+		}
+
+		private void StartResourcePoolTimers()
+		{
+			if (_csPoolTimerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_csPoolTimerCoroutine);
+			}
+			
+			_csPoolTimerCoroutine = _services.CoroutineService.StartCoroutine(ResourcePoolCsTimerCoroutine());
 		}
 
 		private IEnumerator ResourcePoolCsTimerCoroutine()

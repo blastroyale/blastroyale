@@ -19,13 +19,33 @@ namespace FirstLight.Game.Data.DataTypes
 			LastPoolRestockTime = lastPoolRestockTime;
 		}
 
-		public void Restock(ResourcePoolConfig config)
+		public void Restock(ResourcePoolConfig config, bool forceRestock)
 		{
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - LastPoolRestockTime).Minutes;
-			var amountOfRestocks = (ulong) MathF.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
+			var amountOfRestocks = (uint) 0;
+			
+			if (forceRestock)
+			{
+				amountOfRestocks = 1;
+			}
+			else
+			{
+				amountOfRestocks = (uint) MathF.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
+			}
 			
 			LastPoolRestockTime = DateTime.UtcNow;
 			CurrentResourceAmountInPool += config.RestockPerInterval * amountOfRestocks;
+
+			if (CurrentResourceAmountInPool > config.PoolCapacity)
+			{
+				CurrentResourceAmountInPool = config.PoolCapacity;
+			}
+		}
+
+		public void ForceRestock(ResourcePoolConfig config)
+		{
+			LastPoolRestockTime = DateTime.UtcNow;
+			CurrentResourceAmountInPool += config.RestockPerInterval;
 
 			if (CurrentResourceAmountInPool > config.PoolCapacity)
 			{

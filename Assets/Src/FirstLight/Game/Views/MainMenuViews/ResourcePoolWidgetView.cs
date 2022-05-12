@@ -41,6 +41,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEnable()
 		{
 			_services.MessageBrokerService.Subscribe<ResourcePoolRestockedMessage>(OnResourcePoolRestockedMessage);
+			_services.MessageBrokerService.Subscribe<AwardedResourceFromPoolMessage>(OnAwardedResourceFromPoolMessage);
 			UpdateView();
 		}
 
@@ -62,6 +63,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		}
 
 		private void OnResourcePoolRestockedMessage(ResourcePoolRestockedMessage msg)
+		{
+			StopAllCoroutines();
+			UpdateView();
+		}
+		
+		private void OnAwardedResourceFromPoolMessage(AwardedResourceFromPoolMessage msg)
 		{
 			StopAllCoroutines();
 			UpdateView();

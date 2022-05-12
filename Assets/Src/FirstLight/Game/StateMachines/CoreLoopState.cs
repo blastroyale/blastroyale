@@ -128,7 +128,8 @@ namespace FirstLight.Game.StateMachines
 			_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand
 			{
 				PoolId = GameId.CS,
-				PoolConfig = poolConfig
+				PoolConfig = poolConfig,
+				ForceRestock = false
 			});
 		}
 	}

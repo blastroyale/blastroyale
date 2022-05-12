@@ -235,7 +235,7 @@ public partial class SROptions
 		{
 			PoolId = GameId.CS,
 			PoolConfig = poolConfig,
-			AmountToAward = 100
+			AmountToAward = 125
 		});
 	}
 	
@@ -251,6 +251,7 @@ public partial class SROptions
 		{
 			PoolId = GameId.CS,
 			PoolConfig = poolConfig,
+			ForceRestock = true
 		});
 	}
 

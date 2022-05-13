@@ -120,7 +120,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Adds <paramref name="amount"/> interm armour cell capacity to this <paramref name="entity"/> and notifies the change.
+		/// Adds <paramref name="amount"/> of interim armour capacity as a stat modifier as <paramref name="entity"/> and notifies the change.
 		/// This shield capacity gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
 		/// or non existent anymore.
@@ -136,10 +136,8 @@ namespace Quantum
 				return;
 
 			var modValue = interimArmour.StatValue.AsInt + (maxShieldCapacity * (FP)amount / (FP)maxShieldCapacity);
-			//if the result of the mod value is greater than the max value then 
 			if (modValue > maxShieldCapacity)
 			{
-				//we must figure out the correct value for amount that will make the resulting modifier = maxShieldCapacity
 				amount = (modValue.AsInt) - maxShieldCapacity;
 			}
 

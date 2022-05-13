@@ -59,7 +59,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void UpdateView()
 		{
 			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
-			_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(_poolConfig.RestockIntervalMinutes);
 
 			StartCoroutine(ViewUpdateCoroutine());
 		}
@@ -68,28 +67,41 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			while (true)
 			{
+				// Try restock the stored current pool data, and update view current amount
+				var amountOfRestocks = _currentPoolData.Restock(_poolConfig);
+				_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * _poolConfig.RestockIntervalMinutes);
+				_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
+				
 				var timeDiff = _nextRestockTime - DateTime.UtcNow;
 				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime,
-				                                  _poolConfig.RestockPerInterval, timeDiffText);
-				
-				// Try restock the stored current pool data, and update view current amount
-				_currentPoolData.Restock(_poolConfig);
-				_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
-				
+				if (_currentAmount < _poolConfig.PoolCapacity)
+				{
+					_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime,
+					                                  _poolConfig.RestockPerInterval, timeDiffText);
+				}
+				else
+				{
+					_restockText.text = string.Format(ScriptLocalization.MainMenu.ResoucePoolFull);
+				}
+
 				_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount,
 				                                 _currentAmount.ToString(),
 				                                 _poolConfig.PoolCapacity);
 				
 				var nextTimerUpdateTime = DateTime.UtcNow.AddMinutes(1);
 				
+				Debug.LogError(_nextRestockTime);
+				
+				if (_nextRestockTime < nextTimerUpdateTime)
+				{
+					nextTimerUpdateTime = _nextRestockTime;
+				}
+				
 				while (DateTime.UtcNow < nextTimerUpdateTime)
 				{
 					yield return null;
 				}
-
-				_nextRestockTime = _nextRestockTime.Subtract(new TimeSpan(0, 1,0));
 			}
 		}
 	}

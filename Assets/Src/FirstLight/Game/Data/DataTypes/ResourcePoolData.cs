@@ -23,20 +23,33 @@ namespace FirstLight.Game.Data.DataTypes
 		/// <summary>
 		/// Restocks the pool based on UTC time, and provided config
 		/// </summary>
-		public void Restock(ResourcePoolConfig config)
+		public uint Restock(ResourcePoolConfig config)
 		{
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - LastPoolRestockTime).Minutes;
 			var amountOfRestocks = (uint) 0;
 			
 			amountOfRestocks = (uint) MathF.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
+
 			
+			if (amountOfRestocks == 0)
+			{
+				Debug.LogError("AMOUNT OF RESTOCKS: 0");
+				return 0;
+			}
+			
+			Debug.LogError("AMOUNT OF RESTOCKS: " + amountOfRestocks );
+			Debug.LogError("RESOURCES (BEFORE ADDITION): " + CurrentResourceAmountInPool);
+			Debug.LogError("RESTOCK TIME (BEFORE ADDITION): " + LastPoolRestockTime);
 			LastPoolRestockTime = DateTime.UtcNow;
 			CurrentResourceAmountInPool += config.RestockPerInterval * amountOfRestocks;
-
+			Debug.LogError("NEXT RESTOCK TIME: " + LastPoolRestockTime);
+			Debug.LogError("RESOURCES ADDED: " + config.RestockPerInterval * amountOfRestocks);
 			if (CurrentResourceAmountInPool > config.PoolCapacity)
 			{
 				CurrentResourceAmountInPool = config.PoolCapacity;
 			}
+
+			return amountOfRestocks;
 		}
 
 		/// <summary>

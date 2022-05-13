@@ -148,7 +148,6 @@ namespace FirstLight.Game.StateMachines
 				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<RarityConfigs>(AddressableId.Configs_RarityConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
 				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
 				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),

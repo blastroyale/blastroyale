@@ -45,19 +45,31 @@ namespace FirstLight.Game.Presenters
 		private TextMeshProUGUI _descriptionText;
 
 		[SerializeField, Required] private Button _equipUnequipButton;
-		[SerializeField, Required] private Button _sellButton;
-		[SerializeField, Required] private Button _upgradeButton;
 		[SerializeField, Required] private EquipmentStatInfoView _statInfoViewPoolRef;
 		[SerializeField, Required] private EquipmentStatSpecialInfoView _specialStatInfoViewPoolRef;
+
+		// TODO: This should be a view when we properly implement it
 		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
-		[SerializeField, Required] private TextMeshProUGUI _itemLevelText;
+		[SerializeField, Required] private GameObject _equipmentAttributesHolder;
+
+		[SerializeField, Required] private TextMeshProUGUI _generationText;
+		[SerializeField, Required] private TextMeshProUGUI _editionText;
+		[SerializeField, Required] private TextMeshProUGUI _rarityText;
+		[SerializeField] private Image[] _rarityImage;
+		[SerializeField, Required] private TextMeshProUGUI _materialText;
+		[SerializeField, Required] private TextMeshProUGUI _gradeText;
+		[SerializeField, Required] private TextMeshProUGUI _factionText;
+		[SerializeField, Required] private TextMeshProUGUI _manufacturerText;
+		[SerializeField, Required] private TextMeshProUGUI _durabilityText;
+		[SerializeField, Required] private TextMeshProUGUI _restoredText;
+		[SerializeField, Required] private TextMeshProUGUI _levelText;
+		[SerializeField, Required] private TextMeshProUGUI _replicationText;
 		[SerializeField, Required] private GameObject _actionButtonHolder;
 		[SerializeField, Required] private GameObject _equippedStatusObject;
 		[SerializeField, Required] private GameObject _itemLevelObject;
 		[SerializeField, Required] private GameObject _upgradeCostHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equipButtonText;
 		[SerializeField, Required] private TextMeshProUGUI _upgradeCostText;
-		[SerializeField, Required] private TextMeshProUGUI _sellCostText;
 		[SerializeField, Required] private Animation _itemLevelHolderAnimation;
 
 		[SerializeField, Required] private Image _upgradeCoinImage;
@@ -65,12 +77,10 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Sprite _maxUpgradeButtonSprite;
 		[SerializeField, Required] private Sprite _upgradeButtonSprite;
 
-		[SerializeField, Required] private GameObject _rarityHolder;
 		[SerializeField, Required] private Image _weaponTypeImage;
 		[SerializeField, Required] private Button _weaponTypeButton;
 		[SerializeField, Required] private Button _movieButton;
-		[SerializeField] private Image[] _rarityImage;
-		[SerializeField, Required] private TextMeshProUGUI _rarityText;
+
 		[SerializeField, Required] private TextMeshProUGUI _weaponTypeText;
 		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;
 		[SerializeField, Required] private TextMeshProUGUI _powerChangeText;
@@ -97,7 +107,6 @@ namespace FirstLight.Game.Presenters
 
 			_closeButton.onClick.AddListener(Close);
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
-			_upgradeButton.onClick.AddListener(OnUpgradeClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
 			_specialStatInfoViewPoolRef.gameObject.SetActive(false);
 		}
@@ -113,7 +122,6 @@ namespace FirstLight.Game.Presenters
 
 			Services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
 			Services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			Services.MessageBrokerService.Subscribe<ItemUpgradedMessage>(OnItemUpgradedMessage);
 		}
 
 		// We override the OnClosed because we want to show the Loot menu before the close animation completes
@@ -149,7 +157,7 @@ namespace FirstLight.Game.Presenters
 			_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
 			_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
 
-			_rarityHolder.SetActive(false);
+			_equipmentAttributesHolder.SetActive(false);
 			_weaponTypeButton.gameObject.SetActive(false);
 			_movieButton.gameObject.SetActive(false);
 			_itemLevelObject.SetActive(false);
@@ -173,7 +181,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var equipment = equipmentProvider.Inventory[_uniqueId];
-			var upgradeCost = equipmentProvider.GetUpgradeCost(equipment);
 			var power = equipmentProvider.GetItemPower(equipment);
 
 			// Don't show Default/Melee weapon
@@ -189,21 +196,29 @@ namespace FirstLight.Game.Presenters
 			SetStatInfoData(equipment);
 			SetEquipButtonStatus();
 
+			// TODO: Add proper translation logic
 			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, power.ToString());
-			_itemTitleText.text = equipment.GameId.GetTranslation();
+			_itemTitleText.text = $"{equipment.Adjective} {equipment.GameId.GetTranslation()}";
+			_editionText.text = equipment.Edition.ToString();
+			_materialText.text = equipment.Material.ToString();
+			_gradeText.text = equipment.Grade.ToString();
+			_factionText.text = equipment.Faction.ToString();
+			_manufacturerText.text = equipment.Manufacturer.ToString();
+			_durabilityText.text = $"Durability {equipment.Durability}/{equipment.MaxDurability}";
+			_restoredText.text = "??";
+			_replicationText.text = $"Replication {equipment.ReplicationCounter}/{equipment.InitialReplicationCounter}";
 			_screenTitleText.text = equipment.GameId.GetSlot().GetTranslation();
 			_descriptionText.text = LocalizationManager.GetTranslation(descriptionID);
 			_rarityText.text = equipment.Rarity.ToString();
-			_itemLevelText.text = equipment.Level == equipment.MaxLevel
-				                      ? $"{ScriptLocalization.General.MaxLevel}"
-				                      : $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
+			_levelText.text = equipment.Level == equipment.MaxLevel
+				                  ? $"{ScriptLocalization.General.MaxLevel}"
+				                  : $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
 
 			_upgradeCostHolder.SetActive(!equipment.IsMaxLevel());
 
 			if (equipment.Level < equipment.MaxLevel)
 			{
 				_upgradeButtonImage.sprite = _upgradeButtonSprite;
-				_upgradeCostText.text = upgradeCost.ToString();
 				_upgradeCoinImage.enabled = true;
 			}
 			else
@@ -221,61 +236,9 @@ namespace FirstLight.Game.Presenters
 
 			_movieButton.gameObject.SetActive(isWeapon);
 			_weaponTypeButton.gameObject.SetActive(isWeapon);
-			_rarityHolder.SetActive(true);
+			_equipmentAttributesHolder.SetActive(true);
 			_itemLevelObject.SetActive(true);
 			_actionButtonHolder.SetActive(true);
-		}
-
-		private void OnUpgradeCompleted()
-		{
-			var previousPower = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedItemPower();
-
-			Services.CommandService.ExecuteCommand(new UpgradeItemCommand {ItemId = _uniqueId});
-
-			ShowPowerChange((int) previousPower);
-		}
-
-		private void OnItemUpgradedMessage(ItemUpgradedMessage message)
-		{
-			UpdateEquipmentMenu();
-			SetStats();
-			_itemLevelHolderAnimation.Play();
-		}
-
-		private void OnUpgradeClicked()
-		{
-			var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[_uniqueId];
-			var upgradeCost = _gameDataProvider.EquipmentDataProvider.GetUpgradeCost(equipment);
-
-			if (equipment.IsMaxLevel())
-			{
-				_mainMenuServices.UiVfxService.PlayFloatingText(ScriptLocalization.MainMenu.WeaponIsAtMaxLevel);
-
-				return;
-			}
-
-			if (upgradeCost <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.SC))
-			{
-				var priceString = string.Format(ScriptLocalization.General.UpgradeFor, upgradeCost.ToString());
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.Yes,
-					ButtonOnClick = OnUpgradeCompleted
-				};
-
-				Services.GenericDialogService.OpenDialog(priceString, true, confirmButton);
-			}
-			else
-			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = Services.GenericDialogService.CloseDialog
-				};
-
-				Services.GenericDialogService.OpenDialog(ScriptLocalization.General.NotEnoughCash, false,
-				                                         confirmButton);
-			}
 		}
 
 		private void SetStatInfoData(Equipment equipment)

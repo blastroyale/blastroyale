@@ -40,7 +40,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Image _autoFireIcon;
 		[SerializeField, Required] private Image _manualFireIcon;
 		[SerializeField, Required] private NotificationUniqueIdView _notificationUniqueIdView;
-		[SerializeField, Required] private NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
 		[SerializeField, Required] private Animation _cardItemAnimation;
 		[SerializeField, Required] private AnimationClip _upgradeCardAnimationClip;
 		[SerializeField, Required] private AnimationClip _equipCardAnimationClip;
@@ -55,7 +54,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnEquipCompletedMessage);
-			_services.MessageBrokerService.Subscribe<ItemUpgradedMessage>(OnUpgradeCompletedMessage);
 			_button.onClick.AddListener(OnButtonClick);
 			OnAwake();
 		}
@@ -83,7 +81,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_notificationUniqueIdUpgradeView.SetUniqueId(data.Id);
 			_equipmentIconView.SetInfo(data.Equipment);
 			_uniqueId = data.Id;
 		}
@@ -93,17 +90,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (message.ItemId == _uniqueId)
 			{
 				_cardItemAnimation.clip = _equipCardAnimationClip;
-
-				_cardItemAnimation.Rewind();
-				_cardItemAnimation.Play();
-			}
-		}
-
-		private void OnUpgradeCompletedMessage(ItemUpgradedMessage message)
-		{
-			if (message.ItemId == _uniqueId)
-			{
-				_cardItemAnimation.clip = _upgradeCardAnimationClip;
 
 				_cardItemAnimation.Rewind();
 				_cardItemAnimation.Play();

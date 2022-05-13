@@ -34,7 +34,6 @@ namespace FirstLight.Game.Logic
 
 		public Equipment GetEquippedWeapon()
 		{
-			// TODO: Does this work with the Hammer?
 			return _inventory[_equippedItems[GameIdGroup.Weapon]];
 		}
 
@@ -128,7 +127,6 @@ namespace FirstLight.Game.Logic
 
 		public UniqueId AddToInventory(Equipment equipment)
 		{
-			// TODO: Is this ok?
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
 			_inventory.Add(id, equipment);
 			return id;
@@ -182,18 +180,6 @@ namespace FirstLight.Game.Logic
 			equipment.Level++;
 
 			_inventory[itemId] = equipment;
-		}
-
-		public uint GetUpgradeCost(Equipment equipment)
-		{
-			var config = GameLogic.ConfigsProvider.GetConfig<RarityConfig>();
-
-			var upgradeCost =
-				Math.Round(config.UpgradeBasePrice * Math.Pow(config.UpgradePriceLevelPowerOf, equipment.Level));
-
-			return upgradeCost < 1000
-				       ? (uint) Math.Floor(upgradeCost / 10) * 10
-				       : (uint) Math.Floor(upgradeCost / 100) * 100;
 		}
 	}
 }

@@ -12,11 +12,4 @@ namespace FirstLight.Game.Messages
 	{
 		public UniqueId ItemId;
 	}
-
-	public struct ItemUpgradedMessage : IMessage
-	{
-		public UniqueId ItemId;
-		public uint PreviousLevel;
-		public uint NewLevel;
-	}
 }

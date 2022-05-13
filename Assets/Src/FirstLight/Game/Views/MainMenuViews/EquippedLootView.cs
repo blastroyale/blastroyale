@@ -25,7 +25,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] protected Image _slotImage;
 		[SerializeField, Required] protected Button _button;
 		[SerializeField, Required] protected TextMeshProUGUI _levelText;
-		[SerializeField, Required] protected NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
 
 		public UnityEvent<GameIdGroup> OnClick = new UnityEvent<GameIdGroup>();
 
@@ -84,8 +83,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				ClearSlot();
 			}
-
-			_notificationUniqueIdUpgradeView.SetUniqueId(ItemId);
 		}
 
 		private void ClearSlot()

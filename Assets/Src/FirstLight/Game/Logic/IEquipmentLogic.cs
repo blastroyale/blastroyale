@@ -21,15 +21,14 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
 
 		/// <summary>
-		/// TODO
+		/// Requests the currently equipped weapon.
 		/// </summary>
 		/// <returns></returns>
 		Equipment GetEquippedWeapon();
 
 		/// <summary>
-		/// TODO
+		/// Requests the currently equipped gear.
 		/// </summary>
-		/// <returns></returns>
 		List<Equipment> GetEquippedGear();
 
 		/// <summary>
@@ -37,13 +36,6 @@ namespace FirstLight.Game.Logic
 		/// <paramref name="slot"/> type.
 		/// </summary>
 		List<Equipment> FindInInventory(GameIdGroup slot);
-
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <param name="equipment"></param>
-		/// <returns></returns>
-		uint GetUpgradeCost(Equipment equipment);
 
 		/// <summary>
 		/// Requests the information if the given <paramref name="itemId"/> is equipped
@@ -74,7 +66,6 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
-		/// <param name="equipment"></param>
 		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
@@ -86,13 +77,5 @@ namespace FirstLight.Game.Logic
 		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
 		/// </summary>
 		void Unequip(UniqueId itemId);
-
-		/// <summary>
-		/// Upgrades the given <paramref name="itemId"/> from the player's Equipment inventory to the next level.
-		/// </summary>
-		/// <exception cref="LogicException">
-		/// Thrown if the given <paramref name="itemId"/> is already at max level
-		/// </exception>
-		void Upgrade(UniqueId itemId); // TODO: Is this gonna be a thing?
 	}
 }

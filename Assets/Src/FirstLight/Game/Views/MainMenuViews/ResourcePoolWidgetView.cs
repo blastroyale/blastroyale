@@ -18,6 +18,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 {
 	public class ResourcePoolWidgetView : MonoBehaviour
 	{
+		private const int TIMER_INTERVAL_SECONDS = 20;
 		[SerializeField] private GameId _poolToObserve = GameId.CS;
 		[SerializeField] private Image _resourceImage;
 		[SerializeField] private TextMeshProUGUI _amountText;
@@ -67,16 +68,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
 				
-				// Try restock the stored current pool data, and update view current amount
-				var restocksForRestockTime = _currentPoolData.Restock(_poolConfig);
-				
-				if (restocksForRestockTime == 0)
-				{
-					restocksForRestockTime++;
-				}
-				
-				_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restocksForRestockTime * _poolConfig.RestockIntervalMinutes);
+				uint restockForTime = _currentPoolData.RestockWithoutTimeUpdate(_poolConfig) + 1;
+
+				_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * _poolConfig.RestockIntervalMinutes);
 				_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
+				
+				Debug.LogError(restockForTime + " | LastRestock: " + _currentPoolData.LastPoolRestockTime + "   NextRestock: " + _nextRestockTime);
 				
 				var timeDiff = _nextRestockTime - DateTime.UtcNow;
 				var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
@@ -95,16 +92,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 				                                 _currentAmount.ToString(),
 				                                 _poolConfig.PoolCapacity);
 				
-				var nextTimerUpdateTime = DateTime.UtcNow.AddMinutes(1);
+				var nextTimerUpdateTime = DateTime.UtcNow.AddSeconds(TIMER_INTERVAL_SECONDS);
 
 				if (_nextRestockTime < nextTimerUpdateTime && _nextRestockTime > DateTime.UtcNow)
 				{
-					Debug.LogError("CORRECTED RESTOCK TIME: " +  _nextRestockTime);
+					Debug.LogError("TIME CORRECTION - SHORTER TIMER UPDATE");
 					nextTimerUpdateTime = _nextRestockTime;
 				}
-				
-				Debug.LogError("LastRestock: " + _currentPoolData.LastPoolRestockTime + "   NextRestock: " + _nextRestockTime);
-				
+
 				while (DateTime.UtcNow < nextTimerUpdateTime)
 				{
 					yield return null;

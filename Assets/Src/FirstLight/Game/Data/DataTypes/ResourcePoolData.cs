@@ -45,6 +45,31 @@ namespace FirstLight.Game.Data.DataTypes
 
 			return amountOfRestocks;
 		}
+		
+		/// <summary>
+		/// Restocks the pool based on UTC time, and provided config. Ignores setting LastPoolRestockTime
+		/// </summary>
+		public uint RestockWithoutTimeUpdate(ResourcePoolConfig config)
+		{
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - LastPoolRestockTime).Minutes;
+			var amountOfRestocks = (uint) 0;
+			
+			amountOfRestocks = (uint) MathF.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
+			
+			if (amountOfRestocks == 0)
+			{
+				return 0;
+			}
+			
+			CurrentResourceAmountInPool += config.RestockPerInterval * amountOfRestocks;
+			
+			if (CurrentResourceAmountInPool > config.PoolCapacity)
+			{
+				CurrentResourceAmountInPool = config.PoolCapacity;
+			}
+
+			return amountOfRestocks;
+		}
 
 		/// <summary>
 		/// Withdraws X amount of resource from pool, or less if there is not enough resource in pool
@@ -72,7 +97,7 @@ namespace FirstLight.Game.Data.DataTypes
 			CurrentResourceAmountInPool -= amountWithdrawn;
 			return amountWithdrawn;
 		}
-
+		
 		/// <inheritdoc />
 		public bool Equals(ResourcePoolData other)
 		{

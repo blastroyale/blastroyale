@@ -5202,7 +5202,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 InterimArmourDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 MaxInterimArmour) {
+      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 InterimArmourDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 InterimArmourCapacity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerDamaged>(EventOnPlayerDamaged.ID);
         ev.Player = Player;
@@ -5212,7 +5212,7 @@ namespace Quantum {
         ev.HealthDamage = HealthDamage;
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
-        ev.MaxInterimArmour = MaxInterimArmour;
+        ev.InterimArmourCapacity = InterimArmourCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5344,7 +5344,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerDamaged OnLocalPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 InterimArmourDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 MaxInterimArmour) {
+      public EventOnLocalPlayerDamaged OnLocalPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 InterimArmourDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 InterimArmourCapacity) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerDamaged>(EventOnLocalPlayerDamaged.ID);
@@ -5355,7 +5355,7 @@ namespace Quantum {
         ev.HealthDamage = HealthDamage;
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
-        ev.MaxInterimArmour = MaxInterimArmour;
+        ev.InterimArmourCapacity = InterimArmourCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6807,7 +6807,7 @@ namespace Quantum {
     public UInt32 HealthDamage;
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
-    public Int32 MaxInterimArmour;
+    public Int32 InterimArmourCapacity;
     protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6832,7 +6832,7 @@ namespace Quantum {
         hash = hash * 31 + HealthDamage.GetHashCode();
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + MaxInterimArmour.GetHashCode();
+        hash = hash * 31 + InterimArmourCapacity.GetHashCode();
         return hash;
       }
     }
@@ -7223,7 +7223,7 @@ namespace Quantum {
     public UInt32 HealthDamage;
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
-    public Int32 MaxInterimArmour;
+    public Int32 InterimArmourCapacity;
     protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7248,7 +7248,7 @@ namespace Quantum {
         hash = hash * 31 + HealthDamage.GetHashCode();
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + MaxInterimArmour.GetHashCode();
+        hash = hash * 31 + InterimArmourCapacity.GetHashCode();
         return hash;
       }
     }

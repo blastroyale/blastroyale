@@ -86,7 +86,6 @@ namespace Quantum
 			f.ResolveList(Modifiers).Add(modifier);
 		}
 
-
 		/// <summary>
 		/// Sets the entity interim armour based on the given <paramref name="amount"/>
 		/// </summary>
@@ -105,7 +104,7 @@ namespace Quantum
 				                                currentShieldCapacity);
 			}
 		}
-		
+
 		/// <summary>
 		/// Gives the given interim armour <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// This interim armour gain was induced by the given <paramref name="attacker"/>.
@@ -208,7 +207,7 @@ namespace Quantum
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			var previousInterimArmour = CurrentInterimArmour;
-			var CurrentShieldCapacity = Values[(int)StatType.InterimArmour].StatValue.AsInt;
+			var currentShieldCapacity = Values[(int)StatType.InterimArmour].StatValue.AsInt;
 
 			if (IsImmune)
 			{
@@ -223,7 +222,7 @@ namespace Quantum
 				currentDamageAmount = Math.Max(currentDamageAmount - previousInterimArmour, 0);
 
 				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
-				                                CurrentShieldCapacity);
+				                                currentShieldCapacity);
 			}
 
 			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
@@ -232,9 +231,9 @@ namespace Quantum
 				var healthDamage = (uint) currentDamageAmount;
 
 				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
-				                         healthDamage, damageAmount, maxHealth, CurrentShieldCapacity);
+				                         healthDamage, damageAmount, maxHealth, currentShieldCapacity);
 				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
-				                              healthDamage, damageAmount, maxHealth, CurrentShieldCapacity);
+				                              healthDamage, damageAmount, maxHealth, currentShieldCapacity);
 			}
 
 			if (currentDamageAmount <= 0)

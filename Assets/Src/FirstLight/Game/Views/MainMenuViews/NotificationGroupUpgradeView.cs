@@ -10,21 +10,20 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class NotificationGroupUpgradeView : NotificationUpgradeViewBase
 	{
 		[SerializeField] protected GameIdGroup _groupId;
-		
+
 		/// <inheritdoc />
 		public override void UpdateState()
 		{
 			SetNotificationState(CheckGroup());
 		}
-		
+
 		protected virtual bool CheckGroup()
 		{
 			var numInGroup = 0;
 			var sc = DataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.SC);
 
-			for (var i = 0; i < DataProvider.EquipmentDataProvider.Inventory.Count; i++)
+			foreach (var (id, equipment) in DataProvider.EquipmentDataProvider.Inventory)
 			{
-				var equipment = DataProvider.EquipmentDataProvider.Inventory[i];
 				var upgradeCost = DataProvider.EquipmentDataProvider.GetUpgradeCost(equipment);
 
 				if (!equipment.IsMaxLevel() && equipment.GameId.IsInGroup(_groupId) && sc >= upgradeCost)
@@ -33,15 +32,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 				}
 			}
 
-			NotificationText.SetText(numInGroup.ToString() );
-			
+			NotificationText.SetText(numInGroup.ToString());
+
 			return numInGroup > 0;
 		}
 
-		protected override void OnCurrencyChanged(GameId currency, ulong newAmount, ulong change, ObservableUpdateType updateType)
+		protected override void OnCurrencyChanged(GameId currency, ulong newAmount, ulong change,
+		                                          ObservableUpdateType updateType)
 		{
 			SetNotificationState(CheckGroup());
 		}
-		
 	}
 }

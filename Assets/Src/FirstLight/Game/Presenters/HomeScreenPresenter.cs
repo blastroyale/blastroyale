@@ -80,22 +80,11 @@ namespace FirstLight.Game.Presenters
 
 			_playOfflineDebugButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
-			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
 		}
 
 		private void OnDestroy()
 		{
 			Services?.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		private void OnXpSliderAnimationCompleted(uint previousLevel, uint newLevel)
-		{
-			var unlockSystems = _gameDataProvider.PlayerDataProvider.GetUnlockSystems(newLevel, previousLevel + 1);
-
-			foreach (var system in unlockSystems)
-			{
-				_newFeaturesView.QueueNewSystemPopUp(system, UnlockSystemButton);
-			}
 		}
 
 		protected override void OnOpened()

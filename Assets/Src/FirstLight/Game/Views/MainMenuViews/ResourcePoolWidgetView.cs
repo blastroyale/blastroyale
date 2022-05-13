@@ -70,6 +70,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 				
 				uint restockForTime = _currentPoolData.RestockWithoutTimeUpdate(_poolConfig) + 1;
 
+				yield return 
+				
 				_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * _poolConfig.RestockIntervalMinutes);
 				_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
 				

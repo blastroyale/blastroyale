@@ -59,6 +59,8 @@ Material:
     - FlowStrength: 0.0075
     - FoamDistance: 1.45
     - Size: 2
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - contrast: 2.33
     m_Colors:
     - DarkFoamColor: {r: 0.5251572, g: 0.73767436, b: 1, a: 1}

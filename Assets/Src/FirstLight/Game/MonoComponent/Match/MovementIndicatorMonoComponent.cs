@@ -9,7 +9,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class MovementIndicatorMonoComponent: MonoBehaviour, ITransformIndicator
 	{
-		[SerializeField, Required] private VisualEffect _indicator;
+		[SerializeField, Required] private GameObject _indicator;
 		[SerializeField] private float _playerDistance = 2f;
 		[SerializeField] private float _localHeight = 0.025f;
 
@@ -17,11 +17,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		private Vector3 _position;
 
 		/// <inheritdoc />
-		public bool VisualState => _indicator.enabled;
+		public bool VisualState => _indicator.activeSelf;
 		
 		private void Awake()
 		{
-			_indicator.enabled = false;
+			_indicator.SetActive(false);
 			_playerTransform ??= transform;
 		}
 
@@ -33,7 +33,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualState(bool isVisible, bool isEmphasized = false)
 		{
-			_indicator.enabled = isVisible;
+			_indicator.SetActive(isVisible);;
 		}
 
 		/// <inheritdoc />

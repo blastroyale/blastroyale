@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
@@ -164,22 +163,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			_equippedItems.Remove(slot);
-		}
-
-		/// <inheritdoc />
-		public void Upgrade(UniqueId itemId)
-		{
-			var equipment = _inventory[itemId];
-
-			if (equipment.Level == equipment.MaxLevel)
-			{
-				throw new
-					LogicException($"The given item with the id {itemId} already reached the max level of {equipment.MaxLevel}");
-			}
-
-			equipment.Level++;
-
-			_inventory[itemId] = equipment;
 		}
 	}
 }

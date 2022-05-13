@@ -135,7 +135,6 @@ namespace FirstLight.Game.StateMachines
 				LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<CardRarityAssetConfigs>(AddressableId.Configs_CardRarityAssetConfigs, asset => _assetService.AddConfigs(asset)),
 			};
 		}
 

@@ -18,8 +18,8 @@ namespace Quantum
 		public uint ShrinkingDamage;
 		public int PlayerDefaultHealth;
 		public FP PlayerDefaultSpeed;
-		public int PlayerMaxInterimArmour;
-		public int PlayerStartingInterimArmour;
+		public int PlayerMaxInterimArmourCapacity;
+		public int PlayerStartingInterimArmourCapacity;
 		public int CoinsPerRank;
 		public int XpPerRank;
 		public FP DeathSignificance;

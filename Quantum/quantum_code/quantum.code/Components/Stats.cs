@@ -93,20 +93,18 @@ namespace Quantum
 		internal void SetInterimArmour(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
 			var previousInterimArmour = CurrentInterimArmour;
-			var CurrentShieldCapacity = Values[(int)StatType.InterimArmour].StatValue.AsInt;
+			var currentShieldCapacity = Values[(int)StatType.InterimArmour].StatValue.AsInt;
 
-			CurrentInterimArmour = amount > CurrentShieldCapacity
-									   ? CurrentShieldCapacity
+			CurrentInterimArmour = amount > currentShieldCapacity
+									   ? currentShieldCapacity
 									   : amount;
 			
 			if (CurrentInterimArmour != previousInterimArmour)
 			{
 				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
-												CurrentShieldCapacity);
+				                                currentShieldCapacity);
 			}
 		}
-
-
 		
 		/// <summary>
 		/// Gives the given interim armour <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
@@ -125,41 +123,40 @@ namespace Quantum
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
 		/// or non existent anymore.
 		/// </summary>
-		internal void IncreaseShieldCapacity(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		internal void GainShieldCapacity(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
-
 			var interimArmour = Values[(int)StatType.InterimArmour];
-			var maxShieldCapacity = interimArmour.BaseValue.AsInt;
-			var modifierId = ++f.Global->ModifierIdCount;
+			var currentShieldCapacity = interimArmour.StatValue;
+			var maxShieldCapacity = interimArmour.BaseValue;
 
-			if (interimArmour.StatValue.AsInt == maxShieldCapacity)
-				return;
-
-			var modValue = interimArmour.StatValue.AsInt + (maxShieldCapacity * (FP)amount / (FP)maxShieldCapacity);
-			if (modValue > maxShieldCapacity)
+			if (currentShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
-				amount = (modValue.AsInt) - maxShieldCapacity;
+				return;
+			}
+
+			var modifierId = ++f.Global->ModifierIdCount;
+			var modifierPower = (FP) amount / maxShieldCapacity;
+			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
+			if (newCapacityValue > maxShieldCapacity)
+			{
+				newCapacityValue = maxShieldCapacity;
+				modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
 			}
 
 			var capacityModifer = new Modifier
 			{
 				Id = modifierId,
 				Type = StatType.InterimArmour,
-				Power = (FP)amount / (FP)maxShieldCapacity,
+				Power = modifierPower,
 				Duration = FP.MaxValue,
 				EndTime = FP.MaxValue,
 				IsNegative = false
 			};
 
 			AddModifier(f, capacityModifer);
-			interimArmour = Values[(int)StatType.InterimArmour];
-			if (interimArmour.StatValue > maxShieldCapacity)
-			{
-				interimArmour.StatValue = maxShieldCapacity;
-			}
 
 			f.Events.OnInterimArmourChanged(entity, attacker, CurrentInterimArmour, CurrentInterimArmour,
-												interimArmour.StatValue.AsInt);
+			                                newCapacityValue.AsInt);
 		}
 
 		/// <summary>

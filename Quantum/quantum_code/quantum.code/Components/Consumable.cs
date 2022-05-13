@@ -46,7 +46,7 @@ namespace Quantum
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainInterimArmour(f, playerEntity, entity, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.ShieldCapacity:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->IncreaseShieldCapacity(f, playerEntity, entity, consumable.Amount.AsInt);
+					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShieldCapacity(f, playerEntity, entity, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.Stash:
 					HandleCollectedStash(f, entity, consumable.Amount.AsInt);

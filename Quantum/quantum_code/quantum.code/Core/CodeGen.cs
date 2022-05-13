@@ -5002,14 +5002,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnInterimArmourChanged OnInterimArmourChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousInterimArmour, Int32 CurrentInterimArmour, Int32 MaxInterimArmour) {
+      public EventOnInterimArmourChanged OnInterimArmourChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousInterimArmour, Int32 CurrentInterimArmour, Int32 InterimArmourCapacity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnInterimArmourChanged>(EventOnInterimArmourChanged.ID);
         ev.Entity = Entity;
         ev.Attacker = Attacker;
         ev.PreviousInterimArmour = PreviousInterimArmour;
         ev.CurrentInterimArmour = CurrentInterimArmour;
-        ev.MaxInterimArmour = MaxInterimArmour;
+        ev.InterimArmourCapacity = InterimArmourCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6164,7 +6164,7 @@ namespace Quantum {
     public EntityRef Attacker;
     public Int32 PreviousInterimArmour;
     public Int32 CurrentInterimArmour;
-    public Int32 MaxInterimArmour;
+    public Int32 InterimArmourCapacity;
     protected EventOnInterimArmourChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6186,7 +6186,7 @@ namespace Quantum {
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + PreviousInterimArmour.GetHashCode();
         hash = hash * 31 + CurrentInterimArmour.GetHashCode();
-        hash = hash * 31 + MaxInterimArmour.GetHashCode();
+        hash = hash * 31 + InterimArmourCapacity.GetHashCode();
         return hash;
       }
     }

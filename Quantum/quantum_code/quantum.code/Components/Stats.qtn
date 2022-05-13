@@ -54,7 +54,7 @@ synced event OnInterimArmourChanged
 	entity_ref Attacker;
 	Int32 PreviousInterimArmour;
 	Int32 CurrentInterimArmour;
-	Int32 MaxInterimArmour;
+	Int32 InterimArmourCapacity;
 }
 
 synced event OnHealthIsZero

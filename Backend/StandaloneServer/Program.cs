@@ -31,50 +31,32 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var playerId = functionRequest?.AuthenticationContext.PlayFabId;
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
-
-	if (functionRequest.FunctionName == "SetupPlayerCommand")
+	BackendLogicResult result = null;
+	if (functionRequest?.FunctionName == "SetupPlayerCommand")
 	{
 		var serverData = app.Services.GetService<IPlayerSetupService>().GetInitialState(playerId);
 		app.Services.GetService<IServerStateService>().UpdatePlayerState(playerId, serverData);
-		
-		var res = new ExecuteFunctionResult()
-		{
-			FunctionName = "ExecuteCommand",
-			FunctionResult = new PlayFabResult<BackendLogicResult?>
-			{
-				Result =  new BackendLogicResult
-				{
-					PlayFabId = playerId,
-					Data = serverData
-				}
-			}
-		};
-		ctx.Response.StatusCode = 200;
-		await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()
-		{
-			code = 200,
-			status = "OK",
-			data = res
-		}));
+		result = new BackendLogicResult { PlayFabId = playerId, Data = serverData };
 	}
 	else
 	{
-		var res = new ExecuteFunctionResult()
-		{
-			FunctionName = "ExecuteCommand",
-			FunctionResult = new PlayFabResult<BackendLogicResult?>
-			{
-				Result =  app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest)
-			}
-		};
-		ctx.Response.StatusCode = 200;
-		await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()
-		{
-			code = 200,
-			status = "OK",
-			data = res
-		}));
+		result = app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest);
 	}
+	var res = new ExecuteFunctionResult()
+	{
+		FunctionName = "ExecuteCommand",
+		FunctionResult = new PlayFabResult<BackendLogicResult?>
+		{
+			Result = result
+		}
+	};
+	ctx.Response.StatusCode = 200;
+	await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()
+	{
+		code = 200,
+		status = "OK",
+		data = res
+	}));
 });
 
 app.Run();

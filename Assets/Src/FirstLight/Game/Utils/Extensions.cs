@@ -55,6 +55,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Requests the localized text representing the given <paramref name="stat"/>
+		/// </summary>
+		public static string GetTranslation(this EquipmentStatType stat)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+		}
+
+		/// <summary>
 		/// Get's the translation term of the given <paramref name="id"/>
 		/// </summary>
 		public static string GetTranslationTerm(this GameId id)

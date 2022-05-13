@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -36,7 +37,7 @@ namespace FirstLight.Game.Logic
 		/// <paramref name="slot"/> type.
 		/// </summary>
 		List<Equipment> FindInInventory(GameIdGroup slot);
-		
+
 		/// <summary>
 		/// TODO
 		/// </summary>
@@ -50,26 +51,31 @@ namespace FirstLight.Game.Logic
 		bool IsEquipped(UniqueId itemId);
 
 		/// <summary>
-		/// TODO
+		/// Requests the power value of an equipment item.
 		/// </summary>
-		/// <param name="equipment"></param>
-		/// <returns></returns>
 		uint GetItemPower(Equipment equipment);
 
 		/// <summary>
 		/// Requests the total amount of power granted by all currently equipped items.
 		/// </summary>
 		uint GetTotalEquippedItemPower();
+
+		/// <summary>
+		/// Request the stats a specific piece of equipment has, with an optional level
+		/// parameter (Leave default (0) to use Equipment leve).
+		/// TODO: This should be rethought.
+		/// </summary>
+		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0);
 	}
 
 	/// <inheritdoc />
 	public interface IEquipmentLogic : IEquipmentDataProvider
 	{
 		/// <summary>
-		/// TODO
+		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
 		/// <param name="equipment"></param>
-		void AddToInventory(Equipment equipment);
+		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
 		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.

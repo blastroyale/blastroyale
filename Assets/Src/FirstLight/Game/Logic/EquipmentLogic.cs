@@ -6,7 +6,6 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using Quantum;
 
@@ -87,10 +86,52 @@ namespace FirstLight.Game.Logic
 			return power;
 		}
 
-		public void AddToInventory(Equipment equipment)
+		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0)
+		{
+			var stats = new Dictionary<EquipmentStatType, float>();
+			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+
+			if (level > 0)
+			{
+				equipment.Level = level;
+			}
+
+			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
+			{
+				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
+				var power = QuantumStatCalculator.CalculateWeaponPower(gameConfig, weaponConfig, equipment);
+
+				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
+				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
+				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
+				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
+				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
+				stats.Add(EquipmentStatType.Damage, power.AsFloat);
+			}
+			else
+			{
+				var gearConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGearConfig>((int) equipment.GameId);
+
+				stats.Add(EquipmentStatType.Hp,
+				          QuantumStatCalculator.CalculateGearStat(gameConfig, gearConfig, equipment, StatType.Health)
+				                               .AsFloat);
+				stats.Add(EquipmentStatType.Speed,
+				          QuantumStatCalculator.CalculateGearStat(gameConfig, gearConfig, equipment, StatType.Speed)
+				                               .AsFloat);
+				stats.Add(EquipmentStatType.Armor,
+				          QuantumStatCalculator.CalculateGearStat(gameConfig, gearConfig, equipment, StatType.Armour)
+				                               .AsFloat);
+			}
+
+			return stats;
+		}
+
+		public UniqueId AddToInventory(Equipment equipment)
 		{
 			// TODO: Is this ok?
-			_inventory.Add(GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId), equipment);
+			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
+			_inventory.Add(id, equipment);
+			return id;
 		}
 
 		/// <inheritdoc />

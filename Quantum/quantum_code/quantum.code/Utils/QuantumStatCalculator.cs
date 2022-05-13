@@ -29,26 +29,36 @@ namespace Quantum
 
 				var gearConfig = f.GearConfigs.GetConfig(item.GameId);
 
-				var baseHealth = CalculateBaseGearStat(gearConfig, gameConfig, StatType.Health);
-				health += ApplyModifiers(baseHealth, item, gameConfig, StatType.Health).AsInt;
-
-				var baseSpeed = CalculateBaseGearStat(gearConfig, gameConfig, StatType.Speed);
-				speed += ApplyModifiers(baseSpeed, item, gameConfig, StatType.Speed).AsInt;
-
-				var baseArmour = CalculateBaseGearStat(gearConfig, gameConfig, StatType.Armour);
-				armour += ApplyModifiers(baseArmour, item, gameConfig, StatType.Armour).AsInt;
+				health += CalculateGearStat(gameConfig, gearConfig, item, StatType.Health).AsInt;
+				speed += CalculateGearStat(gameConfig, gearConfig, item, StatType.Speed);
+				armour += CalculateGearStat(gameConfig, gearConfig, item, StatType.Armour).AsInt;
 			}
+		}
+
+		/// <summary>
+		/// Calculates a single stat for a single gear item.
+		/// </summary>
+		public static FP CalculateGearStat(QuantumGameConfig gameConfig, QuantumGearConfig gearConfig,
+		                                   Equipment equipment, StatType stat)
+		{
+			var baseHealth = CalculateBaseGearStat(gearConfig, gameConfig, stat);
+			return ApplyModifiers(baseHealth, equipment, gameConfig, stat);
 		}
 
 		/// <summary>
 		/// Calculates the weapon power based on weapon stats and NFT config.
 		/// </summary>
+		public static FP CalculateWeaponPower(QuantumGameConfig gameConfigs, QuantumWeaponConfig weaponConfig,
+		                                      Equipment weapon)
+		{
+			var basePower = CalculateBaseWeaponPower(weaponConfig, gameConfigs);
+			return ApplyModifiers(basePower, weapon, gameConfigs, StatType.Power);
+		}
+
+		/// <inheritdoc cref="CalculateWeaponPower(Quantum.QuantumGameConfig,Quantum.QuantumWeaponConfig,Quantum.Equipment)"/>
 		public static FP CalculateWeaponPower(Frame f, Equipment weapon)
 		{
-			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-
-			var basePower = CalculateBaseWeaponPower(weaponConfig, f.GameConfig);
-			return ApplyModifiers(basePower, weapon, f.GameConfig, StatType.Power);
+			return CalculateWeaponPower(f.GameConfig, f.WeaponConfigs.GetConfig(weapon.GameId), weapon);
 		}
 
 		/// <summary>

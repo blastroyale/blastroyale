@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using FirstLight.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -112,45 +113,46 @@ public partial class SROptions
 			
 		timeManipulator.AddTime((float) (timeNow.AddMinutes(1) - timeNow).TotalSeconds);
 	}
-		
+
 	[Category("Cheats")]
+	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 	public void UnlockAllEquipment()
 	{
-		// TODO mihak
-		// var services = MainInstaller.Resolve<IGameServices>();
-		// var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		// var dataProvider = services.DataSaver as IDataService;
-		// var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		// var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-		// var converter = new StringEnumConverter();
-		//
-		// foreach (var config in weaponConfigs)
-		// {
-		// 	gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
-		// }
-		//
-		// foreach (var config in gearConfigs)
-		// {
-		// 	gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
-		// }
-		//
-		// var data = new Dictionary<string, string>();
-		// ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
-		// ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
-		// ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-		// var request = new ExecuteFunctionRequest
-		// {
-		// 	FunctionName = "ExecuteCommand",
-		// 	GeneratePlayStreamEvent = true,
-		// 	FunctionParameter = new LogicRequest
-		// 	{
-		// 		Command = "CheatUnlockAllEquipments",
-		// 		Data = data
-		// 	},
-		// 	AuthenticationContext = PlayFabSettings.staticPlayer
-		// };
-		//
-		// PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var dataProvider = services.DataSaver as IDataService;
+		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
+		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+
+		foreach (var config in weaponConfigs)
+		{
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
+			                                                      level: 3));
+		}
+
+		foreach (var config in gearConfigs)
+		{
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
+			                                                      level: 3));
+		}
+
+		var data = new Dictionary<string, string>();
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
+		var request = new ExecuteFunctionRequest
+		{
+			FunctionName = "ExecuteCommand",
+			GeneratePlayStreamEvent = true,
+			FunctionParameter = new LogicRequest
+			{
+				Command = "CheatUnlockAllEquipments",
+				Data = data
+			},
+			AuthenticationContext = PlayFabSettings.staticPlayer
+		};
+
+		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 		
 	[Category("Cheats")]

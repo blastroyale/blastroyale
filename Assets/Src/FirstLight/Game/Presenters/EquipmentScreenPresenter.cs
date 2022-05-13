@@ -183,16 +183,10 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			// var maxLevelInfo = equipmentProvider.GetEquipmentInfo(info.DataInfo.GameId, info.DataInfo.Data.Rarity,
-			//                                                       info.DataInfo.Data.Adjective,
-			//                                                       info.DataInfo.Data.Material,
-			//                                                       info.DataInfo.Data.Manufacturer,
-			//                                                       info.DataInfo.Data.Faction, info.MaxLevel,
-			//                                                       info.DataInfo.Data.Grade);
 			var descriptionID = equipment.GameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
 			var isWeapon = equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
-			//SetStatInfoData(info, maxLevelInfo);
+			SetStatInfoData(equipment);
 			SetEquipButtonStatus();
 
 			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, power.ToString());
@@ -284,110 +278,66 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		// private void SetStatInfoData(EquipmentInfo selectedInfo, EquipmentInfo maxLevelInfo)
-		// {
-		// 	var selectedStats = selectedInfo.Stats.ToList();
-		//
-		// 	// If we selected a different weapon to the one equipped, then we want to compare them.
-		// 	if (_gameDataProvider.EquipmentDataProvider.EquippedItems.TryGetValue(Data.EquipmentSlot,
-		// 		    out var equippedId) && equippedId != _uniqueId)
-		// 	{
-		// 		var equippedInfo = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(equippedId);
-		// 		var equippedStats = equippedInfo.Stats.ToList();
-		//
-		// 		for (var i = 0; i < selectedStats.Count; i++)
-		// 		{
-		// 			var statType = selectedStats[i].Key;
-		// 			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
-		// 			var statsBeautifier = statType == EquipmentStatType.Speed
-		// 				                      ? GameConstants.MOVEMENT_SPEED_BEAUTIFIER
-		// 				                      : 1f;
-		// 			var selectedValue = selectedStats[i].Value * statsBeautifier;
-		// 			var equippedValue = equippedStats[i].Value * statsBeautifier;
-		// 			var statText = selectedValue.ToString(format);
-		// 			var delta = statType == EquipmentStatType.ReloadSpeed
-		// 				            ? selectedValue - equippedValue
-		// 				            : Mathf.RoundToInt(selectedValue) - Mathf.RoundToInt(equippedValue);
-		//
-		// 			if (selectedValue > 0 && (statType == EquipmentStatType.SpecialId0 ||
-		// 			                          statType == EquipmentStatType.SpecialId1))
-		// 			{
-		// 				GetSpecialIconInfo(selectedStats[i].Key, _statSpecialInfoViewPool.Spawn(),
-		// 				                   (GameId) selectedValue);
-		// 			}
-		// 			else if (statType != EquipmentStatType.AttackCooldown &&
-		// 			         statType != EquipmentStatType.ProjectileSpeed)
-		// 			{
-		// 				_statInfoViewPool.Spawn().SetComparisonInfo(statType.GetTranslation(), statText, delta,
-		// 				                                            statType, equippedValue, selectedValue);
-		// 			}
-		// 		}
-		//
-		// 		return;
-		// 	}
-		//
-		// 	for (int i = 0; i < selectedStats.Count; i++)
-		// 	{
-		// 		var statType = selectedStats[i].Key;
-		//
-		// 		if (statType == EquipmentStatType.AttackCooldown || statType == EquipmentStatType.ProjectileSpeed)
-		// 		{
-		// 			continue;
-		// 		}
-		//
-		// 		if (selectedStats[i].Value > 0 &&
-		// 		    (statType == EquipmentStatType.SpecialId0 || statType == EquipmentStatType.SpecialId1))
-		// 		{
-		// 			GetSpecialIconInfo(selectedStats[i].Key, _statSpecialInfoViewPool.Spawn(),
-		// 			                   (GameId) selectedStats[i].Value);
-		// 		}
-		// 		// Show the player the current stats compared to the stats when this piece of Equipment is upgraded.
-		// 		else
-		// 		{
-		// 			var statsBeautifier = statType == EquipmentStatType.Speed
-		// 				                      ? GameConstants.MOVEMENT_SPEED_BEAUTIFIER
-		// 				                      : 1f;
-		// 			var selectedValue = selectedStats[i].Value * statsBeautifier;
-		//
-		// 			if (selectedInfo.IsMaxLevel)
-		// 			{
-		// 				_statInfoViewPool.Spawn().SetInfo(statType, statType.GetTranslation(), selectedValue,
-		// 				                                  maxLevelInfo.Stats[statType]);
-		// 				continue;
-		// 			}
-		//
-		// 			var infoAtNextLevel =
-		// 				_gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(selectedInfo.DataInfo.GameId,
-		// 					selectedInfo.DataInfo.Data.Rarity, selectedInfo.DataInfo.Data.Adjective,
-		// 					selectedInfo.DataInfo.Data.Material, selectedInfo.DataInfo.Data.Manufacturer,
-		// 					selectedInfo.DataInfo.Data.Faction, selectedInfo.DataInfo.Data.Level + 1,
-		// 					selectedInfo.DataInfo.Data.Grade);
-		// 			var equippedStats = infoAtNextLevel.Stats.ToList();
-		// 			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
-		// 			var equippedValue = equippedStats[i].Value * statsBeautifier;
-		// 			var statText = selectedValue.ToString(format);
-		// 			var delta = statType == EquipmentStatType.ReloadSpeed
-		// 				            ? equippedValue - selectedValue
-		// 				            : Mathf.RoundToInt(equippedValue) - Mathf.RoundToInt(selectedValue);
-		//
-		// 			_statInfoViewPool.Spawn().SetComparisonInfo(statType.GetTranslation(), statText, delta,
-		// 			                                            statType, selectedValue, equippedValue);
-		// 		}
-		// 	}
-		// }
+		private void SetStatInfoData(Equipment equipment)
+		{
+			var stats = _gameDataProvider.EquipmentDataProvider.GetEquipmentStats(equipment);
+			var statsAtMaxLevel =
+				_gameDataProvider.EquipmentDataProvider.GetEquipmentStats(equipment, equipment.MaxLevel);
+			var statsAtNextLevel = equipment.IsMaxLevel()
+				                       ? statsAtMaxLevel
+				                       : _gameDataProvider.EquipmentDataProvider.GetEquipmentStats(equipment,
+					                       equipment.Level + 1);
 
-		// private async void GetSpecialIconInfo(EquipmentStatType key, EquipmentStatSpecialInfoView slotInfo,
-		//                                       GameId specialId)
-		// {
-		// 	var specialType = Services.ConfigsProvider.GetConfig<QuantumSpecialConfig>((int) specialId).SpecialType;
-		// 	var sprite = await Services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialType, false);
-		// 	var title = key == EquipmentStatType.SpecialId0
-		// 		            ? ScriptLocalization.General.PrimarySpecial
-		// 		            : ScriptLocalization.General.SecondarySpecial;
-		//
-		// 	slotInfo.SetInfo(title, specialId, sprite);
-		// }
+			foreach (var (stat, value) in stats)
+			{
+				if (stat is EquipmentStatType.AttackCooldown or EquipmentStatType.ProjectileSpeed)
+				{
+					continue;
+				}
 
+				if (value > 0 && stat is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
+				{
+					GetSpecialIconInfo(stat, _statSpecialInfoViewPool.Spawn(), (GameId) value);
+				}
+				// Show the player the current stats compared to the stats when this piece of Equipment is upgraded.
+				else
+				{
+					var statsBeautifier = stat == EquipmentStatType.Speed
+						                      ? GameConstants.MOVEMENT_SPEED_BEAUTIFIER
+						                      : 1f;
+					var selectedValue = value * statsBeautifier;
+
+					if (equipment.IsMaxLevel())
+					{
+						_statInfoViewPool.Spawn().SetInfo(stat, stat.GetTranslation(), selectedValue,
+						                                  statsAtMaxLevel[stat]);
+						continue;
+					}
+
+					var format = stat == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
+					var equippedValue = statsAtNextLevel[stat] * statsBeautifier;
+					var statText = selectedValue.ToString(format);
+					var delta = stat == EquipmentStatType.ReloadSpeed
+						            ? equippedValue - selectedValue
+						            : Mathf.RoundToInt(equippedValue) - Mathf.RoundToInt(selectedValue);
+
+					_statInfoViewPool.Spawn().SetComparisonInfo(stat.GetTranslation(), statText, delta,
+					                                            stat, selectedValue, equippedValue);
+				}
+			}
+		}
+
+		private async void GetSpecialIconInfo(EquipmentStatType key, EquipmentStatSpecialInfoView slotInfo,
+		                                      GameId specialId)
+		{
+			var specialType = Services.ConfigsProvider.GetConfig<QuantumSpecialConfig>((int) specialId).SpecialType;
+			var sprite = await Services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialType, false);
+			var title = key == EquipmentStatType.SpecialId0
+				            ? ScriptLocalization.General.PrimarySpecial
+				            : ScriptLocalization.General.SecondarySpecial;
+
+			slotInfo.SetInfo(title, specialId, sprite);
+		}
 
 		private void SetEquipButtonStatus()
 		{
@@ -496,6 +446,7 @@ namespace FirstLight.Game.Presenters
 
 				var viewData = new EquipmentGridItemView.EquipmentGridItemData
 				{
+					Id = id,
 					Equipment = equipment,
 					IsSelected = id == _uniqueId,
 					PlayViewNotificationAnimation = _showNotifications.Contains(id),

@@ -1,5 +1,6 @@
 using System.Text;
 using Backend.Game;
+using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using PlayFab;
 using PlayFab.CloudScriptModels;
@@ -30,12 +31,23 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var playerId = functionRequest?.AuthenticationContext.PlayFabId;
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
+	BackendLogicResult result = null;
+	if (functionRequest?.FunctionName == "SetupPlayerCommand")
+	{
+		var serverData = app.Services.GetService<IPlayerSetupService>().GetInitialState(playerId);
+		app.Services.GetService<IServerStateService>().UpdatePlayerState(playerId, serverData);
+		result = new BackendLogicResult { PlayFabId = playerId, Data = serverData };
+	}
+	else
+	{
+		result = app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest);
+	}
 	var res = new ExecuteFunctionResult()
 	{
 		FunctionName = "ExecuteCommand",
 		FunctionResult = new PlayFabResult<BackendLogicResult?>
 		{
-			Result =  app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest)
+			Result = result
 		}
 	};
 	ctx.Response.StatusCode = 200;

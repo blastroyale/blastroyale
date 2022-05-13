@@ -431,9 +431,9 @@ namespace FirstLight.Game.StateMachines
 			}
 			else
 			{
-				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
-				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
-				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromClientData<RngData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromClientData<IdData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromClientData<PlayerData>(data));
 			}
 
 			activity.Complete();

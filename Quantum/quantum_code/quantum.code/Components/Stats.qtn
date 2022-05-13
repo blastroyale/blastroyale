@@ -4,7 +4,6 @@ component Stats
 {
 	Int32 CurrentHealth;
 	Int32 CurrentInterimArmour;
-	Int32 CurrentShieldCapacity;
 	bool IsImmune;
 	array<StatData>[TOTAL_STATS] Values;
 	list<Modifier> Modifiers;
@@ -56,14 +55,6 @@ synced event OnInterimArmourChanged
 	Int32 PreviousInterimArmour;
 	Int32 CurrentInterimArmour;
 	Int32 MaxInterimArmour;
-}
-
-synced event OnShieldCapacityChanged
-{
-	entity_ref Entity;
-	Int32 PreviousShieldCapacity;
-	Int32 CurrentShieldCapacity;
-	Int32 MaxShieldCapacity;
 }
 
 synced event OnHealthIsZero

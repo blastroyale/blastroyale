@@ -10,7 +10,4 @@ namespace FirstLight.Game.Messages
 	public struct TrophyRoadRewardCollectedMessage : IMessage { public uint Level; public RewardData? Reward; }
 	public struct UnclaimedRewardsCollectedMessage : IMessage { public List<RewardData> Rewards; }
 	public struct GameCompletedRewardsMessage : IMessage { public List<RewardData> Rewards; }
-	public struct ResourcePoolRestockedMessage : IMessage { public ResourcePoolData PoolRestocked; }
-	public struct AwardedResourceFromPoolMessage : IMessage { public GameId ResourceId; public ulong AmountAwarded; }
-	
 }

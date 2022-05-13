@@ -67,8 +67,7 @@ namespace FirstLight.Game.StateMachines
 			connectionCheck.Transition().Target(connectionWaitToMenu);
 
 			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
-
-			mainMenu.OnEnter(StartResourcePoolTimers);
+			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(connectionCheck);
@@ -78,8 +77,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<ResourcePoolRestockedMessage>(OnResourcePoolRestockedMessage);
-			_services.MessageBrokerService.Subscribe<AwardedResourceFromPoolMessage>(OnAwardedResourceFromPoolMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -90,48 +87,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsConnectedAndReady()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
-		}
-
-		private void OnResourcePoolRestockedMessage(ResourcePoolRestockedMessage msg)
-		{
-			StartResourcePoolTimers();
-		}
-		
-		private void OnAwardedResourceFromPoolMessage(AwardedResourceFromPoolMessage msg)
-		{
-			StartResourcePoolTimers();
-		}
-
-		private void StartResourcePoolTimers()
-		{
-			if (_csPoolTimerCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_csPoolTimerCoroutine);
-			}
-			
-			_csPoolTimerCoroutine = _services.CoroutineService.StartCoroutine(ResourcePoolCsTimerCoroutine());
-		}
-
-		private IEnumerator ResourcePoolCsTimerCoroutine()
-		{
-			var poolToObserve = GameId.CS;
-			var currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[poolToObserve];
-			var poolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
-			                          .FirstOrDefault(x => x.Id == poolToObserve);
-
-			var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes);
-
-			while (DateTime.UtcNow < nextRestockTime)
-			{
-				yield return null;
-			}
-
-			_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand
-			{
-				PoolId = GameId.CS,
-				PoolConfig = poolConfig,
-				ForceRestock = false
-			});
 		}
 	}
 }

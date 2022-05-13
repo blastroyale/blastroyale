@@ -1,4 +1,7 @@
-﻿using FirstLight.Game.Logic;
+﻿using System.Linq;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -20,15 +23,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private TextMeshProUGUI _coinsText;
 
 		private IGameDataProvider _dataProvider;
-
+		private IGameServices _services;
+		
 		/// <summary>
 		/// Set the information of this player entry ranking based on the given <paramref name="data"/> & <paramref name="awards"/>
 		/// </summary>
 		public void SetInfo(QuantumPlayerMatchData data, bool showExtra = true)
 		{
 			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
+			_services ??= MainInstaller.Resolve<IGameServices>();
+			
+			var csPoolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
+			                          .FirstOrDefault(x => x.Id == GameId.CS);
 
-			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
+			
+			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false, csPoolConfig);
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
 
 			_playerNameText.text = data.GetPlayerName();

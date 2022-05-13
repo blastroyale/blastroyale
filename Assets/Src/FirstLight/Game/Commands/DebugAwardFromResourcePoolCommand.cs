@@ -18,22 +18,15 @@ namespace FirstLight.Game.Commands
 	/// <summary>
 	/// Upgrades an Item from the player's current loadout.
 	/// </summary>
-	public struct AwardFromResourcePoolCommand : IGameCommand
+	public struct DebugGameCompleteRewardsCommand : IGameCommand
 	{
-		public GameId PoolId;
-		public ResourcePoolConfig PoolConfig;
-		public ulong AmountToAward;
+		public ResourcePoolConfig CsPoolConfig;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			ulong amountAwarded = gameLogic.CurrencyLogic.AwardFromResourcePool(AmountToAward, PoolId, PoolConfig);
-			
-			gameLogic.MessageBrokerService.Publish(new AwardedResourceFromPoolMessage
-			{
-				ResourceId = PoolId,
-				AmountAwarded = amountAwarded
-			});
+			var rewards = gameLogic.RewardLogic.DebugGiveMatchRewards(CsPoolConfig);
+			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}
 }

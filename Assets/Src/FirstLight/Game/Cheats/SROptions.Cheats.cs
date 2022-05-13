@@ -225,33 +225,15 @@ public partial class SROptions
 	}
 
 	[Category("Cheats")]
-	public void AwardCsFromPool()
+	public void SendGameCompleteCommand()
 	{
 		IGameServices services = MainInstaller.Resolve<IGameServices>();
-		ResourcePoolConfig poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
-		                                         .FirstOrDefault(x => x.Id == GameId.CS);
-		
-		services.CommandService.ExecuteCommand(new AwardFromResourcePoolCommand
-		{
-			PoolId = GameId.CS,
-			PoolConfig = poolConfig,
-			AmountToAward = 125
-		});
-	}
-	
-	[Category("Cheats")]
-	public void RestockCsPool()
-	{
-		IGameServices services = MainInstaller.Resolve<IGameServices>();
-		
 		ResourcePoolConfig poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
 		                                        .FirstOrDefault(x => x.Id == GameId.CS);
-		
-		services.CommandService.ExecuteCommand(new RestockResourcePoolCommand
+
+		services.CommandService.ExecuteCommand(new DebugGameCompleteRewardsCommand()
 		{
-			PoolId = GameId.CS,
-			PoolConfig = poolConfig,
-			ForceRestock = true
+			CsPoolConfig = poolConfig
 		});
 	}
 

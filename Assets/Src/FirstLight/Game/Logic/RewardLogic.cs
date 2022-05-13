@@ -17,11 +17,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
 		IReadOnlyList<RewardData> UnclaimedRewards { get; }
-		
+
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit, ResourcePoolConfig csPoolConfig);
 	}
 
 	/// <inheritdoc />
@@ -30,7 +30,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit, ResourcePoolConfig csPoolConfig);
+		
+		/// <summary>
+		/// DEBUG Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
+		/// </summary>
+		List<RewardData> DebugGiveMatchRewards(ResourcePoolConfig csPoolConfig);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -41,6 +46,12 @@ namespace FirstLight.Game.Logic
 		/// Awards the given <paramref name="reward"/> to the player
 		/// </summary>
 		RewardData GiveReward(RewardData reward);
+		
+		/// <summary>
+		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
+		/// </summary>
+		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
+		ulong AwardFromResourcePool(ulong amountToAward, GameId pool, ResourcePoolConfig poolConfig);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -54,7 +65,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit, ResourcePoolConfig csPoolConfig)
 		{
 			var rewards = new Dictionary<GameId, int>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
@@ -62,20 +73,39 @@ namespace FirstLight.Game.Logic
 			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
-			
+
 			if (currency > 0)
 			{
-				rewards.Add(GameId.HC, (int) currency);
+				// TODO - '100' is hard coded. Replace with NFT awarding calculations when ready
+				rewards.Add(GameId.CS, (int) AwardFromResourcePool((ulong)currency,GameId.CS, csPoolConfig));
 			}
 
 			return rewards;
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit, ResourcePoolConfig csPoolConfig)
 		{
-			var rewards = GetMatchRewards(matchData, didPlayerQuit);
+			var rewards = GetMatchRewards(matchData, didPlayerQuit, csPoolConfig);
 			var rewardsList = new List<RewardData>();
+
+			foreach (var reward in rewards)
+			{
+				var rewardData = new RewardData(reward.Key, reward.Value);
+				
+				rewardsList.Add(rewardData);
+				Data.UncollectedRewards.Add(rewardData);
+			}
+
+			return rewardsList;
+		}
+
+		public List<RewardData> DebugGiveMatchRewards(ResourcePoolConfig csPoolConfig)
+		{
+			var rewards = new Dictionary<GameId, int>();
+			var rewardsList = new List<RewardData>();
+			
+			rewards.Add(GameId.CS, (int) AwardFromResourcePool(75,GameId.CS, csPoolConfig));
 
 			foreach (var reward in rewards)
 			{
@@ -152,6 +182,20 @@ namespace FirstLight.Game.Logic
 			}
 
 			throw new LogicException($"There is no Loot Box with the given id {boxId} in the given tier {tier}");
+		}
+		
+		/// <inheritdoc />
+		public ulong AwardFromResourcePool(ulong amountToAward, GameId pool, ResourcePoolConfig poolConfig)
+		{
+			// Check and restock pool before any currency is drawn and awarded
+			GameLogic.CurrencyLogic.RestockResourcePool(GameId.CS, poolConfig);
+			
+			var currentPoolData = GameLogic.CurrencyLogic.ResourcePools[pool];
+			ulong amountWithdrawn = currentPoolData.Withdraw(amountToAward, poolConfig);
+			
+			Data.ResourcePools[pool] = currentPoolData;
+
+			return amountWithdrawn;
 		}
 	}
 }

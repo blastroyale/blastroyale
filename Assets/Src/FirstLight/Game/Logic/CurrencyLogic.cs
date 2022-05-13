@@ -19,7 +19,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's resource pool data. <see cref="IObservableDictionary"/>
 		/// </summary>
 		IObservableDictionaryReader<GameId, ResourcePoolData> ResourcePools { get; }
-
+		
 		/// <summary>
 		/// Requests the player's <seealso cref="GameIdGroup.Currency"/> <see cref="IObservableDictionary"/>
 		/// </summary>
@@ -53,18 +53,9 @@ namespace FirstLight.Game.Logic
 		void DeductCurrency(GameId currency, ulong amount);
 
 		/// <summary>
-		/// Tries to restock a resource pool of given <paramref name="pool"/> ID.
+		/// Tries to restock a given pool type (restocking dependent on last restock time, current time)
 		/// </summary>
-		/// /// <exception cref="LogicException">
-		/// Thrown when the given <paramref name="pool"/> is not ready to be restocked. 
-		/// </exception>
-		ResourcePoolData RestockResourcePool(GameId pool, ResourcePoolConfig poolConfig, bool forceRestock);
-
-		/// <summary>
-		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
-		/// </summary>
-		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
-		ulong AwardFromResourcePool(ulong amountToAward, GameId pool, ResourcePoolConfig poolConfig);
+		void RestockResourcePool(GameId poolType, ResourcePoolConfig poolConfig);
 	}
 
 	/// <inheritdoc cref="ICurrencyLogic"/>
@@ -76,7 +67,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ulong> Currencies => _currencies;
-
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ResourcePoolData> ResourcePools => _resourcePools;
 
@@ -134,33 +124,11 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public ResourcePoolData RestockResourcePool(GameId pool, ResourcePoolConfig poolConfig, bool forceRestock)
+		public void RestockResourcePool(GameId poolType, ResourcePoolConfig poolConfig)
 		{
-			var currentPoolData = ResourcePools[pool];
-
-			if (!forceRestock && DateTime.UtcNow < currentPoolData.LastPoolRestockTime)
-			{
-				throw new LogicException($"Resource pool of {pool} is not ready to be restocked. " +
-				                         $"Current UTC time: {DateTime.UtcNow}. " +
-				                         $"Restock time: {currentPoolData.LastPoolRestockTime.AddMinutes(poolConfig.RestockIntervalMinutes)}.");
-			}
-
-			currentPoolData.Restock(poolConfig, forceRestock);
-			Data.ResourcePools[pool] = currentPoolData;
-
-			return currentPoolData;
-		}
-
-		/// <inheritdoc />
-		public ulong AwardFromResourcePool(ulong amountToAward, GameId pool, ResourcePoolConfig poolConfig)
-		{
-			var currentPoolData = ResourcePools[pool];
-			ulong amountWithdrawn = currentPoolData.Withdraw(amountToAward, poolConfig);
-			
-			Data.ResourcePools[pool] = currentPoolData;
-			AddCurrency(pool, amountWithdrawn);
-
-			return amountWithdrawn;
+			var csPoolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
+			csPoolData.Restock(poolConfig);
+			Data.ResourcePools[poolType] = csPoolData;
 		}
 	}
 }

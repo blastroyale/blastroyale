@@ -28,6 +28,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private ResourcePoolConfig _poolConfig;
 		private ResourcePoolData _currentPoolData;
 		private DateTime _nextRestockTime;
+		private ulong _currentAmount;
 		
 		private void Awake()
 		{
@@ -40,8 +41,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnEnable()
 		{
-			_services.MessageBrokerService.Subscribe<ResourcePoolRestockedMessage>(OnResourcePoolRestockedMessage);
-			_services.MessageBrokerService.Subscribe<AwardedResourceFromPoolMessage>(OnAwardedResourceFromPoolMessage);
+			UpdateView();
+			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+		}
+
+		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage msg)
+		{
+			StopAllCoroutines();
 			UpdateView();
 		}
 
@@ -55,26 +61,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
 			_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(_poolConfig.RestockIntervalMinutes);
 
-			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount,
-			                                 _currentPoolData.CurrentResourceAmountInPool.ToString(),
-			                                 _poolConfig.PoolCapacity);
-
-			StartCoroutine(RestockTimeCoroutine());
+			StartCoroutine(ViewUpdateCoroutine());
 		}
 
-		private void OnResourcePoolRestockedMessage(ResourcePoolRestockedMessage msg)
-		{
-			StopAllCoroutines();
-			UpdateView();
-		}
-		
-		private void OnAwardedResourceFromPoolMessage(AwardedResourceFromPoolMessage msg)
-		{
-			StopAllCoroutines();
-			UpdateView();
-		}
-
-		private IEnumerator RestockTimeCoroutine()
+		private IEnumerator ViewUpdateCoroutine()
 		{
 			while (true)
 			{
@@ -83,6 +73,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime,
 				                                  _poolConfig.RestockPerInterval, timeDiffText);
+				
+				// Try restock the stored current pool data, and update view current amount
+				_currentPoolData.Restock(_poolConfig);
+				_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
+				
+				_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount,
+				                                 _currentAmount.ToString(),
+				                                 _poolConfig.PoolCapacity);
 				
 				var nextTimerUpdateTime = DateTime.UtcNow.AddMinutes(1);
 				

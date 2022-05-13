@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -18,13 +19,14 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct GameCompleteRewardsCommand : IGameCommand
 	{
+		public ResourcePoolConfig CsPoolConfig;
 		public QuantumPlayerMatchData PlayerMatchData;
 		public bool DidPlayerQuit;
 		
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit, CsPoolConfig);
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}

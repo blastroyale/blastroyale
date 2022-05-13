@@ -69,10 +69,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private async void StartDestruction(float lifetime, float radius)
 		{
-			var vfx = Services.VfxService.Spawn(VfxId.DangerIndicator) as DangerIndicatorVfxMonoComponent;
-			
 			_animator.SetTrigger(_onfireHash);
-			vfx.Init(transform.position, lifetime, radius);
 			QuantumEvent.UnsubscribeListener(this);
 			
 			await Task.Delay((int) (lifetime * 1000));

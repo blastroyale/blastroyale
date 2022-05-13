@@ -253,12 +253,12 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var (stat, value) in stats)
 			{
-				if (stat is EquipmentStatType.AttackCooldown or EquipmentStatType.ProjectileSpeed)
+				if (stat == EquipmentStatType.AttackCooldown || stat == EquipmentStatType.ProjectileSpeed)
 				{
 					continue;
 				}
 
-				if (value > 0 && stat is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
+				if (value > 0 && (stat == EquipmentStatType.SpecialId0 || stat == EquipmentStatType.SpecialId1))
 				{
 					GetSpecialIconInfo(stat, _statSpecialInfoViewPool.Spawn(), (GameId) value);
 				}

@@ -53,7 +53,7 @@ namespace FirstLight.Game.Logic
 
 		public List<Equipment> FindInInventory(GameIdGroup slot)
 		{
-			throw new NotImplementedException();
+			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();
 		}
 
 		/// <inheritdoc />

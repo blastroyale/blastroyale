@@ -145,7 +145,7 @@ namespace Quantum
 		/// </summary>
 		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon)
 		{
-			var slot = Weapons[1].IsValid && Weapons[1].GameId != weapon.GameId ? 2 : 1;
+			var slot = Weapons[1].IsValid() && Weapons[1].GameId != weapon.GameId ? 2 : 1;
 
 			Weapons[slot] = weapon;
 			CurrentWeaponSlot = slot;

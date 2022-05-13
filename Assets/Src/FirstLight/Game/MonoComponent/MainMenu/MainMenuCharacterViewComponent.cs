@@ -19,7 +19,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			var list = new List<Task>();
 			
-			if (weapon.IsValid)
+			if (weapon.IsValid())
 			{
 				list.Add(EquipWeapon(weapon.GameId));
 			}

@@ -1,12 +1,10 @@
 namespace Quantum
 {
+	/// <summary>
+	/// Holds (NFT) attributes about a piece of equipment (weapon or gear).
+	/// </summary>
 	public partial struct Equipment
 	{
-		/// <summary>
-		/// Requests if this current <see cref="Equipment"/> is a valid possible equipment
-		/// </summary>
-		public bool IsValid => Level > 0 && GameId != GameId.Random;
-
 		/// <summary>
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
 		/// </summary>
@@ -47,5 +45,27 @@ namespace Quantum
 			ReplicationCounter = replicationCounter;
 			Durability = durability;
 		}
+
+		/// <summary>
+		/// Checks if this current <see cref="Equipment"/> is a valid possible equipment.
+		/// </summary>
+		public bool IsValid() => Level > 0 && GameId != GameId.Random;
+
+		/// <summary>
+		/// Checks if this item is at <see cref="MaxLevel"/>.
+		/// </summary>
+		public bool IsMaxLevel() => Level >= MaxLevel;
+
+		/// <summary>
+		/// Checks if the <see cref="GameId"/> belongs to the <see cref="GameIdGroup.Weapon"/> group.
+		/// </summary>
+		public bool IsWeapon() => GameId.IsInGroup(GameIdGroup.Weapon);
+
+		/// <summary>
+		/// Checks if this item is the Hammer.
+		///
+		/// TODO: Might need different logic
+		/// </summary>
+		public bool IsDefaultItem() => GameId == GameId.Hammer;
 	}
 }

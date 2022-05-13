@@ -184,6 +184,8 @@ namespace Quantum {
     AmmoLarge = 128,
     InterimArmourSmall = 126,
     InterimArmourLarge = 129,
+    ShieldCapacitySmall = 17,
+    ShieldCapacityLarge = 18,
     ChestCommon = 13,
     ChestRare = 16,
     ChestLegendary = 19,

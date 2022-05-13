@@ -57,7 +57,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Searches given data for serialized models. If the type given is found, deserializes it.
 		/// </summary>
-		public static TModel DeserializeFromData<TModel>(Dictionary<string, UserDataRecord> data)
+		public static TModel DeserializeFromClientData<TModel>(Dictionary<string, UserDataRecord> data)
 		{
 			if(!data.TryGetValue(typeof(TModel).FullName, out var modelData))
 			{

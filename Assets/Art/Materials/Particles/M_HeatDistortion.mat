@@ -51,6 +51,8 @@ Material:
     m_Ints: []
     m_Floats:
     - DistortionAmount_: 0.548
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - DistortionSpeed_: {r: 0, g: -0.2, b: 0, a: 0}
   m_BuildTextureStacks: []

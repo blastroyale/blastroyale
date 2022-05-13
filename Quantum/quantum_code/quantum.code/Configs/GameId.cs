@@ -188,13 +188,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.AssaultRifle, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
@@ -284,6 +277,13 @@ namespace Quantum
 				},
 				{
 					GameId.BFG, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.AssaultRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
@@ -748,23 +748,17 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.Weapon, new List<GameId>
+					GameIdGroup.Helmet, new List<GameId>
 					{
-						GameId.AssaultRifle,
-						GameId.SniperRifle,
-						GameId.Hammer,
-						GameId.Laser,
-						GameId.RPG,
-						GameId.Shotgun,
-						GameId.AK47,
-						GameId.BFG,
-						GameId.M60
+						GameId.MausHelmet,
+						GameId.SoldierHelmet,
+						GameId.RiotHelmet,
+						GameId.WarriorHelmet
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Equipment, new List<GameId>
 					{
-						GameId.AssaultRifle,
 						GameId.MausHelmet,
 						GameId.GoldenBoots,
 						GameId.SoldierBoots,
@@ -778,6 +772,7 @@ namespace Quantum
 						GameId.Shotgun,
 						GameId.AK47,
 						GameId.BFG,
+						GameId.AssaultRifle,
 						GameId.M60,
 						GameId.MouseAmulet,
 						GameId.RiotAmulet,
@@ -796,15 +791,6 @@ namespace Quantum
 						GameId.MouseShield,
 						GameId.SoldierShield,
 						GameId.WarriorShield
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Helmet, new List<GameId>
-					{
-						GameId.MausHelmet,
-						GameId.SoldierHelmet,
-						GameId.RiotHelmet,
-						GameId.WarriorHelmet
 					}.AsReadOnly()
 				},
 				{
@@ -861,6 +847,20 @@ namespace Quantum
 						GameId.RiotArmor,
 						GameId.SoldierArmor,
 						GameId.WarriorArmor
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Weapon, new List<GameId>
+					{
+						GameId.SniperRifle,
+						GameId.Hammer,
+						GameId.Laser,
+						GameId.RPG,
+						GameId.Shotgun,
+						GameId.AK47,
+						GameId.BFG,
+						GameId.AssaultRifle,
+						GameId.M60
 					}.AsReadOnly()
 				},
 				{

@@ -58,8 +58,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateView()
 		{
-			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
-
 			StartCoroutine(ViewUpdateCoroutine());
 		}
 
@@ -67,9 +65,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			while (true)
 			{
+				_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
+				
 				// Try restock the stored current pool data, and update view current amount
-				var amountOfRestocks = _currentPoolData.Restock(_poolConfig);
-				_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * _poolConfig.RestockIntervalMinutes);
+				var restocksForRestockTime = _currentPoolData.Restock(_poolConfig);
+				
+				if (restocksForRestockTime == 0)
+				{
+					restocksForRestockTime++;
+				}
+				
+				_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restocksForRestockTime * _poolConfig.RestockIntervalMinutes);
 				_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
 				
 				var timeDiff = _nextRestockTime - DateTime.UtcNow;
@@ -90,13 +96,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 				                                 _poolConfig.PoolCapacity);
 				
 				var nextTimerUpdateTime = DateTime.UtcNow.AddMinutes(1);
-				
-				Debug.LogError(_nextRestockTime);
-				
-				if (_nextRestockTime < nextTimerUpdateTime)
+
+				if (_nextRestockTime < nextTimerUpdateTime && _nextRestockTime > DateTime.UtcNow)
 				{
+					Debug.LogError("CORRECTED RESTOCK TIME: " +  _nextRestockTime);
 					nextTimerUpdateTime = _nextRestockTime;
 				}
+				
+				Debug.LogError("LastRestock: " + _currentPoolData.LastPoolRestockTime + "   NextRestock: " + _nextRestockTime);
 				
 				while (DateTime.UtcNow < nextTimerUpdateTime)
 				{

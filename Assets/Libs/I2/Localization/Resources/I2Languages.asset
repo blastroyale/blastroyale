@@ -1036,18 +1036,11 @@ MonoBehaviour:
       - SPECIAL ABILITIES
       Flags: 00
       Languages_Touch: []
-    - Term: Tooltips/ToolTip_SC
+    - Term: Tooltips/ToolTip_CS
       TermType: 0
       Description: 
       Languages:
-      - Gain<color=yellow><b> Coins</b></color>, by killing other players.
-      Flags: 00
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_HC
-      TermType: 0
-      Description: 
-      Languages:
-      - Get<color=blue><b> Craft Spice</b></color> from <b>Match Rewards</b>.
+      - Gain <color=yellow><b>Craft Spice</b></color>, by killing other players.
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Abilties
@@ -5080,7 +5073,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1652443033839
+    Google_LastUpdatedVersion: 1652709375389
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

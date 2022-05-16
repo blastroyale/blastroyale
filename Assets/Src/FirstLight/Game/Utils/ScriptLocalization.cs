@@ -765,8 +765,7 @@ namespace I2.Loc
 
 		public static class Tooltips
 		{
-			public static string ToolTip_HC 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_HC"); } }
-			public static string ToolTip_SC 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_SC"); } }
+			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
 		}
 	}
 
@@ -1533,8 +1532,7 @@ namespace I2.Loc
 
 		public static class Tooltips
 		{
-		    public const string ToolTip_HC = "Tooltips/ToolTip_HC";
-		    public const string ToolTip_SC = "Tooltips/ToolTip_SC";
+		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
 		}
 	}
 }

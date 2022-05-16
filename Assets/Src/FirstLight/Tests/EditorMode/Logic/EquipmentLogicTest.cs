@@ -33,7 +33,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void AddToInventoryCheck()
 		{
-			_equipmentLogic.AddToInventory(GameId.SC, _item.Level);
+			_equipmentLogic.AddToInventory(GameId.CS, _item.Level);
 
 			Assert.True(_equipmentLogic.Inventory.Contains(_item));
 			Assert.True(TestData.Inventory.Contains(_item));
@@ -42,17 +42,17 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void AddToInventory_AlreadyInInventory_ThrowsException()
 		{
-			_equipmentLogic.AddToInventory(GameId.SC, _item.Level);
+			_equipmentLogic.AddToInventory(GameId.CS, _item.Level);
 			
-			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(GameId.SC, _item.Level));
+			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(GameId.CS, _item.Level));
 		}
 		
 		[Test]
 		public void AddToInventory_NotEquipment_ThrowsException()
 		{
-			var item = SetupItem(2, 1, 2, GameId.SC);
+			var item = SetupItem(2, 1, 2, GameId.CS);
 			
-			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(GameId.SC, _item.Level));
+			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(GameId.CS, _item.Level));
 		}
 		
 		[Test]

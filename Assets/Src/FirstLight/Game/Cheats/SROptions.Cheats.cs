@@ -136,23 +136,7 @@ public partial class SROptions
 			                                                      level: 3));
 		}
 
-		var data = new Dictionary<string, string>();
-		ModelSerializer.SerializeToData(data, dataProvider.GetData<IdData>());
-		ModelSerializer.SerializeToData(data, dataProvider.GetData<RngData>());
-		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-		var request = new ExecuteFunctionRequest
-		{
-			FunctionName = "ExecuteCommand",
-			GeneratePlayStreamEvent = true,
-			FunctionParameter = new LogicRequest
-			{
-				Command = "CheatUnlockAllEquipments",
-				Data = data
-			},
-			AuthenticationContext = PlayFabSettings.staticPlayer
-		};
-
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Cheats")]

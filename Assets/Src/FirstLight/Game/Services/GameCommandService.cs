@@ -111,7 +111,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void ForceServerDataUpdate()
 		{
-			ExecuteServerCommand(new ForceUpdateCommand()
+			EnqueueCommandToServer(new ForceUpdateCommand()
 			{
 				IdData = _dataProvider.GetData<IdData>(),
 				RngData = _dataProvider.GetData<RngData>(),

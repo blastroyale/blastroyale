@@ -24,8 +24,6 @@ namespace FirstLight.Game.Commands
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			var cost = gameLogic.LootBoxLogic.GetLootBoxInventoryInfo().GetUnlockExtraBoxesCost(gameLogic.TimeService.DateTimeUtcNow);
-			// Spend Hard currency
-			gameLogic.CurrencyLogic.DeductCurrency(GameId.HC, cost);
 			gameLogic.LootBoxLogic.SpeedUpAllExtraTimedBoxes();
 		}
 	}

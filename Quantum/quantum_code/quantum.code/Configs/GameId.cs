@@ -195,42 +195,26 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.GoldenBoots, new List<GameIdGroup>
+					GameId.SoldierHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Boots,
+						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
 						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
-					GameId.SoldierBoots, new List<GameIdGroup>
+					GameId.RiotHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Boots,
+						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
 						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
-					GameId.RiotShield, new List<GameIdGroup>
+					GameId.WarriorHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Shield,
+						GameIdGroup.Helmet,
 						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.TikTokAmulet, new List<GameIdGroup>
-					{
-						GameIdGroup.Amulet,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.RoadSignArmour, new List<GameIdGroup>
-					{
-						GameIdGroup.Armor,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -325,6 +309,14 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TikTokAmulet, new List<GameIdGroup>
+					{
+						GameIdGroup.Amulet,
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
+					}.AsReadOnly()
+				},
+				{
 					GameId.MouseArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
@@ -355,47 +347,11 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.MouseBoots, new List<GameIdGroup>
+					GameId.RoadSignArmour, new List<GameIdGroup>
 					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.RiotBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.WarriorBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.SoldierHelmet, new List<GameIdGroup>
-					{
-						GameIdGroup.Helmet,
+						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
 						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.RiotHelmet, new List<GameIdGroup>
-					{
-						GameIdGroup.Helmet,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.WarriorHelmet, new List<GameIdGroup>
-					{
-						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -418,6 +374,50 @@ namespace Quantum
 					GameId.WarriorShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.RiotShield, new List<GameIdGroup>
+					{
+						GameIdGroup.Shield,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.GoldenBoots, new List<GameIdGroup>
+					{
+						GameIdGroup.Boots,
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.SoldierBoots, new List<GameIdGroup>
+					{
+						GameIdGroup.Boots,
+						GameIdGroup.Equipment,
+						GameIdGroup.BotItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.MouseBoots, new List<GameIdGroup>
+					{
+						GameIdGroup.Boots,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.RiotBoots, new List<GameIdGroup>
+					{
+						GameIdGroup.Boots,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.WarriorBoots, new List<GameIdGroup>
+					{
+						GameIdGroup.Boots,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
@@ -760,11 +760,9 @@ namespace Quantum
 					GameIdGroup.Equipment, new List<GameId>
 					{
 						GameId.MausHelmet,
-						GameId.GoldenBoots,
-						GameId.SoldierBoots,
-						GameId.RiotShield,
-						GameId.TikTokAmulet,
-						GameId.RoadSignArmour,
+						GameId.SoldierHelmet,
+						GameId.RiotHelmet,
+						GameId.WarriorHelmet,
 						GameId.SniperRifle,
 						GameId.Hammer,
 						GameId.Laser,
@@ -778,24 +776,16 @@ namespace Quantum
 						GameId.RiotAmulet,
 						GameId.SoldierAmulet,
 						GameId.WarriorAmulet,
+						GameId.TikTokAmulet,
 						GameId.MouseArmor,
 						GameId.RiotArmor,
 						GameId.SoldierArmor,
 						GameId.WarriorArmor,
-						GameId.MouseBoots,
-						GameId.RiotBoots,
-						GameId.WarriorBoots,
-						GameId.SoldierHelmet,
-						GameId.RiotHelmet,
-						GameId.WarriorHelmet,
+						GameId.RoadSignArmour,
 						GameId.MouseShield,
 						GameId.SoldierShield,
-						GameId.WarriorShield
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Boots, new List<GameId>
-					{
+						GameId.WarriorShield,
+						GameId.RiotShield,
 						GameId.GoldenBoots,
 						GameId.SoldierBoots,
 						GameId.MouseBoots,
@@ -806,47 +796,18 @@ namespace Quantum
 				{
 					GameIdGroup.BotItem, new List<GameId>
 					{
-						GameId.GoldenBoots,
-						GameId.SoldierBoots,
-						GameId.TikTokAmulet,
-						GameId.RoadSignArmour,
-						GameId.SoldierArmor,
-						GameId.WarriorArmor,
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
+						GameId.TikTokAmulet,
+						GameId.SoldierArmor,
+						GameId.WarriorArmor,
+						GameId.RoadSignArmour,
 						GameId.MouseShield,
 						GameId.SoldierShield,
+						GameId.GoldenBoots,
+						GameId.SoldierBoots,
 						GameId.Male02Avatar,
 						GameId.Female01Avatar
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Shield, new List<GameId>
-					{
-						GameId.RiotShield,
-						GameId.MouseShield,
-						GameId.SoldierShield,
-						GameId.WarriorShield
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Amulet, new List<GameId>
-					{
-						GameId.TikTokAmulet,
-						GameId.MouseAmulet,
-						GameId.RiotAmulet,
-						GameId.SoldierAmulet,
-						GameId.WarriorAmulet
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Armor, new List<GameId>
-					{
-						GameId.RoadSignArmour,
-						GameId.MouseArmor,
-						GameId.RiotArmor,
-						GameId.SoldierArmor,
-						GameId.WarriorArmor
 					}.AsReadOnly()
 				},
 				{
@@ -861,6 +822,45 @@ namespace Quantum
 						GameId.BFG,
 						GameId.AssaultRifle,
 						GameId.M60
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Amulet, new List<GameId>
+					{
+						GameId.MouseAmulet,
+						GameId.RiotAmulet,
+						GameId.SoldierAmulet,
+						GameId.WarriorAmulet,
+						GameId.TikTokAmulet
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Armor, new List<GameId>
+					{
+						GameId.MouseArmor,
+						GameId.RiotArmor,
+						GameId.SoldierArmor,
+						GameId.WarriorArmor,
+						GameId.RoadSignArmour
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Shield, new List<GameId>
+					{
+						GameId.MouseShield,
+						GameId.SoldierShield,
+						GameId.WarriorShield,
+						GameId.RiotShield
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Boots, new List<GameId>
+					{
+						GameId.GoldenBoots,
+						GameId.SoldierBoots,
+						GameId.MouseBoots,
+						GameId.RiotBoots,
+						GameId.WarriorBoots
 					}.AsReadOnly()
 				},
 				{

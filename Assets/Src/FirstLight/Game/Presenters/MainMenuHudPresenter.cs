@@ -51,12 +51,6 @@ namespace FirstLight.Game.Presenters
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_dataProvider?.CurrencyDataProvider?.Currencies?.StopObserving(OnCurrencyChanged);
 		}
-
-		protected override void OnOpened()
-		{
-			_softCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.SC].ToString()}";
-			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
-		}
 		
 		private void OnCurrencyChanged(GameId currency, ulong previous, ulong newAmount, ObservableUpdateType updateType)
 		{

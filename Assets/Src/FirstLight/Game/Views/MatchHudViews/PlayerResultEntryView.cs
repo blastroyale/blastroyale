@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_deathsText.text = data.Data.DeathCount.ToString();
 
 			_coinsText.enabled = showExtra;
-			_coinsText.text = rewards.TryGetValue(GameId.HC, out var cs) ? cs.ToString() : "0";
+			_coinsText.text = rewards.TryGetValue(GameId.CS, out var cs) ? cs.ToString() : "0";
 			_xpText.enabled = showExtra;
 			_xpText.text = data.Data.PlayerTrophies.ToString();
 

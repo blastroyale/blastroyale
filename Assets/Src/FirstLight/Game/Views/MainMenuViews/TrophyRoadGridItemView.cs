@@ -178,17 +178,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private GameId GetRewardSpriteId(GameId rewardId)
 		{
-			if (rewardId == GameId.SC)
-			{
-				return GameId.ScBundle1;
-			}
-			
-			if (rewardId == GameId.HC)
-			{
-				return GameId.HcBundle1;
-			}
-
-			return rewardId;
+			// TODO - REMOVE THIS SCRIPT
+			return GameId.ScBundle1;
 		}
 	}
 }

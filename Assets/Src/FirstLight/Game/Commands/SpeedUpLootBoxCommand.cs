@@ -26,8 +26,6 @@ namespace FirstLight.Game.Commands
 		{
 			var info = gameLogic.LootBoxLogic.GetTimedBoxInfo(LootBoxId);
 			var cost = info.UnlockCost(gameLogic.TimeService.DateTimeUtcNow);
-			// Spend Hard currency
-			gameLogic.CurrencyLogic.DeductCurrency(GameId.HC, cost);
 			gameLogic.LootBoxLogic.SpeedUp(LootBoxId);
 			gameLogic.MessageBrokerService.Publish(new LootBoxHurryCompletedMessage { LootBoxId = LootBoxId });
 		}

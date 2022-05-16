@@ -213,17 +213,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private GameId GetRewardSpriteId(GameId rewardId)
 		{
-			if (rewardId == GameId.SC)
-			{
-				return GameId.ScBundle1;
-			}
-			
-			if (rewardId == GameId.HC)
-			{
-				return GameId.HcBundle1;
-			}
-
-			return rewardId;
+			return GameId.ScBundle1;
 		}
 
 		private void UpdateVisualState(bool hasUnclaimedRewards)

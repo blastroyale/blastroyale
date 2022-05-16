@@ -17,6 +17,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
@@ -25,10 +26,24 @@ namespace Quantum
 			var position = transform.Position + (transform.Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
+
+			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
+			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+
+			//targetAttackAngle depend on a current character velocity 
+			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,
+												cVelocitySqr / maxSpeedSqr);
+
+			//accuracy modifier is found by getting a random angle between the min and max angle values,
+			//and then creating a rotation vector that is passed onto the projectile : only works for single shot weapons
+			var angle = targetAttackAngle / FP._2;
+			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
+			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
+
 			var projectile = new Projectile
 			{
 				Attacker = e,
-				Direction = aimingDirection.XOY,
+				Direction = newAngleVector,
 				PowerAmount = (uint) power.AsInt,
 				SourceId = weaponConfig.Id,
 				Range = weaponConfig.AttackRange,
@@ -41,8 +56,8 @@ namespace Quantum
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			// TODO: Implement accuracy for projectile weapons as well 
-			f.Events.OnPlayerAttack(player, e, (int)playerCharacter->CurrentWeapon.GameId, 0, 0);
+
+			f.Events.OnPlayerAttack(player, e, (int)playerCharacter->CurrentWeapon.GameId, shotAngle, (uint)targetAttackAngle);
 			f.Events.OnLocalPlayerAttack(player, e);
 			Projectile.Create(f, projectile);
 		}

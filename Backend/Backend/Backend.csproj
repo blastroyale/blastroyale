@@ -46,6 +46,7 @@
       <None Remove="config.yml" />
       <EmbeddedResource Include="config.yml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </EmbeddedResource>
     </ItemGroup>
 </Project>

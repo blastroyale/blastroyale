@@ -19,9 +19,9 @@ namespace Backend.Game;
 /// </summary>
 public static class ServerStartup
 {
-	public static void Setup(IServiceCollection services, ILogger log)
+	public static void Setup(IServiceCollection services, ILogger log, string appPath)
 	{
-		ServerConfiguration.LoadConfiguration();
+		ServerConfiguration.LoadConfiguration(appPath);
 		DbSetup.Setup(services);
 		
 		// Server

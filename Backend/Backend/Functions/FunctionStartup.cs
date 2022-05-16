@@ -27,7 +27,7 @@ public class FunctionStartup : FunctionsStartup
 	public override void Configure(IFunctionsHostBuilder builder)
 	{
 		var log = new LoggerFactory().CreateLogger("Log"); // TODO: Get proper azure log 
-		ServerStartup.Setup(builder.Services, log);
+		ServerStartup.Setup(builder.Services, log, builder.GetContext().ApplicationRootPath);
 	}
 
 

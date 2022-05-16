@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -17,13 +18,13 @@ public class ServerConfiguration
 
 	private static ServerConfiguration _cfg { get; set; }
 	
-	public static void LoadConfiguration()
+	public static void LoadConfiguration(string path)
 	{
 		var deserializer = new DeserializerBuilder()
 	       .WithNamingConvention(new CamelCaseNamingConvention())
 	       .Build();
-		var assembly = typeof(ServerConfiguration).Assembly;
-		var path = Path.Combine(Path.GetDirectoryName(assembly.Location), "config.yml");
+
+		path = Path.Combine(path, "config.yml");
 		_cfg = deserializer.Deserialize<ServerConfiguration>(File.OpenText(path));
 	}
 }

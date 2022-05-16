@@ -96,12 +96,12 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Requests will go to LOCAL server now");
 		}
 
-		[MenuItem("First Light Games/Backend/Use Cloud Server")]
-		private static void UseCloudServer()
+		[MenuItem("First Light Games/Backend/Use Remote Server")]
+		private static void UseRemoteServer()
 		{
 			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
 			PlayFabSettings.LocalApiServer = null;
-			Debug.Log("Requests will go to CLOUD server now");
+			Debug.Log("Requests will go to REMOTE server now");
 		}
 	}
 }

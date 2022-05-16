@@ -97,6 +97,7 @@ public class GameServer
 		{
 			throw new LogicException($"Outdated command timestamp for command {cmd.GetType().Name}. Command out of order ?");
 		}
+
 		return true;
 	}
 

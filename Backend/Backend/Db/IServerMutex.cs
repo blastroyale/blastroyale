@@ -1,6 +1,4 @@
 using System;
-using Backend.Db;
-using Medallion.Threading.Postgres;
 
 namespace Backend.Game;
 

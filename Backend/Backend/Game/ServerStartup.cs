@@ -1,3 +1,4 @@
+using System.IO;
 using Backend.Db;
 using Backend.Game.Services;
 using FirstLight;
@@ -19,9 +20,9 @@ namespace Backend.Game;
 /// </summary>
 public static class ServerStartup
 {
-	public static void Setup(IServiceCollection services, ILogger log)
+	public static void Setup(IServiceCollection services, ILogger log, string appPath)
 	{
-		ServerConfiguration.LoadConfiguration();
+		ServerConfiguration.LoadConfiguration(appPath);
 		DbSetup.Setup(services);
 		
 		// Server
@@ -33,12 +34,14 @@ public static class ServerStartup
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();
-		
+
 		// Logic
 		services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
 		{
-			var cfg = new ConfigsProvider();
-			cfg.AddSingletonConfig(new MapConfig());
+			var cfgSerializer = new ConfigsSerializer();
+			var bakedConfigs = File.ReadAllText(Path.Combine(appPath, "gameConfig.json"));
+			var cfg = cfgSerializer.Deserialize(bakedConfigs) as ConfigsProvider;
+			cfg.AddSingletonConfig(new MapConfig()); // TODO: Remove dependency from server
 			return cfg;
 		});
 	}

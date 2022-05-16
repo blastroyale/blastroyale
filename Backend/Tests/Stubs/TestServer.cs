@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Backend;
 using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
@@ -47,7 +49,8 @@ public class TestServer
 	{
 		var services = new ServiceCollection();
 		var logger = new LoggerFactory().CreateLogger("Log");
-		ServerStartup.Setup(services, logger);
+		var testAppPath = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+		ServerStartup.Setup(services, logger, testAppPath);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
 		return services;

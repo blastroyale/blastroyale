@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -12,18 +13,20 @@ namespace Backend;
 public class ServerConfiguration
 {
 	public string MinClientVersion { get; set; }
-
-	public static ServerConfiguration GetConfig() => _cfg;
-
-	private static ServerConfiguration _cfg { get; set; }
 	
-	public static void LoadConfiguration()
+	/// <summary>
+	/// OBtains singleton server configuration.
+	/// </summary>
+	public static ServerConfiguration GetConfig() => _cfg;
+	
+	private static ServerConfiguration _cfg { get; set; }
+
+	public static void LoadConfiguration(string path)
 	{
 		var deserializer = new DeserializerBuilder()
-	       .WithNamingConvention(new CamelCaseNamingConvention())
-	       .Build();
-		var assembly = typeof(ServerConfiguration).Assembly;
-		var path = Path.Combine(Path.GetDirectoryName(assembly.Location), "config.yml");
+		                   .WithNamingConvention(new CamelCaseNamingConvention())
+		                   .Build();
+		path = Path.Combine(path, "config.yml");
 		_cfg = deserializer.Deserialize<ServerConfiguration>(File.OpenText(path));
 	}
 }

@@ -1,4 +1,5 @@
 using System.Text;
+using Backend;
 using Backend.Game;
 using Backend.Game.Services;
 using FirstLight.Game.Logic;
@@ -15,7 +16,8 @@ ILogger logger = loggerFactory.CreateLogger<Program>();
 
 // Setup Application
 var builder = WebApplication.CreateBuilder(args);
-ServerStartup.Setup(builder.Services, logger);
+var path = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+ServerStartup.Setup(builder.Services, logger, path);
 var app = builder.Build();
 
 app.MapGet("/", () => "Standalone Server is running !");

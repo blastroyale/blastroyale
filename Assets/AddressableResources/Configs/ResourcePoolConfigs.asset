@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ResourcePoolConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Id: 14
+  - Id: 12
     PoolCapacity: 300
     RestockIntervalMinutes: 2
     TotalRestockIntervalMinutes: 6
-  - Id: 17
+  - Id: 15
     PoolCapacity: 500
     RestockIntervalMinutes: 2
     TotalRestockIntervalMinutes: 6

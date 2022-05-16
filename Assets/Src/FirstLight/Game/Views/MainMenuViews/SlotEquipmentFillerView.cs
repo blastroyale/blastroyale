@@ -60,10 +60,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 			
-			var info = _dataProvider.EquipmentDataProvider.GetEquipmentInfo(itemId);
+			var equipment = _dataProvider.EquipmentDataProvider.Inventory[itemId];
 			
 			_equipmentIconView.gameObject.SetActive(true);
-			_equipmentIconView.SetInfo(info.DataInfo);
+			_equipmentIconView.SetInfo(equipment);
 		}
 
 		private void OnSlotClicked()

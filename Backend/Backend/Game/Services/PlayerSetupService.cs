@@ -86,7 +86,7 @@ public class PlayerSetupService : IPlayerSetupService
 
 		foreach (var id in idData.GameIds)
 		{
-			playerData.Inventory.Add(new EquipmentData { Id = id.Key, Rarity =ItemRarity.Common, Level = 1 });
+			playerData.Inventory.Add(id.Key, new Equipment(id.Value, level: 1));
 		}
 
 		playerData.Emoji.Add(GameId.EmojiAngry);

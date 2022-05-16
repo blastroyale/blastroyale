@@ -8,7 +8,7 @@ namespace Quantum
 	public partial struct QuantumGearConfig
 	{
 		public GameId Id;
-		public ItemRarity StartingRarity;
+		public EquipmentRarity StartingRarity;
 		public FP HpRatioToBase;
 		public FP SpeedRatioToBase;
 		public FP ArmorRatioToBase;

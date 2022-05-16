@@ -82,11 +82,6 @@ namespace FirstLight.Game.Services
 		void CloseDialog();
 
 		/// <summary>
-		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
-		/// </summary>
-		void OpenLootInfoDialog(GenericDialogButton button, LootBoxInfo boxInfo, Action closeCallback = null);
-
-		/// <summary>
 		/// Opens up a tooltip dialog to show informative text.
 		/// </summary>
 		void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition);
@@ -164,18 +159,6 @@ namespace FirstLight.Game.Services
 			_openDialogType = ui.GetType();
 			
 			ui.SetInfo(title, initialInputText, button, showCloseButton, contentType, closeCallback);
-		}
-
-		/// <summary>
-		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
-		/// </summary>
-		public void OpenLootInfoDialog(GenericDialogButton button, LootBoxInfo boxInfo, Action closeCallback = null)
-		{
-			var ui = _uiService.OpenUi<GenericDialogLootInfoPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(button, boxInfo, closeCallback);
 		}
 
 		/// <inheritdoc />

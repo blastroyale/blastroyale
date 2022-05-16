@@ -135,7 +135,6 @@ namespace FirstLight.Game.StateMachines
 				LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<CardRarityAssetConfigs>(AddressableId.Configs_CardRarityAssetConfigs, asset => _assetService.AddConfigs(asset)),
 			};
 		}
 
@@ -148,9 +147,7 @@ namespace FirstLight.Game.StateMachines
 				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<RarityConfigs>(AddressableId.Configs_RarityConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
 				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
-				LoadConfig<LootBoxConfigs>(AddressableId.Configs_LootBoxConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),

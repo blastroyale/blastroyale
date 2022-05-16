@@ -18,7 +18,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			foreach (var item in gear)
 			{
-				if (!item.IsValid)
+				if (!item.IsValid())
 				{
 					continue;
 				}

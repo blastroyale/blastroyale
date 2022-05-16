@@ -25,12 +25,9 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
-			public Action OnShopButtonClicked;
 			public Action OnLootButtonClicked;
 			public Action OnHeroesButtonClicked;
-			public Action OnCratesButtonClicked;
 			public Action OnSocialButtonClicked;
-			public Action OnTrophyRoadClicked;
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
@@ -77,31 +74,17 @@ namespace FirstLight.Game.Presenters
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
-			_cratesButton.Button.onClick.AddListener(OpenCratesMenuUI);
-			_shopButton.Button.onClick.AddListener(OpenShopMenuUI);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
-			_trophyRoadButton.onClick.AddListener(OnTrophyRoadButtonClicked);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
 			_playOfflineDebugButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
-			_sliderPlayerLevelView.OnLevelUpXpSliderCompleted.AddListener(OnXpSliderAnimationCompleted);
 		}
 
 		private void OnDestroy()
 		{
 			Services?.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		private void OnXpSliderAnimationCompleted(uint previousLevel, uint newLevel)
-		{
-			var unlockSystems = _gameDataProvider.PlayerDataProvider.GetUnlockSystems(newLevel, previousLevel + 1);
-
-			foreach (var system in unlockSystems)
-			{
-				_newFeaturesView.QueueNewSystemPopUp(system, UnlockSystemButton);
-			}
 		}
 
 		protected override void OnOpened()
@@ -144,11 +127,6 @@ namespace FirstLight.Game.Presenters
 			Data.OnNameChangeClicked();
 		}
 
-		private void OnTrophyRoadButtonClicked()
-		{
-			Data.OnTrophyRoadClicked();
-		}
-
 		private void OnSettingsButtonClicked()
 		{
 			Data.OnSettingsButtonClicked();
@@ -164,31 +142,10 @@ namespace FirstLight.Game.Presenters
 			Data.OnHeroesButtonClicked();
 		}
 
-		private void OpenCratesMenuUI()
-		{
-			if (!ButtonClickSystemCheck(UnlockSystem.Crates))
-			{
-				return;
-			}
-
-			Data.OnCratesButtonClicked();
-		}
-
-		private void OpenShopMenuUI()
-		{
-			if (!ButtonClickSystemCheck(UnlockSystem.Shop))
-			{
-				return;
-			}
-
-			Data.OnShopButtonClicked();
-		}
-
 		private void OpenGameModeClicked()
 		{
 			Data.OnGameModeClicked();
 		}
-
 		
 		private void OpenSocialMenuUI()
 		{
@@ -207,63 +164,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UnlockSystemButton(UnlockSystem system)
 		{
-			if (system == UnlockSystem.Fusion || system == UnlockSystem.Enhancement)
-			{
-				_lootButton.PlayUnlockedStateAnimation();
-				_lootButton.UpdateState(true, true, false);
-				_lootButton.UpdateShinyState();
-			}
-			else if (system == UnlockSystem.Shop)
+			if (system == UnlockSystem.Shop)
 			{
 				_shopButton.PlayUnlockedStateAnimation();
 				_shopButton.UpdateState(true, true, false);
 			}
-			else if (system == UnlockSystem.Crates)
-			{
-				UpdateCratesButtonState();
-				_cratesButton.PlayUnlockedStateAnimation();
-				_cratesButton.UpdateShinyState();
-			}
-		}
-
-		private void UpdateCratesButtonState()
-		{
-			var time = Services.TimeService.DateTimeUtcNow;
-			var unlockLevel = _gameDataProvider.PlayerDataProvider.GetUnlockSystemLevel(UnlockSystem.Crates);
-			var tagged = _gameDataProvider.PlayerDataProvider.SystemsTagged;
-			var info = _gameDataProvider.LootBoxDataProvider.GetLootBoxInventoryInfo();
-			var emphasizeCrates = !info.LootBoxUnlocking.HasValue && info.GetSlotsFilledCount() > 0;
-
-			foreach (var box in info.TimedBoxSlots)
-			{
-				if (box.HasValue && box.Value.GetState(time) == LootBoxState.Unlocked)
-				{
-					emphasizeCrates = true;
-					break;
-				}
-			}
-
-			_cratesButton.UpdateState(_sliderPlayerLevelView.Level >= unlockLevel,
-			                          !tagged.Contains(UnlockSystem.Crates), emphasizeCrates);
-		}
-
-		private void UpdateButtonStates()
-		{
-			var unlocked = _gameDataProvider.PlayerDataProvider.GetUnlockSystems(_sliderPlayerLevelView.Level);
-			var tagged = _gameDataProvider.PlayerDataProvider.SystemsTagged;
-			var lootNew = unlocked.Contains(UnlockSystem.Fusion) && !tagged.Contains(UnlockSystem.Fusion) ||
-			              unlocked.Contains(UnlockSystem.Enhancement) && !tagged.Contains(UnlockSystem.Enhancement);
-
-			_sliderPlayerLevelView.UpdateProgressView();
-			_lootButton.UpdateState(true, lootNew, false);
-			_shopButton.UpdateState(unlocked.Contains(UnlockSystem.Shop), false, false);
-			if (unlocked.Contains(UnlockSystem.Crates))
-			{
-				UpdateCratesButtonState();
-			}
-
-			this.LateCall(1, _lootButton.UpdateShinyState);
-			this.LateCall(2, _cratesButton.UpdateShinyState);
 		}
 
 		private bool ButtonClickSystemCheck(UnlockSystem system)

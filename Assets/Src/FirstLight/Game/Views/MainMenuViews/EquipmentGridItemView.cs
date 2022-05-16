@@ -9,6 +9,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Infos;
+using Quantum;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
@@ -22,13 +23,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		public struct EquipmentGridItemData
 		{
-			public EquipmentInfo Info;
+			public UniqueId Id;
+			public Equipment Equipment;
 			public bool IsSelected;
 			public bool PlayViewNotificationAnimation;
 			public bool IsSelectable;
 			public Action<UniqueId> OnEquipmentClicked;
 		}
-		
+
 		[SerializeField, Required] private EquipmentIconItemView _equipmentIconView;
 		[SerializeField, Required] private TextMeshProUGUI _sliderLevelText;
 		[SerializeField, Required] private Button _button;
@@ -38,11 +40,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Image _autoFireIcon;
 		[SerializeField, Required] private Image _manualFireIcon;
 		[SerializeField, Required] private NotificationUniqueIdView _notificationUniqueIdView;
-		[SerializeField, Required] private NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
 		[SerializeField, Required] private Animation _cardItemAnimation;
 		[SerializeField, Required] private AnimationClip _upgradeCardAnimationClip;
 		[SerializeField, Required] private AnimationClip _equipCardAnimationClip;
-		
+
 		private long _uniqueId;
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -51,9 +52,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnEquipCompletedMessage);
-			_services.MessageBrokerService.Subscribe<ItemUpgradedMessage>(OnUpgradeCompletedMessage);
 			_button.onClick.AddListener(OnButtonClick);
 			OnAwake();
 		}
@@ -62,52 +62,40 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-		
-		protected virtual void OnAwake() {}
+
+		protected virtual void OnAwake()
+		{
+		}
 
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
-			var uniqueId = data.Info.DataInfo.Data.Id;
-			
 			_selectedFrameImage.SetActive(data.IsSelected);
 			_hideSelectionImage.SetActive(!data.IsSelectable);
-			_equippedImage.enabled = data.Info.IsEquipped;
+			_equippedImage.enabled = _gameDataProvider.EquipmentDataProvider.IsEquipped(data.Id);
 			_autoFireIcon.enabled = false;
 			_manualFireIcon.enabled = false;
 
 			if (data.IsSelected)
 			{
-				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(uniqueId);
+				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(data.Id);
 			}
-			
-			_notificationUniqueIdView.SetUniqueId(uniqueId, data.PlayViewNotificationAnimation);
-			_notificationUniqueIdUpgradeView.SetUniqueId(uniqueId);
-			_equipmentIconView.SetInfo(data.Info.DataInfo);
-			_uniqueId = uniqueId;
+
+			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
+			_equipmentIconView.SetInfo(data.Equipment);
+			_uniqueId = data.Id;
 		}
-		
+
 		private void OnEquipCompletedMessage(ItemEquippedMessage message)
 		{
 			if (message.ItemId == _uniqueId)
 			{
 				_cardItemAnimation.clip = _equipCardAnimationClip;
-				
+
 				_cardItemAnimation.Rewind();
 				_cardItemAnimation.Play();
 			}
 		}
 
-		private void OnUpgradeCompletedMessage(ItemUpgradedMessage message)
-		{
-			if (message.ItemId == _uniqueId)
-			{
-				_cardItemAnimation.clip = _upgradeCardAnimationClip;
-				
-				_cardItemAnimation.Rewind();
-				_cardItemAnimation.Play();
-			}
-		}
-	
 		private void OnButtonClick()
 		{
 			if (Data.IsSelectable)
@@ -117,4 +105,3 @@ namespace FirstLight.Game.Views.MainMenuViews
 		}
 	}
 }
-

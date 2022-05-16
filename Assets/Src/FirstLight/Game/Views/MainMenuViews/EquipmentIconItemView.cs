@@ -1,4 +1,3 @@
-using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
@@ -20,16 +19,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Image _rarityImage;
 
 		private IGameServices _services;
-		
+
 		/// <summary>
 		/// Sets the information for this view
 		/// </summary>
-		public async void SetInfo(EquipmentDataInfo info)
+		public async void SetInfo(Equipment equipment)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			_levelText.text = $"{ScriptLocalization.General.Level} {info.Data.Level.ToString()}";
-			_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(info.GameId);
-			_rarityImage.sprite = await _services.AssetResolverService.RequestAsset<ItemRarity, Sprite>(info.Data.Rarity);
+			_levelText.text = $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
+			_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
+			_rarityImage.sprite =
+				await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
 		}
 	}
 }

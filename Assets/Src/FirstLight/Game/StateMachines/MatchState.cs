@@ -24,7 +24,7 @@ namespace FirstLight.Game.StateMachines
 	public class MatchState
 	{
 		public static readonly IStatechartEvent AllPlayersReadyEvent = new StatechartEvent("All Players Ready");
-		
+
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
@@ -59,36 +59,38 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.TaskWait("Unloading Assets");
-			
+
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
-			
+
 			loading.OnEnter(OpenMatchmakingScreen);
 			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
-			
+
 			roomCheck.Transition().Condition(IsDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			roomCheck.Transition().Target(matchmaking);
-			
-			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
+
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen)
+			           .Target(unloading);
 			matchmaking.Event(NetworkState.LeftRoomEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
-			
+
 			playerReadyCheck.Transition().Condition(AreAllPlayersReady).Target(gameSimulation);
 			playerReadyCheck.Transition().Target(playerReadyWait);
-			
+
 			playerReadyWait.OnEnter(PreloadAllPlayersAssets);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
-			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
+			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen)
+			               .Target(unloading);
 
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
 			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
-			
+
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.WaitingFor(UnloadMatchAssets).Target(final);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -118,17 +120,17 @@ namespace FirstLight.Game.StateMachines
 
 			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
 		}
-		
+
 		private void CloseMatchmakingScreen()
 		{
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
 		}
-		
+
 		private void OpenLoadingScreen()
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();
 		}
-		
+
 		private void CloseLoadingScreen()
 		{
 			_uiService.CloseUi<LoadingScreenPresenter>();
@@ -172,9 +174,11 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var map = config.Map.ToString();
-			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var entityService =
+				new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			var sceneTask =
+				_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
@@ -187,7 +191,7 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);
-			
+
 			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 
 			SceneManager.SetActiveScene(sceneTask.Result);
@@ -230,7 +234,8 @@ namespace FirstLight.Game.StateMachines
 			// Preload indicator VFX
 			for (var i = 1; i < (int) IndicatorVfxId.TOTAL; i++)
 			{
-				tasks.Add(_services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, true,
+				tasks.Add(_services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i,
+					          true,
 					          false));
 			}
 
@@ -246,9 +251,9 @@ namespace FirstLight.Game.StateMachines
 		private async void PreloadAllPlayersAssets()
 		{
 			_services.MessageBrokerService.Publish(new StartedFinalPreloadMessage());
-			
+
 			var tasks = new List<Task>();
-			
+
 			// Preload players assets
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
@@ -256,10 +261,11 @@ namespace FirstLight.Game.StateMachines
 
 				foreach (var item in preloadIds)
 				{
-					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true, false));
+					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true,
+						          false));
 				}
 			}
-			
+
 			await Task.WhenAll(tasks);
 
 			_services.MessageBrokerService.Publish(new AllMatchAssetsLoadedMessage());
@@ -287,8 +293,12 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
 					Gear = null,
-					Weapon = new Equipment(GameId.AK47, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Carbon,
-					                       ItemManufacturer.Futuristic, ItemFaction.Chaos, 1, 1)
+					Weapon = new Equipment(GameId.AK47, 
+					                       rarity: EquipmentRarity.Common,
+					                       adjective: EquipmentAdjective.Cool, 
+					                       material: EquipmentMaterial.Carbon,
+					                       manufacturer: EquipmentManufacturer.Futuristic,
+					                       faction: EquipmentFaction.Chaos)
 				};
 			}
 		}

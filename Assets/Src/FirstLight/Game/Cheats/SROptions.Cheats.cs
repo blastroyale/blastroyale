@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using FirstLight.Game;
 using FirstLight.Game.Commands;
@@ -29,7 +30,7 @@ public partial class SROptions
 	{
 		PlayerPrefs.DeleteAll();
 		PlayerPrefs.Save();
-		
+
 		var request = new ExecuteFunctionRequest
 		{
 			FunctionName = "SetupPlayerCommand",
@@ -41,11 +42,10 @@ public partial class SROptions
 				Data = new Dictionary<string, string>()
 			}
 		};
-			
+
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 
-	[Category("Cheats")]
 	public void UnlockAllEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
@@ -53,16 +53,17 @@ public partial class SROptions
 		var dataProvider = services.DataSaver as IDataService;
 		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
 		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-		var converter = new StringEnumConverter();
 
 		foreach (var config in weaponConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
+			                                                      level: 3));
 		}
-		
+
 		foreach (var config in gearConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
+			                                                      level: 3));
 		}
 
 		var data = new Dictionary<string, string>();
@@ -87,7 +88,7 @@ public partial class SROptions
 	[Category("Cheats")]
 	public void SendGameCompleteCommand()
 	{
-		var services = MainInstaller.Resolve<IGameServices>();
+		var services = MainInstaller.Resolve<IGameServices>() as IGameServices;
 		var poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
 		                                        .FirstOrDefault(x => x.Id == GameId.CS);
 
@@ -96,7 +97,6 @@ public partial class SROptions
 			CsPoolConfig = poolConfig
 		});
 	}
-
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{
@@ -105,7 +105,7 @@ public partial class SROptions
 		if (uiService.GetUi<MatchHudPresenter>().IsOpen)
 		{
 			uiService.CloseUi<MatchHudPresenter>();
-			
+
 			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
 			{
 				renderer.enabled = false;
@@ -114,7 +114,7 @@ public partial class SROptions
 		else
 		{
 			uiService.OpenUi<MatchHudPresenter>();
-			
+
 			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
 			{
 				renderer.enabled = true;
@@ -126,13 +126,13 @@ public partial class SROptions
 	{
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		
+
 		// TODO: Remove Logic outside command
 		gameLogic.PlayerLogic.AddXp(amount);
 
 		var data = new Dictionary<string, string>();
 		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-		
+
 		var request = new ExecuteFunctionRequest
 		{
 			FunctionName = "ExecuteCommand",
@@ -144,7 +144,7 @@ public partial class SROptions
 			},
 			AuthenticationContext = PlayFabSettings.staticPlayer
 		};
-			
+
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 #endif

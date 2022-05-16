@@ -142,9 +142,9 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 39322
       AttackHitSpeed:
-        RawValue: 557056
-      MinAttackAngle: 30
-      MaxAttackAngle: 50
+        RawValue: 458752
+      MinAttackAngle: 0
+      MaxAttackAngle: 0
       NumberOfShots: 1
       AttackRange:
         RawValue: 557056

@@ -21,7 +21,7 @@ namespace FirstLight.Editor.EditorTools
 		{
 			if (!EditorPrefs.HasKey(USE_LOCAL_SERVER_KEY))
 			{
-				EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, true);
+				EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
 			}
 		}
 		

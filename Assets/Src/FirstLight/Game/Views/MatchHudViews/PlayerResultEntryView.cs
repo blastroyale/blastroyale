@@ -32,9 +32,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			
-			var csPoolConfig = _services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
-			                          .FirstOrDefault(x => x.Id == GameId.CS);
+
+			var csPoolConfig = _services.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) GameId.CS);
 
 			
 			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false, csPoolConfig);

@@ -47,6 +47,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEnable()
 		{
 			_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);
+			TickTimerView(0);
 		}
 
 		private void OnDisable()

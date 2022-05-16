@@ -20,12 +20,10 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct DebugGameCompleteRewardsCommand : IGameCommand
 	{
-		public ResourcePoolConfig CsPoolConfig;
-
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			var rewards = gameLogic.RewardLogic.DebugGiveMatchRewards(CsPoolConfig);
+			var rewards = gameLogic.RewardLogic.DebugGiveMatchRewards();
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}

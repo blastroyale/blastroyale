@@ -6674,7 +6674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1257257405583313601, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 45.6196
+      value: 60.8688
       objectReference: {fileID: 0}
     - target: {fileID: 1257257405583313601, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6710,7 +6710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1257257405583313601, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5.8634
       objectReference: {fileID: 0}
     - target: {fileID: 1257257405583313601, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6750,11 +6750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6626760302595072591, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_fontSize
-      value: 27.85
+      value: 35.01
       objectReference: {fileID: 0}
     - target: {fileID: 9126939857631887721, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_fontSize
-      value: 15.75
+      value: 21.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}

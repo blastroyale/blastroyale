@@ -32,11 +32,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
 			_services ??= MainInstaller.Resolve<IGameServices>();
-
-			var csPoolConfig = _services.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) GameId.CS);
-
 			
-			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false, csPoolConfig);
+			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
 
 			_playerNameText.text = data.GetPlayerName();

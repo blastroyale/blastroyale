@@ -92,10 +92,7 @@ public partial class SROptions
 		var poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
 		                                        .FirstOrDefault(x => x.Id == GameId.CS);
 
-		services.CommandService.ExecuteCommand(new DebugGameCompleteRewardsCommand()
-		{
-			CsPoolConfig = poolConfig
-		});
+		services.CommandService.ExecuteCommand(new DebugGameCompleteRewardsCommand());
 	}
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()

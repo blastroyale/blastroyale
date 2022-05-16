@@ -19,14 +19,13 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct GameCompleteRewardsCommand : IGameCommand
 	{
-		public ResourcePoolConfig CsPoolConfig;
 		public QuantumPlayerMatchData PlayerMatchData;
 		public bool DidPlayerQuit;
 		
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit, CsPoolConfig);
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}

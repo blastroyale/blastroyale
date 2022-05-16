@@ -35,12 +35,10 @@ namespace Quantum
 												cVelocitySqr / maxSpeedSqr);
 
 			//accuracy modifier is found by getting a random angle between the min and max angle values,
-			//and then passing that through into the shot; Works only for single shot weapons
+			//and then creating a rotation vector that is passed onto the projectile : only works for single shot weapons
 			var angle = targetAttackAngle / FP._2;
 			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
-
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
-			Log.Warn("default aim dir " + aimingDirection);
 
 			var projectile = new Projectile
 			{
@@ -59,7 +57,6 @@ namespace Quantum
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
 
-			// TODO: Implement accuracy for projectile weapons as well 
 			f.Events.OnPlayerAttack(player, e, (int)playerCharacter->CurrentWeapon.GameId, 0, 0);
 			f.Events.OnLocalPlayerAttack(player, e);
 			Projectile.Create(f, projectile);

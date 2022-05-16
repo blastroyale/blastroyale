@@ -21,9 +21,6 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<GameIdGroup, UniqueId> EquippedItems = new(new GameIdGroupComparer());
 		public readonly Dictionary<UniqueId, Equipment> Inventory = new();
 		public readonly List<RewardData> UncollectedRewards = new();
-		public readonly List<uint> LevelRewardsCollected = new();
-		public readonly List<TimedBoxData> TimedBoxes = new();
-		public readonly List<LootBoxData> CoreBoxes = new();
 		public readonly List<GameId> Emoji = new();
 	}
 }

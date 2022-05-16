@@ -33,10 +33,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(OnShopScreenOpened);
-			_services.MessageBrokerService.Subscribe<LootScreenOpenedMessage>(OnLootScreenOpened);
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpened);
 			_services.MessageBrokerService.Subscribe<SocialScreenOpenedMessage>(OnSocialScreenOpened);
-			_services.MessageBrokerService.Subscribe<CratesScreenOpenedMessage>(OnCratesScreenOpened);
 		}
 
 		private void OnDestroy()
@@ -50,12 +48,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_shopCamera.gameObject.SetActive(true);
 		}
 
-		private void OnLootScreenOpened(LootScreenOpenedMessage data)
-		{
-			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
-			_lootCamera.gameObject.SetActive(true);
-		}
-
 		private void OnPlayScreenOpened(PlayScreenOpenedMessage data)
 		{
 			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
@@ -66,12 +58,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 			_socialCamera.gameObject.SetActive(true);
-		}
-
-		private void OnCratesScreenOpened(CratesScreenOpenedMessage data)
-		{
-			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
-			_cratesCamera.gameObject.SetActive(true);
 		}
 	}
 }

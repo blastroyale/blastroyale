@@ -37,12 +37,12 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
-			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
-			_services.MessageBrokerService.Subscribe<TrophyRoadRewardCollectingStartedMessage>(OnTrophyRoadRewardCollectingStartedMessage);
-			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
-			_services.MessageBrokerService.Subscribe<TrophyRoadRewardCollectedMessage>(OnTrophyRoadRewardCollectedMessage);
+			_services.MessageBrokerService
+			         .Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
+			_services.MessageBrokerService
+			         .Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
 			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
-			
+
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 		}
 
@@ -57,11 +57,12 @@ namespace FirstLight.Game.Presenters
 			_softCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.SC].ToString()}";
 			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
 		}
-		
-		private void OnCurrencyChanged(GameId currency, ulong previous, ulong newAmount, ObservableUpdateType updateType)
+
+		private void OnCurrencyChanged(GameId currency, ulong previous, ulong newAmount,
+		                               ObservableUpdateType updateType)
 		{
 			var targetValue = _dataProvider.CurrencyDataProvider.Currencies[currency];
-			
+
 			if (currency == GameId.SC)
 			{
 				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, SoftCurrencyRackupUpdate);
@@ -77,21 +78,11 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
 		}
 
-		private void OnTrophyRoadRewardCollectingStartedMessage(TrophyRoadRewardCollectingStartedMessage obj)
-		{
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
-		}
-
-		private void OnTrophyRoadRewardCollectedMessage(TrophyRoadRewardCollectedMessage obj)
-		{
-			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
-		}
-
 		private void OnUnclaimedRewardsCollectedMessage(UnclaimedRewardsCollectedMessage obj)
 		{
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 		}
-		
+
 		private void OnPlayUiVfxCommandMessage(PlayUiVfxCommandMessage message)
 		{
 			var closure = message;
@@ -99,13 +90,13 @@ namespace FirstLight.Game.Presenters
 			if (message.Id == GameId.SC)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
-				                                       _scAnimationTarget.position, 
+				                                       _scAnimationTarget.position,
 				                                       () => RackupTween(SoftCurrencyRackupUpdate));
 			}
 			else if (message.Id == GameId.HC)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
-				                                       _hcAnimationTarget.position, 
+				                                       _hcAnimationTarget.position,
 				                                       () => RackupTween(HardCurrencyRackupUpdate));
 			}
 
@@ -113,19 +104,21 @@ namespace FirstLight.Game.Presenters
 			{
 				var targetValue = _dataProvider.CurrencyDataProvider.Currencies[closure.Id];
 				var initialValue = targetValue - closure.Quantity;
-				
+
 				DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
 			}
 		}
 
 		private void OnSCClicked()
 		{
-			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_SC, _scTooltipAnchor.position, TooltipArrowPosition.Top);
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_SC,
+			                                                 _scTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
-		
+
 		private void OnHCClicked()
 		{
-			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_HC, _hcTooltipAnchor.position, TooltipArrowPosition.Top);
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_HC,
+			                                                 _hcTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 
 		private void SoftCurrencyRackupUpdate(float value)

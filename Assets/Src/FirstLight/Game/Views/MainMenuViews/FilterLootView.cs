@@ -13,7 +13,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		[SerializeField] private GameIdGroup _slot;
 		[SerializeField, Required] private Button _button;
-		[SerializeField, Required] private NotificationGroupUpgradeView _notificationGroupUpgradeView;
 		[SerializeField, Required] private NotificationGroupIdView _notificationGroupIdView;
 
 		/// <summary>
@@ -31,7 +30,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void SetNotificationState()
 		{
-			_notificationGroupUpgradeView.UpdateState();
 			_notificationGroupIdView.UpdateState();
 		}
 

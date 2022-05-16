@@ -127,31 +127,12 @@ namespace FirstLight.Game.Logic
 			{
 				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
 			}
-			else if (groups.Contains(GameIdGroup.LootBox))
-			{
-				reward.Value = (int) GameLogic.LootBoxLogic.AddToInventory(reward.Value);
-			}
 			else
 			{
 				throw new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");
 			}
 
 			return reward;
-		}
-
-		private RewardData GetCrateReward(GameId boxId, int tier)
-		{
-			var lootBoxConfigs = GameLogic.ConfigsProvider.GetConfigsList<LootBoxConfig>();
-
-			foreach (var config in lootBoxConfigs)
-			{
-				if (config.LootBoxId == boxId && config.Tier == tier)
-				{
-					return new RewardData(boxId, config.Id);
-				}
-			}
-
-			throw new LogicException($"There is no Loot Box with the given id {boxId} in the given tier {tier}");
 		}
 	}
 }

@@ -57,14 +57,14 @@ namespace Quantum.Systems
 				{
 					return;
 				}
-				
+
 				var agent = f.Unsafe.GetPointer<HFSMAgent>(filter.Entity);
 				HFSMManager.TriggerEvent(f, &agent->Data, filter.Entity, Constants.RespawnEvent);
 			}
 
 			// If a bot is not alive OR a bot is stunned 
 			// then we don't go further with the behaviour
-			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) || 
+			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) ||
 			    // Hack to prevent the bots to act while player's camera animation is still playing
 			    f.Time < f.GameConfig.PlayerRespawnTime)
 			{
@@ -578,8 +578,7 @@ namespace Quantum.Systems
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
-					                       ItemManufacturer.Military, ItemFaction.Order, 1, 1),
+					Weapon = new Equipment(weaponConfig.Id),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
@@ -613,9 +612,7 @@ namespace Quantum.Systems
 						var slotItems = equipmentOptions[slot];
 						var rngGearIndex = f.RNG->Next(-1, slotItems.Length);
 						var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
-						var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool,
-						                              ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order,
-						                              rngGearIndex < 0 ? 0u : 1u, 1);
+						var equipment = new Equipment(gearConfig.Id, level: rngGearIndex < 0 ? 0u : 1u, rarity: gearConfig.StartingRarity);
 
 						gear[j] = equipment;
 						botCharacter.Gear[j] = equipment;

@@ -86,26 +86,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			Level = _dataProvider?.PlayerDataProvider?.Level?.Value ?? 1;
 		}
 
-		/// <summary>
-		/// Updates the bar and level view of the player's trophy road progression
-		/// </summary>
-		public async void UpdateProgressView()
-		{
-			_claimRewardObject.SetActive(false);
-			
-			var unclaimedRewards = GetUnclaimedReward(Level - 1);
-			var rewardId = unclaimedRewards?.RewardId ?? _dataProvider.TrophyRoadDataProvider.CurrentLevelInfo.Reward.RewardId;
-			var level = _levelChange?.Key ?? _dataProvider.PlayerDataProvider.Level.Value;
-			var info = _dataProvider.PlayerDataProvider.GetInfo(level);
-			var xp = _xpChange?.Key ?? info.Xp;
-			
-			_xpSlider.value = unclaimedRewards.HasValue ? 1f : (float) xp / info.Config.LevelUpXP;
-			_currentRewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(GetRewardSpriteId(rewardId));
-			
-			UpdateVisualState(unclaimedRewards.HasValue);
-			SetLevel(Level);
-		}
-
 		private async void OnPlayUiVfxCommandMessage(PlayUiVfxCommandMessage message)
 		{
 			if (message.Id != GameId.XP)
@@ -143,18 +123,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				return;
 			}
-			
-			var unclaimedRewards = GetUnclaimedReward(Level - 1);
-			
-			if (unclaimedRewards.HasValue)
-			{
-				if (_levelChange.HasValue)
-				{
-					OnLevelUpXpSliderCompleted.Invoke(_levelChange.Value.Key, _levelChange.Value.Value);
-				}
-				return;
-			}
-			
+
 			var info = _dataProvider.PlayerDataProvider.CurrentLevelInfo;
 			var targetValue = _levelChange.HasValue ? 1f : (float) info.Xp / info.Config.LevelUpXP;
 			
@@ -192,25 +161,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var newLevel = _levelChange.Value.Value;
 			
 			SetLevel(newLevel);
-			UpdateVisualState(GetUnclaimedReward(newLevel).HasValue);
 			OnLevelUpXpSliderCompleted.Invoke(previousLevel, newLevel);
 		}
-		
-		private RewardData? GetUnclaimedReward(uint level)
-		{
-			var infos = _dataProvider.TrophyRoadDataProvider.GetAllInfos(level);
 
-			foreach (var trophyRoadRewardInfo in infos)
-			{
-				if (trophyRoadRewardInfo.IsReadyToCollect)
-				{
-					return trophyRoadRewardInfo.Reward;
-				}
-			}
-
-			return null;
-		}
-		
 		private GameId GetRewardSpriteId(GameId rewardId)
 		{
 			if (rewardId == GameId.SC)

@@ -58,7 +58,6 @@ namespace FirstLight.Tests.EditorMode
 		protected IPlayerLogic PlayerLogic;
 		protected IEquipmentLogic EquipmentLogic;
 		protected IRewardLogic RewardLogic;
-		protected ILootBoxLogic LootBoxLogic;
 		protected IMatchLogic MatchLogic;
 
 		[SetUp]
@@ -87,7 +86,6 @@ namespace FirstLight.Tests.EditorMode
 			PlayerLogic = Substitute.For<IPlayerLogic>();
 			EquipmentLogic = Substitute.For<IEquipmentLogic>();
 			RewardLogic = Substitute.For<IRewardLogic>();
-			LootBoxLogic = Substitute.For<ILootBoxLogic>();
 			MatchLogic = Substitute.For<IMatchLogic>();
 
 			// Returns
@@ -98,7 +96,6 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic.PlayerLogic.Returns(PlayerLogic);
 			GameLogic.EquipmentLogic.Returns(EquipmentLogic);
 			GameLogic.RewardLogic.Returns(RewardLogic);
-			GameLogic.LootBoxLogic.Returns(LootBoxLogic);
 			GameLogic.MatchLogic.Returns(MatchLogic);
 
 			GameLogic.MessageBrokerService.Returns(MessageBrokerService);

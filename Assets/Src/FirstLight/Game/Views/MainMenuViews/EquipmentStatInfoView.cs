@@ -46,11 +46,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public virtual void SetInfo(EquipmentStatType statType, string statText, float value, float maxValue)
 		{
 			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
-
+		
 			_statText.text = statText;
 			_valueText.text = value.ToString(format);
 			_valueTextComparison.text = "";
-
+		
 			if (value > 0 && maxValue > 0)
 			{
 				_slider.value = value / _maxValuesDictionary[statType];
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			
 			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
 			var textString = "";
-
+		
 			if (delta > 0)
 			{
 				_valueTextComparison.color = _positiveColor;

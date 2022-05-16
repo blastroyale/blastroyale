@@ -545,7 +545,7 @@ MonoBehaviour:
         m_CallState: 2
   RigidbodyContainerMonoComponent: {fileID: 6503728166105186051}
   _animator: {fileID: 6469672351747221080}
-  _projectileHitVfx: 8
+  _projectileHitVfx: 6
   _vfxLocalScale: {x: 1, y: 1, z: 1}
   _characterView: {fileID: -8710783128296579999}
   RootTransform: {fileID: 3699581878037750602}
@@ -616,6 +616,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbodies:
+  - {fileID: 1666512310}
+  - {fileID: 162605357}
+  - {fileID: 216847342}
+  - {fileID: 807157171}
+  - {fileID: 1690359389}
+  - {fileID: 1164035769}
+  - {fileID: 202884124}
+  - {fileID: 1415475431}
+  - {fileID: 170135888}
+  - {fileID: 1818380528}
+  - {fileID: 251034389}
+  - {fileID: 1666512310}
+  - {fileID: 162605357}
+  - {fileID: 216847342}
+  - {fileID: 807157171}
+  - {fileID: 1690359389}
+  - {fileID: 1164035769}
+  - {fileID: 202884124}
+  - {fileID: 1415475431}
+  - {fileID: 170135888}
+  - {fileID: 1818380528}
+  - {fileID: 251034389}
+  - {fileID: 1666512310}
+  - {fileID: 162605357}
+  - {fileID: 216847342}
+  - {fileID: 807157171}
+  - {fileID: 1690359389}
+  - {fileID: 1164035769}
+  - {fileID: 202884124}
+  - {fileID: 1415475431}
+  - {fileID: 170135888}
+  - {fileID: 1818380528}
+  - {fileID: 251034389}
   - {fileID: 1666512310}
   - {fileID: 162605357}
   - {fileID: 216847342}

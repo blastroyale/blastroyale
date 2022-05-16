@@ -11,6 +11,7 @@ enum ConsumableType
 	Rage,
 	Ammo,
 	InterimArmour,
+	ShieldCapacity,
 	Stash,
 }
 

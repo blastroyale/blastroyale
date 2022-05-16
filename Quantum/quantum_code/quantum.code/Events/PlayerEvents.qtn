@@ -99,11 +99,11 @@ synced event OnPlayerDamaged
 	player_ref Player;
 	entity_ref Entity;
 	entity_ref Attacker;
-	UInt32 InterimArmourDamage;
-    UInt32 HealthDamage;
-    UInt32 TotalDamage;
-    Int32 MaxHealth;
-    Int32 MaxInterimArmour;
+	UInt32 InterimArmourDamage; 
+	UInt32 HealthDamage;
+	UInt32 TotalDamage;
+	Int32 MaxHealth;
+	Int32 InterimArmourCapacity;
 }
 
 synced event OnPlayerAttackHit
@@ -205,10 +205,10 @@ synced event OnLocalPlayerDamaged
 	entity_ref Entity;
 	entity_ref Attacker;
 	UInt32 InterimArmourDamage;
-    UInt32 HealthDamage;
-    UInt32 TotalDamage;
-    Int32 MaxHealth;
-    Int32 MaxInterimArmour;
+	UInt32 HealthDamage;
+	UInt32 TotalDamage;
+	Int32 MaxHealth;
+	Int32 InterimArmourCapacity;
 }
 
 synced event OnLocalPlayerAttack

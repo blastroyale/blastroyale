@@ -57,7 +57,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			
 			var entityView = EntityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var vfx = Services.VfxService.Spawn(VfxId.CollectableIndicator) as CollectableIndicatorVfxMonoComponent;
 			var collectablePosition = _collectableIndicatorAnchor.position;

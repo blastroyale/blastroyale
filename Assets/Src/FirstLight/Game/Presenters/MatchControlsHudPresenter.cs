@@ -150,7 +150,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (callback.InterimArmourDamage > 0)
 			{
-				PlayHapticFeedbackForDamage(callback.InterimArmourDamage, callback.MaxInterimArmour);
+				PlayHapticFeedbackForDamage(callback.InterimArmourDamage, callback.InterimArmourCapacity);
 			}
 			else if (callback.HealthDamage > 0)
 			{

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca80a923bd0db4c42a33795680e48e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 30
+  _id: 20
   _progressIndicator: {fileID: 6650924515104287630}
 --- !u!1 &6650924515104287624
 GameObject:

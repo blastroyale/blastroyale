@@ -40,9 +40,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			if (callback.Entity == _entity)
 			{
-				
-				UpdateInterimArmourBar((float)callback.CurrentInterimArmour / callback.MaxInterimArmour);
-				
+				UpdateInterimArmourBar((float)callback.CurrentInterimArmour / callback.InterimArmourCapacity);
 			}
 		}
 

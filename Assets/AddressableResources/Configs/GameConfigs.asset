@@ -37,7 +37,8 @@ MonoBehaviour:
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
         RawValue: 314573
-      PlayerDefaultInterimArmour: 400
+      PlayerMaxInterimArmourCapacity: 800
+      PlayerStartingInterimArmourCapacity: 100
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:

@@ -35,7 +35,7 @@ namespace FirstLight.Game.Data.DataTypes
 				return 0;
 			}
 			
-			LastPoolRestockTime = DateTime.UtcNow;
+			LastPoolRestockTime = LastPoolRestockTime.AddMinutes(amountOfRestocks * config.RestockIntervalMinutes);
 			CurrentResourceAmountInPool += config.RestockPerInterval * amountOfRestocks;
 			
 			if (CurrentResourceAmountInPool > config.PoolCapacity)

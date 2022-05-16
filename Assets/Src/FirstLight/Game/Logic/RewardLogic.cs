@@ -31,11 +31,6 @@ namespace FirstLight.Game.Logic
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
 		List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
-		
-		/// <summary>
-		/// DEBUG Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
-		/// </summary>
-		List<RewardData> DebugGiveMatchRewards();
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -70,7 +65,6 @@ namespace FirstLight.Game.Logic
 			var rewards = new Dictionary<GameId, int>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
-			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
 			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
@@ -89,24 +83,6 @@ namespace FirstLight.Game.Logic
 			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
 			var rewards = GetMatchRewards(matchData, didPlayerQuit);
 			var rewardsList = new List<RewardData>();
-
-			foreach (var reward in rewards)
-			{
-				var rewardData = new RewardData(reward.Key, reward.Value);
-				
-				rewardsList.Add(rewardData);
-				Data.UncollectedRewards.Add(rewardData);
-			}
-
-			return rewardsList;
-		}
-
-		public List<RewardData> DebugGiveMatchRewards()
-		{
-			var rewards = new Dictionary<GameId, int>();
-			var rewardsList = new List<RewardData>();
-			
-			rewards.Add(GameId.CS, (int) AwardFromResourcePool(75,GameId.CS));
 
 			foreach (var reward in rewards)
 			{
@@ -171,7 +147,6 @@ namespace FirstLight.Game.Logic
 		{
 			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
 			
-			Console.WriteLine(csPoolConfig.PoolCapacity + " " + csPoolConfig.RestockIntervalMinutes + " " + csPoolConfig.TotalRestockIntervalMinutes);
 			// Check and restock pool before any currency is drawn and awarded
 			GameLogic.CurrencyLogic.RestockResourcePool(GameId.CS, csPoolConfig);
 			

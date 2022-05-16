@@ -84,16 +84,7 @@ public partial class SROptions
 
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
-
-	[Category("Cheats")]
-	public void SendGameCompleteCommand()
-	{
-		var services = MainInstaller.Resolve<IGameServices>() as IGameServices;
-		var poolConfig = services.ConfigsProvider.GetConfigsList<ResourcePoolConfig>()
-		                                        .FirstOrDefault(x => x.Id == GameId.CS);
-
-		services.CommandService.ExecuteCommand(new DebugGameCompleteRewardsCommand());
-	}
+	
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

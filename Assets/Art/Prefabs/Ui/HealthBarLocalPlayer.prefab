@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 26983858220078284}
   m_Layer: 5
-  m_Name: ShieldDisplay
+  m_Name: ArmourDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 7360784588349920138}
   - component: {fileID: 574484563738581220}
   m_Layer: 5
-  m_Name: ShieldIcon
+  m_Name: ArmourIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1151,7 +1151,7 @@ GameObject:
   - component: {fileID: 3349395999627655782}
   - component: {fileID: 2437953739746734517}
   m_Layer: 5
-  m_Name: Fill (shield)
+  m_Name: Fill (armour)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1302,7 +1302,7 @@ GameObject:
   - component: {fileID: 4197549974483400997}
   - component: {fileID: 8494298311539759784}
   m_Layer: 5
-  m_Name: ShieldSlider
+  m_Name: ArmourDealtSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1569,9 +1569,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aeaf3ec5e94ae5b9ab640a756bc645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShieldText: {fileID: 3074748024502795396}
-  ShieldIcon: {fileID: 1400549416859507154}
-  ShieldSlider: {fileID: 8494298311539759784}
+  InterimArmourText: {fileID: 3074748024502795396}
+  InterimArmourIcon: {fileID: 1400549416859507154}
+  ArmourSlider: {fileID: 8494298311539759784}
+  Colour: {r: 0.45882356, g: 0.7686275, b: 0.9333334, a: 1}
   FillImage: {fileID: 2437953739746734517}
 --- !u!114 &8829114806517409407
 MonoBehaviour:
@@ -2025,7 +2026,7 @@ GameObject:
   - component: {fileID: 6361509444731345694}
   - component: {fileID: 3074748024502795396}
   m_Layer: 5
-  m_Name: Shield
+  m_Name: Armour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

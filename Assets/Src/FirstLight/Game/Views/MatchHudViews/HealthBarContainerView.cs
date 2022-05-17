@@ -77,7 +77,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				healthBar = barCache;
 			}
 
-			healthBar.HealthBarShieldView.SetupView(entity, frame.Get<Stats>(entity).CurrentShield);
+			healthBar.HealthBarInterimArmourView.SetupView(entity, frame.Get<Stats>(entity).CurrentInterimArmour);
 			
 			SetupHealthBar(frame, message.Entity, healthBar);
 		}
@@ -114,7 +114,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				HealthBarNameView = instance.GetComponent<HealthBarNameView>(),
 				HealthBarTextView = instance.GetComponent<HealthBarTextView>(),
 				ReloadBarView = instance.GetComponent<ReloadBarView>(),
-				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
+				HealthBarInterimArmourView = instance.GetComponent<HealthBarInterimArmourView>()
 			};
 		}
 		
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				OverlayView = instance,
 				HealthBar = instance.GetComponent<HealthBarView>(),
 				HealthBarNameView = instance.GetComponent<HealthBarNameView>(),
-				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
+				HealthBarInterimArmourView = instance.GetComponent<HealthBarInterimArmourView>()
 			};
 		}
 
@@ -161,13 +161,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private class PlayerHealthBarPoolObject : HealthBarPoolObject
 		{
 			public HealthBarNameView HealthBarNameView;
-			public HealthBarShieldView HealthBarShieldView;
+			public HealthBarInterimArmourView HealthBarInterimArmourView;
 		
 			/// <inheritdoc />
 			public override void OnDespawn()
 			{
 				base.OnDespawn();
-				HealthBarShieldView.OnDespawn();
+				HealthBarInterimArmourView.OnDespawn();
 			}
 		}
 

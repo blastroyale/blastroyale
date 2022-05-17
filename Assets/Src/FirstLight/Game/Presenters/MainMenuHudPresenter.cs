@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField, Required] private Transform _scTooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _csCurrencyText;
-		[SerializeField, Required] private Transform _scAnimationTarget;
+		[SerializeField, Required] private Transform _csAnimationTarget;
 		[SerializeField] private UnityEngine.UI.Button _csButton;
 		[SerializeField] private int _rackupTextAnimationDuration = 5;
 
@@ -41,6 +41,7 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
 
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			UpdateCsValueText(_dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS));
 		}
 
 		private void OnDestroy()
@@ -56,7 +57,7 @@ namespace FirstLight.Game.Presenters
 
 			if (currency == GameId.CS)
 			{
-				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, CraftSpiceRackupUpdate);
+				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, UpdateCsValueText);
 			}
 		}
 
@@ -97,9 +98,9 @@ namespace FirstLight.Game.Presenters
 			                                                 _scTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 
-		private void CraftSpiceRackupUpdate(float value)
+		private void UpdateCsValueText(float value)
 		{
-			_csCurrencyText.text = $" {value.ToString("N0")}";
+			_csCurrencyText.text = $" {value:N0}";
 		}
 	}
 }

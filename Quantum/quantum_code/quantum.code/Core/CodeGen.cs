@@ -112,8 +112,6 @@ namespace Quantum {
   public enum GameId : int {
     Random = 0,
     RealMoney = 125,
-    SC = 1,
-    HC = 2,
     CS = 12,
     BLST = 14,
     XP = 3,

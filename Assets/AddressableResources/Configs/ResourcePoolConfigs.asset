@@ -15,9 +15,9 @@ MonoBehaviour:
   _configs:
   - Id: 12
     PoolCapacity: 300
-    RestockIntervalMinutes: 2
-    TotalRestockIntervalMinutes: 6
+    RestockIntervalMinutes: 180
+    TotalRestockIntervalMinutes: 720
   - Id: 15
     PoolCapacity: 500
-    RestockIntervalMinutes: 2
-    TotalRestockIntervalMinutes: 6
+    RestockIntervalMinutes: 180
+    TotalRestockIntervalMinutes: 720

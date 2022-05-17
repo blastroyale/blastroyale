@@ -70,6 +70,7 @@ namespace FirstLight.Game
 			FB.Init(FacebookInit);
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
+			TrySetLocalServer();
 		}
 
 		private void OnApplicationPause(bool isPaused)

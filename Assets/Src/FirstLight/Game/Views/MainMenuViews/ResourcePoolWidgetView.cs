@@ -85,7 +85,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private uint CalculatePoolRestockAmount(ResourcePoolConfig config)
 		{
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - _currentPoolData.LastPoolRestockTime).Minutes;
+			var minutesElapsedSinceLastRestock = (uint)(DateTime.UtcNow - _currentPoolData.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) 0;
 			
 			amountOfRestocks = (uint) MathF.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);

@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Backend.Models;
+using FirstLight;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -34,6 +37,13 @@ public class PlayerSetupService : IPlayerSetupService
 	{
 		GameId.Hammer
 	};
+
+	private static IConfigsProvider _configsProvider;
+
+	public PlayerSetupService(IConfigsProvider configsProvider)
+	{
+		_configsProvider = configsProvider;
+	}
 
 	/// <inheritdoc />
 	public ServerState GetInitialState(string playFabId)
@@ -76,10 +86,12 @@ public class PlayerSetupService : IPlayerSetupService
 		};
 
 		rngData.Count += 2;
-
-		playerData.Currencies.Add(GameId.HC, 0);
-		playerData.Currencies.Add(GameId.SC, 0);
-
+		
+		var csPoolConfig = _configsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
+		var eqExpPoolConfig = _configsProvider.GetConfig<ResourcePoolConfig>((int)GameId.EquipmentXP);
+		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
+		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
+		
 		playerData.EquippedItems.Add(GameIdGroup.Weapon, idData.UniqueIdCounter + 1);
 		idData.GameIds.Add(++idData.UniqueIdCounter, _initialWeapons[rngWeapon]);
 

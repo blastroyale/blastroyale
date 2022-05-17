@@ -80,7 +80,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
-			
+
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
 			
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);

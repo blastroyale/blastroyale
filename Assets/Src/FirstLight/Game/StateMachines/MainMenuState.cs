@@ -540,9 +540,8 @@ namespace FirstLight.Game.StateMachines
 
 			void UnlinkComplete()
 			{
-				var appData = _dataService.GetData<AppData>();
-				appData.LastLoginEmail = "";
-				appData.LinkedDevice = false;
+				_gameDataProvider.AppDataProvider.SetLastLoginEmail("");
+				_gameDataProvider.AppDataProvider.SetDeviceLinkedStatus(false);
 
 #if UNITY_EDITOR
 				var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);

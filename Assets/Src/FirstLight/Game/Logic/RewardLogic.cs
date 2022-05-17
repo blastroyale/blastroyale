@@ -17,7 +17,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
 		IReadOnlyList<RewardData> UnclaimedRewards { get; }
-		
+
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
@@ -62,10 +62,10 @@ namespace FirstLight.Game.Logic
 			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
 			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
 			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
-			
+
 			if (currency > 0)
 			{
-				rewards.Add(GameId.HC, (int) currency);
+				rewards.Add(GameId.CS, (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong)currency,GameId.CS));
 			}
 
 			return rewards;
@@ -74,6 +74,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
+			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
 			var rewards = GetMatchRewards(matchData, didPlayerQuit);
 			var rewardsList = new List<RewardData>();
 

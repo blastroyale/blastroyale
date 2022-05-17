@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -24,6 +25,8 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
+			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
 			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}

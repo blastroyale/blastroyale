@@ -34,14 +34,13 @@ public static class ServerStartup
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();
-
+		
 		// Logic
 		services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
 		{
 			var cfgSerializer = new ConfigsSerializer();
 			var bakedConfigs = File.ReadAllText(Path.Combine(appPath, "gameConfig.json"));
-			var cfg = cfgSerializer.Deserialize(bakedConfigs) as ConfigsProvider;
-			cfg.AddSingletonConfig(new MapConfig()); // TODO: Remove dependency from server
+			var cfg = cfgSerializer.Deserialize<ServerConfigsProvider>(bakedConfigs);
 			return cfg;
 		});
 	}

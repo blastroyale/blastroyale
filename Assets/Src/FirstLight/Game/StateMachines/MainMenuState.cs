@@ -95,7 +95,6 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(TryRestockResourcePools);
 
 			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
@@ -208,11 +207,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_gameDataProvider?.PlayerDataProvider?.Level.StopObservingAll(this);
-		}
-		
-		private void TryRestockResourcePools()
-		{
-			//_services.CommandService.ExecuteCommand(new RestockResourcePoolCommand { PoolId = GameId.CS });
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)

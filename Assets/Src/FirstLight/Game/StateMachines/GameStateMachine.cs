@@ -14,7 +14,6 @@ using I2.Loc;
 using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
-using UnityEditor;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -24,8 +23,6 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class GameStateMachine
 	{
-		private const string USE_LOCAL_SERVER_KEY = "UseLocalServer";
-		
 		private readonly IStatechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
@@ -83,8 +80,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(TrySetLocalServer);
-			
+
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
 			
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
@@ -145,23 +141,6 @@ namespace FirstLight.Game.StateMachines
 			                               ScriptLocalization.General.NoInternetDescription, button);
 		}
 
-		private void TrySetLocalServer()
-		{
-#if UNITY_EDITOR
-			if (!EditorPrefs.HasKey(USE_LOCAL_SERVER_KEY))
-			{
-				EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
-			}
-			
-			if (EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY))
-			{
-				PlayFabSettings.LocalApiServer = "http://localhost:7274";
-			}
-			
-			Debug.Log("Using local server? -" + EditorPrefs.GetBool(USE_LOCAL_SERVER_KEY));
-#endif
-		}
-		
 		private async Task LoadCoreAssets()
 		{
 			await VersionUtils.LoadVersionDataAsync();

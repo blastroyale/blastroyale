@@ -9,6 +9,8 @@ using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.UiService;
+using PlayFab;
+using UnityEditor;
 using UnityEngine;
 
 namespace FirstLight.Game
@@ -18,6 +20,8 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
+		
+		
 		public IGameUiServiceInit UiService;
 		
 		private GameStateMachine _gameStateMachine;
@@ -100,6 +104,23 @@ namespace FirstLight.Game
 			}
 			
 			FB.ActivateApp();
+		}
+		
+		private void TrySetLocalServer()
+		{
+#if UNITY_EDITOR
+			if (!EditorPrefs.HasKey(GameConstants.EDITOR_PREFS_USE_LOCAL_SERVER_KEY))
+			{
+				EditorPrefs.SetBool(GameConstants.EDITOR_PREFS_USE_LOCAL_SERVER_KEY, false);
+			}
+			
+			if (EditorPrefs.GetBool(GameConstants.EDITOR_PREFS_USE_LOCAL_SERVER_KEY))
+			{
+				PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			}
+			
+			Debug.Log("Using local server? -" + EditorPrefs.GetBool(GameConstants.EDITOR_PREFS_USE_LOCAL_SERVER_KEY));
+#endif
 		}
 
 		private IEnumerator EndAppCoroutine()

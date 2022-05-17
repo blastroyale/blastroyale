@@ -159,16 +159,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
 
-		public void SetDeviceLinkedStatus(bool linked)
-		{
-			Data.LinkedDevice = linked;
-		}
-
-		public void SetLastLoginEmail(string email)
-		{
-			Data.LastLoginEmail = email;
-		}
-
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
 
@@ -188,6 +178,16 @@ namespace FirstLight.Game.Logic
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableField<string>(Data.NickNameId);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
+		}
+		
+		public void SetDeviceLinkedStatus(bool linked)
+		{
+			Data.LinkedDevice = linked;
+		}
+
+		public void SetLastLoginEmail(string email)
+		{
+			Data.LastLoginEmail = email;
 		}
 
 		/// <inheritdoc />

@@ -25,6 +25,8 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
+			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
 			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}

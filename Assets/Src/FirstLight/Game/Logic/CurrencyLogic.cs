@@ -55,7 +55,13 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Tries to restock a given pool type (restocking dependent on last restock time, current time)
 		/// </summary>
-		void RestockResourcePool(GameId poolType, ResourcePoolConfig poolConfig);
+		void RestockResourcePool(GameId poolType);
+		
+		/// <summary>
+		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
+		/// </summary>
+		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
+		ulong WithdrawFromResourcePool(ulong amountToAward, GameId pool);
 	}
 
 	/// <inheritdoc cref="ICurrencyLogic"/>
@@ -122,13 +128,60 @@ namespace FirstLight.Game.Logic
 
 			_currencies[currency] = oldAmount - amount;
 		}
+		
+		/// <inheritdoc />
+		public ulong WithdrawFromResourcePool(ulong amountToAward, GameId pool)
+		{
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
+			var poolData = GameLogic.CurrencyLogic.ResourcePools[pool];
+			var amountWithdrawn = (ulong) 0;
+
+			if (amountToAward > poolData.CurrentResourceAmountInPool)
+			{
+				amountWithdrawn = poolData.CurrentResourceAmountInPool;
+			}
+			else
+			{
+				amountWithdrawn = amountToAward;
+			}
+
+			// If withdrawing from full pool, the next restock timer needs to restarted, as opposed to ticking already.
+			// When at max pool capacity, the player will see 'Storage Full' on the ResourcePoolWidget
+			if (poolData.CurrentResourceAmountInPool >= poolConfig.PoolCapacity)
+			{
+				poolData.LastPoolRestockTime = DateTime.UtcNow;
+			}
+
+			poolData.CurrentResourceAmountInPool -= amountWithdrawn;
+			
+			Data.ResourcePools[pool] = poolData;
+
+			return amountWithdrawn;
+		}
 
 		/// <inheritdoc />
-		public void RestockResourcePool(GameId poolType, ResourcePoolConfig poolConfig)
+		public void RestockResourcePool(GameId poolType)
 		{
-			var csPoolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
-			csPoolData.Restock(poolConfig);
-			Data.ResourcePools[poolType] = csPoolData;
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
+			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).Minutes;
+			var amountOfRestocks = (uint) MathF.Floor((float) minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
+			
+			if (amountOfRestocks == 0)
+			{
+				return;
+			}
+			
+			poolData.LastPoolRestockTime = poolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * poolConfig.RestockIntervalMinutes);
+			poolData.CurrentResourceAmountInPool += poolConfig.RestockPerInterval * amountOfRestocks;
+			
+			if (poolData.CurrentResourceAmountInPool > poolConfig.PoolCapacity)
+			{
+				poolData.CurrentResourceAmountInPool = poolConfig.PoolCapacity;
+			}
+			
+			
+			Data.ResourcePools[poolType] = poolData;
 		}
 	}
 }

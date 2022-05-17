@@ -34,7 +34,7 @@ public static class ServerStartup
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();
-
+		
 		// Logic
 		services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
 		{

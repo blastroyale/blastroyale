@@ -41,12 +41,6 @@ namespace FirstLight.Game.Logic
 		/// Awards the given <paramref name="reward"/> to the player
 		/// </summary>
 		RewardData GiveReward(RewardData reward);
-		
-		/// <summary>
-		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
-		/// </summary>
-		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
-		ulong AwardFromResourcePool(ulong amountToAward, GameId pool);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -71,7 +65,7 @@ namespace FirstLight.Game.Logic
 
 			if (currency > 0)
 			{
-				rewards.Add(GameId.CS, (int) AwardFromResourcePool((ulong)currency,GameId.CS));
+				rewards.Add(GameId.CS, (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong)currency,GameId.CS));
 			}
 
 			return rewards;
@@ -140,22 +134,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			return reward;
-		}
-
-		/// <inheritdoc />
-		public ulong AwardFromResourcePool(ulong amountToAward, GameId pool)
-		{
-			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
-			
-			// Check and restock pool before any currency is drawn and awarded
-			GameLogic.CurrencyLogic.RestockResourcePool(GameId.CS, csPoolConfig);
-			
-			var currentPoolData = GameLogic.CurrencyLogic.ResourcePools[pool];
-			ulong amountWithdrawn = currentPoolData.Withdraw(amountToAward, csPoolConfig);
-			
-			Data.ResourcePools[pool] = currentPoolData;
-
-			return amountWithdrawn;
 		}
 	}
 }

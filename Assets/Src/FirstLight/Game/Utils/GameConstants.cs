@@ -12,6 +12,8 @@ namespace FirstLight.Game.Utils
 		public const string APP_STORE_IOS_LINK = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 		public const string APP_STORE_GOOGLE_PLAY_LINK = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
 		
+		public const string EDITOR_PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
+		
 		// Description post fix string tag
 		public const string DESCRIPTION_POSTFIX = "Description";
 		

@@ -32,8 +32,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			
-			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
+
+			var rewards = _dataProvider.RewardDataProvider.UnclaimedRewards;
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
 
 			_playerNameText.text = data.GetPlayerName();
@@ -41,8 +41,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_killsText.text = data.Data.PlayersKilledCount.ToString();
 			_deathsText.text = data.Data.DeathCount.ToString();
 
+			var csReward = rewards.FirstOrDefault(x => x.RewardId == GameId.CS);
+
 			_coinsText.enabled = showExtra;
-			_coinsText.text = rewards.TryGetValue(GameId.CS, out var cs) ? cs.ToString() : "0";
+			
+			if (csReward.Value > 0)
+			{
+				_coinsText.text = csReward.Value.ToString();
+			}
+			
 			_xpText.enabled = showExtra;
 			_xpText.text = data.Data.PlayerTrophies.ToString();
 

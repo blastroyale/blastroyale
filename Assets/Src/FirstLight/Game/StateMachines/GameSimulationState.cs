@@ -12,6 +12,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -80,11 +81,12 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(PublishMatchEnded);
-
-			gameEnded.OnEnter(SendGameplayDataAnalytics);
+			
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-
+			
+			gameResults.OnEnter(GiveMatchRewards);
+			gameResults.OnEnter(SendGameplayDataAnalytics);
 			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
 			
@@ -174,7 +176,33 @@ namespace FirstLight.Game.StateMachines
 			QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			_statechartTrigger(_gameQuitEvent);
 		}
-
+		
+		private void GiveMatchRewards()
+		{
+			if (_gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.BattleRoyale)
+			{
+				return;
+			}
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
+			
+			_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
+			{
+				PlayerMatchData = data,
+				DidPlayerQuit = false
+			});
+			
+			_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
+			{
+				Players = gameContainer.GetPlayersMatchData(f, out _),
+				LocalPlayerRank = data.PlayerRank
+			});
+		}
+		
 		private void SendGameplayDataAnalytics()
 		{
 			SendGameplayData(false);
@@ -196,21 +224,6 @@ namespace FirstLight.Game.StateMachines
 					totalPlayers++;
 				}
 			}
-
-			/*_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
-			{
-				PlayerMatchData = data,
-				DidPlayerQuit = playerQuit
-			});
-
-			if (!playerQuit)
-			{
-				_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
-				{
-					Players = gameContainer.GetPlayersMatchData(f, out _),
-					LocalPlayerRank = data.PlayerRank
-				});
-			}*/
 
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
 		}

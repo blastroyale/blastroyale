@@ -54,7 +54,7 @@ MonoBehaviour:
         RawValue: 4915
       ConsumableCollectTime:
         RawValue: 18432
-    - Id: 126
+    - Id: 20
       AssetRef:
         Id:
           Value: 240296495379453662
@@ -63,7 +63,7 @@ MonoBehaviour:
         RawValue: 13107200
       ConsumableCollectTime:
         RawValue: 14746
-    - Id: 129
+    - Id: 21
       AssetRef:
         Id:
           Value: 240296495379453662

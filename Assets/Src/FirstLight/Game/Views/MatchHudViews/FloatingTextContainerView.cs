@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
-			QuantumEvent.Subscribe<EventOnInterimArmourChanged>(this, OnInterimArmourUpdate);
+			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -73,15 +73,15 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			EnqueueText(_pool, entityBase, callback.CollectableId.GetTranslation(), _neutralTextColor);
 		}
 
-		private void OnInterimArmourUpdate(EventOnInterimArmourChanged callback)
+		private void OnShieldUpdate(EventOnShieldChanged callback)
 		{
-			if (callback.PreviousInterimArmour == callback.CurrentInterimArmour)
+			if (callback.PreviousShield == callback.CurrentShield)
 			{
 				return;
 			}
 
-			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousInterimArmour,
-			               callback.CurrentInterimArmour, _poolArmour, _armourLossTextColor, _armourGainTextColor);
+			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousShield,
+			               callback.CurrentShield, _poolArmour, _armourLossTextColor, _armourGainTextColor);
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)

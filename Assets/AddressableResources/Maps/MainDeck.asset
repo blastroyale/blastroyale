@@ -1774,7 +1774,7 @@ MonoBehaviour:
       RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 15
       GameId:
-        Value: 126
+        Value: 20
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -1851,7 +1851,7 @@ MonoBehaviour:
       RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 15
       GameId:
-        Value: 126
+        Value: 20
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -1928,7 +1928,7 @@ MonoBehaviour:
       RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 15
       GameId:
-        Value: 126
+        Value: 21
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -2005,7 +2005,7 @@ MonoBehaviour:
       RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 15
       GameId:
-        Value: 126
+        Value: 20
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0
@@ -3545,7 +3545,7 @@ MonoBehaviour:
       RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 15
       GameId:
-        Value: 126
+        Value: 20
     Consumable: []
     ConsumablePlatformSpawner:
     - _empty_prototype_dummy_field_: 0

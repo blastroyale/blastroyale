@@ -21,11 +21,9 @@ namespace FirstLight.Game.Presenters
 	public class MainMenuHudPresenter : UiPresenter
 	{
 		[SerializeField, Required] private Transform _scTooltipAnchor;
-		[SerializeField, Required] private Transform _hcTooltipAnchor;
-		[SerializeField, Required] private TextMeshProUGUI _softCurrencyText;
-		[SerializeField, Required] private TextMeshProUGUI _hardCurrencyText;
+		[SerializeField, Required] private TextMeshProUGUI _csCurrencyText;
 		[SerializeField, Required] private Transform _scAnimationTarget;
-		[SerializeField, Required] private Transform _hcAnimationTarget;
+		[SerializeField] private UnityEngine.UI.Button _csButton;
 		[SerializeField] private int _rackupTextAnimationDuration = 5;
 
 		private IGameDataProvider _dataProvider;
@@ -37,10 +35,9 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
-			_services.MessageBrokerService
-			         .Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
-			_services.MessageBrokerService
-			         .Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
+			_csButton.onClick.AddListener(OnCsClicked);
+			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
+			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
 			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
 
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
@@ -52,24 +49,14 @@ namespace FirstLight.Game.Presenters
 			_dataProvider?.CurrencyDataProvider?.Currencies?.StopObserving(OnCurrencyChanged);
 		}
 
-		protected override void OnOpened()
-		{
-			_softCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.SC].ToString()}";
-			_hardCurrencyText.text = $" {_dataProvider.CurrencyDataProvider.Currencies[GameId.HC].ToString()}";
-		}
-
 		private void OnCurrencyChanged(GameId currency, ulong previous, ulong newAmount,
 		                               ObservableUpdateType updateType)
 		{
 			var targetValue = _dataProvider.CurrencyDataProvider.Currencies[currency];
 
-			if (currency == GameId.SC)
+			if (currency == GameId.CS)
 			{
-				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, SoftCurrencyRackupUpdate);
-			}
-			else if (currency == GameId.HC)
-			{
-				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, HardCurrencyRackupUpdate);
+				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, CraftSpiceRackupUpdate);
 			}
 		}
 
@@ -87,17 +74,12 @@ namespace FirstLight.Game.Presenters
 		{
 			var closure = message;
 
-			if (message.Id == GameId.SC)
+			if (message.Id == GameId.CS)
 			{
-				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
+				// TODO - Re-enable when the UI is there
+				/*_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
 				                                       _scAnimationTarget.position,
-				                                       () => RackupTween(SoftCurrencyRackupUpdate));
-			}
-			else if (message.Id == GameId.HC)
-			{
-				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
-				                                       _hcAnimationTarget.position,
-				                                       () => RackupTween(HardCurrencyRackupUpdate));
+				                                       () => RackupTween(CraftSpiceRackupUpdate));*/
 			}
 
 			void RackupTween(TweenCallback<float> textUpdated)
@@ -109,26 +91,15 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnSCClicked()
+		private void OnCsClicked()
 		{
-			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_SC,
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_CS,
 			                                                 _scTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 
-		private void OnHCClicked()
+		private void CraftSpiceRackupUpdate(float value)
 		{
-			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_HC,
-			                                                 _hcTooltipAnchor.position, TooltipArrowPosition.Top);
-		}
-
-		private void SoftCurrencyRackupUpdate(float value)
-		{
-			_softCurrencyText.text = $" {value.ToString("N0")}";
-		}
-
-		private void HardCurrencyRackupUpdate(float value)
-		{
-			_hardCurrencyText.text = $" {value.ToString("N0")}";
+			_csCurrencyText.text = $" {value.ToString("N0")}";
 		}
 	}
 }

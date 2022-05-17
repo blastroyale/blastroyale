@@ -1,4 +1,7 @@
-﻿using FirstLight.Game.Logic;
+﻿using System.Linq;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -20,14 +23,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private TextMeshProUGUI _coinsText;
 
 		private IGameDataProvider _dataProvider;
-
+		private IGameServices _services;
+		
 		/// <summary>
 		/// Set the information of this player entry ranking based on the given <paramref name="data"/> & <paramref name="awards"/>
 		/// </summary>
 		public void SetInfo(QuantumPlayerMatchData data, bool showExtra = true)
 		{
 			_dataProvider ??= MainInstaller.Resolve<IGameDataProvider>();
-
+			_services ??= MainInstaller.Resolve<IGameServices>();
+			
 			var rewards = _dataProvider.RewardDataProvider.GetMatchRewards(data, false);
 			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
 
@@ -37,7 +42,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_deathsText.text = data.Data.DeathCount.ToString();
 
 			_coinsText.enabled = showExtra;
-			_coinsText.text = rewards.TryGetValue(GameId.HC, out var cs) ? cs.ToString() : "0";
+			_coinsText.text = rewards.TryGetValue(GameId.CS, out var cs) ? cs.ToString() : "0";
 			_xpText.enabled = showExtra;
 			_xpText.text = data.Data.PlayerTrophies.ToString();
 

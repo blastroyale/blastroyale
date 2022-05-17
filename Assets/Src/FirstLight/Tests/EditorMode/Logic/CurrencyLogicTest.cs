@@ -23,11 +23,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.SC, 0));
+			SetData(new Pair<GameId, uint>(GameId.CS, 0));
 			
-			_currencyLogic.AddCurrency(GameId.SC, amount);
+			_currencyLogic.AddCurrency(GameId.CS, amount);
 			
-			Assert.AreEqual(amount, _currencyLogic.GetCurrencyAmount(GameId.SC));
+			Assert.AreEqual(amount, _currencyLogic.GetCurrencyAmount(GameId.CS));
 		}
 
 		[Test]
@@ -35,11 +35,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.SC, amount));
+			SetData(new Pair<GameId, uint>(GameId.CS, amount));
 			
-			_currencyLogic.DeductCurrency(GameId.SC, amount);
+			_currencyLogic.DeductCurrency(GameId.CS, amount);
 			
-			Assert.AreEqual(0, _currencyLogic.GetCurrencyAmount(GameId.SC));
+			Assert.AreEqual(0, _currencyLogic.GetCurrencyAmount(GameId.CS));
 		}
 
 		[Test]
@@ -47,9 +47,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.SC, amount));
+			SetData(new Pair<GameId, uint>(GameId.CS, amount));
 			
-			Assert.Throws<LogicException>(() => _currencyLogic.DeductCurrency(GameId.SC, amount * 3));
+			Assert.Throws<LogicException>(() => _currencyLogic.DeductCurrency(GameId.CS, amount * 3));
 		}
 
 		[Test]

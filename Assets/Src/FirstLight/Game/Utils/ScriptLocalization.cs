@@ -671,6 +671,9 @@ namespace I2.Loc
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
 			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
 			public static string RememberMe 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RememberMe"); } }
+			public static string ResoucePoolFull 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResoucePoolFull"); } }
+			public static string ResourceAmount 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceAmount"); } }
+			public static string ResourceRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceRestockTime"); } }
 			public static string RoomCreateOrJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCreateOrJoin"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
 			public static string RoomError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomError"); } }
@@ -691,7 +694,6 @@ namespace I2.Loc
 			public static string StartUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/StartUnlock"); } }
 			public static string Talents 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Talents"); } }
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
-			public static string TokenRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TokenRestockTime"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
 			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
 			public static string TrophyRoad 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoad"); } }
@@ -763,8 +765,7 @@ namespace I2.Loc
 
 		public static class Tooltips
 		{
-			public static string ToolTip_HC 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_HC"); } }
-			public static string ToolTip_SC 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_SC"); } }
+			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
 		}
 	}
 
@@ -1437,6 +1438,9 @@ namespace I2.Loc
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
 		    public const string RegisterTitle = "MainMenu/RegisterTitle";
 		    public const string RememberMe = "MainMenu/RememberMe";
+		    public const string ResoucePoolFull = "MainMenu/ResoucePoolFull";
+		    public const string ResourceAmount = "MainMenu/ResourceAmount";
+		    public const string ResourceRestockTime = "MainMenu/ResourceRestockTime";
 		    public const string RoomCreateOrJoin = "MainMenu/RoomCreateOrJoin";
 		    public const string RoomCurrentName = "MainMenu/RoomCurrentName";
 		    public const string RoomError = "MainMenu/RoomError";
@@ -1457,7 +1461,6 @@ namespace I2.Loc
 		    public const string StartUnlock = "MainMenu/StartUnlock";
 		    public const string Talents = "MainMenu/Talents";
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
-		    public const string TokenRestockTime = "MainMenu/TokenRestockTime";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
 		    public const string TotalPower = "MainMenu/TotalPower";
 		    public const string TrophyRoad = "MainMenu/TrophyRoad";
@@ -1529,8 +1532,7 @@ namespace I2.Loc
 
 		public static class Tooltips
 		{
-		    public const string ToolTip_HC = "Tooltips/ToolTip_HC";
-		    public const string ToolTip_SC = "Tooltips/ToolTip_SC";
+		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
 		}
 	}
 }

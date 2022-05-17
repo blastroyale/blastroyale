@@ -30,6 +30,7 @@ namespace FirstLight
 	{
 		public string Version;
 		public List<PlayerLevelConfig> PlayerLevelConfigs;
+		public List<ResourcePoolConfig> ResourcePoolConfigs;
 	}
 
 	/// <summary>
@@ -43,7 +44,8 @@ namespace FirstLight
 			return ModelSerializer.Serialize(new SerializedConfigs()
 			{
 				Version = version,
-				PlayerLevelConfigs = cfg.GetConfigsList<PlayerLevelConfig>()
+				PlayerLevelConfigs = cfg.GetConfigsList<PlayerLevelConfig>(),
+				ResourcePoolConfigs = cfg.GetConfigsList<ResourcePoolConfig>()
 			}).Value;
 		}
 
@@ -52,6 +54,7 @@ namespace FirstLight
 			var cfg = new ConfigsProvider();
 			var configs = ModelSerializer.Deserialize<SerializedConfigs>(serialized);
 			cfg.AddConfigs(cfg => (int)cfg.Level, configs.PlayerLevelConfigs);
+			cfg.AddConfigs(cfg => (int)cfg.Id, configs.ResourcePoolConfigs);
 			return cfg;
 		}
 	}

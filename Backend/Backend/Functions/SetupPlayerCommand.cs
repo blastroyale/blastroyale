@@ -25,6 +25,7 @@ public class SetupPlayerCommand
 		_setupService = service;
 		_stateService = stateService;
 	}
+	
 	/// <summary>
 	/// Command Execution
 	/// </summary>

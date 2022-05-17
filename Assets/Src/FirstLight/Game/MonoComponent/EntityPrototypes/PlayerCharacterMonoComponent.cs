@@ -74,7 +74,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) && 
 			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 			
-			UpdateShootIndicator();
+			UpdateShootIndicator(frame);
 			_shootIndicator.SetTransformState(direction);
 			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
 		}
@@ -150,7 +150,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			SetWeaponIndicators(callback.Weapon.GameId);
+			SetWeaponIndicators(callback.Game.Frames.Verified, callback.Weapon.GameId);
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -229,25 +229,29 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_localInput.Gameplay.SetCallbacks(this);
 			_localInput.Enable();
-			SetWeaponIndicators(weapon);
+			SetWeaponIndicators(QuantumRunner.Default.Game.Frames.Verified, weapon);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
-		private void UpdateShootIndicator()
+		private void UpdateShootIndicator(Frame frame)
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var kcc = frame.Get<CharacterController3D>(EntityView.EntityRef);
+			if (frame.TryGet<CharacterController3D>(EntityView.EntityRef, out var kcc))
+			{
+				_shootIndicator.SetVisualState(false);
+				return;
+			}
+			
 			var velocitySqr = kcc.Velocity.SqrMagnitude.AsFloat;
 			var range = _currentWeaponConfig.AttackRange.AsFloat;
 			var minAttackAngle = _currentWeaponConfig.MinAttackAngle;
 			var maxAttackAngle = _currentWeaponConfig.MaxAttackAngle;
 			var maxSpeedSqr = (kcc.MaxSpeed * kcc.MaxSpeed).AsFloat;
-			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle :
-				                 Mathf.Lerp(minAttackAngle, maxAttackAngle, velocitySqr / maxSpeedSqr);
+			var lerpValue = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocitySqr / maxSpeedSqr);
+			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerpValue;
+				                 ;
 			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
 			
@@ -261,7 +265,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_shootIndicator.SetVisualProperties(size, 0, range);
 		}
 
-		private void SetWeaponIndicators(GameId weapon)
+		private void SetWeaponIndicators(Frame frame, GameId weapon)
 		{
 			var configProvider = Services.ConfigsProvider;
 			_currentWeaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
@@ -271,7 +275,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var indicator = _currentWeaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
 			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
-			UpdateShootIndicator();
+			UpdateShootIndicator(frame);
 			_shootIndicator?.SetVisualState(shootState);
 
 			for (var i = 0; i < Constants.MAX_SPECIALS; i++)

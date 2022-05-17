@@ -75,17 +75,17 @@ namespace Quantum.Systems
 			}
 			step++;
 
-			// Try to drop InterimArmourLarge, if didn't work then try to drop InterimArmourSmall
-			if (armourDropChance <= f.GameConfig.DeathDropInterimArmourLargeChance)
+			// Try to drop ShieldLarge, if didn't work then try to drop ShieldSmall
+			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
 			{
-				Collectable.DropCollectable(f, GameId.InterimArmourLarge, deathPosition, step, false);
+				Collectable.DropCollectable(f, GameId.ShieldLarge, deathPosition, step, false);
 
 				step++;
 			}
-			else if (armourDropChance <= f.GameConfig.DeathDropInterimArmourSmallChance +
-			         f.GameConfig.DeathDropInterimArmourLargeChance)
+			else if (armourDropChance <= f.GameConfig.DeathDropSmallShieldChance +
+			         f.GameConfig.DeathDropLargeShieldChance)
 			{
-				Collectable.DropCollectable(f, GameId.InterimArmourSmall, deathPosition, step, false);
+				Collectable.DropCollectable(f, GameId.ShieldSmall, deathPosition, step, false);
 
 				step++;
 			}

@@ -18,8 +18,8 @@ namespace Quantum
 		public uint ShrinkingDamage;
 		public int PlayerDefaultHealth;
 		public FP PlayerDefaultSpeed;
-		public int PlayerMaxInterimArmourCapacity;
-		public int PlayerStartingInterimArmourCapacity;
+		public int PlayerMaxShieldCapacity;
+		public int PlayerStartingShieldCapacity;
 		public int CoinsPerRank;
 		public int XpPerRank;
 		public FP DeathSignificance;
@@ -53,8 +53,8 @@ namespace Quantum
 		public FP StatsArmorLevelStepMultiplier;
 		public FP StatsArmorGradeStepMultiplier;
 		public FP DeathDropHealthChance;
-		public FP DeathDropInterimArmourLargeChance;
-		public FP DeathDropInterimArmourSmallChance;
+		public FP DeathDropLargeShieldChance;
+		public FP DeathDropSmallShieldChance;
 		public FP DeathDropWeaponChance;
 		public int TrophyEloRange;
 		public int TrophyEloK;

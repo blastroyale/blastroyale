@@ -3,7 +3,7 @@
 component Stats
 {
 	Int32 CurrentHealth;
-	Int32 CurrentInterimArmour;
+	Int32 CurrentShield;
 	bool IsImmune;
 	array<StatData>[TOTAL_STATS] Values;
 	list<Modifier> Modifiers;
@@ -19,7 +19,7 @@ enum StatType
 	Power,
 	Speed,
 	Armour,
-	InterimArmour,
+	Shield,
 }
 
 struct StatData
@@ -48,13 +48,13 @@ synced event OnHealthChanged
 	Int32 MaxHealth;
 }
 
-synced event OnInterimArmourChanged
+synced event OnShieldChanged
 {
 	entity_ref Entity;
 	entity_ref Attacker;
-	Int32 PreviousInterimArmour;
-	Int32 CurrentInterimArmour;
-	Int32 InterimArmourCapacity;
+	Int32 PreviousShield;
+	Int32 CurrentShield;
+	Int32 ShielcCapacity;
 }
 
 synced event OnHealthIsZero

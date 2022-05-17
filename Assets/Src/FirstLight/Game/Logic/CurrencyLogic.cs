@@ -134,16 +134,7 @@ namespace FirstLight.Game.Logic
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
 			var poolData = GameLogic.CurrencyLogic.ResourcePools[pool];
-			var amountWithdrawn = (ulong) 0;
-
-			if (amountToAward > poolData.CurrentResourceAmountInPool)
-			{
-				amountWithdrawn = poolData.CurrentResourceAmountInPool;
-			}
-			else
-			{
-				amountWithdrawn = amountToAward;
-			}
+			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool ? poolData.CurrentResourceAmountInPool : amountToAward;
 
 			// If withdrawing from full pool, the next restock timer needs to restarted, as opposed to ticking already.
 			// When at max pool capacity, the player will see 'Storage Full' on the ResourcePoolWidget

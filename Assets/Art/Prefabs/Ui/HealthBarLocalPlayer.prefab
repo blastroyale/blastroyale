@@ -1569,10 +1569,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aeaf3ec5e94ae5b9ab640a756bc645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InterimArmourText: {fileID: 3074748024502795396}
-  InterimArmourIcon: {fileID: 1400549416859507154}
+  ShieldText: {fileID: 3074748024502795396}
+  ShieldIcon: {fileID: 1400549416859507154}
   ArmourSlider: {fileID: 8494298311539759784}
-  Colour: {r: 0.45882356, g: 0.7686275, b: 0.9333334, a: 1}
   FillImage: {fileID: 2437953739746734517}
 --- !u!114 &8829114806517409407
 MonoBehaviour:

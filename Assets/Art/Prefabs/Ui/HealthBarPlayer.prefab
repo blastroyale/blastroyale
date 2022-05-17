@@ -1154,10 +1154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aeaf3ec5e94ae5b9ab640a756bc645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InterimArmourText: {fileID: 5544634030074067788}
-  InterimArmourIcon: {fileID: 3926728958259038136}
+  ShieldText: {fileID: 5544634030074067788}
+  ShieldIcon: {fileID: 3926728958259038136}
   ArmourSlider: {fileID: 7097059804059640381}
-  Colour: {r: 0.45882356, g: 0.7725491, b: 0.9333334, a: 1}
   FillImage: {fileID: 1903691661228798366}
 --- !u!1 &6302985694074709166
 GameObject:

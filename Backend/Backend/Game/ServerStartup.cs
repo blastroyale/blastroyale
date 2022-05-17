@@ -40,8 +40,7 @@ public static class ServerStartup
 		{
 			var cfgSerializer = new ConfigsSerializer();
 			var bakedConfigs = File.ReadAllText(Path.Combine(appPath, "gameConfig.json"));
-			var cfg = cfgSerializer.Deserialize(bakedConfigs) as ConfigsProvider;
-			cfg.AddSingletonConfig(new MapConfig()); // TODO: Remove dependency from server
+			var cfg = cfgSerializer.Deserialize<ServerConfigsProvider>(bakedConfigs);
 			return cfg;
 		});
 	}

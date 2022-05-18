@@ -42,8 +42,8 @@ namespace Quantum
 				case ConsumableType.Ammo:
 					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
 					break;
-				case ConsumableType.InterimArmour:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainInterimArmour(f, playerEntity, entity, consumable.Amount.AsInt);
+				case ConsumableType.Shield:
+					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShields(f, playerEntity, entity, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.ShieldCapacity:
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShieldCapacity(f, playerEntity, entity, consumable.Amount.AsInt);
@@ -77,7 +77,7 @@ namespace Quantum
 					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
 					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 1, true);
 					
-					var armourType = f.RNG->Next() < FP._0_75 ? GameId.InterimArmourLarge : GameId.InterimArmourSmall;
+					var armourType = f.RNG->Next() < FP._0_75 ? GameId.ShieldLarge : GameId.ShieldSmall;
 					Collectable.DropCollectable(f, armourType, stashPosition, 2, false);
 					
 					var ammoType = f.RNG->Next() < FP._0_50 ? GameId.AmmoLarge : GameId.AmmoSmall;
@@ -91,7 +91,7 @@ namespace Quantum
 				
 				// Rare stash
 				case 2 :
-					var armour = f.RNG->Next() < FP._0_25 ? GameId.InterimArmourLarge : GameId.InterimArmourSmall;
+					var armour = f.RNG->Next() < FP._0_25 ? GameId.ShieldLarge : GameId.ShieldSmall;
 					var ammoOrHealthChance = f.RNG->Next();
 					
 					Collectable.DropCollectable(f, weaponIDs[f.RNG->Next(0, weaponIDs.Count)], stashPosition, 0, true);
@@ -135,7 +135,7 @@ namespace Quantum
 					}
 					else if (f.RNG->Next() <= FP._0_50)
 					{
-						Collectable.DropCollectable(f, GameId.InterimArmourSmall, stashPosition, 1, false);
+						Collectable.DropCollectable(f, GameId.ShieldSmall, stashPosition, 1, false);
 					}
 					else
 					{

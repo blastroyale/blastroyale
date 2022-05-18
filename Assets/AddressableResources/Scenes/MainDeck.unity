@@ -2520,7 +2520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 126
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
@@ -2636,7 +2636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 126
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
@@ -5562,7 +5562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 126
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
@@ -8318,7 +8318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 126
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
@@ -8648,7 +8648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 126
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec

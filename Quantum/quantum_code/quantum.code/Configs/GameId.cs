@@ -436,81 +436,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.CommonBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.UncommonBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.RareBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.EpicBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.LegendaryBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.CommonCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.UncommonCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.RareCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.EpicCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.LegendaryCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
 					GameId.Rage, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -539,14 +464,14 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.InterimArmourSmall, new List<GameIdGroup>
+					GameId.ShieldSmall, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.InterimArmourLarge, new List<GameIdGroup>
+					GameId.ShieldLarge, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
 						GameIdGroup.Collectable
@@ -569,21 +494,35 @@ namespace Quantum
 				{
 					GameId.ChestCommon, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestUncommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.ChestRare, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestEpic, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.ChestLegendary, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
+						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
@@ -859,74 +798,43 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.LootBox, new List<GameId>
-					{
-						GameId.CommonBox,
-						GameId.UncommonBox,
-						GameId.RareBox,
-						GameId.EpicBox,
-						GameId.LegendaryBox,
-						GameId.CommonCore,
-						GameId.UncommonCore,
-						GameId.RareCore,
-						GameId.EpicCore,
-						GameId.LegendaryCore
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.TimeBox, new List<GameId>
-					{
-						GameId.CommonBox,
-						GameId.UncommonBox,
-						GameId.RareBox,
-						GameId.EpicBox,
-						GameId.LegendaryBox
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.CoreBox, new List<GameId>
-					{
-						GameId.CommonCore,
-						GameId.UncommonCore,
-						GameId.RareCore,
-						GameId.EpicCore,
-						GameId.LegendaryCore
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Collectable, new List<GameId>
-					{
-						GameId.CommonCore,
-						GameId.UncommonCore,
-						GameId.RareCore,
-						GameId.EpicCore,
-						GameId.LegendaryCore,
-						GameId.Rage,
-						GameId.Health,
-						GameId.AmmoSmall,
-						GameId.AmmoLarge,
-						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge,
-						GameId.ShieldCapacitySmall,
-						GameId.ShieldCapacityLarge,
-						GameId.ChestCommon,
-						GameId.ChestRare,
-						GameId.ChestLegendary
-					}.AsReadOnly()
-				},
-				{
 					GameIdGroup.Consumable, new List<GameId>
 					{
 						GameId.Rage,
 						GameId.Health,
 						GameId.AmmoSmall,
 						GameId.AmmoLarge,
-						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge,
+						GameId.ShieldSmall,
+						GameId.ShieldLarge,
+						GameId.ShieldCapacitySmall,
+						GameId.ShieldCapacityLarge
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Collectable, new List<GameId>
+					{
+						GameId.Rage,
+						GameId.Health,
+						GameId.AmmoSmall,
+						GameId.AmmoLarge,
+						GameId.ShieldSmall,
+						GameId.ShieldLarge,
 						GameId.ShieldCapacitySmall,
 						GameId.ShieldCapacityLarge,
 						GameId.ChestCommon,
+						GameId.ChestUncommon,
 						GameId.ChestRare,
+						GameId.ChestEpic,
+						GameId.ChestLegendary
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Chest, new List<GameId>
+					{
+						GameId.ChestCommon,
+						GameId.ChestUncommon,
+						GameId.ChestRare,
+						GameId.ChestEpic,
 						GameId.ChestLegendary
 					}.AsReadOnly()
 				},

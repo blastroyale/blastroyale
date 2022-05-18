@@ -148,9 +148,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerDamaged(EventOnLocalPlayerDamaged callback)
 		{
-			if (callback.InterimArmourDamage > 0)
+			if (callback.ShieldDamage > 0)
 			{
-				PlayHapticFeedbackForDamage(callback.InterimArmourDamage, callback.InterimArmourCapacity);
+				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.ShieldCapacity);
 			}
 			else if (callback.HealthDamage > 0)
 			{

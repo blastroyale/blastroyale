@@ -99,17 +99,6 @@ namespace FirstLight.Game.Logic
 				throw new LogicException("The player does not have any rewards to collect.");
 			}
 
-			foreach (var reward in Data.UncollectedRewards)
-			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.LootBox))
-				{
-					// Loot boxes are already rewarded when the game is over
-					continue;
-				}
-				
-				rewards.Add(GiveReward(reward));
-			}
-			
 			Data.UncollectedRewards.Clear();
 
 			return rewards;

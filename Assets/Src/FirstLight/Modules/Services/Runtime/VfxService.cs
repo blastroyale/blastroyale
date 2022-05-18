@@ -14,15 +14,14 @@ namespace FirstLight.Services
 	/// </summary>
 	public abstract class Vfx<T> : MonoBehaviour, IPoolEntitySpawn, IPoolEntityDespawn where T : struct, Enum
 	{
-		[ReadOnly]
-		[SerializeField] private T _id;
+		[SerializeField] private EnumSelector<T> _id;
 
 		private IVfxService<T> _service;
 		
 		/// <summary>
 		/// Requests the Id that represents this Vfx from the defined <typeparamref name="T"/>
 		/// </summary>
-		public T Id => _id;
+		public T Id => _id.GetSelection();
 
 		/// <inheritdoc />
 		public void OnSpawn()

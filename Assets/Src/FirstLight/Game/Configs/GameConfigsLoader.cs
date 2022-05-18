@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {

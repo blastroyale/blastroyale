@@ -32,6 +32,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
+		private QuantumPlayerMatchData _matchData;
+		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
@@ -104,9 +106,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
-
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
-
+			
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
@@ -187,19 +187,24 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
+			var matchData = gameContainer.GetPlayersMatchData(f, out _);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+
+			foreach (var dejta in matchData)
+			{
+				Debug.LogError(dejta.PlayerRank + " " + dejta.PlayerName);	
+			}
 			
 			_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
 			{
-				PlayerMatchData = data,
+				PlayerMatchData = localPlayerData,
 				DidPlayerQuit = false
 			});
 			
 			_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
 			{
 				Players = gameContainer.GetPlayersMatchData(f, out _),
-				LocalPlayerRank = data.PlayerRank
+				LocalPlayerRank = localPlayerData.PlayerRank
 			});
 		}
 		

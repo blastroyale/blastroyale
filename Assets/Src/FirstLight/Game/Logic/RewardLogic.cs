@@ -73,20 +73,25 @@ namespace FirstLight.Game.Logic
 			                                     .Where(x => x.GameMode == mapConfig.GameMode)
 			                                     .OrderByDescending(x => x.Placement).ToList();
 
-			// Worst reward placement reward by default, or specific placement reward
-			//There is only ~20 placement rewards, but 30 players in BR Mode, so we only want to m
+			// Get worst reward placement reward by default, or specific placement reward thereafter
 			var rewardConfig = gameModeRewardConfigs[0];
 			var rankValue = (mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
+				if (rankValue > config.Placement)
+				{
+					break;
+				}
+				
 				if (config.Placement == rankValue)
 				{
 					rewardConfig = config;
+					break;
 				}
 			}
 
-			var csRewardPair = rewardConfig.RewardPairs.Find(x => x.Key == GameId.CS);
+			var csRewardPair = rewardConfig.RewardPairs.FirstOrDefault(x => x.Key == GameId.CS);
 			var csMaxTake = 100; // TODO - Replace with NFT equipment calculation
 			var csRewardAmount = csMaxTake * csRewardPair.Value;
 			// csRewardPair.Value is the percent of the max CS take that people will be awarded

@@ -61,7 +61,7 @@ namespace Quantum
 
 		/// <summary>
 		/// Request all players match data.
-		/// Battle Roayle Ranking: More frags == higher rank and Dead longer == lower rank
+		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
 		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
@@ -125,7 +125,7 @@ namespace Quantum
 			
 			for (var j = 0; j < i; j++)
 			{
-				if (data[i].Data.DeathCount == data[j].Data.DeathCount)
+				if (data[i].Data.DeathCount == data[j].Data.DeathCount && data[j].Data.DeathCount == 0)
 				{
 					if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount)
 					{

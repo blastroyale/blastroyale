@@ -77,10 +77,9 @@ namespace FirstLight.Game.Presenters
 
 			if (message.Id == GameId.CS)
 			{
-				// TODO - Re-enable when the UI is there
-				/*_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
-				                                       _scAnimationTarget.position,
-				                                       () => RackupTween(CraftSpiceRackupUpdate));*/
+				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
+				                                       _csAnimationTarget.position,
+				                                       () => RackupTween(UpdateCsValueText));
 			}
 
 			void RackupTween(TweenCallback<float> textUpdated)

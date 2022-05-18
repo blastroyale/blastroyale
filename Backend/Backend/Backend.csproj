@@ -32,8 +32,14 @@
       <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
       </Reference>
+      <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
+      </Reference>
       <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>

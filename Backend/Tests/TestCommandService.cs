@@ -7,6 +7,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Quantum;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests;
 
@@ -60,5 +61,32 @@ public class TestCommandManager
 		var receivedCommand = (UpdatePlayerSkinCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
 
 		Assert.AreEqual(sentCommand.SkinId, receivedCommand.SkinId);
+	}
+
+	[Test]
+	public void TestQuantumCommand()
+	{
+		var command = new GameCompleteRewardsCommand()
+		{
+			PlayerMatchData = new QuantumPlayerMatchData()
+			{
+				Data = new PlayerMatchData()
+				{
+					Player = new PlayerRef()
+					{
+						_index = 1234
+					},
+					Entity = new EntityRef()
+				}
+			}
+		};
+		var args = new Dictionary<string, string>();
+		var (cmdTypeName, cmdData) = ModelSerializer.Serialize(command);
+		args[CommandFields.Command] = cmdData;
+		
+		var receivedCommand = (GameCompleteRewardsCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
+		
+		Assert.AreEqual(command.PlayerMatchData.Data.Player._index, receivedCommand.PlayerMatchData.Data.Player._index);
+		
 	}
 }

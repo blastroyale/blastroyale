@@ -292,13 +292,15 @@ namespace FirstLight.Game.StateMachines
 					Skin = GameId.Male01Avatar,
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
-					Gear = null,
-					Weapon = new Equipment(GameId.AK47, 
-					                       rarity: EquipmentRarity.Common,
-					                       adjective: EquipmentAdjective.Cool, 
-					                       material: EquipmentMaterial.Carbon,
-					                       manufacturer: EquipmentManufacturer.Futuristic,
-					                       faction: EquipmentFaction.Chaos)
+					EquippedItems = new[]
+					{
+						new Equipment(GameId.AK47,
+						              rarity: EquipmentRarity.Common,
+						              adjective: EquipmentAdjective.Cool,
+						              material: EquipmentMaterial.Carbon,
+						              manufacturer: EquipmentManufacturer.Futuristic,
+						              faction: EquipmentFaction.Chaos)
+					}
 				};
 			}
 		}

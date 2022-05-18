@@ -36,7 +36,7 @@ namespace Quantum.Systems
 			spawnTransform.Position = closestPosition;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, playerData.Weapon, playerData.Gear);
+			                      playerData.PlayerTrophies, playerData.Skin);
 		}
 
 		/// <inheritdoc />

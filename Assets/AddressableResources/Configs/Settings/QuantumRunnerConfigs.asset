@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: QuantumRunnerConfigs
   m_EditorClassIdentifier: 
   _runtimeConfig:
-    Seed: 1780825216
+    Seed: 430323
     Map:
       Id:
-        Value: 4332060462896694051
+        Value: 581929196288820183
     SimulationConfig:
       Id:
         Value: 1565542650131154954
@@ -35,6 +35,9 @@ MonoBehaviour:
     ConsumableConfigs:
       Id:
         Value: 3521447524462001825
+    ChestConfigs:
+      Id:
+        Value: 4100866902722562598
     SpecialConfigs:
       Id:
         Value: 3242401771564966650

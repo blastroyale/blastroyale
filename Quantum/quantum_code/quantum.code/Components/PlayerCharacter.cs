@@ -25,39 +25,33 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, Equipment playerWeapon, Equipment[] playerGear)
+		                   uint trophies, GameId skin)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			
+
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 			Weapons[0] = new Equipment(GameId.Hammer);
-			
+
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
 			BotSDKDebuggerSystem.AddToDebugger(e);
-			
+
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
+			InitStats(f, e);
 
-			if (!f.WeaponConfigs.GetConfig(playerWeapon.GameId).IsMeleeWeapon)
-			{
-				AddWeapon(f, e, playerWeapon);
-			}
-
-			InitStats(f, e, playerGear);
-			
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
-			
+
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 		}
 
@@ -67,7 +61,7 @@ namespace Quantum
 		internal void Spawn(Frame f, EntityRef e)
 		{
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
-			
+
 			CurrentWeaponSlot = 0;
 			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
 
@@ -84,21 +78,22 @@ namespace Quantum
 		{
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			
+
 			stats->ResetStats(f, e);
-			
+
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
-			
+
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
-			f.Events.OnPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
-			f.Events.OnLocalPlayerAlive(Player, e,currentHealth, FPMath.RoundToInt(maxHealth));
-			
+			f.Events.OnPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
+			f.Events.OnLocalPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
+
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
-			
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, f.GameConfig.PlayerAliveShieldDuration);
+
+			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield,
+			                                          f.GameConfig.PlayerAliveShieldDuration);
 		}
 
 		/// <summary>
@@ -107,7 +102,7 @@ namespace Quantum
 		internal void Dead(Frame f, EntityRef e, PlayerRef killerPlayer, EntityRef attacker)
 		{
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
-			
+
 			var deadPlayer = new DeadPlayerCharacter
 			{
 				TimeOfDeath = f.Time,
@@ -135,7 +130,7 @@ namespace Quantum
 
 			f.Remove<Targetable>(e);
 			f.Remove<AlivePlayerCharacter>(e);
-			
+
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
 		}
@@ -276,14 +271,12 @@ namespace Quantum
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
-		private void InitStats(Frame f, EntityRef e, Equipment[] playerGear)
+		private void InitStats(Frame f, EntityRef e)
 		{
-			QuantumStatCalculator.CalculateGearStats(f, playerGear, out var armour, out var health, out var speed);
-
-			health += f.GameConfig.PlayerDefaultHealth;
-			speed += f.GameConfig.PlayerDefaultSpeed;
-
-			f.Add(e, new Stats(health, 0, speed, armour, f.GameConfig.PlayerMaxShieldCapacity, f.GameConfig.PlayerStartingShieldCapacity));
+			f.Add(e,
+			      new Stats(f.GameConfig.PlayerDefaultHealth, 0, f.GameConfig.PlayerDefaultSpeed, 0,
+			                f.GameConfig.PlayerMaxShieldCapacity,
+			                f.GameConfig.PlayerStartingShieldCapacity));
 		}
 	}
 }

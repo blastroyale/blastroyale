@@ -10,7 +10,7 @@ enum ConsumableType
 	Health,
 	Rage,
 	Ammo,
-	InterimArmour,
+	Shields,
 	ShieldCapacity,
 	Stash,
 }

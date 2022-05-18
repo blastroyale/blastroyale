@@ -37,8 +37,8 @@ MonoBehaviour:
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
         RawValue: 314573
-      PlayerMaxInterimArmourCapacity: 800
-      PlayerStartingInterimArmourCapacity: 100
+      PlayerMaxShieldCapacity: 800
+      PlayerStartingShieldCapacity: 100
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:
@@ -93,9 +93,9 @@ MonoBehaviour:
         RawValue: 10945
       DeathDropHealthChance:
         RawValue: 65536
-      DeathDropInterimArmourLargeChance:
+      DeathDropLargeShieldChance:
         RawValue: 655
-      DeathDropInterimArmourSmallChance:
+      DeathDropSmallShieldChance:
         RawValue: 16384
       DeathDropWeaponChance:
         RawValue: 32768

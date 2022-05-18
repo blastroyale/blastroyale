@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -36,7 +35,7 @@ namespace Quantum {
     Health,
     Rage,
     Ammo,
-    InterimArmour,
+    Shields,
     ShieldCapacity,
     Stash,
   }
@@ -182,8 +181,8 @@ namespace Quantum {
     Health = 4,
     AmmoSmall = 127,
     AmmoLarge = 128,
-    InterimArmourSmall = 126,
-    InterimArmourLarge = 129,
+    ShieldSmall = 20,
+    ShieldLarge = 21,
     ShieldCapacitySmall = 17,
     ShieldCapacityLarge = 18,
     ChestCommon = 13,
@@ -250,7 +249,7 @@ namespace Quantum {
     Power,
     Speed,
     Armour,
-    InterimArmour,
+    Shield,
   }
   public enum StatusModifierType : int {
     None,
@@ -4339,7 +4338,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public Int32 CurrentHealth;
     [FieldOffset(4)]
-    public Int32 CurrentInterimArmour;
+    public Int32 CurrentShield;
     [FieldOffset(32)]
     public FP CurrentStatusModifierDuration;
     [FieldOffset(40)]
@@ -4382,7 +4381,7 @@ namespace Quantum {
       unchecked { 
         var hash = 503;
         hash = hash * 31 + CurrentHealth.GetHashCode();
-        hash = hash * 31 + CurrentInterimArmour.GetHashCode();
+        hash = hash * 31 + CurrentShield.GetHashCode();
         hash = hash * 31 + CurrentStatusModifierDuration.GetHashCode();
         hash = hash * 31 + CurrentStatusModifierEndTime.GetHashCode();
         hash = hash * 31 + (Int32)CurrentStatusModifierType;
@@ -4404,7 +4403,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Stats*)ptr;
         serializer.Stream.Serialize(&p->CurrentHealth);
-        serializer.Stream.Serialize(&p->CurrentInterimArmour);
+        serializer.Stream.Serialize(&p->CurrentShield);
         QList.Serialize(p->Modifiers, &p->ModifiersPtr, serializer, StaticDelegates.SerializeModifier);
         QList.Serialize(p->SpellEffects, &p->SpellEffectsPtr, serializer, StaticDelegates.SerializeEntityRef);
         QBoolean.Serialize(&p->IsImmune, serializer);
@@ -4791,7 +4790,7 @@ namespace Quantum {
           case EventOnLocalSpecialAvailable.ID: return typeof(EventOnLocalSpecialAvailable);
           case EventOnSpellHit.ID: return typeof(EventOnSpellHit);
           case EventOnHealthChanged.ID: return typeof(EventOnHealthChanged);
-          case EventOnInterimArmourChanged.ID: return typeof(EventOnInterimArmourChanged);
+          case EventOnShieldChanged.ID: return typeof(EventOnShieldChanged);
           case EventOnHealthIsZero.ID: return typeof(EventOnHealthIsZero);
           case EventOnStatusModifierSet.ID: return typeof(EventOnStatusModifierSet);
           case EventOnStatusModifierCancelled.ID: return typeof(EventOnStatusModifierCancelled);
@@ -5047,14 +5046,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnInterimArmourChanged OnInterimArmourChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousInterimArmour, Int32 CurrentInterimArmour, Int32 InterimArmourCapacity) {
+      public EventOnShieldChanged OnShieldChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousShield, Int32 CurrentShield, Int32 ShieldCapacity) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnInterimArmourChanged>(EventOnInterimArmourChanged.ID);
+        var ev = _f.Context.AcquireEvent<EventOnShieldChanged>(EventOnShieldChanged.ID);
         ev.Entity = Entity;
         ev.Attacker = Attacker;
-        ev.PreviousInterimArmour = PreviousInterimArmour;
-        ev.CurrentInterimArmour = CurrentInterimArmour;
-        ev.InterimArmourCapacity = InterimArmourCapacity;
+        ev.PreviousShield = PreviousShield;
+        ev.CurrentShield = CurrentShield;
+        ev.ShieldCapacity = ShieldCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5247,17 +5246,17 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 InterimArmourDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 InterimArmourCapacity) {
+      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerDamaged>(EventOnPlayerDamaged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Attacker = Attacker;
-        ev.InterimArmourDamage = InterimArmourDamage;
+        ev.ShieldDamage = ShieldDamage;
         ev.HealthDamage = HealthDamage;
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
-        ev.InterimArmourCapacity = InterimArmourCapacity;
+        ev.ShieldCapacity = ShieldCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5389,18 +5388,18 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerDamaged OnLocalPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 InterimArmourDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 InterimArmourCapacity) {
+      public EventOnLocalPlayerDamaged OnLocalPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerDamaged>(EventOnLocalPlayerDamaged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Attacker = Attacker;
-        ev.InterimArmourDamage = InterimArmourDamage;
+        ev.ShieldDamage = ShieldDamage;
         ev.HealthDamage = HealthDamage;
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
-        ev.InterimArmourCapacity = InterimArmourCapacity;
+        ev.ShieldCapacity = ShieldCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6203,17 +6202,17 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnInterimArmourChanged : EventBase {
+  public unsafe partial class EventOnShieldChanged : EventBase {
     public new const Int32 ID = 23;
     public EntityRef Entity;
     public EntityRef Attacker;
-    public Int32 PreviousInterimArmour;
-    public Int32 CurrentInterimArmour;
-    public Int32 InterimArmourCapacity;
-    protected EventOnInterimArmourChanged(Int32 id, EventFlags flags) : 
+    public Int32 PreviousShield;
+    public Int32 CurrentShield;
+    public Int32 ShieldCapacity;
+    protected EventOnShieldChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnInterimArmourChanged() : 
+    public EventOnShieldChanged() : 
         base(23, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6229,9 +6228,9 @@ namespace Quantum {
         var hash = 149;
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + PreviousInterimArmour.GetHashCode();
-        hash = hash * 31 + CurrentInterimArmour.GetHashCode();
-        hash = hash * 31 + InterimArmourCapacity.GetHashCode();
+        hash = hash * 31 + PreviousShield.GetHashCode();
+        hash = hash * 31 + CurrentShield.GetHashCode();
+        hash = hash * 31 + ShieldCapacity.GetHashCode();
         return hash;
       }
     }
@@ -6848,11 +6847,11 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public EntityRef Attacker;
-    public UInt32 InterimArmourDamage;
+    public UInt32 ShieldDamage;
     public UInt32 HealthDamage;
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
-    public Int32 InterimArmourCapacity;
+    public Int32 ShieldCapacity;
     protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6873,11 +6872,11 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + InterimArmourDamage.GetHashCode();
+        hash = hash * 31 + ShieldDamage.GetHashCode();
         hash = hash * 31 + HealthDamage.GetHashCode();
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + InterimArmourCapacity.GetHashCode();
+        hash = hash * 31 + ShieldCapacity.GetHashCode();
         return hash;
       }
     }
@@ -7264,11 +7263,11 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public EntityRef Attacker;
-    public UInt32 InterimArmourDamage;
+    public UInt32 ShieldDamage;
     public UInt32 HealthDamage;
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
-    public Int32 InterimArmourCapacity;
+    public Int32 ShieldCapacity;
     protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7289,11 +7288,11 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + InterimArmourDamage.GetHashCode();
+        hash = hash * 31 + ShieldDamage.GetHashCode();
         hash = hash * 31 + HealthDamage.GetHashCode();
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + InterimArmourCapacity.GetHashCode();
+        hash = hash * 31 + ShieldCapacity.GetHashCode();
         return hash;
       }
     }
@@ -9280,7 +9279,7 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(Stats))]
   public sealed unsafe partial class Stats_Prototype : ComponentPrototype<Stats> {
     public Int32 CurrentHealth;
-    public Int32 CurrentInterimArmour;
+    public Int32 CurrentShield;
     public QBoolean IsImmune;
     [ArrayLengthAttribute(5)]
     public StatData_Prototype[] Values = new StatData_Prototype[5];
@@ -9299,7 +9298,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Stats result, in PrototypeMaterializationContext context) {
       result.CurrentHealth = this.CurrentHealth;
-      result.CurrentInterimArmour = this.CurrentInterimArmour;
+      result.CurrentShield = this.CurrentShield;
       result.CurrentStatusModifierDuration = this.CurrentStatusModifierDuration;
       result.CurrentStatusModifierEndTime = this.CurrentStatusModifierEndTime;
       result.CurrentStatusModifierType = this.CurrentStatusModifierType;

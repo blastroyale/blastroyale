@@ -141,7 +141,7 @@ namespace Quantum.Systems
 				case BotBehaviourType.Cautious:
 					var cautious = TryAvoidShrinkingCircle(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
-					               || TryGoForInterimArmour(f, ref filter)
+					               || TryGoForShield(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForCrates(f, ref filter)
@@ -156,7 +156,7 @@ namespace Quantum.Systems
 					                 || TryGoForEnemies(f, ref filter, weaponConfig)
 					                 || TryGoForCrates(f, ref filter)
 					                 || TryGoForAmmo(f, ref filter)
-					                 || TryGoForInterimArmour(f, ref filter)
+					                 || TryGoForShield(f, ref filter)
 					                 || TryGoForHealth(f, ref filter)
 					                 || Wander(f, ref filter);
 					break;
@@ -166,7 +166,7 @@ namespace Quantum.Systems
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForCrates(f, ref filter)
-					               || TryGoForInterimArmour(f, ref filter)
+					               || TryGoForShield(f, ref filter)
 					               || TryGoForEnemies(f, ref filter, weaponConfig)
 					               || TryGoForRage(f, ref filter)
 					               || Wander(f, ref filter);
@@ -317,16 +317,16 @@ namespace Quantum.Systems
 			return isGoing;
 		}
 
-		private bool TryGoForInterimArmour(Frame f, ref BotCharacterFilter filter)
+		private bool TryGoForShield(Frame f, ref BotCharacterFilter filter)
 		{
 			var armourConsumablePosition = FPVector3.Zero;
 			var stats = f.Get<Stats>(filter.Entity);
-			var maxArmour = stats.Values[(int) StatType.InterimArmour].StatValue;
-			var ratioArmour = stats.CurrentInterimArmour / maxArmour;
+			var maxArmour = stats.Values[(int) StatType.Shield].StatValue;
+			var ratioArmour = stats.CurrentShield / maxArmour;
 			var lowArmourSensitivity = filter.BotCharacter->LowArmourSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioArmour) * lowArmourSensitivity);
 
-			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.InterimArmour,
+			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.Shields,
 			                                             out armourConsumablePosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, armourConsumablePosition);
 

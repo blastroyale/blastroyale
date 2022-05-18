@@ -283,7 +283,7 @@ namespace Quantum
 			health += f.GameConfig.PlayerDefaultHealth;
 			speed += f.GameConfig.PlayerDefaultSpeed;
 
-			f.Add(e, new Stats(health, 0, speed, armour, f.GameConfig.PlayerMaxInterimArmourCapacity, f.GameConfig.PlayerStartingInterimArmourCapacity));
+			f.Add(e, new Stats(health, 0, speed, armour, f.GameConfig.PlayerMaxShieldCapacity, f.GameConfig.PlayerStartingShieldCapacity));
 		}
 	}
 }

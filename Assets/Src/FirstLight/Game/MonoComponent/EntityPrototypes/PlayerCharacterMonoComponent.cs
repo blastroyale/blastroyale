@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
@@ -177,11 +178,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
-			var skin = GetPlayerSkin(frame, player);
+
+			GetPlayerEquipmentSet(frame, player, out var skin, out var weapon, out var gear);
 
 			if (quantumGame.PlayerIsLocal(player))
 			{
-				InstantiatePlayerIndicators(GameId.Hammer); // TODO mihak: Should this be done differently?
+				InstantiatePlayerIndicators(weapon.GameId);
 			}
 
 			var instance =
@@ -192,8 +194,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			// TODO mihak: Do we need this?
-			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(EntityView);
+			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(EntityView, weapon, gear);
 
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
@@ -299,14 +300,32 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 		}
 
-		private GameId GetPlayerSkin(Frame f, PlayerRef player)
+		private void GetPlayerEquipmentSet(Frame f, PlayerRef player, out GameId skin,
+		                                   out Equipment weapon, out Equipment[] gear)
 		{
-			if (f.TryGet<BotCharacter>(EntityView.EntityRef, out var botCharacter))
+			var playerCharacter = f.Get<PlayerCharacter>(EntityView.EntityRef);
+
+			// Weapon
+			weapon = playerCharacter.CurrentWeapon;
+
+			// Gear
+			var gearList = new List<Equipment>();
+
+			for (int i = 0; i < playerCharacter.Gear.Length; i++)
 			{
-				return botCharacter.Skin;
+				var item = playerCharacter.Gear[i];
+				if (item.IsValid())
+				{
+					gearList.Add(item);
+				}
 			}
 
-			return f.GetPlayerData(player).Skin;
+			gear = gearList.ToArray();
+
+			// Skin
+			skin = f.TryGet<BotCharacter>(EntityView.EntityRef, out var botCharacter)
+				       ? botCharacter.Skin
+				       : f.GetPlayerData(player).Skin;
 		}
 	}
 }

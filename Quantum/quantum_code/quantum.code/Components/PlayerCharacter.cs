@@ -25,7 +25,7 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin)
+		                   uint trophies, GameId skin, Equipment[] startingEquipment)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
@@ -47,7 +47,9 @@ namespace Quantum
 
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
-			InitStats(f, e);
+
+			InitStats(f, e, startingEquipment);
+			InitEquipment(f, e, startingEquipment);
 
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
@@ -62,7 +64,11 @@ namespace Quantum
 		{
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 
-			CurrentWeaponSlot = 0;
+			if (isRespawning)
+			{
+				CurrentWeaponSlot = 0;
+			}
+
 			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
@@ -271,12 +277,33 @@ namespace Quantum
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
-		private void InitStats(Frame f, EntityRef e)
+		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
 		{
-			f.Add(e,
-			      new Stats(f.GameConfig.PlayerDefaultHealth, 0, f.GameConfig.PlayerDefaultSpeed, 0,
-			                f.GameConfig.PlayerMaxShieldCapacity,
-			                f.GameConfig.PlayerStartingShieldCapacity));
+			QuantumStatCalculator.CalculateGearStats(f, equipment, out var gearArmour, out var gearHealth,
+			                                         out var gearSpeed);
+
+			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + gearHealth,
+			                   0,
+			                   f.GameConfig.PlayerDefaultSpeed + gearSpeed,
+			                   gearArmour,
+			                   f.GameConfig.PlayerMaxShieldCapacity,
+			                   f.GameConfig.PlayerStartingShieldCapacity));
+		}
+
+		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
+		{
+			int gearIndex = 0;
+			foreach (var item in equipment)
+			{
+				if (item.IsWeapon())
+				{
+					AddWeapon(f, e, item);
+				}
+				else
+				{
+					Gear[gearIndex++] = item;
+				}
+			}
 		}
 	}
 }

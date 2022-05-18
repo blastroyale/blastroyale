@@ -3907,7 +3907,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 368;
+    public const Int32 SIZE = 688;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -3917,6 +3917,10 @@ namespace Quantum {
     [FieldOffset(32)]
     [HideInInspector()]
     public FP DisconnectedDuration;
+    [FieldOffset(176)]
+    [HideInInspector()]
+    [FramePrinter.FixedArrayAttribute(typeof(Equipment), 5)]
+    private fixed Byte _Gear_[320];
     [FieldOffset(24)]
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(16)]
@@ -3930,10 +3934,15 @@ namespace Quantum {
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
-    [FieldOffset(176)]
+    [FieldOffset(496)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 3)]
     private fixed Byte _Weapons_[192];
+    public FixedArray<Equipment> Gear {
+      get {
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 5); }
+      }
+    }
     public FixedArray<Special> Specials {
       get {
         fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 56, 2); }
@@ -3950,6 +3959,7 @@ namespace Quantum {
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DisconnectedDuration.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
         hash = hash * 31 + HfsmRootRef.GetHashCode();
         hash = hash * 31 + KccConfigRef.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
@@ -3969,6 +3979,7 @@ namespace Quantum {
         FP.Serialize(&p->DisconnectedDuration, serializer);
         FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
         FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
+        FixedArray.Serialize(p->Gear, serializer, StaticDelegates.SerializeEquipment);
         FixedArray.Serialize(p->Weapons, serializer, StaticDelegates.SerializeEquipment);
     }
   }
@@ -7622,6 +7633,7 @@ namespace Quantum {
     public const Int32 EQUIPMENT_SLOT_COUNT = 6;
     public const Int32 PLAYER_COUNT = 32;
     public const Int32 MAX_WEAPONS = 3;
+    public const Int32 MAX_GEAR = 5;
     public const Int32 MAX_SPECIALS = 2;
     public const Int32 TOTAL_STATS = 5;
   }
@@ -7635,8 +7647,8 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeAssetRefBTDecorator;
     public static FrameSerializer.Delegate SerializeAssetRefGOAPAction;
     public static FrameSerializer.Delegate SerializePlayerMatchData;
-    public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeEquipment;
+    public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeInt32;
     public static FrameSerializer.Delegate SerializeModifier;
     public static FrameSerializer.Delegate SerializeEntityRef;
@@ -7655,8 +7667,8 @@ namespace Quantum {
       SerializeAssetRefBTDecorator = Quantum.AssetRefBTDecorator.Serialize;
       SerializeAssetRefGOAPAction = Quantum.AssetRefGOAPAction.Serialize;
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
-      SerializeSpecial = Quantum.Special.Serialize;
       SerializeEquipment = Quantum.Equipment.Serialize;
+      SerializeSpecial = Quantum.Special.Serialize;
       SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeModifier = Quantum.Modifier.Serialize;
       SerializeEntityRef = EntityRef.Serialize;
@@ -8904,6 +8916,9 @@ namespace Quantum.Prototypes {
     [ArrayLengthAttribute(3)]
     public Equipment_Prototype[] Weapons = new Equipment_Prototype[3];
     [HideInInspector()]
+    [ArrayLengthAttribute(5)]
+    public Equipment_Prototype[] Gear = new Equipment_Prototype[5];
+    [HideInInspector()]
     [ArrayLengthAttribute(2)]
     public Special_Prototype[] Specials = new Special_Prototype[2];
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
@@ -8916,6 +8931,9 @@ namespace Quantum.Prototypes {
       result.BlackboardRef = this.BlackboardRef;
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DisconnectedDuration = this.DisconnectedDuration;
+      for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {
+        this.Gear[i].Materialize(frame, ref *result.Gear.GetPointer(i), in context);
+      }
       result.HfsmRootRef = this.HfsmRootRef;
       result.KccConfigRef = this.KccConfigRef;
       result.Player = this.Player;

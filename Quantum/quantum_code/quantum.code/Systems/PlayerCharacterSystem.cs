@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -35,8 +36,12 @@ namespace Quantum.Systems
 
 			spawnTransform.Position = closestPosition;
 
+			var startingEquipment = f.RuntimeConfig.GameMode == GameMode.BattleRoyale
+				                        ? Array.Empty<Equipment>()
+				                        : playerData.EquippedItems;
+
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin);
+			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment);
 		}
 
 		/// <inheritdoc />
@@ -73,6 +78,7 @@ namespace Quantum.Systems
 			{
 				Collectable.DropCollectable(f, GameId.AmmoSmall, deathPosition, step, false);
 			}
+
 			step++;
 
 			// Try to drop ShieldLarge, if didn't work then try to drop ShieldSmall

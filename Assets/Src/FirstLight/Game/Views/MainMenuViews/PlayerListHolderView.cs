@@ -94,8 +94,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void SortPlayerList()
 		{
-			//_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
-			
 			_activePlayerEntries.Sort((a, b) =>
 			{
 				var rank = a.IsLocal.CompareTo(b.IsLocal) + a.IsHost.CompareTo(b.IsHost);

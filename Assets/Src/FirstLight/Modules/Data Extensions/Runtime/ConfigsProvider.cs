@@ -40,6 +40,11 @@ namespace FirstLight
 		/// Requests the Config Dictionary of <typeparamref name="T"/> type
 		/// </summary>
 		IReadOnlyDictionary<int, T> GetConfigsDictionary<T>();
+
+		/// <summary>
+		/// Obtains all configs as a readonly dictionary
+		/// </summary>
+		public IReadOnlyDictionary<Type, IEnumerable> GetAllConfigs();
 	}
 
 	/// <inheritdoc />
@@ -58,6 +63,11 @@ namespace FirstLight
 		/// The configuration will use the given <paramref name="referenceIdResolver"/> to map each config to it's defined id.
 		/// </summary>
 		void AddConfigs<T>(Func<T, int> referenceIdResolver, IList<T> configList) where T : struct;
+
+		/// <summary>
+		/// Adds the given dictionary of configuration lists to the config.
+		/// </summary>
+		public void AddAllConfigs(IDictionary<Type, IEnumerable> configs);
 	}
 	
 	/// <inheritdoc />
@@ -122,6 +132,21 @@ namespace FirstLight
 			}
 
 			_configs.Add(typeof(T), dictionary);
+		}
+		
+		/// <inheritdoc />
+		public IReadOnlyDictionary<Type, IEnumerable> GetAllConfigs()
+		{
+			return new ReadOnlyDictionary<Type, IEnumerable>(_configs);
+		}
+
+		/// <inheritdoc />
+		public void AddAllConfigs(IDictionary<Type, IEnumerable> configs)
+		{
+			foreach (var (type, list) in configs)
+			{
+				_configs[type] = list;
+			}
 		}
 	}
 }

@@ -1,7 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using PlayFab;
@@ -48,7 +47,7 @@ namespace FirstLight.Editor.EditorTools
 			MoveBackendDlls();
 			CopyConfigs();
 		}
-		
+
 		[MenuItem("First Light Games/Backend/Copy DLLs")]
 		private static void MoveBackendDlls()
 		{
@@ -62,8 +61,7 @@ namespace FirstLight.Editor.EditorTools
 			CopyAssembly(_unityPath,"FirstLight.Game.dll"); 
 			CopyAssembly(_unityPath,"FirstLight.Services.dll");
 		}
-		
-			
+
 		/// <summary>
 		/// Generates and copies a gameConfig.json with needed game configs to be shared to the backend
 		/// and moves the config file to the backend.
@@ -77,10 +75,10 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Parsing Configs");
 			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
 			var serialiezd = serializer.Serialize(configs, "develop");
+			
 			File.WriteAllText ($"{_backendPath}/Backend/gameConfig.json", serialiezd);
 			Debug.Log("Parsed and saved in backend folder");
 		}
-
 		
 		[MenuItem("First Light Games/Backend/Force Update")]
 		private static void ForceUpdate()
@@ -89,7 +87,7 @@ namespace FirstLight.Editor.EditorTools
 			((GameCommandService)services.CommandService).ForceServerDataUpdate();
 			Debug.Log("Force Update Sent to Server");
 		}
-	
+		
 		[MenuItem("First Light Games/Backend/Use Local Server")]
 		private static void UseLocalServer()
 		{

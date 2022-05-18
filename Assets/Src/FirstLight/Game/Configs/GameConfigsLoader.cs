@@ -6,7 +6,6 @@ using FirstLight.Game.Services;
 
 namespace FirstLight.Game.Configs
 {
-
 	/// <summary>
 	/// Interface responsible for loading game-specific configuration files from a given asset resolver.
 	/// </summary>

@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using FirstLight.AssetImporter;
 using FirstLight.Game.Ids;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Configs.AssetConfigs
 {

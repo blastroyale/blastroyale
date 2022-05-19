@@ -190,7 +190,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var descriptionID = equipment.GameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
+			var descriptionID = equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
 			var isWeapon = equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
@@ -266,7 +266,7 @@ namespace FirstLight.Game.Presenters
 				else
 				{
 					var statsBeautifier = stat == EquipmentStatType.Speed
-						                      ? GameConstants.MOVEMENT_SPEED_BEAUTIFIER
+						                      ? GameConstants.Visuals.MOVEMENT_SPEED_BEAUTIFIER
 						                      : 1f;
 					var selectedValue = value * statsBeautifier;
 

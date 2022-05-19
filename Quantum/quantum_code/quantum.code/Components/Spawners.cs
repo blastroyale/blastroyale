@@ -15,40 +15,6 @@ namespace Quantum
 		}
 	}
 
-	public unsafe partial struct ConsumablePlatformSpawner
-	{
-		/// <summary>
-		/// Spawns a <see cref="Consumable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
-		/// </summary>
-		internal EntityRef Spawn(Frame f, GameId id, Transform3D transform)
-		{
-			var configs = f.ConsumableConfigs;
-			var config = id == GameId.Random ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)] : configs.GetConfig(id);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
-			
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
-
-			return entity;
-		}
-	}
-
-	public unsafe partial struct WeaponPlatformSpawner
-	{
-		/// <summary>
-		/// Spawns a <see cref="WeaponCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
-		/// </summary>
-		internal EntityRef Spawn(Frame f, GameId id, Transform3D transform)
-		{
-			var configs = f.WeaponConfigs;
-			var config = id == GameId.Random ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)] : configs.GetConfig(id);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
-			
-			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
-
-			return entity;
-		}
-	}
-	
 	public unsafe partial struct CollectablePlatformSpawner
 	{
 		/// <summary>
@@ -71,23 +37,73 @@ namespace Quantum
 		internal void Spawn(Frame f, EntityRef e)
 		{
 			var transform = f.Get<Transform3D>(e);
-			
-			if (f.Unsafe.TryGetPointer<ConsumablePlatformSpawner>(e, out var consumablePlatformSpawner))
+
+			if (GameId.IsInGroup(GameIdGroup.Consumable))
 			{
-				Collectable = consumablePlatformSpawner->Spawn(f, GameId, transform);
+				Collectable = SpawnConsumable(f, GameId, transform);
 			}
-			else if(f.Unsafe.TryGetPointer<WeaponPlatformSpawner>(e, out var weaponPlatformSpawner))
+			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
-				Collectable = weaponPlatformSpawner->Spawn(f, GameId, transform);
+				Collectable = SpawnChest(f, GameId, transform);
+			}
+			else if (GameId.IsInGroup(GameIdGroup.Weapon))
+			{
+				Collectable = SpawnWeapon(f, GameId, transform);
 			}
 			else
 			{
-				throw new InvalidOperationException($"The platform spawner is missing the component for the given {e} " +
-				                                    $"entity of the given {GameId} id");
+				throw new
+					InvalidOperationException($"The platform spawner is missing the component for the given {e} " +
+					                          $"entity of the given {GameId} id");
 			}
-			
+
 			SpawnCount++;
-			
+		}
+
+		/// <summary>
+		/// Spawns a <see cref="Consumable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		private EntityRef SpawnConsumable(Frame f, GameId id, Transform3D transform)
+		{
+			var configs = f.ConsumableConfigs;
+			var config = id == GameId.Random
+				             ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)]
+				             : configs.GetConfig(id);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+
+			return entity;
+		}
+
+		/// <summary>
+		/// Spawns a <see cref="WeaponCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		private EntityRef SpawnWeapon(Frame f, GameId id, Transform3D transform)
+		{
+			var configs = f.WeaponConfigs;
+			var config = id == GameId.Random
+				             ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)]
+				             : configs.GetConfig(id);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+
+			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			                                                     config);
+
+			return entity;
+		}
+
+		/// <summary>
+		/// Spawns a <see cref="Chest"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		private EntityRef SpawnChest(Frame f, GameId id, Transform3D transform)
+		{
+			var config = f.ChestConfigs.GetConfig(id);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+
+			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+
+			return entity;
 		}
 	}
 }

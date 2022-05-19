@@ -101,12 +101,6 @@ namespace FirstLight.Game.Logic
 
 			foreach (var reward in Data.UncollectedRewards)
 			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.LootBox))
-				{
-					// Loot boxes are already rewarded when the game is over
-					continue;
-				}
-				
 				rewards.Add(GiveReward(reward));
 			}
 			

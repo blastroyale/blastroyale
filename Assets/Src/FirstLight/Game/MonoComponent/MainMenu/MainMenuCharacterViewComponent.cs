@@ -15,18 +15,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		/// <summary>
 		/// Equip this character with the equipment data given in the <paramref name="info"/>
 		/// </summary>
-		public async Task Init(Equipment weapon, List<Equipment> gear)
+		public async Task Init(Equipment[] items)
 		{
 			var list = new List<Task>();
 			
-			if (weapon.IsValid())
+			
+			foreach (var item in items)
 			{
-				list.Add(EquipWeapon(weapon.GameId));
-			}
-
-			foreach (var item in gear)
-			{
-				list.Add(EquipItem(item.GameId));
+				// TODO mihak: Make this into a single Equip method call
+				list.Add(item.IsWeapon() ? EquipWeapon(item.GameId) : EquipItem(item.GameId));
 			}
 
 			await Task.WhenAll(list);

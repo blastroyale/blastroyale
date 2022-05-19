@@ -161,7 +161,7 @@ namespace FirstLight.Game.Presenters
 					dictionary.Add(id, 0);
 				}
 
-				dictionary[id] += id.IsInGroup(GameIdGroup.LootBox) ? 1 : rewards[i].Value;
+				dictionary[id] += rewards[i].Value;
 			}
 
 			return dictionary;

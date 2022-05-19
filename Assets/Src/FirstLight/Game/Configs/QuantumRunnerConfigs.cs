@@ -133,7 +133,7 @@ namespace FirstLight.Game.Configs
 		{
 			var properties = GetMatchMakingRoomProperties(mapConfig);
 			
-			properties.Add(GameConstants.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
+			properties.Add(GameConstants.Data.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
 
 			return properties;
 		}
@@ -143,10 +143,10 @@ namespace FirstLight.Game.Configs
 			var properties = new Hashtable
 			{
 				// The commit should guarantee the same Quantum build version + App version etc.
-				{ GameConstants.ROOM_PROPS_COMMIT, VersionUtils.Commit },
+				{ GameConstants.Data.ROOM_PROPS_COMMIT, VersionUtils.Commit },
 				
 				// Set the game map Id for the same matchmaking
-				{ GameConstants.ROOM_PROPS_MAP, mapConfig.Id },
+				{ GameConstants.Data.ROOM_PROPS_MAP, mapConfig.Id },
 			};
 			
 			return properties;
@@ -160,8 +160,8 @@ namespace FirstLight.Game.Configs
 		{
 			return new []
 			{
-				GameConstants.ROOM_PROPS_COMMIT,
-				GameConstants.ROOM_PROPS_MAP
+				GameConstants.Data.ROOM_PROPS_COMMIT,
+				GameConstants.Data.ROOM_PROPS_MAP
 			};
 		}
 	}

@@ -11,7 +11,7 @@ namespace Quantum
 		public Equipment(GameId gameId,
 		                 EquipmentEdition edition = EquipmentEdition.Genesis,
 		                 EquipmentRarity rarity = EquipmentRarity.Common,
-		                 EquipmentGrade grade = EquipmentGrade.GradeI,
+		                 EquipmentGrade grade = EquipmentGrade.GradeV,
 		                 EquipmentFaction faction = EquipmentFaction.Order,
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
 		                 EquipmentMaterial material = EquipmentMaterial.Bronze,
@@ -49,7 +49,7 @@ namespace Quantum
 		/// <summary>
 		/// Checks if this current <see cref="Equipment"/> is a valid possible equipment.
 		/// </summary>
-		public bool IsValid() => Level > 0 && GameId != GameId.Random;
+		public bool IsValid() => Level >= 0 && GameId != GameId.Random;
 
 		/// <summary>
 		/// Checks if this item is at <see cref="MaxLevel"/>.

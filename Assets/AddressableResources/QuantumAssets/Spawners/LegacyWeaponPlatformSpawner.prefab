@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 1384128413185055080}
   - component: {fileID: 7757663921541325714}
   - component: {fileID: 409028007402901711}
-  - component: {fileID: 2463666068383897750}
   - component: {fileID: 1956262989941663159}
   - component: {fileID: 7331633484137446179}
   m_Layer: 7
-  m_Name: WeaponPlatformSpawner
+  m_Name: LegacyWeaponPlatformSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,20 +214,6 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
---- !u!114 &2463666068383897750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587682744574828602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e56dc5674eaee23459332ee8f9cfa2cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    _empty_prototype_dummy_field_: 0
 --- !u!114 &1956262989941663159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5520,11 +5505,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0120b722c3ca5454da1240b65656905f, type: 3}
-  m_Name: WeaponPlatformSpawnerEntityPrototype
+  m_Name: LegacyWeaponPlatformSpawnerEntityPrototype
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityPrototype
+      Path: AddressableResources/QuantumAssets/Spawners/LegacyWeaponPlatformSpawner|EntityPrototype
       Guid:
         Value: 3423522033009671601
   Parent: {fileID: 409028007402901711}
@@ -5538,11 +5523,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d5baec4de8d2754a864a680181831e8, type: 3}
-  m_Name: WeaponPlatformSpawnerEntityView
+  m_Name: LegacyWeaponPlatformSpawnerEntityView
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityView
+      Path: AddressableResources/QuantumAssets/Spawners/LegacyWeaponPlatformSpawner|EntityView
       Guid:
         Value: 507213235080836660
   Parent: {fileID: 7757663921541325714}

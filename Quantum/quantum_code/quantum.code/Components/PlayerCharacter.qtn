@@ -1,5 +1,6 @@
 #define PLAYER_COUNT 32
 #define MAX_WEAPONS 3
+#define MAX_GEAR 5
 #pragma max_players PLAYER_COUNT
 
 // COMPONENTS
@@ -25,6 +26,7 @@ component PlayerCharacter
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
+	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }
 

@@ -27,6 +27,7 @@ namespace Quantum
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
 		internal QuantumGearConfigs GearConfigs => FindAsset<QuantumGearConfigs>(RuntimeConfig.GearConfigs.Id);
 		internal QuantumConsumableConfigs ConsumableConfigs => FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
+		internal QuantumChestConfigs ChestConfigs => FindAsset<QuantumChestConfigs>(RuntimeConfig.ChestConfigs.Id);
 		internal QuantumSpecialConfigs SpecialConfigs => FindAsset<QuantumSpecialConfigs>(RuntimeConfig.SpecialConfigs.Id);
 		internal QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
 		internal QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);

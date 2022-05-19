@@ -1,0 +1,13 @@
+component Chest
+{
+	[HideInInspector] ChestType ChestType;
+}
+
+enum ChestType
+{
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
+}

@@ -154,12 +154,12 @@ namespace FirstLight.Game.Presenters
 
 		private void LeaveFeedbackForm()
 		{
-			Application.OpenURL(GameConstants.FEEDBACK_FORM_LINK);
+			Application.OpenURL(GameConstants.Links.FEEDBACK_FORM_LINK);
 		}
 
 		private void OpenDiscordLink()
 		{
-			Application.OpenURL(GameConstants.DISCORD_SERVER_LINK);
+			Application.OpenURL(GameConstants.Links.DISCORD_SERVER_LINK);
 		}
 
 		private void UnlockSystemButton(UnlockSystem system)

@@ -34,9 +34,9 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       ShrinkingDamage: 20
-      PlayerDefaultHealth: 1000
+      PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
-        RawValue: 294912
+        RawValue: 314573
       PlayerMaxShieldCapacity: 800
       PlayerStartingShieldCapacity: 100
       CoinsPerRank: 30
@@ -62,7 +62,7 @@ MonoBehaviour:
       FusionBaseWeightPerType: 200
       FusionWeightIncreasePerItem: 70
       FusionWeightIncreasePerLevel: 10
-      StatsPowerBaseValue: 200
+      StatsPowerBaseValue: 400
       StatsPowerRarityMultiplier:
         RawValue: 131072
       StatsPowerLevelStepMultiplier:

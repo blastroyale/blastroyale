@@ -11,7 +11,7 @@ namespace Quantum
 		public Equipment(GameId gameId,
 		                 EquipmentEdition edition = EquipmentEdition.Genesis,
 		                 EquipmentRarity rarity = EquipmentRarity.Common,
-		                 EquipmentGrade grade = EquipmentGrade.GradeI,
+		                 EquipmentGrade grade = EquipmentGrade.GradeV,
 		                 EquipmentFaction faction = EquipmentFaction.Order,
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
 		                 EquipmentMaterial material = EquipmentMaterial.Bronze,

@@ -57,8 +57,10 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var reward in _rewards)
 			{
+				// Only play unpack animation if its not the last reward in list
+				bool playUnpackAnim = i != _rewards.Count - 1;
 				_rewardViews[i] = Instantiate(_rewardRef, _rewardRef.transform.parent);
-				_rewardViews[i].Initialise(reward.Key, (uint) reward.Value);
+				_rewardViews[i].Initialise(reward.Key, (uint) reward.Value, playUnpackAnim);
 				_rewardViews[i].gameObject.SetActive(false);
 
 				if (i > 0)
@@ -100,7 +102,7 @@ namespace FirstLight.Game.Presenters
 
 		private void PlayRewardSequence()
 		{
-			_rewardViews[0].StartRewardSequence(_rewards.Count > 1);
+			_rewardViews[0].StartRewardSequence();
 		}
 
 		private void PlaySummariseSequence()

@@ -99,7 +99,6 @@ namespace FirstLight.Game.Logic
 			var csRewardAmount = csMaxTake * csPercent;
 			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong) csRewardAmount, GameId.CS);
 			
-			
 			if (csWithdrawn > 0)
 			{
 				rewards.Add(GameId.CS, csWithdrawn);

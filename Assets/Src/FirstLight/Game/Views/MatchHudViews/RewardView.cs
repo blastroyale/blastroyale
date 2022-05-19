@@ -31,6 +31,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private Coroutine _rewardCoroutine;
 		private Coroutine _summaryCoroutine;
 
+		private bool _playUnpackAnim = false;
+
 		/// <summary>
 		/// Requests the information if the reward view is playing
 		/// </summary>
@@ -39,12 +41,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Initializes the object with the given <paramref name="gameId"/> & <paramref name="quantity"/> data to show
 		/// </summary>
-		public async void Initialise(GameId gameId, uint quantity)
+		public async void Initialise(GameId gameId, uint quantity, bool playUnpackAnim)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			_image.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(gameId);
 			_image.enabled = true;
-			
+
+			_playUnpackAnim = playUnpackAnim;
 			_itemNameText.SetText(gameId.GetTranslation());
 			_quantityText.SetText($"x{quantity.ToString()}");
 			gameObject.SetActive(true);
@@ -72,17 +75,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			gameObject.SetActive(true);
 
-			_rewardCoroutine = _services.CoroutineService.StartCoroutine(PlayRewardAnimation(true));
-		}
-		
-		/// <summary>
-		/// Starts the Reward Animation sequence for this object. 
-		/// </summary>
-		public void StartRewardSequence(bool playUnpackAnim)
-		{
-			gameObject.SetActive(true);
-			
-			_rewardCoroutine = _services.CoroutineService.StartCoroutine(PlayRewardAnimation(playUnpackAnim));
+			_rewardCoroutine = _services.CoroutineService.StartCoroutine(PlayRewardAnimation());
 		}
 
 		/// <summary>
@@ -125,7 +118,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			FinalSummaryAnimation();
 		}
 
-		private IEnumerator PlayRewardAnimation(bool playUnpackAnim)
+		private IEnumerator PlayRewardAnimation()
 		{
 			transform.rotation = new Quaternion(0, 0, 0, 0);
 			_animation.clip = _appearAnimationClip;
@@ -138,7 +131,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			yield return new WaitForSeconds(_animation.clip.length);
 
-			if (playUnpackAnim)
+			if (_playUnpackAnim)
 			{
 				_animation.clip = _unpackAnimationClip;
 				_animation.Play();

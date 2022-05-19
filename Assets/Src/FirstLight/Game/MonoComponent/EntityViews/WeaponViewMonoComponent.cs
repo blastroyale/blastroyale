@@ -49,7 +49,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.time = 0;
 			_particleSystem.Play();
 
-			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(callback.WeaponID);
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)callback.Weapon.GameId);
 
 			if (config.IsProjectile)
 			{

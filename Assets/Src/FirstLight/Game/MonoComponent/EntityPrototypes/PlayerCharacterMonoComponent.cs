@@ -39,7 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerAim>(this, OnPlayerAim);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAim>(this, OnLocalPlayerAim);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -160,7 +160,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			SetWeaponIndicators(callback.Weapon.GameId);
 		}
 
-		private void OnPlayerAim(EventOnPlayerAim callback)
+		private void OnLocalPlayerAim(EventOnLocalPlayerAim callback)
 		{
 			var configProvider = Services.ConfigsProvider;
 			var weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
@@ -181,7 +181,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				size = weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			_shootIndicator.SetVisualProperties(size, 0, range);
+			_shootIndicator?.SetVisualProperties(size, 0, range);
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)

@@ -94,15 +94,6 @@ synced event OnPlayerAttack
 	UInt32 AttackAngle;
 }
 
-synced event OnPlayerAim
-{
-	player_ref Player;
-	entity_ref PlayerEntity;
-	Equipment Weapon;
-	FP VelocitySqrMagnitude;
-	FP MaxSpeedSqr;
-}
-
 synced event OnPlayerDamaged
 {
 	player_ref Player;
@@ -130,6 +121,15 @@ synced event OnPlayerStopAttack
 }
 
 // LOCAL PLAYER EVENTS
+
+synced event OnLocalPlayerAim
+{
+	local player_ref Player;
+	entity_ref PlayerEntity;
+	Equipment Weapon;
+	FP VelocitySqrMagnitude;
+	FP MaxSpeedSqr;
+}
 
 synced event OnLocalPlayerLeft
 {

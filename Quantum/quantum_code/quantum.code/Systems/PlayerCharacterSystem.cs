@@ -96,10 +96,9 @@ namespace Quantum.Systems
 				step++;
 			}
 
-			// If it's Battle Royale then try to drop Weapon (if it's not Melee)
+			// If it's Battle Royale then drop Weapon (if it's not Melee)
 			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale &&
-			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead) &&
-			    f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
+			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
 			{
 				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon.GameId, deathPosition,
 				                            step, true);

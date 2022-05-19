@@ -52,7 +52,6 @@ namespace Quantum
 		public FP DeathDropHealthChance;
 		public FP DeathDropLargeShieldChance;
 		public FP DeathDropSmallShieldChance;
-		public FP DeathDropWeaponChance;
 		public int TrophyEloRange;
 		public int TrophyEloK;
 	}

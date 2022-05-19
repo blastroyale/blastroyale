@@ -72,7 +72,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			gameObject.SetActive(true);
 			
-			_rewardCoroutine = StartCoroutine(PlayRewardAnimation());
+			_rewardCoroutine = StartCoroutine(PlayRewardAnimation(true));
+		}
+		
+		/// <summary>
+		/// Starts the Reward Animation sequence for this object. 
+		/// </summary>
+		public void StartRewardSequence(bool playUnpackAnim)
+		{
+			gameObject.SetActive(true);
+			
+			_rewardCoroutine = StartCoroutine(PlayRewardAnimation(playUnpackAnim));
 		}
 
 		/// <summary>
@@ -115,7 +125,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			FinalSummaryAnimation();
 		}
 
-		private IEnumerator PlayRewardAnimation()
+		private IEnumerator PlayRewardAnimation(bool playUnpackAnim)
 		{
 			transform.rotation = new Quaternion(0, 0, 0, 0);
 			_animation.clip = _appearAnimationClip;
@@ -128,11 +138,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			yield return new WaitForSeconds(_animation.clip.length);
 
-			_animation.clip = _unpackAnimationClip;
-			_animation.Play();
+			if (playUnpackAnim)
+			{
+				_animation.clip = _unpackAnimationClip;
+				_animation.Play();
 
-			yield return new WaitForSeconds(_animation.clip.length);
-
+				yield return new WaitForSeconds(_animation.clip.length);
+			}
+			
 			FinalRewardAnimation();
 		}
 

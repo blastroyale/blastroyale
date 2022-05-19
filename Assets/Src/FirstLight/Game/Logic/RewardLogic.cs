@@ -74,9 +74,10 @@ namespace FirstLight.Game.Logic
 
 			// Get worst reward placement reward by default, or specific placement reward thereafter
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = 10;//(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
-			
-			foreach (var config in gameModeRewardConfigs)
+			var rankValue = 10; //(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
+            //// TODO - remove the hard coded 10, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
+
+            foreach (var config in gameModeRewardConfigs)
 			{
 				if (rankValue > config.Placement)
 				{
@@ -92,13 +93,16 @@ namespace FirstLight.Game.Logic
 
 			var csRewardPair = rewardConfig.RewardPairs.FirstOrDefault(x => x.Key == GameId.CS);
 			var csPercent = csRewardPair.Value / 100f;
+			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
+			
 			var csMaxTake = 100; // TODO - Replace with NFT equipment calculation
 			var csRewardAmount = csMaxTake * csPercent;
-			// csRewardPair.Value is the percent of the max CS take that people will be awarded
+			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong) csRewardAmount, GameId.CS);
 			
-			if (csRewardAmount > 0)
+			
+			if (csWithdrawn > 0)
 			{
-				rewards.Add(GameId.CS, (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong)csRewardAmount,GameId.CS));
+				rewards.Add(GameId.CS, csWithdrawn);
 			}
 
 			return rewards;

@@ -120,17 +120,17 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
+			screenCheck.Transition().Condition(HasUncollectedRewards).Target(claimUnclaimedRewards);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(homeMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 
-			claimUnclaimedRewards.OnEnter(CheckClaimRewards);
+			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 
 			homeMenu.OnEnter(OpenPlayMenuUI);
-			homeMenu.OnEnter(CheckClaimRewards);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
@@ -215,12 +215,14 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CheckClaimRewards()
+		private bool HasUncollectedRewards()
 		{
-			if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
-			{
-				_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
-			}
+			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+		}
+		
+		private void ClaimUncollectedRewards()
+		{
+			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
 
 		private bool IsInRoom()

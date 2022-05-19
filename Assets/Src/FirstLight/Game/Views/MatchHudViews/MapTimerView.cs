@@ -38,6 +38,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
 		}
+		
+		private void OnDestroy()
+		{
+			_services?.MessageBrokerService?.Unsubscribe<MatchStartedMessage>(OnMatchStarted);
+		}
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
@@ -125,11 +130,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_safeAreaRadialTransform.gameObject.SetActive(true);
 			}
-		}
-
-		private void OnDestroy()
-		{
-			_services.MessageBrokerService.Unsubscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 	}
 }

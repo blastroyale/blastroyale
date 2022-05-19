@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			gameLogic.MessageBrokerService.Publish(new UnclaimedRewardsCollectingStartedMessage ());
+			gameLogic.MessageBrokerService.Publish(new UnclaimedRewardsCollectingStartedMessage() {Rewards = gameLogic.RewardLogic.UnclaimedRewards.ToList()});
 			var rewards = gameLogic.RewardLogic.ClaimUncollectedRewards();
 			gameLogic.MessageBrokerService.Publish(new UnclaimedRewardsCollectedMessage { Rewards = rewards });
 		}

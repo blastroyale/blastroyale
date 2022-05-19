@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 			_csButton.onClick.AddListener(OnCsClicked);
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
-			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxCommandMessage);
+			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxMessage);
 
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 			UpdateCsValueText(_dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS));
@@ -63,15 +63,16 @@ namespace FirstLight.Game.Presenters
 
 		private void OnUnclaimedRewardsCollectingStartedMessage(UnclaimedRewardsCollectingStartedMessage message)
 		{
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
+			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			
 		}
 
 		private void OnUnclaimedRewardsCollectedMessage(UnclaimedRewardsCollectedMessage obj)
 		{
-			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
 		}
 
-		private void OnPlayUiVfxCommandMessage(PlayUiVfxMessage message)
+		private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
 		{
 			var closure = message;
 

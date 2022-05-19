@@ -162,14 +162,14 @@ namespace FirstLight.Game.Presenters
 		{
 			var damagePercentOfStat = damage / maximumOfRelevantStat;
 
-			var intensity = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_INTENSITY_MIN,
-			                           GameConstants.HAPTIC_DAMAGE_INTENSITY_MAX, damagePercentOfStat);
+			var intensity = Mathf.Lerp(GameConstants.Haptics.DAMAGE_INTENSITY_MIN,
+			                           GameConstants.Haptics.DAMAGE_INTENSITY_MAX, damagePercentOfStat);
 
 			// Sharpness is only used in iOS vibrations
-			var sharpness = Mathf.Lerp(GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MIN,
-			                           GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
+			var sharpness = Mathf.Lerp(GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MIN,
+			                           GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
 
-			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);
+			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -190,11 +191,6 @@ namespace FirstLight.Game.StateMachines
 			var matchData = gameContainer.GetPlayersMatchData(f, out _);
 			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 
-			foreach (var dejta in matchData)
-			{
-				Debug.LogError(dejta.PlayerRank + " " + dejta.PlayerName);	
-			}
-			
 			_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
 			{
 				PlayerMatchData = localPlayerData,

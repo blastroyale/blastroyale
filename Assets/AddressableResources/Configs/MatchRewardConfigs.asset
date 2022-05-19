@@ -13,129 +13,87 @@ MonoBehaviour:
   m_Name: MatchRewardConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Id: 0
-    GameMode: 2
-    Placement: 1
+  - Placement: 1
     RewardPairs:
     - Key: 12
       Value: 100
-  - Id: 1
-    GameMode: 2
-    Placement: 2
+  - Placement: 2
     RewardPairs:
     - Key: 12
       Value: 85
-  - Id: 2
-    GameMode: 2
-    Placement: 3
+  - Placement: 3
     RewardPairs:
     - Key: 12
       Value: 70
-  - Id: 3
-    GameMode: 2
-    Placement: 4
+  - Placement: 4
     RewardPairs:
     - Key: 12
       Value: 60
-  - Id: 4
-    GameMode: 2
-    Placement: 5
+  - Placement: 5
     RewardPairs:
     - Key: 12
       Value: 52
-  - Id: 5
-    GameMode: 2
-    Placement: 6
+  - Placement: 6
     RewardPairs:
     - Key: 12
       Value: 48
-  - Id: 6
-    GameMode: 2
-    Placement: 7
+  - Placement: 7
     RewardPairs:
     - Key: 12
       Value: 44
-  - Id: 7
-    GameMode: 2
-    Placement: 8
+  - Placement: 8
     RewardPairs:
     - Key: 12
       Value: 40
-  - Id: 8
-    GameMode: 2
-    Placement: 9
+  - Placement: 9
     RewardPairs:
     - Key: 12
       Value: 36
-  - Id: 9
-    GameMode: 2
-    Placement: 10
+  - Placement: 10
     RewardPairs:
     - Key: 12
       Value: 32
-  - Id: 10
-    GameMode: 2
-    Placement: 11
+  - Placement: 11
     RewardPairs:
     - Key: 12
       Value: 28
-  - Id: 11
-    GameMode: 2
-    Placement: 12
+  - Placement: 12
     RewardPairs:
     - Key: 12
       Value: 24
-  - Id: 12
-    GameMode: 2
-    Placement: 13
+  - Placement: 13
     RewardPairs:
     - Key: 12
       Value: 21
-  - Id: 13
-    GameMode: 2
-    Placement: 14
+  - Placement: 14
     RewardPairs:
     - Key: 12
       Value: 18
-  - Id: 14
-    GameMode: 2
-    Placement: 15
+  - Placement: 15
     RewardPairs:
     - Key: 12
       Value: 15
-  - Id: 15
-    GameMode: 2
-    Placement: 16
+  - Placement: 16
     RewardPairs:
     - Key: 12
       Value: 12
-  - Id: 16
-    GameMode: 2
-    Placement: 17
+  - Placement: 17
     RewardPairs:
     - Key: 12
       Value: 9
-  - Id: 17
-    GameMode: 2
-    Placement: 18
+  - Placement: 18
     RewardPairs:
     - Key: 12
       Value: 6
-  - Id: 18
-    GameMode: 2
-    Placement: 19
+  - Placement: 19
     RewardPairs:
     - Key: 12
       Value: 4
-  - Id: 19
-    GameMode: 2
-    Placement: 20
+  - Placement: 20
     RewardPairs:
     - Key: 12
       Value: 2
-  - Id: 20
-    GameMode: 2
-    Placement: 21
+  - Placement: 21
     RewardPairs:
     - Key: 12
       Value: 0

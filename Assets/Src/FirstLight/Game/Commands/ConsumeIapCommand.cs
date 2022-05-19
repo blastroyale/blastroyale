@@ -79,7 +79,7 @@ namespace FirstLight.Game.Commands
 				gameLogic.CurrencyLogic.DeductCurrency(Product.Data.PriceGameId, (ulong) Product.Data.PriceValue);
 			}
 			
-			var reward = gameLogic.RewardLogic.GiveReward(rewardData);
+			var reward = gameLogic.RewardLogic.ClaimReward(rewardData);
 
 			gameLogic.MessageBrokerService.Publish(new IapPurchaseSucceededMessage
 			{

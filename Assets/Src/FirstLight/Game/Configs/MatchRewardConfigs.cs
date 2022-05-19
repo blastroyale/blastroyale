@@ -9,8 +9,6 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct MatchRewardConfig
 	{
-		public uint Id;
-		public GameMode GameMode;
 		public short Placement;
 		public List<Pair<GameId, uint>> RewardPairs;
 	}

@@ -21,7 +21,7 @@ namespace FirstLight.Game.Commands
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
 			gameLogic.MessageBrokerService.Publish(new UnclaimedRewardsCollectingStartedMessage ());
-			var rewards = gameLogic.RewardLogic.CollectUnclaimedRewards();
+			var rewards = gameLogic.RewardLogic.ClaimUncollectedRewards();
 			gameLogic.MessageBrokerService.Publish(new UnclaimedRewardsCollectedMessage { Rewards = rewards });
 		}
 	}

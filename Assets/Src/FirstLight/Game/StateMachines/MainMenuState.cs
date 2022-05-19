@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -28,31 +29,16 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-
-		private readonly IStatechartEvent _currentTabButtonClickedEvent =
-			new StatechartEvent("Current Tab Button Clicked Event");
-
+		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-
-		private readonly IStatechartEvent _settingsMenuClickedEvent =
-			new StatechartEvent("Settings Menu Button Clicked Event");
-
-		private readonly IStatechartEvent _settingsCloseClickedEvent =
-			new StatechartEvent("Settings Close Button Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
-			new StatechartEvent("Room Join Create Button Clicked Event");
-
+		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
+		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-		// EVE - Add new event '_gameModeChosenEvent'
-		
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-
-		private readonly IStatechartEvent _logoutConfirmClickedEvent =
-			new StatechartEvent("Logout Confirm Clicked Event");
-
+		private readonly IStatechartEvent _logoutConfirmClickedEvent = new StatechartEvent("Logout Confirm Clicked Event");
 		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
 
 		private readonly IGameUiService _uiService;
@@ -133,18 +119,18 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-
-			screenCheck.Transition().Condition(CheckUnclaimedRewards).Target(claimUnclaimedRewards);
+			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(homeMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 
-			claimUnclaimedRewards.OnEnter(StartClaimRewards);
+			claimUnclaimedRewards.OnEnter(CheckClaimRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 
 			homeMenu.OnEnter(OpenPlayMenuUI);
+			homeMenu.OnEnter(CheckClaimRewards);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
@@ -220,7 +206,7 @@ namespace FirstLight.Game.StateMachines
 
 			foreach (var reward in message.Rewards)
 			{
-				_services.MessageBrokerService.Publish(new PlayUiVfxCommandMessage
+				_services.MessageBrokerService.Publish(new PlayUiVfxMessage
 				{
 					Id = reward.RewardId,
 					OriginWorldPosition = position,
@@ -229,14 +215,12 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void StartClaimRewards()
+		private void CheckClaimRewards()
 		{
-			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
-		}
-
-		private bool CheckUnclaimedRewards()
-		{
-			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+			if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
+			{
+				_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
+			}
 		}
 
 		private bool IsInRoom()

@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 			_csButton.onClick.AddListener(OnCsClicked);
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
-			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
+			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxCommandMessage);
 
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 			UpdateCsValueText(_dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS));
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 		}
 
-		private void OnPlayUiVfxCommandMessage(PlayUiVfxCommandMessage message)
+		private void OnPlayUiVfxCommandMessage(PlayUiVfxMessage message)
 		{
 			var closure = message;
 

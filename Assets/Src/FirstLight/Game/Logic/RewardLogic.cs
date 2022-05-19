@@ -22,7 +22,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
 	}
 
 	/// <inheritdoc />
@@ -36,12 +36,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
-		List<RewardData> CollectUnclaimedRewards();
+		List<RewardData> ClaimUncollectedRewards();
 
 		/// <summary>
 		/// Awards the given <paramref name="reward"/> to the player
 		/// </summary>
-		RewardData GiveReward(RewardData reward);
+		RewardData ClaimReward(RewardData reward);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -55,7 +55,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
 			var rewards = new Dictionary<GameId, int>();
@@ -70,12 +70,11 @@ namespace FirstLight.Game.Logic
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
 			                                     .GetConfigsList<MatchRewardConfig>()
-			                                     .Where(x => x.GameMode == mapConfig.GameMode)
 			                                     .OrderByDescending(x => x.Placement).ToList();
 
 			// Get worst reward placement reward by default, or specific placement reward thereafter
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = (mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
+			var rankValue = 10;//(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
@@ -92,8 +91,9 @@ namespace FirstLight.Game.Logic
 			}
 
 			var csRewardPair = rewardConfig.RewardPairs.FirstOrDefault(x => x.Key == GameId.CS);
+			var csPercent = csRewardPair.Value / 100f;
 			var csMaxTake = 100; // TODO - Replace with NFT equipment calculation
-			var csRewardAmount = csMaxTake * csRewardPair.Value;
+			var csRewardAmount = csMaxTake * csPercent;
 			// csRewardPair.Value is the percent of the max CS take that people will be awarded
 			
 			if (csRewardAmount > 0)
@@ -107,7 +107,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var rewards = GetMatchRewards(matchData, didPlayerQuit);
+			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 			var rewardsList = new List<RewardData>();
 
 			foreach (var reward in rewards)
@@ -122,13 +122,18 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> CollectUnclaimedRewards()
+		public List<RewardData> ClaimUncollectedRewards()
 		{
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
 			
 			if (Data.UncollectedRewards.Count == 0)
 			{
 				throw new LogicException("The player does not have any rewards to collect.");
+			}
+			
+			foreach (var reward in Data.UncollectedRewards)
+			{
+				rewards.Add(ClaimReward(reward));
 			}
 
 			Data.UncollectedRewards.Clear();
@@ -137,7 +142,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public RewardData GiveReward(RewardData reward)
+		public RewardData ClaimReward(RewardData reward)
 		{
 			var groups = reward.RewardId.GetGroups();
 

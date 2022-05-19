@@ -20,7 +20,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private TextMeshProUGUI _killsText;
 		[SerializeField, Required] private TextMeshProUGUI _deathsText;
 		[SerializeField, Required] private TextMeshProUGUI _xpText;
-		[SerializeField, Required] private TextMeshProUGUI _coinsText;
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
@@ -40,15 +39,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_playerRankText.text = $"{data.PlayerRank.ToString()}.";
 			_killsText.text = data.Data.PlayersKilledCount.ToString();
 			_deathsText.text = data.Data.DeathCount.ToString();
-
-			var csReward = rewards.FirstOrDefault(x => x.RewardId == GameId.CS);
-
-			_coinsText.enabled = showExtra;
-			
-			if (csReward.Value > 0)
-			{
-				_coinsText.text = csReward.Value.ToString();
-			}
 			
 			_xpText.enabled = showExtra;
 			_xpText.text = data.Data.PlayerTrophies.ToString();
@@ -57,7 +47,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_playerRankText.color = col;
 			_killsText.color = col;
 			_deathsText.color = col;
-			_coinsText.color = col;
 		}
 	}
 }

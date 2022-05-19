@@ -41,7 +41,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnDestroy()
 		{
-			_services?.MessageBrokerService?.Unsubscribe<MatchStartedMessage>(OnMatchStarted);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)

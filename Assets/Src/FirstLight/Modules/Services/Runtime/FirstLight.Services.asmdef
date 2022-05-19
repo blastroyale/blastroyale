@@ -1,6 +1,6 @@
 {
     "name": "FirstLight.Services",
-    "references": [],
+    "references": ["FirstLight.DataExtensions"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

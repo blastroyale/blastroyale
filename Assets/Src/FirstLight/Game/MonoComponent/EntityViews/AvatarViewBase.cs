@@ -69,7 +69,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected RigidbodyContainerMonoComponent RigidbodyContainerMonoComponent;
 
 		[SerializeField, Required] private Animator _animator;
-		[SerializeField] private VfxId _projectileHitVfx;
+		[SerializeField] private EnumSelector<VfxId> _projectileHitVfx;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 
 		private AnimatorWrapper _animatorWrapper;

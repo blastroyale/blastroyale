@@ -57,7 +57,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_animation.Rewind();
 			_animation.Play();
 
-			this.LateCall(_animation.clip.length, PlayFadeOutAnimation);
+			if (gameObject.activeInHierarchy)
+			{
+				this.LateCoroutineCall(_animation.clip.length, PlayFadeOutAnimation);
+			}
 		}
 
 		private void PlayFadeOutAnimation()

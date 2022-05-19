@@ -78,18 +78,19 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Nest(_deathmatchState.Setup);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
+			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
+			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 			
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-			
+
 			gameResults.OnEnter(GiveMatchRewards);
-			gameResults.OnEnter(SendGameplayDataAnalytics);
 			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
 			
@@ -191,16 +192,12 @@ namespace FirstLight.Game.StateMachines
 			var matchData = gameContainer.GetPlayersMatchData(f, out _);
 			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 
-			_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
+			_services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand
 			{
-				PlayerMatchData = localPlayerData,
+				PlayersMatchData = matchData,
+				LocalPlayerMatchData = localPlayerData,
+				LocalPlayerRank = localPlayerData.PlayerRank,
 				DidPlayerQuit = false
-			});
-			
-			_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
-			{
-				Players = gameContainer.GetPlayersMatchData(f, out _),
-				LocalPlayerRank = localPlayerData.PlayerRank
 			});
 		}
 		

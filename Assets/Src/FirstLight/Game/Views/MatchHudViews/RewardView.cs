@@ -71,8 +71,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		public void StartRewardSequence()
 		{
 			gameObject.SetActive(true);
-			
-			_rewardCoroutine = StartCoroutine(PlayRewardAnimation(true));
+
+			_rewardCoroutine = _services.CoroutineService.StartCoroutine(PlayRewardAnimation(true));
 		}
 		
 		/// <summary>
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			gameObject.SetActive(true);
 			
-			_rewardCoroutine = StartCoroutine(PlayRewardAnimation(playUnpackAnim));
+			_rewardCoroutine = _services.CoroutineService.StartCoroutine(PlayRewardAnimation(playUnpackAnim));
 		}
 
 		/// <summary>

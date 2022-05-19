@@ -66,9 +66,9 @@ public class TestCommandManager
 	[Test]
 	public void TestQuantumCommand()
 	{
-		var command = new GameCompleteRewardsCommand()
+		var command = new EndOfGameCalculationsCommand()
 		{
-			PlayerMatchData = new QuantumPlayerMatchData()
+			LocalPlayerMatchData = new QuantumPlayerMatchData()
 			{
 				Data = new PlayerMatchData()
 				{
@@ -84,9 +84,9 @@ public class TestCommandManager
 		var (cmdTypeName, cmdData) = ModelSerializer.Serialize(command);
 		args[CommandFields.Command] = cmdData;
 		
-		var receivedCommand = (GameCompleteRewardsCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
+		var receivedCommand = (EndOfGameCalculationsCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
 		
-		Assert.AreEqual(command.PlayerMatchData.Data.Player._index, receivedCommand.PlayerMatchData.Data.Player._index);
+		Assert.AreEqual(command.LocalPlayerMatchData.Data.Player._index, receivedCommand.LocalPlayerMatchData.Data.Player._index);
 		
 	}
 }

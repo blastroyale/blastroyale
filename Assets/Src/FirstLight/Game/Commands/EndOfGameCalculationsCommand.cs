@@ -15,19 +15,22 @@ using UnityEngine;
 namespace FirstLight.Game.Commands
 {
 	/// <summary>
-	/// Sell an Item from the player's current inventory or loadout and award soft currency based on it's sale price.
+	/// Updates player trophies, restocks resource pools, and gives end-of-match rewards
 	/// </summary>
-	public struct GameCompleteRewardsCommand : IGameCommand
+	public struct EndOfGameCalculationsCommand : IGameCommand
 	{
-		public QuantumPlayerMatchData PlayerMatchData;
+		public QuantumPlayerMatchData[] PlayersMatchData;
+		public QuantumPlayerMatchData LocalPlayerMatchData;
+		public uint LocalPlayerRank;
 		public bool DidPlayerQuit;
 		
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			gameLogic.MatchLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRank);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayerMatchData, DidPlayerQuit);
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(LocalPlayerMatchData, DidPlayerQuit);
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}

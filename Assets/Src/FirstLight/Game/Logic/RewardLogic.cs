@@ -75,9 +75,9 @@ namespace FirstLight.Game.Logic
 			// Get worst reward placement reward by default, or specific placement reward thereafter
 			var rewardConfig = gameModeRewardConfigs[0];
 			var rankValue = 10; //(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
-            //// TODO - remove the hard coded 10, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
-
-            foreach (var config in gameModeRewardConfigs)
+			// TODO - remove the hard coded 10, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
+			
+			foreach (var config in gameModeRewardConfigs)
 			{
 				if (rankValue > config.Placement)
 				{

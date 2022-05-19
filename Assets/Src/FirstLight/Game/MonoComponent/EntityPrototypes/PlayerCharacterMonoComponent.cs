@@ -133,10 +133,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_specialAimIndicator.Key?.SetVisualState(true);
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key
-			                    ?
-			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
-			                                         config.MinRange.AsFloat, config.MaxRange.AsFloat);
+			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
@@ -262,7 +260,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var maxSpeedSqr = (kcc.MaxSpeed * kcc.MaxSpeed).AsFloat;
 			var lerpValue = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocitySqr / maxSpeedSqr);
 			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerpValue;
-				                 ;
+			
 			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
 

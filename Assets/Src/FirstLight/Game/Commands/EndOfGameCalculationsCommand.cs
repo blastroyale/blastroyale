@@ -20,7 +20,7 @@ namespace FirstLight.Game.Commands
 	public struct EndOfGameCalculationsCommand : IGameCommand
 	{
 		public QuantumPlayerMatchData[] PlayersMatchData;
-		public QuantumPlayerMatchData LocalPlayerMatchData;
+		public PlayerRef LocalPlayerRef;
 		public uint LocalPlayerRank;
 		public bool DidPlayerQuit;
 		
@@ -30,7 +30,7 @@ namespace FirstLight.Game.Commands
 			gameLogic.MatchLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRank);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(LocalPlayerMatchData, DidPlayerQuit);
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayersMatchData[LocalPlayerRef], DidPlayerQuit);
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}

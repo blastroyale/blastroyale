@@ -32,8 +32,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-
-		private QuantumPlayerMatchData _matchData;
 		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -190,12 +188,13 @@ namespace FirstLight.Game.StateMachines
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+			var localPlayerRef = game.GetLocalPlayers()[0];
+			var localPlayerData = matchData[localPlayerRef];
 
 			_services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand
 			{
 				PlayersMatchData = matchData,
-				LocalPlayerMatchData = localPlayerData,
+				LocalPlayerRef = localPlayerRef,
 				LocalPlayerRank = localPlayerData.PlayerRank,
 				DidPlayerQuit = false
 			});

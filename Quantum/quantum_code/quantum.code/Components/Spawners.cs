@@ -32,7 +32,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Spawns a <see cref="Collectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// Spawns a <see cref="Collectable"/> from this spawners <see cref="GameId"/>.
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{

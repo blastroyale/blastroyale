@@ -118,7 +118,7 @@ namespace Quantum.Systems
 			}
 			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
 			{
-				chest->Open(f, entity, playerEntity);
+				chest->Open(f, entity, playerEntity, player);
 			}
 			else
 			{

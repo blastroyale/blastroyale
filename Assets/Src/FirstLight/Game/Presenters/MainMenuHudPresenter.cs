@@ -61,7 +61,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var targetValue = _dataProvider.CurrencyDataProvider.Currencies[closure.Id];
 				var initialValue = targetValue - closure.Quantity;
-				
+
 				DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
 			}
 		}

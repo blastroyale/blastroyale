@@ -147,15 +147,13 @@ namespace Quantum
 		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon)
 		{
 			var slot = Weapons[1].IsValid() && Weapons[1].GameId != weapon.GameId ? 2 : 1;
-			
+
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale && Weapons[slot].IsValid()
 			                                                      && Weapons[slot].GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
-				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, out dropPosition);
-				
-				Collectable.DropCollectable(f, Weapons[slot].GameId, dropPosition, 0, true);
+				Collectable.DropEquipment(f, Weapons[slot], dropPosition, 0);
 			}
 
 			Weapons[slot] = weapon;

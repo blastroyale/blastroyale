@@ -12,7 +12,7 @@ namespace FirstLight.Game.Services
 		private readonly IAssetResolverService _assetResolver;
 		
 		public GameAudioFxService(IAssetResolverService assetResolver) : 
-			base(GameConstants.Sfx2dDefaultVolume, GameConstants.Sfx3dDefaultVolume, GameConstants.BgmDefaultVolume)
+			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, GameConstants.Audio.BGM_DEFAULT_VOLUME)
 		{
 			_assetResolver = assetResolver;
 		}

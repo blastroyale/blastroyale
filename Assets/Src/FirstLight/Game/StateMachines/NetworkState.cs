@@ -211,7 +211,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Data.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
 				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
 
@@ -295,7 +295,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.PLAYER_PROPS_LOADED, true }
+				{ GameConstants.Data.PLAYER_PROPS_LOADED, true }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -421,8 +421,8 @@ namespace FirstLight.Game.StateMachines
 			
 			var playerProps = new Hashtable
 			{
-				{GameConstants.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.PLAYER_PROPS_LOADED, false}
+				{GameConstants.Data.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
+				{GameConstants.Data.PLAYER_PROPS_LOADED, false}
 			};
 			
 			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
@@ -433,7 +433,7 @@ namespace FirstLight.Game.StateMachines
 			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
 			var compatibleMaps = new List<MapConfig>();
 			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
-			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
+			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
 
 			foreach (var config in configs)
 			{

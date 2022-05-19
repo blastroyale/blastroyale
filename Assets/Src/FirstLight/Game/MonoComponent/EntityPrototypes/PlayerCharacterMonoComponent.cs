@@ -114,7 +114,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
 			_specialAimIndicator.Key
 			                    ?
-			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
 			                                         config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
@@ -134,7 +134,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
 			_specialAimIndicator.Key
 			                    ?
-			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.RadiusToScaleConversionValue,
+			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
 			                                         config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -36,6 +37,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
+		}
+		
+		private void OnDestroy()
+		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)

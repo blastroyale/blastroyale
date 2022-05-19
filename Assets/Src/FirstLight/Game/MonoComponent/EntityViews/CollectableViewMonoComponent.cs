@@ -60,7 +60,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var entityView = EntityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var vfx = Services.VfxService.Spawn(VfxId.CollectableIndicator) as CollectableIndicatorVfxMonoComponent;
 			var collectablePosition = _collectableIndicatorAnchor.position;
-			var position = new Vector3(collectablePosition.x,entityView.transform.position.y + GameConstants.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
+			var position = new Vector3(collectablePosition.x,entityView.transform.position.y + GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
 			var frame = callback.Game.Frames.Verified;
 			var totalTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat - frame.Time.AsFloat;
 			

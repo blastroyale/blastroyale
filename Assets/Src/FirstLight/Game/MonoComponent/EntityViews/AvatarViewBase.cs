@@ -115,7 +115,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (statusType == StatusModifierType.Stun)
 			{
 				// Set "stun" bool to false in advance to allow stun outro animation to play
-				duration -= _animator.GetFloat(GameConstants.STUN_OUTRO_TIME_ANIMATOR_PARAM);
+				duration -= _animator.GetFloat(GameConstants.Visuals.STUN_OUTRO_TIME_ANIMATOR_PARAM);
 
 				_stunCoroutine = Services.CoroutineService.StartCoroutine(StunCoroutine(duration));
 			}
@@ -159,8 +159,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			Dissolve(isBattleRoyale, 0, GameConstants.DissolveEndAlphaClipValue, GameConstants.DissolveDelay,
-			         GameConstants.DissolveDuration);
+			Dissolve(isBattleRoyale, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
+			         GameConstants.Visuals.DISSOLVE_DURATION);
 		}
 
 		private void HandleOnEntityDestroyed(QuantumGame game)
@@ -187,7 +187,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			AnimatorWrapper.Enabled = false;
 			direction = direction.sqrMagnitude > Mathf.Epsilon ? direction : transform.rotation.eulerAngles.normalized;
-			direction *= Mathf.Lerp(GameConstants.PLAYER_RAGDOLL_FORCE_MIN, GameConstants.PLAYER_RAGDOLL_FORCE_MAX,
+			direction *= Mathf.Lerp(GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MIN, GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MAX,
 			                        (float) callback.DamageAmount / callback.MaxHealth);
 
 			RigidbodyContainerMonoComponent.SetState(true);
@@ -219,7 +219,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			        .SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
 			_animatorWrapper.SetTrigger(Triggers.Hit);
 			Services.AudioFxService.PlayClip3D(AudioId.ActorHit01, transform.position);
-			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.HitDuration);
+			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.Visuals.HIT_DURATION);
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)
@@ -321,7 +321,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IEnumerator StarCoroutine(float time)
 		{
-			transform.localScale *= GameConstants.STAR_STATUS_CHARACTER_SCALE_MULTIPLIER;
+			transform.localScale *= GameConstants.Visuals.STAR_STATUS_CHARACTER_SCALE_MULTIPLIER;
 
 			yield return new WaitForSeconds(time);
 
@@ -331,7 +331,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void FinishStar()
 		{
 			_starCoroutine = null;
-			transform.localScale /= GameConstants.STAR_STATUS_CHARACTER_SCALE_MULTIPLIER;
+			transform.localScale /= GameConstants.Visuals.STAR_STATUS_CHARACTER_SCALE_MULTIPLIER;
 		}
 	}
 }

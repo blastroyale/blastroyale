@@ -204,7 +204,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void SetResolutionMode(bool highRes)
 		{
-			var resolution = highRes ? GameConstants.DYNAMIC_RES_HIGH : GameConstants.DYNAMIC_RES_LOW;
+			var resolution = highRes ? GameConstants.Quality.DYNAMIC_RES_HIGH : GameConstants.Quality.DYNAMIC_RES_LOW;
 
 			ScalableBufferManager.ResizeBuffers(resolution,resolution);
 		}

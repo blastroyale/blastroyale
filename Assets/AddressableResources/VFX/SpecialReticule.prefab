@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5124b7094834ae884dd700dcf0e017a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 17
+  _id:
+    _selection: SpecialReticule
 --- !u!1001 &6464036533989242555
 PrefabInstance:
   m_ObjectHideFlags: 0

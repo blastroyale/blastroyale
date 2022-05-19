@@ -193,6 +193,7 @@
     <Compile Include="Commands\SpecialUsedCommand.cs" />
     <Compile Include="Commands\CollectablePlatformSpawnCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
+    <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
     <Compile Include="Components\Equipment.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="Configs\GameId.cs" />
     <Compile Include="Configs\IndicatorVfxId.cs" />
+    <Compile Include="Configs\QuantumChestConfigs.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />
     <Compile Include="Configs\QuantumBotConfigs.cs" />
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />
@@ -286,6 +288,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="BotSDK\Samples\.DS_Store" />
+    <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
     <Content Include="Components\RaycastShots.qtn" />
     <Content Include="Components\ShrinkingCircle.qtn" />

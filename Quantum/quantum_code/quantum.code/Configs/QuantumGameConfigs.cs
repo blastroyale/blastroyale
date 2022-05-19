@@ -33,9 +33,6 @@ namespace Quantum
 		public FP MinuteCostInHardCurrency;
 		public uint MaxPlayerRanks;
 		public FP RageStatusDamageMultiplier;
-		public uint FusionBaseWeightPerType;
-		public uint FusionWeightIncreasePerItem;
-		public uint FusionWeightIncreasePerLevel;
 		public int StatsPowerBaseValue;
 		public FP StatsPowerRarityMultiplier;
 		public FP StatsPowerLevelStepMultiplier;

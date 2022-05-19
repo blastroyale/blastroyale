@@ -21,15 +21,9 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
 
 		/// <summary>
-		/// Requests the currently equipped weapon.
+		/// Requests an array of all the quipped items the player has
 		/// </summary>
-		/// <returns></returns>
-		Equipment GetEquippedWeapon();
-
-		/// <summary>
-		/// Requests the currently equipped gear.
-		/// </summary>
-		List<Equipment> GetEquippedGear();
+		Equipment[] GetEquippedItems();
 
 		/// <summary>
 		/// Requests all items from the inventory that belonging to the given

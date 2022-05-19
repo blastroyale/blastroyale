@@ -15,7 +15,7 @@ namespace FirstLight.Game.Timeline
 	[CustomStyle("DestinationMarker")]
 	public class PlayVfxMarker : Marker, INotification
 	{
-		[SerializeField] private VfxId _vfxId;
+		[SerializeField] private EnumSelector<VfxId> _vfxId;
 		
 		public PropertyName id { get; }
 		public VfxId Vfx => _vfxId;

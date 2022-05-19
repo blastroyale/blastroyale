@@ -22,7 +22,7 @@ namespace Quantum
 
 			foreach (var item in gear)
 			{
-				if (!item.IsValid())
+				if (!item.IsValid() || item.IsWeapon())
 				{
 					continue;
 				}
@@ -143,11 +143,11 @@ namespace Quantum
 			// Apply rarity
 			modifiedValue += baseValueForRarity;
 
-			// Apply level step
-			modifiedValue += baseValueForRarity * data.LevelStepMultiplier * (equipment.Level - 1);
+			// Apply level step (equipment.level starts at 0 so we don't need to do -1 like we do in design data)
+			modifiedValue += baseValueForRarity * data.LevelStepMultiplier * equipment.Level;
 
-			// Apply grade
-			modifiedValue += baseValueForRarity * data.GradeStepMultiplier * ((uint) equipment.Grade);
+			// Apply grade (keep in mind that the first in order, GradeI, is the most powerful one, so it's reversed to levels and rarities)
+			modifiedValue += baseValueForRarity * data.GradeStepMultiplier * ((uint) EquipmentGrade.TOTAL - (uint) equipment.Grade - 1);
 
 			return modifiedValue;
 		}

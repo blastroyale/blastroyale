@@ -66,9 +66,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 					_levelText.text = $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
 					_iconImage.enabled = true;
 					_slotImage.enabled = false;
-					_rarityImage.enabled = true;
-					_rarityImage.sprite =
-						await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
+					// TODO mihak: Fix this
+					// _rarityImage.enabled = true;
+					// _rarityImage.sprite =
+					// 	await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
 
 					if (ItemId != uniqueId)
 					{

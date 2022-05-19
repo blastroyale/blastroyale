@@ -372,10 +372,10 @@ namespace Quantum.Systems
 
 		private bool TryGoForCrates(Frame f, ref BotCharacterFilter filter)
 		{
-			var isGoing = TryGetClosestConsumable(f, ref filter, ConsumableType.Stash, out var cratePosition);
-
-			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, cratePosition);
-
+			var isGoing = TryGetClosestChest(f, ref filter, out var chestPosition);
+			
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, chestPosition);
+			
 			return isGoing;
 		}
 
@@ -526,6 +526,14 @@ namespace Quantum.Systems
 			return weaponPickupPosition != FPVector3.Zero;
 		}
 
+		private bool TryGetClosestChest(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition)
+		{
+			// TODO mihak: Implement this
+			
+			weaponPickupPosition = FPVector3.Zero;
+			return false;
+		}
+
 		private bool IsInVisionRange(FP distanceSqr, ref BotCharacterFilter filter)
 		{
 			var visionRangeSqr = filter.BotCharacter->VisionRangeSqr;
@@ -542,13 +550,6 @@ namespace Quantum.Systems
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds()
 			                             .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
 
-			var equipmentOptions = new Dictionary<GameIdGroup, GameId[]>(Constants.GearSlots.Length);
-			foreach (var group in Constants.GearSlots)
-			{
-				equipmentOptions[group] = group.GetIds()
-				                               .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
-			}
-
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
 				botNamesIndices.Add(i + 1);
@@ -558,10 +559,8 @@ namespace Quantum.Systems
 			{
 				var rngSpawnIndex = f.RNG->Next(0, playerSpawners.Count);
 				var spawnerTransform = f.Get<Transform3D>(playerSpawners[rngSpawnIndex].Entity);
-				var weaponConfig = f.WeaponConfigs.GetConfig(GameId.Hammer);
 				var botEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
-				var gear = new Equipment[Constants.EQUIPMENT_SLOT_COUNT];
 				var navMeshAgent = new NavMeshSteeringAgent();
 				var pathfinder = NavMeshPathfinder.Create(f, botEntity,
 				                                          f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs
@@ -569,16 +568,11 @@ namespace Quantum.Systems
 				var rngBotConfigIndex = f.RNG->Next(0, botConfigsList.Count);
 				var botConfig = botConfigsList[rngBotConfigIndex];
 				var listNamesIndex = f.RNG->Next(0, botNamesIndices.Count);
-				var gearSlots = Constants.GearSlots.ToList();
-				var gearPieces = botConfig.Difficulty < Constants.EQUIPMENT_SLOT_COUNT - 1
-					                 ? botConfig.Difficulty
-					                 : Constants.EQUIPMENT_SLOT_COUNT - 1;
 
 				var botCharacter = new BotCharacter
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
@@ -603,23 +597,6 @@ namespace Quantum.Systems
 
 				botNamesIndices.RemoveAt(listNamesIndex);
 
-				if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
-				{
-					for (var j = 0; j < gearPieces; j++)
-					{
-						var slotIndex = f.RNG->Next(0, gearSlots.Count);
-						var slot = gearSlots[slotIndex];
-						var slotItems = equipmentOptions[slot];
-						var rngGearIndex = f.RNG->Next(-1, slotItems.Length);
-						var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
-						var equipment = new Equipment(gearConfig.Id, level: rngGearIndex < 0 ? 0u : 1u, rarity: gearConfig.StartingRarity);
-
-						gear[j] = equipment;
-						botCharacter.Gear[j] = equipment;
-						gearSlots.RemoveAt(slotIndex);
-					}
-				}
-
 				if (playerSpawners.Count > 1)
 				{
 					playerSpawners.RemoveAt(rngSpawnIndex);
@@ -634,8 +611,7 @@ namespace Quantum.Systems
 				var playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
-				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
-				                      botCharacter.Weapon, gear);
+				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>());
 			}
 		}
 

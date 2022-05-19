@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -124,6 +125,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_safeAreaRadialTransform.gameObject.SetActive(true);
 			}
+		}
+
+		private void OnDestroy()
+		{
+			_services.MessageBrokerService.Unsubscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 	}
 }

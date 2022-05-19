@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -337,8 +336,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
-				Weapon = _gameDataProvider.EquipmentDataProvider.GetEquippedWeapon(),
-				Gear = _gameDataProvider.EquipmentDataProvider.GetEquippedGear().ToArray()
+				EquippedItems = _gameDataProvider.EquipmentDataProvider.GetEquippedItems()
 			});
 		}
 

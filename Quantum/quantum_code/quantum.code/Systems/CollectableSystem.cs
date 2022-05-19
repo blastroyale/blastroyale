@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -6,7 +7,7 @@ namespace Quantum.Systems
 	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
 	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalHealthIsZero,
-	                                        ISignalOnComponentRemoved<PlayerCharacter>, 
+	                                        ISignalOnComponentRemoved<PlayerCharacter>,
 	                                        ISignalOnTrigger3D, ISignalOnTriggerExit3D
 	{
 		/// <inheritdoc />
@@ -17,13 +18,13 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			if (collectable->IsCollected)
 			{
 				f.Add<EntityDestroyer>(info.Entity);
 				return;
 			}
-			
+
 			var endTime = collectable->CollectorsEndTime[player.Player];
 
 			if (!collectable->IsCollecting(player.Player))
@@ -38,8 +39,9 @@ namespace Quantum.Systems
 				{
 					endTime = f.Time + f.GameConfig.CollectableCollectTime;
 				}
+
 				collectable->CollectorsEndTime[player.Player] = endTime;
-				
+
 				f.Events.OnLocalStartedCollecting(info.Entity, *collectable, player.Player, info.Other);
 			}
 
@@ -58,7 +60,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) || 
+			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
 			    !f.TryGet<PlayerCharacter>(info.Other, out var player))
 			{
 				return;
@@ -74,7 +76,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
 			{
 				StopCollecting(f, collectable.Entity, entity, playerCharacter.Player, collectable.Component);
@@ -90,7 +92,8 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player, Collectable* collectable)
+		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
+		                            Collectable* collectable)
 		{
 			if (!collectable->IsCollecting(player))
 			{
@@ -108,10 +111,18 @@ namespace Quantum.Systems
 			{
 				weapon->Collect(f, entity, playerEntity);
 			}
-			else if(f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
+			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
 				consumable->Collect(f, entity, playerEntity, player);
 				f.Events.OnConsumablePicked(entity, *consumable, player, playerEntity);
+			}
+			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
+			{
+				chest->Open(f, entity, playerEntity);
+			}
+			else
+			{
+				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 		}
 	}

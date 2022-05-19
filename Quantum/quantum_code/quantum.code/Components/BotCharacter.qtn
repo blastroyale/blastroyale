@@ -10,8 +10,6 @@ component BotCharacter
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	GameId Skin;
-	Equipment Weapon;
-	array<Equipment>[EQUIPMENT_SLOT_COUNT] Gear;
 	
 	// Settings to prevent a bot from making decisions every frame
 	FP DecisionInterval;

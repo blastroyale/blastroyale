@@ -28,8 +28,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
 		/// <inheritdoc cref="IGuidService"/>
 		IGuidService GuidService { get; }
-		/// <inheritdoc cref="IStoreService"/>
-		IStoreService StoreService { get; }
 		/// <inheritdoc cref="IGameNetworkService"/>
 		IGameNetworkService NetworkService { get; }
 		/// <inheritdoc cref="IMessageBrokerService"/>
@@ -69,9 +67,6 @@ namespace FirstLight.Game.Services
 		public IConfigsProvider ConfigsProvider { get; }
 		/// <inheritdoc />
 		public IGuidService GuidService { get; }
-
-		/// <inheritdoc />
-		public IStoreService StoreService { get; }
 		/// <inheritdoc />
 		public IGameNetworkService NetworkService { get; }
 		/// <inheritdoc />
@@ -123,7 +118,6 @@ namespace FirstLight.Game.Services
 			PoolService = new PoolService();
 			TickService =  new TickService();
 			CoroutineService = new CoroutineService();
-			StoreService = new StoreService(CommandService);
 			PlayfabService = new PlayfabService(gameLogic.AppLogic);
 			NotificationService = new MobileNotificationService(
 				new GameNotificationChannel(GameConstants.NotificationBoxesChannel, GameConstants.NotificationBoxesChannel,GameConstants.NotificationBoxesChannel),

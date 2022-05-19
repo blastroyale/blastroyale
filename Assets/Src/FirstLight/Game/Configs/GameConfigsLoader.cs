@@ -35,22 +35,23 @@ namespace FirstLight.Game.Configs
 			_assetLoader = assetLoader;
 		}
 		
-		public IEnumerable<Task> LoadConfigTasks(IConfigsAdder _configsAdder)
+		public IEnumerable<Task> LoadConfigTasks(IConfigsAdder configsAdder)
 		{
 			return new List<Task>
 			{
-				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => _configsAdder.AddSingletonConfig(asset.Config)),
-				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
-				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
-				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => _configsAdder.AddConfigs(data => data.Step, asset.Configs)),
-				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => _configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
-				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => _configsAdder.AddConfigs(data => data.Placement, asset.Configs))
+				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
+				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
+				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
+				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => configsAdder.AddConfigs(data => data.Step, asset.Configs)),
+				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
+				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.Placement, asset.Configs)),
+				LoadConfig<ChestConfigs>(AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 			};
 		}
 	

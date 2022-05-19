@@ -351,8 +351,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
-				Weapon = _gameDataProvider.EquipmentDataProvider.GetEquippedWeapon(),
-				Gear = _gameDataProvider.EquipmentDataProvider.GetEquippedGear().ToArray()
+				EquippedItems = _gameDataProvider.EquipmentDataProvider.GetEquippedItems()
 			});
 		}
 

@@ -8,14 +8,6 @@ component CollectablePlatformSpawner
 	GameId GameId;
 }
 
-component ConsumablePlatformSpawner
-{
-}
-
-component WeaponPlatformSpawner
-{
-}
-
 component PlayerSpawner
 {
 	[HideInInspector] FP ActivationTime;

@@ -122,10 +122,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.PlayfabService.UpdateNickname(PlayerLogic.DefaultPlayerName);
 			}
-			
-			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest { CatalogVersion = StoreService.StoreCatalogVersion }, 
-			                                 catalog => _services.StoreService.Init(catalog.Catalog), 
-			                                 _authenticationState.OnCriticalPlayFabError);
 		}
 
 		private void OpenNoInternetPopUp()

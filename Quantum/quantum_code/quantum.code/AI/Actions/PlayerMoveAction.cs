@@ -40,10 +40,14 @@ namespace Quantum
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
 			kcc->Move(f, e, moveDirection);
-
+			
+			// If player aims then we turn character towards aiming and send aiming event
 			if (aimDirection.SqrMagnitude > FP._0)
 			{
 				QuantumHelpers.LookAt2d(f, e, aimDirection);
+
+				var playerCharacter = f.Get<PlayerCharacter>(e);
+				f.Events.OnLocalPlayerAim(playerCharacter.Player, e, playerCharacter.CurrentWeapon, velocity.SqrMagnitude, maxSpeed*maxSpeed);
 			}
 		}
 	}

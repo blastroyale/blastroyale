@@ -62,13 +62,7 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-		class ReverseComparer : IComparer<string> {
-			public int Compare(string x, string y) {
-				return y.CompareTo(x);
-			}
-		}
-		
-		
+
 		/// <summary>
 		/// Request all players match data.
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
@@ -78,70 +72,104 @@ namespace Quantum
 		{
 			var data = PlayersData;
 			var playersData = new List<QuantumPlayerMatchData>();
+			var returnData = new QuantumPlayerMatchData[data.Length];
 			var gameMode = f.RuntimeConfig.GameMode;
-			
+			var sorter = new BattleRoyaleSorter() as IRankSorter;
+
 			leader = PlayerRef.None;
 
 			if (gameMode == GameMode.Deathmatch)
 			{
-				playersData.Sort(DMComparer);
-			}
-			else
-			{
-				playersData.Sort(BRComparer);
+				sorter = new DeathmatchSorter();
 			}
 
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
-				var player = new QuantumPlayerMatchData(f, data[i])
-				{
-					PlayerRank = (uint) i + 1
-				};
-
-				if (gameMode == GameMode.Deathmatch && i > 0 && 
-				    DMComparer(player, playersData[i - 1]) == 0)
-				{
-					player.PlayerRank = playersData[i - 1].PlayerRank;
-				}
-
-				playersData.Add(player);
+				playersData.InsertIntoSortedList(new QuantumPlayerMatchData(f, data[i]), sorter);
 			}
 
-			return playersData.ToArray();
+			for (var i = 0; i < playersData.Count; i++)
+			{
+				var player = playersData[i];
+
+				player.PlayerRank = RankProcessor(playersData, i, sorter);
+
+				returnData[player.Data.Player] = player;
+			}
+
+			return returnData;
 		}
 		
-		private static int BRComparer(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+		private uint RankProcessor(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter)
 		{
-			var compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+			var rank = (uint) i + 1;
 
-			if (compare == 0)
+			if (sorter.GameMode == GameMode.Deathmatch && i > 0 &&
+			    sorter.Compare(playersData[i], playersData[i - 1]) == 0)
 			{
-				compare = x.Data.FirstDeathTime.CompareTo(y.Data.FirstDeathTime);
+				rank = playersData[i - 1].PlayerRank;
 			}
 
-			if (compare == 0)
-			{
-				compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
-			}
-
-			if (compare == 0)
-			{
-				compare = x.Data.Player._index.CompareTo(y.Data.Player._index);
-			}
-
-			return compare;
+			return rank;
 		}
 
-		private static int DMComparer(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+#region Player Rank Sorters
+		private interface IRankSorter : IComparer<QuantumPlayerMatchData>
 		{
-			var compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
-
-			if (compare == 0)
-			{
-				compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
-			}
-
-			return compare;
+			/// <summary>
+			/// Requests the <see cref="GameMode"/> defined for this sorter
+			/// </summary>
+			public GameMode GameMode { get; }
 		}
+		
+		private class BattleRoyaleSorter : IRankSorter
+		{
+			/// <inheritdoc />
+			public GameMode GameMode => GameMode.BattleRoyale;
+			
+			/// <inheritdoc />
+			public int Compare(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+			{
+				var compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+
+				if (compare == 0)
+				{
+					compare = x.Data.FirstDeathTime.CompareTo(y.Data.FirstDeathTime);
+				}
+
+				if (compare == 0)
+				{
+					compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
+				}
+
+				if (compare == 0)
+				{
+					compare = x.Data.Player._index.CompareTo(y.Data.Player._index);
+				}
+
+				return compare;
+			}
+		}
+
+		private class DeathmatchSorter : IRankSorter
+		{
+			/// <inheritdoc />
+			public GameMode GameMode => GameMode.Deathmatch;
+			
+			/// <inheritdoc />
+			public int Compare(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+			{
+				var compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
+
+				if (compare == 0)
+				{
+					compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+				}
+
+				return compare;
+			}
+		}
+
+#endregion
 	}
 }

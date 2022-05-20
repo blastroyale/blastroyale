@@ -454,9 +454,9 @@ namespace FirstLight.Game.StateMachines
 			void OpenStore()
 			{
 #if UNITY_IOS
-				Application.OpenURL(GameConstants.APP_STORE_IOS_LINK);
+				Application.OpenURL(GameConstants.Links.APP_STORE_IOS);
 #elif UNITY_ANDROID
-				Application.OpenURL(GameConstants.Links.APP_STORE_GOOGLE_PLAY_LINK);
+				Application.OpenURL(GameConstants.Links.APP_STORE_GOOGLE_PLAY);
 #endif
 			}
 		}

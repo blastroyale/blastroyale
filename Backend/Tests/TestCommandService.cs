@@ -62,31 +62,4 @@ public class TestCommandManager
 
 		Assert.AreEqual(sentCommand.SkinId, receivedCommand.SkinId);
 	}
-
-	[Test]
-	public void TestQuantumCommand()
-	{
-		var command = new EndOfGameCalculationsCommand()
-		{
-			LocalPlayerMatchData = new QuantumPlayerMatchData()
-			{
-				Data = new PlayerMatchData()
-				{
-					Player = new PlayerRef()
-					{
-						_index = 1234
-					},
-					Entity = new EntityRef()
-				}
-			}
-		};
-		var args = new Dictionary<string, string>();
-		var (cmdTypeName, cmdData) = ModelSerializer.Serialize(command);
-		args[CommandFields.Command] = cmdData;
-		
-		var receivedCommand = (EndOfGameCalculationsCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
-		
-		Assert.AreEqual(command.LocalPlayerMatchData.Data.Player._index, receivedCommand.LocalPlayerMatchData.Data.Player._index);
-		
-	}
 }

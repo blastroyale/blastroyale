@@ -14,86 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Placement: 1
-    RewardPairs:
-    - Key: 12
-      Value: 100
+    Rewards: []
   - Placement: 2
-    RewardPairs:
-    - Key: 12
-      Value: 85
+    Rewards: []
   - Placement: 3
-    RewardPairs:
-    - Key: 12
-      Value: 70
+    Rewards: []
   - Placement: 4
-    RewardPairs:
-    - Key: 12
-      Value: 60
+    Rewards: []
   - Placement: 5
-    RewardPairs:
-    - Key: 12
-      Value: 52
+    Rewards: []
   - Placement: 6
-    RewardPairs:
-    - Key: 12
-      Value: 48
+    Rewards: []
   - Placement: 7
-    RewardPairs:
-    - Key: 12
-      Value: 44
+    Rewards: []
   - Placement: 8
-    RewardPairs:
-    - Key: 12
-      Value: 40
+    Rewards: []
   - Placement: 9
-    RewardPairs:
-    - Key: 12
-      Value: 36
+    Rewards: []
   - Placement: 10
-    RewardPairs:
-    - Key: 12
-      Value: 32
+    Rewards: []
   - Placement: 11
-    RewardPairs:
-    - Key: 12
-      Value: 28
+    Rewards: []
   - Placement: 12
-    RewardPairs:
-    - Key: 12
-      Value: 24
+    Rewards: []
   - Placement: 13
-    RewardPairs:
-    - Key: 12
-      Value: 21
+    Rewards: []
   - Placement: 14
-    RewardPairs:
-    - Key: 12
-      Value: 18
+    Rewards: []
   - Placement: 15
-    RewardPairs:
-    - Key: 12
-      Value: 15
+    Rewards: []
   - Placement: 16
-    RewardPairs:
-    - Key: 12
-      Value: 12
+    Rewards: []
   - Placement: 17
-    RewardPairs:
-    - Key: 12
-      Value: 9
+    Rewards: []
   - Placement: 18
-    RewardPairs:
-    - Key: 12
-      Value: 6
+    Rewards: []
   - Placement: 19
-    RewardPairs:
-    - Key: 12
-      Value: 4
+    Rewards: []
   - Placement: 20
-    RewardPairs:
-    - Key: 12
-      Value: 2
+    Rewards: []
   - Placement: 21
-    RewardPairs:
-    - Key: 12
-      Value: 0
+    Rewards: []

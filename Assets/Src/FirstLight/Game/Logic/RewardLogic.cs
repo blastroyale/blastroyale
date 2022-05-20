@@ -91,7 +91,7 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			var csRewardPair = rewardConfig.RewardPairs.FirstOrDefault(x => x.Key == GameId.CS);
+			var csRewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
 			var csPercent = csRewardPair.Value / 100f;
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 			

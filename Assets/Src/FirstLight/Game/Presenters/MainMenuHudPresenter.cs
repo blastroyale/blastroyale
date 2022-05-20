@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
+		private Tween _csRackupTween;
 
 		private void Awake()
 		{
@@ -36,42 +37,16 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_csButton.onClick.AddListener(OnCsClicked);
-			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
-			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
 			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxMessage);
 
-			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
 			UpdateCsValueText(_dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS));
 		}
 
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_dataProvider?.CurrencyDataProvider?.Currencies?.StopObserving(OnCurrencyChanged);
 		}
-
-		private void OnCurrencyChanged(GameId currency, ulong previous, ulong newAmount,
-		                               ObservableUpdateType updateType)
-		{
-			var targetValue = _dataProvider.CurrencyDataProvider.Currencies[currency];
-
-			if (currency == GameId.CS)
-			{
-				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, UpdateCsValueText);
-			}
-		}
-
-		private void OnUnclaimedRewardsCollectingStartedMessage(UnclaimedRewardsCollectingStartedMessage message)
-		{
-			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
-			
-		}
-
-		private void OnUnclaimedRewardsCollectedMessage(UnclaimedRewardsCollectedMessage obj)
-		{
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
-		}
-
+		
 		private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
 		{
 			var closure = message;
@@ -87,8 +62,8 @@ namespace FirstLight.Game.Presenters
 			{
 				var targetValue = _dataProvider.CurrencyDataProvider.Currencies[closure.Id];
 				var initialValue = targetValue - closure.Quantity;
-
-				DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
+				
+				_csRackupTween = DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
 			}
 		}
 

@@ -155,7 +155,7 @@ namespace FirstLight.Game.Logic
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).Minutes;
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) MathF.Floor((float) minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
 			
 			if (amountOfRestocks == 0)

@@ -14528,5 +14528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90e1923fd05496eb929bd0408b4e2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 14
+  _id:
+    _selection: StatusFxHeal
   _activeTime: 2

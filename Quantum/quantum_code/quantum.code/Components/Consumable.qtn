@@ -12,7 +12,6 @@ enum ConsumableType
 	Ammo,
 	Shields,
 	ShieldCapacity,
-	Stash,
 }
 
 synced event OnConsumablePicked

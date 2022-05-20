@@ -29,7 +29,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualProperties(float size, float minRange, float maxRange)
 		{
-			transform.localScale = Vector3.one * (maxRange * GameConstants.RadiusToScaleConversionValue);
+			transform.localScale = Vector3.one * (maxRange * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE);
 		}
 
 		/// <inheritdoc />

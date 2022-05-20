@@ -31,24 +31,9 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 		}
 
-		public Equipment GetEquippedWeapon()
+		public Equipment[] GetEquippedItems()
 		{
-			return _inventory[_equippedItems[GameIdGroup.Weapon]];
-		}
-
-		public List<Equipment> GetEquippedGear()
-		{
-			var gear = new List<Equipment>();
-
-			foreach (var (group, id) in _equippedItems.ReadOnlyDictionary)
-			{
-				if (group != GameIdGroup.Weapon)
-				{
-					gear.Add(_inventory[id]);
-				}
-			}
-
-			return gear;
+			return _equippedItems.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
 		}
 
 		public List<Equipment> FindInInventory(GameIdGroup slot)

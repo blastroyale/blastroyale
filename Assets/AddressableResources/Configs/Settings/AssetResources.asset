@@ -82,11 +82,11 @@ MonoBehaviour:
         Id:
           Value: 477379078662942642
       Address: Maps/TestScene_NavMesh_data.asset
-    - Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityView
+    - Path: AddressableResources/QuantumAssets/Spawners/LegacyWeaponPlatformSpawner|EntityView
       AssetRef:
         Id:
           Value: 507213235080836660
-      Address: QuantumAssets/Spawners/WeaponPlatformSpawner.prefab[WeaponPlatformSpawnerEntityView]
+      Address: QuantumAssets/Spawners/LegacyWeaponPlatformSpawner.prefab[LegacyWeaponPlatformSpawnerEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPMultiplierFunction_1
       AssetRef:
         Id:
@@ -137,6 +137,11 @@ MonoBehaviour:
         Id:
           Value: 692395575484242622
       Address: QuantumAssets/Default Config Assets/Default CharacterController3DConfigAsset.asset
+    - Path: AddressableResources/QuantumAssets/Collectables/ChestPickup|EntityView
+      AssetRef:
+        Id:
+          Value: 701952959705295376
+      Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityView]
     - Path: AddressableResources/QuantumAssets/Projectiles/PlayerBullet|EntityPrototype
       AssetRef:
         Id:
@@ -353,11 +358,11 @@ MonoBehaviour:
         Id:
           Value: 2376350444509102939
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[StatFunction_0]
-    - Path: AddressableResources/QuantumAssets/Spawners/ConsumablePlatformSpawner|EntityPrototype
+    - Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityPrototype
       AssetRef:
         Id:
           Value: 2403753126067035639
-      Address: QuantumAssets/Spawners/ConsumablePlatformSpawner.prefab[ConsumablePlatformSpawnerEntityPrototype]
+      Address: QuantumAssets/Spawners/PlatformSpawner.prefab[PlatformSpawnerEntityPrototype]
     - Path: AddressableResources/QuantumAssets/Physics Config Assets/Player CharacterController
       AssetRef:
         Id:
@@ -403,11 +408,11 @@ MonoBehaviour:
         Id:
           Value: 2793138403379056272
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerStopAttackAction_16]
-    - Path: AddressableResources/QuantumAssets/Spawners/ConsumablePlatformSpawner|EntityView
+    - Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityView
       AssetRef:
         Id:
           Value: 2816390206062133565
-      Address: QuantumAssets/Spawners/ConsumablePlatformSpawner.prefab[ConsumablePlatformSpawnerEntityView]
+      Address: QuantumAssets/Spawners/PlatformSpawner.prefab[PlatformSpawnerEntityView]
     - Path: AddressableResources/Maps/MainDeck_mesh
       AssetRef:
         Id:
@@ -494,11 +499,11 @@ MonoBehaviour:
         Id:
           Value: 3351125561912386273
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[RaisingTheGun_4]
-    - Path: AddressableResources/QuantumAssets/Spawners/WeaponPlatformSpawner|EntityPrototype
+    - Path: AddressableResources/QuantumAssets/Spawners/LegacyWeaponPlatformSpawner|EntityPrototype
       AssetRef:
         Id:
           Value: 3423522033009671601
-      Address: QuantumAssets/Spawners/WeaponPlatformSpawner.prefab[WeaponPlatformSpawnerEntityPrototype]
+      Address: QuantumAssets/Spawners/LegacyWeaponPlatformSpawner.prefab[LegacyWeaponPlatformSpawnerEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_21
       AssetRef:
         Id:
@@ -624,6 +629,11 @@ MonoBehaviour:
         Id:
           Value: 4097228057481564961
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_20]
+    - Path: AddressableResources/Configs/ChestConfigs
+      AssetRef:
+        Id:
+          Value: 4100866902722562598
+      Address: Configs/ChestConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerAmmoEmptyAction_4
       AssetRef:
         Id:
@@ -664,6 +674,11 @@ MonoBehaviour:
         Id:
           Value: 4427458006344599318
       Address: QuantumAssets/Default Config Assets/Default NavMeshAgentConfigAsset.asset
+    - Path: AddressableResources/QuantumAssets/Collectables/ChestPickup|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 4486983998464243699
+      Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckGameModeDecision_11
       AssetRef:
         Id:

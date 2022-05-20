@@ -433,11 +433,10 @@ GameObject:
   - component: {fileID: 1384128413185055080}
   - component: {fileID: 7757663921541325714}
   - component: {fileID: 409028007402901711}
-  - component: {fileID: 4675196411750242842}
   - component: {fileID: 5970499322106757038}
   - component: {fileID: 3211066964538719523}
   m_Layer: 7
-  m_Name: ConsumablePlatformSpawner
+  m_Name: PlatformSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,20 +636,6 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
---- !u!114 &4675196411750242842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587682744574828602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401803dd6c9ec6948b0b1d10c9d94889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    _empty_prototype_dummy_field_: 0
 --- !u!114 &5970499322106757038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5606,11 +5591,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0120b722c3ca5454da1240b65656905f, type: 3}
-  m_Name: ConsumablePlatformSpawnerEntityPrototype
+  m_Name: PlatformSpawnerEntityPrototype
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/Spawners/ConsumablePlatformSpawner|EntityPrototype
+      Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityPrototype
       Guid:
         Value: 2403753126067035639
   Parent: {fileID: 409028007402901711}
@@ -5624,11 +5609,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d5baec4de8d2754a864a680181831e8, type: 3}
-  m_Name: ConsumablePlatformSpawnerEntityView
+  m_Name: PlatformSpawnerEntityView
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/Spawners/ConsumablePlatformSpawner|EntityView
+      Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityView
       Guid:
         Value: 2816390206062133565
   Parent: {fileID: 7757663921541325714}

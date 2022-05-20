@@ -28,8 +28,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			_levelText.text = $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
 			_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
-			_rarityImage.sprite =
-				await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
+			// TODO mihak: Fix this
+			// _rarityImage.sprite =
+			// 	await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
 		}
 	}
 }

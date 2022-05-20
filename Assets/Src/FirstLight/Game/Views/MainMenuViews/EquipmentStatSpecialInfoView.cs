@@ -43,7 +43,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void ShowInfoPopup()
 		{
-			var descriptionTerm = _specialGameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
+			var descriptionTerm = _specialGameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.AWESOME,

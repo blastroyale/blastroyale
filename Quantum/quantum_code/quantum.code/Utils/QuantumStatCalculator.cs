@@ -22,7 +22,7 @@ namespace Quantum
 
 			foreach (var item in gear)
 			{
-				if (!item.IsValid())
+				if (!item.IsValid() || item.IsWeapon())
 				{
 					continue;
 				}

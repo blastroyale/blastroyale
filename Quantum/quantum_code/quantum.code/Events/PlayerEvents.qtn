@@ -89,9 +89,9 @@ synced event OnPlayerAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
-	int WeaponID;
+	Equipment Weapon;
 	FP ShotDir;
-	uint AttackAngle;
+	UInt32 AttackAngle;
 }
 
 synced event OnPlayerDamaged
@@ -121,6 +121,15 @@ synced event OnPlayerStopAttack
 }
 
 // LOCAL PLAYER EVENTS
+
+synced event OnLocalPlayerAim
+{
+	local player_ref Player;
+	entity_ref PlayerEntity;
+	Equipment Weapon;
+	FP VelocitySqrMagnitude;
+	FP MaxSpeedSqr;
+}
 
 synced event OnLocalPlayerLeft
 {
@@ -215,4 +224,5 @@ synced event OnLocalPlayerAttack
 {
 	local player_ref Player;
 	entity_ref PlayerEntity;
+	QuantumWeaponConfig WeaponConfig;
 }

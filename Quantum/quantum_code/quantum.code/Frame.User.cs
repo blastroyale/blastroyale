@@ -22,7 +22,8 @@ namespace Quantum
 		public FP Time => Number * DeltaTime;
 
 		internal int TargetAllLayerMask { get; private set; }
-		internal QuantumGameConfig GameConfig { get; private set; }
+
+		internal QuantumGameConfig GameConfig => FindAsset<QuantumGameConfigs>(RuntimeConfig.GameConfigs.Id).QuantumConfig;
 		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
 		internal QuantumGearConfigs GearConfigs => FindAsset<QuantumGearConfigs>(RuntimeConfig.GearConfigs.Id);
@@ -35,7 +36,6 @@ namespace Quantum
 
 		partial void InitUser()
 		{
-			GameConfig = FindAsset<QuantumGameConfigs>(RuntimeConfig.GameConfigs.Id).QuantumConfig;
 			TargetAllLayerMask = Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target", 
 			                                         "Prop", "World", "Environment No Silhouette");
 		}

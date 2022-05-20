@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -61,7 +62,13 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-
+		class ReverseComparer : IComparer<string> {
+			public int Compare(string x, string y) {
+				return y.CompareTo(x);
+			}
+		}
+		
+		
 		/// <summary>
 		/// Request all players match data.
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
@@ -70,77 +77,71 @@ namespace Quantum
 		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
-			var matchData = new List<QuantumPlayerMatchData>();
+			var playersData = new List<QuantumPlayerMatchData>();
 			var gameMode = f.RuntimeConfig.GameMode;
 			
 			leader = PlayerRef.None;
 
-			// Process scores
-			for (var i = 0; i < f.PlayerCount; i++)
+			if (gameMode == GameMode.Deathmatch)
 			{
-				var playerMatchData = new QuantumPlayerMatchData(f, data[i]);
-
-				if (gameMode == GameMode.Deathmatch)
-				{
-					ProcessDMPlayerScore(ref playerMatchData);
-				}
-				else if (gameMode == GameMode.BattleRoyale)
-				{
-					ProcessBRPlayerScore(ref playerMatchData);
-				}
-				
-				matchData.Add(playerMatchData);
-			}
-			
-			matchData.Sort((playerMatchData1, playerMatchData2) => playerMatchData2.PlayerScore.CompareTo(playerMatchData1.PlayerScore));
-
-			// Process ranks
-			var currentScore = matchData[0].PlayerScore;
-			var currentIndex = 0;
-			for (var i = 0; i < f.PlayerCount; i++)
-			{
-				var playerMatchData = matchData[i];
-				if (playerMatchData.PlayerScore != currentScore)
-				{
-					currentIndex = i;
-					currentScore = playerMatchData.PlayerScore;
-				}
-				
-				playerMatchData.PlayerRank = (uint)currentIndex + 1;
-
-				matchData[i] = playerMatchData;
-			}
-
-			leader = matchData[0].Data.Player;
-			
-			return matchData.ToArray();
-		}
-		
-		private void ProcessDMPlayerScore(ref QuantumPlayerMatchData playerMatchData)
-		{
-			playerMatchData.PlayerScore = 0;
-			
-			playerMatchData.PlayerScore += playerMatchData.Data.PlayersKilledCount * 10000;
-			playerMatchData.PlayerScore -= playerMatchData.Data.DeathCount * 1000;
-		}
-
-		private void ProcessBRPlayerScore(ref QuantumPlayerMatchData playerMatchData)
-		{
-			playerMatchData.PlayerScore = 0;
-			if (playerMatchData.Data.DeathCount == 0)
-			{
-				// Add 10000 for being alive
-				playerMatchData.PlayerScore += 10000;
-				// Add 1000 for each player we killed
-				playerMatchData.PlayerScore += playerMatchData.Data.PlayersKilledCount * 1000;
+				playersData.Sort(DMComparer);
 			}
 			else
 			{
-				// For the ones not alive we add the Death time. Match time should be around 300 seconds max
-				// We multiply by 10 to give it more precision which gets around 3000 value max
-				// so we won't surpass the 10000 for being alive for sure.
-				playerMatchData.PlayerScore += Convert.ToUInt32(playerMatchData.Data.FirstDeathTime.AsFloat*10);
+				playersData.Sort(BRComparer);
 			}
+
+			for (var i = 0; i < f.PlayerCount; i++)
+			{
+				var player = new QuantumPlayerMatchData(f, data[i])
+				{
+					PlayerRank = (uint) i + 1
+				};
+
+				if (gameMode == GameMode.Deathmatch && i > 0 && 
+				    DMComparer(player, playersData[i - 1]) == 0)
+				{
+					player.PlayerRank = playersData[i - 1].PlayerRank;
+				}
+
+				playersData.Add(player);
+			}
+
+			return playersData.ToArray();
+		}
+		
+		private static int BRComparer(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+		{
+			var compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+
+			if (compare == 0)
+			{
+				compare = x.Data.FirstDeathTime.CompareTo(y.Data.FirstDeathTime);
+			}
+
+			if (compare == 0)
+			{
+				compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
+			}
+
+			if (compare == 0)
+			{
+				compare = x.Data.Player._index.CompareTo(y.Data.Player._index);
+			}
+
+			return compare;
+		}
+
+		private static int DMComparer(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+		{
+			var compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
+
+			if (compare == 0)
+			{
+				compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+			}
+
+			return compare;
 		}
 	}
 }

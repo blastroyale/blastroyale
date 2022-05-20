@@ -14,44 +14,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Placement: 1
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 100
   - Placement: 2
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 85
   - Placement: 3
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 70
   - Placement: 4
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 60
   - Placement: 5
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 52
   - Placement: 6
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 48
   - Placement: 7
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 44
   - Placement: 8
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 40
   - Placement: 9
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 36
   - Placement: 10
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 32
   - Placement: 11
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 28
   - Placement: 12
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 24
   - Placement: 13
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 21
   - Placement: 14
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 18
   - Placement: 15
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 15
   - Placement: 16
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 12
   - Placement: 17
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 9
   - Placement: 18
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 6
   - Placement: 19
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 4
   - Placement: 20
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 2
   - Placement: 21
-    Rewards: []
+    Rewards:
+    - Key: 12
+      Value: 0

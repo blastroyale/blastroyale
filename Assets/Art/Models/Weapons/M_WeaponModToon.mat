@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_WeaponModToon
   m_Shader: {fileID: -6465566751694194690, guid: 3bfce1a0d0d150c48ad5dc01f99387f2, type: 3}
-  m_ShaderKeywords: _SURFACEENABLE
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AdjectiveTexture:
-        m_Texture: {fileID: 2800000, guid: fc5c4319a16f2de4e93824b80d8c4a4b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 04c8d6e21c4db584ca96250025afc9a1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SurfaceTexture:
-        m_Texture: {fileID: 2800000, guid: e59c74f8931f7304ea575802864538d0, type: 3}
+        m_Texture: {fileID: 2800000, guid: a81931a6f61dfd54fa08cb36a2a71acd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -105,7 +105,7 @@ Material:
     - _PATTERN: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SURFACEENABLE: 1
+    - _SURFACEENABLE: 0
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}

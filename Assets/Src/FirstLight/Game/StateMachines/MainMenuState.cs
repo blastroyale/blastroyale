@@ -130,6 +130,7 @@ namespace FirstLight.Game.StateMachines
 			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 
+			homeMenu.OnEnter(ShowMainMenuUiElements);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
@@ -138,6 +139,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.OnExit(ClosePlayMenuUI);
+			homeMenu.OnExit(HideMainMenuUiElements);
 
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
 			playClickedCheck.Transition().Target(roomWaitingState);
@@ -391,6 +393,16 @@ namespace FirstLight.Game.StateMachines
 		private void OpenMainMenuUi()
 		{
 			_uiService.OpenUi<MainMenuHudPresenter>();
+		}
+
+		private void ShowMainMenuUiElements()
+		{
+			_uiService.GetUi<MainMenuHudPresenter>().SetUiElementsActive(true);
+		}
+		
+		private void HideMainMenuUiElements()
+		{
+			_uiService.GetUi<MainMenuHudPresenter>().SetUiElementsActive(false);
 		}
 
 		private void OpenUiVfxPresenter()

@@ -23,13 +23,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Transform _scTooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _csCurrencyText;
 		[SerializeField, Required] private Transform _csAnimationTarget;
+		[SerializeField] private GameObject _csObjectRoot;
 		[SerializeField] private UnityEngine.UI.Button _csButton;
 		[SerializeField] private int _rackupTextAnimationDuration = 5;
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
-		private Tween _csRackupTween;
 
 		private void Awake()
 		{
@@ -45,6 +45,15 @@ namespace FirstLight.Game.Presenters
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		/// <summary>
+		/// Sets all the relevant HUD elements active/inactive. For use on home screen when the presenter needs to exist
+		/// but elements of it need to hide when we go into subscreens
+		/// </summary>
+		public void SetUiElementsActive(bool active)
+		{
+			_csObjectRoot.SetActive(active);
 		}
 		
 		private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
@@ -63,7 +72,7 @@ namespace FirstLight.Game.Presenters
 				var targetValue = _dataProvider.CurrencyDataProvider.Currencies[closure.Id];
 				var initialValue = targetValue - closure.Quantity;
 				
-				_csRackupTween = DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
+				DOVirtual.Float(initialValue, targetValue, _rackupTextAnimationDuration, textUpdated);
 			}
 		}
 

@@ -6,6 +6,7 @@ namespace FirstLight.Game.Messages
 {
 	public struct UnclaimedRewardsCollectingStartedMessage : IMessage
 	{
+		public List<RewardData> Rewards;
 	}
 
 	public struct UnclaimedRewardsCollectedMessage : IMessage

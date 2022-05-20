@@ -53,6 +53,8 @@ namespace FirstLight.Editor.EditorTools
 		{
 			// Quantum Dependencies
 			CopyAssembly(_quantumLibPath, "quantum.code.dll");
+			CopyAssembly(_quantumLibPath, "quantum.core.dll");
+			CopyAssembly(_quantumLibPath, "PhotonDeterministic.dll");
 			  
 			// Script Assembly Dependencies
 			CopyAssembly(_unityPath,"FirstLight.DataExtensions.dll");

@@ -12,6 +12,7 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
+
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Quantum {
     Health,
     Rage,
     Ammo,
-    Shields,
+    Shield,
     ShieldCapacity,
   }
   [Flags()]

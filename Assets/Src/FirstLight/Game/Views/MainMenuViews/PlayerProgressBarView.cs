@@ -64,7 +64,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_dataProvider.PlayerDataProvider.Level.Observe(OnLevelUpUpdated);
 			_dataProvider.PlayerDataProvider.Xp.Observe(OnXpUpdated);
-			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
+			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxCommandMessage);
 		}
 
 		private void OnDestroy()
@@ -86,7 +86,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			Level = _dataProvider?.PlayerDataProvider?.Level?.Value ?? 1;
 		}
 
-		private async void OnPlayUiVfxCommandMessage(PlayUiVfxCommandMessage message)
+		private async void OnPlayUiVfxCommandMessage(PlayUiVfxMessage message)
 		{
 			if (message.Id != GameId.XP)
 			{

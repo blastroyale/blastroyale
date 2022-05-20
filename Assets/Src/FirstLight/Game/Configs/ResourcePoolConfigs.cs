@@ -20,7 +20,7 @@ namespace FirstLight.Game.Configs
 	}
 
 	/// <summary>
-	/// Scriptable Object tool to import the <seealso cref="RarityConfig"/> sheet data
+	/// Scriptable Object tool to import the <seealso cref="ResourcePoolConfig"/> sheet data
 	/// </summary>
 	[CreateAssetMenu(fileName = "ResourcePoolConfigs", menuName = "ScriptableObjects/Configs/ResourcePoolConfigs")]
 	public class ResourcePoolConfigs : ScriptableObject, IConfigsContainer<ResourcePoolConfig>

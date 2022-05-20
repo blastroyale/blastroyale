@@ -326,7 +326,7 @@ namespace Quantum.Systems
 			var lowArmourSensitivity = filter.BotCharacter->LowArmourSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioArmour) * lowArmourSensitivity);
 
-			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.Shields,
+			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.Shield,
 			                                             out armourConsumablePosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, armourConsumablePosition);
 

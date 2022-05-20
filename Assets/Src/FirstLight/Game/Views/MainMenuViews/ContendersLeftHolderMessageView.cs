@@ -23,17 +23,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		private int _playersLeft;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_contendersLeftText.text = "";
-			
+
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 		}
-		
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -41,24 +41,28 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			_contendersLeftText.text = _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers.ToString();
+			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining,
+			                                         _services.NetworkService.QuantumClient.CurrentRoom.MaxPlayers.ToString());
 		}
-		
+
 		/// <summary>
 		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
 		/// </summary>
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, 
-			                                         callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>() );
-			
+			_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining,
+			                                         callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>());
+
 			_animation.clip = _animationClipFadeIn;
 			_animation.Rewind();
 			_animation.Play();
-			
-			this.LateCoroutineCall(_animation.clip.length, PlayFadeOutAnimation);
+
+			if (gameObject.activeInHierarchy)
+			{
+				this.LateCoroutineCall(_animation.clip.length, PlayFadeOutAnimation);
+			}
 		}
-		
+
 		private void PlayFadeOutAnimation()
 		{
 			_animation.clip = _animationClipFadeOut;

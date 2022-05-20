@@ -7,6 +7,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Quantum;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests;
 

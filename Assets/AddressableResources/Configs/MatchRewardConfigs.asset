@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8fb8260b0354963a13f3f2faa470dd, type: 3}
+  m_Name: MatchRewardConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Placement: 1
+    Rewards: []
+  - Placement: 2
+    Rewards: []
+  - Placement: 3
+    Rewards: []
+  - Placement: 4
+    Rewards: []
+  - Placement: 5
+    Rewards: []
+  - Placement: 6
+    Rewards: []
+  - Placement: 7
+    Rewards: []
+  - Placement: 8
+    Rewards: []
+  - Placement: 9
+    Rewards: []
+  - Placement: 10
+    Rewards: []
+  - Placement: 11
+    Rewards: []
+  - Placement: 12
+    Rewards: []
+  - Placement: 13
+    Rewards: []
+  - Placement: 14
+    Rewards: []
+  - Placement: 15
+    Rewards: []
+  - Placement: 16
+    Rewards: []
+  - Placement: 17
+    Rewards: []
+  - Placement: 18
+    Rewards: []
+  - Placement: 19
+    Rewards: []
+  - Placement: 20
+    Rewards: []
+  - Placement: 21
+    Rewards: []

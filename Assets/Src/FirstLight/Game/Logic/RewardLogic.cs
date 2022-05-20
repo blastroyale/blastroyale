@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -21,7 +22,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
 	}
 
 	/// <inheritdoc />
@@ -35,12 +36,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
-		List<RewardData> CollectUnclaimedRewards();
+		List<RewardData> ClaimUncollectedRewards();
 
 		/// <summary>
 		/// Awards the given <paramref name="reward"/> to the player
 		/// </summary>
-		RewardData GiveReward(RewardData reward);
+		RewardData ClaimReward(RewardData reward);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -54,18 +55,53 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var rewards = new Dictionary<GameId, int>();
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
-			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
-			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
-			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
-
-			if (currency > 0)
+			var rewards = new Dictionary<GameId, int>();
+			
+			// Currently, there is no plan on giving rewards on anything but BR mode
+			if (mapConfig.GameMode != GameMode.BattleRoyale)
 			{
-				rewards.Add(GameId.CS, (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong)currency,GameId.CS));
+				return rewards;
+			}
+			
+			// Always perform ordering operation on the configs.
+			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
+			var gameModeRewardConfigs = GameLogic.ConfigsProvider
+			                                     .GetConfigsList<MatchRewardConfig>()
+			                                     .OrderByDescending(x => x.Placement).ToList();
+
+			// Get worst reward placement reward by default, or specific placement reward thereafter
+			var rewardConfig = gameModeRewardConfigs[0];
+			var rankValue = 10; //(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
+			// TODO - remove the hard coded 10, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
+			
+			foreach (var config in gameModeRewardConfigs)
+			{
+				if (rankValue > config.Placement)
+				{
+					break;
+				}
+				
+				if (config.Placement == rankValue)
+				{
+					rewardConfig = config;
+					break;
+				}
+			}
+
+			var csRewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
+			var csPercent = csRewardPair.Value / 100f;
+			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
+			
+			var csMaxTake = 100; // TODO - Replace with NFT equipment calculation
+			var csRewardAmount = csMaxTake * csPercent;
+			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong) csRewardAmount, GameId.CS);
+			
+			if (csWithdrawn > 0)
+			{
+				rewards.Add(GameId.CS, csWithdrawn);
 			}
 
 			return rewards;
@@ -74,8 +110,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
-			var rewards = GetMatchRewards(matchData, didPlayerQuit);
+			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 			var rewardsList = new List<RewardData>();
 
 			foreach (var reward in rewards)
@@ -90,7 +125,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> CollectUnclaimedRewards()
+		public List<RewardData> ClaimUncollectedRewards()
 		{
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
 			
@@ -98,19 +133,19 @@ namespace FirstLight.Game.Logic
 			{
 				throw new LogicException("The player does not have any rewards to collect.");
 			}
-
+			
 			foreach (var reward in Data.UncollectedRewards)
 			{
-				rewards.Add(GiveReward(reward));
+				rewards.Add(ClaimReward(reward));
 			}
-			
+
 			Data.UncollectedRewards.Clear();
 
 			return rewards;
 		}
 
 		/// <inheritdoc />
-		public RewardData GiveReward(RewardData reward)
+		public RewardData ClaimReward(RewardData reward)
 		{
 			var groups = reward.RewardId.GetGroups();
 

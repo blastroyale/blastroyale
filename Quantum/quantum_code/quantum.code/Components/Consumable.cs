@@ -42,7 +42,7 @@ namespace Quantum
 				case ConsumableType.Ammo:
 					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
 					break;
-				case ConsumableType.Shields:
+				case ConsumableType.Shield:
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShields(f, playerEntity, entity, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.ShieldCapacity:

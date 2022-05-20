@@ -18,7 +18,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		[SerializeField, Required] private PlayerResultEntryView _resultEntryViewRef;
 		[SerializeField, Required] private GameObject _xpHolder;
-		[SerializeField, Required] private GameObject _coinsHolder;
 		[SerializeField, Required] private RectTransform _contentTransform;
 		[SerializeField] private int _verticalEntrySpacing = 14;
 		[SerializeField, Required] private UnityEngine.UI.Button _blockerButton;
@@ -47,7 +46,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void Initialise(List<QuantumPlayerMatchData> playerData, bool showExtra = true,
 		                       bool enableBlockerButton = true)
 		{
-			_coinsHolder.SetActive(showExtra);
 			_xpHolder.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
 			_showExtra = showExtra;

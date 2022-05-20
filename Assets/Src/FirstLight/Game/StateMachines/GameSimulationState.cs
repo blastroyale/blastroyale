@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -11,6 +13,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -29,7 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-
+		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
@@ -73,17 +76,19 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Nest(_deathmatchState.Setup);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
+			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
+			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
-
-			gameEnded.OnEnter(SendGameplayDataAnalytics);
+			
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
 
+			gameResults.OnEnter(GiveMatchRewards);
 			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
 			gameResults.OnExit(CloseResultScreen);
 			
@@ -101,9 +106,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
-
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
-
+			
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
@@ -173,7 +176,30 @@ namespace FirstLight.Game.StateMachines
 			QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			_statechartTrigger(_gameQuitEvent);
 		}
+		
+		private void GiveMatchRewards()
+		{
+			if (_gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.BattleRoyale)
+			{
+				return;
+			}
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var matchData = gameContainer.GetPlayersMatchData(f, out _);
+			var localPlayerRef = game.GetLocalPlayers()[0];
+			var localPlayerData = matchData[localPlayerRef];
 
+			_services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand
+			{
+				PlayersMatchData = matchData,
+				LocalPlayerRef = localPlayerRef,
+				LocalPlayerRank = localPlayerData.PlayerRank,
+				DidPlayerQuit = false
+			});
+		}
+		
 		private void SendGameplayDataAnalytics()
 		{
 			SendGameplayData(false);
@@ -195,21 +221,6 @@ namespace FirstLight.Game.StateMachines
 					totalPlayers++;
 				}
 			}
-
-			/*_services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
-			{
-				PlayerMatchData = data,
-				DidPlayerQuit = playerQuit
-			});
-
-			if (!playerQuit)
-			{
-				_services.CommandService.ExecuteCommand(new UpdatePlayerTrophiesCommand
-				{
-					Players = gameContainer.GetPlayersMatchData(f, out _),
-					LocalPlayerRank = data.PlayerRank
-				});
-			}*/
 
 			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
 		}

@@ -132,10 +132,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_specialAimIndicator.Key?.SetVisualState(true);
 			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key
-			                    ?
-			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
-			                                         config.MinRange.AsFloat, config.MaxRange.AsFloat);
+			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
+			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
@@ -157,7 +155,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			SetWeaponIndicators(callback.Weapon.GameId);
+			SetWeaponIndicators(callback.Game.Frames.Verified, callback.Weapon.GameId);
 		}
 
 		private void OnLocalPlayerAim(EventOnLocalPlayerAim callback)
@@ -263,14 +261,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_localInput.Gameplay.SetCallbacks(this);
 			_localInput.Enable();
-			SetWeaponIndicators(weapon);
+			SetWeaponIndicators(QuantumRunner.Default.Game.Frames.Verified, weapon);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
-		private void SetWeaponIndicators(GameId weapon)
+		private void SetWeaponIndicators(Frame frame, GameId weapon)
 		{
 			var configProvider = Services.ConfigsProvider;
 			var weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);

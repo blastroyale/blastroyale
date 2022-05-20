@@ -62,7 +62,7 @@ namespace FirstLight
 			};
 			foreach (var (type, configList) in configs)
 			{
-				if (!type.IsSerializable || type.Namespace == "Quantum") // TODO: Allow quantum configs
+				if (!type.IsSerializable)
 				{
 					continue;
 				}

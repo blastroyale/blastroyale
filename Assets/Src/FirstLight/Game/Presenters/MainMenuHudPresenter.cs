@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField, Required] private Transform _scTooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _csCurrencyText;
-		[SerializeField, Required] private Transform _scAnimationTarget;
+		[SerializeField, Required] private Transform _csAnimationTarget;
 		[SerializeField] private UnityEngine.UI.Button _csButton;
 		[SerializeField] private int _rackupTextAnimationDuration = 5;
 
@@ -38,9 +38,10 @@ namespace FirstLight.Game.Presenters
 			_csButton.onClick.AddListener(OnCsClicked);
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(OnUnclaimedRewardsCollectingStartedMessage);
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnUnclaimedRewardsCollectedMessage);
-			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
+			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxMessage);
 
 			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			UpdateCsValueText(_dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS));
 		}
 
 		private void OnDestroy()
@@ -56,30 +57,30 @@ namespace FirstLight.Game.Presenters
 
 			if (currency == GameId.CS)
 			{
-				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, CraftSpiceRackupUpdate);
+				DOVirtual.Float(previous, targetValue, _rackupTextAnimationDuration, UpdateCsValueText);
 			}
 		}
 
 		private void OnUnclaimedRewardsCollectingStartedMessage(UnclaimedRewardsCollectingStartedMessage message)
 		{
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
+			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			
 		}
 
 		private void OnUnclaimedRewardsCollectedMessage(UnclaimedRewardsCollectedMessage obj)
 		{
-			_dataProvider.CurrencyDataProvider.Currencies.Observe(OnCurrencyChanged);
+			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCurrencyChanged);
 		}
 
-		private void OnPlayUiVfxCommandMessage(PlayUiVfxCommandMessage message)
+		private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
 		{
 			var closure = message;
 
 			if (message.Id == GameId.CS)
 			{
-				// TODO - Re-enable when the UI is there
-				/*_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
-				                                       _scAnimationTarget.position,
-				                                       () => RackupTween(CraftSpiceRackupUpdate));*/
+				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
+				                                       _csAnimationTarget.position,
+				                                       () => RackupTween(UpdateCsValueText));
 			}
 
 			void RackupTween(TweenCallback<float> textUpdated)
@@ -97,9 +98,9 @@ namespace FirstLight.Game.Presenters
 			                                                 _scTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 
-		private void CraftSpiceRackupUpdate(float value)
+		private void UpdateCsValueText(float value)
 		{
-			_csCurrencyText.text = $" {value.ToString("N0")}";
+			_csCurrencyText.text = $" {value:N0}";
 		}
 	}
 }

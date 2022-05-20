@@ -36,6 +36,9 @@
         <HintPath>..\Lib\quantum.code.dll</HintPath>
          <ReferencePath>..\Lib\quantum.code.dll</ReferencePath>
       </Reference>
+      <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
          <ReferencePath>..\UnityLib\UnityEngine.AudioModule.dll</ReferencePath>

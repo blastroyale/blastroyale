@@ -36,7 +36,7 @@ MonoBehaviour:
       ShrinkingDamage: 20
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
-        RawValue: 314573
+        RawValue: 262144
       PlayerMaxShieldCapacity: 800
       PlayerStartingShieldCapacity: 100
       CoinsPerRank: 30
@@ -59,10 +59,7 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      FusionBaseWeightPerType: 200
-      FusionWeightIncreasePerItem: 70
-      FusionWeightIncreasePerLevel: 10
-      StatsPowerBaseValue: 400
+      StatsPowerBaseValue: 300
       StatsPowerRarityMultiplier:
         RawValue: 131072
       StatsPowerLevelStepMultiplier:
@@ -97,7 +94,5 @@ MonoBehaviour:
         RawValue: 655
       DeathDropSmallShieldChance:
         RawValue: 16384
-      DeathDropWeaponChance:
-        RawValue: 32768
       TrophyEloRange: 50
       TrophyEloK: 5

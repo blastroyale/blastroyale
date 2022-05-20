@@ -196,7 +196,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			if (changedProps.TryGetValue(GameConstants.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Data.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
 				var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 
@@ -259,7 +259,7 @@ namespace FirstLight.Game.Presenters
 			ReadyToPlay();
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
-			room.SetCustomProperties(new Hashtable{{GameConstants.GameHasBots, _botsToggle.isOn}});
+			room.SetCustomProperties(new Hashtable{{GameConstants.Data.GAME_HAS_BOTS, _botsToggle.isOn}});
 			
 			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
 		}

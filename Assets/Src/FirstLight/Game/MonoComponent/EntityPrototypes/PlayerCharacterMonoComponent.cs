@@ -30,7 +30,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private Pair<ITransformIndicator, QuantumSpecialConfig> _specialAimIndicator;
 		private ITransformIndicator _shootIndicator;
 		private ITransformIndicator _movementIndicator;
-		private QuantumWeaponConfig _currentWeaponConfig;
 
 		/// <summary>
 		/// The <see cref="Transform"/> anchor values to attach the avatar emoji
@@ -40,6 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAim>(this, OnLocalPlayerAim);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -76,9 +76,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) &&
 			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
 
-			UpdateShootIndicator(frame);
-			_shootIndicator.SetTransformState(direction);
-			_shootIndicator.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
+			_shootIndicator?.SetTransformState(direction);
+			_shootIndicator?.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
 		}
 
 		/// <inheritdoc />
@@ -157,6 +156,30 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			SetWeaponIndicators(callback.Game.Frames.Verified, callback.Weapon.GameId);
+		}
+
+		private void OnLocalPlayerAim(EventOnLocalPlayerAim callback)
+		{
+			var configProvider = Services.ConfigsProvider;
+			var weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
+			var range = weaponConfig.AttackRange.AsFloat;
+			var minAttackAngle = weaponConfig.MinAttackAngle;
+			var maxAttackAngle = weaponConfig.MaxAttackAngle;
+			var angleInRad = maxAttackAngle == minAttackAngle
+				                 ? maxAttackAngle
+				                 : Mathf.Lerp(minAttackAngle, maxAttackAngle, 
+				                              callback.VelocitySqrMagnitude.AsFloat / callback.MaxSpeedSqr.AsFloat);
+			// We use a formula to calculate the scale of a shooting indicator
+			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
+
+			// For a melee weapon with a splash damage we use a separate calculation for an indicator
+			if (weaponConfig.IsMeleeWeapon && weaponConfig.SplashRadius > FP._0)
+			{
+				range += weaponConfig.SplashRadius.AsFloat;
+				size = weaponConfig.SplashRadius.AsFloat * 2f;
+			}
+
+			_shootIndicator?.SetVisualProperties(size, 0, range);
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -245,53 +268,23 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
-		private void UpdateShootIndicator(Frame frame)
-		{
-			if (frame.TryGet<CharacterController3D>(EntityView.EntityRef, out var kcc))
-			{
-				_shootIndicator.SetVisualState(false);
-				return;
-			}
-			
-			var velocitySqr = kcc.Velocity.SqrMagnitude.AsFloat;
-			var range = _currentWeaponConfig.AttackRange.AsFloat;
-			var minAttackAngle = _currentWeaponConfig.MinAttackAngle;
-			var maxAttackAngle = _currentWeaponConfig.MaxAttackAngle;
-			var maxSpeedSqr = (kcc.MaxSpeed * kcc.MaxSpeed).AsFloat;
-			var lerpValue = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocitySqr / maxSpeedSqr);
-			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerpValue;
-			
-			// We use a formula to calculate the scale of a shooting indicator
-			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
-
-			// For a melee weapon with a splash damage we use a separate calculation for an indicator
-			if (_currentWeaponConfig.Id == GameId.Hammer && _currentWeaponConfig.SplashRadius > FP._0)
-			{
-				range += _currentWeaponConfig.SplashRadius.AsFloat;
-				size = _currentWeaponConfig.SplashRadius.AsFloat * 2f;
-			}
-
-			_shootIndicator.SetVisualProperties(size, 0, range);
-		}
-
 		private void SetWeaponIndicators(Frame frame, GameId weapon)
 		{
 			var configProvider = Services.ConfigsProvider;
-			_currentWeaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
+			var weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
 
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
 			var shootState = _shootIndicator?.VisualState ?? false;
-			var indicator = _currentWeaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
+			var indicator = weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 
 			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
-			UpdateShootIndicator(frame);
 			_shootIndicator?.SetVisualState(shootState);
 
 			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
 			{
 				var pair = new Pair<ITransformIndicator, QuantumSpecialConfig>();
 
-				if (specialConfigs.TryGetValue((int) _currentWeaponConfig.Specials[i], out var specialConfig))
+				if (specialConfigs.TryGetValue((int) weaponConfig.Specials[i], out var specialConfig))
 				{
 					pair.Key = _indicators[(int) specialConfig.Indicator] as ITransformIndicator;
 					pair.Value = specialConfig;

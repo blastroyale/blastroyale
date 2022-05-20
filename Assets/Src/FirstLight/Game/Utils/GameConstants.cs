@@ -14,12 +14,10 @@ namespace FirstLight.Game.Utils
 
 		public static class Links
 		{
-			public const string FEEDBACK_FORM_LINK = "https://forms.gle/2V4ffFNmRgoVAba89";
-			public const string DISCORD_SERVER_LINK = "https://discord.gg/blastroyale";
-			public const string APP_STORE_IOS_LINK = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
-
-			public const string APP_STORE_GOOGLE_PLAY_LINK =
-				"https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
+			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";
+			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
+			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
+			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
 		}
 
 		public static class Balance

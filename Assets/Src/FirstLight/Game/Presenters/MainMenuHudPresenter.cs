@@ -23,7 +23,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Transform _scTooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _csCurrencyText;
 		[SerializeField, Required] private Transform _csAnimationTarget;
-		[SerializeField] private GameObject _csObjectRoot;
 		[SerializeField] private UnityEngine.UI.Button _csButton;
 		[SerializeField] private int _rackupTextAnimationDuration = 5;
 
@@ -47,15 +46,6 @@ namespace FirstLight.Game.Presenters
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		/// <summary>
-		/// Sets all the relevant HUD elements active/inactive. For use on home screen when the presenter needs to exist
-		/// but elements of it need to hide when we go into subscreens
-		/// </summary>
-		public void SetUiElementsActive(bool active)
-		{
-			_csObjectRoot.SetActive(active);
-		}
-		
 		private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
 		{
 			var closure = message;

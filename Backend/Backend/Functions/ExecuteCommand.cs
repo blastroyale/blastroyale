@@ -30,7 +30,6 @@ public class ExecuteCommand
 	public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                                               HttpRequestMessage req, ILogger log)
 	{
-		// TODO: Player semaphore check for atomicity
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 		var playerId = context.AuthenticationContext.PlayFabId;
 		var logicRequest = context.FunctionArgument;

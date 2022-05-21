@@ -27,6 +27,7 @@ namespace FirstLight.Game.Commands
 		public PlayerData PlayerData;
 		public RngData RngData;
 		public IdData IdData;
+		public NftEquipmentData NftEquipmentData;
 		
 		/// <inheritdoc />
 		public CommandAccessLevel AccessLevel => CommandAccessLevel.Admin;
@@ -45,6 +46,10 @@ namespace FirstLight.Game.Commands
 			if (IdData != null)
 			{
 				IdData.CopyPropertiesShallowTo(dataProvider.GetData<IdData>());
+			}
+			if (NftEquipmentData != null)
+			{
+				NftEquipmentData.CopyPropertiesShallowTo(dataProvider.GetData<NftEquipmentData>());
 			}
 		}
 	}

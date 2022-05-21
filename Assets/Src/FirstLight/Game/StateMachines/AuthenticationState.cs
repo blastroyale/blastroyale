@@ -372,9 +372,7 @@ namespace FirstLight.Game.StateMachines
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
-			
 			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
-
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
@@ -404,11 +402,10 @@ namespace FirstLight.Game.StateMachines
 			void OnPlayerSetup(ExecuteFunctionResult result)
 			{
 				var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
-
 				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(logicResult.Result.Data));
 				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(logicResult.Result.Data));
 				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(logicResult.Result.Data));
-
+				_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(logicResult.Result.Data, true));
 				cacheActivity.Complete();
 			}
 		}
@@ -434,6 +431,7 @@ namespace FirstLight.Game.StateMachines
 				_dataService.AddData(ModelSerializer.DeserializeFromClientData<RngData>(data));
 				_dataService.AddData(ModelSerializer.DeserializeFromClientData<IdData>(data));
 				_dataService.AddData(ModelSerializer.DeserializeFromClientData<PlayerData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromClientData<NftEquipmentData>(data, true));
 			}
 
 			activity.Complete();

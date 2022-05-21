@@ -36,15 +36,15 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Searches given data for serialized models. If the type given is found, deserializes it.
 		/// </summary>
-		public static TModel DeserializeFromData<TModel>(Dictionary<string, string> data)
+		public static TModel DeserializeFromData<TModel>(Dictionary<string, string> data, bool createIfNeeded = false)
 		{
 			if(!data.TryGetValue(typeof(TModel).FullName, out var modelData))
 			{
-				return default(TModel);
+				return createIfNeeded ? (TModel) Activator.CreateInstance(typeof(TModel)) : default(TModel);
 			}
 			return JsonConvert.DeserializeObject<TModel>(modelData, _formatter);
 		}
-		
+
 		/// <summary>
 		/// Serializes the given model and inser in the given dictionary.
 		/// </summary>
@@ -57,11 +57,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Searches given data for serialized models. If the type given is found, deserializes it.
 		/// </summary>
-		public static TModel DeserializeFromClientData<TModel>(Dictionary<string, UserDataRecord> data)
+		public static TModel DeserializeFromClientData<TModel>(Dictionary<string, UserDataRecord> data, bool createIfNeeded = false)
 		{
 			if(!data.TryGetValue(typeof(TModel).FullName, out var modelData))
 			{
-				return default(TModel);
+				return createIfNeeded ? (TModel) Activator.CreateInstance(typeof(TModel)) : default(TModel);
 			}
 			return JsonConvert.DeserializeObject<TModel>(modelData.Value, _formatter);
 		}

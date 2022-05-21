@@ -11,7 +11,7 @@ using Quantum;
 namespace FirstLight.Game.Logic
 {
 	/// <inheritdoc cref="IEquipmentLogic"/>
-	public class EquipmentLogic : AbstractBaseLogic<PlayerData>, IEquipmentLogic, IGameLogicInitializer
+	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
 		private IObservableDictionary<GameIdGroup, UniqueId> _equippedItems;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
@@ -20,14 +20,16 @@ namespace FirstLight.Game.Logic
 
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 
-		public EquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
+		
+		
+		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
 
 		/// <inheritdoc />
 		public void Init()
 		{
-			_equippedItems = new ObservableDictionary<GameIdGroup, UniqueId>(Data.EquippedItems);
+			_equippedItems = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 		}
 
@@ -109,6 +111,7 @@ namespace FirstLight.Game.Logic
 			return stats;
 		}
 
+		// TODO: Remove method and refactor cheats
 		public UniqueId AddToInventory(Equipment equipment)
 		{
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);

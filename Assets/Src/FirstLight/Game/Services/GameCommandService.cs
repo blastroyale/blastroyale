@@ -115,7 +115,8 @@ namespace FirstLight.Game.Services
 			{
 				IdData = _dataProvider.GetData<IdData>(),
 				RngData = _dataProvider.GetData<RngData>(),
-				PlayerData = _dataProvider.GetData<PlayerData>()
+				PlayerData = _dataProvider.GetData<PlayerData>(),
+				NftEquipmentData = _dataProvider.GetData<NftEquipmentData>()
 			});
 		}
 

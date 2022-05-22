@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -41,7 +42,8 @@ namespace Quantum.Systems
 				                        : playerData.Loadout;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment);
+			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment,
+			                      playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		/// <inheritdoc />

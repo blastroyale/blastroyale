@@ -20,7 +20,7 @@ namespace Quantum
 		/// <summary>
 		/// Drops an equipment item (weapon / gear) from <paramref name="equipment"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep)
+		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep, PlayerRef owner = new PlayerRef())
 		{
 			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
 

@@ -1,5 +1,8 @@
 #define PLAYER_COUNT 32
 #define MAX_WEAPONS 3
+#define WEAPON_INDEX_DEFAULT 0
+#define WEAPON_INDEX_PRIMARY 1
+#define WEAPON_INDEX_SECONDARY 2
 #define MAX_GEAR 5
 #pragma max_players PLAYER_COUNT
 

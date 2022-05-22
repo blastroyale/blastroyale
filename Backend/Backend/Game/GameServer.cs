@@ -56,6 +56,10 @@ public class GameServer
 				PlayFabId = playerId
 			};
 		}
+		catch (LogicException e)
+		{
+			return GetErrorResult(logicRequest, e);
+		}
 		finally
 		{
 			_mutex.Unlock(playerId);
@@ -97,8 +101,23 @@ public class GameServer
 		{
 			throw new LogicException($"Outdated command timestamp for command {cmd.GetType().Name}. Command out of order ?");
 		}
-
 		return true;
+	}
+	
+	/// <summary>
+	/// Returns a logic result to contain information about the logic exception that was
+	/// thrown to be acknowledge by the game client.
+	/// </summary>
+	private BackendLogicResult GetErrorResult(LogicRequest request, LogicException exp)
+	{
+		return new BackendLogicResult()
+		{
+			Command = request.Command,
+			Data = new Dictionary<string, string>()
+			{
+				{ "LogicException", exp.Message }
+			}
+		};
 	}
 
 	/// <summary>

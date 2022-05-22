@@ -39,7 +39,7 @@ namespace Quantum
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
-			BotSDKDebuggerSystem.AddToDebugger(e);
+			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);

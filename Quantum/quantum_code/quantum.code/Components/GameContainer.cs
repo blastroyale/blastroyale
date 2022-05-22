@@ -71,12 +71,10 @@ namespace Quantum
 		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
-			var playersData = new List<QuantumPlayerMatchData>();
+			var playersData = new List<QuantumPlayerMatchData>(data.Length);
 			var returnData = new QuantumPlayerMatchData[data.Length];
 			var gameMode = f.RuntimeConfig.GameMode;
 			var sorter = new BattleRoyaleSorter() as IRankSorter;
-
-			leader = PlayerRef.None;
 
 			if (gameMode == GameMode.Deathmatch)
 			{
@@ -87,6 +85,8 @@ namespace Quantum
 			{
 				playersData.InsertIntoSortedList(new QuantumPlayerMatchData(f, data[i]), sorter);
 			}
+
+			leader = data[0].Player;
 
 			for (var i = 0; i < playersData.Count; i++)
 			{

@@ -22,21 +22,19 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 		
 		[SerializeField, Required] private Renderer _mainRenderer;
-		[SerializeField] private StadiumMaterial[] _stadiumScreenMaterials;
 		[SerializeField, Required] private StandingsHolderView _standings;
+		[SerializeField] private StadiumMaterial[] _stadiumScreenMaterials;
 		
 		private IGameServices _services;
 		private int _materialIndex;
-		private float _currentShowTime;
+		private float _lastShowTime;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnGameCompleted);
-			
 			_services.TickService.SubscribeOnUpdate(UpdateTick);
-
 		}
 
 		private void OnDestroy()
@@ -46,11 +44,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void UpdateTick(float deltaTime)
 		{
-			var showTime = _stadiumScreenMaterials[_materialIndex].ShowTime;
-
-			_currentShowTime += deltaTime;
-			
-			if (_currentShowTime < showTime)
+			if (Time.time - _lastShowTime < _stadiumScreenMaterials[_materialIndex].ShowTime)
 			{
 				return;
 			}
@@ -62,18 +56,16 @@ namespace FirstLight.Game.MonoComponent.Match
 				_materialIndex = 0;
 			}
 
-			_currentShowTime = 0;
-
+			_lastShowTime = Time.time;
 			_mainRenderer.material = _stadiumScreenMaterials[_materialIndex].Material;
 		}
 		
 		private void OnGameCompleted(EventOnGameEnded callback)
 		{
-			var frame = callback.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
-
-			_standings.Initialise(playerData);
+			var playerData = callback.PlayersMatchData;
+			
+			_standings.Initialise(playerData.Count, true, true);
+			_standings.UpdateStandings(playerData);
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
 		}
 	}

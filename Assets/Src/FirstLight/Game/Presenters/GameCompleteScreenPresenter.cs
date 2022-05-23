@@ -76,10 +76,8 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
-			var playerData = new List<QuantumPlayerMatchData>(matchData);
-			playerData.SortByPlayerRank();
-			var playerWinner = matchData[leader];
+			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = playerData[leader];
 
 			if (game.PlayerIsLocal(leader))
 			{

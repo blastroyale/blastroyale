@@ -68,11 +68,10 @@ namespace Quantum
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
+		public List<QuantumPlayerMatchData> GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
 			var playersData = new List<QuantumPlayerMatchData>(data.Length);
-			var returnData = new QuantumPlayerMatchData[data.Length];
 			var gameMode = f.RuntimeConfig.GameMode;
 			IRankSorter sorter;
 
@@ -98,10 +97,12 @@ namespace Quantum
 
 				player.PlayerRank = RankProcessor(playersData, i, sorter);
 
-				returnData[player.Data.Player] = player;
+				playersData[i] = player;
 			}
 
-			return returnData;
+			playersData.SortByPlayerRef(false);
+
+			return playersData;
 		}
 		
 		private uint RankProcessor(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter)
@@ -138,17 +139,17 @@ namespace Quantum
 
 				if (compare == 0)
 				{
-					compare = x.Data.FirstDeathTime.CompareTo(y.Data.FirstDeathTime);
+					compare = x.Data.FirstDeathTime.CompareTo(y.Data.FirstDeathTime) * -1;
 				}
 
 				if (compare == 0)
 				{
-					compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
+					compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount) * -1;
 				}
 
 				if (compare == 0)
 				{
-					compare = x.Data.Player._index.CompareTo(y.Data.Player._index);
+					compare = x.Data.Player._index.CompareTo(y.Data.Player._index) * -1;
 				}
 
 				return compare;
@@ -163,7 +164,7 @@ namespace Quantum
 			/// <inheritdoc />
 			public int Compare(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
 			{
-				var compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount);
+				var compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount) * -1;
 
 				if (compare == 0)
 				{

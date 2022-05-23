@@ -78,12 +78,11 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
-
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
@@ -91,6 +90,8 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
+			
+			_standings.Initialise(frame.PlayerCount, false, isBattleRoyale);
 		}
 
 		private void OnQuitClicked()
@@ -105,14 +106,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnStandingsClicked()
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			var playerData = container.GetPlayersMatchData(frame, out _);
 
+			_standings.UpdateStandings(playerData);
 			_standings.gameObject.SetActive(true);
-			_standings.Initialise(playerData, isBattleRoyale);
 		}
 
 		private void OnWeaponSlotClicked(int weaponSlotIndex)

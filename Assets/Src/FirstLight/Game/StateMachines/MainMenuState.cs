@@ -538,9 +538,7 @@ namespace FirstLight.Game.StateMachines
 				};
 
 				_services.GenericDialogService.OpenDialog(title, false, confirmButton);
-				return;
-#endif
-
+#else
 				var button = new AlertButton
 				{
 					Callback = Application.Quit,
@@ -550,6 +548,7 @@ namespace FirstLight.Game.StateMachines
 
 				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
 				                               ScriptLocalization.MainMenu.LogoutSuccessDesc, button);
+#endif
 			}
 		}
 	}

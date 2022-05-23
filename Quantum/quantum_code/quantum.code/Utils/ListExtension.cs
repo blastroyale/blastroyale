@@ -10,7 +10,7 @@ namespace Quantum
 	/// </summary>
 	/// <author>Jackson Dunstan, http://JacksonDunstan.com/articles/3189</author>
 	/// <license>MIT</license>
-	internal static class SortedListExtensions
+	public static class ListExtensions
 	{
 		/// <summary>
 		/// Insert a value into an IList{T} that is presumed to be already sorted such that sort
@@ -143,6 +143,38 @@ namespace Quantum
 				}
 			}
 			list.Insert(startIndex, value);
+		}
+		
+		/// <summary>
+		/// Sorts a list of player by their <see cref="QuantumPlayerMatchData.PlayerRank"/>
+		/// </summary>
+		public static void SortByPlayerRank(this List<QuantumPlayerMatchData> players, bool isReverse)
+		{
+			players.Sort((a, b) =>
+			{
+				var rank = a.PlayerRank.CompareTo(b.PlayerRank);
+
+				// If players have the same rank, sort them by their PlayerRef index
+				if (rank == 0)
+				{
+					rank = a.Data.Player._index.CompareTo(b.Data.Player._index);
+				}
+
+				return isReverse ? rank * -1 : rank;
+			});
+		}
+		
+		/// <summary>
+		/// Sorts a list of player by their <see cref="QuantumPlayerMatchData.PlayerRank"/>
+		/// </summary>
+		public static void SortByPlayerRef(this List<QuantumPlayerMatchData> players, bool isReverse)
+		{
+			players.Sort((a, b) =>
+			{
+				var rank = a.Data.Player._index.CompareTo(b.Data.Player._index);
+
+				return isReverse ? rank * -1 : rank;
+			});
 		}
 	}
 }

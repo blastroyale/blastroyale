@@ -28,7 +28,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Updates player's trophies (Elo) based on their ranking in the match
 		/// </summary>
-		void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank);
+		void UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -54,26 +54,26 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void UpdateTrophies(QuantumPlayerMatchData[] players, uint localPlayerRank)
+		public void UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
 		{
+			var localPlayerData = players[localPlayer];
+			
+			players.SortByPlayerRank(false);
+
 			var trophyChange = 0f;
 
-			var sortedPlayers = players.ToList();
-			sortedPlayers.SortByPlayerRank();
-
-			var localPlayerIndex = (int) localPlayerRank;
-			var localPlayer = sortedPlayers[localPlayerIndex];
-
 			// Losses
-			for (int i = 0; i < localPlayerIndex; i++)
+			for (var i = 0; i < localPlayerData.PlayerRank; i++)
 			{
-				trophyChange += CalculateEloChange(0, players[i].Data.PlayerTrophies, localPlayer.Data.PlayerTrophies);
+				trophyChange += CalculateEloChange(0, players[i].Data.PlayerTrophies, 
+				                                   localPlayerData.Data.PlayerTrophies);
 			}
 
 			// Wins
-			for (int i = localPlayerIndex + 1; i < players.Length; i++)
+			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
 			{
-				trophyChange += CalculateEloChange(1, players[i].Data.PlayerTrophies, localPlayer.Data.PlayerTrophies);
+				trophyChange += CalculateEloChange(1, players[i].Data.PlayerTrophies, 
+				                                   localPlayerData.Data.PlayerTrophies);
 			}
 
 			_trophiesResolver.Value = (uint) Math.Max((int) Data.Trophies + Mathf.RoundToInt(trophyChange), 0);

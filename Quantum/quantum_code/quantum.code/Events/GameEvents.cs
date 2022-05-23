@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 namespace Quantum
 {
 	public unsafe partial class EventOnGameEnded
 	{
-		public QuantumPlayerMatchData[] PlayersMatchData;
+		public List<QuantumPlayerMatchData> PlayersMatchData;
 	}
 	
 	public partial class Frame 

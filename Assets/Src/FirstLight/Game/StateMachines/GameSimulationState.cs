@@ -79,7 +79,7 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);

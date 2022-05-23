@@ -96,3 +96,4 @@ MonoBehaviour:
         RawValue: 16384
       TrophyEloRange: 50
       TrophyEloK: 5
+      MinOffhandWeaponPoolSize: 10

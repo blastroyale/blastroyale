@@ -53,6 +53,20 @@ namespace Quantum.Systems
 
 			rarities.Sort();
 
+			// Fill up weapon pool to a minimum size
+			var weaponIds = GameIdGroup.Weapon.GetIds();
+			while (weapons.Count < f.GameConfig.MinOffhandWeaponPoolSize)
+			{
+				var chosenId = weaponIds[f.RNG->Next(0, weaponIds.Count)];
+				if (chosenId == GameId.Hammer)
+				{
+					// Better to do a few more loops than to convert weaponIds to a mutable list, causing an allocation
+					continue;
+				}
+
+				weapons.Add(new Equipment(chosenId));
+			}
+
 			f.Context.MedianRarity = rarities[(int) Math.Floor((decimal) rarities.Count / 2)];
 			f.Context.PlayerWeapons = weapons.ToArray();
 		}

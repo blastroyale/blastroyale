@@ -47,7 +47,7 @@ namespace Quantum
 			}
 			else
 			{
-				var weapon = weapons[f.RNG->Next(0, weapons.Length - 1)];
+				var weapon = weapons[f.RNG->Next(0, weapons.Length)];
 
 				// I think this is silly, but "When a player picks up a weapon we inherit all NFT
 				// attributes (except for the rarity) from the Record".
@@ -59,8 +59,7 @@ namespace Quantum
 				}
 
 				ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
-				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, 0,
-				                          hasLoadoutWeapon ? PlayerRef.None : playerRef);
+				Collectable.DropEquipment(f, weapon, chestPosition, 0);
 			}
 
 			// Decide on other stuff to drop

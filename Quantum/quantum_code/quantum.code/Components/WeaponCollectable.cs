@@ -1,3 +1,4 @@
+using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -29,8 +30,14 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
 			var collectable = f.Get<Collectable>(entity);
 			var equipment = new Equipment(collectable.GameId);
+			var isBot = f.Has<BotCharacter>(player);
+			var playerData = f.GetPlayerData(playerRef);
 
-			playerCharacter->AddWeapon(f, player, equipment, Owner == playerRef);
+			var primaryWeapon = isBot || Owner == playerRef ||
+			                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
+			                     !playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid());
+
+			playerCharacter->AddWeapon(f, player, equipment, primaryWeapon);
 			playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
 		}
 	}

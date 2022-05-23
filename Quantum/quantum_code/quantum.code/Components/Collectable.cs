@@ -20,7 +20,8 @@ namespace Quantum
 		/// <summary>
 		/// Drops an equipment item (weapon / gear) from <paramref name="equipment"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep, PlayerRef owner = new PlayerRef())
+		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep,
+		                                 PlayerRef owner = new PlayerRef())
 		{
 			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
 
@@ -29,7 +30,7 @@ namespace Quantum
 				var config = f.WeaponConfigs.GetConfig(equipment.GameId);
 				var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 				f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
-				                                                     config);
+				                                                     config, owner);
 			}
 
 			// TODO: Implement for gear

@@ -10,7 +10,6 @@ namespace Quantum
 		public string PlayerName;
 		public bool IsLocalPlayer;
 		public uint PlayerRank;
-		public long PlayerScore;
 		public int MapId;
 		public PlayerMatchData Data;
 

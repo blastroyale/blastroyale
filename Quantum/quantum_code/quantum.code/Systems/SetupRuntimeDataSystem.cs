@@ -10,14 +10,17 @@ namespace Quantum.Systems
 	public unsafe class SetupRuntimeDataSystem : SystemSignalsOnly,
 	                                             ISignalOnPlayerDataSet
 	{
+		public override void OnInit(Frame f)
+		{
+			SetupTargetAllMask(f);
+		}
+
 		public void OnPlayerDataSet(Frame f, PlayerRef player)
 		{
 			if (f.ComponentCount<PlayerCharacter>() == f.PlayerCount)
 			{
 				SetupEquipmentValues(f);
 			}
-
-			SetupTargetAllMask(f);
 		}
 
 		/// <summary>

@@ -16,6 +16,8 @@ namespace Quantum.Systems
 			{
 				SetupEquipmentValues(f);
 			}
+
+			SetupTargetAllMask(f);
 		}
 
 		/// <summary>
@@ -53,6 +55,15 @@ namespace Quantum.Systems
 
 			f.Context.MedianRarity = rarities[(int) Math.Floor((decimal) rarities.Count / 2)];
 			f.Context.PlayerWeapons = weapons.ToArray();
+		}
+
+		/// <summary>
+		/// Sets up the <see cref="FrameContextUser.TargetAllLayerMask"/> for targeting everything.
+		/// </summary>
+		private void SetupTargetAllMask(Frame f)
+		{
+			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
+			                                                     "Prop", "World", "Environment No Silhouette");
 		}
 	}
 }

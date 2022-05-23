@@ -161,6 +161,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public ulong GetCurrentPoolCapacity(GameId poolType)
 		{
+			// To understand the calculations below better, see link:
+			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
+			
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var nftOwned = GameLogic.EquipmentLogic.Inventory.Count;
 			var poolCapacity = (ulong)0;
@@ -173,8 +176,8 @@ namespace FirstLight.Game.Logic
 			var adjRarityCurveMod = 0.8f;
 			var nftsm = nftAssumed * shapeMod;
 			var minNftNftsm = MathF.Min(nftOwned,nftsm) + (minNftOwned - 1);
-			var poolDecreaseExp = poolConfig.PoolDecreaseExponent;
-			var maxPoolDecreaseMod = poolConfig.MaxPoolDecreaseModifier;
+			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
+			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
 			
 			// ----- Calculate base pool capacity - based on player's owned NFT
 			var capacityBaseCalc = (float)Math.Pow(nftsm,2) - (nftsm - MathF.Pow(minNftNftsm,2));

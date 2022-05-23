@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using DG.DemiEditor;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
@@ -7,6 +9,7 @@ using FirstLight;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -56,6 +59,11 @@ namespace FirstLight.Game.Logic
 		/// Tries to restock a given pool type (restocking dependent on last restock time, current time)
 		/// </summary>
 		void RestockResourcePool(GameId poolType);
+
+		/// <summary>
+		/// Re-calculates pool capacity, based on various factors, such as amount of NFTs owned
+		/// </summary>
+		ulong GetCurrentPoolCapacity(GameId poolType);
 		
 		/// <summary>
 		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
@@ -148,6 +156,53 @@ namespace FirstLight.Game.Logic
 			Data.ResourcePools[pool] = poolData;
 
 			return amountWithdrawn;
+		}
+
+		/// <inheritdoc />
+		public ulong GetCurrentPoolCapacity(GameId poolType)
+		{
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
+			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
+			var nftOwned = GameLogic.EquipmentLogic.Inventory.Count;
+			var nftEquipped = GameLogic.EquipmentLogic.EquippedItems.Count;
+			
+			// Utility for calculations
+			var SHAPE_MOD = poolConfig.ShapeModifier;
+			var SCALE_MULT = poolConfig.ScaleMultiplier;
+			var NFT_ASSUMED = 40;
+			var MIN_NFT = 3;
+			var ADJ_RARITY_CURVE_MOD = 0.8f;
+			var NFTSM = NFT_ASSUMED * SHAPE_MOD;
+			var MIN_NFTMINEQUP = MathF.Min(nftOwned,NFTSM) + (MIN_NFT - 1);
+			
+			// Calculate base pool capacity - based on player's owned NFT
+			var capacityBaseCalc = (float)Math.Pow(NFTSM,2) - (NFTSM - MathF.Pow(MIN_NFTMINEQUP,2));
+			var capacityNftBonus = (ulong) MathF.Floor(MathF.Sqrt(MathF.Max(0, capacityBaseCalc))) * SCALE_MULT;
+			var poolCapacity = poolConfig.PoolCapacity + capacityNftBonus;
+
+			// Increase pool capacity based on owned NFT rarity and adjectives
+			var capacityAdjRarityMult = 0;
+
+			var modSumList = new List<Tuple<float, Equipment>>();
+			
+			foreach (var nft in GameLogic.EquipmentLogic.Inventory)
+			{
+				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Value.Rarity);
+				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Value.Adjective);
+				var modSum = rarityConfig.PoolCapacityModifier + adjectiveConfig.PoolCapacityModifier;
+				
+				modSumList.Add(new Tuple<float, Equipment>(modSum,nft.Value));
+			}
+
+			modSumList = modSumList.OrderByDescending(x => x.Item1).ToList();
+			
+			
+
+			poolCapacity = poolCapacity + (poolCapacity * capacityAdjRarityMult);
+		
+
+			Data.ResourcePools[poolType] = poolData;
+			return 0;
 		}
 
 		/// <inheritdoc />

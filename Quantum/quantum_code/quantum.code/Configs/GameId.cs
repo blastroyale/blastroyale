@@ -622,6 +622,126 @@ namespace Quantum
 						GameIdGroup.Platform
 					}.AsReadOnly()
 				},
+				{
+					GameId.Common, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.CommonPlus, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.Uncommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.UncommonPlus, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.Rare, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.RarePlus, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.Epic, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.EpicPlus, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.Legendary, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.LegendaryPlus, new List<GameIdGroup>
+					{
+						GameIdGroup.Rarity
+					}.AsReadOnly()
+				},
+				{
+					GameId.Regular, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Cool, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Ornate, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Posh, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Exquisite, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Majestic, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Marvelous, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Magnificent, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Royal, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
+				{
+					GameId.Divine, new List<GameIdGroup>
+					{
+						GameIdGroup.Adjective
+					}.AsReadOnly()
+				},
 			};
 
 		private static readonly Dictionary<GameIdGroup, ReadOnlyCollection<GameId>> _ids =
@@ -877,6 +997,36 @@ namespace Quantum
 					{
 						GameId.WeaponPlatformSpawner,
 						GameId.ConsumablePlatformSpawner
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Rarity, new List<GameId>
+					{
+						GameId.Common,
+						GameId.CommonPlus,
+						GameId.Uncommon,
+						GameId.UncommonPlus,
+						GameId.Rare,
+						GameId.RarePlus,
+						GameId.Epic,
+						GameId.EpicPlus,
+						GameId.Legendary,
+						GameId.LegendaryPlus
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Adjective, new List<GameId>
+					{
+						GameId.Regular,
+						GameId.Cool,
+						GameId.Ornate,
+						GameId.Posh,
+						GameId.Exquisite,
+						GameId.Majestic,
+						GameId.Marvelous,
+						GameId.Magnificent,
+						GameId.Royal,
+						GameId.Divine
 					}.AsReadOnly()
 				},
 			};

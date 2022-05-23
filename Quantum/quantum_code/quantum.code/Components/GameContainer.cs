@@ -74,11 +74,15 @@ namespace Quantum
 			var playersData = new List<QuantumPlayerMatchData>(data.Length);
 			var returnData = new QuantumPlayerMatchData[data.Length];
 			var gameMode = f.RuntimeConfig.GameMode;
-			var sorter = new BattleRoyaleSorter() as IRankSorter;
+			IRankSorter sorter;
 
 			if (gameMode == GameMode.Deathmatch)
 			{
 				sorter = new DeathmatchSorter();
+			}
+			else
+			{
+				sorter = new BattleRoyaleSorter();
 			}
 
 			for (var i = 0; i < f.PlayerCount; i++)

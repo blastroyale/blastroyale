@@ -36,7 +36,8 @@ namespace Quantum
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 
-			GatherAllPlayersEquipment(f, out var medianRarity, out var weapons);
+			var medianRarity = f.Context.MedianRarity;
+			var weapons = f.Context.PlayerWeapons;
 
 			// Decide on weapon drop
 			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
@@ -46,7 +47,7 @@ namespace Quantum
 			}
 			else
 			{
-				var weapon = weapons[f.RNG->Next(0, weapons.Count - 1)];
+				var weapon = weapons[f.RNG->Next(0, weapons.Length - 1)];
 
 				// I think this is silly, but "When a player picks up a weapon we inherit all NFT
 				// attributes (except for the rarity) from the Record".
@@ -64,38 +65,6 @@ namespace Quantum
 
 			// Decide on other stuff to drop
 			DropConsumables(f, chestPosition);
-		}
-
-		private void GatherAllPlayersEquipment(Frame f, out EquipmentRarity medianRarity, out List<Equipment> weapons)
-		{
-			weapons = new List<Equipment>();
-			var rarities = new List<EquipmentRarity>();
-
-			var players = f.GetSingleton<GameContainer>().PlayersData;
-			for (int i = 0; i < players.Length; i++)
-			{
-				var player = players[i];
-				if (!player.IsValid || player.IsBot)
-				{
-					continue;
-				}
-
-				var playerData = f.GetPlayerData(player.Player);
-
-				var weapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon());
-				if (weapon.IsValid())
-				{
-					weapons.Add(weapon);
-					rarities.Add(weapon.Rarity);
-				}
-				else
-				{
-					rarities.Add(EquipmentRarity.Common);
-				}
-			}
-
-			rarities.Sort();
-			medianRarity = rarities[(int) Math.Floor((decimal) rarities.Count / 2)];
 		}
 
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,

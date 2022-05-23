@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: RarityDataConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Rarity: 22
+  - Rarity: 0
     PoolCapacityModifier: 0
-  - Rarity: 59
+  - Rarity: 1
     PoolCapacityModifier: 0
-  - Rarity: 60
+  - Rarity: 2
     PoolCapacityModifier: 0.00125
-  - Rarity: 61
+  - Rarity: 3
     PoolCapacityModifier: 0.00125
-  - Rarity: 62
+  - Rarity: 4
     PoolCapacityModifier: 0.00125
-  - Rarity: 63
+  - Rarity: 5
     PoolCapacityModifier: 0.0025
-  - Rarity: 65
+  - Rarity: 6
     PoolCapacityModifier: 0.0025
-  - Rarity: 66
+  - Rarity: 7
     PoolCapacityModifier: 0.005
-  - Rarity: 67
+  - Rarity: 8
     PoolCapacityModifier: 0.005
-  - Rarity: 68
+  - Rarity: 9
     PoolCapacityModifier: 0.01

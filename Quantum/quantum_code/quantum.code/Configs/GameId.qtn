@@ -86,26 +86,6 @@ enum GameId
 	DummyCharacter = 6,
 	WeaponPlatformSpawner = 138,
 	ConsumablePlatformSpawner = 140,
-	Common = 22,
-	CommonPlus = 59,
-	Uncommon = 60,
-	UncommonPlus = 61,
-	Rare = 62,
-	RarePlus = 63,
-	Epic = 65,
-	EpicPlus = 66,
-	Legendary = 67,
-	LegendaryPlus = 68,
-	Regular = 69,
-	Cool = 70,
-	Ornate = 71,
-	Posh = 72,
-	Exquisite = 73,
-	Majestic = 74,
-	Marvelous = 75,
-	Magnificent = 76,
-	Royal = 77,
-	Divine = 78,
 }
 
 enum GameIdGroup
@@ -132,6 +112,4 @@ enum GameIdGroup
 	Destructible = 26,
 	DummyCharacter = 3,
 	Platform = 37,
-	Rarity = 6,
-	Adjective = 7,
 }

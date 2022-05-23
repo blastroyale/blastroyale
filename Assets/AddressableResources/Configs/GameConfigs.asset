@@ -36,7 +36,7 @@ MonoBehaviour:
       ShrinkingDamage: 20
       PlayerDefaultHealth: 800
       PlayerDefaultSpeed:
-        RawValue: 262144
+        RawValue: 314573
       PlayerMaxShieldCapacity: 800
       PlayerStartingShieldCapacity: 100
       CoinsPerRank: 30
@@ -59,7 +59,7 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 300
+      StatsPowerBaseValue: 400
       StatsPowerRarityMultiplier:
         RawValue: 131072
       StatsPowerLevelStepMultiplier:

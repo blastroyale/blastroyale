@@ -71,14 +71,29 @@ namespace Quantum.Systems
 				return;
 			}
 
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			
+			// If bot is not grounded the we explicitly call Move to apply gravity
+			// It's because even with Zero velocity any movement of CharacterController,
+			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
+			if (!kcc->Grounded)
+			{
+				kcc->Move(f, filter.Entity, FPVector3.Zero);
+				
+				// TODO Nik: Make a specific branching decision in case we skydive in Battle Royale
+				// instead of just Move to zero direction we need to choose a target to move to, based on bot BotBehaviourType,
+				// then store this target in blackboard (to not search again) and keep moving towards it
+				
+				return;
+			}
+
 			// If a bot has a valid target then we correct the bot's speed according
 			// to the weapon they carry and turn the bot towards the target
 			// otherwise we return speed to normal and let automatic navigation turn the bot
 			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
-
+			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
 				ClearTarget(f, ref filter);

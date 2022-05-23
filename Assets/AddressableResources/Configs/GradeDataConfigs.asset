@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60780edda7c14793a13faab776b2356, type: 3}
+  m_Name: GradeDataConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Grade: 5
+    PoolIncreaseModifier: 0
+  - Grade: 4
+    PoolIncreaseModifier: 0.025
+  - Grade: 3
+    PoolIncreaseModifier: 0.05
+  - Grade: 2
+    PoolIncreaseModifier: 0.085
+  - Grade: 1
+    PoolIncreaseModifier: 0.135
+  - Grade: 0
+    PoolIncreaseModifier: 0.21

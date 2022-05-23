@@ -12,7 +12,7 @@ namespace FirstLight.Game.Configs
 		public uint PoolCapacity;
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
-		public uint BaseTakePerMatch;
+		public uint BaseMaxTake;
 		public float ScaleMultiplier;
 		public float ShapeModifier;
 		public float MaxPoolDecreaseModifier;

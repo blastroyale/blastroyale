@@ -17,13 +17,17 @@ MonoBehaviour:
     PoolCapacity: 300
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
-    BaseTakePerMatch: 16
+    BaseMaxTake: 0
     ScaleMultiplier: 15
     ShapeModifier: 1.5
+    MaxPoolDecreaseModifier: 0.4
+    PoolDecreaseExponent: 0.5
   - Id: 15
     PoolCapacity: 500
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
-    BaseTakePerMatch: 41
+    BaseMaxTake: 0
     ScaleMultiplier: 25
     ShapeModifier: 1
+    MaxPoolDecreaseModifier: 0.4
+    PoolDecreaseExponent: 0.5

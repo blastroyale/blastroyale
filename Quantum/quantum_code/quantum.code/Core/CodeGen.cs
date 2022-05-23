@@ -86,6 +86,7 @@ namespace Quantum {
     GradeIII,
     GradeIV,
     GradeV,
+    GradeVI,
     TOTAL,
   }
   public enum EquipmentManufacturer : int {

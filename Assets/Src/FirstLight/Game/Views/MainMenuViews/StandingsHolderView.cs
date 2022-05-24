@@ -38,6 +38,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_extraInfo.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
 			
+			UpdateBoardRows(playerCount);
+		}
+
+		public void UpdateBoardRows(int playerCount)
+		{
 			// Add missing entries
 			for (var i = _playerResultPool.Count; i < playerCount; i++)
 			{
@@ -86,7 +91,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			Initialise(callback.PlayersMatchData.Count, true);
+			UpdateBoardRows(callback.PlayersMatchData.Count);
 			UpdateStandings(callback.PlayersMatchData);
 		}
 	}

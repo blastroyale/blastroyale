@@ -81,9 +81,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var leaderData = callback.PlayersMatchData[callback.PlayerLeader];
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var deadData = callback.PlayersMatchData[callback.PlayerDead];
+			var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
+			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 			
 			// Check to see if we are close to ending the match.
 			if(leaderData.Data.PlayersKilledCount == _killWarningLimit &&  callback.PlayerKiller == callback.PlayerLeader)

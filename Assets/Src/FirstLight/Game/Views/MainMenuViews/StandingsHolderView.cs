@@ -33,18 +33,24 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// Initialises the Standings Holder with current player ranks, kills and deaths.
 		/// If _showExtra is set to true, also shows XP and coins earned.
 		/// </summary>
-		public void Initialise(int playerCount, bool showExtra, bool enableBlockerButton)
+		public void Initialise(int playerCount, bool showExtra = false, bool enableBlockerButton = false)
 		{
 			_extraInfo.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
 			
-			for (var i = 0; i < playerCount; i++)
+			// Add missing entries
+			for (var i = _playerResultPool.Count; i < playerCount; i++)
 			{
 				var entry = GameObjectPool<PlayerResultEntryView>.Instantiator(_resultEntryViewRef);
 				
 				entry.gameObject.SetActive(true);
 				
 				_playerResultPool.Add(entry);
+			}
+			// Remove extra entries
+			for (var j = _playerResultPool.Count; j > _playerResultPool.Count; j--)
+			{
+				_playerResultPool.RemoveAt(j);
 			}
 
 			if (playerCount < 10)
@@ -64,7 +70,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			playerData.SortByPlayerRank(false);
 
 			// Do the descending order. From the highest to the lowest value
-			for (var i = 0; i < _playerResultPool.Count; i++)
+			for (var i = 0; i < playerData.Count; i++)
 			{
 				_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf);
 			}
@@ -80,6 +86,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			Initialise(callback.PlayersMatchData.Count, true);
 			UpdateStandings(callback.PlayersMatchData);
 		}
 	}

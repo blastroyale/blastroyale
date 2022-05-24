@@ -67,6 +67,12 @@ public partial class SROptions
 		((GameCommandService)services.CommandService).ForceServerDataUpdate();
 	}
 	
+	/// <summary>
+	/// This cheat can be be used to validate resource pool calculations, by receiving equipment used in the resource pool calculator:
+	/// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
+	///
+	/// Make sure to use RemoveAllEquipment cheat before using this one, if you want to test RP calculations.
+	/// </summary>
 	[Category("Equipment")]
 	public void UnlockEquipmentSet()
 	{

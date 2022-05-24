@@ -19,11 +19,6 @@ namespace FirstLight.Game.Configs
 		public float PoolCapacityDecreaseExponent;
 		public float MaxTakeDecreaseModifier;
 		public float TakeDecreaseExponent;
-		
-		/// <summary>
-		/// Returns amount of resource stocked per "RestockIntervalMinutes" minutes
-		/// </summary>
-		public uint RestockPerInterval => PoolCapacity / (TotalRestockIntervalMinutes / RestockIntervalMinutes);
 	}
 
 	/// <summary>

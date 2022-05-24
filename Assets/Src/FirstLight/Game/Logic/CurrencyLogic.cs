@@ -33,6 +33,16 @@ namespace FirstLight.Game.Logic
 		/// If the player has no currency of the given type, it will add it with 0 quantity to the player saved data
 		/// </summary>
 		ulong GetCurrencyAmount(GameId currency);
+		
+		/// <summary>
+		/// Requests the current capacity of a given <paramref name="poolType"/>, based on various factors, such as amount of NFTs owned
+		/// </summary>
+		ulong GetCurrentPoolCapacity(GameId poolType);
+
+		/// <summary>
+		/// Requests the amount of resource restocked per interval of a given <paramref name="poolType"/>
+		/// </summary>
+		ulong GetPoolRestockAmountPerInterval(GameId poolType);
 	}
 
 	/// <inheritdoc />
@@ -60,11 +70,6 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void RestockResourcePool(GameId poolType);
 
-		/// <summary>
-		/// Re-calculates pool capacity, based on various factors, such as amount of NFTs owned
-		/// </summary>
-		ulong GetCurrentPoolCapacity(GameId poolType);
-		
 		/// <summary>
 		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
 		/// </summary>
@@ -220,6 +225,15 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
+		public ulong GetPoolRestockAmountPerInterval(GameId poolType)
+		{
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
+			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
+
+			return currentPoolCapacity / (poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes);
+		}
+
+		/// <inheritdoc />
 		public void RestockResourcePool(GameId poolType)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
@@ -233,13 +247,14 @@ namespace FirstLight.Game.Logic
 			}
 			
 			poolData.LastPoolRestockTime = poolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * poolConfig.RestockIntervalMinutes);
-			poolData.CurrentResourceAmountInPool += poolConfig.RestockPerInterval * amountOfRestocks;
+			poolData.CurrentResourceAmountInPool += GetPoolRestockAmountPerInterval(poolType) * amountOfRestocks;
+
+			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
 			
-			if (poolData.CurrentResourceAmountInPool > poolConfig.PoolCapacity)
+			if (poolData.CurrentResourceAmountInPool > currentPoolCapacity)
 			{
-				poolData.CurrentResourceAmountInPool = poolConfig.PoolCapacity;
+				poolData.CurrentResourceAmountInPool = currentPoolCapacity;
 			}
-			
 			
 			Data.ResourcePools[poolType] = poolData;
 		}

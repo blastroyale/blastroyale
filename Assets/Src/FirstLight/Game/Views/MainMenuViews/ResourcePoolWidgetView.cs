@@ -23,7 +23,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class ResourcePoolWidgetView : MonoBehaviour
 	{
-		private const float TIMER_INTERVAL_SECONDS = 1f;
+		private const float TIMER_INTERVAL_SECONDS = 20f;
 		[SerializeField] private GameId _poolToObserve = GameId.CS;
 		[SerializeField] private Image _resourceImage;
 		[SerializeField] private TextMeshProUGUI _amountText;
@@ -35,6 +35,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private ResourcePoolData _currentPoolData;
 		private DateTime _nextRestockTime;
 		private ulong _currentAmount;
+		private ulong _currentCapacity;
+		private ulong _restockPerInterval;
 
 		private void Awake()
 		{
@@ -58,6 +60,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void TickTimerView(float delta)
 		{
+			_currentCapacity = _dataProvider.CurrencyDataProvider.GetCurrentPoolCapacity(_poolToObserve);
+			_restockPerInterval = _dataProvider.CurrencyDataProvider.GetPoolRestockAmountPerInterval(_poolToObserve);
 			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
 
 			uint restockForTime = CalculatePoolRestockAmount(_poolConfig) + 1;
@@ -68,19 +72,16 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var timeDiff = _nextRestockTime - DateTime.UtcNow;
 			var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 
-			if (_currentAmount < _poolConfig.PoolCapacity)
+			if (_currentAmount < _currentCapacity)
 			{
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime,
-				                                  _poolConfig.RestockPerInterval, timeDiffText);
+				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, _restockPerInterval, timeDiffText);
 			}
 			else
 			{
 				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResoucePoolFull);
 			}
 
-			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount,
-			                                 _currentAmount.ToString(),
-			                                 _poolConfig.PoolCapacity);
+			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, _currentAmount.ToString(), _currentCapacity);
 		}
 		
 		private uint CalculatePoolRestockAmount(ResourcePoolConfig config)
@@ -95,11 +96,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return 0;
 			}
 			
-			_currentPoolData.CurrentResourceAmountInPool += config.RestockPerInterval * amountOfRestocks;
+			_currentPoolData.CurrentResourceAmountInPool += _restockPerInterval * amountOfRestocks;
 			
-			if (_currentPoolData.CurrentResourceAmountInPool > config.PoolCapacity)
+			if (_currentPoolData.CurrentResourceAmountInPool > _currentCapacity)
 			{
-				_currentPoolData.CurrentResourceAmountInPool = config.PoolCapacity;
+				_currentPoolData.CurrentResourceAmountInPool = _currentCapacity;
 			}
 
 			return amountOfRestocks;

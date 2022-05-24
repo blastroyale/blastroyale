@@ -221,6 +221,7 @@
     <Compile Include="Configs\GameId.cs" />
     <Compile Include="Configs\IndicatorVfxId.cs" />
     <Compile Include="Configs\QuantumChestConfigs.cs" />
+    <Compile Include="Configs\QuantumEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />
     <Compile Include="Configs\QuantumBotConfigs.cs" />
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />

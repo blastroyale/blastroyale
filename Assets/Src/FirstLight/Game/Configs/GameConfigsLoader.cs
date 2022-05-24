@@ -52,6 +52,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
 				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.Placement, asset.Configs)),
 				LoadConfig<ChestConfigs>(AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<EquipmentStatsConfigs>(AddressableId.Configs_EquipmentStatsConfigs, asset => configsAdder.AddSingletonConfig(asset)),
 			};
 		}
 	

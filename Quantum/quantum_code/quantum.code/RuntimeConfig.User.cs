@@ -22,6 +22,7 @@ namespace Quantum
 		public AssetRefQuantumAssetConfigs AssetConfigs;
 		public AssetRefQuantumDestructibleConfigs DestructibleConfigs;
 		public AssetRefQuantumShrinkingCircleConfigs ShrinkingCircleConfigs;
+		public AssetRefQuantumEquipmentStatsConfigs EquipmentStatsConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -42,6 +43,7 @@ namespace Quantum
 			stream.Serialize(ref AssetConfigs);
 			stream.Serialize(ref DestructibleConfigs);
 			stream.Serialize(ref ShrinkingCircleConfigs);
+			stream.Serialize(ref EquipmentStatsConfigs);
 			
 			GameMode = (GameMode) gameMode;
 		}

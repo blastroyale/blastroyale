@@ -307,6 +307,11 @@ MonoBehaviour:
         Id:
           Value: 1838569179050410201
       Address: Maps/TinyTemple_NavMesh.asset
+    - Path: AddressableResources/Configs/EquipmentStatsConfigs
+      AssetRef:
+        Id:
+          Value: 2044373238692490151
+      Address: Configs/EquipmentStatsConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_15
       AssetRef:
         Id:

@@ -198,7 +198,6 @@ namespace FirstLight.Game.Logic
 			var modEquipmentList = new List<Tuple<float, Equipment>>();
 			var augmentedModSum = (float) 0;
 			
-			// Calculate total 'modifier'
 			foreach (var nft in GameLogic.EquipmentLogic.Inventory)
 			{
 				if (nft.Value.GameId == GameId.Hammer)
@@ -212,8 +211,7 @@ namespace FirstLight.Game.Logic
 				
 				modEquipmentList.Add(new Tuple<float, Equipment>(modSum,nft.Value));
 			}
-
-			// Calculate strength per modifier, add to total augmented mod sum
+			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
 			var currentIndex = 1;
 			

@@ -185,8 +185,7 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
-			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var stats = f.Unsafe.GetPointer<Stats>(e);
+			
 
 			// TODO mihak: This is super inefficient
 			var allEquipment = new List<Equipment>();
@@ -203,14 +202,10 @@ namespace Quantum
 			{
 				allEquipment.Add(CurrentWeapon);
 			}
-			
-			// TODO mihak: Will this override modifiers?
-			QuantumStatCalculator.CalculateStats(f, allEquipment, out var armour, out var health, out var speed, out var power);
-			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
-			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
-			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
-			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
-			
+
+			RefreshStats(f, e, allEquipment);
+
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
@@ -329,6 +324,22 @@ namespace Quantum
 			                   health,
 			                   f.GameConfig.PlayerMaxShieldCapacity,
 			                   f.GameConfig.PlayerStartingShieldCapacity));
+		}
+
+		private void RefreshStats(Frame f, EntityRef e, IEnumerable<Equipment> equipment)
+		{
+			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health, out var speed,
+			                                     out var power);
+
+			health += f.GameConfig.PlayerDefaultHealth;
+			speed += f.GameConfig.PlayerDefaultSpeed;
+
+			// TODO: Will this override modifiers?
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
+			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
+			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)

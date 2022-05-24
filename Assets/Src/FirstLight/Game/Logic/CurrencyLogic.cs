@@ -179,7 +179,7 @@ namespace FirstLight.Game.Logic
 			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
 			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
 			
-			// ----- Calculate base pool capacity - based on player's owned NFT
+			// ----- Set base pool capacity - based on player's owned NFT
 			var capacityBaseCalc = (float)Math.Pow(nftsm,2) - (nftsm - MathF.Pow(minNftNftsm,2));
 			var capacityNftBonus = (ulong) MathF.Floor(MathF.Sqrt(MathF.Max(0, capacityBaseCalc))) * scaleMult;
 			poolCapacity = poolConfig.PoolCapacity + (ulong) capacityNftBonus;
@@ -213,8 +213,8 @@ namespace FirstLight.Game.Logic
 			
 			// ----- Decrease pool capacity based on owned NFT durability
 			var totalNftDurability = GameLogic.EquipmentLogic.Inventory.Sum(x => x.Value.Durability);
-			var durabilityDecreaseModifier = MathF.Pow(1 - totalNftDurability, poolDecreaseExp) * maxPoolDecreaseMod;
-			poolCapacity -= (ulong)(poolCapacity * durabilityDecreaseModifier);
+			var durabilityDecreaseMult = MathF.Pow(1 - totalNftDurability, poolDecreaseExp) * maxPoolDecreaseMod;
+			poolCapacity -= (ulong)(poolCapacity * durabilityDecreaseMult);
 			
 			return poolCapacity;
 		}

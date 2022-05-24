@@ -113,14 +113,14 @@ namespace FirstLight.Game.Logic
 
 		private float GetMaxPoolTake(GameId resourcePoolId)
 		{
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId); 
-			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
-			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId);
 			var maxTake = (float) poolConfig.BaseMaxTake;
 			var nftAssumed = 40;
 			var minNftOwned = 3;
 			var adjRarityCurveMod = 0.8f;
 			var equippedItemArray = GameLogic.EquipmentLogic.GetEquippedItems();
+			var takeDecreaseMod = poolConfig.MaxTakeDecreaseModifier;
+			var takeDecreaseExp = poolConfig.TakeDecreaseExponent;
 			
 			// ----- Increase CS max take per grade of equipped NFTs
 			var modEquipmentList = new List<Tuple<float, Equipment>>();
@@ -152,16 +152,15 @@ namespace FirstLight.Game.Logic
 			maxTake += MathF.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var totalNftDurability = (float) 0;
-
+			var totalNftDurabilityMult = (float) 0;
+			
 			foreach (var nft in equippedItemArray)
 			{
-				totalNftDurability += nft.Durability / 100f;
+				var durabilityPercent = nft.Durability / 100f;
+				totalNftDurabilityMult += MathF.Pow(1 - durabilityPercent, takeDecreaseExp) * takeDecreaseMod;
 			}
 			
-			var nftDurabilityAvg = totalNftDurability / equippedItemArray.Length;
-			var durabilityDecreaseMult = MathF.Pow(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
-			maxTake -= MathF.Round(maxTake * durabilityDecreaseMult);
+			maxTake -= MathF.Round(maxTake * totalNftDurabilityMult);
 			
 			return maxTake;
 		}

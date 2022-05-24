@@ -91,7 +91,7 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 			
-			_standings.Initialise(frame.PlayerCount, false, isBattleRoyale);
+			_standings.Initialise(frame.PlayerCount, false, true);
 		}
 
 		private void OnQuitClicked()

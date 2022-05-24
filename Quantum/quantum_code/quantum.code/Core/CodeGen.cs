@@ -3530,21 +3530,23 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct CollectablePlatformSpawner : Quantum.IComponent {
-    public const Int32 SIZE = 32;
+    public const Int32 SIZE = 40;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     [HideInInspector()]
     public EntityRef Collectable;
     [FieldOffset(0)]
     public GameId GameId;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public UInt32 InitialSpawnDelayInSec;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     [HideInInspector()]
     public FP NextSpawnTime;
-    [FieldOffset(8)]
-    public UInt32 RespawnTimeInSec;
+    [FieldOffset(4)]
+    public Int32 RarityModifier;
     [FieldOffset(12)]
+    public UInt32 RespawnTimeInSec;
+    [FieldOffset(16)]
     [HideInInspector()]
     public UInt32 SpawnCount;
     public override Int32 GetHashCode() {
@@ -3554,6 +3556,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + InitialSpawnDelayInSec.GetHashCode();
         hash = hash * 31 + NextSpawnTime.GetHashCode();
+        hash = hash * 31 + RarityModifier.GetHashCode();
         hash = hash * 31 + RespawnTimeInSec.GetHashCode();
         hash = hash * 31 + SpawnCount.GetHashCode();
         return hash;
@@ -3562,6 +3565,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (CollectablePlatformSpawner*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
+        serializer.Stream.Serialize(&p->RarityModifier);
         serializer.Stream.Serialize(&p->InitialSpawnDelayInSec);
         serializer.Stream.Serialize(&p->RespawnTimeInSec);
         serializer.Stream.Serialize(&p->SpawnCount);
@@ -8618,6 +8622,7 @@ namespace Quantum.Prototypes {
     public UInt32 RespawnTimeInSec;
     public UInt32 InitialSpawnDelayInSec;
     public GameId_Prototype GameId;
+    public Int32 RarityModifier;
     partial void MaterializeUser(Frame frame, ref CollectablePlatformSpawner result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       CollectablePlatformSpawner component = default;
@@ -8629,6 +8634,7 @@ namespace Quantum.Prototypes {
       result.GameId = this.GameId;
       result.InitialSpawnDelayInSec = this.InitialSpawnDelayInSec;
       result.NextSpawnTime = this.NextSpawnTime;
+      result.RarityModifier = this.RarityModifier;
       result.RespawnTimeInSec = this.RespawnTimeInSec;
       result.SpawnCount = this.SpawnCount;
       MaterializeUser(frame, ref result, in context);

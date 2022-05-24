@@ -109,7 +109,7 @@ namespace Quantum.Systems
 		{
 			if (f.Unsafe.TryGetPointer<WeaponCollectable>(entity, out var weapon))
 			{
-				weapon->Collect(f, entity, playerEntity);
+				weapon->Collect(f, entity, playerEntity, player);
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
@@ -118,7 +118,7 @@ namespace Quantum.Systems
 			}
 			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
 			{
-				chest->Open(f, entity, playerEntity);
+				chest->Open(f, entity, playerEntity, player);
 			}
 			else
 			{

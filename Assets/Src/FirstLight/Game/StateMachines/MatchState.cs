@@ -292,7 +292,7 @@ namespace FirstLight.Game.StateMachines
 					Skin = GameId.Male01Avatar,
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
-					EquippedItems = new[]
+					Loadout = new[]
 					{
 						new Equipment(GameId.AK47,
 						              rarity: EquipmentRarity.Common,

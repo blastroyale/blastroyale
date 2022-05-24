@@ -137,7 +137,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			_gameDataProvider.EquipmentDataProvider.EquippedItems.TryGetValue(Data.EquipmentSlot, out var id);
+			_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(Data.EquipmentSlot, out var id);
 
 			_equipmentSortState = EquipmentSorter.EquipmentSortState.Rarity;
 			_uniqueId = id;

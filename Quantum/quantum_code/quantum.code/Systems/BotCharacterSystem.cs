@@ -252,7 +252,7 @@ namespace Quantum.Systems
 
 				var hit = f.Physics3D.Linecast(botPosition,
 				                               targetPosition,
-				                               f.TargetAllLayerMask,
+				                               f.Context.TargetAllLayerMask,
 				                               QueryOptions.HitDynamics | QueryOptions.HitStatics |
 				                               QueryOptions.HitKinematics);
 
@@ -626,7 +626,7 @@ namespace Quantum.Systems
 				var playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
-				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>());
+				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>(), Equipment.None);
 			}
 		}
 

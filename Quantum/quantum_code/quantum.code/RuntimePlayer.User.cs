@@ -9,7 +9,7 @@ namespace Quantum
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
 		public FPVector2 NormalizedSpawnPosition;
-		public Equipment[] EquippedItems;
+		public Equipment[] Loadout;
 
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -21,15 +21,15 @@ namespace Quantum
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
-			stream.SerializeArrayLength(ref EquippedItems);
+			stream.SerializeArrayLength(ref Loadout);
 
-			for (var i = 0; i < EquippedItems.Length; i++)
+			for (var i = 0; i < Loadout.Length; i++)
 			{
-				var localGear = EquippedItems[i];
+				var localGear = Loadout[i];
 				
 				Equipment.Serialize(&localGear, serializer);
 
-				EquippedItems[i] = localGear;
+				Loadout[i] = localGear;
 			}
 
 			Skin = (GameId) skin;

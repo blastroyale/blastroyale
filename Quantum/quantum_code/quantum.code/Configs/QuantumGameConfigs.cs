@@ -54,6 +54,7 @@ namespace Quantum
 		public FP DeathDropSmallShieldChance;
 		public int TrophyEloRange;
 		public int TrophyEloK;
+		public int MinOffhandWeaponPoolSize;
 	}
 
 	/// <summary>

@@ -75,8 +75,8 @@ namespace FirstLight.Game.Logic
 
 			// Get worst reward placement reward by default, or specific placement reward thereafter
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = 10; //(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
-			// TODO - remove the hard coded 10, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
+			var rankValue = 8; //(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
+			// TODO - remove the hard coded 8, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
@@ -97,10 +97,10 @@ namespace FirstLight.Game.Logic
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 
 			var equipSlots = 5;
-			var nftEquipped = GameLogic.EquipmentLogic.EquippedItems.Count;
+			var nftsEquipped = GameLogic.EquipmentLogic.EquippedItems.Count;
 			var csMaxTake = GetMaxPoolTake(GameId.CS);
 			
-			var csTake = (MathF.Floor(csMaxTake / equipSlots) * nftEquipped) * csPercent;
+			var csTake = MathF.Ceiling((csMaxTake / equipSlots * nftsEquipped) * csPercent);
 			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong) csTake, GameId.CS);
 			
 			if (csWithdrawn > 0)
@@ -114,24 +114,55 @@ namespace FirstLight.Game.Logic
 		private float GetMaxPoolTake(GameId resourcePoolId)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId); 
+			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
+			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
 			var maxTake = (float) poolConfig.BaseMaxTake;
+			var nftAssumed = 40;
+			var minNftOwned = 3;
+			var adjRarityCurveMod = 0.8f;
+			var equippedItemArray = GameLogic.EquipmentLogic.GetEquippedItems();
 			
 			// ----- Increase CS max take per grade of equipped NFTs
-			// ----- Decrease CS max take based on equipped NFT durability
-			var gradeIncreaseMult = (float) 0;
-			var durabilityDecreaseMult = (float) 0;
-			foreach (var nft in GameLogic.EquipmentLogic.GetEquippedItems())
+			var modEquipmentList = new List<Tuple<float, Equipment>>();
+			var augmentedModSum = (float) 0;
+			
+			foreach (var nft in equippedItemArray)
 			{
+				if (nft.GameId == GameId.Hammer)
+				{
+					continue;
+				}
+				
 				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Grade);
-				gradeIncreaseMult += gradeConfig.PoolIncreaseModifier;
-
-				var durabiltyPercent = nft.Durability / 100;
-				durabilityDecreaseMult += MathF.Pow(1 - durabiltyPercent, poolConfig.TakeDecreaseExponent) * poolConfig.MaxTakeDecreaseModifier;
+				var modSum = gradeConfig.PoolIncreaseModifier;
+				
+				modEquipmentList.Add(new Tuple<float, Equipment>(modSum,nft));
 			}
 			
-			maxTake += MathF.Ceiling(maxTake * gradeIncreaseMult);
-			maxTake *= durabilityDecreaseMult;
+			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
+			var currentIndex = 1;
+			
+			foreach (var modSumNft in modEquipmentList)
+			{
+				var strength = MathF.Pow( MathF.Max( 0, 1 - MathF.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
+				augmentedModSum += modSumNft.Item1 * strength;
+				currentIndex++;
+			}
+			
+			maxTake += MathF.Round(maxTake * augmentedModSum);
+			
+			// ----- Decrease CS max take based on equipped NFT durability
+			var totalNftDurability = (float) 0;
 
+			foreach (var nft in equippedItemArray)
+			{
+				totalNftDurability += nft.Durability / 100f;
+			}
+			
+			var nftDurabilityAvg = totalNftDurability / equippedItemArray.Length;
+			var durabilityDecreaseMult = MathF.Pow(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
+			maxTake -= MathF.Round(maxTake * durabilityDecreaseMult);
+			
 			return maxTake;
 		}
 

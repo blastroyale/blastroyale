@@ -271,14 +271,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			var mapConfig = GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value);
 			
-			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
+			StartRandomMatchmaking(mapConfig);
 		}
 		
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
 			var mapConfig = GetMapConfigById(msg.MapId);
 			
-			StartRandomMatchmaking(mapConfig, msg.IsOfflineMode);
+			StartRandomMatchmaking(mapConfig);
 		}
 		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
@@ -306,13 +306,13 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void StartRandomMatchmaking(MapConfig mapConfig, bool isOfflineMode)
+		private void StartRandomMatchmaking(MapConfig mapConfig)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var enterParams = config.GetEnterRoomParams(mapConfig, null);
 			var joinParams = config.GetJoinRandomRoomParams(mapConfig);
 
-			config.IsOfflineMode = isOfflineMode || mapConfig.PlayersLimit == 1;
+			config.IsOfflineMode = mapConfig.PlayersLimit == 1;
 			
 			UpdateQuantumClientProperties();
 

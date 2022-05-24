@@ -170,8 +170,8 @@ namespace FirstLight.Game.Logic
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 			
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-			var nftOwned = GameLogic.EquipmentLogic.Inventory.Count;
-			var poolCapacity = (ulong)0;
+			var nftOwned = GameLogic.EquipmentLogic.Inventory.Count - 1; // -1 to omit the hammer, which is a default weapon in the inventory
+			var poolCapacity = (float)0;
 			
 			// Utility for calculations
 			var shapeMod = poolConfig.ShapeModifier;
@@ -180,15 +180,14 @@ namespace FirstLight.Game.Logic
 			var minNftOwned = 3;
 			var adjRarityCurveMod = 0.8f;
 			var nftsm = nftAssumed * shapeMod;
-			var minNftNftsm = MathF.Min(nftOwned,nftsm) + (minNftOwned - 1);
 			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
 			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
 			
 			// ----- Set base pool capacity - based on player's owned NFT
-			var capacityBaseCalc = (float)Math.Pow(nftsm,2) - (nftsm - MathF.Pow(minNftNftsm,2));
-			var capacityNftBonus = (ulong) MathF.Floor(MathF.Sqrt(MathF.Max(0, capacityBaseCalc))) * scaleMult;
+			var capacityMaxCalc = MathF.Pow(nftsm, 2) - MathF.Pow((nftsm - MathF.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
+			var capacityNftBonus = MathF.Floor(MathF.Sqrt(MathF.Max(0, capacityMaxCalc)) * scaleMult);
 			
-			poolCapacity = poolConfig.PoolCapacity + (ulong) capacityNftBonus;
+			poolCapacity += poolConfig.PoolCapacity + capacityNftBonus;
 
 			// ----- Increase pool capacity based on owned NFT rarity and adjectives
 			var modEquipmentList = new List<Tuple<float, Equipment>>();
@@ -222,7 +221,7 @@ namespace FirstLight.Game.Logic
 			var durabilityDecreaseMult = MathF.Pow(1 - totalNftDurability, poolDecreaseExp) * maxPoolDecreaseMod;
 			poolCapacity -= (ulong)(poolCapacity * durabilityDecreaseMult);
 			
-			return poolCapacity;
+			return (ulong)poolCapacity;
 		}
 
 		/// <inheritdoc />

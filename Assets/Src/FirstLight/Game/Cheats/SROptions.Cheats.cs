@@ -49,26 +49,23 @@ public partial class SROptions
 	public void UnlockAllEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-
-		foreach (var config in weaponConfigs)
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		foreach (var config in equipmentConfigs)
 		{
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
 			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
 			                                                      level: 3));
 		}
 
-		foreach (var config in gearConfigs)
-		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
-		}
-
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

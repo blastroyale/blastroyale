@@ -1823,6 +1823,48 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  [Quantum.AssetRefAttribute(typeof(QuantumBaseEquipmentStatsConfigs))]
+  [System.SerializableAttribute()]
+  public unsafe partial struct AssetRefQuantumBaseEquipmentStatsConfigs : IEquatable<AssetRefQuantumBaseEquipmentStatsConfigs>, IAssetRef<QuantumBaseEquipmentStatsConfigs> {
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public AssetGuid Id;
+    public override String ToString() {
+      return AssetRef.ToString(Id);
+    }
+    public static implicit operator AssetRefQuantumBaseEquipmentStatsConfigs(QuantumBaseEquipmentStatsConfigs value) {
+      var r = default(AssetRefQuantumBaseEquipmentStatsConfigs);
+      if (value != null) {
+        r.Id = value.Guid;
+      }
+      return r;
+    }
+    public override Boolean Equals(Object obj) {
+      return obj is AssetRefQuantumBaseEquipmentStatsConfigs other && Equals(other);
+    }
+    public Boolean Equals(AssetRefQuantumBaseEquipmentStatsConfigs other) {
+      return Id.Equals(other.Id);
+    }
+    public static Boolean operator ==(AssetRefQuantumBaseEquipmentStatsConfigs a, AssetRefQuantumBaseEquipmentStatsConfigs b) {
+      return a.Id == b.Id;
+    }
+    public static Boolean operator !=(AssetRefQuantumBaseEquipmentStatsConfigs a, AssetRefQuantumBaseEquipmentStatsConfigs b) {
+      return a.Id != b.Id;
+    }
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 173;
+        hash = hash * 31 + Id.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (AssetRefQuantumBaseEquipmentStatsConfigs*)ptr;
+        AssetGuid.Serialize(&p->Id, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   [Quantum.AssetRefAttribute(typeof(QuantumBotConfigs))]
   [System.SerializableAttribute()]
   public unsafe partial struct AssetRefQuantumBotConfigs : IEquatable<AssetRefQuantumBotConfigs>, IAssetRef<QuantumBotConfigs> {
@@ -1854,7 +1896,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 173;
+        var hash = 179;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -1896,7 +1938,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 179;
+        var hash = 181;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -1938,7 +1980,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 181;
+        var hash = 191;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -1980,7 +2022,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 191;
+        var hash = 193;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2022,7 +2064,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 193;
+        var hash = 197;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
@@ -2064,55 +2106,13 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 197;
-        hash = hash * 31 + Id.GetHashCode();
-        return hash;
-      }
-    }
-    public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (AssetRefQuantumGameConfigs*)ptr;
-        AssetGuid.Serialize(&p->Id, serializer);
-    }
-  }
-  [StructLayout(LayoutKind.Explicit)]
-  [Quantum.AssetRefAttribute(typeof(QuantumGearConfigs))]
-  [System.SerializableAttribute()]
-  public unsafe partial struct AssetRefQuantumGearConfigs : IEquatable<AssetRefQuantumGearConfigs>, IAssetRef<QuantumGearConfigs> {
-    public const Int32 SIZE = 8;
-    public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
-    public AssetGuid Id;
-    public override String ToString() {
-      return AssetRef.ToString(Id);
-    }
-    public static implicit operator AssetRefQuantumGearConfigs(QuantumGearConfigs value) {
-      var r = default(AssetRefQuantumGearConfigs);
-      if (value != null) {
-        r.Id = value.Guid;
-      }
-      return r;
-    }
-    public override Boolean Equals(Object obj) {
-      return obj is AssetRefQuantumGearConfigs other && Equals(other);
-    }
-    public Boolean Equals(AssetRefQuantumGearConfigs other) {
-      return Id.Equals(other.Id);
-    }
-    public static Boolean operator ==(AssetRefQuantumGearConfigs a, AssetRefQuantumGearConfigs b) {
-      return a.Id == b.Id;
-    }
-    public static Boolean operator !=(AssetRefQuantumGearConfigs a, AssetRefQuantumGearConfigs b) {
-      return a.Id != b.Id;
-    }
-    public override Int32 GetHashCode() {
-      unchecked { 
         var hash = 199;
         hash = hash * 31 + Id.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (AssetRefQuantumGearConfigs*)ptr;
+        var p = (AssetRefQuantumGameConfigs*)ptr;
         AssetGuid.Serialize(&p->Id, serializer);
     }
   }
@@ -5559,9 +5559,6 @@ namespace Quantum {
       public QuantumWeaponConfigs QuantumWeaponConfigs(AssetRefQuantumWeaponConfigs assetRef) {
          return _f.FindAsset<QuantumWeaponConfigs>(assetRef.Id);
       }
-      public QuantumGearConfigs QuantumGearConfigs(AssetRefQuantumGearConfigs assetRef) {
-         return _f.FindAsset<QuantumGearConfigs>(assetRef.Id);
-      }
       public QuantumBotConfigs QuantumBotConfigs(AssetRefQuantumBotConfigs assetRef) {
          return _f.FindAsset<QuantumBotConfigs>(assetRef.Id);
       }
@@ -5585,6 +5582,9 @@ namespace Quantum {
       }
       public QuantumEquipmentStatsConfigs QuantumEquipmentStatsConfigs(AssetRefQuantumEquipmentStatsConfigs assetRef) {
          return _f.FindAsset<QuantumEquipmentStatsConfigs>(assetRef.Id);
+      }
+      public QuantumBaseEquipmentStatsConfigs QuantumBaseEquipmentStatsConfigs(AssetRefQuantumBaseEquipmentStatsConfigs assetRef) {
+         return _f.FindAsset<QuantumBaseEquipmentStatsConfigs>(assetRef.Id);
       }
     }
   }
@@ -7505,6 +7505,9 @@ namespace Quantum {
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumAssetConfigs value) {
       stream.Serialize(ref value.Id.Value);
     }
+    public static void Serialize(this IBitStream stream, ref AssetRefQuantumBaseEquipmentStatsConfigs value) {
+      stream.Serialize(ref value.Id.Value);
+    }
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumBotConfigs value) {
       stream.Serialize(ref value.Id.Value);
     }
@@ -7521,9 +7524,6 @@ namespace Quantum {
       stream.Serialize(ref value.Id.Value);
     }
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumGameConfigs value) {
-      stream.Serialize(ref value.Id.Value);
-    }
-    public static void Serialize(this IBitStream stream, ref AssetRefQuantumGearConfigs value) {
       stream.Serialize(ref value.Id.Value);
     }
     public static void Serialize(this IBitStream stream, ref AssetRefQuantumShrinkingCircleConfigs value) {
@@ -7600,9 +7600,6 @@ namespace Quantum {
   public unsafe partial class QuantumWeaponConfigs : AssetObject {
   }
   [System.SerializableAttribute()]
-  public unsafe partial class QuantumGearConfigs : AssetObject {
-  }
-  [System.SerializableAttribute()]
   public unsafe partial class QuantumBotConfigs : AssetObject {
   }
   [System.SerializableAttribute()]
@@ -7625,6 +7622,9 @@ namespace Quantum {
   }
   [System.SerializableAttribute()]
   public unsafe partial class QuantumEquipmentStatsConfigs : AssetObject {
+  }
+  [System.SerializableAttribute()]
+  public unsafe partial class QuantumBaseEquipmentStatsConfigs : AssetObject {
   }
   public unsafe partial class ComponentPrototypeVisitor : Prototypes.ComponentPrototypeVisitorBase {
     public virtual void Visit(Prototypes.AIBlackboardComponent_Prototype prototype) {
@@ -7820,13 +7820,13 @@ namespace Quantum {
       Register(typeof(AssetRefPhysicsMaterial), AssetRefPhysicsMaterial.SIZE);
       Register(typeof(AssetRefPolygonCollider), AssetRefPolygonCollider.SIZE);
       Register(typeof(Quantum.AssetRefQuantumAssetConfigs), Quantum.AssetRefQuantumAssetConfigs.SIZE);
+      Register(typeof(Quantum.AssetRefQuantumBaseEquipmentStatsConfigs), Quantum.AssetRefQuantumBaseEquipmentStatsConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumBotConfigs), Quantum.AssetRefQuantumBotConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumChestConfigs), Quantum.AssetRefQuantumChestConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumConsumableConfigs), Quantum.AssetRefQuantumConsumableConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumDestructibleConfigs), Quantum.AssetRefQuantumDestructibleConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumEquipmentStatsConfigs), Quantum.AssetRefQuantumEquipmentStatsConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumGameConfigs), Quantum.AssetRefQuantumGameConfigs.SIZE);
-      Register(typeof(Quantum.AssetRefQuantumGearConfigs), Quantum.AssetRefQuantumGearConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumShrinkingCircleConfigs), Quantum.AssetRefQuantumShrinkingCircleConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumSpecialConfigs), Quantum.AssetRefQuantumSpecialConfigs.SIZE);
       Register(typeof(Quantum.AssetRefQuantumWeaponConfigs), Quantum.AssetRefQuantumWeaponConfigs.SIZE);
@@ -7988,13 +7988,13 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefHFSMState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefHFSMTransitionSet>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumAssetConfigs>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumBaseEquipmentStatsConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumBotConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumChestConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumConsumableConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumDestructibleConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumEquipmentStatsConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumGameConfigs>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumGearConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumShrinkingCircleConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumSpecialConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumWeaponConfigs>();

@@ -62,11 +62,6 @@ MonoBehaviour:
         Id:
           Value: 307490403732720118
       Address: QuantumAssets/Default Config Assets/Default CharacterController2DConfigAsset.asset
-    - Path: AddressableResources/Configs/GearConfigs
-      AssetRef:
-        Id:
-          Value: 331988359844761930
-      Address: Configs/GearConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|NotShooting_12
       AssetRef:
         Id:
@@ -262,6 +257,11 @@ MonoBehaviour:
         Id:
           Value: 1433292725654733562
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Stunned_1]
+    - Path: AddressableResources/Configs/BaseEquipmentStatsConfigs
+      AssetRef:
+        Id:
+          Value: 1461361185191240749
+      Address: Configs/BaseEquipmentStatsConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_22
       AssetRef:
         Id:

@@ -65,7 +65,7 @@ namespace Quantum
 		}
 	}
 
-	public struct EquipmentStatsKey : IEquatable<EquipmentStatsKey>
+	public readonly struct EquipmentStatsKey : IEquatable<EquipmentStatsKey>
 	{
 		public readonly GameIdGroup Category;
 		public readonly EquipmentAdjective Adjective;

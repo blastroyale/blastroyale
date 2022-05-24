@@ -301,10 +301,10 @@ namespace Quantum
 			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
 			                                     out var speed, out var power);
 
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + armour,
+			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + health,
 			                   power,
 			                   f.GameConfig.PlayerDefaultSpeed + speed,
-			                   health,
+			                   armour,
 			                   f.GameConfig.PlayerMaxShieldCapacity,
 			                   f.GameConfig.PlayerStartingShieldCapacity));
 		}
@@ -318,12 +318,12 @@ namespace Quantum
 			health += f.GameConfig.PlayerDefaultHealth;
 			speed += f.GameConfig.PlayerDefaultSpeed;
 
-			// TODO: Will this override modifiers?
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
 			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			stats->ApplyModifiers(f);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)

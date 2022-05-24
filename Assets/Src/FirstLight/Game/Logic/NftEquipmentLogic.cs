@@ -109,7 +109,7 @@ namespace FirstLight.Game.Logic
 				          .AsFloat);
 			stats.Add(EquipmentStatType.Damage,
 			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Armour)
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Power)
 				          .AsFloat);
 
 			return stats;

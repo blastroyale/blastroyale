@@ -7,7 +7,7 @@ namespace Quantum
 	[Serializable]
 	public partial struct QuantumEquipmentStatsConfig
 	{
-		public GameIdGroup Group;
+		public GameIdGroup Category;
 		public EquipmentAdjective Adjective;
 		public EquipmentFaction Faction;
 
@@ -40,10 +40,10 @@ namespace Quantum
 				foreach (var statsConfig in QuantumConfigs)
 				{
 					_dictionary
-						.Add(new EquipmentStatsKey(statsConfig.Group, statsConfig.Adjective, statsConfig.Faction),
+						.Add(new EquipmentStatsKey(statsConfig.Category, statsConfig.Adjective, statsConfig.Faction),
 						     statsConfig);
 
-					_validGroups.Add(statsConfig.Group);
+					_validGroups.Add(statsConfig.Category);
 				}
 			}
 
@@ -63,39 +63,39 @@ namespace Quantum
 
 			throw new NotSupportedException($"GameIdGroup for Equipment with GameId({equipment.GameId}) not found.");
 		}
+	}
 
-		private struct EquipmentStatsKey : IEquatable<EquipmentStatsKey>
+	public struct EquipmentStatsKey : IEquatable<EquipmentStatsKey>
+	{
+		public readonly GameIdGroup Category;
+		public readonly EquipmentAdjective Adjective;
+		public readonly EquipmentFaction Faction;
+
+		public EquipmentStatsKey(GameIdGroup category, EquipmentAdjective adjective, EquipmentFaction faction)
 		{
-			public readonly GameIdGroup Group;
-			public readonly EquipmentAdjective Adjective;
-			public readonly EquipmentFaction Faction;
+			Faction = faction;
+			Category = category;
+			Adjective = adjective;
+		}
 
-			public EquipmentStatsKey(GameIdGroup group, EquipmentAdjective adjective, EquipmentFaction faction)
-			{
-				Faction = faction;
-				Group = group;
-				Adjective = adjective;
-			}
+		public bool Equals(EquipmentStatsKey other)
+		{
+			return Category == other.Category && Adjective == other.Adjective && Faction == other.Faction;
+		}
 
-			public bool Equals(EquipmentStatsKey other)
-			{
-				return Group == other.Group && Adjective == other.Adjective && Faction == other.Faction;
-			}
+		public override bool Equals(object obj)
+		{
+			return obj is EquipmentStatsKey other && Equals(other);
+		}
 
-			public override bool Equals(object obj)
+		public override int GetHashCode()
+		{
+			unchecked
 			{
-				return obj is EquipmentStatsKey other && Equals(other);
-			}
-
-			public override int GetHashCode()
-			{
-				unchecked
-				{
-					var hashCode = (int) Group;
-					hashCode = (hashCode * 397) ^ (int) Adjective;
-					hashCode = (hashCode * 397) ^ (int) Faction;
-					return hashCode;
-				}
+				var hashCode = (int) Category;
+				hashCode = (hashCode * 397) ^ (int) Adjective;
+				hashCode = (hashCode * 397) ^ (int) Faction;
+				return hashCode;
 			}
 		}
 	}

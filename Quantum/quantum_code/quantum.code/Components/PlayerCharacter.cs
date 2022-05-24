@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -186,9 +187,30 @@ namespace Quantum
 			var weapon = CurrentWeapon;
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var power = QuantumStatCalculator.CalculateWeaponPower(f, weapon);
 
+			// TODO mihak: This is super inefficient
+			var allEquipment = new List<Equipment>();
+			for (int i = 0; i < Gear.Length; i++)
+			{
+				var item = Gear[i];
+				if (item.IsValid())
+				{
+					allEquipment.Add(item);
+				}
+			}
+
+			if (CurrentWeapon.IsValid())
+			{
+				allEquipment.Add(CurrentWeapon);
+			}
+			
+			// TODO mihak: Will this override modifiers?
+			QuantumStatCalculator.CalculateStats(f, allEquipment, out var armour, out var health, out var speed, out var power);
+			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
+			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
@@ -298,13 +320,13 @@ namespace Quantum
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
 		{
-			QuantumStatCalculator.CalculateGearStats(f, equipment, out var gearArmour, out var gearHealth,
-			                                         out var gearSpeed);
+			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
+			                                     out var speed, out var power);
 
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + gearHealth,
-			                   0,
-			                   f.GameConfig.PlayerDefaultSpeed + gearSpeed,
-			                   gearArmour,
+			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + armour,
+			                   power,
+			                   f.GameConfig.PlayerDefaultSpeed + speed,
+			                   health,
 			                   f.GameConfig.PlayerMaxShieldCapacity,
 			                   f.GameConfig.PlayerStartingShieldCapacity));
 		}

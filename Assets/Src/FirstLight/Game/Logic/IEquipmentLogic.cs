@@ -61,6 +61,11 @@ namespace FirstLight.Game.Logic
 		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
 		UniqueId AddToInventory(Equipment equipment);
+		
+		/// <summary>
+		/// Tries to remove an item from inventory, and returns true if a removal was successful
+		/// </summary>
+		bool RemoveFromInventory(UniqueId equipment);
 
 		/// <summary>
 		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.

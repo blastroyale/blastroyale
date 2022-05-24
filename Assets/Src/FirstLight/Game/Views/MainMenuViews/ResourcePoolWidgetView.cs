@@ -49,6 +49,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEnable()
 		{
 			_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);
+			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
+			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
 			TickTimerView(0);
 		}
 
@@ -56,6 +58,16 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services.TickService?.UnsubscribeAllOnUpdate(this);
 			_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private void OnItemEquippedMessage(ItemEquippedMessage msg)
+		{
+			TickTimerView(0);
+		}
+
+		private void OnItemUnequippedMessage(ItemUnequippedMessage msg)
+		{
+			TickTimerView(0);
 		}
 
 		private void TickTimerView(float delta)

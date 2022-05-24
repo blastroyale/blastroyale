@@ -46,26 +46,77 @@ public partial class SROptions
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 
+	[Category("Equipment")]
 	public void UnlockAllEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
 		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
 		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
 
 		foreach (var config in weaponConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary, level: 3));
 		}
 
 		foreach (var config in gearConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary, level: 3));
 		}
 
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Equipment")]
+	public void UnlockEquipmentSet()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
+		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+		
+		var eq1 = new Equipment(weaponConfigs[2].Id, rarity: EquipmentRarity.RarePlus, adjective: EquipmentAdjective.Regular, grade: EquipmentGrade.GradeV, level: 3);
+		var eq2 = new Equipment(gearConfigs[0].Id, rarity: EquipmentRarity.Rare, adjective: EquipmentAdjective.Exquisite, grade: EquipmentGrade.GradeVI, level: 3);
+		var eq3 = new Equipment(gearConfigs[4].Id, rarity: EquipmentRarity.Uncommon, adjective: EquipmentAdjective.Cool, grade: EquipmentGrade.GradeIII, level: 3);
+		var eq4 = new Equipment(gearConfigs[5].Id, rarity: EquipmentRarity.Legendary, adjective: EquipmentAdjective.Royal, grade: EquipmentGrade.GradeI, level: 3);
+		var eq5 = new Equipment(gearConfigs[6].Id, rarity: EquipmentRarity.LegendaryPlus, adjective: EquipmentAdjective.Divine, grade: EquipmentGrade.GradeIV, level: 3);
+		
+		gameLogic.EquipmentLogic.AddToInventory(eq1);
+		gameLogic.EquipmentLogic.AddToInventory(eq2);
+		gameLogic.EquipmentLogic.AddToInventory(eq3);
+		gameLogic.EquipmentLogic.AddToInventory(eq4);
+		gameLogic.EquipmentLogic.AddToInventory(eq5);
+		
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Equipment")]
+	public void UnlockOneEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
+
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(weaponConfigs[1].Id, rarity: EquipmentRarity.Legendary, level: 3));
+
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Equipment")]
+	public void RemoveAllEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+
+		var deletionKeys = new List<UniqueId>();
+
+		deletionKeys.AddRange(gameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary.Keys);
+		
+		foreach (var key in deletionKeys)
+		{
+			gameLogic.EquipmentLogic.RemoveFromInventory(key);
+		}
+		
 		((GameCommandService)services.CommandService).ForceServerDataUpdate();
 	}
 	
@@ -94,6 +145,7 @@ public partial class SROptions
 		}
 	}
 
+	[Category("Progression")]
 	private void AddXp(uint amount)
 	{
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;

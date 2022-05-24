@@ -187,6 +187,7 @@ namespace FirstLight.Game.Logic
 			// ----- Set base pool capacity - based on player's owned NFT
 			var capacityBaseCalc = (float)Math.Pow(nftsm,2) - (nftsm - MathF.Pow(minNftNftsm,2));
 			var capacityNftBonus = (ulong) MathF.Floor(MathF.Sqrt(MathF.Max(0, capacityBaseCalc))) * scaleMult;
+			
 			poolCapacity = poolConfig.PoolCapacity + (ulong) capacityNftBonus;
 
 			// ----- Increase pool capacity based on owned NFT rarity and adjectives

@@ -20,16 +20,16 @@ MonoBehaviour:
   - Adjective: 2
     PoolCapacityModifier: 0
   - Adjective: 3
-    PoolCapacityModifier: 0
+    PoolCapacityModifier: 0.00125
   - Adjective: 4
     PoolCapacityModifier: 0.00125
   - Adjective: 5
-    PoolCapacityModifier: 0.00125
+    PoolCapacityModifier: 0.0025
   - Adjective: 6
     PoolCapacityModifier: 0.0025
   - Adjective: 7
-    PoolCapacityModifier: 0.0025
-  - Adjective: 8
     PoolCapacityModifier: 0.005
+  - Adjective: 8
+    PoolCapacityModifier: 0.01
   - Adjective: 9
     PoolCapacityModifier: 0.01

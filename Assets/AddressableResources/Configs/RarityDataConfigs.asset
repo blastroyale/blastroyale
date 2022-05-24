@@ -22,14 +22,14 @@ MonoBehaviour:
   - Rarity: 3
     PoolCapacityModifier: 0.00125
   - Rarity: 4
-    PoolCapacityModifier: 0.00125
+    PoolCapacityModifier: 0.0025
   - Rarity: 5
     PoolCapacityModifier: 0.0025
   - Rarity: 6
-    PoolCapacityModifier: 0.0025
+    PoolCapacityModifier: 0.005
   - Rarity: 7
     PoolCapacityModifier: 0.005
   - Rarity: 8
-    PoolCapacityModifier: 0.005
+    PoolCapacityModifier: 0.01
   - Rarity: 9
     PoolCapacityModifier: 0.01

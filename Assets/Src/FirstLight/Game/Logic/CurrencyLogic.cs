@@ -196,6 +196,11 @@ namespace FirstLight.Game.Logic
 			// Calculate total 'modifier'
 			foreach (var nft in GameLogic.EquipmentLogic.Inventory)
 			{
+				if (nft.Value.GameId == GameId.Hammer)
+				{
+					continue;
+				}
+				
 				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Value.Rarity);
 				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Value.Adjective);
 				var modSum = rarityConfig.PoolCapacityModifier + adjectiveConfig.PoolCapacityModifier;
@@ -205,7 +210,7 @@ namespace FirstLight.Game.Logic
 
 			// Calculate strength per modifier, add to total augmented mod sum
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
-			var currentIndex = 0;
+			var currentIndex = 1;
 			
 			foreach (var modSumNft in modEquipmentList)
 			{
@@ -217,9 +222,22 @@ namespace FirstLight.Game.Logic
 			poolCapacity += (ulong)(poolCapacity * augmentedModSum);
 			
 			// ----- Decrease pool capacity based on owned NFT durability
-			var totalNftDurability = GameLogic.EquipmentLogic.Inventory.Sum(x => x.Value.Durability);
-			var durabilityDecreaseMult = MathF.Pow(1 - totalNftDurability, poolDecreaseExp) * maxPoolDecreaseMod;
-			poolCapacity -= (ulong)(poolCapacity * durabilityDecreaseMult);
+			var totalNftDurability = (float) 0;
+
+			foreach (var nft in GameLogic.EquipmentLogic.Inventory)
+			{
+				if (nft.Value.GameId == GameId.Hammer)
+				{
+					continue;
+				}
+
+				totalNftDurability += nft.Value.Durability / 100f;
+			}
+			
+			var nftDurabilityAvg = totalNftDurability / nftOwned;
+			var durabilityDecreaseMult = MathF.Pow(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
+			
+			poolCapacity -= MathF.Floor(poolCapacity * durabilityDecreaseMult);
 			
 			return (ulong)poolCapacity;
 		}

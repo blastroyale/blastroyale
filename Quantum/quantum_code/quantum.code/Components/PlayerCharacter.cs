@@ -186,23 +186,7 @@ namespace Quantum
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
 
-			// TODO mihak: This is super inefficient
-			var allEquipment = new List<Equipment>();
-			for (int i = 0; i < Gear.Length; i++)
-			{
-				var item = Gear[i];
-				if (item.IsValid())
-				{
-					allEquipment.Add(item);
-				}
-			}
-
-			if (CurrentWeapon.IsValid())
-			{
-				allEquipment.Add(CurrentWeapon);
-			}
-
-			RefreshStats(f, e, allEquipment);
+			RefreshStats(f, e);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
@@ -325,9 +309,10 @@ namespace Quantum
 			                   f.GameConfig.PlayerStartingShieldCapacity));
 		}
 
-		private void RefreshStats(Frame f, EntityRef e, IEnumerable<Equipment> equipment)
+		private void RefreshStats(Frame f, EntityRef e)
 		{
-			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health, out var speed,
+			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
+			                                     out var speed,
 			                                     out var power);
 
 			health += f.GameConfig.PlayerDefaultHealth;

@@ -41,6 +41,50 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Requests the character's stats based on currently equipped <paramref name="weapon"/> and
+		/// <paramref name="gear"/> from it's base stats and NFT configs.
+		/// </summary>
+		public static void CalculateStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour,
+		                                  out int health,
+		                                  out FP speed, out FP power)
+		{
+			var gameConfig = f.GameConfig;
+
+			health = 0;
+			speed = FP._0;
+			armour = 0;
+			power = FP._0;
+
+			if (weapon.IsValid())
+			{
+				var baseStatConfig = f.BaseEquipmentStatsConfigs.GetConfig(weapon.GameId);
+				var statConfig = f.EquipmentStatsConfigs.GetConfig(weapon);
+
+				health += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Health).AsInt;
+				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Speed);
+				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Armour).AsInt;
+				power += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Power);
+			}
+
+			for (int i = 0; i < gear.Length; i++)
+			{
+				var item = gear[i];
+				if (!item.IsValid())
+				{
+					continue;
+				}
+
+				var baseStatConfig = f.BaseEquipmentStatsConfigs.GetConfig(item.GameId);
+				var statConfig = f.EquipmentStatsConfigs.GetConfig(item);
+
+				health += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Health).AsInt;
+				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Speed);
+				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Armour).AsInt;
+				power += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Power);
+			}
+		}
+
+		/// <summary>
 		/// Calculates the weapon power based on weapon stats and NFT config.
 		/// </summary>
 		public static FP CalculateStat(QuantumGameConfig gameConfig, QuantumBaseEquipmentStatsConfig baseStatsConfig,

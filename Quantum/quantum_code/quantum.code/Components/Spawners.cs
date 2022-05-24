@@ -77,7 +77,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Spawns a <see cref="WeaponCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
 		private EntityRef SpawnWeapon(Frame f, GameId id, Transform3D transform)
 		{
@@ -87,8 +87,10 @@ namespace Quantum
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
-			                                                     config);
+			// TODO mihak: Set median rarity
+			var equipment = new Equipment(config.Id);
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			                                                        equipment);
 
 			return entity;
 		}

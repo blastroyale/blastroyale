@@ -46,11 +46,11 @@ public partial class SROptions
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 
-	public void UnlockAllEquipment()
+	public void GiveMaxedEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
-		
+
 		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 		foreach (var config in equipmentConfigs)
 		{
@@ -59,8 +59,39 @@ public partial class SROptions
 				continue;
 			}
 
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id,
+			                                                      EquipmentEdition.Genesis,
+			                                                      EquipmentRarity.LegendaryPlus,
+			                                                      EquipmentGrade.GradeI,
+			                                                      EquipmentFaction.Dimensional,
+			                                                      EquipmentAdjective.Divine,
+			                                                      EquipmentMaterial.Golden,
+			                                                      EquipmentManufacturer.Military,
+			                                                      100,
+			                                                      10,
+			                                                      0,
+			                                                      0,
+			                                                      10
+			                                                     ));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	public void GiveBadEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		foreach (var config in equipmentConfigs)
+		{
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id));
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();

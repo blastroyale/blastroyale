@@ -216,7 +216,7 @@
     <Compile Include="Components\Spell.cs" />
     <Compile Include="Components\Stats.cs" />
     <Compile Include="Components\StatusModifiers.cs" />
-    <Compile Include="Components\WeaponCollectable.cs" />
+    <Compile Include="Components\EquipmentCollectable.cs" />
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="Configs\GameId.cs" />
     <Compile Include="Configs\IndicatorVfxId.cs" />
@@ -314,7 +314,7 @@
     <Content Include="Components\Stats.qtn" />
     <Content Include="Components\StatusModifiers.qtn" />
     <Content Include="Components\Targetable.qtn" />
-    <Content Include="Components\WeaponCollectable.qtn" />
+    <Content Include="Components\EquipmentCollectable.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
     <Content Include="Events\GameEvents.qtn" />

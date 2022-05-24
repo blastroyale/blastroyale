@@ -185,7 +185,6 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
-			
 
 			// TODO mihak: This is super inefficient
 			var allEquipment = new List<Equipment>();

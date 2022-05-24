@@ -1,4 +1,5 @@
-component WeaponCollectable
+component EquipmentCollectable
 {
+    Equipment Item;
 	player_ref Owner; // Optionally set if this weapon is from a Loadout of a player
 }

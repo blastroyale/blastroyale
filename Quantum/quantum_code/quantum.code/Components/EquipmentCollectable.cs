@@ -3,20 +3,21 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public unsafe partial struct WeaponCollectable
+	public unsafe partial struct EquipmentCollectable
 	{
 		/// <summary>
 		/// Initializes this Weapon pick up with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, QuantumWeaponConfig config,
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, Equipment equipment,
 		                   PlayerRef owner = new PlayerRef())
 		{
-			var collectable = new Collectable {GameId = config.Id};
+			var collectable = new Collectable {GameId = equipment.GameId};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			transform->Position = position;
 			transform->Rotation = rotation;
 
+			Item = equipment;
 			Owner = owner;
 
 			f.Add(e, collectable);
@@ -29,7 +30,6 @@ namespace Quantum
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
 			var collectable = f.Get<Collectable>(entity);
-			var equipment = new Equipment(collectable.GameId);
 			var isBot = f.Has<BotCharacter>(player);
 			var playerData = f.GetPlayerData(playerRef);
 
@@ -37,7 +37,7 @@ namespace Quantum
 			                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
 			                     !playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid());
 
-			playerCharacter->AddWeapon(f, player, equipment, primaryWeapon);
+			playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
 			playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
 		}
 	}

@@ -3703,6 +3703,28 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct EquipmentCollectable : Quantum.IComponent {
+    public const Int32 SIZE = 68;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(4)]
+    public Equipment Item;
+    [FieldOffset(0)]
+    public PlayerRef Owner;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 419;
+        hash = hash * 31 + Item.GetHashCode();
+        hash = hash * 31 + Owner.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (EquipmentCollectable*)ptr;
+        PlayerRef.Serialize(&p->Owner, serializer);
+        Quantum.Equipment.Serialize(&p->Item, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GOAPAgent : Quantum.IComponent {
     public const Int32 SIZE = 128;
     public const Int32 ALIGNMENT = 8;
@@ -3760,7 +3782,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 419;
+        var hash = 421;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + CurrentActionIndex.GetHashCode();
         hash = hash * 31 + CurrentActionTime.GetHashCode();
@@ -3809,7 +3831,7 @@ namespace Quantum {
     public AssetRefGOAPHeuristic HeuristicCost;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 421;
+        var hash = 431;
         hash = hash * 31 + HeuristicCost.GetHashCode();
         return hash;
       }
@@ -3839,7 +3861,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 431;
+        var hash = 433;
         hash = hash * 31 + CurrentProgress.GetHashCode();
         hash = hash * 31 + IsGameOver.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(PlayersData);
@@ -3865,7 +3887,7 @@ namespace Quantum {
     public HFSMData Data;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 433;
+        var hash = 439;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + Data.GetHashCode();
         return hash;
@@ -3903,7 +3925,7 @@ namespace Quantum {
     public Int32 TeamSource;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 439;
+        var hash = 443;
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + EndTime.GetHashCode();
         hash = hash * 31 + (Int32)GameId;
@@ -3939,7 +3961,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 443;
+        var hash = 449;
         return hash;
       }
     }
@@ -3997,7 +4019,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 449;
+        var hash = 457;
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DisconnectedDuration.GetHashCode();
@@ -4041,7 +4063,7 @@ namespace Quantum {
     public UInt32 PowerAmount;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 457;
+        var hash = 461;
         hash = hash * 31 + ChargeDuration.GetHashCode();
         hash = hash * 31 + ChargeEndPos.GetHashCode();
         hash = hash * 31 + ChargeStartPos.GetHashCode();
@@ -4068,7 +4090,7 @@ namespace Quantum {
     public FP ActivationTime;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 461;
+        var hash = 463;
         hash = hash * 31 + ActivationTime.GetHashCode();
         return hash;
       }
@@ -4106,7 +4128,7 @@ namespace Quantum {
     public Int32 TeamSource;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 463;
+        var hash = 467;
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
@@ -4146,7 +4168,7 @@ namespace Quantum {
     public UInt32 PowerModifierId;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 467;
+        var hash = 479;
         hash = hash * 31 + Power.GetHashCode();
         hash = hash * 31 + PowerModifierId.GetHashCode();
         return hash;
@@ -4205,7 +4227,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 479;
+        var hash = 487;
         hash = hash * 31 + AccuracyModifier.GetHashCode();
         hash = hash * 31 + AttackAngle.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
@@ -4260,7 +4282,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 487;
+        var hash = 491;
         return hash;
       }
     }
@@ -4276,7 +4298,7 @@ namespace Quantum {
     private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 491;
+        var hash = 499;
         return hash;
       }
     }
@@ -4306,7 +4328,7 @@ namespace Quantum {
     public FP TargetRadius;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 499;
+        var hash = 503;
         hash = hash * 31 + CurrentCircleCenter.GetHashCode();
         hash = hash * 31 + CurrentRadius.GetHashCode();
         hash = hash * 31 + ShrinkingDurationTime.GetHashCode();
@@ -4356,7 +4378,7 @@ namespace Quantum {
     public EntityRef Victim;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 503;
+        var hash = 509;
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + Cooldown.GetHashCode();
         hash = hash * 31 + EndTime.GetHashCode();
@@ -4396,7 +4418,7 @@ namespace Quantum {
     public UInt32 SpeedModifierId;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 509;
+        var hash = 521;
         hash = hash * 31 + DamageHazard.GetHashCode();
         hash = hash * 31 + Power.GetHashCode();
         hash = hash * 31 + SpeedModifierId.GetHashCode();
@@ -4458,7 +4480,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 521;
+        var hash = 523;
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + CurrentShield.GetHashCode();
         hash = hash * 31 + CurrentStatusModifierDuration.GetHashCode();
@@ -4500,7 +4522,7 @@ namespace Quantum {
     public FP VulnerabilityMultiplier;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 523;
+        var hash = 541;
         hash = hash * 31 + VulnerabilityMultiplier.GetHashCode();
         return hash;
       }
@@ -4520,7 +4542,7 @@ namespace Quantum {
     public Int32 Team;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 541;
+        var hash = 547;
         hash = hash * 31 + IsUntargetable.GetHashCode();
         hash = hash * 31 + Team.GetHashCode();
         return hash;
@@ -4542,7 +4564,7 @@ namespace Quantum {
     public UtilityReasoner UtilityReasoner;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 547;
+        var hash = 557;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + UtilityReasoner.GetHashCode();
         return hash;
@@ -4559,24 +4581,6 @@ namespace Quantum {
         var p = (UTAgent*)ptr;
         Quantum.AssetRefAIConfig.Serialize(&p->Config, serializer);
         Quantum.UtilityReasoner.Serialize(&p->UtilityReasoner, serializer);
-    }
-  }
-  [StructLayout(LayoutKind.Explicit)]
-  public unsafe partial struct WeaponCollectable : Quantum.IComponent {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
-    [FieldOffset(0)]
-    public PlayerRef Owner;
-    public override Int32 GetHashCode() {
-      unchecked { 
-        var hash = 557;
-        hash = hash * 31 + Owner.GetHashCode();
-        return hash;
-      }
-    }
-    public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (WeaponCollectable*)ptr;
-        PlayerRef.Serialize(&p->Owner, serializer);
     }
   }
   public unsafe partial class Frame {
@@ -4610,6 +4614,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.Destructible>(Quantum.Destructible.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.DummyCharacter>(Quantum.DummyCharacter.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.EntityDestroyer>(Quantum.EntityDestroyer.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.EquipmentCollectable>(Quantum.EquipmentCollectable.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.GOAPAgent>(Quantum.GOAPAgent.Serialize, null, Quantum.GOAPAgent.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.GOAPData>(Quantum.GOAPData.Serialize, null, null, ComponentFlags.Singleton);
         ComponentTypeId.Add<Quantum.GameContainer>(Quantum.GameContainer.Serialize, null, null, ComponentFlags.Singleton);
@@ -4631,7 +4636,6 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.Stun>(Quantum.Stun.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Targetable>(Quantum.Targetable.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.UTAgent>(Quantum.UTAgent.Serialize, null, Quantum.UTAgent.OnRemoved, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.WeaponCollectable>(Quantum.WeaponCollectable.Serialize, null, null, ComponentFlags.None);
       });
     }
     partial void InitGen() {
@@ -4673,6 +4677,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.DummyCharacter>();
       BuildSignalsArrayOnComponentAdded<Quantum.EntityDestroyer>();
       BuildSignalsArrayOnComponentRemoved<Quantum.EntityDestroyer>();
+      BuildSignalsArrayOnComponentAdded<Quantum.EquipmentCollectable>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.EquipmentCollectable>();
       BuildSignalsArrayOnComponentAdded<Quantum.GOAPAgent>();
       BuildSignalsArrayOnComponentRemoved<Quantum.GOAPAgent>();
       BuildSignalsArrayOnComponentAdded<Quantum.GOAPData>();
@@ -4741,8 +4747,6 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.UTAgent>();
       BuildSignalsArrayOnComponentAdded<View>();
       BuildSignalsArrayOnComponentRemoved<View>();
-      BuildSignalsArrayOnComponentAdded<Quantum.WeaponCollectable>();
-      BuildSignalsArrayOnComponentRemoved<Quantum.WeaponCollectable>();
     }
     public void SetPlayerInput(Int32 player, Input input) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -7663,6 +7667,9 @@ namespace Quantum {
     public virtual void Visit(Prototypes.EntityDestroyer_Prototype prototype) {
       VisitFallback(prototype);
     }
+    public virtual void Visit(Prototypes.EquipmentCollectable_Prototype prototype) {
+      VisitFallback(prototype);
+    }
     public virtual void Visit(Prototypes.GOAPAgent_Prototype prototype) {
       VisitFallback(prototype);
     }
@@ -7724,9 +7731,6 @@ namespace Quantum {
       VisitFallback(prototype);
     }
     public virtual void Visit(Prototypes.UTAgent_Prototype prototype) {
-      VisitFallback(prototype);
-    }
-    public virtual void Visit(Prototypes.WeaponCollectable_Prototype prototype) {
       VisitFallback(prototype);
     }
   }
@@ -7870,6 +7874,7 @@ namespace Quantum {
       Register(typeof(EntityRef), EntityRef.SIZE);
       Register(typeof(Quantum.Equipment), Quantum.Equipment.SIZE);
       Register(typeof(Quantum.EquipmentAdjective), 4);
+      Register(typeof(Quantum.EquipmentCollectable), Quantum.EquipmentCollectable.SIZE);
       Register(typeof(Quantum.EquipmentEdition), 4);
       Register(typeof(Quantum.EquipmentFaction), 4);
       Register(typeof(Quantum.EquipmentGrade), 4);
@@ -7961,7 +7966,6 @@ namespace Quantum {
       Register(typeof(Quantum.UTMomentumPack), Quantum.UTMomentumPack.SIZE);
       Register(typeof(Quantum.UtilityReasoner), Quantum.UtilityReasoner.SIZE);
       Register(typeof(View), View.SIZE);
-      Register(typeof(Quantum.WeaponCollectable), Quantum.WeaponCollectable.SIZE);
       Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
   }
@@ -8803,6 +8807,26 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(EquipmentCollectable))]
+  public sealed unsafe partial class EquipmentCollectable_Prototype : ComponentPrototype<EquipmentCollectable> {
+    public Equipment_Prototype Item;
+    public PlayerRef Owner;
+    partial void MaterializeUser(Frame frame, ref EquipmentCollectable result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+      EquipmentCollectable component = default;
+      Materialize((Frame)f, ref component, in context);
+      return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref EquipmentCollectable result, in PrototypeMaterializationContext context) {
+      this.Item.Materialize(frame, ref result.Item, in context);
+      result.Owner = this.Owner;
+      MaterializeUser(frame, ref result, in context);
+    }
+    public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
+      ((ComponentPrototypeVisitor)visitor).Visit(this);
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(GOAPAgent))]
   public sealed unsafe partial class GOAPAgent_Prototype : ComponentPrototype<GOAPAgent> {
     public AssetRefGOAPRoot Root;
@@ -9634,24 +9658,6 @@ namespace Quantum.Prototypes {
       MaterializeUser(frame, ref result, in context);
     }
   }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(WeaponCollectable))]
-  public sealed unsafe partial class WeaponCollectable_Prototype : ComponentPrototype<WeaponCollectable> {
-    public PlayerRef Owner;
-    partial void MaterializeUser(Frame frame, ref WeaponCollectable result, in PrototypeMaterializationContext context);
-    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
-      WeaponCollectable component = default;
-      Materialize((Frame)f, ref component, in context);
-      return f.Set(entity, component) == SetResult.ComponentAdded;
-    }
-    public void Materialize(Frame frame, ref WeaponCollectable result, in PrototypeMaterializationContext context) {
-      result.Owner = this.Owner;
-      MaterializeUser(frame, ref result, in context);
-    }
-    public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
-      ((ComponentPrototypeVisitor)visitor).Visit(this);
-    }
-  }
   public unsafe partial class FlatEntityPrototypeContainer {
     [ArrayLength(0, 1)]
     public List<Prototypes.AIBlackboardComponent_Prototype> AIBlackboardComponent;
@@ -9677,6 +9683,8 @@ namespace Quantum.Prototypes {
     public List<Prototypes.DummyCharacter_Prototype> DummyCharacter;
     [ArrayLength(0, 1)]
     public List<Prototypes.EntityDestroyer_Prototype> EntityDestroyer;
+    [ArrayLength(0, 1)]
+    public List<Prototypes.EquipmentCollectable_Prototype> EquipmentCollectable;
     [ArrayLength(0, 1)]
     public List<Prototypes.GOAPAgent_Prototype> GOAPAgent;
     [ArrayLength(0, 1)]
@@ -9719,8 +9727,6 @@ namespace Quantum.Prototypes {
     public List<Prototypes.Targetable_Prototype> Targetable;
     [ArrayLength(0, 1)]
     public List<Prototypes.UTAgent_Prototype> UTAgent;
-    [ArrayLength(0, 1)]
-    public List<Prototypes.WeaponCollectable_Prototype> WeaponCollectable;
     partial void CollectGen(List<ComponentPrototype> target) {
       Collect(AIBlackboardComponent, target);
       Collect(AlivePlayerCharacter, target);
@@ -9734,6 +9740,7 @@ namespace Quantum.Prototypes {
       Collect(Destructible, target);
       Collect(DummyCharacter, target);
       Collect(EntityDestroyer, target);
+      Collect(EquipmentCollectable, target);
       Collect(GOAPAgent, target);
       Collect(GOAPData, target);
       Collect(GameContainer, target);
@@ -9755,7 +9762,6 @@ namespace Quantum.Prototypes {
       Collect(Stun, target);
       Collect(Targetable, target);
       Collect(UTAgent, target);
-      Collect(WeaponCollectable, target);
     }
     public unsafe partial class StoreVisitor {
       public override void Visit(Prototypes.AIBlackboardComponent_Prototype prototype) {
@@ -9793,6 +9799,9 @@ namespace Quantum.Prototypes {
       }
       public override void Visit(Prototypes.EntityDestroyer_Prototype prototype) {
         Storage.Store(prototype, ref Storage.EntityDestroyer);
+      }
+      public override void Visit(Prototypes.EquipmentCollectable_Prototype prototype) {
+        Storage.Store(prototype, ref Storage.EquipmentCollectable);
       }
       public override void Visit(Prototypes.GOAPAgent_Prototype prototype) {
         Storage.Store(prototype, ref Storage.GOAPAgent);
@@ -9856,9 +9865,6 @@ namespace Quantum.Prototypes {
       }
       public override void Visit(Prototypes.UTAgent_Prototype prototype) {
         Storage.Store(prototype, ref Storage.UTAgent);
-      }
-      public override void Visit(Prototypes.WeaponCollectable_Prototype prototype) {
-        Storage.Store(prototype, ref Storage.WeaponCollectable);
       }
     }
   }

@@ -89,7 +89,7 @@ namespace Quantum
 				playersData.InsertIntoSortedList(new QuantumPlayerMatchData(f, data[i]), sorter);
 			}
 
-			leader = data[0].Player;
+			leader = playersData[0].Data.Player;
 
 			for (var i = 0; i < playersData.Count; i++)
 			{

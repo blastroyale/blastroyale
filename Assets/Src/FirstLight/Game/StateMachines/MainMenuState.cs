@@ -538,6 +538,7 @@ namespace FirstLight.Game.StateMachines
 				};
 
 				_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+				return;
 #else
 				var button = new AlertButton
 				{

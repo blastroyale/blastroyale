@@ -6,6 +6,11 @@ namespace Quantum
 	public partial struct Equipment
 	{
 		/// <summary>
+		/// An invalid piece of equipment
+		/// </summary>
+		public static Equipment None => new Equipment();
+
+		/// <summary>
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
 		/// </summary>
 		public Equipment(GameId gameId,
@@ -49,7 +54,7 @@ namespace Quantum
 		/// <summary>
 		/// Checks if this current <see cref="Equipment"/> is a valid possible equipment.
 		/// </summary>
-		public bool IsValid() => Level >= 0 && GameId != GameId.Random;
+		public bool IsValid() => GameId != GameId.Random;
 
 		/// <summary>
 		/// Checks if this item is at <see cref="MaxLevel"/>.

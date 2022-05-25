@@ -45,7 +45,7 @@ namespace Quantum.Systems
 				var previousPosition = shot->SpawnPosition + direction * previousTime;
 				var currentPosition = shot->SpawnPosition + direction * deltaTime;
 				var query = f.Physics3D.AddLinecastQuery(previousPosition, currentPosition, true,
-				                                         f.TargetAllLayerMask, _hitQuery);
+				                                         f.Context.TargetAllLayerMask, _hitQuery);
 
 				linecastList.Add(query);
 			}

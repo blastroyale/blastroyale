@@ -41,7 +41,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
 			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			_gameDataProvider.EquipmentDataProvider.EquippedItems.Observe(OnEquippedItems);
+			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnEquippedItems);
 		}
 
 		private void Start()
@@ -54,7 +54,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_gameDataProvider?.EquipmentDataProvider?.EquippedItems?.StopObservingAll(this);
+			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
 		}
 
 		private void OnEquippedItems(GameIdGroup slot, UniqueId oldItem, UniqueId newItem,
@@ -131,7 +131,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			cacheTransform.localRotation = Quaternion.identity;
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
-			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetEquippedItems());
+			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutItems());
 
 			instance.SetActive(true);
 

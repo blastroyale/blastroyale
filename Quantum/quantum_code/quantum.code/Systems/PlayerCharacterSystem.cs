@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -38,10 +39,11 @@ namespace Quantum.Systems
 
 			var startingEquipment = f.RuntimeConfig.GameMode == GameMode.BattleRoyale
 				                        ? Array.Empty<Equipment>()
-				                        : playerData.EquippedItems;
+				                        : playerData.Loadout;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment);
+			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment,
+			                      playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		/// <inheritdoc />
@@ -72,11 +74,11 @@ namespace Quantum.Systems
 			// Try to drop Health pack; Otherwise drop Small Ammo
 			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
 			{
-				Collectable.DropCollectable(f, GameId.Health, deathPosition, step, false);
+				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
 			}
 			else
 			{
-				Collectable.DropCollectable(f, GameId.AmmoSmall, deathPosition, step, false);
+				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
 			}
 
 			step++;
@@ -84,14 +86,14 @@ namespace Quantum.Systems
 			// Try to drop ShieldLarge, if didn't work then try to drop ShieldSmall
 			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
 			{
-				Collectable.DropCollectable(f, GameId.ShieldLarge, deathPosition, step, false);
+				Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
 
 				step++;
 			}
 			else if (armourDropChance <= f.GameConfig.DeathDropSmallShieldChance +
 			         f.GameConfig.DeathDropLargeShieldChance)
 			{
-				Collectable.DropCollectable(f, GameId.ShieldSmall, deathPosition, step, false);
+				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
 
 				step++;
 			}
@@ -100,8 +102,7 @@ namespace Quantum.Systems
 			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale &&
 			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
 			{
-				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon.GameId, deathPosition,
-				                            step, true);
+				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
 			}
 		}
 

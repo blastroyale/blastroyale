@@ -411,7 +411,7 @@ namespace FirstLight.Game.StateMachines
 			
 			var preloadIds = new List<int>();
 			
-			foreach (var item in _gameLogic.EquipmentDataProvider.EquippedItems)
+			foreach (var item in _gameLogic.EquipmentDataProvider.Loadout)
 			{
 				var equipmentDataInfo = _gameLogic.EquipmentDataProvider.Inventory[item.Value];
 				preloadIds.Add((int) equipmentDataInfo.GameId);

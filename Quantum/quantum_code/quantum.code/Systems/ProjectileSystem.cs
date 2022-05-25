@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using System.Runtime.Versioning;
 
 namespace Quantum.Systems
 {
@@ -24,8 +25,8 @@ namespace Quantum.Systems
 			if (distance.SqrMagnitude > range * range)
 			{
 				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position);
-				f.Add<EntityDestroyer>(filter.Entity);
-				
+				EndProjectile(f,filter.Entity, filter.Entity);
+
 				return;
 			}
 			
@@ -49,32 +50,39 @@ namespace Quantum.Systems
 		{
 			var targetHit = info.Other;
 			var hitSource = info.Entity;
-			var position = f.Get<Transform3D>(hitSource).Position;
 			
 			if (!f.TryGet<Projectile>(hitSource, out var projectile) || targetHit == hitSource || info.StaticData.IsTrigger ||
-			    projectile.Attacker == hitSource || projectile.Attacker == targetHit || f.Has<EntityDestroyer>(info.Entity))
+				projectile.Attacker == hitSource || projectile.Attacker == targetHit || f.Has<EntityDestroyer>(hitSource))
 			{
 				return;
 			}
+		}
+		
+		private void EndProjectile(Frame f, EntityRef targetHit, EntityRef hitSource)
+
+		{
+			if (!f.TryGet<Projectile>(hitSource, out var projectile))
+				return;
+
+			var position = f.Get<Transform3D>(hitSource).Position;
 
 			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount, position, projectile.TeamSource);
 
-			f.Add<EntityDestroyer>(info.Entity);
-			
+			f.Add<EntityDestroyer>(hitSource);
+
+			if (projectile.SplashRadius > FP._0)
+			{
+				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, spell, uint.MaxValue, OnHit);
+			}
+
 			f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
-			
+
 			if (QuantumHelpers.ProcessHit(f, spell))
 			{
 				OnHit(f, spell);
 				return;
 			}
 
-			if (projectile.SplashRadius == FP._0 || !info.IsStatic)
-			{
-				return;
-			}
-			
-			QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, spell, uint.MaxValue, OnHit);
 		}
 
 		private void OnHit(Frame f, Spell spell)

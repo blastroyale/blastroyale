@@ -10,8 +10,6 @@ namespace Quantum
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef;
 		public ChestType ChestType;
-		public FP Amount;
-		public FP ChestCollectTime;
 	}
 
 	/// <summary>

@@ -16,6 +16,7 @@ namespace FirstLight.Game.Configs.AssetConfigs
 		public AssetReferenceT<Material> ErrorMaterial;
 		public AssetRefEntityPrototype ConsumablePrototype;
 		public AssetRefEntityPrototype WeaponPickUpPrototype;
+		public AssetRefEntityPrototype ChestPrototype;
 		
 		public QuantumAssetConfigs AssetsConfig
 		{

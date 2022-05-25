@@ -61,3 +61,6 @@ MonoBehaviour:
   WeaponPickUpPrototype:
     Id:
       Value: 4070827363264793974
+  ChestPrototype:
+    Id:
+      Value: 4486983998464243699

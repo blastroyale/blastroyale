@@ -1,13 +1,10 @@
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -17,22 +14,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class StandingsHolderView : MonoBehaviour
 	{
 		[SerializeField, Required] private PlayerResultEntryView _resultEntryViewRef;
-		[SerializeField, Required] private GameObject _xpHolder;
+		[FormerlySerializedAs("_xpHolder")] [SerializeField, Required] private GameObject _extraInfo;
 		[SerializeField, Required] private RectTransform _contentTransform;
 		[SerializeField] private int _verticalEntrySpacing = 14;
 		[SerializeField, Required] private UnityEngine.UI.Button _blockerButton;
 		
-		private IObjectPool<PlayerResultEntryView> _playerResultPool;
-		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
-
-		private bool _showExtra;
+		private readonly List<PlayerResultEntryView> _playerResultPool = new ();
 
 		private void Awake()
 		{
-			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
 			_blockerButton.onClick.AddListener(OnCloseClicked);
 			_resultEntryViewRef.gameObject.SetActive(false);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer,
@@ -43,46 +33,51 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// Initialises the Standings Holder with current player ranks, kills and deaths.
 		/// If _showExtra is set to true, also shows XP and coins earned.
 		/// </summary>
-		public void Initialise(List<QuantumPlayerMatchData> playerData, bool showExtra = true,
-		                       bool enableBlockerButton = true)
+		public void Initialise(int playerCount, bool showExtra = false, bool enableBlockerButton = false)
 		{
-			_xpHolder.SetActive(showExtra);
+			_extraInfo.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
-			_showExtra = showExtra;
-
-			Setup(playerData);
+			
+			UpdateBoardRows(playerCount);
 		}
 
-		private void Setup(List<QuantumPlayerMatchData> playerData)
+		public void UpdateBoardRows(int playerCount)
 		{
-			if (_playerResultPool == null)
+			// Add missing entries
+			for (var i = _playerResultPool.Count; i < playerCount; i++)
 			{
-				var playersLimit = (uint)playerData.Count;
+				var entry = GameObjectPool<PlayerResultEntryView>.Instantiator(_resultEntryViewRef);
 				
-				_playerResultPool = new GameObjectPool<PlayerResultEntryView>(playersLimit, _resultEntryViewRef);
-
-				for (var i = 0; i < playersLimit; i++)
-				{
-					_playerResultPool.Spawn();
-				}
-
-				if (playersLimit < 10)
-				{
-					var entryHeight = ((RectTransform) _resultEntryViewRef.transform).sizeDelta.y;
-					_contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x,
-					                                          (entryHeight + _verticalEntrySpacing) *
-					                                          (playersLimit + 1));
-				}
+				entry.gameObject.SetActive(true);
+				
+				_playerResultPool.Add(entry);
+			}
+			// Remove extra entries
+			for (var j = _playerResultPool.Count; j > _playerResultPool.Count; j--)
+			{
+				_playerResultPool.RemoveAt(j);
 			}
 
-			var pool = _playerResultPool.SpawnedReadOnly;
-			playerData.SortByPlayerRank();
-			playerData.Reverse();
+			if (playerCount < 10)
+			{
+				var entryHeight = ((RectTransform) _resultEntryViewRef.transform).sizeDelta.y;
+				_contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x,
+				                                          (entryHeight + _verticalEntrySpacing) *
+				                                          (playerCount + 1));
+			}
+		}
+
+		/// <summary>
+		/// Updates the standings order and view based on the given <paramref name="playerData"/>
+		/// </summary>
+		public void UpdateStandings(List<QuantumPlayerMatchData> playerData)
+		{
+			playerData.SortByPlayerRank(false);
 
 			// Do the descending order. From the highest to the lowest value
-			for (var i = 0; i < pool.Count; i++)
+			for (var i = 0; i < playerData.Count; i++)
 			{
-				pool[i].SetInfo(playerData[i], _showExtra);
+				_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf);
 			}
 		}
 
@@ -96,7 +91,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			Setup(new List<QuantumPlayerMatchData>(callback.PlayersMatchData));
+			UpdateBoardRows(callback.PlayersMatchData.Count);
+			UpdateStandings(callback.PlayersMatchData);
 		}
 	}
 }

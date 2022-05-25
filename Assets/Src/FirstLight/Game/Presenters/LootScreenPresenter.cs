@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters
 			_playerLevelText.text = level.ToString("N0");
 			_playerLevelSlider.value = GetXpSliderValue();
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;
-			_powerValueText.text = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedItemPower().ToString();
+			_powerValueText.text = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power).ToString();
 			_playerLevelBadge.sprite = await _services.AssetResolverService.RequestAsset<int, Sprite>((int) level);
 		}
 		

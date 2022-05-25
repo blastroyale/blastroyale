@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
+using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -11,9 +12,9 @@ namespace FirstLight.Game.Logic
 	public interface IEquipmentDataProvider
 	{
 		/// <summary>
-		/// Requests the player's Equipped Items.
+		/// Requests the player's loadout.
 		/// </summary>
-		IObservableDictionaryReader<GameIdGroup, UniqueId> EquippedItems { get; }
+		IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout { get; }
 
 		/// <summary>
 		/// Requests the player's inventory.
@@ -22,8 +23,9 @@ namespace FirstLight.Game.Logic
 
 		/// <summary>
 		/// Requests an array of all the quipped items the player has
+		/// in his loadout.
 		/// </summary>
-		Equipment[] GetEquippedItems();
+		Equipment[] GetLoadoutItems();
 
 		/// <summary>
 		/// Requests all items from the inventory that belonging to the given
@@ -37,14 +39,14 @@ namespace FirstLight.Game.Logic
 		bool IsEquipped(UniqueId itemId);
 
 		/// <summary>
-		/// Requests the power value of an equipment item.
+		/// Requests the <paramref name="stat"/> value of an equipment item.
 		/// </summary>
-		uint GetItemPower(Equipment equipment);
+		float GetItemStat(Equipment equipment, StatType stat);
 
 		/// <summary>
-		/// Requests the total amount of power granted by all currently equipped items.
+		/// Requests the total amount of <paramref name="stat"/> granted by all currently equipped items.
 		/// </summary>
-		uint GetTotalEquippedItemPower();
+		float GetTotalEquippedStat(StatType stat);
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has, with an optional level

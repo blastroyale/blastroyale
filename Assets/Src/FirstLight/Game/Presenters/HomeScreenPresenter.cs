@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField] private Button _playOnlineButton;
-		[SerializeField] private Button _playOfflineDebugButton;
 		[SerializeField] private Button _playRoom;
 		[SerializeField] private Button _nameChangeButton;
 		[SerializeField] private Button _settingsButton;
@@ -67,7 +66,6 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
-			_playOfflineDebugButton.onClick.AddListener(OnPlayOfflineClicked);
 			_playRoom.onClick.AddListener(OnPlayRoomlicked);
 
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
@@ -77,8 +75,7 @@ namespace FirstLight.Game.Presenters
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
-
-			_playOfflineDebugButton.gameObject.SetActive(Debug.isDebugBuild);
+			
 			_newFeaturesView.gameObject.SetActive(false);
 		}
 
@@ -97,26 +94,12 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnPlayOnlineClicked()
 		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = false,
-			};
+			var message = new PlayRandomClickedMessage();
 
 			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
-		
-		private void OnPlayOfflineClicked()
-		{
-			var message = new PlayRandomClickedMessage
-			{
-				IsOfflineMode = true,
-			};
 
-			_services.MessageBrokerService.Publish(message);
-			Data.OnPlayButtonClicked();
-		}
-		
 		private void OnPlayRoomlicked()
 		{
 			Data.OnPlayRoomJoinCreateClicked();

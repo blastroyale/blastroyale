@@ -25,7 +25,6 @@ public static class ServerStartup
 		ServerConfiguration.LoadConfiguration(appPath);
 		DbSetup.Setup(services);
 		
-		// Server
 		services.AddSingleton<IPlayerSetupService, PlayerSetupService>();
 		services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 		services.AddSingleton<IServerStateService, PlayfabGameStateService>();
@@ -34,8 +33,6 @@ public static class ServerStartup
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();
-		
-		// Logic
 		services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
 		{
 			var cfgSerializer = new ConfigsSerializer();

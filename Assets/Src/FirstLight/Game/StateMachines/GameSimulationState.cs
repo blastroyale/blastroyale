@@ -107,6 +107,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 			
+			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
@@ -187,15 +188,11 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerRef = game.GetLocalPlayers()[0];
-			var localPlayerData = matchData[localPlayerRef];
 
 			_services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand
 			{
-				PlayersMatchData = matchData,
-				LocalPlayerRef = localPlayerRef,
-				LocalPlayerRank = localPlayerData.PlayerRank,
+				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
+				LocalPlayerRef = game.GetLocalPlayers()[0],
 				DidPlayerQuit = false
 			});
 		}
@@ -347,7 +344,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
-				EquippedItems = _gameDataProvider.EquipmentDataProvider.GetEquippedItems()
+				Loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems()
 			});
 		}
 

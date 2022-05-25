@@ -98,7 +98,7 @@ namespace Quantum
 			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(spell.OriginalHitPosition, FPQuaternion.Identity, shape, 
-			                                    f.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
 

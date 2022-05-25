@@ -137,7 +137,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			_gameDataProvider.EquipmentDataProvider.EquippedItems.TryGetValue(Data.EquipmentSlot, out var id);
+			_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(Data.EquipmentSlot, out var id);
 
 			_equipmentSortState = EquipmentSorter.EquipmentSortState.Rarity;
 			_uniqueId = id;
@@ -181,7 +181,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var equipment = equipmentProvider.Inventory[_uniqueId];
-			var power = equipmentProvider.GetItemPower(equipment);
+			var power = equipmentProvider.GetItemStat(equipment, StatType.Power);
 
 			// Don't show Default/Melee weapon
 			if (equipment.IsWeapon() && equipment.IsDefaultItem())
@@ -336,7 +336,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipButtonClicked()
 		{
-			var previousPower = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedItemPower();
+			var previousPower = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power);
 
 			if (_gameDataProvider.EquipmentDataProvider.IsEquipped(_uniqueId))
 			{
@@ -377,7 +377,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowPowerChange(int previousPower)
 		{
-			var power = (int) _gameDataProvider.EquipmentDataProvider.GetTotalEquippedItemPower() - previousPower;
+			var power = (int) _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power) - previousPower;
 			var postfix = power < 0 ? "-" : "+";
 
 			_powerChangeText.color = power < 0 ? Color.red : Color.green;

@@ -84,8 +84,7 @@ namespace FirstLight.Game.StateMachines
 
 			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
-
-			mainMenu.OnEnter(OpenMainMenuUi);
+			
 			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
 
@@ -130,6 +129,7 @@ namespace FirstLight.Game.StateMachines
 			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 
+			homeMenu.OnEnter(OpenMainMenuUi);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
@@ -138,6 +138,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.OnExit(ClosePlayMenuUI);
+			homeMenu.OnExit(CloseMainMenuUI);
 
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
 			playClickedCheck.Transition().Target(roomWaitingState);
@@ -387,7 +388,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MainMenuHudPresenter>();
 		}
 
-
 		private void OpenMainMenuUi()
 		{
 			_uiService.OpenUi<MainMenuHudPresenter>();
@@ -539,8 +539,7 @@ namespace FirstLight.Game.StateMachines
 
 				_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 				return;
-#endif
-
+#else
 				var button = new AlertButton
 				{
 					Callback = Application.Quit,
@@ -550,6 +549,7 @@ namespace FirstLight.Game.StateMachines
 
 				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
 				                               ScriptLocalization.MainMenu.LogoutSuccessDesc, button);
+#endif
 			}
 		}
 	}

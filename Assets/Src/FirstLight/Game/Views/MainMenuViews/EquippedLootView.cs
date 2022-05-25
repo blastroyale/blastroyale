@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public async void UpdateItem()
 		{
-			if (_gameDataProvider.EquipmentDataProvider.EquippedItems.TryGetValue(_slot, out var uniqueId))
+			if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(_slot, out var uniqueId))
 			{
 				var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
 

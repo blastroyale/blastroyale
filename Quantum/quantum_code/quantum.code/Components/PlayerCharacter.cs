@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -25,7 +26,7 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, Equipment[] startingEquipment)
+		                   uint trophies, GameId skin, Equipment[] startingEquipment, Equipment loadoutWeapon)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
@@ -35,11 +36,22 @@ namespace Quantum
 			CurrentWeaponSlot = 0;
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
-			Weapons[0] = new Equipment(GameId.Hammer);
+
+			// I think this is silly, but "Hammer inherits ALL attributes from the Record" (record
+			// being the attributes of your primary loadout weapon if you have one.
+			if (loadoutWeapon.IsValid())
+			{
+				Weapons[Constants.WEAPON_INDEX_DEFAULT] = loadoutWeapon;
+				Weapons[Constants.WEAPON_INDEX_DEFAULT].GameId = GameId.Hammer;
+			}
+			else
+			{
+				Weapons[Constants.WEAPON_INDEX_DEFAULT] = new Equipment(GameId.Hammer);
+			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
-			BotSDKDebuggerSystem.AddToDebugger(e);
+			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
 			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, trophies);
@@ -66,7 +78,7 @@ namespace Quantum
 
 			if (isRespawning)
 			{
-				CurrentWeaponSlot = 0;
+				CurrentWeaponSlot = Constants.WEAPON_INDEX_DEFAULT;
 			}
 
 			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
@@ -144,18 +156,16 @@ namespace Quantum
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
-		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon)
+		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon, bool primary)
 		{
-			var slot = Weapons[1].IsValid() && Weapons[1].GameId != weapon.GameId ? 2 : 1;
-			
+			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale && Weapons[slot].IsValid()
 			                                                      && Weapons[slot].GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
-				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, out dropPosition);
-				
-				Collectable.DropCollectable(f, Weapons[slot].GameId, dropPosition, 0, true);
+				Collectable.DropEquipment(f, Weapons[slot], dropPosition, 0);
 			}
 
 			Weapons[slot] = weapon;
@@ -175,11 +185,10 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
-			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var power = QuantumStatCalculator.CalculateWeaponPower(f, weapon);
 
-			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			RefreshStats(f, e);
+
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
@@ -289,15 +298,32 @@ namespace Quantum
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
 		{
-			QuantumStatCalculator.CalculateGearStats(f, equipment, out var gearArmour, out var gearHealth,
-			                                         out var gearSpeed);
+			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
+			                                     out var speed, out var power);
 
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + gearHealth,
-			                   0,
-			                   f.GameConfig.PlayerDefaultSpeed + gearSpeed,
-			                   gearArmour,
+			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + health,
+			                   power,
+			                   f.GameConfig.PlayerDefaultSpeed + speed,
+			                   armour,
 			                   f.GameConfig.PlayerMaxShieldCapacity,
 			                   f.GameConfig.PlayerStartingShieldCapacity));
+		}
+
+		private void RefreshStats(Frame f, EntityRef e)
+		{
+			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
+			                                     out var speed,
+			                                     out var power);
+
+			health += f.GameConfig.PlayerDefaultHealth;
+			speed += f.GameConfig.PlayerDefaultSpeed;
+
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
+			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
+			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			stats->ApplyModifiers(f);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
@@ -307,7 +333,7 @@ namespace Quantum
 			{
 				if (item.IsWeapon())
 				{
-					AddWeapon(f, e, item);
+					AddWeapon(f, e, item, true);
 				}
 				else
 				{

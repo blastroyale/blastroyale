@@ -32,8 +32,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var view = _killTrackerPool.Spawn();
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var deadData = callback.PlayersMatchData[callback.PlayerDead];
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
+			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 
 			view.transform.SetSiblingIndex(0);
 			view.SetInfo(killerData.GetPlayerName(), killerData.Data.PlayerSkin, 

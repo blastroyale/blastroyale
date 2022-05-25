@@ -62,11 +62,6 @@ MonoBehaviour:
         Id:
           Value: 307490403732720118
       Address: QuantumAssets/Default Config Assets/Default CharacterController2DConfigAsset.asset
-    - Path: AddressableResources/Configs/GearConfigs
-      AssetRef:
-        Id:
-          Value: 331988359844761930
-      Address: Configs/GearConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|NotShooting_12
       AssetRef:
         Id:
@@ -262,6 +257,11 @@ MonoBehaviour:
         Id:
           Value: 1433292725654733562
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Stunned_1]
+    - Path: AddressableResources/Configs/BaseEquipmentStatsConfigs
+      AssetRef:
+        Id:
+          Value: 1461361185191240749
+      Address: Configs/BaseEquipmentStatsConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_22
       AssetRef:
         Id:
@@ -307,6 +307,11 @@ MonoBehaviour:
         Id:
           Value: 1838569179050410201
       Address: Maps/TinyTemple_NavMesh.asset
+    - Path: AddressableResources/Configs/EquipmentStatsConfigs
+      AssetRef:
+        Id:
+          Value: 2044373238692490151
+      Address: Configs/EquipmentStatsConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_15
       AssetRef:
         Id:
@@ -539,11 +544,11 @@ MonoBehaviour:
         Id:
           Value: 3701490529331444910
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLFAction_8]
-    - Path: AddressableResources/QuantumAssets/Collectables/WeaponPickup|EntityView
+    - Path: AddressableResources/QuantumAssets/Collectables/EquipmentPickup|EntityView
       AssetRef:
         Id:
           Value: 3715608968879547668
-      Address: QuantumAssets/Collectables/WeaponPickup.prefab[WeaponPickupEntityView]
+      Address: QuantumAssets/Collectables/EquipmentPickup.prefab[EquipmentPickupEntityView]
     - Path: AddressableResources/QuantumAssets/Collectables/ConsumablePickup|EntityView
       AssetRef:
         Id:
@@ -614,11 +619,11 @@ MonoBehaviour:
         Id:
           Value: 4058028544677139642
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerTeleportSpawnAction_12]
-    - Path: AddressableResources/QuantumAssets/Collectables/WeaponPickup|EntityPrototype
+    - Path: AddressableResources/QuantumAssets/Collectables/EquipmentPickup|EntityPrototype
       AssetRef:
         Id:
           Value: 4070827363264793974
-      Address: QuantumAssets/Collectables/WeaponPickup.prefab[WeaponPickupEntityPrototype]
+      Address: QuantumAssets/Collectables/EquipmentPickup.prefab[EquipmentPickupEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerProjectileAttackAction_0
       AssetRef:
         Id:

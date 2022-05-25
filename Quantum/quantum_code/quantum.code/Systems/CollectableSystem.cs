@@ -107,9 +107,9 @@ namespace Quantum.Systems
 
 		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
-			if (f.Unsafe.TryGetPointer<WeaponCollectable>(entity, out var weapon))
+			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
-				weapon->Collect(f, entity, playerEntity);
+				equipment->Collect(f, entity, playerEntity, player);
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
@@ -118,7 +118,7 @@ namespace Quantum.Systems
 			}
 			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
 			{
-				chest->Open(f, entity, playerEntity);
+				chest->Open(f, entity, playerEntity, player);
 			}
 			else
 			{

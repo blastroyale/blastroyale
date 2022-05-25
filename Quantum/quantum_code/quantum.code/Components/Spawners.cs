@@ -32,7 +32,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Spawns a <see cref="Collectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// Spawns a <see cref="Collectable"/> from this spawners <see cref="GameId"/>.
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{
@@ -48,7 +48,7 @@ namespace Quantum
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Weapon))
 			{
-				Collectable = SpawnWeapon(f, GameId, transform);
+				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
 			}
 			else
 			{
@@ -77,18 +77,24 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Spawns a <see cref="WeaponCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnWeapon(Frame f, GameId id, Transform3D transform)
+		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
+			// TODO: Clean this up when we start spawning gear
 			var configs = f.WeaponConfigs;
 			var config = id == GameId.Random
 				             ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)]
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
-			                                                     config);
+			var rarity = (EquipmentRarity) FPMath.Clamp((int) f.Context.MedianRarity + rarityModifier,
+			                                            0,
+			                                            (int) EquipmentRarity.TOTAL - 1);
+			var equipment = new Equipment(config.Id, rarity: rarity);
+
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			                                                        equipment);
 
 			return entity;
 		}

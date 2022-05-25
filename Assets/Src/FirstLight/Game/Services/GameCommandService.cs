@@ -115,7 +115,8 @@ namespace FirstLight.Game.Services
 			{
 				IdData = _dataProvider.GetData<IdData>(),
 				RngData = _dataProvider.GetData<RngData>(),
-				PlayerData = _dataProvider.GetData<PlayerData>()
+				PlayerData = _dataProvider.GetData<PlayerData>(),
+				NftEquipmentData = _dataProvider.GetData<NftEquipmentData>()
 			});
 		}
 
@@ -205,7 +206,14 @@ namespace FirstLight.Game.Services
 				Rollback();
 				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
 			}
+			// Command returned 200 but a expected logic exception happened due
+			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
+			{
+				Rollback();
+				throw new LogicException(logicException);
+			}
 			OnServerExecutionFinished(current);
+			
 		}
 	}
 }

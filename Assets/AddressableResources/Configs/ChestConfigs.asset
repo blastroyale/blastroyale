@@ -23,43 +23,23 @@ MonoBehaviour:
         Id:
           Value: 4486983998464243699
       ChestType: 0
-      Amount:
-        RawValue: 0
-      ChestCollectTime:
-        RawValue: 0
     - Id: 1
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 1
-      Amount:
-        RawValue: 0
-      ChestCollectTime:
-        RawValue: 0
     - Id: 16
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 2
-      Amount:
-        RawValue: 0
-      ChestCollectTime:
-        RawValue: 0
     - Id: 2
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 3
-      Amount:
-        RawValue: 0
-      ChestCollectTime:
-        RawValue: 0
     - Id: 19
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 4
-      Amount:
-        RawValue: 0
-      ChestCollectTime:
-        RawValue: 0

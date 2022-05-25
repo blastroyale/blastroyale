@@ -27,7 +27,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestTrophyCalculationZero()
 		{
-			uint localPlayerRank;
+			var localPlayerRef = 5;
 			var players = new List<QuantumPlayerMatchData>
 			{
 				CreatePlayer(0, 1000),
@@ -35,10 +35,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 				CreatePlayer(2, 1000),
 				CreatePlayer(3, 1000),
 				CreatePlayer(4, 1000),
-				CreatePlayer(localPlayerRank = 5, TestData.Trophies = 0, true),
+				CreatePlayer(5, TestData.Trophies = 0, true),
 			};
 
-			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
+			_matchLogic.UpdateTrophies(players, localPlayerRef);
 
 			Assert.AreEqual(0, _matchLogic.Trophies.Value);
 		}
@@ -46,7 +46,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestTrophyCalculationLoss()
 		{
-			uint localPlayerRank;
+			var localPlayerRef = 5;
 			var players = new List<QuantumPlayerMatchData>
 			{
 				CreatePlayer(0, 100),
@@ -54,10 +54,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 				CreatePlayer(2, 100),
 				CreatePlayer(3, 100),
 				CreatePlayer(4, 100),
-				CreatePlayer(localPlayerRank = 5, TestData.Trophies = 100, true),
+				CreatePlayer(5, TestData.Trophies = 100, true),
 			};
 
-			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
+			_matchLogic.UpdateTrophies(players, localPlayerRef);
 
 			Assert.AreEqual(88, _matchLogic.Trophies.Value);
 		}
@@ -65,17 +65,17 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestTrophyCalculationMidway()
 		{
-			uint localPlayerRank;
+			var localPlayerRef = 2;
 			var players = new List<QuantumPlayerMatchData>
 			{
 				CreatePlayer(0, 120),
 				CreatePlayer(1, 120),
-				CreatePlayer(localPlayerRank = 2, TestData.Trophies = 120, true),
+				CreatePlayer(2, TestData.Trophies = 120, true),
 				CreatePlayer(3, 120),
 				CreatePlayer(4, 120),
 			};
 
-			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
+			_matchLogic.UpdateTrophies(players, localPlayerRef);
 
 			Assert.AreEqual(120, _matchLogic.Trophies.Value);
 		}
@@ -83,10 +83,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestTrophyCalculationWin()
 		{
-			uint localPlayerRank;
+			var localPlayerRef = 0;
 			var players = new List<QuantumPlayerMatchData>
 			{
-				CreatePlayer(localPlayerRank = 0, TestData.Trophies = 100, true),
+				CreatePlayer(0, TestData.Trophies = 100, true),
 				CreatePlayer(1, 100),
 				CreatePlayer(2, 100),
 				CreatePlayer(3, 100),
@@ -94,7 +94,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				CreatePlayer(5, 100),
 			};
 
-			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
+			_matchLogic.UpdateTrophies(players, localPlayerRef);
 
 			Assert.AreEqual(112, _matchLogic.Trophies.Value);
 		}
@@ -102,10 +102,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestTrophyCalculationMegaWin()
 		{
-			uint localPlayerRank;
+			var localPlayerRef = 0;
 			var players = new List<QuantumPlayerMatchData>
 			{
-				CreatePlayer(localPlayerRank = 0, TestData.Trophies = 100, true),
+				CreatePlayer(0, TestData.Trophies = 100, true),
 				CreatePlayer(1, 300),
 				CreatePlayer(2, 300),
 				CreatePlayer(3, 300),
@@ -113,7 +113,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				CreatePlayer(5, 300),
 			};
 
-			_matchLogic.UpdateTrophies(players.ToArray(), localPlayerRank);
+			_matchLogic.UpdateTrophies(players, localPlayerRef);
 
 			Assert.AreEqual(125, _matchLogic.Trophies.Value);
 		}
@@ -121,22 +121,22 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test, Description("Checks if the sum of trophies of two players is the same after a match as it was before.")]
 		public void TestTrophyConsistency()
 		{
-			uint localPlayerRank1;
+			var localPlayerRef1 = 0;
 			var players1 = new List<QuantumPlayerMatchData>
 			{
-				CreatePlayer(localPlayerRank1 = 0, TestData.Trophies = 100, true),
+				CreatePlayer(0, TestData.Trophies = 100, true),
 				CreatePlayer(1, 100),
 			};
-			_matchLogic.UpdateTrophies(players1.ToArray(), localPlayerRank1);
+			_matchLogic.UpdateTrophies(players1, localPlayerRef1);
 			var trophies1 = TestData.Trophies;
 
-			uint localPlayerRank2;
+			var localPlayerRef2 = 1;
 			var players2 = new List<QuantumPlayerMatchData>
 			{
 				CreatePlayer(0, 100),
-				CreatePlayer(localPlayerRank2 = 1, TestData.Trophies = 100, true),
+				CreatePlayer(1, TestData.Trophies = 100, true),
 			};
-			_matchLogic.UpdateTrophies(players2.ToArray(), localPlayerRank2);
+			_matchLogic.UpdateTrophies(players2, localPlayerRef2);
 			var trophies2 = TestData.Trophies;
 
 			Assert.AreEqual(200, trophies1 + trophies2, $"P1: {trophies1}, P2: {trophies2}");

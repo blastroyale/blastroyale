@@ -42,13 +42,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
+			var playerData = container.GetPlayersMatchData(frame, out _);
 			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
 
-			_standings.Initialise(playerData, isBattleRoyale);
+			_standings.Initialise(playerData.Count, isBattleRoyale, true);
+			_standings.UpdateStandings(playerData);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

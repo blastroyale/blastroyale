@@ -135,7 +135,7 @@ namespace FirstLight.Game.Logic
 			RngLogic = new RngLogic(this, dataProvider);
 			CurrencyLogic = new CurrencyLogic(this, dataProvider);
 			PlayerLogic = new PlayerLogic(this, dataProvider);
-			EquipmentLogic = new EquipmentLogic(this, dataProvider);
+			EquipmentLogic = new NftEquipmentLogic(this, dataProvider);
 			MatchLogic = new MatchLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
 		}

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Grade: 0
-    PoolIncreaseModifier: 0.21
-  - Grade: 1
     PoolIncreaseModifier: 0.135
-  - Grade: 2
+  - Grade: 1
     PoolIncreaseModifier: 0.085
-  - Grade: 3
+  - Grade: 2
     PoolIncreaseModifier: 0.05
-  - Grade: 4
+  - Grade: 3
     PoolIncreaseModifier: 0.025
+  - Grade: 4
+    PoolIncreaseModifier: 0

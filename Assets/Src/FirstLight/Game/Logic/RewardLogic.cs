@@ -50,6 +50,7 @@ namespace FirstLight.Game.Logic
 	{
 		/// <inheritdoc />
 		public IReadOnlyList<RewardData> UnclaimedRewards => Data.UncollectedRewards;
+		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -59,7 +60,6 @@ namespace FirstLight.Game.Logic
 		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
-			var csPoolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS); 
 			var rewards = new Dictionary<GameId, int>();
 			
 			// Currently, there is no plan on giving rewards on anything but BR mode
@@ -96,12 +96,12 @@ namespace FirstLight.Game.Logic
 			var csPercent = csRewardPair.Value / 100f;
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 
-			var equipSlots = 5;
+			var loadoutSlots = GameConfig.LoadoutSlots;
 			var nftsEquipped = GameLogic.EquipmentLogic.Loadout.Count;
 			var csMaxTake = GetMaxPoolTake(GameId.CS);
 			
 			// ----- Decrease take based on amount of NFTs equipped
-			var csTake = MathF.Ceiling(csMaxTake / equipSlots * nftsEquipped);
+			var csTake = MathF.Ceiling(csMaxTake / loadoutSlots * nftsEquipped);
 			
 			// ---- Decrease take based on placement in match
 			csTake = MathF.Ceiling(csTake * csPercent);
@@ -118,11 +118,15 @@ namespace FirstLight.Game.Logic
 
 		private float GetMaxPoolTake(GameId resourcePoolId)
 		{
+			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
+			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
+			
+			// Utility for calculations
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId);
 			var maxTake = (float) poolConfig.BaseMaxTake;
-			var nftAssumed = 40;
-			var minNftOwned = 3;
-			var adjRarityCurveMod = 0.8f;
+			var nftAssumed = GameConfig.NftAssumedOwned;
+			var minNftOwned = GameConfig.MinNftForEarnings;
+			var adjRarityCurveMod = (float) GameConfig.AdjectiveRarityEarningsMod;
 			var equippedItemArray = GameLogic.EquipmentLogic.GetLoadoutItems();
 			var takeDecreaseMod = poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = poolConfig.TakeDecreaseExponent;

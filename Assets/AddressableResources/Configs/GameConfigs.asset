@@ -97,3 +97,7 @@ MonoBehaviour:
       TrophyEloRange: 50
       TrophyEloK: 5
       MinOffhandWeaponPoolSize: 10
+      NftAssumedOwned: 0
+      MinNftForEarnings: 0
+      AdjectiveRarityEarningsMod:
+        RawValue: 0

@@ -23,5 +23,3 @@ MonoBehaviour:
     PoolIncreaseModifier: 0.05
   - Grade: 4
     PoolIncreaseModifier: 0.025
-  - Grade: 5
-    PoolIncreaseModifier: 0

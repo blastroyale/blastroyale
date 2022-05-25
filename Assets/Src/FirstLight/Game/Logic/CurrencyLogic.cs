@@ -239,8 +239,9 @@ namespace FirstLight.Game.Logic
 			
 			var nftDurabilityAvg = totalNftDurability / nftOwned;
 			var durabilityDecreaseMult = MathF.Pow(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
+			var durabilityDecrease = MathF.Floor(poolCapacity * durabilityDecreaseMult);
 			
-			poolCapacity -= MathF.Floor(poolCapacity * durabilityDecreaseMult);
+			poolCapacity -= durabilityDecrease;
 			
 			return (ulong)poolCapacity;
 		}

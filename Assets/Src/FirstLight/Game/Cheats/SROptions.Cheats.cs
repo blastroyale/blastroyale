@@ -82,7 +82,7 @@ public partial class SROptions
 		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
 		
 		var eq1 = new Equipment(weaponConfigs[2].Id, rarity: EquipmentRarity.RarePlus, adjective: EquipmentAdjective.Regular, grade: EquipmentGrade.GradeV, durability: 96, level: 3);
-		var eq2 = new Equipment(gearConfigs[0].Id, rarity: EquipmentRarity.Rare, adjective: EquipmentAdjective.Exquisite, grade: EquipmentGrade.GradeVI, durability: 62, level: 3);
+		var eq2 = new Equipment(gearConfigs[0].Id, rarity: EquipmentRarity.Rare, adjective: EquipmentAdjective.Exquisite, grade: EquipmentGrade.GradeIII, durability: 62, level: 3);
 		var eq3 = new Equipment(gearConfigs[4].Id, rarity: EquipmentRarity.Uncommon, adjective: EquipmentAdjective.Cool, grade: EquipmentGrade.GradeIII, durability: 51, level: 3);
 		var eq4 = new Equipment(gearConfigs[5].Id, rarity: EquipmentRarity.Legendary, adjective: EquipmentAdjective.Royal, grade: EquipmentGrade.GradeI, durability: 43, level: 3);
 		var eq5 = new Equipment(gearConfigs[6].Id, rarity: EquipmentRarity.LegendaryPlus, adjective: EquipmentAdjective.Divine, grade: EquipmentGrade.GradeIV, durability: 18, level: 3);

@@ -79,7 +79,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			uint restockForTime = CalculatePoolRestockAmount(_poolConfig) + 1;
 
 			_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * _poolConfig.RestockIntervalMinutes);
-			_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
+			_currentAmount = Math.Clamp(_currentPoolData.CurrentResourceAmountInPool, 0, _currentCapacity);
 
 			var timeDiff = _nextRestockTime - DateTime.UtcNow;
 			var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");

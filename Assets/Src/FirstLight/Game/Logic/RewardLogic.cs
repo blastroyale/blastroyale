@@ -73,8 +73,7 @@ namespace FirstLight.Game.Logic
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
 			                                     .GetConfigsList<MatchRewardConfig>()
 			                                     .OrderByDescending(x => x.Placement).ToList();
-
-			// Get worst reward placement reward by default, or specific placement reward thereafter
+			
 			var rewardConfig = gameModeRewardConfigs[0];
 			var rankValue = matchData.PlayerRank;
 			
@@ -121,13 +120,12 @@ namespace FirstLight.Game.Logic
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 			
-			// Utility for calculations
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId);
 			var maxTake = (float) poolConfig.BaseMaxTake;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
 			var adjRarityCurveMod = (float) GameConfig.AdjectiveRarityEarningsMod;
-			var equippedItemArray = GameLogic.EquipmentLogic.GetLoadoutItems();
+			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutItems();
 			var takeDecreaseMod = poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = poolConfig.TakeDecreaseExponent;
 			
@@ -135,7 +133,7 @@ namespace FirstLight.Game.Logic
 			var modEquipmentList = new List<Tuple<float, Equipment>>();
 			var augmentedModSum = (float) 0;
 			
-			foreach (var nft in equippedItemArray)
+			foreach (var nft in loadoutItems)
 			{
 				if (nft.GameId == GameId.Hammer)
 				{
@@ -163,12 +161,12 @@ namespace FirstLight.Game.Logic
 			// ----- Decrease CS max take based on equipped NFT durability
 			var totalNftDurability = (float) 0;
 			
-			foreach (var nft in equippedItemArray)
+			foreach (var nft in loadoutItems)
 			{
 				totalNftDurability += nft.Durability / 100f;
 			}
 
-			var nftDurabilityAvg = totalNftDurability / equippedItemArray.Length;
+			var nftDurabilityAvg = totalNftDurability / loadoutItems.Length;
 			var durabilityDecreaseMult = MathF.Pow(1 - nftDurabilityAvg, takeDecreaseExp) * takeDecreaseMod;
 			var durabilityDecrease = MathF.Round(maxTake * durabilityDecreaseMult);
 			

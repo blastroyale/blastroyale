@@ -175,9 +175,9 @@ namespace FirstLight.Game.Logic
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
 			
-			// Utility for calculations
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-			var nftOwned = GameLogic.EquipmentLogic.Inventory.Count(x => x.Value.GameId != GameId.Hammer);
+			var inventory = GameLogic.EquipmentLogic.Inventory;
+			var nftOwned = inventory.Count(x => x.Value.GameId != GameId.Hammer);
 			var poolCapacity = (float) 0;
 			var shapeMod = poolConfig.ShapeModifier;
 			var scaleMult = poolConfig.ScaleMultiplier;
@@ -198,7 +198,7 @@ namespace FirstLight.Game.Logic
 			var modEquipmentList = new List<Tuple<float, Equipment>>();
 			var augmentedModSum = (float) 0;
 			
-			foreach (var nft in GameLogic.EquipmentLogic.Inventory)
+			foreach (var nft in inventory)
 			{
 				if (nft.Value.GameId == GameId.Hammer)
 				{
@@ -227,13 +227,13 @@ namespace FirstLight.Game.Logic
 			// ----- Decrease pool capacity based on owned NFT durability
 			var totalNftDurability = (float) 0;
 
-			foreach (var nft in GameLogic.EquipmentLogic.Inventory)
+			foreach (var nft in inventory)
 			{
 				if (nft.Value.GameId == GameId.Hammer)
 				{
 					continue;
 				}
-
+				
 				totalNftDurability += nft.Value.Durability / 100f;
 			}
 			

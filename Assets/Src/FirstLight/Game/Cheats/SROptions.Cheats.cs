@@ -56,17 +56,19 @@ public partial class SROptions
 
 		foreach (var config in weaponConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary, level: 3));
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
+			                                                      level: 3));
 		}
 
 		foreach (var config in gearConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary, level: 3));
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
+			                                                      level: 3));
 		}
 
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	/// <summary>
 	/// This cheat can be be used to validate resource pool calculations, by receiving equipment used in the resource pool calculator:
 	/// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
@@ -80,20 +82,29 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
 		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-		
-		var eq1 = new Equipment(weaponConfigs[2].Id, rarity: EquipmentRarity.RarePlus, adjective: EquipmentAdjective.Regular, grade: EquipmentGrade.GradeV, durability: 96, level: 3);
-		var eq2 = new Equipment(gearConfigs[0].Id, rarity: EquipmentRarity.Rare, adjective: EquipmentAdjective.Exquisite, grade: EquipmentGrade.GradeIII, durability: 62, level: 3);
-		var eq3 = new Equipment(gearConfigs[4].Id, rarity: EquipmentRarity.Uncommon, adjective: EquipmentAdjective.Cool, grade: EquipmentGrade.GradeIII, durability: 51, level: 3);
-		var eq4 = new Equipment(gearConfigs[5].Id, rarity: EquipmentRarity.Legendary, adjective: EquipmentAdjective.Royal, grade: EquipmentGrade.GradeI, durability: 43, level: 3);
-		var eq5 = new Equipment(gearConfigs[6].Id, rarity: EquipmentRarity.LegendaryPlus, adjective: EquipmentAdjective.Divine, grade: EquipmentGrade.GradeIV, durability: 18, level: 3);
-		
+
+		var eq1 = new Equipment(weaponConfigs[2].Id, rarity: EquipmentRarity.RarePlus,
+		                        adjective: EquipmentAdjective.Regular, grade: EquipmentGrade.GradeV, durability: 96,
+		                        level: 3);
+		var eq2 = new Equipment(gearConfigs[0].Id, rarity: EquipmentRarity.Rare,
+		                        adjective: EquipmentAdjective.Exquisite, grade: EquipmentGrade.GradeIII, durability: 62,
+		                        level: 3);
+		var eq3 = new Equipment(gearConfigs[4].Id, rarity: EquipmentRarity.Uncommon, adjective: EquipmentAdjective.Cool,
+		                        grade: EquipmentGrade.GradeIII, durability: 51, level: 3);
+		var eq4 = new Equipment(gearConfigs[5].Id, rarity: EquipmentRarity.Legendary,
+		                        adjective: EquipmentAdjective.Royal, grade: EquipmentGrade.GradeI, durability: 43,
+		                        level: 3);
+		var eq5 = new Equipment(gearConfigs[6].Id, rarity: EquipmentRarity.LegendaryPlus,
+		                        adjective: EquipmentAdjective.Divine, grade: EquipmentGrade.GradeIV, durability: 18,
+		                        level: 3);
+
 		gameLogic.EquipmentLogic.AddToInventory(eq1);
 		gameLogic.EquipmentLogic.AddToInventory(eq2);
 		gameLogic.EquipmentLogic.AddToInventory(eq3);
 		gameLogic.EquipmentLogic.AddToInventory(eq4);
 		gameLogic.EquipmentLogic.AddToInventory(eq5);
-		
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Equipment")]
@@ -102,12 +113,32 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
+		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
 
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(weaponConfigs[1].Id, rarity: EquipmentRarity.Legendary, level: 3));
+		var rand = Random.Range(0, 2);
 
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		if (rand == 0)
+		{
+			var randWep = Random.Range(0, weaponConfigs.Count);
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(weaponConfigs[randWep].Id,
+			                                                      rarity: EquipmentRarity.Rare,
+			                                                      adjective: EquipmentAdjective.Exquisite,
+			                                                      grade: EquipmentGrade.GradeIII, durability: 50,
+			                                                      level: 3));
+		}
+		else
+		{
+			var randGear = Random.Range(0, gearConfigs.Count);
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(gearConfigs[randGear].Id,
+			                                                      rarity: EquipmentRarity.Rare,
+			                                                      adjective: EquipmentAdjective.Exquisite,
+			                                                      grade: EquipmentGrade.GradeIII, durability: 50,
+			                                                      level: 3));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Equipment")]
 	public void RemoveAllEquipment()
 	{
@@ -117,15 +148,15 @@ public partial class SROptions
 		var deletionKeys = new List<UniqueId>();
 
 		deletionKeys.AddRange(gameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary.Keys);
-		
+
 		foreach (var key in deletionKeys)
 		{
 			gameLogic.EquipmentLogic.RemoveFromInventory(key);
 		}
-		
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

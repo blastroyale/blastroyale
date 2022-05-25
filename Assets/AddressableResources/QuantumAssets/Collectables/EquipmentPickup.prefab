@@ -4883,9 +4883,9 @@ GameObject:
   - component: {fileID: 7757663921541325714}
   - component: {fileID: 409028007402901711}
   - component: {fileID: 7822592615862042359}
-  - component: {fileID: 2567281674773606863}
+  - component: {fileID: 2815238775316882167}
   m_Layer: 11
-  m_Name: WeaponPickup
+  m_Name: EquipmentPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5100,7 +5100,7 @@ MonoBehaviour:
   EntityView: {fileID: 7757663921541325714}
   _itemTransform: {fileID: 7937504527636908720}
   _collectableView: {fileID: 3027164655931189395}
---- !u!114 &2567281674773606863
+--- !u!114 &2815238775316882167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5109,11 +5109,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 3587682744574828602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec2e220c4a80d4ac5bb508eae05d9caa, type: 3}
+  m_Script: {fileID: 11500000, guid: 35181e0e725004e4b909ae2194a28779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    _empty_prototype_dummy_field_: 0
+    Item:
+      GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
+    Owner:
+      _index: 0
 --- !u!1 &4764048967066448840
 GameObject:
   m_ObjectHideFlags: 0
@@ -10093,11 +10119,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0120b722c3ca5454da1240b65656905f, type: 3}
-  m_Name: WeaponPickupEntityPrototype
+  m_Name: EquipmentPickupEntityPrototype
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/Collectables/WeaponPickup|EntityPrototype
+      Path: AddressableResources/QuantumAssets/Collectables/EquipmentPickup|EntityPrototype
       Guid:
         Value: 4070827363264793974
   Parent: {fileID: 409028007402901711}
@@ -10111,11 +10137,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d5baec4de8d2754a864a680181831e8, type: 3}
-  m_Name: WeaponPickupEntityView
+  m_Name: EquipmentPickupEntityView
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/Collectables/WeaponPickup|EntityView
+      Path: AddressableResources/QuantumAssets/Collectables/EquipmentPickup|EntityView
       Guid:
         Value: 3715608968879547668
   Parent: {fileID: 7757663921541325714}

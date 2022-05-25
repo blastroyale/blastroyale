@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -13,29 +15,28 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		private IObservableDictionary<GameIdGroup, UniqueId> _equippedItems;
+		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
 
-		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _equippedItems;
+		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 
-		
-		
+
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
 
-		/// <inheritdoc />
 		public void Init()
 		{
-			_equippedItems = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
+			_loadout =
+				new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 		}
 
 		public Equipment[] GetLoadoutItems()
 		{
-			return _equippedItems.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
+			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
 		}
 
 		public List<Equipment> FindInInventory(GameIdGroup slot)
@@ -43,38 +44,41 @@ namespace FirstLight.Game.Logic
 			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();
 		}
 
-		/// <inheritdoc />
 		public bool IsEquipped(UniqueId itemId)
 		{
-			return _equippedItems.ReadOnlyDictionary.Values.Contains(itemId);
+			return _loadout.ReadOnlyDictionary.Values.Contains(itemId);
 		}
 
-
-		public uint GetItemPower(Equipment equipment)
+		public float GetItemStat(Equipment equipment, StatType stat)
 		{
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var baseStatsConfig =
+				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
+			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
 
-			return (uint) equipment.Rarity * gameConfig.EquipmentRarityToPowerK +
-			       equipment.Level * gameConfig.EquipmentLevelToPowerK;
+			return QuantumStatCalculator.CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, stat)
+			                            .AsFloat;
 		}
 
-		/// <inheritdoc />
-		public uint GetTotalEquippedItemPower()
+		public float GetTotalEquippedStat(StatType stat)
 		{
-			var power = 0u;
+			var value = 0f;
 
-			foreach (var id in _equippedItems.ReadOnlyDictionary.Values)
+			foreach (var id in _loadout.ReadOnlyDictionary.Values)
 			{
-				power += GetItemPower(_inventory[id]);
+				value += GetItemStat(_inventory[id], stat);
 			}
 
-			return power;
+			return value;
 		}
 
 		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0)
 		{
 			var stats = new Dictionary<EquipmentStatType, float>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var baseStatsConfig =
+				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
+			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
 
 			if (level > 0)
 			{
@@ -84,29 +88,29 @@ namespace FirstLight.Game.Logic
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
-				var power = QuantumStatCalculator.CalculateWeaponPower(gameConfig, weaponConfig, equipment);
 
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
 				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
 				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
-				stats.Add(EquipmentStatType.Damage, power.AsFloat);
 			}
-			else
-			{
-				var gearConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGearConfig>((int) equipment.GameId);
 
-				stats.Add(EquipmentStatType.Hp,
-				          QuantumStatCalculator.CalculateGearStat(gameConfig, gearConfig, equipment, StatType.Health)
-				                               .AsFloat);
-				stats.Add(EquipmentStatType.Speed,
-				          QuantumStatCalculator.CalculateGearStat(gameConfig, gearConfig, equipment, StatType.Speed)
-				                               .AsFloat);
-				stats.Add(EquipmentStatType.Armor,
-				          QuantumStatCalculator.CalculateGearStat(gameConfig, gearConfig, equipment, StatType.Armour)
-				                               .AsFloat);
-			}
+			stats.Add(EquipmentStatType.Hp,
+			          QuantumStatCalculator
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Health).AsFloat);
+			stats.Add(EquipmentStatType.Speed,
+			          QuantumStatCalculator
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Speed)
+				          .AsFloat);
+			stats.Add(EquipmentStatType.Armor,
+			          QuantumStatCalculator
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Armour)
+				          .AsFloat);
+			stats.Add(EquipmentStatType.Damage,
+			          QuantumStatCalculator
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Power)
+				          .AsFloat);
 
 			return stats;
 		}
@@ -131,7 +135,7 @@ namespace FirstLight.Game.Logic
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
 
-			if (_equippedItems.TryGetValue(slot, out var equippedId))
+			if (_loadout.TryGetValue(slot, out var equippedId))
 			{
 				Unequip(equippedId);
 			}
@@ -141,13 +145,12 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		/// <inheritdoc />
 		public void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
 
-			if (_equippedItems.TryGetValue(slot, out var equippedId))
+			if (_loadout.TryGetValue(slot, out var equippedId))
 			{
 				if (equippedId == itemId)
 				{
@@ -157,22 +160,21 @@ namespace FirstLight.Game.Logic
 				Unequip(equippedId);
 			}
 
-			_equippedItems.Add(slot, itemId);
+			_loadout.Add(slot, itemId);
 		}
 
-		/// <inheritdoc />
 		public void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
 
-			if (!_equippedItems.TryGetValue(slot, out var equippedId) || equippedId != itemId)
+			if (!_loadout.TryGetValue(slot, out var equippedId) || equippedId != itemId)
 			{
 				throw new
 					LogicException($"The player does not have the given '{gameId}' item equipped to be unequipped");
 			}
 
-			_equippedItems.Remove(slot);
+			_loadout.Remove(slot);
 		}
 	}
 }

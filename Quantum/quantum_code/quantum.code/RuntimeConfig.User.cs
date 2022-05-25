@@ -15,13 +15,14 @@ namespace Quantum
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumBotConfigs BotConfigs;
 		public AssetRefQuantumWeaponConfigs WeaponConfigs;
-		public AssetRefQuantumGearConfigs GearConfigs;
 		public AssetRefQuantumConsumableConfigs ConsumableConfigs;
 		public AssetRefQuantumChestConfigs ChestConfigs;
 		public AssetRefQuantumSpecialConfigs SpecialConfigs;
 		public AssetRefQuantumAssetConfigs AssetConfigs;
 		public AssetRefQuantumDestructibleConfigs DestructibleConfigs;
 		public AssetRefQuantumShrinkingCircleConfigs ShrinkingCircleConfigs;
+		public AssetRefQuantumEquipmentStatsConfigs EquipmentStatsConfigs;
+		public AssetRefQuantumBaseEquipmentStatsConfigs BaseEquipmentStatsConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -35,13 +36,14 @@ namespace Quantum
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref BotConfigs);
 			stream.Serialize(ref WeaponConfigs);
-			stream.Serialize(ref GearConfigs);
 			stream.Serialize(ref ConsumableConfigs);
 			stream.Serialize(ref ChestConfigs);
 			stream.Serialize(ref SpecialConfigs);
 			stream.Serialize(ref AssetConfigs);
 			stream.Serialize(ref DestructibleConfigs);
 			stream.Serialize(ref ShrinkingCircleConfigs);
+			stream.Serialize(ref EquipmentStatsConfigs);
+			stream.Serialize(ref BaseEquipmentStatsConfigs);
 			
 			GameMode = (GameMode) gameMode;
 		}

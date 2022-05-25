@@ -47,23 +47,53 @@ public partial class SROptions
 	}
 
 	[Category("Equipment")]
-	public void UnlockAllEquipment()
+	public void GiveMaxedEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
-		foreach (var config in weaponConfigs)
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		foreach (var config in equipmentConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id,
+			                                                      EquipmentEdition.Genesis,
+			                                                      EquipmentRarity.LegendaryPlus,
+			                                                      EquipmentGrade.GradeI,
+			                                                      EquipmentFaction.Dimensional,
+			                                                      EquipmentAdjective.Divine,
+			                                                      EquipmentMaterial.Golden,
+			                                                      EquipmentManufacturer.Military,
+			                                                      100,
+			                                                      10,
+			                                                      0,
+			                                                      0,
+			                                                      10
+			                                                     ));
 		}
 
-		foreach (var config in gearConfigs)
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Equipment")]
+	public void GiveBadEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		foreach (var config in equipmentConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id));
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
@@ -80,29 +110,29 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 
-		var eq1 = new Equipment(weaponConfigs[2].Id, rarity: EquipmentRarity.RarePlus,
-		                        adjective: EquipmentAdjective.Regular, grade: EquipmentGrade.GradeV, durability: 96,
-		                        level: 3);
-		var eq2 = new Equipment(gearConfigs[0].Id, rarity: EquipmentRarity.Rare,
-		                        adjective: EquipmentAdjective.Exquisite, grade: EquipmentGrade.GradeIII, durability: 62,
-		                        level: 3);
-		var eq3 = new Equipment(gearConfigs[4].Id, rarity: EquipmentRarity.Uncommon, adjective: EquipmentAdjective.Cool,
-		                        grade: EquipmentGrade.GradeIII, durability: 51, level: 3);
-		var eq4 = new Equipment(gearConfigs[5].Id, rarity: EquipmentRarity.Legendary,
-		                        adjective: EquipmentAdjective.Royal, grade: EquipmentGrade.GradeI, durability: 43,
-		                        level: 3);
-		var eq5 = new Equipment(gearConfigs[6].Id, rarity: EquipmentRarity.LegendaryPlus,
-		                        adjective: EquipmentAdjective.Divine, grade: EquipmentGrade.GradeIV, durability: 18,
-		                        level: 3);
-
-		gameLogic.EquipmentLogic.AddToInventory(eq1);
-		gameLogic.EquipmentLogic.AddToInventory(eq2);
-		gameLogic.EquipmentLogic.AddToInventory(eq3);
-		gameLogic.EquipmentLogic.AddToInventory(eq4);
-		gameLogic.EquipmentLogic.AddToInventory(eq5);
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id,
+		                                                      rarity: EquipmentRarity.LegendaryPlus,
+		                                                      adjective: EquipmentAdjective.Divine,
+		                                                      grade: EquipmentGrade.GradeIV, durability: 18,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[4].Id, rarity: EquipmentRarity.Legendary,
+		                                                      adjective: EquipmentAdjective.Royal,
+		                                                      grade: EquipmentGrade.GradeI, durability: 43,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Uncommon,
+		                                                      adjective: EquipmentAdjective.Cool,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 51,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[6].Id, rarity: EquipmentRarity.Rare,
+		                                                      adjective: EquipmentAdjective.Exquisite,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 62,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[26].Id, rarity: EquipmentRarity.RarePlus,
+		                                                      adjective: EquipmentAdjective.Regular,
+		                                                      grade: EquipmentGrade.GradeV, durability: 96,
+		                                                      level: 3));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
@@ -112,29 +142,15 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 
-		var rand = Random.Range(0, 2);
+		var rand = Random.Range(0, equipmentConfigs.Count);
 
-		if (rand == 0)
-		{
-			var randWep = Random.Range(0, weaponConfigs.Count);
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(weaponConfigs[randWep].Id,
-			                                                      rarity: EquipmentRarity.Rare,
-			                                                      adjective: EquipmentAdjective.Exquisite,
-			                                                      grade: EquipmentGrade.GradeIII, durability: 50,
-			                                                      level: 3));
-		}
-		else
-		{
-			var randGear = Random.Range(0, gearConfigs.Count);
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(gearConfigs[randGear].Id,
-			                                                      rarity: EquipmentRarity.Rare,
-			                                                      adjective: EquipmentAdjective.Exquisite,
-			                                                      grade: EquipmentGrade.GradeIII, durability: 50,
-			                                                      level: 3));
-		}
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[rand].Id,
+		                                                      rarity: EquipmentRarity.Rare,
+		                                                      adjective: EquipmentAdjective.Exquisite,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 75,
+		                                                      level: 3));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

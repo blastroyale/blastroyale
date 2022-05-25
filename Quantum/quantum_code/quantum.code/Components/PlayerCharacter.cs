@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -184,11 +185,10 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
-			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var power = QuantumStatCalculator.CalculateWeaponPower(f, weapon);
 
-			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			RefreshStats(f, e);
+
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
@@ -298,15 +298,32 @@ namespace Quantum
 
 		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
 		{
-			QuantumStatCalculator.CalculateGearStats(f, equipment, out var gearArmour, out var gearHealth,
-			                                         out var gearSpeed);
+			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
+			                                     out var speed, out var power);
 
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + gearHealth,
-			                   0,
-			                   f.GameConfig.PlayerDefaultSpeed + gearSpeed,
-			                   gearArmour,
+			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + health,
+			                   power,
+			                   f.GameConfig.PlayerDefaultSpeed + speed,
+			                   armour,
 			                   f.GameConfig.PlayerMaxShieldCapacity,
 			                   f.GameConfig.PlayerStartingShieldCapacity));
+		}
+
+		private void RefreshStats(Frame f, EntityRef e)
+		{
+			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
+			                                     out var speed,
+			                                     out var power);
+
+			health += f.GameConfig.PlayerDefaultHealth;
+			speed += f.GameConfig.PlayerDefaultSpeed;
+
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
+			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
+			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			stats->ApplyModifiers(f);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)

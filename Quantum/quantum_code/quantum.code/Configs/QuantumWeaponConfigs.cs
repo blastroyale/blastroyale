@@ -11,7 +11,6 @@ namespace Quantum
 		public AssetRefEntityPrototype AssetRef;
 		public FP InitialAmmoFilled;
 		public int MaxAmmo;
-		public FP PowerRatioToBase;
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;

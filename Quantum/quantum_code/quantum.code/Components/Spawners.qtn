@@ -6,6 +6,7 @@ component CollectablePlatformSpawner
 	UInt32 RespawnTimeInSec;
 	UInt32 InitialSpawnDelayInSec;
 	GameId GameId;
+	Int32 RarityModifier;
 }
 
 component PlayerSpawner

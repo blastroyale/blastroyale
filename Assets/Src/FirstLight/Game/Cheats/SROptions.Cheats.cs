@@ -46,29 +46,57 @@ public partial class SROptions
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 
-	public void UnlockAllEquipment()
+	public void GiveMaxedEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
-		foreach (var config in weaponConfigs)
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		foreach (var config in equipmentConfigs)
 		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id,
+			                                                      EquipmentEdition.Genesis,
+			                                                      EquipmentRarity.LegendaryPlus,
+			                                                      EquipmentGrade.GradeI,
+			                                                      EquipmentFaction.Dimensional,
+			                                                      EquipmentAdjective.Divine,
+			                                                      EquipmentMaterial.Golden,
+			                                                      EquipmentManufacturer.Military,
+			                                                      100,
+			                                                      10,
+			                                                      0,
+			                                                      0,
+			                                                      10
+			                                                     ));
 		}
 
-		foreach (var config in gearConfigs)
-		{
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id, rarity: EquipmentRarity.Legendary,
-			                                                      level: 3));
-		}
-
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
+	public void GiveBadEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		foreach (var config in equipmentConfigs)
+		{
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

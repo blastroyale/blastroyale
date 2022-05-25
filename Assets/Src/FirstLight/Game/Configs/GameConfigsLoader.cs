@@ -43,7 +43,6 @@ namespace FirstLight.Game.Configs
 				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
 				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
@@ -52,6 +51,8 @@ namespace FirstLight.Game.Configs
 				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
 				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.Placement, asset.Configs)),
 				LoadConfig<ChestConfigs>(AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
+				LoadConfig<EquipmentStatsConfigs>(AddressableId.Configs_EquipmentStatsConfigs, asset => configsAdder.AddSingletonConfig(asset)),
+				LoadConfig<BaseEquipmentStatsConfigs>(AddressableId.Configs_BaseEquipmentStatsConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 			};
 		}
 	

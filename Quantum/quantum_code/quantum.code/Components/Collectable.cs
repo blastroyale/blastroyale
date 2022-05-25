@@ -29,8 +29,8 @@ namespace Quantum
 			{
 				var config = f.WeaponConfigs.GetConfig(equipment.GameId);
 				var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
-				f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
-				                                                     config, owner);
+				f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
+				                                                        equipment, owner);
 			}
 
 			// TODO: Implement for gear

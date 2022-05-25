@@ -513,7 +513,7 @@ namespace Quantum.Systems
 		private bool TryGetClosestWeapon(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<WeaponCollectable>();
+			var iterator = f.GetComponentIterator<EquipmentCollectable>();
 			var sqrDistance = FP.MaxValue;
 			var totalAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity, out var maxAmmo);
 			weaponPickupPosition = FPVector3.Zero;

@@ -77,13 +77,21 @@ namespace Quantum
 		/// </summary>
 		internal void AddModifier(Frame f, Modifier modifier)
 		{
-			var statData = Values[(int) modifier.Type];
-			var multiplier = modifier.IsNegative ? -1 : 1;
-
-			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
-			Values[(int) modifier.Type] = statData;
-
+			ApplyModifier(modifier);
 			f.ResolveList(Modifiers).Add(modifier);
+		}
+
+		/// <summary>
+		/// This re-applies all stored modifiers from <see cref="Modifiers"/>. Note that
+		/// calling this multiple times will apply all the modifiers multiple times.
+		/// </summary>
+		internal void ApplyModifiers(Frame f)
+		{
+			var modifiers = f.ResolveList(Modifiers);
+			foreach (var modifier in modifiers)
+			{
+				ApplyModifier(modifier);
+			}
 		}
 
 		/// <summary>
@@ -269,6 +277,15 @@ namespace Quantum
 			
 			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
 			SetShields(f, entity, EntityRef.None, 0);
+		}
+
+		private void ApplyModifier(Modifier modifier)
+		{
+			var statData = Values[(int) modifier.Type];
+			var multiplier = modifier.IsNegative ? -1 : 1;
+
+			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
+			Values[(int) modifier.Type] = statData;
 		}
 	}
 }

@@ -187,15 +187,11 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerRef = game.GetLocalPlayers()[0];
-			var localPlayerData = matchData[localPlayerRef];
 
 			_services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand
 			{
-				PlayersMatchData = matchData,
-				LocalPlayerRef = localPlayerRef,
-				LocalPlayerRank = localPlayerData.PlayerRank,
+				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
+				LocalPlayerRef = game.GetLocalPlayers()[0],
 				DidPlayerQuit = false
 			});
 		}

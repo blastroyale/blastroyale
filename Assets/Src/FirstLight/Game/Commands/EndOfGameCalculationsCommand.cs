@@ -19,18 +19,21 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct EndOfGameCalculationsCommand : IGameCommand
 	{
-		public QuantumPlayerMatchData[] PlayersMatchData;
+		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public PlayerRef LocalPlayerRef;
-		public uint LocalPlayerRank;
 		public bool DidPlayerQuit;
 		
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			gameLogic.MatchLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRank);
+			gameLogic.MatchLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayersMatchData[LocalPlayerRef], DidPlayerQuit);
+
+			var localPlayerRef = LocalPlayerRef;
+			var player = PlayersMatchData.Find(data => data.Data.Player.Equals(localPlayerRef));
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(player, DidPlayerQuit);
+			
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
 		}
 	}

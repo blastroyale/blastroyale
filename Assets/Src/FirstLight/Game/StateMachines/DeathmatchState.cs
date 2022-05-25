@@ -94,8 +94,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var deadData = callback.PlayersMatchData[callback.PlayerDead];
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
+			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 
 			// "Key" = Number of times I killed this player, "Value" = number of times that player killed me.
 			if (deadData.IsLocalPlayer || killerData.IsLocalPlayer)

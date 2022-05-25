@@ -57,15 +57,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var localPlayer = callback.Game.GetLocalPlayers()[0];
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));;
 
-			_currentRankText.text = callback.PlayersMatchData[localPlayer].PlayerRank.ToString();
+			var localPlayer = callback.PlayersMatchData.Find(data => data.IsLocalPlayer);
+			_currentRankText.text = localPlayer.PlayerRank.ToString();
 			
 			_rankChangeAnimation.Rewind();
 			_rankChangeAnimation.Play();
 			
-			if (localPlayer != callback.PlayerKiller)
+			if (localPlayer.Data.Player != callback.PlayerKiller)
 			{
 				return;
 			}

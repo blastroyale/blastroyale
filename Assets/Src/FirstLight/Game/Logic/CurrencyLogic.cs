@@ -262,17 +262,24 @@ namespace FirstLight.Game.Logic
 			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) MathF.Floor((float) minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
+			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
 			
 			if (amountOfRestocks == 0)
 			{
+				// This is called here, as if the player sells their NFT and comes back into the game, the capacity is going to 
+				// change and should be corrected at withdrawal time, just to be sure.
+				if (poolData.CurrentResourceAmountInPool > currentPoolCapacity)
+				{
+					poolData.CurrentResourceAmountInPool = currentPoolCapacity;
+					Data.ResourcePools[poolType] = poolData;
+				}
+				
 				return;
 			}
 			
 			poolData.LastPoolRestockTime = poolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * poolConfig.RestockIntervalMinutes);
 			poolData.CurrentResourceAmountInPool += GetPoolRestockAmountPerInterval(poolType) * amountOfRestocks;
 
-			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
-			
 			if (poolData.CurrentResourceAmountInPool > currentPoolCapacity)
 			{
 				poolData.CurrentResourceAmountInPool = currentPoolCapacity;

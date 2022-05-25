@@ -23,7 +23,7 @@ public class GameServer
 	/// <summary>
 	/// Returns if the server is setup to run dev-mode. In dev-mode all players are admin and cheating will be enabled.
 	/// </summary>
-	public bool DevMode => true;//Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
+	public bool DevMode => Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
 	
 	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex)
 	{

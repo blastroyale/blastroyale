@@ -133,11 +133,6 @@ namespace FirstLight.Game.Logic
 
 			if (_equippedItems.TryGetValue(slot, out var equippedId))
 			{
-				if (equippedId == equipment)
-				{
-					throw new LogicException($"The player already has the given item Id '{equipment}' equipped");
-				}
-
 				Unequip(equippedId);
 			}
 			

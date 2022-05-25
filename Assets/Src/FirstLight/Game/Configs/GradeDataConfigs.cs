@@ -9,7 +9,7 @@ namespace FirstLight.Game.Configs
 	public struct GradeDataConfig
 	{
 		public EquipmentGrade Grade;
-		public float PoolIncreaseModifier;
+		public double PoolIncreaseModifier;
 	}
 
 	/// <summary>

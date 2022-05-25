@@ -9,7 +9,7 @@ namespace FirstLight.Game.Configs
 	public struct RarityDataConfig
 	{
 		public EquipmentRarity Rarity;
-		public float PoolCapacityModifier;
+		public double PoolCapacityModifier;
 	}
 
 	/// <summary>

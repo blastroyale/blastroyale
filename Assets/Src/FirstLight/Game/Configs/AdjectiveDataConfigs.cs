@@ -9,7 +9,7 @@ namespace FirstLight.Game.Configs
 	public struct AdjectiveDataConfig
 	{
 		public EquipmentAdjective Adjective;
-		public float PoolCapacityModifier;
+		public double PoolCapacityModifier;
 	}
 
 	/// <summary>

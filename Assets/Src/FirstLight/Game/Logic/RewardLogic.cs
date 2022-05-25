@@ -92,7 +92,7 @@ namespace FirstLight.Game.Logic
 			}
 
 			var csRewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
-			var csPercent = csRewardPair.Value / 100f;
+			var csPercent = csRewardPair.Value / 100d;
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 
 			var loadoutSlots = GameConfig.LoadoutSlots;
@@ -100,10 +100,10 @@ namespace FirstLight.Game.Logic
 			var csMaxTake = GetMaxPoolTake(GameId.CS);
 			
 			// ----- Decrease take based on amount of NFTs equipped
-			var csTake = MathF.Ceiling(csMaxTake / loadoutSlots * nftsEquipped);
+			var csTake = Math.Ceiling(csMaxTake / loadoutSlots * nftsEquipped);
 			
 			// ---- Decrease take based on placement in match
-			csTake = MathF.Ceiling(csTake * csPercent);
+			csTake = Math.Ceiling(csTake * csPercent);
 			
 			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong) csTake, GameId.CS);
 			
@@ -115,23 +115,23 @@ namespace FirstLight.Game.Logic
 			return rewards;
 		}
 
-		private float GetMaxPoolTake(GameId resourcePoolId)
+		private double GetMaxPoolTake(GameId resourcePoolId)
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 			
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId);
-			var maxTake = (float) poolConfig.BaseMaxTake;
+			var maxTake = (double) poolConfig.BaseMaxTake;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
-			var adjRarityCurveMod = (float) GameConfig.AdjectiveRarityEarningsMod;
+			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
 			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutItems();
-			var takeDecreaseMod = poolConfig.MaxTakeDecreaseModifier;
-			var takeDecreaseExp = poolConfig.TakeDecreaseExponent;
+			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
+			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
 			
 			// ----- Increase CS max take per grade of equipped NFTs
-			var modEquipmentList = new List<Tuple<float, Equipment>>();
-			var augmentedModSum = (float) 0;
+			var modEquipmentList = new List<Tuple<double, Equipment>>();
+			var augmentedModSum = (double) 0;
 			
 			foreach (var nft in loadoutItems)
 			{
@@ -143,7 +143,7 @@ namespace FirstLight.Game.Logic
 				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Grade);
 				var modSum = gradeConfig.PoolIncreaseModifier;
 				
-				modEquipmentList.Add(new Tuple<float, Equipment>(modSum,nft));
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft));
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
@@ -151,12 +151,12 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var modSumNft in modEquipmentList)
 			{
-				var strength = MathF.Pow( MathF.Max( 0, 1 - MathF.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
+				var strength = Math.Pow( Math.Max( 0, 1 - Math.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
 				augmentedModSum += modSumNft.Item1 * strength;
 				currentIndex++;
 			}
 			
-			maxTake += MathF.Round(maxTake * augmentedModSum);
+			maxTake += Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
 			var totalNftDurability = (float) 0;
@@ -167,8 +167,8 @@ namespace FirstLight.Game.Logic
 			}
 
 			var nftDurabilityAvg = totalNftDurability / loadoutItems.Length;
-			var durabilityDecreaseMult = MathF.Pow(1 - nftDurabilityAvg, takeDecreaseExp) * takeDecreaseMod;
-			var durabilityDecrease = MathF.Round(maxTake * durabilityDecreaseMult);
+			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityAvg, takeDecreaseExp) * takeDecreaseMod;
+			var durabilityDecrease = Math.Round(maxTake * durabilityDecreaseMult);
 			
 			maxTake -= durabilityDecrease;
 			

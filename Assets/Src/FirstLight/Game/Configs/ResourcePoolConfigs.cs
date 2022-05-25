@@ -13,12 +13,12 @@ namespace FirstLight.Game.Configs
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
 		public uint BaseMaxTake;
-		public float ScaleMultiplier;
-		public float ShapeModifier;
-		public float MaxPoolCapacityDecreaseModifier;
-		public float PoolCapacityDecreaseExponent;
-		public float MaxTakeDecreaseModifier;
-		public float TakeDecreaseExponent;
+		public double ScaleMultiplier;
+		public double ShapeModifier;
+		public double MaxPoolCapacityDecreaseModifier;
+		public double PoolCapacityDecreaseExponent;
+		public double MaxTakeDecreaseModifier;
+		public double TakeDecreaseExponent;
 	}
 
 	/// <summary>

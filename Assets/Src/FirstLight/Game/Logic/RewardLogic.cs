@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -75,8 +76,7 @@ namespace FirstLight.Game.Logic
 
 			// Get worst reward placement reward by default, or specific placement reward thereafter
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = 8; //(mapConfig.PlayersLimit + 1) - matchData.PlayerRank;
-			// TODO - remove the hard coded 8, when matchData.PlayerRank is fixed. PlayerRank does needs fixing for BR.
+			var rankValue = matchData.PlayerRank;
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Logic
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 
 			var equipSlots = 5;
-			var nftsEquipped = GameLogic.EquipmentLogic.EquippedItems.Count;
+			var nftsEquipped = GameLogic.EquipmentLogic.Loadout.Count;
 			var csMaxTake = GetMaxPoolTake(GameId.CS);
 			
 			// ----- Decrease take based on amount of NFTs equipped
@@ -123,7 +123,7 @@ namespace FirstLight.Game.Logic
 			var nftAssumed = 40;
 			var minNftOwned = 3;
 			var adjRarityCurveMod = 0.8f;
-			var equippedItemArray = GameLogic.EquipmentLogic.GetEquippedItems();
+			var equippedItemArray = GameLogic.EquipmentLogic.GetLoadoutItems();
 			var takeDecreaseMod = poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = poolConfig.TakeDecreaseExponent;
 			

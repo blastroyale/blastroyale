@@ -247,6 +247,7 @@
     <Compile Include="Systems\PlayerChargingSystem.cs" />
     <Compile Include="Systems\PreRaycastShotSytem.cs" />
     <Compile Include="Systems\RaycastShotsSystem.cs" />
+    <Compile Include="Systems\SetupRuntimeDataSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Utils\BitUtil.cs" />
+    <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />

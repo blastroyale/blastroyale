@@ -134,9 +134,10 @@ namespace FirstLight.Game.Presenters
 		private void ProcessResultScreenData(Frame f)
 		{
 			var container = f.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(f, out _));
-
-			_standings.Initialise(playerData, false, false);
+			var playerData = container.GetPlayersMatchData(f, out _);
+			
+			_standings.Initialise(playerData.Count, false, false);
+			_standings.UpdateStandings(playerData);
 		}
 
 		private void OnRespawnPressed()

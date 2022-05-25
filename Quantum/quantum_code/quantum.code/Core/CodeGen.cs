@@ -4524,15 +4524,17 @@ namespace Quantum {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public PlayerRef Owner;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 547;
+        hash = hash * 31 + Owner.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponCollectable*)ptr;
+        PlayerRef.Serialize(&p->Owner, serializer);
     }
   }
   public unsafe partial class Frame {
@@ -7682,6 +7684,9 @@ namespace Quantum {
     public const Int32 EQUIPMENT_SLOT_COUNT = 6;
     public const Int32 PLAYER_COUNT = 32;
     public const Int32 MAX_WEAPONS = 3;
+    public const Int32 WEAPON_INDEX_DEFAULT = 0;
+    public const Int32 WEAPON_INDEX_PRIMARY = 1;
+    public const Int32 WEAPON_INDEX_SECONDARY = 2;
     public const Int32 MAX_GEAR = 5;
     public const Int32 MAX_SPECIALS = 2;
     public const Int32 TOTAL_STATS = 5;
@@ -9579,8 +9584,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(WeaponCollectable))]
   public sealed unsafe partial class WeaponCollectable_Prototype : ComponentPrototype<WeaponCollectable> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public PlayerRef Owner;
     partial void MaterializeUser(Frame frame, ref WeaponCollectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       WeaponCollectable component = default;
@@ -9588,6 +9592,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref WeaponCollectable result, in PrototypeMaterializationContext context) {
+      result.Owner = this.Owner;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

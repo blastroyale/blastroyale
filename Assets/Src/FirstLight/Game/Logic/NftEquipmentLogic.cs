@@ -16,7 +16,7 @@ namespace FirstLight.Game.Logic
 		private IObservableDictionary<GameIdGroup, UniqueId> _equippedItems;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
 
-		public IObservableDictionaryReader<GameIdGroup, UniqueId> EquippedItems => _equippedItems;
+		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _equippedItems;
 
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 
@@ -33,7 +33,7 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 		}
 
-		public Equipment[] GetEquippedItems()
+		public Equipment[] GetLoadoutItems()
 		{
 			return _equippedItems.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
 		}

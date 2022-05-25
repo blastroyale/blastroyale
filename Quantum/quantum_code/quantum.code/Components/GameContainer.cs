@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Quantum
 {
 	public unsafe partial struct GameContainer
@@ -64,99 +68,113 @@ namespace Quantum
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		public QuantumPlayerMatchData[] GetPlayersMatchData(Frame f, out PlayerRef leader)
+		public List<QuantumPlayerMatchData> GetPlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
-			var matchData = new QuantumPlayerMatchData[f.PlayerCount];
+			var playersData = new List<QuantumPlayerMatchData>(data.Length);
 			var gameMode = f.RuntimeConfig.GameMode;
-			
-			leader = PlayerRef.None;
+			IRankSorter sorter;
+
+			if (gameMode == GameMode.Deathmatch)
+			{
+				sorter = new DeathmatchSorter();
+			}
+			else
+			{
+				sorter = new BattleRoyaleSorter();
+			}
 
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
-				matchData[i] = new QuantumPlayerMatchData(f, data[i]);
-
-				if (gameMode == GameMode.Deathmatch)
-				{
-					ProcessDeathmatchRanks(matchData, i, ref leader);
-				}
-				else if (gameMode == GameMode.BattleRoyale)
-				{
-					ProcessBattleRoyaleRanks(matchData, i, ref leader);
-				}
+				playersData.InsertIntoSortedList(new QuantumPlayerMatchData(f, data[i]), sorter);
 			}
 
-			return matchData;
-		}
+			leader = data[0].Player;
 
-		private void ProcessDeathmatchRanks(QuantumPlayerMatchData[] data, int i, ref PlayerRef leader)
+			for (var i = 0; i < playersData.Count; i++)
+			{
+				var player = playersData[i];
+
+				player.PlayerRank = RankProcessor(playersData, i, sorter);
+
+				playersData[i] = player;
+			}
+
+			playersData.SortByPlayerRef(false);
+
+			return playersData;
+		}
+		
+		private uint RankProcessor(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter)
 		{
-			var pos = 1u;
-			
-			for (var j = 0; j < i; j++)
-			{
-				if (data[i].Data.PlayersKilledCount < data[j].Data.PlayersKilledCount)
-				{
-					pos++;
-				}
-				else if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount || 
-				         data[i].Data.DeathCount < data[j].Data.DeathCount)
-				{
-					data[j].PlayerRank++;
-				}
+			var rank = (uint) i + 1;
 
-				if (data[j].PlayerRank == 1)
-				{
-					leader = j;
-				}
-			}
-			
-			data[i].PlayerRank = pos;
-
-			if (data[i].PlayerRank == 1)
+			if (sorter.GameMode == GameMode.Deathmatch && i > 0 &&
+			    sorter.Compare(playersData[i], playersData[i - 1]) == 0)
 			{
-				leader = i;
+				rank = playersData[i - 1].PlayerRank;
 			}
+
+			return rank;
 		}
 
-		private void ProcessBattleRoyaleRanks(QuantumPlayerMatchData[] data, int i, ref PlayerRef leader)
+#region Player Rank Sorters
+		private interface IRankSorter : IComparer<QuantumPlayerMatchData>
 		{
-			var pos = 1u;
+			/// <summary>
+			/// Requests the <see cref="GameMode"/> defined for this sorter
+			/// </summary>
+			public GameMode GameMode { get; }
+		}
+		
+		private class BattleRoyaleSorter : IRankSorter
+		{
+			/// <inheritdoc />
+			public GameMode GameMode => GameMode.BattleRoyale;
 			
-			for (var j = 0; j < i; j++)
+			/// <inheritdoc />
+			public int Compare(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
 			{
-				if (data[i].Data.DeathCount == data[j].Data.DeathCount && data[j].Data.DeathCount == 0)
+				var compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+
+				if (compare == 0)
 				{
-					if (data[i].Data.PlayersKilledCount > data[j].Data.PlayersKilledCount)
-					{
-						data[j].PlayerRank++;
-					}
-					else
-					{
-						pos++;
-					}
-				}
-				else if(data[i].Data.FirstDeathTime > data[j].Data.FirstDeathTime && data[j].Data.DeathCount > 0)
-				{
-					data[j].PlayerRank++;
-				}
-				else
-				{
-					pos++;
+					compare = x.Data.FirstDeathTime.CompareTo(y.Data.FirstDeathTime) * -1;
 				}
 
-				if (data[j].PlayerRank == 1)
+				if (compare == 0)
 				{
-					leader = j;
+					compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount) * -1;
 				}
-			}
-			
-			data[i].PlayerRank = pos;
 
-			if (data[i].PlayerRank == 1)
-			{
-				leader = i;
+				if (compare == 0)
+				{
+					compare = x.Data.Player._index.CompareTo(y.Data.Player._index) * -1;
+				}
+
+				return compare;
 			}
 		}
+
+		private class DeathmatchSorter : IRankSorter
+		{
+			/// <inheritdoc />
+			public GameMode GameMode => GameMode.Deathmatch;
+			
+			/// <inheritdoc />
+			public int Compare(QuantumPlayerMatchData x, QuantumPlayerMatchData y)
+			{
+				var compare = x.Data.PlayersKilledCount.CompareTo(y.Data.PlayersKilledCount) * -1;
+
+				if (compare == 0)
+				{
+					compare = x.Data.DeathCount.CompareTo(y.Data.DeathCount);
+				}
+
+				return compare;
+			}
+		}
+
+#endregion
 	}
 }

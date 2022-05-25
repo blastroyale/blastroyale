@@ -25,6 +25,7 @@ services:
       args:
         APP_PORT: 7274
         ENVIRONMENT: "Development"
+        DEV_MODE: "true"
     expose:
       - 7274
     ports:

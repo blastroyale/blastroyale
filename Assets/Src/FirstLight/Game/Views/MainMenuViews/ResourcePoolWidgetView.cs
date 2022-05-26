@@ -23,7 +23,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class ResourcePoolWidgetView : MonoBehaviour
 	{
-		private const float TIMER_INTERVAL_SECONDS = 1f;
+		private const float TIMER_INTERVAL_SECONDS = 20f;
 		[SerializeField] private GameId _poolToObserve = GameId.CS;
 		[SerializeField] private Image _resourceImage;
 		[SerializeField] private TextMeshProUGUI _amountText;
@@ -34,7 +34,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private ResourcePoolConfig _poolConfig;
 		private ResourcePoolData _currentPoolData;
 		private DateTime _nextRestockTime;
-		private ulong _currentAmount;
+		private uint _currentAmount;
+		private uint _currentCapacity;
+		private uint _restockPerInterval;
 
 		private void Awake()
 		{
@@ -47,6 +49,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEnable()
 		{
 			_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);
+			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
+			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
 			TickTimerView(0);
 		}
 
@@ -56,50 +60,59 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
+		private void OnItemEquippedMessage(ItemEquippedMessage msg)
+		{
+			TickTimerView(0);
+		}
+
+		private void OnItemUnequippedMessage(ItemUnequippedMessage msg)
+		{
+			TickTimerView(0);
+		}
+
 		private void TickTimerView(float delta)
 		{
+			_currentCapacity = _dataProvider.CurrencyDataProvider.GetCurrentPoolCapacity(_poolToObserve);
+			_restockPerInterval = _dataProvider.CurrencyDataProvider.GetPoolRestockAmountPerInterval(_poolToObserve);
 			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
 
 			uint restockForTime = CalculatePoolRestockAmount(_poolConfig) + 1;
 
 			_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * _poolConfig.RestockIntervalMinutes);
-			_currentAmount = _currentPoolData.CurrentResourceAmountInPool;
+			_currentAmount = Math.Clamp(_currentPoolData.CurrentResourceAmountInPool, 0, _currentCapacity);
 
 			var timeDiff = _nextRestockTime - DateTime.UtcNow;
 			var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 
-			if (_currentAmount < _poolConfig.PoolCapacity)
+			if (_currentAmount < _currentCapacity)
 			{
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime,
-				                                  _poolConfig.RestockPerInterval, timeDiffText);
+				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, _restockPerInterval, timeDiffText);
 			}
 			else
 			{
 				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResoucePoolFull);
 			}
 
-			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount,
-			                                 _currentAmount.ToString(),
-			                                 _poolConfig.PoolCapacity);
+			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, _currentAmount.ToString(), _currentCapacity);
 		}
 		
 		private uint CalculatePoolRestockAmount(ResourcePoolConfig config)
 		{
-			var minutesElapsedSinceLastRestock = (uint)(DateTime.UtcNow - _currentPoolData.LastPoolRestockTime).TotalMinutes;
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - _currentPoolData.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) 0;
 			
-			amountOfRestocks = (uint) MathF.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
+			amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
 			
 			if (amountOfRestocks == 0)
 			{
 				return 0;
 			}
 			
-			_currentPoolData.CurrentResourceAmountInPool += config.RestockPerInterval * amountOfRestocks;
+			_currentPoolData.CurrentResourceAmountInPool += _restockPerInterval * amountOfRestocks;
 			
-			if (_currentPoolData.CurrentResourceAmountInPool > config.PoolCapacity)
+			if (_currentPoolData.CurrentResourceAmountInPool > _currentCapacity)
 			{
-				_currentPoolData.CurrentResourceAmountInPool = config.PoolCapacity;
+				_currentPoolData.CurrentResourceAmountInPool = _currentCapacity;
 			}
 
 			return amountOfRestocks;

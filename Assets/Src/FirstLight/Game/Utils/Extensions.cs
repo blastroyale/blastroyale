@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;

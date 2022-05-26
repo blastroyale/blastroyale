@@ -122,6 +122,28 @@ namespace FirstLight.Game.Logic
 			_inventory.Add(id, equipment);
 			return id;
 		}
+		
+		// TODO: Remove method and refactor cheats
+		public bool RemoveFromInventory(UniqueId equipment)
+		{
+			if (!_inventory.ContainsKey(equipment))
+			{
+				return false;
+			}
+
+			// Unequip the item before removing it from inventory
+			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
+			var slot = gameId.GetSlot();
+
+			if (_loadout.TryGetValue(slot, out var equippedId))
+			{
+				Unequip(equippedId);
+			}
+			
+			_inventory.Remove(equipment);
+			
+			return true;
+		}
 
 		public void Equip(UniqueId itemId)
 		{

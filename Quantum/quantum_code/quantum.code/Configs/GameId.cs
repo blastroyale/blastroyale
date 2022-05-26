@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 /* AUTO GENERATED CODE */
 namespace Quantum
 {
-
 	public class GameIdComparer : IEqualityComparer<GameId>
 	{
 		public bool Equals(GameId x, GameId y)

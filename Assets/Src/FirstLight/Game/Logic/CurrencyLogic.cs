@@ -175,25 +175,25 @@ namespace FirstLight.Game.Logic
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var inventory = GameLogic.EquipmentLogic.Inventory;
 			var nftOwned = inventory.Count(x => x.Value.GameId != GameId.Hammer);
-			var poolCapacity = FP._0;
-			var shapeMod = poolConfig.ShapeModifier;
-			var scaleMult = poolConfig.ScaleMultiplier;
+			var poolCapacity = (double) 0;
+			var shapeMod = (double) poolConfig.ShapeModifier;
+			var scaleMult = (double) poolConfig.ScaleMultiplier;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
-			var adjRarityCurveMod = GameConfig.AdjectiveRarityEarningsMod;
+			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
 			var nftsm = nftAssumed * shapeMod;
-			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
-			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
+			var poolDecreaseExp = (double) poolConfig.PoolCapacityDecreaseExponent;
+			var maxPoolDecreaseMod = (double) poolConfig.MaxPoolCapacityDecreaseModifier;
 			
 			// ----- Set base pool capacity - based on player's owned NFT
-			var capacityMaxCalc = QuantumHelpers.PowFp(nftsm, 2) - QuantumHelpers.PowFp((nftsm - FPMath.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
-			var capacityNftBonus = FPMath.Floor(FPMath.Sqrt(FPMath.Max(0, capacityMaxCalc)) * scaleMult);
+			var capacityMaxCalc = Math.Pow(nftsm, 2) - Math.Pow((nftsm - Math.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
+			var capacityNftBonus = Math.Floor(Math.Sqrt(Math.Max(0, capacityMaxCalc)) * scaleMult);
 			
 			poolCapacity += poolConfig.PoolCapacity + capacityNftBonus;
 
 			// ----- Increase pool capacity based on owned NFT rarity and adjectives
-			var modEquipmentList = new List<Tuple<FP, Equipment>>();
-			var augmentedModSum = FP._0;
+			var modEquipmentList = new List<Tuple<double, Equipment>>();
+			var augmentedModSum = (double) 0;
 			
 			foreach (var nft in inventory)
 			{
@@ -204,9 +204,9 @@ namespace FirstLight.Game.Logic
 				
 				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Value.Rarity);
 				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Value.Adjective);
-				var modSum = rarityConfig.PoolCapacityModifier + adjectiveConfig.PoolCapacityModifier;
+				var modSum = (double) rarityConfig.PoolCapacityModifier + (double) adjectiveConfig.PoolCapacityModifier;
 				
-				modEquipmentList.Add(new Tuple<FP, Equipment>(modSum,nft.Value));
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Value));
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
@@ -214,7 +214,7 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var modSumNft in modEquipmentList)
 			{
-				var strength = QuantumHelpers.PowFp( FPMath.Max( 0, 1 - QuantumHelpers.PowFp( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
+				var strength = Math.Pow( Math.Max( 0, 1 - Math.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
 				augmentedModSum += modSumNft.Item1 * strength;
 				currentIndex++;
 			}
@@ -222,7 +222,7 @@ namespace FirstLight.Game.Logic
 			poolCapacity += poolCapacity * augmentedModSum;
 			
 			// ----- Decrease pool capacity based on owned NFT durability
-			var totalNftDurability = FP._0;
+			var totalNftDurability = (double) 0;
 
 			foreach (var nft in inventory)
 			{
@@ -231,12 +231,12 @@ namespace FirstLight.Game.Logic
 					continue;
 				}
 				
-				totalNftDurability += nft.Value.Durability / FP._100;
+				totalNftDurability += nft.Value.Durability / 100d;
 			}
 			
 			var nftDurabilityAvg = totalNftDurability / nftOwned;
-			var durabilityDecreaseMult = QuantumHelpers.PowFp(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
-			var durabilityDecrease = FPMath.Floor(poolCapacity * durabilityDecreaseMult);
+			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
+			var durabilityDecrease = Math.Floor(poolCapacity * durabilityDecreaseMult);
 			
 			poolCapacity -= durabilityDecrease;
 			
@@ -257,8 +257,8 @@ namespace FirstLight.Game.Logic
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
-			var minutesElapsedSinceLastRestock = (uint)(DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
-			var amountOfRestocks = (uint) FPMath.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
+			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
 			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
 			
 			if (amountOfRestocks == 0)

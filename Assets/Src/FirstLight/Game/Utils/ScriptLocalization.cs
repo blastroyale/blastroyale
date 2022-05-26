@@ -292,6 +292,7 @@ namespace I2.Loc
 			public static string AssaultRifleDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AssaultRifleDescription"); } }
 			public static string BFG 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BFG"); } }
 			public static string BFGDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BFGDescription"); } }
+			public static string BRGenesis 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BRGenesis"); } }
 			public static string BlimpDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlimpDeck"); } }
 			public static string Boots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Boots"); } }
 			public static string BossAngrymanAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossAngrymanAi"); } }
@@ -436,6 +437,7 @@ namespace I2.Loc
 			public static string StadiumTraining 		{ get{ return LocalizationManager.GetTranslation ("GameIds/StadiumTraining"); } }
 			public static string StadiumTrainingDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/StadiumTrainingDescription"); } }
 			public static string Star 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Star"); } }
+			public static string TestScene 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TestScene"); } }
 			public static string TikTokAmulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmulet"); } }
 			public static string TikTokAmuletDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmuletDescription"); } }
 			public static string UncommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/UncommonBox"); } }
@@ -1059,6 +1061,7 @@ namespace I2.Loc
 		    public const string AssaultRifleDescription = "GameIds/AssaultRifleDescription";
 		    public const string BFG = "GameIds/BFG";
 		    public const string BFGDescription = "GameIds/BFGDescription";
+		    public const string BRGenesis = "GameIds/BRGenesis";
 		    public const string BlimpDeck = "GameIds/BlimpDeck";
 		    public const string Boots = "GameIds/Boots";
 		    public const string BossAngrymanAi = "GameIds/BossAngrymanAi";
@@ -1203,6 +1206,7 @@ namespace I2.Loc
 		    public const string StadiumTraining = "GameIds/StadiumTraining";
 		    public const string StadiumTrainingDescription = "GameIds/StadiumTrainingDescription";
 		    public const string Star = "GameIds/Star";
+		    public const string TestScene = "GameIds/TestScene";
 		    public const string TikTokAmulet = "GameIds/TikTokAmulet";
 		    public const string TikTokAmuletDescription = "GameIds/TikTokAmuletDescription";
 		    public const string UncommonBox = "GameIds/UncommonBox";

@@ -114,11 +114,11 @@ namespace FirstLight.Game.Services
 			VfxService = vfxService;
 
 			GuidService = new GuidService();
-			CommandService = new GameCommandService(gameLogic, dataProvider);
+			PlayfabService = new PlayfabService(gameLogic.AppLogic);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider);
 			PoolService = new PoolService();
 			TickService =  new TickService();
 			CoroutineService = new CoroutineService();
-			PlayfabService = new PlayfabService(gameLogic.AppLogic);
 			NotificationService = new MobileNotificationService(
 				new GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL, GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL),
 				new GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL, GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL,GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL));

@@ -1,12 +1,10 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
-using Backend.Game;
 using FirstLight.Game.Logic;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using PlayFab;
 
 namespace Backend.Functions;
 
@@ -16,9 +14,9 @@ namespace Backend.Functions;
 /// </summary>
 public class ExecuteCommand
 {
-	private GameServer _server;
+	private ILogicWebService _server;
 	
-	public ExecuteCommand(GameServer server)
+	public ExecuteCommand(ILogicWebService server)
 	{
 		_server = server;
 	}
@@ -32,10 +30,6 @@ public class ExecuteCommand
 	{
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 		var playerId = context.AuthenticationContext.PlayFabId;
-		var logicRequest = context.FunctionArgument;
-		return new PlayFabResult<BackendLogicResult>
-		{
-			Result = _server.RunLogic(playerId, logicRequest)
-		};
+		return _server.RunLogic(playerId, context.FunctionArgument);
 	}
 }

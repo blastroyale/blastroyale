@@ -2,9 +2,6 @@ using System.IO;
 using Backend.Db;
 using Backend.Game.Services;
 using FirstLight;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -30,6 +27,8 @@ public static class ServerStartup
 		services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 		services.AddSingleton<ILogger, ILogger>(l => log);
 		services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
+		services.AddSingleton<IBlockchainService, ServiceContract>();
+		services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();

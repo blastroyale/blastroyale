@@ -19,7 +19,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
         "PLAYFAB_TITLE": "***REMOVED***",
-        "DEV_MODE": "true"
+        "DEV_MODE": "true",
+        "API_URL": "https://devmarketplaceapi.azure-api.net",
+        "API_BLOCKCHAIN_SERVICE": "br-blockchain",
+        "API_SECRET": "devkey"
       }
     },
     "Docker": {

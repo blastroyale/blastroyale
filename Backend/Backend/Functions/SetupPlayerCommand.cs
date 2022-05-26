@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
+using FirstLight.Game.Logic;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -26,7 +27,7 @@ public class SetupPlayerCommand
 	public async Task RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                           HttpRequestMessage req, ILogger log)
 	{
-		var context = await ContextProcessor.ProcessPlayStreamContext(req);
-		await _gameLogicWebService.SetupPlayer(context.PlayFabId);
+		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
+		await _gameLogicWebService.SetupPlayer(context.AuthenticationContext.PlayFabId);
 	}
 }

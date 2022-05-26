@@ -18,20 +18,32 @@ MonoBehaviour:
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
     BaseMaxTake: 16
-    ScaleMultiplier: 15
-    ShapeModifier: 1.5
-    MaxPoolCapacityDecreaseModifier: 0.4
-    PoolCapacityDecreaseExponent: 0.5
-    MaxTakeDecreaseModifier: 0.11
-    TakeDecreaseExponent: 1.8
+    ScaleMultiplier:
+      RawValue: 983040
+    ShapeModifier:
+      RawValue: 98304
+    MaxPoolCapacityDecreaseModifier:
+      RawValue: 26214
+    PoolCapacityDecreaseExponent:
+      RawValue: 32768
+    MaxTakeDecreaseModifier:
+      RawValue: 7209
+    TakeDecreaseExponent:
+      RawValue: 117965
   - Id: 15
     PoolCapacity: 500
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
     BaseMaxTake: 41
-    ScaleMultiplier: 25
-    ShapeModifier: 1
-    MaxPoolCapacityDecreaseModifier: 0.4
-    PoolCapacityDecreaseExponent: 0.5
-    MaxTakeDecreaseModifier: 0.11
-    TakeDecreaseExponent: 1.8
+    ScaleMultiplier:
+      RawValue: 1638400
+    ShapeModifier:
+      RawValue: 65536
+    MaxPoolCapacityDecreaseModifier:
+      RawValue: 26214
+    PoolCapacityDecreaseExponent:
+      RawValue: 32768
+    MaxTakeDecreaseModifier:
+      RawValue: 7209
+    TakeDecreaseExponent:
+      RawValue: 117965

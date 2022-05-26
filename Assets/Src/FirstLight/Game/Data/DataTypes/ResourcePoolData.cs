@@ -10,10 +10,10 @@ namespace FirstLight.Game.Data.DataTypes
 	public struct ResourcePoolData : IEquatable<ResourcePoolData>
 	{
 		public GameId Id;
-		public ulong CurrentResourceAmountInPool;
+		public uint CurrentResourceAmountInPool;
 		public DateTime LastPoolRestockTime;
 		
-		public ResourcePoolData(GameId id, ulong currentResourceAmountInPool, DateTime lastPoolRestockTime)
+		public ResourcePoolData(GameId id, uint currentResourceAmountInPool, DateTime lastPoolRestockTime)
 		{
 			Id = id;
 			CurrentResourceAmountInPool = currentResourceAmountInPool;

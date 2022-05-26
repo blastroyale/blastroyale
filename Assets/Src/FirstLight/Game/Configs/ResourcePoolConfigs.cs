@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -13,12 +14,12 @@ namespace FirstLight.Game.Configs
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
 		public uint BaseMaxTake;
-		public double ScaleMultiplier;
-		public double ShapeModifier;
-		public double MaxPoolCapacityDecreaseModifier;
-		public double PoolCapacityDecreaseExponent;
-		public double MaxTakeDecreaseModifier;
-		public double TakeDecreaseExponent;
+		public FP ScaleMultiplier;
+		public FP ShapeModifier;
+		public FP MaxPoolCapacityDecreaseModifier;
+		public FP PoolCapacityDecreaseExponent;
+		public FP MaxTakeDecreaseModifier;
+		public FP TakeDecreaseExponent;
 	}
 
 	/// <summary>

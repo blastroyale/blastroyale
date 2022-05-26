@@ -34,9 +34,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private ResourcePoolConfig _poolConfig;
 		private ResourcePoolData _currentPoolData;
 		private DateTime _nextRestockTime;
-		private ulong _currentAmount;
-		private ulong _currentCapacity;
-		private ulong _restockPerInterval;
+		private uint _currentAmount;
+		private uint _currentCapacity;
+		private uint _restockPerInterval;
 
 		private void Awake()
 		{

@@ -5,6 +5,7 @@ using FirstLight.Game.Data;
 using FirstLight.Services;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
+using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -33,12 +34,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the current capacity of a given <paramref name="poolType"/>, based on various factors, such as amount of NFTs owned
 		/// </summary>
-		ulong GetCurrentPoolCapacity(GameId poolType);
+		uint GetCurrentPoolCapacity(GameId poolType);
 
 		/// <summary>
 		/// Requests the amount of resource restocked per interval of a given <paramref name="poolType"/>
 		/// </summary>
-		ulong GetPoolRestockAmountPerInterval(GameId poolType);
+		uint GetPoolRestockAmountPerInterval(GameId poolType);
 	}
 
 	/// <inheritdoc />
@@ -70,7 +71,7 @@ namespace FirstLight.Game.Logic
 		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
 		/// </summary>
 		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
-		ulong WithdrawFromResourcePool(ulong amountToAward, GameId pool);
+		uint WithdrawFromResourcePool(uint amountToAward, GameId pool);
 	}
 
 	/// <inheritdoc cref="ICurrencyLogic"/>
@@ -140,12 +141,12 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
-		public ulong WithdrawFromResourcePool(ulong amountToAward, GameId pool)
+		public uint WithdrawFromResourcePool(uint amountToAward, GameId pool)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
 			var poolData = GameLogic.CurrencyLogic.ResourcePools[pool];
 			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool ? poolData.CurrentResourceAmountInPool : amountToAward;
-
+			
 			// If withdrawing from full pool, the next restock timer needs to restarted, as opposed to ticking already.
 			// When at max pool capacity, the player will see 'Storage Full' on the ResourcePoolWidget
 			if (poolData.CurrentResourceAmountInPool >= poolConfig.PoolCapacity)
@@ -161,7 +162,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public ulong GetCurrentPoolCapacity(GameId poolType)
+		public uint GetCurrentPoolCapacity(GameId poolType)
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
@@ -174,25 +175,25 @@ namespace FirstLight.Game.Logic
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var inventory = GameLogic.EquipmentLogic.Inventory;
 			var nftOwned = inventory.Count(x => x.Value.GameId != GameId.Hammer);
-			var poolCapacity = (double) 0;
+			var poolCapacity = FP._0;
 			var shapeMod = poolConfig.ShapeModifier;
 			var scaleMult = poolConfig.ScaleMultiplier;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
-			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
+			var adjRarityCurveMod = GameConfig.AdjectiveRarityEarningsMod;
 			var nftsm = nftAssumed * shapeMod;
 			var poolDecreaseExp = poolConfig.PoolCapacityDecreaseExponent;
 			var maxPoolDecreaseMod = poolConfig.MaxPoolCapacityDecreaseModifier;
 			
 			// ----- Set base pool capacity - based on player's owned NFT
-			var capacityMaxCalc = Math.Pow(nftsm, 2) - Math.Pow((nftsm - Math.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
-			var capacityNftBonus = Math.Floor(Math.Sqrt(Math.Max(0, capacityMaxCalc)) * scaleMult);
+			var capacityMaxCalc = QuantumHelpers.PowFp(nftsm, 2) - QuantumHelpers.PowFp((nftsm - FPMath.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
+			var capacityNftBonus = FPMath.Floor(FPMath.Sqrt(FPMath.Max(0, capacityMaxCalc)) * scaleMult);
 			
 			poolCapacity += poolConfig.PoolCapacity + capacityNftBonus;
 
 			// ----- Increase pool capacity based on owned NFT rarity and adjectives
-			var modEquipmentList = new List<Tuple<double, Equipment>>();
-			var augmentedModSum = (double) 0;
+			var modEquipmentList = new List<Tuple<FP, Equipment>>();
+			var augmentedModSum = FP._0;
 			
 			foreach (var nft in inventory)
 			{
@@ -205,7 +206,7 @@ namespace FirstLight.Game.Logic
 				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Value.Adjective);
 				var modSum = rarityConfig.PoolCapacityModifier + adjectiveConfig.PoolCapacityModifier;
 				
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Value));
+				modEquipmentList.Add(new Tuple<FP, Equipment>(modSum,nft.Value));
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
@@ -213,15 +214,15 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var modSumNft in modEquipmentList)
 			{
-				var strength = Math.Pow( Math.Max( 0, 1 - Math.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
+				var strength = QuantumHelpers.PowFp( FPMath.Max( 0, 1 - QuantumHelpers.PowFp( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
 				augmentedModSum += modSumNft.Item1 * strength;
 				currentIndex++;
 			}
 
-			poolCapacity += (ulong)(poolCapacity * augmentedModSum);
+			poolCapacity += poolCapacity * augmentedModSum;
 			
 			// ----- Decrease pool capacity based on owned NFT durability
-			var totalNftDurability = (double) 0;
+			var totalNftDurability = FP._0;
 
 			foreach (var nft in inventory)
 			{
@@ -230,20 +231,20 @@ namespace FirstLight.Game.Logic
 					continue;
 				}
 				
-				totalNftDurability += nft.Value.Durability / 100d;
+				totalNftDurability += nft.Value.Durability / FP._100;
 			}
 			
 			var nftDurabilityAvg = totalNftDurability / nftOwned;
-			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
-			var durabilityDecrease = Math.Floor(poolCapacity * durabilityDecreaseMult);
+			var durabilityDecreaseMult = QuantumHelpers.PowFp(1 - nftDurabilityAvg, poolDecreaseExp) * maxPoolDecreaseMod;
+			var durabilityDecrease = FPMath.Floor(poolCapacity * durabilityDecreaseMult);
 			
 			poolCapacity -= durabilityDecrease;
 			
-			return (ulong)poolCapacity;
+			return (uint)poolCapacity;
 		}
 
 		/// <inheritdoc />
-		public ulong GetPoolRestockAmountPerInterval(GameId poolType)
+		public uint GetPoolRestockAmountPerInterval(GameId poolType)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
@@ -256,8 +257,8 @@ namespace FirstLight.Game.Logic
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
-			var amountOfRestocks = (uint) MathF.Floor((float) minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
+			var minutesElapsedSinceLastRestock = (uint)(DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
+			var amountOfRestocks = (uint) FPMath.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
 			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
 			
 			if (amountOfRestocks == 0)

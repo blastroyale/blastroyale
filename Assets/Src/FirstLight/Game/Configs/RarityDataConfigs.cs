@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace FirstLight.Game.Configs
 	public struct RarityDataConfig
 	{
 		public EquipmentRarity Rarity;
-		public double PoolCapacityModifier;
+		public FP PoolCapacityModifier;
 	}
 
 	/// <summary>

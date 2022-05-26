@@ -14,22 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Adjective: 0
-    PoolCapacityModifier: 0
+    PoolCapacityModifier:
+      RawValue: 0
   - Adjective: 1
-    PoolCapacityModifier: 0
+    PoolCapacityModifier:
+      RawValue: 0
   - Adjective: 2
-    PoolCapacityModifier: 0
+    PoolCapacityModifier:
+      RawValue: 0
   - Adjective: 3
-    PoolCapacityModifier: 0.00125
+    PoolCapacityModifier:
+      RawValue: 82
   - Adjective: 4
-    PoolCapacityModifier: 0.00125
+    PoolCapacityModifier:
+      RawValue: 82
   - Adjective: 5
-    PoolCapacityModifier: 0.0025
+    PoolCapacityModifier:
+      RawValue: 164
   - Adjective: 6
-    PoolCapacityModifier: 0.0025
+    PoolCapacityModifier:
+      RawValue: 164
   - Adjective: 7
-    PoolCapacityModifier: 0.005
+    PoolCapacityModifier:
+      RawValue: 328
   - Adjective: 8
-    PoolCapacityModifier: 0.01
+    PoolCapacityModifier:
+      RawValue: 655
   - Adjective: 9
-    PoolCapacityModifier: 0.01
+    PoolCapacityModifier:
+      RawValue: 655

@@ -9,8 +9,8 @@ namespace Quantum
 	{
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef;
-		public FP InitialAmmoFilled;
-		public int MaxAmmo;
+		public QuantumGameModePair<FP> InitialAmmoFilled;
+		public QuantumGameModePair<int> MaxAmmo;
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
@@ -29,7 +29,7 @@ namespace Quantum
 		/// <summary>
 		/// Requests if this config is from a melee weapon
 		/// </summary>
-		public bool IsMeleeWeapon => MaxAmmo < 0;
+		public bool IsMeleeWeapon => MaxAmmo.BattleRoyale < 0;
 	}
 
 	/// <summary>

@@ -94,7 +94,7 @@ namespace FirstLight.GoogleSheetImporter
 		{
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
-			var valuePairType = typeof(QuantumValuePair<>);
+			var valuePairType = typeof(QuantumGameModePair<>);
 			
 			if (type.IsArray)
 			{
@@ -211,7 +211,7 @@ namespace FirstLight.GoogleSheetImporter
 		}
 
 		/// <summary>
-		/// Parses the given <paramref name="text"/> into a <seealso cref="QuantumValuePair{TValue}"/> type.
+		/// Parses the given <paramref name="text"/> into a <seealso cref="QuantumGameModePair{TValue}"/> type.
 		/// The values should be separated by <see cref="_valuePairSplitChar"/>. If only one value is present
 		/// it will be used for both fields.
 		/// </summary>
@@ -232,13 +232,13 @@ namespace FirstLight.GoogleSheetImporter
 			var value1 = Parse(values[0], genericType, deserializers);
 			var value2 = values.Length == 1 ? value1 : Parse(values[1], genericType, deserializers);
 
-			var valuePair = Activator.CreateInstance(typeof(QuantumValuePair<>).MakeGenericType(genericType));
+			var valuePair = Activator.CreateInstance(typeof(QuantumGameModePair<>).MakeGenericType(genericType));
 
-			var value1Field = valuePair.GetType().GetField("Value1");
-			var value2Field = valuePair.GetType().GetField("Value2");
+			var brField = valuePair.GetType().GetField("BattleRoyale");
+			var dmField = valuePair.GetType().GetField("Deathmatch");
 
-			value1Field.SetValue(valuePair, value1);
-			value2Field.SetValue(valuePair, value2);
+			brField.SetValue(valuePair, value1);
+			dmField.SetValue(valuePair, value2);
 
 			return valuePair;
 		}

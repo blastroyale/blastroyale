@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -4106,11 +4105,11 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Projectile : Quantum.IComponent {
-    public const Int32 SIZE = 112;
+    public const Int32 SIZE = 120;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public EntityRef Attacker;
-    [FieldOffset(64)]
+    [FieldOffset(72)]
     public FPVector3 Direction;
     [FieldOffset(8)]
     public UInt32 PowerAmount;
@@ -4118,13 +4117,15 @@ namespace Quantum {
     public FP Range;
     [FieldOffset(0)]
     public GameId SourceId;
-    [FieldOffset(88)]
+    [FieldOffset(96)]
     public FPVector3 SpawnPosition;
     [FieldOffset(40)]
     public FP Speed;
     [FieldOffset(48)]
-    public FP SplashRadius;
+    public FP SplashDamageRatio;
     [FieldOffset(56)]
+    public FP SplashRadius;
+    [FieldOffset(64)]
     public FP StunDuration;
     [FieldOffset(24)]
     public EntityRef Target;
@@ -4140,6 +4141,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)SourceId;
         hash = hash * 31 + SpawnPosition.GetHashCode();
         hash = hash * 31 + Speed.GetHashCode();
+        hash = hash * 31 + SplashDamageRatio.GetHashCode();
         hash = hash * 31 + SplashRadius.GetHashCode();
         hash = hash * 31 + StunDuration.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
@@ -4156,6 +4158,7 @@ namespace Quantum {
         EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->Range, serializer);
         FP.Serialize(&p->Speed, serializer);
+        FP.Serialize(&p->SplashDamageRatio, serializer);
         FP.Serialize(&p->SplashRadius, serializer);
         FP.Serialize(&p->StunDuration, serializer);
         FPVector3.Serialize(&p->Direction, serializer);
@@ -9183,6 +9186,7 @@ namespace Quantum.Prototypes {
     public FP Speed;
     public FP Range;
     public FP SplashRadius;
+    public FP SplashDamageRatio;
     public FP StunDuration;
     partial void MaterializeUser(Frame frame, ref Projectile result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -9198,6 +9202,7 @@ namespace Quantum.Prototypes {
       result.SourceId = this.SourceId;
       result.SpawnPosition = this.SpawnPosition;
       result.Speed = this.Speed;
+      result.SplashDamageRatio = this.SplashDamageRatio;
       result.SplashRadius = this.SplashRadius;
       result.StunDuration = this.StunDuration;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);

@@ -24,6 +24,11 @@ namespace FirstLight.Game.Logic
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
 		Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+
+		/// <summary>
+		/// Get amount of pooled resource that can be withdrawn based on currently equipped NFTs for a given <paramref name="poolId"/>
+		/// </summary>
+		public double GetMatchRewardPoolTake(GameId poolId);
 	}
 
 	/// <inheritdoc />
@@ -94,17 +99,8 @@ namespace FirstLight.Game.Logic
 			var csRewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
 			var csPercent = csRewardPair.Value / 100d;
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
-
-			var loadoutSlots = GameConfig.LoadoutSlots;
-			var nftsEquipped = GameLogic.EquipmentLogic.Loadout.Count;
-			var csMaxTake = GetMaxPoolTake(GameId.CS);
 			
-			// ----- Decrease take based on amount of NFTs equipped
-			var csTake = Math.Ceiling(csMaxTake / loadoutSlots * nftsEquipped);
-			
-			// ---- Decrease take based on placement in match
-			csTake = Math.Ceiling(csTake * csPercent);
-			
+			var csTake = Math.Ceiling(GetMatchRewardPoolTake(GameId.CS) * csPercent);
 			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool((ulong) csTake, GameId.CS);
 			
 			if (csWithdrawn > 0)
@@ -115,12 +111,13 @@ namespace FirstLight.Game.Logic
 			return rewards;
 		}
 
-		private double GetMaxPoolTake(GameId resourcePoolId)
+		/// <inheritdoc />
+		public double GetMatchRewardPoolTake(GameId poolId)
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 			
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)resourcePoolId);
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
 			var maxTake = (double) poolConfig.BaseMaxTake;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
@@ -128,6 +125,8 @@ namespace FirstLight.Game.Logic
 			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutItems();
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
+			var loadoutSlots = GameConfig.LoadoutSlots;
+			var nftsEquipped = GameLogic.EquipmentLogic.Loadout.Count;
 			
 			// ----- Increase CS max take per grade of equipped NFTs
 			var modEquipmentList = new List<Tuple<double, Equipment>>();
@@ -159,11 +158,11 @@ namespace FirstLight.Game.Logic
 			maxTake += Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var totalNftDurability = (float) 0;
+			var totalNftDurability = (double) 0;
 			
 			foreach (var nft in loadoutItems)
 			{
-				totalNftDurability += nft.Durability / 100f;
+				totalNftDurability += nft.Durability / 100d;
 			}
 
 			var nftDurabilityAvg = totalNftDurability / loadoutItems.Length;
@@ -172,7 +171,12 @@ namespace FirstLight.Game.Logic
 			
 			maxTake -= durabilityDecrease;
 			
-			return maxTake;
+			// ----- Get take based on amount of NFTs equipped
+			var csTake = Math.Ceiling(maxTake / loadoutSlots * nftsEquipped);
+			
+			// NOTE: Final take should afterwards be modified by placement in match
+			
+			return csTake;
 		}
 
 		/// <inheritdoc />

@@ -17,6 +17,7 @@ using Newtonsoft.Json.Converters;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using PlayFab.Json;
 using PlayFab.SharedModels;
 using UnityEngine;
 
@@ -128,6 +129,10 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 
+			if (error.ErrorDetails != null)
+			{
+				Debug.Log(JsonConvert.SerializeObject(error.ErrorDetails));
+			}
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 		
@@ -195,7 +200,7 @@ namespace FirstLight.Game.StateMachines
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
 				GetUserAccountInfo = true,
-				GetUserReadOnlyData = true,
+				GetUserReadOnlyData = false,
 				GetTitleData = true
 			};
 			
@@ -221,7 +226,7 @@ namespace FirstLight.Game.StateMachines
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
 				GetUserAccountInfo = true,
-				GetUserReadOnlyData = true,
+				GetUserReadOnlyData = false,
 				GetTitleData = true
 			};
 
@@ -290,7 +295,6 @@ namespace FirstLight.Game.StateMachines
 			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 			_services.AnalyticsService.LoginEvent(result.PlayFabId);
-			InitializeGameData(result, activity.Split());
 			//AppleApprovalHack(result);
 
 			if (IsOutdated(titleData[nameof(Application.version)]))
@@ -304,7 +308,9 @@ namespace FirstLight.Game.StateMachines
 				OpenGameBlockedDialog();
 				return;
 			}
-
+			
+			InitializeGameData(result, activity.Split());
+			
 			activity.Complete();
 		}
 
@@ -381,40 +387,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void SetupFirstTimePlayer(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = "SetupPlayerCommand",
-				GeneratePlayStreamEvent = true,
-				AuthenticationContext = PlayFabSettings.staticPlayer,
-				FunctionParameter = new LogicRequest
-				{
-					Command = "SetupPlayerCommand",
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>()
-				}
-			};
-			
-			PlayFabCloudScriptAPI.ExecuteFunction(request, OnPlayerSetup, OnCriticalPlayFabError);
-			
-			void OnPlayerSetup(ExecuteFunctionResult result)
-			{
-				var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
-				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(logicResult.Result.Data));
-				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(logicResult.Result.Data));
-				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(logicResult.Result.Data));
-				_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(logicResult.Result.Data, true));
-				cacheActivity.Complete();
-			}
-		}
-
 		private void InitializeGameData(LoginResult result, IWaitActivity activity)
 		{
-			var data = result.InfoResultPayload.UserReadOnlyData;
 			var appData = _dataService.GetData<AppData>();
-			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
@@ -422,19 +397,17 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			
-			if (result.NewlyCreated || data.Count == 0)
+			_services.PlayfabService.CallFunction("GetPlayerData", OnPlayerDataObtained, OnPlayFabError);
+			void OnPlayerDataObtained(ExecuteFunctionResult res)
 			{
-				SetupFirstTimePlayer(activity.Split());
+				var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>((res.FunctionResult.ToString()));
+				var data = serverResult.Result.Data;
+				_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
+				_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(data));
+				activity.Complete();
 			}
-			else
-			{
-				_dataService.AddData(ModelSerializer.DeserializeFromClientData<RngData>(data));
-				_dataService.AddData(ModelSerializer.DeserializeFromClientData<IdData>(data));
-				_dataService.AddData(ModelSerializer.DeserializeFromClientData<PlayerData>(data));
-				_dataService.AddData(ModelSerializer.DeserializeFromClientData<NftEquipmentData>(data, true));
-			}
-
-			activity.Complete();
 		}
 
 		private void OpenGameUpdateDialog()

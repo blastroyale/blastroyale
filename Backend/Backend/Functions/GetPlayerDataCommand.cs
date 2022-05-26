@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
+using FirstLight.Game.Logic;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -10,11 +11,11 @@ namespace Backend.Functions;
 /// <summary>
 /// Sets the player state to its initial state.
 /// </summary>
-public class SetupPlayerCommand
+public class GetPlayerDataCommand
 {
 	private readonly ILogicWebService _gameLogicWebService;
 
-	public SetupPlayerCommand(ILogicWebService gameLogicWebService)
+	public GetPlayerDataCommand(ILogicWebService gameLogicWebService)
 	{
 		_gameLogicWebService = gameLogicWebService;
 	}
@@ -22,11 +23,13 @@ public class SetupPlayerCommand
 	/// <summary>
 	/// Command Execution
 	/// </summary>
-	[FunctionName("SetupPlayerCommand")]
-	public async Task RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
+	[FunctionName("GetPlayerData")]
+	public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                           HttpRequestMessage req, ILogger log)
 	{
-		var context = await ContextProcessor.ProcessPlayStreamContext(req);
-		await _gameLogicWebService.SetupPlayer(context.PlayFabId);
+		log.LogDebug("Processing");
+		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
+		log.LogDebug("Calling game data");
+		return await _gameLogicWebService.GetPlayerData(context.AuthenticationContext.PlayFabId);
 	}
 }

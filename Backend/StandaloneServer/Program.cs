@@ -1,7 +1,6 @@
 using System.Text;
 using Backend;
 using Backend.Game;
-using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using PlayFab;
 using PlayFab.CloudScriptModels;
@@ -22,7 +21,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Standalone Server is running !");
 
-// Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally. Works only with execute command.
+// Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally.
 app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 {
 	logger.LogInformation("Request received");
@@ -33,24 +32,17 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var playerId = functionRequest?.AuthenticationContext.PlayFabId;
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
-	BackendLogicResult result = null;
-	if (functionRequest?.FunctionName == "SetupPlayerCommand")
+	var webServer = app.Services.GetService<ILogicWebService>();
+	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
-		var serverData = app.Services.GetService<IPlayerSetupService>().GetInitialState(playerId);
-		app.Services.GetService<IServerStateService>().UpdatePlayerState(playerId, serverData);
-		result = new BackendLogicResult { PlayFabId = playerId, Data = serverData };
-	}
-	else
-	{
-		result = app.Services.GetService<GameServer>()?.RunLogic(playerId, logicRequest);
-	}
+		"SetupPlayerCommand" => await webServer.SetupPlayer(playerId),
+		"ExecuteCommand" => await webServer.RunLogic(playerId, logicRequest),
+		"GetPlayerData" => await webServer.GetPlayerData(playerId)
+	};
 	var res = new ExecuteFunctionResult()
 	{
 		FunctionName = "ExecuteCommand",
-		FunctionResult = new PlayFabResult<BackendLogicResult?>
-		{
-			Result = result
-		}
+		FunctionResult = result
 	};
 	ctx.Response.StatusCode = 200;
 	await ctx.Response.WriteAsync(serializer.SerializeObject(new PlayfabHttpResponse()

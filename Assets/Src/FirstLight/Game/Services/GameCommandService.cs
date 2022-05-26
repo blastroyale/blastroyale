@@ -56,9 +56,11 @@ namespace FirstLight.Game.Services
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
 		private readonly Queue<IGameCommand> _commandQueue;
+		private IPlayfabService _playfab;
 		
-		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
+		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			_playfab = playfabService;
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
 			_commandQueue = new Queue<IGameCommand>();
@@ -165,24 +167,18 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
-			var request = new ExecuteFunctionRequest
+			var request = new LogicRequest
 			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
+				Command = command.GetType().FullName,
+				Platform = Application.platform.ToString(),
+				Data = new Dictionary<string, string>
 				{
-					Command = command.GetType().FullName,
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{ CommandFields.Command, ModelSerializer.Serialize(command).Value},
-						{ CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
-						{ CommandFields.ClientVersion, VersionUtils.VersionExternal }
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
+					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
+					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
+					{CommandFields.ClientVersion, VersionUtils.VersionExternal}
+				}
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, OnCommandSuccess, OnCommandError);
+			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
 		}
 		
 		/// <summary>
@@ -213,7 +209,6 @@ namespace FirstLight.Game.Services
 				throw new LogicException(logicException);
 			}
 			OnServerExecutionFinished(current);
-			
 		}
 	}
 }

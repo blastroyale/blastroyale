@@ -20,6 +20,13 @@ public interface IPlayerSetupService
 	/// Generates initial player state and returns as server data.
 	/// </summary>
 	public ServerState GetInitialState(string playFabId);
+
+	/// <summary>
+	/// Checks if a given state is already setup
+	/// </summary>
+	/// <param name="state"></param>
+	/// <returns></returns>
+	public bool IsSetup(ServerState state);
 }
 
 /// <inheritdoc />
@@ -50,6 +57,15 @@ public class PlayerSetupService : IPlayerSetupService
 		serverState.SetModel(playerData);
 		serverState.SetModel(equipmentData);
 		return serverState;
+	}
+
+	/// <inheritdoc />
+	public bool IsSetup(ServerState state)
+	{
+		var playerData = state.DeserializeModel<PlayerData>();
+		if (playerData == null || playerData.Emoji.Count == 0)
+			return false;
+		return true;
 	}
 
 	/// <summary>

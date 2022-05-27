@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using FirstLight.Game.Ids;
 using Quantum;
 
@@ -12,5 +13,21 @@ namespace FirstLight.Game.Data
 	public class NftEquipmentData
 	{
 		public readonly Dictionary<UniqueId, Equipment> Inventory = new();
+		
+		/// <summary>
+		/// Maps player specific ids to blockchain token ids
+		/// </summary>
+		public readonly Dictionary<UniqueId, string> TokenIds = new();
+		
+		/// <summary>
+		/// Some items might expire, due to being rented for instance. This maps the unique id and
+		/// the timestamp 
+		/// </summary>
+		public readonly Dictionary<UniqueId, ulong> ExpireTimestamps = new();
+
+		/// <summary>
+		/// Field that holds the timestamp when nfts were last updated
+		/// </summary>
+		public ulong LastUpdateTimestamp;
 	}
 }

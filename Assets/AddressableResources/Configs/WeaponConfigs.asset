@@ -174,9 +174,9 @@ MonoBehaviour:
       CanHitSameTarget: 1
       IsProjectile: 1
       SplashRadius:
-        RawValue: 163840
+        RawValue: 98304
       SplashDamageRatio:
-        RawValue: 0
+        RawValue: 32768
       Specials: 0a0000000a000000
     - Id: 35
       AssetRef:

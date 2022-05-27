@@ -9,22 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60780edda7c14793a13faab776b2356, type: 3}
+  m_Script: {fileID: 11500000, guid: 268dd573e4314002b5fbde952d14644a, type: 3}
   m_Name: EditionDataConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Grade: 0
-    PoolIncreaseModifier:
-      RawValue: 8847
-  - Grade: 1
-    PoolIncreaseModifier:
-      RawValue: 5571
-  - Grade: 2
-    PoolIncreaseModifier:
-      RawValue: 3277
-  - Grade: 3
-    PoolIncreaseModifier:
-      RawValue: 1638
-  - Grade: 4
-    PoolIncreaseModifier:
-      RawValue: 0
+  - Edition: 0

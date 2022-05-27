@@ -34,11 +34,20 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       ShrinkingDamage: 20
-      PlayerDefaultHealth: 800
+      PlayerDefaultHealth:
+        BattleRoyale: 800
+        Deathmatch: 800
       PlayerDefaultSpeed:
-        RawValue: 262144
-      PlayerMaxShieldCapacity: 800
-      PlayerStartingShieldCapacity: 100
+        BattleRoyale:
+          RawValue: 262144
+        Deathmatch:
+          RawValue: 314573
+      PlayerMaxShieldCapacity:
+        BattleRoyale: 800
+        Deathmatch: 600
+      PlayerStartingShieldCapacity:
+        BattleRoyale: 100
+        Deathmatch: 600
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:

@@ -37,6 +37,13 @@ namespace FirstLight
 	}
 
 	/// <summary>
+	/// This attribute can be added to config structs so they are ignored by the serializer.
+	/// This way they won't be sent to server when they are not needed.
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Struct)]
+	public class IgnoreServerSerialization : Attribute { }
+
+	/// <summary>
 	/// Struct to represent what configs are serialized for the game.
 	/// This configs are to be shared between client & server.
 	/// </summary>
@@ -63,6 +70,11 @@ namespace FirstLight
 			foreach (var (type, configList) in configs)
 			{
 				if (!type.IsSerializable)
+				{
+					continue;
+				}
+
+				if (type.CustomAttributes.Any(c => c.GetType() == typeof(IgnoreServerSerialization)))
 				{
 					continue;
 				}

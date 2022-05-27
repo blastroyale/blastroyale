@@ -32,6 +32,12 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<UniqueId, ulong> CooldownTimestamps = new();
 
 		/// <summary>
+		/// Refer to the image urls for the inventory items
+		/// </summary>
+		public readonly Dictionary<UniqueId, string> ImageUrls = new();
+
+		
+		/// <summary>
 		/// Field that holds the timestamp when nfts were last updated
 		/// </summary>
 		public ulong LastUpdateTimestamp;

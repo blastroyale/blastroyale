@@ -47,6 +47,7 @@ public class GameLogicWebWebService : ILogicWebService
 	{
 		return new PlayFabResult<BackendLogicResult>
 		{
+			
 			Result = _server.RunLogic(playerId, request)
 		};
 	}

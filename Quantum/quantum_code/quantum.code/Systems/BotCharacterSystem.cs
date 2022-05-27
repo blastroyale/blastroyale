@@ -197,7 +197,7 @@ namespace Quantum.Systems
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel)
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.RuntimeConfig.GameMode)
 				{
 					list.Add(botConfig);
 				}

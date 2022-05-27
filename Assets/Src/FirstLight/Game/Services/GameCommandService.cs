@@ -151,7 +151,7 @@ namespace FirstLight.Game.Services
 		/// Rolls back client state to the current server state.
 		/// Current implementation it simply closes the game.
 		/// </summary>
-		private void Rollback()
+		private void Rollback(string reason = "Server Desync")
 		{
 			var button = new AlertButton
 			{
@@ -159,7 +159,7 @@ namespace FirstLight.Game.Services
 				Style = AlertButtonStyle.Negative,
 				Text = "Quit Game"
 			};
-			NativeUiService.ShowAlertPopUp(false, "Game Error", "Server Desync", button);
+			NativeUiService.ShowAlertPopUp(false, "Game Error", reason, button);
 		}
 
 		/// <summary>
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnCommandError(PlayFabError error)
 		{
-			Rollback();
+			Rollback(error.ErrorMessage);
 			OnPlayFabError(error);
 		}
 
@@ -199,13 +199,13 @@ namespace FirstLight.Game.Services
 			var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 			if (logicResult.Result.Command != current.GetType().FullName)
 			{
-				Rollback();
+				Rollback("Wrong Command Order");
 				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
 			}
 			// Command returned 200 but a expected logic exception happened due
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
-				Rollback();
+				Rollback("Server Exception");
 				throw new LogicException(logicException);
 			}
 			OnServerExecutionFinished(current);

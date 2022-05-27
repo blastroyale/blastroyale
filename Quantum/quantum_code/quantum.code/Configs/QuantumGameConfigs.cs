@@ -55,6 +55,10 @@ namespace Quantum
 		public int TrophyEloRange;
 		public int TrophyEloK;
 		public int MinOffhandWeaponPoolSize;
+		public uint NftAssumedOwned;
+		public uint MinNftForEarnings;
+		public FP AdjectiveRarityEarningsMod;
+		public uint LoadoutSlots;
 	}
 
 	/// <summary>

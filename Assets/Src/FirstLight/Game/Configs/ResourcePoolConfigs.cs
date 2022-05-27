@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -12,11 +13,13 @@ namespace FirstLight.Game.Configs
 		public uint PoolCapacity;
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
-
-		/// <summary>
-		/// Returns amount of resource stocked per "RestockIntervalMinutes" minutes
-		/// </summary>
-		public uint RestockPerInterval => PoolCapacity / (TotalRestockIntervalMinutes / RestockIntervalMinutes);
+		public uint BaseMaxTake;
+		public FP ScaleMultiplier;
+		public FP ShapeModifier;
+		public FP MaxPoolCapacityDecreaseModifier;
+		public FP PoolCapacityDecreaseExponent;
+		public FP MaxTakeDecreaseModifier;
+		public FP TakeDecreaseExponent;
 	}
 
 	/// <summary>

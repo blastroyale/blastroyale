@@ -19,7 +19,7 @@ public class GameServer
 	private ILogger _log;
 	private IServerStateService _state;
 	private IServerMutex _mutex;
-	
+
 	/// <summary>
 	/// Returns if the server is setup to run dev-mode. In dev-mode all players are admin and cheating will be enabled.
 	/// </summary>

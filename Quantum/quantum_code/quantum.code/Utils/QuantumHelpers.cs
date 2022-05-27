@@ -11,6 +11,21 @@ namespace Quantum
 	public static unsafe class QuantumHelpers
 	{
 		/// <summary>
+		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
+		/// </summary>
+		public static FP PowFp(FP baseValue, FP power)
+		{
+			var ret = FP._1;
+
+			for (var i = 0; i < power; i++)
+			{
+				ret *= baseValue;
+			}
+
+			return ret;
+		}
+		
+		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
 		public static void LookAt2d(Frame f, EntityRef e, EntityRef target)

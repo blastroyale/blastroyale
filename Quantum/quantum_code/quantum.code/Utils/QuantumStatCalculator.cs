@@ -199,7 +199,7 @@ namespace Quantum
 			FP modifiedValue = 0;
 
 			var baseValue = data.Value * (data.RatioToBase + data.RatioToBaseK);
-			var baseValueForRarity = baseValue * Pow(data.RarityMultiplier, (uint) equipment.Rarity);
+			var baseValueForRarity = baseValue * QuantumHelpers.PowFp(data.RarityMultiplier, (uint) equipment.Rarity);
 
 			// Apply rarity
 			modifiedValue += baseValueForRarity;
@@ -212,21 +212,6 @@ namespace Quantum
 			modifiedValue += baseValueForRarity * data.LevelStepMultiplier * equipment.Level;
 
 			return modifiedValue;
-		}
-
-		/// <summary>
-		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
-		/// </summary>
-		private static FP Pow(FP baseValue, uint power)
-		{
-			var ret = FP._1;
-
-			for (var i = 0; i < power; i++)
-			{
-				ret *= baseValue;
-			}
-
-			return ret;
 		}
 
 		private struct StatCalculationData

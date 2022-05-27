@@ -22,7 +22,9 @@ namespace Quantum
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;
+		public FP SplashDamageRatio;
 		public List<GameId> Specials;
+		
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon

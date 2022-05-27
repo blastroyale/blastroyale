@@ -50,6 +50,7 @@ namespace Quantum
 				SpawnPosition = position,
 				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
+				SplashDamageRatio = weaponConfig.SplashDamageRatio,
 				StunDuration = FP._0,
 				Target = EntityRef.None,
 				TeamSource = team

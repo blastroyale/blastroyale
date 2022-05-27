@@ -91,7 +91,7 @@ namespace FirstLight.Game.Logic
 
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
+				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.Get(GameMode.BattleRoyale));
 				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 			}

@@ -171,7 +171,7 @@ namespace Quantum
 			Weapons[slot] = weapon;
 			CurrentWeaponSlot = slot;
 
-			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled);
+			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
@@ -221,7 +221,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(Weapons[CurrentWeaponSlot].GameId).MaxAmmo;
+			maxAmmo = f.WeaponConfigs.GetConfig(Weapons[CurrentWeaponSlot].GameId).MaxAmmo.Get(f);
 
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
@@ -301,12 +301,12 @@ namespace Quantum
 			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
 			                                     out var speed, out var power);
 
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth + health,
+			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth.Get(f) + health,
 			                   power,
-			                   f.GameConfig.PlayerDefaultSpeed + speed,
+			                   f.GameConfig.PlayerDefaultSpeed.Get(f) + speed,
 			                   armour,
-			                   f.GameConfig.PlayerMaxShieldCapacity,
-			                   f.GameConfig.PlayerStartingShieldCapacity));
+			                   f.GameConfig.PlayerMaxShieldCapacity.Get(f),
+			                   f.GameConfig.PlayerStartingShieldCapacity.Get(f)));
 		}
 
 		private void RefreshStats(Frame f, EntityRef e)
@@ -315,8 +315,8 @@ namespace Quantum
 			                                     out var speed,
 			                                     out var power);
 
-			health += f.GameConfig.PlayerDefaultHealth;
-			speed += f.GameConfig.PlayerDefaultSpeed;
+			health += f.GameConfig.PlayerDefaultHealth.Get(f);
+			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);

@@ -16,10 +16,10 @@ namespace Quantum
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingDamageCooldown;
 		public uint ShrinkingDamage;
-		public int PlayerDefaultHealth;
-		public FP PlayerDefaultSpeed;
-		public int PlayerMaxShieldCapacity;
-		public int PlayerStartingShieldCapacity;
+		public QuantumGameModePair<int> PlayerDefaultHealth;
+		public QuantumGameModePair<FP> PlayerDefaultSpeed;
+		public QuantumGameModePair<int> PlayerMaxShieldCapacity;
+		public QuantumGameModePair<int> PlayerStartingShieldCapacity;
 		public int CoinsPerRank;
 		public int XpPerRank;
 		public FP DeathSignificance;

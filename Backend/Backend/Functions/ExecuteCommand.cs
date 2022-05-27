@@ -30,6 +30,7 @@ public class ExecuteCommand
 	{
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 		var playerId = context.AuthenticationContext.PlayFabId;
-		return _server.RunLogic(playerId, context.FunctionArgument);
+		log.LogDebug($"{playerId} running {context.FunctionArgument.Command}");
+		return await _server.RunLogic(playerId, context.FunctionArgument);
 	}
 }

@@ -26,10 +26,9 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<UniqueId, ulong> ExpireTimestamps = new();
 		
 		/// <summary>
-		/// Items that have been transferred recently do not contribute to player's earning.
-		/// This maps the unique id and the timestamp 
+		/// Dictionary of timestamps of when items were synced (added) into the player's inventory
 		/// </summary>
-		public readonly Dictionary<UniqueId, ulong> CooldownTimestamps = new();
+		public readonly Dictionary<UniqueId, long> InsertionTimestamps = new();
 
 		/// <summary>
 		/// Refer to the image urls for the inventory items

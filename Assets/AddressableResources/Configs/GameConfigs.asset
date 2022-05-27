@@ -41,13 +41,13 @@ MonoBehaviour:
         BattleRoyale:
           RawValue: 262144
         Deathmatch:
-          RawValue: 262144
+          RawValue: 314573
       PlayerMaxShieldCapacity:
         BattleRoyale: 800
-        Deathmatch: 800
+        Deathmatch: 600
       PlayerStartingShieldCapacity:
         BattleRoyale: 100
-        Deathmatch: 100
+        Deathmatch: 600
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:

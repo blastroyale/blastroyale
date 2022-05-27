@@ -28,6 +28,10 @@ namespace Quantum
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon
+		/// <remarks>
+		/// We check this against the BattleRoyale value, but it's always
+		/// the same for both BR and DM.
+		/// </remarks>
 		/// </summary>
 		public bool IsMeleeWeapon => MaxAmmo.BattleRoyale < 0;
 	}

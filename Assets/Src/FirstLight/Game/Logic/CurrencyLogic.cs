@@ -5,6 +5,7 @@ using FirstLight.Game.Data;
 using FirstLight.Services;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
 using Photon.Deterministic;
 using Quantum;
 
@@ -172,9 +173,18 @@ namespace FirstLight.Game.Logic
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
 			
+			var inventory = new Dictionary<UniqueId, Equipment>();
+			
+			foreach (var kvp in GameLogic.EquipmentLogic.Inventory.ToList())
+			{
+				if (kvp.Value.GameId != GameId.Hammer && GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
+				{
+					inventory.Add(kvp.Key,kvp.Value);
+				}
+			}
+			
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-			var inventory = GameLogic.EquipmentLogic.Inventory;
-			var nftOwned = inventory.Count(x => x.Value.GameId != GameId.Hammer);
+			var nftOwned = inventory.Count;
 			var poolCapacity = (double) 0;
 			var shapeMod = (double) poolConfig.ShapeModifier;
 			var scaleMult = (double) poolConfig.ScaleMultiplier;
@@ -184,7 +194,7 @@ namespace FirstLight.Game.Logic
 			var nftsm = nftAssumed * shapeMod;
 			var poolDecreaseExp = (double) poolConfig.PoolCapacityDecreaseExponent;
 			var maxPoolDecreaseMod = (double) poolConfig.MaxPoolCapacityDecreaseModifier;
-			
+
 			// ----- Set base pool capacity - based on player's owned NFT
 			var capacityMaxCalc = Math.Pow(nftsm, 2) - Math.Pow((nftsm - Math.Min(nftOwned, nftsm) + minNftOwned - 1), 2);
 			var capacityNftBonus = Math.Floor(Math.Sqrt(Math.Max(0, capacityMaxCalc)) * scaleMult);
@@ -197,11 +207,6 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var nft in inventory)
 			{
-				if (nft.Value.GameId == GameId.Hammer)
-				{
-					continue;
-				}
-				
 				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Value.Rarity);
 				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Value.Adjective);
 				var modSum = (double) rarityConfig.PoolCapacityModifier + (double) adjectiveConfig.PoolCapacityModifier;
@@ -226,11 +231,6 @@ namespace FirstLight.Game.Logic
 
 			foreach (var nft in inventory)
 			{
-				if (nft.Value.GameId == GameId.Hammer)
-				{
-					continue;
-				}
-				
 				totalNftDurability += nft.Value.Durability / 100d;
 			}
 			

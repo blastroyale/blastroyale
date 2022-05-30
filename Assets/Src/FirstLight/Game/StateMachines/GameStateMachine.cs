@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -114,7 +115,6 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic.Init();
 
 			_services.AudioFxService.AudioListener.enabled = true;
-			_gameLogic.AppLogic.SetResolutionMode(_gameLogic.AppLogic.IsHighResModeEnabled);
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 			
 			// Just marking the default name to avoid missing names

@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Ftue;
-using FirstLight.Game.Utils;
 using FirstLight.Game.Configs;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
-using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 
@@ -48,7 +43,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Is high res mode on device enabled?
 		/// </summary>
-		bool IsHighResModeEnabled { get; set; }
+		AppData.DetailLevel CurrentDetailLevel { get; set; }
 		
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
@@ -68,7 +63,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
-		void SetResolutionMode(bool highRes);
+		void SetDetailLevel(AppData.DetailLevel highRes);
 		
 		/// <summary>
 		/// Requests current selected game mode
@@ -142,13 +137,13 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool IsHighResModeEnabled
+		public AppData.DetailLevel CurrentDetailLevel
 		{
-			get => Data.HighResModeEnabled;
+			get => Data.CurrentDetailLevel;
 			set
 			{
-				Data.HighResModeEnabled = value;
-				SetResolutionMode(value);
+				Data.CurrentDetailLevel = value;
+				SetDetailLevel(value);
 			}
 		}
 
@@ -202,11 +197,17 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
-		public void SetResolutionMode(bool highRes)
+		public void SetDetailLevel(AppData.DetailLevel highRes)
 		{
-			var resolution = highRes ? GameConstants.Quality.DYNAMIC_RES_HIGH : GameConstants.Quality.DYNAMIC_RES_LOW;
+			var urpAsset = highRes switch
+			{
+				AppData.DetailLevel.Low => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().LowQualityURPSettingsAsset,
+				AppData.DetailLevel.Medium => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().MediumQualityURPSettingsAsset,
+				AppData.DetailLevel.High => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().HighQualityURPSettingsAsset,
+				_ => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().HighQualityURPSettingsAsset
+			};
 
-			ScalableBufferManager.ResizeBuffers(resolution,resolution);
+			QualitySettings.renderPipeline = urpAsset;
 		}
 	}
 }

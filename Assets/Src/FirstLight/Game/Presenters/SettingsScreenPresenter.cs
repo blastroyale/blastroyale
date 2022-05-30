@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
@@ -32,7 +34,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
-		[SerializeField, Required] private UiToggleButtonView _highResModeToggle;
+		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -53,7 +55,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
-			_highResModeToggle.onValueChanged.AddListener(OnHighResModeChanged);
+			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 		}
 
 		protected override void OnOpened()
@@ -63,7 +65,7 @@ namespace FirstLight.Game.Presenters
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
-			_highResModeToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHighResModeEnabled);
+			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 		}
 		
 		/// <inheritdoc />
@@ -85,13 +87,13 @@ namespace FirstLight.Game.Presenters
 		private void OnHapticChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-			
 		}
 
-		private void OnHighResModeChanged(bool value)
+		private void OnDetailLevelChanged(AppData.DetailLevel detailLevel)
 		{
-			_gameDataProvider.AppDataProvider.IsHighResModeEnabled = value;
+			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
 		}
+		
 
 		private void OnLogoutClicked()
 		{

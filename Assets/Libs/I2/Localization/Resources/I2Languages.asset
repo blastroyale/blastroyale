@@ -1220,6 +1220,13 @@ MonoBehaviour:
       - '{0}DEFEATED{1} X {2}'
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/DetailLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - Detail Level
+      Flags: 00
+      Languages_Touch: []
     - Term: MainMenu/DragAndReleaseToFire
       TermType: 0
       Description: 
@@ -5087,7 +5094,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1653557362648
+    Google_LastUpdatedVersion: 1653669788472
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

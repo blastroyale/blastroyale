@@ -1220,6 +1220,13 @@ MonoBehaviour:
       - '{0}DEFEATED{1} X {2}'
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/DetailLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - Detail Level
+      Flags: 00
+      Languages_Touch: []
     - Term: MainMenu/DragAndReleaseToFire
       TermType: 0
       Description: 
@@ -1993,6 +2000,21 @@ MonoBehaviour:
       Description: 
       Languages:
       - Storage is full!
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NftCooldownTimerFullText
+      TermType: 0
+      Description: 
+      Languages:
+      - On cooldown for {0}
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NftCooldownTimerExplanation
+      TermType: 0
+      Description: 
+      Languages:
+      - "Due to a recent transfer, this item is on cooldown. \nItems on cooldown
+        do no not contribute to any in-game earnings."
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -5087,7 +5109,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1653557362648
+    Google_LastUpdatedVersion: 1653920852058
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

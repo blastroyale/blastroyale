@@ -1,13 +1,8 @@
-using System.Collections.Generic;
 using FirstLight.Game.Logic;
-using FirstLight.GoogleSheetImporter;
 using FirstLight.Services;
-using FirstLight;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
-using PlayFab;
-using UnityEngine.InputSystem.UI;
 
 namespace FirstLight.Game.Services
 {
@@ -23,83 +18,85 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IDataSaver"/>
 		IDataSaver DataSaver { get; }
+
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
-		/// <inheritdoc cref="IEntityViewUpdaterService"/>
+
 		/// <inheritdoc cref="IGuidService"/>
 		IGuidService GuidService { get; }
+
 		/// <inheritdoc cref="IGameNetworkService"/>
 		IGameNetworkService NetworkService { get; }
+
 		/// <inheritdoc cref="IMessageBrokerService"/>
 		IMessageBrokerService MessageBrokerService { get; }
+
 		/// <inheritdoc cref="ICommandService{T}"/>
 		IGameCommandService CommandService { get; }
+
 		/// <inheritdoc cref="IPoolService"/>
 		IPoolService PoolService { get; }
+
 		/// <inheritdoc cref="ITickService"/>
 		ITickService TickService { get; }
+
 		/// <inheritdoc cref="ITimeService"/>
 		ITimeService TimeService { get; }
+
 		/// <inheritdoc cref="ICoroutineService"/>
 		ICoroutineService CoroutineService { get; }
+
 		/// <inheritdoc cref="IAssetResolverService"/>
 		IAssetResolverService AssetResolverService { get; }
+
 		/// <inheritdoc cref="IAnalyticsService"/>
 		IAnalyticsService AnalyticsService { get; }
+
 		/// <inheritdoc cref="IGenericDialogService"/>
 		IGenericDialogService GenericDialogService { get; }
+
 		/// <inheritdoc cref="IVfxService{T}"/>
 		IVfxService<VfxId> VfxService { get; }
+
 		/// <inheritdoc cref="IAudioFxService{T}"/>
 		IAudioFxService<AudioId> AudioFxService { get; }
+
 		/// <inheritdoc cref="INotificationService"/>
 		INotificationService NotificationService { get; }
+
 		/// <inheritdoc cref="IPlayfabService"/>
 		IPlayfabService PlayfabService { get; }
+
+		/// <inheritdoc cref="IRemoteTextureService"/>
+		public IRemoteTextureService RemoteTextureService { get; }
 	}
 
-	/// <inheritdoc />
 	public class GameServices : IGameServices
 	{
-		/// <inheritdoc />
 		public IDataSaver DataSaver { get; }
-		/// <inheritdoc />
 		public IConfigsProvider ConfigsProvider { get; }
-		/// <inheritdoc />
 		public IGuidService GuidService { get; }
-		/// <inheritdoc />
 		public IGameNetworkService NetworkService { get; }
-		/// <inheritdoc />
 		public IMessageBrokerService MessageBrokerService { get; }
-		/// <inheritdoc />
 		public IGameCommandService CommandService { get; }
-		/// <inheritdoc />
 		public IPoolService PoolService { get; }
-		/// <inheritdoc />
 		public ITickService TickService { get; }
-		/// <inheritdoc />
 		public ITimeService TimeService { get; }
-		/// <inheritdoc />
 		public ICoroutineService CoroutineService { get; }
-		/// <inheritdoc />
 		public IAssetResolverService AssetResolverService { get; }
-		/// <inheritdoc />
 		public IAnalyticsService AnalyticsService { get; }
-		/// <inheritdoc />
 		public IGenericDialogService GenericDialogService { get; }
-		/// <inheritdoc />
 		public IVfxService<VfxId> VfxService { get; }
-		/// <inheritdoc />
 		public IAudioFxService<AudioId> AudioFxService { get; }
-		/// <inheritdoc />
 		public INotificationService NotificationService { get; }
-		/// <inheritdoc />
 		public IPlayfabService PlayfabService { get; }
-		
-		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService, 
+		public IRemoteTextureService RemoteTextureService { get; }
+
+		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
-		                    IGameLogic gameLogic, IDataProvider dataProvider, IGenericDialogService genericDialogService, 
-		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService, 
+		                    IGameLogic gameLogic, IDataProvider dataProvider,
+		                    IGenericDialogService genericDialogService,
+		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
@@ -117,11 +114,22 @@ namespace FirstLight.Game.Services
 			PlayfabService = new PlayfabService(gameLogic.AppLogic);
 			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider);
 			PoolService = new PoolService();
-			TickService =  new TickService();
+			TickService = new TickService();
 			CoroutineService = new CoroutineService();
+			RemoteTextureService = new RemoteTextureService(CoroutineService);
 			NotificationService = new MobileNotificationService(
-				new GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL, GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL),
-				new GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL, GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL,GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL));
+			                                                    new
+				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,
+					                                                    GameConstants.Notifications
+						                                                    .NOTIFICATION_BOXES_CHANNEL,
+					                                                    GameConstants.Notifications
+						                                                    .NOTIFICATION_BOXES_CHANNEL),
+			                                                    new
+				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL,
+					                                                    GameConstants.Notifications
+						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL,
+					                                                    GameConstants.Notifications
+						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL));
 		}
 	}
 }

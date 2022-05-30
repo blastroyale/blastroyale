@@ -20,8 +20,6 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
-		
-		
 		public IGameUiServiceInit UiService;
 		
 		private GameStateMachine _gameStateMachine;
@@ -48,10 +46,11 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
+			var threadService = new ThreadService();
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, analyticsService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider,
 			                                    gameLogic, dataService, genericDialogService, assetResolver, analyticsService, 
-			                                    vfxService, audioFxService);
+			                                    vfxService, audioFxService, threadService);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);

@@ -37,14 +37,16 @@ namespace FirstLight.Game.Services
 		private string TexturesFolder = Path.Combine(Application.persistentDataPath, "RemoteTextures");
 
 		private readonly ICoroutineService _coroutineService;
+		private readonly IThreadService _threadService;
 
 		private int _handle;
 		private readonly Dictionary<int, Coroutine> _requests = new();
 		private readonly List<string> _cachedTextures = new();
 
-		public RemoteTextureService(ICoroutineService coroutineService)
+		public RemoteTextureService(ICoroutineService coroutineService, IThreadService threadService)
 		{
 			_coroutineService = coroutineService;
+			_threadService = threadService;
 
 			if (PlayerPrefs.HasKey(TextureHashesKey))
 			{
@@ -101,31 +103,49 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				if (!uri.StartsWith(FileUriPrefix))
+				var tex = ((DownloadHandlerTexture) request.downloadHandler).texture;
+				if (uri.StartsWith(FileUriPrefix))
 				{
-					CacheTexture(uri, request.downloadHandler.data);
+					callback(tex);
 				}
-
-				callback(((DownloadHandlerTexture) request.downloadHandler).texture);
+				else
+				{
+					CacheTexture(tex, request.downloadHandler.data, uri, callback);
+				}
 			}
 		}
 
-		// TODO: This should be async
-		private void CacheTexture(string uri, byte[] data)
+		private void CacheTexture(Texture2D tex, byte[] data, string uri, Action<Texture2D> callback)
 		{
-			var hash = GetHashString(uri);
-			File.WriteAllBytes(Path.Combine(TexturesFolder, hash), data);
-
-			_cachedTextures.Add(hash);
-
-			while (_cachedTextures.Count > TexturesToKeep)
+			_threadService.Enqueue(() =>
 			{
-				File.Delete(Path.Combine(TexturesFolder, _cachedTextures[0]));
-				_cachedTextures.RemoveAt(0);
-			}
+				lock (_cachedTextures)
+				{
+					var hash = GetHashString(uri);
+					File.WriteAllBytes(Path.Combine(TexturesFolder, hash), data);
 
-			PlayerPrefs.SetString(TextureHashesKey, string.Join(';', _cachedTextures.ToArray()));
-			PlayerPrefs.Save();
+					_cachedTextures.Add(hash);
+
+					while (_cachedTextures.Count > TexturesToKeep)
+					{
+						File.Delete(Path.Combine(TexturesFolder, _cachedTextures[0]));
+						_cachedTextures.RemoveAt(0);
+					}
+
+					// Doesn't matter what we return
+					return hash;
+				}
+			}, _ =>
+			{
+				PlayerPrefs.SetString(TextureHashesKey, string.Join(';', _cachedTextures.ToArray()));
+				PlayerPrefs.Save();
+
+				callback(tex);
+			}, _ =>
+			{
+				// If an error occurs we log it and return the texture as normal
+				callback(tex);
+			});
 		}
 
 		private string GetImageUri(string url)

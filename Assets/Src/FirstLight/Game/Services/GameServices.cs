@@ -69,6 +69,9 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IRemoteTextureService"/>
 		public IRemoteTextureService RemoteTextureService { get; }
+
+		/// <inheritdoc cref="IThreadService"/>
+		public IThreadService ThreadService { get; }
 	}
 
 	public class GameServices : IGameServices
@@ -91,13 +94,15 @@ namespace FirstLight.Game.Services
 		public INotificationService NotificationService { get; }
 		public IPlayfabService PlayfabService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
+		public IThreadService ThreadService { get; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic, IDataProvider dataProvider,
 		                    IGenericDialogService genericDialogService,
 		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService,
-		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
+		                    IThreadService threadService)
 		{
 			NetworkService = networkService;
 			AnalyticsService = analyticsService;
@@ -109,6 +114,7 @@ namespace FirstLight.Game.Services
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
+			ThreadService = threadService;
 
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic.AppLogic);
@@ -116,7 +122,7 @@ namespace FirstLight.Game.Services
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
-			RemoteTextureService = new RemoteTextureService(CoroutineService);
+			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = new MobileNotificationService(
 			                                                    new
 				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,

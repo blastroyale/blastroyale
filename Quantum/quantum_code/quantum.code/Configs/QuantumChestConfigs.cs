@@ -10,6 +10,13 @@ namespace Quantum
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef;
 		public ChestType ChestType;
+
+		public FP PowerUpChance;
+		public uint PowerUpCount;
+		public FP SmallConsumableChance;
+		public uint SmallConsumableCount;
+		public FP LargeConsumableChance;
+		public uint LargeConsumableCount;
 	}
 
 	/// <summary>
@@ -38,6 +45,22 @@ namespace Quantum
 			}
 
 			return _dictionary[id];
+		}
+
+		/// <summary>
+		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="type"/>
+		/// </summary>
+		public QuantumChestConfig GetConfig(ChestType type)
+		{
+			return type switch
+			{
+				ChestType.Common => _dictionary[GameId.ChestCommon],
+				ChestType.Uncommon => _dictionary[GameId.ChestUncommon],
+				ChestType.Rare => _dictionary[GameId.ChestRare],
+				ChestType.Epic => _dictionary[GameId.ChestEpic],
+				ChestType.Legendary => _dictionary[GameId.ChestLegendary],
+				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+			};
 		}
 	}
 }

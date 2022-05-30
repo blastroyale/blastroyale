@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -30,6 +29,7 @@ namespace Quantum
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Get<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
+			var config = f.ChestConfigs.GetConfig(ChestType);
 
 			var hasPrimaryWeaponEquipped = playerCharacter.Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
@@ -39,31 +39,68 @@ namespace Quantum
 			var medianRarity = f.Context.MedianRarity;
 			var weapons = f.Context.PlayerWeapons;
 
-			// Decide on weapon drop
+			var angleStep = 0;
+
 			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
 			{
+				// Drop primary weapon if it's in loadout and not equipped
 				ModifyEquipmentRarity(f, ref loadoutWeapon, minimumRarity, medianRarity);
-				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, 0, playerRef);
+				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, angleStep++, playerRef);
 			}
 			else
 			{
-				var weapon = weapons[f.RNG->Next(0, weapons.Length)];
-
-				// I think this is silly, but "When a player picks up a weapon we inherit all NFT
-				// attributes (except for the rarity) from the Record".
-				if (hasLoadoutWeapon)
+				// Drop "PowerUps" (equipment / shield upgrade)
+				if (f.RNG->Next() <= config.PowerUpChance)
 				{
-					var originalGameId = weapon.GameId;
-					weapon = loadoutWeapon;
-					weapon.GameId = originalGameId;
-				}
+					for (uint i = 0; i < config.PowerUpCount; i++)
+					{
+						// For GameId.Random we drop equipment
+						var drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge,
+						                                        GameId.ShieldCapacitySmall);
 
-				ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
-				Collectable.DropEquipment(f, weapon, chestPosition, 0);
+						if (drop == GameId.Random)
+						{
+							var weapon = weapons[f.RNG->Next(0, weapons.Length)];
+
+							// I think this is silly, but "When a player picks up a weapon we inherit all NFT
+							// attributes (except for the rarity) from the Record".
+							if (hasLoadoutWeapon)
+							{
+								var originalGameId = weapon.GameId;
+								weapon = loadoutWeapon;
+								weapon.GameId = originalGameId;
+							}
+
+							ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
+							Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
+						}
+						else
+						{
+							Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+						}
+					}
+				}
 			}
 
-			// Decide on other stuff to drop
-			DropConsumables(f, chestPosition);
+			// Drop Small consumable
+			if (f.RNG->Next() <= config.SmallConsumableChance)
+			{
+				for (uint i = 0; i < config.SmallConsumableCount; i++)
+				{
+					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
+					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+				}
+			}
+
+			// Drop Large consumable
+			if (f.RNG->Next() <= config.LargeConsumableChance)
+			{
+				for (uint i = 0; i < config.LargeConsumableCount; i++)
+				{
+					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
+					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+				}
+			}
 		}
 
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,
@@ -91,84 +128,6 @@ namespace Quantum
 				ChestType.Legendary => 2,
 				_ => throw new ArgumentOutOfRangeException(nameof(ChestType), ChestType, null)
 			};
-		}
-
-		private void DropConsumables(Frame f, FPVector3 stashPosition)
-		{
-			switch (ChestType)
-			{
-				case ChestType.Common:
-				case ChestType.Uncommon:
-					if (f.RNG->Next() <= FP._0_50 + FP._0_20)
-					{
-						Collectable.DropConsumable(f, GameId.AmmoSmall, stashPosition, 0, false);
-					}
-					else
-					{
-						Collectable.DropConsumable(f, GameId.Health, stashPosition, 0, false);
-					}
-
-					if (f.RNG->Next() <= FP._0_10)
-					{
-						Collectable.DropConsumable(f, GameId.AmmoLarge, stashPosition, 1, false);
-					}
-					else if (f.RNG->Next() <= FP._0_50)
-					{
-						Collectable.DropConsumable(f, GameId.ShieldSmall, stashPosition, 1, false);
-					}
-					else
-					{
-						Collectable.DropConsumable(f, GameId.Health, stashPosition, 1, false);
-					}
-
-					if (f.RNG->Next() <= FP._0_50 + FP._0_20 + FP._0_20)
-					{
-						Collectable.DropConsumable(f, GameId.AmmoSmall, stashPosition, 2, false);
-					}
-					else
-					{
-						Collectable.DropConsumable(f, GameId.Health, stashPosition, 2, false);
-					}
-
-					break;
-				case ChestType.Rare:
-					var armour = f.RNG->Next() < FP._0_25 ? GameId.ShieldLarge : GameId.ShieldSmall;
-					var ammoOrHealthChance = f.RNG->Next();
-
-					Collectable.DropConsumable(f, armour, stashPosition, 1, false);
-
-					Collectable.DropConsumable(f, GameId.AmmoSmall, stashPosition, 1, false);
-					Collectable.DropConsumable(f, GameId.AmmoSmall, stashPosition, 1, false);
-
-					if (ammoOrHealthChance < FP._0_20 + FP._0_10)
-					{
-						Collectable.DropConsumable(f, GameId.AmmoLarge, stashPosition, 2, false);
-					}
-					else if (ammoOrHealthChance < FP._0_50 + FP._0_20 + FP._0_20)
-					{
-						Collectable.DropConsumable(f, GameId.AmmoSmall, stashPosition, 2, false);
-					}
-					else
-					{
-						Collectable.DropConsumable(f, GameId.Health, stashPosition, 2, false);
-					}
-
-					break;
-				case ChestType.Epic:
-				case ChestType.Legendary:
-					var armourType = f.RNG->Next() < FP._0_75 ? GameId.ShieldLarge : GameId.ShieldSmall;
-					Collectable.DropConsumable(f, armourType, stashPosition, 2, false);
-
-					var ammoType = f.RNG->Next() < FP._0_50 ? GameId.AmmoLarge : GameId.AmmoSmall;
-					Collectable.DropConsumable(f, ammoType, stashPosition, 3, false);
-					Collectable.DropConsumable(f, GameId.AmmoSmall, stashPosition, 3, false);
-
-					Collectable.DropConsumable(f, GameId.Health, stashPosition, 4, false);
-					Collectable.DropConsumable(f, GameId.Health, stashPosition, 4, false);
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
 		}
 	}
 }

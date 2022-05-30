@@ -17,15 +17,15 @@ QualitySettings:
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
-    shadowmaskMode: 1
+    shadowmaskMode: 0
     skinWeights: 2
     textureQuality: 1
-    anisotropicTextures: 1
+    anisotropicTextures: 0
     antiAliasing: 0
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 0
-    billboardsFaceCameraPosition: 1
+    billboardsFaceCameraPosition: 0
     vSyncCount: 0
     lodBias: 1
     maximumLODLevel: 0
@@ -35,7 +35,7 @@ QualitySettings:
     streamingMipmapsRenderersPerFrame: 512
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
-    particleRaycastBudget: 256
+    particleRaycastBudget: 32
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
@@ -61,7 +61,7 @@ QualitySettings:
     softParticles: 0
     softVegetation: 0
     realtimeReflectionProbes: 0
-    billboardsFaceCameraPosition: 0
+    billboardsFaceCameraPosition: 1
     vSyncCount: 0
     lodBias: 0.7
     maximumLODLevel: 0
@@ -115,5 +115,7 @@ QualitySettings:
     customRenderPipeline: {fileID: 11400000, guid: d9967888ecad7f740a902bf820942760, type: 2}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
+    Android: 1
     Server: 1
     Standalone: 1
+    iPhone: 1

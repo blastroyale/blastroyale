@@ -56,12 +56,7 @@ namespace FirstLight.Game.Presenters
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
-		}
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-
+			
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);

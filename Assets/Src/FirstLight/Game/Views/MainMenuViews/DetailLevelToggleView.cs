@@ -23,22 +23,25 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnHighClicked()
 		{
 			SetSelectedDetailLevel(AppData.DetailLevel.High);
-			ValueChanged?.Invoke(AppData.DetailLevel.High);
 		}
 
 		private void OnMediumClicked()
 		{
 			SetSelectedDetailLevel(AppData.DetailLevel.Medium);
-			ValueChanged?.Invoke(AppData.DetailLevel.Medium);
 		}
 
 		private void OnLowClicked()
 		{
 			SetSelectedDetailLevel(AppData.DetailLevel.Low);
-			ValueChanged?.Invoke(AppData.DetailLevel.Low);
 		}
 
 		public void SetSelectedDetailLevel(AppData.DetailLevel detailLevel)
+		{
+			ShowSelectedDetailLevel(detailLevel);
+			ValueChanged?.Invoke(detailLevel);
+		}
+
+		private void ShowSelectedDetailLevel(AppData.DetailLevel detailLevel)
 		{
 			UpdateButton(_highSettingsButton, detailLevel == AppData.DetailLevel.High);
 			UpdateButton(_mediumSettingsButton, detailLevel == AppData.DetailLevel.Medium);

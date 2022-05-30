@@ -35,7 +35,7 @@ namespace FirstLight.Game.Data
 
 		public enum DetailLevel
 		{
-			Low, Medium, High
+			High, Medium, Low
 		}
 	}
 

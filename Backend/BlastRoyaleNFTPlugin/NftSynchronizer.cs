@@ -129,6 +129,7 @@ public class NftSynchronizer
         idData.GameIds.Add(nextId, equipment.GameId);
         equipmentData.TokenIds[nextId] = nft.token_id;
         equipmentData.ImageUrls[nextId] = nft.image;
+        equipmentData.InsertionTimestamps[nextId] = DateTime.UtcNow.Ticks;
     }
 
     /// <summary>
@@ -147,6 +148,7 @@ public class NftSynchronizer
                 idData.GameIds.Remove(uniqueId);
                 nftEquipment.ExpireTimestamps.Remove(uniqueId);
                 nftEquipment.TokenIds.Remove(uniqueId);
+                nftEquipment.InsertionTimestamps.Remove(uniqueId);
                 var equippedGroups = playerData.Equipped.Keys.ToList();
                 foreach (var group in equippedGroups)
                 {

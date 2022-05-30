@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using FirstLight.Game.Utils;
+using ServerSDK.Modules;
 
-namespace Backend.Models;
+namespace ServerSDK.Models;
 
 
 /// <summary>
@@ -18,9 +17,13 @@ public class ServerState : Dictionary<string, string>
 	{
 	}
 
+	/// <summary>
+	/// Sets a given model in server state.
+	/// Will serialize the model.
+	/// </summary>
 	public void SetModel(object model)
 	{
-		var (typeName, data) = ModelSerializer.Serialize(model);
+		var (typeName, data) = ObjectSerializer.Serialize(model);
 		this[typeName] = data;
 	}
 
@@ -29,6 +32,8 @@ public class ServerState : Dictionary<string, string>
 	/// </summary>
 	public T DeserializeModel<T>()
 	{
-		return TryGetValue(typeof(T).FullName, out var data) ? ModelSerializer.Deserialize<T>(data) : default(T);
+		return TryGetValue(typeof(T).FullName, out var data)
+			       ? ObjectSerializer.Deserialize<T>(data)
+			       : Activator.CreateInstance<T>();
 	}
 }

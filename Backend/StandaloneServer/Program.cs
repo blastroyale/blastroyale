@@ -5,6 +5,8 @@ using FirstLight.Game.Logic;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
+using ServerSDK;
+using ServerSDK.Events;
 using StandaloneServer;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.
@@ -18,6 +20,9 @@ var builder = WebApplication.CreateBuilder(args);
 var path = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
 ServerStartup.Setup(builder.Services, logger, path);
 var app = builder.Build();
+
+app.Services.GetService<IEventManager>().CallEvent(new PlayerDataLoadEvent("600CDB6E1B621039"));
+
 
 app.MapGet("/", () => "Standalone Server is running !");
 

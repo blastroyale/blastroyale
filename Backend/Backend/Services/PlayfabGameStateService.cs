@@ -1,26 +1,11 @@
 using System.Linq;
-using Backend.Models;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.ServerModels;
+using ServerSDK.Models;
+using ServerSDK.Services;
 
 namespace Backend.Game.Services;
-
-/// <summary>
-/// Service responsible for reading and saving player data.
-/// </summary>
-public interface IServerStateService
-{
-	/// <summary>
-	/// Saves the current ServerData referencing the specified PlayerId.
-	/// </summary>
-	public UpdateUserDataResult UpdatePlayerState(string playerId, ServerState state);
-	
-	/// <summary>
-	/// Reads the player data and returns it as a ServerData type.
-	/// </summary>
-	public ServerState GetPlayerState(string playerId);
-}
 
 /// <summary>
 /// Implements fetching & saving data to Playfab provider.

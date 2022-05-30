@@ -3,6 +3,9 @@ using Backend.Game;
 using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using PlayFab;
+using ServerSDK;
+using ServerSDK.Events;
+using ServerSDK.Services;
 
 namespace Backend;
 
@@ -32,15 +35,15 @@ public class GameLogicWebWebService : ILogicWebService
 {
 	private readonly IPlayerSetupService _setupService;
 	private readonly IServerStateService _stateService;
-	private readonly IBlockchainService _blockchain;
 	private readonly GameServer _server;
+	private readonly IEventManager _eventManager;
 	
-	public GameLogicWebWebService(IPlayerSetupService service, IServerStateService stateService, IBlockchainService blockchain, GameServer server)
+	public GameLogicWebWebService(IEventManager eventManager, IPlayerSetupService service, IServerStateService stateService, GameServer server)
 	{
 		_setupService = service;
 		_stateService = stateService;
 		_server = server;
-		_blockchain = blockchain;
+		_eventManager = eventManager;
 	}
 
 	public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -58,7 +61,7 @@ public class GameLogicWebWebService : ILogicWebService
 		{
 			await SetupPlayer(playerId);
 		}
-		await _blockchain.SyncNfts(playerId);
+		_eventManager.CallEvent(new PlayerDataLoadEvent(playerId));
 		return new PlayFabResult<BackendLogicResult>
 		{
 			Result = new BackendLogicResult()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
@@ -47,6 +48,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the total amount of <paramref name="stat"/> granted by all currently equipped items.
 		/// </summary>
 		float GetTotalEquippedStat(StatType stat);
+
+		/// <summary>
+		/// Requests the remaining cooldown for item <paramref name="itemId"/>
+		/// </summary>
+		TimeSpan GetItemCooldown(UniqueId itemId);
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has, with an optional level

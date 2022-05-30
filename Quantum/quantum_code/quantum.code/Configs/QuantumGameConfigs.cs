@@ -59,6 +59,7 @@ namespace Quantum
 		public uint MinNftForEarnings;
 		public FP AdjectiveRarityEarningsMod;
 		public uint LoadoutSlots;
+		public uint NftUsageCooldownMinutes;
 	}
 
 	/// <summary>

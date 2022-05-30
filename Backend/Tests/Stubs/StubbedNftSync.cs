@@ -6,6 +6,10 @@ using ServerSDK;
 
 namespace Tests.Stubs;
 
+/// <summary>
+/// Stubbed NFT sync where instead of getting external indexed nfts and last updates
+/// we can set them in-memory, for testing purposes.
+/// </summary>
 public class StubbedNftSync : NftSynchronizer
 {
 	public List<PolygonNFTMetadata> Indexed = new ();

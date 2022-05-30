@@ -21,9 +21,6 @@ var path = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
 ServerStartup.Setup(builder.Services, logger, path);
 var app = builder.Build();
 
-app.Services.GetService<IEventManager>().CallEvent(new PlayerDataLoadEvent("600CDB6E1B621039"));
-
-
 app.MapGet("/", () => "Standalone Server is running !");
 
 // Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally.

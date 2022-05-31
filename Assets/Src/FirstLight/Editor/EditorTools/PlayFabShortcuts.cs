@@ -1,4 +1,6 @@
 using System;
+using FirstLight.FLogger;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEditor;
@@ -126,14 +128,18 @@ namespace FirstLight.Editor.EditorTools
 					}
 				}
 				
-				Debug.Log($"# Obtained {result.Segments.Count.ToString()} Segments");
+				FLog.Info($"# Obtained {result.Segments.Count.ToString()} Segments");
 			}
 		}
 #endif
 
 		private static void OnPlayFabError(PlayFabError result)
 		{
-			Debug.LogError($"PlayFab Error {result.Error} - {result.ErrorMessage}");
+			FLog.Error($"PlayFab Error {result.Error} - {result.ErrorMessage}");
+			if (result.ErrorDetails != null)
+			{
+				FLog.Error(JsonConvert.SerializeObject(result.ErrorDetails));
+			}
 		}
 	}
 }

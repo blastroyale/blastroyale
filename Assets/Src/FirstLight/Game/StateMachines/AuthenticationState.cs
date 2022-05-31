@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -295,6 +296,7 @@ namespace FirstLight.Game.StateMachines
 			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 			_services.AnalyticsService.LoginEvent(result.PlayFabId);
+			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 
 			if (IsOutdated(titleData[nameof(Application.version)]))

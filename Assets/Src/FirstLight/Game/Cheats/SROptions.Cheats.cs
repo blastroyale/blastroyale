@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -17,10 +19,14 @@ using FirstLight.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PlayFab;
+using PlayFab.AdminModels;
 using PlayFab.CloudScriptModels;
 using Quantum;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public partial class SROptions
 {
@@ -28,22 +34,39 @@ public partial class SROptions
 	[Category("Reset Player")]
 	public void ResetPlayer()
 	{
-		PlayerPrefs.DeleteAll();
-		PlayerPrefs.Save();
-
-		var request = new ExecuteFunctionRequest
+		var player = PlayFabSettings.staticPlayer;
+		if (player == null || player.PlayFabId == null)
 		{
-			FunctionName = "SetupPlayerCommand",
-			GeneratePlayStreamEvent = true,
-			AuthenticationContext = PlayFabSettings.staticPlayer,
-			FunctionParameter = new LogicRequest
+			throw new Exception("Not logged in");
+		}
+
+		var update = new PlayFab.AdminModels.UpdateUserDataRequest()
+		{
+			KeysToRemove = new List<string>()
 			{
-				Command = "SetupPlayerCommand",
-				Data = new Dictionary<string, string>()
-			}
+				typeof(PlayerData).FullName,
+				typeof(IdData).FullName,
+				typeof(RngData).FullName,
+				typeof(NftEquipmentData).FullName,
+			},
+			PlayFabId = player.PlayFabId
 		};
 
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
+		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
+
+		void Result(UpdateUserDataResult result)
+		{
+			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
+#if UNITY_EDITOR
+			if(EditorApplication.isPlaying) 
+			{
+				UnityEditor.EditorApplication.isPlaying = false;
+			}
+#else
+			Application.Quit();
+#endif
+		}
 	}
 
 	[Category("Equipment")]

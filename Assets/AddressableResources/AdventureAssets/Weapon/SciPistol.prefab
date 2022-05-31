@@ -34266,7 +34266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6348189754933789880}
   m_Layer: 0
-  m_Name: Laser
+  m_Name: SciPistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

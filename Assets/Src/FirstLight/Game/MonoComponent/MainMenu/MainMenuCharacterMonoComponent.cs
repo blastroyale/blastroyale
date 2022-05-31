@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -57,6 +58,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
 		}
 
+		private async void EquipDefault()
+		{
+			await _characterViewComponent.EquipItem(GameId.Hammer);
+		}
+
 		private void OnEquippedItems(GameIdGroup slot, UniqueId oldItem, UniqueId newItem,
 		                             ObservableUpdateType updateType)
 		{
@@ -66,6 +72,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 					OnEquippedItemsAdded(slot, newItem);
 					break;
 				case ObservableUpdateType.Removed:
+					OnEquippedItemsRemoved(slot, newItem);
+					break;
+				case ObservableUpdateType.Updated:
 					OnEquippedItemsRemoved(slot, newItem);
 					break;
 			}
@@ -89,6 +98,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 
 			_characterViewComponent.UnequipItem(slot);
+			
+			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
+			{
+				EquipDefault();
+			}
 		}
 
 		private void OnItemEquippedMessage(ItemEquippedMessage callback)
@@ -133,6 +147,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutItems());
 
+			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
+			{
+				EquipDefault();
+			}
+			
 			instance.SetActive(true);
 
 			_animator = instance.GetComponent<Animator>();

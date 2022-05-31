@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private EquipmentStatInfoView _statInfoViewPoolRef;
 		[SerializeField, Required] private EquipmentStatSpecialInfoView _specialStatInfoViewPoolRef;
 		[SerializeField, Required] private EquipmentCooldownView _equipmentCooldownViewRef;
-		
+
 		// TODO: This should be a view when we properly implement it
 		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
 		[SerializeField, Required] private GameObject _equipmentAttributesHolder;
@@ -401,9 +401,14 @@ namespace FirstLight.Game.Presenters
 				// Equip Default/Melee weapon after unequipping a regular one
 				if (isWeapon)
 				{
-					var defaultWeapon = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
-					                                     .First(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
-					Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = defaultWeapon.Key});
+					var defaultWeapon =
+						_gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
+						                 .FirstOrDefault(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
+
+					if (defaultWeapon.Key != UniqueId.Invalid)
+					{
+						Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = defaultWeapon.Key});
+					}
 				}
 			}
 			else

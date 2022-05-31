@@ -10,7 +10,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 	public class UniqueIdLogicTest : BaseTestFixture<IdData>
 	{
 		private UniqueIdLogic _uniqueIdLogic;
-		private readonly GameId _gameID = GameId.AssaultRifle;
+		private readonly GameId _gameID = GameId.ModRifle;
 
 		[SetUp]
 		public void Init()

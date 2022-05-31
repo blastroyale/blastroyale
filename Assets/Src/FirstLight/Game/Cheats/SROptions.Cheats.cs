@@ -53,6 +53,7 @@ public partial class SROptions
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
 		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		
 		foreach (var config in equipmentConfigs)
 		{
 			if (config.Id == GameId.Hammer)
@@ -86,6 +87,7 @@ public partial class SROptions
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
 		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		
 		foreach (var config in equipmentConfigs)
 		{
 			if (config.Id == GameId.Hammer)

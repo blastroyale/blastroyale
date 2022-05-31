@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Utils;
 
@@ -16,6 +17,20 @@ public class ServerState : Dictionary<string, string>
 
 	public ServerState(Dictionary<string, string> data): base(data)
 	{
+	}
+
+	public ulong GetVersion()
+	{
+		if (!TryGetValue("version", out var versionString))
+		{
+			versionString = "1";
+		}
+		return ulong.Parse(versionString);
+	}
+
+	public void SetVersion(ulong version)
+	{
+		this["version"] = version.ToString();
 	}
 
 	public void SetModel(object model)

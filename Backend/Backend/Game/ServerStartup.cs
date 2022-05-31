@@ -1,6 +1,7 @@
 using System.IO;
 using Backend.Db;
 using Backend.Game.Services;
+using Backend.Models;
 using FirstLight;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,7 @@ public static class ServerStartup
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();
+		services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 		services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
 		{
 			var cfgSerializer = new ConfigsSerializer();

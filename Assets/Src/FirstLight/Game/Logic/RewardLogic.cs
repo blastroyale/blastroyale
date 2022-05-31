@@ -5,6 +5,7 @@ using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
 using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
@@ -118,12 +119,22 @@ namespace FirstLight.Game.Logic
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 			
+			var inventory = GameLogic.EquipmentLogic.GetEligibleInventoryForEarnings();
+			var loadoutItems = new List<Equipment>();
+			
+			foreach (var loadoutKvp in GameLogic.EquipmentLogic.Loadout.ReadOnlyDictionary)
+			{
+				if (inventory.ContainsKey(loadoutKvp.Value))
+				{
+					loadoutItems.Add(inventory[loadoutKvp.Value]);
+				}
+			}
+			
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
 			var maxTake = poolConfig.BaseMaxTake;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
 			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
-			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutItems();
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
 			var loadoutSlots = GameConfig.LoadoutSlots;
@@ -135,11 +146,6 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var nft in loadoutItems)
 			{
-				if (nft.GameId == GameId.Hammer)
-				{
-					continue;
-				}
-				
 				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Grade);
 				var modSum = (double) gradeConfig.PoolIncreaseModifier;
 				
@@ -159,15 +165,17 @@ namespace FirstLight.Game.Logic
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var totalNftDurability = (double) 0;
+			var currentNftDurabilities = (double) 0;
+			var maxNftDurabilities = (double) 0;
 			
 			foreach (var nft in loadoutItems)
 			{
-				totalNftDurability += nft.Durability / 100d;
+				currentNftDurabilities += nft.Durability;
+				maxNftDurabilities += nft.MaxDurability;
 			}
-
-			var nftDurabilityAvg = totalNftDurability / loadoutItems.Length;
-			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityAvg, takeDecreaseExp) * takeDecreaseMod;
+			
+			var nftDurabilityPercent = currentNftDurabilities / maxNftDurabilities;
+			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, takeDecreaseExp) * takeDecreaseMod;
 			var durabilityDecrease = Math.Round(maxTake * durabilityDecreaseMult);
 			
 			maxTake -= (uint)durabilityDecrease;

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Backend.Models;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
+using ServerSDK.Models;
 
 
 namespace Backend.Game;

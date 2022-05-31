@@ -1,8 +1,9 @@
 
 using Backend.Game.Services;
-using Backend.Models;
 using FirstLight.Game.Logic;
 using NUnit.Framework;
+using ServerSDK.Models;
+using ServerSDK.Services;
 using Tests.Stubs;
 
 namespace Tests;

@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using Microsoft.Extensions.DependencyInjection;
 using PlayFab;
 using PlayFab.ClientModels;
+using ServerSDK.Services;
 
 namespace Tests.Stubs;
 

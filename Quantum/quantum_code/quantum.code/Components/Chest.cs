@@ -50,9 +50,14 @@ namespace Quantum
 			else
 			{
 				// Drop "PowerUps" (equipment / shield upgrade)
-				if (f.RNG->Next() <= config.PowerUpChance)
+				foreach (var (chance, count) in config.RandomEquipment)
 				{
-					for (uint i = 0; i < config.PowerUpCount; i++)
+					if (f.RNG->Next() > chance)
+					{
+						continue;
+					}
+
+					for (uint i = 0; i < count; i++)
 					{
 						// For GameId.Random we drop equipment
 						var drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge,
@@ -83,9 +88,14 @@ namespace Quantum
 			}
 
 			// Drop Small consumable
-			if (f.RNG->Next() <= config.SmallConsumableChance)
+			foreach (var (chance, count) in config.SmallConsumable)
 			{
-				for (uint i = 0; i < config.SmallConsumableCount; i++)
+				if (f.RNG->Next() > chance)
+				{
+					continue;
+				}
+
+				for (uint i = 0; i < count; i++)
 				{
 					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
@@ -93,9 +103,14 @@ namespace Quantum
 			}
 
 			// Drop Large consumable
-			if (f.RNG->Next() <= config.LargeConsumableChance)
+			foreach (var (chance, count) in config.LargeConsumable)
 			{
-				for (uint i = 0; i < config.LargeConsumableCount; i++)
+				if (f.RNG->Next() > chance)
+				{
+					continue;
+				}
+
+				for (uint i = 0; i < count; i++)
 				{
 					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);

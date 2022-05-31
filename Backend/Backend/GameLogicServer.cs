@@ -5,6 +5,10 @@ using Backend.Models;
 using FirstLight.Game.Logic;
 using Microsoft.Extensions.Logging;
 using PlayFab;
+using ServerSDK;
+using ServerSDK.Events;
+using ServerSDK.Models;
+using ServerSDK.Services;
 
 namespace Backend;
 
@@ -35,23 +39,23 @@ public class GameLogicWebWebService : ILogicWebService
 	private readonly ILogger _log;
 	private readonly IPlayerSetupService _setupService;
 	private readonly IServerStateService _stateService;
-	private readonly IBlockchainService _blockchain;
 	private readonly GameServer _server;
+	private readonly IEventManager _eventManager;
 	private readonly IStateMigrator<ServerState> _migrator;
-
+	
 	public GameLogicWebWebService(
+			IEventManager eventManager,
 			ILogger log,
 			IStateMigrator<ServerState> migrator, 
 			IPlayerSetupService service, 
-			IServerStateService stateService, 
-			IBlockchainService blockchain, 
+			IServerStateService stateService,
 			GameServer server
 			)
 	{
 		_setupService = service;
 		_stateService = stateService;
 		_server = server;
-		_blockchain = blockchain;
+		_eventManager = eventManager;
 		_migrator = migrator;
 		_log = log;
 	}
@@ -81,7 +85,8 @@ public class GameLogicWebWebService : ILogicWebService
 				_log.LogDebug($"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
 			}
 		}
-		await _blockchain.SyncNfts(playerId);
+	
+		_eventManager.CallEvent(new PlayerDataLoadEvent(playerId));
 		return new PlayFabResult<BackendLogicResult>
 		{
 			Result = new BackendLogicResult()

@@ -2,6 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <AzureFunctionsVersion>V4</AzureFunctionsVersion>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="DistributedLock" Version="2.3.0" />
@@ -58,5 +59,10 @@
       <EmbeddedResource Include="gameConfig.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Plugins\TestPlugin.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\BlastRoyaleNFTPlugin\BlastRoyaleNFTPlugin.csproj" />
+      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
     </ItemGroup>
 </Project>

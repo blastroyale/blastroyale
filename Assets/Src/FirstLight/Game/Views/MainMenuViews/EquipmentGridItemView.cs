@@ -32,16 +32,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		}
 
 		[SerializeField, Required] private EquipmentIconItemView _equipmentIconView;
-		[SerializeField, Required] private TextMeshProUGUI _sliderLevelText;
 		[SerializeField, Required] private Button _button;
 		[SerializeField, Required] private Image _equippedImage;
+		[SerializeField, Required] private Image _cooldownImage;
 		[SerializeField, Required] private GameObject _selectedFrameImage;
-		[SerializeField, Required] private GameObject _hideSelectionImage;
-		[SerializeField, Required] private Image _autoFireIcon;
-		[SerializeField, Required] private Image _manualFireIcon;
 		[SerializeField, Required] private NotificationUniqueIdView _notificationUniqueIdView;
 		[SerializeField, Required] private Animation _cardItemAnimation;
-		[SerializeField, Required] private AnimationClip _upgradeCardAnimationClip;
 		[SerializeField, Required] private AnimationClip _equipCardAnimationClip;
 
 		private long _uniqueId;
@@ -70,10 +66,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
 			_selectedFrameImage.SetActive(data.IsSelected);
-			_hideSelectionImage.SetActive(!data.IsSelectable);
 			_equippedImage.enabled = _gameDataProvider.EquipmentDataProvider.IsEquipped(data.Id);
-			_autoFireIcon.enabled = false;
-			_manualFireIcon.enabled = false;
+			_cooldownImage.enabled = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(data.Id).TotalSeconds > 0;
 
 			if (data.IsSelected)
 			{

@@ -1,6 +1,4 @@
-using System;
-
-namespace Backend.Game;
+namespace ServerSDK.Services;
 
 
 /// <summary>

@@ -5,6 +5,8 @@ using FirstLight.Game.Logic;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
+using ServerSDK;
+using ServerSDK.Events;
 using StandaloneServer;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.

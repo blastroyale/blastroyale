@@ -165,15 +165,17 @@ namespace FirstLight.Game.Logic
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var totalNftDurability = (double) 0;
+			var currentNftDurabilities = (double) 0;
+			var maxNftDurabilities = (double) 0;
 			
 			foreach (var nft in loadoutItems)
 			{
-				totalNftDurability += nft.Durability / 100d;
+				currentNftDurabilities += nft.Durability;
+				maxNftDurabilities += nft.MaxDurability;
 			}
-
-			var nftDurabilityAvg = totalNftDurability / loadoutItems.Count;
-			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityAvg, takeDecreaseExp) * takeDecreaseMod;
+			
+			var nftDurabilityPercent = currentNftDurabilities / maxNftDurabilities;
+			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, takeDecreaseExp) * takeDecreaseMod;
 			var durabilityDecrease = Math.Round(maxTake * durabilityDecreaseMult);
 			
 			maxTake -= (uint)durabilityDecrease;

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
-using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -49,6 +48,11 @@ namespace FirstLight.Game.Logic
 		float GetTotalEquippedStat(StatType stat);
 
 		/// <summary>
+		/// Requests the URL of the NFT item in a players inventory.
+		/// </summary>
+		string GetEquipmentCardUrl(UniqueId id);
+
+		/// <summary>
 		/// Request the stats a specific piece of equipment has, with an optional level
 		/// parameter (Leave default (0) to use Equipment leve).
 		/// TODO: This should be rethought.
@@ -63,7 +67,7 @@ namespace FirstLight.Game.Logic
 		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
 		UniqueId AddToInventory(Equipment equipment);
-		
+
 		/// <summary>
 		/// Tries to remove an item from inventory, and returns true if a removal was successful
 		/// </summary>

@@ -72,6 +72,17 @@ namespace FirstLight.Game.Logic
 			return value;
 		}
 
+		public string GetEquipmentCardUrl(UniqueId id)
+		{
+			if (Data.ImageUrls.TryGetValue(id, out var url))
+			{
+				return url;
+			}
+
+			// TODO: Remove this once everything is working
+			return "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
+		}
+
 		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0)
 		{
 			var stats = new Dictionary<EquipmentStatType, float>();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -17,6 +18,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Commands;
 using Quantum;
 using Sirenix.OdinInspector;
+using UnityEngine.Networking;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.UI;
 
@@ -71,6 +73,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _equipButtonText;
 		[SerializeField, Required] private TextMeshProUGUI _upgradeCostText;
 		[SerializeField, Required] private Animation _itemLevelHolderAnimation;
+		[SerializeField, Required] private RawImage _nftIcon;
 
 		[SerializeField, Required] private Image _upgradeCoinImage;
 		[SerializeField, Required] private Image _upgradeButtonImage;
@@ -96,6 +99,8 @@ namespace FirstLight.Game.Presenters
 		private IObjectPool<EquipmentStatSpecialInfoView> _statSpecialInfoViewPool;
 		private UniqueId _uniqueId = UniqueId.Invalid;
 		private List<UniqueId> _showNotifications;
+
+		private int _textureRequestHandle = -1;
 
 		private void Awake()
 		{
@@ -162,6 +167,7 @@ namespace FirstLight.Game.Presenters
 			_movieButton.gameObject.SetActive(false);
 			_itemLevelObject.SetActive(false);
 			_actionButtonHolder.SetActive(false);
+			_nftIcon.gameObject.SetActive(false);
 			_powerRatingText.text = "";
 		}
 
@@ -214,6 +220,10 @@ namespace FirstLight.Game.Presenters
 				                  ? $"{ScriptLocalization.General.MaxLevel}"
 				                  : $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
 
+			_nftIcon.gameObject.SetActive(false);
+
+			RequestNftTexture(_gameDataProvider.EquipmentDataProvider.GetEquipmentCardUrl(_uniqueId));
+
 			_upgradeCostHolder.SetActive(!equipment.IsMaxLevel());
 
 			if (equipment.Level < equipment.MaxLevel)
@@ -239,6 +249,27 @@ namespace FirstLight.Game.Presenters
 			_equipmentAttributesHolder.SetActive(true);
 			_itemLevelObject.SetActive(true);
 			_actionButtonHolder.SetActive(true);
+		}
+
+		private void RequestNftTexture(string url)
+		{
+			_nftIcon.gameObject.SetActive(false);
+
+			if (_textureRequestHandle >= 0)
+			{
+				_mainMenuServices.RemoteTextureService.CancelRequest(_textureRequestHandle);
+			}
+
+			_textureRequestHandle = _mainMenuServices.RemoteTextureService.RequestTexture(url, tex =>
+			{
+				_nftIcon.gameObject.SetActive(true);
+				_nftIcon.texture = tex;
+				_textureRequestHandle = -1;
+			}, () =>
+			{
+				// TODO: Error texture?
+				_nftIcon.gameObject.SetActive(false);
+			});
 		}
 
 		private void SetStatInfoData(Equipment equipment)
@@ -377,7 +408,8 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowPowerChange(int previousPower)
 		{
-			var power = (int) _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power) - previousPower;
+			var power = (int) _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power) -
+			            previousPower;
 			var postfix = power < 0 ? "-" : "+";
 
 			_powerChangeText.color = power < 0 ? Color.red : Color.green;

@@ -169,6 +169,7 @@ namespace FirstLight.Game.Presenters
 			_itemLevelObject.SetActive(false);
 			_actionButtonHolder.SetActive(false);
 			_nftIcon.gameObject.SetActive(false);
+			_equipmentCooldownViewRef.SetVisualsActive(false);
 			_powerRatingText.text = "";
 		}
 

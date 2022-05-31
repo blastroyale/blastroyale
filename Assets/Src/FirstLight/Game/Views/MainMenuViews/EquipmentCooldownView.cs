@@ -2,6 +2,7 @@ using System;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.GridViews;
@@ -15,9 +16,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 {
 	public class EquipmentCooldownView : MonoBehaviour
 	{
-
+		[SerializeField] private GameObject _visualsBase;
 		[SerializeField] private TextMeshProUGUI _cooldownText;
 		[SerializeField] private Button _tooltipButton;
+		[SerializeField] private Transform _tooltipAnchor;
 		
 		private const float TIMER_INTERVAL_SECONDS = 20f;
 		
@@ -34,7 +36,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnDisable()
 		{
+			_tooltipButton.onClick.RemoveAllListeners();
 			_services.TickService?.UnsubscribeAllOnUpdate(this);
+		}
+
+		public void SetVisualsActive(bool active)
+		{
+			_visualsBase.SetActive(active);
 		}
 
 		public void InitCooldown(UniqueId id)
@@ -45,14 +53,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 			
 			if (cooldown.TotalSeconds > 0)
 			{
+				SetVisualsActive(true);
 				_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);
+				_tooltipButton.onClick.AddListener(OnTooltipButtonClick);
 				_cooldownFinishTime = DateTime.UtcNow + cooldown;
 				TickTimerView(0);
 			}
 			else
 			{
+				SetVisualsActive(false);
 				_services.TickService?.UnsubscribeAllOnUpdate(this);
-				gameObject.SetActive(false);
+				_tooltipButton.onClick.RemoveAllListeners();
 			}
 		}
 
@@ -67,9 +78,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 			else
 			{
+				SetVisualsActive(false);
 				_services.TickService?.UnsubscribeAllOnUpdate(this);
-				gameObject.SetActive(false);
 			}
+		}
+
+		private void OnTooltipButtonClick()
+		{
+			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_NftCooldown,
+			                                                 _tooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 	}
 }

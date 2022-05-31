@@ -54,15 +54,13 @@ namespace FirstLight.Game.Logic
 		float GetTotalEquippedStat(StatType stat);
 
 		/// <summary>
-<<<<<<< HEAD
 		/// Requests the remaining cooldown for item <paramref name="itemId"/>
 		/// </summary>
 		TimeSpan GetItemCooldown(UniqueId itemId);
-=======
+
 		/// Requests the URL of the NFT item in a players inventory.
 		/// </summary>
 		string GetEquipmentCardUrl(UniqueId id);
->>>>>>> develop
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has, with an optional level

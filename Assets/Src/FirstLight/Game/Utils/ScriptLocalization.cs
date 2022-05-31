@@ -652,8 +652,8 @@ namespace I2.Loc
 			public static string NewUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewUnlock"); } }
 			public static string NextArena 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextArena"); } }
 			public static string NextGoal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextGoal"); } }
-			public static string NftCooldownTimerExplanation 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerExplanation"); } }
 			public static string NftCooldownTimerFullText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerFullText"); } }
+			public static string NftCooldownTimerTooltip 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerTooltip"); } }
 			public static string NoAdventuresAvailable 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NoAdventuresAvailable"); } }
 			public static string NotEnoughSpace 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpace"); } }
 			public static string NotEnoughSpaceWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpaceWarning"); } }
@@ -771,6 +771,7 @@ namespace I2.Loc
 		public static class Tooltips
 		{
 			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
+			public static string ToolTip_NftCooldown 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_NftCooldown"); } }
 		}
 	}
 
@@ -1424,8 +1425,8 @@ namespace I2.Loc
 		    public const string NewUnlock = "MainMenu/NewUnlock";
 		    public const string NextArena = "MainMenu/NextArena";
 		    public const string NextGoal = "MainMenu/NextGoal";
-		    public const string NftCooldownTimerExplanation = "MainMenu/NftCooldownTimerExplanation";
 		    public const string NftCooldownTimerFullText = "MainMenu/NftCooldownTimerFullText";
+		    public const string NftCooldownTimerTooltip = "MainMenu/NftCooldownTimerTooltip";
 		    public const string NoAdventuresAvailable = "MainMenu/NoAdventuresAvailable";
 		    public const string NotEnoughSpace = "MainMenu/NotEnoughSpace";
 		    public const string NotEnoughSpaceWarning = "MainMenu/NotEnoughSpaceWarning";
@@ -1543,6 +1544,7 @@ namespace I2.Loc
 		public static class Tooltips
 		{
 		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
+		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
 		}
 	}
 }

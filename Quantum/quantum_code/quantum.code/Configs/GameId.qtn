@@ -36,7 +36,7 @@ enum GameId
 	M60 = 37,
 	ApoCrossbow = 60,
 	ApoShotgun = 71,
-	ApoSMG = 78, 
+	ApoSMG = 78,
 	ApoRifle = 79,
 	ApoSniper = 84,
 	ApoRPG = 86,

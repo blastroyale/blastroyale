@@ -397,14 +397,6 @@ namespace FirstLight.Game.Presenters
 				}
 
 				Services.CommandService.ExecuteCommand(new UnequipItemCommand {ItemId = _uniqueId});
-
-				// Equip Default/Melee weapon after unequipping a regular one
-				if (isWeapon)
-				{
-					var defaultWeapon = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
-					                                     .First(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
-					Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = defaultWeapon.Key});
-				}
 			}
 			else
 			{

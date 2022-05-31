@@ -27,11 +27,11 @@ MonoBehaviour:
         RawValue: 16384
       PowerUpCount: 1
       SmallConsumableChance:
-        RawValue: 32768
-      SmallConsumableCount: 5
+        RawValue: 65536
+      SmallConsumableCount: 3
       LargeConsumableChance:
         RawValue: 13107
-      LargeConsumableCount: 2
+      LargeConsumableCount: 1
     - Id: 1
       AssetRef:
         Id:
@@ -41,8 +41,8 @@ MonoBehaviour:
         RawValue: 32768
       PowerUpCount: 1
       SmallConsumableChance:
-        RawValue: 49152
-      SmallConsumableCount: 5
+        RawValue: 65536
+      SmallConsumableCount: 3
       LargeConsumableChance:
         RawValue: 13107
       LargeConsumableCount: 2
@@ -56,10 +56,10 @@ MonoBehaviour:
       PowerUpCount: 2
       SmallConsumableChance:
         RawValue: 65536
-      SmallConsumableCount: 3
+      SmallConsumableCount: 5
       LargeConsumableChance:
-        RawValue: 32768
-      LargeConsumableCount: 3
+        RawValue: 65536
+      LargeConsumableCount: 2
     - Id: 2
       AssetRef:
         Id:
@@ -70,7 +70,7 @@ MonoBehaviour:
       PowerUpCount: 2
       SmallConsumableChance:
         RawValue: 58982
-      SmallConsumableCount: 5
+      SmallConsumableCount: 7
       LargeConsumableChance:
         RawValue: 65536
       LargeConsumableCount: 2
@@ -84,7 +84,7 @@ MonoBehaviour:
       PowerUpCount: 2
       SmallConsumableChance:
         RawValue: 65536
-      SmallConsumableCount: 5
+      SmallConsumableCount: 7
       LargeConsumableChance:
         RawValue: 65536
       LargeConsumableCount: 3

@@ -14,12 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/AdventureAssets
   _configs:
-  - Key: 1
-    Value:
-      m_AssetGUID: 9c9268bd37d5f9f4da70e2163ad8e267
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 4
     Value:
       m_AssetGUID: 45b5218c6a0d1534aaf91007741f3dcb
@@ -311,6 +305,18 @@ MonoBehaviour:
   - Key: 128
     Value:
       m_AssetGUID: cf146133140e56d468a5bed6b11373e9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 1
+    Value:
+      m_AssetGUID: 0192d544f609f49d480f2da9ae68c276
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 2
+    Value:
+      m_AssetGUID: f0bbea9ea682f4711aa59062f39b2dc2
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

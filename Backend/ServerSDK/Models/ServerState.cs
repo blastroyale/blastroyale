@@ -1,3 +1,4 @@
+using System;
 using ServerSDK.Modules;
 
 namespace ServerSDK.Models;
@@ -15,6 +16,20 @@ public class ServerState : Dictionary<string, string>
 
 	public ServerState(Dictionary<string, string> data): base(data)
 	{
+	}
+
+	public ulong GetVersion()
+	{
+		if (!TryGetValue("version", out var versionString))
+		{
+			versionString = "1";
+		}
+		return ulong.Parse(versionString);
+	}
+
+	public void SetVersion(ulong version)
+	{
+		this["version"] = version.ToString();
 	}
 
 	/// <summary>

@@ -23,23 +23,68 @@ MonoBehaviour:
         Id:
           Value: 4486983998464243699
       ChestType: 0
+      PowerUpChance:
+        RawValue: 16384
+      PowerUpCount: 1
+      SmallConsumableChance:
+        RawValue: 32768
+      SmallConsumableCount: 5
+      LargeConsumableChance:
+        RawValue: 13107
+      LargeConsumableCount: 2
     - Id: 1
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 1
+      PowerUpChance:
+        RawValue: 32768
+      PowerUpCount: 1
+      SmallConsumableChance:
+        RawValue: 49152
+      SmallConsumableCount: 5
+      LargeConsumableChance:
+        RawValue: 13107
+      LargeConsumableCount: 2
     - Id: 16
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 2
+      PowerUpChance:
+        RawValue: 32768
+      PowerUpCount: 2
+      SmallConsumableChance:
+        RawValue: 65536
+      SmallConsumableCount: 3
+      LargeConsumableChance:
+        RawValue: 32768
+      LargeConsumableCount: 3
     - Id: 2
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 3
+      PowerUpChance:
+        RawValue: 49152
+      PowerUpCount: 2
+      SmallConsumableChance:
+        RawValue: 58982
+      SmallConsumableCount: 5
+      LargeConsumableChance:
+        RawValue: 65536
+      LargeConsumableCount: 2
     - Id: 19
       AssetRef:
         Id:
           Value: 4486983998464243699
       ChestType: 4
+      PowerUpChance:
+        RawValue: 65536
+      PowerUpCount: 2
+      SmallConsumableChance:
+        RawValue: 65536
+      SmallConsumableCount: 5
+      LargeConsumableChance:
+        RawValue: 65536
+      LargeConsumableCount: 3

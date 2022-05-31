@@ -3,6 +3,7 @@ using Backend.Db;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Plugins;
+using Backend.Models;
 using FirstLight;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PlayFab;
 using ServerSDK;
+using ServerSDK.Models;
 using ServerSDK.Services;
 
 namespace Backend;
@@ -35,6 +37,7 @@ public static class ServerStartup
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
 		services.AddSingleton<GameServer>();
+		services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 		services.AddSingleton<IEventManager, PluginEventManager>(p =>
 		{
 			var eventManager = new PluginEventManager(log);

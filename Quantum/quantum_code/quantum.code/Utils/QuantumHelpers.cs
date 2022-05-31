@@ -300,5 +300,13 @@ namespace Quantum
 
 			return false;
 		}
+
+		/// <summary>
+		/// Returns a random item from <paramref name="items"/>, with equal chance for each.
+		/// </summary>
+		public static T GetRandomItem<T>(Frame f, params T[] items)
+		{
+			return items[f.RNG->Next(0, items.Length)];
+		}
 	}
 }

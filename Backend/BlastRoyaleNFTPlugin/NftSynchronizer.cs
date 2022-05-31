@@ -16,7 +16,8 @@ public class NftSynchronizer
 	private HttpClient _client;
 	private string _externalUrl;
 	private string _apiKey;
-
+	private static readonly IEnumerable<PolygonNFTMetadata> _EMPTY_LIST = new List<PolygonNFTMetadata>();
+	
 	public NftSynchronizer(string nftsIndexUrl, string apiKey, PluginContext ctx)
 	{
 		_client = new HttpClient();
@@ -98,7 +99,7 @@ public class NftSynchronizer
 		if (response.StatusCode != HttpStatusCode.OK)
 		{
 			_ctx.Log.LogError($"Error obtaining indexed NFTS Response {response.StatusCode.ToString()}");
-			return null;
+			return _EMPTY_LIST;
 		}
 		var responseString = await response.Content.ReadAsStringAsync();
 		return JsonConvert.DeserializeObject<List<PolygonNFTMetadata>>(responseString);

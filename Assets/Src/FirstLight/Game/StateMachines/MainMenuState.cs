@@ -29,16 +29,32 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
+
+		private readonly IStatechartEvent _currentTabButtonClickedEvent =
+			new StatechartEvent("Current Tab Button Clicked Event");
+
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
-		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
+
+		private readonly IStatechartEvent _settingsMenuClickedEvent =
+			new StatechartEvent("Settings Menu Button Clicked Event");
+
+		private readonly IStatechartEvent _settingsCloseClickedEvent =
+			new StatechartEvent("Settings Close Button Clicked Event");
+
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
+			new StatechartEvent("Room Join Create Button Clicked Event");
+
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
+
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
+			new StatechartEvent("Room Join Create Close Button Clicked Event");
+
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-		private readonly IStatechartEvent _logoutConfirmClickedEvent = new StatechartEvent("Logout Confirm Clicked Event");
+
+		private readonly IStatechartEvent _logoutConfirmClickedEvent =
+			new StatechartEvent("Logout Confirm Clicked Event");
+
 		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
 
 		private readonly IGameUiService _uiService;
@@ -64,7 +80,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_lootMenuState = new LootMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameDataProvider, statechartTrigger);
-			
 		}
 
 		/// <summary>
@@ -84,7 +99,7 @@ namespace FirstLight.Game.StateMachines
 
 			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
-			
+
 			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
 
@@ -118,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-			
+
 			screenCheck.Transition().Condition(HasUncollectedRewards).Target(claimUnclaimedRewards);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(homeMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
@@ -146,10 +161,10 @@ namespace FirstLight.Game.StateMachines
 			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
-			
+
 			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
-			
+
 			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
@@ -220,7 +235,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
 		}
-		
+
 		private void ClaimUncollectedRewards()
 		{
 			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
@@ -245,15 +260,15 @@ namespace FirstLight.Game.StateMachines
 		private void OpenGameModeSelectionUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			
+
 			var data = new GameModeSelectionPresenter.StateData
 			{
 				GameModeChosen = () => { cacheActivity.Complete(); }
 			};
-			
+
 			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
-		
+
 		private void CloseGameModeSelectionUI()
 		{
 			_uiService.CloseUi<GameModeSelectionPresenter>();
@@ -421,8 +436,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
-			var mainMenuServices =
-				new MainMenuServices(_services.AssetResolverService, uiVfxService, _services.MessageBrokerService);
+			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
 			var configProvider = _services.ConfigsProvider;
 
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);

@@ -51,7 +51,10 @@ namespace FirstLight.Game.Presenters
 			_registerRootObject.SetActive(Debug.isDebugBuild);
 			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
-			// TODO EVE - Link the new _devRegisterButton to new GoToDevRegisterClicked method
+			
+			// TODO EVE 
+			// Link the new _devRegisterButton to new GoToDevRegisterClicked method
+			// Activate this button _devRegisterButton on condition: Debug.isDebugBuild
 		}
 		
 		private void OnEnable()
@@ -75,6 +78,7 @@ namespace FirstLight.Game.Presenters
 		private void GoToRegisterClicked()
 		{
 			Data.GoToRegisterClicked();
+			
 			// TODO EVE - move the above line to GoToDevRegisterclicked instead
 			//
 			// Then you need this function to open the marketplace
@@ -83,7 +87,7 @@ namespace FirstLight.Game.Presenters
 			// depending on whether we are playing on a debug build, or a release build.
 			//
 			// So:
-			// * Make an if statement, based on Debug.isDebugBuild
+			// * Make an if statemen  based on Debug.isDebugBuild
 			// * Use method Application.OpenURL(""); to open marketplaces
 			// * For now, both cases in the if statements should open the dev marketplace
 			// * However, write a TODO in the else block

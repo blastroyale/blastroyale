@@ -6,8 +6,8 @@ using Quantum;
 
 namespace FirstLight.Editor.SheetImporters
 {
-	public class
-		ChestConfigsImporter : GoogleSheetConfigsAssetImporterBase<QuantumChestConfig, ChestConfigs, CustomAssetConfigs>
+	public class ChestConfigsImporter :
+		GoogleSheetConfigsAssetImporterBase<QuantumChestConfig, ChestConfigs, CustomAssetConfigs>
 	{
 		public override string GoogleSheetUrl =>
 			"***REMOVED***/edit#gid=1440451349";

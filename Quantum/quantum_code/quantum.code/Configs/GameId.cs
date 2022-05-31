@@ -206,63 +206,7 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.SniperRifle, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
 					GameId.Hammer, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.Laser, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.RPG, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.Shotgun, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.AK47, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.BFG, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.AssaultRifle, new List<GameIdGroup>
-					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.M60, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
@@ -835,15 +779,7 @@ namespace Quantum
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
 						GameId.WarriorHelmet,
-						GameId.SniperRifle,
 						GameId.Hammer,
-						GameId.Laser,
-						GameId.RPG,
-						GameId.Shotgun,
-						GameId.AK47,
-						GameId.BFG,
-						GameId.AssaultRifle,
-						GameId.M60,
 						GameId.ApoCrossbow,
 						GameId.ApoShotgun,
 						GameId.ApoSMG,
@@ -906,15 +842,7 @@ namespace Quantum
 				{
 					GameIdGroup.Weapon, new List<GameId>
 					{
-						GameId.SniperRifle,
 						GameId.Hammer,
-						GameId.Laser,
-						GameId.RPG,
-						GameId.Shotgun,
-						GameId.AK47,
-						GameId.BFG,
-						GameId.AssaultRifle,
-						GameId.M60,
 						GameId.ApoCrossbow,
 						GameId.ApoShotgun,
 						GameId.ApoSMG,

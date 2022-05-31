@@ -46,7 +46,7 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var kvp in _inventory.ReadOnlyDictionary)
 			{
-				if (kvp.Value.GameId != GameId.Hammer && GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
+				if (GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
 				{
 					eligibleInventory.Add(kvp.Key,kvp.Value);
 				}

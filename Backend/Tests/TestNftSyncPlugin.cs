@@ -68,7 +68,6 @@ public class TestNftSyncPlugin
         var nftData = _app.ServerState.GetPlayerState("yolo").DeserializeModel<NftEquipmentData>();
         var equip = nftData.Inventory.Values.First();
         
-        Assert.AreEqual(equip.GameId, GameId.AssaultRifle);
         Assert.AreEqual(equip.Faction, EquipmentFaction.Chaos);
     }
     

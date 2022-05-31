@@ -306,3 +306,675 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 0a0000006e000000
+    - Id: 60
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 150
+        Deathmatch: 75
+      AimingMovementSpeed:
+        RawValue: 39322
+      AimTime:
+        RawValue: 13107
+      AttackCooldown:
+        RawValue: 10813
+      AttackHitSpeed:
+        RawValue: 1638400
+      MinAttackAngle: 10
+      MaxAttackAngle: 30
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 425984
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000066000000
+    - Id: 71
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 26214
+      AimTime:
+        RawValue: 19661
+      AttackCooldown:
+        RawValue: 9830
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 5
+      MaxAttackAngle: 20
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 524288
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 0a0000006e000000
+    - Id: 78
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 45875
+      AimTime:
+        RawValue: 9830
+      AttackCooldown:
+        RawValue: 8520
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 15
+      MaxAttackAngle: 30
+      NumberOfShots: 3
+      AttackRange:
+        RawValue: 393216
+      CanHitSameTarget: 1
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 770000006e000000
+    - Id: 79
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 30
+        Deathmatch: 15
+      AimingMovementSpeed:
+        RawValue: 21627
+      AimTime:
+        RawValue: 9830
+      AttackCooldown:
+        RawValue: 49152
+      AttackHitSpeed:
+        RawValue: 3276800
+      MinAttackAngle: 20
+      MaxAttackAngle: 40
+      NumberOfShots: 6
+      AttackRange:
+        RawValue: 327680
+      CanHitSameTarget: 1
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000066000000
+    - Id: 84
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 50
+        Deathmatch: 25
+      AimingMovementSpeed:
+        RawValue: 21627
+      AimTime:
+        RawValue: 19661
+      AttackCooldown:
+        RawValue: 39322
+      AttackHitSpeed:
+        RawValue: 589824
+      MinAttackAngle: 10
+      MaxAttackAngle: 10
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 557056
+      CanHitSameTarget: 1
+      IsProjectile: 1
+      SplashRadius:
+        RawValue: 98304
+      SplashDamageRatio:
+        RawValue: 32768
+      Specials: 0a0000000a000000
+    - Id: 86
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 100
+        Deathmatch: 50
+      AimingMovementSpeed:
+        RawValue: 39322
+      AimTime:
+        RawValue: 13107
+      AttackCooldown:
+        RawValue: 19661
+      AttackHitSpeed:
+        RawValue: 2162688
+      MinAttackAngle: 10
+      MaxAttackAngle: 30
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 425984
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000055000000
+    - Id: 87
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 16384
+      AimTime:
+        RawValue: 36045
+      AttackCooldown:
+        RawValue: 5898
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 5
+      MaxAttackAngle: 45
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 393216
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 590000000a000000
+    - Id: 88
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 150
+        Deathmatch: 75
+      AimingMovementSpeed:
+        RawValue: 39322
+      AimTime:
+        RawValue: 13107
+      AttackCooldown:
+        RawValue: 10813
+      AttackHitSpeed:
+        RawValue: 1638400
+      MinAttackAngle: 10
+      MaxAttackAngle: 30
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 425984
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000066000000
+    - Id: 90
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 26214
+      AimTime:
+        RawValue: 19661
+      AttackCooldown:
+        RawValue: 9830
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 5
+      MaxAttackAngle: 20
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 524288
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 0a0000006e000000
+    - Id: 91
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 45875
+      AimTime:
+        RawValue: 9830
+      AttackCooldown:
+        RawValue: 8520
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 15
+      MaxAttackAngle: 30
+      NumberOfShots: 3
+      AttackRange:
+        RawValue: 393216
+      CanHitSameTarget: 1
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 770000006e000000
+    - Id: 92
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 30
+        Deathmatch: 15
+      AimingMovementSpeed:
+        RawValue: 21627
+      AimTime:
+        RawValue: 9830
+      AttackCooldown:
+        RawValue: 49152
+      AttackHitSpeed:
+        RawValue: 3276800
+      MinAttackAngle: 20
+      MaxAttackAngle: 40
+      NumberOfShots: 6
+      AttackRange:
+        RawValue: 327680
+      CanHitSameTarget: 1
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000066000000
+    - Id: 93
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 50
+        Deathmatch: 25
+      AimingMovementSpeed:
+        RawValue: 21627
+      AimTime:
+        RawValue: 19661
+      AttackCooldown:
+        RawValue: 39322
+      AttackHitSpeed:
+        RawValue: 589824
+      MinAttackAngle: 10
+      MaxAttackAngle: 10
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 557056
+      CanHitSameTarget: 1
+      IsProjectile: 1
+      SplashRadius:
+        RawValue: 98304
+      SplashDamageRatio:
+        RawValue: 32768
+      Specials: 0a0000000a000000
+    - Id: 94
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 100
+        Deathmatch: 50
+      AimingMovementSpeed:
+        RawValue: 39322
+      AimTime:
+        RawValue: 13107
+      AttackCooldown:
+        RawValue: 19661
+      AttackHitSpeed:
+        RawValue: 2162688
+      MinAttackAngle: 10
+      MaxAttackAngle: 30
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 425984
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000055000000
+    - Id: 95
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 16384
+      AimTime:
+        RawValue: 36045
+      AttackCooldown:
+        RawValue: 5898
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 5
+      MaxAttackAngle: 45
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 393216
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 590000000a000000
+    - Id: 96
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 150
+        Deathmatch: 75
+      AimingMovementSpeed:
+        RawValue: 39322
+      AimTime:
+        RawValue: 13107
+      AttackCooldown:
+        RawValue: 10813
+      AttackHitSpeed:
+        RawValue: 1638400
+      MinAttackAngle: 10
+      MaxAttackAngle: 30
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 425984
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000066000000
+    - Id: 97
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 26214
+      AimTime:
+        RawValue: 19661
+      AttackCooldown:
+        RawValue: 9830
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 5
+      MaxAttackAngle: 20
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 524288
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 0a0000006e000000
+    - Id: 98
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 45875
+      AimTime:
+        RawValue: 9830
+      AttackCooldown:
+        RawValue: 8520
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 15
+      MaxAttackAngle: 30
+      NumberOfShots: 3
+      AttackRange:
+        RawValue: 393216
+      CanHitSameTarget: 1
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 770000006e000000
+    - Id: 99
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 30
+        Deathmatch: 15
+      AimingMovementSpeed:
+        RawValue: 21627
+      AimTime:
+        RawValue: 9830
+      AttackCooldown:
+        RawValue: 49152
+      AttackHitSpeed:
+        RawValue: 3276800
+      MinAttackAngle: 20
+      MaxAttackAngle: 40
+      NumberOfShots: 6
+      AttackRange:
+        RawValue: 327680
+      CanHitSameTarget: 1
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000066000000
+    - Id: 100
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 50
+        Deathmatch: 25
+      AimingMovementSpeed:
+        RawValue: 21627
+      AimTime:
+        RawValue: 19661
+      AttackCooldown:
+        RawValue: 39322
+      AttackHitSpeed:
+        RawValue: 589824
+      MinAttackAngle: 10
+      MaxAttackAngle: 10
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 557056
+      CanHitSameTarget: 1
+      IsProjectile: 1
+      SplashRadius:
+        RawValue: 98304
+      SplashDamageRatio:
+        RawValue: 32768
+      Specials: 0a0000000a000000
+    - Id: 101
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 100
+        Deathmatch: 50
+      AimingMovementSpeed:
+        RawValue: 39322
+      AimTime:
+        RawValue: 13107
+      AttackCooldown:
+        RawValue: 19661
+      AttackHitSpeed:
+        RawValue: 2162688
+      MinAttackAngle: 10
+      MaxAttackAngle: 30
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 425984
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 7700000055000000
+    - Id: 103
+      AssetRef:
+        Id:
+          Value: 4070827363264793974
+      InitialAmmoFilled:
+        BattleRoyale:
+          RawValue: 13107
+        Deathmatch:
+          RawValue: 65536
+      MaxAmmo:
+        BattleRoyale: 200
+        Deathmatch: 100
+      AimingMovementSpeed:
+        RawValue: 16384
+      AimTime:
+        RawValue: 36045
+      AttackCooldown:
+        RawValue: 5898
+      AttackHitSpeed:
+        RawValue: 1966080
+      MinAttackAngle: 5
+      MaxAttackAngle: 45
+      NumberOfShots: 1
+      AttackRange:
+        RawValue: 393216
+      CanHitSameTarget: 0
+      IsProjectile: 0
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
+      Specials: 590000000a000000

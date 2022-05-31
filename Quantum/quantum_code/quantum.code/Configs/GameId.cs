@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 /* AUTO GENERATED CODE */
 namespace Quantum
 {
+
 	public class GameIdComparer : IEqualityComparer<GameId>
 	{
 		public bool Equals(GameId x, GameId y)
@@ -262,6 +263,153 @@ namespace Quantum
 				},
 				{
 					GameId.M60, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoCrossbow, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoShotgun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoSMG, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoRifle, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoSniper, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoRPG, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoMinigun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModPistol, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModShotgun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModMachineGun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModRifle, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModSniper, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModLauncher, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModHeavyMachineGun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciPistol, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciBlaster, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciNeedleGun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciRifle, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciSniper, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciCannon, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciMelter, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
@@ -696,6 +844,27 @@ namespace Quantum
 						GameId.BFG,
 						GameId.AssaultRifle,
 						GameId.M60,
+						GameId.ApoCrossbow,
+						GameId.ApoShotgun,
+						GameId.ApoSMG,
+						GameId.ApoRifle,
+						GameId.ApoSniper,
+						GameId.ApoRPG,
+						GameId.ApoMinigun,
+						GameId.ModPistol,
+						GameId.ModShotgun,
+						GameId.ModMachineGun,
+						GameId.ModRifle,
+						GameId.ModSniper,
+						GameId.ModLauncher,
+						GameId.ModHeavyMachineGun,
+						GameId.SciPistol,
+						GameId.SciBlaster,
+						GameId.SciNeedleGun,
+						GameId.SciRifle,
+						GameId.SciSniper,
+						GameId.SciCannon,
+						GameId.SciMelter,
 						GameId.MouseAmulet,
 						GameId.RiotAmulet,
 						GameId.SoldierAmulet,
@@ -745,7 +914,28 @@ namespace Quantum
 						GameId.AK47,
 						GameId.BFG,
 						GameId.AssaultRifle,
-						GameId.M60
+						GameId.M60,
+						GameId.ApoCrossbow,
+						GameId.ApoShotgun,
+						GameId.ApoSMG,
+						GameId.ApoRifle,
+						GameId.ApoSniper,
+						GameId.ApoRPG,
+						GameId.ApoMinigun,
+						GameId.ModPistol,
+						GameId.ModShotgun,
+						GameId.ModMachineGun,
+						GameId.ModRifle,
+						GameId.ModSniper,
+						GameId.ModLauncher,
+						GameId.ModHeavyMachineGun,
+						GameId.SciPistol,
+						GameId.SciBlaster,
+						GameId.SciNeedleGun,
+						GameId.SciRifle,
+						GameId.SciSniper,
+						GameId.SciCannon,
+						GameId.SciMelter
 					}.AsReadOnly()
 				},
 				{

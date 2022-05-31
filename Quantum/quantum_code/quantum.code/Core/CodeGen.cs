@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -149,6 +148,27 @@ namespace Quantum {
     BFG = 36,
     AssaultRifle = 23,
     M60 = 37,
+    ApoCrossbow = 60,
+    ApoShotgun = 71,
+    ApoSMG = 78,
+    ApoRifle = 79,
+    ApoSniper = 84,
+    ApoRPG = 86,
+    ApoMinigun = 87,
+    ModPistol = 88,
+    ModShotgun = 90,
+    ModMachineGun = 91,
+    ModRifle = 92,
+    ModSniper = 93,
+    ModLauncher = 94,
+    ModHeavyMachineGun = 95,
+    SciPistol = 96,
+    SciBlaster = 97,
+    SciNeedleGun = 98,
+    SciRifle = 99,
+    SciSniper = 100,
+    SciCannon = 101,
+    SciMelter = 103,
     MouseAmulet = 38,
     RiotAmulet = 39,
     SoldierAmulet = 40,

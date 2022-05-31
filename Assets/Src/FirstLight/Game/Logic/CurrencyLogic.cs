@@ -172,17 +172,8 @@ namespace FirstLight.Game.Logic
 			// Get this test equipment by using SROptions.Cheats.RemoveAllEquipment, and then SROptions.Cheats.UnlockEquipmentSet
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
-			
-			var inventory = new Dictionary<UniqueId, Equipment>();
-			
-			foreach (var kvp in GameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary)
-			{
-				if (kvp.Value.GameId != GameId.Hammer && GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
-				{
-					inventory.Add(kvp.Key,kvp.Value);
-				}
-			}
-			
+
+			var inventory = GameLogic.EquipmentLogic.GetEligibleInventoryForEarnings();
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var nftOwned = inventory.Count;
 			var poolCapacity = (double) 0;

@@ -29,6 +29,11 @@ namespace FirstLight.Game.Logic
 		Equipment[] GetLoadoutItems();
 
 		/// <summary>
+		/// Requests a portion of the current Inventory that is eligible for crypto earnings
+		/// </summary>
+		Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings();
+
+		/// <summary>
 		/// Requests all items from the inventory that belonging to the given
 		/// <paramref name="slot"/> type.
 		/// </summary>

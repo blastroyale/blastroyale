@@ -40,6 +40,21 @@ namespace FirstLight.Game.Logic
 			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
 		}
 
+		public Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings()
+		{
+			var eligibleInventory = new Dictionary<UniqueId, Equipment>();
+			
+			foreach (var kvp in _inventory.ReadOnlyDictionary)
+			{
+				if (kvp.Value.GameId != GameId.Hammer && GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
+				{
+					eligibleInventory.Add(kvp.Key,kvp.Value);
+				}
+			}
+
+			return eligibleInventory;
+		}
+
 		public List<Equipment> FindInInventory(GameIdGroup slot)
 		{
 			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();

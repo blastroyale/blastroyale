@@ -119,15 +119,14 @@ namespace FirstLight.Game.Logic
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 			
+			var inventory = GameLogic.EquipmentLogic.GetEligibleInventoryForEarnings();
 			var loadoutItems = new List<Equipment>();
 			
 			foreach (var loadoutKvp in GameLogic.EquipmentLogic.Loadout.ReadOnlyDictionary)
 			{
-				var invKvp = GameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary.First(x => x.Key == loadoutKvp.Value);
-
-				if (invKvp.Value.GameId != GameId.Hammer || GameLogic.EquipmentLogic.GetItemCooldown(invKvp.Key).TotalSeconds <= 0)
+				if (inventory.ContainsKey(loadoutKvp.Value))
 				{
-					loadoutItems.Add(invKvp.Value);
+					loadoutItems.Add(inventory[loadoutKvp.Value]);
 				}
 			}
 			

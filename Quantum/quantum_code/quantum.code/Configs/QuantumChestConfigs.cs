@@ -11,12 +11,9 @@ namespace Quantum
 		public AssetRefEntityPrototype AssetRef;
 		public ChestType ChestType;
 
-		public FP PowerUpChance;
-		public uint PowerUpCount;
-		public FP SmallConsumableChance;
-		public uint SmallConsumableCount;
-		public FP LargeConsumableChance;
-		public uint LargeConsumableCount;
+		public List<QuantumPair<FP, uint>> RandomEquipment;
+		public List<QuantumPair<FP, uint>> SmallConsumable;
+		public List<QuantumPair<FP, uint>> LargeConsumable;
 	}
 
 	/// <summary>
@@ -27,7 +24,7 @@ namespace Quantum
 	{
 		public List<QuantumChestConfig> QuantumConfigs = new List<QuantumChestConfig>();
 
-		private IDictionary<GameId, QuantumChestConfig> _dictionary = null;
+		private IDictionary<GameId, QuantumChestConfig> _dictionary;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="id"/>

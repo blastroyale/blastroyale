@@ -223,6 +223,7 @@
     <Compile Include="Configs\QuantumBaseEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumChestConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatsConfig.cs" />
+    <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />
     <Compile Include="Configs\QuantumBotConfigs.cs" />
     <Compile Include="Configs\QuantumConsumableConfigs.cs" />

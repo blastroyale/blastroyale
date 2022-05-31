@@ -168,10 +168,10 @@ namespace FirstLight.Game.Logic
 			var currentNftDurabilities = (double) 0;
 			var maxNftDurabilities = (double) 0;
 			
-			foreach (var nft in inventory)
+			foreach (var nft in loadoutItems)
 			{
-				currentNftDurabilities += nft.Value.Durability;
-				maxNftDurabilities += nft.Value.MaxDurability;
+				currentNftDurabilities += nft.Durability;
+				maxNftDurabilities += nft.MaxDurability;
 			}
 			
 			var nftDurabilityPercent = currentNftDurabilities / maxNftDurabilities;

@@ -94,7 +94,7 @@ namespace FirstLight.GoogleSheetImporter
 		{
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
-			var valuePairType = typeof(QuantumGameModePair<>);
+			var gameModePairType = typeof(QuantumGameModePair<>);
 			
 			if (type.IsArray)
 			{
@@ -110,9 +110,9 @@ namespace FirstLight.GoogleSheetImporter
 					
 				return DictionaryParse(data, types[0], types[1], deserializers);
 			}
-			if (type.IsGenericType && valuePairType.IsAssignableFrom(type.GetGenericTypeDefinition()))
+			if (type.IsGenericType && gameModePairType.IsAssignableFrom(type.GetGenericTypeDefinition()))
 			{
-				return ValuePairParse(data, type, deserializers);
+				return GameModePairParse(data, type, deserializers);
 			}
 
 			return Parse(data, type, deserializers);
@@ -218,7 +218,7 @@ namespace FirstLight.GoogleSheetImporter
 		/// <exception cref="IndexOutOfRangeException">
 		/// Thrown if the given <paramref name="text"/> has a odd amount of values to pair. Must always be an even amount of values
 		/// </exception>
-		private static object ValuePairParse(string text, Type type, params Func<string, Type, object>[] deserializers)
+		private static object GameModePairParse(string text, Type type, params Func<string, Type, object>[] deserializers)
 		{
 			var values = text.Split(_valuePairSplitChar);
 
@@ -348,7 +348,7 @@ namespace FirstLight.GoogleSheetImporter
 			var fields = type.GetFields();
 			var split = data.Split(_pairSplitChars);
 
-			if (type.IsGenericType && fields.Length == 2 && fields[0].Name == "Key" && fields[1].Name == "Value")
+			if (type.IsGenericType && fields.Length == 2 && (fields[0].Name == "Key" || fields[0].Name == "Value1") && (fields[1].Name == "Value" || fields[1].Name == "Value2"))
 			{
 				key = string.IsNullOrWhiteSpace(data) ? default : Parse(split[0], fields[0].FieldType, deserializers);
 				value = string.IsNullOrWhiteSpace(data) ? default : Parse(split[1], fields[1].FieldType, deserializers);

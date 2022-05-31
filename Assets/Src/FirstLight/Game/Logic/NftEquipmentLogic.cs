@@ -34,22 +34,22 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 			_insertionTimestamps = new ObservableDictionary<UniqueId, long>(Data.InsertionTimestamps);
 		}
-		
+
 		public Equipment[] GetLoadoutItems()
 		{
 			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
 		}
-		
+
 		public List<Equipment> FindInInventory(GameIdGroup slot)
 		{
 			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();
 		}
-		
+
 		public bool IsEquipped(UniqueId itemId)
 		{
 			return _loadout.ReadOnlyDictionary.Values.Contains(itemId);
 		}
-		
+
 		public float GetItemStat(Equipment equipment, StatType stat)
 		{
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Logic
 			return QuantumStatCalculator.CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, stat)
 			                            .AsFloat;
 		}
-		
+
 		public float GetTotalEquippedStat(StatType stat)
 		{
 			var value = 0f;
@@ -72,7 +72,7 @@ namespace FirstLight.Game.Logic
 
 			return value;
 		}
-		
+
 		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0)
 		{
 			var stats = new Dictionary<EquipmentStatType, float>();
@@ -115,7 +115,7 @@ namespace FirstLight.Game.Logic
 
 			return stats;
 		}
-		
+
 		public TimeSpan GetItemCooldown(UniqueId itemId)
 		{
 			double cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
@@ -123,7 +123,7 @@ namespace FirstLight.Game.Logic
 
 			return cooldownFinishTime - DateTime.UtcNow;
 		}
-		
+
 		private DateTime GetInsertionTime(UniqueId itemId)
 		{
 			return new DateTime(_insertionTimestamps.ReadOnlyDictionary[itemId]);
@@ -158,7 +158,7 @@ namespace FirstLight.Game.Logic
 
 			return true;
 		}
-		
+
 		public void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
@@ -176,7 +176,7 @@ namespace FirstLight.Game.Logic
 
 			_loadout.Add(slot, itemId);
 		}
-		
+
 		public void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];

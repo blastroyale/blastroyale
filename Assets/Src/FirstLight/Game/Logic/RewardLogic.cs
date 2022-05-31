@@ -121,7 +121,7 @@ namespace FirstLight.Game.Logic
 			
 			var loadoutItems = new List<Equipment>();
 			
-			foreach (var loadoutKvp in GameLogic.EquipmentLogic.Loadout)
+			foreach (var loadoutKvp in GameLogic.EquipmentLogic.Loadout.ReadOnlyDictionary)
 			{
 				var invKvp = GameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary.First(x => x.Key == loadoutKvp.Value);
 

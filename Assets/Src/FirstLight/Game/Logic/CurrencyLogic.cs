@@ -175,7 +175,7 @@ namespace FirstLight.Game.Logic
 			
 			var inventory = new Dictionary<UniqueId, Equipment>();
 			
-			foreach (var kvp in GameLogic.EquipmentLogic.Inventory.ToList())
+			foreach (var kvp in GameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary)
 			{
 				if (kvp.Value.GameId != GameId.Hammer && GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
 				{

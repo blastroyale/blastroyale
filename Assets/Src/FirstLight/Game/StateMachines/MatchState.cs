@@ -294,11 +294,11 @@ namespace FirstLight.Game.StateMachines
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
 					Loadout = new[]
 					{
-						new Equipment(GameId.AK47,
+						new Equipment(GameId.ModRifle,
 						              rarity: EquipmentRarity.Common,
 						              adjective: EquipmentAdjective.Cool,
 						              material: EquipmentMaterial.Carbon,
-						              manufacturer: EquipmentManufacturer.Futuristic,
+						              manufacturer: EquipmentManufacturer.Military,
 						              faction: EquipmentFaction.Chaos)
 					}
 				};

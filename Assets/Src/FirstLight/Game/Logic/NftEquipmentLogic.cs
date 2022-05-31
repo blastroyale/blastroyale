@@ -17,10 +17,11 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
+		public IObservableDictionaryReader<UniqueId, long> _insertionTimestamps;
 
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
-
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
+		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -29,14 +30,29 @@ namespace FirstLight.Game.Logic
 
 		public void Init()
 		{
-			_loadout =
-				new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
+			_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
+			_insertionTimestamps = new ObservableDictionary<UniqueId, long>(Data.InsertionTimestamps);
 		}
 
 		public Equipment[] GetLoadoutItems()
 		{
 			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
+		}
+
+		public Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings()
+		{
+			var eligibleInventory = new Dictionary<UniqueId, Equipment>();
+			
+			foreach (var kvp in _inventory.ReadOnlyDictionary)
+			{
+				if (kvp.Value.GameId != GameId.Hammer && GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
+				{
+					eligibleInventory.Add(kvp.Key,kvp.Value);
+				}
+			}
+
+			return eligibleInventory;
 		}
 
 		public List<Equipment> FindInInventory(GameIdGroup slot)
@@ -126,6 +142,19 @@ namespace FirstLight.Game.Logic
 			return stats;
 		}
 
+		public TimeSpan GetItemCooldown(UniqueId itemId)
+		{
+			double cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
+			DateTime cooldownFinishTime = GetInsertionTime(itemId).AddMinutes(cooldownMinutes);
+
+			return cooldownFinishTime - DateTime.UtcNow;
+		}
+
+		private DateTime GetInsertionTime(UniqueId itemId)
+		{
+			return new DateTime(_insertionTimestamps.ReadOnlyDictionary[itemId]);
+		}
+
 		// TODO: Remove method and refactor cheats
 		public UniqueId AddToInventory(Equipment equipment)
 		{
@@ -133,7 +162,7 @@ namespace FirstLight.Game.Logic
 			_inventory.Add(id, equipment);
 			return id;
 		}
-		
+
 		// TODO: Remove method and refactor cheats
 		public bool RemoveFromInventory(UniqueId equipment)
 		{
@@ -150,9 +179,9 @@ namespace FirstLight.Game.Logic
 			{
 				Unequip(equippedId);
 			}
-			
+
 			_inventory.Remove(equipment);
-			
+
 			return true;
 		}
 

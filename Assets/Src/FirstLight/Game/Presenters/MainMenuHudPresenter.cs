@@ -20,7 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MainMenuHudPresenter : UiPresenter
 	{
-		[SerializeField, Required] private Transform _scTooltipAnchor;
+		[SerializeField, Required] private Transform _csTooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _csCurrencyText;
 		[SerializeField, Required] private Transform _csAnimationTarget;
 		[SerializeField] private UnityEngine.UI.Button _csButton;
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 		private void OnCsClicked()
 		{
 			_services.GenericDialogService.OpenTooltipDialog(ScriptLocalization.Tooltips.ToolTip_CS,
-			                                                 _scTooltipAnchor.position, TooltipArrowPosition.Top);
+			                                                 _csTooltipAnchor.position, TooltipArrowPosition.Top);
 		}
 
 		private void UpdateCsValueText(float value)

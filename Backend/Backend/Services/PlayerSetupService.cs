@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Backend.Models;
 using FirstLight;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using Quantum;
+using ServerSDK.Models;
 
 namespace Backend.Game.Services;
 

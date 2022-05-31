@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
@@ -27,6 +28,11 @@ namespace FirstLight.Game.Logic
 		Equipment[] GetLoadoutItems();
 
 		/// <summary>
+		/// Requests a portion of the current Inventory that is eligible for crypto earnings
+		/// </summary>
+		Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings();
+
+		/// <summary>
 		/// Requests all items from the inventory that belonging to the given
 		/// <paramref name="slot"/> type.
 		/// </summary>
@@ -48,6 +54,10 @@ namespace FirstLight.Game.Logic
 		float GetTotalEquippedStat(StatType stat);
 
 		/// <summary>
+		/// Requests the remaining cooldown for item <paramref name="itemId"/>
+		/// </summary>
+		TimeSpan GetItemCooldown(UniqueId itemId);
+
 		/// Requests the URL of the NFT item in a players inventory.
 		/// </summary>
 		string GetEquipmentCardUrl(UniqueId id);

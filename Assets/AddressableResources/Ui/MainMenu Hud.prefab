@@ -505,10 +505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e630bc03e15a42778b5e0848a5d0c28b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scTooltipAnchor: {fileID: 2225752747152771769}
+  _csTooltipAnchor: {fileID: 7998866275003292855}
   _csCurrencyText: {fileID: 4005593088606474691}
   _csAnimationTarget: {fileID: 7998866275003292855}
-  _csObjectRoot: {fileID: 1951955489779880204}
   _csButton: {fileID: 5989113385139005387}
   _rackupTextAnimationDuration: 1
 --- !u!114 &330779992302341211

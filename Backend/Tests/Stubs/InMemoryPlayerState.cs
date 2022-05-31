@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Backend.Game.Services;
-using Backend.Models;
 using FirstLight.Game.Logic;
 using PlayFab.ServerModels;
+using ServerSDK.Models;
+using ServerSDK.Services;
 
 namespace Tests.Stubs;
 

@@ -1043,6 +1043,16 @@ MonoBehaviour:
       - Gain <color=yellow><b>Craft Spice</b></color>, by killing other players.
       Flags: 00
       Languages_Touch: []
+    - Term: Tooltips/ToolTip_NftCooldown
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This item was transferred recently.
+
+        Items on cooldown do no not
+        contribute to any in-game earnings.'
+      Flags: 00
+      Languages_Touch: []
     - Term: MainMenu/Abilties
       TermType: 0
       Description: 
@@ -2000,6 +2010,25 @@ MonoBehaviour:
       Description: 
       Languages:
       - Storage is full!
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NftCooldownTimerFullText
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Item on cooldown for
+
+        {0}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NftCooldownTimerTooltip
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This item was transferred recently.
+
+        Items on cooldown do no not
+        contribute to any in-game earnings.'
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -5094,7 +5123,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1653669788472
+    Google_LastUpdatedVersion: 1653997522372
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -21,7 +21,7 @@ services:
       PLAYFAB_DEV_SECRET_KEY: ***REMOVED***
       PLAYFAB_TITLE: ***REMOVED***
       API_URL: https://devmarketplaceapi.azure-api.net
-      API_BLOCKCHAIN_SERVICE: br-blockchain
+      API_BLOCKCHAIN_SERVICE: br-blockchain/blast-royale-equipment
       API_SECRET: devkey
     build:
       context: .

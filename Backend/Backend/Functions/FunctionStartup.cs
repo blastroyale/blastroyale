@@ -28,6 +28,7 @@ public class FunctionStartup : FunctionsStartup
 	{
 		var log = new LoggerFactory().CreateLogger("Log"); // TODO: Get proper azure log 
 		ServerStartup.Setup(builder.Services, log, builder.GetContext().ApplicationRootPath);
+		
 	}
 
 

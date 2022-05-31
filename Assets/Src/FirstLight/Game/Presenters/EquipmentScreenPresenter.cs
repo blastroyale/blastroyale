@@ -49,7 +49,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _equipUnequipButton;
 		[SerializeField, Required] private EquipmentStatInfoView _statInfoViewPoolRef;
 		[SerializeField, Required] private EquipmentStatSpecialInfoView _specialStatInfoViewPoolRef;
-
+		[SerializeField, Required] private EquipmentCooldownView _equipmentCooldownViewRef;
+		
 		// TODO: This should be a view when we properly implement it
 		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
 		[SerializeField, Required] private GameObject _equipmentAttributesHolder;
@@ -168,6 +169,7 @@ namespace FirstLight.Game.Presenters
 			_itemLevelObject.SetActive(false);
 			_actionButtonHolder.SetActive(false);
 			_nftIcon.gameObject.SetActive(false);
+			_equipmentCooldownViewRef.SetVisualsActive(false);
 			_powerRatingText.text = "";
 		}
 
@@ -200,6 +202,7 @@ namespace FirstLight.Game.Presenters
 			var isWeapon = equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
+			SetCooldownStatus();
 			SetEquipButtonStatus();
 
 			// TODO: Add proper translation logic
@@ -319,6 +322,11 @@ namespace FirstLight.Game.Presenters
 					                                            stat, selectedValue, equippedValue);
 				}
 			}
+		}
+
+		private void SetCooldownStatus()
+		{
+			_equipmentCooldownViewRef.InitCooldown(_uniqueId);
 		}
 
 		private async void GetSpecialIconInfo(EquipmentStatType key, EquipmentStatSpecialInfoView slotInfo,

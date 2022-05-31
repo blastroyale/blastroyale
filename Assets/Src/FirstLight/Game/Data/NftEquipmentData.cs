@@ -7,7 +7,7 @@ using Quantum;
 namespace FirstLight.Game.Data
 {
 	/// <summary>
-	/// Holds NFT metada for the weapons a given player have. 
+	/// Holds NFT metadata for the weapons a given player have. 
 	/// </summary>
 	[Serializable]
 	public class NftEquipmentData
@@ -20,10 +20,15 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<UniqueId, string> TokenIds = new();
 		
 		/// <summary>
-		/// Some items might expire, due to being rented for instance. This maps the unique id and
-		/// the timestamp 
+		/// Some items might expire, due to being rented for instance.
+		/// This maps the unique id and the timestamp 
 		/// </summary>
 		public readonly Dictionary<UniqueId, ulong> ExpireTimestamps = new();
+		
+		/// <summary>
+		/// Dictionary of timestamps of when items were synced (added) into the player's inventory
+		/// </summary>
+		public readonly Dictionary<UniqueId, long> InsertionTimestamps = new();
 
 		/// <summary>
 		/// Refer to the image urls for the inventory items

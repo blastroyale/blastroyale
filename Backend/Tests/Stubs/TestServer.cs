@@ -7,9 +7,9 @@ using Backend.Game.Services;
 using FirstLight;
 using FirstLight.Services;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ServerSDK.Services;
 
 namespace Tests.Stubs;
 
@@ -36,6 +36,9 @@ public class TestServer
 	private void SetupTestEnv()
 	{
 		Environment.SetEnvironmentVariable("SqlConnectionString", "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;");
+		Environment.SetEnvironmentVariable("API_URL", "stub-api", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("API_BLOCKCHAIN_SERVICE", "stub-service", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("API_SECRET", "stub-key", EnvironmentVariableTarget.Process);
 	}
 
 	public void UpdateDependencies(Action<IServiceCollection> collectionAction)
@@ -61,6 +64,8 @@ public class TestServer
 	{
 		return (T?)_services.GetService(typeof(T));
 	}
+
+	public IServerStateService ServerState => GetService<IServerStateService>()!;
 	
 	public string GetTestPlayerID()
 	{

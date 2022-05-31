@@ -50,7 +50,7 @@ public class PlayerSetupService : IPlayerSetupService
 		var rngData = SetupInitialRngData(playFabId.GetHashCode());
 		var idData = new IdData();
 		var playerData = SetupInitialPlayerData(idData, rngData);
-		var equipmentData = SetupInitialNftEquipments(idData);
+		var equipmentData = new NftEquipmentData();
 		var serverState = new ServerState();
 		serverState.SetModel(idData);
 		serverState.SetModel(rngData);
@@ -79,19 +79,6 @@ public class PlayerSetupService : IPlayerSetupService
 			Seed = seed,
 			State = RngUtils.GenerateRngState(seed)
 		};
-	}
-
-	/// <summary>
-	/// Sets up initial player NFT equipment data.
-	/// This is for testing purposes and should be removed soon.
-	/// </summary>
-	private static NftEquipmentData SetupInitialNftEquipments(IdData idData)
-	{
-		var nftEquipsData = new NftEquipmentData();
-		var nextId = ++idData.UniqueIdCounter;
-		idData.GameIds.Add(nextId, GameId.Hammer);
-		nftEquipsData.Inventory.Add(nextId, new Equipment(GameId.Hammer, level: 1));
-		return nftEquipsData;
 	}
 
 	/// <summary>

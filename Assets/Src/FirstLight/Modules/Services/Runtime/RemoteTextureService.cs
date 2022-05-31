@@ -31,10 +31,10 @@ namespace FirstLight.Game.Services
 
 	public class RemoteTextureService : IRemoteTextureService
 	{
-		private const string TextureHashesKey = "RemoteTextureService.Hashes";
-		private const string FileUriPrefix = "file://";
-		private const int TexturesToKeep = 20;
-		private string TexturesFolder = Path.Combine(Application.persistentDataPath, "RemoteTextures");
+		private const string TEXTURE_HASHES_KEY = "RemoteTextureService.Hashes";
+		private const string FILE_URI_PREFIX = "file://";
+		private const int TEXTURES_TO_KEEP = 20;
+		private string TEXTURES_FOLDER = Path.Combine(Application.persistentDataPath, "RemoteTextures");
 
 		private readonly ICoroutineService _coroutineService;
 		private readonly IThreadService _threadService;
@@ -48,18 +48,18 @@ namespace FirstLight.Game.Services
 			_coroutineService = coroutineService;
 			_threadService = threadService;
 
-			if (PlayerPrefs.HasKey(TextureHashesKey))
+			if (PlayerPrefs.HasKey(TEXTURE_HASHES_KEY))
 			{
-				var hashes = PlayerPrefs.GetString(TextureHashesKey).Split(";");
+				var hashes = PlayerPrefs.GetString(TEXTURE_HASHES_KEY).Split(";");
 				foreach (var hash in hashes)
 				{
 					_cachedTextures.Add(hash);
 				}
 			}
 
-			if (!Directory.Exists(TexturesFolder))
+			if (!Directory.Exists(TEXTURES_FOLDER))
 			{
-				Directory.CreateDirectory(TexturesFolder);
+				Directory.CreateDirectory(TEXTURES_FOLDER);
 			}
 		}
 
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 			else
 			{
 				var tex = ((DownloadHandlerTexture) request.downloadHandler).texture;
-				if (uri.StartsWith(FileUriPrefix))
+				if (uri.StartsWith(FILE_URI_PREFIX))
 				{
 					callback(tex);
 				}
@@ -122,13 +122,13 @@ namespace FirstLight.Game.Services
 				lock (_cachedTextures)
 				{
 					var hash = GetHashString(uri);
-					File.WriteAllBytes(Path.Combine(TexturesFolder, hash), data);
+					File.WriteAllBytes(Path.Combine(TEXTURES_FOLDER, hash), data);
 
 					_cachedTextures.Add(hash);
 
-					while (_cachedTextures.Count > TexturesToKeep)
+					while (_cachedTextures.Count > TEXTURES_TO_KEEP)
 					{
-						File.Delete(Path.Combine(TexturesFolder, _cachedTextures[0]));
+						File.Delete(Path.Combine(TEXTURES_FOLDER, _cachedTextures[0]));
 						_cachedTextures.RemoveAt(0);
 					}
 
@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services
 				}
 			}, _ =>
 			{
-				PlayerPrefs.SetString(TextureHashesKey, string.Join(';', _cachedTextures.ToArray()));
+				PlayerPrefs.SetString(TEXTURE_HASHES_KEY, string.Join(';', _cachedTextures.ToArray()));
 				PlayerPrefs.Save();
 
 				callback(tex);
@@ -162,7 +162,7 @@ namespace FirstLight.Game.Services
 
 		private string GetLocalImageUri(string hash)
 		{
-			return "file://" + Path.Combine(TexturesFolder, hash);
+			return "file://" + Path.Combine(TEXTURES_FOLDER, hash);
 		}
 
 		private static string GetHashString(string inputString)

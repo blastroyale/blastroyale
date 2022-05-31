@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// This Presenter handles the Shop Menu.
+	/// This presenter handles showing the register screen
 	/// </summary>
 	public class RegisterScreenPresenter : AnimatedUiPresenterData<RegisterScreenPresenter.StateData>
 	{

@@ -19,11 +19,9 @@ using FirstLight.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PlayFab;
-using PlayFab.AdminModels;
 using PlayFab.CloudScriptModels;
 using Quantum;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -31,6 +29,7 @@ using Random = UnityEngine.Random;
 public partial class SROptions
 {
 #if DEVELOPMENT_BUILD
+#if ENABLE_PLAYFABADMIN_API
 	[Category("Reset Player")]
 	public void ResetPlayer()
 	{
@@ -55,7 +54,7 @@ public partial class SROptions
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
 		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
 
-		void Result(UpdateUserDataResult result)
+		void Result(PlayFab.AdminModels.UpdateUserDataResult result)
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
 #if UNITY_EDITOR
@@ -63,11 +62,10 @@ public partial class SROptions
 			{
 				UnityEditor.EditorApplication.isPlaying = false;
 			}
-#else
-			Application.Quit();
 #endif
 		}
 	}
+#endif
 
 	[Category("Equipment")]
 	public void GiveMaxedEquipment()

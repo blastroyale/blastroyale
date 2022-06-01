@@ -41,10 +41,9 @@ public class TestNftSyncPlugin
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
 		{
 			token_id = "tokenid1",
-			name = "Assault Rifle",
+			name = ((GameId)1).ToString(),
 			faction = (long)EquipmentFaction.Chaos
 		});
-
 	}
 
 	[Test]
@@ -68,7 +67,6 @@ public class TestNftSyncPlugin
         var nftData = _app.ServerState.GetPlayerState("yolo").DeserializeModel<NftEquipmentData>();
         var equip = nftData.Inventory.Values.First();
         
-        Assert.AreEqual(equip.GameId, GameId.AssaultRifle);
         Assert.AreEqual(equip.Faction, EquipmentFaction.Chaos);
     }
     
@@ -99,7 +97,7 @@ public class TestNftSyncPlugin
         _nftSync.Indexed.Add(new PolygonNFTMetadata()
         {
 	        token_id = "tokenid2",
-	        name = "RPG",
+	        name = ((GameId)1).ToString(),
 	        faction = (long)EquipmentFaction.Dimensional
         });
         

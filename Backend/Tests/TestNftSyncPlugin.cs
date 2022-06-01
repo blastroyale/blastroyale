@@ -41,10 +41,9 @@ public class TestNftSyncPlugin
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
 		{
 			token_id = "tokenid1",
-			name = "Assault Rifle",
+			name = ((GameId)1).ToString(),
 			faction = (long)EquipmentFaction.Chaos
 		});
-
 	}
 
 	[Test]
@@ -98,7 +97,7 @@ public class TestNftSyncPlugin
         _nftSync.Indexed.Add(new PolygonNFTMetadata()
         {
 	        token_id = "tokenid2",
-	        name = "RPG",
+	        name = ((GameId)1).ToString(),
 	        faction = (long)EquipmentFaction.Dimensional
         });
         

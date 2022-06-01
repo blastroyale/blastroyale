@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameLogic _gameLogic;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
 		public NetworkState(IGameLogic gameLogic, IGameServices services,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
@@ -41,7 +42,6 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic = gameLogic;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-
 			_networkService.QuantumClient.AddCallbackTarget(this);
 		}
 
@@ -138,13 +138,11 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
 
-			if (config.IsOfflineMode)
+			if (QuantumRunnerConfigs.IsOfflineMode)
 			{
 				LockRoom();
 			}
@@ -211,7 +209,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.TryGetValue(GameConstants.Data.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
 				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
 
@@ -269,14 +267,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
-			var mapConfig = GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value);
+			var mapConfig = NetworkUtils.GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value, _services);
 			
 			StartRandomMatchmaking(mapConfig);
 		}
 		
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
-			var mapConfig = GetMapConfigById(msg.MapId);
+			var mapConfig = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>()[msg.MapId];
 			
 			StartRandomMatchmaking(mapConfig);
 		}
@@ -295,7 +293,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.Data.PLAYER_PROPS_LOADED, true }
+				{ GameConstants.Network.PLAYER_PROPS_LOADED, true }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -308,33 +306,24 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(MapConfig mapConfig)
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var enterParams = config.GetEnterRoomParams(mapConfig, null);
-			var joinParams = config.GetJoinRandomRoomParams(mapConfig);
+			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, null, GameConstants.Network.DefaultPlayerTtl);
+			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig);
 
-			config.IsOfflineMode = mapConfig.PlayersLimit == 1;
+			QuantumRunnerConfigs.IsOfflineMode = mapConfig.PlayersLimit == 1;
 			
 			UpdateQuantumClientProperties();
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinParams, enterParams);
+				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
 		}
 
 		private void JoinRoom(string roomName)
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var enterParams = new EnterRoomParams
-			{
-				RoomName = roomName,
-				PlayerProperties = null,
-				ExpectedUsers = null,
-				Lobby = TypedLobby.Default,
-				RoomOptions = null
-			};
+			var enterParams = NetworkUtils.GetRoomEnterParams(roomName);
 			
-			config.IsOfflineMode = false;
+			QuantumRunnerConfigs.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
 
@@ -346,10 +335,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void CreateRoom(MapConfig mapConfig, string roomName)
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var enterParams = config.GetEnterRoomParams(mapConfig, roomName);
+			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, roomName, GameConstants.Network.DefaultPlayerTtl);
 
-			config.IsOfflineMode = false;
+			QuantumRunnerConfigs.IsOfflineMode = false;
 			
 			UpdateQuantumClientProperties();
 
@@ -389,7 +377,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void ConnectPhoton()
 		{
-			var settings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings.AppSettings;
+			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
 			
 			UpdateQuantumClientProperties();
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameLogic.AppDataProvider.Nickname);
@@ -421,39 +409,11 @@ namespace FirstLight.Game.StateMachines
 			
 			var playerProps = new Hashtable
 			{
-				{GameConstants.Data.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.Data.PLAYER_PROPS_LOADED, false}
+				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
+				{GameConstants.Network.PLAYER_PROPS_LOADED, false}
 			};
 			
 			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
-		}
-
-		private MapConfig GetRotationMapConfig(GameMode gameMode)
-		{
-			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-			var compatibleMaps = new List<MapConfig>();
-			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
-			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
-
-			foreach (var config in configs)
-			{
-				if (config.Value.GameMode == gameMode && !config.Value.IsTestMap)
-				{
-					compatibleMaps.Add(config.Value);
-				}
-			}
-
-			if (timeSegmentIndex >= compatibleMaps.Count)
-			{
-				timeSegmentIndex %= compatibleMaps.Count;
-			}
-
-			return compatibleMaps[timeSegmentIndex];
-		}
-
-		private MapConfig GetMapConfigById(int mapId)
-		{
-			return _services.ConfigsProvider.GetConfigsDictionary<MapConfig>()[mapId];
 		}
 	}
 }

@@ -257,7 +257,7 @@ namespace FirstLight.Game.StateMachines
 			// Preload players assets
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
-				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.Data.PLAYER_PROPS_PRELOAD_IDS];
+				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS];
 
 				foreach (var item in preloadIds)
 				{

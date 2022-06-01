@@ -1049,8 +1049,9 @@ MonoBehaviour:
       Languages:
       - 'This item was transferred recently.
 
-        Items on cooldown do no not
-        contribute to any in-game earnings.'
+
+        Items on cooldown do not contribute
+        to any in-game earnings.'
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Abilties
@@ -3494,20 +3495,6 @@ MonoBehaviour:
       - Claim Your Loot!
       Flags: 00
       Languages_Touch: []
-    - Term: GameIds/AK47
-      TermType: 0
-      Description: 
-      Languages:
-      - Wolf
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/AK47Description
-      TermType: 0
-      Description: 
-      Languages:
-      - Reliable burst fire with embedded healing.
-      Flags: 00
-      Languages_Touch: []
     - Term: GameIds/Adventure
       TermType: 0
       Description: 
@@ -3527,34 +3514,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Armour
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/AssaultRifle
-      TermType: 0
-      Description: 
-      Languages:
-      - Dingo
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/AssaultRifleDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - The reliable workhorse for a newbie hero.
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/BFG
-      TermType: 0
-      Description: 
-      Languages:
-      - Hippo
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/BFGDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Harnesses slowly but drives fast.
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/Boots
@@ -3823,20 +3782,6 @@ MonoBehaviour:
       - Invisibility
       Flags: 00
       Languages_Touch: []
-    - Term: GameIds/Laser
-      TermType: 0
-      Description: 
-      Languages:
-      - Colibri
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/LaserDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Love to crush AND heal at the same time? This one is meant for you.
-      Flags: 00
-      Languages_Touch: []
     - Term: GameIds/LegendaryBox
       TermType: 0
       Description: 
@@ -3870,20 +3815,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Lifesteal
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/M60
-      TermType: 0
-      Description: 
-      Languages:
-      - Lion
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/M60Description
-      TermType: 0
-      Description: 
-      Languages:
-      - Rapid fire and loads of bullets. Addictive and dangerous.
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/MainDeck
@@ -4010,20 +3941,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Once a busy city, now a looters battleground
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/RPG
-      TermType: 0
-      Description: 
-      Languages:
-      - Moose
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/RPGDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Explodes the way to glory.
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/Rage
@@ -4173,39 +4090,11 @@ MonoBehaviour:
       - Shield
       Flags: 00
       Languages_Touch: []
-    - Term: GameIds/Shotgun
-      TermType: 0
-      Description: 
-      Languages:
-      - Piranha
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/ShotgunDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Powerful over a short distance. Come get some!
-      Flags: 00
-      Languages_Touch: []
     - Term: GameIds/Sideshot
       TermType: 0
       Description: 
       Languages:
       - Sideshot
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/SniperRifle
-      TermType: 0
-      Description: 
-      Languages:
-      - Eagle
-      Flags: 00
-      Languages_Touch: []
-    - Term: GameIds/SniperRifleDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - The predator's soulmate. Control and eliminate.
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SoldierAmulet
@@ -4691,6 +4580,153 @@ MonoBehaviour:
       - Weapon
       Flags: 00
       Languages_Touch: []
+    - Term: GameIds/ApoCrossbow
+      TermType: 0
+      Description: 
+      Languages:
+      - Pistol
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ApoShotgun
+      TermType: 0
+      Description: 
+      Languages:
+      - Shotgun
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ApoSMG
+      TermType: 0
+      Description: 
+      Languages:
+      - SMG
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ApoRifle
+      TermType: 0
+      Description: 
+      Languages:
+      - Rifle
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ApoSniper
+      TermType: 0
+      Description: 
+      Languages:
+      - Sniper rifle
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ApoRPG
+      TermType: 0
+      Description: 
+      Languages:
+      - Rocket launcher
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ApoMinigun
+      TermType: 0
+      Description: 
+      Languages:
+      - Minigun
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModPistol
+      TermType: 0
+      Description: 
+      Languages:
+      - Crossbow
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModShotgun
+      TermType: 0
+      Description: 
+      Languages:
+      - Shotgun
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModMachineGun
+      TermType: 0
+      Description: 
+      Languages:
+      - Machinegun
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModRifle
+      TermType: 0
+      Description: 
+      Languages:
+      - Rifle
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModSniper
+      TermType: 0
+      Description: 
+      Languages:
+      - Sniper rifle
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModLauncher
+      TermType: 0
+      Description: 
+      Languages:
+      - Grenade launcher
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/ModHeavyMachineGun
+      TermType: 0
+      Description: 
+      Languages:
+      - Heavy Machine Gun
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciPistol
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser pistol
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciBlaster
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser blaster
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciNeedleGun
+      TermType: 0
+      Description: 
+      Languages:
+      - Needle gun
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciRifle
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser rifle
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciSniper
+      TermType: 0
+      Description: 
+      Languages:
+      - Pulse rifle
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciCannon
+      TermType: 0
+      Description: 
+      Languages:
+      - Plasma cannon
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/SciMelter
+      TermType: 0
+      Description: 
+      Languages:
+      - Electron thrower
+      Flags: 00
+      Languages_Touch: []
     - Term: Shop/com.hard.currency.bundle.1
       TermType: 0
       Description: 
@@ -5123,7 +5159,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1653997522372
+    Google_LastUpdatedVersion: 1654081081380
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

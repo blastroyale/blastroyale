@@ -20,18 +20,6 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 23
-    Value:
-      m_AssetGUID: 5faf252815344494f8591f9d112381e5
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 30
-    Value:
-      m_AssetGUID: 17e026156edaf9d4fb837a4a16d8c875
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 85
     Value:
       m_AssetGUID: 243059416f44ad94c9f0f1d3e9278f2b

@@ -73,6 +73,12 @@ namespace FirstLight.Editor.EditorTools
 			EditorSceneManager.OpenScene(GetScenePath("Boot"));
 		}
 
+		[MenuItem("First Light Games/Scene/Open Test Scene")]
+		private static void OpenTestScene()
+		{
+			EditorSceneManager.OpenScene(GetScenePath("TestScene"));
+		}
+
 #if DEVELOPMENT_BUILD
 		[MenuItem("First Light Games/Cheats/Make Player Big Damager %m")]
 		private static void MakePlayerBigDamager()

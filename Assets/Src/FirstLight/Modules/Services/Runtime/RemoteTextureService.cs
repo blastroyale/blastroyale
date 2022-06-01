@@ -29,6 +29,7 @@ namespace FirstLight.Game.Services
 		void CancelRequest(int handle);
 	}
 
+	/// <inheritdoc />
 	public class RemoteTextureService : IRemoteTextureService
 	{
 		private const string TEXTURE_HASHES_KEY = "RemoteTextureService.Hashes";
@@ -63,6 +64,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		/// <inheritdoc />
 		public int RequestTexture(string url, Action<Texture2D> callback, Action error)
 		{
 			var handle = _handle++;
@@ -74,6 +76,7 @@ namespace FirstLight.Game.Services
 			return handle;
 		}
 
+		/// <inheritdoc />
 		public void CancelRequest(int handle)
 		{
 			if (_requests.ContainsKey(handle))

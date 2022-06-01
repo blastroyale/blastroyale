@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Quantum;
 
 // ReSharper disable once CheckNamespace
 
@@ -15,11 +14,10 @@ namespace FirstLight.GoogleSheetImporter
 	/// </summary>
 	public static class CsvParser
 	{
-		private const string _ignoreColumnChar = "$";
+		public const string IGNORE_COLUMN_CHAR = "$";
 		
-		private static readonly char[] _pairSplitChars = {':', '<', '>', '='};
-		private static readonly char _valuePairSplitChar = '|';
-		private static readonly char[] _arraySplitChars = {',', '(', ')', '[', ']', '{', '}'};
+		public static readonly char[] PairSplitChars = {':', '<', '>', '=', '|'};
+		public static readonly char[] ArraySplitChars = {',', '(', ')', '[', ']', '{', '}'};
 
 		/// <summary>
 		/// Parses the entire <paramref name="csv"/> text.
@@ -39,7 +37,7 @@ namespace FirstLight.GoogleSheetImporter
 
 				for (var j = 0; j < headlines.Length; j++)
 				{
-					if (headlines[j].StartsWith(_ignoreColumnChar))
+					if (headlines[j].StartsWith(IGNORE_COLUMN_CHAR))
 					{
 						continue;
 					}
@@ -94,7 +92,6 @@ namespace FirstLight.GoogleSheetImporter
 		{
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
-			var gameModePairType = typeof(QuantumGameModePair<>);
 			
 			if (type.IsArray)
 			{
@@ -109,10 +106,6 @@ namespace FirstLight.GoogleSheetImporter
 				var types = type.GenericTypeArguments;
 					
 				return DictionaryParse(data, types[0], types[1], deserializers);
-			}
-			if (type.IsGenericType && gameModePairType.IsAssignableFrom(type.GetGenericTypeDefinition()))
-			{
-				return GameModePairParse(data, type, deserializers);
 			}
 
 			return Parse(data, type, deserializers);
@@ -137,7 +130,7 @@ namespace FirstLight.GoogleSheetImporter
 		/// <inheritdoc cref="ArrayParse{T}" />
 		public static object ArrayParse(string data, Type type, params Func<string, Type, object>[] deserializers)
 		{
-			var split = data.Split(_arraySplitChars);
+			var split = data.Split(ArraySplitChars);
 			var list = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
 
 			foreach (var value in split)
@@ -180,11 +173,11 @@ namespace FirstLight.GoogleSheetImporter
 			var items = ArrayParse<string>(text, deserializers);
 			var dictionary = (IDictionary) Activator.CreateInstance(typeof(Dictionary<,>).MakeGenericType(keyType, valueType));
 
-			if (items[0].IndexOfAny(_pairSplitChars) != -1)
+			if (items[0].IndexOfAny(PairSplitChars) != -1)
 			{
 				foreach (var item in items)
 				{
-					var split = item.Split(_pairSplitChars);
+					var split = item.Split(PairSplitChars);
 					var key = Parse(split[0], keyType, deserializers);
 					var value = Parse(split[1], valueType, deserializers);
 					
@@ -208,39 +201,6 @@ namespace FirstLight.GoogleSheetImporter
 			}
 
 			return dictionary;
-		}
-
-		/// <summary>
-		/// Parses the given <paramref name="text"/> into a <seealso cref="QuantumGameModePair{TValue}"/> type.
-		/// The values should be separated by <see cref="_valuePairSplitChar"/>. If only one value is present
-		/// it will be used for both fields.
-		/// </summary>
-		/// <exception cref="IndexOutOfRangeException">
-		/// Thrown if the given <paramref name="text"/> has a odd amount of values to pair. Must always be an even amount of values
-		/// </exception>
-		private static object GameModePairParse(string text, Type type, params Func<string, Type, object>[] deserializers)
-		{
-			var values = text.Split(_valuePairSplitChar);
-
-			if (values.Length > 2)
-			{
-				throw new
-					IndexOutOfRangeException($"Trying to deserialize more than 2 values to a value pair: ({text})");
-			}
-
-			var genericType = type.GetGenericArguments()[0];
-			var value1 = Parse(values[0], genericType, deserializers);
-			var value2 = values.Length == 1 ? value1 : Parse(values[1], genericType, deserializers);
-
-			var valuePair = Activator.CreateInstance(typeof(QuantumGameModePair<>).MakeGenericType(genericType));
-
-			var brField = valuePair.GetType().GetField("BattleRoyale");
-			var dmField = valuePair.GetType().GetField("Deathmatch");
-
-			brField.SetValue(valuePair, value1);
-			dmField.SetValue(valuePair, value2);
-
-			return valuePair;
 		}
 
 		/// <summary>
@@ -330,7 +290,7 @@ namespace FirstLight.GoogleSheetImporter
 
 		private static string SerializedKeyValuePair(string text)
 		{
-			var split = text.Split(_pairSplitChars);
+			var split = text.Split(PairSplitChars);
 
 			return $"{{\"Key\":\"{split[0].Trim()}\",\"Value\":\"{split[1].Trim()}\"}}";
 		}
@@ -346,7 +306,7 @@ namespace FirstLight.GoogleSheetImporter
 			}
 			
 			var fields = type.GetFields();
-			var split = data.Split(_pairSplitChars);
+			var split = data.Split(PairSplitChars);
 
 			if (type.IsGenericType && fields.Length == 2 && (fields[0].Name == "Key" || fields[0].Name == "Value1") && (fields[1].Name == "Value" || fields[1].Name == "Value2"))
 			{

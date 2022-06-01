@@ -58,7 +58,6 @@ namespace FirstLight.Tests.EditorMode
 		protected IPlayerLogic PlayerLogic;
 		protected IEquipmentLogic EquipmentLogic;
 		protected IRewardLogic RewardLogic;
-		protected IMatchLogic MatchLogic;
 
 		[SetUp]
 		public void InitMocks()
@@ -86,7 +85,6 @@ namespace FirstLight.Tests.EditorMode
 			PlayerLogic = Substitute.For<IPlayerLogic>();
 			EquipmentLogic = Substitute.For<IEquipmentLogic>();
 			RewardLogic = Substitute.For<IRewardLogic>();
-			MatchLogic = Substitute.For<IMatchLogic>();
 
 			// Returns
 			GameLogic.AppLogic.Returns(AppLogic);
@@ -96,7 +94,6 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic.PlayerLogic.Returns(PlayerLogic);
 			GameLogic.EquipmentLogic.Returns(EquipmentLogic);
 			GameLogic.RewardLogic.Returns(RewardLogic);
-			GameLogic.MatchLogic.Returns(MatchLogic);
 
 			GameLogic.MessageBrokerService.Returns(MessageBrokerService);
 			GameLogic.TimeService.Returns(TimeService);

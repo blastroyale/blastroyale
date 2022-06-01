@@ -7,6 +7,7 @@ namespace Quantum.Commands
 	/// </summary>
 	public class PlayerEmojiCommand : CommandBase
 	{
+		// TODO: convert Emojis to a seperate EmojiId or move it completely to the In-Game chat system
 		public GameId Emoji;
 		
 		/// <inheritdoc />

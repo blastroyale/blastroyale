@@ -15,7 +15,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override unsafe bool Decide(Frame f, EntityRef e)
 		{
-			return f.RuntimeConfig.GameMode == GameMode;
+			return f.Context.MapConfig.GameMode == GameMode;
 		}
 	}
 }

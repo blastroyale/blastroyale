@@ -155,7 +155,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
 			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);

@@ -63,7 +63,7 @@ public class PlayerSetupService : IPlayerSetupService
 	public bool IsSetup(ServerState state)
 	{
 		var playerData = state.DeserializeModel<PlayerData>();
-		if (playerData == null || playerData.Emoji.Count == 0)
+		if (playerData == null || playerData.Level == 0)
 			return false;
 		return true;
 	}
@@ -96,11 +96,6 @@ public class PlayerSetupService : IPlayerSetupService
 		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.Currencies.Add(GameId.CS, 0);
-		playerData.Emoji.Add(GameId.EmojiAngry);
-		playerData.Emoji.Add(GameId.EmojiLove);
-		playerData.Emoji.Add(GameId.EmojiAngel);
-		playerData.Emoji.Add(GameId.EmojiCool);
-		playerData.Emoji.Add(GameId.EmojiSick);
 		return playerData;
 	}
 }

@@ -49,7 +49,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			// If it's a deathmatch game mode and a bot is dead then we process respawn behaviour
-			if (f.RuntimeConfig.GameMode == GameMode.Deathmatch
+			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch
 			    && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
 			{
 				// If the bot is dead and it's not yet the time to respawn then we skip the update
@@ -193,11 +193,11 @@ namespace Quantum.Systems
 		{
 			var list = new List<QuantumBotConfig>();
 			var configs = f.BotConfigs.QuantumConfigs;
-			var difficultyLevel = f.RuntimeConfig.BotDifficultyLevel;
+			var difficultyLevel = Constants.BOT_DIFFICULTY_LEVEL;
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.RuntimeConfig.GameMode)
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.Context.MapConfig.GameMode)
 				{
 					list.Add(botConfig);
 				}

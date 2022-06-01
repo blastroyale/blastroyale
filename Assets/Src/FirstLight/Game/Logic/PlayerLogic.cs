@@ -13,7 +13,6 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface IPlayerDataProvider
 	{
-
 		/// <summary>
 		/// Requests the player's level
 		/// </summary>
@@ -23,13 +22,13 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		IObservableFieldReader<uint> Xp { get; }
 		/// <summary>
+		/// Request the player's current trophy count.
+		/// </summary>
+		IObservableFieldReader<uint> Trophies { get; }
+		/// <summary>
 		/// Requests the player's current selected skin
 		/// </summary>
 		IObservableFieldReader<GameId> CurrentSkin { get; }
-		/// <summary>
-		/// Requests a list of Emoji owned by the player.
-		/// </summary>
-		IObservableListReader<GameId> Emoji { get; }
 		/// <summary>
 		/// Requests the <see cref="PlayerInfo"/> representing the current player
 		/// </summary>
@@ -66,8 +65,13 @@ namespace FirstLight.Game.Logic
 		/// Adds the given <paramref name="amount"/> of XP to the Player.
 		/// </summary>
 		void AddXp(uint amount);
+		
 		/// <summary>
-		/// 
+		/// Updates player's trophies (Elo) based on their ranking in the match
+		/// </summary>
+		void UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
+		
+		/// <summary>
 		/// Changes the player skin to <paramref name="skin"/>
 		/// </summary>
 		void ChangePlayerSkin(GameId skin);
@@ -80,15 +84,15 @@ namespace FirstLight.Game.Logic
 		
 		private IObservableField<uint> _level;
 		private IObservableField<uint> _xp;
-		private IObservableList<GameId> _emoji;
 		private IObservableField<GameId> _currentSkin;
-		
+		private ObservableResolverField<uint> _trophiesResolver;
+
+		/// <inheritdoc />
+		public IObservableFieldReader<uint> Trophies => _trophiesResolver;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Level => _level;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Xp => _xp;
-		/// <inheritdoc />
-		public IObservableListReader<GameId> Emoji => _emoji;
 		/// <inheritdoc />
 		public IObservableFieldReader<GameId> CurrentSkin => _currentSkin;
 		/// <inheritdoc />
@@ -109,8 +113,8 @@ namespace FirstLight.Game.Logic
 		{
 			_level = new ObservableResolverField<uint>(() => Data.Level, level => Data.Level = level);
 			_xp = new ObservableResolverField<uint>(() => Data.Xp, xp => Data.Xp = xp);
-			_emoji = new ObservableList<GameId>(Data.Emoji);
 			_currentSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId,skin => Data.PlayerSkinId =skin);
+			_trophiesResolver = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
 
@@ -205,6 +209,35 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
+		public void UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
+		{
+			var localPlayerData = players[localPlayer];
+			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			
+			players.SortByPlayerRank(false);
+
+			var trophyChange = 0f;
+
+			// Losses
+			for (var i = 0; i < localPlayerData.PlayerRank; i++)
+			{
+				trophyChange += CalculateEloChange(0, players[i].Data.PlayerTrophies, 
+				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+				                                   gameConfig.TrophyEloK);
+			}
+
+			// Wins
+			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
+			{
+				trophyChange += CalculateEloChange(1, players[i].Data.PlayerTrophies, 
+				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+				                                   gameConfig.TrophyEloK);
+			}
+
+			_trophiesResolver.Value = Math.Max(Data.Trophies + (uint) Math.Round(trophyChange), 0);
+		}
+
+		/// <inheritdoc />
 		public void ChangePlayerSkin(GameId skin)
 		{
 			if (!skin.IsInGroup(GameIdGroup.PlayerSkin))
@@ -213,6 +246,13 @@ namespace FirstLight.Game.Logic
 			}
 
 			_currentSkin.Value = skin;
+		}
+
+		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, int eloK)
+		{
+			var eloBracket = (float) Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (double) eloRange);
+			
+			return eloK * (score - 1f / (1f + eloBracket));
 		}
 	}
 }

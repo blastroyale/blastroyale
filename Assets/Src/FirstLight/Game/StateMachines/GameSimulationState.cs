@@ -23,7 +23,6 @@ namespace FirstLight.Game.StateMachines
 	public class GameSimulationState
 	{
 		private readonly IStatechartEvent _simulationReadyEvent = new StatechartEvent("Simulation Ready Event");
-		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
 		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
 
 		private readonly DeathmatchState _deathmatchState;
@@ -73,14 +72,12 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
 
-			deathmatch.Nest(_deathmatchState.Setup);
-			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
+			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
-			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
@@ -107,7 +104,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 			
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
@@ -126,12 +122,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDeathmatch()
 		{
-			return QuantumRunner.Default.Game.Frames.Verified.RuntimeConfig.GameMode == GameMode.Deathmatch;
-		}
-
-		private void OnGameEnded(EventOnGameEnded callback)
-		{
-			_statechartTrigger(_gameEndedEvent);
+			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
 		}
 
 		private async void OnGameStart(CallbackGameStarted callback)
@@ -342,7 +333,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerName = _gameDataProvider.AppDataProvider.Nickname,
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
-				PlayerTrophies = _gameDataProvider.MatchDataProvider.Trophies.Value,
+				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
 				Loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems()
 			});
@@ -351,7 +342,7 @@ namespace FirstLight.Game.StateMachines
 		private void MatchStartAnalytics()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var config = _services.ConfigsProvider.GetConfig<MapConfig>(room.GetMapId());
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
 			var dictionary = new Dictionary<string, object>
@@ -368,7 +359,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{
-			var config = _services.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
 
 			var analytics = new Dictionary<string, object>
 			{

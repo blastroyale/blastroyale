@@ -63,7 +63,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var frame = game.Frames.Verified;
 
-			AnimatorWrapper.SetBool(Bools.Flying, frame.RuntimeConfig.GameMode == GameMode.BattleRoyale);
+			AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
 			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef)
 				                           ? Triggers.Die
 				                           : Triggers.Spawn);

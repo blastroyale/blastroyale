@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
-			_fragTarget = _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
+			_fragTarget = (int) _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
@@ -57,9 +57,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));;
-
-			var localPlayer = callback.PlayersMatchData.Find(data => data.IsLocalPlayer);
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
+			var localPlayer = callback.PlayersMatchData[callback.Game.GetLocalPlayers()[0]];
+			
 			_currentRankText.text = localPlayer.PlayerRank.ToString();
 			
 			_rankChangeAnimation.Rewind();

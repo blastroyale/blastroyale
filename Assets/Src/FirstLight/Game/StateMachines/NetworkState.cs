@@ -274,7 +274,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
-			var mapConfig = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>()[msg.MapId];
+			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
 			
 			StartRandomMatchmaking(mapConfig);
 		}
@@ -304,7 +304,7 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void StartRandomMatchmaking(MapConfig mapConfig)
+		private void StartRandomMatchmaking(QuantumMapConfig mapConfig)
 		{
 			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, null, GameConstants.Network.DefaultPlayerTtl);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig);
@@ -333,7 +333,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CreateRoom(MapConfig mapConfig, string roomName)
+		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
 		{
 			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, roomName, GameConstants.Network.DefaultPlayerTtl);
 

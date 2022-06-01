@@ -222,6 +222,7 @@
     <Compile Include="Configs\IndicatorVfxId.cs" />
     <Compile Include="Configs\QuantumBaseEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumChestConfigs.cs" />
+    <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />

@@ -34,7 +34,7 @@ namespace FirstLight.Game.Services
 		/// Requests the current <see cref="MapConfig"/> for the map set on the current connected room.
 		/// If the player is not connected to any room then it return NULL without a value
 		/// </summary>
-		MapConfig? CurrentRoomMapConfig { get; }
+		QuantumMapConfig? CurrentRoomMapConfig { get; }
 	}
 
 	/// <inheritdoc />
@@ -73,7 +73,7 @@ namespace FirstLight.Game.Services
 		public QuantumLoadBalancingClient QuantumClient { get; }
 
 		/// <inheritdoc />
-		public MapConfig? CurrentRoomMapConfig
+		public QuantumMapConfig? CurrentRoomMapConfig
 		{
 			get
 			{
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Services
 					return null;
 				}
 
-				return _configsProvider.GetConfig<MapConfig>(QuantumClient.CurrentRoom.GetMapId());
+				return _configsProvider.GetConfig<QuantumMapConfig>(QuantumClient.CurrentRoom.GetMapId());
 			}
 		}
 

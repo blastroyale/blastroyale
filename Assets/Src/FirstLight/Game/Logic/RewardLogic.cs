@@ -66,7 +66,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
+			var mapConfig = GameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
 			var rewards = new Dictionary<GameId, int>();
 			
 			// Currently, there is no plan on giving rewards on anything but BR mode

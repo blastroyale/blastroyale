@@ -45,7 +45,7 @@ namespace FirstLight.Game.Presenters
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GetPlayersMatchData(frame, out _);
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
 
 			_standings.Initialise(playerData.Count, isBattleRoyale, true);
 			_standings.UpdateStandings(playerData);

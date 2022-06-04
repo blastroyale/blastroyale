@@ -42,14 +42,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
 		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
 
-		// Player Information / Trophy Road.
-		[SerializeField] private PlayerProgressBarView _sliderPlayerLevelView;
-		[SerializeField] private Button _trophyRoadButton;
-
 		// Landscape Mode Buttons
 		[SerializeField] private VisualStateButtonView _lootButton;
 		[SerializeField] private VisualStateButtonView _heroesButton;
-		[SerializeField] private VisualStateButtonView _cratesButton;
 		[SerializeField] private VisualStateButtonView _shopButton;
 		[SerializeField] private Button _discordButton;
 

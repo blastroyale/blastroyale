@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_emojiHubButton.onClick.AddListener(OnEmojiHubButtonPressed);
 		}
 
-		private void Start()
+		/*private void Start()
 		{
 			var emojis = GameIdGroup.Emoji.GetIds();
 
@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_emojiButtonViews[i].gameObject.SetActive(false);
 				_emojiButtonViews[i].EmojiButton.onClick.AddListener(PlayDisappearAnimations);
 			}
-		}
+		}*/
 		
 		private void OnEmojiHubButtonPressed()
 		{

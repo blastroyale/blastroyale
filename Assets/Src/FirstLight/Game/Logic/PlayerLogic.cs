@@ -85,7 +85,7 @@ namespace FirstLight.Game.Logic
 		private IObservableField<uint> _level;
 		private IObservableField<uint> _xp;
 		private IObservableField<GameId> _currentSkin;
-		private ObservableResolverField<uint> _trophiesResolver;
+		private IObservableField<uint> _trophiesResolver;
 
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophiesResolver;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
@@ -236,6 +237,8 @@ namespace FirstLight.GoogleSheetImporter
 			{
 				return Activator.CreateInstance(type, key, value);
 			}
+			
+			deserializers ??= Array.Empty<Func<string, Type, object>>();
 
 			foreach (var func in deserializers)
 			{

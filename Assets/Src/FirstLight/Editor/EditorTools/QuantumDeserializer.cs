@@ -54,8 +54,8 @@ namespace FirstLight.Editor.EditorTools
 			}
 			
 			var genericType = type.GetGenericArguments()[0];
-			var value1 = CsvParser.Parse(values[0], genericType, null);
-			var value2 = values.Length == 1 ? value1 : CsvParser.Parse(values[1], genericType, null);
+			var value1 = CsvParser.Parse(values[0], genericType, FpDeserializer);
+			var value2 = values.Length == 1 ? value1 : CsvParser.Parse(values[1], genericType, FpDeserializer);
 			var valuePair = Activator.CreateInstance(gameModePairType.MakeGenericType(genericType));
 			var brField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.BattleRoyale));
 			var dmField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.Deathmatch));

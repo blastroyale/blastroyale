@@ -37,7 +37,7 @@ namespace Quantum.Systems
 
 			spawnTransform.Position = closestPosition;
 
-			var startingEquipment = f.RuntimeConfig.GameMode == GameMode.BattleRoyale
+			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
 				                        ? Array.Empty<Equipment>()
 				                        : playerData.Loadout;
 
@@ -99,7 +99,7 @@ namespace Quantum.Systems
 			}
 
 			// If it's Battle Royale then drop Weapon (if it's not Melee)
-			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale &&
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale &&
 			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
 			{
 				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);

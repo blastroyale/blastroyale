@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This view displays the player sent emoji

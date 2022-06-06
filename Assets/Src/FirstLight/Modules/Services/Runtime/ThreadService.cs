@@ -31,6 +31,7 @@ namespace FirstLight.Services
 		void Cancel(int handle);
 	}
 
+	/// <inheritdoc />
 	public class ThreadService : IThreadService
 	{
 		private const int MaxThreads = 3;
@@ -48,6 +49,7 @@ namespace FirstLight.Services
 			ThreadPool.SetMinThreads(MinThreads, MinThreads);
 		}
 
+		/// <inheritdoc />
 		public int Enqueue<T>(Func<T> threadedCall, Action<T> mainThreadCall = null, Action<Exception> error = null)
 		{
 			lock (_handles)
@@ -94,6 +96,7 @@ namespace FirstLight.Services
 			}
 		}
 
+		/// <inheritdoc />
 		public void Cancel(int handle)
 		{
 			lock (_handles)

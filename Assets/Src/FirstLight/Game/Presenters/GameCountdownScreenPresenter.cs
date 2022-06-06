@@ -28,7 +28,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var mapConfig = QuantumRunner.Default.Game.Frames.Verified.Context.MapConfig;
 
 			_animation.clip = _firstToXKillsCountdownClip;
 			_animation.Play();

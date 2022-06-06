@@ -23,6 +23,6 @@ namespace FirstLight.Game.Messages
 	public struct PlayCreateRoomClickedMessage : IMessage
 	{
 		public string RoomName; 
-		public MapConfig MapConfig;
+		public QuantumMapConfig MapConfig;
 	}
 }

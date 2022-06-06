@@ -38,7 +38,7 @@ namespace Quantum
 		/// <inheritdoc cref="Get(GameMode)"/>
 		public TValue Get(Frame f)
 		{
-			return Get(f.RuntimeConfig.GameMode);
+			return Get(f.Context.MapConfig.GameMode);
 		}
 
 		public override string ToString()

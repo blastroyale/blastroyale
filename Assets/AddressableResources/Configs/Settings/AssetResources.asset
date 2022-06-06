@@ -448,6 +448,11 @@ MonoBehaviour:
         Id:
           Value: 3059267041051081090
       Address: QuantumAssets/Destructibles/Barrel.prefab[BarrelEntityView]
+    - Path: AddressableResources/Configs/MapConfigs
+      AssetRef:
+        Id:
+          Value: 3072854346747122385
+      Address: Configs/MapConfigs.asset
     - Path: AddressableResources/Configs/ShrinkingCircleConfigs
       AssetRef:
         Id:

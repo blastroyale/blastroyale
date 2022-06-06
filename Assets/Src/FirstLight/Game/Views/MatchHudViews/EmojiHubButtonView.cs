@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class handles the Emoji Hub Button. Tapping on it opens up 5 Emoji's the player can select from during
@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_emojiHubButton.onClick.AddListener(OnEmojiHubButtonPressed);
 		}
 
-		private void Start()
+		/*private void Start()
 		{
 			var emojis = GameIdGroup.Emoji.GetIds();
 
@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				_emojiButtonViews[i].gameObject.SetActive(false);
 				_emojiButtonViews[i].EmojiButton.onClick.AddListener(PlayDisappearAnimations);
 			}
-		}
+		}*/
 		
 		private void OnEmojiHubButtonPressed()
 		{

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class handles individual Emoji buttons. Tapping on one creates an Emoji above the player's head, which is broadcast

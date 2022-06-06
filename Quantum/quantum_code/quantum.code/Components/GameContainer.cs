@@ -72,7 +72,7 @@ namespace Quantum
 		{
 			var data = PlayersData;
 			var playersData = new List<QuantumPlayerMatchData>(data.Length);
-			var gameMode = f.RuntimeConfig.GameMode;
+			var gameMode = f.Context.MapConfig.GameMode;
 			IRankSorter sorter;
 
 			if (gameMode == GameMode.Deathmatch)

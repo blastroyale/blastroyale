@@ -86,9 +86,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				var localPlayerData = playerData.Find(data => game.PlayerIsLocal(data.Data.Player));
+				var localPlayerData = playerData[game.GetLocalPlayers()[0]];
+				var placement = ((int)localPlayerData.PlayerRank).GetOrdinalTranslation();
+				
 				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + ((int)localPlayerData.PlayerRank).GetOrdinalTranslation());
+				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + placement);
 			}
 
 			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());

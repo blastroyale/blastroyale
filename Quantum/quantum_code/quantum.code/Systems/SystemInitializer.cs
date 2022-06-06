@@ -10,12 +10,13 @@ namespace Quantum.Systems
 		public override void OnInit(Frame f)
 		{
 			var gameContainer = f.Unsafe.GetOrAddSingletonPointer<GameContainer>();
-			
+
+			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			
-			gameContainer->TargetProgress = (uint) f.RuntimeConfig.GameEndTarget;
+			gameContainer->TargetProgress = f.Context.MapConfig.GameEndTarget;
 
-			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale && !f.RuntimeConfig.IsTestMap)
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && !f.Context.MapConfig.IsTestMap)
 			{
 				f.SystemEnable<ShrinkingCircleSystem>();
 				f.GetOrAddSingleton<ShrinkingCircle>();

@@ -9,6 +9,7 @@ namespace Quantum
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
+		public static readonly int BOT_DIFFICULTY_LEVEL = 1;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";
@@ -20,15 +21,5 @@ namespace Quantum
 		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
-		
-		public static readonly GameIdGroup[] EquipmentSlots = new GameIdGroup[Constants.EQUIPMENT_SLOT_COUNT]
-		{
-			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Boots, GameIdGroup.Helmet, GameIdGroup.Shield,
-			GameIdGroup.Weapon
-		};
-		public static readonly GameIdGroup[] GearSlots = new GameIdGroup[Constants.EQUIPMENT_SLOT_COUNT-1]
-		{
-			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Boots, GameIdGroup.Helmet, GameIdGroup.Shield
-		};
 	}
 }

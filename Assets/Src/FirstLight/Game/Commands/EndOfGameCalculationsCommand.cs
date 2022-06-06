@@ -26,12 +26,11 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			gameLogic.MatchLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
+			gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
 
-			var localPlayerRef = LocalPlayerRef;
-			var player = PlayersMatchData.Find(data => data.Data.Player.Equals(localPlayerRef));
+			var player = PlayersMatchData[LocalPlayerRef];
 			var rewards = gameLogic.RewardLogic.GiveMatchRewards(player, DidPlayerQuit);
 			
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });

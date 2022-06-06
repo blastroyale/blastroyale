@@ -75,9 +75,7 @@ namespace FirstLight.Game.Presenters
 		{
 			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
 			var roomName = Random.Range(100000, 999999).ToString("F0");
-
 			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
-			
 			var message = new PlayCreateRoomClickedMessage
 			{
 				RoomName = roomName,
@@ -92,7 +90,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_mapSelection.options.Clear();
 			
-			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
 
 			foreach (var config in configs.Values)
 			{
@@ -108,8 +106,8 @@ namespace FirstLight.Game.Presenters
 
 		private class DropdownMenuOption : TMP_Dropdown.OptionData
 		{
-			public MapConfig MapConfig { get; set; }
-			public DropdownMenuOption(string text, MapConfig mapConfig) : base(text)
+			public QuantumMapConfig MapConfig { get; set; }
+			public DropdownMenuOption(string text, QuantumMapConfig mapConfig) : base(text)
 			{
 				MapConfig = mapConfig;
 			}

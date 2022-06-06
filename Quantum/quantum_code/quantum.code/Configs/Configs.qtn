@@ -1,4 +1,5 @@
 asset QuantumGameConfigs;
+asset QuantumMapConfigs;
 asset QuantumWeaponConfigs;
 asset QuantumBotConfigs;
 asset QuantumConsumableConfigs;

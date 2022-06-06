@@ -48,15 +48,20 @@ namespace FirstLight.Game.Utils
 
 		public static class Data
 		{
+			public const string GAME_HAS_BOTS = "GameHasBots";
+
+			public const int PLAYER_NAME_MIN_LENGTH = 3;
+			public const int PLAYER_NAME_MAX_LENGTH = 20;
+		}
+
+		public static class Network
+		{
+			public const int DefaultPlayerTtl = 1000;
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_LOADED = "propsLoaded";
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
-			public const string GAME_HAS_BOTS = "GameHasBots";
-
-			public const int PLAYER_NAME_MIN_LENGTH = 3;
-			public const int PLAYER_NAME_MAX_LENGTH = 20;
 		}
 
 		public static class Visuals

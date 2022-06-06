@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	/// <summary>
+	/// This view is responsible for switching the game quality visuals
+	/// </summary>
 	public class DetailLevelToggleView : MonoBehaviour
 	{
 		[SerializeField] private Button _lowSettingsButton;
@@ -20,6 +23,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_highSettingsButton.onClick.AddListener(OnHighClicked);
 		}
 
+		/// <summary>
+		/// Sets the visual button state based on the given <paramref name="detailLevel"/>
+		/// </summary>
+		public void SetSelectedDetailLevel(AppData.DetailLevel detailLevel)
+		{
+			ShowSelectedDetailLevel(detailLevel);
+			ValueChanged?.Invoke(detailLevel);
+		}
+
 		private void OnHighClicked()
 		{
 			SetSelectedDetailLevel(AppData.DetailLevel.High);
@@ -33,12 +45,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnLowClicked()
 		{
 			SetSelectedDetailLevel(AppData.DetailLevel.Low);
-		}
-
-		public void SetSelectedDetailLevel(AppData.DetailLevel detailLevel)
-		{
-			ShowSelectedDetailLevel(detailLevel);
-			ValueChanged?.Invoke(detailLevel);
 		}
 
 		private void ShowSelectedDetailLevel(AppData.DetailLevel detailLevel)

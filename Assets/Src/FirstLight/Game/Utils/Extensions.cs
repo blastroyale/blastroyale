@@ -311,7 +311,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetMapId(this Room room)
 		{
-			return (int) room.CustomProperties[GameConstants.Data.ROOM_PROPS_MAP];
+			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
 		}
 
 		/// <summary>
@@ -322,7 +322,7 @@ namespace FirstLight.Game.Utils
 		{
 			foreach (var playerKvp in room.Players)
 			{
-				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Data.PLAYER_PROPS_LOADED,
+				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADED,
 				                                                  out var propertyValue) ||
 				    !(bool) propertyValue)
 				{

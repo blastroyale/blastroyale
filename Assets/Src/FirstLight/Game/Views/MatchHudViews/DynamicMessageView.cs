@@ -61,7 +61,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = mapConfig.GameEndTarget;
+			_killTarget = (int) mapConfig.GameEndTarget;
 			_killWarningLimit = (_killTarget / 3) * 2;
 			_playerKillStreak = new int[mapConfig.PlayersLimit];
 			_playerDominating = new bool[mapConfig.PlayersLimit];

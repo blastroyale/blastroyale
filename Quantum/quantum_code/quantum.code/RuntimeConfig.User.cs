@@ -7,12 +7,9 @@ namespace Quantum
 	{
 		// Non Serialized Map Data
 		[NonSerialized] public int MapId;
-		[NonSerialized] public int BotDifficultyLevel;
-		[NonSerialized] public int GameEndTarget;
-		[NonSerialized] public GameMode GameMode;
-		[NonSerialized] public bool IsTestMap;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
+		public AssetRefQuantumMapConfigs MapConfigs;
 		public AssetRefQuantumBotConfigs BotConfigs;
 		public AssetRefQuantumWeaponConfigs WeaponConfigs;
 		public AssetRefQuantumConsumableConfigs ConsumableConfigs;
@@ -26,14 +23,9 @@ namespace Quantum
 		
 		partial void SerializeUserData(BitStream stream)
 		{
-			var gameMode = (int) GameMode;
-			
 			stream.Serialize(ref MapId);
-			stream.Serialize(ref gameMode);
-			stream.Serialize(ref BotDifficultyLevel);
-			stream.Serialize(ref GameEndTarget);
-			stream.Serialize(ref IsTestMap);
 			stream.Serialize(ref GameConfigs);
+			stream.Serialize(ref MapConfigs);
 			stream.Serialize(ref BotConfigs);
 			stream.Serialize(ref WeaponConfigs);
 			stream.Serialize(ref ConsumableConfigs);
@@ -44,8 +36,6 @@ namespace Quantum
 			stream.Serialize(ref ShrinkingCircleConfigs);
 			stream.Serialize(ref EquipmentStatsConfigs);
 			stream.Serialize(ref BaseEquipmentStatsConfigs);
-			
-			GameMode = (GameMode) gameMode;
 		}
 	}
 }

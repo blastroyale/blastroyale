@@ -6,7 +6,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View shows any Emoji broadcast from players during the game.

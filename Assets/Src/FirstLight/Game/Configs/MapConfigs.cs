@@ -7,31 +7,18 @@ using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {
-	[Serializable]
-	public struct MapConfig
-	{
-		public int Id;
-		public GameId Map;
-		public GameMode GameMode;
-		public int PlayersLimit;
-		public int GameEndTarget;
-		public bool IsTestMap;
-	}
-
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="MapConfig"/> sheet data
 	/// </summary>
 	[CreateAssetMenu(fileName = "MapConfigs", menuName = "ScriptableObjects/Configs/MapConfigs")]
-	public class MapConfigs : ScriptableObject, IConfigsContainer<MapConfig>
+	public class MapConfigs : QuantumMapConfigsAsset, IConfigsContainer<QuantumMapConfig>
 	{
-		[SerializeField] private List<MapConfig> _configs = new List<MapConfig>();
-
 		// ReSharper disable once ConvertToAutoProperty
 		/// <inheritdoc />
-		public List<MapConfig> Configs
+		public List<QuantumMapConfig> Configs
 		{
-			get => _configs;
-			set => _configs = value;
+			get => Settings.QuantumConfigs;
+			set => Settings.QuantumConfigs = value;
 		}
 	}
 }

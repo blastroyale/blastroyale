@@ -18,7 +18,7 @@
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;UNITY_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -31,8 +31,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>../../../Assets/Libs/Photon/Quantum/Assemblies</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>UNITY_EDITOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -42,6 +41,9 @@
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Sirenix.OdinInspector.Attributes">
+      <HintPath>..\..\..\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -222,6 +224,7 @@
     <Compile Include="Configs\IndicatorVfxId.cs" />
     <Compile Include="Configs\QuantumBaseEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumChestConfigs.cs" />
+    <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumPair.cs" />
     <Compile Include="Configs\QuantumShrinkingCircleConfigs.cs" />

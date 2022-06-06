@@ -196,7 +196,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			if (changedProps.TryGetValue(GameConstants.Data.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
 				var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 

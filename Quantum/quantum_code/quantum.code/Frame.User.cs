@@ -25,6 +25,7 @@ namespace Quantum
 			FindAsset<QuantumGameConfigs>(RuntimeConfig.GameConfigs.Id).QuantumConfig;
 
 		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
+		internal QuantumMapConfigs MapConfigs => FindAsset<QuantumMapConfigs>(RuntimeConfig.MapConfigs.Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
 		internal QuantumBaseEquipmentStatsConfigs BaseEquipmentStatsConfigs =>
 			FindAsset<QuantumBaseEquipmentStatsConfigs>(RuntimeConfig.BaseEquipmentStatsConfigs.Id);

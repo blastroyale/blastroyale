@@ -206,13 +206,12 @@ namespace FirstLight.Game.Logic
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
-			var currentIndex = 1;
-			
-			foreach (var modSumNft in modEquipmentList)
+
+			for (var i = 0; i < modEquipmentList.Count; i++)
 			{
-				var strength = Math.Pow( Math.Max( 0, 1 - Math.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
-				augmentedModSum += modSumNft.Item1 * strength;
-				currentIndex++;
+				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, adjRarityCurveMod) / nftAssumed), minNftOwned);
+				
+				augmentedModSum += modEquipmentList[i].Item1 * strength;
 			}
 
 			poolCapacity += poolCapacity * augmentedModSum;

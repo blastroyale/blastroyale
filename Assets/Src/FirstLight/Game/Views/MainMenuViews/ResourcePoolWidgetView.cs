@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using I2.Loc;
 using Quantum;
 using TMPro;
@@ -24,6 +21,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class ResourcePoolWidgetView : MonoBehaviour
 	{
 		private const float TIMER_INTERVAL_SECONDS = 20f;
+		
 		[SerializeField] private GameId _poolToObserve = GameId.CS;
 		[SerializeField] private Image _resourceImage;
 		[SerializeField] private TextMeshProUGUI _amountText;
@@ -31,33 +29,30 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-		private ResourcePoolConfig _poolConfig;
-		private ResourcePoolData _currentPoolData;
-		private DateTime _nextRestockTime;
-		private uint _currentAmount;
-		private uint _currentCapacity;
-		private uint _restockPerInterval;
 
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			
+			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
+			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
+		}
 
-			_poolConfig = _services.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) _poolToObserve);
+		private void OnDestroy()
+		{
+			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnEnable()
 		{
 			_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
 			TickTimerView(0);
 		}
 
 		private void OnDisable()
 		{
 			_services.TickService?.UnsubscribeAllOnUpdate(this);
-			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnItemEquippedMessage(ItemEquippedMessage msg)
@@ -72,33 +67,32 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void TickTimerView(float delta)
 		{
-			_currentCapacity = _dataProvider.CurrencyDataProvider.GetCurrentPoolCapacity(_poolToObserve);
-			_restockPerInterval = _dataProvider.CurrencyDataProvider.GetPoolRestockAmountPerInterval(_poolToObserve);
-			_currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
-
-			uint restockForTime = CalculatePoolRestockAmount(_poolConfig) + 1;
-
-			_nextRestockTime = _currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * _poolConfig.RestockIntervalMinutes);
-			_currentAmount = Math.Clamp(_currentPoolData.CurrentResourceAmountInPool, 0, _currentCapacity);
-
-			var timeDiff = _nextRestockTime - DateTime.UtcNow;
+			var currentCapacity = _dataProvider.CurrencyDataProvider.GetCurrentPoolCapacity(_poolToObserve);
+			var restockPerInterval = _dataProvider.CurrencyDataProvider.GetPoolRestockAmountPerInterval(_poolToObserve);
+			var poolConfig = _services.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) _poolToObserve);
+			var currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
+			var restockForTime = CalculatePoolRestockAmount(poolConfig, currentPoolData, currentCapacity, restockPerInterval) + 1;
+			var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * poolConfig.RestockIntervalMinutes);
+			var currentAmount = Math.Clamp(currentPoolData.CurrentResourceAmountInPool, 0, currentCapacity);
+			var timeDiff = nextRestockTime - DateTime.UtcNow;
 			var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 
-			if (_currentAmount < _currentCapacity)
+			if (currentAmount < currentCapacity)
 			{
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, _restockPerInterval, timeDiffText);
+				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, restockPerInterval, timeDiffText);
 			}
 			else
 			{
 				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResoucePoolFull);
 			}
 
-			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, _currentAmount.ToString(), _currentCapacity);
+			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, currentAmount.ToString(), currentCapacity);
 		}
 		
-		private uint CalculatePoolRestockAmount(ResourcePoolConfig config)
+		private uint CalculatePoolRestockAmount(ResourcePoolConfig config, ResourcePoolData currentPoolData, 
+		                                        uint currentCapacity, uint restockPerInterval)
 		{
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - _currentPoolData.LastPoolRestockTime).TotalMinutes;
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - currentPoolData.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) 0;
 			
 			amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
@@ -108,11 +102,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return 0;
 			}
 			
-			_currentPoolData.CurrentResourceAmountInPool += _restockPerInterval * amountOfRestocks;
+			currentPoolData.CurrentResourceAmountInPool += restockPerInterval * amountOfRestocks;
 			
-			if (_currentPoolData.CurrentResourceAmountInPool > _currentCapacity)
+			if (currentPoolData.CurrentResourceAmountInPool > currentCapacity)
 			{
-				_currentPoolData.CurrentResourceAmountInPool = _currentCapacity;
+				currentPoolData.CurrentResourceAmountInPool = currentCapacity;
 			}
 
 			return amountOfRestocks;

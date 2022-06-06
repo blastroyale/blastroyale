@@ -79,7 +79,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
 			
 			_animation.clip = _introAnimationClip;
 			_animation.Play();

@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public async void SetupMapView(int mapId)
 		{
-			var config = _services.ConfigsProvider.GetConfig<MapConfig>(mapId);
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 			
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);

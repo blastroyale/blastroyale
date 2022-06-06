@@ -92,42 +92,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.HcBundle1, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.HcBundle2, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.HcBundle3, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.ScBundle1, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.ScBundle2, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.ScBundle3, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -660,36 +624,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.EmojiAngry, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiLove, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiAngel, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiCool, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiSick, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
 					GameId.Barrel, new List<GameIdGroup>
 					{
 						GameIdGroup.Destructible
@@ -737,17 +671,6 @@ namespace Quantum
 					{
 						GameId.XP,
 						GameId.EquipmentXP
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.IAP, new List<GameId>
-					{
-						GameId.HcBundle1,
-						GameId.HcBundle2,
-						GameId.HcBundle3,
-						GameId.ScBundle1,
-						GameId.ScBundle2,
-						GameId.ScBundle3
 					}.AsReadOnly()
 				},
 				{
@@ -965,16 +888,6 @@ namespace Quantum
 						GameId.SpecialShieldedCharge,
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Emoji, new List<GameId>
-					{
-						GameId.EmojiAngry,
-						GameId.EmojiLove,
-						GameId.EmojiAngel,
-						GameId.EmojiCool,
-						GameId.EmojiSick
 					}.AsReadOnly()
 				},
 				{

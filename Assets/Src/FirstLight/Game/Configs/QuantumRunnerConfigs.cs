@@ -39,17 +39,13 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
-		public void SetRuntimeConfig(MapConfig config)
+		public void SetRuntimeConfig(QuantumMapConfig config)
 		{
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
 			
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
-			_runtimeConfig.BotDifficultyLevel = 1;
 			_runtimeConfig.MapId = config.Id;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
-			_runtimeConfig.GameMode = config.GameMode;
-			_runtimeConfig.GameEndTarget = config.GameEndTarget;
-			_runtimeConfig.IsTestMap = config.IsTestMap;
 		}
 
 		/// <inheritdoc cref="QuantumRunner.StartParameters"/>

@@ -40,7 +40,7 @@ namespace Quantum.Systems
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var inc = 0u;
 
-			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
 			{
 				inc = 1;
 			}

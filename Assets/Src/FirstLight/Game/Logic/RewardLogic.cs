@@ -66,7 +66,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
+			var mapConfig = GameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
 			var rewards = new Dictionary<GameId, int>();
 			
 			// Currently, there is no plan on giving rewards on anything but BR mode
@@ -153,13 +153,12 @@ namespace FirstLight.Game.Logic
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
-			var currentIndex = 1;
 			
-			foreach (var modSumNft in modEquipmentList)
+			for (var i = 0; i < modEquipmentList.Count; i++)
 			{
-				var strength = Math.Pow( Math.Max( 0, 1 - Math.Pow( currentIndex - 1, adjRarityCurveMod ) / nftAssumed ), minNftOwned );
-				augmentedModSum += modSumNft.Item1 * strength;
-				currentIndex++;
+				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, adjRarityCurveMod) / nftAssumed), minNftOwned);
+				
+				augmentedModSum += modEquipmentList[i].Item1 * strength;
 			}
 			
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);

@@ -14,14 +14,18 @@ using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	/// <summary>
+	/// This view is responsible to set the visual state of an equipment.
+	/// It considers the state of being in cooldown that cannot be equipped in the game.
+	/// </summary>
 	public class EquipmentCooldownView : MonoBehaviour
 	{
+		private const float TIMER_INTERVAL_SECONDS = 20f;
+		
 		[SerializeField] private GameObject _visualsBase;
 		[SerializeField] private TextMeshProUGUI _cooldownText;
 		[SerializeField] private Button _tooltipButton;
 		[SerializeField] private Transform _tooltipAnchor;
-		
-		private const float TIMER_INTERVAL_SECONDS = 20f;
 		
 		private UniqueId _uniqueId;
 		private IGameServices _services;
@@ -40,16 +44,22 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services.TickService?.UnsubscribeAllOnUpdate(this);
 		}
 
+		/// <summary>
+		/// Set's the visual state of the view to be either <paramref name="active"/> or not
+		/// </summary>
 		public void SetVisualsActive(bool active)
 		{
 			_visualsBase.SetActive(active);
 		}
 
+		/// <summary>
+		/// Marks the view to start the visual cooldown countdown 
+		/// </summary>
 		public void InitCooldown(UniqueId id)
 		{
-			_uniqueId = id;
+			var cooldown = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(_uniqueId);
 			
-			TimeSpan cooldown = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(_uniqueId);
+			_uniqueId = id;
 			
 			if (cooldown.TotalSeconds > 0)
 			{

@@ -23,6 +23,9 @@ MonoBehaviour:
     GameConfigs:
       Id:
         Value: 2168878361177007176
+    MapConfigs:
+      Id:
+        Value: 3072854346747122385
     BotConfigs:
       Id:
         Value: 1550297457877710414

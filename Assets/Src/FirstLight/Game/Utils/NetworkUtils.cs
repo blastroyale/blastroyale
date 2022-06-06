@@ -17,7 +17,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(MapConfig mapConfig, string roomName, int playerTtl)
+		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, string roomName, int playerTtl)
 		{
 			var roomParams = new EnterRoomParams
 			{
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(MapConfig mapConfig)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig)
 		{
 			return new OpJoinRandomRoomParams
 			{
@@ -85,10 +85,10 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns the current map in rotation, used for creating rooms with maps in rotation
 		/// </summary>
-		public static MapConfig GetRotationMapConfig(GameMode gameMode, IGameServices services)
+		public static QuantumMapConfig GetRotationMapConfig(GameMode gameMode, IGameServices services)
 		{
-			var configs = services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-			var compatibleMaps = new List<MapConfig>();
+			var configs = services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
+			var compatibleMaps = new List<QuantumMapConfig>();
 			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
 			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
 
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Utils
 			return compatibleMaps[timeSegmentIndex];
 		}
 		
-		private static Hashtable GetCustomRoomProperties(MapConfig mapConfig)
+		private static Hashtable GetCustomRoomProperties(QuantumMapConfig mapConfig)
 		{
 			var properties = new Hashtable
 			{

@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,14 +18,14 @@ namespace FirstLight.Game.MonoComponent
 	{
 		[FormerlySerializedAs("_animator")] [SerializeField] protected Animator Animator;
 		
-		[SerializeField] private Transform _maskTransform;
+		[SerializeField, Required] private Transform _maskTransform;
 		[SerializeField] private Transform[] _weaponAnchors;
 		[SerializeField] private Transform[] _helmetAnchors;
 		[SerializeField] private Transform[] _bootsAnchors;
 		[SerializeField] private Transform[] _shieldAnchors;
 		[SerializeField] private Transform[] _amuletAnchors;
 		[SerializeField] private Transform[] _armorAnchors;
-		[SerializeField] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
+		[SerializeField, Required] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
 		
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
 		private IGameServices _services;

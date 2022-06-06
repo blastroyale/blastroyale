@@ -16,9 +16,10 @@ namespace Quantum
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingDamageCooldown;
 		public uint ShrinkingDamage;
-		public int PlayerDefaultHealth;
-		public FP PlayerDefaultSpeed;
-		public int PlayerDefaultInterimArmour;
+		public QuantumGameModePair<int> PlayerDefaultHealth;
+		public QuantumGameModePair<FP> PlayerDefaultSpeed;
+		public QuantumGameModePair<int> PlayerMaxShieldCapacity;
+		public QuantumGameModePair<int> PlayerStartingShieldCapacity;
 		public int CoinsPerRank;
 		public int XpPerRank;
 		public FP DeathSignificance;
@@ -32,27 +33,33 @@ namespace Quantum
 		public FP MinuteCostInHardCurrency;
 		public uint MaxPlayerRanks;
 		public FP RageStatusDamageMultiplier;
-		public uint FusionBaseWeightPerType;
-		public uint FusionWeightIncreasePerItem;
-		public uint FusionWeightIncreasePerLevel;
 		public int StatsPowerBaseValue;
 		public FP StatsPowerRarityMultiplier;
 		public FP StatsPowerLevelStepMultiplier;
+		public FP StatsPowerGradeStepMultiplier;
 		public int StatsHpBaseValue;
 		public FP StatsHpRarityMultiplier;
 		public FP StatsHpLevelStepMultiplier;
+		public FP StatsHpGradeStepMultiplier;
 		public FP StatsSpeedBaseValue;
 		public FP StatsSpeedRarityMultiplier;
 		public FP StatsSpeedLevelStepMultiplier;
+		public FP StatsSpeedGradeStepMultiplier;
 		public int StatsArmorBaseValue;
 		public FP StatsArmorRarityMultiplier;
 		public FP StatsArmorLevelStepMultiplier;
+		public FP StatsArmorGradeStepMultiplier;
 		public FP DeathDropHealthChance;
-		public FP DeathDropInterimArmourLargeChance;
-		public FP DeathDropInterimArmourSmallChance;
-		public FP DeathDropWeaponChance;
+		public FP DeathDropLargeShieldChance;
+		public FP DeathDropSmallShieldChance;
 		public int TrophyEloRange;
 		public int TrophyEloK;
+		public int MinOffhandWeaponPoolSize;
+		public uint NftAssumedOwned;
+		public uint MinNftForEarnings;
+		public FP AdjectiveRarityEarningsMod;
+		public uint LoadoutSlots;
+		public uint NftUsageCooldownMinutes;
 	}
 
 	/// <summary>

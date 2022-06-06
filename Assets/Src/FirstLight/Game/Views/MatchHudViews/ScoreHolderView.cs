@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// Handles logic for the Score Holder view in Deathmatch mode. IE: How many kills you have versus how many the leading player has 
 	/// </summary>
 	public class ScoreHolderView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _currentRankText;
-		[SerializeField] private TextMeshProUGUI _currentFragsText;
-		[SerializeField] private TextMeshProUGUI _targetFragsText;
-		[SerializeField] private Slider _progressSlider;
-		[SerializeField] private Animation _rankChangeAnimation;
+		[SerializeField, Required] private TextMeshProUGUI _currentRankText;
+		[SerializeField, Required] private TextMeshProUGUI _currentFragsText;
+		[SerializeField, Required] private TextMeshProUGUI _targetFragsText;
+		[SerializeField, Required] private Slider _progressSlider;
+		[SerializeField, Required] private Animation _rankChangeAnimation;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -37,7 +33,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
-			_fragTarget = _gameDataProvider.AppDataProvider.CurrentMapConfig.GameEndTarget;
+			_fragTarget = _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
@@ -61,15 +57,15 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var localPlayer = callback.Game.GetLocalPlayers()[0];
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));;
 
-			_currentRankText.text = callback.PlayersMatchData[localPlayer].PlayerRank.ToString();
+			var localPlayer = callback.PlayersMatchData.Find(data => data.IsLocalPlayer);
+			_currentRankText.text = localPlayer.PlayerRank.ToString();
 			
 			_rankChangeAnimation.Rewind();
 			_rankChangeAnimation.Play();
 			
-			if (localPlayer != callback.PlayerKiller)
+			if (localPlayer.Data.Player != callback.PlayerKiller)
 			{
 				return;
 			}

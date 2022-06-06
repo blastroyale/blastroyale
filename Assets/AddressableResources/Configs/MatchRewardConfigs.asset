@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8fb8260b0354963a13f3f2faa470dd, type: 3}
+  m_Name: MatchRewardConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Placement: 1
+    Rewards:
+    - Key: 12
+      Value: 100
+  - Placement: 2
+    Rewards:
+    - Key: 12
+      Value: 85
+  - Placement: 3
+    Rewards:
+    - Key: 12
+      Value: 70
+  - Placement: 4
+    Rewards:
+    - Key: 12
+      Value: 60
+  - Placement: 5
+    Rewards:
+    - Key: 12
+      Value: 52
+  - Placement: 6
+    Rewards:
+    - Key: 12
+      Value: 48
+  - Placement: 7
+    Rewards:
+    - Key: 12
+      Value: 44
+  - Placement: 8
+    Rewards:
+    - Key: 12
+      Value: 40
+  - Placement: 9
+    Rewards:
+    - Key: 12
+      Value: 36
+  - Placement: 10
+    Rewards:
+    - Key: 12
+      Value: 32
+  - Placement: 11
+    Rewards:
+    - Key: 12
+      Value: 28
+  - Placement: 12
+    Rewards:
+    - Key: 12
+      Value: 24
+  - Placement: 13
+    Rewards:
+    - Key: 12
+      Value: 21
+  - Placement: 14
+    Rewards:
+    - Key: 12
+      Value: 18
+  - Placement: 15
+    Rewards:
+    - Key: 12
+      Value: 15
+  - Placement: 16
+    Rewards:
+    - Key: 12
+      Value: 12
+  - Placement: 17
+    Rewards:
+    - Key: 12
+      Value: 9
+  - Placement: 18
+    Rewards:
+    - Key: 12
+      Value: 6
+  - Placement: 19
+    Rewards:
+    - Key: 12
+      Value: 4
+  - Placement: 20
+    Rewards:
+    - Key: 12
+      Value: 2
+  - Placement: 21
+    Rewards:
+    - Key: 12
+      Value: 0

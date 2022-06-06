@@ -9,24 +9,31 @@ namespace Quantum
 	{
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef;
-		public FP InitialAmmoFilled;
-		public int MaxAmmo;
-		public FP PowerRatioToBase;
+		public QuantumGameModePair<FP> InitialAmmoFilled;
+		public QuantumGameModePair<int> MaxAmmo;
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
 		public FP AttackHitSpeed;
-		public uint AttackAngle;
+		public uint MinAttackAngle;
+		public uint MaxAttackAngle;
+		public uint NumberOfShots;
 		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;
+		public FP SplashDamageRatio;
 		public List<GameId> Specials;
+		
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon
+		/// <remarks>
+		/// We check this against the BattleRoyale value, but it's always
+		/// the same for both BR and DM.
+		/// </remarks>
 		/// </summary>
-		public bool IsMeleeWeapon => MaxAmmo < 0;
+		public bool IsMeleeWeapon => MaxAmmo.BattleRoyale < 0;
 	}
 
 	/// <summary>

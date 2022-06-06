@@ -169,14 +169,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -200,8 +201,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -238,14 +237,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -269,8 +269,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -307,14 +305,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -338,8 +337,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -376,14 +373,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -407,8 +405,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -445,14 +441,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -476,8 +473,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -514,14 +509,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -545,8 +541,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -583,14 +577,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -614,8 +609,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -652,14 +645,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -683,8 +677,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -721,14 +713,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -752,8 +745,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -790,14 +781,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -821,8 +813,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -859,14 +849,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -890,8 +881,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -928,14 +917,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -959,8 +949,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -978,11 +966,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -883425
+          RawValue: -441057
         Y:
-          RawValue: 331312
+          RawValue: 70123
         Z:
-          RawValue: 956170
+          RawValue: 22282
       Rotation:
         X:
           RawValue: 0
@@ -997,14 +985,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1028,8 +1017,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1066,14 +1053,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1097,8 +1085,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1135,14 +1121,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1166,8 +1153,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1204,14 +1189,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1235,8 +1221,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1273,14 +1257,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1304,8 +1289,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1342,14 +1325,15 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1373,8 +1357,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1411,6 +1393,279 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -969932
+        Y:
+          RawValue: 331312
+        Z:
+          RawValue: 759562
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 201195
+        Y:
+          RawValue: 135695
+        Z:
+          RawValue: 1395261
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -110100
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -235274
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 148766
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 225443
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1422,13 +1677,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 60
       GameId:
         Value: 64
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1450,8 +1705,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1488,6 +1741,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1498,14 +1752,14 @@ MonoBehaviour:
       RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 15
       GameId:
-        Value: 126
+        Value: 20
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1527,8 +1781,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1565,6 +1817,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1572,17 +1825,17 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 25
-      InitialSpawnDelayInSec: 25
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 15
       GameId:
-        Value: 129
+        Value: 20
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1604,8 +1857,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1623,11 +1874,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1464729
+          RawValue: -48496
         Y:
-          RawValue: 334589
+          RawValue: 84897
         Z:
-          RawValue: -63569
+          RawValue: 1500119
       Rotation:
         X:
           RawValue: 0
@@ -1642,6 +1893,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1650,16 +1902,16 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 15
-      InitialSpawnDelayInSec: 0
+      InitialSpawnDelayInSec: 15
       GameId:
-        Value: 4
+        Value: 21
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1681,8 +1933,158 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1064304
+        Y:
+          RawValue: 363425
+        Z:
+          RawValue: 598999
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 15
+      GameId:
+        Value: 20
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1441136
+        Y:
+          RawValue: 84897
+        Z:
+          RawValue: 1156055
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 4
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1719,6 +2121,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1730,13 +2133,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1758,8 +2161,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1796,6 +2197,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1807,13 +2209,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1835,8 +2237,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1873,6 +2273,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1884,13 +2285,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1912,8 +2313,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1950,6 +2349,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -1961,13 +2361,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -1989,8 +2389,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2027,6 +2425,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2038,13 +2437,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2066,8 +2465,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2104,6 +2501,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2115,13 +2513,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2143,8 +2541,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2181,6 +2577,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2192,13 +2589,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2220,8 +2617,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2258,6 +2653,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2269,13 +2665,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2297,8 +2693,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2335,6 +2729,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2346,13 +2741,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2374,8 +2769,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2412,6 +2805,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2423,13 +2817,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2451,8 +2845,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2489,6 +2881,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2500,13 +2893,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2528,8 +2921,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2566,6 +2957,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2577,13 +2969,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2605,8 +2997,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2643,6 +3033,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2654,13 +3045,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2682,8 +3073,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2720,6 +3109,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2731,13 +3121,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2759,8 +3149,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2797,6 +3185,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2808,13 +3197,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2836,8 +3225,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2874,6 +3261,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2885,13 +3273,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2913,8 +3301,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2951,6 +3337,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2962,13 +3349,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -2990,8 +3377,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3028,6 +3413,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3039,13 +3425,13 @@ MonoBehaviour:
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 4
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3067,8 +3453,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3105,6 +3489,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3112,16 +3497,17 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
-      InitialSpawnDelayInSec: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 15
       GameId:
-        Value: 30
+        Value: 20
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3143,9 +3529,82 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1572208
+        Y:
+          RawValue: 84897
+        Z:
+          RawValue: -597033
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 93
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3182,6 +3641,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3192,13 +3652,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 36
+        Value: 87
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3220,9 +3681,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3259,6 +3717,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3269,13 +3728,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 33
+        Value: 86
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3297,9 +3757,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3336,6 +3793,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3346,13 +3804,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 35
+        Value: 79
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3374,9 +3833,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3413,6 +3869,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3423,13 +3880,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 37
+        Value: 91
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3451,9 +3909,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3490,6 +3945,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3500,13 +3956,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 35
+        Value: 98
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3528,9 +3985,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3567,6 +4021,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3577,13 +4032,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 30
+        Value: 93
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3605,9 +4061,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3644,6 +4097,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3654,13 +4108,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 32
+        Value: 92
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3682,9 +4137,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3721,6 +4173,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3731,13 +4184,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 32
+        Value: 79
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3759,9 +4213,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3798,6 +4249,7 @@ MonoBehaviour:
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3808,13 +4260,14 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 34
+        Value: 71
+      RarityModifier: 0
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
     GOAPData: []
     GameContainer: []
@@ -3836,9 +4289,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner:
-    - _empty_prototype_dummy_field_: 0
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3861,6 +4311,234 @@ MonoBehaviour:
           RawValue: -67847
         Z:
           RawValue: -1294991
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 92
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -222822
+        Y:
+          RawValue: 67847
+        Z:
+          RawValue: 402391
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 79
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 36041
+        Y:
+          RawValue: 2977
+        Z:
+          RawValue: -11677
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 87
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1462515
+        Y:
+          RawValue: 334589
+        Z:
+          RawValue: -61168
       Rotation:
         X:
           RawValue: 0

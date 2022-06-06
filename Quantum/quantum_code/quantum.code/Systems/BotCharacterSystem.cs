@@ -27,7 +27,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var playerLimit = f.RuntimeConfig.PlayersLimit;
+			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
 
 			for (var i = 0; i < playerLimit; i++)
@@ -57,15 +57,33 @@ namespace Quantum.Systems
 				{
 					return;
 				}
-				
+
 				var agent = f.Unsafe.GetPointer<HFSMAgent>(filter.Entity);
 				HFSMManager.TriggerEvent(f, &agent->Data, filter.Entity, Constants.RespawnEvent);
 			}
 
 			// If a bot is not alive OR a bot is stunned 
 			// then we don't go further with the behaviour
-			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity))
+			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) ||
+			    // Hack to prevent the bots to act while player's camera animation is still playing
+			    f.Time < f.GameConfig.PlayerRespawnTime)
 			{
+				return;
+			}
+
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			
+			// If bot is not grounded the we explicitly call Move to apply gravity
+			// It's because even with Zero velocity any movement of CharacterController,
+			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
+			if (!kcc->Grounded)
+			{
+				kcc->Move(f, filter.Entity, FPVector3.Zero);
+				
+				// TODO Nik: Make a specific branching decision in case we skydive in Battle Royale
+				// instead of just Move to zero direction we need to choose a target to move to, based on bot BotBehaviourType,
+				// then store this target in blackboard (to not search again) and keep moving towards it
+				
 				return;
 			}
 
@@ -74,9 +92,8 @@ namespace Quantum.Systems
 			// otherwise we return speed to normal and let automatic navigation turn the bot
 			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
-
+			
 			if (QuantumHelpers.IsDestroyed(f, target))
 			{
 				ClearTarget(f, ref filter);
@@ -139,7 +156,7 @@ namespace Quantum.Systems
 				case BotBehaviourType.Cautious:
 					var cautious = TryAvoidShrinkingCircle(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
-					               || TryGoForInterimArmour(f, ref filter)
+					               || TryGoForShield(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForCrates(f, ref filter)
@@ -154,7 +171,7 @@ namespace Quantum.Systems
 					                 || TryGoForEnemies(f, ref filter, weaponConfig)
 					                 || TryGoForCrates(f, ref filter)
 					                 || TryGoForAmmo(f, ref filter)
-					                 || TryGoForInterimArmour(f, ref filter)
+					                 || TryGoForShield(f, ref filter)
 					                 || TryGoForHealth(f, ref filter)
 					                 || Wander(f, ref filter);
 					break;
@@ -164,7 +181,7 @@ namespace Quantum.Systems
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
 					               || TryGoForCrates(f, ref filter)
-					               || TryGoForInterimArmour(f, ref filter)
+					               || TryGoForShield(f, ref filter)
 					               || TryGoForEnemies(f, ref filter, weaponConfig)
 					               || TryGoForRage(f, ref filter)
 					               || Wander(f, ref filter);
@@ -180,7 +197,7 @@ namespace Quantum.Systems
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel)
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.RuntimeConfig.GameMode)
 				{
 					list.Add(botConfig);
 				}
@@ -235,7 +252,7 @@ namespace Quantum.Systems
 
 				var hit = f.Physics3D.Linecast(botPosition,
 				                               targetPosition,
-				                               f.TargetAllLayerMask,
+				                               f.Context.TargetAllLayerMask,
 				                               QueryOptions.HitDynamics | QueryOptions.HitStatics |
 				                               QueryOptions.HitKinematics);
 
@@ -315,16 +332,16 @@ namespace Quantum.Systems
 			return isGoing;
 		}
 
-		private bool TryGoForInterimArmour(Frame f, ref BotCharacterFilter filter)
+		private bool TryGoForShield(Frame f, ref BotCharacterFilter filter)
 		{
 			var armourConsumablePosition = FPVector3.Zero;
 			var stats = f.Get<Stats>(filter.Entity);
-			var maxArmour = stats.Values[(int) StatType.InterimArmour].StatValue;
-			var ratioArmour = stats.CurrentInterimArmour / maxArmour;
+			var maxArmour = stats.Values[(int) StatType.Shield].StatValue;
+			var ratioArmour = stats.CurrentShield / maxArmour;
 			var lowArmourSensitivity = filter.BotCharacter->LowArmourSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioArmour) * lowArmourSensitivity);
 
-			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.InterimArmour,
+			isGoing = isGoing && TryGetClosestConsumable(f, ref filter, ConsumableType.Shield,
 			                                             out armourConsumablePosition);
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, armourConsumablePosition);
 
@@ -370,10 +387,10 @@ namespace Quantum.Systems
 
 		private bool TryGoForCrates(Frame f, ref BotCharacterFilter filter)
 		{
-			var isGoing = TryGetClosestConsumable(f, ref filter, ConsumableType.Stash, out var cratePosition);
-
-			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, cratePosition);
-
+			var isGoing = TryGetClosestChest(f, ref filter, out var chestPosition);
+			
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, chestPosition);
+			
 			return isGoing;
 		}
 
@@ -496,7 +513,7 @@ namespace Quantum.Systems
 		private bool TryGetClosestWeapon(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<WeaponCollectable>();
+			var iterator = f.GetComponentIterator<EquipmentCollectable>();
 			var sqrDistance = FP.MaxValue;
 			var totalAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity, out var maxAmmo);
 			weaponPickupPosition = FPVector3.Zero;
@@ -524,6 +541,14 @@ namespace Quantum.Systems
 			return weaponPickupPosition != FPVector3.Zero;
 		}
 
+		private bool TryGetClosestChest(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition)
+		{
+			// TODO mihak: Implement this
+			
+			weaponPickupPosition = FPVector3.Zero;
+			return false;
+		}
+
 		private bool IsInVisionRange(FP distanceSqr, ref BotCharacterFilter filter)
 		{
 			var visionRangeSqr = filter.BotCharacter->VisionRangeSqr;
@@ -540,13 +565,6 @@ namespace Quantum.Systems
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds()
 			                             .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
 
-			var equipmentOptions = new Dictionary<GameIdGroup, GameId[]>(Constants.GearSlots.Length);
-			foreach (var group in Constants.GearSlots)
-			{
-				equipmentOptions[group] = group.GetIds()
-				                               .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
-			}
-
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
 				botNamesIndices.Add(i + 1);
@@ -556,10 +574,8 @@ namespace Quantum.Systems
 			{
 				var rngSpawnIndex = f.RNG->Next(0, playerSpawners.Count);
 				var spawnerTransform = f.Get<Transform3D>(playerSpawners[rngSpawnIndex].Entity);
-				var weaponConfig = f.WeaponConfigs.GetConfig(GameId.Hammer);
 				var botEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
-				var gear = new Equipment[Constants.EQUIPMENT_SLOT_COUNT];
 				var navMeshAgent = new NavMeshSteeringAgent();
 				var pathfinder = NavMeshPathfinder.Create(f, botEntity,
 				                                          f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs
@@ -567,17 +583,11 @@ namespace Quantum.Systems
 				var rngBotConfigIndex = f.RNG->Next(0, botConfigsList.Count);
 				var botConfig = botConfigsList[rngBotConfigIndex];
 				var listNamesIndex = f.RNG->Next(0, botNamesIndices.Count);
-				var gearSlots = Constants.GearSlots.ToList();
-				var gearPieces = botConfig.Difficulty < Constants.EQUIPMENT_SLOT_COUNT - 1
-					                 ? botConfig.Difficulty
-					                 : Constants.EQUIPMENT_SLOT_COUNT - 1;
 
 				var botCharacter = new BotCharacter
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					Weapon = new Equipment(weaponConfig.Id, ItemRarity.Common, ItemAdjective.Cool, ItemMaterial.Bronze,
-					                       ItemManufacturer.Military, ItemFaction.Order, 1, 5),
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
@@ -602,24 +612,6 @@ namespace Quantum.Systems
 
 				botNamesIndices.RemoveAt(listNamesIndex);
 
-				for (var j = 0; j < gearPieces; j++)
-				{
-					var slotIndex = f.RNG->Next(0, gearSlots.Count);
-					var slot = gearSlots[slotIndex];
-					var slotItems = equipmentOptions[slot];
-					var rngGearIndex = f.RNG->Next(-1, slotItems.Length);
-					var gearConfig = f.GearConfigs.GetConfig(slotItems[rngGearIndex < 0 ? 0 : rngGearIndex]);
-					var equipment = new Equipment(gearConfig.Id, gearConfig.StartingRarity, ItemAdjective.Cool,
-					                              ItemMaterial.Bronze, ItemManufacturer.Military, ItemFaction.Order,
-					                              rngGearIndex < 0 ? 0u : 1u, 5);
-
-					gear[j] = equipment;
-					botCharacter.Gear[j] = equipment;
-					gearSlots.RemoveAt(slotIndex);
-				}
-
-				playerSpawners[rngSpawnIndex].Component->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
-
 				if (playerSpawners.Count > 1)
 				{
 					playerSpawners.RemoveAt(rngSpawnIndex);
@@ -634,8 +626,7 @@ namespace Quantum.Systems
 				var playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
-				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
-				                      botCharacter.Weapon, gear);
+				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>(), Equipment.None);
 			}
 		}
 

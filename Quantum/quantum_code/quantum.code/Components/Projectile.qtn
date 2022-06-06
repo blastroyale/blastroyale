@@ -10,6 +10,7 @@ component Projectile
 	FP Speed;
 	FP Range;
 	FP SplashRadius;
+	FP SplashDamageRatio;
 	FP StunDuration;
 }
 

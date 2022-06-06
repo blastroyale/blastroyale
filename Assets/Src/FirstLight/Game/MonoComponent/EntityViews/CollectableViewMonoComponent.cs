@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
-using FirstLight.Game.Presenters;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
@@ -16,12 +12,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class CollectableViewMonoComponent : EntityMainViewBase
 	{
-		[SerializeField] private Transform _collectableIndicatorAnchor;
+		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
 		[SerializeField] private AudioId _collectSfxId;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _spawnClip;
-		[SerializeField] private AnimationClip _idleClip;
-		[SerializeField] private AnimationClip _collectClip;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _spawnClip;
+		[SerializeField, Required] private AnimationClip _idleClip;
+		[SerializeField, Required] private AnimationClip _collectClip;
 
 		private void OnValidate()
 		{
@@ -61,11 +57,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			
 			var entityView = EntityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var vfx = Services.VfxService.Spawn(VfxId.CollectableIndicator) as CollectableIndicatorVfxMonoComponent;
 			var collectablePosition = _collectableIndicatorAnchor.position;
-			var position = new Vector3(collectablePosition.x,entityView.transform.position.y + GameConstants.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
+			var position = new Vector3(collectablePosition.x,entityView.transform.position.y + GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
 			var frame = callback.Game.Frames.Verified;
 			var totalTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat - frame.Time.AsFloat;
 			

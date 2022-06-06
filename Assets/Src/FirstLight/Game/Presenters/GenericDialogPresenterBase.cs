@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Services;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,11 +13,11 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public abstract class GenericDialogPresenterBase : AnimatedUiPresenter
 	{
-		[SerializeField] protected TextMeshProUGUI TitleText;
-		[SerializeField] protected TextMeshProUGUI ConfirmButtonText;
-		[SerializeField] protected Button CloseButton;
-		[SerializeField] protected Button ConfirmButton;
-		[SerializeField] protected Button BlockerButton;
+		[SerializeField, Required] protected TextMeshProUGUI TitleText;
+		[SerializeField, Required] protected TextMeshProUGUI ConfirmButtonText;
+		[SerializeField, Required] protected Button CloseButton;
+		[SerializeField, Required] protected Button ConfirmButton;
+		[SerializeField, Required] protected Button BlockerButton;
 
 		private Action _closeCallback;
 
@@ -58,6 +59,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			CloseButton.gameObject.SetActive(showCloseButton);
+			BlockerButton.enabled = showCloseButton;
 		}
 
 		protected override void OnClosedCompleted()

@@ -1,14 +1,7 @@
-using DG.Tweening;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -17,10 +10,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class PossibleRarityCardView : MonoBehaviour
 	{
-		public ItemRarity Rarity;
+		public EquipmentRarity Rarity;
 		
-		[SerializeField] private TextMeshProUGUI _possibleItemsText;
-		[SerializeField] private GameObject _holder;
+		[SerializeField, Required] private TextMeshProUGUI _possibleItemsText;
+		[SerializeField, Required] private GameObject _holder;
 
 		/// <summary>
 		/// Sets the rarity card information to be shown to the player

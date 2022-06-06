@@ -1,15 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Coffee.UIEffects;
-using DG.Tweening;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,19 +24,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class PlayerProgressBarView : MonoBehaviour
 	{
-		[SerializeField] private Image _iconImage;
-		[SerializeField] private TextMeshProUGUI _levelText;
-		[SerializeField] private VisualStateButtonView _stateButtonView;
-		[SerializeField] private Transform _xpAnimationTarget;
-		[SerializeField] private Slider _xpSlider;
-		[SerializeField] private Image _xpSliderFillImage; 
-		[SerializeField] private UIShiny _shiny;
+		[SerializeField, Required] private Image _iconImage;
+		[SerializeField, Required] private TextMeshProUGUI _levelText;
+		[SerializeField, Required] private VisualStateButtonView _stateButtonView;
+		[SerializeField, Required] private Transform _xpAnimationTarget;
+		[SerializeField, Required] private Slider _xpSlider;
+		[SerializeField, Required] private Image _xpSliderFillImage; 
+		[SerializeField, Required] private UIShiny _shiny;
 		[SerializeField] private float _sliderAnimationTime = 1.5f;
-		[SerializeField] private Image _currentRewardImage;
-		[SerializeField] private Animation _claimRewardAnimation;
-		[SerializeField] private AnimationClip _claimAppearClip;
-		[SerializeField] private AnimationClip _claimRewardLoopClip;
-		[SerializeField] private GameObject _claimRewardObject;
+		[SerializeField, Required] private Image _currentRewardImage;
+		[SerializeField, Required] private Animation _claimRewardAnimation;
+		[SerializeField, Required] private AnimationClip _claimAppearClip;
+		[SerializeField, Required] private AnimationClip _claimRewardLoopClip;
+		[SerializeField, Required] private GameObject _claimRewardObject;
 		
 		/// <summary>
 		/// Triggered when the Xp slider animation is completed when the player levels up
@@ -65,7 +64,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_dataProvider.PlayerDataProvider.Level.Observe(OnLevelUpUpdated);
 			_dataProvider.PlayerDataProvider.Xp.Observe(OnXpUpdated);
-			_services.MessageBrokerService.Subscribe<PlayUiVfxCommandMessage>(OnPlayUiVfxCommandMessage);
+			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxCommandMessage);
 		}
 
 		private void OnDestroy()
@@ -87,27 +86,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			Level = _dataProvider?.PlayerDataProvider?.Level?.Value ?? 1;
 		}
 
-		/// <summary>
-		/// Updates the bar and level view of the player's trophy road progression
-		/// </summary>
-		public async void UpdateProgressView()
-		{
-			_claimRewardObject.SetActive(false);
-			
-			var unclaimedRewards = GetUnclaimedReward(Level - 1);
-			var rewardId = unclaimedRewards?.RewardId ?? _dataProvider.TrophyRoadDataProvider.CurrentLevelInfo.Reward.RewardId;
-			var level = _levelChange?.Key ?? _dataProvider.PlayerDataProvider.Level.Value;
-			var info = _dataProvider.PlayerDataProvider.GetInfo(level);
-			var xp = _xpChange?.Key ?? info.Xp;
-			
-			_xpSlider.value = unclaimedRewards.HasValue ? 1f : (float) xp / info.Config.LevelUpXP;
-			_currentRewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(GetRewardSpriteId(rewardId));
-			
-			UpdateVisualState(unclaimedRewards.HasValue);
-			SetLevel(Level);
-		}
-
-		private async void OnPlayUiVfxCommandMessage(PlayUiVfxCommandMessage message)
+		private async void OnPlayUiVfxCommandMessage(PlayUiVfxMessage message)
 		{
 			if (message.Id != GameId.XP)
 			{
@@ -144,18 +123,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				return;
 			}
-			
-			var unclaimedRewards = GetUnclaimedReward(Level - 1);
-			
-			if (unclaimedRewards.HasValue)
-			{
-				if (_levelChange.HasValue)
-				{
-					OnLevelUpXpSliderCompleted.Invoke(_levelChange.Value.Key, _levelChange.Value.Value);
-				}
-				return;
-			}
-			
+
 			var info = _dataProvider.PlayerDataProvider.CurrentLevelInfo;
 			var targetValue = _levelChange.HasValue ? 1f : (float) info.Xp / info.Config.LevelUpXP;
 			
@@ -193,38 +161,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var newLevel = _levelChange.Value.Value;
 			
 			SetLevel(newLevel);
-			UpdateVisualState(GetUnclaimedReward(newLevel).HasValue);
 			OnLevelUpXpSliderCompleted.Invoke(previousLevel, newLevel);
 		}
-		
-		private RewardData? GetUnclaimedReward(uint level)
-		{
-			var infos = _dataProvider.TrophyRoadDataProvider.GetAllInfos(level);
 
-			foreach (var trophyRoadRewardInfo in infos)
-			{
-				if (trophyRoadRewardInfo.IsReadyToCollect)
-				{
-					return trophyRoadRewardInfo.Reward;
-				}
-			}
-
-			return null;
-		}
-		
 		private GameId GetRewardSpriteId(GameId rewardId)
 		{
-			if (rewardId == GameId.SC)
-			{
-				return GameId.ScBundle1;
-			}
-			
-			if (rewardId == GameId.HC)
-			{
-				return GameId.HcBundle1;
-			}
-
-			return rewardId;
+			return GameId.ScBundle1;
 		}
 
 		private void UpdateVisualState(bool hasUnclaimedRewards)

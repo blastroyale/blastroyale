@@ -8,6 +8,7 @@ using FirstLight.UiService;
 using MoreMountains.NiceVibrations;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,8 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
-		[SerializeField] private SpecialButtonView _specialButton0;
-		[SerializeField] private SpecialButtonView _specialButton1;
+		[SerializeField, Required] private SpecialButtonView _specialButton0;
+		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
 
 		private IGameServices _services;
@@ -147,9 +148,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerDamaged(EventOnLocalPlayerDamaged callback)
 		{
-			if (callback.InterimArmourDamage > 0)
+			if (callback.ShieldDamage > 0)
 			{
-				PlayHapticFeedbackForDamage(callback.InterimArmourDamage, callback.MaxInterimArmour);
+				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.ShieldCapacity);
 			}
 			else if (callback.HealthDamage > 0)
 			{
@@ -161,14 +162,14 @@ namespace FirstLight.Game.Presenters
 		{
 			var damagePercentOfStat = damage / maximumOfRelevantStat;
 
-			var intensity = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_INTENSITY_MIN,
-			                           GameConstants.HAPTIC_DAMAGE_INTENSITY_MAX, damagePercentOfStat);
+			var intensity = Mathf.Lerp(GameConstants.Haptics.DAMAGE_INTENSITY_MIN,
+			                           GameConstants.Haptics.DAMAGE_INTENSITY_MAX, damagePercentOfStat);
 
 			// Sharpness is only used in iOS vibrations
-			var sharpness = Mathf.Lerp(GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MIN,
-			                           GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
+			var sharpness = Mathf.Lerp(GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MIN,
+			                           GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
 
-			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);
+			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)

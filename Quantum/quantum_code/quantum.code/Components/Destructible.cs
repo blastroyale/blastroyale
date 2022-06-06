@@ -27,7 +27,7 @@ namespace Quantum
 			GameId = destructibleConfig.Id;
 			
 			f.Add(e, targetable);
-			f.Add(e, new Stats(baseHealth, power, 0, 0, 0));
+			f.Add(e, new Stats(baseHealth, power, 0, 0, 0, 0));
 		}
 	}
 }

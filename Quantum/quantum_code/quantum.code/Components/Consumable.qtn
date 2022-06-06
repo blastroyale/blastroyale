@@ -10,8 +10,8 @@ enum ConsumableType
 	Health,
 	Rage,
 	Ammo,
-	InterimArmour,
-	Stash,
+	Shield,
+	ShieldCapacity,
 }
 
 synced event OnConsumablePicked

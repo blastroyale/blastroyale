@@ -1,24 +1,25 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
-using Quantum;
+using PlayFab;
+using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -28,42 +29,57 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
+
+		private readonly IStatechartEvent _currentTabButtonClickedEvent =
+			new StatechartEvent("Current Tab Button Clicked Event");
+
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
-		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
-		private readonly IStatechartEvent _closeOverflowScreenClickedEvent = new StatechartEvent("Close Overflow Loot Screen Clicked Event");
-		private readonly IStatechartEvent _speedUpOverflowCratesClickedEvent = new StatechartEvent("Speed Up Overflow Clicked Event");
+
+		private readonly IStatechartEvent _settingsMenuClickedEvent =
+			new StatechartEvent("Settings Menu Button Clicked Event");
+
+		private readonly IStatechartEvent _settingsCloseClickedEvent =
+			new StatechartEvent("Settings Close Button Clicked Event");
+
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
+			new StatechartEvent("Room Join Create Button Clicked Event");
+
+		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
+		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
+
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
+			new StatechartEvent("Room Join Create Close Button Clicked Event");
+
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-		
+
+		private readonly IStatechartEvent _logoutConfirmClickedEvent =
+			new StatechartEvent("Logout Confirm Clicked Event");
+
+		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
+
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
+		private readonly IDataService _dataService;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly LootOptionsMenuState _lootOptionsMenuState;
 		private readonly LootMenuState _lootMenuState;
-		private readonly CratesMenuState _cratesMenuState;
-		private readonly CollectLootRewardState _collectLootRewardState;
-		private readonly TrophyRoadMenuState _trophyRoadState;
-		private readonly ShopMenuState _shopMenuState;
+		private readonly EnterNameState _enterNameState;
+
 		private Type _currentScreen;
 
-		public MainMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider,
+		public MainMenuState(IGameServices services, IDataService dataService, IGameUiService uiService,
+		                     IGameDataProvider gameDataProvider,
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
+			_dataService = dataService;
 			_uiService = uiService;
 			_gameDataProvider = gameDataProvider;
 			_assetAdderService = assetAdderService;
 			_statechartTrigger = statechartTrigger;
-			_lootOptionsMenuState = new LootOptionsMenuState(services, uiService, gameDataProvider, statechartTrigger);
 			_lootMenuState = new LootMenuState(services, uiService, gameDataProvider, statechartTrigger);
-			_trophyRoadState = new TrophyRoadMenuState(services, uiService, gameDataProvider, statechartTrigger);
-			_cratesMenuState = new CratesMenuState(services, uiService, gameDataProvider, statechartTrigger);
-			_collectLootRewardState = new CollectLootRewardState(services, statechartTrigger, _gameDataProvider);
-			_shopMenuState = new ShopMenuState(services, uiService, _gameDataProvider, statechartTrigger);
+			_enterNameState = new EnterNameState(services, uiService, gameDataProvider, statechartTrigger);
 		}
 
 		/// <summary>
@@ -80,16 +96,16 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
-			
+
 			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
-			mainMenu.OnEnter(OpenMainMenuUi);
 			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
-			
+
 			mainMenuTransition.Transition().Target(mainMenu);
 
+			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
@@ -100,96 +116,85 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var screenCheck = stateFactory.Choice("Main Screen Check");
-			var overflowLootMenu = stateFactory.State("Overflow Loot Menu");
 			var claimUnclaimedRewards = stateFactory.Transition("Claim Unclaimed Rewards");
 			var homeMenu = stateFactory.State("Home Menu");
-			var shopMenu = stateFactory.Nest("Shop Menu");
-			var lootOptionsMenu = stateFactory.Nest("Loot Options Menu");
 			var lootMenu = stateFactory.Nest("Loot Menu");
 			var heroesMenu = stateFactory.State("Heroes Menu");
-			var trophyRoadMenu = stateFactory.Nest("Trophy Road Menu");
-			var collectLoot = stateFactory.Nest("Collect Loot Menu");
-			var cratesMenu = stateFactory.Nest("Crates Menu");
 			var socialMenu = stateFactory.State("Social Menu");
 			var settingsMenu = stateFactory.State("Settings Menu");
+			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
-			var enterNameDialog = stateFactory.Wait("Enter Name Dialog");
+			var roomWaitingState = stateFactory.State("Room Joined Check");
+			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
+			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
+			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			
+			var postNameCheck = stateFactory.Choice("Post Name Check");
+
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-			
-			screenCheck.Transition().Condition(CheckAutoLootBoxes).Target(collectLoot);
-			screenCheck.Transition().Condition(CheckOverflowLootSpentHc).Target(collectLoot);
-			screenCheck.Transition().Condition(CheckOverflowLoot).Target(overflowLootMenu);
-			screenCheck.Transition().Condition(CheckUnclaimedRewards).Target(claimUnclaimedRewards);
+
+			screenCheck.Transition().Condition(HasUncollectedRewards).Target(claimUnclaimedRewards);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(homeMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<CratesScreenPresenter>).Target(cratesMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<ShopScreenPresenter>).Target(shopMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<LootOptionsScreenPresenter>).Target(lootOptionsMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<SocialScreenPresenter>).Target(socialMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<TrophyRoadScreenPresenter>).Target(trophyRoadMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<RoomJoinCreateScreenPresenter>).Target(roomJoinCreateMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
-			
-			overflowLootMenu.OnEnter(OpenOverflowLootScreen);
-			overflowLootMenu.Event(_closeOverflowScreenClickedEvent).Target(screenCheck);
-			overflowLootMenu.Event(_speedUpOverflowCratesClickedEvent).Target(collectLoot);
-			overflowLootMenu.OnExit(CloseOverflowLootScreen);
 
-			claimUnclaimedRewards.OnEnter(StartClaimRewards);
+			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
-			
+
+			homeMenu.OnEnter(OpenMainMenuUi);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
+			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
+			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
+			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.OnExit(ClosePlayMenuUI);
-			
-			playClickedCheck.OnEnter(SendPlayClickedEvent);
-			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialog);
-			playClickedCheck.Transition().Target(final);
+			homeMenu.OnExit(CloseMainMenuUI);
 
-			enterNameDialog.WaitingFor(OpenEnterNameDialog).Target(final);
-			enterNameDialog.OnExit(CloseEnterNameDialog);
-			
+			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
+			playClickedCheck.Transition().Target(roomWaitingState);
+
+			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
+			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+
+			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
+			chooseGameMode.OnExit(CloseGameModeSelectionUI);
+
+			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
+
+			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
+
+			postNameCheck.Transition().Condition(IsInRoom).Target(final);
+			postNameCheck.Transition().Target(roomWaitingState);
+
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
 			settingsMenu.Event(_currentTabButtonClickedEvent).Target(homeMenu);
+			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
+			settingsMenu.OnExit(CloseSettingsMenuUI);
 
-			shopMenu.OnEnter(OpenShopMenuUI);
-			shopMenu.Nest(_shopMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			shopMenu.OnExit(CloseShopMenuUI);
-
-			lootOptionsMenu.OnEnter(OpenLootOptionsMenuUI);
-			lootOptionsMenu.Nest(_lootOptionsMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			lootOptionsMenu.OnExit(CloseLootOptionsMenuUI);
+			logoutWait.OnEnter(TryLogOut);
+			logoutWait.Event(_logoutFailedEvent).Target(homeMenu);
 
 			lootMenu.OnEnter(OpenLootMenuUI);
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 			lootMenu.OnExit(CloseLootMenuUI);
-			
+
 			heroesMenu.OnEnter(OpenHeroesMenuUI);
 			heroesMenu.OnExit(CloseHeroesMenuUI);
-			
-			trophyRoadMenu.OnEnter(OpenTrophyRoadMenuUI);
-			trophyRoadMenu.Nest(_trophyRoadState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			trophyRoadMenu.OnExit(CloseTrophyRoadMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(_playClickedEvent).Target(playClickedCheck);
-			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			//roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
-			
-			collectLoot.OnEnter(CloseMainMenuUI);
-			collectLoot.Nest(_collectLootRewardState.Setup).Target(screenCheck);
-			collectLoot.OnExit(OpenMainMenuUi);
-			
-			cratesMenu.Nest(_cratesMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			cratesMenu.OnExit(CloseCratesMenuUI);
-			
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWaitingState);
+			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(homeMenu);
+			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
+
 			socialMenu.OnEnter(OpenSocialMenuUI);
 			socialMenu.OnExit(CloseSocialMenuUI);
 		}
@@ -197,7 +202,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnRewardsCollectedMessage);
-			_services.MessageBrokerService.Subscribe<MenuWorldLootBoxClickedMessage>(OnRequestOpenCratesScreenMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 		}
 
@@ -205,11 +209,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_gameDataProvider?.PlayerDataProvider?.Level.StopObservingAll(this);
-		}
-
-		private void OnRequestOpenCratesScreenMessage(MenuWorldLootBoxClickedMessage message)
-		{
-			OnTabClickedCallback<CratesScreenPresenter>();
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -220,10 +219,10 @@ namespace FirstLight.Game.StateMachines
 		private void OnRewardsCollectedMessage(UnclaimedRewardsCollectedMessage message)
 		{
 			var position = _uiService.GetUi<GenericDialogIconPresenter>().IconPosition.position;
-			
+
 			foreach (var reward in message.Rewards)
 			{
-				_services.MessageBrokerService.Publish(new PlayUiVfxCommandMessage
+				_services.MessageBrokerService.Publish(new PlayUiVfxMessage
 				{
 					Id = reward.RewardId,
 					OriginWorldPosition = position,
@@ -231,63 +230,26 @@ namespace FirstLight.Game.StateMachines
 				});
 			}
 		}
-		
-		private void StartClaimRewards()
-		{
-			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
-		}
-		
-		/// <summary>
-		/// The player might have collected too many loot boxes and all slots are full. In that case, let them know about it so they can
-		/// open up all excess Loot Boxes immediately. 
-		/// </summary>
-		private bool CheckOverflowLoot()
-		{
-			return _gameDataProvider.LootBoxDataProvider.GetLootBoxInventoryInfo().TimedBoxExtra.Count > 0;
-		}
 
-		private bool CheckOverflowLootSpentHc()
-		{
-			var lootBoxExtraInfo = _gameDataProvider.LootBoxDataProvider.GetLootBoxInventoryInfo().TimedBoxExtra;
-			var time = _services.TimeService.DateTimeUtcNow;
-
-			if (lootBoxExtraInfo.Count > 0)
-			{
-				var list = lootBoxExtraInfo.ConvertAll(info => info.Data.Id);
-				
-				_collectLootRewardState.SetLootBoxToOpen(list);
-				return lootBoxExtraInfo.Count > 0 & lootBoxExtraInfo[0].GetState(time) == LootBoxState.Unlocked;
-			}
-			
-			return false;
-		}
-
-		private bool CheckUnclaimedRewards()
+		private bool HasUncollectedRewards()
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
 		}
 
-		/// <summary>
-		/// Checks to see if we have anything in one of our auto loot boxes, which are used as a temporary holding place for
-		/// boxes that are acquired that do not count toward regular loot box slots. 
-		/// </summary>
-		private bool CheckAutoLootBoxes()
+		private void ClaimUncollectedRewards()
 		{
-			var autoLoot = _gameDataProvider.LootBoxDataProvider.GetLootBoxInventoryInfo().CoreBoxes;
-
-			if (autoLoot.Count > 0)
-			{
-				var list = autoLoot.ConvertAll(info => info.Data.Id);
-				
-				_collectLootRewardState.SetLootBoxToOpen(list);
-			}
-			
-			return autoLoot.Count > 0;
+			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
-		
+
+		private bool IsInRoom()
+		{
+			return _services.NetworkService.QuantumClient.InRoom;
+		}
+
 		private bool IsNameNotSet()
 		{
-			return _gameDataProvider.PlayerDataProvider.Nickname == PlayerLogic.DefaultPlayerName;
+			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName ||
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -295,55 +257,23 @@ namespace FirstLight.Game.StateMachines
 			return _currentScreen == typeof(T);
 		}
 
-		private void OpenOverflowLootScreen()
+		private void OpenGameModeSelectionUI(IWaitActivity activity)
 		{
-			var data = new OverflowLootDialogPresenter.StateData
+			var cacheActivity = activity;
+
+			var data = new GameModeSelectionPresenter.StateData
 			{
-				CloseClicked = Close, 
-				SpeedUpAllBoxes = OpenOverflowCrates
+				GameModeChosen = () => { cacheActivity.Complete(); }
 			};
 
-			_uiService.OpenUi<OverflowLootDialogPresenter, OverflowLootDialogPresenter.StateData>(data);
-
-			void OpenOverflowCrates()
-			{
-				var inventoryInfo = _gameDataProvider.LootBoxDataProvider.GetLootBoxInventoryInfo();
-				var list = inventoryInfo.TimedBoxExtra.ConvertAll(info => info.Data.Id);
-				
-				_services.CommandService.ExecuteCommand(new SpeedUpAllExtraTimedBoxesCommand());
-				_collectLootRewardState.SetLootBoxToOpen(list);
-				_statechartTrigger(_speedUpOverflowCratesClickedEvent);
-			}
-
-			void Close()
-			{
-				_services.CommandService.ExecuteCommand(new CleanExtraTimedBoxesCommand());
-				_statechartTrigger(_closeOverflowScreenClickedEvent);
-			}
+			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 
-		private void CloseOverflowLootScreen()
+		private void CloseGameModeSelectionUI()
 		{
-			_uiService.CloseUi<OverflowLootDialogPresenter>();
+			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
 
-		private void OpenLootOptionsMenuUI()
-		{
-			var data = new LootOptionsScreenPresenter.StateData
-			{
-				OnLootBackButtonClicked = OnTabClickedCallback<LootOptionsScreenPresenter>,
-			};
-
-			_uiService.OpenUi<LootOptionsScreenPresenter, LootOptionsScreenPresenter.StateData>(data);
-			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
-		}
-		
-		private void CloseLootOptionsMenuUI()
-		{
-			_uiService.CloseUi<LootOptionsScreenPresenter>();
-			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
-		}
-		
 		private void OpenLootMenuUI()
 		{
 			var data = new LootScreenPresenter.StateData
@@ -354,7 +284,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
 		}
-		
+
 		private void CloseLootMenuUI()
 		{
 			_uiService.CloseUi<LootScreenPresenter>();
@@ -370,83 +300,42 @@ namespace FirstLight.Game.StateMachines
 
 			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
-		
+
 		private void CloseHeroesMenuUI()
 		{
 			_uiService.CloseUi<PlayerSkinScreenPresenter>();
 		}
 
-		private void OpenTrophyRoadMenuUI()
-		{
-			var data = new TrophyRoadScreenPresenter.StateData
-			{
-				OnTrophyRoadClosedClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
-			};
-			
-			_uiService.OpenUi<TrophyRoadScreenPresenter, TrophyRoadScreenPresenter.StateData>(data);
-		}
-		
-		private void CloseTrophyRoadMenuUI()
-		{
-			_uiService.CloseUi<TrophyRoadScreenPresenter>();
-		}
-		
 		private void OpenRoomJoinCreateMenuUI()
 		{
-			/*var data = new RoomJoinCreateScreenPresenter.StateData
+			var data = new RoomJoinCreateScreenPresenter.StateData
 			{
-				CloseClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>,
+				CloseClicked = RoomJoinCreateCloseClicked,
+				PlayClicked = PlayButtonClicked
 			};
-			
+
 			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
-			*/
-			
-			var confirmButton = new GenericDialogButton<string>
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = OnJoinCreateInputClicked,
-			};
-			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomCreateOrJoin, 
-			                                                    "", confirmButton, true, CloseRoomJoinCreateMenuUI);
 		}
 
-		private void OnJoinCreateInputClicked(string input)
+		private void CloseRoomJoinCreateMenuUI()
 		{
-			if (!string.IsNullOrEmpty(input))
-			{
-				_statechartTrigger(_playClickedEvent);
-			}
-		}
-		
-		private void CloseRoomJoinCreateMenuUI(string input)
-		{
-			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
-			//_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
+			_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
 		}
 
-		private void CloseCratesMenuUI()
-		{
-			_uiService.CloseUi<CratesScreenPresenter>();
-			_services.MessageBrokerService.Publish(new CratesScreenClosedMessage());
-		}
-		
 		private void OpenPlayMenuUI()
 		{
 			var data = new HomeScreenPresenter.StateData
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
-				// OnLootButtonClicked = OnTabClickedCallback<LootOptionsScreenPresenter>,
 				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
-				OnCratesButtonClicked = OnTabClickedCallback<CratesScreenPresenter>,
 				OnSocialButtonClicked = OnTabClickedCallback<SocialScreenPresenter>,
-				OnShopButtonClicked = OnTabClickedCallback<ShopScreenPresenter>,
-				OnTrophyRoadClicked = OnTabClickedCallback<TrophyRoadScreenPresenter>,
-				OnRoomJoinCreateClicked = OnTabClickedCallback<RoomJoinCreateScreenPresenter>
+				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
+				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
+				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 			};
-			
+
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
@@ -454,22 +343,6 @@ namespace FirstLight.Game.StateMachines
 		private void ClosePlayMenuUI()
 		{
 			_uiService.CloseUi<HomeScreenPresenter>();
-		}
-
-		private void OpenShopMenuUI()
-		{
-			var data = new ShopScreenPresenter.StateData
-			{
-				OnShopBackButtonClicked = OnTabClickedCallback<HomeScreenPresenter>,
-			};
-
-			_uiService.OpenUi<ShopScreenPresenter, ShopScreenPresenter.StateData>(data);
-			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
-		}
-
-		private void CloseShopMenuUI()
-		{
-			_uiService.CloseUi<ShopScreenPresenter>();
 		}
 
 		private void OpenSocialMenuUI()
@@ -488,34 +361,15 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<SocialScreenPresenter>();
 		}
 
-		private void OpenEnterNameDialog(IWaitActivity activity)
-		{
-			var closureActivity = activity;
-			var confirmButton = new GenericDialogButton<string>
-			{
-				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = OnNameSet
-			};
-			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _gameDataProvider.PlayerDataProvider.Nickname, 
-			                                                    confirmButton, false, OnNameSet);
-
-			void OnNameSet(string newName)
-			{
-				_services.CommandService.ExecuteCommand(new UpdatePlayerNicknameCommand { Nickname = newName });
-				closureActivity.Complete();
-			}
-		}
-
-		private void CloseEnterNameDialog()
-		{
-			_services.GenericDialogService.CloseDialog();
-		}
-
 		private void OpenSettingsMenuUI()
 		{
-			_uiService.OpenUi<SettingsScreenPresenter, ActionStruct>(new ActionStruct(CloseScreen));
+			var data = new SettingsScreenPresenter.StateData
+			{
+				LogoutClicked = TryLogOut,
+				OnClose = CloseScreen
+			};
+
+			_uiService.OpenUi<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 
 			void CloseScreen()
 			{
@@ -523,21 +377,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OpenMatchmakingLoadingScreen()
+		private void CloseSettingsMenuUI()
 		{
-			/*
-			 This is ugly but unfortunately saving the main character view state will over-engineer the simplicity to
-			 just request the object and also to Inject the UiService to a presenter and give it control to the entire UI.
-			 Because this is only executed once before the loading of a the game map, it is ok to have garbage and a slow 
-			 call as it all be cleaned up in the end of the loading.
-			 Feel free to improve this solution if it doesn't over-engineer the entire tech.
-			 */
-			var data = new MatchmakingLoadingScreenPresenter.StateData
-			{
-				UiService = _uiService
-			};
-
-			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
+			_uiService.CloseUi<SettingsScreenPresenter>();
 		}
 
 		private void LoadingComplete()
@@ -545,7 +387,12 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoadingScreenPresenter>();
 			SetCurrentScreen<HomeScreenPresenter>();
 		}
-		
+
+		private void OpenLoadingScreen()
+		{
+			_uiService.OpenUi<LoadingScreenPresenter>();
+		}
+
 		private void InvalidScreen()
 		{
 			throw new InvalidOperationException($"The current screen '{_currentScreen}' is invalid");
@@ -589,9 +436,9 @@ namespace FirstLight.Game.StateMachines
 		private async Task LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
-			var mainMenuServices = new MainMenuServices(_services.AssetResolverService, uiVfxService);
+			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
 			var configProvider = _services.ConfigsProvider;
-			
+
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<AudioMainMenuAssetConfigs>());
@@ -599,12 +446,12 @@ namespace FirstLight.Game.StateMachines
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-			
+
 			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
-			
+
 			uiVfxService.Init(_uiService);
 			_services.AudioFxService.PlayMusic(AudioId.MenuMainLoop);
 		}
@@ -614,16 +461,13 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			var configProvider = _services.ConfigsProvider;
 
-			await _uiService.LoadUiAsync<MatchmakingLoadingScreenPresenter>();
-			
 			Camera.main.gameObject.SetActive(false);
-			_uiService.UnloadUiSet((int)UiSetId.MainMenuUi);
+			_uiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
-			OpenMatchmakingLoadingScreen();
-			
+
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-			
+
 			_services.VfxService.DespawnAll();
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioMainMenuAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
@@ -631,45 +475,96 @@ namespace FirstLight.Game.StateMachines
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();
 		}
-		
+
 		private void PlayButtonClicked()
 		{
-			/*var adventureIdOffset = GameConstants.FtueAdventuresCount + GameConstants.OnboardingAdventuresCount;
-			var playerLevel = _gameDataProvider.PlayerDataProvider.Level.Value;
-			
-			if (playerLevel < adventureIdOffset)
-			{
-				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = (int) playerLevel;
-			}
-			else
-			{
-				var timespan = _services.TimeService.DateTimeUtcNow - new DateTime(0);
-					
-				// "timespan.TotalMinutes / X" - X is the interval in minutes to rotate maps
-				var mapTick = (int) (timespan.TotalMinutes / 3);
-					
-				// "mapTick % X + Z" - X is how many adventures are in rotation; Z is the offset on ftue adventures and onboarding adventures
-				var adventureId = mapTick % GameConstants.RotationAdventuresCount + adventureIdOffset;
-					
-				// With X == 3, for instance, possible Adventure IDs will be (0, 1 and 2) + ftueAdventuresCount
-				_gameDataProvider.AdventureDataProvider.SelectedMapId.Value = adventureId;
-			}*/
-				
 			_statechartTrigger(_playClickedEvent);
 		}
 
-		private void SendPlayClickedEvent()
+		private void RoomJoinCreateCloseClicked()
 		{
-			var config = _gameDataProvider.AppDataProvider.CurrentMapConfig;
-			
-			var dictionary = new Dictionary<string, object> 
+			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
+		}
+
+		private void TryLogOut()
+		{
+#if UNITY_EDITOR
+			var unlink = new UnlinkCustomIDRequest
 			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+			};
+
+			PlayFabClientAPI.UnlinkCustomID(unlink, OnUnlinkSuccess, OnUnlinkFail);
+
+			void OnUnlinkSuccess(UnlinkCustomIDResult result)
+			{
+				UnlinkComplete();
+			}
+#elif UNITY_ANDROID
+			var unlink = new UnlinkAndroidDeviceIDRequest
+			{
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
 			};
 			
-			_services.AnalyticsService.LogEvent("play_clicked", dictionary);
+			PlayFabClientAPI.UnlinkAndroidDeviceID(unlink,OnUnlinkSuccess,OnUnlinkFail);
+			
+			void OnUnlinkSuccess(UnlinkAndroidDeviceIDResult result)
+			{
+				UnlinkComplete();
+			}
+#elif UNITY_IOS
+			var unlink = new UnlinkIOSDeviceIDRequest
+			{
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+			};
+
+			PlayFabClientAPI.UnlinkIOSDeviceID(unlink, OnUnlinkSuccess, OnUnlinkFail);
+			
+			void OnUnlinkSuccess(UnlinkIOSDeviceIDResult result)
+			{
+				UnlinkComplete();
+			}
+#endif
+			void OnUnlinkFail(PlayFabError error)
+			{
+				_services.AnalyticsService.CrashLog(error.ErrorMessage);
+
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
+				};
+
+				_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			}
+
+			void UnlinkComplete()
+			{
+				_gameDataProvider.AppDataProvider.SetLastLoginEmail("");
+				_gameDataProvider.AppDataProvider.SetDeviceLinkedStatus(false);
+
+#if UNITY_EDITOR
+				var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+					ButtonOnClick = () => { UnityEditor.EditorApplication.isPlaying = false; }
+				};
+
+				_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+				return;
+#else
+				var button = new AlertButton
+				{
+					Callback = Application.Quit,
+					Style = AlertButtonStyle.Positive,
+					Text = ScriptLocalization.MainMenu.QuitGameButton
+				};
+
+				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
+				                               ScriptLocalization.MainMenu.LogoutSuccessDesc, button);
+#endif
+			}
 		}
 	}
 }

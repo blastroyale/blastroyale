@@ -1,6 +1,7 @@
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
@@ -10,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class WeaponProjectileViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private ProjectileViewMonoComponent _projectile;
+		[SerializeField, Required] private ProjectileViewMonoComponent _projectile;
 
 		private IObjectPool<ProjectileViewMonoComponent> _pool;
 

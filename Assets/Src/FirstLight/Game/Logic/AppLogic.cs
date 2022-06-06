@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Ftue;
-using FirstLight.Game.Utils;
 using FirstLight.Game.Configs;
 using FirstLight.Services;
+using MoreMountains.NiceVibrations;
 using Quantum;
 using UnityEngine;
 
@@ -44,26 +41,53 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
+		/// Is high res mode on device enabled?
+		/// </summary>
+		AppData.DetailLevel CurrentDetailLevel { get; set; }
+		
+		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
 
-		// TODO - Move to MatchLogic, once that functionality transitions to the backend
 		/// <summary>
-		/// Requests the current selected game mode <see cref="GameMode"/>.
+		/// Requests the player's Nickname
+		/// </summary>
+		string Nickname { get; }
+		
+		/// <summary>
+		/// Requests the player's Nickname
+		/// </summary>
+		IObservableFieldReader<string> NicknameId { get; }
+
+		/// <summary>
+		/// Sets the resolution mode for the 3D rendering of the app
+		/// </summary>
+		void SetDetailLevel(AppData.DetailLevel highRes);
+		
+		/// <summary>
+		/// Requests current selected game mode
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
-
-		// TODO - Move to MatchLogic, once that functionality transitions to the backend
-		/// <summary>
-		/// Requests the current map config in timed rotation, for the selected game mode
+		/// Sets the device link status, which dictates whether the game should try to link device to playfab
+		/// account during initial auhentication phase.
 		/// </summary>
-		MapConfig CurrentMapConfig { get; }
+		void SetDeviceLinkedStatus(bool linked);
+
+		/// <summary>
+		/// Sets the cached last login email, which is used during authentication to check if a player should be
+		/// logged using device ID, or whether they should go to email login/device linking phase
+		/// </summary>
+		void SetLastLoginEmail(string email);
 	}
 
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
+		/// <summary>
+		/// Requests and sets player nickname
+		/// </summary>
+		new IObservableField<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -71,7 +95,7 @@ namespace FirstLight.Game.Logic
 	{
 		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
-		
+
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -105,14 +129,36 @@ namespace FirstLight.Game.Logic
 		public bool IsHapticOn
 		{
 			get => Data.HapticEnabled;
-			set => Data.HapticEnabled = value;
+			set
+			{
+				Data.HapticEnabled = value;
+				MMVibrationManager.SetHapticsActive(value);
+			}
 		}
 
 		/// <inheritdoc />
-		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		public AppData.DetailLevel CurrentDetailLevel
+		{
+			get => Data.CurrentDetailLevel;
+			set
+			{
+				Data.CurrentDetailLevel = value;
+				SetDetailLevel(value);
+			}
+		}
 
 		/// <inheritdoc />
-		public MapConfig CurrentMapConfig => GetCurrentMapConfig();
+		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
+			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+
+		/// <inheritdoc />
+		public IObservableField<string> NicknameId { get; private set; }
+
+		/// <inheritdoc />
+		public IObservableField<GameMode> SelectedGameMode { get; private set; }
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -125,8 +171,18 @@ namespace FirstLight.Game.Logic
 		{
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
+			NicknameId = new ObservableField<string>(Data.NickNameId);
+			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
+		}
+		
+		public void SetDeviceLinkedStatus(bool linked)
+		{
+			Data.LinkedDevice = linked;
+		}
 
-			SelectedGameMode = new ObservableField<GameMode>(0);
+		public void SetLastLoginEmail(string email)
+		{
+			Data.LastLoginEmail = email;
 		}
 
 		/// <inheritdoc />
@@ -139,30 +195,19 @@ namespace FirstLight.Game.Logic
 
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
-
-		private MapConfig GetCurrentMapConfig()
+		
+		/// <inheritdoc />
+		public void SetDetailLevel(AppData.DetailLevel highRes)
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<MapConfig>();
-			var compatibleMaps = new List<MapConfig>();
-			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
-			var timeSegmentIndex = Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.MAP_ROTATION_TIME_MINUTES);
-
-			foreach (var config in configs)
+			var urpAsset = highRes switch
 			{
-				// Filters compatible maps by game mode, and also filters out map ID 0
-				// 0 is FTUE map, but it imports as a Deathmatc game modeh, so it shows up incorrectly for DM map list
-				if (config.Value.GameMode == SelectedGameMode.Value && config.Value.Id > 0)
-				{
-					compatibleMaps.Add(config.Value);
-				}
-			}
+				AppData.DetailLevel.Low => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().LowQualityURPSettingsAsset,
+				AppData.DetailLevel.Medium => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().MediumQualityURPSettingsAsset,
+				AppData.DetailLevel.High => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().HighQualityURPSettingsAsset,
+				_ => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().HighQualityURPSettingsAsset
+			};
 
-			if (timeSegmentIndex >= compatibleMaps.Count)
-			{
-				timeSegmentIndex %= compatibleMaps.Count;
-			}
-
-			return compatibleMaps[timeSegmentIndex];
+			QualitySettings.renderPipeline = urpAsset;
 		}
 	}
 }

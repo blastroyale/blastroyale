@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -15,8 +15,8 @@ namespace FirstLight.Game.Presenters
 	/// </remarks>
 	public class GenericDialogVideoPresenter : GenericDialogPresenterBase
 	{
-		[SerializeField] private TextMeshProUGUI _descriptionText;
-		[SerializeField] private VideoPlayer _videoPlayer;
+		[SerializeField, Required] private TextMeshProUGUI _descriptionText;
+		[SerializeField, Required] private VideoPlayer _videoPlayer;
 		
 		/// <summary>
 		/// Shows the Generic Video Dialog PopUp with the necessary information, playing the video on open.

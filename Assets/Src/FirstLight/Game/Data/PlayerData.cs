@@ -16,13 +16,10 @@ namespace FirstLight.Game.Data
 		public uint Xp;
 		public uint Trophies;
 		public GameId PlayerSkinId;
-		public readonly Dictionary<GameId, ulong> Currencies = new Dictionary<GameId, ulong>(new GameIdComparer());
-		public readonly Dictionary<GameIdGroup, UniqueId> EquippedItems = new Dictionary<GameIdGroup, UniqueId>(new GameIdGroupComparer());
-		public readonly List<EquipmentData> Inventory = new List<EquipmentData>();
-		public readonly List<RewardData> UncollectedRewards = new List<RewardData>();
-		public readonly List<uint> LevelRewardsCollected = new List<uint>();
-		public readonly List<TimedBoxData> TimedBoxes = new List<TimedBoxData>();
-		public readonly List<LootBoxData> CoreBoxes = new List<LootBoxData>();
-		public readonly List<GameId> Emoji = new List<GameId>();
+		public readonly Dictionary<GameId, ulong> Currencies = new(new GameIdComparer());
+		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
+		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new Dictionary<GameId, ResourcePoolData>(new GameIdComparer());
+		public readonly List<RewardData> UncollectedRewards = new();
+		public readonly List<GameId> Emoji = new();
 	}
 }

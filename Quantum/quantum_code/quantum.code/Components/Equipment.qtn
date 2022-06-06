@@ -3,16 +3,32 @@
 struct Equipment
 {
 	GameId GameId;
-	ItemRarity Rarity;
-	ItemAdjective Adjective;
-	ItemMaterial Material;
-	ItemManufacturer Manufacturer;
-	ItemFaction Faction;
+	EquipmentEdition Edition;
+	EquipmentRarity Rarity;
+	EquipmentGrade Grade;
+	EquipmentFaction Faction;
+	EquipmentAdjective Adjective;
+	EquipmentMaterial Material;
+	EquipmentManufacturer Manufacturer;
+	
+	UInt32 MaxDurability;
+	UInt32 MaxLevel;
+	UInt32 InitialReplicationCounter;
+	UInt32 Tuning;
+	
 	UInt32 Level;
-	UInt32 Grade;
+	UInt32 Generation;
+	UInt32 ReplicationCounter;
+	UInt32 Durability;
 }
 
-enum ItemRarity
+enum EquipmentEdition
+{
+	Genesis,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum EquipmentRarity
 {
 	Common,
 	CommonPlus,
@@ -27,7 +43,29 @@ enum ItemRarity
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum ItemAdjective
+enum EquipmentGrade
+{
+	GradeI,
+	GradeII,
+	GradeIII,
+	GradeIV,
+	GradeV,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum EquipmentFaction
+{
+	Order,
+	Chaos,
+	Organic,
+	Dark,
+	Shadow,
+	Celestial,
+	Dimensional,
+	TOTAL,            // Used to know the total amount of this type without the need of reflection
+}
+
+enum EquipmentAdjective
 {
 	Regular,
 	Cool,
@@ -42,7 +80,7 @@ enum ItemAdjective
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum ItemMaterial
+enum EquipmentMaterial
 {
 	Plastic,
 	Steel,
@@ -52,22 +90,10 @@ enum ItemMaterial
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }
 
-enum ItemManufacturer
+enum EquipmentManufacturer
 {
 	Military,
 	Futuristic,
 	Apocalyptic,
-	TOTAL,            // Used to know the total amount of this type without the need of reflection
-}
-
-enum ItemFaction
-{
-	Order,
-	Chaos,
-	Organic,
-	Dark,
-	Shadow,
-	Celestial,
-	Dimensional,
 	TOTAL,            // Used to know the total amount of this type without the need of reflection
 }

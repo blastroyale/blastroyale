@@ -17,7 +17,7 @@
       "hash": "b43e40508b167d143330d8b9eff0d5c9965cdf3c"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.169.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.170.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
@@ -180,6 +180,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.mobile.android-logcat": {
+      "version": "1.2.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.mobile.notifications": {
       "version": "2.0.0",
       "depth": 0,
@@ -302,15 +309,6 @@
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
-      }
-    },
-    "com.unity.visualeffectgraph": {
-      "version": "12.1.6",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.shadergraph": "12.1.6",
-        "com.unity.render-pipelines.core": "12.1.6"
       }
     },
     "com.unity.visualscripting": {

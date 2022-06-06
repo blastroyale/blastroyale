@@ -9,6 +9,8 @@ using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.UiService;
+using PlayFab;
+using UnityEditor;
 using UnityEngine;
 
 namespace FirstLight.Game
@@ -39,15 +41,16 @@ namespace FirstLight.Game
 			var dataService = new DataService();
 			var configsProvider = new ConfigsProvider();
 			var uiService = new GameUiService(new UiAssetLoader());
-			var networkService = new GameNetworkService();
+			var networkService = new GameNetworkService(configsProvider);
 			var assetResolver = new AssetResolverService();
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
+			var threadService = new ThreadService();
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, analyticsService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider,
 			                                    gameLogic, dataService, genericDialogService, assetResolver, analyticsService, 
-			                                    vfxService, audioFxService);
+			                                    vfxService, audioFxService, threadService);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
@@ -57,7 +60,6 @@ namespace FirstLight.Game
 			_gameLogic = gameLogic;
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
-			
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService, configsProvider, 
 			                                         assetResolver, dataService, vfxService);
 		}
@@ -67,6 +69,7 @@ namespace FirstLight.Game
 			FB.Init(FacebookInit);
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
+			TrySetLocalServer();
 		}
 
 		private void OnApplicationPause(bool isPaused)
@@ -101,6 +104,23 @@ namespace FirstLight.Game
 			}
 			
 			FB.ActivateApp();
+		}
+		
+		private void TrySetLocalServer()
+		{
+#if UNITY_EDITOR
+			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
+			{
+				EditorPrefs.SetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY, false);
+			}
+			
+			if (EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
+			{
+				PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			}
+			
+			Debug.Log("Using local server? -" + EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY));
+#endif
 		}
 
 		private IEnumerator EndAppCoroutine()

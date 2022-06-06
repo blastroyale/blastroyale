@@ -1,8 +1,4 @@
-using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx
@@ -19,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		public void SetTarget(Vector3 targetPosition, float radius, float endTime)
 		{
 			var transformCache = transform;
-			var scale = radius * GameConstants.RadiusToScaleConversionValue * Vector3.one;
+			var scale = radius * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE * Vector3.one;
 			
 			scale.y = 1f;
 			transformCache.position = targetPosition;

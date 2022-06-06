@@ -1,11 +1,16 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using I2.Loc;
+using Photon.Deterministic;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -30,7 +35,24 @@ namespace FirstLight.Game.Utils
 				go = go.transform.parent.gameObject;
 				name = $"{go.name}.{name}";
 			}
+
 			return name;
+		}
+
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="stat"/>
+		/// </summary>
+		public static string GetTranslation(this StatType stat)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+		}
+
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetTranslation(this GameId id)
+		{
+			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
 		}
 
 		/// <summary>
@@ -39,14 +61,6 @@ namespace FirstLight.Game.Utils
 		public static string GetTranslation(this EquipmentStatType stat)
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
-		}
-		
-		/// <summary>
-		/// Get's the translation string of the given <paramref name="id"/>
-		/// </summary>
-		public static string GetTranslation(this GameId id)
-		{
-			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
 		}
 
 		/// <summary>
@@ -71,6 +85,15 @@ namespace FirstLight.Game.Utils
 		public static string GetTranslationTerm(this GameIdGroup group)
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{group.ToString()}";
+		}
+
+		/// <summary>
+		/// Requests the localized text representing the ordinal of the given <paramref name="number"/>
+		/// </summary>
+		public static string GetOrdinalTranslation(this int number)
+		{
+			number = number > 19 ? 19 : number;
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/Ordinal{number.ToString()}");
 		}
 
 		/// <summary>
@@ -129,11 +152,11 @@ namespace FirstLight.Game.Utils
 			IEnumerator DelayCoroutine(float time, Action callback)
 			{
 				yield return new WaitForSeconds(time);
-				
+
 				callback?.Invoke();
 			}
 		}
-		
+
 		/// <inheritdoc cref="LateCall"/>
 		/// <remarks>
 		/// Extends the method to allow awaitable task callbacks
@@ -147,7 +170,7 @@ namespace FirstLight.Game.Utils
 				onCallback?.Invoke();
 			}
 		}
-		
+
 		/// <summary>
 		/// Formats a large number in the decimal format to use K, M or B. E.g. 9800 = 9.8K.
 		/// </summary>
@@ -157,13 +180,11 @@ namespace FirstLight.Game.Utils
 			{
 				return num.ToString("0,,,.###B", CultureInfo.InvariantCulture);
 			}
-			else
-			if (num > 999999)
+			else if (num > 999999)
 			{
 				return num.ToString("0,,.##M", CultureInfo.InvariantCulture);
 			}
-			else
-			if (num > 999)
+			else if (num > 999)
 			{
 				return num.ToString("0,.#K", CultureInfo.InvariantCulture);
 			}
@@ -186,18 +207,18 @@ namespace FirstLight.Game.Utils
 				{
 					return $"{ts.TotalHours.ToString()}h ${ts.Minutes.ToString()}m";
 				}
-				
+
 				return $"{ts.TotalHours.ToString()}h";
 			}
-			
+
 			if (ts.Minutes > 0)
 			{
 				return $"{ts.Minutes.ToString()}m";
 			}
-			
+
 			return $"{ts.Seconds.ToString()}s";
 		}
-		
+
 		/// <summary>
 		/// Formats a string in seconds to Hours and Minutes and Seconds.
 		/// </summary>
@@ -207,14 +228,15 @@ namespace FirstLight.Game.Utils
 
 			if (ts.Hours > 0)
 			{
-				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(), ts.Seconds.ToString());
+				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(),
+				                     ts.Seconds.ToString());
 			}
-			
+
 			if (ts.Minutes > 0)
 			{
 				return string.Format("{0}m {1}s", ts.Minutes.ToString(), ts.Seconds.ToString());
 			}
-			
+
 			return string.Format("{0}s", ts.Seconds.ToString());
 		}
 
@@ -227,7 +249,8 @@ namespace FirstLight.Game.Utils
 
 			if (!groups.Contains(GameIdGroup.Equipment))
 			{
-				throw new ArgumentException($"The item {item} is not a {nameof(GameIdGroup.Equipment)} type to put in a slot");
+				throw new
+					ArgumentException($"The item {item} is not a {nameof(GameIdGroup.Equipment)} type to put in a slot");
 			}
 
 			return groups[0];
@@ -242,7 +265,7 @@ namespace FirstLight.Game.Utils
 			{
 				return GetBotName(data.PlayerName);
 			}
-			
+
 			return data.PlayerName;
 		}
 
@@ -281,6 +304,46 @@ namespace FirstLight.Game.Utils
 		public static bool IsVerifiedFrame(this EventBase eventBase)
 		{
 			return eventBase.Game.Session.IsFrameVerified(eventBase.Tick);
+		}
+
+		/// <summary>
+		/// Obtains the current selected map id in the given <paramref name="room"/>
+		/// </summary>
+		public static int GetMapId(this Room room)
+		{
+			return (int) room.CustomProperties[GameConstants.Data.ROOM_PROPS_MAP];
+		}
+
+		/// <summary>
+		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
+		/// based on loading state of all players assets
+		/// </summary>
+		public static bool AreAllPlayersReady(this Room room)
+		{
+			foreach (var playerKvp in room.Players)
+			{
+				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Data.PLAYER_PROPS_LOADED,
+				                                                  out var propertyValue) ||
+				    !(bool) propertyValue)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Copy properties from one model to another.
+		/// Only a shallow copy.
+		/// </summary>
+		public static void CopyPropertiesShallowTo<T>(this T source, T dest)
+		{
+			var a = dest.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			foreach (var property in a)
+			{
+				property.SetValue(dest, property.GetValue(source));
+			}
 		}
 	}
 }

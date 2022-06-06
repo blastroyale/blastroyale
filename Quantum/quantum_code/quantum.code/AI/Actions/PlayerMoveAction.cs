@@ -17,6 +17,11 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
+			if (f.Has<BotCharacter>(e))
+			{
+				return;
+			}
+			
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var velocityModifier = VelocityModifier.Resolve(f, e, bb, null);
@@ -35,10 +40,14 @@ namespace Quantum
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
 			kcc->Move(f, e, moveDirection);
-
+			
+			// If player aims then we turn character towards aiming and send aiming event
 			if (aimDirection.SqrMagnitude > FP._0)
 			{
 				QuantumHelpers.LookAt2d(f, e, aimDirection);
+
+				var playerCharacter = f.Get<PlayerCharacter>(e);
+				f.Events.OnLocalPlayerAim(playerCharacter.Player, e, playerCharacter.CurrentWeapon, velocity.SqrMagnitude, maxSpeed*maxSpeed);
 			}
 		}
 	}

@@ -4927,4 +4927,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdebd6b5a3534e18a3084e3adfb73b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 50
+  _id:
+    _selection: Airstrike

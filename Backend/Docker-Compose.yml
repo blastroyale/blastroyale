@@ -1,0 +1,35 @@
+version: "3.9"
+networks:
+  default:
+    attachable: true
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: localPassword
+      POSTGRES_DB: localDatabase
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+  standalone-backend:
+    environment:
+      SqlConnectionString: Server=postgres;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;
+      PLAYFAB_DEV_SECRET_KEY: ***REMOVED***
+      PLAYFAB_TITLE: ***REMOVED***
+      API_URL: https://devmarketplaceapi.azure-api.net
+      API_BLOCKCHAIN_SERVICE: br-blockchain/blast-royale-equipment
+      API_SECRET: devkey
+    build:
+      context: .
+      args:
+        APP_PORT: 7274
+        ENVIRONMENT: "Development"
+        DEV_MODE: "true"
+    expose:
+      - 7274
+    ports:
+      - 7274:7274

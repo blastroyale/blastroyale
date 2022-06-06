@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using UnityEngine;
+using Quantum;
 
 // ReSharper disable once CheckNamespace
 
@@ -19,6 +18,7 @@ namespace FirstLight.GoogleSheetImporter
 		private const string _ignoreColumnChar = "$";
 		
 		private static readonly char[] _pairSplitChars = {':', '<', '>', '='};
+		private static readonly char _valuePairSplitChar = '|';
 		private static readonly char[] _arraySplitChars = {',', '(', ')', '[', ']', '{', '}'};
 
 		/// <summary>
@@ -94,7 +94,8 @@ namespace FirstLight.GoogleSheetImporter
 		{
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
-
+			var gameModePairType = typeof(QuantumGameModePair<>);
+			
 			if (type.IsArray)
 			{
 				return ArrayParse(data, type.GetElementType(), deserializers);
@@ -108,6 +109,10 @@ namespace FirstLight.GoogleSheetImporter
 				var types = type.GenericTypeArguments;
 					
 				return DictionaryParse(data, types[0], types[1], deserializers);
+			}
+			if (type.IsGenericType && gameModePairType.IsAssignableFrom(type.GetGenericTypeDefinition()))
+			{
+				return GameModePairParse(data, type, deserializers);
 			}
 
 			return Parse(data, type, deserializers);
@@ -203,6 +208,39 @@ namespace FirstLight.GoogleSheetImporter
 			}
 
 			return dictionary;
+		}
+
+		/// <summary>
+		/// Parses the given <paramref name="text"/> into a <seealso cref="QuantumGameModePair{TValue}"/> type.
+		/// The values should be separated by <see cref="_valuePairSplitChar"/>. If only one value is present
+		/// it will be used for both fields.
+		/// </summary>
+		/// <exception cref="IndexOutOfRangeException">
+		/// Thrown if the given <paramref name="text"/> has a odd amount of values to pair. Must always be an even amount of values
+		/// </exception>
+		private static object GameModePairParse(string text, Type type, params Func<string, Type, object>[] deserializers)
+		{
+			var values = text.Split(_valuePairSplitChar);
+
+			if (values.Length > 2)
+			{
+				throw new
+					IndexOutOfRangeException($"Trying to deserialize more than 2 values to a value pair: ({text})");
+			}
+
+			var genericType = type.GetGenericArguments()[0];
+			var value1 = Parse(values[0], genericType, deserializers);
+			var value2 = values.Length == 1 ? value1 : Parse(values[1], genericType, deserializers);
+
+			var valuePair = Activator.CreateInstance(typeof(QuantumGameModePair<>).MakeGenericType(genericType));
+
+			var brField = valuePair.GetType().GetField("BattleRoyale");
+			var dmField = valuePair.GetType().GetField("Deathmatch");
+
+			brField.SetValue(valuePair, value1);
+			dmField.SetValue(valuePair, value2);
+
+			return valuePair;
 		}
 
 		/// <summary>
@@ -310,7 +348,7 @@ namespace FirstLight.GoogleSheetImporter
 			var fields = type.GetFields();
 			var split = data.Split(_pairSplitChars);
 
-			if (type.IsGenericType && fields.Length == 2 && fields[0].Name == "Key" && fields[1].Name == "Value")
+			if (type.IsGenericType && fields.Length == 2 && (fields[0].Name == "Key" || fields[0].Name == "Value1") && (fields[1].Name == "Value" || fields[1].Name == "Value2"))
 			{
 				key = string.IsNullOrWhiteSpace(data) ? default : Parse(split[0], fields[0].FieldType, deserializers);
 				value = string.IsNullOrWhiteSpace(data) ? default : Parse(split[1], fields[1].FieldType, deserializers);

@@ -17,7 +17,7 @@ namespace Quantum
 			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f);
 			
 			transform->Position = spawnPoint.Component.Position;
-			
+
 			player->Spawn(f, e);
 		}
 	}

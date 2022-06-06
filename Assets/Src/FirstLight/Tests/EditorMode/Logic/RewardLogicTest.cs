@@ -38,7 +38,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			_rewardLogic.GenerateRewards(SetupMatchData(enemiesKilled, lootCollected), Arg.Any<uint>());
 			
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.SC && !x.IsLevelUpReward && 
+			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS && !x.IsLevelUpReward && 
 			                                                      x.Quantity == enemiesKilled * coinsPerEnemy), 0);
 			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.XP && !x.IsLevelUpReward && 
 			                                                      x.Quantity == enemiesKilled * xpPerEnemy), 0);
@@ -57,7 +57,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			_rewardLogic.GenerateRewards(SetupMatchData(0, lootCollected), Arg.Any<uint>());
 			
-			Assert.Less(TestData.Rewards.FindIndex(x => x.RewardId == GameId.SC), 0);
+			Assert.Less(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS), 0);
 			Assert.Less(TestData.Rewards.FindIndex(x => x.RewardId == GameId.XP), 0);
 			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == loot && !x.IsLevelUpReward && 
 			                                                      x.Data == lootCollected), 0);
@@ -75,7 +75,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			_rewardLogic.GenerateRewards(SetupMatchData(enemiesKilled), Arg.Any<uint>());
 			
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.SC && !x.IsLevelUpReward && 
+			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS && !x.IsLevelUpReward && 
 			                                                      x.Quantity == enemiesKilled * coinsPerEnemy), 0);
 			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.XP && !x.IsLevelUpReward && 
 			                                                      x.Quantity == enemiesKilled * xpPerEnemy), 0);
@@ -101,7 +101,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			_rewardLogic.AddLevelUpRewards(startLevel, endLevel);
 			
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.SC && x.Quantity == coinsPerLevel), 0);
+			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS && x.Quantity == coinsPerLevel), 0);
 			Assert.AreEqual(endLevel - startLevel,TestData.Rewards.Count);
 		}
 
@@ -124,7 +124,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{ 
 			var testReward1 = new RewardData { RewardId = GameId.AssaultRifle, IsLevelUpReward = false };
 			var testReward2 = new RewardData { RewardId = GameId.XP, IsLevelUpReward = true };
-			var testReward3 = new RewardData { RewardId = GameId.SC, IsLevelUpReward = true };
+			var testReward3 = new RewardData { RewardId = GameId.CS, IsLevelUpReward = true };
 			
 			TestData.Rewards.Add(testReward1);
 			TestData.Rewards.Add(testReward2);
@@ -143,7 +143,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{ 
 			var testReward1 = new RewardData { RewardId = GameId.CommonBox, IsLevelUpReward = false };
 			var testReward2 = new RewardData { RewardId = GameId.XP, IsLevelUpReward = true };
-			var testReward3 = new RewardData { RewardId = GameId.SC, IsLevelUpReward = true };
+			var testReward3 = new RewardData { RewardId = GameId.CS, IsLevelUpReward = true };
 			var testReward4 = new RewardData { RewardId = GameId.UncommonBox, IsLevelUpReward = true };
 			
 			TestData.Rewards.Add(testReward1);
@@ -211,7 +211,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var config = new QuantumPlayerLevelConfig
 			{
-				RewardGameId = GameId.SC,
+				RewardGameId = GameId.CS,
 				RewardCoins = coinsReward
 			};
 			

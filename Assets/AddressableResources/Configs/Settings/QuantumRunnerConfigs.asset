@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: QuantumRunnerConfigs
   m_EditorClassIdentifier: 
   _runtimeConfig:
-    Seed: 1780825216
+    Seed: 741117028
     Map:
       Id:
-        Value: 4332060462896694051
+        Value: 581929196288820183
     SimulationConfig:
       Id:
         Value: 1565542650131154954
@@ -29,12 +29,12 @@ MonoBehaviour:
     WeaponConfigs:
       Id:
         Value: 2174339006334179964
-    GearConfigs:
-      Id:
-        Value: 331988359844761930
     ConsumableConfigs:
       Id:
         Value: 3521447524462001825
+    ChestConfigs:
+      Id:
+        Value: 4100866902722562598
     SpecialConfigs:
       Id:
         Value: 3242401771564966650
@@ -47,5 +47,11 @@ MonoBehaviour:
     ShrinkingCircleConfigs:
       Id:
         Value: 3083889286552435639
+    EquipmentStatsConfigs:
+      Id:
+        Value: 2044373238692490151
+    BaseEquipmentStatsConfigs:
+      Id:
+        Value: 1461361185191240749
   _deterministicConfigAsset: {fileID: 11400000, guid: f751724b9805d468883f1b6feb3bc2de, type: 2}
   _serverSettings: {fileID: 11400000, guid: 36ac09ddba67042d388dbb80f6fa2ccb, type: 2}

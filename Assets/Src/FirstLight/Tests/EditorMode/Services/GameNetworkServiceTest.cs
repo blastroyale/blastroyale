@@ -12,7 +12,7 @@ namespace FirstLight.Tests.EditorMode.Services
 		[SetUp]
 		public void Init()
 		{
-			_gameNetworkService = new GameNetworkService();
+			//_gameNetworkService = new GameNetworkService();
 		}
 	}
 }

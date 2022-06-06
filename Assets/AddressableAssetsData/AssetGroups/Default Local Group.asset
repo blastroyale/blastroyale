@@ -42,11 +42,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ignore
-  - m_GUID: a5552cdd1cfba47849e406a01d3f7c8e
-    m_Address: UiVfx
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Ignore
   - m_GUID: aa29c48334b522d4591d90c5b472c698
     m_Address: Sprites
     m_ReadOnly: 0

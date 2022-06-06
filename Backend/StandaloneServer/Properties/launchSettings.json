@@ -1,0 +1,55 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:33789",
+      "sslPort": 44343
+    }
+  },
+  "profiles": {
+    "StandaloneServer": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "useSSL": false,
+      "applicationUrl": "http://localhost:7274;",
+      "environmentVariables": {
+        "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
+        "PLAYFAB_TITLE": "***REMOVED***",
+        "DEV_MODE": "true",
+        "API_URL": "https://devmarketplaceapi.azure-api.net",
+        "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
+        "API_SECRET": "devkey"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "DockerfileRunArguments": "-v $(pwd)/host-folder:/container-folder:ro",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "http://+:7274",
+        "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
+        "PLAYFAB_TITLE": "***REMOVED***",
+        "DEV_MODE": "true",
+        "API_URL": "https://devmarketplaceapi.azure-api.net",
+        "API_BLOCKCHAIN_SERVICE": "br-blockchain",
+        "API_SECRET": "devkey"
+      },
+      "httpPort": 7274,
+      "useSSL": false
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

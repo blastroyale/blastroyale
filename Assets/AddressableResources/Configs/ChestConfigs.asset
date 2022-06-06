@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fc98060dc547c59de1a4fa80fcd5a7, type: 3}
+  m_Name: ChestConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/ChestConfigs
+      Guid:
+        Value: 4100866902722562598
+    QuantumConfigs:
+    - Id: 13
+      AssetRef:
+        Id:
+          Value: 4486983998464243699
+      ChestType: 0
+      RandomEquipment:
+      - Value1:
+          RawValue: 16384
+        Value2: 1
+      SmallConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 3
+      - Value1:
+          RawValue: 16384
+        Value2: 3
+      LargeConsumable:
+      - Value1:
+          RawValue: 0
+        Value2: 0
+    - Id: 1
+      AssetRef:
+        Id:
+          Value: 4486983998464243699
+      ChestType: 1
+      RandomEquipment:
+      - Value1:
+          RawValue: 32768
+        Value2: 1
+      SmallConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 3
+      - Value1:
+          RawValue: 16384
+        Value2: 5
+      LargeConsumable:
+      - Value1:
+          RawValue: 16384
+        Value2: 2
+    - Id: 16
+      AssetRef:
+        Id:
+          Value: 4486983998464243699
+      ChestType: 2
+      RandomEquipment:
+      - Value1:
+          RawValue: 65536
+        Value2: 1
+      - Value1:
+          RawValue: 16384
+        Value2: 1
+      SmallConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 5
+      - Value1:
+          RawValue: 32768
+        Value2: 5
+      LargeConsumable:
+      - Value1:
+          RawValue: 32768
+        Value2: 2
+    - Id: 2
+      AssetRef:
+        Id:
+          Value: 4486983998464243699
+      ChestType: 3
+      RandomEquipment:
+      - Value1:
+          RawValue: 65536
+        Value2: 1
+      - Value1:
+          RawValue: 32768
+        Value2: 2
+      SmallConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 5
+      - Value1:
+          RawValue: 32768
+        Value2: 7
+      LargeConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 2
+      - Value1:
+          RawValue: 32768
+        Value2: 3
+    - Id: 19
+      AssetRef:
+        Id:
+          Value: 4486983998464243699
+      ChestType: 4
+      RandomEquipment:
+      - Value1:
+          RawValue: 65536
+        Value2: 2
+      - Value1:
+          RawValue: 32768
+        Value2: 2
+      SmallConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 7
+      - Value1:
+          RawValue: 32768
+        Value2: 7
+      LargeConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 3
+      - Value1:
+          RawValue: 32768
+        Value2: 3

@@ -1,10 +1,6 @@
-
-using System;
-using System.Collections.Generic;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.AdventureHudViews;
-using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -15,9 +11,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class LeaderHolderView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _leaderNameText;
-		[SerializeField] private TextMeshProUGUI _currentLeaderFragsText;
-		[SerializeField] private Animation _leaderChangedAnimation;
+		[SerializeField, Required] private TextMeshProUGUI _leaderNameText;
+		[SerializeField, Required] private TextMeshProUGUI _currentLeaderFragsText;
+		[SerializeField, Required] private Animation _leaderChangedAnimation;
 
 		private PlayerRef? _currentLeader;
 		
@@ -35,8 +31,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var leaderData = callback.PlayersMatchData[callback.PlayerLeader];
-			
+			var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
+
 			if (!_currentLeader.HasValue || _currentLeader.Value != callback.PlayerLeader)
 			{
 				_currentLeader = callback.PlayerLeader;

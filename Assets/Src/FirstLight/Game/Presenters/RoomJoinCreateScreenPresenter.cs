@@ -1,14 +1,17 @@
 using System;
-using FirstLight.Game.Ids;
+using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using I2.Loc;
-using MoreMountains.NiceVibrations;
+using Quantum;
+using Sirenix.OdinInspector;
+using TMPro;
+using Button = UnityEngine.UI.Button;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -23,9 +26,10 @@ namespace FirstLight.Game.Presenters
 			public Action PlayClicked;
 		}
 		
-		[SerializeField] private Button _closeButton;
-		[SerializeField] private Button _createRoomButton;
-		[SerializeField] private Button _joinRoomButton;
+		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _createDeathmatchRoomButton;
+		[SerializeField, Required] private Button _joinRoomButton;
+		[SerializeField, Required] private TMP_Dropdown _mapSelection;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -34,9 +38,13 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			
+			FillMapSelectionList();
+			
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Observe((mode, gameMode) => FillMapSelectionList());
 
 			_closeButton.onClick.AddListener(Close);
-			_createRoomButton.onClick.AddListener(CreateRoomClicked);
+			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 		}
 
@@ -54,19 +62,57 @@ namespace FirstLight.Game.Presenters
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode, 
-			                                                    "", confirmButton, true);
+			                                                    "", confirmButton, true, TMP_InputField.ContentType.IntegerNumber);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			Data.PlayClicked.Invoke();
+			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage{ RoomName = roomNameInput });
+			Data.PlayClicked();
 		}
 
 		private void CreateRoomClicked()
 		{
-			// Get a short room name code so it's easily shareable, visible on the UI
-			string roomName = Guid.NewGuid().ToString().Substring(0,6).ToUpper();
-			Data.PlayClicked.Invoke();
+			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
+			var roomName = Random.Range(100000, 999999).ToString("F0");
+
+			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
+			
+			var message = new PlayCreateRoomClickedMessage
+			{
+				RoomName = roomName,
+				MapConfig = mapConfig
+			};
+
+			_services.MessageBrokerService.Publish(message);
+			Data.PlayClicked();
+		}
+
+		private void FillMapSelectionList()
+		{
+			_mapSelection.options.Clear();
+			
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<MapConfig>();
+
+			foreach (var config in configs.Values)
+			{
+				if (config.GameMode == _gameDataProvider.AppDataProvider.SelectedGameMode.Value && 
+				         (!config.IsTestMap || Debug.isDebugBuild))
+				{
+					_mapSelection.options.Add(new DropdownMenuOption(config.Map.GetTranslation(), config));
+				}
+			}
+
+			_mapSelection.RefreshShownValue();
+		}
+
+		private class DropdownMenuOption : TMP_Dropdown.OptionData
+		{
+			public MapConfig MapConfig { get; set; }
+			public DropdownMenuOption(string text, MapConfig mapConfig) : base(text)
+			{
+				MapConfig = mapConfig;
+			}
 		}
 	}
 }

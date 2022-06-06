@@ -6,7 +6,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for <see cref="DummyCharacter"/> entity
 	/// </summary>
-	public class DummyCharacterSystem : SystemSignalsOnly, ISignalHealthIsZero
+	public class DummyCharacterSystem : SystemSignalsOnly, ISignalHealthIsZero, ISignalOnComponentAdded<DummyCharacter>
 	{
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
@@ -17,6 +17,17 @@ namespace Quantum.Systems
 				
 				f.Events.OnDummyCharacterKilled(entity);
 			}
+		}
+
+		public unsafe void OnAdded(Frame f, EntityRef entity, DummyCharacter* component)
+		{
+			var targetable = new Targetable
+			{
+				Team = (int) TeamType.Neutral
+			};
+
+			f.Add(entity, targetable);
+			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0));
 		}
 	}
 }

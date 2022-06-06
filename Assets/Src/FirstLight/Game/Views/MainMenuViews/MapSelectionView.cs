@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,11 +20,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class MapSelectionView : MonoBehaviour, IPointerClickHandler
 	{
-		[SerializeField] private TextMeshProUGUI _selectedDropAreaText;
-		[SerializeField] private RectTransform _selectedPoint;
-		[SerializeField] private Camera _uiCamera;
-		[SerializeField] private AspectRatioFitter _aspectRatioFitter;	
-		[SerializeField] private Image _mapImage;
+		[SerializeField, Required] private TextMeshProUGUI _selectedDropAreaText;
+		[SerializeField, Required] private RectTransform _selectedPoint;
+		[SerializeField, Required] private Camera _uiCamera;
+		[SerializeField, Required] private AspectRatioFitter _aspectRatioFitter;	
+		[SerializeField, Required] private Image _mapImage;
 		
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -43,13 +44,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_rectTransform = transform as RectTransform;
 		}
 
-		public async void OnEnable()
+		/// <summary>
+		/// Setup the map visuals to look awesome on the screen and selects a random point in battle royale mode
+		/// </summary>
+		public async void SetupMapView(int mapId)
 		{
-			_mapImage.enabled = false;
-			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_dataProvider.AppDataProvider.CurrentMapConfig.Map, false);
-			_mapImage.enabled = true;
+			var config = _services.ConfigsProvider.GetConfig<MapConfig>(mapId);
 			
-			_selectionEnabled = _dataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.BattleRoyale;
+			_mapImage.enabled = false;
+			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
+			_mapImage.enabled = true;
+			_selectionEnabled = config.GameMode == GameMode.BattleRoyale && !config.IsTestMap;
 
 			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
 			_selectedPoint.gameObject.SetActive(_selectionEnabled);
@@ -57,8 +62,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
 			// images on the UI, but then landing location grid will be completely broken for BR game mode
-			float aspectRatioPercent = (_mapImage.preferredWidth / _mapImage.preferredHeight);
-			_aspectRatioFitter.aspectRatio = aspectRatioPercent;
+			_aspectRatioFitter.aspectRatio = (_mapImage.preferredWidth / _mapImage.preferredHeight);
 
 			if (_selectionEnabled)
 			{
@@ -113,8 +117,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)
 		{
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, pointer, _uiCamera,
-			                                                        out var localPos);
+			var pointerVec3 = new Vector3(pointer.x, pointer.y, 0);
+			var screenPoint = RectTransformUtility.WorldToScreenPoint(_uiCamera, pointerVec3);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, screenPoint, _uiCamera, out var localPos);
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var size = mapGridConfigs.GetSize()  - Vector2Int.one;

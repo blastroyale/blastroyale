@@ -2,6 +2,7 @@
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +15,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class EquipmentStatInfoView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _statText;
-		[SerializeField] private TextMeshProUGUI _valueText;
-		[SerializeField] private TextMeshProUGUI _valueTextComparison;
-		[SerializeField] private Slider _slider;
-		[SerializeField] private Slider _comparisonSlider;
-		[SerializeField] private Image _comparisonSliderFillImage;
+		[SerializeField, Required] private TextMeshProUGUI _statText;
+		[SerializeField, Required] private TextMeshProUGUI _valueText;
+		[SerializeField, Required] private TextMeshProUGUI _valueTextComparison;
+		[SerializeField, Required] private Slider _slider;
+		[SerializeField, Required] private Slider _comparisonSlider;
+		[SerializeField, Required] private Image _comparisonSliderFillImage;
 		[SerializeField] private Color _positiveColor;
 		[SerializeField] private Color _negativeColor;
 		[SerializeField] private Color _neutralColor;
@@ -45,11 +46,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public virtual void SetInfo(EquipmentStatType statType, string statText, float value, float maxValue)
 		{
 			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
-
+		
 			_statText.text = statText;
 			_valueText.text = value.ToString(format);
 			_valueTextComparison.text = "";
-
+		
 			if (value > 0 && maxValue > 0)
 			{
 				_slider.value = value / _maxValuesDictionary[statType];
@@ -68,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			
 			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
 			var textString = "";
-
+		
 			if (delta > 0)
 			{
 				_valueTextComparison.color = _positiveColor;

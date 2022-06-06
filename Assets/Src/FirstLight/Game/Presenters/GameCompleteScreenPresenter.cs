@@ -1,12 +1,13 @@
 using System;
+using System.Collections.Generic;
 using Cinemachine;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
-using FirstLight.Game.TimelinePlayables;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -27,14 +28,14 @@ namespace FirstLight.Game.Presenters
 			public Action ContinueClicked;
 		}
 		
-		[SerializeField] private CinemachineVirtualCamera _playerProxyCamera;
-		[SerializeField] protected PlayableDirector _director;
-		[SerializeField] private TextMeshProUGUI _winningPlayerText;
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private Image _emojiImage;
-		[SerializeField] private Sprite _happyEmojiSprite;
-		[SerializeField] private Sprite _sickEmojiSprite;
-		[SerializeField] private Button _gotoResultsMenuButton;
+		[SerializeField, Required] private CinemachineVirtualCamera _playerProxyCamera;
+		[SerializeField, Required] protected PlayableDirector _director;
+		[SerializeField, Required] private TextMeshProUGUI _winningPlayerText;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private Image _emojiImage;
+		[SerializeField, Required] private Sprite _happyEmojiSprite;
+		[SerializeField, Required] private Sprite _sickEmojiSprite;
+		[SerializeField, Required] private Button _gotoResultsMenuButton;
 
 		private EntityRef _playerWinnerEntity;
 		private IEntityViewUpdaterService _entityService;
@@ -75,8 +76,8 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
-			var playerWinner = matchData[leader];
+			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = playerData[leader];
 
 			if (game.PlayerIsLocal(leader))
 			{
@@ -85,8 +86,9 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				var localPlayerData = playerData.Find(data => game.PlayerIsLocal(data.Data.Player));
 				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = ScriptLocalization.General.DEFEATED;
+				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + ((int)localPlayerData.PlayerRank).GetOrdinalTranslation());
 			}
 
 			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());

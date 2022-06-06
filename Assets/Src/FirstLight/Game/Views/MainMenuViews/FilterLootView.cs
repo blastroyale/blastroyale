@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -11,9 +12,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class FilterLootView : MonoBehaviour
 	{
 		[SerializeField] private GameIdGroup _slot;
-		[SerializeField] private Button _button;
-		[SerializeField] private NotificationGroupUpgradeView _notificationGroupUpgradeView;
-		[SerializeField] private NotificationGroupIdView _notificationGroupIdView;
+		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private NotificationGroupIdView _notificationGroupIdView;
 
 		/// <summary>
 		/// Triggered when the button is clicked and passing the <see cref="GameIdGroup"/> slot referencing the button
@@ -30,7 +30,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void SetNotificationState()
 		{
-			_notificationGroupUpgradeView.UpdateState();
 			_notificationGroupIdView.UpdateState();
 		}
 

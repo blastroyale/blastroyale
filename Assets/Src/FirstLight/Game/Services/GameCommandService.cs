@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PlayFab;
 using PlayFab.CloudScriptModels;
+using PlayFab.SharedModels;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
+	/// <summary>
+	/// Defines the required user permission level to access a given command.
+	/// </summary>
+	public enum CommandAccessLevel
+	{
+		Player, Admin
+	}
+	
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
 	{
@@ -20,28 +29,60 @@ namespace FirstLight.Game.Services
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand;
 	}
 
+	/// <summary>
+	/// Refers to dictionary keys used in the data sent to server.
+	/// </summary>
+	public static class CommandFields
+	{
+		/// <summary>
+		/// Key where the command data is serialized.
+		/// </summary>
+		public static readonly string Command = nameof(IGameCommand);
+		
+		/// <summary>
+		/// Field containing the client timestamp for when the command was issued.
+		/// </summary>
+		public static readonly string Timestamp = nameof(Timestamp);
+
+		/// <summary>
+		/// Field about the version the game client is currently running
+		/// </summary>
+		public static readonly string ClientVersion = nameof(ClientVersion);
+	}
+
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
-		private readonly JsonConverter _formatter;
+		private readonly Queue<IGameCommand> _commandQueue;
+		private IPlayfabService _playfab;
 		
-		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
+		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			_playfab = playfabService;
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
-			_formatter = new StringEnumConverter();
+			_commandQueue = new Queue<IGameCommand>();
 		}
 		
+		/// <summary>
+		/// Generic PlayFab error that is being called on PlayFab responses.
+		/// Will throw an <see cref="PlayFabException"/> to be shown to the player.
+		/// </summary>
+		public static void OnPlayFabError(PlayFabError error)
+		{
+			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
+		}
+
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
 		{
 			try
 			{
-				// ExecuteCommandServerSide(command); // TODO: Add me
+				EnqueueCommandToServer(command);
 				command.Execute(_gameLogic, _dataProvider);
-				ForceServerDataUpdate(command); // TODO: Remove me
 			}
 			catch (Exception e)
 			{
@@ -61,83 +102,113 @@ namespace FirstLight.Game.Services
 				{
 					title = "PlayFab Exception";
 				}
-				
 				NativeUiService.ShowAlertPopUp(false, title, e.Message, button);
 				throw;
 			}
 		}
 
 		/// <summary>
-		/// Generic PlayFab error that is being called on PlayFab responses.
-		/// Will throw an <see cref="PlayFabException"/> to be shown to the player.
-		/// </summary>
-		public static void OnPlayFabError(PlayFabError error)
-		{
-			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, error.ErrorMessage);
-		}
-
-		/// <summary>
-		/// Serializes a given command and sends it to the server. The server should run the command logic server-side.
-		/// If no errors are provided in return, assume the server and client are in sync.
-		/// This will also always send the Rng data to the server in case there's any rng rolls.
-		/// TODO: In case of error, rollback client state.
-		/// </summary>
-		/// <param name="command"></param>
-		private void ExecuteCommandServerSide(IGameCommand command)
-		{
-			var data = new Dictionary<string, string>
-			{
-				{nameof(IGameCommand), SerializeCommandToServer(command)},
-			};
-			ExecuteServerCommand(command, data);
-		}
-
-		/// <summary>
-		/// Serializes the command as a Dictionary.
-		/// </summary>
-		/// <param name="command">Command to be serialized</param>
-		/// <returns>A dictionary with the serialized command</returns>
-		public string SerializeCommandToServer(IGameCommand command)
-		{
-			return JsonConvert.SerializeObject(command, _formatter);
-		}
-		
-		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.
 		/// Will only be enabled for testing and debugging purposes.
 		/// </summary>
-		/// <param name="command">Command to be sent</param>
-		private void ForceServerDataUpdate(IGameCommand command)
+		public void ForceServerDataUpdate()
 		{
-			var data = new Dictionary<string, string>
+			EnqueueCommandToServer(new ForceUpdateCommand()
 			{
-				{nameof(IdData), JsonConvert.SerializeObject(_dataProvider.GetData<IdData>(), _formatter)},
-				{nameof(RngData), JsonConvert.SerializeObject(_dataProvider.GetData<RngData>(), _formatter)},
-				{nameof(PlayerData), JsonConvert.SerializeObject(_dataProvider.GetData<PlayerData>(), _formatter)}
-			};
-			ExecuteServerCommand(command, data);
+				IdData = _dataProvider.GetData<IdData>(),
+				RngData = _dataProvider.GetData<RngData>(),
+				PlayerData = _dataProvider.GetData<PlayerData>(),
+				NftEquipmentData = _dataProvider.GetData<NftEquipmentData>()
+			});
+		}
+
+		/// <summary>
+		/// Adds a given command to the "to send to server queue".
+		/// We send one command at a time to server, this queue ensure that.
+		/// </summary>
+		private void EnqueueCommandToServer<TCommand>(TCommand cmd) where TCommand : struct, IGameCommand
+		{
+			_commandQueue.Enqueue(cmd);
+			if (_commandQueue.Count == 1)
+			{
+				ExecuteServerCommand(cmd);
+			}
+		}
+
+		/// <summary>
+		/// Called when server has successfully finished running the given command.
+		/// </summary>
+		private void OnServerExecutionFinished<TCommand>(TCommand cmd)
+		{
+			_commandQueue.Dequeue();
+			if (_commandQueue.TryPeek(out var next))
+			{
+				ExecuteServerCommand(next);
+			}
 		}
 		
 		/// <summary>
+		/// Rolls back client state to the current server state.
+		/// Current implementation it simply closes the game.
+		/// </summary>
+		private void Rollback(string reason = "Server Desync")
+		{
+			var button = new AlertButton
+			{
+				Callback = Application.Quit,
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"
+			};
+			NativeUiService.ShowAlertPopUp(false, "Game Error", reason, button);
+		}
+
+		/// <summary>
 		/// Sends a command to the server.
 		/// </summary>
-		/// <param name="command">Command to be ran in server</param>
-		/// <param name="data">Command parameters to be sent</param>
-		private void ExecuteServerCommand(IGameCommand command, Dictionary<string, string> data) 
+		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
-			var request = new ExecuteFunctionRequest
+			var request = new LogicRequest
 			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
+				Command = command.GetType().FullName,
+				Platform = Application.platform.ToString(),
+				Data = new Dictionary<string, string>
 				{
-					Command = command.GetType().Name,
-					Platform = Application.platform.ToString(),
-					Data = data
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
+					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
+					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
+					{CommandFields.ClientVersion, VersionUtils.VersionExternal}
+				}
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
+		}
+		
+		/// <summary>
+		/// Whenever the HTTP request to proccess a command does not return 200
+		/// </summary>
+		private void OnCommandError(PlayFabError error)
+		{
+			Rollback(error.ErrorMessage);
+			OnPlayFabError(error);
+		}
+
+		/// <summary>
+		/// Whenever the HTTP request to proccess a command returns 200
+		/// </summary>
+		private void OnCommandSuccess(ExecuteFunctionResult result)
+		{
+			_commandQueue.TryPeek(out var current);
+			var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
+			if (logicResult.Result.Command != current.GetType().FullName)
+			{
+				Rollback("Wrong Command Order");
+				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
+			}
+			// Command returned 200 but a expected logic exception happened due
+			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
+			{
+				Rollback("Server Exception");
+				throw new LogicException(logicException);
+			}
+			OnServerExecutionFinished(current);
 		}
 	}
 }

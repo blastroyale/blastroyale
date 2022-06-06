@@ -1,44 +1,51 @@
 ﻿using System.Collections.Generic;
 using Photon.Deterministic;
 
-namespace Quantum 
+namespace Quantum
 {
 	/// <summary>
 	/// Extents the <see cref="RNGSession"/>
 	/// </summary>
 	public static class RngSessionExtension
 	{
-		public static RNGSession Peek(this ref RNGSession session) 
+		public static RNGSession Peek(this ref RNGSession session)
 		{
 			return session;
 		}
 	}
-	
-	unsafe partial class Frame 
+
+	unsafe partial class Frame
 	{
 		/// <summary>
 		/// The current time since the beginning of the simulation;
 		/// </summary>
 		public FP Time => Number * DeltaTime;
 
-		internal int TargetAllLayerMask { get; private set; }
-		internal QuantumGameConfig GameConfig { get; private set; }
+		internal QuantumGameConfig GameConfig =>
+			FindAsset<QuantumGameConfigs>(RuntimeConfig.GameConfigs.Id).QuantumConfig;
+
 		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
-		internal QuantumGearConfigs GearConfigs => FindAsset<QuantumGearConfigs>(RuntimeConfig.GearConfigs.Id);
-		internal QuantumConsumableConfigs ConsumableConfigs => FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
-		internal QuantumSpecialConfigs SpecialConfigs => FindAsset<QuantumSpecialConfigs>(RuntimeConfig.SpecialConfigs.Id);
+		internal QuantumBaseEquipmentStatsConfigs BaseEquipmentStatsConfigs =>
+			FindAsset<QuantumBaseEquipmentStatsConfigs>(RuntimeConfig.BaseEquipmentStatsConfigs.Id);
+		
+		internal QuantumEquipmentStatsConfigs EquipmentStatsConfigs =>
+			FindAsset<QuantumEquipmentStatsConfigs>(RuntimeConfig.EquipmentStatsConfigs.Id);
+
+		internal QuantumConsumableConfigs ConsumableConfigs =>
+			FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
+
+		internal QuantumChestConfigs ChestConfigs => FindAsset<QuantumChestConfigs>(RuntimeConfig.ChestConfigs.Id);
+
+		internal QuantumSpecialConfigs SpecialConfigs =>
+			FindAsset<QuantumSpecialConfigs>(RuntimeConfig.SpecialConfigs.Id);
+
 		internal QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
 		internal QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);
-		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs => FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
 
-		partial void InitUser()
-		{
-			GameConfig = FindAsset<QuantumGameConfigs>(RuntimeConfig.GameConfigs.Id).QuantumConfig;
-			TargetAllLayerMask = Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target", 
-			                                         "Prop", "World", "Environment No Silhouette");
-		}
-		
+		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
+			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
+
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> that can be iterated over.
 		/// Use this with caution because creates garbage. A good use is to allow indexing on a execution loop
@@ -54,7 +61,7 @@ namespace Quantum
 
 			return list;
 		}
-		
+
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> pointers that can be iterated over.
 		/// Use this with caution because creates garbage. A good use is to allow indexing on a execution loop

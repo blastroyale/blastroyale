@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Services;
 
 namespace FirstLight.Game.Services
 {
@@ -14,23 +15,22 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IUiVfxService"/>
 		IUiVfxService UiVfxService { get; }
+
+		IRemoteTextureService RemoteTextureService { get; }
 	}
-	
+
 	/// <inheritdoc />
 	public class MainMenuServices : IMainMenuServices
 	{
-		private readonly IUiVfxInternalService _uiVfxService;
-		private readonly IAssetResolverService _assetResolverService;
+		public IUiVfxService UiVfxService { get; }
+		public IRemoteTextureService RemoteTextureService { get; }
 
-		/// <inheritdoc />
-		public IUiVfxService UiVfxService => _uiVfxService;
-		
-		public MainMenuServices(IAssetResolverService assetResolverService, IUiVfxInternalService uiVfxService)
+		public MainMenuServices(IUiVfxInternalService uiVfxService, IRemoteTextureService remoteTextureService)
 		{
-			_assetResolverService = assetResolverService;
-			_uiVfxService = uiVfxService;
+			UiVfxService = uiVfxService;
+			RemoteTextureService = remoteTextureService;
 		}
-		
+
 		/// <inheritdoc />
 		public void Dispose()
 		{

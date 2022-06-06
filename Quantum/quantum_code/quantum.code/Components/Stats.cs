@@ -16,10 +16,10 @@ namespace Quantum
 
 	public unsafe partial struct Stats
 	{
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxInterimArmour)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields)
 		{
 			CurrentHealth = baseHealth.AsInt;
-			CurrentInterimArmour = 0;
+			CurrentShield = 0;
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
@@ -28,7 +28,7 @@ namespace Quantum
 			SpellEffectsPtr = Ptr.Null;
 
 			Values[(int) StatType.Health] = new StatData(baseHealth, baseHealth, StatType.Health);
-			Values[(int) StatType.InterimArmour] = new StatData(0, maxInterimArmour, StatType.InterimArmour);
+			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			Values[(int) StatType.Power] = new StatData(basePower, basePower, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
@@ -77,46 +77,99 @@ namespace Quantum
 		/// </summary>
 		internal void AddModifier(Frame f, Modifier modifier)
 		{
-			var statData = Values[(int) modifier.Type];
-			var multiplier = modifier.IsNegative ? -1 : 1;
-
-			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
-			Values[(int) modifier.Type] = statData;
-
+			ApplyModifier(modifier);
 			f.ResolveList(Modifiers).Add(modifier);
 		}
 
 		/// <summary>
-		/// Gives the given interim armour <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
-		/// This interim armour gain was induced by the given <paramref name="attacker"/>.
+		/// This re-applies all stored modifiers from <see cref="Modifiers"/>. Note that
+		/// calling this multiple times will apply all the modifiers multiple times.
+		/// </summary>
+		internal void ApplyModifiers(Frame f)
+		{
+			var modifiers = f.ResolveList(Modifiers);
+			foreach (var modifier in modifiers)
+			{
+				ApplyModifier(modifier);
+			}
+		}
+
+		/// <summary>
+		/// Sets the entity shields based on the given <paramref name="amount"/>
+		/// </summary>
+		internal void SetShields(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		{
+			var previousShield = CurrentShield;
+			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
+
+			CurrentShield = amount > currentShieldCapacity
+									   ? currentShieldCapacity
+									   : amount;
+			
+			if (CurrentShield != previousShield)
+			{
+				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
+				                                currentShieldCapacity);
+			}
+		}
+
+		/// <summary>
+		/// Gives the given shields <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
+		/// This shield gain was induced by the given <paramref name="attacker"/>.
 		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
 		/// or non existent anymore.
 		/// </summary>
-		internal void GainInterimArmour(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		internal void GainShields(Frame f, EntityRef entity, EntityRef attacker, int amount)
 		{
-			if (IsImmune)
+			SetShields(f, entity, attacker, CurrentShield + amount);
+		}
+
+		/// <summary>
+		/// Adds <paramref name="amount"/> of shield capacity as a stat modifier as <paramref name="entity"/> and notifies the change.
+		/// This shield capacity gain was induced by the given <paramref name="attacker"/>.
+		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
+		/// or non existent anymore.
+		/// </summary>
+		internal void GainShieldCapacity(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		{
+			var shield = Values[(int)StatType.Shield];
+			var currentShieldCapacity = shield.StatValue;
+			var maxShieldCapacity = shield.BaseValue;
+
+			if (currentShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
 				return;
 			}
 
-			var previousInterimArmour = CurrentInterimArmour;
-			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
-
-			CurrentInterimArmour = CurrentInterimArmour + amount > maxInterimArmour
-				                       ? maxInterimArmour
-				                       : CurrentInterimArmour + amount;
-
-			if (CurrentInterimArmour != previousInterimArmour)
+			var modifierId = ++f.Global->ModifierIdCount;
+			var modifierPower = (FP) amount / maxShieldCapacity;
+			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
+			if (newCapacityValue > maxShieldCapacity)
 			{
-				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
-				                                maxInterimArmour);
+				newCapacityValue = maxShieldCapacity;
+				modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
 			}
+
+			var capacityModifer = new Modifier
+			{
+				Id = modifierId,
+				Type = StatType.Shield,
+				Power = modifierPower,
+				Duration = FP.MaxValue,
+				EndTime = FP.MaxValue,
+				IsNegative = false
+			};
+
+			AddModifier(f, capacityModifer);
+
+			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
+			                                newCapacityValue.AsInt);
 		}
 
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="percentage"/> (between 0 - 1)
 		/// </summary>
-		internal void SetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
+		internal void SetCurrentHealthPercentage(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
 		{
 			var maxHealth = GetStatData(StatType.Health).StatValue;
 
@@ -130,10 +183,10 @@ namespace Quantum
 		{
 			var previousHealth = CurrentHealth;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			
+
 			CurrentHealth = Math.Min(maxHealth, amount);
 			CurrentHealth = Math.Max(CurrentHealth, 0);
-			
+
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{
 				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
@@ -149,12 +202,7 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, uint amount)
 		{
-			if (IsImmune)
-			{
-				return;
-			}
-
-			SetCurrentHealth(f, entity, attacker, (uint) CurrentHealth + amount);
+			SetCurrentHealth(f, entity, attacker, (int) (CurrentHealth + amount));
 		}
 
 		/// <summary>
@@ -166,34 +214,34 @@ namespace Quantum
 			var currentDamageAmount = (int) damageAmount;
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
-			var previousInterimArmour = CurrentInterimArmour;
-			var maxInterimArmour = Values[(int) StatType.InterimArmour].StatValue.AsInt;
+			var previousShield = CurrentShield;
+			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
 
 			if (IsImmune)
 			{
 				return;
 			}
 
-			// If there's Interim Armour then we reduce it first
+			// If there's shields then we reduce it first
 			// and if the damage is bigger than armour then we proceed to remove health as well
-			if (previousInterimArmour > 0)
+			if (previousShield > 0)
 			{
-				CurrentInterimArmour = Math.Max(previousInterimArmour - currentDamageAmount, 0);
-				currentDamageAmount = Math.Max(currentDamageAmount - previousInterimArmour, 0);
+				CurrentShield = Math.Max(previousShield - currentDamageAmount, 0);
+				currentDamageAmount = Math.Max(currentDamageAmount - previousShield, 0);
 
-				f.Events.OnInterimArmourChanged(entity, attacker, previousInterimArmour, CurrentInterimArmour,
-				                                maxInterimArmour);
+				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
+				                                currentShieldCapacity);
 			}
 
 			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
 				var armourDamage = damageAmount - (uint) currentDamageAmount;
 				var healthDamage = (uint) currentDamageAmount;
-				
+
 				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
-				                         healthDamage, damageAmount, maxHealth, maxInterimArmour);
+				                         healthDamage, damageAmount, maxHealth, currentShieldCapacity);
 				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
-				                              healthDamage, damageAmount, maxHealth, maxInterimArmour);
+				                              healthDamage, damageAmount, maxHealth, currentShieldCapacity);
 			}
 
 			if (currentDamageAmount <= 0)
@@ -208,6 +256,36 @@ namespace Quantum
 				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount, maxHealth);
 				f.Signals.HealthIsZero(entity, attacker);
 			}
+		}
+
+		/// <summary>
+		/// Removes all modifiers, removes immunity, resets health and shields
+		/// </summary>
+		internal void ResetStats(Frame f, EntityRef entity)
+		{
+			CurrentStatusModifierDuration = FP._0;
+			CurrentStatusModifierEndTime = FP._0;
+			CurrentStatusModifierType = StatusModifierType.None;
+			IsImmune = false;
+			
+			var list = f.ResolveList(Modifiers);
+			for (var i = list.Count - 1; i > -1; i--)
+			{
+				RemoveModifier(f, list[i]);
+			}
+			list.Clear();
+			
+			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
+			SetShields(f, entity, EntityRef.None, 0);
+		}
+
+		private void ApplyModifier(Modifier modifier)
+		{
+			var statData = Values[(int) modifier.Type];
+			var multiplier = modifier.IsNegative ? -1 : 1;
+
+			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
+			Values[(int) modifier.Type] = statData;
 		}
 	}
 }

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Ftue;
 using Quantum;
 
 namespace FirstLight.Game.Data
@@ -21,14 +19,25 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 		
+		public string LastLoginEmail;
+		public bool LinkedDevice;
+		
 		public DateTime GameReviewDate;
 
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
-		
+		public DetailLevel CurrentDetailLevel;
+
 		public List<UniqueId> NewUniqueIds = new List<UniqueId>();
 		public List<GameId> GameIdsTagged = new List<GameId>();
 		public List<UnlockSystem> SystemsTagged = new List<UnlockSystem>();
+
+		public enum DetailLevel
+		{
+			High, Medium, Low
+		}
 	}
+
+
 }

@@ -5,8 +5,6 @@ using FirstLight.Game.Logic;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using PlayFab;
-using PlayFab.ServerModels;
 
 namespace Backend.Functions;
 
@@ -16,6 +14,13 @@ namespace Backend.Functions;
 /// </summary>
 public class ExecuteCommand
 {
+	private ILogicWebService _server;
+	
+	public ExecuteCommand(ILogicWebService server)
+	{
+		_server = server;
+	}
+
 	/// <summary>
 	/// Command Execution
 	/// </summary>
@@ -24,29 +29,8 @@ public class ExecuteCommand
 	                                               HttpRequestMessage req, ILogger log)
 	{
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
-		var server = new PlayFabServerInstanceAPI(context.ApiSettings, context.AuthenticationContext);
-
-		var request = new UpdateUserDataRequest
-		{
-			Data = context.FunctionArgument.Data, 
-			PlayFabId = context.AuthenticationContext.PlayFabId,
-			KeysToRemove = context.FunctionArgument.RemoveKeys
-		};
-		
-		log.Log(LogLevel.Information, $"{request.PlayFabId} is executing - {context.FunctionArgument.Command}");
-
-		var result = await server.UpdateUserReadOnlyDataAsync(request);
-
-		return new PlayFabResult<LogicResult>
-		{
-			CustomData = result.CustomData,
-			Error = result.Error,
-			Result = new LogicResult
-			{
-				PlayFabId = request.PlayFabId,
-				Command = context.FunctionArgument.Command,
-				Data = context.FunctionArgument.Data
-			}
-		};
+		var playerId = context.AuthenticationContext.PlayFabId;
+		log.LogDebug($"{playerId} running {context.FunctionArgument.Command}");
+		return await _server.RunLogic(playerId, context.FunctionArgument);
 	}
 }

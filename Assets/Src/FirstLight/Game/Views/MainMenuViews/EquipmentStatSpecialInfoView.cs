@@ -1,10 +1,8 @@
-
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,10 +15,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class EquipmentStatSpecialInfoView : MonoBehaviour
 	{
-		[SerializeField] private Image _specialImage;
-		[SerializeField] private TextMeshProUGUI _specialText;
-		[SerializeField] private TextMeshProUGUI _headingText;
-		[SerializeField] private Button _specialButton;
+		[SerializeField, Required] private Image _specialImage;
+		[SerializeField, Required] private TextMeshProUGUI _specialText;
+		[SerializeField, Required] private TextMeshProUGUI _headingText;
+		[SerializeField, Required] private Button _specialButton;
 		
 		private IGameServices _services;
 		private GameId _specialGameId;
@@ -45,7 +43,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void ShowInfoPopup()
 		{
-			var descriptionTerm = _specialGameId.GetTranslationTerm() + GameConstants.DESCRIPTION_POSTFIX;
+			var descriptionTerm = _specialGameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.AWESOME,

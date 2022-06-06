@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Infos;
-using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace FirstLight.Game.MonoComponent.MainMenu
@@ -17,18 +15,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		/// <summary>
 		/// Equip this character with the equipment data given in the <paramref name="info"/>
 		/// </summary>
-		public async Task Init(EquipmentLoadOutInfo info)
+		public async Task Init(Equipment[] items)
 		{
 			var list = new List<Task>();
 			
-			if (info.Weapon.HasValue)
+			
+			foreach (var item in items)
 			{
-				list.Add(EquipWeapon(info.Weapon.Value.GameId));
-			}
-
-			foreach (var gear in info.Gear)
-			{
-				list.Add(EquipItem(gear.GameId));
+				// TODO mihak: Make this into a single Equip method call
+				list.Add(item.IsWeapon() ? EquipWeapon(item.GameId) : EquipItem(item.GameId));
 			}
 
 			await Task.WhenAll(list);

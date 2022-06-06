@@ -3,7 +3,10 @@ using Backend.Game;
 using Backend.Game.Services;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using NUnit.Framework;
+using ServerSDK.Models;
+using ServerSDK.Services;
 using Tests.Stubs;
 
 namespace Tests;
@@ -27,12 +30,11 @@ public class TestDataProvider
 			Trophies = 69
 		};
 		var serializedModel = ModelSerializer.Serialize(_playerData);
-		var serverData = new ServerData();
+		var serverData = new ServerState();
 		serverData.Add(serializedModel.Key, serializedModel.Value);
-		var service = _server?.GetService<IServerDataService>();
-		service?.UpdatePlayerData(_playerId, serverData);
+		var service = _server?.GetService<IServerStateService>();
+		service?.UpdatePlayerState(_playerId, serverData);
 	}
-	
 	
 	/// <summary>
 	/// Makes sure we are able to use the data provider from any read data.
@@ -41,7 +43,7 @@ public class TestDataProvider
 	[Test]
 	public void TestPlayerDataProvider()
 	{
-		var readData = _server?.GetService<IServerDataService>()?.GetPlayerData(_playerId);
+		var readData = _server?.GetService<IServerStateService>()?.GetPlayerState(_playerId);
 
 		var dataProvider = new ServerPlayerDataProvider(readData);
 		var readPlayerData = dataProvider.GetData<PlayerData>();

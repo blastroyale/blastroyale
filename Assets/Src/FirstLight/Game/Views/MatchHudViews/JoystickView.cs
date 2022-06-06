@@ -1,8 +1,7 @@
 using FirstLight.Game.Input;
-using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.AdventureHudViews
@@ -13,9 +12,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class JoystickView : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 	{
 		[SerializeField] private RectTransform[] _joysticks;
-		[SerializeField] private Image _handleImage;
-		[SerializeField] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
-		[SerializeField] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
+		[SerializeField, Required] private Image _handleImage;
+		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
 		[SerializeField] private float _radiusMultiplier = 1f;
 		
 		private PointerEventData _pointerDownData;

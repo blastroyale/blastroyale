@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -10,6 +9,21 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class QuantumHelpers
 	{
+		/// <summary>
+		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
+		/// </summary>
+		public static FP PowFp(FP baseValue, FP power)
+		{
+			var ret = FP._1;
+
+			for (var i = 0; i < power; i++)
+			{
+				ret *= baseValue;
+			}
+
+			return ret;
+		}
+		
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
@@ -98,7 +112,7 @@ namespace Quantum
 			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(spell.OriginalHitPosition, FPQuaternion.Identity, shape, 
-			                                    f.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
 
@@ -237,24 +251,24 @@ namespace Quantum
 		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f)
 		{
 			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
-			var entity = EntityRef.None;
 
 			foreach (var pair in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
 			{
 				if (f.Time < pair.Component->ActivationTime)
 				{
-					entity = !entity.IsValid || f.Get<PlayerSpawner>(entity).ActivationTime > pair.Component->ActivationTime ? pair.Entity : entity;
 					continue;
 				}
 				
 				spawners.Add(pair);
 			}
 
-			if (spawners.Count > 0)
+			if (spawners.Count == 0)
 			{
-				entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+				Log.Error($"There is no {nameof(PlayerSpawner)} active to spawn new a player");
 			}
 
+			var entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+			
 			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
 			return new EntityComponentPair<Transform3D>
@@ -285,6 +299,14 @@ namespace Quantum
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Returns a random item from <paramref name="items"/>, with equal chance for each.
+		/// </summary>
+		public static T GetRandomItem<T>(Frame f, params T[] items)
+		{
+			return items[f.RNG->Next(0, items.Length)];
 		}
 	}
 }

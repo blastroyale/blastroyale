@@ -16,14 +16,28 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e)
 		{
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
-			var position = f.Get<Transform3D>(e).Position + FPVector3.Up;
+			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Get<AIBlackboardComponent>(e);
 			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
 			var aimingDirection = bb.GetVector2(f, Constants.AimDirectionKey).Normalized;
+
+			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
+			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+
+			//targetAttackAngle depend on a current character velocity 
+			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
+			                                    cVelocitySqr / maxSpeedSqr);
+			
+			//accuracy modifier is found by getting a random angle between the min and max angle values,
+			//and then passing that through into the shot; Works only for single shot weapons
+			var angle = targetAttackAngle / FP._2;
+			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
+
 			var raycastShot = new RaycastShots
 			{
 				Attacker = e,
@@ -34,18 +48,20 @@ namespace Quantum
 				StartTime = f.Time,
 				PreviousTime = f.Time,
 				PowerAmount = powerAmount,
-				AttackAngle = weaponConfig.AttackAngle,
+				AttackAngle = (uint)targetAttackAngle,
 				Range = weaponConfig.AttackRange,
 				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
-				CanHitSameTarget = weaponConfig.CanHitSameTarget
+				CanHitSameTarget = weaponConfig.CanHitSameTarget,
+				NumberOfShots = weaponConfig.NumberOfShots,
+				AccuracyModifier = shotAngle
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
 			
 			f.Add(f.Create(), raycastShot);
-			f.Events.OnPlayerAttack(player, e);
-			f.Events.OnLocalPlayerAttack(player, e);
+			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, shotAngle, (uint)targetAttackAngle);
+			f.Events.OnLocalPlayerAttack(player, e, weaponConfig);
 		}
 	}
 }

@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -17,212 +21,181 @@ using Newtonsoft.Json.Converters;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using Quantum;
-using UnityEngine;
+using UnityEditor;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public partial class SROptions
 {
 #if DEVELOPMENT_BUILD
-	[Category("Cheats")]
-	public void Add100Sc()
-	{
-		var currencyLogic = MainInstaller.Resolve<IGameDataProvider>().CurrencyDataProvider as CurrencyLogic;
-		
-		currencyLogic.AddCurrency(GameId.SC, 100);
-	}
-
-	[Category("Cheats")]
-	public void Add1000Sc()
-	{
-		var currencyLogic = MainInstaller.Resolve<IGameDataProvider>().CurrencyDataProvider as CurrencyLogic;
-		
-		currencyLogic.AddCurrency(GameId.SC, 1000);
-	}
-
-	[Category("Cheats")]
-	public void Add100Hc()
-	{
-		var currencyLogic = MainInstaller.Resolve<IGameDataProvider>().CurrencyDataProvider as CurrencyLogic;
-		
-		currencyLogic.AddCurrency(GameId.HC, 100);
-	}
-	
-	[Category("Cheats")]
-	public void Add100Xp()
-	{
-		AddXp(100);
-	}
-	
-	[Category("Cheats")]
-	public void Add1000Xp()
-	{
-		AddXp(1000);
-	}
-	
-	[Category("Cheats")]
-	public void Add10000Xp()
-	{
-		AddXp(10000);
-	}
-
+#if ENABLE_PLAYFABADMIN_API
 	[Category("Reset Player")]
 	public void ResetPlayer()
 	{
-		PlayerPrefs.DeleteAll();
-		PlayerPrefs.Save();
-		
-		var request = new ExecuteFunctionRequest
+		var player = PlayFabSettings.staticPlayer;
+		if (player == null || player.PlayFabId == null)
 		{
-			FunctionName = "SetupPlayerCommand",
-			GeneratePlayStreamEvent = true,
-			AuthenticationContext = PlayFabSettings.staticPlayer,
-			FunctionParameter = new LogicRequest
+			throw new Exception("Not logged in");
+		}
+
+		var update = new PlayFab.AdminModels.UpdateUserDataRequest()
+		{
+			KeysToRemove = new List<string>()
 			{
-				Command = "SetupPlayerCommand",
-				Data = new Dictionary<string, string>()
-			}
+				typeof(PlayerData).FullName,
+				typeof(IdData).FullName,
+				typeof(RngData).FullName,
+				typeof(NftEquipmentData).FullName,
+			},
+			PlayFabId = player.PlayFabId
 		};
-			
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+
+		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
+		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
+
+		void Result(PlayFab.AdminModels.UpdateUserDataResult result)
+		{
+			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
+#if UNITY_EDITOR
+			if(EditorApplication.isPlaying) 
+			{
+				UnityEditor.EditorApplication.isPlaying = false;
+			}
+#endif
+		}
+	}
+#endif
+
+	[Category("Equipment")]
+	public void GiveMaxedEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		
+		foreach (var config in equipmentConfigs)
+		{
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id,
+			                                                      EquipmentEdition.Genesis,
+			                                                      EquipmentRarity.LegendaryPlus,
+			                                                      EquipmentGrade.GradeI,
+			                                                      EquipmentFaction.Dimensional,
+			                                                      EquipmentAdjective.Divine,
+			                                                      EquipmentMaterial.Golden,
+			                                                      EquipmentManufacturer.Military,
+			                                                      100,
+			                                                      10,
+			                                                      0,
+			                                                      0,
+			                                                      10
+			                                                     ));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Cheats")]
-	public void Add1Day()
+	[Category("Equipment")]
+	public void GiveBadEquipment()
 	{
-		var timeManipulator = MainInstaller.Resolve<IGameServices>().TimeService as ITimeManipulator;
-		var timeNow = timeManipulator.DateTimeUtcNow;
-			
-		timeManipulator.AddTime((float) (timeNow.AddDays(1) - timeNow).TotalSeconds);
-	}
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 		
-	[Category("Cheats")]
-	public void Add1Hour()
-	{
-		var timeManipulator = MainInstaller.Resolve<IGameServices>().TimeService as ITimeManipulator;
-		var timeNow = timeManipulator.DateTimeUtcNow;
-			
-		timeManipulator.AddTime((float) (timeNow.AddHours(1) - timeNow).TotalSeconds);
+		foreach (var config in equipmentConfigs)
+		{
+			if (config.Id == GameId.Hammer)
+			{
+				continue;
+			}
+
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-		
-	[Category("Cheats")]
-	public void Add1Minute()
-	{
-		var timeManipulator = MainInstaller.Resolve<IGameServices>().TimeService as ITimeManipulator;
-		var timeNow = timeManipulator.DateTimeUtcNow;
-			
-		timeManipulator.AddTime((float) (timeNow.AddMinutes(1) - timeNow).TotalSeconds);
-	}
-		
-	[Category("Cheats")]
-	public void UnlockAllEquipment()
+
+	/// <summary>
+	/// This cheat can be be used to validate resource pool calculations, by receiving equipment used in the resource pool calculator:
+	/// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
+	///
+	/// Make sure to use RemoveAllEquipment cheat before using this one, if you want to test RP calculations.
+	/// </summary>
+	[Category("Equipment")]
+	public void UnlockEquipmentSet()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var dataProvider = services.DataSaver as IDataService;
-		var weaponConfigs = services.ConfigsProvider.GetConfigsList<QuantumWeaponConfig>();
-		var gearConfigs = services.ConfigsProvider.GetConfigsList<QuantumGearConfig>();
-		var converter = new StringEnumConverter();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 
-		foreach (var config in weaponConfigs)
-		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, ItemRarity.Common, 1);
-		}
-		
-		foreach (var config in gearConfigs)
-		{
-			gameLogic.EquipmentLogic.AddToInventory(config.Id, config.StartingRarity, 1);
-		}
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id,
+		                                                      rarity: EquipmentRarity.LegendaryPlus,
+		                                                      adjective: EquipmentAdjective.Divine,
+		                                                      grade: EquipmentGrade.GradeIV, durability: 18,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[4].Id, rarity: EquipmentRarity.Legendary,
+		                                                      adjective: EquipmentAdjective.Royal,
+		                                                      grade: EquipmentGrade.GradeI, durability: 43,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Uncommon,
+		                                                      adjective: EquipmentAdjective.Cool,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 51,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[6].Id, rarity: EquipmentRarity.Rare,
+		                                                      adjective: EquipmentAdjective.Exquisite,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 62,
+		                                                      level: 3));
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[26].Id, rarity: EquipmentRarity.RarePlus,
+		                                                      adjective: EquipmentAdjective.Regular,
+		                                                      grade: EquipmentGrade.GradeV, durability: 96,
+		                                                      level: 3));
 
-		var request = new ExecuteFunctionRequest
-		{
-			FunctionName = "ExecuteCommand",
-			GeneratePlayStreamEvent = true,
-			FunctionParameter = new LogicRequest
-			{
-				Command = "CheatUnlockAllEquipments",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(IdData), JsonConvert.SerializeObject(dataProvider.GetData<IdData>(), converter)},
-					{nameof(RngData), JsonConvert.SerializeObject(dataProvider.GetData<RngData>(), converter)},
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>(), converter)}
-				}
-			},
-			AuthenticationContext = PlayFabSettings.staticPlayer
-		};
-
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-		
-	[Category("Cheats")]
-	public void AddManyLootBoxReward()
+
+	[Category("Equipment")]
+	public void UnlockOneEquipment()
 	{
-		var lootCollected = new List<uint>();
 		var services = MainInstaller.Resolve<IGameServices>();
-		var configs = services.ConfigsProvider.GetConfigsList<LootBoxConfig>();
-		var count = 10;//configs.Count;
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 
-		/*
-		lootCollected.Add((uint) configs[1].Id);
-		lootCollected.Add((uint) configs[2].Id);
-		lootCollected.Add((uint) configs[3].Id);
-		lootCollected.Add((uint) configs[4].Id);
-		lootCollected.Add((uint) configs[5].Id);
-		lootCollected.Add((uint) configs[1].Id);
-		lootCollected.Add((uint) configs[2].Id);
-		*/
-		
-		lootCollected.Add((uint) configs[4].Id);
-		
-		for (var i = 0; i < count; i++)
+		var rand = Random.Range(0, equipmentConfigs.Count);
+
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[rand].Id,
+		                                                      rarity: EquipmentRarity.Rare,
+		                                                      adjective: EquipmentAdjective.Exquisite,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 75,
+		                                                      level: 3));
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Equipment")]
+	public void RemoveAllEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+
+		var deletionKeys = new List<UniqueId>();
+
+		deletionKeys.AddRange(gameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary.Keys);
+
+		foreach (var key in deletionKeys)
 		{
-			lootCollected.Add((uint) configs[0].Id);
+			gameLogic.EquipmentLogic.RemoveFromInventory(key);
 		}
-		
-		services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
-		{
-			PlayerMatchData = new QuantumPlayerMatchData(),
-		});
-	}
-	
-	[Category("Cheats")]
-	public void AddTimedLootBoxReward()
-	{
-		var lootCollected = new List<uint>();
-		var services = MainInstaller.Resolve<IGameServices>();
-		var configs = services.ConfigsProvider.GetConfigsList<LootBoxConfig>();
 
-		lootCollected.Add((uint) configs[10].Id);
-		
-		services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
-		{
-			PlayerMatchData = new QuantumPlayerMatchData(),
-		});
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
-	[Category("Cheats")]
-	public void AddRelicLootBoxReward()
-	{
-		var lootCollected = new List<uint>();
-		var services = MainInstaller.Resolve<IGameServices>();
-		var configs = services.ConfigsProvider.GetConfigsList<LootBoxConfig>();
 
-		lootCollected.Add((uint) configs[configs.Count - 6].Id);
-		
-		services.CommandService.ExecuteCommand(new GameCompleteRewardsCommand
-		{
-			PlayerMatchData = new QuantumPlayerMatchData(),
-		});
-	}
-	
-		
-	[Category("Cheats")]
-	public void AddCoinXpReward()
-	{
-		MainInstaller.Resolve<IGameServices>().CommandService.ExecuteCommand(new GameCompleteRewardsCommand
-		{
-			PlayerMatchData = new QuantumPlayerMatchData()// { EnemiesKilledCount = 10 },
-		});
-	}
-	
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{
@@ -231,8 +204,8 @@ public partial class SROptions
 		if (uiService.GetUi<MatchHudPresenter>().IsOpen)
 		{
 			uiService.CloseUi<MatchHudPresenter>();
-			
-			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
 			{
 				renderer.enabled = false;
 			}
@@ -240,20 +213,25 @@ public partial class SROptions
 		else
 		{
 			uiService.OpenUi<MatchHudPresenter>();
-			
-			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Renderer>(true))
+
+			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
 			{
 				renderer.enabled = true;
 			}
 		}
 	}
 
+	[Category("Progression")]
 	private void AddXp(uint amount)
 	{
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-			
+
+		// TODO: Remove Logic outside command
 		gameLogic.PlayerLogic.AddXp(amount);
+
+		var data = new Dictionary<string, string>();
+		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
 
 		var request = new ExecuteFunctionRequest
 		{
@@ -262,14 +240,11 @@ public partial class SROptions
 			FunctionParameter = new LogicRequest
 			{
 				Command = "CheatAddXpCommand",
-				Data = new Dictionary<string, string>
-				{
-					{nameof(PlayerData), JsonConvert.SerializeObject(dataProvider.GetData<PlayerData>())}
-				}
+				Data = data
 			},
 			AuthenticationContext = PlayFabSettings.staticPlayer
 		};
-			
+
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
 #endif

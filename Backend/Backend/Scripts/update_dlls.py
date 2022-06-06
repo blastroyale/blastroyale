@@ -14,8 +14,9 @@ def copy_assembly(path, assembly_name):
 
 
 def run():
+	copy_assembly(_quantumLibPath, "PhotonDeterministic.dll")
+	copy_assembly(_quantumLibPath, "quantum.code.dll")
 	copy_assembly(_quantumLibPath, "quantum.core.dll")
-
 	copy_assembly(_unityPath, "FirstLight.DataExtensions.dll")
 	copy_assembly(_unityPath, "FirstLight.Game.dll")
 	copy_assembly(_unityPath, "FirstLight.Services.dll")

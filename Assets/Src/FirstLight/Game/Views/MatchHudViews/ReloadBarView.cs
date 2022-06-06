@@ -1,6 +1,7 @@
 using System.Collections;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class ReloadBarView : MonoBehaviour, IPoolEntityDespawn
 	{
-		[SerializeField] private Slider _slider;
-		[SerializeField] private GameObject _separatorRef;
-		[SerializeField] private Animation _capacityUsedAnimation;
-		[SerializeField] private Image _reloadBarImage;
+		[SerializeField, Required] private Slider _slider;
+		[SerializeField, Required] private GameObject _separatorRef;
+		[SerializeField, Required] private Animation _capacityUsedAnimation;
+		[SerializeField, Required] private Image _reloadBarImage;
 		[SerializeField] private Color _primaryReloadColor;
 		[SerializeField] private Color _secondaryReloadColor;
 		
@@ -47,11 +48,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void HandleOnPlayerAttacked(EventOnLocalPlayerAttack callback)
 		{
-			var f = callback.Game.Frames.Verified;
-			var cooldown = f.Get<AIBlackboardComponent>(callback.PlayerEntity)
-			                .GetFP(f, nameof(QuantumWeaponConfig.AttackCooldown));
-			
-			if (!f.Get<PlayerCharacter>(callback.PlayerEntity).HasMeleeWeapon(f, callback.PlayerEntity))
+			if (!callback.WeaponConfig.IsMeleeWeapon)
 			{
 				return;
 			}
@@ -61,22 +58,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 				StopCoroutine(_coroutine);
 			}
 			
-			_coroutine = StartCoroutine(MeleeCooldownCoroutine(cooldown.AsFloat));
+			_coroutine = StartCoroutine(MeleeCooldownCoroutine(callback.WeaponConfig.AttackCooldown.AsFloat));
 		}
 
 		private void HandleOnPlayerAmmoChanged(EventOnLocalPlayerAmmoChanged callback)
 		{
-			var f = callback.Game.Frames.Verified;
-			var playerCharacter = f.Get<PlayerCharacter>(callback.Entity);
-
-			if (!playerCharacter.HasMeleeWeapon(f, callback.Entity))
+			// If the weapon is not melee
+			if (callback.MaxAmmo > 0)
 			{
-				_slider.value = playerCharacter.GetAmmoAmountFilled(f, callback.Entity).AsFloat;
+				_slider.value = callback.CurrentAmmo / (float)callback.MaxAmmo;
 			}
 			
 			_reloadBarImage.color = _primaryReloadColor;
 
-			if (playerCharacter.IsAmmoEmpty(f, callback.Entity))
+			if (callback.CurrentAmmo <= 0)
 			{
 				_reloadBarImage.color = _secondaryReloadColor;
 

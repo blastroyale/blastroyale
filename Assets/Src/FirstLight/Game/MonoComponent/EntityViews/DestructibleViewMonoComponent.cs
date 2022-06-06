@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
-using MoreMountains.NiceVibrations;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
@@ -17,7 +17,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _onfireHash = Animator.StringToHash("onfire");
 		private static readonly int _hitHash = Animator.StringToHash("hit");
 		
-		[SerializeField] private Animator _animator;
+		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private float _dissolveDelay = 1f;
 
 		protected override void OnAwake()
@@ -69,10 +69,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private async void StartDestruction(float lifetime, float radius)
 		{
-			var vfx = Services.VfxService.Spawn(VfxId.DangerIndicator) as DangerIndicatorVfxMonoComponent;
-			
 			_animator.SetTrigger(_onfireHash);
-			vfx.Init(transform.position, lifetime, radius);
 			QuantumEvent.UnsubscribeListener(this);
 			
 			await Task.Delay((int) (lifetime * 1000));
@@ -86,8 +83,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			this.LateCall(_dissolveDelay, () =>
 			{
-				Dissolve(false, 0, GameConstants.DissolveEndAlphaClipValue, GameConstants.DissolveDelay,
-				         GameConstants.DissolveDuration);
+				Dissolve(false, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
+				         GameConstants.Visuals.DISSOLVE_DURATION);
 			});
 		}
 	}

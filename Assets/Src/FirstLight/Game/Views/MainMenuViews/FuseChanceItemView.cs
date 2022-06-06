@@ -1,4 +1,5 @@
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class FuseChanceItemView : MonoBehaviour
 	{
 		[SerializeField] private GameIdGroup _equipmentGroup;
-		[SerializeField] private TextMeshProUGUI _percentageChanceText;
+		[SerializeField, Required] private TextMeshProUGUI _percentageChanceText;
 
 		/// <summary>
 		/// Request the 

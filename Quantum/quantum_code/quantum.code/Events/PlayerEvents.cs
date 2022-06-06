@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Quantum
 {
 	public unsafe partial class EventOnLocalPlayerLeft
@@ -11,7 +13,7 @@ namespace Quantum
 	
 	public unsafe partial class EventOnPlayerKilledPlayer
 	{
-		public QuantumPlayerMatchData[] PlayersMatchData;
+		public List<QuantumPlayerMatchData> PlayersMatchData;
 	}
 	
 	public partial class Frame 

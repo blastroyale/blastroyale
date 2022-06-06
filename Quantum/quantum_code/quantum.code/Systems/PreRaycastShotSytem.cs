@@ -23,9 +23,11 @@ namespace Quantum.Systems
 			var speed = shot->Speed;
 			var deltaTime = f.Time - shot->StartTime;
 			var previousTime = shot->PreviousTime - shot->StartTime;
-			var angleCount = FPMath.FloorToInt(shot->AttackAngle / Constants.RaycastAngleSplit) + 1;
-			var angleStep = shot->AttackAngle / FPMath.Max(FP._1, angleCount - 1);
-			var angle = -(int) shot->AttackAngle / FP._2;
+			
+			// We increase number of shots on 1 to count angleStep for gaps rather than for shots
+			var angleStep = shot->AttackAngle / (FP)(shot->NumberOfShots + 1);
+			var angle = -(int)shot->AttackAngle / FP._2;
+			angle += shot->AccuracyModifier;
 
 			if (shot->IsInstantShot || deltaTime > shot->Range / speed)
 			{
@@ -35,16 +37,16 @@ namespace Quantum.Systems
 				f.Add<EntityDestroyer>(filter.Entity);
 			}
 			
-			for (var i = 0; i < angleCount; i++)
+			for (var i = 0; i < shot->NumberOfShots; i++)
 			{
+				angle += angleStep;
+				
 				var direction = FPVector2.Rotate(shot->Direction, angle * FP.Deg2Rad).XOY * speed;
 				var previousPosition = shot->SpawnPosition + direction * previousTime;
 				var currentPosition = shot->SpawnPosition + direction * deltaTime;
 				var query = f.Physics3D.AddLinecastQuery(previousPosition, currentPosition, true,
-				                                         f.TargetAllLayerMask, _hitQuery);
-				
-				angle += angleStep;
-				
+				                                         f.Context.TargetAllLayerMask, _hitQuery);
+
 				linecastList.Add(query);
 			}
 			

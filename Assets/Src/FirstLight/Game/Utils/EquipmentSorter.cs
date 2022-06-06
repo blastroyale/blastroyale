@@ -1,32 +1,12 @@
-using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Views.MainMenuViews;
-using TMPro;
-using UnityEngine;
-using System.Linq;
-using System.Threading.Tasks;
-using FirstLight.Game.Infos;
-using FirstLight.Services;
-using I2.Loc;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Commands;
-using Quantum;
-using Button = UnityEngine.UI.Button;
-using FirstLight.Game.Configs.AssetConfigs;
-using UnityEngine.UI;
 
-namespace FirstLight.Game.Presenters
+namespace FirstLight.Game.Utils
 {
 	/// <summary>
 	/// This View handles the Equipment / Loot Menu.
 	/// </summary>
-	public class EquipmentSorter: IComparer<EquipmentGridItemView.EquipmentGridItemData>
+	public class EquipmentSorter : IComparer<EquipmentGridItemView.EquipmentGridItemData>
 	{
 		public enum EquipmentSortState
 		{
@@ -35,9 +15,9 @@ namespace FirstLight.Game.Presenters
 			Rarity,
 			Size,
 		}
-		
+
 		private readonly EquipmentSortState _equipmentSortState;
-		
+
 		public EquipmentSorter(EquipmentSortState equipmentSortState)
 		{
 			_equipmentSortState = equipmentSortState;
@@ -50,10 +30,10 @@ namespace FirstLight.Game.Presenters
 			switch (_equipmentSortState)
 			{
 				case EquipmentSortState.Rarity:
-					compare = ((int) x.Info.DataInfo.Data.Rarity).CompareTo((int) y.Info.DataInfo.Data.Rarity);
+					compare = ((int) x.Equipment.Rarity).CompareTo((int) y.Equipment.Rarity);
 					break;
 				case EquipmentSortState.Type:
-					compare = ((int) x.Info.DataInfo.GameId.GetSlot()).CompareTo((int) y.Info.DataInfo.GameId.GetSlot());
+					compare = ((int) x.Equipment.GameId.GetSlot()).CompareTo((int) y.Equipment.GameId.GetSlot());
 					break;
 			}
 
@@ -62,14 +42,14 @@ namespace FirstLight.Game.Presenters
 				return compare;
 			}
 
-			compare = ((int) x.Info.DataInfo.GameId).CompareTo((int) y.Info.DataInfo.GameId);
+			compare = ((int) x.Equipment.GameId).CompareTo((int) y.Equipment.GameId);
 
 			if (compare != 0)
 			{
 				return compare;
 			}
 
-			return x.Info.DataInfo.Data.Id.CompareTo(y.Info.DataInfo.Data.Id);
+			return x.Id.CompareTo(y.Id);
 		}
 	}
 }

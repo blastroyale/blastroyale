@@ -16,6 +16,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
+			_collectableView.SetEntityView(game, EntityView);
+			
 			var collectable = GetComponentData<Collectable>(game);
 			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId);
 			var cacheTransform = instance.transform;
@@ -31,8 +33,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
-
-			_collectableView.SetEntityView(game, EntityView);
 		}
 	}
 }

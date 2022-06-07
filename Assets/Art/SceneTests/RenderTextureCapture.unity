@@ -1162,7 +1162,6 @@ MonoBehaviour:
   _importFolderPath: 
   _exportFolderPath: C:/Users/mattj/Documents/1
   _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1/000eb550be618111396ee6586b52b29461abfa94eaa79db00f22c5ff577724e0.json
-  _metadataAttributesJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/nftequipmentattributes.json
   _markerTransform: {fileID: 6467920951248308136}
   _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
   _renderTextureStandalone: {fileID: 8400000, guid: 92dead6c74f18f2439c00c61464552a2, type: 2}

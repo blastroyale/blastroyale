@@ -18,7 +18,6 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Commands;
 using Quantum;
 using Sirenix.OdinInspector;
-using UnityEngine.Networking;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.UI;
 
@@ -35,14 +34,15 @@ namespace FirstLight.Game.Presenters
 			public Action OnCloseClicked;
 		}
 
-		[Header("Equipment Dialog / OSA")] [SerializeField, Required]
+		[Header("Equipment Dialog / OSA")] [SerializeField, Required]  
 		private Button _closeButton;
 
 		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private Button _backButton;
 		[SerializeField, Required] private TextMeshProUGUI _screenTitleText;
 		[SerializeField, Required] private TextMeshProUGUI _titleText;
 		[SerializeField, Required] private TextMeshProUGUI _noItemsCollectedText;
-
+		
 		[Header("Equipment Info Panel")] [SerializeField, Required]
 		private TextMeshProUGUI _descriptionText;
 
@@ -84,6 +84,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Image _weaponTypeImage;
 		[SerializeField, Required] private Button _weaponTypeButton;
 		[SerializeField, Required] private Button _movieButton;
+		
 
 		[SerializeField, Required] private TextMeshProUGUI _weaponTypeText;
 		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;
@@ -115,6 +116,7 @@ namespace FirstLight.Game.Presenters
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
 			_specialStatInfoViewPoolRef.gameObject.SetActive(false);
+			_backButton.onClick.AddListener(BackButton);
 		}
 
 		protected void OnDestroy()
@@ -477,6 +479,11 @@ namespace FirstLight.Game.Presenters
 			_gridView.UpdateData(list);
 
 			_showNotifications.Clear();
+		}
+
+		private void BackButton()
+		{
+			Data.OnCloseClicked();
 		}
 	}
 }

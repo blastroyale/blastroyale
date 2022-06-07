@@ -21,7 +21,7 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField, Required] private Button _battleRoyaleButton;
 		[SerializeField, Required] private Button _deathmatchButton;
-		[SerializeField] private Button _backButton;
+		[SerializeField, Required] private Button _backButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;

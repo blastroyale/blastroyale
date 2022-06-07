@@ -37,6 +37,11 @@ namespace FirstLight.Game.Logic
 		/// <paramref name="slot"/> type.
 		/// </summary>
 		List<Equipment> FindInInventory(GameIdGroup slot);
+		
+		/// <summary>
+		/// Requests the currently equipped item for the given <paramref name="idGroup"/>
+		/// </summary>
+		UniqueId GetEquippedItemForSlot(GameIdGroup idGroup);
 
 		/// <summary>
 		/// Requests the information if the given <paramref name="itemId"/> is equipped
@@ -92,10 +97,5 @@ namespace FirstLight.Game.Logic
 		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
 		/// </summary>
 		void Unequip(UniqueId itemId);
-
-		/// <summary>
-		/// Requests the currently equipped item for the given <paramref name="idGroup"/>
-		/// </summary>
-		UniqueId GetEquippedItemForSlot(GameIdGroup idGroup);
 	}
 }

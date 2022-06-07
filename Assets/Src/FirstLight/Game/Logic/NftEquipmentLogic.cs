@@ -15,14 +15,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
-		private IObservableDictionary<UniqueId, Equipment> _inventory;
 		public IObservableDictionaryReader<UniqueId, long> _insertionTimestamps;
-
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
+		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
+		private IObservableDictionary<UniqueId, Equipment> _inventory;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{

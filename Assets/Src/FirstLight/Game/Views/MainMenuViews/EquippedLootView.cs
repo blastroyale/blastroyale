@@ -38,7 +38,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<LoadoutUpdatedMessage>(OnLoadoutUpdated);
+			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequipped);
 			_button.onClick.AddListener(OnButtonClick);
 		}
 
@@ -95,12 +95,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_rarityImage.enabled = false;
 		}
 
-		private void OnLoadoutUpdated(LoadoutUpdatedMessage msg)
+		private void OnItemUnequipped(ItemUnequippedMessage itemMessage)
 		{
-			bool containsItemChange = msg.EquippedIds.GetRange(0, msg.EquippedIds.Count).Contains(ItemId) || 
-			                          msg.UnequippedIds.GetRange(0, msg.EquippedIds.Count).Contains(ItemId);
-			
-			if (containsItemChange)
+			if (itemMessage.ItemId == ItemId)
 			{
 				UpdateItem();
 			}

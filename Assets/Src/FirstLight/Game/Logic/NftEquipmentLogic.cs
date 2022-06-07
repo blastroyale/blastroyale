@@ -216,5 +216,10 @@ namespace FirstLight.Game.Logic
 
 			_loadout.Remove(slot);
 		}
+
+		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
+		{
+			return _loadout.ReadOnlyDictionary[idGroup];
+		}
 	}
 }

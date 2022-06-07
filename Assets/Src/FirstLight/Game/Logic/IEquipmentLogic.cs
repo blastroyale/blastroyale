@@ -92,5 +92,10 @@ namespace FirstLight.Game.Logic
 		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
 		/// </summary>
 		void Unequip(UniqueId itemId);
+
+		/// <summary>
+		/// Requests the currently equipped item for the given <paramref name="idGroup"/>
+		/// </summary>
+		UniqueId GetEquippedItemForSlot(GameIdGroup idGroup);
 	}
 }

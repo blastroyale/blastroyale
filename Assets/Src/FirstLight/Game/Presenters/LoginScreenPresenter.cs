@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Utils;
 using UnityEngine;
 using TMPro;
 using Button = UnityEngine.UI.Button;
@@ -52,7 +53,14 @@ namespace FirstLight.Game.Presenters
 
 		private void GoToRegisterClicked()
 		{
-			Application.OpenURL("http://flgmarketplacestorage.z33.web.core.windows.net/metamask");
+			if (Debug.isDebugBuild)
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_DEV_URL);
+			}
+			else
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_PROD_URL);
+			}
 		}
 		
 		private void GoToDevRegisterClicked()

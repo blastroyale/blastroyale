@@ -80,7 +80,6 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableDictionary<GameId, ulong> _currencies;
 		private IObservableDictionary<GameId, ResourcePoolData> _resourcePools;
-		private AppData AppData => DataProvider.GetData<AppData>();
 
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ulong> Currencies => _currencies;

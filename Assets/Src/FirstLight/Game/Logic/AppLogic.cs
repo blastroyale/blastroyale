@@ -69,16 +69,6 @@ namespace FirstLight.Game.Logic
 		/// Requests current selected game mode
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
-		/// Sets the device link status, which dictates whether the game should try to link device to playfab
-		/// account during initial auhentication phase.
-		/// </summary>
-		void SetDeviceLinkedStatus(bool linked);
-
-		/// <summary>
-		/// Sets the cached last login email, which is used during authentication to check if a player should be
-		/// logged using device ID, or whether they should go to email login/device linking phase
-		/// </summary>
-		void SetLastLoginEmail(string email);
 	}
 
 	/// <inheritdoc />
@@ -95,6 +85,8 @@ namespace FirstLight.Game.Logic
 	{
 		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
+		private readonly IObservableField<string> _lastLoginEmail;
+		private readonly IObservableField<bool> _linkedDevice;
 
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
@@ -173,6 +165,8 @@ namespace FirstLight.Game.Logic
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableField<string>(Data.NickNameId);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
+			SelectedGameMode = new ObservableField<string>(GameMode.BattleRoyale);
+			SelectedGameMode = new ObservableField<bool>(GameMode.BattleRoyale);
 		}
 		
 		public void SetDeviceLinkedStatus(bool linked)

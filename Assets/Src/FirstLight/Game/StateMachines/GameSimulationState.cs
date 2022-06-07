@@ -23,6 +23,7 @@ namespace FirstLight.Game.StateMachines
 	public class GameSimulationState
 	{
 		private readonly IStatechartEvent _simulationReadyEvent = new StatechartEvent("Simulation Ready Event");
+		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
 		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
 
 		private readonly DeathmatchState _deathmatchState;
@@ -73,11 +74,13 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.OnExit(PlayMusic);
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
+			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
+			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
@@ -104,6 +107,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 			
+			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
@@ -146,6 +150,11 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 
 			_statechartTrigger(_simulationReadyEvent);
+		}
+		
+		private void OnGameEnded(EventOnGameEnded callback)
+		{
+			_statechartTrigger(_gameEndedEvent);
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)

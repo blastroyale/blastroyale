@@ -52,18 +52,17 @@ namespace FirstLight.Game.Presenters
 
 		private void GoToRegisterClicked()
 		{
-			Data.GoToRegisterClicked();
-			
+
 			if (Debug.isDebugBuild)
 			{
 				//The devs will need to know to replace the link with a real marketplace link once real market is open
-				Application.OpenURL("http://flgmarketplacestorage.z33.web.core.windows.net/");
+				Application.OpenURL("http://flgmarketplacestorage.z33.web.core.windows.net/metamask");
 			}
 		}
 		
 		private void GoToDevRegisterClicked()
 		{
-			Application.OpenURL("http://flgmarketplacestorage.z33.web.core.windows.net/");
+			Data.GoToRegisterClicked();
 		}
 	}
 }

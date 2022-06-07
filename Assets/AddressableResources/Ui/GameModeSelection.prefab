@@ -847,6 +847,7 @@ MonoBehaviour:
   _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
   _battleRoyaleButton: {fileID: 7298820235276831839}
   _deathmatchButton: {fileID: 8465143649444952213}
+  _backButton: {fileID: 4659360397123794202}
 --- !u!1 &4422085721905576558
 GameObject:
   m_ObjectHideFlags: 0

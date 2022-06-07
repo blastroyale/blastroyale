@@ -21,6 +21,7 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField, Required] private Button _battleRoyaleButton;
 		[SerializeField, Required] private Button _deathmatchButton;
+		[SerializeField] private Button _backButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -32,25 +33,26 @@ namespace FirstLight.Game.Presenters
 
 			_battleRoyaleButton.onClick.AddListener(BattleRoyaleClicked);
 			_deathmatchButton.onClick.AddListener(DeathmatchClicked);
+			_backButton.onClick.AddListener(BackButton);
 		}
 
 		private void DeathmatchClicked()
 		{
-			// EVE
-			// Set AppLogic game mode to deathmatch
-			// Call Data.GameModeChosen event. This will be used to move state machine forward in main 
-			//_gameDataProvider.AppDataProvider.SelectedGameMode.Value //GameMode.BattleRoyale
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 			Data.GameModeChosen();
 		}
 
 		private void BattleRoyaleClicked()
 		{
-			// EVE
-			// Set AppLogic game mode to battle royale
-			// Call Data.GameModeChosen event. This will be used to move state machine forward in main menu
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
 			Data.GameModeChosen();
 		}
+
+		private void BackButton()
+		{
+			Data.GameModeChosen();
+		}
+		
+		
 	}
 }

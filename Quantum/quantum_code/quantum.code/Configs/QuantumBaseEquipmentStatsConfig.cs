@@ -9,6 +9,7 @@ namespace Quantum
 	{
 		public GameId Id;
 
+		public EquipmentManufacturer Manufacturer;
 		public FP HpRatioToBase;
 		public FP ArmorRatioToBase;
 		public FP SpeedRatioToBase;

@@ -35,6 +35,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnCloseClicked;
 			public Action<UniqueId> ItemEquipped;
 			public Action<UniqueId> ItemUnequipped;
+			public Func<UniqueId, bool> IsTempEquipped;
 		}
 
 		[Header("Equipment Dialog / OSA")] [SerializeField, Required]
@@ -155,7 +156,9 @@ namespace FirstLight.Game.Presenters
 			await Task.Yield();
 
 			UpdateEquipmentMenu();
-			SetStats();
+			
+			// Late call as the state data is not yet set in the same frame, and we need access to some of its properties
+			this.LateCall(Time.deltaTime, SetStats);
 		}
 
 		private void ShowStatsForEmptySlot()
@@ -177,7 +180,7 @@ namespace FirstLight.Game.Presenters
 		private void SetStats()
 		{
 			var equipmentProvider = _gameDataProvider.EquipmentDataProvider;
-			var itemEquipped = equipmentProvider.IsEquipped(_selectedId);
+			var itemEquipped = Data.IsTempEquipped(_selectedId);
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
@@ -344,7 +347,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetEquipButtonStatus()
 		{
-			var status = _gameDataProvider.EquipmentDataProvider.IsEquipped(_selectedId)
+			var status = Data.IsTempEquipped(_selectedId)
 				             ? ScriptLocalization.General.Unequip
 				             : ScriptLocalization.General.Equip;
 			_equipButtonText.SetText(status);
@@ -369,7 +372,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var previousPower = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power);
 
-			if (_gameDataProvider.EquipmentDataProvider.IsEquipped(_selectedId))
+			if (Data.IsTempEquipped(_selectedId))
 			{
 				var isWeapon = _gameDataProvider.EquipmentDataProvider.Inventory[_selectedId].IsWeapon();
 

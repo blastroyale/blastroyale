@@ -57,6 +57,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the total amount of <paramref name="stat"/> granted by all currently equipped items.
 		/// </summary>
 		float GetTotalEquippedStat(StatType stat);
+		
+		/// <summary>
+		/// Requests the total amount of <paramref name="stat"/> granted for equipping inventory <paramref name="items"/>
+		/// </summary>
+		float GetTotalEquippedStat(StatType stat, List<UniqueId> items);
 
 		/// <summary>
 		/// Requests the remaining cooldown for item <paramref name="itemId"/>

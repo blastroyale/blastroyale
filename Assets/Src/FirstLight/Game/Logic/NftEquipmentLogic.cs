@@ -87,6 +87,18 @@ namespace FirstLight.Game.Logic
 			return value;
 		}
 
+		public float GetTotalEquippedStat(StatType stat, List<UniqueId> items)
+		{
+			var value = 0f;
+			
+			foreach (var id in items)
+			{
+				value += GetItemStat(_inventory[id], stat);
+			}
+
+			return value;
+		}
+
 		public string GetEquipmentCardUrl(UniqueId id)
 		{
 			if (Data.ImageUrls.TryGetValue(id, out var url))
@@ -218,6 +230,11 @@ namespace FirstLight.Game.Logic
 
 		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
 		{
+			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
+			{
+				return UniqueId.Invalid;
+			}
+			
 			return _loadout.ReadOnlyDictionary[idGroup];
 		}
 	}

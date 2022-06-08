@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -109,6 +110,7 @@ namespace FirstLight.Game.StateMachines
 				OnSlotButtonClicked = SlotButtonClicked,
 				OnChangeSkinClicked = () => _statechartTrigger(_skinClickedEvent),
 				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent),
+				CurrentTempLoadout = () => TempLoadout.Values.ToList()
 			};
 
 			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
@@ -144,6 +146,11 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new ItemUnequippedMessage(){ItemId = itemId});
 		}
 
+		private bool IsTempEquipped(UniqueId itemId)
+		{
+			return TempLoadout.Values.Contains(itemId);
+		}
+
 		private void SetAllGearSlot()
 		{
 			_equipmentSlotTypePicked = GameIdGroup.Equipment;
@@ -167,7 +174,8 @@ namespace FirstLight.Game.StateMachines
 				EquipmentSlot = _equipmentSlotTypePicked,
 				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent),
 				ItemEquipped = EquipTempLoadoutId,
-				ItemUnequipped = UnequipTempLoadoutId
+				ItemUnequipped = UnequipTempLoadoutId,
+				IsTempEquipped = IsTempEquipped
 			};
 
 			_uiService.OpenUi<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);

@@ -36,6 +36,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
@@ -61,6 +62,7 @@ namespace FirstLight.Game.Presenters
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
+			_blockerButton.onClick.AddListener(BlockerButton);
 		}
 		
 		/// <inheritdoc />
@@ -100,6 +102,11 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+		}
+
+		private void BlockerButton()
+		{
+			Data.OnClose();
 		}
 	}
 }

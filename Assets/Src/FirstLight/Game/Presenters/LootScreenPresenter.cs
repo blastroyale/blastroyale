@@ -39,6 +39,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _powerValueText;
 		[SerializeField, Required] private Slider _playerLevelSlider;
 		[SerializeField, Required] private Image _playerLevelBadge;
+		[SerializeField, Required] private Button _blockerButton;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Presenters
 			_allGearButton.onClick.AddListener(OnAllGearClicked); 
 			_changeSkinButton.onClick.AddListener(OnChangeSkinClicked);
 			_backButton.onClick.AddListener(OnBackButtonPressed);
+			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 
 			foreach (var button in _equipmentButtons)
 			{
@@ -121,6 +123,11 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnBackButtonPressed()
+		{
+			Data.OnLootBackButtonClicked();
+		}
+
+		private void OnBlockerButtonPressed()
 		{
 			Data.OnLootBackButtonClicked();
 		}

@@ -1,4 +1,5 @@
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Utils
 {
@@ -18,6 +19,8 @@ namespace FirstLight.Game.Utils
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
+			public const string MARKETPLACE_DEV_URL = "http://flgmarketplacestorage.z33.web.core.windows.net";
+			public const string MARKETPLACE_PROD_URL = "https://marketplace.blastroyale.com";
 		}
 
 		public static class Balance

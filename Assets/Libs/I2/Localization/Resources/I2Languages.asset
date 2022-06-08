@@ -1882,7 +1882,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Register a new account
+      - Register
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/RememberMe
@@ -5159,7 +5159,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1654081081380
+    Google_LastUpdatedVersion: 1654513688984
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -11,6 +11,7 @@ namespace FirstLight.Game.Configs
 	{
 		public EquipmentRarity Rarity;
 		public FP PoolCapacityModifier;
+		public int MaxLevel;
 	}
 
 	/// <summary>

@@ -15,13 +15,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		public IObservableDictionaryReader<UniqueId, long> _insertionTimestamps;
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
+		private IObservableDictionary<UniqueId, long> _insertionTimestamps;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -171,6 +171,7 @@ namespace FirstLight.Game.Logic
 		{
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
 			_inventory.Add(id, equipment);
+			_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
 			return id;
 		}
 
@@ -192,7 +193,9 @@ namespace FirstLight.Game.Logic
 			}
 
 			_inventory.Remove(equipment);
-
+			_insertionTimestamps.Remove(equipment);
+			GameLogic.UniqueIdLogic.RemoveId(equipment);
+			
 			return true;
 		}
 

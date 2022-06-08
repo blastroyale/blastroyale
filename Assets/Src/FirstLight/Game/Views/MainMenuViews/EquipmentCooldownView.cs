@@ -60,9 +60,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_uniqueId = id;
 			
 			var cooldown = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(_uniqueId);
-			
-			_uniqueId = id;
-			
+
 			if (cooldown.TotalSeconds > 0)
 			{
 				SetVisualsActive(true);

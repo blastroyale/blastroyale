@@ -31,7 +31,7 @@ namespace FirstLight.Game.Commands
 				else if (modifiedKvp.Value != equippedInSlot)
 				{
 					gameLogic.EquipmentLogic.Equip(modifiedKvp.Value);
-					itemsUnequipped.Add(modifiedKvp.Value);
+					itemsUnequipped.Add(equippedInSlot);
 					itemsEquipped.Add(modifiedKvp.Value);
 				}
 			}

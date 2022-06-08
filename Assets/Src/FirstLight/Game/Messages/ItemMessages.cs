@@ -10,12 +10,12 @@ namespace FirstLight.Game.Messages
 		public List<UniqueId> UnequippedIds;
 	}
 
-	public struct ItemEquippedMessage : IMessage
+	public struct TempItemEquippedMessage : IMessage
 	{
 		public UniqueId ItemId;
 	}
 
-	public struct ItemUnequippedMessage : IMessage
+	public struct TempItemUnequippedMessage : IMessage
 	{
 		public UniqueId ItemId;
 	}

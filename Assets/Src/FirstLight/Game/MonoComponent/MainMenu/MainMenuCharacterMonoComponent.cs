@@ -42,8 +42,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadout);
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
+			_services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
+			_services.MessageBrokerService.Subscribe<TempItemUnequippedMessage>(OnTempItemUnequippedMessage);
 		}
 
 		private void Start()
@@ -64,7 +64,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
-		private void OnItemEquippedMessage(ItemEquippedMessage msg)
+		private void OnTempItemEquippedMessage(TempItemEquippedMessage msg)
 		{
 			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[msg.ItemId];
 			var slot = gameId.GetSlot();
@@ -72,7 +72,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			OnEquippedItemsAdded(slot, msg.ItemId);
 		}
 		
-		private void OnItemUnequippedMessage(ItemUnequippedMessage msg)
+		private void OnTempItemUnequippedMessage(TempItemUnequippedMessage msg)
 		{
 			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[msg.ItemId];
 			var slot = gameId.GetSlot();

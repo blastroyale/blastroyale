@@ -38,7 +38,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequipped);
+			_services.MessageBrokerService.Subscribe<TempItemUnequippedMessage>(OnItemUnequipped);
 			_button.onClick.AddListener(OnButtonClick);
 		}
 
@@ -95,9 +95,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_rarityImage.enabled = false;
 		}
 
-		private void OnItemUnequipped(ItemUnequippedMessage itemMessage)
+		private void OnItemUnequipped(TempItemUnequippedMessage tempItemMessage)
 		{
-			if (itemMessage.ItemId == ItemId)
+			if (tempItemMessage.ItemId == ItemId)
 			{
 				UpdateItem();
 			}

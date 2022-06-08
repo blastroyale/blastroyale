@@ -133,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 
 			TempLoadout[slot] = itemId;
 			
-			_services.MessageBrokerService.Publish(new ItemEquippedMessage(){ItemId = itemId});
+			_services.MessageBrokerService.Publish(new TempItemEquippedMessage(){ItemId = itemId});
 		}
 
 		private void UnequipTempLoadoutId(UniqueId itemId)
@@ -143,7 +143,7 @@ namespace FirstLight.Game.StateMachines
 
 			TempLoadout[slot] = UniqueId.Invalid;
 			
-			_services.MessageBrokerService.Publish(new ItemUnequippedMessage(){ItemId = itemId});
+			_services.MessageBrokerService.Publish(new TempItemUnequippedMessage(){ItemId = itemId});
 		}
 
 		private bool IsTempEquipped(UniqueId itemId)

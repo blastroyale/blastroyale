@@ -57,6 +57,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void InitCooldown(UniqueId id)
 		{
+			_uniqueId = id;
+			
 			var cooldown = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(_uniqueId);
 			
 			_uniqueId = id;

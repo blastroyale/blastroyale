@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -18,6 +19,7 @@ using FirstLight.UiService;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -56,7 +58,6 @@ namespace FirstLight.Game.StateMachines
 			new StatechartEvent("Logout Confirm Clicked Event");
 
 		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
-
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IDataService _dataService;
@@ -65,7 +66,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly LootMenuState _lootMenuState;
 		private readonly EnterNameState _enterNameState;
-
 		private Type _currentScreen;
 
 		public MainMenuState(IGameServices services, IDataService dataService, IGameUiService uiService,

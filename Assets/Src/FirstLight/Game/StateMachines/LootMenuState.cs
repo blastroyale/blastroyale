@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -31,6 +33,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private GameIdGroup _equipmentSlotTypePicked;
+		
+		private Dictionary<GameIdGroup, UniqueId> TempLoadout;
 
 		public LootMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                     Action<IStatechartEvent> statechartTrigger)
@@ -54,6 +58,7 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(lootMenuState);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(SetTempLoadout);
 
 			lootMenuState.OnEnter(OpenLootMenuUI);
 			lootMenuState.Event(_slotClickedEvent).Target(equipmentScreenState);
@@ -71,6 +76,7 @@ namespace FirstLight.Game.StateMachines
 			playerSkinPopupState.Event(_playerSkinClosedEvent).Target(lootMenuState);
 			playerSkinPopupState.OnExit(ClosePlayerSkinMenuUI);
 
+			final.OnEnter(SendLoadoutUpdateCommand);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -82,6 +88,16 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			// Do Nothing
+		}
+
+		private void SetTempLoadout()
+		{
+			TempLoadout = new Dictionary<GameIdGroup, UniqueId>();
+
+			foreach (var kvp in _gameDataProvider.EquipmentDataProvider.Loadout)
+			{
+				TempLoadout.Add(kvp.Key, kvp.Value);
+			}
 		}
 
 		private void OpenLootMenuUI()
@@ -101,6 +117,31 @@ namespace FirstLight.Game.StateMachines
 		private void CloseLootMenuUI()
 		{
 			_uiService.CloseUi<LootScreenPresenter>();
+		}
+		
+		private void SendLoadoutUpdateCommand()
+		{
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { NewLoadout = TempLoadout });
+		}
+		
+		private void EquipTempLoadoutId(UniqueId itemId)
+		{
+			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
+			var slot = gameId.GetSlot();
+
+			TempLoadout[slot] = itemId;
+			
+			_services.MessageBrokerService.Publish(new ItemEquippedMessage(){ItemId = itemId});
+		}
+
+		private void UnequipTempLoadoutId(UniqueId itemId)
+		{
+			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
+			var slot = gameId.GetSlot();
+
+			TempLoadout[slot] = UniqueId.Invalid;
+			
+			_services.MessageBrokerService.Publish(new ItemUnequippedMessage(){ItemId = itemId});
 		}
 
 		private void SetAllGearSlot()
@@ -125,6 +166,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				EquipmentSlot = _equipmentSlotTypePicked,
 				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent),
+				ItemEquipped = EquipTempLoadoutId,
+				ItemUnequipped = UnequipTempLoadoutId
 			};
 
 			_uiService.OpenUi<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
@@ -144,7 +187,6 @@ namespace FirstLight.Game.StateMachines
 			
 			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
-		
 		
 		private void ClosePlayerSkinMenuUI()
 		{

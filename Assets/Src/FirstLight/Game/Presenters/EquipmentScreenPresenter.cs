@@ -33,6 +33,8 @@ namespace FirstLight.Game.Presenters
 		{
 			public GameIdGroup EquipmentSlot;
 			public Action OnCloseClicked;
+			public Action<UniqueId> ItemEquipped;
+			public Action<UniqueId> ItemUnequipped;
 		}
 
 		[Header("Equipment Dialog / OSA")] [SerializeField, Required]
@@ -102,8 +104,6 @@ namespace FirstLight.Game.Presenters
 		private List<UniqueId> _showNotifications;
 		private int _textureRequestHandle = -1;
 
-		private Dictionary<GameIdGroup, UniqueId> NewTempLoadout;
-
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -135,8 +135,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnClosed()
 		{
 			_showNotifications.Clear();
-			
-			Services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { NewLoadout = NewTempLoadout });
 
 			base.OnClosed();
 			Data.OnCloseClicked();
@@ -145,14 +143,7 @@ namespace FirstLight.Game.Presenters
 		protected override async void OnOpened()
 		{
 			base.OnOpened();
-
-			NewTempLoadout = new Dictionary<GameIdGroup, UniqueId>();
-
-			foreach (var kvp in _gameDataProvider.EquipmentDataProvider.Loadout)
-			{
-				NewTempLoadout.Add(kvp.Key, kvp.Value);
-			}
-
+			
 			_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(Data.EquipmentSlot, out var id);
 
 			_equipmentSortState = EquipmentSorter.EquipmentSortState.Rarity;
@@ -397,7 +388,7 @@ namespace FirstLight.Game.Presenters
 					return;
 				}
 				
-				UnequipTempLoadoutId(_selectedId);
+				Data.ItemUnequipped(_selectedId);
 
 				// Equip Default/Melee weapon after unequipping a regular one
 				if (isWeapon)
@@ -408,13 +399,13 @@ namespace FirstLight.Game.Presenters
 
 					if (defaultWeapon.Key != UniqueId.Invalid)
 					{
-						EquipTempLoadoutId(defaultWeapon.Key);
+						Data.ItemEquipped(defaultWeapon.Key);
 					}
 				}
 			}
 			else
 			{
-				EquipTempLoadoutId(_selectedId);
+				Data.ItemEquipped(_selectedId);
 			}
 
 			ShowPowerChange((int) previousPower);
@@ -478,26 +469,6 @@ namespace FirstLight.Game.Presenters
 			_gridView.UpdateData(list);
 
 			_showNotifications.Clear();
-		}
-
-		private void EquipTempLoadoutId(UniqueId itemId)
-		{
-			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
-			var slot = gameId.GetSlot();
-
-			NewTempLoadout[slot] = itemId;
-			
-			Services.MessageBrokerService.Publish(new ItemEquippedMessage(){ItemId = itemId});
-		}
-
-		private void UnequipTempLoadoutId(UniqueId itemId)
-		{
-			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
-			var slot = gameId.GetSlot();
-
-			NewTempLoadout[slot] = UniqueId.Invalid;
-			
-			Services.MessageBrokerService.Publish(new ItemUnequippedMessage(){ItemId = itemId});
 		}
 	}
 }

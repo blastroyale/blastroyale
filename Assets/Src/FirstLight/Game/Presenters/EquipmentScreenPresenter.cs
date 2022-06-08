@@ -116,7 +116,7 @@ namespace FirstLight.Game.Presenters
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
 			_specialStatInfoViewPoolRef.gameObject.SetActive(false);
-			_backButton.onClick.AddListener(BackButton);
+			_backButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
 		protected void OnDestroy()
@@ -481,7 +481,7 @@ namespace FirstLight.Game.Presenters
 			_showNotifications.Clear();
 		}
 
-		private void BackButton()
+		private void OnBlockerButtonPressed()
 		{
 			Data.OnCloseClicked();
 		}

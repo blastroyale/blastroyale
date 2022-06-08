@@ -33,7 +33,7 @@ namespace FirstLight.Game.Presenters
 
 			_battleRoyaleButton.onClick.AddListener(BattleRoyaleClicked);
 			_deathmatchButton.onClick.AddListener(DeathmatchClicked);
-			_backButton.onClick.AddListener(BackButton);
+			_backButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
 		private void DeathmatchClicked()
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Presenters
 			Data.GameModeChosen();
 		}
 
-		private void BackButton()
+		private void OnBlockerButtonPressed()
 		{
 			Data.GameModeChosen();
 		}

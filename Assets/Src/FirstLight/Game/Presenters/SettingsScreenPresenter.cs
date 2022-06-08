@@ -62,7 +62,7 @@ namespace FirstLight.Game.Presenters
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
-			_blockerButton.onClick.AddListener(BlockerButton);
+			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 		
 		/// <inheritdoc />
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
 		}
 
-		private void BlockerButton()
+		private void OnBlockerButtonPressed()
 		{
 			Data.OnClose();
 		}

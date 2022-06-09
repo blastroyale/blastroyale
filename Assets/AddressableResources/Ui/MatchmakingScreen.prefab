@@ -2484,7 +2484,7 @@ GameObject:
   - component: {fileID: 3538899975738172874}
   - component: {fileID: 1990045393863208342}
   m_Layer: 5
-  m_Name: TextBackground
+  m_Name: SelectedTextBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2884,6 +2884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3c49fd11234cd195c7cee60da33ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectedDropAreaRoot: {fileID: 3523079675726459452}
   _selectedDropAreaText: {fileID: 3169284867667385966}
   _selectedPoint: {fileID: 2035269011694630166}
   _uiCamera: {fileID: 4049522887130303266}

@@ -13,9 +13,9 @@ namespace FirstLight.Game.Configs
 		public int Y;
 
 		/// <summary>
-		/// Checks if is a valid Grid position to click
+		/// Checks if the position is a valid named area
 		/// </summary>
-		public bool IsValid => !string.IsNullOrWhiteSpace(AreaName);
+		public bool IsValidNamedArea => !string.IsNullOrWhiteSpace(AreaName);
 	}
 
 	[Serializable]

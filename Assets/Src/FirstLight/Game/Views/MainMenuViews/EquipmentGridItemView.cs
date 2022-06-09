@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnEquipCompletedMessage);
+			_services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
 			_button.onClick.AddListener(OnButtonClick);
 			OnAwake();
 		}
@@ -79,7 +79,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_uniqueId = data.Id;
 		}
 
-		private void OnEquipCompletedMessage(ItemEquippedMessage message)
+		private void OnTempItemEquippedMessage(TempItemEquippedMessage message)
 		{
 			if (message.ItemId == _uniqueId)
 			{

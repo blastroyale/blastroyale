@@ -15,14 +15,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
-		private IObservableDictionary<UniqueId, Equipment> _inventory;
-		public IObservableDictionary<UniqueId, long> _insertionTimestamps;
-
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
+		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
+		private IObservableDictionary<UniqueId, Equipment> _inventory;
+		private IObservableDictionary<UniqueId, long> _insertionTimestamps;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -82,6 +81,28 @@ namespace FirstLight.Game.Logic
 
 			foreach (var id in _loadout.ReadOnlyDictionary.Values)
 			{
+				if (id == UniqueId.Invalid)
+				{
+					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
+					
+				}
+				value += GetItemStat(_inventory[id], stat);
+			}
+
+			return value;
+		}
+
+		public float GetTotalEquippedStat(StatType stat, List<UniqueId> items)
+		{
+			var value = 0f;
+			
+			foreach (var id in items)
+			{
+				if (id == UniqueId.Invalid)
+				{
+					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
+				}
+				
 				value += GetItemStat(_inventory[id], stat);
 			}
 
@@ -188,7 +209,34 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		public void Equip(UniqueId itemId)
+		public void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout)
+		{
+			foreach (var modifiedKvp in newLoadout)
+			{
+				UniqueId equippedInSlot = GetEquippedItemForSlot(modifiedKvp.Key);
+				
+				if (equippedInSlot != UniqueId.Invalid && modifiedKvp.Value == UniqueId.Invalid)
+				{
+					Unequip(equippedInSlot);
+				}
+				else if (modifiedKvp.Value != equippedInSlot)
+				{
+					Equip(modifiedKvp.Value);
+				}
+			}
+		}
+		
+		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
+		{
+			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
+			{
+				return UniqueId.Invalid;
+			}
+			
+			return _loadout.ReadOnlyDictionary[idGroup];
+		}
+
+		private void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
@@ -206,7 +254,7 @@ namespace FirstLight.Game.Logic
 			_loadout.Add(slot, itemId);
 		}
 
-		public void Unequip(UniqueId itemId)
+		private void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();

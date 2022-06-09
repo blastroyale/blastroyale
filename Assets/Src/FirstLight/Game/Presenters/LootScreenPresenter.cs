@@ -95,8 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetBasicPlayerInformation()
 		{
-			List<UniqueId> loadoutForCalculations =
-				Data.CurrentTempLoadout().Where(x => x != UniqueId.Invalid).ToList();
+			var loadoutForCalculations = Data.CurrentTempLoadout().Where(x => x != UniqueId.Invalid).ToList();
 
 			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;

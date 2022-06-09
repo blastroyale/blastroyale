@@ -23,12 +23,12 @@ services:
       API_URL: https://devmarketplaceapi.azure-api.net
       API_BLOCKCHAIN_SERVICE: br-blockchain/blast-royale-equipment
       API_SECRET: devkey
+      DEV_MODE: "true"
     build:
       context: .
       args:
         APP_PORT: 7274
         ENVIRONMENT: "Development"
-        DEV_MODE: "true"
     expose:
       - 7274
     ports:

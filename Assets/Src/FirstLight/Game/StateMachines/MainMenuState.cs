@@ -180,10 +180,8 @@ namespace FirstLight.Game.StateMachines
 
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(homeMenu);
-
-			lootMenu.OnEnter(OpenLootMenuUI);
+			
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			lootMenu.OnExit(CloseLootMenuUI);
 
 			heroesMenu.OnEnter(OpenHeroesMenuUI);
 			heroesMenu.OnExit(CloseHeroesMenuUI);
@@ -272,23 +270,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseGameModeSelectionUI()
 		{
 			_uiService.CloseUi<GameModeSelectionPresenter>();
-		}
-
-		private void OpenLootMenuUI()
-		{
-			var data = new LootScreenPresenter.StateData
-			{
-				OnLootBackButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
-			};
-
-			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
-			_services.MessageBrokerService.Publish(new LootScreenOpenedMessage());
-		}
-
-		private void CloseLootMenuUI()
-		{
-			_uiService.CloseUi<LootScreenPresenter>();
-			_services.MessageBrokerService.Publish(new LootScreenClosedMessage());
 		}
 
 		private void OpenHeroesMenuUI()

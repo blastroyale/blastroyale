@@ -81,6 +81,11 @@ namespace FirstLight.Game.Logic
 
 			foreach (var id in _loadout.ReadOnlyDictionary.Values)
 			{
+				if (id == UniqueId.Invalid)
+				{
+					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
+					
+				}
 				value += GetItemStat(_inventory[id], stat);
 			}
 
@@ -93,6 +98,11 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var id in items)
 			{
+				if (id == UniqueId.Invalid)
+				{
+					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
+				}
+				
 				value += GetItemStat(_inventory[id], stat);
 			}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Ids;
@@ -20,8 +21,6 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class LootScreenPresenter : AnimatedUiPresenterData<LootScreenPresenter.StateData>
 	{
-		private const float LATE_CALL_DELAY = 0.1f;
-		
 		public struct StateData
 		{
 			public Action OnAllGearClicked;
@@ -44,7 +43,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Slider _playerLevelSlider;
 		[SerializeField, Required] private Image _playerLevelBadge;
 		[SerializeField, Required] private Button _blockerButton;
-		
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
@@ -77,7 +76,7 @@ namespace FirstLight.Game.Presenters
 			LoadPlayerLevelInformation();
 		}
 
-		protected override void OnOpened()
+		protected override async void OnOpened()
 		{
 			base.OnOpened();
 
@@ -91,16 +90,18 @@ namespace FirstLight.Game.Presenters
 				filterButton.SetNotificationState();
 			}
 
-			// Late call as the state data is not yet set in the same frame, and we need access to some of its properties
-			this.LateCall(Time.deltaTime, SetBasicPlayerInformation);
+			SetBasicPlayerInformation();
 		}
 
 		private void SetBasicPlayerInformation()
 		{
+			List<UniqueId> loadoutForCalculations =
+				Data.CurrentTempLoadout().Where(x => x != UniqueId.Invalid).ToList();
+
 			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;
 			_powerValueText.text = _gameDataProvider.EquipmentDataProvider
-			                                        .GetTotalEquippedStat(StatType.Power, Data.CurrentTempLoadout())
+			                                        .GetTotalEquippedStat(StatType.Power, loadoutForCalculations)
 			                                        .ToString("F0");
 		}
 

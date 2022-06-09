@@ -158,9 +158,7 @@ namespace FirstLight.Game.Presenters
 			await Task.Yield();
 
 			UpdateEquipmentMenu();
-			
-			// Late call as the state data is not yet set in the same frame, and we need access to some of its properties
-			this.LateCall(Time.deltaTime, SetStats);
+			SetStats();
 		}
 
 		private void ShowStatsForEmptySlot()

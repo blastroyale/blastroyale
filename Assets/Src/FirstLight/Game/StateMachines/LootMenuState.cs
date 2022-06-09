@@ -34,8 +34,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private GameIdGroup _equipmentSlotTypePicked;
-		
-		private Dictionary<GameIdGroup, UniqueId> TempLoadout;
+		private Dictionary<GameIdGroup, UniqueId> _tempLoadout;
 
 		public LootMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                     Action<IStatechartEvent> statechartTrigger)
@@ -93,11 +92,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void SetTempLoadout()
 		{
-			TempLoadout = new Dictionary<GameIdGroup, UniqueId>();
+			_tempLoadout = new Dictionary<GameIdGroup, UniqueId>();
 
 			foreach (var kvp in _gameDataProvider.EquipmentDataProvider.Loadout)
 			{
-				TempLoadout.Add(kvp.Key, kvp.Value);
+				_tempLoadout.Add(kvp.Key, kvp.Value);
 			}
 		}
 
@@ -110,7 +109,7 @@ namespace FirstLight.Game.StateMachines
 				OnSlotButtonClicked = SlotButtonClicked,
 				OnChangeSkinClicked = () => _statechartTrigger(_skinClickedEvent),
 				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent),
-				CurrentTempLoadout = () => TempLoadout.Values.ToList()
+				CurrentTempLoadout = () => _tempLoadout.Values.ToList()
 			};
 
 			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
@@ -123,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SendLoadoutUpdateCommand()
 		{
-			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { SlotsToUpdate = TempLoadout });
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { SlotsToUpdate = _tempLoadout });
 		}
 		
 		private void EquipTempLoadoutId(UniqueId itemId)
@@ -131,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
 			var slot = gameId.GetSlot();
 
-			TempLoadout[slot] = itemId;
+			_tempLoadout[slot] = itemId;
 			
 			_services.MessageBrokerService.Publish(new TempItemEquippedMessage(){ItemId = itemId});
 		}
@@ -141,14 +140,14 @@ namespace FirstLight.Game.StateMachines
 			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
 			var slot = gameId.GetSlot();
 
-			TempLoadout[slot] = UniqueId.Invalid;
+			_tempLoadout[slot] = UniqueId.Invalid;
 			
 			_services.MessageBrokerService.Publish(new TempItemUnequippedMessage(){ItemId = itemId});
 		}
 
 		private bool IsTempEquipped(UniqueId itemId)
 		{
-			return TempLoadout.Values.Contains(itemId);
+			return _tempLoadout.Values.Contains(itemId);
 		}
 
 		private void SetAllGearSlot()

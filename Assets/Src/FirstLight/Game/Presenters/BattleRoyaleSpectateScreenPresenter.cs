@@ -10,19 +10,18 @@ namespace FirstLight.Game.Presenters
 	/// This is responsible for displaying the screen during spectate mode,
 	/// that follows your killer around.
 	/// </summary>
-	public class
-		BattleRoyaleSpectateScreenPresenter : UiPresenterData<BattleRoyaleSpectateScreenPresenter.StateData>
+	public class BattleRoyaleSpectateScreenPresenter : UiPresenterData<BattleRoyaleSpectateScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
 			public Action OnLeaveClicked;
 		}
 
-		[SerializeField, Required] private Button leaveButton;
+		[SerializeField, Required] private Button _leaveButton;
 
-		public void Start()
+		private void Start()
 		{
-			leaveButton.onClick.AddListener(OnLeaveClicked);
+			_leaveButton.onClick.AddListener(OnLeaveClicked);
 		}
 
 		private void OnLeaveClicked()

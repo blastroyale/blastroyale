@@ -249,10 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed8ea55d4ec459f97b4e7a76b3b66b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 0}
-  _introAnimationClip: {fileID: 0}
-  _outroAnimationClip: {fileID: 0}
-  leaveButton: {fileID: 5939736537833183511}
+  _leaveButton: {fileID: 5939736537833183511}
 --- !u!1 &8673823030550668468
 GameObject:
   m_ObjectHideFlags: 0

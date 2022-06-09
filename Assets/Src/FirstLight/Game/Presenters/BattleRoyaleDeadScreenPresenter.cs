@@ -25,16 +25,14 @@ namespace FirstLight.Game.Presenters
 			public PlayerRef Killer;
 		}
 
-		[FormerlySerializedAs("_button")] [SerializeField, Required]
-		private Button leaveButton;
-
-		[SerializeField, Required] private Button spectateButton;
-		[SerializeField, Required] private TextMeshProUGUI killerText;
+		[SerializeField, Required] private Button _leaveButton;
+		[SerializeField, Required] private Button _spectateButton;
+		[SerializeField, Required] private TextMeshProUGUI _killerText;
 
 		private void Awake()
 		{
-			leaveButton.onClick.AddListener(OnLeavePressed);
-			spectateButton.onClick.AddListener(OnSpectatePressed);
+			_leaveButton.onClick.AddListener(OnLeavePressed);
+			_spectateButton.onClick.AddListener(OnSpectatePressed);
 		}
 
 		protected override void OnOpened()
@@ -52,8 +50,8 @@ namespace FirstLight.Game.Presenters
 				killerName = data.GetPlayerName();
 			}
 
-			killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
-			spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
+			_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
+			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
 		}
 
 		private void OnLeavePressed()

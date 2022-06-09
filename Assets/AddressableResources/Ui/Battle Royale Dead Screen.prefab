@@ -135,9 +135,9 @@ MonoBehaviour:
   _animation: {fileID: 4401133809288807453}
   _introAnimationClip: {fileID: 7400000, guid: 1acd0fbd8ee3f6a4b8eed7ae2c491814, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: bf10c09666890af4eadb470b4431c9ae, type: 2}
-  leaveButton: {fileID: 4187974743784998369}
-  spectateButton: {fileID: 3924838447294196543}
-  killerText: {fileID: 1333930024149741553}
+  _leaveButton: {fileID: 4187974743784998369}
+  _spectateButton: {fileID: 3924838447294196543}
+  _killerText: {fileID: 1333930024149741553}
 --- !u!111 &4401133809288807453
 Animation:
   m_ObjectHideFlags: 0

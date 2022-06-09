@@ -130,7 +130,8 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnInitialized();
 
-			Services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdateLoadoutMessage);
+			Services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
+			Services.MessageBrokerService.Subscribe<TempItemUnequippedMessage>(OnTempItemUnequippedMessage);
 		}
 
 		// We override the OnClosed because we want to show the Loot menu before the close animation completes
@@ -353,7 +354,13 @@ namespace FirstLight.Game.Presenters
 			_equipButtonText.SetText(status);
 		}
 
-		private void OnUpdateLoadoutMessage(UpdatedLoadoutMessage message)
+		private void OnTempItemEquippedMessage(TempItemEquippedMessage message)
+		{
+			UpdateEquipmentMenu();
+			SetStats();
+		}
+		
+		private void OnTempItemUnequippedMessage(TempItemUnequippedMessage message)
 		{
 			UpdateEquipmentMenu();
 			SetStats();

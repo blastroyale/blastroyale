@@ -31,11 +31,8 @@ namespace Quantum.Systems
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-
-			// TODO: Move this to Spawn Action
-			QuantumHelpers.TryFindPosOnNavMesh(f, spawnPosition.XOY, out var closestPosition);
-
-			spawnTransform.Position = closestPosition;
+			
+			spawnTransform.Position = spawnPosition.XOY;
 
 			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
 				                        ? Array.Empty<Equipment>()

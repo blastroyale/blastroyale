@@ -16,30 +16,40 @@ MonoBehaviour:
   - Rarity: 0
     PoolCapacityModifier:
       RawValue: 0
+    MaxLevel: 10
   - Rarity: 1
     PoolCapacityModifier:
       RawValue: 0
+    MaxLevel: 12
   - Rarity: 2
     PoolCapacityModifier:
       RawValue: 82
+    MaxLevel: 15
   - Rarity: 3
     PoolCapacityModifier:
       RawValue: 82
+    MaxLevel: 17
   - Rarity: 4
     PoolCapacityModifier:
       RawValue: 164
+    MaxLevel: 20
   - Rarity: 5
     PoolCapacityModifier:
       RawValue: 164
+    MaxLevel: 22
   - Rarity: 6
     PoolCapacityModifier:
       RawValue: 328
+    MaxLevel: 25
   - Rarity: 7
     PoolCapacityModifier:
       RawValue: 328
+    MaxLevel: 27
   - Rarity: 8
     PoolCapacityModifier:
       RawValue: 655
+    MaxLevel: 30
   - Rarity: 9
     PoolCapacityModifier:
       RawValue: 655
+    MaxLevel: 35

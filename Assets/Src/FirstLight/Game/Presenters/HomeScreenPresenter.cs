@@ -1,17 +1,13 @@
 using System;
 using UnityEngine;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using I2.Loc;
 using FirstLight.Game.Services;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
-using Quantum;
 using TMPro;
-using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters

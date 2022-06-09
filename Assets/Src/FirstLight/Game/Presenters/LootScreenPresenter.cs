@@ -76,7 +76,7 @@ namespace FirstLight.Game.Presenters
 			LoadPlayerLevelInformation();
 		}
 
-		protected override async void OnOpened()
+		protected override void OnOpened()
 		{
 			base.OnOpened();
 

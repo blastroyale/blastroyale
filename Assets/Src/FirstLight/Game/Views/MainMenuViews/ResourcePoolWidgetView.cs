@@ -35,8 +35,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
+			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
 		private void OnDestroy()
@@ -55,12 +54,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services.TickService?.UnsubscribeAllOnUpdate(this);
 		}
 
-		private void OnItemEquippedMessage(ItemEquippedMessage msg)
-		{
-			TickTimerView(0);
-		}
-
-		private void OnItemUnequippedMessage(ItemUnequippedMessage msg)
+		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
 		{
 			TickTimerView(0);
 		}

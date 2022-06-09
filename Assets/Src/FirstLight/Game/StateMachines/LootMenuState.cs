@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -31,6 +34,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private GameIdGroup _equipmentSlotTypePicked;
+		private Dictionary<GameIdGroup, UniqueId> _tempLoadout;
 
 		public LootMenuState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                     Action<IStatechartEvent> statechartTrigger)
@@ -54,6 +58,7 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(lootMenuState);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(SetTempLoadout);
 
 			lootMenuState.OnEnter(OpenLootMenuUI);
 			lootMenuState.Event(_slotClickedEvent).Target(equipmentScreenState);
@@ -71,6 +76,7 @@ namespace FirstLight.Game.StateMachines
 			playerSkinPopupState.Event(_playerSkinClosedEvent).Target(lootMenuState);
 			playerSkinPopupState.OnExit(ClosePlayerSkinMenuUI);
 
+			final.OnEnter(SendLoadoutUpdateCommand);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -84,6 +90,16 @@ namespace FirstLight.Game.StateMachines
 			// Do Nothing
 		}
 
+		private void SetTempLoadout()
+		{
+			_tempLoadout = new Dictionary<GameIdGroup, UniqueId>();
+
+			foreach (var kvp in _gameDataProvider.EquipmentDataProvider.Loadout)
+			{
+				_tempLoadout.Add(kvp.Key, kvp.Value);
+			}
+		}
+
 		private void OpenLootMenuUI()
 		{
 			var data = new LootScreenPresenter.StateData
@@ -93,6 +109,7 @@ namespace FirstLight.Game.StateMachines
 				OnSlotButtonClicked = SlotButtonClicked,
 				OnChangeSkinClicked = () => _statechartTrigger(_skinClickedEvent),
 				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent),
+				CurrentTempLoadout = () => _tempLoadout.Values.ToList()
 			};
 
 			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
@@ -101,6 +118,36 @@ namespace FirstLight.Game.StateMachines
 		private void CloseLootMenuUI()
 		{
 			_uiService.CloseUi<LootScreenPresenter>();
+		}
+		
+		private void SendLoadoutUpdateCommand()
+		{
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { SlotsToUpdate = _tempLoadout });
+		}
+		
+		private void EquipTempLoadoutId(UniqueId itemId)
+		{
+			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
+			var slot = gameId.GetSlot();
+
+			_tempLoadout[slot] = itemId;
+			
+			_services.MessageBrokerService.Publish(new TempItemEquippedMessage(){ItemId = itemId});
+		}
+
+		private void UnequipTempLoadoutId(UniqueId itemId)
+		{
+			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[itemId];
+			var slot = gameId.GetSlot();
+
+			_tempLoadout[slot] = UniqueId.Invalid;
+			
+			_services.MessageBrokerService.Publish(new TempItemUnequippedMessage(){ItemId = itemId});
+		}
+
+		private bool IsTempEquipped(UniqueId itemId)
+		{
+			return _tempLoadout.Values.Contains(itemId);
 		}
 
 		private void SetAllGearSlot()
@@ -125,6 +172,9 @@ namespace FirstLight.Game.StateMachines
 			{
 				EquipmentSlot = _equipmentSlotTypePicked,
 				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent),
+				ItemEquipped = EquipTempLoadoutId,
+				ItemUnequipped = UnequipTempLoadoutId,
+				IsTempEquipped = IsTempEquipped
 			};
 
 			_uiService.OpenUi<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
@@ -144,7 +194,6 @@ namespace FirstLight.Game.StateMachines
 			
 			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
-		
 		
 		private void ClosePlayerSkinMenuUI()
 		{

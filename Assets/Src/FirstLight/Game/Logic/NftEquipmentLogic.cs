@@ -199,7 +199,34 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		public void Equip(UniqueId itemId)
+		public void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout)
+		{
+			foreach (var modifiedKvp in newLoadout)
+			{
+				UniqueId equippedInSlot = GetEquippedItemForSlot(modifiedKvp.Key);
+				
+				if (equippedInSlot != UniqueId.Invalid && modifiedKvp.Value == UniqueId.Invalid)
+				{
+					Unequip(equippedInSlot);
+				}
+				else if (modifiedKvp.Value != equippedInSlot)
+				{
+					Equip(modifiedKvp.Value);
+				}
+			}
+		}
+		
+		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
+		{
+			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
+			{
+				return UniqueId.Invalid;
+			}
+			
+			return _loadout.ReadOnlyDictionary[idGroup];
+		}
+
+		private void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
@@ -217,7 +244,7 @@ namespace FirstLight.Game.Logic
 			_loadout.Add(slot, itemId);
 		}
 
-		public void Unequip(UniqueId itemId)
+		private void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
@@ -229,16 +256,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			_loadout.Remove(slot);
-		}
-
-		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
-		{
-			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
-			{
-				return UniqueId.Invalid;
-			}
-			
-			return _loadout.ReadOnlyDictionary[idGroup];
 		}
 	}
 }

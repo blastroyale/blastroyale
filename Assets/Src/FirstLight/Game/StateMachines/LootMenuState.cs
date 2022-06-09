@@ -123,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SendLoadoutUpdateCommand()
 		{
-			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { NewLoadout = TempLoadout });
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { SlotsToUpdate = TempLoadout });
 		}
 		
 		private void EquipTempLoadoutId(UniqueId itemId)

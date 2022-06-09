@@ -94,13 +94,8 @@ namespace FirstLight.Game.Logic
 		bool RemoveFromInventory(UniqueId equipment);
 
 		/// <summary>
-		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
+		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
-		void Equip(UniqueId itemId);
-
-		/// <summary>
-		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
-		/// </summary>
-		void Unequip(UniqueId itemId);
+		void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout);
 	}
 }

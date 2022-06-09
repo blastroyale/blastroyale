@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Messages
 {
 	public struct UpdatedLoadoutMessage : IMessage
 	{
-		public List<UniqueId> EquippedIds;
-		public List<UniqueId> UnequippedIds;
+		public Dictionary<GameIdGroup,UniqueId> SlotsUpdated;
 	}
 
 	public struct TempItemEquippedMessage : IMessage

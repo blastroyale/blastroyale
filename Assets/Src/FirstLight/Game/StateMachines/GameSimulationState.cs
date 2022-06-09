@@ -336,7 +336,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var game = QuantumRunner.Default.Game;
 			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
-
+			
 			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 			{
 				PlayerName = _gameDataProvider.AppDataProvider.Nickname,

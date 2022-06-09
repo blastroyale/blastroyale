@@ -20,6 +20,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class MapSelectionView : MonoBehaviour, IPointerClickHandler
 	{
+		[SerializeField, Required] private GameObject _selectedDropAreaRoot;
 		[SerializeField, Required] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField, Required] private RectTransform _selectedPoint;
 		[SerializeField, Required] private Camera _uiCamera;
@@ -80,16 +81,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 
-			if (!gridConfig.IsValid || !_selectionEnabled)
-			{
-				return;
-			}
-
 			var localPosition = GridToAnchoredPosition(pos);
 			var localSize = _rectTransform.sizeDelta;
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
 			NormalizedSelectionPoint = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y);
+			
+			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}
 
 		private Vector2Int GetRandomGridPosition()
@@ -103,7 +101,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				for (var y = 0; y < gridSize.y; y++)
 				{
 					var config = mapGridConfigs.GetConfig(x, y);
-					if (config.IsValid)
+					if (config.IsValidNamedArea)
 					{
 						availableGridPositions.Add(config);
 					}

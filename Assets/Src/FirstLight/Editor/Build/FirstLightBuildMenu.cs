@@ -19,10 +19,11 @@ namespace FirstLight.Editor.Build
 			{
 				return;
 			}
+			
+			FirstLightBuildConfig.SetupDevelopmentConfig();
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, true, true);
 			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -35,9 +36,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupDevelopmentConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, true);
 			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -50,9 +52,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupReleaseConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, false);
 			
-			FirstLightBuildConfig.SetupReleaseConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -66,9 +69,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupStoreConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, false);
 			
-			FirstLightBuildConfig.SetupStoreConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -81,10 +85,14 @@ namespace FirstLight.Editor.Build
 			{
 				return;
 			}
-
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true, true);
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true, true);
+
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Automatic;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = true;
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -98,9 +106,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 
+			FirstLightBuildConfig.SetupDevelopmentConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true);
 			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -114,9 +123,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupReleaseConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, false);
 			
-			FirstLightBuildConfig.SetupReleaseConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
@@ -130,9 +140,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupStoreConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, false);
 			
-			FirstLightBuildConfig.SetupStoreConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 

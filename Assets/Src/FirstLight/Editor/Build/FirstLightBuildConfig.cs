@@ -50,7 +50,6 @@ namespace FirstLight.Editor.Build
 		private const string _apkExtension = ".apk";
 		private const int _facebookDevAppIdSelectedIndex = 1;
 		private const int _facebookAppIdSelectedIndex = 0;
-		
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
 
 		/// <summary>
@@ -63,7 +62,11 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = true;
+			EditorUserBuildSettings.buildAppBundle = false;
+			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
@@ -91,7 +94,11 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;
+			EditorUserBuildSettings.buildAppBundle = false;
+			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
@@ -118,7 +125,11 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _appStoreProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;
+			EditorUserBuildSettings.buildAppBundle = true;
+			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookAppIdSelectedIndex;
 			
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
@@ -198,9 +209,9 @@ namespace FirstLight.Editor.Build
 				SetLocalBuildConfig(ref buildConfig);
 			}
 
-			if (target == BuildTarget.iOS)
+			if (target == BuildTarget.iOS && BuildPipeline.BuildCanBeAppended(BuildTarget.iOS, "app") == CanAppendBuild.Yes)
 			{
-				SetCommonIosConfig(ref buildConfig);
+				buildConfig.options |= BuildOptions.AcceptExternalModificationsToPlayer;
 			}
 
 			SetScenesFromEditor(ref buildConfig);
@@ -225,25 +236,11 @@ namespace FirstLight.Editor.Build
 			buildPlayerOptions.scenes = scenesToInclude.ToArray();
 		}
 
-		private static void SetCommonIosConfig(ref BuildPlayerOptions buildConfig)
-		{
-			if (BuildPipeline.BuildCanBeAppended(BuildTarget.iOS, "app") == CanAppendBuild.Yes)
-			{
-				buildConfig.options |= BuildOptions.AcceptExternalModificationsToPlayer;
-			}
-			
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
-			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
-		}
-
 		private static void SetLocalBuildConfig(ref BuildPlayerOptions buildConfig)
 		{
 			buildConfig.options |= BuildOptions.AutoRunPlayer;
-			buildConfig.options |= BuildOptions.ConnectToHost;
 			buildConfig.options |= BuildOptions.ConnectWithProfiler;
 			buildConfig.options |= BuildOptions.DetailedBuildReport;
-			buildConfig.options |= BuildOptions.ShowBuiltPlayer;
-			buildConfig.options |= BuildOptions.SymlinkSources;
 		}
 
 		private static void ConfigureQuantumForDevelopment()

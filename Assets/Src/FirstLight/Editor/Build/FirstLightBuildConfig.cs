@@ -36,6 +36,7 @@ namespace FirstLight.Editor.Build
 		public static readonly string[] CommonSymbols = new []
 		{
 			"QUANTUM_ADDRESSABLES",
+			"QUANTUM_REMOTE_PROFILER",
 			"ENABLE_PLAYFAB_BETA",
 			"TextMeshPro",
 		};

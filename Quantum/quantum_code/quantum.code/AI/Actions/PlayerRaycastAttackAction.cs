@@ -32,7 +32,7 @@ namespace Quantum
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
 			                                    cVelocitySqr / maxSpeedSqr);
-			
+
 			//accuracy modifier is found by getting a random angle between the min and max angle values,
 			//and then passing that through into the shot; Works only for single shot weapons
 			var angle = targetAttackAngle / FP._2;
@@ -58,7 +58,8 @@ namespace Quantum
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			
+			bb.Set(f, Constants.BurstLeftKey, bb.GetFP(f, Constants.BurstLeftKey) - 1);
+
 			f.Add(f.Create(), raycastShot);
 			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, shotAngle, (uint)targetAttackAngle);
 			f.Events.OnLocalPlayerAttack(player, e, weaponConfig);

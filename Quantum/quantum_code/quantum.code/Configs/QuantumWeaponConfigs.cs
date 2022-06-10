@@ -18,6 +18,7 @@ namespace Quantum
 		public uint MinAttackAngle;
 		public uint MaxAttackAngle;
 		public uint NumberOfShots;
+		public uint NumberOfBursts;
 		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;

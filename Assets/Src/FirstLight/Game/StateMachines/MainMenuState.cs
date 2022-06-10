@@ -30,6 +30,11 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class MainMenuState
 	{
+		// TODO EVE
+		// To summarise the implementation of the feature, we need to:
+		// * Create a a function that returns a bool, that checks if we don't have enough NFTs equipped
+		// * Create a new 'Wait' state used to open a generic popup that tells us to get some NFTs
+
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 
 		private readonly IStatechartEvent _currentTabButtonClickedEvent =
@@ -124,12 +129,13 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
-			var roomWaitingState = stateFactory.State("Room Joined Check");
+			var roomWait = stateFactory.State("Room Joined Check");
 			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
 			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
 			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var postNameCheck = stateFactory.Choice("Post Name Check");
+			// TODO EVE - Create new 'Wait' state, called something like 'nftPlayRestricted'
 
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -156,11 +162,16 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.OnExit(CloseMainMenuUI);
 
 			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
-			playClickedCheck.Transition().Target(roomWaitingState);
+			// TODO EVE - make a conditional transition, like above, to your new 'nftPlayRestricted' state
+			// The condition should have your new method, NotEnoughEquipmentForPlay.
+			// With that in, it means that if your name is not set, or if you don't have enough NFTs, the state
+			// will be diverted away from roomWait, which is the state we use to transition into the match
+			
+			playClickedCheck.Transition().Target(roomWait);
 
-			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
-			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
-			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
+			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 
 			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
@@ -168,9 +179,18 @@ namespace FirstLight.Game.StateMachines
 			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
+			
+			// TODO EVE - declare the functionality of your 'nftPlayRestricted' state
+			// Look at the code above as an example: chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
+			// Your code should be similar, but the state is 'nftPlayRestricted', and the method is going to be your new one: 'OpenNftAmountInvalidDialog'
+			// The target should still be back to 'homeMenu'
+			//
+			// The 'WaitingFor' basically tells the state machine to call function OpenNftAmountInvalidDialog, and this function will 
+			// be responsible for 'resolving' the task to move the state machine. Look at OpenGameModeSelectionUI method to see the kind of code 
+			// you'll be writing
 
 			postNameCheck.Transition().Condition(IsInRoom).Target(final);
-			postNameCheck.Transition().Target(roomWaitingState);
+			postNameCheck.Transition().Target(roomWait);
 
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
@@ -187,7 +207,7 @@ namespace FirstLight.Game.StateMachines
 			heroesMenu.OnExit(CloseHeroesMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWaitingState);
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(homeMenu);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
@@ -249,11 +269,40 @@ namespace FirstLight.Game.StateMachines
 			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName ||
 			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
 		}
+		
+		// TODO EVE
+		// Create a new method that returns a bool, called 'NotEnoughEquipmentForPlay'.
+		// This method should check how many NFT's player has, and return true if the amount is less than 
+		// new variable (that you need to make) - GameConstants.Balance.NFT_AMOUNT_FOR_PLAY
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
 		{
 			return _currentScreen == typeof(T);
 		}
+		
+		// TODO EVE - Make a new method, OpenNftAmountInvalidDialog, with 'IWaitActivity activity' as the parameter
+		// This method will cache the activity parameter, declare the title, declare the button,
+		// and open a generic dialog with a title, and a confirmButton.
+		//
+		// You will need to "cache" the activity parameter, like in the OpenGameModeSelectionUI method
+		//
+		// To save you looking around, the button is declared like this:
+		//
+		//var confirmButton = new GenericDialogButton
+		//{
+		//	ButtonText = ScriptLocalization.General.OK,
+		//	ButtonOnClick = () => { cacheActivity.Complete(); }
+		//};
+		//
+		// It creates a button, with given text, and binds a 'lambda' method to the ButtonOnClick, which 'completes'
+		// the cached activity, and will move the state machine forward
+		// Dont worry about what 'lambda' methods are, just roll with it ;) 
+		//
+		// Generic dialogs can be opened like this
+		// _services.GenericDialogService.OpenDialog(yourTitleHere, false, yourButtonHere);
+		//
+		// Of course replace the title with the properly localized title in ScriptLocalization.MainMenu.
+		// and the button with your own
 
 		private void OpenGameModeSelectionUI(IWaitActivity activity)
 		{

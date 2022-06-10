@@ -221,16 +221,7 @@ namespace FirstLight.Game.Logic
 			poolCapacity += poolCapacity * Math.Round(GameLogic.PlayerDataProvider.Trophies.Value / poolCapacityTrophiesMod);
 			
 			// ----- Decrease pool capacity based on owned NFT durability
-			var currentNftDurabilities = (double) 0;
-			var maxNftDurabilities = (double) 0;
-			
-			foreach (var nft in inventory)
-			{
-				currentNftDurabilities += nft.Value.Durability;
-				maxNftDurabilities += nft.Value.MaxDurability;
-			}
-			
-			var nftDurabilityPercent = currentNftDurabilities / maxNftDurabilities;
+			var nftDurabilityPercent = GameLogic.EquipmentLogic.GetDurabilityAveragePercentage(inventory.Values.ToList());
 			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, poolDecreaseExp) * maxPoolDecreaseMod;
 			var durabilityDecrease = Math.Floor(poolCapacity * durabilityDecreaseMult);
 			

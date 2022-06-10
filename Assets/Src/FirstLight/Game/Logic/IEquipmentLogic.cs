@@ -57,6 +57,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the total amount of <paramref name="stat"/> granted by all currently equipped items.
 		/// </summary>
 		float GetTotalEquippedStat(StatType stat);
+
+		/// <summary>
+		/// Requests the percentage average of durability on all equipment in <paramref name="items"/>
+		/// </summary>
+		double GetDurabilityAveragePercentage(List<Equipment> items);
 		
 		/// <summary>
 		/// Requests the total amount of <paramref name="stat"/> granted for equipping inventory <paramref name="items"/>

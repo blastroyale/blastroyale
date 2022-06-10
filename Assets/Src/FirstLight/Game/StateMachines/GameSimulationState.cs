@@ -333,7 +333,11 @@ namespace FirstLight.Game.StateMachines
 		private void OpenTrophiesScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			var data = new TrophiesScreenPresenter.StateData { ExitTrophyScreen = ContinueClicked };
+			var data = new TrophiesScreenPresenter.StateData
+			{
+				ExitTrophyScreen = ContinueClicked,
+				LastTrophyChange = () => _lastTrophyChange
+			};
 
 			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
 

@@ -32,6 +32,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private int _lastTrophyChange = 0;
 		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -109,6 +111,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
+			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 			
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
@@ -166,6 +169,11 @@ namespace FirstLight.Game.StateMachines
 			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = QuitGameConfirmedClicked};
 
 			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
+		}
+		
+		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
+		{
+			_lastTrophyChange = message.TrophiesChange;
 		}
 
 		private void OnFtueEndedMessage(FtueEndedMessage message)
@@ -325,7 +333,7 @@ namespace FirstLight.Game.StateMachines
 		private void OpenTrophiesScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			var data = new TrophiesScreenPresenter.StateData { ContinueClicked = ContinueClicked };
+			var data = new TrophiesScreenPresenter.StateData { ExitTrophyScreen = ContinueClicked };
 
 			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
 

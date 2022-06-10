@@ -17,5 +17,6 @@ namespace FirstLight.Game.Messages
 	public struct GameCompletedRewardsMessage : IMessage
 	{
 		public List<RewardData> Rewards;
+		public int TrophiesChange;
 	}
 }

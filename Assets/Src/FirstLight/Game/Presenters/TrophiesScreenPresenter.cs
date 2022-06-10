@@ -57,6 +57,16 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
+			if (_trophyChange > 0)
+			{
+				_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesGained.ToUpper();
+			}
+			else
+			{
+				_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesLost.ToUpper();
+			}
+
+			
 			_trophyChange = Data.LastTrophyChange();
 			_currentTrophies = (int) _dataProvider.PlayerDataProvider.Trophies.Value;
 			_trophyChangeText.text = TrophyChangePrefix + _trophyChange;
@@ -69,7 +79,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void ChangeStatusToTotalTrophies()
 		{
-			_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesNewTotal;
+			_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesNewTotal.ToUpper();
 		}
 
 		private void OnContinueClicked()

@@ -659,6 +659,7 @@ namespace I2.Loc
 			public static string NextGoal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextGoal"); } }
 			public static string NftCooldownTimerFullText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerFullText"); } }
 			public static string NftCooldownTimerTooltip 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerTooltip"); } }
+			public static string NftRestrictionText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftRestrictionText"); } }
 			public static string NoAdventuresAvailable 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NoAdventuresAvailable"); } }
 			public static string NotEnoughSpace 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpace"); } }
 			public static string NotEnoughSpaceWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpaceWarning"); } }
@@ -706,6 +707,10 @@ namespace I2.Loc
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
 			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
+			public static string Trophies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Trophies"); } }
+			public static string TrophiesGained 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesGained"); } }
+			public static string TrophiesLost 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesLost"); } }
+			public static string TrophiesNewTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesNewTotal"); } }
 			public static string TrophyRoad 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoad"); } }
 			public static string TrophyRoadXP 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoadXP"); } }
 			public static string Unlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Unlock"); } }
@@ -1437,6 +1442,7 @@ namespace I2.Loc
 		    public const string NextGoal = "MainMenu/NextGoal";
 		    public const string NftCooldownTimerFullText = "MainMenu/NftCooldownTimerFullText";
 		    public const string NftCooldownTimerTooltip = "MainMenu/NftCooldownTimerTooltip";
+		    public const string NftRestrictionText = "MainMenu/NftRestrictionText";
 		    public const string NoAdventuresAvailable = "MainMenu/NoAdventuresAvailable";
 		    public const string NotEnoughSpace = "MainMenu/NotEnoughSpace";
 		    public const string NotEnoughSpaceWarning = "MainMenu/NotEnoughSpaceWarning";
@@ -1484,6 +1490,10 @@ namespace I2.Loc
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
 		    public const string TotalPower = "MainMenu/TotalPower";
+		    public const string Trophies = "MainMenu/Trophies";
+		    public const string TrophiesGained = "MainMenu/TrophiesGained";
+		    public const string TrophiesLost = "MainMenu/TrophiesLost";
+		    public const string TrophiesNewTotal = "MainMenu/TrophiesNewTotal";
 		    public const string TrophyRoad = "MainMenu/TrophyRoad";
 		    public const string TrophyRoadXP = "MainMenu/TrophyRoadXP";
 		    public const string Unlock = "MainMenu/Unlock";

@@ -60,7 +60,8 @@ namespace FirstLight.Game.StateMachines
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var postResultsChoice = stateFactory.Choice("Post Results Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
-
+			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
+			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
 
@@ -89,14 +90,17 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.OnExit(CloseCompleteScreen);
 
 			gameResults.OnEnter(GiveMatchRewards);
-			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
+			gameResults.WaitingFor(ResultsScreen).Target(trophiesGainLoss);
 			gameResults.OnExit(CloseResultScreen);
+			
+			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(postResultsChoice);
+			trophiesGainLoss.OnExit(CloseTrophiesScreen);
 			
 			postResultsChoice.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
 			postResultsChoice.Transition().Target(final);
 
-			gameRewards.WaitingFor(RewardsScreen).Target(final);
-			gameRewards.OnExit(CloseRewardScreen);
+			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
+			gameRewards.OnExit(CloseRewardsScreen);
 
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
@@ -300,7 +304,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<ResultsScreenPresenter>();
 		}
 
-		private void RewardsScreen(IWaitActivity activity)
+		private void OpenRewardsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
@@ -313,9 +317,27 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CloseRewardScreen()
+		private void CloseRewardsScreen()
 		{
 			_uiService.CloseUi<RewardsScreenPresenter>();
+		}
+		
+		private void OpenTrophiesScreen(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+			var data = new TrophiesScreenPresenter.StateData { ContinueClicked = ContinueClicked };
+
+			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
+
+			void ContinueClicked()
+			{
+				cacheActivity.Complete();
+			}
+		}
+
+		private void CloseTrophiesScreen()
+		{
+			_uiService.CloseUi<TrophiesScreenPresenter>();
 		}
 		
 		private void CloseMatchmakingScreen()

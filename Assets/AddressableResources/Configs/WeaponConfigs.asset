@@ -40,7 +40,7 @@ MonoBehaviour:
         RawValue: 0
       MinAttackAngle: 60
       MaxAttackAngle: 60
-      NumberOfShots: 1
+      NumberOfShots: 6
       AttackRange:
         RawValue: 131072
       CanHitSameTarget: 0

@@ -41,7 +41,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
-			_battleRoyaleState = new BattleRoyaleState(gameDataProvider, services, uiService, statechartTrigger);
+			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
 		}
 
 		/// <summary>

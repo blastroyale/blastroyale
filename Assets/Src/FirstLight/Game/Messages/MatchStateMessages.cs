@@ -10,4 +10,5 @@ namespace FirstLight.Game.Messages
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }
 	public struct StartedFinalPreloadMessage : IMessage { }
+	public struct SpectateKillerMessage : IMessage { }
 }

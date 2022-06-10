@@ -17,9 +17,13 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.AdventureWorldHudPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/Battle Royale Spectator Hud.prefab
+  - AddressableAddress: Ui/Battle Royale Dead Screen.prefab
     Layer: 2
-    UiType: FirstLight.Game.Presenters.BattleRoyaleSpectatorHudPresenter, FirstLight.Game,
+    UiType: FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/Battle Royale Spectate Screen.prefab
+    Layer: 2
+    UiType: FirstLight.Game.Presenters.BattleRoyaleSpectateScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Deathmatch Dead Screen.prefab
     Layer: 2
@@ -226,9 +230,11 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.BattleRoyaleSpectatorHudPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.BattleRoyaleSpectateScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

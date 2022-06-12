@@ -659,6 +659,7 @@ namespace I2.Loc
 			public static string NextGoal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextGoal"); } }
 			public static string NftCooldownTimerFullText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerFullText"); } }
 			public static string NftCooldownTimerTooltip 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerTooltip"); } }
+			public static string NftRestrictionText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftRestrictionText"); } }
 			public static string NoAdventuresAvailable 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NoAdventuresAvailable"); } }
 			public static string NotEnoughSpace 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpace"); } }
 			public static string NotEnoughSpaceWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpaceWarning"); } }
@@ -1437,6 +1438,7 @@ namespace I2.Loc
 		    public const string NextGoal = "MainMenu/NextGoal";
 		    public const string NftCooldownTimerFullText = "MainMenu/NftCooldownTimerFullText";
 		    public const string NftCooldownTimerTooltip = "MainMenu/NftCooldownTimerTooltip";
+		    public const string NftRestrictionText = "MainMenu/NftRestrictionText";
 		    public const string NoAdventuresAvailable = "MainMenu/NoAdventuresAvailable";
 		    public const string NotEnoughSpace = "MainMenu/NotEnoughSpace";
 		    public const string NotEnoughSpaceWarning = "MainMenu/NotEnoughSpaceWarning";

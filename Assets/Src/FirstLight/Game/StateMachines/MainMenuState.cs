@@ -1,25 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
-using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,11 +24,6 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class MainMenuState
 	{
-		// TODO EVE
-		// To summarise the implementation of the feature, we need to:
-		// * Create a a function that returns a bool, that checks if we don't have enough NFTs equipped
-		// * Create a new 'Wait' state used to open a generic popup that tells us to get some NFTs
-
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 
 		private readonly IStatechartEvent _currentTabButtonClickedEvent =
@@ -131,11 +120,9 @@ namespace FirstLight.Game.StateMachines
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWait = stateFactory.State("Room Joined Check");
 			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
-			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
-			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
+			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var postNameCheck = stateFactory.Choice("Post Name Check");
-			// TODO EVE - Create new 'Wait' state, called something like 'nftPlayRestricted'
+			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
 
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -156,18 +143,13 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
-			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
+			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
-			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
-			// TODO EVE - make a conditional transition, like above, to your new 'nftPlayRestricted' state
-			// The condition should have your new method, NotEnoughEquipmentForPlay.
-			// With that in, it means that if your name is not set, or if you don't have enough NFTs, the state
-			// will be diverted away from roomWait, which is the state we use to transition into the match
-			
-			playClickedCheck.Transition().Target(roomWait);
+			playClickedCheck.Transition().Condition(EnoughNftToPlay).Target(roomWait);
+			playClickedCheck.Transition().Target(nftPlayRestricted);
 
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
@@ -176,21 +158,9 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
 
-			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
-
-			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
+			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 			
-			// TODO EVE - declare the functionality of your 'nftPlayRestricted' state
-			// Look at the code above as an example: chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
-			// Your code should be similar, but the state is 'nftPlayRestricted', and the method is going to be your new one: 'OpenNftAmountInvalidDialog'
-			// The target should still be back to 'homeMenu'
-			//
-			// The 'WaitingFor' basically tells the state machine to call function OpenNftAmountInvalidDialog, and this function will 
-			// be responsible for 'resolving' the task to move the state machine. Look at OpenGameModeSelectionUI method to see the kind of code 
-			// you'll be writing
-
-			postNameCheck.Transition().Condition(IsInRoom).Target(final);
-			postNameCheck.Transition().Target(roomWait);
+			nftPlayRestricted.WaitingFor(OpenNftAmountInvalidDialog).Target(homeMenu);
 
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
@@ -258,52 +228,33 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
-
-		private bool IsInRoom()
-		{
-			return _services.NetworkService.QuantumClient.InRoom;
-		}
-
-		private bool IsNameNotSet()
-		{
-			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName ||
-			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
-		}
 		
-		// TODO EVE
-		// Create a new method that returns a bool, called 'NotEnoughEquipmentForPlay'.
-		// This method should check how many NFT's player has, and return true if the amount is less than 
-		// new variable (that you need to make) - GameConstants.Balance.NFT_AMOUNT_FOR_PLAY
+		private bool EnoughNftToPlay()
+		{
+			var nftAmmountForPlay = GameConstants.Balance.NFT_AMMOUNT_FOR_PLAY;
+			var nftCount = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
+			
+			return nftCount >= nftAmmountForPlay;
+		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
 		{
 			return _currentScreen == typeof(T);
 		}
-		
-		// TODO EVE - Make a new method, OpenNftAmountInvalidDialog, with 'IWaitActivity activity' as the parameter
-		// This method will cache the activity parameter, declare the title, declare the button,
-		// and open a generic dialog with a title, and a confirmButton.
-		//
-		// You will need to "cache" the activity parameter, like in the OpenGameModeSelectionUI method
-		//
-		// To save you looking around, the button is declared like this:
-		//
-		//var confirmButton = new GenericDialogButton
-		//{
-		//	ButtonText = ScriptLocalization.General.OK,
-		//	ButtonOnClick = () => { cacheActivity.Complete(); }
-		//};
-		//
-		// It creates a button, with given text, and binds a 'lambda' method to the ButtonOnClick, which 'completes'
-		// the cached activity, and will move the state machine forward
-		// Dont worry about what 'lambda' methods are, just roll with it ;) 
-		//
-		// Generic dialogs can be opened like this
-		// _services.GenericDialogService.OpenDialog(yourTitleHere, false, yourButtonHere);
-		//
-		// Of course replace the title with the properly localized title in ScriptLocalization.MainMenu.
-		// and the button with your own
 
+		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+
+			var confirmButton = new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () => { cacheActivity.Complete(); }
+			};
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.NftRestrictionText, false,
+				confirmButton);
+		}
+		
 		private void OpenGameModeSelectionUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;

@@ -15,6 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
 
+		// TODO: Delete this when we have a proper implementation of rarity representation in game
 		[SerializeField, Required] private GameObject _debugContainer;
 		[SerializeField, Required] private TextMeshProUGUI _debugText;
 
@@ -38,6 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
 
+			// TODO: Delete this when we have a proper implementation of rarity representation in game
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_debugContainer.SetActive(true);

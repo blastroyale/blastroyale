@@ -53,7 +53,7 @@ MonoBehaviour:
       Specials: 8d00000000000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 60
       AssetRef:
@@ -90,7 +90,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 71
       AssetRef:
@@ -127,7 +127,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 78
       AssetRef:
@@ -164,7 +164,7 @@ MonoBehaviour:
       Specials: 770000006e000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 79
       AssetRef:
@@ -201,7 +201,7 @@ MonoBehaviour:
       Specials: 7700000055000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 84
       AssetRef:
@@ -238,7 +238,7 @@ MonoBehaviour:
       Specials: 5900000055000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 86
       AssetRef:
@@ -275,7 +275,7 @@ MonoBehaviour:
       Specials: 0a0000000a000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 87
       AssetRef:
@@ -312,7 +312,7 @@ MonoBehaviour:
       Specials: 590000000a000000
       InitialAttackCooldown:
         RawValue: 39321
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 196608
     - Id: 88
       AssetRef:
@@ -349,7 +349,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 90
       AssetRef:
@@ -386,7 +386,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 91
       AssetRef:
@@ -423,7 +423,7 @@ MonoBehaviour:
       Specials: 770000006e000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 92
       AssetRef:
@@ -460,7 +460,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 93
       AssetRef:
@@ -497,7 +497,7 @@ MonoBehaviour:
       Specials: 5900000055000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 94
       AssetRef:
@@ -534,7 +534,7 @@ MonoBehaviour:
       Specials: 0a0000000a000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 95
       AssetRef:
@@ -571,7 +571,7 @@ MonoBehaviour:
       Specials: 0a0000006e000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 96
       AssetRef:
@@ -608,7 +608,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 97
       AssetRef:
@@ -645,7 +645,7 @@ MonoBehaviour:
       Specials: 7700000066000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 98
       AssetRef:
@@ -682,7 +682,7 @@ MonoBehaviour:
       Specials: 770000006e000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 99
       AssetRef:
@@ -719,7 +719,7 @@ MonoBehaviour:
       Specials: 7700000055000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 100
       AssetRef:
@@ -756,7 +756,7 @@ MonoBehaviour:
       Specials: 5900000055000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 101
       AssetRef:
@@ -793,7 +793,7 @@ MonoBehaviour:
       Specials: 0a0000000a000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0
     - Id: 103
       AssetRef:
@@ -830,5 +830,5 @@ MonoBehaviour:
       Specials: 590000000a000000
       InitialAttackCooldown:
         RawValue: 0
-      RampUpTime:
+      InitialAttackRampUpTime:
         RawValue: 0

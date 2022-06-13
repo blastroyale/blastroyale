@@ -26,7 +26,7 @@ namespace Quantum
 		public FP SplashDamageRatio;
 		public List<GameId> Specials;
 		public FP InitialAttackCooldown;
-		public FP RampUpTime;
+		public FP InitialAttackRampUpTime;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon

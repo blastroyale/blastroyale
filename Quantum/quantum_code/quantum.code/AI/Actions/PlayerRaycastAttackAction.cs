@@ -40,11 +40,11 @@ namespace Quantum
 
 			//only do attackSpeed ramping if the weapon has it
 			var RampUpStartTime = bb->GetFP(f, "RampUpTimeStart");
-			if (weaponConfig.RampUpTime != 0)
+			if (weaponConfig.InitialAttackRampUpTime != 0)
 			{
 				var timeDiff = f.Time - RampUpStartTime;
 				var CurrentAttackCooldown = FPMath.Lerp(weaponConfig.InitialAttackCooldown, weaponConfig.AttackCooldown, 
-					timeDiff / weaponConfig.RampUpTime);
+					timeDiff / weaponConfig.InitialAttackRampUpTime);
 				bb->Set(f, nameof(weaponConfig.AttackCooldown), CurrentAttackCooldown);
 			}
 

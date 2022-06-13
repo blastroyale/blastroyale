@@ -238,11 +238,11 @@ namespace FirstLight.Game.Logic
 
 			var finalTrophyChange = (int) Math.Round(trophyChange);
 
-			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
+			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > _trophies.Value)
 			{
-				finalTrophyChange = (int) -Data.Trophies;
+				finalTrophyChange = (int) -_trophies.Value;
 			}
-			
+
 			_trophies.Value = Math.Max(0, _trophies.Value + (uint) finalTrophyChange);
 
 			return finalTrophyChange;

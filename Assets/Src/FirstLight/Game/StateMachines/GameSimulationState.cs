@@ -25,7 +25,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _simulationReadyEvent = new StatechartEvent("Simulation Ready Event");
 		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
 		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
-		private readonly IStatechartEvent _rewardCalcCompleteEvent = new StatechartEvent("Reward Calc Complete Event");
+
 		private readonly DeathmatchState _deathmatchState;
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -60,7 +60,6 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			var rewardCalc = stateFactory.State("Reward Calc Wait");
 			var postResultsChoice = stateFactory.Choice("Post Results Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
@@ -77,24 +76,22 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
 
-			deathmatch.Nest(_deathmatchState.Setup).Target(rewardCalc);
+			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(rewardCalc);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 			
-			gameEnded.WaitingFor(GameCompleteScreen).Target(rewardCalc);
+			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-
-			rewardCalc.OnEnter(GiveMatchRewards);
-			rewardCalc.Event(_rewardCalcCompleteEvent).Target(gameResults);
-				
+			
+			gameResults.OnEnter(GiveMatchRewards);
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesGainLoss);
 			gameResults.OnExit(CloseResultScreen);
 			
@@ -177,7 +174,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
 		{
 			_lastTrophyChange = message.TrophiesChange;
-			_statechartTrigger(_rewardCalcCompleteEvent);
 		}
 
 		private void OnFtueEndedMessage(FtueEndedMessage message)

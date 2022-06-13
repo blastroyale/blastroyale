@@ -45,7 +45,7 @@ namespace FirstLight.Game.Presenters
 
 		public bool IsAnimating => _animation.isPlaying || _isTransferringTrophies;
 		public string TrophyChangePrefix => _trophyChange > 0 ? "+" : "";
-
+		
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -66,8 +66,6 @@ namespace FirstLight.Game.Presenters
 				_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesLost.ToUpper();
 			}
 
-			Debug.LogError("on opened");
-			
 			_trophyChange = Data.LastTrophyChange();
 			_currentTrophies = (int) _dataProvider.PlayerDataProvider.Trophies.Value;
 			_trophyChangeText.text = TrophyChangePrefix + _trophyChange;
@@ -87,10 +85,10 @@ namespace FirstLight.Game.Presenters
 		{
 			if (trophyChange > 0)
 			{
-				return currentTrophies - trophyChange;
+				return currentTrophies + trophyChange;
 			}
 
-			return currentTrophies + trophyChange;
+			return currentTrophies - trophyChange;
 		}
 
 		private void OnContinueClicked()

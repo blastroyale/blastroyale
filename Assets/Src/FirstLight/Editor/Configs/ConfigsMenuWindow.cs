@@ -11,6 +11,11 @@ using UnityEditor;
 
 namespace FirstLightEditor.AssetImporter
 {
+	/// <summary>
+	/// A window to display all of our configs in one place.
+	///
+	/// TODO: Add more functionality (importing / displaying changes etc...)
+	/// </summary>
 	public class ConfigsMenuWindow : OdinMenuEditorWindow
 	{
 		private const string ConfigsFolder = "Assets/AddressableResources/Configs";

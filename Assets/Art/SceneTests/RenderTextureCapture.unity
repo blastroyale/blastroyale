@@ -1172,6 +1172,7 @@ MonoBehaviour:
   _renderTextureMode: 0
   _subFolderId: 0
   _collectionId: 1
+  _baseEquipmentStatsConfigs: {fileID: 11400000, guid: cce42c611f6104cf58fc1f5386cc068b, type: 2}
 --- !u!20 &6467920952292208544
 Camera:
   m_ObjectHideFlags: 0

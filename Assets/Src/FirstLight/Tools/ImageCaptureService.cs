@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -46,6 +50,7 @@ namespace Src.FirstLight.Tools
 		[SerializeField] private RenderTextureMode _renderTextureMode;
 		[SerializeField] private int _subFolderId;
 		[SerializeField] private int _collectionId;
+		[SerializeField] private BaseEquipmentStatsConfigs _baseEquipmentStatsConfigs;
 		
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
@@ -105,7 +110,7 @@ namespace Src.FirstLight.Tools
 
 		
 		[Button("Export All Render Textures")]
-		private void ExportAllRenderTextures()
+		private async void ExportAllRenderTextures()
 		{
 			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 			{
@@ -114,7 +119,7 @@ namespace Src.FirstLight.Tools
 				return;
 			}
 			
-			
+				
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
 			var metadata = new Erc721MetaData {attibutesDictionary = new Dictionary<string, int>()};
@@ -135,10 +140,9 @@ namespace Src.FirstLight.Tools
 							{
 								for (var gradeIndex = 0; gradeIndex < (int)EquipmentGrade.TOTAL; gradeIndex++)
 								{
-									metadata.name = ""; //TODO @MR
 									metadata.attibutesDictionary["category"] = categoryIndex;
 									metadata.attibutesDictionary["subCategory"] = subCategoryIndex;
-									metadata.attibutesDictionary["manufacturer"] = -1;   //TODO @MR
+									metadata.attibutesDictionary["manufacturer"] = 0;   
 									metadata.attibutesDictionary["rarity"] = rarityIndex;
 									metadata.attibutesDictionary["material"] = materialIndex;
 									metadata.attibutesDictionary["faction"] = factionIndex;
@@ -191,7 +195,14 @@ namespace Src.FirstLight.Tools
 				go.transform.SetParent(_markerTransform);
 				go.transform.localScale = Vector3.one;
 				go.transform.localPosition = Vector3.zero;
-				
+
+				if (Enum.TryParse(prefabResource.name, out GameId gameId))
+				{
+					metadata.name = gameId.ToString();
+					var config =_baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
+					metadata.attibutesDictionary["manufacturer"] = (int)config.Manufacturer;
+				}
+
 				var ercRenderable = go.GetComponent<IErcRenderable>();
 
 				if (ercRenderable != null)

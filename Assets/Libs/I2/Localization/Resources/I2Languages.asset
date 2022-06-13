@@ -2039,6 +2039,34 @@ MonoBehaviour:
       - You must have at least 3 items equipped to play online.
       Flags: 00
       Languages_Touch: []
+    - Term: MainMenu/Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesGained
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Gained
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesLost
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Lost
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesNewTotal
+      TermType: 0
+      Description: 
+      Languages:
+      - New Total
+      Flags: 00
+      Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
       Description: 
@@ -5166,7 +5194,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1654856575863
+    Google_LastUpdatedVersion: 1654862572909
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

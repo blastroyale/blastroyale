@@ -23,9 +23,9 @@ MonoBehaviour:
     ShapeModifier:
       RawValue: 98304
     MaxPoolCapacityDecreaseModifier:
-      RawValue: 26214
+      RawValue: 58982
     PoolCapacityDecreaseExponent:
-      RawValue: 32768
+      RawValue: 19661
     MaxTakeDecreaseModifier:
       RawValue: 7209
     TakeDecreaseExponent:
@@ -42,7 +42,7 @@ MonoBehaviour:
     ShapeModifier:
       RawValue: 65536
     MaxPoolCapacityDecreaseModifier:
-      RawValue: 26214
+      RawValue: 39322
     PoolCapacityDecreaseExponent:
       RawValue: 32768
     MaxTakeDecreaseModifier:

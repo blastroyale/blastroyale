@@ -153,6 +153,10 @@ MonoBehaviour:
     Layer: 3
     UiType: FirstLight.Game.Presenters.TalkingHeadDialogPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/TrophiesScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/UiTooltipContainer Screen.prefab
     Layer: 7
     UiType: FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -223,6 +227,8 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.ResultsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.RewardsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

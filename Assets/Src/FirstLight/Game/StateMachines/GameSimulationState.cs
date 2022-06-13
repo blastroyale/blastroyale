@@ -32,6 +32,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private int _lastTrophyChange = 0;
+		private uint _trophiesBeforeLastChange = 0;
 		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -60,7 +63,8 @@ namespace FirstLight.Game.StateMachines
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var postResultsChoice = stateFactory.Choice("Post Results Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
-
+			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
+			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
 
@@ -87,16 +91,19 @@ namespace FirstLight.Game.StateMachines
 			
 			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-
+			
 			gameResults.OnEnter(GiveMatchRewards);
-			gameResults.WaitingFor(ResultsScreen).Target(postResultsChoice);
+			gameResults.WaitingFor(ResultsScreen).Target(trophiesGainLoss);
 			gameResults.OnExit(CloseResultScreen);
+			
+			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(postResultsChoice);
+			trophiesGainLoss.OnExit(CloseTrophiesScreen);
 			
 			postResultsChoice.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
 			postResultsChoice.Transition().Target(final);
 
-			gameRewards.WaitingFor(RewardsScreen).Target(final);
-			gameRewards.OnExit(CloseRewardScreen);
+			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
+			gameRewards.OnExit(CloseRewardsScreen);
 
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
@@ -105,6 +112,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
+			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 			
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
@@ -162,6 +170,12 @@ namespace FirstLight.Game.StateMachines
 			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = QuitGameConfirmedClicked};
 
 			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
+		}
+		
+		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
+		{
+			_lastTrophyChange = message.TrophiesChange;
+			_trophiesBeforeLastChange = message.TrophiesBeforeChange;
 		}
 
 		private void OnFtueEndedMessage(FtueEndedMessage message)
@@ -300,7 +314,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<ResultsScreenPresenter>();
 		}
 
-		private void RewardsScreen(IWaitActivity activity)
+		private void OpenRewardsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
@@ -313,9 +327,32 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CloseRewardScreen()
+		private void CloseRewardsScreen()
 		{
 			_uiService.CloseUi<RewardsScreenPresenter>();
+		}
+		
+		private void OpenTrophiesScreen(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+			var data = new TrophiesScreenPresenter.StateData
+			{
+				ExitTrophyScreen = ContinueClicked,
+				LastTrophyChange = () => _lastTrophyChange,
+				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
+			};
+
+			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
+
+			void ContinueClicked()
+			{
+				cacheActivity.Complete();
+			}
+		}
+
+		private void CloseTrophiesScreen()
+		{
+			_uiService.CloseUi<TrophiesScreenPresenter>();
 		}
 		
 		private void CloseMatchmakingScreen()

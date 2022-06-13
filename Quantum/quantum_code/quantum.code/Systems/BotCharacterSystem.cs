@@ -334,12 +334,10 @@ namespace Quantum.Systems
 			var isGoing = sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius >
 			              filter.BotCharacter->ShrinkingCircleRiskTolerance;
 
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, direction,
-				                                                     filter.BotCharacter->WanderRadius);
-				filter.BotCharacter->MoveTarget = EntityRef.None;
-			}
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, direction,
+			                                                     filter.BotCharacter->WanderRadius);
+			filter.BotCharacter->MoveTarget = EntityRef.None;
+			
 
 			profiler.End();
 			
@@ -365,12 +363,9 @@ namespace Quantum.Systems
 			{
 				return true;
 			}
-			
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, rageConsumablePosition);
-				filter.BotCharacter->MoveTarget = rageConsumableEntity;
-			}
+
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, rageConsumablePosition);
+			filter.BotCharacter->MoveTarget = rageConsumableEntity;
 
 			profiler.End();
 			
@@ -401,12 +396,9 @@ namespace Quantum.Systems
 				return true;
 			}
 			
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, armourConsumablePosition);
-				filter.BotCharacter->MoveTarget = armourConsumableEntity;
-			}
-
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, armourConsumablePosition);
+			filter.BotCharacter->MoveTarget = armourConsumableEntity;
+			
 			profiler.End();
 			
 			return isGoing;
@@ -434,12 +426,9 @@ namespace Quantum.Systems
 			{
 				return true;
 			}
-			
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, healthConsumablePosition);
-				filter.BotCharacter->MoveTarget = healthConsumableEntity;
-			}
+
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, healthConsumablePosition);
+			filter.BotCharacter->MoveTarget = healthConsumableEntity;
 
 			profiler.End();
 			
@@ -474,11 +463,8 @@ namespace Quantum.Systems
 				return true;
 			}
 
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, ammoConsumablePosition);
-				filter.BotCharacter->MoveTarget = ammoConsumableEntity;
-			}
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, ammoConsumablePosition);
+			filter.BotCharacter->MoveTarget = ammoConsumableEntity;
 
 			profiler.End();
 			
@@ -498,12 +484,9 @@ namespace Quantum.Systems
 			{
 				return true;
 			}
-			
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, chestPosition);
-				filter.BotCharacter->MoveTarget = chestEntity;
-			}
+
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, chestPosition);
+			filter.BotCharacter->MoveTarget = chestEntity;
 
 			profiler.End();
 			
@@ -532,11 +515,8 @@ namespace Quantum.Systems
 				return true;
 			}
 
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, weaponPickupPosition);
-				filter.BotCharacter->MoveTarget = weaponPickupEntity;
-			}
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, weaponPickupPosition);
+			filter.BotCharacter->MoveTarget = weaponPickupEntity;
 
 			profiler.End();
 
@@ -594,11 +574,8 @@ namespace Quantum.Systems
 			var offsetDistance = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 			var offsetPosition = enemyPosition + reverseDirection * offsetDistance;
 
-			if (isGoing)
-			{
-				isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, offsetPosition);
-				filter.BotCharacter->MoveTarget = enemyEntity;
-			}
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, offsetPosition);
+			filter.BotCharacter->MoveTarget = enemyEntity;
 
 			profiler.End();
 

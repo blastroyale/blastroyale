@@ -3396,7 +3396,7 @@ MonoBehaviour:
     <ZoomOffset>-13|-8||0</ZoomOffset>\r\n      <PanOffset>132|210||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>673e456d-7464-47db-bd33-d56bb289c59a</Key>\r\n    <GraphData>\r\n     
     <Id>673e456d-7464-47db-bd33-d56bb289c59a</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>42|121||0</PanOffset>\r\n   
+    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>84|118||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>690ea479-6c1b-4780-8811-8b07b43309e7</Key>\r\n    <GraphData>\r\n     
     <Id>690ea479-6c1b-4780-8811-8b07b43309e7</Id>\r\n      <ZoomLevel>0.8150004</ZoomLevel>\r\n     
     <ZoomOffset>84|57||0</ZoomOffset>\r\n      <PanOffset>-52|128||0</PanOffset>\r\n   
@@ -3404,8 +3404,8 @@ MonoBehaviour:
     <Id>6ec7df5c-c4fa-4755-b22a-464e7535b364</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>267|156||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\r\n    <GraphData>\r\n     
-    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>0.82</ZoomLevel>\r\n     
-    <ZoomOffset>-691|-573||0</ZoomOffset>\r\n      <PanOffset>908|872||0</PanOffset>\r\n   
+    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>0.94</ZoomLevel>\r\n     
+    <ZoomOffset>-734|-605||0</ZoomOffset>\r\n      <PanOffset>881|960||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Key>\r\n    <GraphData>\r\n     
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>7|-23||0</ZoomOffset>\r\n      <PanOffset>124|168||0</PanOffset>\r\n   

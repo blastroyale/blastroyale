@@ -107,10 +107,6 @@ namespace Quantum.Systems
 			// Bots look for others to shoot at not on every frame
 			if (f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime)
 			{
-				var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-				profiler.Start("TryToShoot");
-				
 				// Bots also have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
 				if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
 				{
@@ -140,8 +136,6 @@ namespace Quantum.Systems
 
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
 					f.Time + filter.BotCharacter->LookForTargetsToShootAtInterval;
-				
-				profiler.End();
 			}
 
 			// Do not do any decision making if the time has not come
@@ -314,10 +308,6 @@ namespace Quantum.Systems
 			{
 				return true;
 			}
-			
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-
-			profiler.Start("TryAvoidShrinkingCircle");
 
 			var sqrDistanceFromSafeAreaCenter =
 				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.TargetCircleCenter);
@@ -337,10 +327,7 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, direction,
 			                                                     filter.BotCharacter->WanderRadius);
 			filter.BotCharacter->MoveTarget = EntityRef.None;
-			
 
-			profiler.End();
-			
 			return isGoing;
 		}
 
@@ -350,11 +337,6 @@ namespace Quantum.Systems
 			{
 				return false;
 			}
-
-			
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-
-			profiler.Start("TryGoForRage");
 
 			var isGoing = TryGetClosestConsumable(f, ref filter, ConsumableType.Rage, out var rageConsumablePosition, out var rageConsumableEntity);
 
@@ -367,17 +349,11 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, rageConsumablePosition);
 			filter.BotCharacter->MoveTarget = rageConsumableEntity;
 
-			profiler.End();
-			
 			return isGoing;
 		}
 
 		private bool TryGoForShield(Frame f, ref BotCharacterFilter filter)
 		{
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("TryGoForShield");
-			
 			var armourConsumablePosition = FPVector3.Zero;
 			var armourConsumableEntity = EntityRef.None;
 			
@@ -398,18 +374,12 @@ namespace Quantum.Systems
 			
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, armourConsumablePosition);
 			filter.BotCharacter->MoveTarget = armourConsumableEntity;
-			
-			profiler.End();
-			
+
 			return isGoing;
 		}
 
 		private bool TryGoForHealth(Frame f, ref BotCharacterFilter filter)
 		{
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("TryGoForHealth");
-			
 			var healthConsumablePosition = FPVector3.Zero;
 			var healthConsumableEntity = EntityRef.None;
 			var stats = f.Get<Stats>(filter.Entity);
@@ -430,8 +400,6 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, healthConsumablePosition);
 			filter.BotCharacter->MoveTarget = healthConsumableEntity;
 
-			profiler.End();
-			
 			return isGoing;
 		}
 
@@ -446,10 +414,6 @@ namespace Quantum.Systems
 				return false;
 			}
 			
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("TryGoForAmmo");
-
 			var ratioAmmo = filter.PlayerCharacter->GetAmmoAmountFilled(f, filter.Entity);
 			var lowAmmoSensitivity = filter.BotCharacter->LowAmmoSensitivity;
 			var isGoing = f.RNG->Next() < FPMath.Clamp01((FP._1 - ratioAmmo) * lowAmmoSensitivity);
@@ -466,17 +430,11 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, ammoConsumablePosition);
 			filter.BotCharacter->MoveTarget = ammoConsumableEntity;
 
-			profiler.End();
-			
 			return isGoing;
 		}
 
 		private bool TryGoForCrates(Frame f, ref BotCharacterFilter filter)
 		{
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("TryGoForCrates");
-			
 			var isGoing = TryGetClosestChest(f, ref filter, out var chestPosition, out var chestEntity);
 
 			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(filter.Entity);
@@ -488,17 +446,11 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, chestPosition);
 			filter.BotCharacter->MoveTarget = chestEntity;
 
-			profiler.End();
-			
 			return isGoing;
 		}
 
 		private bool TryGoForWeapons(Frame f, ref BotCharacterFilter filter)
 		{
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("TryGoForWeapons");
-			
 			var weaponPickupPosition = FPVector3.Zero;
 			var weaponPickupEntity = EntityRef.None;
 
@@ -518,8 +470,6 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, weaponPickupPosition);
 			filter.BotCharacter->MoveTarget = weaponPickupEntity;
 
-			profiler.End();
-
 			return isGoing;
 		}
 
@@ -532,10 +482,6 @@ namespace Quantum.Systems
 			{
 				return false;
 			}
-			
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("TryGoForEnemies");
 
 			var enemyPosition = FPVector3.Zero;
 			var iterator = f.GetComponentIterator<Targetable>();
@@ -564,7 +510,6 @@ namespace Quantum.Systems
 
 			if (enemyPosition == FPVector3.Zero)
 			{
-				profiler.End();
 				return false;
 			}
 
@@ -577,17 +522,11 @@ namespace Quantum.Systems
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, offsetPosition);
 			filter.BotCharacter->MoveTarget = enemyEntity;
 
-			profiler.End();
-
 			return isGoing;
 		}
 
 		private bool Wander(Frame f, ref BotCharacterFilter filter)
 		{
-			var profiler = f.Context.ProfilerContext.GetProfilerForTaskThread((FrameThreadSafe)f);
-			
-			profiler.Start("Wander");
-			
 			// We make several attempts to find a random position to wander to
 			// to minimize a chance of a situation where a bot stands in place doing nothing
 			for (int i = 1; i < 5; i++)
@@ -595,12 +534,11 @@ namespace Quantum.Systems
 				if (QuantumHelpers.SetClosestTarget(f, filter.Entity, filter.Transform->Position,
 				                                    filter.BotCharacter->WanderRadius*i))
 				{
-					profiler.End();
 					return true;
 				}
 			}
 			
-			profiler.End();
+			
 
 			return false;
 		}

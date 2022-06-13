@@ -122,6 +122,7 @@ namespace Quantum {
     BLST = 14,
     XP = 3,
     EquipmentXP = 15,
+    Trophies = 22,
     FloodCity = 137,
     MainDeck = 143,
     FtueDeck = 5,

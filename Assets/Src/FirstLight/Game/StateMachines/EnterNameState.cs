@@ -72,7 +72,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-
 		}
 
 		private void UnsubscribeEvents()
@@ -102,11 +101,6 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.GenericDialogService.OpenDialog(_nameInvalidStatus,false, okButton);
-		}
-		
-		private void CloseCurrentDialog()
-		{
-			_services.GenericDialogService.CloseDialog();
 		}
 
 		private void OnNameSet(string newName)

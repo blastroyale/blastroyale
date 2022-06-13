@@ -231,10 +231,10 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool EnoughNftToPlay()
 		{
-			var nftAmmountForPlay = GameConstants.Balance.NFT_AMMOUNT_FOR_PLAY;
+			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
 			var nftCount = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
 			
-			return nftCount >= nftAmmountForPlay;
+			return nftCount >= nftAmountForPlay;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter

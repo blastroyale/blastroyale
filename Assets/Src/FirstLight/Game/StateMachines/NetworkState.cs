@@ -267,7 +267,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
-			// TODO EVE - do nftCount >= nftAmmountForPlay check for all this code
 			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
 			var nftCount = MainMenuState._gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
 			

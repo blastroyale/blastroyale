@@ -13,6 +13,14 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	// TODO EVE - Create new localization terms in ToolTips for BLST and trophies
+	// BLST - Blast Tokens are valuable rewards obtained in special ways in-game, or purchased. Use Blast Tokens to purchase equipment on the marketplace.
+	// Trophies - More Trophies increase your Craft Spice pool. Place higher in Battle Royale matches to earn trophies.
+	
+	// On 'MainMenu HUD' prefab, clone the IconAndAmountHolder_CS, into 2 new ' _BLST' and '_Trophies' versions
+	// This script is attached to these prefabs. Change the '_targetID' in each prefab to BLST and Trophies
+	// and adjust the icon (there is BLST and Trophies icons already in project)
+	
 	public class IconAndAmountHolderView : MonoBehaviour
 	{
 		[SerializeField, Required] private Transform _tooltipAnchor;
@@ -67,6 +75,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				case GameId.CS:
 					return (int) _dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS);
+				
+				// TODO EVE - Handle GetAmount() for BLST and Trophies here
+				// BLST is in same place as CS, just different GameID
+				// Trophies can be fetched from _dataProvider.PlayerDataProvider.Trophies.Value
 
 				default:
 					return 0;
@@ -82,6 +94,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 				case GameId.CS:
 					tooltip = ScriptLocalization.Tooltips.ToolTip_CS;
 					break;
+				
+				// TODO EVE - Handle BLST/Trophies tooltips here
 			}
 
 			_services.GenericDialogService.OpenTooltipDialog(tooltip, _tooltipAnchor.position,

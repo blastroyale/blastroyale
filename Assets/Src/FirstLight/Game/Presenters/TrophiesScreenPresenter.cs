@@ -44,7 +44,7 @@ namespace FirstLight.Game.Presenters
 		private bool _isTransferringTrophies = false;
 
 		public bool IsAnimating => _animation.isPlaying || _isTransferringTrophies;
-		public string TrophyChangePrefix => _trophyChange > 0 ? "+" : "-";
+		public string TrophyChangePrefix => _trophyChange > 0 ? "+" : "";
 
 		private void Awake()
 		{

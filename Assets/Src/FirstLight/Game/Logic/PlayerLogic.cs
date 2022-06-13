@@ -5,6 +5,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -67,9 +68,10 @@ namespace FirstLight.Game.Logic
 		void AddXp(uint amount);
 		
 		/// <summary>
-		/// Updates player's trophies (Elo) based on their ranking in the match
+		/// Updates player's trophies (Elo) based on their ranking in the match, and returns the amount of trophies
+		/// added/removed
 		/// </summary>
-		void UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
+		int UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
 		
 		/// <summary>
 		/// Changes the player skin to <paramref name="skin"/>
@@ -85,10 +87,10 @@ namespace FirstLight.Game.Logic
 		private IObservableField<uint> _level;
 		private IObservableField<uint> _xp;
 		private IObservableField<GameId> _currentSkin;
-		private IObservableField<uint> _trophiesResolver;
+		private IObservableField<uint> _trophies;
 
 		/// <inheritdoc />
-		public IObservableFieldReader<uint> Trophies => _trophiesResolver;
+		public IObservableFieldReader<uint> Trophies => _trophies;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Level => _level;
 		/// <inheritdoc />
@@ -114,7 +116,7 @@ namespace FirstLight.Game.Logic
 			_level = new ObservableResolverField<uint>(() => Data.Level, level => Data.Level = level);
 			_xp = new ObservableResolverField<uint>(() => Data.Xp, xp => Data.Xp = xp);
 			_currentSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId,skin => Data.PlayerSkinId =skin);
-			_trophiesResolver = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
+			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
 
@@ -209,7 +211,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
+		public int UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
 		{
 			var localPlayerData = players[localPlayer];
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
@@ -234,7 +236,16 @@ namespace FirstLight.Game.Logic
 				                                   gameConfig.TrophyEloK);
 			}
 
-			_trophiesResolver.Value = Math.Max(Data.Trophies + (uint) Math.Round(trophyChange), 0);
+			var finalTrophyChange = Mathf.RoundToInt(trophyChange);
+
+			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
+			{
+				finalTrophyChange = (int)-Data.Trophies;
+			}
+			
+			_trophies.Value = Math.Max(0, _trophies.Value + (uint) finalTrophyChange);
+
+			return finalTrophyChange;
 		}
 
 		/// <inheritdoc />

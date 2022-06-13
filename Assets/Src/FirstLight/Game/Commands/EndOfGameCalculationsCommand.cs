@@ -26,9 +26,7 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			var currentTrophies = gameLogic.PlayerLogic.Trophies.Value;
-			gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
-			var trophiesChange = (int) currentTrophies - (int) gameLogic.PlayerLogic.Trophies.Value;
+			var trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
@@ -39,7 +37,7 @@ namespace FirstLight.Game.Commands
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
 			{
 				Rewards = rewards,
-				TrophiesChange = trophiesChange
+				TrophiesChange = trophyChange
 			});
 		}
 	}

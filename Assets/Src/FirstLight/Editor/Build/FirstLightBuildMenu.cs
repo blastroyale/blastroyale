@@ -10,7 +10,7 @@ namespace FirstLight.Editor.Build
 		private const string _defaultAppName = "blast_royale";
 		private const string _apkExtension = "apk";
 		
-		[MenuItem("First Light Games/Build/Android/Local Build")]
+		[MenuItem("FLG/Build/Android/Local Build")]
 		private static void BuildAndroidLocal()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -27,7 +27,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Development Build")]
+		[MenuItem("FLG/Build/Android/Development Build")]
 		private static void BuildAndroidDevelopment()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -43,7 +43,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Release Build")]
+		[MenuItem("FLG/Build/Android/Release Build")]
 		public static void BuildAndroidRelease()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -59,7 +59,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Store Build")]
+		[MenuItem("FLG/Build/Android/Store Build")]
 		public static void BuildAndroidStore()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -76,7 +76,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Local Build")]
+		[MenuItem("FLG/Build/iOS/Local Build")]
 		private static void BuildIosLocal()
 		{
 			var outputPath = GetIosOutputPath();
@@ -96,7 +96,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Development Build")]
+		[MenuItem("FLG/Build/iOS/Development Build")]
 		private static void BuildIosDevelopment()
 		{
 			var outputPath = GetIosOutputPath();
@@ -113,7 +113,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Release Build")]
+		[MenuItem("FLG/Build/iOS/Release Build")]
 		public static void BuildIosRelease()
 		{
 			var outputPath = GetIosOutputPath();
@@ -130,7 +130,7 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Store Build")]
+		[MenuItem("FLG/Build/iOS/Store Build")]
 		public static void BuildIosStore()
 		{
 			var outputPath = GetIosOutputPath();

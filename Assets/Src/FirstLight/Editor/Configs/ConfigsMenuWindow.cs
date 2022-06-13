@@ -20,7 +20,7 @@ namespace FirstLightEditor.AssetImporter
 	{
 		private const string ConfigsFolder = "Assets/AddressableResources/Configs";
 
-		[MenuItem("First Light Games/Configs")]
+		[MenuItem("FLG/Configs")]
 		private static void OpenWindow()
 		{
 			GetWindow<ConfigsMenuWindow>("Configs").Show();

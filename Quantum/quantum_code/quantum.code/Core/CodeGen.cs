@@ -3413,7 +3413,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 168;
+    public const Int32 SIZE = 176;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3421,45 +3421,47 @@ namespace Quantum {
     public BotBehaviourType BehaviourType;
     [FieldOffset(8)]
     public Int32 BotNameIndex;
-    [FieldOffset(24)]
-    public FP ChanceToAbandonTarget;
     [FieldOffset(32)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToAbandonTarget;
     [FieldOffset(40)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(48)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekRage;
     [FieldOffset(56)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(64)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(72)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToUseSpecial;
     [FieldOffset(80)]
-    public FP DecisionInterval;
+    public FP CloseFightIntolerance;
     [FieldOffset(88)]
-    public FP LookForTargetsToShootAtInterval;
+    public FP DecisionInterval;
     [FieldOffset(96)]
-    public FP LowAmmoSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(104)]
-    public FP LowArmourSensitivity;
+    public FP LowAmmoSensitivity;
     [FieldOffset(112)]
-    public FP LowHealthSensitivity;
+    public FP LowArmourSensitivity;
     [FieldOffset(120)]
-    public FP NextDecisionTime;
+    public FP LowHealthSensitivity;
+    [FieldOffset(16)]
+    public EntityRef MoveTarget;
     [FieldOffset(128)]
-    public FP NextLookForTargetsToShootAtTime;
+    public FP NextDecisionTime;
     [FieldOffset(136)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(144)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(4)]
     public GameId Skin;
-    [FieldOffset(144)]
-    public FP SpecialAimingDeviation;
-    [FieldOffset(16)]
-    public EntityRef Target;
     [FieldOffset(152)]
-    public FP VisionRangeSqr;
+    public FP SpecialAimingDeviation;
+    [FieldOffset(24)]
+    public EntityRef Target;
     [FieldOffset(160)]
+    public FP VisionRangeSqr;
+    [FieldOffset(168)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3479,6 +3481,7 @@ namespace Quantum {
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
         hash = hash * 31 + LowArmourSensitivity.GetHashCode();
         hash = hash * 31 + LowHealthSensitivity.GetHashCode();
+        hash = hash * 31 + MoveTarget.GetHashCode();
         hash = hash * 31 + NextDecisionTime.GetHashCode();
         hash = hash * 31 + NextLookForTargetsToShootAtTime.GetHashCode();
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
@@ -3496,6 +3499,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
+        EntityRef.Serialize(&p->MoveTarget, serializer);
         EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->ChanceToAbandonTarget, serializer);
         FP.Serialize(&p->ChanceToSeekEnemies, serializer);
@@ -8556,6 +8560,7 @@ namespace Quantum.Prototypes {
     public FP NextDecisionTime;
     public FP NextLookForTargetsToShootAtTime;
     public MapEntityId Target;
+    public MapEntityId MoveTarget;
     public FP VisionRangeSqr;
     public FP LowArmourSensitivity;
     public FP LowHealthSensitivity;
@@ -8593,6 +8598,7 @@ namespace Quantum.Prototypes {
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
       result.LowArmourSensitivity = this.LowArmourSensitivity;
       result.LowHealthSensitivity = this.LowHealthSensitivity;
+      PrototypeValidator.FindMapEntity(this.MoveTarget, in context, out result.MoveTarget);
       result.NextDecisionTime = this.NextDecisionTime;
       result.NextLookForTargetsToShootAtTime = this.NextLookForTargetsToShootAtTime;
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;

@@ -54,13 +54,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			for (var i = 0; i < _slots.Length; i++)
 			{
 				var slot = _slots[i];
-				
+
 				if (i == slotIndex)
 				{
 					// Selected
 					slot.Name.color = _selectedTextColor;
 					slot.SmearShadow.enabled = false;
-					
+
 					var smearColor = slot.Smear.color;
 					smearColor.a = _selectedOpacity;
 					slot.Smear.color = smearColor;
@@ -74,11 +74,11 @@ namespace FirstLight.Game.Views.AdventureHudViews
 					// Not selected
 					slot.Name.color = Color.white;
 					slot.SmearShadow.enabled = true;
-					
+
 					var smearColor = slot.Smear.color;
 					smearColor.a = 1f;
 					slot.Smear.color = smearColor;
-					
+
 					var weaponColor = slot.Weapon.color;
 					weaponColor.a = 1f;
 					slot.Weapon.color = weaponColor;
@@ -89,9 +89,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private async void UpdateWeaponSlot(Equipment equipment, int slotIndex)
 		{
 			var slot = _slots[slotIndex];
-			var rarityInfo = _rarityInfos[equipment.Rarity];
 
 			slot.Name.text = equipment.GameId.GetTranslation();
+			SetRarity(slot, equipment.Rarity);
+
+			slot.Weapon.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
+		}
+
+		private void SetRarity(SlotInfo slot, EquipmentRarity rarity)
+		{
+			var rarityInfo = _rarityInfos[rarity];
+
 			slot.Smear.color = rarityInfo.SmearColor;
 			slot.SmearPattern.color = rarityInfo.SmearPatternColor;
 
@@ -105,15 +113,22 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				slot.RaysHolder.SetActive(false);
 			}
+		}
 
-			slot.Weapon.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
+		[Button]
+		private void DebugSetRarity(EquipmentRarity rarity)
+		{
+			foreach (var slotInfo in _slots)
+			{
+				SetRarity(slotInfo, rarity);
+			}
 		}
 
 		[Serializable]
 		private struct RarityInfo
 		{
 			public Color SmearColor;
-			[FormerlySerializedAs("SmearShadowColor")] public Color SmearPatternColor;
+			public Color SmearPatternColor;
 
 			[ToggleGroup("HasRays")] public bool HasRays;
 			[ToggleGroup("HasRays")] public Color LightRaysColor;

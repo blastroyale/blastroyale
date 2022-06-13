@@ -15,7 +15,7 @@ namespace Quantum
 		public FP AimTime;
 		public FP AttackCooldown;
 		public FP AttackHitSpeed;
-		public uint MinAttackAngle; 
+		public uint MinAttackAngle;
 		public uint MaxAttackAngle;
 		public uint NumberOfShots;
 		public uint NumberOfBursts;

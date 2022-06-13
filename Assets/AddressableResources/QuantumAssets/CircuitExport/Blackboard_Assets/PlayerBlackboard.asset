@@ -18,30 +18,39 @@ MonoBehaviour:
       Guid:
         Value: 648001274895591165
     Entries:
-    - Type: 0
+    - Type: 4
       Key:
-        Key: IsAiming
-    - Type: 3
-      Key:
-        Key: AimTime
+        Key: AimDirection
     - Type: 3
       Key:
         Key: AmmoFilled
     - Type: 3
       Key:
+        Key: AimTime
+    - Type: 3
+      Key:
         Key: StunDuration
     - Type: 3
       Key:
+        Key: BurstShotCount
+    - Type: 0
+      Key:
+        Key: IsAiming
+    - Type: 3
+      Key:
         Key: AimingMovementSpeed
-    - Type: 4
-      Key:
-        Key: AimDirection
-    - Type: 4
-      Key:
-        Key: MoveDirection
     - Type: 0
       Key:
         Key: HasMeleeWeapon
+    - Type: 3
+      Key:
+        Key: BurstTimeDelay
+    - Type: 4
+      Key:
+        Key: MoveDirection
+    - Type: 3
+      Key:
+        Key: NumberOfBursts
     - Type: 3
       Key:
         Key: AttackCooldown

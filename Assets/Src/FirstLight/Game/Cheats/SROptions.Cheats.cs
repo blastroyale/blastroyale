@@ -1,27 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using Quantum;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -194,6 +187,13 @@ public partial class SROptions
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	// TODO: Delete this when we have a proper implementation of rarity representation in game
+	[Category("Equipment")]
+	public bool EnableEquipmentDebug {
+		get => PlayerPrefs.GetInt("Debug.EnableEquipmentDebug", 0) == 1;
+		set => PlayerPrefs.SetInt("Debug.EnableEquipmentDebug", value ? 1 : 0);
 	}
 
 	[Category("Marketing")]

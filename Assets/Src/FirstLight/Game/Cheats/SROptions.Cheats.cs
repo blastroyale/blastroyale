@@ -22,6 +22,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using Quantum;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -194,6 +195,12 @@ public partial class SROptions
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Equipment")]
+	public bool EnableEquipmentDebug {
+		get => PlayerPrefs.GetInt("Debug.EnableEquipmentDebug", 0) == 1;
+		set => PlayerPrefs.SetInt("Debug.EnableEquipmentDebug", value ? 1 : 0);
 	}
 
 	[Category("Marketing")]

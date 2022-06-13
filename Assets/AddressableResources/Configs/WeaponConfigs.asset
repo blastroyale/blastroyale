@@ -35,13 +35,13 @@ MonoBehaviour:
       AimTime:
         RawValue: 8192
       AttackCooldown:
-        RawValue: 6553
+        RawValue: 39321
       AttackHitSpeed:
         RawValue: 0
       MinAttackAngle: 60
       MaxAttackAngle: 60
       NumberOfShots: 6
-      NumberOfBursts: 1
+      NumberOfBursts: 2
       AttackRange:
         RawValue: 131072
       CanHitSameTarget: 0
@@ -52,9 +52,9 @@ MonoBehaviour:
         RawValue: 0
       Specials: 8d00000000000000
       InitialAttackCooldown:
-        RawValue: 65536
+        RawValue: 0
       RampUpTime:
-        RawValue: 327680
+        RawValue: 0
     - Id: 60
       AssetRef:
         Id:

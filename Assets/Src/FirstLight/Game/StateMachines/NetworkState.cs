@@ -267,9 +267,16 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
-			var mapConfig = NetworkUtils.GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value, _services);
+			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
+			var nftCount = MainMenuState._gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
 			
-			StartRandomMatchmaking(mapConfig);
+			if(nftCount >= nftAmountForPlay)
+			{
+				var mapConfig = NetworkUtils.GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value, _services);
+				StartRandomMatchmaking(mapConfig);
+			}
+			
+			
 		}
 		
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)

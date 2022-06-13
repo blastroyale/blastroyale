@@ -1,25 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
-using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -61,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IDataService _dataService;
-		private readonly IGameDataProvider _gameDataProvider;
+		public static IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly LootMenuState _lootMenuState;
@@ -124,12 +118,11 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var logoutWait = stateFactory.State("Wait For Logout");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
-			var roomWaitingState = stateFactory.State("Room Joined Check");
+			var roomWait = stateFactory.State("Room Joined Check");
 			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
-			var enterNameDialogToMenu = stateFactory.Nest("Enter Name Dialog to Menu");
-			var enterNameDialogToMatch = stateFactory.Nest("Enter Name Dialog Match");
+			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var postNameCheck = stateFactory.Choice("Post Name Check");
+			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
 
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -150,27 +143,24 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
-			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialogToMenu);
+			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
-			playClickedCheck.Transition().Condition(IsNameNotSet).Target(enterNameDialogToMatch);
-			playClickedCheck.Transition().Target(roomWaitingState);
+			playClickedCheck.Transition().Condition(EnoughNftToPlay).Target(roomWait);
+			playClickedCheck.Transition().Target(nftPlayRestricted);
 
-			roomWaitingState.Event(NetworkState.JoinedRoomEvent).Target(final);
-			roomWaitingState.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
-			roomWaitingState.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
+			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 
 			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
 
-			enterNameDialogToMenu.Nest(_enterNameState.Setup).Target(homeMenu);
-
-			enterNameDialogToMatch.Nest(_enterNameState.Setup).Target(postNameCheck);
-
-			postNameCheck.Transition().Condition(IsInRoom).Target(final);
-			postNameCheck.Transition().Target(roomWaitingState);
+			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
+			
+			nftPlayRestricted.WaitingFor(OpenNftAmountInvalidDialog).Target(homeMenu);
 
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(homeMenu);
@@ -187,7 +177,7 @@ namespace FirstLight.Game.StateMachines
 			heroesMenu.OnExit(CloseHeroesMenuUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWaitingState);
+			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(homeMenu);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
@@ -238,16 +228,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
-
-		private bool IsInRoom()
+		
+		private bool EnoughNftToPlay()
 		{
-			return _services.NetworkService.QuantumClient.InRoom;
-		}
-
-		private bool IsNameNotSet()
-		{
-			return _gameDataProvider.AppDataProvider.Nickname == PlayerLogic.DefaultPlayerName ||
-			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
+			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
+			var nftCount = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
+			
+			return nftCount >= nftAmountForPlay;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -255,6 +242,19 @@ namespace FirstLight.Game.StateMachines
 			return _currentScreen == typeof(T);
 		}
 
+		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+
+			var confirmButton = new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () => { cacheActivity.Complete(); }
+			};
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.NftRestrictionText, false,
+				confirmButton);
+		}
+		
 		private void OpenGameModeSelectionUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;

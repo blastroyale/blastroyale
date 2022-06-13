@@ -41,6 +41,7 @@ MonoBehaviour:
       MinAttackAngle: 60
       MaxAttackAngle: 60
       NumberOfShots: 6
+      NumberOfBursts: 2
       AttackRange:
         RawValue: 131072
       CanHitSameTarget: 0
@@ -73,6 +74,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 15
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 524288
       CanHitSameTarget: 0
@@ -105,6 +107,7 @@ MonoBehaviour:
       MinAttackAngle: 30
       MaxAttackAngle: 45
       NumberOfShots: 8
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
       CanHitSameTarget: 1
@@ -137,6 +140,7 @@ MonoBehaviour:
       MinAttackAngle: 25
       MaxAttackAngle: 45
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
       CanHitSameTarget: 0
@@ -169,6 +173,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 30
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0
@@ -201,6 +206,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 25
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 589824
       CanHitSameTarget: 0
@@ -233,6 +239,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 10
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 524288
       CanHitSameTarget: 0
@@ -265,6 +272,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 15
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
       CanHitSameTarget: 0
@@ -297,6 +305,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 20
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 425984
       CanHitSameTarget: 0
@@ -329,6 +338,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 40
       NumberOfShots: 5
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
       CanHitSameTarget: 1
@@ -361,6 +371,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 45
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
       CanHitSameTarget: 1
@@ -392,7 +403,8 @@ MonoBehaviour:
         RawValue: 2162688
       MinAttackAngle: 10
       MaxAttackAngle: 30
-      NumberOfShots: 3
+      NumberOfShots: 1
+      NumberOfBursts: 3
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 1
@@ -425,6 +437,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 45
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 655360
       CanHitSameTarget: 0
@@ -457,6 +470,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 10
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 589824
       CanHitSameTarget: 0
@@ -489,6 +503,7 @@ MonoBehaviour:
       MinAttackAngle: 15
       MaxAttackAngle: 25
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 524288
       CanHitSameTarget: 0
@@ -521,6 +536,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 35
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0
@@ -553,6 +569,7 @@ MonoBehaviour:
       MinAttackAngle: 25
       MaxAttackAngle: 35
       NumberOfShots: 4
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
       CanHitSameTarget: 1
@@ -585,6 +602,7 @@ MonoBehaviour:
       MinAttackAngle: 25
       MaxAttackAngle: 35
       NumberOfShots: 3
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 1
@@ -617,6 +635,7 @@ MonoBehaviour:
       MinAttackAngle: 15
       MaxAttackAngle: 35
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
       CanHitSameTarget: 0
@@ -649,6 +668,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 15
       NumberOfShots: 4
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 655360
       CanHitSameTarget: 1
@@ -681,6 +701,7 @@ MonoBehaviour:
       MinAttackAngle: 10
       MaxAttackAngle: 10
       NumberOfShots: 1
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 589824
       CanHitSameTarget: 0
@@ -713,6 +734,7 @@ MonoBehaviour:
       MinAttackAngle: 35
       MaxAttackAngle: 45
       NumberOfShots: 4
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 393216
       CanHitSameTarget: 0

@@ -24,6 +24,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action ExitTrophyScreen;
 			public Func<int> LastTrophyChange;
+			public Func<uint> TrophiesBeforeLastChange;
 		}
 
 		private const int ANIM_STAGE_INITIAL = 0;
@@ -68,8 +69,9 @@ namespace FirstLight.Game.Presenters
 
 			_trophyChange = Data.LastTrophyChange();
 			_currentTrophies = (int) _dataProvider.PlayerDataProvider.Trophies.Value;
+
 			_trophyChangeText.text = TrophyChangePrefix + _trophyChange;
-			_trophyTotalText.text = GetTrophiesBeforeChange(_currentTrophies, _trophyChange).ToString();
+			_trophyTotalText.text = Data.TrophiesBeforeLastChange().ToString();
 		}
 
 		/// <summary>
@@ -79,16 +81,6 @@ namespace FirstLight.Game.Presenters
 		public void ChangeStatusToTotalTrophies()
 		{
 			_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesNewTotal.ToUpper();
-		}
-
-		private int GetTrophiesBeforeChange(int currentTrophies, int trophyChange)
-		{
-			if (trophyChange > 0)
-			{
-				return currentTrophies + trophyChange;
-			}
-
-			return currentTrophies - trophyChange;
 		}
 
 		private void OnContinueClicked()
@@ -117,15 +109,13 @@ namespace FirstLight.Game.Presenters
 
 		private void TransferTrophies()
 		{
-			int trophiesBeforeChange =  GetTrophiesBeforeChange(_currentTrophies,_trophyChange);
+			var trophiesBeforeChange =  Data.TrophiesBeforeLastChange();
 			_isTransferringTrophies = true;
 			
-			DOVirtual.Float(0, 1f, TRANSFER_TROPHIES_DURATION,
-			                (float percent) =>
+			DOVirtual.Float(trophiesBeforeChange, _currentTrophies, TRANSFER_TROPHIES_DURATION,
+			                (currentTrophyValue) =>
 			                {
-				                _trophyTotalText.text =
-					                Mathf.Round(Mathf.Lerp(trophiesBeforeChange, _currentTrophies, percent))
-					                     .ToString("F0");
+				                _trophyTotalText.text = currentTrophyValue.ToString("F0");
 			                }).OnComplete(OnTransferTrophiesComplete);
 		}
 

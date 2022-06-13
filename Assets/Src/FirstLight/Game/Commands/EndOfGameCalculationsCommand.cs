@@ -26,6 +26,7 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			var trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 
 			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
@@ -37,7 +38,8 @@ namespace FirstLight.Game.Commands
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
 			{
 				Rewards = rewards,
-				TrophiesChange = trophyChange
+				TrophiesChange = trophyChange,
+				TrophiesBeforeChange = trophiesBeforeChange
 			});
 		}
 	}

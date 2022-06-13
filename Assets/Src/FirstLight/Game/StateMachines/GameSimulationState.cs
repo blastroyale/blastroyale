@@ -34,6 +34,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private int _lastTrophyChange = 0;
+		private uint _trophiesBeforeLastChange = 0;
 		
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -174,6 +175,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
 		{
 			_lastTrophyChange = message.TrophiesChange;
+			_trophiesBeforeLastChange = message.TrophiesBeforeChange;
 		}
 
 		private void OnFtueEndedMessage(FtueEndedMessage message)
@@ -336,7 +338,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new TrophiesScreenPresenter.StateData
 			{
 				ExitTrophyScreen = ContinueClicked,
-				LastTrophyChange = () => _lastTrophyChange
+				LastTrophyChange = () => _lastTrophyChange,
+				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
 			};
 
 			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);

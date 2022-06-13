@@ -852,7 +852,7 @@ MonoBehaviour:
     <Node>\r\n      <Id>409057db-9b5f-4641-a204-cdf30dba1773</Id>\r\n      <Name>StartShot</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
     <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
-    <Position>468|-162||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
+    <Position>480|-162||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
@@ -952,7 +952,7 @@ MonoBehaviour:
     <Id>$decisionIn</Id>\r\n          <Name>Decision</Name>\r\n          <Value />\r\n         
     <Type>$decision</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
-    <Id>Priority</Id>\r\n          <Name>Priority</Name>\r\n          <Value Type=\"@int32\">0</Value>\r\n         
+    <Id>Priority</Id>\r\n          <Name>Priority</Name>\r\n          <Value Type=\"@int32\">1</Value>\r\n         
     <Type>@int32</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
     Count=\"0\" />\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n   
@@ -1479,7 +1479,7 @@ MonoBehaviour:
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <Name>Attack Shape</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
     <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
-    <Position>870|-65||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
+    <Position>898|-69||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
@@ -2108,7 +2108,7 @@ MonoBehaviour:
     <Id>$decisionIn</Id>\r\n          <Name>Decision</Name>\r\n          <Value />\r\n         
     <Type>$decision</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
-    <Id>Priority</Id>\r\n          <Name>Priority</Name>\r\n          <Value Type=\"@int32\">0</Value>\r\n         
+    <Id>Priority</Id>\r\n          <Name>Priority</Name>\r\n          <Value Type=\"@int32\">1</Value>\r\n         
     <Type>@int32</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
     Count=\"0\" />\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n   
@@ -2426,7 +2426,7 @@ MonoBehaviour:
     <Node>\r\n      <Id>d7cf0b3e-2962-4534-beaa-7c6c50acf1bf</Id>\r\n      <Name>Attack
     Projectile</Name>\r\n      <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
     <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
-    <Position>875|-164||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
+    <Position>899|-164||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
@@ -2812,7 +2812,7 @@ MonoBehaviour:
     <Node>\r\n      <Id>fc77736d-6de6-4b2f-b1a1-6c4319130a80</Id>\r\n      <Name>CheckBurst</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
     <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
-    <Position>470|-65||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
+    <Position>478|-65||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
@@ -3297,7 +3297,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>267|156||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\r\n    <GraphData>\r\n     
     <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>-763|-616||0</ZoomOffset>\r\n      <PanOffset>459|884||0</PanOffset>\r\n   
+    <ZoomOffset>-763|-616||0</ZoomOffset>\r\n      <PanOffset>333|917||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Key>\r\n    <GraphData>\r\n     
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>7|-23||0</ZoomOffset>\r\n      <PanOffset>124|168||0</PanOffset>\r\n   
@@ -3306,7 +3306,7 @@ MonoBehaviour:
     <ZoomOffset>-1|1||0</ZoomOffset>\r\n      <PanOffset>290|166||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>87dbf974-db5f-41bd-a641-adf8ee61f488</Key>\r\n    <GraphData>\r\n     
     <Id>87dbf974-db5f-41bd-a641-adf8ee61f488</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>309|153||0</PanOffset>\r\n   
+    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>225|148||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>88cfda32-e8f5-4539-8802-8cb1bccffd7c</Key>\r\n    <GraphData>\r\n     
     <Id>88cfda32-e8f5-4539-8802-8cb1bccffd7c</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>600|172||0</PanOffset>\r\n   
@@ -3360,5 +3360,5 @@ MonoBehaviour:
   DocumentId: 98a9ccc5-49fd-4069-b090-c33275ae3ee5
   DocumentNameOverride: 
   History: []
-  LastCompiledHistoryID: dc9b3b32-5833-41ae-b6a5-531b8647542a
-  IsOutdated: 1
+  LastCompiledHistoryID: 323f68d8-b085-4148-8c5a-d188f5452898
+  IsOutdated: 0

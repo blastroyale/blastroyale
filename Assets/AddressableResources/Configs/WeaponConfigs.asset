@@ -35,13 +35,13 @@ MonoBehaviour:
       AimTime:
         RawValue: 8192
       AttackCooldown:
-        RawValue: 26214
+        RawValue: 6553
       AttackHitSpeed:
         RawValue: 0
       MinAttackAngle: 60
       MaxAttackAngle: 60
       NumberOfShots: 6
-      NumberOfBursts: 2
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 131072
       CanHitSameTarget: 0
@@ -51,6 +51,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 8d00000000000000
+      InitialAttackCooldown:
+        RawValue: 65536
+      RampUpTime:
+        RawValue: 327680
     - Id: 60
       AssetRef:
         Id:
@@ -84,6 +88,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 71
       AssetRef:
         Id:
@@ -117,6 +125,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 78
       AssetRef:
         Id:
@@ -150,6 +162,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 770000006e000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 79
       AssetRef:
         Id:
@@ -183,6 +199,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000055000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 84
       AssetRef:
         Id:
@@ -216,6 +236,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 5900000055000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 86
       AssetRef:
         Id:
@@ -249,6 +273,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 39322
       Specials: 0a0000000a000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 87
       AssetRef:
         Id:
@@ -264,11 +292,11 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 22938
       AimTime:
-        RawValue: 39322
+        RawValue: 13107
       AttackCooldown:
         RawValue: 3277
       AttackHitSpeed:
-        RawValue: 655
+        RawValue: 2162688
       MinAttackAngle: 5
       MaxAttackAngle: 15
       NumberOfShots: 1
@@ -282,6 +310,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 590000000a000000
+      InitialAttackCooldown:
+        RawValue: 39321
+      RampUpTime:
+        RawValue: 196608
     - Id: 88
       AssetRef:
         Id:
@@ -315,6 +347,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 90
       AssetRef:
         Id:
@@ -348,6 +384,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 91
       AssetRef:
         Id:
@@ -381,6 +421,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 770000006e000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 92
       AssetRef:
         Id:
@@ -414,6 +458,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 93
       AssetRef:
         Id:
@@ -447,6 +495,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 5900000055000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 94
       AssetRef:
         Id:
@@ -480,6 +532,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 52429
       Specials: 0a0000000a000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 95
       AssetRef:
         Id:
@@ -513,6 +569,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 0a0000006e000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 96
       AssetRef:
         Id:
@@ -546,6 +606,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 97
       AssetRef:
         Id:
@@ -579,6 +643,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 98
       AssetRef:
         Id:
@@ -612,6 +680,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 770000006e000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 99
       AssetRef:
         Id:
@@ -645,6 +717,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 7700000055000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 100
       AssetRef:
         Id:
@@ -678,6 +754,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 5900000055000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 101
       AssetRef:
         Id:
@@ -711,6 +791,10 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 26214
       Specials: 0a0000000a000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0
     - Id: 103
       AssetRef:
         Id:
@@ -744,3 +828,7 @@ MonoBehaviour:
       SplashDamageRatio:
         RawValue: 0
       Specials: 590000000a000000
+      InitialAttackCooldown:
+        RawValue: 0
+      RampUpTime:
+        RawValue: 0

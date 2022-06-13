@@ -15,7 +15,7 @@ namespace Quantum
 		public FP AimTime;
 		public FP AttackCooldown;
 		public FP AttackHitSpeed;
-		public uint MinAttackAngle;
+		public uint MinAttackAngle; 
 		public uint MaxAttackAngle;
 		public uint NumberOfShots;
 		public uint NumberOfBursts;
@@ -25,7 +25,8 @@ namespace Quantum
 		public FP SplashRadius;
 		public FP SplashDamageRatio;
 		public List<GameId> Specials;
-		
+		public FP InitialAttackCooldown;
+		public FP RampUpTime;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon

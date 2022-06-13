@@ -66,11 +66,12 @@ namespace FirstLight.Game.Presenters
 				_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesLost.ToUpper();
 			}
 
+			Debug.LogError("on opened");
 			
 			_trophyChange = Data.LastTrophyChange();
 			_currentTrophies = (int) _dataProvider.PlayerDataProvider.Trophies.Value;
 			_trophyChangeText.text = TrophyChangePrefix + _trophyChange;
-			_trophyTotalText.text = _currentTrophies.ToString();
+			_trophyTotalText.text = GetTrophiesBeforeChange(_currentTrophies,_trophyChange).ToString();
 		}
 
 		/// <summary>
@@ -80,6 +81,16 @@ namespace FirstLight.Game.Presenters
 		public void ChangeStatusToTotalTrophies()
 		{
 			_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesNewTotal.ToUpper();
+		}
+
+		private int GetTrophiesBeforeChange(int currentTrophies, int trophyChange)
+		{
+			if (trophyChange > 0)
+			{
+				return currentTrophies - trophyChange;
+			}
+
+			return currentTrophies + trophyChange;
 		}
 
 		private void OnContinueClicked()
@@ -108,7 +119,7 @@ namespace FirstLight.Game.Presenters
 
 		private void TransferTrophies()
 		{
-			int trophiesBeforeChange = _currentTrophies + _trophyChange;
+			int trophiesBeforeChange =  GetTrophiesBeforeChange(_currentTrophies,_trophyChange);
 			_isTransferringTrophies = true;
 			
 			DOVirtual.Float(0, 1f, TRANSFER_TROPHIES_DURATION,

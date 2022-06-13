@@ -174,6 +174,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
 		{
 			_lastTrophyChange = message.TrophiesChange;
+			Debug.LogError("on game completed rewards");
 		}
 
 		private void OnFtueEndedMessage(FtueEndedMessage message)

@@ -267,6 +267,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
+			// TODO EVE - do nftCount >= nftAmmountForPlay check for all this code
 			var mapConfig = NetworkUtils.GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value, _services);
 			
 			StartRandomMatchmaking(mapConfig);

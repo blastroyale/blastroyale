@@ -26,7 +26,6 @@ namespace FirstLight.Game.Utils
 		public static class Balance
 		{
 			public const float MAP_ROTATION_TIME_MINUTES = 10;
-			// TODO EVE - create a new 'const int' called NFT_AMOUNT_FOR_PLAY, set it to 3
 			public const int NFT_AMMOUNT_FOR_PLAY = 3;
 		}
 

@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 			_trophyChange = Data.LastTrophyChange();
 			_currentTrophies = (int) _dataProvider.PlayerDataProvider.Trophies.Value;
 			_trophyChangeText.text = TrophyChangePrefix + _trophyChange;
-			_trophyTotalText.text = GetTrophiesBeforeChange(_currentTrophies,_trophyChange).ToString();
+			_trophyTotalText.text = GetTrophiesBeforeChange(_currentTrophies, _trophyChange).ToString();
 		}
 
 		/// <summary>

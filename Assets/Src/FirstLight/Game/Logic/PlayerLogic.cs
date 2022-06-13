@@ -218,12 +218,12 @@ namespace FirstLight.Game.Logic
 			
 			players.SortByPlayerRank(false);
 
-			var trophyChange = 0f;
+			var trophyChange = 0d;
 
 			// Losses
 			for (var i = 0; i < localPlayerData.PlayerRank; i++)
 			{
-				trophyChange += CalculateEloChange(0, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
 				                                   gameConfig.TrophyEloK);
 			}
@@ -231,16 +231,16 @@ namespace FirstLight.Game.Logic
 			// Wins
 			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
 			{
-				trophyChange += CalculateEloChange(1, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
 				                                   gameConfig.TrophyEloK);
 			}
 
-			var finalTrophyChange = Mathf.RoundToInt(trophyChange);
+			var finalTrophyChange = (int) Math.Round(trophyChange);
 
 			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
 			{
-				finalTrophyChange = (int)-Data.Trophies;
+				finalTrophyChange = (int) -Data.Trophies;
 			}
 			
 			_trophies.Value = Math.Max(0, _trophies.Value + (uint) finalTrophyChange);
@@ -259,11 +259,11 @@ namespace FirstLight.Game.Logic
 			_currentSkin.Value = skin;
 		}
 
-		private float CalculateEloChange(float score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, int eloK)
+		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, int eloK)
 		{
-			var eloBracket = (float) Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (double) eloRange);
+			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (double) eloRange);
 			
-			return eloK * (score - 1f / (1f + eloBracket));
+			return eloK * (score - 1d / (1d + eloBracket));
 		}
 	}
 }

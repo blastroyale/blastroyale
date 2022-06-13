@@ -32,7 +32,7 @@ MonoBehaviour:
         Key: StunDuration
     - Type: 3
       Key:
-        Key: BurstLeft
+        Key: BurstShotCount
     - Type: 0
       Key:
         Key: IsAiming
@@ -44,7 +44,7 @@ MonoBehaviour:
         Key: HasMeleeWeapon
     - Type: 3
       Key:
-        Key: BurstInterval
+        Key: BurstTimeDelay
     - Type: 4
       Key:
         Key: MoveDirection

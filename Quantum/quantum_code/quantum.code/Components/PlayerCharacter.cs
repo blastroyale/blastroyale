@@ -199,7 +199,7 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
-			blackboard->Set(f, Constants.BurstIntervalKey, burstCooldown);
+			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
 			if (triggerEvents)
 			{

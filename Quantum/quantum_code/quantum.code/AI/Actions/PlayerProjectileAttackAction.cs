@@ -26,7 +26,7 @@ namespace Quantum
 			var position = transform.Position + (transform.Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
-			var bb = f.Get<AIBlackboardComponent>(e);
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
@@ -58,7 +58,7 @@ namespace Quantum
 			};
 			
 			playerCharacter->ReduceAmmo(f, e, 1);
-			bb.Set(f, Constants.BurstLeftKey, bb.GetFP(f, Constants.BurstLeftKey) - 1);
+			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 
 			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, shotAngle, (uint)targetAttackAngle);
 			f.Events.OnLocalPlayerAttack(player, e, weaponConfig);

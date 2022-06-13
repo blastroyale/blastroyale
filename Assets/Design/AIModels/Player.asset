@@ -33,7 +33,7 @@ MonoBehaviour:
     <Name>HasMeleeWeapon</Name>\r\n      <Type>@boolean</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>430e98a2-32e0-4f6e-834b-ad32d74bcdc2</Key>\r\n   
-    <Var>\r\n      <Id>430e98a2-32e0-4f6e-834b-ad32d74bcdc2</Id>\r\n      <Name>BurstInterval</Name>\r\n     
+    <Var>\r\n      <Id>430e98a2-32e0-4f6e-834b-ad32d74bcdc2</Id>\r\n      <Name>BurstTimeDelay</Name>\r\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>47944d1f-93ac-45b2-9981-001b965240c8</Key>\r\n   
@@ -69,7 +69,7 @@ MonoBehaviour:
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>c5fc44ba-f8a5-4f74-8618-39602c598237</Key>\r\n   
-    <Var>\r\n      <Id>c5fc44ba-f8a5-4f74-8618-39602c598237</Id>\r\n      <Name>BurstLeft</Name>\r\n     
+    <Var>\r\n      <Id>c5fc44ba-f8a5-4f74-8618-39602c598237</Id>\r\n      <Name>BurstShotCount</Name>\r\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>c7a15027-e3d9-4e31-b1ef-4235d7df9c22</Key>\r\n   
@@ -124,7 +124,7 @@ MonoBehaviour:
     <Data>\r\n          <Name>Guid</Name>\r\n          <Value Type=\"System.Int64,
     mscorlib\">3701490529331444910</Value>\r\n        </Data>\r\n      </Data>\r\n   
     </Node>\r\n    <Key>003098b9-9e57-4516-b310-ab2988cbf3ea</Key>\r\n    <Node>\r\n     
-    <Id>003098b9-9e57-4516-b310-ab2988cbf3ea</Id>\r\n      <Name>BurstInterval</Name>\r\n     
+    <Id>003098b9-9e57-4516-b310-ab2988cbf3ea</Id>\r\n      <Name>BurstTimeDelay</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>e295ad2b-c67a-4a7f-8219-d339f23670e9</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-471|3||0</Position>\r\n      <StaticIn Count=\"0\"
@@ -882,7 +882,7 @@ MonoBehaviour:
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
     Count=\"0\" />\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n   
     </Node>\r\n    <Key>4443c90c-d612-4169-9d0c-024fd607f2e6</Key>\r\n    <Node>\r\n     
-    <Id>4443c90c-d612-4169-9d0c-024fd607f2e6</Id>\r\n      <Name>BurstLeft</Name>\r\n     
+    <Id>4443c90c-d612-4169-9d0c-024fd607f2e6</Id>\r\n      <Name>BurstShotCount</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>409057db-9b5f-4641-a204-cdf30dba1773</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>132|27||0</Position>\r\n      <StaticIn Count=\"0\"
@@ -1479,7 +1479,7 @@ MonoBehaviour:
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <Name>Attack Shape</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
     <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
-    <Position>842|-69||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
+    <Position>870|-65||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
@@ -1852,7 +1852,7 @@ MonoBehaviour:
     <Value Type=\"@string\">89706cb2-3650-4e4e-b752-d0f4752be856</Value>\r\n       
     </Data>\r\n        <Data>\r\n          <Name></Name>\r\n          <Value />\r\n       
     </Data>\r\n      </Data>\r\n    </Node>\r\n    <Key>9ec5f7b0-4815-4100-8b71-c0afff342554</Key>\r\n   
-    <Node>\r\n      <Id>9ec5f7b0-4815-4100-8b71-c0afff342554</Id>\r\n      <Name>BurstLeft</Name>\r\n     
+    <Node>\r\n      <Id>9ec5f7b0-4815-4100-8b71-c0afff342554</Id>\r\n      <Name>BurstShotCount</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>a8fa1ed4-f6c1-45d9-aa30-39c9ef9d6aa5</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-431|-49||0</Position>\r\n      <StaticIn
@@ -2131,7 +2131,7 @@ MonoBehaviour:
     Count=\"1\">\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
     Type=\"System.Int64, mscorlib\">4097228057481564961</Value>\r\n        </Data>\r\n     
     </Data>\r\n    </Node>\r\n    <Key>b304c184-f3cc-4e31-9d05-b1a08802d282</Key>\r\n   
-    <Node>\r\n      <Id>b304c184-f3cc-4e31-9d05-b1a08802d282</Id>\r\n      <Name>BurstInterval</Name>\r\n     
+    <Node>\r\n      <Id>b304c184-f3cc-4e31-9d05-b1a08802d282</Id>\r\n      <Name>BurstTimeDelay</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>c85867c8-d730-4f9d-b9f4-6f7b63b4c133</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-227|-2||0</Position>\r\n      <StaticIn
@@ -2396,7 +2396,7 @@ MonoBehaviour:
     <Node>\r\n      <Id>cd517981-33e4-4612-afa6-4e87eac8cf85</Id>\r\n      <Name>NumberOfBursts</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>409057db-9b5f-4641-a204-cdf30dba1773</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
-    <Flags>0</Flags>\r\n      <Position>114|92||0</Position>\r\n      <StaticIn Count=\"0\"
+    <Flags>0</Flags>\r\n      <Position>126|92||0</Position>\r\n      <StaticIn Count=\"0\"
     />\r\n      <StaticOut Count=\"2\">\r\n        <Slot>\r\n          <Id>$keyOut</Id>\r\n         
     <Name>Key</Name>\r\n          <Value />\r\n          <Type>Quantum.AIBlackboardValueKey,
     quantum.code</Type>\r\n          <Mode>Out</Mode>\r\n          <Flags>2</Flags>\r\n         
@@ -2425,8 +2425,8 @@ MonoBehaviour:
     </Data>\r\n      </Data>\r\n    </Node>\r\n    <Key>d7cf0b3e-2962-4534-beaa-7c6c50acf1bf</Key>\r\n   
     <Node>\r\n      <Id>d7cf0b3e-2962-4534-beaa-7c6c50acf1bf</Id>\r\n      <Name>Attack
     Projectile</Name>\r\n      <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
-    <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>32</Flags>\r\n     
-    <Position>855|-284||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
+    <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
+    <Position>875|-164||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
@@ -2514,7 +2514,7 @@ MonoBehaviour:
     <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
     </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n   
     </Node>\r\n    <Key>e2f52837-d349-4a21-8b87-335cb5165074</Key>\r\n    <Node>\r\n     
-    <Id>e2f52837-d349-4a21-8b87-335cb5165074</Id>\r\n      <Name>BurstLeft</Name>\r\n     
+    <Id>e2f52837-d349-4a21-8b87-335cb5165074</Id>\r\n      <Name>BurstShotCount</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>ab6a56be-8aed-4f2f-ac94-c35ca18376ce</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-363|-29||0</Position>\r\n      <StaticIn
@@ -3267,7 +3267,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>267|156||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>409057db-9b5f-4641-a204-cdf30dba1773</Key>\r\n    <GraphData>\r\n     
     <Id>409057db-9b5f-4641-a204-cdf30dba1773</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>119|83||0</PanOffset>\r\n   
+    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>43|134||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>490a0215-77a2-4520-a068-d7e82936779e</Key>\r\n    <GraphData>\r\n     
     <Id>490a0215-77a2-4520-a068-d7e82936779e</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>192|177||0</PanOffset>\r\n   
@@ -3297,7 +3297,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>267|156||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\r\n    <GraphData>\r\n     
     <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>-763|-617||0</ZoomOffset>\r\n      <PanOffset>390|953||0</PanOffset>\r\n   
+    <ZoomOffset>-763|-616||0</ZoomOffset>\r\n      <PanOffset>459|884||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Key>\r\n    <GraphData>\r\n     
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>7|-23||0</ZoomOffset>\r\n      <PanOffset>124|168||0</PanOffset>\r\n   
@@ -3360,5 +3360,5 @@ MonoBehaviour:
   DocumentId: 98a9ccc5-49fd-4069-b090-c33275ae3ee5
   DocumentNameOverride: 
   History: []
-  LastCompiledHistoryID: 5f758df1-e024-47aa-bdb1-a760dea5b1b1
-  IsOutdated: 0
+  LastCompiledHistoryID: dc9b3b32-5833-41ae-b6a5-531b8647542a
+  IsOutdated: 1

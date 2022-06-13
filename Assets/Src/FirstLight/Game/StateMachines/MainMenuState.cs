@@ -55,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IDataService _dataService;
-		private readonly IGameDataProvider _gameDataProvider;
+		public static IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly LootMenuState _lootMenuState;

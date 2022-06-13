@@ -535,14 +535,14 @@ namespace FirstLight.Game.StateMachines
 				_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 				return;
 #else
-				var button = new AlertButton
+				var button = new FirstLight.NativeUi.AlertButton
 				{
 					Callback = Application.Quit,
-					Style = AlertButtonStyle.Positive,
+					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
 					Text = ScriptLocalization.MainMenu.QuitGameButton
 				};
 
-				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
+				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
 				                               ScriptLocalization.MainMenu.LogoutSuccessDesc, button);
 #endif
 			}

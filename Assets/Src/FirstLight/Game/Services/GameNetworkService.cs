@@ -14,7 +14,6 @@ namespace FirstLight.Game.Services
 	/// running online.
 	/// It gives the possibility to have the desired behaviour for a game to run online.
 	/// </summary>
-
 	public interface IGameNetworkService
 	{
 		/// <summary>
@@ -35,6 +34,16 @@ namespace FirstLight.Game.Services
 		/// If the player is not connected to any room then it return NULL without a value
 		/// </summary>
 		QuantumMapConfig? CurrentRoomMapConfig { get; }
+
+		/// <summary>
+		/// Requests to see if the <paramref name="room"/> is set for matchmaking
+		/// </summary>
+		bool IsMatchmakingRoom(Room room);
+		
+		/// <summary>
+		/// Requests to check if the current room in QuantumClient is set for matchmaking
+		/// </summary>
+		bool IsCurrentRoomForMatchmaking { get; }
 	}
 
 	/// <inheritdoc />
@@ -60,17 +69,11 @@ namespace FirstLight.Game.Services
 		private const int _lagRoundtripThreshold = 500; // yellow > 200
 
 		private IConfigsProvider _configsProvider;
-
-		/// <inheritdoc />
 		string IGameNetworkService.UserId => UserId.Value;
-		
-		/// <inheritdoc />
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
-
-		/// <inheritdoc />
 		public IObservableField<string> UserId { get; }
-		/// <inheritdoc />
 		public QuantumLoadBalancingClient QuantumClient { get; }
+		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
 
 		/// <inheritdoc />
 		public QuantumMapConfig? CurrentRoomMapConfig
@@ -84,6 +87,11 @@ namespace FirstLight.Game.Services
 
 				return _configsProvider.GetConfig<QuantumMapConfig>(QuantumClient.CurrentRoom.GetMapId());
 			}
+		}
+
+		public bool IsMatchmakingRoom(Room room)
+		{
+			return room.IsVisible;
 		}
 
 		private IObservableField<bool> HasLag { get; }

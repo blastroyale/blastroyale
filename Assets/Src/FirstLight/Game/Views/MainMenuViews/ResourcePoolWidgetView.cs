@@ -26,6 +26,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private Image _resourceImage;
 		[SerializeField] private TextMeshProUGUI _amountText;
 		[SerializeField] private TextMeshProUGUI _restockText;
+		[SerializeField] private GameObject _visualsAnchorRoot;
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
+			_services.MessageBrokerService.Subscribe<SelectedGameModeMessage>(OnSelectedGameModeMessage);
 		}
 
 		private void OnDestroy()
@@ -45,8 +47,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnEnable()
 		{
-			_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);
-			TickTimerView(0);
+			_services.TickService.SubscribeOnUpdate(UpdateTimerView, TIMER_INTERVAL_SECONDS);
+			UpdateTimerView(0);
 		}
 
 		private void OnDisable()
@@ -56,11 +58,23 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
 		{
-			TickTimerView(0);
+			UpdateTimerView(0);
 		}
 
-		private void TickTimerView(float delta)
+		private void OnSelectedGameModeMessage(SelectedGameModeMessage msg)
 		{
+			UpdateTimerView(0);
+		}
+
+		private void UpdateTimerView(float delta)
+		{
+			if (_dataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.BattleRoyale)
+			{
+				_visualsAnchorRoot.SetActive(false);
+				return;
+			}
+			
+			_visualsAnchorRoot.SetActive(true);
 			var currentCapacity = _dataProvider.CurrencyDataProvider.GetCurrentPoolCapacity(_poolToObserve);
 			var restockPerInterval = _dataProvider.CurrencyDataProvider.GetPoolRestockAmountPerInterval(_poolToObserve);
 			var poolConfig = _services.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) _poolToObserve);

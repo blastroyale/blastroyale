@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LockRoom();
 			}
-			else if (_networkService.QuantumClient.CurrentRoom.IsVisible)
+			else if (_networkService.IsCurrentRoomForMatchmaking)
 			{
 				StartMatchmakingLockRoomTimer();
 			}

@@ -46,6 +46,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 22e38f00ff5a04a72a805f457518f413, type: 3}
   - {fileID: 21300000, guid: c1414720088cc45de8b9c35661044102, type: 3}
+  - {fileID: 21300000, guid: 388f5070d8df04c05ac878003ea3a704, type: 3}
   - {fileID: 21300000, guid: 9bf08770a299242c5b89794ed0a9e198, type: 3}
   - {fileID: 21300000, guid: 6d39279031c4945a4ba6b0fd739bf3e7, type: 3}
   - {fileID: 21300000, guid: cd6e8f90e3ab8413888f2ba111b7cc03, type: 3}
@@ -72,10 +73,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4d322164c4dc4484e83ea72154d754bb, type: 3}
   - {fileID: 21300000, guid: 1f6c5794942e541df979847e0ddb3227, type: 3}
   - {fileID: 21300000, guid: f01b22a4839d84d4db929020131e291b, type: 3}
+  - {fileID: 21300000, guid: 9ccf5dc46a77943c1bf581cbaa659694, type: 3}
   - {fileID: 21300000, guid: 920b10e4531fc46ae991cc38293de39d, type: 3}
   - {fileID: 21300000, guid: ab6d49f4e844d44dba897b0337b3d513, type: 3}
   - {fileID: 21300000, guid: 0261a3251019e45e7a8cc20ec467e730, type: 3}
   - {fileID: 21300000, guid: d1f4f5759228b485fb699a7d22761fe4, type: 3}
+  - {fileID: 21300000, guid: efcf9e958d69a4957955f85f86cc38fa, type: 3}
   - {fileID: 21300000, guid: 54925af58e45742dcaa2c2c96b65598f, type: 3}
   - {fileID: 21300000, guid: 6b1f74166aefb42e68e89aeb6f1e9121, type: 3}
   - {fileID: 21300000, guid: 6dd70d2683b3642a0a1e0e5f163ae5b0, type: 3}
@@ -90,6 +93,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 67e22ef73459147c4bf9cee536304c2c, type: 3}
   - {fileID: 21300000, guid: cbb60a486856f41fba61e9cf9aa536fd, type: 3}
   - {fileID: 21300000, guid: e7a924195237f4712941c803a49eede8, type: 3}
+  - {fileID: 21300000, guid: a988dd399d737497f8f2a7ffb9814be7, type: 3}
   - {fileID: 21300000, guid: 9908dd794f26c4b92883301da3cf1be7, type: 3}
   - {fileID: 21300000, guid: ddb047e9ca70740ea9095725e5a41ffb, type: 3}
   - {fileID: 21300000, guid: 9125a0f9386cf43cfa56a0116406ba38, type: 3}
@@ -124,6 +128,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0b4a234e88ae7534dbf3125e851335e4, type: 3}
   - {fileID: 21300000, guid: 4036f65e5fe6a44adbd363b3240eefc2, type: 3}
   - {fileID: 21300000, guid: e89c739e4b69042788306cd569fa450b, type: 3}
+  - {fileID: 21300000, guid: 16af00de8cfad4fefb09acb32ea6e68c, type: 3}
   - {fileID: 21300000, guid: 5ca855de7e12943dc935fc2d85028636, type: 3}
   - {fileID: 21300000, guid: b9ef66decbd9d47dabb594630c1a1e47, type: 3}
   - {fileID: 21300000, guid: ac1339de30ea4456583521d3b1a8e55d, type: 3}
@@ -135,6 +140,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - CrateIcon
   - IconHome
+  - WeaponNameBg
   - ItemCardEmpty
   - EquipSlotEmpty
   - TopBarCell
@@ -161,10 +167,12 @@ SpriteAtlas:
   - LootIconAmulet
   - SettingsCog
   - GunItemIcon
+  - SmearNewWhite
   - LootIconHeadgear
   - TopBarPlayerLevelBadge
   - AimManualIcon
   - TopBarCellFill
+  - LightRays
   - TrophyRoadHolder
   - CancelButton
   - LootSelectAButton
@@ -179,6 +187,7 @@ SpriteAtlas:
   - AreaButtonA
   - CardShine
   - TrophyRoadHolderNew
+  - LightRaysColor
   - FootwearItemIcon
   - ChacterAvatarIcon
   - RankBase
@@ -213,6 +222,7 @@ SpriteAtlas:
   - HomeButtonFlipped
   - LootIconSkills
   - EquippedItem
+  - SmearNewShadow
   - TopBarEnd
   - Group 28
   - Smear_Title_Black

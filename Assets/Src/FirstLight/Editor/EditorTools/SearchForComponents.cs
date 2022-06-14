@@ -22,7 +22,7 @@ namespace FirstLight.Editor.EditorTools
 		bool showPrefabs, showAdded, showScene, showUnused = true;
 		Vector2 scroll, scroll1, scroll2, scroll3, scroll4;
 
-		[MenuItem("First Light Games/Search For Components")]
+		[MenuItem("FLG/Search For Components")]
 		static void Init()
 		{
 			SearchForComponents window = (SearchForComponents) EditorWindow.GetWindow(typeof(SearchForComponents));

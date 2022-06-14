@@ -5511,13 +5511,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Weapon = Weapon;
+        ev.Slot = Slot;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7410,6 +7411,7 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public Equipment Weapon;
+    public Int32 Slot;
     protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7430,6 +7432,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + Slot.GetHashCode();
         return hash;
       }
     }

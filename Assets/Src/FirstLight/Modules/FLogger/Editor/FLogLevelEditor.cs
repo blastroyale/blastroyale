@@ -17,11 +17,11 @@ namespace FirstLight.FLogger.Editor
 		private const string SymbolInfo = "LOG_LEVEL_INFO";
 		private const string SymbolVerbose = "LOG_LEVEL_VERBOSE";
 
-		private const string MenuNameNone = "First Light Games/Logging/None";
-		private const string MenuNameError = "First Light Games/Logging/Error";
-		private const string MenuNameWarn = "First Light Games/Logging/Warning";
-		private const string MenuNameInfo = "First Light Games/Logging/Info";
-		private const string MenuNameVerbose = "First Light Games/Logging/Verbose";
+		private const string MenuNameNone = "FLG/Logging/None";
+		private const string MenuNameError = "FLG/Logging/Error";
+		private const string MenuNameWarn = "FLG/Logging/Warning";
+		private const string MenuNameInfo = "FLG/Logging/Info";
+		private const string MenuNameVerbose = "FLG/Logging/Verbose";
 
 		private static readonly List<string> _currentDefineSymbols;
 

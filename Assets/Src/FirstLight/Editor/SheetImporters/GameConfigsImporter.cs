@@ -33,7 +33,8 @@ namespace FirstLight.Editor.SheetImporters
 				
 				var value = CsvParser.DeserializeObject(row["Value"], field.FieldType, 
 				                                        QuantumDeserializer.FpDeserializer, 
-				                                        QuantumDeserializer.QuantumGameModePairDeserializer);
+				                                        QuantumDeserializer.QuantumGameModePairDeserializer, 
+				                                        QuantumDeserializer.SerializedDictionaryDeserializer);
 				
 				field.SetValue(config, value);
 			}

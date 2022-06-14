@@ -15,7 +15,16 @@ namespace FirstLight.Editor.EditorTools
 		/// <inheritdoc cref="CsvParser.DeserializeTo{T}" />
 		public static T DeserializeTo<T>(Dictionary<string, string> data)
 		{
-			return CsvParser.DeserializeTo<T>(data, FpDeserializer, QuantumGameModePairDeserializer);
+			return CsvParser.DeserializeTo<T>(data, FpDeserializer, QuantumGameModePairDeserializer, SerializedDictionaryDeserializer);
+		}
+		
+		/// <inheritdoc cref="CsvParser.Parse" />
+		/// <remarks>
+		/// It allows to parse <see cref="UnitySerializedDictionary{TKey, TValue}"/> types
+		/// </remarks>
+		public static object SerializedDictionaryDeserializer(string data, Type type)
+		{
+			return null;
 		}
 
 		/// <inheritdoc cref="CsvParser.Parse" />

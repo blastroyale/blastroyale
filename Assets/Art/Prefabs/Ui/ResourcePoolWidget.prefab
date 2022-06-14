@@ -80,6 +80,7 @@ MonoBehaviour:
   _resourceImage: {fileID: 4330564595300962783}
   _amountText: {fileID: 6626760302595072591}
   _restockText: {fileID: 9126939857631887721}
+  _visualsAnchorRoot: {fileID: 3633591568257042170}
 --- !u!1 &1934297968123631810
 GameObject:
   m_ObjectHideFlags: 0

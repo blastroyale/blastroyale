@@ -261,7 +261,11 @@ namespace FirstLight.Game.StateMachines
 
 			var data = new GameModeSelectionPresenter.StateData
 			{
-				GameModeChosen = () => { cacheActivity.Complete(); }
+				GameModeChosen = () =>
+				{
+					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
+					cacheActivity.Complete();
+				}
 			};
 
 			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);

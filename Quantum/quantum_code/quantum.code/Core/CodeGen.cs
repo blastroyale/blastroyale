@@ -12,7 +12,6 @@
 #pragma warning disable 0219
 #pragma warning disable 0109
 
-
 namespace Quantum {
   using System;
   using System.Collections.Generic;
@@ -2351,7 +2350,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefBTDecorator))]
-    private Ptr ReactiveDecoratorsPtr;
+    private Quantum.Ptr ReactiveDecoratorsPtr;
     [FieldOffset(8)]
     public BlackboardValue Value;
     public QListPtr<AssetRefBTDecorator> ReactiveDecorators {
@@ -2840,28 +2839,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct UtilityReasoner {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 32;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     [HideInInspector()]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefConsideration))]
-    private Ptr ConsiderationsPtr;
+    private Quantum.Ptr ConsiderationsPtr;
     [FieldOffset(4)]
     [HideInInspector()]
     [FramePrinter.PtrQDictionaryAttribute(typeof(AssetRefConsideration), typeof(FP))]
-    private Ptr CooldownsDictPtr;
+    private Quantum.Ptr CooldownsDictPtr;
     [FieldOffset(8)]
     [HideInInspector()]
     [FramePrinter.PtrQListAttribute(typeof(UTMomentumPack))]
-    private Ptr MomentumListPtr;
-    [FieldOffset(16)]
+    private Quantum.Ptr MomentumListPtr;
+    [FieldOffset(12)]
     [HideInInspector()]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefConsideration))]
-    private Ptr PreviousExecutionPtr;
-    [FieldOffset(32)]
+    private Quantum.Ptr PreviousExecutionPtr;
+    [FieldOffset(24)]
     [HideInInspector()]
     public FP TimeToTick;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
     public AssetRefUTRoot UTRoot;
     public QListPtr<AssetRefConsideration> Considerations {
       get {
@@ -2945,7 +2944,7 @@ namespace Quantum {
     public BitSet32 PlayerLastConnectionState;
     [FieldOffset(128)]
     [FramePrinter.PtrQListAttribute(typeof(EntityPair))]
-    private Ptr QueriesPtr;
+    private Quantum.Ptr QueriesPtr;
     [FieldOffset(168)]
     public RNGSession RngSession;
     [FieldOffset(248)]
@@ -3259,7 +3258,7 @@ namespace Quantum {
     public AssetRefAIBlackboard Board;
     [FieldOffset(0)]
     [FramePrinter.PtrQListAttribute(typeof(BlackboardEntry))]
-    private Ptr EntriesPtr;
+    private Quantum.Ptr EntriesPtr;
     public QListPtr<BlackboardEntry> Entries {
       get {
         return new QListPtr<BlackboardEntry>(EntriesPtr);
@@ -3307,30 +3306,30 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BTAgent : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 AbortNodeId;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefBTService))]
-    private Ptr ActiveServicesPtr;
-    [FieldOffset(16)]
+    private Quantum.Ptr ActiveServicesPtr;
+    [FieldOffset(8)]
     [FramePrinter.PtrQListAttribute(typeof(BTDataValue))]
-    private Ptr BTDataValuesPtr;
-    [FieldOffset(40)]
-    public AssetRefAIConfig Config;
-    [FieldOffset(48)]
-    public AssetRefBTNode Current;
+    private Quantum.Ptr BTDataValuesPtr;
     [FieldOffset(24)]
-    [FramePrinter.PtrQListAttribute(typeof(AssetRefBTComposite))]
-    private Ptr DynamicCompositesPtr;
-    [FieldOffset(28)]
-    [FramePrinter.PtrQListAttribute(typeof(Byte))]
-    private Ptr NodesStatusPtr;
+    public AssetRefAIConfig Config;
     [FieldOffset(32)]
+    public AssetRefBTNode Current;
+    [FieldOffset(12)]
+    [FramePrinter.PtrQListAttribute(typeof(AssetRefBTComposite))]
+    private Quantum.Ptr DynamicCompositesPtr;
+    [FieldOffset(16)]
+    [FramePrinter.PtrQListAttribute(typeof(Byte))]
+    private Quantum.Ptr NodesStatusPtr;
+    [FieldOffset(20)]
     [FramePrinter.PtrQListAttribute(typeof(FP))]
-    private Ptr ServicesEndTimesPtr;
-    [FieldOffset(56)]
+    private Quantum.Ptr ServicesEndTimesPtr;
+    [FieldOffset(40)]
     public AssetRefBTNode Tree;
     public QListPtr<AssetRefBTService> ActiveServices {
       get {
@@ -3777,46 +3776,46 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GOAPAgent : Quantum.IComponent {
-    public const Int32 SIZE = 128;
+    public const Int32 SIZE = 120;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
     public AssetRefAIConfig Config;
     [FieldOffset(1)]
     [ExcludeFromPrototype()]
     public SByte CurrentActionIndex;
-    [FieldOffset(88)]
+    [FieldOffset(80)]
     [ExcludeFromPrototype()]
     public FP CurrentActionTime;
-    [FieldOffset(72)]
+    [FieldOffset(64)]
     [ExcludeFromPrototype()]
     public AssetRefGOAPGoal CurrentGoal;
-    [FieldOffset(96)]
+    [FieldOffset(88)]
     [ExcludeFromPrototype()]
     public FP CurrentGoalTime;
     [FieldOffset(0)]
     [ExcludeFromPrototype()]
     public Byte CurrentPlanSize;
-    [FieldOffset(112)]
+    [FieldOffset(104)]
     [ExcludeFromPrototype()]
     public GOAPState CurrentState;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     [ExcludeFromPrototype()]
     [FramePrinter.PtrQListAttribute(typeof(FP))]
-    private Ptr GoalDisableTimesPtr;
-    [FieldOffset(120)]
+    private Quantum.Ptr GoalDisableTimesPtr;
+    [FieldOffset(112)]
     [ExcludeFromPrototype()]
     public GOAPState GoalState;
-    [FieldOffset(104)]
+    [FieldOffset(96)]
     [ExcludeFromPrototype()]
     public FP InterruptionCheckCooldown;
     [FieldOffset(2)]
     [ExcludeFromPrototype()]
     public SByte LastProcessedActionIndex;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
     [ExcludeFromPrototype()]
     [FramePrinter.FixedArrayAttribute(typeof(AssetRefGOAPAction), 6)]
     private fixed Byte _Plan_[48];
-    [FieldOffset(80)]
+    [FieldOffset(72)]
     public AssetRefGOAPRoot Root;
     public QListPtr<FP> GoalDisableTimes {
       get {
@@ -4245,13 +4244,13 @@ namespace Quantum {
     public UInt32 AttackAngle;
     [FieldOffset(32)]
     public EntityRef Attacker;
-    [FieldOffset(12)]
+    [FieldOffset(8)]
     public QBoolean CanHitSameTarget;
     [FieldOffset(88)]
     public FPVector2 Direction;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
-    private Ptr LinecastQueriesPtr;
+    private Quantum.Ptr LinecastQueriesPtr;
     [FieldOffset(20)]
     public UInt32 NumberOfShots;
     [FieldOffset(24)]
@@ -4313,8 +4312,8 @@ namespace Quantum {
         var p = (RaycastShots*)ptr;
         serializer.Stream.Serialize((Int32*)&p->WeaponConfigId);
         serializer.Stream.Serialize(&p->TeamSource);
-        QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         QBoolean.Serialize(&p->CanHitSameTarget, serializer);
+        QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         serializer.Stream.Serialize(&p->AttackAngle);
         serializer.Stream.Serialize(&p->NumberOfShots);
         serializer.Stream.Serialize(&p->PowerAmount);
@@ -4489,27 +4488,27 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 168;
+    public const Int32 SIZE = 160;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 CurrentHealth;
     [FieldOffset(4)]
     public Int32 CurrentShield;
-    [FieldOffset(32)]
-    public FP CurrentStatusModifierDuration;
-    [FieldOffset(40)]
-    public FP CurrentStatusModifierEndTime;
     [FieldOffset(24)]
-    public StatusModifierType CurrentStatusModifierType;
+    public FP CurrentStatusModifierDuration;
+    [FieldOffset(32)]
+    public FP CurrentStatusModifierEndTime;
     [FieldOffset(20)]
-    public QBoolean IsImmune;
+    public StatusModifierType CurrentStatusModifierType;
     [FieldOffset(8)]
+    public QBoolean IsImmune;
+    [FieldOffset(12)]
     [FramePrinter.PtrQListAttribute(typeof(Modifier))]
-    private Ptr ModifiersPtr;
+    private Quantum.Ptr ModifiersPtr;
     [FieldOffset(16)]
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
-    private Ptr SpellEffectsPtr;
-    [FieldOffset(48)]
+    private Quantum.Ptr SpellEffectsPtr;
+    [FieldOffset(40)]
     [FramePrinter.FixedArrayAttribute(typeof(StatData), 5)]
     private fixed Byte _Values_[120];
     public QListPtr<Modifier> Modifiers {
@@ -4560,9 +4559,9 @@ namespace Quantum {
         var p = (Stats*)ptr;
         serializer.Stream.Serialize(&p->CurrentHealth);
         serializer.Stream.Serialize(&p->CurrentShield);
+        QBoolean.Serialize(&p->IsImmune, serializer);
         QList.Serialize(p->Modifiers, &p->ModifiersPtr, serializer, StaticDelegates.SerializeModifier);
         QList.Serialize(p->SpellEffects, &p->SpellEffectsPtr, serializer, StaticDelegates.SerializeEntityRef);
-        QBoolean.Serialize(&p->IsImmune, serializer);
         serializer.Stream.Serialize((Int32*)&p->CurrentStatusModifierType);
         FP.Serialize(&p->CurrentStatusModifierDuration, serializer);
         FP.Serialize(&p->CurrentStatusModifierEndTime, serializer);
@@ -4611,7 +4610,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct UTAgent : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 40;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRefAIConfig Config;
@@ -8004,6 +8003,7 @@ namespace Quantum {
       Register(typeof(Quantum.Projectile), Quantum.Projectile.SIZE);
       Register(typeof(Ptr), Ptr.SIZE);
       Register(typeof(QBoolean), QBoolean.SIZE);
+      Register(typeof(Quantum.Ptr), Quantum.Ptr.SIZE);
       Register(typeof(RNGSession), RNGSession.SIZE);
       Register(typeof(Quantum.Rage), Quantum.Rage.SIZE);
       Register(typeof(Quantum.RaycastShots), Quantum.RaycastShots.SIZE);

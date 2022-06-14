@@ -10,7 +10,19 @@ namespace FirstLight.Game.Configs
 	public struct MatchRewardConfig
 	{
 		public short Placement;
-		public List<Pair<GameId, uint>> Rewards;
+		public Dictionary<GameId, uint> Rewards;
+
+		[Button]
+		public void LogRewardsContents()
+		{
+			int index = 0;
+			
+			foreach (var kvp in Rewards)
+			{
+				Debug.Log($"Reward {index}: {kvp.Key} {kvp.Value}");
+				index++;
+			}
+		}
 	}
 
 	/// <summary>

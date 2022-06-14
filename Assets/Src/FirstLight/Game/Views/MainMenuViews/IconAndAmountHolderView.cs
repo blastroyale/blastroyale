@@ -25,6 +25,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private float _rackupTextAnimDurationSeconds = 5f;
 		[SerializeField] private GameId _targetID;
 
+
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
@@ -93,6 +94,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 					break;
 				
 				// TODO EVE - Handle BLST/Trophies tooltips here
+				case GameId.BLST:
+					tooltip = ScriptLocalization.Tooltips.ToolTip_BLST;
+					break;
+				case GameId.Trophies:
+					tooltip = ScriptLocalization.Tooltips.ToolTip_Trophies;
+					break;
 			}
 
 			_services.GenericDialogService.OpenTooltipDialog(tooltip, _tooltipAnchor.position,

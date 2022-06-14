@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			var closure = message;
 
-			if (message.Id == GameId.CS)
+			if (message.Id == _targetID)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
 				                                       _animationTarget.position, () => RackupTween(UpdateAmountText));

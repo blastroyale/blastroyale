@@ -61,7 +61,8 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.Wait("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			var postResultsChoice = stateFactory.Choice("Post Results Choice");
+			var rewardsCheck = stateFactory.Choice("Rewards Choice");
+			var trophiesCheck = stateFactory.Choice("Trophies Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 			
@@ -93,14 +94,17 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.OnExit(CloseCompleteScreen);
 			
 			gameResults.OnEnter(GiveMatchRewards);
-			gameResults.WaitingFor(ResultsScreen).Target(trophiesGainLoss);
+			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
 			gameResults.OnExit(CloseResultScreen);
 			
-			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(postResultsChoice);
+			trophiesCheck.Transition().Condition(HasTrophyChangeToDisplay).Target(trophiesGainLoss);
+			trophiesCheck.Transition().Target(rewardsCheck);
+			
+			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(rewardsCheck);
 			trophiesGainLoss.OnExit(CloseTrophiesScreen);
 			
-			postResultsChoice.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
-			postResultsChoice.Transition().Target(final);
+			rewardsCheck.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
+			rewardsCheck.Transition().Target(final);
 
 			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
 			gameRewards.OnExit(CloseRewardsScreen);
@@ -130,6 +134,11 @@ namespace FirstLight.Game.StateMachines
 		private bool HasRewardsToClaim()
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
+		}
+		
+		private bool HasTrophyChangeToDisplay()
+		{
+			return _lastTrophyChange != 0;
 		}
 
 		private bool IsDeathmatch()
@@ -207,7 +216,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
 				LocalPlayerRef = game.GetLocalPlayers()[0],
-				DidPlayerQuit = false
+				DidPlayerQuit = false,
+				PlayedMatchmakingGame = _services.NetworkService.IsCurrentRoomForMatchmaking
 			});
 		}
 		

@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 5378173587913085633}
   - component: {fileID: 2963845369881967559}
   m_Layer: 0
-  m_Name: TopBarCell
+  m_Name: Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 3611401052789279650}
   - component: {fileID: 3993948304722111339}
   m_Layer: 0
-  m_Name: TopBarIcon
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: c9fd4e1084065b847b8a7526e96f566b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -501,7 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3588275164329924780}
   m_Layer: 5
-  m_Name: TooltipAnchor
+  m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

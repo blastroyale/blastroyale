@@ -97,8 +97,9 @@ namespace FirstLight.Game.StateMachines
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
 			gameResults.OnExit(CloseResultScreen);
 			
-			trophiesCheck.Transition().Condition(HasTrophyChangeToDisplay).Target(rewardsCheck);
-
+			trophiesCheck.Transition().Condition(HasTrophyChangeToDisplay).Target(trophiesGainLoss);
+			trophiesCheck.Transition().Target(rewardsCheck);
+			
 			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(rewardsCheck);
 			trophiesGainLoss.OnExit(CloseTrophiesScreen);
 			

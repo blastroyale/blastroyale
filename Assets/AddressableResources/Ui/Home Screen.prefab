@@ -6066,6 +6066,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9433962
       objectReference: {fileID: 0}
+    - target: {fileID: 4330564595300962783, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a31633e22cb844b9d9fe552189a63589, type: 3}
     - target: {fileID: 6023984868716181131, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: _poolToObserve
       value: 12

@@ -208,7 +208,8 @@ namespace FirstLight.Game.StateMachines
 				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
 				LocalPlayerRef = game.GetLocalPlayers()[0],
 				DidPlayerQuit = false,
-				PlayedMatchmakingGame = _services.NetworkService.QuantumClient.CurrentRoom.IsVisible
+				PlayedMatchmakingGame = _services.NetworkService.QuantumClient.CurrentRoom.IsVisible,
+				PlayedGameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value
 			});
 		}
 		

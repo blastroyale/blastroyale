@@ -93,7 +93,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 					tooltip = ScriptLocalization.Tooltips.ToolTip_CS;
 					break;
 				
-				// TODO EVE - Handle BLST/Trophies tooltips here
 				case GameId.BLST:
 					tooltip = ScriptLocalization.Tooltips.ToolTip_BLST;
 					break;

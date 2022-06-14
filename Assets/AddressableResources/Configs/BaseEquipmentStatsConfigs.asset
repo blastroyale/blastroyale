@@ -19,6 +19,7 @@ MonoBehaviour:
         Value: 1461361185191240749
     QuantumConfigs:
     - Id: 24
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -28,6 +29,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 26
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 17695
       ArmorRatioToBase:
@@ -37,6 +39,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 25
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -46,6 +49,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 47
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 23593
       ArmorRatioToBase:
@@ -55,6 +59,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 27
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -64,6 +69,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 28
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -73,6 +79,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 29
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -82,6 +89,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 38
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 19661
       ArmorRatioToBase:
@@ -91,6 +99,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 39
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 4915
       ArmorRatioToBase:
@@ -100,6 +109,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 40
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 14746
       ArmorRatioToBase:
@@ -109,6 +119,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 41
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 9830
       ArmorRatioToBase:
@@ -118,6 +129,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 42
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 24576
       ArmorRatioToBase:
@@ -127,6 +139,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 43
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 36864
       ArmorRatioToBase:
@@ -136,6 +149,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 44
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 12288
       ArmorRatioToBase:
@@ -145,6 +159,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 45
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 49152
       ArmorRatioToBase:
@@ -154,6 +169,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 46
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 11796
       ArmorRatioToBase:
@@ -163,6 +179,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 48
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 5898
       ArmorRatioToBase:
@@ -172,6 +189,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 52
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 29491
       ArmorRatioToBase:
@@ -181,6 +199,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 53
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 9830
       ArmorRatioToBase:
@@ -190,6 +209,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 54
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 39322
       ArmorRatioToBase:
@@ -199,6 +219,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 50
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 29491
       ArmorRatioToBase:
@@ -208,6 +229,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 49
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 9830
       ArmorRatioToBase:
@@ -217,6 +239,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 51
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 39322
       ArmorRatioToBase:
@@ -226,6 +249,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 31
+      Manufacturer: 1
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -235,6 +259,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 19661
     - Id: 60
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -242,8 +267,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 6554
+        RawValue: 52429
     - Id: 71
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -251,8 +277,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 26214
+        RawValue: 9830
     - Id: 78
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -260,8 +287,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 43254
+        RawValue: 6554
     - Id: 79
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -269,8 +297,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 21627
+        RawValue: 14418
     - Id: 84
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -278,8 +307,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 9830
+        RawValue: 54723
     - Id: 86
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -287,8 +317,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 11141
+        RawValue: 52429
     - Id: 87
+      Manufacturer: 2
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -296,8 +327,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 13107
+        RawValue: 3932
     - Id: 88
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -305,8 +337,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 6554
+        RawValue: 4588
     - Id: 90
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -314,26 +347,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 26214
+        RawValue: 18350
     - Id: 91
-      HpRatioToBase:
-        RawValue: 0
-      ArmorRatioToBase:
-        RawValue: 0
-      SpeedRatioToBase:
-        RawValue: 0
-      PowerRatioToBase:
-        RawValue: 43254
-    - Id: 92
-      HpRatioToBase:
-        RawValue: 0
-      ArmorRatioToBase:
-        RawValue: 0
-      SpeedRatioToBase:
-        RawValue: 0
-      PowerRatioToBase:
-        RawValue: 21627
-    - Id: 93
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -342,7 +358,28 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBase:
         RawValue: 9830
+    - Id: 92
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 14418
+    - Id: 93
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 85197
     - Id: 94
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -350,8 +387,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 11141
+        RawValue: 49152
     - Id: 95
+      Manufacturer: 0
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -359,8 +397,29 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 13107
+        RawValue: 19661
     - Id: 96
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 32768
+    - Id: 97
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 19661
+    - Id: 98
+      Manufacturer: 1
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -369,7 +428,18 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBase:
         RawValue: 6554
-    - Id: 97
+    - Id: 99
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 32768
+    - Id: 100
+      Manufacturer: 1
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -378,34 +448,8 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBase:
         RawValue: 26214
-    - Id: 98
-      HpRatioToBase:
-        RawValue: 0
-      ArmorRatioToBase:
-        RawValue: 0
-      SpeedRatioToBase:
-        RawValue: 0
-      PowerRatioToBase:
-        RawValue: 43254
-    - Id: 99
-      HpRatioToBase:
-        RawValue: 0
-      ArmorRatioToBase:
-        RawValue: 0
-      SpeedRatioToBase:
-        RawValue: 0
-      PowerRatioToBase:
-        RawValue: 21627
-    - Id: 100
-      HpRatioToBase:
-        RawValue: 0
-      ArmorRatioToBase:
-        RawValue: 0
-      SpeedRatioToBase:
-        RawValue: 0
-      PowerRatioToBase:
-        RawValue: 9830
     - Id: 101
+      Manufacturer: 1
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -413,8 +457,9 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 11141
+        RawValue: 65536
     - Id: 103
+      Manufacturer: 1
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -422,4 +467,4 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 13107
+        RawValue: 655

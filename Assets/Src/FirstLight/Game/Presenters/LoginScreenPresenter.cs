@@ -1,49 +1,43 @@
 using System;
-using FirstLight.Game.Services;
-using UnityEngine;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using I2.Loc;
-using Quantum;
+using UnityEngine;
 using TMPro;
 using Button = UnityEngine.UI.Button;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// This Presenter handles the Shop Menu.
+	/// This presenter handles showing the login screen
 	/// </summary>
 	public class LoginScreenPresenter : AnimatedUiPresenterData<LoginScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
-			public Action<string,string> LoginClicked;
+			public Action<string, string> LoginClicked;
 			public Action GoToRegisterClicked;
 		}
 
 		[SerializeField] private TMP_InputField _emailInputField;
 		[SerializeField] private TMP_InputField _passwordInputField;
-
-		[SerializeField] private GameObject _registerRootObject;
 		[SerializeField] private Button _goToRegisterButton;
+		[SerializeField] private Button _goToDevRegisterButton;
 		[SerializeField] private Button _loginButton;
-		
 		[SerializeField] private GameObject _frontDimBlocker;
-		
+
 		private void Awake()
 		{
-			_registerRootObject.SetActive(Debug.isDebugBuild);
 			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
+
+			_goToDevRegisterButton.onClick.AddListener(GoToDevRegisterClicked);
+			_goToDevRegisterButton.gameObject.SetActive(Debug.isDebugBuild);
 		}
-		
+
 		private void OnEnable()
 		{
 			SetFrontDimBlockerActive(false);
 		}
-		
+
 		/// <summary>
 		/// Sets the activity of the dimmed blocker image that covers the presenter
 		/// </summary>
@@ -51,13 +45,25 @@ namespace FirstLight.Game.Presenters
 		{
 			_frontDimBlocker.SetActive(active);
 		}
-		
+
 		private void LoginClicked()
 		{
 			Data.LoginClicked(_emailInputField.text, _passwordInputField.text);
 		}
 
 		private void GoToRegisterClicked()
+		{
+			if (Debug.isDebugBuild)
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_DEV_URL);
+			}
+			else
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_PROD_URL);
+			}
+		}
+		
+		private void GoToDevRegisterClicked()
 		{
 			Data.GoToRegisterClicked();
 		}

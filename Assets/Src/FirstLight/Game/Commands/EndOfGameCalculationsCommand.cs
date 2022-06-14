@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -22,18 +23,33 @@ namespace FirstLight.Game.Commands
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public PlayerRef LocalPlayerRef;
 		public bool DidPlayerQuit;
-		
+		public bool PlayedMatchmakingGame;
+
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
-			gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
-			gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
+			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
+			var trophyChange = 0;
+			var rewards = new List<RewardData>();
+			var gameMode = gameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(PlayersMatchData[0].MapId).GameMode;
 
-			var player = PlayersMatchData[LocalPlayerRef];
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(player, DidPlayerQuit);
-			
-			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage { Rewards = rewards });
+			if (PlayedMatchmakingGame && gameMode == GameMode.BattleRoyale)
+			{
+				trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
+
+				gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
+				gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
+
+				var player = PlayersMatchData[LocalPlayerRef];
+				rewards = gameLogic.RewardLogic.GiveMatchRewards(player, DidPlayerQuit);
+			}
+
+			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
+			{
+				Rewards = rewards,
+				TrophiesChange = trophyChange,
+				TrophiesBeforeChange = trophiesBeforeChange
+			});
 		}
 	}
 }

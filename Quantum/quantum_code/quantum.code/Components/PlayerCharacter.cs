@@ -189,15 +189,22 @@ namespace Quantum
 			RefreshStats(f, e);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			//the total time it takes for a burst to complete should be half of the weapon's cooldown
+			//if we are only firing one shot, burst interval is 0
+			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 
+				0 : (weaponConfig.AttackCooldown /2) / weaponConfig.NumberOfBursts;
+
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
+			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
 			if (triggerEvents)
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
 			}
 
 			// TODO: Specials should have charges and remember charges used for each weapon

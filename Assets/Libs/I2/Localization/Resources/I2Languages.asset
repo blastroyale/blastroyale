@@ -1036,13 +1036,6 @@ MonoBehaviour:
       - SPECIAL ABILITIES
       Flags: 00
       Languages_Touch: []
-    - Term: Tooltips/ToolTip_CS
-      TermType: 0
-      Description: 
-      Languages:
-      - Gain <color=yellow><b>Craft Spice</b></color>, by killing other players.
-      Flags: 00
-      Languages_Touch: []
     - Term: Tooltips/ToolTip_NftCooldown
       TermType: 0
       Description: 
@@ -1052,6 +1045,34 @@ MonoBehaviour:
 
         Items on cooldown do not contribute
         to any in-game earnings.'
+      Flags: 00
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_CS
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Craft Spice by placing higher in Battle Royale matches.
+
+
+        Craft
+        Spice is used on the marketplace for upgrading, repairing and replicating
+        equipment.'
+      Flags: 00
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_BLST
+      TermType: 0
+      Description: 
+      Languages:
+      - "Blast Tokens are valuable rewards obtained in special ways in-game, or purchased.
+        \n\nUse Blast Tokens to purchase equipment on the marketplace."
+      Flags: 00
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - "Trophies increase your Craft Spice pool. \n\nPlace higher in Battle Royale
+        matches to earn trophies."
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Abilties
@@ -1882,7 +1903,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Register a new account
+      - Register
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/RememberMe
@@ -2030,6 +2051,41 @@ MonoBehaviour:
 
         Items on cooldown do no not
         contribute to any in-game earnings.'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NftRestrictionText
+      TermType: 0
+      Description: 
+      Languages:
+      - You must have at least 3 items equipped to play online.
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesGained
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Gained
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesLost
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Lost
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesNewTotal
+      TermType: 0
+      Description: 
+      Languages:
+      - New Total
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -5159,7 +5215,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1654081081380
+    Google_LastUpdatedVersion: 1655215209055
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

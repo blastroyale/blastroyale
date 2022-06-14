@@ -5,7 +5,6 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -16,23 +15,23 @@ namespace FirstLight.Game.StateMachines
 	{
 		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
 		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
-		
-		private readonly IGameDataProvider _gameDataProvider;
+		private readonly IStatechartEvent _localPlayerSpectateEvent = new StatechartEvent("Local Player Spectate");
+		private readonly IStatechartEvent _localPlayerExitEvent = new StatechartEvent("Local Player Exit");
+
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private PlayerRef _killer;
-		
-		public BattleRoyaleState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
+
+		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
 		                         Action<IStatechartEvent> statechartTrigger)
 		{
-			_gameDataProvider = gameDataProvider;
 			_services = services;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 		}
-		
+
 		/// <summary>
 		/// Setups the Battle Royale gameplay state
 		/// </summary>
@@ -41,24 +40,31 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var alive = stateFactory.State("Alive Hud");
-			var spectator = stateFactory.Wait("Spectator Hud");
+			var dead = stateFactory.State("Dead Screen");
+			var spectating = stateFactory.State("Spectate Screen");
 			var spawning = stateFactory.State("Spawning");
 
 			initial.Transition().Target(spawning);
 			initial.OnExit(SubscribeEvents);
-			
+
 			spawning.OnEnter(OpenAdventureHud);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 			spawning.OnExit(PublishMatchStarted);
-			
+
 			alive.OnEnter(OpenControlsHud);
-			alive.Event(_localPlayerDeadEvent).Target(spectator);
+			alive.Event(_localPlayerDeadEvent).Target(dead);
 			alive.OnExit(CloseControlsHud);
 
-			spectator.OnEnter(CloseAdventureHud);
-			spectator.WaitingFor(SpectatorHud).Target(final);
-			spectator.OnExit(CloseSpectatorHud);
-			
+			dead.OnEnter(CloseAdventureHud);
+			dead.OnEnter(OpenKillScreen);
+			dead.Event(_localPlayerExitEvent).Target(final);
+			dead.Event(_localPlayerSpectateEvent).Target(spectating);
+			dead.OnExit(CloseKillScreen);
+
+			spectating.OnEnter(OpenSpectateScreen);
+			spectating.Event(_localPlayerExitEvent).Target(final);
+			spectating.OnExit(CloseSpectateScreen);
+
 			final.OnEnter(CloseAdventureHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -82,20 +88,20 @@ namespace FirstLight.Game.StateMachines
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_killer = callback.PlayerKiller;
-			
+
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
-		
+
 		private void OpenControlsHud()
 		{
 			_uiService.OpenUi<MatchControlsHudPresenter>();
 		}
-		
+
 		private void CloseControlsHud()
 		{
 			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
-		
+
 		private void OpenAdventureHud()
 		{
 			_uiService.OpenUi<MatchHudPresenter>();
@@ -105,32 +111,44 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<MatchHudPresenter>();
 		}
-		
+
+		private void OpenKillScreen()
+		{
+			var data = new BattleRoyaleDeadScreenPresenter.StateData
+			{
+				Killer = _killer,
+				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); },
+				OnSpectateClicked = () => { _statechartTrigger(_localPlayerSpectateEvent); }
+			};
+
+			_uiService.OpenUi<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
+		}
+
+		private void CloseKillScreen()
+		{
+			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>();
+		}
+
+		private void OpenSpectateScreen()
+		{
+			var data = new BattleRoyaleSpectateScreenPresenter.StateData
+			{
+				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); }
+			};
+
+			_uiService.OpenUi<BattleRoyaleSpectateScreenPresenter, BattleRoyaleSpectateScreenPresenter.StateData>(data);
+			
+			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
+		}
+
+		private void CloseSpectateScreen()
+		{
+			_uiService.CloseUi<BattleRoyaleSpectateScreenPresenter>();
+		}
+
 		private void PublishMatchStarted()
 		{
 			_services.MessageBrokerService.Publish(new MatchStartedMessage());
-		}
-		
-		private void SpectatorHud(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new BattleRoyaleSpectatorHudPresenter.StateData
-			{
-				Killer = _killer,
-				OnLeaveClicked = LeaveClicked
-			};
-			
-			_uiService.OpenUi<BattleRoyaleSpectatorHudPresenter, BattleRoyaleSpectatorHudPresenter.StateData>(data);
-
-			void LeaveClicked()
-			{
-				cacheActivity.Complete();
-			}
-		}
-		
-		private void CloseSpectatorHud()
-		{
-			_uiService.CloseUi<BattleRoyaleSpectatorHudPresenter>();
 		}
 	}
 }

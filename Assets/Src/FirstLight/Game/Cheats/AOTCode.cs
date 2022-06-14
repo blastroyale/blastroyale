@@ -31,9 +31,8 @@ namespace FirstLight.Game.Cheats
 			var services = MainInstaller.Resolve<IGameServices>();
 			
 			services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
-			services.CommandService.ExecuteCommand(new EquipItemCommand());
+			services.CommandService.ExecuteCommand(new UpdateLoadoutCommand());
 			services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand());
-			services.CommandService.ExecuteCommand(new UnequipItemCommand());
 			services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand());
 		}
 	}

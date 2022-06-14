@@ -92,6 +92,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Trophies, new List<GameIdGroup>
+					{
+						GameIdGroup.Resource
+					}.AsReadOnly()
+				},
+				{
 					GameId.FloodCity, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -670,7 +676,8 @@ namespace Quantum
 					GameIdGroup.Resource, new List<GameId>
 					{
 						GameId.XP,
-						GameId.EquipmentXP
+						GameId.EquipmentXP,
+						GameId.Trophies
 					}.AsReadOnly()
 				},
 				{

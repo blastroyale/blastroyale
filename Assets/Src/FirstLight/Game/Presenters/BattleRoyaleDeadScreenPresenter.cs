@@ -1,12 +1,11 @@
 using System;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -17,27 +16,25 @@ namespace FirstLight.Game.Presenters
 	/// - Show the player's state that is currently spectating
 	/// - Leave the match
 	/// </summary>
-	public class BattleRoyaleSpectatorHudPresenter : AnimatedUiPresenterData<BattleRoyaleSpectatorHudPresenter.StateData>
+	public class BattleRoyaleDeadScreenPresenter : AnimatedUiPresenterData<BattleRoyaleDeadScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
 			public Action OnLeaveClicked;
+			public Action OnSpectateClicked;
 			public PlayerRef Killer;
 		}
-		
-		[SerializeField, Required] private Button _button;
+
+		[SerializeField, Required] private Button _leaveButton;
+		[SerializeField, Required] private Button _spectateButton;
 		[SerializeField, Required] private TextMeshProUGUI _killerText;
-		
-		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider; 
 
 		private void Awake()
 		{
-			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
-			_button.onClick.AddListener(OnLeavePressed);
+			_leaveButton.onClick.AddListener(OnLeavePressed);
+			_spectateButton.onClick.AddListener(OnSpectatePressed);
 		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -52,14 +49,19 @@ namespace FirstLight.Game.Presenters
 
 				killerName = data.GetPlayerName();
 			}
-			
-			
+
 			_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
+			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
 		}
 
 		private void OnLeavePressed()
 		{
 			Data.OnLeaveClicked();
+		}
+
+		private void OnSpectatePressed()
+		{
+			Data.OnSpectateClicked();
 		}
 	}
 }

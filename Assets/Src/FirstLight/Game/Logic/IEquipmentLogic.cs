@@ -37,6 +37,11 @@ namespace FirstLight.Game.Logic
 		/// <paramref name="slot"/> type.
 		/// </summary>
 		List<Equipment> FindInInventory(GameIdGroup slot);
+		
+		/// <summary>
+		/// Requests the currently equipped item for the given <paramref name="idGroup"/>
+		/// </summary>
+		UniqueId GetEquippedItemForSlot(GameIdGroup idGroup);
 
 		/// <summary>
 		/// Requests the information if the given <paramref name="itemId"/> is equipped
@@ -52,6 +57,16 @@ namespace FirstLight.Game.Logic
 		/// Requests the total amount of <paramref name="stat"/> granted by all currently equipped items.
 		/// </summary>
 		float GetTotalEquippedStat(StatType stat);
+
+		/// <summary>
+		/// Requests the percentage average of durability on all equipment in <paramref name="items"/>
+		/// </summary>
+		double GetDurabilityAveragePercentage(List<Equipment> items);
+		
+		/// <summary>
+		/// Requests the total amount of <paramref name="stat"/> granted for equipping inventory <paramref name="items"/>
+		/// </summary>
+		float GetTotalEquippedStat(StatType stat, List<UniqueId> items);
 
 		/// <summary>
 		/// Requests the remaining cooldown for item <paramref name="itemId"/>
@@ -84,13 +99,8 @@ namespace FirstLight.Game.Logic
 		bool RemoveFromInventory(UniqueId equipment);
 
 		/// <summary>
-		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
+		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
-		void Equip(UniqueId itemId);
-
-		/// <summary>
-		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
-		/// </summary>
-		void Unequip(UniqueId itemId);
+		void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout);
 	}
 }

@@ -41,7 +41,7 @@ namespace FirstLight.UiService
 		{
 			_uiService.CloseUi(this);
 		}
-
+		
 		internal void Init(IUiService uiService)
 		{
 			_uiService = uiService;

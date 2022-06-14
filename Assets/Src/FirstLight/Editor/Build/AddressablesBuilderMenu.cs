@@ -8,7 +8,7 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public static class AddressablesBuilderMenu
 	{
-		[MenuItem("First Light Games/Addressables/Build Addressables")]
+		[MenuItem("FLG/Build/Build Addressables")]
 		private static void BuildAddressables()
 		{
 			AddressableAssetSettings.BuildPlayerContent();

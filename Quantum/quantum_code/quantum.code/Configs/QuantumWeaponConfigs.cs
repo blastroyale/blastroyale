@@ -18,13 +18,15 @@ namespace Quantum
 		public uint MinAttackAngle;
 		public uint MaxAttackAngle;
 		public uint NumberOfShots;
+		public uint NumberOfBursts;
 		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;
 		public FP SplashDamageRatio;
 		public List<GameId> Specials;
-		
+		public FP InitialAttackCooldown;
+		public FP InitialAttackRampUpTime;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon

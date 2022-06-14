@@ -96,6 +96,7 @@ public class PlayerSetupService : IPlayerSetupService
 		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.Currencies.Add(GameId.CS, 0);
+		playerData.Currencies.Add(GameId.BLST, 0);
 		return playerData;
 	}
 }

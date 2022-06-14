@@ -15,14 +15,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
-		private IObservableDictionary<UniqueId, Equipment> _inventory;
-		public IObservableDictionaryReader<UniqueId, long> _insertionTimestamps;
-
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
+		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
+		private IObservableDictionary<UniqueId, Equipment> _inventory;
+		private IObservableDictionary<UniqueId, long> _insertionTimestamps;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -82,6 +81,42 @@ namespace FirstLight.Game.Logic
 
 			foreach (var id in _loadout.ReadOnlyDictionary.Values)
 			{
+				if (id == UniqueId.Invalid)
+				{
+					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
+					
+				}
+				value += GetItemStat(_inventory[id], stat);
+			}
+
+			return value;
+		}
+
+		public double GetDurabilityAveragePercentage(List<Equipment> items)
+		{
+			var currentNftDurabilities = (double) 0;
+			var maxNftDurabilities = (double) 0;
+			
+			foreach (var nft in items)
+			{
+				currentNftDurabilities += nft.Durability;
+				maxNftDurabilities += nft.MaxDurability;
+			}
+
+			return currentNftDurabilities / maxNftDurabilities;
+		}
+
+		public float GetTotalEquippedStat(StatType stat, List<UniqueId> items)
+		{
+			var value = 0f;
+			
+			foreach (var id in items)
+			{
+				if (id == UniqueId.Invalid)
+				{
+					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
+				}
+				
 				value += GetItemStat(_inventory[id], stat);
 			}
 
@@ -160,6 +195,7 @@ namespace FirstLight.Game.Logic
 		{
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
 			_inventory.Add(id, equipment);
+			_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
 			return id;
 		}
 
@@ -181,11 +217,40 @@ namespace FirstLight.Game.Logic
 			}
 
 			_inventory.Remove(equipment);
-
+			_insertionTimestamps.Remove(equipment);
+			GameLogic.UniqueIdLogic.RemoveId(equipment);
+			
 			return true;
 		}
 
-		public void Equip(UniqueId itemId)
+		public void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout)
+		{
+			foreach (var modifiedKvp in newLoadout)
+			{
+				UniqueId equippedInSlot = GetEquippedItemForSlot(modifiedKvp.Key);
+				
+				if (equippedInSlot != UniqueId.Invalid && modifiedKvp.Value == UniqueId.Invalid)
+				{
+					Unequip(equippedInSlot);
+				}
+				else if (modifiedKvp.Value != equippedInSlot)
+				{
+					Equip(modifiedKvp.Value);
+				}
+			}
+		}
+		
+		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
+		{
+			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
+			{
+				return UniqueId.Invalid;
+			}
+			
+			return _loadout.ReadOnlyDictionary[idGroup];
+		}
+
+		private void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
@@ -203,7 +268,7 @@ namespace FirstLight.Game.Logic
 			_loadout.Add(slot, itemId);
 		}
 
-		public void Unequip(UniqueId itemId)
+		private void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();

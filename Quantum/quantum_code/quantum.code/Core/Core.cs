@@ -729,7 +729,11 @@ namespace Quantum {
     }
 
     void DeserializeDynamicAssetDB(Byte[] bytes) {
-      _dynamicAssetDB.Deserialize(bytes, Context.AssetSerializer);
+      var assets = _dynamicAssetDB.Deserialize(bytes, Context.AssetSerializer);
+
+      foreach (var asset in assets) {
+        asset.Loaded(_dynamicAssetDB, Context.Allocator);
+      }
     }
 
     /// <summary>
@@ -835,6 +839,17 @@ namespace Quantum {
         }
       }
 
+      // physics states
+      if (Physics2D != null) {
+        printer.AddLine();
+        Physics2D.Print(printer);
+      }
+
+      if (Physics3D != null) {
+        printer.AddLine();
+        Physics3D.Print(printer);
+      }
+
       // heap state
       if ((dumpFlags & DumpFlag_NoHeap) != DumpFlag_NoHeap) {
         printer.AddLine();
@@ -842,7 +857,11 @@ namespace Quantum {
         Allocator.Heap.Print(_heap, printer);
       }
 
-      return printer.ToString();
+      // dump user data
+      var dump = printer.ToString();
+      DumpFrameUser(ref dump);
+
+      return dump;
     }
 
 
@@ -933,11 +952,9 @@ namespace Quantum {
     }
 
     public sealed override void Free() {
-      base.Free();
-
-      // 
-      FreeGen();
       FreeUser();
+      FreeGen();
+      base.Free();
     }
 
     [Obsolete("Use SystemIsEnabledSelf instead.")]
@@ -1225,7 +1242,7 @@ namespace Quantum {
 
       for (Int32 i = 0; i < PlayerCount; ++i) {
         var rpc = GetRawRpc(i);
-        if (rpc != null) {
+        if (rpc != null && rpc.Length > 0) {
           var flags = GetPlayerInputFlags(i);
           if ((flags & DeterministicInputFlags.Command) != DeterministicInputFlags.Command) {
             var playerDataOriginal = _playerData;
@@ -1833,40 +1850,49 @@ namespace Quantum {
     /// <summary>
     /// This option will trigger a Unity scene load during the Quantum start sequence.\n
     /// This might be convenient to start with but once the starting sequence is customized disable it and implement the scene loading by yourself.
+    /// "Previous Scene" refers to a scene name in Quantum Map.
     /// </summary>
+    [Tooltip("This option will trigger a Unity scene load during the Quantum start sequence.\nThis might be convenient to start with but once the starting sequence is customized disable it and implement the scene loading by yourself.\n\"Previous Scene\" refers to a scene name in Quantum Map.")]
     public AutoLoadSceneFromMapMode AutoLoadSceneFromMap = AutoLoadSceneFromMapMode.UnloadPreviousSceneThenLoad;
     /// <summary>
-    /// Configure how the client tracks the time to progress the Quantum simulation.
+    /// Configure how the client tracks the time to progress the Quantum simulation from the QuantumRunner class.
     /// </summary>
+    [Tooltip("Configure how the client tracks the time to progress the Quantum simulation from the QuantumRunner class.")]
     public SimulationUpdateTime DeltaTimeType = SimulationUpdateTime.Default;
     /// <summary>
     /// Define the max heap size for one page of memory the frame class uses for custom allocations like QList<> for example.
     /// </summary>
     /// <remarks>2^15 = 32.768 bytes</remarks>
     /// <remarks><code>TotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount</code></remarks>
+    [Tooltip("Define the max heap size for one page of memory the frame class uses for custom allocations like QList<> for example.\n\n2^15 = 32.768 bytes\nTotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount\n\nDefault is 15.")]
     public int HeapPageShift = 15;
     /// <summary>
     /// Define the max heap page count for memory the frame class uses for custom allocations like QList<> for example.
     /// </summary>
     /// <remarks><code>TotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount</code></remarks>
+    [Tooltip("Define the max heap page count for memory the frame class uses for custom allocations like QList<> for example.\n\nTotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount\n\nDefault is 256.")]
     public int HeapPageCount = 256;
     /// <summary>
     /// Sets extra heaps to allocate for a session in case you need to
     /// create 'auxiliary' frames than actually required for the simulation itself
     /// </summary>
+    [Tooltip("Sets extra heaps to allocate for a session in case you need to create 'auxiliary' frames than actually required for the simulation itself.\nDefault is 0.")]
     public int HeapExtraCount = 0;
     /// <summary>
     /// Override the number of threads used internally.
     /// </summary>
+    [Tooltip("Override the number of threads used internally.\nDefault is 2.")]
     public int ThreadCount = 2;
     /// <summary>
     /// How long to store checksumed verified frames. The are used to generate a frame dump in case of a checksum error happening. Not used in Replay and Local mode.
     /// </summary>
+    [Tooltip("How long to store checksumed verified frames.\nThe are used to generate a frame dump in case of a checksum error happening. Not used in Replay and Local mode.\nDefault is 3.")] 
     public FP ChecksumSnapshotHistoryLengthSeconds = 3;
     /// <summary>
     /// Additional options for checksum dumps, if the default settings don't provide a clear picture. 
     /// </summary>
     [EnumFlags]
+    [Tooltip("Additional options for checksum dumps, if the default settings don't provide a clear picture. ")]
     public SimulationConfigChecksumErrorDumpOptions ChecksumErrorDumpOptions;
   }
 
@@ -2313,7 +2339,7 @@ namespace Quantum {
           _commonSnapshotInterval = commonInterval;
           _checksumSnapshotBuffer = new DeterministicFrameRingBuffer(DeterministicFrameRingBuffer.GetSize(commonWindow, commonInterval));
           Log.Trace($"Snapshots: common buffer created with interval: {_commonSnapshotInterval}, window: {commonWindow}, capacity: {_checksumSnapshotBuffer.Capacity}");
-          return commonWindow;
+          return _checksumSnapshotBuffer.Capacity;
         } else {
           // shared buffer not possible
           Log.Warn($"Unable to create a shared buffer for checksumed frames and replay snapshots. This is not optimal. Check the documentation for details.");
@@ -3475,8 +3501,9 @@ namespace Quantum {
               _frameToOverride.Deserialize(FrameData);
               _frame = QTuple.Create(true, _frameToOverride);
               _overridenFrameData = originalFrameData;
-            } catch (System.Exception) {
+            } catch (System.Exception ex) {
               // revert to the old data
+              Log.Warn($"Failed to deserilize dump frame. The snapshot will appear as raw data.\n{ex}");
               _frameToOverride.Deserialize(originalFrameData);
             }
 
@@ -4040,6 +4067,20 @@ namespace Quantum.Prototypes {
   }
 }
 
+
+// Replay/InactiveTaskRunner.cs
+
+namespace Quantum {
+  public class InactiveTaskRunner : IDeterministicPlatformTaskRunner {
+    public void Schedule(Action[] delegates) { }
+
+    public void WaitForComplete() { }
+
+    public bool PollForComplete() {
+      return true;
+    }
+  }
+}
 
 // Replay/JsonAssetSerializerBase.cs
 
@@ -4798,7 +4839,7 @@ namespace Quantum {
     /// <param name="provider">Input provider</param>
     /// <param name="clientId">Optional client id</param>
     /// <param name="logInitForConsole">Optionally disable setting up the console as log output (required on the Quantum plugin)</param>
-    public void StartReplay(QuantumGame.StartParameters startParams, IDeterministicReplayProvider provider, string clientId = "server", bool logInitForConsole = true) {
+    public void StartReplay(QuantumGame.StartParameters startParams, IDeterministicReplayProvider provider, string clientId = "server", bool logInitForConsole = true, IDeterministicPlatformTaskRunner taskRunner = null) {
       DeterministicSessionArgs sessionArgs;
       sessionArgs.Mode = DeterministicGameMode.Replay;
       sessionArgs.Game = null;
@@ -4809,7 +4850,7 @@ namespace Quantum {
       sessionArgs.FrameData = null;
       sessionArgs.SessionConfig = null;
       sessionArgs.RuntimeConfig = null;
-      Start(startParams, sessionArgs, _sessionConfig.PlayerCount, clientId, logInitForConsole);
+      Start(startParams, sessionArgs, _sessionConfig.PlayerCount, clientId, logInitForConsole, taskRunner);
     }
 
     /// <summary>
@@ -4821,7 +4862,7 @@ namespace Quantum {
     /// <param name="initialTick">The tick that the frame data is based on</param>
     /// <param name="clientId">Optional client id</param>
     /// <param name="logInitForConsole">Optionally disable setting up the console as log output (required on the Quantum plugin)</param>
-    public void StartSpectator(QuantumGame.StartParameters startParams, ICommunicator networkCommunicator, byte[] frameData = null, int initialTick = 0, string clientId = "observer", bool logInitForConsole = true) {
+    public void StartSpectator(QuantumGame.StartParameters startParams, ICommunicator networkCommunicator, byte[] frameData = null, int initialTick = 0, string clientId = "observer", bool logInitForConsole = true, IDeterministicPlatformTaskRunner taskRunner = null) {
       DeterministicSessionArgs sessionArgs;
       sessionArgs.Mode = DeterministicGameMode.Spectating;
       sessionArgs.Game = null;
@@ -4832,7 +4873,7 @@ namespace Quantum {
       sessionArgs.FrameData = frameData;
       sessionArgs.SessionConfig = null;
       sessionArgs.RuntimeConfig = null;
-      Start(startParams, sessionArgs, 0, clientId, logInitForConsole);
+      Start(startParams, sessionArgs, 0, clientId, logInitForConsole, taskRunner);
     }
 
     /// <summary>
@@ -4843,7 +4884,7 @@ namespace Quantum {
     /// <param name="playerSlots">Number of player slots</param>
     /// <param name="clientId">Optional client id</param>
     /// <param name="logInitForConsole">Optionally disable setting up the console as log output (required on the Quantum plugin)</param>
-    public void Start(QuantumGame.StartParameters startParams, DeterministicSessionArgs sessionArgs, int playerSlots, string clientId = "server", bool logInitForConsole = true) {
+    public void Start(QuantumGame.StartParameters startParams, DeterministicSessionArgs sessionArgs, int playerSlots, string clientId = "server", bool logInitForConsole = true, IDeterministicPlatformTaskRunner taskRunner = null) {
       if (!_loadedAllStatics) {
         lock (_lock) {
           if (!_loadedAllStatics) {
@@ -4874,7 +4915,7 @@ namespace Quantum {
       info.Architecture = DeterministicPlatformInfo.Architectures.x86;
       info.RuntimeHost = DeterministicPlatformInfo.RuntimeHosts.PhotonServer;
       info.Runtime = DeterministicPlatformInfo.Runtimes.NetFramework;
-      info.TaskRunner = new DotNetTaskRunner();
+      info.TaskRunner = taskRunner ?? new DotNetTaskRunner();
 
       switch (Environment.OSVersion.Platform) {
         case PlatformID.Unix:

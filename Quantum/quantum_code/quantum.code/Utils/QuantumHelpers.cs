@@ -284,6 +284,15 @@ namespace Quantum
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, out FPVector3 correctedPosition)
 		{
 			var radius = FP._1_50;
+			return TryFindPosOnNavMesh(f, initialPosition, radius, out correctedPosition);
+		}
+
+		/// <summary>
+		/// Tries to find a closest position on NavMesh to <paramref name="initialPosition"/>
+		/// </summary>
+		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, FP radius, out FPVector3 correctedPosition)
+		{
+			
 			var navMesh = f.NavMesh;
 
 			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default, 

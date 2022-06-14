@@ -9,6 +9,7 @@ namespace Quantum
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
+		public static readonly int DROP_AMOUNT_ANGLES = 5;
 		public static readonly int BOT_DIFFICULTY_LEVEL = 1;
 
 		public static readonly string DeadEvent = "OnDead";

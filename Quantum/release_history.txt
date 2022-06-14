@@ -178,6 +178,349 @@ The navigation agent will move on the navmesh by default. But for better visual 
 
 ## RC2N
 
+### Build 1052 (Jun 13, 2022)
+
+**Bug Fixes**
+
+- Fixed: Removed extra empty line in `CodeGen.cs` before namespace when generating code on Mac
+- Fixed: `NavMesh.DataAsset` is not disposed after loading the data if the asset is dynamic
+
+### Build 1047 (Jun 01, 2022)
+
+**What's New**
+
+- Package.json for PhotonRealtime, allowing to move PhotonRealtime out of assets and into a local package
+
+**Bug Fixes**
+
+- Fixed: An issue when performing 3D CCD that could cause triangles in a static mesh to not be checked against
+- Fixed: Added missing profiler define `QUANTUM_PROFILER_ENABLED` to Debug and ReleaseProfiler configuration to be able to use the Quantum Task Profiler from the code project
+
+### Build 1045 (May 30, 2022)
+
+**What's New**
+
+- A `SessionContainer` can now be started with a different implementation of `IDeterministicPlatformTaskRunner` (defaults to built-in `DotNetTaskRunner`)
+
+**Changes**
+
+- The custom plugin sample now starts the `SessionContainer` with an `InactiveTaskRunner`, forcing the server simulation to run in single-thread despite the runtime config (scales better)
+
+### Build 1044 (May 27, 2022)
+
+**Bug Fixes**
+
+- Fixed: Errors when editing a NavMesh backed by Addressable data asset
+- Fixed: Properties that had `[HideInInspector]` added still taking up inspector space
+
+### Build 1043 (May 23, 2022)
+
+**Changes**
+
+- 2D Entity Prototypes can now draw the gizmos of custom polygon colliders that inherit from `PolygonCollider`
+
+### Build 1041 (May 18, 2022)
+
+**What's New**
+
+- Added options to change the default `SimulationConfig.Navigation.RawPathSize` and Allocation strategy: `Fixed` = fail to find larger paths, `Allocate` = grows the raw path array. This replaces `Navigation.Constants.RawPathSize` which has been marked as obsolete
+
+**Bug Fixes**
+
+- Fixed: An exception inside the pathfinding for huge paths
+- Fixed: An issue with `FindPathResult.Path.Index` causing the triangle indices to occasionally be wrong
+- Fixed: Drawing green path gizmo dots on top of larger magenta raw path dots
+
+### Build 1040 (May 16, 2022)
+
+**Bug Fixes**
+
+- Fixed: Default config assets (e.g. `DefaultCharacterController2D`, `DefaultNavMeshAgentConfig`, etc) now have their guids correctly reset to default values instead of new random guids if they are found with invalid guids during asset DB generation
+
+### Build 1039 (May 13, 2022)
+
+**Bug Fixes**
+
+- Fixed: "Retrieving array element that was out of bounds" error when inspecting an empty array in an asset
+
+### Build 1038 (May 11, 2022)
+
+**What's New**
+
+- Xml comments for `Quantum.Assert` and `PhotonDeterministic.Assert` methods
+
+### Build 1037 (May 10, 2022)
+
+**Bug Fixes**
+
+- Fixed: DynamicAssetDB fallbacks to static resource manager when disposing asset if possible
+
+### Build 1035 (May 04, 2022)
+
+**Changes**
+
+- 2D and 3D physics collider `Layer` fields are now get-set properties and check if values set are within the valid range
+
+### Build 1034 (May 03, 2022)
+
+**What's New**
+
+- Added `release-profiler` assemblies to make the Quantum Task Profiler available for "release" builds. It needs to be added manually when upgrading Quantum: Add another build configuration (ReleaseProfiler) and reference `assemblies/release-profiler/quantum.code.dll`
+
+**Changes**
+
+- Removed `quantum.console.runner` from the upgrade file `quantum_code.zip`, it will still be included in the SDK package
+
+**Bug Fixes**
+
+- Fixed: CodeGen: FP constants generation issues on some platforms
+
+### Build 1033 (May 02, 2022)
+
+**Improvements**
+
+- Improved the computation of 2D and 3D shape cast hit points by using the witness point of the shape being cast instead of the shape being hit
+
+### Build 1032 (Apr 28, 2022)
+
+**What's New**
+
+- Annotating `Quantum.Asserts` with `System.Diagnostics.CodeAnalysis.DoesNotReturn` attributes
+
+**Changes**
+
+- Minor changes on the inspector `PhotonServerSettingsEditor`
+
+### Build 1027 (Apr 25, 2022)
+
+**What's New**
+
+- Added `SimulationConfig` tooltips
+
+### Build 1026 (Apr 22, 2022)
+
+- This version fixes some issues in the avoidance algorithms and could lead to corrected but slightly different agent behavior, please make sure to check your agents still act as expected if you are using the avoidance feature
+
+**What's New**
+
+- `EntityViewUpdater.AutoFindMapData` - controls whether `EntityViewUpdater` will look for the current `MapData` with `FindObjectOfType` (true by default)
+
+**Bug Fixes**
+
+- Fixed: The navigation agent configuration option `Avoidance Can Reduce Speed` which did generate appropriate avoidance candidates but did not actually reduce the agents speed
+- Fixed: An issue with avoidance that could lead to non-reciprocal avoidance vectors for head-on agent collisions (only one agent did the avoidance instead of both)
+- Fixed: An issue that could cause an exception inside `Frame.UpdatePlayerData()` when running a replay
+
+### Build 1019 (Apr 21, 2022)
+
+**What's New**
+
+- Debug output which triangles cannot fit into a region
+
+### Build 1018 (Apr 20, 2022)
+
+**What's New**
+
+- New optimized overloads for `Navmesh.FindClosestTriangle()` that use the frame object to locate mailbox memory
+
+**Bug Fixes**
+
+- Fixed: Possible `DivideByZeroException` when performing a circle cast with a very small translation vector
+
+### Build 1017 (Apr 19, 2022)
+
+**What's New**
+
+- `GetActorIds` to retrieve all actors currently in a `DeterministicServer`
+- `Draw.Box` and `.WireBox` methods to the debug draw API
+
+### Build 1016 (Apr 14, 2022)
+
+**Changes**
+
+- `QString` and `QStringUtf8` types are now Unity-serializable
+
+**Bug Fixes**
+
+- Fixed: Json.NET-based asset serializer not being able to read/write fixed-size buffers
+
+### Build 1015 (Apr 12, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue in the pathfinder that could lead to slightly less efficient paths than possible
+
+### Build 1014 (Apr 11, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue in `FindPath()` that would result in a straight path through a navmesh region disregarding the region cost if the target is in lineofsight
+- Fixed: An issue that under some circumstances the navmesh region cost was not correctly applied for pathfinding
+
+### Build 1012 (Apr 05, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue with 2D and 3D Physics CCD that could sometimes cause collisions to not be detected when the objects were overlapping at the beginning of the movement
+
+### Build 1010 (Mar 30, 2022)
+
+**Improvements**
+
+- Marking `Navigation.LineOfSight` methods with `AggressiveInlining`
+- Removed Trace logs coming from Debug `PhotonDeterministic` dll, including "Adjusting clock" notifications
+
+### Build 1009 (Mar 29, 2022)
+
+**Improvements**
+
+- Exposed `GravityStrength` and `GravityNormalized` properties on 2D and 3D KCC config assets
+
+**Changes**
+
+- Removing explicit use of Newtonsoft Json `TypeNameHandling.Auto` which is not needed and poses a security thread when loading data from an untrusted source
+
+### Build 1008 (Mar 28, 2022)
+
+**Improvements**
+
+- Added world-space versions of `FPCollision.LineIntersectsAABB` methods and improved xml documentation
+
+### Build 1007 (Mar 25, 2022)
+
+**Bug Fixes**
+
+- Fixed: Too many heaps being created for some configuration of replay/checksum intervals
+
+### Build 1006 (Mar 24, 2022)
+
+**What's New**
+
+- `Map.ScenePath` and `Map.SceneGuid` (helpful when implementing custom scene loading)
+
+### Build 1005 (Mar 22, 2022)
+
+**Bug Fixes**
+
+- Fixed: Unused variable warning in Unity scripts
+- Fixed: Missing call to `DumpFrameUser` on `Frame.DumpFrame`
+
+### Build 1004 (Mar 21, 2022)
+
+**What's New**
+
+- Proper error messages on missing arguments when running codegen_unity tool (netcore)
+
+### Build 1003 (Mar 18, 2022)
+
+**Bug Fixes**
+
+- Fixed: Memory leak on the Frame heap when disposing a `QHashSet`
+
+### Build 1001 (Mar 16, 2022)
+
+**Bug Fixes**
+
+- Fixed: `AssetObject.Loaded` not being called for assets deserialize from snapshot
+- Fixed: Loading of dynamic assets from `AssetObject.Loaded`
+
+### Build 1000 (Mar 15, 2022)
+
+**What's New**
+
+- 2D `PolygonShape` now carries information about the polygon's centroid
+- Frame Dumps now include 2D and/or 3D Physics Engine states
+
+**Bug Fixes**
+
+- Fixed: Issue in the serialization of the 2D and 3D Physics Engines state
+
+### Build 999 (Mar 11, 2022)
+
+**Bug Fixes**
+
+- Fixed: Issue in 2D and 3D physics scene initialization logic, which could set wrong world settings when initializing from a snapshot (e.g. late-joins, replays)
+
+### Build 998 (Mar 09, 2022)
+
+**What's New**
+
+- "Addressables: Use WaitForCompletion" Quantum setting - enabling it adds QUANTUM_ADDRESSABLES_USE_WAIT_FOR_COMPLETION define and let's Quantum use AsyncOperationHandle.WaitForCompletion (Addressables 1.17+) to load Addressable assets synchronously
+
+### Build 997 (Mar 08, 2022)
+
+**Bug Fixes**
+
+- Fixed: An error in navmesh steering that was introduced by build Build 969 which resulted in drifting agents
+- Fixed: Server snapshots on the custom plugin sample require to overload `OnDeterministicSnapshotRequested()`
+
+### Build 995 (Mar 07, 2022)
+
+**Bug Fixes**
+
+- Fixed: Possible div0 exception in Navigation Avoidance calculation
+
+### Build 994 (Mar 03, 2022)
+
+**What's New**
+
+- StateInspector: "Clear" button
+- StateInspector: "Remove Other Runners" context menu item
+
+**Bug Fixes**
+
+- Fixed: A couple unused field warnings
+
+### Build 993 (Mar 02, 2022)
+
+**What's New**
+
+- StateInspector & FrameDump support for QString and QBoolean pretty-print
+
+**Bug Fixes**
+
+- Fixed: Invalid property path in OptionalAttribute breaking the inspector
+
+### Build 992 (Mar 01, 2022)
+
+**What's New**
+
+- An overload of `MapNavMeshBaker.BakeNavMesh()` that uses `Map` instead of `MapData`
+
+### Build 991 (Feb 28, 2022)
+
+**Bug Fixes**
+
+- Fixed: Calling `NavMeshPathfinder.SetTarget()` with the same position will now reactivate stopped agents
+
+### Build 990 (Feb 25, 2022)
+
+**What's New**
+
+- CodeGen: EOL for Unity scripts can now be controlled with "EndOfLineCharacters" DLL config setting. To enforce crlf (Windows style) use `<add key="EndOfLineCharacters" value="&#13;&#10;"/>`, to enforce lf (Linux style) use `<add key="EndOfLineCharacters" value="&#10;"/>`
+
+**Bug Fixes**
+
+- Fixed: CodeGen: invalid align/offsets for collection-backing pointers in case of element's align not being equal to 4
+
+### Build 989 (Feb 24, 2022)
+
+**What's New**
+
+- CodeGen: Support for namespace-qualified attributes in Qtn
+
+**Changes**
+
+- A warning is emit if Quantum fails to deserialize received frame dump
+- CodeGen: `Quantum.Ptr` fields now use namespace-qualified type name
+
+### Build 988 (Feb 23, 2022)
+
+**Bug Fixes**
+
+- Fixed: `Frame.FreeUser` being called after `FrameBase.Free`, which disposes the Heap memory
+- Fixed: 2D and 3D Physics engines' `Init` methods now ensure that world and bucket sizes are initialized with valid values, avoiding `DivideByZeroException`
+
 ### Build 987 (Feb 18, 2022)
 
 **Bug Fixes**

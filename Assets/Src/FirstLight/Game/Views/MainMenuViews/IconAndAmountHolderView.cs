@@ -12,6 +12,10 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	/// <summary>
+	/// Handles showing an amount, tooltip, and an icon per gameID basis.
+	/// Icon is not loaded in this class to allow for easier art adjustments - change icon in prefab
+	/// </summary>
 	public class IconAndAmountHolderView : MonoBehaviour
 	{
 		[SerializeField, Required] private Transform _tooltipAnchor;

@@ -38,6 +38,16 @@ namespace Quantum
 			var angle = targetAttackAngle / FP._2;
 			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
 
+			//only do attackSpeed ramping if the weapon has it
+			var RampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
+			if (weaponConfig.InitialAttackRampUpTime != FP._0)
+			{
+				var timeDiff = f.Time - RampUpStartTime;
+				var CurrentAttackCooldown = FPMath.Lerp(weaponConfig.InitialAttackCooldown, weaponConfig.AttackCooldown, 
+					timeDiff / weaponConfig.InitialAttackRampUpTime);
+				bb->Set(f, nameof(weaponConfig.AttackCooldown), CurrentAttackCooldown);
+			}
+
 			var raycastShot = new RaycastShots
 			{
 				Attacker = e,

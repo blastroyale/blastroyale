@@ -56,7 +56,7 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the editor for Development build configuration
 		/// </summary>
-		[MenuItem("First Light Games/Configure/Development Build")]
+		[MenuItem("FLG/Configure/Development Build")]
 		public static void SetupDevelopmentConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
@@ -88,7 +88,7 @@ namespace FirstLight.Editor.Build
 		/// Setups the editor for Release build configuration
 		/// Release build means it is a candidate for the store but using development SKUs
 		/// </summary>
-		[MenuItem("First Light Games/Configure/Release Build")]
+		[MenuItem("FLG/Configure/Release Build")]
 		public static void SetupReleaseConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
@@ -119,7 +119,7 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the editor for store build configuration
 		/// </summary>
-		[MenuItem("First Light Games/Configure/Store Build")]
+		[MenuItem("FLG/Configure/Store Build")]
 		public static void SetupStoreConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = true;
@@ -163,7 +163,7 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the Firebase config files to the current system build config
 		/// </summary>
-		[MenuItem("First Light Games/Setup Firebase")]
+		[MenuItem("FLG/Setup Firebase")]
 		public static void SetupFirebase()
 		{
 			SetupDevelopmentConfig();

@@ -50,6 +50,7 @@ namespace FirstLight.Game.Presenters
 		private bool _loadedCoreMatchAssets;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
+		private bool IsMatchmakingRoom => _services.NetworkService.IsCurrentRoomForMatchmaking;
 
 		private void Awake()
 		{
@@ -98,7 +99,7 @@ namespace FirstLight.Game.Presenters
 			MapSelectionView.SetupMapView(room.GetMapId());
 			_playerListHolder.WipeAllSlots();
 
-			if (room.IsVisible)
+			if (IsMatchmakingRoom)
 			{
 				_playerListHolder.gameObject.SetActive(false);
 				_playerMatchmakingRootObject.SetActive(true);
@@ -136,7 +137,7 @@ namespace FirstLight.Game.Presenters
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
 			// For custom games, only show leave room button if we are not loading straight into the match (if host locked room while we were loading)
-			if (!CurrentRoom.IsVisible && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+			if (!IsMatchmakingRoom && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
 			{
 				_loadingText.SetActive(false);
 				_leaveRoomButton.gameObject.SetActive(true);
@@ -144,7 +145,7 @@ namespace FirstLight.Game.Presenters
 			
 			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsVisible)
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom)
 			{
 				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
 				_lockRoomButton.gameObject.SetActive(true);
@@ -214,7 +215,7 @@ namespace FirstLight.Game.Presenters
 		{
 			AddOrUpdatePlayerInListHolder(newMasterClient, ScriptLocalization.AdventureMenu.ReadyStatusHost);
 			
-			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsVisible && newMasterClient.IsLocal && _loadedCoreMatchAssets)
+			if (!IsMatchmakingRoom && newMasterClient.IsLocal && _loadedCoreMatchAssets)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggle.gameObject.SetActive(true);
@@ -223,7 +224,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void AddOrUpdatePlayerInListHolder(Player player, string status)
 		{
-			if (!CurrentRoom.IsVisible)
+			if (!IsMatchmakingRoom)
 			{
 				_playerListHolder.AddOrUpdatePlayer(player.NickName, status, player.IsLocal, player.IsMasterClient);
 			}
@@ -276,7 +277,7 @@ namespace FirstLight.Game.Presenters
 			_leaveRoomButton.gameObject.SetActive(false);
 			_botsToggle.gameObject.SetActive(false);
 
-			if (CurrentRoom.IsVisible)
+			if (IsMatchmakingRoom)
 			{
 				_getReadyToRumbleText.gameObject.SetActive(true);
 				_playersFoundText.gameObject.SetActive(false);

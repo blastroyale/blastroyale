@@ -24,7 +24,6 @@ namespace FirstLight.Game.Commands
 		public PlayerRef LocalPlayerRef;
 		public bool DidPlayerQuit;
 		public bool PlayedMatchmakingGame;
-		public GameMode PlayedGameMode;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
@@ -32,8 +31,9 @@ namespace FirstLight.Game.Commands
 			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			var trophyChange = 0;
 			var rewards = new List<RewardData>();
-			
-			if (PlayedMatchmakingGame && PlayedGameMode == GameMode.BattleRoyale)
+			var gameMode = gameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(PlayersMatchData[0].MapId).GameMode;
+
+			if (PlayedMatchmakingGame && gameMode == GameMode.BattleRoyale)
 			{
 				trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net;
+using System.Net.Http;
 using FirstLight.FLogger;
 using FirstLight.Game;
 using FirstLight.Game.Data;
@@ -47,6 +49,11 @@ public partial class SROptions
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
 		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
 
+		var deletionUrl =
+			$"https://devmarketplaceapi.azure-api.net/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";
+		var task = new HttpClient().DeleteAsync(deletionUrl);
+		task.Wait();
+		FLog.Info("Wallet unlinked from marketplace");
 		void Result(PlayFab.AdminModels.UpdateUserDataResult result)
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");

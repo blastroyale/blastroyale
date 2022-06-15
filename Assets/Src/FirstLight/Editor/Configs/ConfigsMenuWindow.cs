@@ -74,38 +74,37 @@ namespace FirstLight.Editor.Configs
 
 				var importer = selected == null ? null : GetImporter(selected.Value.GetType());
 
-				if (importer != null)
+				if (importer != null && SirenixEditorGUI.ToolbarButton(new GUIContent("Import")))
 				{
-					if (SirenixEditorGUI.ToolbarButton(new GUIContent("Import")))
-					{
-						var url = importer.GoogleSheetUrl.Replace("edit#", "export?format=csv&");
-						var request = UnityWebRequest.Get(url);
+					var url = importer.GoogleSheetUrl.Replace("edit#", "export?format=csv&");
+					var request = UnityWebRequest.Get(url);
 
-						// TODO: Would be nice to disable the Import button while this is running.
-						request.SendWebRequest().completed += d =>
-						{
-							if (request.result != UnityWebRequest.Result.Success)
-							{
-								throw new Exception(request.error);
-							}
-
-							var values = CsvParser.ConvertCsv(request.downloadHandler.text);
-
-							if (values.Count == 0)
-							{
-								Debug.Log($"The return sheet was not in CSV format:\n{request.downloadHandler.text}");
-							}
-							else
-							{
-								importer.Import(values);
-							}
-
-							Debug.Log($"Finished importing google sheet data from {selected.Value.GetType().Name}");
-						};
-					}
+					// TODO: Would be nice to disable the Import button while this is running.
+					request.SendWebRequest().completed += d => { ProcessRequest(request, importer); };
 				}
 			}
 			SirenixEditorGUI.EndHorizontalToolbar();
+		}
+
+		private void ProcessRequest(UnityWebRequest request, IGoogleSheetConfigsImporter importer)
+		{
+			if (request.result != UnityWebRequest.Result.Success)
+			{
+				Debug.LogError($"Request failed: {request.error}");
+			}
+
+			var values = CsvParser.ConvertCsv(request.downloadHandler.text);
+
+			if (values.Count == 0)
+			{
+				Debug.Log($"The return sheet was not in CSV format:\n{request.downloadHandler.text}");
+			}
+			else
+			{
+				importer.Import(values);
+			}
+
+			Debug.Log($"Finished importing google sheet data from {importer.GetType().Name}");
 		}
 
 		private IGoogleSheetConfigsImporter GetImporter(Type type)

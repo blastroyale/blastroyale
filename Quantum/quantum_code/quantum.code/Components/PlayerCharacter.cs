@@ -325,11 +325,15 @@ namespace Quantum
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 
+			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
+			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
+			
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
 			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
 		}
 

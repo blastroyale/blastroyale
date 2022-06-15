@@ -36,21 +36,16 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
 		
-		private readonly IGameDataProvider _dataProvider;
-		private readonly IAppLogic _appLogic;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
-		public AuthenticationState(IGameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
-		                           IDataService dataService, IGameBackendNetworkService networkService, 
-		                           Action<IStatechartEvent> statechartTrigger)
+		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
+		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = gameLogic;
-			_appLogic = gameLogic.AppLogic;
 			_uiService = uiService;
 			_dataService = dataService;
 			_networkService = networkService;
@@ -67,7 +62,7 @@ namespace FirstLight.Game.StateMachines
 			var login = stateFactory.State("Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var register = stateFactory.State("Register");
-			var authLogin = stateFactory.Wait("Authentication Login");
+			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
 			var finalSteps = stateFactory.Wait("Final Authentication Steps");
 
@@ -285,7 +280,7 @@ namespace FirstLight.Game.StateMachines
 			
 			void OnLinkSuccess()
 			{
-				_appLogic.AccountLinkedStatus.Value = true;
+				_dataService.GetData<AppData>().LinkedDevice = true;
 			}
 		}
 
@@ -380,14 +375,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLoginSuccess(LoginResult result)
 		{
-			if (!_dataService.GetData<AppData>().LinkedDevice)
+			var appData = _dataService.GetData<AppData>();
+			
+			if (!appData.LinkedDevice)
 			{
 				LinkDeviceID();
 			}
 			
-			_appLogic.LinkedEmail.Value = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			
 			ProcessAuthentication(result);
+
+			_statechartTrigger(_loginCompletedEvent);
 		}
 
 		private void RegisterClicked(string email, string username, string password)

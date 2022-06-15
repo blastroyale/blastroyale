@@ -37,18 +37,20 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
 		
 		private readonly IGameDataProvider _dataProvider;
+		private readonly IAppLogic _appLogic;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
-		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService, 
+		public AuthenticationState(IGameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                           IDataService dataService, IGameBackendNetworkService networkService, 
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = dataProvider;
+			_dataProvider = gameLogic;
+			_appLogic = gameLogic.AppLogic;
 			_uiService = uiService;
 			_dataService = dataService;
 			_networkService = networkService;
@@ -283,7 +285,7 @@ namespace FirstLight.Game.StateMachines
 			
 			void OnLinkSuccess()
 			{
-				_dataProvider.AppDataProvider.SetDeviceLinkedStatus(true);
+				_appLogic.AccountLinkedStatus.Value = true;
 			}
 		}
 
@@ -383,7 +385,7 @@ namespace FirstLight.Game.StateMachines
 				LinkDeviceID();
 			}
 			
-			_dataProvider.AppDataProvider.SetLastLoginEmail(result.InfoResultPayload.AccountInfo.PrivateInfo.Email);
+			_appLogic.LinkedEmail.Value = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			
 			ProcessAuthentication(result);
 		}

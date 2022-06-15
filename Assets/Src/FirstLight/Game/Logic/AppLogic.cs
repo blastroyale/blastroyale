@@ -44,11 +44,6 @@ namespace FirstLight.Game.Logic
 		/// Is high res mode on device enabled?
 		/// </summary>
 		AppData.DetailLevel CurrentDetailLevel { get; set; }
-		
-		/// <summary>
-		/// Marks the date when the game was last time reviewed
-		/// </summary>
-		void MarkGameAsReviewed();
 
 		/// <summary>
 		/// Requests the player's Nickname
@@ -59,6 +54,22 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's Nickname
 		/// </summary>
 		IObservableFieldReader<string> NicknameId { get; }
+		
+		/// <summary>
+		/// Requests current status device if has a linked account already configured or not
+		/// </summary>
+		IObservableFieldReader<bool> AccountLinkedStatus { get; }
+		
+		/// <summary>
+		/// Requests current linked account's email with this device
+		/// </summary>
+		IObservableFieldReader<string> LinkedEmail { get; }
+		
+		/// <summary>
+		/// Requests current selected game mode
+		/// Marks the date when the game was last time reviewed
+		/// </summary>
+		IObservableField<GameMode> SelectedGameMode { get; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
@@ -66,9 +77,9 @@ namespace FirstLight.Game.Logic
 		void SetDetailLevel(AppData.DetailLevel highRes);
 		
 		/// <summary>
-		/// Requests current selected game mode
+		/// Marks the date when the game was last time reviewed
 		/// </summary>
-		IObservableField<GameMode> SelectedGameMode { get; }
+		void MarkGameAsReviewed();
 	}
 
 	/// <inheritdoc />
@@ -78,6 +89,16 @@ namespace FirstLight.Game.Logic
 		/// Requests and sets player nickname
 		/// </summary>
 		new IObservableField<string> NicknameId { get; }
+		
+		/// <summary>
+		/// Requests and sets current status device if has a linked account already configured or not
+		/// </summary>
+		new IObservableField<bool> AccountLinkedStatus { get; }
+		
+		/// <summary>
+		/// Requests and sets current linked account's email with this device
+		/// </summary>
+		new IObservableField<string> LinkedEmail { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -144,13 +165,20 @@ namespace FirstLight.Game.Logic
 			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
 
 		/// <inheritdoc />
-		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
-
-		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		/// <inheritdoc />
+		public IObservableField<bool> AccountLinkedStatus { get; private set; }
+		/// <inheritdoc />
+		public IObservableField<string> LinkedEmail { get; private set; }
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+		/// <inheritdoc />
+		IObservableFieldReader<bool> IAppDataProvider.AccountLinkedStatus => AccountLinkedStatus;
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.LinkedEmail => LinkedEmail;
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -163,20 +191,10 @@ namespace FirstLight.Game.Logic
 		{
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
-			NicknameId = new ObservableField<string>(Data.NickNameId);
+			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
+			LinkedEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, name => Data.LastLoginEmail = name);
+			AccountLinkedStatus = new ObservableResolverField<bool>(() => Data.LinkedDevice, linked => Data.LinkedDevice = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
-			SelectedGameMode = new ObservableField<string>(GameMode.BattleRoyale);
-			SelectedGameMode = new ObservableField<bool>(GameMode.BattleRoyale);
-		}
-		
-		public void SetDeviceLinkedStatus(bool linked)
-		{
-			Data.LinkedDevice = linked;
-		}
-
-		public void SetLastLoginEmail(string email)
-		{
-			Data.LastLoginEmail = email;
 		}
 
 		/// <inheritdoc />

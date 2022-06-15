@@ -29,17 +29,17 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("Left Room Event");
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("Room Closed Event");
 		
-		private readonly IGameServices _services;
-		private readonly IGameLogic _gameLogic;
+		private readonly IGameServices _services; 
+		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
-		public NetworkState(IGameLogic gameLogic, IGameServices services,
+		public NetworkState(IGameDataProvider gameLogic, IGameServices services,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_gameLogic = gameLogic;
+			_gameDataProvider = gameLogic;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
 			_networkService.QuantumClient.AddCallbackTarget(this);
@@ -268,11 +268,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
 		{
 			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
-			var nftCount = MainMenuState._gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
+			var nftCount = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
 			
 			if(nftCount >= nftAmountForPlay)
 			{
-				var mapConfig = NetworkUtils.GetRotationMapConfig(_gameLogic.AppDataProvider.SelectedGameMode.Value, _services);
+				var mapConfig = NetworkUtils.GetRotationMapConfig(_gameDataProvider.AppDataProvider.SelectedGameMode.Value, _services);
 				StartRandomMatchmaking(mapConfig);
 			}
 			
@@ -387,7 +387,7 @@ namespace FirstLight.Game.StateMachines
 			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
 			
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameLogic.AppDataProvider.Nickname);
+			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.Nickname);
 		}
 
 		private void LeaveRoom()
@@ -402,17 +402,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_networkService.QuantumClient.NickName = _gameLogic.AppDataProvider.Nickname;
+			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.Nickname;
 			
 			var preloadIds = new List<int>();
 			
-			foreach (var item in _gameLogic.EquipmentDataProvider.Loadout)
+			foreach (var item in _gameDataProvider.EquipmentDataProvider.Loadout)
 			{
-				var equipmentDataInfo = _gameLogic.EquipmentDataProvider.Inventory[item.Value];
+				var equipmentDataInfo = _gameDataProvider.EquipmentDataProvider.Inventory[item.Value];
 				preloadIds.Add((int) equipmentDataInfo.GameId);
 			}
 
-			preloadIds.Add((int) _gameLogic.PlayerDataProvider.CurrentSkin.Value);
+			preloadIds.Add((int) _gameDataProvider.PlayerDataProvider.CurrentSkin.Value);
 			
 			var playerProps = new Hashtable
 			{

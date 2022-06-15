@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Editor.EditorTools;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Utils;
 using FirstLight.GoogleSheetImporter;
 using FirstLightEditor.GoogleSheetImporter;
-using Photon.Deterministic;
 using Quantum;
 using GameConfigs = FirstLight.Game.Configs.GameConfigs;
 
@@ -33,8 +30,7 @@ namespace FirstLight.Editor.SheetImporters
 				
 				var value = CsvParser.DeserializeObject(row["Value"], field.FieldType, 
 				                                        QuantumDeserializer.FpDeserializer, 
-				                                        QuantumDeserializer.QuantumGameModePairDeserializer, 
-				                                        QuantumDeserializer.SerializedDictionaryDeserializer);
+				                                        QuantumDeserializer.QuantumGameModePairDeserializer);
 				
 				field.SetValue(config, value);
 			}

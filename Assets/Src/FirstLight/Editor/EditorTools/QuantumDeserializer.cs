@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FirstLight.GoogleSheetImporter;
 using Photon.Deterministic;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Editor.EditorTools
 {
@@ -15,16 +14,7 @@ namespace FirstLight.Editor.EditorTools
 		/// <inheritdoc cref="CsvParser.DeserializeTo{T}" />
 		public static T DeserializeTo<T>(Dictionary<string, string> data)
 		{
-			return CsvParser.DeserializeTo<T>(data, FpDeserializer, QuantumGameModePairDeserializer, SerializedDictionaryDeserializer);
-		}
-		
-		/// <inheritdoc cref="CsvParser.Parse" />
-		/// <remarks>
-		/// It allows to parse <see cref="UnitySerializedDictionary{TKey, TValue}"/> types
-		/// </remarks>
-		public static object SerializedDictionaryDeserializer(string data, Type type)
-		{
-			return null;
+			return CsvParser.DeserializeTo<T>(data, FpDeserializer, QuantumGameModePairDeserializer);
 		}
 
 		/// <inheritdoc cref="CsvParser.Parse" />

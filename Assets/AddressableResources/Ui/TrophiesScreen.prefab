@@ -1193,7 +1193,6 @@ GameObject:
   - component: {fileID: 7407234386071146110}
   - component: {fileID: 4189061318897006377}
   - component: {fileID: 1702178146529788210}
-  - component: {fileID: 6238388434249025278}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1278,26 +1277,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &6238388434249025278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7706559959449968372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e15fc2ac7d1c2844af655c2f7f65454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 4189061318897006377}
-  _animation: {fileID: 1702178146529788210}
-  _appearAnimationClip: {fileID: 7400000, guid: eb4961303d7af41d892a19871aa00c53, type: 2}
-  _holdAnimationClip: {fileID: 7400000, guid: a3227110c08864561b37950f11d92863, type: 2}
-  _unpackAnimationClip: {fileID: 7400000, guid: 7e3ec064012154425b9217b0d78192af, type: 2}
-  _summaryAnimationClip: {fileID: 7400000, guid: 2a2977fc7fa8bce44b86a5c41639b609, type: 2}
-  _quantityText: {fileID: 0}
-  _itemNameText: {fileID: 0}
 --- !u!1 &8520216485243468431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,7 +1424,6 @@ GameObject:
   - component: {fileID: 1958682027506817485}
   - component: {fileID: 7458280044050237363}
   - component: {fileID: 6532526284840745634}
-  - component: {fileID: 8875295711779086564}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1530,26 +1508,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &8875295711779086564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8565669101136139481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e15fc2ac7d1c2844af655c2f7f65454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 7458280044050237363}
-  _animation: {fileID: 6532526284840745634}
-  _appearAnimationClip: {fileID: 7400000, guid: eb4961303d7af41d892a19871aa00c53, type: 2}
-  _holdAnimationClip: {fileID: 7400000, guid: a3227110c08864561b37950f11d92863, type: 2}
-  _unpackAnimationClip: {fileID: 7400000, guid: 7e3ec064012154425b9217b0d78192af, type: 2}
-  _summaryAnimationClip: {fileID: 7400000, guid: 2a2977fc7fa8bce44b86a5c41639b609, type: 2}
-  _quantityText: {fileID: 0}
-  _itemNameText: {fileID: 0}
 --- !u!1001 &5362112794192233022
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,6 +56,7 @@ namespace I2.Loc
 			public static string YouDied 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouDied"); } }
 			public static string YouKilledPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouKilledPlayer"); } }
 			public static string YourLoot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YourLoot"); } }
+			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
 		}
 
 		public static class BotNames
@@ -841,6 +842,7 @@ namespace I2.Loc
 		    public const string YouDied = "AdventureMenu/YouDied";
 		    public const string YouKilledPlayer = "AdventureMenu/YouKilledPlayer";
 		    public const string YourLoot = "AdventureMenu/YourLoot";
+		    public const string GetReady = "AdventureMenu/GetReady";
 		}
 
 		public static class BotNames

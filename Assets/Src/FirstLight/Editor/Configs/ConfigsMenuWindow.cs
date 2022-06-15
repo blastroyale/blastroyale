@@ -37,7 +37,7 @@ namespace FirstLight.Editor.Configs
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			var tree = new OdinMenuTree(false);
-			tree.DrawSearchToolbar();
+			tree.Config.DrawSearchToolbar = true;
 
 			var gameConfigs = AssetDatabase.LoadAssetAtPath<GameConfigs>($"{ConfigsFolder}/GameConfigs.asset");
 			tree.AddObjectAtPath("Game Config", new QuantumConfigWrapper<GameConfigs, QuantumGameConfig>(gameConfigs));

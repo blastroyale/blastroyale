@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FirstLight.Game.Utils
+namespace FirstLight
 {
 	/// <summary>
 	/// Unity does not support Dictionary serialization out of the box, but by
@@ -12,6 +13,7 @@ namespace FirstLight.Game.Utils
 	/// IMPORTANT: Because Unity does not serialize generic types, it is necessary to make a concrete
 	/// Dictionary type by inheriting from the UnitySerializedDictionary.
 	/// </summary>
+	[Serializable]
 	public abstract class UnitySerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>,
 	                                                                ISerializationCallbackReceiver
 	{

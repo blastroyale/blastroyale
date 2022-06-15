@@ -380,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: c98b5b2dda8194fea80394cc5644d807, type: 3}
     - target: {fileID: 4934650666755714959, guid: 6fadeb48e1dcb442f8d7df00419ef62a, type: 3}
       propertyPath: m_Name
-      value: BLST
+      value: IconAndAmountHolder_BLST
       objectReference: {fileID: 0}
     - target: {fileID: 5488591581994639960, guid: 6fadeb48e1dcb442f8d7df00419ef62a, type: 3}
       propertyPath: m_Name
@@ -604,7 +604,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 8436caf049f694e0e90efc3dec3f9d96, type: 3}
     - target: {fileID: 4934650666755714959, guid: 6fadeb48e1dcb442f8d7df00419ef62a, type: 3}
       propertyPath: m_Name
-      value: Trophies
+      value: IconAndAmountHolder_Trophies
       objectReference: {fileID: 0}
     - target: {fileID: 5488591581994639960, guid: 6fadeb48e1dcb442f8d7df00419ef62a, type: 3}
       propertyPath: m_Name

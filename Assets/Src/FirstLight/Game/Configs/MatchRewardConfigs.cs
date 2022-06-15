@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
@@ -10,7 +9,7 @@ namespace FirstLight.Game.Configs
 	public struct MatchRewardConfig
 	{
 		public short Placement;
-		public List<Pair<GameId, uint>> Rewards;
+		public GameIdUintDictionary Rewards;
 	}
 
 	/// <summary>
@@ -28,5 +27,10 @@ namespace FirstLight.Game.Configs
 			get => _configs;
 			set => _configs = value;
 		}
+	}
+
+	[Serializable]
+	public class GameIdUintDictionary : UnitySerializedDictionary<GameId, uint>
+	{
 	}
 }

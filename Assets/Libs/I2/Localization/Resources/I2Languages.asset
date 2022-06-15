@@ -5158,14 +5158,21 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Go to the safe Area!
+      - Go to the safe area!
       Flags: 00
       Languages_Touch: []
     - Term: AdventureMenu/AreaShrinking
       TermType: 0
       Description: 
       Languages:
-      - Area Shrinking!
+      - Area shrinking!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/GetReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Get ready!
       Flags: 00
       Languages_Touch: []
     - Term: AdventureMenu/ContendersRemaining
@@ -5203,6 +5210,13 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/StatShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5215,7 +5229,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1655215209055
+    Google_LastUpdatedVersion: 1655308866563
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

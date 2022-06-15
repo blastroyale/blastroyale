@@ -48,6 +48,9 @@
       <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.SharedInternalsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\UnityLib\UnityEngine.SharedInternalsModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
     <ItemGroup>
       <None Remove="config.yml" />

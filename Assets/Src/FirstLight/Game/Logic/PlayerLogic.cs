@@ -216,7 +216,8 @@ namespace FirstLight.Game.Logic
 			var localPlayerData = players[localPlayer];
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			
-			players.SortByPlayerRank(false);
+			var tempPlayers = new List<QuantumPlayerMatchData>(players);
+			tempPlayers.SortByPlayerRank(false);
 
 			var trophyChange = 0d;
 

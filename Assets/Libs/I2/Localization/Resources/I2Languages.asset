@@ -5210,6 +5210,13 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/StatShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5222,7 +5229,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1655237717884
+    Google_LastUpdatedVersion: 1655308866563
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

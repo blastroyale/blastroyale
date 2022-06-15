@@ -14,6 +14,19 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
+		public override void OnDisabled(Frame f)
+		{
+			foreach (var spell in f.GetComponentIterator<Spell>())
+			{
+				f.Destroy(spell.Entity);
+			}
+			foreach (var stat in f.GetComponentIterator<Stats>())
+			{
+				f.ResolveList(stat.Component.SpellEffects).Clear();
+			}
+		}
+
+		/// <inheritdoc />
 		public override void Update(Frame f, ref SpellFilter filter)
 		{
 			if (f.Time > filter.Spell->EndTime)

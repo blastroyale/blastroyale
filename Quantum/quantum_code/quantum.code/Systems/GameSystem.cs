@@ -26,13 +26,14 @@ namespace Quantum.Systems
 			f.SystemDisable(typeof(PlayerCharacterSystem));
 			f.SystemDisable(typeof(ProjectileSystem));
 			f.SystemDisable(typeof(HazardSystem));
+			f.SystemDisable(typeof(SpellSystem));
 			f.SystemDisable(typeof(ShrinkingCircleSystem));
 		}
 
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.TryGet<PlayerCharacter>(entity, out var player))
+			if (!f.Has<PlayerCharacter>(entity))
 			{
 				return;
 			}

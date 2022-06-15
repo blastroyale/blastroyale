@@ -109,7 +109,7 @@ namespace Quantum
 			if (CurrentShield != previousShield)
 			{
 				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
-				                                currentShieldCapacity);
+				                         currentShieldCapacity, currentShieldCapacity);
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace Quantum
 			AddModifier(f, capacityModifer);
 
 			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
-			                                newCapacityValue.AsInt);
+			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
 
 		/// <summary>
@@ -234,7 +234,7 @@ namespace Quantum
 				currentDamageAmount = Math.Max(currentDamageAmount - previousShield, 0);
 
 				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
-				                                currentShieldCapacity);
+				                         currentShieldCapacity, currentShieldCapacity);
 			}
 
 			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))

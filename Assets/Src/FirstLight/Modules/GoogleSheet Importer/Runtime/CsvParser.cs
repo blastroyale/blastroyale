@@ -88,11 +88,12 @@ namespace FirstLight.GoogleSheetImporter
 		/// <remarks>
 		/// It provides extra custom <paramref name="deserializers"/> to specific parsing
 		/// </remarks>
-		public static object DeserializeObject(string data, Type type, params Func<string, Type, object>[] deserializers)
+		public static object DeserializeObject(string data, Type type,
+		                                       params Func<string, Type, object>[] deserializers)
 		{
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
-			var unityDictionaryType = typeof(UnitySerializedDictionary<,>);
+			var unityDictionaryType = typeof(UnitySerializedDictionary<,>).GetGenericTypeDefinition();
 
 			if (type.IsArray)
 			{
@@ -104,20 +105,20 @@ namespace FirstLight.GoogleSheetImporter
 				return ArrayParse(data, type.GenericTypeArguments[0], deserializers);
 			}
 
+			if (type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition()
+			                                                                .IsAssignableFrom(unityDictionaryType))
+			{
+				var types = type.BaseType.GenericTypeArguments;
+				return DictionaryParse(data, types[0], types[1], type, deserializers);
+			}
+
 			if (dictionaryType.IsAssignableFrom(type))
 			{
-				if (type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition()
-				                                       .IsAssignableFrom(unityDictionaryType
-					                                                         .GetGenericTypeDefinition()))
-				{
-					var types = type.BaseType.GenericTypeArguments;
-					return DictionaryParse(data, types[0], types[1], type, deserializers);
-				}
-				else
-				{
-					var types = type.GenericTypeArguments;
-					return DictionaryParse(data, types[0], types[1], null, deserializers);
-				}
+				var types = type.GenericTypeArguments;
+				var keyType = types[0];
+				var valueType = types[1];
+				return DictionaryParse(data, keyType, valueType,
+				                       typeof(Dictionary<,>).MakeGenericType(keyType, valueType), deserializers);
 			}
 
 			return Parse(data, type, deserializers);
@@ -176,14 +177,16 @@ namespace FirstLight.GoogleSheetImporter
 		/// </exception>
 		public static Dictionary<TKey, TValue> DictionaryParse<TKey, TValue>(string text, params Func<string, Type, object>[] deserializers)
 		{
-			return DictionaryParse(text, typeof(TKey), typeof(TValue), null, deserializers) as Dictionary<TKey, TValue>;
+			var keyType = typeof(TKey);
+			var valueType = typeof(TValue);
+			return DictionaryParse(text, keyType, valueType, typeof(Dictionary<,>).MakeGenericType(keyType, valueType), deserializers) as Dictionary<TKey, TValue>;
 		}
 
 		/// <inheritdoc cref="DictionaryParse{TKey,TValue}" />
 		private static object DictionaryParse(string text, Type keyType, Type valueType, Type dictionaryType, params Func<string, Type, object>[] deserializers)
 		{
 			var items = ArrayParse<string>(text, deserializers);
-			var dictionary = (IDictionary) Activator.CreateInstance(dictionaryType ?? typeof(Dictionary<,>).MakeGenericType(keyType, valueType));
+			var dictionary = (IDictionary) Activator.CreateInstance(dictionaryType);
 
 			if (items[0].IndexOfAny(PairSplitChars) != -1)
 			{

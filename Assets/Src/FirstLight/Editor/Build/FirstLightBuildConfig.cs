@@ -250,7 +250,7 @@ namespace FirstLight.Editor.Build
 			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
 			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
 			
-			deterministicConfig.Config.ChecksumInterval = 1;
+			deterministicConfig.Config.ChecksumInterval = 60;
 			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = true;
 			
 			EditorUtility.SetDirty(deterministicConfig);

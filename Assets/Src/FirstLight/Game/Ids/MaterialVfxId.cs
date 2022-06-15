@@ -7,7 +7,8 @@ namespace FirstLight.Game.Ids
 	{
 		Invisibility,
 		Dissolve,
-		Invincible
+		Invincible,
+		TOTAL
 	}
 	
 	/// <summary>

@@ -15,85 +15,85 @@ MonoBehaviour:
   _configs:
   - Placement: 1
     Rewards:
-    - Key: 12
-      Value: 100
+      _keyData: 0c000000
+      _valueData: 64000000
   - Placement: 2
     Rewards:
-    - Key: 12
-      Value: 85
+      _keyData: 0c000000
+      _valueData: 55000000
   - Placement: 3
     Rewards:
-    - Key: 12
-      Value: 70
+      _keyData: 0c000000
+      _valueData: 46000000
   - Placement: 4
     Rewards:
-    - Key: 12
-      Value: 60
+      _keyData: 0c000000
+      _valueData: 3c000000
   - Placement: 5
     Rewards:
-    - Key: 12
-      Value: 52
+      _keyData: 0c000000
+      _valueData: 34000000
   - Placement: 6
     Rewards:
-    - Key: 12
-      Value: 48
+      _keyData: 0c000000
+      _valueData: 30000000
   - Placement: 7
     Rewards:
-    - Key: 12
-      Value: 44
+      _keyData: 0c000000
+      _valueData: 2c000000
   - Placement: 8
     Rewards:
-    - Key: 12
-      Value: 40
+      _keyData: 0c000000
+      _valueData: 28000000
   - Placement: 9
     Rewards:
-    - Key: 12
-      Value: 36
+      _keyData: 0c000000
+      _valueData: 24000000
   - Placement: 10
     Rewards:
-    - Key: 12
-      Value: 32
+      _keyData: 0c000000
+      _valueData: 20000000
   - Placement: 11
     Rewards:
-    - Key: 12
-      Value: 28
+      _keyData: 0c000000
+      _valueData: 1c000000
   - Placement: 12
     Rewards:
-    - Key: 12
-      Value: 24
+      _keyData: 0c000000
+      _valueData: 18000000
   - Placement: 13
     Rewards:
-    - Key: 12
-      Value: 21
+      _keyData: 0c000000
+      _valueData: 15000000
   - Placement: 14
     Rewards:
-    - Key: 12
-      Value: 18
+      _keyData: 0c000000
+      _valueData: 12000000
   - Placement: 15
     Rewards:
-    - Key: 12
-      Value: 15
+      _keyData: 0c000000
+      _valueData: 0f000000
   - Placement: 16
     Rewards:
-    - Key: 12
-      Value: 12
+      _keyData: 0c000000
+      _valueData: 0c000000
   - Placement: 17
     Rewards:
-    - Key: 12
-      Value: 9
+      _keyData: 0c000000
+      _valueData: 09000000
   - Placement: 18
     Rewards:
-    - Key: 12
-      Value: 6
+      _keyData: 0c000000
+      _valueData: 06000000
   - Placement: 19
     Rewards:
-    - Key: 12
-      Value: 4
+      _keyData: 0c000000
+      _valueData: 04000000
   - Placement: 20
     Rewards:
-    - Key: 12
-      Value: 2
+      _keyData: 0c000000
+      _valueData: 02000000
   - Placement: 21
     Rewards:
-    - Key: 12
-      Value: 0
+      _keyData: 0c000000
+      _valueData: 00000000

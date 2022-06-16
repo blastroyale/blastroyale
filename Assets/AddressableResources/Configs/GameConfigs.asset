@@ -39,7 +39,7 @@ MonoBehaviour:
         Deathmatch: 800
       PlayerDefaultSpeed:
         BattleRoyale:
-          RawValue: 249037
+          RawValue: 229376
         Deathmatch:
           RawValue: 314573
       PlayerMaxShieldCapacity:

@@ -17,6 +17,7 @@ namespace FirstLight.Game.Data
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
+		public DateTime LastPhotonDisconnectTime;
 		public bool IsFirstSession;
 		
 		public string LastLoginEmail;

@@ -65,8 +65,7 @@ namespace FirstLight.Game.StateMachines
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
-			var disconnected = stateFactory.State("Disconnected");
-			
+
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
 
@@ -82,14 +81,12 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 			
@@ -112,9 +109,6 @@ namespace FirstLight.Game.StateMachines
 			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
 			gameRewards.OnExit(CloseRewardsScreen);
 
-			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(modeCheck);
-			disconnected.Event(_gameQuitEvent).Target(final);
-			
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -124,12 +118,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
-			
+
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
-
+		
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
@@ -226,7 +220,7 @@ namespace FirstLight.Game.StateMachines
 				PlayedMatchmakingGame = _services.NetworkService.IsCurrentRoomForMatchmaking
 			});
 		}
-		
+
 		private void SendGameplayDataAnalytics()
 		{
 			SendGameplayData(false);

@@ -5,6 +5,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
@@ -30,15 +31,17 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("Room Closed Event");
 		
 		private readonly IGameServices _services;
+		private readonly IGameUiService _uiService;
 		private readonly IGameLogic _gameLogic;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
-		public NetworkState(IGameLogic gameLogic, IGameServices services,
+		public NetworkState(IGameLogic gameLogic, IGameServices services, IGameUiService uiService,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
+			_uiService = uiService;
 			_gameLogic = gameLogic;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
@@ -65,21 +68,38 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
 
 			disconnected.OnEnter(OpenDisconnectedScreen);
-			disconnected.OnEnter(ConnectPhoton);
+			//disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.OnExit(CloseDisconnectedScreen);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
+		
+		private void CheatUpdate(float delta)
+		{
+			if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+			{
+				DisconnectPhoton();
+			}
+		}
 
 		private void OpenDisconnectedScreen()
 		{
-			throw new NotImplementedException();
+			var data = new DisconnectedScreenPresenter.StateData
+			{
+				ReconnectClicked = ConnectPhoton,
+				MainMenuClicked = () =>
+				{
+					_services.MessageBrokerService.Publish(new DisconnectedMatchAbandonedMessage());
+				}
+			};
+
+			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void CloseDisconnectedScreen()
 		{
-			throw new NotImplementedException();
+			_uiService.CloseUi<DisconnectedScreenPresenter>();
 		}
 		
 		private void SubscribeEvents()
@@ -94,6 +114,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.TickService.SubscribeOnUpdate(CheatUpdate, Time.deltaTime);
 		}
 
 		private void UnsubscribeEvents()
@@ -400,6 +421,11 @@ namespace FirstLight.Game.StateMachines
 			
 			UpdateQuantumClientProperties();
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameLogic.AppDataProvider.Nickname);
+		}
+		
+		private void DisconnectPhoton()
+		{
+			_networkService.QuantumClient.Disconnect();
 		}
 
 		private void LeaveRoom()

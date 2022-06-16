@@ -64,10 +64,22 @@ namespace FirstLight.Game.StateMachines
 
 			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
 
+			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
-
+			disconnected.OnExit(CloseDisconnectedScreen);
+			
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void OpenDisconnectedScreen()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void CloseDisconnectedScreen()
+		{
+			throw new NotImplementedException();
 		}
 		
 		private void SubscribeEvents()

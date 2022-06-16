@@ -28,18 +28,14 @@ namespace FirstLight.Game.StateMachines
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
-		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
-		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public MatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
+		public MatchState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_uiService = uiService;
 			_assetAdderService = assetAdderService;
-			_gameDataProvider = gameDataProvider;
-			_statechartTrigger = statechartTrigger;
 			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);

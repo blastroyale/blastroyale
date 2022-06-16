@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -22,16 +24,23 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private SpecialButtonView _specialButton0;
 		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
-
+		
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
-		private EntityRef _entity;
+		private int _currentWeaponSlot;
+		private SpecialsChargesManager _specialCharges;
+		
+		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
+			_specialCharges = new SpecialsChargesManager();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
+
+			_currentWeaponSlot = 0;
 
 			_localInput.Gameplay.SetCallbacks(this);
 
@@ -50,6 +59,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_localInput.Enable();
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -94,6 +104,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
+			_specialCharges.SpendCharge(0, _currentWeaponSlot);
 			SendSpecialUsedCommand(0, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -104,7 +115,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-
+			_specialCharges.SpendCharge(1,_currentWeaponSlot);
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -112,14 +123,15 @@ namespace FirstLight.Game.Presenters
 		{
 			if (callback.HasRespawned)
 			{
+				// For when we respawn in deathmatch, we get all our weapon slot charges back
+				_specialCharges.ResetAllCharges();
 				return;
 			}
 
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			_entity = callback.Entity;
-
-			_specialButton0.Init(playerCharacter.Specials[0].SpecialId);
-			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
+			_currentWeaponSlot = 0;
+			_specialButton0.Init(playerCharacter.Specials[0].SpecialId, _specialCharges.HasCharge(0, _currentWeaponSlot));
+			_specialButton1.Init(playerCharacter.Specials[1].SpecialId, _specialCharges.HasCharge(1, _currentWeaponSlot));
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -172,15 +184,26 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
+		private void OnWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
+		{
+			// If in DeathMatch we will let the player get his special's charges back when he picks up another weapon 
+			if (_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch)
+			{
+				_specialCharges.ResetCharges(callback.WeaponSlotNumber);
+			}
+		}
+		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
 
+			_currentWeaponSlot = callback.Slot;
+			
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
 
-			_specialButton0.Init(config.Specials[0]);
-			_specialButton1.Init(config.Specials[1]);
+			_specialButton0.Init(config.Specials[0], _specialCharges.HasCharge(0, _currentWeaponSlot));
+			_specialButton1.Init(config.Specials[1], _specialCharges.HasCharge(1, _currentWeaponSlot));
 
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();
@@ -200,6 +223,52 @@ namespace FirstLight.Game.Presenters
 			};
 
 			QuantumRunner.Default.Game.SendCommand(command);
+		}
+	}
+
+	internal class SpecialsChargesManager
+	{
+		private readonly Dictionary<int, bool>[] _weaponSlotChargesUsedSpecial = { new(), new() };
+		
+		/// <summary>
+		/// Spends the charge of that special for that weapon slot
+		/// </summary>
+		public void SpendCharge(int specialIndex, int weaponSlotIndex)
+		{
+			_weaponSlotChargesUsedSpecial[specialIndex][weaponSlotIndex] = false;
+		}
+
+		/// <summary>
+		/// Indicates if a certain weapon slot still has a certain special button's charge to use
+		/// </summary>
+		public bool HasCharge(int specialIndex, int weaponSlotIndex)
+		{
+			var value =  !_weaponSlotChargesUsedSpecial[specialIndex].ContainsKey(weaponSlotIndex)
+			       || _weaponSlotChargesUsedSpecial[specialIndex][weaponSlotIndex] == true;
+
+			return value;
+		}
+		
+		/// <summary>
+		/// Resets charges for all weapon slots
+		/// </summary>
+		public void ResetAllCharges()
+		{
+			foreach (var specialSlotCharges in _weaponSlotChargesUsedSpecial)
+			{
+				specialSlotCharges.Clear();
+			}
+		}
+		
+		/// <summary>
+		/// Resets charges for a weapon slot
+		/// </summary>
+		public void ResetCharges(int weaponSlot)
+		{
+			foreach (var specialSlotCharges in _weaponSlotChargesUsedSpecial)
+			{
+				specialSlotCharges[weaponSlot] = false;
+			}
 		}
 	}
 }

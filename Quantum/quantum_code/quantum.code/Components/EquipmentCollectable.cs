@@ -33,12 +33,19 @@ namespace Quantum
 			var isBot = f.Has<BotCharacter>(player);
 			var playerData = f.GetPlayerData(playerRef);
 
-			var primaryWeapon = isBot || Owner == playerRef ||
-			                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
-			                     !playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid());
+			if (Item.IsWeapon())
+			{
+				var primaryWeapon = isBot || Owner == playerRef ||
+				                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
+				                     !playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid());
 
-			playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
-			playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
+				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
+				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
+			}
+			else
+			{
+				// TODO mihak: Implement for gear
+			}
 		}
 	}
 }

@@ -40,6 +40,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localRotation = Quaternion.identity;
 
 			// TODO: Delete this when we have a proper implementation of rarity representation in game
+#if DEVELOPMENT_BUILD
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_debugContainer.SetActive(true);
@@ -55,6 +56,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				Destroy(_debugContainer);
 			}
+#endif
 		}
 	}
 }

@@ -32,9 +32,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(OnShopScreenOpened);
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpened);
-			_services.MessageBrokerService.Subscribe<SocialScreenOpenedMessage>(OnSocialScreenOpened);
 		}
 
 		private void OnDestroy()
@@ -42,22 +40,10 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnShopScreenOpened(ShopScreenOpenedMessage data)
-		{
-			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
-			_shopCamera.gameObject.SetActive(true);
-		}
-
 		private void OnPlayScreenOpened(PlayScreenOpenedMessage data)
 		{
 			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 			_mainCamera.gameObject.SetActive(true);
-		}
-		
-		private void OnSocialScreenOpened(SocialScreenOpenedMessage data)
-		{
-			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
-			_socialCamera.gameObject.SetActive(true);
 		}
 	}
 }

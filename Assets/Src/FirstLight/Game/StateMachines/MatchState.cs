@@ -28,18 +28,14 @@ namespace FirstLight.Game.StateMachines
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
-		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
-		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		public MatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
+		public MatchState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_uiService = uiService;
 			_assetAdderService = assetAdderService;
-			_gameDataProvider = gameDataProvider;
-			_statechartTrigger = statechartTrigger;
 			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
@@ -192,9 +188,11 @@ namespace FirstLight.Game.StateMachines
 
 			await Task.WhenAll(tasks);
 
-			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
-
 			SceneManager.SetActiveScene(sceneTask.Result);
+
+			await Task.WhenAll(PreloadMapAssets());
+			
+			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
@@ -221,9 +219,27 @@ namespace FirstLight.Game.StateMachines
 			Resources.UnloadUnusedAssets();
 		}
 
-		private List<Task> PreloadGameAssets()
+		private IEnumerable<Task> PreloadMapAssets()
 		{
 			var tasks = new List<Task>();
+
+			// Preload spawners
+			var spawners = Object.FindObjectsOfType<EntityComponentCollectablePlatformSpawner>();
+			foreach (var spawner in spawners)
+			{
+				var id = (GameId) spawner.Prototype.GameId.Value;
+				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			}
+			
+			return tasks;
+		}
+
+		private IEnumerable<Task> PreloadGameAssets()
+		{
+			var tasks = new List<Task>();
+			
+			// Preload Hammer
+			tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.Hammer, true, false));
 
 			// Preload collectables
 			foreach (var id in GameIdGroup.Consumable.GetIds())
@@ -244,6 +260,25 @@ namespace FirstLight.Game.StateMachines
 			{
 				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
 			}
+			
+			// Preload material VFX
+			for (var i = 1; i < (int) MaterialVfxId.TOTAL; i++)
+			{
+				tasks.Add(_services.AssetResolverService.RequestAsset<MaterialVfxId, Material>((MaterialVfxId) i,
+					          true,
+					          false));
+			}
+
+			// Preload chests
+			foreach (var id in GameIdGroup.Chest.GetIds())
+			{
+				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+			}
+			
+			// Preload Audio
+			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureMainLoop, true, false));
+			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureStart1, true, false));
+			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.ActorSpawnEnd1, true, false));
 
 			return tasks;
 		}

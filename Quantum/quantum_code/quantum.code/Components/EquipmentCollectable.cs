@@ -44,7 +44,7 @@ namespace Quantum
 			}
 			else
 			{
-				// TODO mihak: Implement for gear
+				playerCharacter->EquipGear(f, player, Item);
 			}
 		}
 	}

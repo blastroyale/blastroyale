@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -35,6 +36,7 @@ namespace Quantum
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
+			var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter.Gear, playerData.Loadout);
 
 			var medianRarity = f.Context.MedianRarity;
 			var weapons = f.Context.PlayerWeapons;
@@ -46,6 +48,11 @@ namespace Quantum
 				// Drop primary weapon if it's in loadout and not equipped
 				ModifyEquipmentRarity(f, ref loadoutWeapon, minimumRarity, medianRarity);
 				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, angleStep++, playerRef);
+			}
+			else if (nextGearItem.IsValid())
+			{
+				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, medianRarity);
+				Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++, playerRef);
 			}
 			else
 			{
@@ -67,6 +74,7 @@ namespace Quantum
 						{
 							var weapon = weapons[f.RNG->Next(0, weapons.Length)];
 
+							// TODO: This should happen when we pick up a weapon, not when we drop it 
 							// I think this is silly, but "When a player picks up a weapon we inherit all NFT
 							// attributes (except for the rarity) from the Record".
 							if (hasLoadoutWeapon)
@@ -143,6 +151,47 @@ namespace Quantum
 				ChestType.Legendary => 2,
 				_ => throw new ArgumentOutOfRangeException(nameof(ChestType), ChestType, null)
 			};
+		}
+
+
+		private static int GetValidGearCount(PlayerCharacter player)
+		{
+			int count = 0;
+
+			for (int i = 0; i < player.Gear.Length; i++)
+			{
+				if (player.Gear[i].IsValid())
+				{
+					count++;
+				}
+			}
+
+			return count;
+		}
+
+		private Equipment GetNextLoadoutGearItem(Frame f, FixedArray<Equipment> equippedGear, Equipment[] loadout)
+		{
+			var possibleGear = new List<Equipment>();
+
+			foreach (var equipment in loadout)
+			{
+				bool equipped = false;
+				for (int i = 0; i < equippedGear.Length; i++)
+				{
+					if (equippedGear[i].Equals(equipment))
+					{
+						equipped = true;
+						break;
+					}
+				}
+
+				if (!equipped)
+				{
+					possibleGear.Add(equipment);
+				}
+			}
+
+			return possibleGear[f.RNG->Next(0, possibleGear.Count)];
 		}
 	}
 }

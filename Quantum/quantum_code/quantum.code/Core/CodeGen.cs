@@ -7806,6 +7806,11 @@ namespace Quantum {
     public const Int32 WEAPON_INDEX_PRIMARY = 1;
     public const Int32 WEAPON_INDEX_SECONDARY = 2;
     public const Int32 MAX_GEAR = 5;
+    public const Int32 GEAR_INDEX_HELMET = 0;
+    public const Int32 GEAR_INDEX_AMULET = 1;
+    public const Int32 GEAR_INDEX_ARMOR = 2;
+    public const Int32 GEAR_INDEX_SHIELD = 3;
+    public const Int32 GEAR_INDEX_BOOTS = 4;
     public const Int32 MAX_SPECIALS = 2;
     public const Int32 TOTAL_STATS = 5;
   }

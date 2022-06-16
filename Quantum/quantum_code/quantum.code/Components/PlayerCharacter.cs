@@ -157,6 +157,8 @@ namespace Quantum
 		/// </summary>
 		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon, bool primary)
 		{
+			Assert.Check(weapon.IsWeapon(), weapon);
+
 			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 
 			var primaryReplaced = false;
@@ -200,8 +202,9 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			//the total time it takes for a burst to complete should be half of the weapon's cooldown
 			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 
-				0 : (weaponConfig.AttackCooldown /2) / weaponConfig.NumberOfBursts;
+			var burstCooldown = weaponConfig.NumberOfBursts == 1
+				                    ? 0
+				                    : (weaponConfig.AttackCooldown / 2) / weaponConfig.NumberOfBursts;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
@@ -230,6 +233,15 @@ namespace Quantum
 
 				Specials[i] = new Special(f, specialConfig);
 			}
+		}
+
+		public void EquipGear(Frame f, EntityRef e, Equipment gear)
+		{
+			Assert.Check(!gear.IsWeapon(), gear);
+
+			Gear[GetGearIndex(gear.GameId)] = gear;
+
+			RefreshStats(f, e);
 		}
 
 		/// <summary>
@@ -336,7 +348,7 @@ namespace Quantum
 
 			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
-			
+
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
 			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
@@ -348,7 +360,6 @@ namespace Quantum
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
 		{
-			int gearIndex = 0;
 			foreach (var item in equipment)
 			{
 				if (item.IsWeapon())
@@ -357,9 +368,20 @@ namespace Quantum
 				}
 				else
 				{
-					Gear[gearIndex++] = item;
+					Gear[GetGearIndex(item.GameId)] = item;
 				}
 			}
+		}
+
+		private int GetGearIndex(GameId id)
+		{
+			if (id.IsInGroup(GameIdGroup.Helmet)) return Constants.GEAR_INDEX_HELMET;
+			if (id.IsInGroup(GameIdGroup.Amulet)) return Constants.GEAR_INDEX_AMULET;
+			if (id.IsInGroup(GameIdGroup.Armor)) return Constants.GEAR_INDEX_ARMOR;
+			if (id.IsInGroup(GameIdGroup.Shield)) return Constants.GEAR_INDEX_SHIELD;
+			if (id.IsInGroup(GameIdGroup.Boots)) return Constants.GEAR_INDEX_BOOTS;
+
+			throw new NotSupportedException($"Could not find index for GameId({id})");
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Quantum
@@ -5,7 +6,7 @@ namespace Quantum
 	/// <summary>
 	/// Holds (NFT) attributes about a piece of equipment (weapon or gear).
 	/// </summary>
-	public partial struct Equipment
+	public partial struct Equipment : IEquatable<Equipment>
 	{
 		private static readonly List<GameIdGroup> _slots = new List<GameIdGroup>
 		{
@@ -84,5 +85,15 @@ namespace Quantum
 		/// TODO: Might need different logic
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
+
+		public bool Equals(Equipment other)
+		{
+			return Adjective == other.Adjective && Durability == other.Durability && Edition == other.Edition &&
+			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
+			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
+			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
+			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel && Rarity == other.Rarity &&
+			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
+		}
 	}
 }

@@ -67,13 +67,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector3();
 			var circleRadius = circle.TargetRadius.AsFloat;
 
+			_mapStatusText.gameObject.SetActive(true);
+			_mapStatusText.text = ScriptLocalization.AdventureMenu.GetReady;
+			_mapStatusTextAnimation.Rewind();
+			_mapStatusTextAnimation.Play();
+			
 			yield return new WaitForSeconds(time);
  
 
 			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
 
-			_mapStatusText.gameObject.SetActive(true);
 			_timerHolder.SetActive(true);
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();

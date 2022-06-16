@@ -24,6 +24,7 @@ namespace I2.Loc
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FreeSlot"); } }
 			public static string GameOver 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GameOver"); } }
 			public static string GameStartsIn 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GameStartsIn"); } }
+			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
 			public static string Go 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Go"); } }
 			public static string GoToArea 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GoToArea"); } }
 			public static string Godlike 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Godlike"); } }
@@ -48,6 +49,7 @@ namespace I2.Loc
 			public static string Revives 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Revives"); } }
 			public static string SpawningEnemies 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpawningEnemies"); } }
 			public static string Spree 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Spree"); } }
+			public static string StatShield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatShield"); } }
 			public static string Suicide 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Suicide"); } }
 			public static string TimeOver 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/TimeOver"); } }
 			public static string TimeRemaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/TimeRemaining"); } }
@@ -56,8 +58,6 @@ namespace I2.Loc
 			public static string YouDied 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouDied"); } }
 			public static string YouKilledPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouKilledPlayer"); } }
 			public static string YourLoot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YourLoot"); } }
-			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
-			public static string StatShield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatShield"); } }
 		}
 
 		public static class BotNames
@@ -647,6 +647,7 @@ namespace I2.Loc
 			public static string LogoutSuccessDesc 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessDesc"); } }
 			public static string LogoutSuccessTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutSuccessTitle"); } }
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
+			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
 			public static string NameHeroTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameHeroTitle"); } }
@@ -680,6 +681,7 @@ namespace I2.Loc
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
+			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
 			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
@@ -811,6 +813,7 @@ namespace I2.Loc
 		    public const string FreeSlot = "AdventureMenu/FreeSlot";
 		    public const string GameOver = "AdventureMenu/GameOver";
 		    public const string GameStartsIn = "AdventureMenu/GameStartsIn";
+		    public const string GetReady = "AdventureMenu/GetReady";
 		    public const string Go = "AdventureMenu/Go";
 		    public const string GoToArea = "AdventureMenu/GoToArea";
 		    public const string Godlike = "AdventureMenu/Godlike";
@@ -835,6 +838,7 @@ namespace I2.Loc
 		    public const string Revives = "AdventureMenu/Revives";
 		    public const string SpawningEnemies = "AdventureMenu/SpawningEnemies";
 		    public const string Spree = "AdventureMenu/Spree";
+		    public const string StatShield = "AdventureMenu/StatShield";
 		    public const string Suicide = "AdventureMenu/Suicide";
 		    public const string TimeOver = "AdventureMenu/TimeOver";
 		    public const string TimeRemaining = "AdventureMenu/TimeRemaining";
@@ -843,8 +847,6 @@ namespace I2.Loc
 		    public const string YouDied = "AdventureMenu/YouDied";
 		    public const string YouKilledPlayer = "AdventureMenu/YouKilledPlayer";
 		    public const string YourLoot = "AdventureMenu/YourLoot";
-		    public const string GetReady = "AdventureMenu/GetReady";
-		    public const string StatShield = "AdventureMenu/StatShield";
 		}
 
 		public static class BotNames
@@ -1434,6 +1436,7 @@ namespace I2.Loc
 		    public const string LogoutSuccessDesc = "MainMenu/LogoutSuccessDesc";
 		    public const string LogoutSuccessTitle = "MainMenu/LogoutSuccessTitle";
 		    public const string Loot = "MainMenu/Loot";
+		    public const string MainMenuButton = "MainMenu/MainMenuButton";
 		    public const string ManualFire = "MainMenu/ManualFire";
 		    public const string Meters = "MainMenu/Meters";
 		    public const string NameHeroTitle = "MainMenu/NameHeroTitle";
@@ -1467,6 +1470,7 @@ namespace I2.Loc
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
+		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
 		    public const string RegisterTitle = "MainMenu/RegisterTitle";

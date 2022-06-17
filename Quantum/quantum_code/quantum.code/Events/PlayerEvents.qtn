@@ -207,6 +207,10 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 Slot;
+	Int32 StatHealthDifference;
+	Int32 StatArmourDifference;
+	FP StatSpeedDifference;
+	FP StatPowerDifference;
 }
 
 synced event OnLocalPlayerDamaged

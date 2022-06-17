@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -160,9 +159,19 @@ namespace Quantum
 		{
 			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 
+			var primaryReplaced = false;
+			var primaryWeapon = Weapons[Constants.WEAPON_INDEX_PRIMARY];
+			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
+			    weapon.Rarity > primaryWeapon.Rarity)
+			{
+				slot = Constants.WEAPON_INDEX_PRIMARY;
+				primaryReplaced = true;
+			}
+
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && Weapons[slot].IsValid()
-			                                                          && Weapons[slot].GameId != weapon.GameId)
+			                                                          && (Weapons[slot].GameId != weapon.GameId ||
+			                                                              primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, Weapons[slot], dropPosition, 0);

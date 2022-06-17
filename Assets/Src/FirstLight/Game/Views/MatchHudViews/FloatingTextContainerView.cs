@@ -50,6 +50,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -80,10 +81,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			    && _entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				var capacityChange = callback.ShieldCapacity - callback.PreviousShieldCapacity;
-				var messageText = ScriptLocalization.AdventureMenu.StatShield + (capacityChange > 0 ? " +" : " -") + capacityChange;
-				
-				EnqueueText(_pool, entityBase, messageText, _neutralTextColor);
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatShield,
+				                      callback.ShieldCapacity - callback.PreviousShieldCapacity);
 			}
 			
 			if (callback.PreviousShield != callback.CurrentShield)
@@ -91,6 +90,30 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousShield,
 				               callback.CurrentShield, _poolArmour, _armourLossTextColor, _armourGainTextColor);
 			}
+		}
+
+		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			if (_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
+			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			{
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatHealth, callback.StatHealthDifference);
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatArmour, callback.StatArmourDifference);
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatSpeed, callback.StatSpeedDifference.AsInt);
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatPower, callback.StatPowerDifference.AsInt);
+			}
+		}
+
+		private void EnqueueValueIfNonZero(HealthEntityBase entityBase, string valueName, int value)
+		{
+			if (value == 0)
+			{
+				return;
+			}
+			
+			EnqueueText(_pool, entityBase, 
+			            valueName + (value > 0 ? " +" : " ") + value,
+			            value > 0 ? _neutralTextColor : _hitTextColor);
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)

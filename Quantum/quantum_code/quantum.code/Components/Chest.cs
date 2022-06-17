@@ -29,29 +29,32 @@ namespace Quantum
 		{
 			var playerData = f.GetPlayerData(playerRef);
 			var chestPosition = f.Get<Transform3D>(e).Position;
-			var playerCharacter = f.Get<PlayerCharacter>(playerEntity);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			var config = f.ChestConfigs.GetConfig(ChestType);
 
-			var hasPrimaryWeaponEquipped = playerCharacter.Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
+			var hasPrimaryWeaponEquipped = playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
+			var hasDroppedLoadoutWeapon = hasLoadoutWeapon && playerCharacter->HasDroppedLoadoutItem(loadoutWeapon);
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
-			var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter.Gear, playerData.Loadout);
+			var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
 
 			var medianRarity = f.Context.MedianRarity;
 			var weapons = f.Context.PlayerWeapons;
 
 			var angleStep = 0;
 
-			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
+			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon && !hasDroppedLoadoutWeapon)
 			{
 				// Drop primary weapon if it's in loadout and not equipped
+				playerCharacter->SetDroppedLoadoutItem(loadoutWeapon);
 				ModifyEquipmentRarity(f, ref loadoutWeapon, minimumRarity, medianRarity);
 				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, angleStep++, playerRef);
 			}
 			else if (nextGearItem.IsValid())
 			{
+				playerCharacter->SetDroppedLoadoutItem(nextGearItem);
 				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, medianRarity);
 				Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++, playerRef);
 			}
@@ -154,37 +157,21 @@ namespace Quantum
 			};
 		}
 
-
-		private static int GetValidGearCount(PlayerCharacter player)
-		{
-			int count = 0;
-
-			for (int i = 0; i < player.Gear.Length; i++)
-			{
-				if (player.Gear[i].IsValid())
-				{
-					count++;
-				}
-			}
-
-			return count;
-		}
-
-		private Equipment GetNextLoadoutGearItem(Frame f, FixedArray<Equipment> equippedGear, Equipment[] loadout)
+		private Equipment GetNextLoadoutGearItem(Frame f, PlayerCharacter* playerCharacter, Equipment[] loadout)
 		{
 			var possibleGear = new List<Equipment>();
 
 			foreach (var equipment in loadout)
 			{
-				if (equipment.IsWeapon())
+				if (equipment.IsWeapon() || playerCharacter->HasDroppedLoadoutItem(equipment))
 				{
 					continue;
 				}
 
 				bool equipped = false;
-				for (int i = 0; i < equippedGear.Length; i++)
+				for (int i = 0; i < playerCharacter->Gear.Length; i++)
 				{
-					if (equippedGear[i].Equals(equipment, true))
+					if (playerCharacter->Gear[i].Equals(equipment, true))
 					{
 						equipped = true;
 						break;

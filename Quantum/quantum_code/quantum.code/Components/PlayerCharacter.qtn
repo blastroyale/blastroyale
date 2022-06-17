@@ -36,6 +36,7 @@ component PlayerCharacter
 	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
+	[HideInInspector] Int32 DroppedLoadoutFlags;
 }
 
 component PlayerCharging

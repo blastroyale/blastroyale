@@ -33,6 +33,7 @@ namespace Quantum
 
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
+			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 
@@ -284,6 +285,28 @@ namespace Quantum
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
+		}
+
+		/// <summary>
+		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		public void SetDroppedLoadoutItem(Equipment equipment)
+		{
+			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			DroppedLoadoutFlags |= 1 << shift;
+		}
+
+		/// <summary>
+		/// Checks if we dropped a specific piece of equipment (only checks by GameIdGroup).
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		public bool HasDroppedLoadoutItem(Equipment equipment)
+		{
+			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			return (DroppedLoadoutFlags & (1 << shift)) != 0;
 		}
 
 		/// <summary>

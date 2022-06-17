@@ -316,7 +316,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			yield return new WaitForSeconds(time);
 
-			// todo rob - maybe dont do this
+			// If game disconnects and unloads assets, this async method still runs (CoroutineService
+			// and this script can become null.
 			if (this != null)
 			{
 				RenderersContainerProxy.ResetToOriginalMaterials();

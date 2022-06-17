@@ -197,7 +197,6 @@ namespace FirstLight.Game.MonoComponent
 		/// <inheritdoc />
 		public void SetMaterial(Func<int, Material> materialResolver, ShadowCastingMode mode, bool keepTexture)
 		{
-
 			// Original Materials have all the materials in order of the renderers
 			for (int i = 0, count = 0; i < _renderers.Count; i++)
 			{

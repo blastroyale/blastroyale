@@ -58,6 +58,10 @@ namespace I2.Loc
 			public static string YourLoot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YourLoot"); } }
 			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
 			public static string StatShield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatShield"); } }
+			public static string StatPower 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatPower"); } }
+			public static string StatHealth 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatHealth"); } }
+			public static string StatArmour 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatArmour"); } }
+			public static string StatSpeed 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatSpeed"); } }
 		}
 
 		public static class BotNames
@@ -845,6 +849,10 @@ namespace I2.Loc
 		    public const string YourLoot = "AdventureMenu/YourLoot";
 		    public const string GetReady = "AdventureMenu/GetReady";
 		    public const string StatShield = "AdventureMenu/StatShield";
+		    public const string StatPower = "AdventureMenu/StatPower";
+		    public const string StatHealth = "AdventureMenu/StatHealth";
+		    public const string StatArmour = "AdventureMenu/StatArmour";
+		    public const string StatSpeed = "AdventureMenu/StatSpeed";
 		}
 
 		public static class BotNames

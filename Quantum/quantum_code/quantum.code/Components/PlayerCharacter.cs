@@ -239,9 +239,12 @@ namespace Quantum
 		{
 			Assert.Check(!gear.IsWeapon(), gear);
 
-			Gear[GetGearIndex(gear.GameId)] = gear;
+			var gearSlot = GetGearSlot(gear);
+			Gear[gearSlot] = gear;
 
 			RefreshStats(f, e);
+
+			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
 		/// <summary>
@@ -368,20 +371,22 @@ namespace Quantum
 				}
 				else
 				{
-					Gear[GetGearIndex(item.GameId)] = item;
+					Gear[GetGearSlot(item)] = item;
 				}
 			}
 		}
 
-		private int GetGearIndex(GameId id)
+		private int GetGearSlot(Equipment equipment)
 		{
-			if (id.IsInGroup(GameIdGroup.Helmet)) return Constants.GEAR_INDEX_HELMET;
-			if (id.IsInGroup(GameIdGroup.Amulet)) return Constants.GEAR_INDEX_AMULET;
-			if (id.IsInGroup(GameIdGroup.Armor)) return Constants.GEAR_INDEX_ARMOR;
-			if (id.IsInGroup(GameIdGroup.Shield)) return Constants.GEAR_INDEX_SHIELD;
-			if (id.IsInGroup(GameIdGroup.Boots)) return Constants.GEAR_INDEX_BOOTS;
-
-			throw new NotSupportedException($"Could not find index for GameId({id})");
+			return equipment.GetEquipmentGroup() switch
+			{
+				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
+				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
+				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
+				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
+				GameIdGroup.Boots => Constants.GEAR_INDEX_BOOTS,
+				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
+			};
 		}
 	}
 }

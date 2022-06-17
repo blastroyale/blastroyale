@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -175,10 +176,15 @@ namespace Quantum
 
 			foreach (var equipment in loadout)
 			{
+				if (equipment.IsWeapon())
+				{
+					continue;
+				}
+
 				bool equipped = false;
 				for (int i = 0; i < equippedGear.Length; i++)
 				{
-					if (equippedGear[i].Equals(equipment))
+					if (equippedGear[i].Equals(equipment, true))
 					{
 						equipped = true;
 						break;
@@ -191,7 +197,7 @@ namespace Quantum
 				}
 			}
 
-			return possibleGear[f.RNG->Next(0, possibleGear.Count)];
+			return possibleGear.Count == 0 ? Equipment.None : possibleGear[f.RNG->Next(0, possibleGear.Count)];
 		}
 	}
 }

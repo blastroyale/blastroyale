@@ -77,7 +77,7 @@ namespace Quantum
 		/// <summary>
 		/// Checks if the <see cref="GameId"/> belongs to the <see cref="GameIdGroup.Weapon"/> group.
 		/// </summary>
-		public bool IsWeapon() => GameId.IsInGroup(GameIdGroup.Weapon);
+		public bool IsWeapon() => GetEquipmentGroup() == GameIdGroup.Weapon;
 
 		/// <summary>
 		/// Checks if this item is the Hammer.
@@ -86,13 +86,34 @@ namespace Quantum
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
 
+		/// <summary>
+		/// Returns the "Equipment" <see cref="GameIdGroup"/> that this item belongs to.
+		/// </summary>
+		public GameIdGroup GetEquipmentGroup()
+		{
+			if (GameId.IsInGroup(GameIdGroup.Weapon)) return GameIdGroup.Weapon;
+			if (GameId.IsInGroup(GameIdGroup.Helmet)) return GameIdGroup.Helmet;
+			if (GameId.IsInGroup(GameIdGroup.Amulet)) return GameIdGroup.Amulet;
+			if (GameId.IsInGroup(GameIdGroup.Armor)) return GameIdGroup.Armor;
+			if (GameId.IsInGroup(GameIdGroup.Shield)) return GameIdGroup.Shield;
+			if (GameId.IsInGroup(GameIdGroup.Boots)) return GameIdGroup.Boots;
+
+			throw new NotSupportedException($"Invalid Equipment GameId({GameId})");
+		}
+
 		public bool Equals(Equipment other)
 		{
-			return Adjective == other.Adjective && Durability == other.Durability && Edition == other.Edition &&
+			return Equals(other, false);
+		}
+
+		public bool Equals(Equipment other, bool ignoreRarity)
+		{
+			return (ignoreRarity || Rarity == other.Rarity) && Adjective == other.Adjective &&
+			       Durability == other.Durability && Edition == other.Edition &&
 			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
 			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
 			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
-			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel && Rarity == other.Rarity &&
+			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel &&
 			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
 		}
 	}

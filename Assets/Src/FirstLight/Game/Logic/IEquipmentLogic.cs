@@ -83,6 +83,11 @@ namespace FirstLight.Game.Logic
 		/// TODO: This should be rethought.
 		/// </summary>
 		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0);
+
+		/// <summary>
+		/// Requests to see if player has enough NFTs equipped for play
+		/// </summary>
+		bool EnoughLoadoutEquippedToPlay();
 	}
 
 	/// <inheritdoc />

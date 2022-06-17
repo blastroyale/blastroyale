@@ -39,7 +39,7 @@ MonoBehaviour:
         Deathmatch: 800
       PlayerDefaultSpeed:
         BattleRoyale:
-          RawValue: 229376
+          RawValue: 249037
         Deathmatch:
           RawValue: 314573
       PlayerMaxShieldCapacity:
@@ -112,3 +112,4 @@ MonoBehaviour:
         RawValue: 52429
       LoadoutSlots: 5
       NftUsageCooldownMinutes: 1440
+      NftRequiredEquippedForPlay: 3

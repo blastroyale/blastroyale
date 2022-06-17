@@ -134,7 +134,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
-			playClickedCheck.Transition().Condition(EnoughNftToPlay).Target(roomWait);
+			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
@@ -204,13 +204,15 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
+
+		private void SendMatchmakingReadyMessage()
+		{
+			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
+		}
 		
 		private bool EnoughNftToPlay()
 		{
-			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
-			var nftCount = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
-			
-			return nftCount >= nftAmountForPlay;
+			return _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter

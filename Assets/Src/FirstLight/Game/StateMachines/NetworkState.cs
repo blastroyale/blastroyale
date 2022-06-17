@@ -59,6 +59,7 @@ namespace FirstLight.Game.StateMachines
 			var initialConnection = stateFactory.State("NETWORK - Initial Connection");
 			var connected = stateFactory.State("NETWORK - Connected");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
+			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
 
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
@@ -66,12 +67,16 @@ namespace FirstLight.Game.StateMachines
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
 
-			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
+			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 
-			disconnected.OnEnter(OpenDisconnectedScreen);
-			//disconnected.OnEnter(ConnectPhoton);
+			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
+			disconnectedScreen.Event(PhotonMasterConnectedEvent).Target(connected);
+			disconnectedScreen.Event(DisconnectedScreenBackEvent).Target(disconnected);
+			disconnectedScreen.OnExit(CloseDisconnectedScreen);
+			disconnectedScreen.OnExit(OpenLoadingScreen);
+			
+			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
-			disconnected.OnExit(CloseDisconnectedScreen);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -96,6 +101,11 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+		}
+		
+		private void OpenLoadingScreen()
+		{
+			_uiService.OpenUi<LoadingScreenPresenter>();
 		}
 
 		private void CloseDisconnectedScreen()

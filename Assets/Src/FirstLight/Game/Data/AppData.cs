@@ -30,9 +30,9 @@ namespace FirstLight.Game.Data
 		public bool HapticEnabled = true;
 		public DetailLevel CurrentDetailLevel;
 
-		public List<UniqueId> NewUniqueIds = new List<UniqueId>();
-		public List<GameId> GameIdsTagged = new List<GameId>();
-		public List<UnlockSystem> SystemsTagged = new List<UnlockSystem>();
+		public List<UniqueId> NewUniqueIds = new ();
+		public List<GameId> GameIdsTagged = new ();
+		public List<UnlockSystem> SystemsTagged = new ();
 
 		public enum DetailLevel
 		{

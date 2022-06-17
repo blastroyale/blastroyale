@@ -46,8 +46,8 @@ namespace Quantum
 
 		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep)
 		{
-			var angleLevel = (angleDropStep / Constants.DROP_OFFSET_RADIUS);
-			var angleGranularity = FP.PiTimes2 / Constants.DROP_OFFSET_RADIUS;
+			var angleLevel = (angleDropStep / Constants.DROP_AMOUNT_ANGLES);
+			var angleGranularity = FP.PiTimes2 / Constants.DROP_AMOUNT_ANGLES;
 			var angleStep = FPVector2.Rotate(FPVector2.Left, (angleGranularity * angleDropStep)+(angleLevel%2)*angleGranularity/2);
 			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS*(angleLevel+1)).XOY + position;
 

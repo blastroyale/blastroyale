@@ -30,10 +30,10 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
+        Value2: 2
       - Value1:
           RawValue: 16384
-        Value2: 3
+        Value2: 1
       LargeConsumable:
       - Value1:
           RawValue: 0
@@ -52,12 +52,12 @@ MonoBehaviour:
           RawValue: 65536
         Value2: 3
       - Value1:
-          RawValue: 16384
-        Value2: 5
+          RawValue: 32768
+        Value2: 1
       LargeConsumable:
       - Value1:
           RawValue: 16384
-        Value2: 2
+        Value2: 1
     - Id: 16
       AssetRef:
         Id:
@@ -73,14 +73,11 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 5
-      - Value1:
-          RawValue: 32768
-        Value2: 5
+        Value2: 4
       LargeConsumable:
       - Value1:
           RawValue: 32768
-        Value2: 2
+        Value2: 3
     - Id: 2
       AssetRef:
         Id:
@@ -92,20 +89,17 @@ MonoBehaviour:
         Value2: 1
       - Value1:
           RawValue: 32768
-        Value2: 2
+        Value2: 1
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 5
-      - Value1:
-          RawValue: 32768
-        Value2: 7
+        Value2: 2
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 2
+        Value2: 3
       - Value1:
-          RawValue: 32768
+          RawValue: 16384
         Value2: 3
     - Id: 19
       AssetRef:
@@ -116,20 +110,11 @@ MonoBehaviour:
       - Value1:
           RawValue: 65536
         Value2: 2
-      - Value1:
-          RawValue: 32768
-        Value2: 2
       SmallConsumable:
       - Value1:
-          RawValue: 65536
-        Value2: 7
-      - Value1:
-          RawValue: 32768
-        Value2: 7
+          RawValue: 0
+        Value2: 0
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
-      - Value1:
-          RawValue: 32768
-        Value2: 3
+        Value2: 6

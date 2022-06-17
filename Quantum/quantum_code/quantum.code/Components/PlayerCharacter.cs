@@ -236,6 +236,9 @@ namespace Quantum
 			}
 		}
 
+		/// <summary>
+		/// Equips a gear item to the correct gear slot (old one is replaced).
+		/// </summary>
 		public void EquipGear(Frame f, EntityRef e, Equipment gear)
 		{
 			Assert.Check(!gear.IsWeapon(), gear);

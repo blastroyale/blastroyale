@@ -36,7 +36,6 @@ namespace Quantum
 			var hasPrimaryWeaponEquipped = playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
-			var hasDroppedLoadoutWeapon = hasLoadoutWeapon && playerCharacter->HasDroppedLoadoutItem(loadoutWeapon);
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
 
@@ -45,7 +44,7 @@ namespace Quantum
 
 			var angleStep = 0;
 
-			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon && !hasDroppedLoadoutWeapon)
+			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
 			{
 				// Drop primary weapon if it's in loadout and not equipped
 				playerCharacter->SetDroppedLoadoutItem(loadoutWeapon);

@@ -26,6 +26,4 @@ namespace FirstLight.Game.Messages
 		public string RoomName; 
 		public QuantumMapConfig MapConfig;
 	}
-	
-	public struct DisconnectedMatchAbandonedMessage : IMessage { }
 }

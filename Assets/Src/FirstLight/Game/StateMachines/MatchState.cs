@@ -24,8 +24,7 @@ namespace FirstLight.Game.StateMachines
 	public class MatchState
 	{
 		public static readonly IStatechartEvent AllPlayersReadyEvent = new StatechartEvent("All Players Ready");
-
-		private static readonly IStatechartEvent _abandonedMatchEvent = new StatechartEvent("Abandoned Match");
+		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
@@ -97,7 +96,7 @@ namespace FirstLight.Game.StateMachines
 			
 			disconnected.OnEnter(CloseLoadingScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(gameSimulation);
-			disconnected.Event(_abandonedMatchEvent).Target(final);
+			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -109,7 +108,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<DisconnectedMatchAbandonedMessage>(OnDisconnectedMatchAbandonedMessage);
+			
 		}
 
 		private void UnsubscribeEvents()
@@ -147,11 +146,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseLoadingScreen()
 		{
 			_uiService.CloseUi<LoadingScreenPresenter>();
-		}
-		
-		private void OnDisconnectedMatchAbandonedMessage(DisconnectedMatchAbandonedMessage message)
-		{
-			_statechartTrigger(_abandonedMatchEvent);
 		}
 
 		private bool IsDisconnected()

@@ -316,7 +316,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			yield return new WaitForSeconds(time);
 
-			RenderersContainerProxy.ResetToOriginalMaterials();
+			// todo rob - maybe dont do this
+			if (this != null)
+			{
+				RenderersContainerProxy.ResetToOriginalMaterials();
+			}
 		}
 
 		private IEnumerator StarCoroutine(float time)

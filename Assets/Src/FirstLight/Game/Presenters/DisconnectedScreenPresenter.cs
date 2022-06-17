@@ -21,7 +21,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action ReconnectClicked;
-			public Action MainMenuClicked;
+			public Action BackClicked;
 		}
 		
 		[SerializeField, Required] private Button _reconnectButton;
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveClicked()
 		{
-			Data.MainMenuClicked.Invoke();
+			Data.BackClicked.Invoke();
 		}
 
 		private void OnReconnectClicked()

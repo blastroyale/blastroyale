@@ -311,8 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc30029abf6648e7855e47262f86be79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _reconnectButton: {fileID: 0}
-  _leaveButton: {fileID: 0}
+  _reconnectButton: {fileID: 8755334718715331996}
+  _leaveButton: {fileID: 9187843408229272099}
 --- !u!1 &2215982194696942680
 GameObject:
   m_ObjectHideFlags: 0

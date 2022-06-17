@@ -24,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("Photon Disconnected Event");
+		public static readonly IStatechartEvent DisconnectedScreenBackEvent = new StatechartEvent("Disconnected Screen Back Event");
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("Joined Room Event");
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("Join Room Fail Event");
@@ -88,9 +89,9 @@ namespace FirstLight.Game.StateMachines
 			var data = new DisconnectedScreenPresenter.StateData
 			{
 				ReconnectClicked = ConnectPhoton,
-				MainMenuClicked = () =>
+				BackClicked = () =>
 				{
-					_services.MessageBrokerService.Publish(new DisconnectedMatchAbandonedMessage());
+					_statechartTrigger(DisconnectedScreenBackEvent);
 				}
 			};
 

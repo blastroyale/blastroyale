@@ -85,9 +85,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnPlayOnlineClicked()
 		{
-			var message = new PlayRandomClickedMessage();
-
-			_services.MessageBrokerService.Publish(message);
 			Data.OnPlayButtonClicked();
 		}
 

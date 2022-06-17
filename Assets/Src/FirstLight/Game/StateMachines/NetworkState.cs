@@ -75,7 +75,7 @@ namespace FirstLight.Game.StateMachines
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
-			_services.MessageBrokerService.Subscribe<PlayRandomClickedMessage>(OnPlayRandomClickedMessage);
+			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
 			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
@@ -265,18 +265,10 @@ namespace FirstLight.Game.StateMachines
 			LeaveRoom();
 		}
 
-		private void OnPlayRandomClickedMessage(PlayRandomClickedMessage msg)
+		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
-			var nftAmountForPlay = GameConstants.Balance.NFT_AMOUNT_FOR_PLAY;
-			var nftCount = _gameDataProvider.EquipmentDataProvider.GetLoadoutItems().Length;
-			
-			if(nftCount >= nftAmountForPlay)
-			{
-				var mapConfig = NetworkUtils.GetRotationMapConfig(_gameDataProvider.AppDataProvider.SelectedGameMode.Value, _services);
-				StartRandomMatchmaking(mapConfig);
-			}
-			
-			
+			var mapConfig = NetworkUtils.GetRotationMapConfig(_gameDataProvider.AppDataProvider.SelectedGameMode.Value, _services);
+			StartRandomMatchmaking(mapConfig);
 		}
 		
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)

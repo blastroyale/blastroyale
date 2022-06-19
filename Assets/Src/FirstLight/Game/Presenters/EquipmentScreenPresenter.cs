@@ -194,7 +194,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var equipment = equipmentProvider.Inventory[_selectedId];
-			var power = equipmentProvider.GetItemStat(equipment, StatType.Power);
 
 			// Don't show Default/Melee weapon
 			if (equipment.IsWeapon() && equipment.IsDefaultItem())

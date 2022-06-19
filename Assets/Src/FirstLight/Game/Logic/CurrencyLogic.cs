@@ -5,8 +5,7 @@ using FirstLight.Game.Data;
 using FirstLight.Services;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
-using Photon.Deterministic;
+using FirstLight.Game.Infos;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -172,7 +171,7 @@ namespace FirstLight.Game.Logic
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
 
-			var inventory = GameLogic.EquipmentLogic.GetNftInventory();
+			var inventory = GameLogic.EquipmentLogic.GetInventoryEquipmentInfo();
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var nftOwned = inventory.Count;
 			var poolCapacity = (double) 0;
@@ -198,11 +197,11 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var nft in inventory)
 			{
-				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Value.Rarity);
-				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Value.Adjective);
+				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Equipment.Rarity);
+				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Equipment.Adjective);
 				var modSum = (double) rarityConfig.PoolCapacityModifier + (double) adjectiveConfig.PoolCapacityModifier;
 				
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Value));
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Equipment));
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
@@ -220,7 +219,8 @@ namespace FirstLight.Game.Logic
 			poolCapacity += poolCapacity * Math.Round(GameLogic.PlayerDataProvider.Trophies.Value / poolCapacityTrophiesMod);
 			
 			// ----- Decrease pool capacity based on owned NFT durability
-			var nftDurabilityPercent = GameLogic.EquipmentLogic.GetDurabilityAveragePercentage(inventory.Values.ToList());
+			var totalDurability = inventory.GetAvgDurabilty(out var maxDurability);
+			var nftDurabilityPercent = (double)totalDurability / maxDurability;
 			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, poolDecreaseExp) * maxPoolDecreaseMod;
 			var durabilityDecrease = Math.Floor(poolCapacity * durabilityDecreaseMult);
 			

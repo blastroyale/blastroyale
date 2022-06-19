@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
 using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
@@ -136,10 +135,10 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var nft in loadoutItems)
 			{
-				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Grade);
+				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Equipment.Grade);
 				var modSum = (double) gradeConfig.PoolIncreaseModifier;
 				
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft));
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Equipment));
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
@@ -154,7 +153,8 @@ namespace FirstLight.Game.Logic
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var nftDurabilityPercent = GameLogic.EquipmentLogic.GetDurabilityAveragePercentage(loadoutItems);
+			var totalDurability = loadoutItems.GetAvgDurabilty(out var maxDurability);
+			var nftDurabilityPercent = (double)totalDurability / maxDurability;
 			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, takeDecreaseExp) * takeDecreaseMod;
 			var durabilityDecrease = Math.Round(maxTake * durabilityDecreaseMult);
 			

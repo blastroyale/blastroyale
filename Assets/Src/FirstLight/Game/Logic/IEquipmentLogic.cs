@@ -22,6 +22,11 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
 
 		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
+		/// </summary>
+		EquipmentInfo GetInfo(UniqueId id);
+
+		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for all the loadout
 		/// </summary>
 		List<EquipmentInfo> GetLoadoutEquipmentInfo();
@@ -35,11 +40,6 @@ namespace FirstLight.Game.Logic
 		/// Requests all the <see cref="EquipmentInfo"/> from the inventory that belonging to the given <paramref name="slot"/> type.
 		/// </summary>
 		List<EquipmentInfo> FindInInventory(GameIdGroup slot);
-
-		/// <summary>
-		/// Requests the <paramref name="stat"/> value of an equipment item.
-		/// </summary>
-		float GetItemStat(Equipment equipment, StatType stat);
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has

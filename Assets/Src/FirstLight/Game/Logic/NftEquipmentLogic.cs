@@ -87,20 +87,6 @@ namespace FirstLight.Game.Logic
 			return value;
 		}
 
-		public double GetDurabilityAveragePercentage(List<Equipment> items)
-		{
-			var currentNftDurabilities = 0d;
-			var maxNftDurabilities = 0d;
-			
-			foreach (var nft in items)
-			{
-				currentNftDurabilities += nft.Durability;
-				maxNftDurabilities += nft.MaxDurability;
-			}
-
-			return currentNftDurabilities / maxNftDurabilities;
-		}
-
 		public float GetTotalEquippedStat(StatType stat, List<UniqueId> items)
 		{
 			var value = 0f;

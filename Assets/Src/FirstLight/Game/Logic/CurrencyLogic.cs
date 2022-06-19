@@ -172,7 +172,7 @@ namespace FirstLight.Game.Logic
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
 
-			var inventory = GameLogic.EquipmentLogic.GetEligibleInventoryForEarnings();
+			var inventory = GameLogic.EquipmentLogic.GetNftInventory();
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var nftOwned = inventory.Count;
 			var poolCapacity = (double) 0;

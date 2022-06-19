@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -65,9 +66,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
+			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
+			
 			_selectedFrameImage.SetActive(data.IsSelected);
-			_equippedImage.enabled = _gameDataProvider.EquipmentDataProvider.IsEquipped(data.Id);
-			_cooldownImage.enabled = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(data.Id).TotalSeconds > 0;
+			_equippedImage.enabled = equipmentDataProvider.Loadout.ReadOnlyDictionary.Values.Contains(data.Id);
+			_cooldownImage.enabled = equipmentDataProvider.GetItemCooldown(data.Id).TotalSeconds > 0;
 
 			if (data.IsSelected)
 			{

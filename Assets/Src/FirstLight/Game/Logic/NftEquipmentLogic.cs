@@ -15,13 +15,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
-		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
-		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
-
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
 		private IObservableDictionary<UniqueId, long> _insertionTimestamps;
+		
+		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
+		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
+		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -39,11 +39,11 @@ namespace FirstLight.Game.Logic
 			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
 		}
 
-		public Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings()
+		public Dictionary<UniqueId, Equipment> GetNftInventory()
 		{
 			var eligibleInventory = new Dictionary<UniqueId, Equipment>();
 			
-			foreach (var kvp in _inventory.ReadOnlyDictionary)
+			foreach (var kvp in _inventory)
 			{
 				if (GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
 				{
@@ -59,17 +59,12 @@ namespace FirstLight.Game.Logic
 			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();
 		}
 
-		public bool IsEquipped(UniqueId itemId)
-		{
-			return _loadout.ReadOnlyDictionary.Values.Contains(itemId);
-		}
-
 		public float GetItemStat(Equipment equipment, StatType stat)
 		{
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var baseStatsConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
+			var configsProvider = GameLogic.ConfigsProvider;
+			var gameConfig = configsProvider.GetConfig<QuantumGameConfig>();
+			var baseStatsConfig = configsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
+			var statsConfig = configsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
 
 			return QuantumStatCalculator.CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, stat)
 			                            .AsFloat;
@@ -94,8 +89,8 @@ namespace FirstLight.Game.Logic
 
 		public double GetDurabilityAveragePercentage(List<Equipment> items)
 		{
-			var currentNftDurabilities = (double) 0;
-			var maxNftDurabilities = (double) 0;
+			var currentNftDurabilities = 0d;
+			var maxNftDurabilities = 0d;
 			
 			foreach (var nft in items)
 			{
@@ -134,18 +129,13 @@ namespace FirstLight.Game.Logic
 			return "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
 		}
 
-		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0)
+		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
 		{
 			var stats = new Dictionary<EquipmentStatType, float>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var baseStatsConfig =
 				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
 			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
-
-			if (level > 0)
-			{
-				equipment.Level = level;
-			}
 
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -187,15 +177,10 @@ namespace FirstLight.Game.Logic
 
 		public TimeSpan GetItemCooldown(UniqueId itemId)
 		{
-			double cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
-			DateTime cooldownFinishTime = GetInsertionTime(itemId).AddMinutes(cooldownMinutes);
+			var cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
+			var cooldownFinishTime = GetInsertionTime(itemId).AddMinutes(cooldownMinutes);
 
 			return cooldownFinishTime - DateTime.UtcNow;
-		}
-
-		private DateTime GetInsertionTime(UniqueId itemId)
-		{
-			return new DateTime(_insertionTimestamps.ReadOnlyDictionary[itemId]);
 		}
 
 		// TODO: Remove method and refactor cheats
@@ -288,6 +273,11 @@ namespace FirstLight.Game.Logic
 			}
 
 			_loadout.Remove(slot);
+		}
+
+		private DateTime GetInsertionTime(UniqueId itemId)
+		{
+			return new DateTime(_insertionTimestamps.ReadOnlyDictionary[itemId]);
 		}
 	}
 }

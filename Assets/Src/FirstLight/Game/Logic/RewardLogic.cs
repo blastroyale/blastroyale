@@ -118,18 +118,8 @@ namespace FirstLight.Game.Logic
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
-			
-			var inventory = GameLogic.EquipmentLogic.GetEligibleInventoryForEarnings();
-			var loadoutItems = new List<Equipment>();
-			
-			foreach (var loadoutKvp in GameLogic.EquipmentLogic.Loadout.ReadOnlyDictionary)
-			{
-				if (inventory.ContainsKey(loadoutKvp.Value))
-				{
-					loadoutItems.Add(inventory[loadoutKvp.Value]);
-				}
-			}
-			
+
+			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutEquipmentInfo();
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
 			var maxTake = poolConfig.BaseMaxTake;
 			var nftAssumed = GameConfig.NftAssumedOwned;

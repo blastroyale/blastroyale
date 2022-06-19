@@ -145,7 +145,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			cacheTransform.localRotation = Quaternion.identity;
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
-			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutItems());
+			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo());
 
 			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
 			{

@@ -33,86 +33,57 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 			_insertionTimestamps = new ObservableDictionary<UniqueId, long>(Data.InsertionTimestamps);
 		}
-
-		public Equipment[] GetLoadoutItems()
+		
+		public EquipmentInfo GetInfo(UniqueId id)
 		{
-			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
-		}
-
-		public Dictionary<UniqueId, Equipment> GetNftInventory()
-		{
-			var eligibleInventory = new Dictionary<UniqueId, Equipment>();
+			var cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
+			var cooldownFinishTime = new DateTime(_insertionTimestamps[id]).AddMinutes(cooldownMinutes);
+			var equipment = _inventory[id];
 			
-			foreach (var kvp in _inventory)
+			if (!Data.ImageUrls.TryGetValue(id, out var url))
 			{
-				if (GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
+				// TODO: Remove this once everything is working
+				url = "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
+			}
+
+			return new EquipmentInfo
+			{
+				Id = id,
+				Equipment = equipment,
+				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
+				NftCooldown = cooldownFinishTime - DateTime.UtcNow,
+				CardUrl = url,
+				Stats = GetEquipmentStats(equipment)
+			};
+		}
+
+		public List<EquipmentInfo> GetLoadoutEquipmentInfo()
+		{
+			var ret = new List<EquipmentInfo>();
+
+			foreach (var (slot, id) in _loadout)
+			{
+				ret.Add(GetInfo(id));
+			}
+
+			return ret;
+		}
+
+		public List<EquipmentInfo> GetInventoryEquipmentInfo()
+		{
+			var ret = new List<EquipmentInfo>();
+
+			foreach (var (id, equipment) in _inventory)
+			{
+				var info = GetInfo(id);
+
+				if (!info.IsOnCooldown)
 				{
-					eligibleInventory.Add(kvp.Key,kvp.Value);
+					ret.Add(info);
 				}
 			}
 
-			return eligibleInventory;
-		}
-
-		public List<Equipment> FindInInventory(GameIdGroup slot)
-		{
-			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();
-		}
-
-		public float GetItemStat(Equipment equipment, StatType stat)
-		{
-			var configsProvider = GameLogic.ConfigsProvider;
-			var gameConfig = configsProvider.GetConfig<QuantumGameConfig>();
-			var baseStatsConfig = configsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = configsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
-
-			return QuantumStatCalculator.CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, stat)
-			                            .AsFloat;
-		}
-
-		public float GetTotalEquippedStat(StatType stat)
-		{
-			var value = 0f;
-
-			foreach (var id in _loadout.ReadOnlyDictionary.Values)
-			{
-				if (id == UniqueId.Invalid)
-				{
-					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
-					
-				}
-				value += GetItemStat(_inventory[id], stat);
-			}
-
-			return value;
-		}
-
-		public float GetTotalEquippedStat(StatType stat, List<UniqueId> items)
-		{
-			var value = 0f;
-			
-			foreach (var id in items)
-			{
-				if (id == UniqueId.Invalid)
-				{
-					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
-				}
-				
-				value += GetItemStat(_inventory[id], stat);
-			}
-
-			return value;
-		}
-
-		public string GetEquipmentCardUrl(UniqueId id)
-		{
-			if (Data.ImageUrls.TryGetValue(id, out var url))
-			{
-				return url;
-			}
-
-			// TODO: Remove this once everything is working
-			return "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
+			return ret;
 		}
 
 		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
@@ -155,18 +126,7 @@ namespace FirstLight.Game.Logic
 
 		public bool EnoughLoadoutEquippedToPlay()
 		{
-			var nftAmountForPlay = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
-			var nftCount = GetLoadoutItems().Length;
-			
-			return nftCount >= nftAmountForPlay;
-		}
-
-		public TimeSpan GetItemCooldown(UniqueId itemId)
-		{
-			var cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
-			var cooldownFinishTime = GetInsertionTime(itemId).AddMinutes(cooldownMinutes);
-
-			return cooldownFinishTime - DateTime.UtcNow;
+			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
 		// TODO: Remove method and refactor cheats
@@ -202,31 +162,24 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		public void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout)
+		public void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout)
 		{
-			foreach (var modifiedKvp in newLoadout)
+			var slots = Equipment.EquipmentSlots;
+
+			foreach (var slot in slots)
 			{
-				UniqueId equippedInSlot = GetEquippedItemForSlot(modifiedKvp.Key);
-				
-				if (equippedInSlot != UniqueId.Invalid && modifiedKvp.Value == UniqueId.Invalid)
+				if (newLoadout.TryGetValue(slot, out var id))
 				{
-					Unequip(equippedInSlot);
+					if (_loadout.TryGetValue(slot, out var equippedId) && id != equippedId)
+					{
+						Equip(id);
+					}
 				}
-				else if (modifiedKvp.Value != equippedInSlot)
+				else if(_loadout.ContainsKey(slot))
 				{
-					Equip(modifiedKvp.Value);
+					Unequip(id);
 				}
 			}
-		}
-		
-		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
-		{
-			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
-			{
-				return UniqueId.Invalid;
-			}
-			
-			return _loadout.ReadOnlyDictionary[idGroup];
 		}
 
 		private void Equip(UniqueId itemId)
@@ -259,11 +212,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			_loadout.Remove(slot);
-		}
-
-		private DateTime GetInsertionTime(UniqueId itemId)
-		{
-			return new DateTime(_insertionTimestamps.ReadOnlyDictionary[itemId]);
 		}
 	}
 }

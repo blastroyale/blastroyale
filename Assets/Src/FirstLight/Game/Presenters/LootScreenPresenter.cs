@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -28,7 +29,7 @@ namespace FirstLight.Game.Presenters
 			public Action<UniqueId> OnEquipmentButtonClicked;
 			public Action OnChangeSkinClicked;
 			public Action OnLootBackButtonClicked;
-			public Func<List<UniqueId>> CurrentTempLoadout;
+			public IReadOnlyDictionary<GameIdGroup, UniqueId> CurrentTempLoadout;
 		}
 
 		[SerializeField] private FilterLootView[] _filterButtons;
@@ -95,13 +96,16 @@ namespace FirstLight.Game.Presenters
 
 		private void SetBasicPlayerInformation()
 		{
-			var loadoutForCalculations = Data.CurrentTempLoadout().Where(x => x != UniqueId.Invalid).ToList();
+			var loadout = new List<EquipmentInfo>();
+
+			foreach (var (slot, id) in Data.CurrentTempLoadout)
+			{
+				loadout.Add(_gameDataProvider.EquipmentDataProvider.GetInfo(id));
+			}
 
 			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;
-			_powerValueText.text = _gameDataProvider.EquipmentDataProvider
-			                                        .GetTotalEquippedStat(StatType.Power, loadoutForCalculations)
-			                                        .ToString("F0");
+			_powerValueText.text = loadout.GetTotalStat(EquipmentStatType.Damage).ToString("F0");
 		}
 
 		private async void LoadPlayerLevelInformation()

@@ -37,19 +37,9 @@ namespace FirstLight.Game.Logic
 		List<EquipmentInfo> GetInventoryEquipmentInfo();
 
 		/// <summary>
-		/// Requests all the <see cref="EquipmentInfo"/> from the inventory that belonging to the given <paramref name="slot"/> type.
-		/// </summary>
-		List<EquipmentInfo> FindInInventory(GameIdGroup slot);
-
-		/// <summary>
 		/// Request the stats a specific piece of equipment has
 		/// </summary>
 		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment);
-
-		/// <summary>
-		/// Requests the percentage average of durability on all equipment in <paramref name="items"/>
-		/// </summary>
-		double GetDurabilityAvgPercentage(List<Equipment> items);
 
 		/// <summary>
 		/// Requests to see if player has enough NFTs equipped for play

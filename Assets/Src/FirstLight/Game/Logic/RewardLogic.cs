@@ -126,7 +126,6 @@ namespace FirstLight.Game.Logic
 			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
-			var loadoutSlots = GameConfig.LoadoutSlots;
 			var nftsEquipped = (uint) GameLogic.EquipmentLogic.Loadout.Count;
 			
 			// ----- Increase CS max take per grade of equipped NFTs
@@ -153,15 +152,14 @@ namespace FirstLight.Game.Logic
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var totalDurability = loadoutItems.GetAvgDurabilty(out var maxDurability);
+			var totalDurability = loadoutItems.GetAvgDurability(out var maxDurability);
 			var nftDurabilityPercent = (double)totalDurability / maxDurability;
 			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, takeDecreaseExp) * takeDecreaseMod;
-			var durabilityDecrease = Math.Round(maxTake * durabilityDecreaseMult);
 			
-			maxTake -= (uint)durabilityDecrease;
+			maxTake -= (uint) Math.Round(maxTake * durabilityDecreaseMult);
 			
 			// ----- Get take based on amount of NFTs equipped
-			var csTake = (uint) FPMath.Ceiling(maxTake / loadoutSlots * nftsEquipped);
+			var csTake = (uint) Math.Ceiling((double) maxTake / Equipment.EquipmentSlots.Count * nftsEquipped);
 			
 			// NOTE: Final take should afterwards be modified by placement in match
 			

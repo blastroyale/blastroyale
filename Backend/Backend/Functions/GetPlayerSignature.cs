@@ -9,13 +9,14 @@ using Microsoft.Extensions.Logging;
 namespace Backend.Functions;
 
 /// <summary>
-/// Sets the player state to its initial state.
+/// Gets the player data signature. This signature can be used by other services to validate if 
+/// the player data has been tampered.
 /// </summary>
-public class GetPlayerDataCommand
+public class GetPlayerSignature
 {
 	private readonly ILogicWebService _gameLogicWebService;
 
-	public GetPlayerDataCommand(ILogicWebService gameLogicWebService)
+	public GetPlayerSignature(ILogicWebService gameLogicWebService)
 	{
 		_gameLogicWebService = gameLogicWebService;
 	}
@@ -23,11 +24,11 @@ public class GetPlayerDataCommand
 	/// <summary>
 	/// Command Execution
 	/// </summary>
-	[FunctionName("GetPlayerData")]
+	[FunctionName("GetPlayerSignature")]
 	public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                           HttpRequestMessage req, ILogger log)
 	{
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
-		return await _gameLogicWebService.GetPlayerData(context.AuthenticationContext.PlayFabId);
+		return _gameLogicWebService.GetPlayerDataSignature(context.AuthenticationContext.PlayFabId);
 	}
 }

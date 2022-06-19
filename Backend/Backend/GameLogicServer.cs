@@ -1,7 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Models;
+using Backend.Services;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using Microsoft.Extensions.Logging;
 using PlayFab;
@@ -32,6 +37,12 @@ public interface ILogicWebService
 	/// Obtains the current player state.
 	/// </summary>
 	public Task<PlayFabResult<BackendLogicResult>> GetPlayerData(string playerId);
+
+	/// <summary>
+	/// Obtains a signed message of the player data that can be used to validate if
+	/// player data has been tampered client-side.
+	/// </summary>
+	public BackendLogicResult GetPlayerDataSignature(string playerId);
 }
 
 public class GameLogicWebWebService : ILogicWebService
@@ -42,13 +53,15 @@ public class GameLogicWebWebService : ILogicWebService
 	private readonly GameServer _server;
 	private readonly IEventManager _eventManager;
 	private readonly IStateMigrator<ServerState> _migrator;
-	
+	private readonly IEncryptionService _encrypt;
+
 	public GameLogicWebWebService(
 			IEventManager eventManager,
 			ILogger log,
-			IStateMigrator<ServerState> migrator, 
-			IPlayerSetupService service, 
+			IStateMigrator<ServerState> migrator,
+			IPlayerSetupService service,
 			IServerStateService stateService,
+			IEncryptionService encryptionService,
 			GameServer server
 			)
 	{
@@ -58,13 +71,13 @@ public class GameLogicWebWebService : ILogicWebService
 		_eventManager = eventManager;
 		_migrator = migrator;
 		_log = log;
+		_encrypt = encryptionService;
 	}
 
 	public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
 	{
 		return new PlayFabResult<BackendLogicResult>
 		{
-			
 			Result = _server.RunLogic(playerId, request)
 		};
 	}
@@ -85,7 +98,7 @@ public class GameLogicWebWebService : ILogicWebService
 				_log.LogDebug($"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
 			}
 		}
-	
+
 		_eventManager.CallEvent(new PlayerDataLoadEvent(playerId));
 		return new PlayFabResult<BackendLogicResult>
 		{
@@ -96,7 +109,7 @@ public class GameLogicWebWebService : ILogicWebService
 			}
 		};
 	}
-	
+
 	public async Task<PlayFabResult<BackendLogicResult>> SetupPlayer(string playerId)
 	{
 		var serverData = _setupService.GetInitialState(playerId);
@@ -107,6 +120,23 @@ public class GameLogicWebWebService : ILogicWebService
 			{
 				PlayFabId = playerId,
 				Data = serverData
+			}
+		};
+	}
+
+	public BackendLogicResult GetPlayerDataSignature(string playerId)
+	{
+		var state = _stateService.GetPlayerState(playerId);
+		var playerData = state.DeserializeModel<PlayerData>();
+		var equipped = playerData.Equipped.Values.ToList();
+		var equippedMessage = string.Join(",", equipped);
+		var key = Environment.GetEnvironmentVariable("API_SECRET", EnvironmentVariableTarget.Process);
+		return new BackendLogicResult()
+		{
+			PlayFabId = playerId,
+			Data = new Dictionary<string, string>()
+			{
+				{ "Signature", _encrypt.Encrypt(equippedMessage, key) }
 			}
 		};
 	}

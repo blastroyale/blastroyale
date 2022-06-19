@@ -1,0 +1,8 @@
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\quantum.custom.plugin\obj\Debug\quantum.custom.plugin.csproj.AssemblyReference.cache
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\quantum.custom.plugin\obj\Debug\quantum.custom.plugin.csproj.CoreCompileInputs.cache
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\Photon-Server\deploy\Plugins\DeterministicPlugin\bin\quantum.custom.plugin.dll
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\Photon-Server\deploy\Plugins\DeterministicPlugin\bin\quantum.custom.plugin.pdb
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\quantum.custom.plugin\obj\Debug\quantum.custom.plugin.csproj.CopyComplete
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\quantum.custom.plugin\obj\Debug\quantum.custom.plugin.dll
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\quantum.custom.plugin\obj\Debug\quantum.custom.plugin.pdb
+C:\Users\gabri\OneDrive\Desktop\Code\blast-royale\Quantum\quantum_server\Photon-Server\deploy\Plugins\DeterministicPlugin\bin\quantum.custom.plugin.dll.config

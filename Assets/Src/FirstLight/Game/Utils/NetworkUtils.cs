@@ -17,7 +17,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, string roomName, int playerTtl)
+		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, string roomName)
 		{
 			var roomParams = new EnterRoomParams
 			{
@@ -40,11 +40,11 @@ namespace FirstLight.Game.Utils
 					SuppressPlayerInfo = false,
 					PublishUserId = false,
 					DeleteNullProperties = true,
-					EmptyRoomTtl = 0,
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS,
 					IsOpen = true,
 					IsVisible = string.IsNullOrEmpty(roomName),
 					MaxPlayers = (byte)mapConfig.PlayersLimit,
-					PlayerTtl = playerTtl
+					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
 				}
 			};
 			
@@ -62,7 +62,11 @@ namespace FirstLight.Game.Utils
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
-				RoomOptions = null
+				RoomOptions = new RoomOptions
+				{
+					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS,
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS
+				}
 			};
 		}
 		
@@ -78,7 +82,7 @@ namespace FirstLight.Game.Utils
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
-				TypedLobby = TypedLobby.Default
+				TypedLobby = TypedLobby.Default,
 			};
 		}
 

@@ -70,7 +70,7 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
-			disconnectedScreen.Event(PhotonMasterConnectedEvent).Target(connected);
+			disconnectedScreen.Event(JoinedRoomEvent).Target(connected);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).Target(disconnected);
 			disconnectedScreen.OnExit(CloseDisconnectedScreen);
 			disconnectedScreen.OnExit(OpenLoadingScreen);
@@ -93,7 +93,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				ReconnectClicked = ConnectPhoton,
+				ReconnectClicked = () =>
+				{
+					_networkService.QuantumClient.ReconnectAndRejoin();
+				},
 				BackClicked = () =>
 				{
 					_statechartTrigger(DisconnectedScreenBackEvent);
@@ -349,7 +352,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(QuantumMapConfig mapConfig)
 		{
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, null, GameConstants.Network.DefaultPlayerTtl);
+			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, null);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig);
 
 			QuantumRunnerConfigs.IsOfflineMode = mapConfig.PlayersLimit == 1;
@@ -378,7 +381,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
 		{
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, roomName, GameConstants.Network.DefaultPlayerTtl);
+			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, roomName);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 			
@@ -444,7 +447,7 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
 			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.Nickname;
-			
+
 			var preloadIds = new List<int>();
 			
 			foreach (var item in _gameDataProvider.EquipmentDataProvider.Loadout)

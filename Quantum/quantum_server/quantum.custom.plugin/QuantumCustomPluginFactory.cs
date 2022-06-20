@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
 using Photon.Hive.Plugin;
@@ -24,18 +24,10 @@ namespace Quantum
 
 		private void InitLog(DeterministicPlugin plugin)
 		{
-			/*
 			Log.Init(
 				info => { plugin.LogInfo(info); },
 				warn => { plugin.LogWarning(warn); },
 				error => { plugin.LogError(error); },
-				exn => { plugin.LogFatal(exn.ToString()); }
-			);
-			*/
-			Log.Init(
-				info => { Console.WriteLine(info); },
-				warn => { Console.WriteLine(warn); },
-				error => { Console.WriteLine(error); },
 				exn => { plugin.LogFatal(exn.ToString()); }
 			);
 			DeterministicLog.Init(

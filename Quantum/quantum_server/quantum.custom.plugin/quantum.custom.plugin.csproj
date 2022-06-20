@@ -109,11 +109,8 @@
     <Compile Include="PlayfabService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuantumCustomPluginFactory.cs" />
-    <Compile Include="QuantumJsonSerializer.cs" />
-    <Compile Include="ReplayJsonSerializerSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".editorconfig" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

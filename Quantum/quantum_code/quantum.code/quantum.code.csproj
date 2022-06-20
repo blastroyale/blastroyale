@@ -280,6 +280,7 @@
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\ListExtension.cs" />
+    <Compile Include="Utils\QuantumExtensions.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />

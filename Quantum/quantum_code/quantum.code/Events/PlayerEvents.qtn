@@ -85,6 +85,14 @@ synced event OnPlayerWeaponChanged
 	Equipment Weapon;
 }
 
+synced event OnPlayerGearChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	Equipment Gear;
+	Int32 Slot;
+}
+
 synced event OnPlayerAttack
 {
 	player_ref Player;

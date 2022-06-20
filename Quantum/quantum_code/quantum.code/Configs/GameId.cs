@@ -426,41 +426,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.SoldierBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.GoldenBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.MouseBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.WarriorBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
-					GameId.RiotBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment
-					}.AsReadOnly()
-				},
-				{
 					GameId.Male01Avatar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin
@@ -734,12 +699,7 @@ namespace Quantum
 						GameId.MouseShield,
 						GameId.SoldierShield,
 						GameId.WarriorShield,
-						GameId.RiotShield,
-						GameId.SoldierBoots,
-						GameId.GoldenBoots,
-						GameId.MouseBoots,
-						GameId.WarriorBoots,
-						GameId.RiotBoots
+						GameId.RiotShield
 					}.AsReadOnly()
 				},
 				{
@@ -796,16 +756,6 @@ namespace Quantum
 						GameId.SoldierShield,
 						GameId.WarriorShield,
 						GameId.RiotShield
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Boots, new List<GameId>
-					{
-						GameId.SoldierBoots,
-						GameId.GoldenBoots,
-						GameId.MouseBoots,
-						GameId.WarriorBoots,
-						GameId.RiotBoots
 					}.AsReadOnly()
 				},
 				{

@@ -29,7 +29,7 @@ namespace FirstLight
 		/// <summary>
 		/// Requests this dictionary as a <see cref="IReadOnlyDictionary{TKey,TValue}"/>
 		/// </summary>
-		IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary { get; }
+		ReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary { get; }
 			
 		/// <inheritdoc cref="Dictionary{TKey,TValue}.TryGetValue" />
 		bool TryGetValue(TKey key, out TValue value);
@@ -105,7 +105,7 @@ namespace FirstLight
 		/// <inheritdoc />
 		public int Count => Dictionary.Count;
 		/// <inheritdoc />
-		public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary => new ReadOnlyDictionary<TKey, TValue>(Dictionary);
+		public ReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary => new ReadOnlyDictionary<TKey, TValue>(Dictionary);
 
 		protected virtual IDictionary<TKey, TValue> Dictionary { get; }
 		

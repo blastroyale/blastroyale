@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using FirstLight.Editor.EditorTools;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Utils;
 using FirstLight.GoogleSheetImporter;
 using Quantum;
-using UnityEditor;
 
 namespace FirstLight.Editor.SheetImporters
 {
@@ -24,8 +22,6 @@ namespace FirstLight.Editor.SheetImporters
 				CsvParser.Parse<GameId>(data["SpecialId0"]), 
 				CsvParser.Parse<GameId>(data["SpecialId1"])
 			};
-
-			config.AssetRef = assetConfigs.WeaponPickUpPrototype;
 
 			return config;
 		}

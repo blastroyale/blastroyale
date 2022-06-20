@@ -187,7 +187,7 @@ namespace Quantum
 				return Equipment.None;
 			}
 
-			var index = BitUtil.GetNthBitIndex(flags, f.RNG->Next(0, bitCount));
+			var index = (int) BitUtil.GetNthBitIndex((ulong) flags, (uint) f.RNG->Next(0, bitCount));
 			var group = PlayerCharacter.GetEquipmentGroupForSlot(index - 1);
 
 			foreach (var e in loadout)

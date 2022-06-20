@@ -103,7 +103,7 @@ namespace FirstLight.Game.StateMachines
 
 		public bool IsPhotonConnected()
 		{
-			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+			return _services.NetworkService.QuantumClient.IsConnected;
 		}
 
 		private void SubscribeEvents()

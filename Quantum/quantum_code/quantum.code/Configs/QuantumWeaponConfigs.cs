@@ -5,10 +5,9 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumWeaponConfig
+	public struct QuantumWeaponConfig
 	{
 		public GameId Id;
-		public AssetRefEntityPrototype AssetRef;
 		public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
 		public FP AimingMovementSpeed;
@@ -49,7 +48,7 @@ namespace Quantum
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
 
 		/// <summary>
-		/// Requests the <see cref="QuantumGearConfig"/> of the given enemy <paramref name="gameId"/>
+		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumWeaponConfig GetConfig(GameId gameId)
 		{

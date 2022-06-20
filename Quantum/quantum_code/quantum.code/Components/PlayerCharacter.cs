@@ -85,10 +85,8 @@ namespace Quantum
 				// Replenish Special's charges
 				for (var i = 0; i < WeaponSlots.Length; i++)
 				{
-					for (var j = 0; j < Constants.MAX_SPECIALS; j++)
-					{
-						WeaponSlots[i].SpecialsCharges[j].Charges = 1;
-					}
+					WeaponSlots[i].Special1Charges = 1;
+					WeaponSlots[i].Special2Charges = 1;
 				}
 			}
 
@@ -182,7 +180,8 @@ namespace Quantum
 
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()
-			                                                          && WeaponSlots[slot].Weapon.GameId != weapon.GameId)
+			                                                          && (WeaponSlots[slot].Weapon.GameId != weapon.GameId ||
+			                                                              primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);

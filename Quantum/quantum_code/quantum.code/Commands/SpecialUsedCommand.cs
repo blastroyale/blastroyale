@@ -30,7 +30,13 @@ namespace Quantum.Commands
 			{
 				if (special->TryActivate(f, characterEntity, AimInput, SpecialIndex))
 				{
-					playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].SpecialsCharges[SpecialIndex].Charges--;
+					switch (SpecialIndex)
+					{
+						case 0 : playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special1Charges--;
+							break;
+						case 1 : playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special2Charges--;
+							break;
+					}
 				}
 			}
 		}
@@ -40,7 +46,20 @@ namespace Quantum.Commands
 		/// </summary>
 		private bool HasCharge(PlayerCharacter* playerCharacter)
 		{
-			return playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].SpecialsCharges[SpecialIndex].Charges > 0;
+			return GetSpecialChargesByIndex(SpecialIndex, playerCharacter) > 0;
+		}
+
+		/// <summary>
+		/// Gets the number of charges of an Special by its index
+		/// </summary>
+		private int GetSpecialChargesByIndex(int specialIndex, PlayerCharacter* playerCharacter)
+		{
+			return specialIndex switch
+			{ 
+				0 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special1Charges,
+				1 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special2Charges,
+				_ => 0
+			};
 		}
 	}
 }

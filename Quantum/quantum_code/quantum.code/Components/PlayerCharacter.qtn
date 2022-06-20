@@ -19,15 +19,11 @@ component DeadPlayerCharacter
 	FP TimeOfDeath;
 }
 
-struct SpecialState
-{
-	Int32 Charges;
-}
-
 struct WeaponSlot
 {
 	Equipment Weapon;
-	array<SpecialState>[MAX_SPECIALS] SpecialsCharges;
+	Int32 Special1Charges;
+	Int32 Special2Charges;
 }
 
 component PlayerCharacter

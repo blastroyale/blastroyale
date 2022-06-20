@@ -21,7 +21,7 @@ public class GetPlayerSignature
 		_gameLogicWebService = gameLogicWebService;
 	}
 	
-	/// <summary>
+	/// <summary>s
 	/// Command Execution
 	/// </summary>
 	[FunctionName("GetPlayerSignature")]
@@ -29,6 +29,6 @@ public class GetPlayerSignature
 	                           HttpRequestMessage req, ILogger log)
 	{
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
-		return _gameLogicWebService.GetPlayerDataSignature(context.AuthenticationContext.PlayFabId);
+		return await _gameLogicWebService.GetPlayerDataSignature(context.AuthenticationContext.PlayFabId);
 	}
 }

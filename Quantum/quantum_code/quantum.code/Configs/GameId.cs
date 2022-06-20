@@ -426,14 +426,14 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.GoldenBoots, new List<GameIdGroup>
+					GameId.SoldierBoots, new List<GameIdGroup>
 					{
 						GameIdGroup.Boots,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.SoldierBoots, new List<GameIdGroup>
+					GameId.GoldenBoots, new List<GameIdGroup>
 					{
 						GameIdGroup.Boots,
 						GameIdGroup.Equipment
@@ -447,14 +447,14 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.RiotBoots, new List<GameIdGroup>
+					GameId.WarriorBoots, new List<GameIdGroup>
 					{
 						GameIdGroup.Boots,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.WarriorBoots, new List<GameIdGroup>
+					GameId.RiotBoots, new List<GameIdGroup>
 					{
 						GameIdGroup.Boots,
 						GameIdGroup.Equipment
@@ -735,11 +735,11 @@ namespace Quantum
 						GameId.SoldierShield,
 						GameId.WarriorShield,
 						GameId.RiotShield,
-						GameId.GoldenBoots,
 						GameId.SoldierBoots,
+						GameId.GoldenBoots,
 						GameId.MouseBoots,
-						GameId.RiotBoots,
-						GameId.WarriorBoots
+						GameId.WarriorBoots,
+						GameId.RiotBoots
 					}.AsReadOnly()
 				},
 				{
@@ -801,11 +801,11 @@ namespace Quantum
 				{
 					GameIdGroup.Boots, new List<GameId>
 					{
-						GameId.GoldenBoots,
 						GameId.SoldierBoots,
+						GameId.GoldenBoots,
 						GameId.MouseBoots,
-						GameId.RiotBoots,
-						GameId.WarriorBoots
+						GameId.WarriorBoots,
+						GameId.RiotBoots
 					}.AsReadOnly()
 				},
 				{

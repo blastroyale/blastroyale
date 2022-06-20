@@ -42,7 +42,7 @@ public interface ILogicWebService
 	/// Obtains a signed message of the player data that can be used to validate if
 	/// player data has been tampered client-side.
 	/// </summary>
-	public BackendLogicResult GetPlayerDataSignature(string playerId);
+	public  Task<PlayFabResult<BackendLogicResult>> GetPlayerDataSignature(string playerId);
 }
 
 public class GameLogicWebWebService : ILogicWebService
@@ -124,16 +124,17 @@ public class GameLogicWebWebService : ILogicWebService
 		};
 	}
 
-	public BackendLogicResult GetPlayerDataSignature(string playerId)
+	public async Task<PlayFabResult<BackendLogicResult>> GetPlayerDataSignature(string playerId)
 	{
 		var key = Environment.GetEnvironmentVariable("API_SECRET", EnvironmentVariableTarget.Process);
-		return new BackendLogicResult()
+		return await Task.FromResult(new PlayFabResult<BackendLogicResult>
 		{
-			PlayFabId = playerId,
-			Data = new Dictionary<string, string>()
+			Result = new BackendLogicResult
 			{
-				{ "Signature", _signer.SignState(_stateService.GetPlayerState(playerId), key) }
+				PlayFabId = playerId,
+				Data = new (){ { "Signature", _signer.SignState(_stateService.GetPlayerState(playerId), key) } }
 			}
-		};
+		});
+		
 	}
 }

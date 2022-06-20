@@ -2,8 +2,6 @@ using FirstLight.Game.Data;
 using ServerSDK.Models;
 using ServerSDK.Modules;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 
 // TODO: Move implementation logic of the signer to the SDK and implement logic

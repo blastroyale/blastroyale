@@ -97,10 +97,25 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			if (_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatHealth, callback.StatHealthDifference);
-				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatArmour, callback.StatArmourDifference);
-				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatSpeed, callback.StatSpeedDifference.AsInt);
-				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatPower, callback.StatPowerDifference.AsInt);
+				for (int i = 0; i < Constants.TOTAL_STATS; i++)
+				{
+					var difference = callback.CurrentStats.Values[i].BaseValue.AsFloat - callback.PreviousStats.Values[i].BaseValue.AsFloat;
+					
+					EnqueueValueIfNonZero(entityBase, GetStatName(callback.CurrentStats.Values[i].Type), Mathf.RoundToInt(difference));
+				}
+			}
+		}
+
+		private string GetStatName(StatType statType)
+		{
+			switch (statType)
+			{
+				case StatType.Health : return ScriptLocalization.AdventureMenu.StatHealth;
+				case StatType.Armour : return ScriptLocalization.AdventureMenu.StatArmour;
+				case StatType.Power : return ScriptLocalization.AdventureMenu.StatPower;
+				case StatType.Shield : return ScriptLocalization.AdventureMenu.StatShield;
+				case StatType.Speed : return ScriptLocalization.AdventureMenu.StatSpeed;
+				default : return "The stat doesn't exist";
 			}
 		}
 
@@ -110,10 +125,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
-			EnqueueText(_pool, entityBase, 
-			            valueName + (value > 0 ? " +" : " ") + value,
-			            value > 0 ? _neutralTextColor : _hitTextColor);
+
+			var valueSign = value > 0 ? " +" : " ";
+			var messageText = valueName + valueSign + value;
+			var messageColor = value > 0 ? _neutralTextColor : _hitTextColor;
+
+			EnqueueText(_pool, entityBase, messageText, messageColor);
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)

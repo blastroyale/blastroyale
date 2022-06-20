@@ -199,21 +199,12 @@ namespace Quantum
 			var weapon = CurrentWeapon;
 			
 			// We request stats and store their current base values
-			var stats = f.Get<Stats>(e);
-			FP[] statsDifference = new FP[Constants.TOTAL_STATS];
-			for (int i = 0; i < Constants.TOTAL_STATS; i++)
-			{
-				statsDifference[i] = stats.Values[i].BaseValue;
-			}
+			var previousStats = f.Get<Stats>(e);
 
 			RefreshStats(f, e);
 
-			// After the refresh we request updated stats and calculate the difference
-			stats = f.Get<Stats>(e);
-			for (int i = 0; i < Constants.TOTAL_STATS; i++)
-			{
-				statsDifference[i] = stats.Values[i].BaseValue - statsDifference[i];
-			}
+			// After the refresh we request updated stats
+			var currentStats = f.Get<Stats>(e);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			//the total time it takes for a burst to complete should be half of the weapon's cooldown
@@ -232,11 +223,7 @@ namespace Quantum
 			if (triggerEvents)
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot, 
-				                                    statsDifference[(int) StatType.Health].AsInt,
-				                                    statsDifference[(int) StatType.Armour].AsInt,
-				                                    statsDifference[(int) StatType.Speed],
-				                                    statsDifference[(int) StatType.Power]);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot, previousStats, currentStats);
 			}
 
 			// TODO: Specials should have charges and remember charges used for each weapon

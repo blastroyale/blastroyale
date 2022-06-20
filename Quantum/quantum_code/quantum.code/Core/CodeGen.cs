@@ -5535,7 +5535,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot, Int32 StatHealthDifference, Int32 StatArmourDifference, FP StatSpeedDifference, FP StatPowerDifference) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
@@ -5543,10 +5543,8 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.Weapon = Weapon;
         ev.Slot = Slot;
-        ev.StatHealthDifference = StatHealthDifference;
-        ev.StatArmourDifference = StatArmourDifference;
-        ev.StatSpeedDifference = StatSpeedDifference;
-        ev.StatPowerDifference = StatPowerDifference;
+        ev.PreviousStats = PreviousStats;
+        ev.CurrentStats = CurrentStats;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7473,10 +7471,8 @@ namespace Quantum {
     public EntityRef Entity;
     public Equipment Weapon;
     public Int32 Slot;
-    public Int32 StatHealthDifference;
-    public Int32 StatArmourDifference;
-    public FP StatSpeedDifference;
-    public FP StatPowerDifference;
+    public Quantum.Stats PreviousStats;
+    public Quantum.Stats CurrentStats;
     protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7498,10 +7494,8 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
         hash = hash * 31 + Slot.GetHashCode();
-        hash = hash * 31 + StatHealthDifference.GetHashCode();
-        hash = hash * 31 + StatArmourDifference.GetHashCode();
-        hash = hash * 31 + StatSpeedDifference.GetHashCode();
-        hash = hash * 31 + StatPowerDifference.GetHashCode();
+        hash = hash * 31 + PreviousStats.GetHashCode();
+        hash = hash * 31 + CurrentStats.GetHashCode();
         return hash;
       }
     }

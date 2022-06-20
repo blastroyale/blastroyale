@@ -13,7 +13,6 @@ using PlayFab;
 using ServerSDK;
 using ServerSDK.Models;
 using ServerSDK.Services;
-using Backend.Services;
 
 namespace Backend;
 
@@ -37,7 +36,6 @@ public static class ServerStartup
 		services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
-		services.AddSingleton<IStateSigner, BlastRoyaleSigner>();
 		services.AddSingleton<GameServer>();
 		services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 		services.AddSingleton<IEventManager, PluginEventManager>(p =>

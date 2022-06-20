@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Models;
-using Backend.Services;
-using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using Microsoft.Extensions.Logging;
 using PlayFab;
@@ -37,12 +32,6 @@ public interface ILogicWebService
 	/// Obtains the current player state.
 	/// </summary>
 	public Task<PlayFabResult<BackendLogicResult>> GetPlayerData(string playerId);
-
-	/// <summary>
-	/// Obtains a signed message of the player data that can be used to validate if
-	/// player data has been tampered client-side.
-	/// </summary>
-	public  Task<PlayFabResult<BackendLogicResult>> GetPlayerDataSignature(string playerId);
 }
 
 public class GameLogicWebWebService : ILogicWebService
@@ -53,7 +42,6 @@ public class GameLogicWebWebService : ILogicWebService
 	private readonly GameServer _server;
 	private readonly IEventManager _eventManager;
 	private readonly IStateMigrator<ServerState> _migrator;
-	private readonly IStateSigner _signer;
 
 	public GameLogicWebWebService(
 			IEventManager eventManager,
@@ -61,7 +49,6 @@ public class GameLogicWebWebService : ILogicWebService
 			IStateMigrator<ServerState> migrator,
 			IPlayerSetupService service,
 			IServerStateService stateService,
-			IStateSigner encryptionService,
 			GameServer server
 			)
 	{
@@ -71,7 +58,6 @@ public class GameLogicWebWebService : ILogicWebService
 		_eventManager = eventManager;
 		_migrator = migrator;
 		_log = log;
-		_signer = encryptionService;
 	}
 
 	public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -122,19 +108,5 @@ public class GameLogicWebWebService : ILogicWebService
 				Data = serverData
 			}
 		};
-	}
-
-	public async Task<PlayFabResult<BackendLogicResult>> GetPlayerDataSignature(string playerId)
-	{
-		var key = Environment.GetEnvironmentVariable("API_SECRET", EnvironmentVariableTarget.Process);
-		return await Task.FromResult(new PlayFabResult<BackendLogicResult>
-		{
-			Result = new BackendLogicResult
-			{
-				PlayFabId = playerId,
-				Data = new (){ { "Signature", _signer.SignState(_stateService.GetPlayerState(playerId), key) } }
-			}
-		});
-		
 	}
 }

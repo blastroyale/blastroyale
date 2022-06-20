@@ -49,6 +49,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's Nickname
 		/// </summary>
 		string Nickname { get; }
+
+		/// <summary>
+		/// Obtains the player unique id
+		/// </summary>
+		string PlayerId { get; }
 		
 		/// <summary>
 		/// Requests the player's Nickname
@@ -163,6 +168,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
 			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+
+		/// <inheritdoc />
+		public string PlayerId => Data.PlayerId;
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }

@@ -41,6 +41,15 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FirstLight.DataExtensions">
+      <HintPath>..\..\..\Backend\Lib\FirstLight.DataExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="FirstLight.Game">
+      <HintPath>..\..\..\Backend\Lib\FirstLight.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="FirstLight.Services">
+      <HintPath>..\..\..\Backend\Lib\FirstLight.Services.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -61,6 +70,9 @@
     <Reference Include="PhotonHivePlugin">
       <HintPath>..\assemblies\PhotonHivePlugin.dll</HintPath>
     </Reference>
+    <Reference Include="PlayFabAllSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PlayFabAllSDK.1.108.220118\lib\net45\PlayFabAllSDK.dll</HintPath>
+    </Reference>
     <Reference Include="quantum.code">
       <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
     </Reference>
@@ -68,7 +80,22 @@
       <HintPath>..\..\assemblies\debug\quantum.core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Collections.Concurrent" />
+    <Reference Include="System.ComponentModel" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.Tools" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Net.Primitives" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System.Reflection.Extensions" />
+    <Reference Include="System.Resources.ResourceManager" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Extensions" />
+    <Reference Include="System.Text.Encoding" />
+    <Reference Include="System.Threading" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +106,7 @@
   <ItemGroup>
     <Compile Include="CustomQuantumPlugin.cs" />
     <Compile Include="CustomQuantumServer.cs" />
+    <Compile Include="PlayfabService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuantumCustomPluginFactory.cs" />
     <Compile Include="QuantumJsonSerializer.cs" />

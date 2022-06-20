@@ -105,14 +105,14 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Requests will go to REMOTE server now");
 		}
 		
-		[MenuItem("FLG/Backend/Enable State Machine Debug")]
+		[MenuItem("FLG/Logging/Enable State Machine Debug")]
 		private static void EnableStateMachineDebug()
 		{
 			EditorPrefs.SetBool(ENABLE_STATE_MACHINE_DEBUG, true);
 			Debug.Log("State machine debug has been ENABLED.");
 		}
 
-		[MenuItem("FLG/Backend/Disable State Machine Debug")]
+		[MenuItem("FLG/Logging/Disable State Machine Debug")]
 		private static void DisableStateMachineDebug()
 		{
 			EditorPrefs.SetBool(ENABLE_STATE_MACHINE_DEBUG, false);

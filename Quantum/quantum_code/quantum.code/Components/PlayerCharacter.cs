@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -73,21 +74,17 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{
+			// Replenish Special's charges
+			for (var i = 0; i < WeaponSlots.Length; i++)
+			{
+				WeaponSlots[i].Special1Charges = 1;
+				WeaponSlots[i].Special2Charges = 1;
+			}
+			
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
-
 			if (isRespawning)
 			{
 				CurrentWeaponSlot = Constants.WEAPON_INDEX_DEFAULT;
-			}
-			
-			if (!isRespawning || f.Context.MapConfig.GameMode == GameMode.Deathmatch)
-			{
-				// Replenish Special's charges
-				for (var i = 0; i < WeaponSlots.Length; i++)
-				{
-					WeaponSlots[i].Special1Charges = 1;
-					WeaponSlots[i].Special2Charges = 1;
-				}
 			}
 
 			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
@@ -204,6 +201,7 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
+			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
 
 			RefreshStats(f, e);
 
@@ -226,20 +224,10 @@ namespace Quantum
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
 			}
 
-			// TODO: Specials should have charges and remember charges used for each weapon
-			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
-			{
-				var specialId = weaponConfig.Specials[i];
+			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
+			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
 
-				if (specialId == default)
-				{
-					continue;
-				}
-
-				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
-
-				Specials[i] = new Special(f, specialConfig);
-			}
+			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
 		}
 
 		/// <summary>
@@ -370,6 +358,18 @@ namespace Quantum
 					Gear[gearIndex++] = item;
 				}
 			}
+		}
+		
+		private Special GetSpecial(Frame f, GameId specialId)
+		{
+			if (specialId == default)
+			{
+				return new Special();
+			}
+
+			var specialConfig = f.SpecialConfigs.GetConfig(specialId);
+
+			return new Special(f, specialConfig);
 		}
 	}
 }

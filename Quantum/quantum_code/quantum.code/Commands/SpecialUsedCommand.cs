@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Photon.Deterministic;
 using Quantum.Systems;
 
@@ -23,17 +24,20 @@ namespace Quantum.Commands
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
-			var special = playerCharacter->Specials.GetPointer(SpecialIndex);
+			var special = GetSpecialByIndex(SpecialIndex, playerCharacter);
 
-			if (HasCharge(playerCharacter) && special->TryActivate(f, characterEntity, AimInput, SpecialIndex))
+			if (HasCharge(playerCharacter) && special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
 			{
+				var weaponSlot = playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot];
 				switch (SpecialIndex)
 				{
-					case 0 : playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special1Charges--;
+					case 0 : weaponSlot.Special1Charges--;
 						break;
-					case 1 : playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special2Charges--;
+					case 1 : weaponSlot.Special2Charges--;
 						break;
 				}
+
+				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
 			}
 		}
 
@@ -43,6 +47,19 @@ namespace Quantum.Commands
 		private bool HasCharge(PlayerCharacter* playerCharacter)
 		{
 			return GetSpecialChargesByIndex(SpecialIndex, playerCharacter) > 0;
+		}
+		
+		/// <summary>
+		/// Gets the number of charges of an Special by its index
+		/// </summary>
+		private Special GetSpecialByIndex(int specialIndex, PlayerCharacter* playerCharacter)
+		{
+			return specialIndex switch
+			{ 
+				0 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special1,
+				1 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special2,
+				_ => new Special()
+			};
 		}
 
 		/// <summary>

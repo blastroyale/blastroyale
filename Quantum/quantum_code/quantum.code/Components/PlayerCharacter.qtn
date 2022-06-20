@@ -24,6 +24,8 @@ struct WeaponSlot
 	Equipment Weapon;
 	Int32 Special1Charges;
 	Int32 Special2Charges;
+	Special Special1;
+	Special Special2;
 }
 
 component PlayerCharacter
@@ -37,7 +39,6 @@ component PlayerCharacter
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
-	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }
 
 component PlayerCharging

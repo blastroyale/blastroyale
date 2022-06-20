@@ -57,7 +57,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_localInput.Enable();
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -123,8 +122,10 @@ namespace FirstLight.Game.Presenters
 
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 			_currentWeaponSlot = 0;
-			_specialButton0.Init(playerCharacter.Specials[0].SpecialId, playerCharacter.WeaponSlots[_currentWeaponSlot].Special1Charges > 0);
-			_specialButton1.Init(playerCharacter.Specials[1].SpecialId, playerCharacter.WeaponSlots[_currentWeaponSlot].Special2Charges > 0);
+			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			
+			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -177,11 +178,6 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
-		private void OnWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
-		{
-			// If in DeathMatch we will let the player get his special's charges back when he picks up another weapon 
-		}
-		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);

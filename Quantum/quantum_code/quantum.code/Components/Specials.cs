@@ -39,7 +39,6 @@ namespace Quantum
 		/// </summary>
 		public bool TryActivate(Frame f, EntityRef playerEntity, FPVector2 aimInput, int specialIndex)
 		{
-			
 			if (!IsValid || !IsSpecialAvailable(f) || !TryUse(f, playerEntity, aimInput))
 			{
 				return false;

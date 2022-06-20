@@ -77,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyCheck.Transition().Condition(AreAllPlayersReady).Target(gameSimulation);
 			playerReadyCheck.Transition().Target(playerReadyWait);
 
-			playerReadyWait.OnEnter(PreloadAllPlayersAssets);
+			playerReadyWait.OnEnter(LoadPlayerMatchAssets);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 
@@ -96,6 +96,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
 			
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(gameSimulation);
+			disconnectReload.OnExit(CloseLoadingScreen);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -298,7 +299,7 @@ namespace FirstLight.Game.StateMachines
 			return tasks;
 		}
 
-		private async void PreloadAllPlayersAssets()
+		private async void LoadPlayerMatchAssets()
 		{
 			_services.MessageBrokerService.Publish(new StartedFinalPreloadMessage());
 

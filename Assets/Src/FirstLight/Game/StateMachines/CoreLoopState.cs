@@ -24,28 +24,18 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class CoreLoopState
 	{
-		private static readonly IStatechartEvent _testEvent = new StatechartEvent("Core Event");
-
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
 		private readonly IGameServices _services;
-		private readonly IDataService _dataService;
-		private readonly IGameDataProvider _dataProvider;
-		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(GameLogic gameLogic, IGameServices services, IDataService dataService,
-		                     IGameUiService uiService, IGameDataProvider dataProvider,
+		public CoreLoopState(IGameServices services, IGameUiService uiService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
-			_dataProvider = dataProvider;
 			_services = services;
-			_dataService = dataService;
-			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(gameLogic, services, uiService, assetAdderService, statechartTrigger);
-			_mainMenuState = new MainMenuState(services, dataService, uiService, gameLogic, assetAdderService,
-			                                   statechartTrigger);
+			_matchState = new MatchState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 		}
 
 		/// <summary>

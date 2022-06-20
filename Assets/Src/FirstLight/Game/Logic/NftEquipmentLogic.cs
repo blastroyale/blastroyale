@@ -177,6 +177,14 @@ namespace FirstLight.Game.Logic
 			return stats;
 		}
 
+		public bool EnoughLoadoutEquippedToPlay()
+		{
+			var nftAmountForPlay = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
+			var nftCount = GetLoadoutItems().Length;
+			
+			return nftCount >= nftAmountForPlay;
+		}
+
 		public TimeSpan GetItemCooldown(UniqueId itemId)
 		{
 			double cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;

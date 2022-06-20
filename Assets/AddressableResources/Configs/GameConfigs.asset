@@ -112,3 +112,4 @@ MonoBehaviour:
         RawValue: 52429
       LoadoutSlots: 5
       NftUsageCooldownMinutes: 1440
+      NftRequiredEquippedForPlay: 3

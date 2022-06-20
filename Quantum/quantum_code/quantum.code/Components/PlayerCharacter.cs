@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -171,6 +170,15 @@ namespace Quantum
 		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon, bool primary)
 		{
 			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+
+			var primaryReplaced = false;
+			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
+			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
+			    weapon.Rarity > primaryWeapon.Rarity)
+			{
+				slot = Constants.WEAPON_INDEX_PRIMARY;
+				primaryReplaced = true;
+			}
 
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()

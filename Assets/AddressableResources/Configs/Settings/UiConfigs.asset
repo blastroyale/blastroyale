@@ -145,10 +145,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/Social Screen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.SocialScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/TalkingHeadDialog.prefab
     Layer: 3
     UiType: FirstLight.Game.Presenters.TalkingHeadDialogPresenter, FirstLight.Game,
@@ -197,8 +193,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.LootScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.SocialScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.EquipmentScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

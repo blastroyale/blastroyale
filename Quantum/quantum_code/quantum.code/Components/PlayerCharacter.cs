@@ -313,6 +313,38 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
+		/// </summary>
+		public static int GetGearSlot(Equipment equipment)
+		{
+			return equipment.GetEquipmentGroup() switch
+			{
+				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
+				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
+				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
+				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
+				GameIdGroup.Boots => Constants.GEAR_INDEX_BOOTS,
+				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
+			};
+		}
+
+		/// <summary>
+		/// Returns the GameIdGroup index of <paramref name="slot"/> for <see cref="Gear"/>.
+		/// </summary>
+		public static GameIdGroup GetEquipmentGroupForSlot(int slot)
+		{
+			return slot switch
+			{
+				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
+				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
+				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,
+				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
+				Constants.GEAR_INDEX_BOOTS => GameIdGroup.Boots,
+				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
+			};
+		}
+
+		/// <summary>
 		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
 		/// </summary>
 		internal void GainAmmo(Frame f, EntityRef e, FP amount)
@@ -400,19 +432,6 @@ namespace Quantum
 					Gear[GetGearSlot(item)] = item;
 				}
 			}
-		}
-
-		private int GetGearSlot(Equipment equipment)
-		{
-			return equipment.GetEquipmentGroup() switch
-			{
-				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
-				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
-				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
-				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
-				GameIdGroup.Boots => Constants.GEAR_INDEX_BOOTS,
-				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
-			};
 		}
 	}
 }

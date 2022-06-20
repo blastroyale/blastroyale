@@ -158,32 +158,47 @@ namespace Quantum
 
 		private Equipment GetNextLoadoutGearItem(Frame f, PlayerCharacter* playerCharacter, Equipment[] loadout)
 		{
-			var possibleGear = new List<Equipment>();
+			var flags = playerCharacter->DroppedLoadoutFlags;
 
-			foreach (var equipment in loadout)
+			// Set bits of loadout items we have
+			int loadoutFlags = 0;
+			foreach (var e in loadout)
 			{
-				if (equipment.IsWeapon() || playerCharacter->HasDroppedLoadoutItem(equipment))
+				if (e.IsWeapon())
 				{
 					continue;
 				}
 
-				bool equipped = false;
-				for (int i = 0; i < playerCharacter->Gear.Length; i++)
-				{
-					if (playerCharacter->Gear[i].Equals(equipment, true))
-					{
-						equipped = true;
-						break;
-					}
-				}
+				loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
+			}
 
-				if (!equipped)
+			// Flip it around so only missing gear bits are set
+			loadoutFlags = ~loadoutFlags & ~(~0 << (Constants.MAX_GEAR + 1));
+
+			// Trick flags into thinking we have dropped the items we don't currently have in the loadout
+			flags |= loadoutFlags;
+
+			// Flip it around so only missing gear bits are set
+			flags = ~flags & ~(~0 << (Constants.MAX_GEAR + 1));
+
+			int bitCount = BitUtil.CountSetBits(flags);
+			if (bitCount == 0)
+			{
+				return Equipment.None;
+			}
+
+			var index = BitUtil.GetNthBitIndex(flags, f.RNG->Next(0, bitCount));
+			var group = PlayerCharacter.GetEquipmentGroupForSlot(index - 1);
+
+			foreach (var e in loadout)
+			{
+				if (e.GameId.IsInGroup(group))
 				{
-					possibleGear.Add(equipment);
+					return e;
 				}
 			}
 
-			return possibleGear.Count == 0 ? Equipment.None : possibleGear[f.RNG->Next(0, possibleGear.Count)];
+			throw new NotSupportedException($"Could not find random gear item with index({index}), group{group}");
 		}
 	}
 }

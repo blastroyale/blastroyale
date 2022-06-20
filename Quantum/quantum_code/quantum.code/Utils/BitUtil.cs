@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum
 {
 	/// <summary>
@@ -49,14 +51,33 @@ namespace Quantum
 		/// </summary>
 		public static int CountSetBits(int mask)
 		{
-			var count = 0;
-			while (mask > 0)
-			{
-				mask &= (mask - 1);
-				count++;
-			}
+			// Magic algorythm from http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetNaive
+			mask -= (mask >> 1) & 0x55555555;
+			mask = (mask & 0x33333333) + ((mask >> 2) & 0x33333333);
+			return ((mask + (mask >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
+		}
+
+		/// <summary>
+		/// Returns the index (starting at LSB) of the <paramref name="n"/>'th set bit.
+		/// </summary>
+		public static int GetNthBitIndex(int mask, int n)
+		{
+			int currentN = -1;
 			
-			return count;
+			for (int i = 0; i < 32; i++)
+			{
+				if ((mask & (1 << i)) != 0)
+				{
+					currentN++;
+				}
+
+				if (currentN == n)
+				{
+					return i;
+				}
+			}
+
+			throw new NotSupportedException($"Trying get {n}th bit from {Convert.ToString(mask, 2)}");
 		}
 		
 		/// <summary>

@@ -51,7 +51,6 @@ namespace Quantum
 
 				}
 			}
-			Log.Info("All good all good");
 			return true;
 		}
 

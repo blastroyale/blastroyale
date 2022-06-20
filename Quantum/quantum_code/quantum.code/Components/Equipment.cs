@@ -96,7 +96,6 @@ namespace Quantum
 			if (GameId.IsInGroup(GameIdGroup.Amulet)) return GameIdGroup.Amulet;
 			if (GameId.IsInGroup(GameIdGroup.Armor)) return GameIdGroup.Armor;
 			if (GameId.IsInGroup(GameIdGroup.Shield)) return GameIdGroup.Shield;
-			if (GameId.IsInGroup(GameIdGroup.Boots)) return GameIdGroup.Boots;
 
 			throw new NotSupportedException($"Invalid Equipment GameId({GameId})");
 		}

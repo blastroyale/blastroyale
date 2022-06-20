@@ -323,7 +323,6 @@ namespace Quantum
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
 				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
 				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
-				GameIdGroup.Boots => Constants.GEAR_INDEX_BOOTS,
 				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
 			};
 		}
@@ -339,7 +338,6 @@ namespace Quantum
 				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
 				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,
 				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
-				Constants.GEAR_INDEX_BOOTS => GameIdGroup.Boots,
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
 		}

@@ -4015,7 +4015,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 696;
+    public const Int32 SIZE = 632;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -4030,8 +4030,8 @@ namespace Quantum {
     public Int32 DroppedLoadoutFlags;
     [FieldOffset(184)]
     [HideInInspector()]
-    [FramePrinter.FixedArrayAttribute(typeof(Equipment), 5)]
-    private fixed Byte _Gear_[320];
+    [FramePrinter.FixedArrayAttribute(typeof(Equipment), 4)]
+    private fixed Byte _Gear_[256];
     [FieldOffset(32)]
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(24)]
@@ -4045,13 +4045,13 @@ namespace Quantum {
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
-    [FieldOffset(504)]
+    [FieldOffset(440)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 3)]
     private fixed Byte _Weapons_[192];
     public FixedArray<Equipment> Gear {
       get {
-        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 5); }
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 4); }
       }
     }
     public FixedArray<Special> Specials {
@@ -7852,12 +7852,11 @@ namespace Quantum {
     public const Int32 WEAPON_INDEX_DEFAULT = 0;
     public const Int32 WEAPON_INDEX_PRIMARY = 1;
     public const Int32 WEAPON_INDEX_SECONDARY = 2;
-    public const Int32 MAX_GEAR = 5;
+    public const Int32 MAX_GEAR = 4;
     public const Int32 GEAR_INDEX_HELMET = 0;
     public const Int32 GEAR_INDEX_AMULET = 1;
     public const Int32 GEAR_INDEX_ARMOR = 2;
     public const Int32 GEAR_INDEX_SHIELD = 3;
-    public const Int32 GEAR_INDEX_BOOTS = 4;
     public const Int32 MAX_SPECIALS = 2;
     public const Int32 TOTAL_STATS = 5;
   }
@@ -9169,8 +9168,8 @@ namespace Quantum.Prototypes {
     [ArrayLengthAttribute(3)]
     public Equipment_Prototype[] Weapons = new Equipment_Prototype[3];
     [HideInInspector()]
-    [ArrayLengthAttribute(5)]
-    public Equipment_Prototype[] Gear = new Equipment_Prototype[5];
+    [ArrayLengthAttribute(4)]
+    public Equipment_Prototype[] Gear = new Equipment_Prototype[4];
     [HideInInspector()]
     [ArrayLengthAttribute(2)]
     public Special_Prototype[] Specials = new Special_Prototype[2];
@@ -9187,7 +9186,7 @@ namespace Quantum.Prototypes {
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DisconnectedDuration = this.DisconnectedDuration;
       result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
-      for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {
+      for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 4, in context); i < count; ++i) {
         this.Gear[i].Materialize(frame, ref *result.Gear.GetPointer(i), in context);
       }
       result.HfsmRootRef = this.HfsmRootRef;

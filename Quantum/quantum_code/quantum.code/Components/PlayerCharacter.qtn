@@ -19,6 +19,17 @@ component DeadPlayerCharacter
 	FP TimeOfDeath;
 }
 
+struct SpecialState
+{
+	Int32 Charges;
+}
+
+struct WeaponSlot
+{
+	Equipment Weapon;
+	array<SpecialState>[MAX_SPECIALS] SpecialsCharges;
+}
+
 component PlayerCharacter
 {
 	AssetRefHFSMRoot HfsmRootRef;
@@ -28,7 +39,7 @@ component PlayerCharacter
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Int32 CurrentWeaponSlot;
-	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
+	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
 }

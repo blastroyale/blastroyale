@@ -24,11 +24,23 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			var special = playerCharacter->Specials.GetPointer(SpecialIndex);
+			var currentWeaponSlot = playerCharacter->CurrentWeaponSlot;
 			
-			if (special->IsValid || !special->IsSpecialAvailable(f))
+			if (special->IsValid || !special->IsSpecialAvailable(f) || HasCharge(playerCharacter))
 			{
-				special->TryActivate(f, characterEntity, AimInput, SpecialIndex);
+				if (special->TryActivate(f, characterEntity, AimInput, SpecialIndex))
+				{
+					playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].SpecialsCharges[SpecialIndex].Charges--;
+				}
 			}
+		}
+
+		/// <summary>
+		/// Tests if the current special has enough charge to be triggered
+		/// </summary>
+		private bool HasCharge(PlayerCharacter* playerCharacter)
+		{
+			return playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].SpecialsCharges[SpecialIndex].Charges > 0;
 		}
 	}
 }

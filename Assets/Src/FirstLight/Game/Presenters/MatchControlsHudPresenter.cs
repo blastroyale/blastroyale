@@ -29,13 +29,11 @@ namespace FirstLight.Game.Presenters
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
 		private int _currentWeaponSlot;
-		private SpecialsChargesManager _specialCharges;
-		
+
 		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
-			_specialCharges = new SpecialsChargesManager();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
@@ -103,8 +101,6 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-
-			_specialCharges.SpendCharge(0, _currentWeaponSlot);
 			SendSpecialUsedCommand(0, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -115,7 +111,6 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			_specialCharges.SpendCharge(1,_currentWeaponSlot);
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -123,15 +118,13 @@ namespace FirstLight.Game.Presenters
 		{
 			if (callback.HasRespawned)
 			{
-				// For when we respawn in deathmatch, we get all our weapon slot charges back
-				_specialCharges.ResetAllCharges();
 				return;
 			}
 
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 			_currentWeaponSlot = 0;
-			_specialButton0.Init(playerCharacter.Specials[0].SpecialId, _specialCharges.HasCharge(0, _currentWeaponSlot));
-			_specialButton1.Init(playerCharacter.Specials[1].SpecialId, _specialCharges.HasCharge(1, _currentWeaponSlot));
+			_specialButton0.Init(playerCharacter.Specials[0].SpecialId, playerCharacter.WeaponSlots[_currentWeaponSlot].SpecialsCharges[0].Charges > 0);
+			_specialButton1.Init(playerCharacter.Specials[1].SpecialId, playerCharacter.WeaponSlots[_currentWeaponSlot].SpecialsCharges[1].Charges > 0);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -187,23 +180,20 @@ namespace FirstLight.Game.Presenters
 		private void OnWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
 		{
 			// If in DeathMatch we will let the player get his special's charges back when he picks up another weapon 
-			if (_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch)
-			{
-				_specialCharges.ResetCharges(callback.WeaponSlotNumber);
-			}
 		}
 		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
+			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 
 			_currentWeaponSlot = callback.Slot;
 			
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
 
-			_specialButton0.Init(config.Specials[0], _specialCharges.HasCharge(0, _currentWeaponSlot));
-			_specialButton1.Init(config.Specials[1], _specialCharges.HasCharge(1, _currentWeaponSlot));
+			_specialButton0.Init(config.Specials[0], playerCharacter.WeaponSlots[_currentWeaponSlot].SpecialsCharges[0].Charges > 0);
+			_specialButton1.Init(config.Specials[1], playerCharacter.WeaponSlots[_currentWeaponSlot].SpecialsCharges[1].Charges > 0);
 
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();

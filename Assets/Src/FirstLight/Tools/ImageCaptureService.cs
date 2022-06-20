@@ -140,20 +140,24 @@ namespace Src.FirstLight.Tools
 							{
 								for (var gradeIndex = 0; gradeIndex < (int)EquipmentGrade.TOTAL; gradeIndex++)
 								{
-									metadata.attibutesDictionary["category"] = categoryIndex;
-									metadata.attibutesDictionary["subCategory"] = subCategoryIndex;
-									metadata.attibutesDictionary["manufacturer"] = 0;   
-									metadata.attibutesDictionary["rarity"] = rarityIndex;
-									metadata.attibutesDictionary["material"] = materialIndex;
-									metadata.attibutesDictionary["faction"] = factionIndex;
-									metadata.attibutesDictionary["grade"] = gradeIndex;
-									
-									var hash = GenerateImageFilenameHash(metadata);
-									metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
-									
-									ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-									
-									imagesExportedCount++;
+									for (var adjectiveIndex = 0; adjectiveIndex < (int) EquipmentAdjective.TOTAL; adjectiveIndex++)
+									{
+										metadata.attibutesDictionary["category"] = categoryIndex;
+										metadata.attibutesDictionary["subCategory"] = subCategoryIndex;
+										metadata.attibutesDictionary["manufacturer"] = 0;
+										metadata.attibutesDictionary["rarity"] = rarityIndex;
+										metadata.attibutesDictionary["material"] = materialIndex;
+										metadata.attibutesDictionary["faction"] = factionIndex;
+										metadata.attibutesDictionary["grade"] = gradeIndex;
+										metadata.attibutesDictionary["adjective"] = adjectiveIndex;
+
+										var hash = GenerateImageFilenameHash(metadata);
+										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
+
+										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+
+										imagesExportedCount++;
+									}
 								}
 							}
 						}
@@ -274,6 +278,7 @@ namespace Src.FirstLight.Tools
 			stringBuilder.Append(metadata.attibutesDictionary["material"]);
 			stringBuilder.Append(metadata.attibutesDictionary["faction"]);
 			stringBuilder.Append(metadata.attibutesDictionary["grade"]);
+			stringBuilder.Append(metadata.attibutesDictionary["adjective"]);
 			
 			using (var sha256Hash = SHA256.Create())
 			{

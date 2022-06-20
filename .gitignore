@@ -100,7 +100,9 @@ crashlytics-build.properties
 Quantum/quantum_code/quantum.console.runner/bin
 Quantum/quantum_code/quantum.console.runner/obj
 Quantum/quantum_code/quantum.code/obj
+Quantum/quantum_server/quantum.custom.plugin/obj
 Quantum/quantum_code/packages
+Quantum/quantum_server/packages
 !Backend/Backend/Backend.csproj
 !Backend/Backend.sln
 UserSettings/EditorUserSettings.asset

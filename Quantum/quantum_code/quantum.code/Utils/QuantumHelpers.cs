@@ -150,6 +150,15 @@ namespace Quantum
 				return false;
 			}
 
+			if (f.Unsafe.TryGetPointer<CharacterController3D>(spell.Victim, out var kcc) &&
+			    f.TryGet<Transform3D>(spell.Victim, out var victimTransform))
+			{
+				var kick = (victimTransform.Position - spell.OriginalHitPosition).Normalized * spell.PowerAmount;
+				kick.Y = FP._0;
+				Log.Info($"PACO kick({kick}), kcc->Velocity({kcc->Velocity})");
+				kcc->Velocity += kick;
+			}
+
 			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
 			{
 				stats->ReduceHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);

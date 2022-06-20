@@ -58,9 +58,9 @@ namespace I2.Loc
 			public static string YourLoot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YourLoot"); } }
 			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
 			public static string StatShield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatShield"); } }
-			public static string StatPower 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatPower"); } }
-			public static string StatHealth 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatHealth"); } }
 			public static string StatArmour 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatArmour"); } }
+			public static string StatHealth 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatHealth"); } }
+			public static string StatPower 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatPower"); } }
 			public static string StatSpeed 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatSpeed"); } }
 		}
 
@@ -465,6 +465,13 @@ namespace I2.Loc
 			public static string WarriorShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShield"); } }
 			public static string WarriorShieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShieldDescription"); } }
 			public static string Weapon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Weapon"); } }
+			public static string BaseballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballArmor"); } }
+			public static string BaseballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballHelmet"); } }
+			public static string FootballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballArmor"); } }
+			public static string FootballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballHelmet"); } }
+			public static string HockeyHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HockeyHelmet"); } }
+			public static string RoadHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/RoadHelmet"); } }
+			public static string RoadShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/RoadShield"); } }
 		}
 
 		public static class General
@@ -726,6 +733,8 @@ namespace I2.Loc
 			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
+			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
+			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 		}
 
 		public static class MapDropPoints
@@ -849,9 +858,9 @@ namespace I2.Loc
 		    public const string YourLoot = "AdventureMenu/YourLoot";
 		    public const string GetReady = "AdventureMenu/GetReady";
 		    public const string StatShield = "AdventureMenu/StatShield";
-		    public const string StatPower = "AdventureMenu/StatPower";
-		    public const string StatHealth = "AdventureMenu/StatHealth";
 		    public const string StatArmour = "AdventureMenu/StatArmour";
+		    public const string StatHealth = "AdventureMenu/StatHealth";
+		    public const string StatPower = "AdventureMenu/StatPower";
 		    public const string StatSpeed = "AdventureMenu/StatSpeed";
 		}
 
@@ -1256,6 +1265,13 @@ namespace I2.Loc
 		    public const string WarriorShield = "GameIds/WarriorShield";
 		    public const string WarriorShieldDescription = "GameIds/WarriorShieldDescription";
 		    public const string Weapon = "GameIds/Weapon";
+		    public const string BaseballArmor = "GameIds/BaseballArmor";
+		    public const string BaseballHelmet = "GameIds/BaseballHelmet";
+		    public const string FootballArmor = "GameIds/FootballArmor";
+		    public const string FootballHelmet = "GameIds/FootballHelmet";
+		    public const string HockeyHelmet = "GameIds/HockeyHelmet";
+		    public const string RoadHelmet = "GameIds/RoadHelmet";
+		    public const string RoadShield = "GameIds/RoadShield";
 		}
 
 		public static class General
@@ -1517,6 +1533,8 @@ namespace I2.Loc
 		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
+		    public const string MainMenuButton = "MainMenu/MainMenuButton";
+		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		}
 
 		public static class MapDropPoints

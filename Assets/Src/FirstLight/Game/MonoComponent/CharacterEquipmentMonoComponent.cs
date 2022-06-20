@@ -150,8 +150,6 @@ namespace FirstLight.Game.MonoComponent
 					return _weaponAnchors;
 				case GameIdGroup.Helmet:
 					return _helmetAnchors;
-				case GameIdGroup.Boots:
-					return _bootsAnchors;
 				case GameIdGroup.Shield:
 					return _shieldAnchors;
 				case GameIdGroup.Amulet:

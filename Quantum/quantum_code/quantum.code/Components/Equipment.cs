@@ -1,14 +1,27 @@
+using System;
+using System.Collections.Generic;
+
 namespace Quantum
 {
 	/// <summary>
 	/// Holds (NFT) attributes about a piece of equipment (weapon or gear).
 	/// </summary>
-	public partial struct Equipment
+	public partial struct Equipment : IEquatable<Equipment>
 	{
+		private static readonly List<GameIdGroup> _slots = new List<GameIdGroup>
+		{
+			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Chest, GameIdGroup.Helmet, GameIdGroup.Weapon
+		};
+		
 		/// <summary>
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
+
+		/// <summary>
+		/// Requests the list of <see cref="GameIdGroup"/> slots ready to be equipped
+		/// </summary>
+		public static List<GameIdGroup> EquipmentSlots => _slots;
 
 		/// <summary>
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
@@ -64,7 +77,7 @@ namespace Quantum
 		/// <summary>
 		/// Checks if the <see cref="GameId"/> belongs to the <see cref="GameIdGroup.Weapon"/> group.
 		/// </summary>
-		public bool IsWeapon() => GameId.IsInGroup(GameIdGroup.Weapon);
+		public bool IsWeapon() => GetEquipmentGroup() == GameIdGroup.Weapon;
 
 		/// <summary>
 		/// Checks if this item is the Hammer.
@@ -72,5 +85,35 @@ namespace Quantum
 		/// TODO: Might need different logic
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
+
+		/// <summary>
+		/// Returns the "Equipment" <see cref="GameIdGroup"/> that this item belongs to.
+		/// </summary>
+		public GameIdGroup GetEquipmentGroup()
+		{
+			if (GameId.IsInGroup(GameIdGroup.Weapon)) return GameIdGroup.Weapon;
+			if (GameId.IsInGroup(GameIdGroup.Helmet)) return GameIdGroup.Helmet;
+			if (GameId.IsInGroup(GameIdGroup.Amulet)) return GameIdGroup.Amulet;
+			if (GameId.IsInGroup(GameIdGroup.Armor)) return GameIdGroup.Armor;
+			if (GameId.IsInGroup(GameIdGroup.Shield)) return GameIdGroup.Shield;
+
+			throw new NotSupportedException($"Invalid Equipment GameId({GameId})");
+		}
+
+		public bool Equals(Equipment other)
+		{
+			return Equals(other, false);
+		}
+
+		public bool Equals(Equipment other, bool ignoreRarity)
+		{
+			return (ignoreRarity || Rarity == other.Rarity) && Adjective == other.Adjective &&
+			       Durability == other.Durability && Edition == other.Edition &&
+			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
+			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
+			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
+			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel &&
+			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
+		}
 	}
 }

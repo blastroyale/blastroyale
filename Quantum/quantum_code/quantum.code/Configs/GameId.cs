@@ -68,15 +68,16 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.CS, new List<GameIdGroup>
+					GameId.BLST, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
 					}.AsReadOnly()
 				},
 				{
-					GameId.BLST, new List<GameIdGroup>
+					GameId.CS, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.ResourcePool
 					}.AsReadOnly()
 				},
 				{
@@ -168,6 +169,34 @@ namespace Quantum
 				},
 				{
 					GameId.WarriorHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.RoadHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.FootballHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.BaseballHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.HockeyHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment
@@ -398,6 +427,20 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.BaseballArmor, new List<GameIdGroup>
+					{
+						GameIdGroup.Armor,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.FootballArmor, new List<GameIdGroup>
+					{
+						GameIdGroup.Armor,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
 					GameId.MouseShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
@@ -420,6 +463,13 @@ namespace Quantum
 				},
 				{
 					GameId.RiotShield, new List<GameIdGroup>
+					{
+						GameIdGroup.Shield,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.RoadShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment
@@ -623,8 +673,14 @@ namespace Quantum
 					GameIdGroup.Currency, new List<GameId>
 					{
 						GameId.RealMoney,
-						GameId.CS,
-						GameId.BLST
+						GameId.BLST,
+						GameId.CS
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.ResourcePool, new List<GameId>
+					{
+						GameId.CS
 					}.AsReadOnly()
 				},
 				{
@@ -654,7 +710,11 @@ namespace Quantum
 						GameId.MausHelmet,
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
-						GameId.WarriorHelmet
+						GameId.WarriorHelmet,
+						GameId.RoadHelmet,
+						GameId.FootballHelmet,
+						GameId.BaseballHelmet,
+						GameId.HockeyHelmet
 					}.AsReadOnly()
 				},
 				{
@@ -664,6 +724,10 @@ namespace Quantum
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
 						GameId.WarriorHelmet,
+						GameId.RoadHelmet,
+						GameId.FootballHelmet,
+						GameId.BaseballHelmet,
+						GameId.HockeyHelmet,
 						GameId.Hammer,
 						GameId.ApoCrossbow,
 						GameId.ApoShotgun,
@@ -696,10 +760,13 @@ namespace Quantum
 						GameId.SoldierArmor,
 						GameId.WarriorArmor,
 						GameId.RoadSignArmour,
+						GameId.BaseballArmor,
+						GameId.FootballArmor,
 						GameId.MouseShield,
 						GameId.SoldierShield,
 						GameId.WarriorShield,
-						GameId.RiotShield
+						GameId.RiotShield,
+						GameId.RoadShield
 					}.AsReadOnly()
 				},
 				{
@@ -746,7 +813,9 @@ namespace Quantum
 						GameId.RiotArmor,
 						GameId.SoldierArmor,
 						GameId.WarriorArmor,
-						GameId.RoadSignArmour
+						GameId.RoadSignArmour,
+						GameId.BaseballArmor,
+						GameId.FootballArmor
 					}.AsReadOnly()
 				},
 				{
@@ -755,7 +824,8 @@ namespace Quantum
 						GameId.MouseShield,
 						GameId.SoldierShield,
 						GameId.WarriorShield,
-						GameId.RiotShield
+						GameId.RiotShield,
+						GameId.RoadShield
 					}.AsReadOnly()
 				},
 				{

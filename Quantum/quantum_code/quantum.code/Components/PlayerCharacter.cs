@@ -33,6 +33,7 @@ namespace Quantum
 
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
+			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 
@@ -157,6 +158,8 @@ namespace Quantum
 		/// </summary>
 		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon, bool primary)
 		{
+			Assert.Check(weapon.IsWeapon(), weapon);
+
 			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 
 			var primaryReplaced = false;
@@ -200,8 +203,9 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			//the total time it takes for a burst to complete should be half of the weapon's cooldown
 			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 
-				0 : (weaponConfig.AttackCooldown /2) / weaponConfig.NumberOfBursts;
+			var burstCooldown = weaponConfig.NumberOfBursts == 1
+				                    ? 0
+				                    : (weaponConfig.AttackCooldown / 2) / weaponConfig.NumberOfBursts;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
@@ -230,6 +234,21 @@ namespace Quantum
 
 				Specials[i] = new Special(f, specialConfig);
 			}
+		}
+
+		/// <summary>
+		/// Equips a gear item to the correct gear slot (old one is replaced).
+		/// </summary>
+		public void EquipGear(Frame f, EntityRef e, Equipment gear)
+		{
+			Assert.Check(!gear.IsWeapon(), gear);
+
+			var gearSlot = GetGearSlot(gear);
+			Gear[gearSlot] = gear;
+
+			RefreshStats(f, e);
+
+			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
 		/// <summary>
@@ -269,6 +288,58 @@ namespace Quantum
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
+		}
+
+		/// <summary>
+		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		public void SetDroppedLoadoutItem(Equipment equipment)
+		{
+			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			DroppedLoadoutFlags |= 1 << shift;
+		}
+
+		/// <summary>
+		/// Checks if we dropped a specific piece of equipment (only checks by GameIdGroup).
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		public bool HasDroppedLoadoutItem(Equipment equipment)
+		{
+			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			return (DroppedLoadoutFlags & (1 << shift)) != 0;
+		}
+
+		/// <summary>
+		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
+		/// </summary>
+		public static int GetGearSlot(Equipment equipment)
+		{
+			return equipment.GetEquipmentGroup() switch
+			{
+				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
+				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
+				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
+				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
+				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
+			};
+		}
+
+		/// <summary>
+		/// Returns the GameIdGroup index of <paramref name="slot"/> for <see cref="Gear"/>.
+		/// </summary>
+		public static GameIdGroup GetEquipmentGroupForSlot(int slot)
+		{
+			return slot switch
+			{
+				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
+				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
+				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,
+				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
+				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
+			};
 		}
 
 		/// <summary>
@@ -336,7 +407,7 @@ namespace Quantum
 
 			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
-			
+
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
 			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
@@ -348,7 +419,6 @@ namespace Quantum
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
 		{
-			int gearIndex = 0;
 			foreach (var item in equipment)
 			{
 				if (item.IsWeapon())
@@ -357,7 +427,7 @@ namespace Quantum
 				}
 				else
 				{
-					Gear[gearIndex++] = item;
+					Gear[GetGearSlot(item)] = item;
 				}
 			}
 		}

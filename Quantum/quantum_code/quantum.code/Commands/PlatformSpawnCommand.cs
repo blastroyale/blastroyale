@@ -25,7 +25,7 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var config = f.WeaponConfigs.GetConfig(Weapon);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity,
 			                                                        new Equipment(config.Id));

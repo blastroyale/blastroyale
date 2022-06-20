@@ -91,7 +91,7 @@ namespace FirstLight.Game.StateMachines
 			disconnectCheck.Transition().Target(disconnected);
 			
 			disconnected.OnEnter(CloseLoadingScreen);
-			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(gameSimulation);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(gameSimulation);
 			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);

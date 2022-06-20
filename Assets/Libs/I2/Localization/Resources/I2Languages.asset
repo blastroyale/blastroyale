@@ -1036,13 +1036,6 @@ MonoBehaviour:
       - SPECIAL ABILITIES
       Flags: 00
       Languages_Touch: []
-    - Term: Tooltips/ToolTip_CS
-      TermType: 0
-      Description: 
-      Languages:
-      - Gain <color=yellow><b>Craft Spice</b></color>, by killing other players.
-      Flags: 00
-      Languages_Touch: []
     - Term: Tooltips/ToolTip_NftCooldown
       TermType: 0
       Description: 
@@ -1052,6 +1045,34 @@ MonoBehaviour:
 
         Items on cooldown do not contribute
         to any in-game earnings.'
+      Flags: 00
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_CS
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Craft Spice by placing higher in Battle Royale matches.
+
+
+        Craft
+        Spice is used on the marketplace for upgrading, repairing and replicating
+        equipment.'
+      Flags: 00
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_BLST
+      TermType: 0
+      Description: 
+      Languages:
+      - "Blast Tokens are valuable rewards obtained in special ways in-game, or purchased.
+        \n\nUse Blast Tokens to purchase equipment on the marketplace."
+      Flags: 00
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - "Trophies increase your Craft Spice pool. \n\nPlace higher in Battle Royale
+        matches to earn trophies."
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/Abilties
@@ -2030,6 +2051,55 @@ MonoBehaviour:
 
         Items on cooldown do no not
         contribute to any in-game earnings.'
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/NftRestrictionText
+      TermType: 0
+      Description: 
+      Languages:
+      - You must have at least 3 items equipped to play online.
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesGained
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Gained
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesLost
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Lost
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesNewTotal
+      TermType: 0
+      Description: 
+      Languages:
+      - New Total
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/MainMenuButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Main Menu
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/ReconnectButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Reconnect
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -4584,7 +4654,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pistol
+      - Crossbow
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ApoShotgun
@@ -4612,14 +4682,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sniper rifle
+      - Sniper Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ApoRPG
       TermType: 0
       Description: 
       Languages:
-      - Rocket launcher
+      - RPG
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ApoMinigun
@@ -4633,7 +4703,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Crossbow
+      - Pistol
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ModShotgun
@@ -4661,70 +4731,119 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sniper rifle
+      - Sniper Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ModLauncher
       TermType: 0
       Description: 
       Languages:
-      - Grenade launcher
+      - Grenade Launcher
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
       Description: 
       Languages:
-      - Heavy Machine Gun
+      - Heavy MG
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciPistol
       TermType: 0
       Description: 
       Languages:
-      - Laser pistol
+      - Laser Pistol
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciBlaster
       TermType: 0
       Description: 
       Languages:
-      - Laser blaster
+      - Laser Blaster
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciNeedleGun
       TermType: 0
       Description: 
       Languages:
-      - Needle gun
+      - Needle Gun
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciRifle
       TermType: 0
       Description: 
       Languages:
-      - Laser rifle
+      - Laser Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciSniper
       TermType: 0
       Description: 
       Languages:
-      - Pulse rifle
+      - Pulse Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciCannon
       TermType: 0
       Description: 
       Languages:
-      - Plasma cannon
+      - Plasma Cannon
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciMelter
       TermType: 0
       Description: 
       Languages:
-      - Electron thrower
+      - Electron Thrower
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/BaseballArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - Baseball Armor
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/FootballArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - Footbull Armor
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/RoadShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Road Shield
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/RoadHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Road Cone
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/FootballHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Footbull Helmet
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/BaseballHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Baseball Helmet
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/HockeyHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Hockey Mask
       Flags: 00
       Languages_Touch: []
     - Term: Shop/com.hard.currency.bundle.1
@@ -5102,14 +5221,21 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Go to the safe Area!
+      - Go to the safe area!
       Flags: 00
       Languages_Touch: []
     - Term: AdventureMenu/AreaShrinking
       TermType: 0
       Description: 
       Languages:
-      - Area Shrinking!
+      - Area shrinking!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/GetReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Get ready!
       Flags: 00
       Languages_Touch: []
     - Term: AdventureMenu/ContendersRemaining
@@ -5147,6 +5273,41 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/StatShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/StatHealth
+      TermType: 0
+      Description: 
+      Languages:
+      - Health
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/StatArmour
+      TermType: 0
+      Description: 
+      Languages:
+      - Armour
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/StatSpeed
+      TermType: 0
+      Description: 
+      Languages:
+      - Speed
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/StatPower
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5159,7 +5320,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1654513688984
+    Google_LastUpdatedVersion: 1655744183409
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

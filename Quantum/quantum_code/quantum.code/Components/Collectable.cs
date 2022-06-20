@@ -25,15 +25,9 @@ namespace Quantum
 		{
 			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
 
-			if (equipment.IsWeapon())
-			{
-				var config = f.WeaponConfigs.GetConfig(equipment.GameId);
-				var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
-				f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
-				                                                        equipment, owner);
-			}
-
-			// TODO: Implement for gear
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
+			                                                        equipment, owner);
 		}
 
 		/// <summary>
@@ -46,10 +40,14 @@ namespace Quantum
 
 		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep)
 		{
-			var angleStep = FPVector2.Rotate(FPVector2.Left, FP.PiTimes2 * angleDropStep / 5);
-			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS).XOY + position;
+			var angleLevel = (angleDropStep / Constants.DROP_AMOUNT_ANGLES);
+			var angleGranularity = FP.PiTimes2 / Constants.DROP_AMOUNT_ANGLES;
+			var angleStep = FPVector2.Rotate(FPVector2.Left,
+			                                 (angleGranularity * angleDropStep) +
+			                                 (angleLevel % 2) * angleGranularity / 2);
+			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS * (angleLevel + 1)).XOY + position;
 
-			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, out var newPosition);
+			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS, out var newPosition);
 			return newPosition;
 		}
 	}

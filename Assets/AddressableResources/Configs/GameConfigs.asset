@@ -70,22 +70,22 @@ MonoBehaviour:
         RawValue: 196608
       StatsPowerBaseValue: 200
       StatsPowerRarityMultiplier:
-        RawValue: 131072
+        RawValue: 81920
       StatsPowerLevelStepMultiplier:
-        RawValue: 2261
+        RawValue: 459
       StatsPowerGradeStepMultiplier:
-        RawValue: 16384
-      StatsHpBaseValue: 100
+        RawValue: 3277
+      StatsHpBaseValue: 400
       StatsHpRarityMultiplier:
-        RawValue: 78643
+        RawValue: 72090
       StatsHpLevelStepMultiplier:
-        RawValue: 1134
+        RawValue: 1311
       StatsHpGradeStepMultiplier:
-        RawValue: 8192
+        RawValue: 16384
       StatsSpeedBaseValue:
-        RawValue: 6554
+        RawValue: 13107
       StatsSpeedRarityMultiplier:
-        RawValue: 78643
+        RawValue: 68813
       StatsSpeedLevelStepMultiplier:
         RawValue: 2294
       StatsSpeedGradeStepMultiplier:
@@ -112,3 +112,4 @@ MonoBehaviour:
         RawValue: 52429
       LoadoutSlots: 5
       NftUsageCooldownMinutes: 1440
+      NftRequiredEquippedForPlay: 3

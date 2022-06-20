@@ -1,6 +1,7 @@
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -27,6 +28,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		private LocalInput _localInput;
 		private EntityView _playerView;
 
+		private EntityView _spectatePlayerView;
+		private EntityRef _latestKiller;
+
+		private bool spectating = false;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -44,12 +50,16 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+
+			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
 		}
 
 		private void OnDestroy()
 		{
 			_localInput?.Dispose();
+			_services.MessageBrokerService.Unsubscribe<SpectateKillerMessage>(OnSpectate);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -80,6 +90,17 @@ namespace FirstLight.Game.MonoComponent.Match
 			audioListenerTransform.rotation = Quaternion.identity;
 
 			SetTargetTransform(_playerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
+
+			_latestKiller = callback.EntityKiller;
+		}
+
+		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			if (callback.EntityDead == _latestKiller)
+			{
+				_latestKiller = callback.EntityKiller;
+				RefreshSpectator();
+			}
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
@@ -90,6 +111,20 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
 			{
 				SetActiveCamera(_adventureCamera);
+			}
+		}
+
+		private void OnSpectate(SpectateKillerMessage message)
+		{
+			spectating = true;
+			RefreshSpectator();
+		}
+
+		private void RefreshSpectator()
+		{
+			if (spectating)
+			{
+				SetTargetTransform(_entityViewUpdaterService.GetManualView(_latestKiller).transform);
 			}
 		}
 

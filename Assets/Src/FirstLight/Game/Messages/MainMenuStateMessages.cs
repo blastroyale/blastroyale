@@ -8,14 +8,11 @@ using Quantum;
 namespace FirstLight.Game.Messages
 {
 	public struct PlayScreenOpenedMessage : IMessage { }
-	public struct ShopScreenOpenedMessage : IMessage { }
-	public struct LootScreenOpenedMessage : IMessage { }
-	public struct LootScreenClosedMessage : IMessage { }
-	public struct SocialScreenOpenedMessage : IMessage { }
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage { }
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
-	public struct PlayRandomClickedMessage : IMessage { }
+	public struct PlayMatchmakingReadyMessage : IMessage { }
+	public struct SelectedGameModeMessage : IMessage { }
 	public struct PlayMapClickedMessage : IMessage
 	{
 		public int MapId;

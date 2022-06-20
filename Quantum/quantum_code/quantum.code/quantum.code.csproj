@@ -82,6 +82,7 @@
     <Compile Include="AI\Functions\HFSM.StatFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPMultiplierFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="BotSDK\Samples\Actions\DebugAction.cs" />
     <Compile Include="BotSDK\Samples\Actions\IdleAction.cs" />
     <Compile Include="BotSDK\Samples\Actions\IncreaseBlackboardInt.cs" />
+    <Compile Include="AI\Actions\SetBlackboardFP.cs" />
     <Compile Include="BotSDK\Samples\Actions\SetBlackboardInt.cs" />
     <Compile Include="BotSDK\Samples\Decisions\HFSM.CheckBlackboardInt.cs" />
     <Compile Include="BotSDK\Samples\Decisions\HFSM.TimerDecision.cs" />
@@ -278,6 +280,7 @@
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\ListExtension.cs" />
+    <Compile Include="Utils\QuantumExtensions.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />

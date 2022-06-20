@@ -36,6 +36,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _selectButton;
 		[SerializeField, Required] private Button _selectedButton;
 		[SerializeField, Required] private GameObject _selectedGameHolder;
+		[SerializeField, Required] private Button _blockerButton;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Presenters
 			_selectButton.onClick.AddListener(OnSelectedPressed);
 			
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnUpdatePlayerSkinMessage);
+			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
 		private void OnDestroy()
@@ -131,6 +133,11 @@ namespace FirstLight.Game.Presenters
 		private void OnSelectedPressed()
 		{
 			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
+		}
+		
+		private void OnBlockerButtonPressed()
+		{
+			Data.OnCloseClicked();
 		}
 	}
 }

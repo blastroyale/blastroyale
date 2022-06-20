@@ -1,27 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using System.Net;
+using System.Net.Http;
 using FirstLight.FLogger;
 using FirstLight.Game;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using Quantum;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -54,6 +49,11 @@ public partial class SROptions
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
 		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
 
+		var deletionUrl =
+			$"https://devmarketplaceapi.azure-api.net/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";
+		var task = new HttpClient().DeleteAsync(deletionUrl);
+		task.Wait();
+		FLog.Info("Wallet unlinked from marketplace");
 		void Result(PlayFab.AdminModels.UpdateUserDataResult result)
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
@@ -160,6 +160,28 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
+	/// <summary>
+	/// This cheat helps to test all 2D sprites and 3D models for all equipment in the game
+	/// </summary>
+	[Category("Equipment")]
+	public void UnlockAllEquipmentGameIDs()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+
+		for (var i = 0; i < equipmentConfigs.Count; i++)
+		{
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[i].Id,
+			                                                      rarity: EquipmentRarity.LegendaryPlus,
+			                                                      adjective: EquipmentAdjective.Divine,
+			                                                      grade: EquipmentGrade.GradeI, durability: 75,
+			                                                      level: 30));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{
@@ -194,6 +216,13 @@ public partial class SROptions
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	// TODO: Delete this when we have a proper implementation of rarity representation in game
+	[Category("Equipment")]
+	public bool EnableEquipmentDebug {
+		get => PlayerPrefs.GetInt("Debug.EnableEquipmentDebug", 0) == 1;
+		set => PlayerPrefs.SetInt("Debug.EnableEquipmentDebug", value ? 1 : 0);
 	}
 
 	[Category("Marketing")]

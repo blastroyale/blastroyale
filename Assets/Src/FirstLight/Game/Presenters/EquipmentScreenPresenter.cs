@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -15,10 +14,8 @@ using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Commands;
 using Quantum;
 using Sirenix.OdinInspector;
-using UnityEngine.Networking;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.UI;
 
@@ -33,16 +30,20 @@ namespace FirstLight.Game.Presenters
 		{
 			public GameIdGroup EquipmentSlot;
 			public Action OnCloseClicked;
+			public Action<UniqueId> ItemEquipped;
+			public Action<UniqueId> ItemUnequipped;
+			public Func<UniqueId, bool> IsTempEquipped;
 		}
 
-		[Header("Equipment Dialog / OSA")] [SerializeField, Required]
+		[Header("Equipment Dialog / OSA")] [SerializeField, Required]  
 		private Button _closeButton;
 
 		[SerializeField, Required] private GenericGridView _gridView;
+		[SerializeField, Required] private Button _backButton;
 		[SerializeField, Required] private TextMeshProUGUI _screenTitleText;
 		[SerializeField, Required] private TextMeshProUGUI _titleText;
 		[SerializeField, Required] private TextMeshProUGUI _noItemsCollectedText;
-
+		
 		[Header("Equipment Info Panel")] [SerializeField, Required]
 		private TextMeshProUGUI _descriptionText;
 
@@ -84,6 +85,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Image _weaponTypeImage;
 		[SerializeField, Required] private Button _weaponTypeButton;
 		[SerializeField, Required] private Button _movieButton;
+		
 
 		[SerializeField, Required] private TextMeshProUGUI _weaponTypeText;
 		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;
@@ -98,9 +100,8 @@ namespace FirstLight.Game.Presenters
 		private EquipmentSorter.EquipmentSortState _equipmentSortState;
 		private IObjectPool<EquipmentStatInfoView> _statInfoViewPool;
 		private IObjectPool<EquipmentStatSpecialInfoView> _statSpecialInfoViewPool;
-		private UniqueId _uniqueId = UniqueId.Invalid;
+		private UniqueId _selectedId = UniqueId.Invalid;
 		private List<UniqueId> _showNotifications;
-
 		private int _textureRequestHandle = -1;
 
 		private void Awake()
@@ -115,6 +116,7 @@ namespace FirstLight.Game.Presenters
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
 			_specialStatInfoViewPoolRef.gameObject.SetActive(false);
+			_backButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
 		protected void OnDestroy()
@@ -122,15 +124,8 @@ namespace FirstLight.Game.Presenters
 			Services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-
-			Services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequippedMessage);
-			Services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-		}
-
 		// We override the OnClosed because we want to show the Loot menu before the close animation completes
+		// Also, we need to send command to update our loadout on the logic side
 		protected override void OnClosed()
 		{
 			_showNotifications.Clear();
@@ -142,11 +137,11 @@ namespace FirstLight.Game.Presenters
 		protected override async void OnOpened()
 		{
 			base.OnOpened();
-
+			
 			_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(Data.EquipmentSlot, out var id);
 
 			_equipmentSortState = EquipmentSorter.EquipmentSortState.Rarity;
-			_uniqueId = id;
+			_selectedId = id;
 			_showNotifications = _gameDataProvider.UniqueIdDataProvider.NewIds.ToList();
 			_powerChangeText.enabled = false;
 
@@ -176,60 +171,59 @@ namespace FirstLight.Game.Presenters
 		private void SetStats()
 		{
 			var equipmentProvider = _gameDataProvider.EquipmentDataProvider;
-			var itemEquipped = equipmentProvider.IsEquipped(_uniqueId);
+			var itemEquipped = Data.IsTempEquipped(_selectedId);
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
 			_equippedStatusObject.SetActive(itemEquipped);
 
-			if (_uniqueId == UniqueId.Invalid)
+			if (_selectedId == UniqueId.Invalid)
 			{
 				ShowStatsForEmptySlot();
 				return;
 			}
 
-			var equipment = equipmentProvider.Inventory[_uniqueId];
-			var power = equipmentProvider.GetItemStat(equipment, StatType.Power);
+			var equipment = equipmentProvider.GetInfo(_selectedId);
 
 			// Don't show Default/Melee weapon
-			if (equipment.IsWeapon() && equipment.IsDefaultItem())
+			if (equipment.Equipment.IsWeapon() && equipment.Equipment.IsDefaultItem())
 			{
 				ShowStatsForEmptySlot();
 				return;
 			}
 
-			var descriptionID = equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
-			var isWeapon = equipment.GameId.IsInGroup(GameIdGroup.Weapon);
+			var descriptionID = equipment.Equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
+			var isWeapon = equipment.Equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
 			SetCooldownStatus();
 			SetEquipButtonStatus();
 
 			// TODO: Add proper translation logic
-			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, power.ToString());
-			_itemTitleText.text = $"{equipment.Adjective} {equipment.GameId.GetTranslation()}";
-			_editionText.text = equipment.Edition.ToString();
-			_materialText.text = equipment.Material.ToString();
-			_gradeText.text = equipment.Grade.ToString();
-			_factionText.text = equipment.Faction.ToString();
-			_manufacturerText.text = equipment.Manufacturer.ToString();
-			_durabilityText.text = $"Durability {equipment.Durability}/{equipment.MaxDurability}";
+			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, equipment.Stats[EquipmentStatType.Damage].ToString());
+			_itemTitleText.text = $"{equipment.Equipment.Adjective} {equipment.Equipment.GameId.GetTranslation()}";
+			_editionText.text = equipment.Equipment.Edition.ToString();
+			_materialText.text = equipment.Equipment.Material.ToString();
+			_gradeText.text = equipment.Equipment.Grade.ToString();
+			_factionText.text = equipment.Equipment.Faction.ToString();
+			_manufacturerText.text = equipment.Equipment.Manufacturer.ToString();
+			_durabilityText.text = $"Durability {equipment.Equipment.Durability}/{equipment.Equipment.MaxDurability}";
 			_restoredText.text = "??";
-			_replicationText.text = $"Replication {equipment.ReplicationCounter}/{equipment.InitialReplicationCounter}";
-			_screenTitleText.text = equipment.GameId.GetSlot().GetTranslation();
+			_replicationText.text = $"Replication {equipment.Equipment.ReplicationCounter}/{equipment.Equipment.InitialReplicationCounter}";
+			_screenTitleText.text = equipment.Equipment.GameId.GetSlot().GetTranslation();
 			_descriptionText.text = LocalizationManager.GetTranslation(descriptionID);
-			_rarityText.text = equipment.Rarity.ToString();
-			_levelText.text = equipment.Level == equipment.MaxLevel
+			_rarityText.text = equipment.Equipment.Rarity.ToString();
+			_levelText.text = equipment.Equipment.Level == equipment.Equipment.MaxLevel
 				                  ? $"{ScriptLocalization.General.MaxLevel}"
-				                  : $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
+				                  : $"{ScriptLocalization.General.Level} {equipment.Equipment.Level.ToString()}";
 
 			_nftIcon.gameObject.SetActive(false);
 
-			RequestNftTexture(_gameDataProvider.EquipmentDataProvider.GetEquipmentCardUrl(_uniqueId));
+			RequestNftTexture(equipment.CardUrl);
 
-			_upgradeCostHolder.SetActive(!equipment.IsMaxLevel());
+			_upgradeCostHolder.SetActive(!equipment.Equipment.IsMaxLevel());
 
-			if (equipment.Level < equipment.MaxLevel)
+			if (equipment.Equipment.Level < equipment.Equipment.MaxLevel)
 			{
 				_upgradeButtonImage.sprite = _upgradeButtonSprite;
 				_upgradeCoinImage.enabled = true;
@@ -244,7 +238,7 @@ namespace FirstLight.Game.Presenters
 
 			for (int i = 0; i < _rarityImage.Length; i++)
 			{
-				_rarityImage[i].enabled = i == (int) equipment.Rarity;
+				_rarityImage[i].enabled = i == (int) equipment.Equipment.Rarity;
 			}
 
 			_movieButton.gameObject.SetActive(isWeapon);
@@ -275,17 +269,15 @@ namespace FirstLight.Game.Presenters
 			});
 		}
 
-		private void SetStatInfoData(Equipment equipment)
+		private void SetStatInfoData(EquipmentInfo equipment)
 		{
-			var stats = _gameDataProvider.EquipmentDataProvider.GetEquipmentStats(equipment);
-			var statsAtMaxLevel =
-				_gameDataProvider.EquipmentDataProvider.GetEquipmentStats(equipment, equipment.MaxLevel);
-			var statsAtNextLevel = equipment.IsMaxLevel()
-				                       ? statsAtMaxLevel
-				                       : _gameDataProvider.EquipmentDataProvider.GetEquipmentStats(equipment,
-					                       equipment.Level + 1);
+			var dataProvider = _gameDataProvider.EquipmentDataProvider;
+			var equipmentMaxLevel = equipment.Equipment.AtLevel(equipment.Equipment.MaxLevel);
+			var equipmentLevelInc = equipment.Equipment.AtLevel(equipment.Equipment.Level + 1);
+			var statsAtMaxLevel = dataProvider.GetEquipmentStats(equipmentMaxLevel);
+			var statsAtNextLevel = dataProvider.GetEquipmentStats(equipmentLevelInc);
 
-			foreach (var (stat, value) in stats)
+			foreach (var (stat, value) in equipment.Stats)
 			{
 				if (stat == EquipmentStatType.AttackCooldown || stat == EquipmentStatType.ProjectileSpeed)
 				{
@@ -304,7 +296,7 @@ namespace FirstLight.Game.Presenters
 						                      : 1f;
 					var selectedValue = value * statsBeautifier;
 
-					if (equipment.IsMaxLevel())
+					if (equipment.Equipment.IsMaxLevel())
 					{
 						_statInfoViewPool.Spawn().SetInfo(stat, stat.GetTranslation(), selectedValue,
 						                                  statsAtMaxLevel[stat]);
@@ -326,7 +318,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetCooldownStatus()
 		{
-			_equipmentCooldownViewRef.InitCooldown(_uniqueId);
+			_equipmentCooldownViewRef.InitCooldown(_selectedId);
 		}
 
 		private async void GetSpecialIconInfo(EquipmentStatType key, EquipmentStatSpecialInfoView slotInfo,
@@ -343,31 +335,16 @@ namespace FirstLight.Game.Presenters
 
 		private void SetEquipButtonStatus()
 		{
-			var status = _gameDataProvider.EquipmentDataProvider.IsEquipped(_uniqueId)
+			var status = Data.IsTempEquipped(_selectedId)
 				             ? ScriptLocalization.General.Unequip
 				             : ScriptLocalization.General.Equip;
 			_equipButtonText.SetText(status);
 		}
 
-
-		private void OnItemUnequippedMessage(ItemUnequippedMessage message)
-		{
-			_uniqueId = message.ItemId;
-
-			UpdateEquipmentMenu();
-			SetStats();
-		}
-
-		private void OnItemEquippedMessage(ItemEquippedMessage obj)
-		{
-			UpdateEquipmentMenu();
-			SetStats();
-		}
-
 		private void OnEquipmentClicked(UniqueId itemClicked)
 		{
-			_uniqueId = itemClicked;
-			_showNotifications.Remove(_uniqueId);
+			_selectedId = itemClicked;
+			_showNotifications.Remove(_selectedId);
 
 			UpdateEquipmentMenu();
 			SetStats();
@@ -375,14 +352,16 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipButtonClicked()
 		{
-			var previousPower = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power);
+			var dataProvider = _gameDataProvider.EquipmentDataProvider;
+			var previousDamage = dataProvider.GetLoadoutEquipmentInfo().GetTotalStat(EquipmentStatType.Damage);
 
-			if (_gameDataProvider.EquipmentDataProvider.IsEquipped(_uniqueId))
+			if (Data.IsTempEquipped(_selectedId))
 			{
-				var isWeapon = _gameDataProvider.EquipmentDataProvider.Inventory[_uniqueId].IsWeapon();
+				var isWeapon = dataProvider.Inventory[_selectedId].IsWeapon();
 
 				// Can't unequip your last weapon.
-				if (isWeapon && _gameDataProvider.EquipmentDataProvider.FindInInventory(GameIdGroup.Weapon).Count == 1)
+				if (isWeapon && dataProvider.GetInventoryEquipmentInfo()
+				                            .FindAll(info => info.Equipment.GameId.IsInGroup(GameIdGroup.Weapon)).Count == 1)
 				{
 					var confirmButton = new GenericDialogButton
 					{
@@ -395,45 +374,52 @@ namespace FirstLight.Game.Presenters
 
 					return;
 				}
-
-				Services.CommandService.ExecuteCommand(new UnequipItemCommand {ItemId = _uniqueId});
+				
+				UnequipItem(_selectedId);
 
 				// Equip Default/Melee weapon after unequipping a regular one
 				if (isWeapon)
 				{
-					var defaultWeapon =
-						_gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
-						                 .FirstOrDefault(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
+					var defaultWeapon = dataProvider.Inventory.ReadOnlyDictionary
+					                                .FirstOrDefault(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
 
 					if (defaultWeapon.Key != UniqueId.Invalid)
 					{
-						Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = defaultWeapon.Key});
+						EquipItem(defaultWeapon.Key);
 					}
 				}
 			}
 			else
 			{
-				Services.CommandService.ExecuteCommand(new EquipItemCommand {ItemId = _uniqueId});
+				EquipItem(_selectedId);
 			}
+			
+			var damageDiff =  dataProvider.GetLoadoutEquipmentInfo().GetTotalStat(EquipmentStatType.Damage) - previousDamage;
+			var postfix = damageDiff < 0 ? "-" : "+";
 
-			ShowPowerChange((int) previousPower);
-		}
+			_powerChangeText.color = damageDiff < 0 ? Color.red : Color.green;
 
-		private void ShowPowerChange(int previousPower)
-		{
-			var power = (int) _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power) -
-			            previousPower;
-			var postfix = power < 0 ? "-" : "+";
-
-			_powerChangeText.color = power < 0 ? Color.red : Color.green;
-
-			if (power != 0)
+			if (damageDiff > float.Epsilon)
 			{
-				_powerChangeText.text = $"{ScriptLocalization.MainMenu.Power} {postfix} {Mathf.Abs(power).ToString()}";
+				_powerChangeText.text = $"{ScriptLocalization.MainMenu.Power} {postfix} {Mathf.Abs(damageDiff).ToString()}";
 				_powerChangeText.enabled = true;
 				_powerChangeAnimation.Rewind();
 				_powerChangeAnimation.Play();
 			}
+		}
+
+		private void EquipItem(UniqueId item)
+		{
+			Data.ItemEquipped(item);
+			UpdateEquipmentMenu();
+			SetStats();
+		}
+
+		private void UnequipItem(UniqueId item)
+		{
+			Data.ItemUnequipped(item);
+			UpdateEquipmentMenu();
+			SetStats();
 		}
 
 		private void UpdateEquipmentMenu()
@@ -456,7 +442,7 @@ namespace FirstLight.Game.Presenters
 				{
 					Id = id,
 					Equipment = equipment,
-					IsSelected = id == _uniqueId,
+					IsSelected = id == _selectedId,
 					PlayViewNotificationAnimation = _showNotifications.Contains(id),
 					IsSelectable = true,
 					OnEquipmentClicked = OnEquipmentClicked
@@ -477,6 +463,11 @@ namespace FirstLight.Game.Presenters
 			_gridView.UpdateData(list);
 
 			_showNotifications.Clear();
+		}
+
+		private void OnBlockerButtonPressed()
+		{
+			Data.OnCloseClicked();
 		}
 	}
 }

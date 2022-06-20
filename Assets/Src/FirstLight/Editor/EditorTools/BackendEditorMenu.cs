@@ -41,14 +41,14 @@ namespace FirstLight.Editor.EditorTools
 			File.Copy(gameDllPath, destDll, true);
 		}
 		
-		[MenuItem("First Light Games/Backend/Copy Configs & Dlls")]
+		[MenuItem("FLG/Backend/Copy Configs & Dlls")]
 		private static void CopyConfigsDlls()
 		{
 			MoveBackendDlls();
 			CopyConfigs();
 		}
 
-		[MenuItem("First Light Games/Backend/Copy DLLs")]
+		[MenuItem("FLG/Backend/Copy DLLs")]
 		private static void MoveBackendDlls()
 		{
 			// Quantum Dependencies
@@ -66,7 +66,7 @@ namespace FirstLight.Editor.EditorTools
 		/// Generates and copies a gameConfig.json with needed game configs to be shared to the backend
 		/// and moves the config file to the backend.
 		/// </summary>
-		[MenuItem("First Light Games/Backend/Copy Configs")]
+		[MenuItem("FLG/Backend/Copy Configs")]
 		public static async void CopyConfigs()
 		{
 			var serializer = new ConfigsSerializer();
@@ -80,7 +80,7 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Parsed and saved in backend folder");
 		}
 		
-		[MenuItem("First Light Games/Backend/Force Update")]
+		[MenuItem("FLG/Backend/Force Update")]
 		private static void ForceUpdate()
 		{
 			var services = MainInstaller.Resolve<IGameServices>();
@@ -88,7 +88,7 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Force Update Sent to Server");
 		}
 		
-		[MenuItem("First Light Games/Backend/Use Local Server")]
+		[MenuItem("FLG/Backend/Use Local Server")]
 		private static void UseLocalServer()
 		{
 			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, true);
@@ -96,7 +96,7 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Requests will go to LOCAL server now");
 		}
 
-		[MenuItem("First Light Games/Backend/Use Remote Server")]
+		[MenuItem("FLG/Backend/Use Remote Server")]
 		private static void UseRemoteServer()
 		{
 			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);

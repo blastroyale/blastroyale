@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -49,7 +50,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnEquipCompletedMessage);
+			_services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
 			_button.onClick.AddListener(OnButtonClick);
 			OnAwake();
 		}
@@ -65,9 +66,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
+			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
+			var info = equipmentDataProvider.GetInfo(data.Id);
+			
 			_selectedFrameImage.SetActive(data.IsSelected);
-			_equippedImage.enabled = _gameDataProvider.EquipmentDataProvider.IsEquipped(data.Id);
-			_cooldownImage.enabled = _gameDataProvider.EquipmentDataProvider.GetItemCooldown(data.Id).TotalSeconds > 0;
+			_equippedImage.enabled = info.IsEquipped;
+			_cooldownImage.enabled = info.IsOnCooldown;
 
 			if (data.IsSelected)
 			{
@@ -79,7 +83,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_uniqueId = data.Id;
 		}
 
-		private void OnEquipCompletedMessage(ItemEquippedMessage message)
+		private void OnTempItemEquippedMessage(TempItemEquippedMessage message)
 		{
 			if (message.ItemId == _uniqueId)
 			{

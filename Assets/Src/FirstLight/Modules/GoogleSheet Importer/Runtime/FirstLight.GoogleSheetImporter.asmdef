@@ -1,14 +1,15 @@
 {
     "name": "FirstLight.GoogleSheetImporter",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:22c6cdfa54ae844a9a9eda2f0014b020"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Newtonsoft.Json.dll",
-        "quantum.code.dll"
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

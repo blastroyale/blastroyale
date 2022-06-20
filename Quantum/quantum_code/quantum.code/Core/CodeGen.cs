@@ -91,6 +91,11 @@ namespace Quantum {
     Military,
     Futuristic,
     Apocalyptic,
+    RunAndRiot,
+    AnimalTactics,
+    LostAndFound,
+    Bruteforce,
+    SportingChance,
     TOTAL,
   }
   public enum EquipmentMaterial : int {
@@ -117,10 +122,11 @@ namespace Quantum {
   public enum GameId : int {
     Random = 0,
     RealMoney = 125,
-    CS = 12,
     BLST = 14,
+    CS = 12,
     XP = 3,
     EquipmentXP = 15,
+    Trophies = 22,
     FloodCity = 137,
     MainDeck = 143,
     FtueDeck = 5,
@@ -133,6 +139,10 @@ namespace Quantum {
     SoldierHelmet = 49,
     RiotHelmet = 50,
     WarriorHelmet = 51,
+    RoadHelmet = 23,
+    FootballHelmet = 30,
+    BaseballHelmet = 32,
+    HockeyHelmet = 33,
     Hammer = 31,
     ApoCrossbow = 60,
     ApoShotgun = 71,
@@ -165,15 +175,13 @@ namespace Quantum {
     SoldierArmor = 44,
     WarriorArmor = 45,
     RoadSignArmour = 29,
+    BaseballArmor = 34,
+    FootballArmor = 35,
     MouseShield = 52,
     SoldierShield = 53,
     WarriorShield = 54,
     RiotShield = 27,
-    GoldenBoots = 25,
-    SoldierBoots = 26,
-    MouseBoots = 46,
-    RiotBoots = 47,
-    WarriorBoots = 48,
+    RoadShield = 36,
     Male01Avatar = 55,
     Male02Avatar = 56,
     Female01Avatar = 57,
@@ -206,17 +214,17 @@ namespace Quantum {
   public enum GameIdGroup : int {
     GameDesign = 0,
     Currency = 1,
+    ResourcePool = 6,
     Resource = 5,
     Map = 8,
     Helmet = 13,
     Equipment = 12,
-    BotItem = 4,
     Weapon = 11,
     Amulet = 16,
     Armor = 17,
     Shield = 15,
-    Boots = 14,
     PlayerSkin = 18,
+    BotItem = 4,
     Consumable = 19,
     Collectable = 27,
     Chest = 2,
@@ -2349,7 +2357,7 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefBTDecorator))]
-    private Ptr ReactiveDecoratorsPtr;
+    private Quantum.Ptr ReactiveDecoratorsPtr;
     [FieldOffset(8)]
     public BlackboardValue Value;
     public QListPtr<AssetRefBTDecorator> ReactiveDecorators {
@@ -2838,28 +2846,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct UtilityReasoner {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 32;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     [HideInInspector()]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefConsideration))]
-    private Ptr ConsiderationsPtr;
+    private Quantum.Ptr ConsiderationsPtr;
     [FieldOffset(4)]
     [HideInInspector()]
     [FramePrinter.PtrQDictionaryAttribute(typeof(AssetRefConsideration), typeof(FP))]
-    private Ptr CooldownsDictPtr;
+    private Quantum.Ptr CooldownsDictPtr;
     [FieldOffset(8)]
     [HideInInspector()]
     [FramePrinter.PtrQListAttribute(typeof(UTMomentumPack))]
-    private Ptr MomentumListPtr;
-    [FieldOffset(16)]
+    private Quantum.Ptr MomentumListPtr;
+    [FieldOffset(12)]
     [HideInInspector()]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefConsideration))]
-    private Ptr PreviousExecutionPtr;
-    [FieldOffset(32)]
+    private Quantum.Ptr PreviousExecutionPtr;
+    [FieldOffset(24)]
     [HideInInspector()]
     public FP TimeToTick;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
     public AssetRefUTRoot UTRoot;
     public QListPtr<AssetRefConsideration> Considerations {
       get {
@@ -2943,7 +2951,7 @@ namespace Quantum {
     public BitSet32 PlayerLastConnectionState;
     [FieldOffset(128)]
     [FramePrinter.PtrQListAttribute(typeof(EntityPair))]
-    private Ptr QueriesPtr;
+    private Quantum.Ptr QueriesPtr;
     [FieldOffset(168)]
     public RNGSession RngSession;
     [FieldOffset(248)]
@@ -3257,7 +3265,7 @@ namespace Quantum {
     public AssetRefAIBlackboard Board;
     [FieldOffset(0)]
     [FramePrinter.PtrQListAttribute(typeof(BlackboardEntry))]
-    private Ptr EntriesPtr;
+    private Quantum.Ptr EntriesPtr;
     public QListPtr<BlackboardEntry> Entries {
       get {
         return new QListPtr<BlackboardEntry>(EntriesPtr);
@@ -3305,30 +3313,30 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BTAgent : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 AbortNodeId;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     [FramePrinter.PtrQListAttribute(typeof(AssetRefBTService))]
-    private Ptr ActiveServicesPtr;
-    [FieldOffset(16)]
+    private Quantum.Ptr ActiveServicesPtr;
+    [FieldOffset(8)]
     [FramePrinter.PtrQListAttribute(typeof(BTDataValue))]
-    private Ptr BTDataValuesPtr;
-    [FieldOffset(40)]
-    public AssetRefAIConfig Config;
-    [FieldOffset(48)]
-    public AssetRefBTNode Current;
+    private Quantum.Ptr BTDataValuesPtr;
     [FieldOffset(24)]
-    [FramePrinter.PtrQListAttribute(typeof(AssetRefBTComposite))]
-    private Ptr DynamicCompositesPtr;
-    [FieldOffset(28)]
-    [FramePrinter.PtrQListAttribute(typeof(Byte))]
-    private Ptr NodesStatusPtr;
+    public AssetRefAIConfig Config;
     [FieldOffset(32)]
+    public AssetRefBTNode Current;
+    [FieldOffset(12)]
+    [FramePrinter.PtrQListAttribute(typeof(AssetRefBTComposite))]
+    private Quantum.Ptr DynamicCompositesPtr;
+    [FieldOffset(16)]
+    [FramePrinter.PtrQListAttribute(typeof(Byte))]
+    private Quantum.Ptr NodesStatusPtr;
+    [FieldOffset(20)]
     [FramePrinter.PtrQListAttribute(typeof(FP))]
-    private Ptr ServicesEndTimesPtr;
-    [FieldOffset(56)]
+    private Quantum.Ptr ServicesEndTimesPtr;
+    [FieldOffset(40)]
     public AssetRefBTNode Tree;
     public QListPtr<AssetRefBTService> ActiveServices {
       get {
@@ -3411,7 +3419,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 168;
+    public const Int32 SIZE = 176;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3419,45 +3427,47 @@ namespace Quantum {
     public BotBehaviourType BehaviourType;
     [FieldOffset(8)]
     public Int32 BotNameIndex;
-    [FieldOffset(24)]
-    public FP ChanceToAbandonTarget;
     [FieldOffset(32)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToAbandonTarget;
     [FieldOffset(40)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(48)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekRage;
     [FieldOffset(56)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(64)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(72)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToUseSpecial;
     [FieldOffset(80)]
-    public FP DecisionInterval;
+    public FP CloseFightIntolerance;
     [FieldOffset(88)]
-    public FP LookForTargetsToShootAtInterval;
+    public FP DecisionInterval;
     [FieldOffset(96)]
-    public FP LowAmmoSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(104)]
-    public FP LowArmourSensitivity;
+    public FP LowAmmoSensitivity;
     [FieldOffset(112)]
-    public FP LowHealthSensitivity;
+    public FP LowArmourSensitivity;
     [FieldOffset(120)]
-    public FP NextDecisionTime;
+    public FP LowHealthSensitivity;
+    [FieldOffset(16)]
+    public EntityRef MoveTarget;
     [FieldOffset(128)]
-    public FP NextLookForTargetsToShootAtTime;
+    public FP NextDecisionTime;
     [FieldOffset(136)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(144)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(4)]
     public GameId Skin;
-    [FieldOffset(144)]
-    public FP SpecialAimingDeviation;
-    [FieldOffset(16)]
-    public EntityRef Target;
     [FieldOffset(152)]
-    public FP VisionRangeSqr;
+    public FP SpecialAimingDeviation;
+    [FieldOffset(24)]
+    public EntityRef Target;
     [FieldOffset(160)]
+    public FP VisionRangeSqr;
+    [FieldOffset(168)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3477,6 +3487,7 @@ namespace Quantum {
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
         hash = hash * 31 + LowArmourSensitivity.GetHashCode();
         hash = hash * 31 + LowHealthSensitivity.GetHashCode();
+        hash = hash * 31 + MoveTarget.GetHashCode();
         hash = hash * 31 + NextDecisionTime.GetHashCode();
         hash = hash * 31 + NextLookForTargetsToShootAtTime.GetHashCode();
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
@@ -3494,6 +3505,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
+        EntityRef.Serialize(&p->MoveTarget, serializer);
         EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->ChanceToAbandonTarget, serializer);
         FP.Serialize(&p->ChanceToSeekEnemies, serializer);
@@ -3771,46 +3783,46 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GOAPAgent : Quantum.IComponent {
-    public const Int32 SIZE = 128;
+    public const Int32 SIZE = 120;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
     public AssetRefAIConfig Config;
     [FieldOffset(1)]
     [ExcludeFromPrototype()]
     public SByte CurrentActionIndex;
-    [FieldOffset(88)]
+    [FieldOffset(80)]
     [ExcludeFromPrototype()]
     public FP CurrentActionTime;
-    [FieldOffset(72)]
+    [FieldOffset(64)]
     [ExcludeFromPrototype()]
     public AssetRefGOAPGoal CurrentGoal;
-    [FieldOffset(96)]
+    [FieldOffset(88)]
     [ExcludeFromPrototype()]
     public FP CurrentGoalTime;
     [FieldOffset(0)]
     [ExcludeFromPrototype()]
     public Byte CurrentPlanSize;
-    [FieldOffset(112)]
+    [FieldOffset(104)]
     [ExcludeFromPrototype()]
     public GOAPState CurrentState;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     [ExcludeFromPrototype()]
     [FramePrinter.PtrQListAttribute(typeof(FP))]
-    private Ptr GoalDisableTimesPtr;
-    [FieldOffset(120)]
+    private Quantum.Ptr GoalDisableTimesPtr;
+    [FieldOffset(112)]
     [ExcludeFromPrototype()]
     public GOAPState GoalState;
-    [FieldOffset(104)]
+    [FieldOffset(96)]
     [ExcludeFromPrototype()]
     public FP InterruptionCheckCooldown;
     [FieldOffset(2)]
     [ExcludeFromPrototype()]
     public SByte LastProcessedActionIndex;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
     [ExcludeFromPrototype()]
     [FramePrinter.FixedArrayAttribute(typeof(AssetRefGOAPAction), 6)]
     private fixed Byte _Plan_[48];
-    [FieldOffset(80)]
+    [FieldOffset(72)]
     public AssetRefGOAPRoot Root;
     public QListPtr<FP> GoalDisableTimes {
       get {
@@ -4016,40 +4028,43 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 688;
+    public const Int32 SIZE = 632;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(0)]
     [HideInInspector()]
     public Int32 CurrentWeaponSlot;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     [HideInInspector()]
     public FP DisconnectedDuration;
-    [FieldOffset(176)]
-    [HideInInspector()]
-    [FramePrinter.FixedArrayAttribute(typeof(Equipment), 5)]
-    private fixed Byte _Gear_[320];
-    [FieldOffset(24)]
-    public AssetRefHFSMRoot HfsmRootRef;
-    [FieldOffset(16)]
-    public AssetRefCharacterController3DConfig KccConfigRef;
     [FieldOffset(4)]
     [HideInInspector()]
+    public Int32 DroppedLoadoutFlags;
+    [FieldOffset(184)]
+    [HideInInspector()]
+    [FramePrinter.FixedArrayAttribute(typeof(Equipment), 4)]
+    private fixed Byte _Gear_[256];
+    [FieldOffset(32)]
+    public AssetRefHFSMRoot HfsmRootRef;
+    [FieldOffset(24)]
+    public AssetRefCharacterController3DConfig KccConfigRef;
+    [FieldOffset(8)]
+    [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(64)]
+    [FieldOffset(72)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[112];
-    [FieldOffset(496)]
+    [FieldOffset(440)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 3)]
     private fixed Byte _Weapons_[192];
     public FixedArray<Equipment> Gear {
       get {
-        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 5); }
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 4); }
       }
     }
     public FixedArray<Special> Specials {
@@ -4068,6 +4083,7 @@ namespace Quantum {
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DisconnectedDuration.GetHashCode();
+        hash = hash * 31 + DroppedLoadoutFlags.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
         hash = hash * 31 + HfsmRootRef.GetHashCode();
         hash = hash * 31 + KccConfigRef.GetHashCode();
@@ -4081,6 +4097,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharacter*)ptr;
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
+        serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
         PlayerRef.Serialize(&p->Player, serializer);
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
@@ -4239,13 +4256,13 @@ namespace Quantum {
     public UInt32 AttackAngle;
     [FieldOffset(32)]
     public EntityRef Attacker;
-    [FieldOffset(12)]
+    [FieldOffset(8)]
     public QBoolean CanHitSameTarget;
     [FieldOffset(88)]
     public FPVector2 Direction;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
-    private Ptr LinecastQueriesPtr;
+    private Quantum.Ptr LinecastQueriesPtr;
     [FieldOffset(20)]
     public UInt32 NumberOfShots;
     [FieldOffset(24)]
@@ -4307,8 +4324,8 @@ namespace Quantum {
         var p = (RaycastShots*)ptr;
         serializer.Stream.Serialize((Int32*)&p->WeaponConfigId);
         serializer.Stream.Serialize(&p->TeamSource);
-        QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         QBoolean.Serialize(&p->CanHitSameTarget, serializer);
+        QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         serializer.Stream.Serialize(&p->AttackAngle);
         serializer.Stream.Serialize(&p->NumberOfShots);
         serializer.Stream.Serialize(&p->PowerAmount);
@@ -4483,27 +4500,27 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 168;
+    public const Int32 SIZE = 160;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 CurrentHealth;
     [FieldOffset(4)]
     public Int32 CurrentShield;
-    [FieldOffset(32)]
-    public FP CurrentStatusModifierDuration;
-    [FieldOffset(40)]
-    public FP CurrentStatusModifierEndTime;
     [FieldOffset(24)]
-    public StatusModifierType CurrentStatusModifierType;
+    public FP CurrentStatusModifierDuration;
+    [FieldOffset(32)]
+    public FP CurrentStatusModifierEndTime;
     [FieldOffset(20)]
-    public QBoolean IsImmune;
+    public StatusModifierType CurrentStatusModifierType;
     [FieldOffset(8)]
+    public QBoolean IsImmune;
+    [FieldOffset(12)]
     [FramePrinter.PtrQListAttribute(typeof(Modifier))]
-    private Ptr ModifiersPtr;
+    private Quantum.Ptr ModifiersPtr;
     [FieldOffset(16)]
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
-    private Ptr SpellEffectsPtr;
-    [FieldOffset(48)]
+    private Quantum.Ptr SpellEffectsPtr;
+    [FieldOffset(40)]
     [FramePrinter.FixedArrayAttribute(typeof(StatData), 5)]
     private fixed Byte _Values_[120];
     public QListPtr<Modifier> Modifiers {
@@ -4554,9 +4571,9 @@ namespace Quantum {
         var p = (Stats*)ptr;
         serializer.Stream.Serialize(&p->CurrentHealth);
         serializer.Stream.Serialize(&p->CurrentShield);
+        QBoolean.Serialize(&p->IsImmune, serializer);
         QList.Serialize(p->Modifiers, &p->ModifiersPtr, serializer, StaticDelegates.SerializeModifier);
         QList.Serialize(p->SpellEffects, &p->SpellEffectsPtr, serializer, StaticDelegates.SerializeEntityRef);
-        QBoolean.Serialize(&p->IsImmune, serializer);
         serializer.Stream.Serialize((Int32*)&p->CurrentStatusModifierType);
         FP.Serialize(&p->CurrentStatusModifierDuration, serializer);
         FP.Serialize(&p->CurrentStatusModifierEndTime, serializer);
@@ -4605,7 +4622,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct UTAgent : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 40;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRefAIConfig Config;
@@ -4874,7 +4891,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 62;
+      public const Int32 EVENT_TYPE_COUNT = 63;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -4926,6 +4943,7 @@ namespace Quantum {
           case EventOnPlayerAmmoEmpty.ID: return typeof(EventOnPlayerAmmoEmpty);
           case EventOnPlayerAmmoChanged.ID: return typeof(EventOnPlayerAmmoChanged);
           case EventOnPlayerWeaponChanged.ID: return typeof(EventOnPlayerWeaponChanged);
+          case EventOnPlayerGearChanged.ID: return typeof(EventOnPlayerGearChanged);
           case EventOnPlayerAttack.ID: return typeof(EventOnPlayerAttack);
           case EventOnPlayerDamaged.ID: return typeof(EventOnPlayerDamaged);
           case EventOnPlayerAttackHit.ID: return typeof(EventOnPlayerAttackHit);
@@ -5162,13 +5180,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnShieldChanged OnShieldChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousShield, Int32 CurrentShield, Int32 ShieldCapacity) {
+      public EventOnShieldChanged OnShieldChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousShield, Int32 CurrentShield, Int32 PreviousShieldCapacity, Int32 ShieldCapacity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnShieldChanged>(EventOnShieldChanged.ID);
         ev.Entity = Entity;
         ev.Attacker = Attacker;
         ev.PreviousShield = PreviousShield;
         ev.CurrentShield = CurrentShield;
+        ev.PreviousShieldCapacity = PreviousShieldCapacity;
         ev.ShieldCapacity = ShieldCapacity;
         _f.AddEvent(ev);
         return ev;
@@ -5351,6 +5370,16 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
+      public EventOnPlayerGearChanged OnPlayerGearChanged(PlayerRef Player, EntityRef Entity, Equipment Gear, Int32 Slot) {
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnPlayerGearChanged>(EventOnPlayerGearChanged.ID);
+        ev.Player = Player;
+        ev.Entity = Entity;
+        ev.Gear = Gear;
+        ev.Slot = Slot;
+        _f.AddEvent(ev);
+        return ev;
+      }
       public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, Equipment Weapon, FP ShotDir, UInt32 AttackAngle) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttack>(EventOnPlayerAttack.ID);
@@ -5506,13 +5535,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Weapon = Weapon;
+        ev.Slot = Slot;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6346,6 +6376,7 @@ namespace Quantum {
     public EntityRef Attacker;
     public Int32 PreviousShield;
     public Int32 CurrentShield;
+    public Int32 PreviousShieldCapacity;
     public Int32 ShieldCapacity;
     protected EventOnShieldChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -6368,6 +6399,7 @@ namespace Quantum {
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + PreviousShield.GetHashCode();
         hash = hash * 31 + CurrentShield.GetHashCode();
+        hash = hash * 31 + PreviousShieldCapacity.GetHashCode();
         hash = hash * 31 + ShieldCapacity.GetHashCode();
         return hash;
       }
@@ -6947,17 +6979,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerAttack : EventBase {
+  public unsafe partial class EventOnPlayerGearChanged : EventBase {
     public new const Int32 ID = 44;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    public Equipment Weapon;
-    public FP ShotDir;
-    public UInt32 AttackAngle;
-    protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public Equipment Gear;
+    public Int32 Slot;
+    protected EventOnPlayerGearChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerAttack() : 
+    public EventOnPlayerGearChanged() : 
         base(44, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6972,28 +7003,24 @@ namespace Quantum {
       unchecked {
         var hash = 263;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + Weapon.GetHashCode();
-        hash = hash * 31 + ShotDir.GetHashCode();
-        hash = hash * 31 + AttackAngle.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Gear.GetHashCode();
+        hash = hash * 31 + Slot.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerDamaged : EventBase {
+  public unsafe partial class EventOnPlayerAttack : EventBase {
     public new const Int32 ID = 45;
     public PlayerRef Player;
-    public EntityRef Entity;
-    public EntityRef Attacker;
-    public UInt32 ShieldDamage;
-    public UInt32 HealthDamage;
-    public UInt32 TotalDamage;
-    public Int32 MaxHealth;
-    public Int32 ShieldCapacity;
-    protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
+    public EntityRef PlayerEntity;
+    public Equipment Weapon;
+    public FP ShotDir;
+    public UInt32 AttackAngle;
+    protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerDamaged() : 
+    public EventOnPlayerAttack() : 
         base(45, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7008,27 +7035,28 @@ namespace Quantum {
       unchecked {
         var hash = 269;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + ShieldDamage.GetHashCode();
-        hash = hash * 31 + HealthDamage.GetHashCode();
-        hash = hash * 31 + TotalDamage.GetHashCode();
-        hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + ShieldCapacity.GetHashCode();
+        hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + ShotDir.GetHashCode();
+        hash = hash * 31 + AttackAngle.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerAttackHit : EventBase {
+  public unsafe partial class EventOnPlayerDamaged : EventBase {
     public new const Int32 ID = 46;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    public EntityRef HitEntity;
-    public FPVector3 HitPosition;
-    protected EventOnPlayerAttackHit(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public EntityRef Attacker;
+    public UInt32 ShieldDamage;
+    public UInt32 HealthDamage;
+    public UInt32 TotalDamage;
+    public Int32 MaxHealth;
+    public Int32 ShieldCapacity;
+    protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerAttackHit() : 
+    public EventOnPlayerDamaged() : 
         base(46, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7043,21 +7071,27 @@ namespace Quantum {
       unchecked {
         var hash = 271;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + HitEntity.GetHashCode();
-        hash = hash * 31 + HitPosition.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + ShieldDamage.GetHashCode();
+        hash = hash * 31 + HealthDamage.GetHashCode();
+        hash = hash * 31 + TotalDamage.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
+        hash = hash * 31 + ShieldCapacity.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnPlayerStopAttack : EventBase {
+  public unsafe partial class EventOnPlayerAttackHit : EventBase {
     public new const Int32 ID = 47;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
-    protected EventOnPlayerStopAttack(Int32 id, EventFlags flags) : 
+    public EntityRef HitEntity;
+    public FPVector3 HitPosition;
+    protected EventOnPlayerAttackHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerStopAttack() : 
+    public EventOnPlayerAttackHit() : 
         base(47, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7073,21 +7107,20 @@ namespace Quantum {
         var hash = 277;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + HitEntity.GetHashCode();
+        hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAim : EventBase {
+  public unsafe partial class EventOnPlayerStopAttack : EventBase {
     public new const Int32 ID = 48;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
-    public Equipment Weapon;
-    public FP VelocitySqrMagnitude;
-    public FP MaxSpeedSqr;
-    protected EventOnLocalPlayerAim(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerStopAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAim() : 
+    public EventOnPlayerStopAttack() : 
         base(48, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7103,21 +7136,21 @@ namespace Quantum {
         var hash = 281;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + Weapon.GetHashCode();
-        hash = hash * 31 + VelocitySqrMagnitude.GetHashCode();
-        hash = hash * 31 + MaxSpeedSqr.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerLeft : EventBase {
+  public unsafe partial class EventOnLocalPlayerAim : EventBase {
     public new const Int32 ID = 49;
     public PlayerRef Player;
-    public EntityRef Entity;
-    protected EventOnLocalPlayerLeft(Int32 id, EventFlags flags) : 
+    public EntityRef PlayerEntity;
+    public Equipment Weapon;
+    public FP VelocitySqrMagnitude;
+    public FP MaxSpeedSqr;
+    protected EventOnLocalPlayerAim(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerLeft() : 
+    public EventOnLocalPlayerAim() : 
         base(49, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7132,20 +7165,22 @@ namespace Quantum {
       unchecked {
         var hash = 283;
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + VelocitySqrMagnitude.GetHashCode();
+        hash = hash * 31 + MaxSpeedSqr.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerSpawned : EventBase {
+  public unsafe partial class EventOnLocalPlayerLeft : EventBase {
     public new const Int32 ID = 50;
     public PlayerRef Player;
     public EntityRef Entity;
-    public QBoolean HasRespawned;
-    protected EventOnLocalPlayerSpawned(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerLeft(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerSpawned() : 
+    public EventOnLocalPlayerLeft() : 
         base(50, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7161,21 +7196,19 @@ namespace Quantum {
         var hash = 293;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + HasRespawned.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAlive : EventBase {
+  public unsafe partial class EventOnLocalPlayerSpawned : EventBase {
     public new const Int32 ID = 51;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 CurrentHealth;
-    public Int32 MaxHealth;
-    protected EventOnLocalPlayerAlive(Int32 id, EventFlags flags) : 
+    public QBoolean HasRespawned;
+    protected EventOnLocalPlayerSpawned(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAlive() : 
+    public EventOnLocalPlayerSpawned() : 
         base(51, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7191,20 +7224,21 @@ namespace Quantum {
         var hash = 307;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + CurrentHealth.GetHashCode();
-        hash = hash * 31 + MaxHealth.GetHashCode();
+        hash = hash * 31 + HasRespawned.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerSkydiveDrop : EventBase {
+  public unsafe partial class EventOnLocalPlayerAlive : EventBase {
     public new const Int32 ID = 52;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerSkydiveDrop(Int32 id, EventFlags flags) : 
+    public Int32 CurrentHealth;
+    public Int32 MaxHealth;
+    protected EventOnLocalPlayerAlive(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerSkydiveDrop() : 
+    public EventOnLocalPlayerAlive() : 
         base(52, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7220,18 +7254,20 @@ namespace Quantum {
         var hash = 311;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + CurrentHealth.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerSkydivePLF : EventBase {
+  public unsafe partial class EventOnLocalPlayerSkydiveDrop : EventBase {
     public new const Int32 ID = 53;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerSkydivePLF(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerSkydiveDrop(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerSkydivePLF() : 
+    public EventOnLocalPlayerSkydiveDrop() : 
         base(53, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7251,14 +7287,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerSkydiveLand : EventBase {
+  public unsafe partial class EventOnLocalPlayerSkydivePLF : EventBase {
     public new const Int32 ID = 54;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerSkydiveLand(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerSkydivePLF(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerSkydiveLand() : 
+    public EventOnLocalPlayerSkydivePLF() : 
         base(54, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7278,16 +7314,14 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerDead : EventBase {
+  public unsafe partial class EventOnLocalPlayerSkydiveLand : EventBase {
     public new const Int32 ID = 55;
     public PlayerRef Player;
     public EntityRef Entity;
-    public PlayerRef PlayerKiller;
-    public EntityRef EntityKiller;
-    protected EventOnLocalPlayerDead(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerSkydiveLand(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerDead() : 
+    public EventOnLocalPlayerSkydiveLand() : 
         base(55, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7303,20 +7337,20 @@ namespace Quantum {
         var hash = 331;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PlayerKiller.GetHashCode();
-        hash = hash * 31 + EntityKiller.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAmmoEmpty : EventBase {
+  public unsafe partial class EventOnLocalPlayerDead : EventBase {
     public new const Int32 ID = 56;
     public PlayerRef Player;
     public EntityRef Entity;
-    protected EventOnLocalPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
+    public PlayerRef PlayerKiller;
+    public EntityRef EntityKiller;
+    protected EventOnLocalPlayerDead(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAmmoEmpty() : 
+    public EventOnLocalPlayerDead() : 
         base(56, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7332,21 +7366,20 @@ namespace Quantum {
         var hash = 337;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + PlayerKiller.GetHashCode();
+        hash = hash * 31 + EntityKiller.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAmmoChanged : EventBase {
+  public unsafe partial class EventOnLocalPlayerAmmoEmpty : EventBase {
     public new const Int32 ID = 57;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 PreviousAmmo;
-    public Int32 CurrentAmmo;
-    public Int32 MaxAmmo;
-    protected EventOnLocalPlayerAmmoChanged(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerAmmoEmpty(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAmmoChanged() : 
+    public EventOnLocalPlayerAmmoEmpty() : 
         base(57, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7362,23 +7395,21 @@ namespace Quantum {
         var hash = 347;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PreviousAmmo.GetHashCode();
-        hash = hash * 31 + CurrentAmmo.GetHashCode();
-        hash = hash * 31 + MaxAmmo.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerWeaponAdded : EventBase {
+  public unsafe partial class EventOnLocalPlayerAmmoChanged : EventBase {
     public new const Int32 ID = 58;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Equipment Weapon;
-    public Int32 WeaponSlotNumber;
-    protected EventOnLocalPlayerWeaponAdded(Int32 id, EventFlags flags) : 
+    public Int32 PreviousAmmo;
+    public Int32 CurrentAmmo;
+    public Int32 MaxAmmo;
+    protected EventOnLocalPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerWeaponAdded() : 
+    public EventOnLocalPlayerAmmoChanged() : 
         base(58, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7394,21 +7425,23 @@ namespace Quantum {
         var hash = 349;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Weapon.GetHashCode();
-        hash = hash * 31 + WeaponSlotNumber.GetHashCode();
+        hash = hash * 31 + PreviousAmmo.GetHashCode();
+        hash = hash * 31 + CurrentAmmo.GetHashCode();
+        hash = hash * 31 + MaxAmmo.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerWeaponChanged : EventBase {
+  public unsafe partial class EventOnLocalPlayerWeaponAdded : EventBase {
     public new const Int32 ID = 59;
     public PlayerRef Player;
     public EntityRef Entity;
     public Equipment Weapon;
-    protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
+    public Int32 WeaponSlotNumber;
+    protected EventOnLocalPlayerWeaponAdded(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerWeaponChanged() : 
+    public EventOnLocalPlayerWeaponAdded() : 
         base(59, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7425,24 +7458,21 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + WeaponSlotNumber.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerDamaged : EventBase {
+  public unsafe partial class EventOnLocalPlayerWeaponChanged : EventBase {
     public new const Int32 ID = 60;
     public PlayerRef Player;
     public EntityRef Entity;
-    public EntityRef Attacker;
-    public UInt32 ShieldDamage;
-    public UInt32 HealthDamage;
-    public UInt32 TotalDamage;
-    public Int32 MaxHealth;
-    public Int32 ShieldCapacity;
-    protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
+    public Equipment Weapon;
+    public Int32 Slot;
+    protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerDamaged() : 
+    public EventOnLocalPlayerWeaponChanged() : 
         base(60, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7458,25 +7488,26 @@ namespace Quantum {
         var hash = 359;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Attacker.GetHashCode();
-        hash = hash * 31 + ShieldDamage.GetHashCode();
-        hash = hash * 31 + HealthDamage.GetHashCode();
-        hash = hash * 31 + TotalDamage.GetHashCode();
-        hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + ShieldCapacity.GetHashCode();
+        hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + Slot.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAttack : EventBase {
+  public unsafe partial class EventOnLocalPlayerDamaged : EventBase {
     public new const Int32 ID = 61;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    public QuantumWeaponConfig WeaponConfig;
-    protected EventOnLocalPlayerAttack(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public EntityRef Attacker;
+    public UInt32 ShieldDamage;
+    public UInt32 HealthDamage;
+    public UInt32 TotalDamage;
+    public Int32 MaxHealth;
+    public Int32 ShieldCapacity;
+    protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAttack() : 
+    public EventOnLocalPlayerDamaged() : 
         base(61, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7490,6 +7521,40 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 367;
+        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + ShieldDamage.GetHashCode();
+        hash = hash * 31 + HealthDamage.GetHashCode();
+        hash = hash * 31 + TotalDamage.GetHashCode();
+        hash = hash * 31 + MaxHealth.GetHashCode();
+        hash = hash * 31 + ShieldCapacity.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnLocalPlayerAttack : EventBase {
+    public new const Int32 ID = 62;
+    public PlayerRef Player;
+    public EntityRef PlayerEntity;
+    public QuantumWeaponConfig WeaponConfig;
+    protected EventOnLocalPlayerAttack(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnLocalPlayerAttack() : 
+        base(62, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 373;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
         hash = hash * 31 + WeaponConfig.GetHashCode();
@@ -7800,7 +7865,11 @@ namespace Quantum {
     public const Int32 WEAPON_INDEX_DEFAULT = 0;
     public const Int32 WEAPON_INDEX_PRIMARY = 1;
     public const Int32 WEAPON_INDEX_SECONDARY = 2;
-    public const Int32 MAX_GEAR = 5;
+    public const Int32 MAX_GEAR = 4;
+    public const Int32 GEAR_INDEX_HELMET = 0;
+    public const Int32 GEAR_INDEX_AMULET = 1;
+    public const Int32 GEAR_INDEX_ARMOR = 2;
+    public const Int32 GEAR_INDEX_SHIELD = 3;
     public const Int32 MAX_SPECIALS = 2;
     public const Int32 TOTAL_STATS = 5;
   }
@@ -7995,6 +8064,7 @@ namespace Quantum {
       Register(typeof(Quantum.Projectile), Quantum.Projectile.SIZE);
       Register(typeof(Ptr), Ptr.SIZE);
       Register(typeof(QBoolean), QBoolean.SIZE);
+      Register(typeof(Quantum.Ptr), Quantum.Ptr.SIZE);
       Register(typeof(RNGSession), RNGSession.SIZE);
       Register(typeof(Quantum.Rage), Quantum.Rage.SIZE);
       Register(typeof(Quantum.RaycastShots), Quantum.RaycastShots.SIZE);
@@ -8554,6 +8624,7 @@ namespace Quantum.Prototypes {
     public FP NextDecisionTime;
     public FP NextLookForTargetsToShootAtTime;
     public MapEntityId Target;
+    public MapEntityId MoveTarget;
     public FP VisionRangeSqr;
     public FP LowArmourSensitivity;
     public FP LowHealthSensitivity;
@@ -8591,6 +8662,7 @@ namespace Quantum.Prototypes {
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
       result.LowArmourSensitivity = this.LowArmourSensitivity;
       result.LowHealthSensitivity = this.LowHealthSensitivity;
+      PrototypeValidator.FindMapEntity(this.MoveTarget, in context, out result.MoveTarget);
       result.NextDecisionTime = this.NextDecisionTime;
       result.NextLookForTargetsToShootAtTime = this.NextLookForTargetsToShootAtTime;
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
@@ -9109,11 +9181,13 @@ namespace Quantum.Prototypes {
     [ArrayLengthAttribute(3)]
     public Equipment_Prototype[] Weapons = new Equipment_Prototype[3];
     [HideInInspector()]
-    [ArrayLengthAttribute(5)]
-    public Equipment_Prototype[] Gear = new Equipment_Prototype[5];
+    [ArrayLengthAttribute(4)]
+    public Equipment_Prototype[] Gear = new Equipment_Prototype[4];
     [HideInInspector()]
     [ArrayLengthAttribute(2)]
     public Special_Prototype[] Specials = new Special_Prototype[2];
+    [HideInInspector()]
+    public Int32 DroppedLoadoutFlags;
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -9124,7 +9198,8 @@ namespace Quantum.Prototypes {
       result.BlackboardRef = this.BlackboardRef;
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DisconnectedDuration = this.DisconnectedDuration;
-      for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {
+      result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
+      for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 4, in context); i < count; ++i) {
         this.Gear[i].Materialize(frame, ref *result.Gear.GetPointer(i), in context);
       }
       result.HfsmRootRef = this.HfsmRootRef;

@@ -56,6 +56,12 @@ namespace I2.Loc
 			public static string YouDied 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouDied"); } }
 			public static string YouKilledPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouKilledPlayer"); } }
 			public static string YourLoot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YourLoot"); } }
+			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
+			public static string StatShield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatShield"); } }
+			public static string StatArmour 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatArmour"); } }
+			public static string StatHealth 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatHealth"); } }
+			public static string StatPower 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatPower"); } }
+			public static string StatSpeed 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatSpeed"); } }
 		}
 
 		public static class BotNames
@@ -459,6 +465,13 @@ namespace I2.Loc
 			public static string WarriorShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShield"); } }
 			public static string WarriorShieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShieldDescription"); } }
 			public static string Weapon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Weapon"); } }
+			public static string BaseballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballArmor"); } }
+			public static string BaseballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballHelmet"); } }
+			public static string FootballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballArmor"); } }
+			public static string FootballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballHelmet"); } }
+			public static string HockeyHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HockeyHelmet"); } }
+			public static string RoadHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/RoadHelmet"); } }
+			public static string RoadShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/RoadShield"); } }
 		}
 
 		public static class General
@@ -659,6 +672,7 @@ namespace I2.Loc
 			public static string NextGoal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NextGoal"); } }
 			public static string NftCooldownTimerFullText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerFullText"); } }
 			public static string NftCooldownTimerTooltip 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerTooltip"); } }
+			public static string NftRestrictionText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftRestrictionText"); } }
 			public static string NoAdventuresAvailable 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NoAdventuresAvailable"); } }
 			public static string NotEnoughSpace 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpace"); } }
 			public static string NotEnoughSpaceWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpaceWarning"); } }
@@ -706,6 +720,10 @@ namespace I2.Loc
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
 			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
+			public static string Trophies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Trophies"); } }
+			public static string TrophiesGained 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesGained"); } }
+			public static string TrophiesLost 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesLost"); } }
+			public static string TrophiesNewTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesNewTotal"); } }
 			public static string TrophyRoad 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoad"); } }
 			public static string TrophyRoadXP 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophyRoadXP"); } }
 			public static string Unlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Unlock"); } }
@@ -715,6 +733,8 @@ namespace I2.Loc
 			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
+			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
+			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 		}
 
 		public static class MapDropPoints
@@ -775,8 +795,10 @@ namespace I2.Loc
 
 		public static class Tooltips
 		{
+			public static string ToolTip_BLST 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_BLST"); } }
 			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
 			public static string ToolTip_NftCooldown 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_NftCooldown"); } }
+			public static string ToolTip_Trophies 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Trophies"); } }
 		}
 	}
 
@@ -834,6 +856,12 @@ namespace I2.Loc
 		    public const string YouDied = "AdventureMenu/YouDied";
 		    public const string YouKilledPlayer = "AdventureMenu/YouKilledPlayer";
 		    public const string YourLoot = "AdventureMenu/YourLoot";
+		    public const string GetReady = "AdventureMenu/GetReady";
+		    public const string StatShield = "AdventureMenu/StatShield";
+		    public const string StatArmour = "AdventureMenu/StatArmour";
+		    public const string StatHealth = "AdventureMenu/StatHealth";
+		    public const string StatPower = "AdventureMenu/StatPower";
+		    public const string StatSpeed = "AdventureMenu/StatSpeed";
 		}
 
 		public static class BotNames
@@ -1237,6 +1265,13 @@ namespace I2.Loc
 		    public const string WarriorShield = "GameIds/WarriorShield";
 		    public const string WarriorShieldDescription = "GameIds/WarriorShieldDescription";
 		    public const string Weapon = "GameIds/Weapon";
+		    public const string BaseballArmor = "GameIds/BaseballArmor";
+		    public const string BaseballHelmet = "GameIds/BaseballHelmet";
+		    public const string FootballArmor = "GameIds/FootballArmor";
+		    public const string FootballHelmet = "GameIds/FootballHelmet";
+		    public const string HockeyHelmet = "GameIds/HockeyHelmet";
+		    public const string RoadHelmet = "GameIds/RoadHelmet";
+		    public const string RoadShield = "GameIds/RoadShield";
 		}
 
 		public static class General
@@ -1437,6 +1472,7 @@ namespace I2.Loc
 		    public const string NextGoal = "MainMenu/NextGoal";
 		    public const string NftCooldownTimerFullText = "MainMenu/NftCooldownTimerFullText";
 		    public const string NftCooldownTimerTooltip = "MainMenu/NftCooldownTimerTooltip";
+		    public const string NftRestrictionText = "MainMenu/NftRestrictionText";
 		    public const string NoAdventuresAvailable = "MainMenu/NoAdventuresAvailable";
 		    public const string NotEnoughSpace = "MainMenu/NotEnoughSpace";
 		    public const string NotEnoughSpaceWarning = "MainMenu/NotEnoughSpaceWarning";
@@ -1484,6 +1520,10 @@ namespace I2.Loc
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
 		    public const string TotalPower = "MainMenu/TotalPower";
+		    public const string Trophies = "MainMenu/Trophies";
+		    public const string TrophiesGained = "MainMenu/TrophiesGained";
+		    public const string TrophiesLost = "MainMenu/TrophiesLost";
+		    public const string TrophiesNewTotal = "MainMenu/TrophiesNewTotal";
 		    public const string TrophyRoad = "MainMenu/TrophyRoad";
 		    public const string TrophyRoadXP = "MainMenu/TrophyRoadXP";
 		    public const string Unlock = "MainMenu/Unlock";
@@ -1493,6 +1533,8 @@ namespace I2.Loc
 		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
+		    public const string MainMenuButton = "MainMenu/MainMenuButton";
+		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		}
 
 		public static class MapDropPoints
@@ -1553,8 +1595,10 @@ namespace I2.Loc
 
 		public static class Tooltips
 		{
+		    public const string ToolTip_BLST = "Tooltips/ToolTip_BLST";
 		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
 		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
+		    public const string ToolTip_Trophies = "Tooltips/ToolTip_Trophies";
 		}
 	}
 }

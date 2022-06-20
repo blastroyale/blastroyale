@@ -25,15 +25,15 @@ MonoBehaviour:
       ChestType: 0
       RandomEquipment:
       - Value1:
-          RawValue: 16384
+          RawValue: 32768
         Value2: 1
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
+        Value2: 1
       - Value1:
-          RawValue: 16384
-        Value2: 3
+          RawValue: 32768
+        Value2: 1
       LargeConsumable:
       - Value1:
           RawValue: 0
@@ -45,19 +45,19 @@ MonoBehaviour:
       ChestType: 1
       RandomEquipment:
       - Value1:
-          RawValue: 32768
+          RawValue: 58982
         Value2: 1
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
+        Value2: 1
       - Value1:
-          RawValue: 16384
-        Value2: 5
+          RawValue: 39322
+        Value2: 1
       LargeConsumable:
       - Value1:
-          RawValue: 16384
-        Value2: 2
+          RawValue: 6554
+        Value2: 1
     - Id: 16
       AssetRef:
         Id:
@@ -68,19 +68,19 @@ MonoBehaviour:
           RawValue: 65536
         Value2: 1
       - Value1:
-          RawValue: 16384
+          RawValue: 6554
         Value2: 1
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 5
-      - Value1:
-          RawValue: 32768
-        Value2: 5
+        Value2: 1
       LargeConsumable:
       - Value1:
-          RawValue: 32768
-        Value2: 2
+          RawValue: 65536
+        Value2: 1
+      - Value1:
+          RawValue: 6554
+        Value2: 1
     - Id: 2
       AssetRef:
         Id:
@@ -91,22 +91,22 @@ MonoBehaviour:
           RawValue: 65536
         Value2: 1
       - Value1:
-          RawValue: 32768
-        Value2: 2
+          RawValue: 49152
+        Value2: 1
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 5
+        Value2: 2
       - Value1:
-          RawValue: 32768
-        Value2: 7
+          RawValue: 6554
+        Value2: 1
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 2
+        Value2: 1
       - Value1:
           RawValue: 32768
-        Value2: 3
+        Value2: 1
     - Id: 19
       AssetRef:
         Id:
@@ -117,19 +117,16 @@ MonoBehaviour:
           RawValue: 65536
         Value2: 2
       - Value1:
-          RawValue: 32768
-        Value2: 2
+          RawValue: 16384
+        Value2: 1
       SmallConsumable:
       - Value1:
-          RawValue: 65536
-        Value2: 7
-      - Value1:
-          RawValue: 32768
-        Value2: 7
+          RawValue: 0
+        Value2: 0
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
+        Value2: 4
       - Value1:
-          RawValue: 32768
-        Value2: 3
+          RawValue: 6554
+        Value2: 2

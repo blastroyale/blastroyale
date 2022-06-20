@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -26,8 +29,9 @@ namespace FirstLight.Game.Presenters
 			public Action<UniqueId> OnEquipmentButtonClicked;
 			public Action OnChangeSkinClicked;
 			public Action OnLootBackButtonClicked;
+			public IReadOnlyDictionary<GameIdGroup, UniqueId> CurrentTempLoadout;
 		}
-		
+
 		[SerializeField] private FilterLootView[] _filterButtons;
 		[SerializeField] private EquippedLootView[] _equipmentButtons;
 		[SerializeField, Required] private Button _allGearButton;
@@ -39,7 +43,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _powerValueText;
 		[SerializeField, Required] private Slider _playerLevelSlider;
 		[SerializeField, Required] private Image _playerLevelBadge;
-		
+		[SerializeField, Required] private Button _blockerButton;
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
@@ -47,34 +52,35 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_allGearButton.onClick.AddListener(OnAllGearClicked); 
+			_allGearButton.onClick.AddListener(OnAllGearClicked);
 			_changeSkinButton.onClick.AddListener(OnChangeSkinClicked);
 			_backButton.onClick.AddListener(OnBackButtonPressed);
+			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 
 			foreach (var button in _equipmentButtons)
 			{
 				button.OnClick.AddListener(OnSlotClicked);
 			}
-			
+
 			foreach (var button in _filterButtons)
 			{
 				button.OnClick.AddListener(OnSlotClicked);
 			}
-			
-			SetPlayerLevelInformation();
+
+			LoadPlayerLevelInformation();
 		}
 
 		protected override void OnSetData()
 		{
 			base.OnSetData();
-			
-			SetPlayerLevelInformation();
+
+			LoadPlayerLevelInformation();
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			
+
 			foreach (var button in _equipmentButtons)
 			{
 				button.UpdateItem();
@@ -84,24 +90,36 @@ namespace FirstLight.Game.Presenters
 			{
 				filterButton.SetNotificationState();
 			}
+
+			SetBasicPlayerInformation();
 		}
 
-		private async void SetPlayerLevelInformation()
+		private void SetBasicPlayerInformation()
+		{
+			var loadout = new List<EquipmentInfo>();
+
+			foreach (var (slot, id) in Data.CurrentTempLoadout)
+			{
+				loadout.Add(_gameDataProvider.EquipmentDataProvider.GetInfo(id));
+			}
+
+			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
+			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;
+			_powerValueText.text = loadout.GetTotalStat(EquipmentStatType.Damage).ToString("F0");
+		}
+
+		private async void LoadPlayerLevelInformation()
 		{
 			var level = _gameDataProvider.PlayerDataProvider.Level.Value;
-			
-			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
+			_playerLevelBadge.sprite = await _services.AssetResolverService.RequestAsset<int, Sprite>((int) level);
 			_playerLevelText.text = level.ToString("N0");
 			_playerLevelSlider.value = GetXpSliderValue();
-			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;
-			_powerValueText.text = _gameDataProvider.EquipmentDataProvider.GetTotalEquippedStat(StatType.Power).ToString();
-			_playerLevelBadge.sprite = await _services.AssetResolverService.RequestAsset<int, Sprite>((int) level);
 		}
-		
+
 		private float GetXpSliderValue()
 		{
 			var info = _gameDataProvider.PlayerDataProvider.CurrentLevelInfo;
-			
+
 			return (float) info.Xp / info.Config.LevelUpXP;
 		}
 
@@ -109,7 +127,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnAllGearClicked();
 		}
-		
+
 		private void OnSlotClicked(GameIdGroup slot)
 		{
 			Data.OnSlotButtonClicked(slot);
@@ -121,6 +139,11 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnBackButtonPressed()
+		{
+			Data.OnLootBackButtonClicked();
+		}
+
+		private void OnBlockerButtonPressed()
 		{
 			Data.OnLootBackButtonClicked();
 		}

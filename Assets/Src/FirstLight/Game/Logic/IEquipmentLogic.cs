@@ -22,52 +22,29 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
 
 		/// <summary>
-		/// Requests an array of all the quipped items the player has
-		/// in his loadout.
+		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
 		/// </summary>
-		Equipment[] GetLoadoutItems();
+		EquipmentInfo GetInfo(UniqueId id);
 
 		/// <summary>
-		/// Requests a portion of the current Inventory that is eligible for crypto earnings
+		/// Requests the <see cref="EquipmentInfo"/> for all the loadout
 		/// </summary>
-		Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings();
+		List<EquipmentInfo> GetLoadoutEquipmentInfo();
 
 		/// <summary>
-		/// Requests all items from the inventory that belonging to the given
-		/// <paramref name="slot"/> type.
+		/// Requests the <see cref="EquipmentInfo"/> for all the inventory
 		/// </summary>
-		List<Equipment> FindInInventory(GameIdGroup slot);
+		List<EquipmentInfo> GetInventoryEquipmentInfo();
 
 		/// <summary>
-		/// Requests the information if the given <paramref name="itemId"/> is equipped
+		/// Request the stats a specific piece of equipment has
 		/// </summary>
-		bool IsEquipped(UniqueId itemId);
+		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment);
 
 		/// <summary>
-		/// Requests the <paramref name="stat"/> value of an equipment item.
+		/// Requests to see if player has enough NFTs equipped for play
 		/// </summary>
-		float GetItemStat(Equipment equipment, StatType stat);
-
-		/// <summary>
-		/// Requests the total amount of <paramref name="stat"/> granted by all currently equipped items.
-		/// </summary>
-		float GetTotalEquippedStat(StatType stat);
-
-		/// <summary>
-		/// Requests the remaining cooldown for item <paramref name="itemId"/>
-		/// </summary>
-		TimeSpan GetItemCooldown(UniqueId itemId);
-
-		/// Requests the URL of the NFT item in a players inventory.
-		/// </summary>
-		string GetEquipmentCardUrl(UniqueId id);
-
-		/// <summary>
-		/// Request the stats a specific piece of equipment has, with an optional level
-		/// parameter (Leave default (0) to use Equipment leve).
-		/// TODO: This should be rethought.
-		/// </summary>
-		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0);
+		bool EnoughLoadoutEquippedToPlay();
 	}
 
 	/// <inheritdoc />
@@ -84,13 +61,8 @@ namespace FirstLight.Game.Logic
 		bool RemoveFromInventory(UniqueId equipment);
 
 		/// <summary>
-		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
+		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
-		void Equip(UniqueId itemId);
-
-		/// <summary>
-		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
-		/// </summary>
-		void Unequip(UniqueId itemId);
+		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
 	}
 }

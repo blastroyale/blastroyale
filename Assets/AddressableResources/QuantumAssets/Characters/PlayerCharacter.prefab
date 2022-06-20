@@ -414,7 +414,13 @@ MonoBehaviour:
     Weapons:
     - GameId:
         Value: 0
+      Edition:
+        Value: 0
       Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
         Value: 0
       Adjective:
         Value: 0
@@ -422,13 +428,23 @@ MonoBehaviour:
         Value: 0
       Manufacturer:
         Value: 0
-      Faction:
-        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
       Level: 0
-      Grade: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
     - GameId:
         Value: 0
+      Edition:
+        Value: 0
       Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
         Value: 0
       Adjective:
         Value: 0
@@ -436,13 +452,23 @@ MonoBehaviour:
         Value: 0
       Manufacturer:
         Value: 0
-      Faction:
-        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
       Level: 0
-      Grade: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
     - GameId:
         Value: 0
+      Edition:
+        Value: 0
       Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
         Value: 0
       Adjective:
         Value: 0
@@ -450,10 +476,111 @@ MonoBehaviour:
         Value: 0
       Manufacturer:
         Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
+    Gear:
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
       Faction:
         Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
       Level: 0
-      Grade: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
     Specials:
     - SpecialId:
         Value: 0
@@ -463,7 +590,8 @@ MonoBehaviour:
         RawValue: 0
       Radius:
         RawValue: 0
-      PowerAmount: 0
+      PowerAmount:
+        RawValue: 0
       Speed:
         RawValue: 0
       MaxRange:
@@ -478,13 +606,15 @@ MonoBehaviour:
         RawValue: 0
       Radius:
         RawValue: 0
-      PowerAmount: 0
+      PowerAmount:
+        RawValue: 0
       Speed:
         RawValue: 0
       MaxRange:
         RawValue: 0
       AvailableTime:
         RawValue: 0
+    DroppedLoadoutFlags: 0
 --- !u!114 &8755646374635016916
 MonoBehaviour:
   m_ObjectHideFlags: 0

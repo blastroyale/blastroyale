@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using FirstLight.FLogger;
 using Newtonsoft.Json;
 using PlayFab;
@@ -32,7 +33,12 @@ namespace FirstLight.Editor.EditorTools
 					}, null, OnPlayFabError);
 				}
 				
-				Debug.Log($"# Deleting {result.PlayerProfiles.Count.ToString()} Players");
+				FLog.Info($"# Deleting {result.PlayerProfiles.Count.ToString()} Players");
+
+				var task = new HttpClient().DeleteAsync("https://devmarketplaceapi.azure-api.net/accounts/admin/unlinkall?key=devkey");
+				task.Wait();
+
+				FLog.Info("Accounts wallets unlinked");
 			}
 		}
 

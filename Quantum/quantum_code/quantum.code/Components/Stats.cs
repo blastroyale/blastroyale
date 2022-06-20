@@ -109,7 +109,7 @@ namespace Quantum
 			if (CurrentShield != previousShield)
 			{
 				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
-				                                currentShieldCapacity);
+				                         currentShieldCapacity, currentShieldCapacity);
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace Quantum
 			AddModifier(f, capacityModifer);
 
 			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
-			                                newCapacityValue.AsInt);
+			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
 
 		/// <summary>
@@ -216,31 +216,35 @@ namespace Quantum
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			var previousShield = CurrentShield;
 			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
+			var armour = Values[(int)StatType.Armour].StatValue.AsInt;
 
 			if (IsImmune)
 			{
 				return;
 			}
 
+			//reduce incoming damage by armour amount
+			currentDamageAmount = Math.Max(currentDamageAmount - armour, 0);
+
 			// If there's shields then we reduce it first
-			// and if the damage is bigger than armour then we proceed to remove health as well
+			// and if the damage is bigger than shields then we proceed to remove health as well
 			if (previousShield > 0)
 			{
 				CurrentShield = Math.Max(previousShield - currentDamageAmount, 0);
 				currentDamageAmount = Math.Max(currentDamageAmount - previousShield, 0);
 
 				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
-				                                currentShieldCapacity);
+				                         currentShieldCapacity, currentShieldCapacity);
 			}
 
 			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
-				var armourDamage = damageAmount - (uint) currentDamageAmount;
+				var shieldDamage = damageAmount - (uint) currentDamageAmount;
 				var healthDamage = (uint) currentDamageAmount;
 
-				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
+				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, shieldDamage,
 				                         healthDamage, damageAmount, maxHealth, currentShieldCapacity);
-				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, armourDamage,
+				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, shieldDamage,
 				                              healthDamage, damageAmount, maxHealth, currentShieldCapacity);
 			}
 

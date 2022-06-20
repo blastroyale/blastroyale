@@ -10,7 +10,7 @@ namespace FirstLight.Editor.Build
 		private const string _defaultAppName = "blast_royale";
 		private const string _apkExtension = "apk";
 		
-		[MenuItem("First Light Games/Build/Android/Local Build")]
+		[MenuItem("FLG/Build/Android/Local Build")]
 		private static void BuildAndroidLocal()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -19,14 +19,15 @@ namespace FirstLight.Editor.Build
 			{
 				return;
 			}
+			
+			FirstLightBuildConfig.SetupDevelopmentConfig();
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, true, true);
 			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Development Build")]
+		[MenuItem("FLG/Build/Android/Development Build")]
 		private static void BuildAndroidDevelopment()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -35,13 +36,14 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupDevelopmentConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, true);
 			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Release Build")]
+		[MenuItem("FLG/Build/Android/Release Build")]
 		public static void BuildAndroidRelease()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -50,13 +52,14 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupReleaseConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, false);
 			
-			FirstLightBuildConfig.SetupReleaseConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Store Build")]
+		[MenuItem("FLG/Build/Android/Store Build")]
 		public static void BuildAndroidStore()
 		{
 			var outputPath = GetAndroidOutputPath();
@@ -66,13 +69,14 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupStoreConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, false);
 			
-			FirstLightBuildConfig.SetupStoreConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Local Build")]
+		[MenuItem("FLG/Build/iOS/Local Build")]
 		private static void BuildIosLocal()
 		{
 			var outputPath = GetIosOutputPath();
@@ -81,14 +85,18 @@ namespace FirstLight.Editor.Build
 			{
 				return;
 			}
-
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true, true);
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true, true);
+
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Automatic;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = true;
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Development Build")]
+		[MenuItem("FLG/Build/iOS/Development Build")]
 		private static void BuildIosDevelopment()
 		{
 			var outputPath = GetIosOutputPath();
@@ -98,13 +106,14 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 
+			FirstLightBuildConfig.SetupDevelopmentConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true);
 			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Release Build")]
+		[MenuItem("FLG/Build/iOS/Release Build")]
 		public static void BuildIosRelease()
 		{
 			var outputPath = GetIosOutputPath();
@@ -114,13 +123,14 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupReleaseConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, false);
 			
-			FirstLightBuildConfig.SetupReleaseConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Store Build")]
+		[MenuItem("FLG/Build/iOS/Store Build")]
 		public static void BuildIosStore()
 		{
 			var outputPath = GetIosOutputPath();
@@ -130,9 +140,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
+			FirstLightBuildConfig.SetupStoreConfig();
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, false);
 			
-			FirstLightBuildConfig.SetupStoreConfig();
 			BuildPipeline.BuildPlayer(options);
 		}
 

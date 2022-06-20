@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -27,14 +29,15 @@ namespace Quantum
 		{
 			var playerData = f.GetPlayerData(playerRef);
 			var chestPosition = f.Get<Transform3D>(e).Position;
-			var playerCharacter = f.Get<PlayerCharacter>(playerEntity);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			var config = f.ChestConfigs.GetConfig(ChestType);
 
-			var hasPrimaryWeaponEquipped = playerCharacter.Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
+			var hasPrimaryWeaponEquipped = playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
+			var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
 
 			var medianRarity = f.Context.MedianRarity;
 			var weapons = f.Context.PlayerWeapons;
@@ -44,8 +47,15 @@ namespace Quantum
 			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
 			{
 				// Drop primary weapon if it's in loadout and not equipped
+				playerCharacter->SetDroppedLoadoutItem(loadoutWeapon);
 				ModifyEquipmentRarity(f, ref loadoutWeapon, minimumRarity, medianRarity);
 				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, angleStep++, playerRef);
+			}
+			else if (nextGearItem.IsValid())
+			{
+				playerCharacter->SetDroppedLoadoutItem(nextGearItem);
+				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, medianRarity);
+				Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++, playerRef);
 			}
 			else
 			{
@@ -67,6 +77,7 @@ namespace Quantum
 						{
 							var weapon = weapons[f.RNG->Next(0, weapons.Length)];
 
+							// TODO: This should happen when we pick up a weapon, not when we drop it 
 							// I think this is silly, but "When a player picks up a weapon we inherit all NFT
 							// attributes (except for the rarity) from the Record".
 							if (hasLoadoutWeapon)
@@ -143,6 +154,51 @@ namespace Quantum
 				ChestType.Legendary => 2,
 				_ => throw new ArgumentOutOfRangeException(nameof(ChestType), ChestType, null)
 			};
+		}
+
+		private Equipment GetNextLoadoutGearItem(Frame f, PlayerCharacter* playerCharacter, Equipment[] loadout)
+		{
+			var flags = playerCharacter->DroppedLoadoutFlags;
+
+			// Set bits of loadout items we have
+			int loadoutFlags = 0;
+			foreach (var e in loadout)
+			{
+				if (e.IsWeapon())
+				{
+					continue;
+				}
+
+				loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
+			}
+
+			// Flip it around so only missing gear bits are set
+			loadoutFlags = ~loadoutFlags & ~(~0 << (Constants.MAX_GEAR + 1));
+
+			// Trick flags into thinking we have dropped the items we don't currently have in the loadout
+			flags |= loadoutFlags;
+
+			// Flip it around so only missing gear bits are set
+			flags = ~flags & ~(~0 << (Constants.MAX_GEAR + 1));
+
+			int bitCount = BitUtil.CountSetBits(flags);
+			if (bitCount == 0)
+			{
+				return Equipment.None;
+			}
+
+			var index = (int) BitUtil.GetNthBitIndex((ulong) flags, (uint) f.RNG->Next(0, bitCount));
+			var group = PlayerCharacter.GetEquipmentGroupForSlot(index - 1);
+
+			foreach (var e in loadout)
+			{
+				if (e.GameId.IsInGroup(group))
+				{
+					return e;
+				}
+			}
+
+			throw new NotSupportedException($"Could not find random gear item with index({index}), group{group}");
 		}
 	}
 }

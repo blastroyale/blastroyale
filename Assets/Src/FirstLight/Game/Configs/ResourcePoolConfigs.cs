@@ -20,6 +20,7 @@ namespace FirstLight.Game.Configs
 		public FP PoolCapacityDecreaseExponent;
 		public FP MaxTakeDecreaseModifier;
 		public FP TakeDecreaseExponent;
+		public FP PoolCapacityTrophiesModifier;
 	}
 
 	/// <summary>

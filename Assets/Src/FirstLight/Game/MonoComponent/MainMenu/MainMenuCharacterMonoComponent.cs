@@ -41,8 +41,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_defaultCharacterRotation = transform.localRotation;
 
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnEquippedItems);
+			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadout);
+			_services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
+			_services.MessageBrokerService.Subscribe<TempItemUnequippedMessage>(OnTempItemUnequippedMessage);
 		}
 
 		private void Start()
@@ -63,21 +64,20 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
-		private void OnEquippedItems(GameIdGroup slot, UniqueId oldItem, UniqueId newItem,
-		                             ObservableUpdateType updateType)
+		private void OnTempItemEquippedMessage(TempItemEquippedMessage msg)
 		{
-			switch (updateType)
-			{
-				case ObservableUpdateType.Added:
-					OnEquippedItemsAdded(slot, newItem);
-					break;
-				case ObservableUpdateType.Removed:
-					OnEquippedItemsRemoved(slot, newItem);
-					break;
-				case ObservableUpdateType.Updated:
-					OnEquippedItemsRemoved(slot, newItem);
-					break;
-			}
+			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[msg.ItemId];
+			var slot = gameId.GetSlot();
+			
+			OnEquippedItemsAdded(slot, msg.ItemId);
+		}
+		
+		private void OnTempItemUnequippedMessage(TempItemUnequippedMessage msg)
+		{
+			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[msg.ItemId];
+			var slot = gameId.GetSlot();
+			
+			OnEquippedItemsRemoved(slot, msg.ItemId);
 		}
 
 		private async void OnEquippedItemsAdded(GameIdGroup slot, UniqueId item)
@@ -105,7 +105,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private void OnItemEquippedMessage(ItemEquippedMessage callback)
+		private void OnUpdatedLoadout(UpdatedLoadoutMessage msg)
 		{
 			if (_equippedSlots.Count == 1)
 			{
@@ -145,7 +145,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			cacheTransform.localRotation = Quaternion.identity;
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
-			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutItems());
+			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo());
 
 			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
 			{

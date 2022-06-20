@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
 using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
@@ -118,18 +117,8 @@ namespace FirstLight.Game.Logic
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
-			
-			var inventory = GameLogic.EquipmentLogic.GetEligibleInventoryForEarnings();
-			var loadoutItems = new List<Equipment>();
-			
-			foreach (var loadoutKvp in GameLogic.EquipmentLogic.Loadout.ReadOnlyDictionary)
-			{
-				if (inventory.ContainsKey(loadoutKvp.Value))
-				{
-					loadoutItems.Add(inventory[loadoutKvp.Value]);
-				}
-			}
-			
+
+			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutEquipmentInfo();
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
 			var maxTake = poolConfig.BaseMaxTake;
 			var nftAssumed = GameConfig.NftAssumedOwned;
@@ -137,7 +126,6 @@ namespace FirstLight.Game.Logic
 			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
-			var loadoutSlots = GameConfig.LoadoutSlots;
 			var nftsEquipped = (uint) GameLogic.EquipmentLogic.Loadout.Count;
 			
 			// ----- Increase CS max take per grade of equipped NFTs
@@ -146,10 +134,10 @@ namespace FirstLight.Game.Logic
 			
 			foreach (var nft in loadoutItems)
 			{
-				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Grade);
+				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Equipment.Grade);
 				var modSum = (double) gradeConfig.PoolIncreaseModifier;
 				
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft));
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Equipment));
 			}
 			
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
@@ -164,23 +152,14 @@ namespace FirstLight.Game.Logic
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
-			var currentNftDurabilities = (double) 0;
-			var maxNftDurabilities = (double) 0;
-			
-			foreach (var nft in loadoutItems)
-			{
-				currentNftDurabilities += nft.Durability;
-				maxNftDurabilities += nft.MaxDurability;
-			}
-			
-			var nftDurabilityPercent = currentNftDurabilities / maxNftDurabilities;
+			var totalDurability = loadoutItems.GetAvgDurability(out var maxDurability);
+			var nftDurabilityPercent = (double)totalDurability / maxDurability;
 			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, takeDecreaseExp) * takeDecreaseMod;
-			var durabilityDecrease = Math.Round(maxTake * durabilityDecreaseMult);
 			
-			maxTake -= (uint)durabilityDecrease;
+			maxTake -= (uint) Math.Round(maxTake * durabilityDecreaseMult);
 			
 			// ----- Get take based on amount of NFTs equipped
-			var csTake = (uint) FPMath.Ceiling(maxTake / loadoutSlots * nftsEquipped);
+			var csTake = (uint) Math.Ceiling((double) maxTake / Equipment.EquipmentSlots.Count * nftsEquipped);
 			
 			// NOTE: Final take should afterwards be modified by placement in match
 			

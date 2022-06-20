@@ -5,6 +5,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
+using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -75,13 +76,21 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void OnShieldUpdate(EventOnShieldChanged callback)
 		{
-			if (callback.PreviousShield == callback.CurrentShield)
+			if (callback.PreviousShieldCapacity != callback.ShieldCapacity
+			    && _entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
+			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				return;
+				var capacityChange = callback.ShieldCapacity - callback.PreviousShieldCapacity;
+				var messageText = ScriptLocalization.AdventureMenu.StatShield + (capacityChange > 0 ? " +" : " -") + capacityChange;
+				
+				EnqueueText(_pool, entityBase, messageText, _neutralTextColor);
 			}
-
-			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousShield,
-			               callback.CurrentShield, _poolArmour, _armourLossTextColor, _armourGainTextColor);
+			
+			if (callback.PreviousShield != callback.CurrentShield)
+			{
+				OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousShield,
+				               callback.CurrentShield, _poolArmour, _armourLossTextColor, _armourGainTextColor);
+			}
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)

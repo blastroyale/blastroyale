@@ -1,17 +1,9 @@
-﻿using FirstLight.Game.Data;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using PlayFab;
-using PlayFab.CloudScriptModels;
+﻿using FirstLight.Game.Logic;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Commands
 {
@@ -33,7 +25,9 @@ namespace FirstLight.Game.Commands
 			var rewards = new List<RewardData>();
 			var gameMode = gameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(PlayersMatchData[0].MapId).GameMode;
 
-			if (PlayedMatchmakingGame && gameMode == GameMode.BattleRoyale)
+			if (PlayedMatchmakingGame && gameMode == GameMode.BattleRoyale
+			                          // TODO: Remove this check when server plugin is running
+			                          && gameLogic.EquipmentLogic.EnoughLoadoutEquippedToPlay())
 			{
 				trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 

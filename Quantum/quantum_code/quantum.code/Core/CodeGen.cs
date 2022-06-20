@@ -4194,6 +4194,8 @@ namespace Quantum {
     [FieldOffset(72)]
     public FPVector3 Direction;
     [FieldOffset(8)]
+    public UInt32 KnockbackAmount;
+    [FieldOffset(12)]
     public UInt32 PowerAmount;
     [FieldOffset(32)]
     public FP Range;
@@ -4218,6 +4220,7 @@ namespace Quantum {
         var hash = 487;
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
+        hash = hash * 31 + KnockbackAmount.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + Range.GetHashCode();
         hash = hash * 31 + (Int32)SourceId;
@@ -4235,6 +4238,7 @@ namespace Quantum {
         var p = (Projectile*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SourceId);
         serializer.Stream.Serialize(&p->TeamSource);
+        serializer.Stream.Serialize(&p->KnockbackAmount);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         EntityRef.Serialize(&p->Target, serializer);
@@ -4283,12 +4287,14 @@ namespace Quantum {
     public QBoolean CanHitSameTarget;
     [FieldOffset(88)]
     public FPVector2 Direction;
+    [FieldOffset(20)]
+    public UInt32 KnockbackAmount;
     [FieldOffset(12)]
     [FramePrinter.PtrQListAttribute(typeof(Int32))]
     private Quantum.Ptr LinecastQueriesPtr;
-    [FieldOffset(20)]
-    public UInt32 NumberOfShots;
     [FieldOffset(24)]
+    public UInt32 NumberOfShots;
+    [FieldOffset(28)]
     public UInt32 PowerAmount;
     [FieldOffset(48)]
     public FP PreviousTime;
@@ -4322,6 +4328,7 @@ namespace Quantum {
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + CanHitSameTarget.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
+        hash = hash * 31 + KnockbackAmount.GetHashCode();
         hash = hash * 31 + LinecastQueriesPtr.GetHashCode();
         hash = hash * 31 + NumberOfShots.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
@@ -4350,6 +4357,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->CanHitSameTarget, serializer);
         QList.Serialize(p->LinecastQueries, &p->LinecastQueriesPtr, serializer, StaticDelegates.SerializeInt32);
         serializer.Stream.Serialize(&p->AttackAngle);
+        serializer.Stream.Serialize(&p->KnockbackAmount);
         serializer.Stream.Serialize(&p->NumberOfShots);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
@@ -4453,11 +4461,13 @@ namespace Quantum {
     public FP EndTime;
     [FieldOffset(4)]
     public UInt32 Id;
+    [FieldOffset(8)]
+    public UInt32 KnockbackAmount;
     [FieldOffset(56)]
     public FP NextHitTime;
     [FieldOffset(64)]
     public FPVector3 OriginalHitPosition;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public UInt32 PowerAmount;
     [FieldOffset(24)]
     public EntityRef SpellSource;
@@ -4472,6 +4482,7 @@ namespace Quantum {
         hash = hash * 31 + Cooldown.GetHashCode();
         hash = hash * 31 + EndTime.GetHashCode();
         hash = hash * 31 + Id.GetHashCode();
+        hash = hash * 31 + KnockbackAmount.GetHashCode();
         hash = hash * 31 + NextHitTime.GetHashCode();
         hash = hash * 31 + OriginalHitPosition.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
@@ -4485,6 +4496,7 @@ namespace Quantum {
         var p = (Spell*)ptr;
         serializer.Stream.Serialize(&p->TeamSource);
         serializer.Stream.Serialize(&p->Id);
+        serializer.Stream.Serialize(&p->KnockbackAmount);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         EntityRef.Serialize(&p->SpellSource, serializer);
@@ -9329,6 +9341,7 @@ namespace Quantum.Prototypes {
     public FPVector3 SpawnPosition;
     public FPVector3 Direction;
     public UInt32 PowerAmount;
+    public UInt32 KnockbackAmount;
     public FP Speed;
     public FP Range;
     public FP SplashRadius;
@@ -9343,6 +9356,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Projectile result, in PrototypeMaterializationContext context) {
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
       result.Direction = this.Direction;
+      result.KnockbackAmount = this.KnockbackAmount;
       result.PowerAmount = this.PowerAmount;
       result.Range = this.Range;
       result.SourceId = this.SourceId;
@@ -9391,6 +9405,7 @@ namespace Quantum.Prototypes {
     public FPVector3 SpawnPosition;
     public FPVector2 Direction;
     public UInt32 PowerAmount;
+    public UInt32 KnockbackAmount;
     public UInt32 AttackAngle;
     public FP Range;
     public FP Speed;
@@ -9411,6 +9426,7 @@ namespace Quantum.Prototypes {
       PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
       result.CanHitSameTarget = this.CanHitSameTarget;
       result.Direction = this.Direction;
+      result.KnockbackAmount = this.KnockbackAmount;
       if (this.LinecastQueries.Length == 0) {
         result.LinecastQueries = default;
       } else {
@@ -9539,6 +9555,7 @@ namespace Quantum.Prototypes {
     public MapEntityId SpellSource;
     public Int32 TeamSource;
     public UInt32 PowerAmount;
+    public UInt32 KnockbackAmount;
     public FPVector3 OriginalHitPosition;
     public FP Cooldown;
     public FP NextHitTime;
@@ -9554,6 +9571,7 @@ namespace Quantum.Prototypes {
       result.Cooldown = this.Cooldown;
       result.EndTime = this.EndTime;
       result.Id = this.Id;
+      result.KnockbackAmount = this.KnockbackAmount;
       result.NextHitTime = this.NextHitTime;
       result.OriginalHitPosition = this.OriginalHitPosition;
       result.PowerAmount = this.PowerAmount;

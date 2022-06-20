@@ -119,7 +119,7 @@ namespace Quantum
 			for (var j = 0; j < hits.Count; j++)
 			{
 				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
-				                                   spell.PowerAmount, hits[j].Point, spell.TeamSource);
+				                                   spell.PowerAmount, spell.KnockbackAmount, hits[j].Point, spell.TeamSource);
 
 				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
 				{
@@ -150,14 +150,17 @@ namespace Quantum
 				return false;
 			}
 
-			if (f.Unsafe.TryGetPointer<CharacterController3D>(spell.Victim, out var kcc) &&
+
+			if (spell.KnockbackAmount > 0 &&
+			    f.Unsafe.TryGetPointer<CharacterController3D>(spell.Victim, out var kcc) &&
 			    f.TryGet<Transform3D>(spell.Victim, out var victimTransform))
 			{
-				var kick = (victimTransform.Position - spell.OriginalHitPosition).Normalized * spell.PowerAmount;
+				var kick = (victimTransform.Position - spell.OriginalHitPosition).Normalized *
+				           spell.KnockbackAmount;
 				kick.Y = FP._0;
-				Log.Info($"PACO kick({kick}), kcc->Velocity({kcc->Velocity})");
 				kcc->Velocity += kick;
 			}
+			
 
 			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
 			{

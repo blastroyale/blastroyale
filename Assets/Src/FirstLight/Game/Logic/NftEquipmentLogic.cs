@@ -15,13 +15,13 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
-		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
-		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
-		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
-
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
 		private IObservableDictionary<UniqueId, long> _insertionTimestamps;
+		
+		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
+		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
+		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -33,119 +33,66 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 			_insertionTimestamps = new ObservableDictionary<UniqueId, long>(Data.InsertionTimestamps);
 		}
-
-		public Equipment[] GetLoadoutItems()
+		
+		public EquipmentInfo GetInfo(UniqueId id)
 		{
-			return _loadout.ReadOnlyDictionary.Values.Select(id => _inventory[id]).ToArray();
+			var cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
+			var cooldownFinishTime = new DateTime(_insertionTimestamps[id]).AddMinutes(cooldownMinutes);
+			var equipment = _inventory[id];
+			
+			if (!Data.ImageUrls.TryGetValue(id, out var url))
+			{
+				// TODO: Remove this once everything is working
+				url = "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
+			}
+
+			return new EquipmentInfo
+			{
+				Id = id,
+				Equipment = equipment,
+				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
+				NftCooldown = cooldownFinishTime - DateTime.UtcNow,
+				CardUrl = url,
+				Stats = GetEquipmentStats(equipment)
+			};
 		}
 
-		public Dictionary<UniqueId, Equipment> GetEligibleInventoryForEarnings()
+		public List<EquipmentInfo> GetLoadoutEquipmentInfo()
 		{
-			var eligibleInventory = new Dictionary<UniqueId, Equipment>();
-			
-			foreach (var kvp in _inventory.ReadOnlyDictionary)
+			var ret = new List<EquipmentInfo>();
+
+			foreach (var (slot, id) in _loadout)
 			{
-				if (GameLogic.EquipmentLogic.GetItemCooldown(kvp.Key).TotalSeconds <= 0)
+				ret.Add(GetInfo(id));
+			}
+
+			return ret;
+		}
+
+		public List<EquipmentInfo> GetInventoryEquipmentInfo()
+		{
+			var ret = new List<EquipmentInfo>();
+
+			foreach (var (id, equipment) in _inventory)
+			{
+				var info = GetInfo(id);
+
+				if (!info.IsOnCooldown)
 				{
-					eligibleInventory.Add(kvp.Key,kvp.Value);
+					ret.Add(info);
 				}
 			}
 
-			return eligibleInventory;
+			return ret;
 		}
 
-		public List<Equipment> FindInInventory(GameIdGroup slot)
-		{
-			return _inventory.ReadOnlyDictionary.Values.Where(equipment => equipment.GameId.IsInGroup(slot)).ToList();
-		}
-
-		public bool IsEquipped(UniqueId itemId)
-		{
-			return _loadout.ReadOnlyDictionary.Values.Contains(itemId);
-		}
-
-		public float GetItemStat(Equipment equipment, StatType stat)
-		{
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var baseStatsConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
-
-			return QuantumStatCalculator.CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, stat)
-			                            .AsFloat;
-		}
-
-		public float GetTotalEquippedStat(StatType stat)
-		{
-			var value = 0f;
-
-			foreach (var id in _loadout.ReadOnlyDictionary.Values)
-			{
-				if (id == UniqueId.Invalid)
-				{
-					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
-					
-				}
-				value += GetItemStat(_inventory[id], stat);
-			}
-
-			return value;
-		}
-
-		public double GetDurabilityAveragePercentage(List<Equipment> items)
-		{
-			var currentNftDurabilities = (double) 0;
-			var maxNftDurabilities = (double) 0;
-			
-			foreach (var nft in items)
-			{
-				currentNftDurabilities += nft.Durability;
-				maxNftDurabilities += nft.MaxDurability;
-			}
-
-			return currentNftDurabilities / maxNftDurabilities;
-		}
-
-		public float GetTotalEquippedStat(StatType stat, List<UniqueId> items)
-		{
-			var value = 0f;
-			
-			foreach (var id in items)
-			{
-				if (id == UniqueId.Invalid)
-				{
-					throw new LogicException($"Item ID '{id}' not valid for stat calculations.");
-				}
-				
-				value += GetItemStat(_inventory[id], stat);
-			}
-
-			return value;
-		}
-
-		public string GetEquipmentCardUrl(UniqueId id)
-		{
-			if (Data.ImageUrls.TryGetValue(id, out var url))
-			{
-				return url;
-			}
-
-			// TODO: Remove this once everything is working
-			return "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
-		}
-
-		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment, uint level = 0)
+		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
 		{
 			var stats = new Dictionary<EquipmentStatType, float>();
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var baseStatsConfig =
 				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
 			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
-
-			if (level > 0)
-			{
-				equipment.Level = level;
-			}
 
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -179,23 +126,7 @@ namespace FirstLight.Game.Logic
 
 		public bool EnoughLoadoutEquippedToPlay()
 		{
-			var nftAmountForPlay = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
-			var nftCount = GetLoadoutItems().Length;
-			
-			return nftCount >= nftAmountForPlay;
-		}
-
-		public TimeSpan GetItemCooldown(UniqueId itemId)
-		{
-			double cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
-			DateTime cooldownFinishTime = GetInsertionTime(itemId).AddMinutes(cooldownMinutes);
-
-			return cooldownFinishTime - DateTime.UtcNow;
-		}
-
-		private DateTime GetInsertionTime(UniqueId itemId)
-		{
-			return new DateTime(_insertionTimestamps.ReadOnlyDictionary[itemId]);
+			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
 		// TODO: Remove method and refactor cheats
@@ -231,31 +162,24 @@ namespace FirstLight.Game.Logic
 			return true;
 		}
 
-		public void SetLoadout(Dictionary<GameIdGroup, UniqueId> newLoadout)
+		public void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout)
 		{
-			foreach (var modifiedKvp in newLoadout)
+			var slots = Equipment.EquipmentSlots;
+
+			foreach (var slot in slots)
 			{
-				UniqueId equippedInSlot = GetEquippedItemForSlot(modifiedKvp.Key);
-				
-				if (equippedInSlot != UniqueId.Invalid && modifiedKvp.Value == UniqueId.Invalid)
+				if (newLoadout.TryGetValue(slot, out var id))
 				{
-					Unequip(equippedInSlot);
+					if (_loadout.TryGetValue(slot, out var equippedId) && id != equippedId)
+					{
+						Equip(id);
+					}
 				}
-				else if (modifiedKvp.Value != equippedInSlot)
+				else if(_loadout.ContainsKey(slot))
 				{
-					Equip(modifiedKvp.Value);
+					Unequip(id);
 				}
 			}
-		}
-		
-		public UniqueId GetEquippedItemForSlot(GameIdGroup idGroup)
-		{
-			if (!_loadout.ReadOnlyDictionary.ContainsKey(idGroup))
-			{
-				return UniqueId.Invalid;
-			}
-			
-			return _loadout.ReadOnlyDictionary[idGroup];
 		}
 
 		private void Equip(UniqueId itemId)

@@ -68,15 +68,16 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.CS, new List<GameIdGroup>
+					GameId.BLST, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
 					}.AsReadOnly()
 				},
 				{
-					GameId.BLST, new List<GameIdGroup>
+					GameId.CS, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.ResourcePool
 					}.AsReadOnly()
 				},
 				{
@@ -672,8 +673,14 @@ namespace Quantum
 					GameIdGroup.Currency, new List<GameId>
 					{
 						GameId.RealMoney,
-						GameId.CS,
-						GameId.BLST
+						GameId.BLST,
+						GameId.CS
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.ResourcePool, new List<GameId>
+					{
+						GameId.CS
 					}.AsReadOnly()
 				},
 				{

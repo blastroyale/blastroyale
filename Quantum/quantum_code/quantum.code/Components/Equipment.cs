@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Quantum
 {
 	/// <summary>
@@ -5,10 +7,20 @@ namespace Quantum
 	/// </summary>
 	public partial struct Equipment
 	{
+		private static readonly List<GameIdGroup> _slots = new List<GameIdGroup>
+		{
+			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Chest, GameIdGroup.Helmet, GameIdGroup.Weapon
+		};
+		
 		/// <summary>
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
+
+		/// <summary>
+		/// Requests the list of <see cref="GameIdGroup"/> slots ready to be equipped
+		/// </summary>
+		public static List<GameIdGroup> EquipmentSlots => _slots;
 
 		/// <summary>
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.

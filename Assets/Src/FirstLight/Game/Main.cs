@@ -62,7 +62,18 @@ namespace FirstLight.Game
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService, configsProvider, 
 			                                         assetResolver, dataService, vfxService);
-			_gameStateMachine.LogsEnabled = true;
+			
+#if UNITY_EDITOR
+			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
+			{
+				EditorPrefs.SetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY, false);
+			}
+			
+			if (EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
+			{
+				_gameStateMachine.LogsEnabled = EditorPrefs.GetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY);
+			}
+#endif
 		}
 
 		private void Start()

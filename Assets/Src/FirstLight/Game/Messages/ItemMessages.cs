@@ -7,7 +7,7 @@ namespace FirstLight.Game.Messages
 {
 	public struct UpdatedLoadoutMessage : IMessage
 	{
-		public Dictionary<GameIdGroup,UniqueId> SlotsUpdated;
+		public IDictionary<GameIdGroup,UniqueId> SlotsUpdated;
 	}
 
 	public struct TempItemEquippedMessage : IMessage

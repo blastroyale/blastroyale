@@ -53,7 +53,7 @@ public class GameLogicWebWebService : ILogicWebService
 	private readonly GameServer _server;
 	private readonly IEventManager _eventManager;
 	private readonly IStateMigrator<ServerState> _migrator;
-	private readonly IEncryptionService _encrypt;
+	private readonly IStateSigner _signer;
 
 	public GameLogicWebWebService(
 			IEventManager eventManager,
@@ -61,7 +61,7 @@ public class GameLogicWebWebService : ILogicWebService
 			IStateMigrator<ServerState> migrator,
 			IPlayerSetupService service,
 			IServerStateService stateService,
-			IEncryptionService encryptionService,
+			IStateSigner encryptionService,
 			GameServer server
 			)
 	{
@@ -71,7 +71,7 @@ public class GameLogicWebWebService : ILogicWebService
 		_eventManager = eventManager;
 		_migrator = migrator;
 		_log = log;
-		_encrypt = encryptionService;
+		_signer = encryptionService;
 	}
 
 	public async Task<PlayFabResult<BackendLogicResult>> RunLogic(string playerId, LogicRequest request)
@@ -126,17 +126,13 @@ public class GameLogicWebWebService : ILogicWebService
 
 	public BackendLogicResult GetPlayerDataSignature(string playerId)
 	{
-		var state = _stateService.GetPlayerState(playerId);
-		var playerData = state.DeserializeModel<PlayerData>();
-		var equipped = playerData.Equipped.Values.ToList();
-		var equippedMessage = string.Join(",", equipped);
 		var key = Environment.GetEnvironmentVariable("API_SECRET", EnvironmentVariableTarget.Process);
 		return new BackendLogicResult()
 		{
 			PlayFabId = playerId,
 			Data = new Dictionary<string, string>()
 			{
-				{ "Signature", _encrypt.Encrypt(equippedMessage, key) }
+				{ "Signature", _signer.SignState(_stateService.GetPlayerState(playerId), key) }
 			}
 		};
 	}

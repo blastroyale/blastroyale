@@ -37,7 +37,7 @@ public static class ServerStartup
 		services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
 		services.AddSingleton<IServerCommahdHandler, ServerCommandHandler>();
-		services.AddSingleton<IEncryptionService, SimpleSha1Encryption>();
+		services.AddSingleton<IStateSigner, BlastRoyaleSigner>();
 		services.AddSingleton<GameServer>();
 		services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 		services.AddSingleton<IEventManager, PluginEventManager>(p =>

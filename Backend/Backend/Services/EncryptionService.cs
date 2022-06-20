@@ -1,38 +1,44 @@
+using FirstLight.Game.Data;
+using ServerSDK.Models;
+using ServerSDK.Modules;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
+
+// TODO: Move implementation logic of the signer to the SDK and implement logic
+// for siging on the client so server is Game-Agnostic
 namespace Backend.Services
 {
 	/// <summary>
 	/// Interface that offers ability to encrypt a given message with a given private key.
 	/// </summary>
-	public interface IEncryptionService
+	public interface IStateSigner
 	{
 		/// <summary>
 		/// Encrypts a given message with a given private key. 
 		/// Encryption must be deterministic and collisionless.
 		/// </summary>
-		string Encrypt(string message, string privateKey);
+		string SignState(ServerState serverState, string privateKey);
 	}
 
 	/// <summary>
-	/// Standard RSA implementation using private/public keys.
+	/// Simple implementation to sign player data for blast royale.
+	/// Signs the equipped weapons.
 	/// </summary>
-	public class SimpleSha1Encryption : IEncryptionService
+	public class BlastRoyaleSigner : IStateSigner
 	{
 		/// <summary>
 		/// Minimal sha256 encryption that includes a private kay to the encrypted data.
 		/// </summary>
-		public string Encrypt(string message, string privateKey)
+		public string SignState(ServerState state, string privateKey)
 		{
-			using (SHA256 crypt = SHA256.Create())
-			{
-				return crypt.ComputeHash(
-					Encoding.UTF8.GetBytes(message + privateKey))
-					.Select(bite => bite.ToString("x2"))
-					.Aggregate(new StringBuilder(), (c, n) => c.Append(n)).ToString();
-			}
+			var playerData = state.DeserializeModel<PlayerData>();
+			var equipped = playerData.Equipped.Values.ToList();
+			var message = string.Join(",", equipped);
+			return ServerDataSigner.Sign(message, privateKey);
 		}
+
+	
 	}
 }

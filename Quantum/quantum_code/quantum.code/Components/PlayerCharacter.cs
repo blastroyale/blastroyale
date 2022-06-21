@@ -252,9 +252,16 @@ namespace Quantum
 			var gearSlot = GetGearSlot(gear);
 			Gear[gearSlot] = gear;
 
+			// We request stats and store their current base values
+			var previousStats = f.Get<Stats>(e);
+
 			RefreshStats(f, e);
 
+			// After the refresh we request updated stats
+			var currentStats = f.Get<Stats>(e);
+
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
+			f.Events.OnLocalPlayerGearChanged(Player, e, gear, gearSlot, previousStats, currentStats);
 		}
 
 		/// <summary>

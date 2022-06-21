@@ -51,6 +51,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerGearChanged>(this, OnLocalPlayerGearChanged);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -81,7 +82,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			    && _entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				EnqueueValueIfNonZero(entityBase, ScriptLocalization.AdventureMenu.StatShield,
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.General.Shield,
 				                      callback.ShieldCapacity - callback.PreviousShieldCapacity);
 			}
 			
@@ -94,28 +95,26 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			if (_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
+			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
+		}
+
+		private void OnLocalPlayerGearChanged(EventOnLocalPlayerGearChanged callback)
+		{
+			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
+		}
+
+		private void ShowStatDifferenceOnEquipmentChange(EntityRef e, Stats previousStats, Stats currentStats)
+		{
+			if (_entityViewUpdaterService.TryGetView(e, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				for (int i = 0; i < Constants.TOTAL_STATS; i++)
 				{
-					var difference = callback.CurrentStats.Values[i].BaseValue.AsFloat - callback.PreviousStats.Values[i].BaseValue.AsFloat;
+					var difference = currentStats.Values[i].BaseValue.AsFloat - previousStats.Values[i].BaseValue.AsFloat;
+					var statName = currentStats.Values[i].Type.GetTranslation();
 					
-					EnqueueValueIfNonZero(entityBase, GetStatName(callback.CurrentStats.Values[i].Type), Mathf.RoundToInt(difference));
+					EnqueueValueIfNonZero(entityBase, statName, Mathf.RoundToInt(difference));
 				}
-			}
-		}
-
-		private string GetStatName(StatType statType)
-		{
-			switch (statType)
-			{
-				case StatType.Health : return ScriptLocalization.AdventureMenu.StatHealth;
-				case StatType.Armour : return ScriptLocalization.AdventureMenu.StatArmour;
-				case StatType.Power : return ScriptLocalization.AdventureMenu.StatPower;
-				case StatType.Shield : return ScriptLocalization.AdventureMenu.StatShield;
-				case StatType.Speed : return ScriptLocalization.AdventureMenu.StatSpeed;
-				default : return "The stat doesn't exist";
 			}
 		}
 

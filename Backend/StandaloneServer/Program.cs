@@ -1,12 +1,11 @@
 using System.Text;
 using Backend;
-using Backend.Game;
 using FirstLight.Game.Logic;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
-using ServerSDK;
-using ServerSDK.Events;
+using ServerSDK.Services;
 using StandaloneServer;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.
@@ -19,6 +18,11 @@ ILogger logger = loggerFactory.CreateLogger<Program>();
 var builder = WebApplication.CreateBuilder(args);
 var path = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
 ServerStartup.Setup(builder.Services, logger, path);
+
+// Remove database dependency for local run for simplicity and saving laptop cpu
+builder.Services.RemoveAll(typeof(IServerMutex));
+builder.Services.AddSingleton<IServerMutex, NoMutex>();
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Standalone Server is running !");
@@ -35,6 +39,7 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
 	var webServer = app.Services.GetService<ILogicWebService>();
+	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
 		"SetupPlayerCommand" => await webServer.SetupPlayer(playerId),

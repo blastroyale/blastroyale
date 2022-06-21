@@ -81,7 +81,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				var capacityChange = callback.ShieldCapacity - callback.PreviousShieldCapacity;
-				var messageText = ScriptLocalization.AdventureMenu.StatShield + (capacityChange > 0 ? " +" : " -") + capacityChange;
+				var messageText = ScriptLocalization.MainMenu.StatShield + (capacityChange > 0 ? " +" : " -") + capacityChange;
 				
 				EnqueueText(_pool, entityBase, messageText, _neutralTextColor);
 			}

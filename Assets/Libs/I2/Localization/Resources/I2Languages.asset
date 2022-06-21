@@ -457,7 +457,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Movement Speed
+      - Speed
       Flags: 00
       Languages_Touch: []
     - Term: General/TapSkip
@@ -703,6 +703,34 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Health
+      TermType: 0
+      Description: 
+      Languages:
+      - Health
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Armour
+      TermType: 0
+      Description: 
+      Languages:
+      - Armour
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Power
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage
       Flags: 00
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
@@ -2100,6 +2128,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - Reconnect
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/StatShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -4654,7 +4689,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pistol
+      - Crossbow
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ApoShotgun
@@ -4682,14 +4717,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sniper rifle
+      - Sniper Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ApoRPG
       TermType: 0
       Description: 
       Languages:
-      - Rocket launcher
+      - RPG
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ApoMinigun
@@ -4703,7 +4738,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Crossbow
+      - Pistol
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ModShotgun
@@ -4731,70 +4766,119 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sniper rifle
+      - Sniper Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ModLauncher
       TermType: 0
       Description: 
       Languages:
-      - Grenade launcher
+      - Grenade Launcher
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
       Description: 
       Languages:
-      - Heavy Machine Gun
+      - Heavy MG
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciPistol
       TermType: 0
       Description: 
       Languages:
-      - Laser pistol
+      - Laser Pistol
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciBlaster
       TermType: 0
       Description: 
       Languages:
-      - Laser blaster
+      - Laser Blaster
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciNeedleGun
       TermType: 0
       Description: 
       Languages:
-      - Needle gun
+      - Needle Gun
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciRifle
       TermType: 0
       Description: 
       Languages:
-      - Laser rifle
+      - Laser Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciSniper
       TermType: 0
       Description: 
       Languages:
-      - Pulse rifle
+      - Pulse Rifle
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciCannon
       TermType: 0
       Description: 
       Languages:
-      - Plasma cannon
+      - Plasma Cannon
       Flags: 00
       Languages_Touch: []
     - Term: GameIds/SciMelter
       TermType: 0
       Description: 
       Languages:
-      - Electron thrower
+      - Electron Thrower
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/BaseballArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - Baseball Armor
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/FootballArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - Footbull Armor
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/RoadShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Road Shield
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/RoadHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Road Cone
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/FootballHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Footbull Helmet
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/BaseballHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Baseball Helmet
+      Flags: 00
+      Languages_Touch: []
+    - Term: GameIds/HockeyHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Hockey Mask
       Flags: 00
       Languages_Touch: []
     - Term: Shop/com.hard.currency.bundle.1
@@ -5224,13 +5308,6 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
-    - Term: AdventureMenu/StatShield
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields
-      Flags: 00
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5243,7 +5320,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1655370894952
+    Google_LastUpdatedVersion: 1655817531051
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

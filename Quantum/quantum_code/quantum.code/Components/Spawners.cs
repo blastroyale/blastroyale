@@ -46,7 +46,7 @@ namespace Quantum
 			{
 				Collectable = SpawnChest(f, GameId, transform);
 			}
-			else if (GameId.IsInGroup(GameIdGroup.Weapon))
+			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
 			}
@@ -83,15 +83,15 @@ namespace Quantum
 		{
 			// TODO: Clean this up when we start spawning gear
 			var configs = f.WeaponConfigs;
-			var config = id == GameId.Random
-				             ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)]
-				             : configs.GetConfig(id);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
+
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			var rarity = (EquipmentRarity) FPMath.Clamp((int) f.Context.MedianRarity + rarityModifier,
 			                                            0,
 			                                            (int) EquipmentRarity.TOTAL - 1);
-			var equipment = new Equipment(config.Id, rarity: rarity);
+			var equipment = id == GameId.Random
+				                ? f.Context.PlayerWeapons[f.RNG->Next(0, f.Context.PlayerWeapons.Length)]
+				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
 			                                                        equipment);

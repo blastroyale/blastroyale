@@ -46,6 +46,7 @@ namespace Quantum
 				Attacker = e,
 				Direction = newAngleVector,
 				PowerAmount = (uint) power.AsInt,
+				KnockbackAmount = weaponConfig.KnockbackAmount,
 				SourceId = weaponConfig.Id,
 				Range = weaponConfig.AttackRange,
 				SpawnPosition = position,

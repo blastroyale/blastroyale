@@ -27,9 +27,7 @@ public class GetPlayerDataCommand
 	public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                           HttpRequestMessage req, ILogger log)
 	{
-		log.LogDebug("Processing");
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
-		log.LogDebug("Calling game data");
 		return await _gameLogicWebService.GetPlayerData(context.AuthenticationContext.PlayFabId);
 	}
 }

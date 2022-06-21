@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2351909874461572526}
   - component: {fileID: 903610042481426512}
   m_Layer: 10
-  m_Name: Hat_Hockey
+  m_Name: HockeyHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

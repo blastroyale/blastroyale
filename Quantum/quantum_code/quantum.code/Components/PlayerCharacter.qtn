@@ -3,7 +3,11 @@
 #define WEAPON_INDEX_DEFAULT 0
 #define WEAPON_INDEX_PRIMARY 1
 #define WEAPON_INDEX_SECONDARY 2
-#define MAX_GEAR 5
+#define MAX_GEAR 4
+#define GEAR_INDEX_HELMET 0
+#define GEAR_INDEX_AMULET 1
+#define GEAR_INDEX_ARMOR 2
+#define GEAR_INDEX_SHIELD 3
 #pragma max_players PLAYER_COUNT
 
 // COMPONENTS
@@ -19,6 +23,15 @@ component DeadPlayerCharacter
 	FP TimeOfDeath;
 }
 
+struct WeaponSlot
+{
+	Equipment Weapon;
+	Int32 Special1Charges;
+	Int32 Special2Charges;
+	Special Special1;
+	Special Special2;
+}
+
 component PlayerCharacter
 {
 	AssetRefHFSMRoot HfsmRootRef;
@@ -28,9 +41,10 @@ component PlayerCharacter
 	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Int32 CurrentWeaponSlot;
-	[HideInInspector] array<Equipment>[MAX_WEAPONS] Weapons;
+	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
-	[HideInInspector] array<Special>[MAX_SPECIALS] Specials;
+	[HideInInspector] Int32 DroppedLoadoutFlags;
+
 }
 
 component PlayerCharging

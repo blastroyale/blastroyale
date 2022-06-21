@@ -14,18 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/Audio/Shared
   _configs:
-  - Key: 3
-    Value:
-      m_AssetGUID: 0b65960a832543a4794e35b088f2c0a7
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 13
-    Value:
-      m_AssetGUID: c09208ecd9fd6d442af43a64fca332b6
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 18
     Value:
       m_AssetGUID: da7d6f2d9c50dbe4095231a1008eb976

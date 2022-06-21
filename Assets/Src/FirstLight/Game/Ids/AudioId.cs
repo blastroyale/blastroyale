@@ -35,6 +35,29 @@ namespace FirstLight.Game.Ids
 		ComeGetSome,
 		Groovy,
 		HastaLaVista,
+		
+		//New sounds 
+		TakeHealthDamage,
+		TakeShieldDamage,
+		HitHealthDamage,
+		HitShieldDamage,
+		ShieldBreak,
+		PlayerKill,
+		PlayerDeath,
+		ExplosionSmall,
+		ExplosionMedium,
+		ExplosionLarge,
+		ExplosionSciFi,
+		ExplosionFlashbang,
+		GettingFlashBanged,
+		MissileFlyLoop,
+		ChargeStartUp,
+		ImpactLoop,
+		Dash,
+		InvLoop,
+		InvStart,
+		InvEnd,
+		InvDamageAbsorb,
 		None, // TODO: Make an Enum selector
 	}
 	

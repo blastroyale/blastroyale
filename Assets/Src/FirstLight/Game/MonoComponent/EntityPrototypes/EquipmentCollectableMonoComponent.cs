@@ -8,9 +8,9 @@ using UnityEngine;
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
 {
 	/// <summary>
-	/// This Mono component controls the behaviour of the <see cref="WeaponCollectable"/>'s <see cref="Quantum.EntityPrototype"/>
+	/// This Mono component controls the behaviour of the <see cref="EquipmentCollectable"/>'s <see cref="Quantum.EntityPrototype"/>
 	/// </summary>
-	public class WeaponCollectableMonoComponent : EntityBase
+	public class EquipmentCollectableMonoComponent : EntityBase
 	{
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;

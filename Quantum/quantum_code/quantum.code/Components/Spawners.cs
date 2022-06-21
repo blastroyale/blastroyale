@@ -86,7 +86,7 @@ namespace Quantum
 			var config = id == GameId.Random
 				             ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)]
 				             : configs.GetConfig(id);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 
 			var rarity = (EquipmentRarity) FPMath.Clamp((int) f.Context.MedianRarity + rarityModifier,
 			                                            0,

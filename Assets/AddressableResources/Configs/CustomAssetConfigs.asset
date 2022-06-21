@@ -32,6 +32,9 @@ MonoBehaviour:
     ConsumablePlatformPrototype:
       Id:
         Value: 2403753126067035639
+    EquipmentPickUpPrototype:
+      Id:
+        Value: 4070827363264793974
     BotNavMeshConfig:
       Id:
         Value: 1093005050644660195
@@ -58,9 +61,6 @@ MonoBehaviour:
   ConsumablePrototype:
     Id:
       Value: 240296495379453662
-  WeaponPickUpPrototype:
-    Id:
-      Value: 4070827363264793974
   ChestPrototype:
     Id:
       Value: 4486983998464243699

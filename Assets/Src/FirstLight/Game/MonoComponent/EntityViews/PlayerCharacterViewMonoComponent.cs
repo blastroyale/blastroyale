@@ -52,6 +52,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnPlayerGearChanged>(this, HandlePlayerGearChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
@@ -247,6 +248,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					entityViewBase.SetEntityView(callback.Game, EntityView);
 				}
 			}
+		}
+
+		private async void HandlePlayerGearChanged(EventOnPlayerGearChanged callback)
+		{
+			await _characterView.EquipItem(callback.Gear.GameId);
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)

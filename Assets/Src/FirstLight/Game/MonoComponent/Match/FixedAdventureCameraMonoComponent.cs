@@ -82,8 +82,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
 
 			SetTargetTransform(follow.transform);
-			SetActiveCamera(_spawnCamera);
-
+			SetActiveCamera(_adventureCamera);
+			
 			// We place audio listener roughly "in the player character's head"
 			audioListenerTransform.SetParent(follow.transform);
 			audioListenerTransform.localPosition = Vector3.up;

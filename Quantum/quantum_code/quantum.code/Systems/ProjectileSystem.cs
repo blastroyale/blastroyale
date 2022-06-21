@@ -60,7 +60,8 @@ namespace Quantum.Systems
 		private void EndProjectile(Frame f, EntityRef targetHit, EntityRef hitSource, Projectile projectile)
 		{
 			var position = f.Get<Transform3D>(hitSource).Position;
-			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount, position, projectile.TeamSource);
+			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount,
+			                                projectile.KnockbackAmount, position, projectile.TeamSource);
 
 			f.Add<EntityDestroyer>(hitSource);
 			f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
@@ -69,7 +70,9 @@ namespace Quantum.Systems
 			if (projectile.SplashRadius > FP._0)	
 			{
 				var splashSpell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, 
-					(uint)(projectile.PowerAmount * projectile.SplashDamageRatio), position, projectile.TeamSource);
+					(uint)(projectile.PowerAmount * projectile.SplashDamageRatio), 
+					(uint)(projectile.KnockbackAmount * projectile.SplashDamageRatio), position,
+					projectile.TeamSource);
 
 				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, splashSpell, uint.MaxValue, OnHit);
 			}

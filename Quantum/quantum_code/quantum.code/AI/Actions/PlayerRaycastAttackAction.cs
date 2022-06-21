@@ -58,6 +58,7 @@ namespace Quantum
 				StartTime = f.Time,
 				PreviousTime = f.Time,
 				PowerAmount = powerAmount,
+				KnockbackAmount = weaponConfig.KnockbackAmount,
 				AttackAngle = (uint)targetAttackAngle,
 				Range = weaponConfig.AttackRange,
 				Speed = weaponConfig.AttackHitSpeed,

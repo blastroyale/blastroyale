@@ -8,6 +8,7 @@ component RaycastShots
 	FPVector3 SpawnPosition;
 	FPVector2 Direction;
 	UInt32 PowerAmount;
+	UInt32 KnockbackAmount;
 	UInt32 AttackAngle;
 	FP Range;
 	FP Speed;

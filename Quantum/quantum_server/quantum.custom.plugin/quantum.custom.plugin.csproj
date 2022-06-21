@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02EEEC68-1AA7-4225-A16E-0AC20984EC2C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>quantum.custom.plugin</RootNamespace>
+    <AssemblyName>quantum.custom.plugin</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Photon-Server\deploy\Plugins\DeterministicPlugin\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(MSBuildProjectDirectory)\..\Photon-Server\deploy\bin_Win64\PhotonSocketServer.exe</StartProgram>
+    <StartArguments>/Debug LoadBalancing</StartArguments>
+    <StartWorkingDirectory>..\..\..\bin_Win64</StartWorkingDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Photon-Server\deploy\Plugins\DeterministicPlugin\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(MSBuildProjectDirectory)\..\Photon-Server\deploy\bin_Win64\PhotonSocketServer.exe</StartProgram>
+    <StartArguments>/Debug LoadBalancing</StartArguments>
+    <StartWorkingDirectory>..\..\..\bin_Win64</StartWorkingDirectory>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FirstLight.DataExtensions">
+      <HintPath>..\..\..\Backend\Lib\FirstLight.DataExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="FirstLight.Game">
+      <HintPath>..\..\..\Backend\Lib\FirstLight.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="FirstLight.Services">
+      <HintPath>..\..\..\Backend\Lib\FirstLight.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonDeterministic">
+      <HintPath>..\..\assemblies\debug\PhotonDeterministic.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonDeterministic.Plugin">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\assemblies\PhotonDeterministic.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonDeterministic.Server">
+      <HintPath>..\assemblies\PhotonDeterministic.Server.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PhotonDeterministic.Server.Interface">
+      <HintPath>..\assemblies\PhotonDeterministic.Server.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHivePlugin">
+      <HintPath>..\assemblies\PhotonHivePlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayFabAllSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PlayFabAllSDK.1.108.220118\lib\net45\PlayFabAllSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="quantum.code">
+      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
+    </Reference>
+    <Reference Include="quantum.core">
+      <HintPath>..\..\assemblies\debug\quantum.core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Collections.Concurrent" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.Tools" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Net.Primitives" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System.Reflection.Extensions" />
+    <Reference Include="System.Resources.ResourceManager" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Extensions" />
+    <Reference Include="System.Text.Encoding" />
+    <Reference Include="System.Threading" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomQuantumPlugin.cs" />
+    <Compile Include="CustomQuantumServer.cs" />
+    <Compile Include="PlayfabService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuantumCustomPluginFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -77,7 +77,7 @@ MonoBehaviour:
   - Enabled: 1
     Type: 0
     Asset:
-      Path: Assets/Art
+      Path: Assets/Art/
       Filter: 
     Object: {fileID: 0}
     Scene:

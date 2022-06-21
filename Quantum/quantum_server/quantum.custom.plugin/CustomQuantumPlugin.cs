@@ -4,6 +4,10 @@ using Photon.Hive.Plugin;
 
 namespace Quantum
 {
+	/// <summary>
+	/// Class represents a quantum plugin. It wraps around a server.
+	/// This instance is created by PluginFactory everytime a match starts.
+	/// </summary>
 	public class CustomQuantumPlugin : DeterministicPlugin
 	{
 		protected CustomQuantumServer _server;

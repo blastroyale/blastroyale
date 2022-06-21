@@ -6,6 +6,7 @@ component Spell
 	entity_ref SpellSource; // It can be the attacker or a projectile from the attacker
 	Int32 TeamSource;
 	UInt32 PowerAmount;
+	UInt32 KnockbackAmount;
 	FPVector3 OriginalHitPosition;
 	FP Cooldown;
 	FP NextHitTime;

@@ -5,10 +5,17 @@ using Photon.Hive.Plugin;
 
 namespace Quantum
 {
-
-	class QuantumCustomPluginFactory : IPluginFactory
+	/// <summary>
+	/// Main entry point for the quantum plugin instantiation.
+	/// The namespace reference for this factory is in quantum.plugin.cfg in the deploy folder
+	/// This class is responsible for creating the plugin everytime a match starts.
+	/// </summary>
+	public class QuantumCustomPluginFactory : IPluginFactory
 	{
-
+		/// <summary>
+		/// Called everytime a match starts to setup our custom plugin. Configurations are driven from
+		/// plugin.config.cfg in deployment folder.
+		/// </summary>
 		public IGamePlugin Create(IPluginHost gameHost, String pluginName, Dictionary<String, String> config, out String errorMsg)
 		{
 			var server = new CustomQuantumServer(config);
@@ -18,7 +25,6 @@ namespace Quantum
 			{
 				return plugin;
 			}
-
 			return null;
 		}
 

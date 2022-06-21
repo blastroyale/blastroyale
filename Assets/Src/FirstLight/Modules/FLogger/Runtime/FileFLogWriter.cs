@@ -30,7 +30,7 @@ namespace FirstLight.FLogger
 
 			// Create new log file if current one is too big or too old
 			var logInfo = _logPath == null ? null : new FileInfo(_logPath);
-			if (logInfo == null || logInfo.Length > MaxLogFileSize ||
+			if (logInfo == null || !logInfo.Exists || logInfo.Length > MaxLogFileSize ||
 			    logInfo.LastWriteTime.AddHours(MaxLogFileAge) < DateTime.Now)
 			{
 				if (!Directory.Exists(LogsFolder))

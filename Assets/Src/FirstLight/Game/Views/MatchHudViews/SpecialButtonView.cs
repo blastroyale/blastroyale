@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(GameId special)
+		public async void Init(GameId special, bool hasCharge)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			
@@ -91,6 +92,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconImage.sprite = await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(config.SpecialType);
 			_specialIconBackgroundImage.sprite = config.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = config.IsAimable;
+			_specialIconImage.fillAmount = 0f;
+			_specialIconBackgroundImage.fillAmount = 0f;
+			_buttonView.interactable = false;
 			
 			gameObject.SetActive(true);
 			
@@ -100,9 +104,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_cooldownCoroutine = null;
 			}
 
-			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
+			if (hasCharge)
+			{
+				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
+			}
 		}
-		
+
 		private void OnEventOnLocalSpecialUsed(EventOnLocalSpecialUsed callback)
 		{
 			if (callback.SpecialIndex != _specialIndex)

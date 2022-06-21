@@ -9,26 +9,33 @@ using Photon.Deterministic.Server;
 
 namespace Quantum
 {
+	/// <summary>
+	/// Main class to override custom quantum server behaviour.
+	/// Contains all required information and overrides to change base quantum behaviour.
+	/// </summary>
 	public class CustomQuantumServer : DeterministicServer, IDisposable
 	{
-		DeterministicSessionConfig config;
-		RuntimeConfig runtimeConfig;
-		readonly Dictionary<String, String> photonConfig;
+		private DeterministicSessionConfig _config;
+		private RuntimeConfig _runtimeConfig;
+		private readonly Dictionary<String, String> _photonConfig;
 		private readonly PlayfabService _playfab;
 
 		public CustomQuantumServer(Dictionary<String, String> photonConfig) {
-			this.photonConfig = photonConfig;
+			_photonConfig = photonConfig;
 			_playfab = new PlayfabService(photonConfig);
 		}
 
+		/// <summary>
+		/// Called whenever a game session is about to start and client passes down session configuration.
+		/// </summary>
 		public override void OnDeterministicSessionConfig(DeterministicPluginClient client, SessionConfig configData)
 		{
-			config = configData.Config;
+			_config = configData.Config;
 		}
 
 		public override void OnDeterministicRuntimeConfig(DeterministicPluginClient client, Photon.Deterministic.Protocol.RuntimeConfig configData)
 		{
-			runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
+			_runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
 		}
 
 		/// <summary>

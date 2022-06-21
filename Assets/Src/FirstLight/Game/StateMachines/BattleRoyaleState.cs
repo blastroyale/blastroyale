@@ -46,6 +46,7 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(spawning);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(SendReadyForResyncMessage);
 
 			spawning.OnEnter(OpenAdventureHud);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
@@ -78,6 +79,11 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void SendReadyForResyncMessage()
+		{
+			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)

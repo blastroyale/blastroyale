@@ -47,6 +47,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_localInput.Enable();
 
+			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
+
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -59,7 +61,33 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnDestroy()
 		{
 			_localInput?.Dispose();
-			_services.MessageBrokerService.Unsubscribe<SpectateKillerMessage>(OnSpectate);
+			_services.MessageBrokerService.UnsubscribeAll();
+		}
+
+		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
+		{
+			// This method is only for when rejoining rooms
+			if (_services.NetworkService.IsJoiningNewRoom)
+			{
+				return;
+			}
+
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			
+			var follow = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
+
+			SetTargetTransform(follow.transform);
+			SetActiveCamera(_spawnCamera);
+
+			// We place audio listener roughly "in the player character's head"
+			audioListenerTransform.SetParent(follow.transform);
+			audioListenerTransform.localPosition = Vector3.up;
+			audioListenerTransform.rotation = Quaternion.identity;
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)

@@ -48,6 +48,7 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(countdown);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(SendReadyForResyncMessage);
 
 			countdown.OnEnter(OpenAdventureHud);
 			countdown.OnEnter(ShowCountdownHud);
@@ -80,6 +81,11 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void SendReadyForResyncMessage()
+		{
+			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)

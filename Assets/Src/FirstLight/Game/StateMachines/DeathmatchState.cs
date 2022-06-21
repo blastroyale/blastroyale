@@ -49,6 +49,8 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(countdown);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SendReadyForResyncMessage);
+			
+			// TODO - DO A RESYNC CHECK, AND THEN SKIP SPAWNING STATE AND GO STRAIGHT TO ALIVE/DEAD
 
 			countdown.OnEnter(OpenAdventureHud);
 			countdown.OnEnter(ShowCountdownHud);

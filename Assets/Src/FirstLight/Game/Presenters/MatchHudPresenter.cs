@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 			{
 				WeaponSlotIndex = weaponSlotIndex
 			};
-
+			
 			QuantumRunner.Default.Game.SendCommand(command);
 		}
 	}

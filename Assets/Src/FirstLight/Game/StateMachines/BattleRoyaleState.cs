@@ -48,6 +48,8 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SendReadyForResyncMessage);
 
+			// TODO - DO A RESYNC CHECK, AND THEN SKIP SPAWNING STATE AND GO STRAIGHT TO ALIVE/DEAD
+			
 			spawning.OnEnter(OpenAdventureHud);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 			spawning.OnExit(PublishMatchStarted);

@@ -57,11 +57,6 @@ namespace I2.Loc
 			public static string YouKilledPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YouKilledPlayer"); } }
 			public static string YourLoot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/YourLoot"); } }
 			public static string GetReady 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/GetReady"); } }
-			public static string StatShield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatShield"); } }
-			public static string StatArmour 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatArmour"); } }
-			public static string StatHealth 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatHealth"); } }
-			public static string StatPower 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatPower"); } }
-			public static string StatSpeed 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/StatSpeed"); } }
 		}
 
 		public static class BotNames
@@ -574,6 +569,10 @@ namespace I2.Loc
 			public static string Yes 		{ get{ return LocalizationManager.GetTranslation ("General/Yes"); } }
 			public static string YouWereDisconnected 		{ get{ return LocalizationManager.GetTranslation ("General/YouWereDisconnected"); } }
 			public static string character 		{ get{ return LocalizationManager.GetTranslation ("General/character"); } }
+			public static string Armour 		{ get{ return LocalizationManager.GetTranslation ("General/Armour"); } }
+			public static string Health 		{ get{ return LocalizationManager.GetTranslation ("General/Health"); } }
+			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("General/Power"); } }
+			public static string Shield 		{ get{ return LocalizationManager.GetTranslation ("General/Shield"); } }
 		}
 
 		public static class LoadingTips
@@ -857,11 +856,6 @@ namespace I2.Loc
 		    public const string YouKilledPlayer = "AdventureMenu/YouKilledPlayer";
 		    public const string YourLoot = "AdventureMenu/YourLoot";
 		    public const string GetReady = "AdventureMenu/GetReady";
-		    public const string StatShield = "AdventureMenu/StatShield";
-		    public const string StatArmour = "AdventureMenu/StatArmour";
-		    public const string StatHealth = "AdventureMenu/StatHealth";
-		    public const string StatPower = "AdventureMenu/StatPower";
-		    public const string StatSpeed = "AdventureMenu/StatSpeed";
 		}
 
 		public static class BotNames
@@ -1374,6 +1368,10 @@ namespace I2.Loc
 		    public const string Yes = "General/Yes";
 		    public const string YouWereDisconnected = "General/YouWereDisconnected";
 		    public const string character = "General/character";
+		    public const string Armour = "General/Armour";
+		    public const string Health = "General/Health";
+		    public const string Power = "General/Power";
+		    public const string Shield = "General/Shield";
 		}
 
 		public static class LoadingTips

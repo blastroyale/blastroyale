@@ -215,6 +215,18 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 Slot;
+	Quantum.Stats PreviousStats;
+	Quantum.Stats CurrentStats;
+}
+
+synced event OnLocalPlayerGearChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Equipment Gear;
+	Int32 Slot;
+	Quantum.Stats PreviousStats;
+	Quantum.Stats CurrentStats;
 }
 
 synced event OnLocalPlayerDamaged

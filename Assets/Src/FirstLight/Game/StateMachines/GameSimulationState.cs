@@ -372,10 +372,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void PrepareMatch()
 		{
-			MatchStartAnalytics();
-			SetPlayerMatchData();
+			if (_services.NetworkService.IsJoiningNewRoom)
+			{
+				MatchStartAnalytics();
+				SetPlayerMatchData();
+			}
+			
 			CloseMatchmakingScreen();
-
+			
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}
 

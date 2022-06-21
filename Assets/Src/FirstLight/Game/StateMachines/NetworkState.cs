@@ -95,6 +95,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				ReconnectClicked = () =>
 				{
+					_networkService.IsJoiningNewRoom.Value = false;
 					_networkService.QuantumClient.ReconnectAndRejoin();
 				},
 				BackClicked = () =>
@@ -321,7 +322,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
 			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
-			
 			StartRandomMatchmaking(mapConfig);
 		}
 		
@@ -361,6 +361,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
+				_networkService.IsJoiningNewRoom.Value = true;
 				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
 		}
@@ -375,6 +376,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
+				_networkService.IsJoiningNewRoom.Value = true;
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
 		}
@@ -389,6 +391,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
+				_networkService.IsJoiningNewRoom.Value = true;
 				_networkService.QuantumClient.OpCreateRoom(enterParams);
 			}
 		}

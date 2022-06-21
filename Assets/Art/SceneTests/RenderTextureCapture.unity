@@ -605,7 +605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Crossbow
+  m_text: Maus Helmet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.8
+  m_fontSize: 31.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -707,7 +707,7 @@ Transform:
   m_GameObject: {fileID: 798466085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.32108435, y: 0.3330078, z: 1}
+  m_LocalScale: {x: 0.08012048, y: 0.08300781, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 537103968}
@@ -1168,7 +1168,6 @@ MonoBehaviour:
   _camera: {fileID: 6467920952292208544}
   _canvas: {fileID: 6467920952026055733}
   _canvasRoot: {fileID: 798466085}
-  _equipmentSnapshotResource: {fileID: 11400000, guid: 200883254577576428950bd7f2f08250, type: 2}
   _renderTextureMode: 0
   _subFolderId: 0
   _collectionId: 1

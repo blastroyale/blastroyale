@@ -4995,7 +4995,7 @@ namespace Quantum {
           case EventOnLocalPlayerAmmoChanged.ID: return typeof(EventOnLocalPlayerAmmoChanged);
           case EventOnLocalPlayerWeaponAdded.ID: return typeof(EventOnLocalPlayerWeaponAdded);
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
-          case EventOnLocalPlayerGearChanged.ID: return typeof(EventOnLocalPlayerGearChanged);
+          case EventOnLocalPlayerStatsChanged.ID: return typeof(EventOnLocalPlayerStatsChanged);
           case EventOnLocalPlayerDamaged.ID: return typeof(EventOnLocalPlayerDamaged);
           case EventOnLocalPlayerAttack.ID: return typeof(EventOnLocalPlayerAttack);
           default: throw new System.ArgumentOutOfRangeException("eventID");
@@ -5571,7 +5571,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
@@ -5579,19 +5579,15 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.Weapon = Weapon;
         ev.Slot = Slot;
-        ev.PreviousStats = PreviousStats;
-        ev.CurrentStats = CurrentStats;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerGearChanged OnLocalPlayerGearChanged(PlayerRef Player, EntityRef Entity, Equipment Gear, Int32 Slot, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
+      public EventOnLocalPlayerStatsChanged OnLocalPlayerStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerGearChanged>(EventOnLocalPlayerGearChanged.ID);
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerStatsChanged>(EventOnLocalPlayerStatsChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
-        ev.Gear = Gear;
-        ev.Slot = Slot;
         ev.PreviousStats = PreviousStats;
         ev.CurrentStats = CurrentStats;
         _f.AddEvent(ev);
@@ -7520,8 +7516,6 @@ namespace Quantum {
     public EntityRef Entity;
     public Equipment Weapon;
     public Int32 Slot;
-    public Quantum.Stats PreviousStats;
-    public Quantum.Stats CurrentStats;
     protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7543,24 +7537,20 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
         hash = hash * 31 + Slot.GetHashCode();
-        hash = hash * 31 + PreviousStats.GetHashCode();
-        hash = hash * 31 + CurrentStats.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerGearChanged : EventBase {
+  public unsafe partial class EventOnLocalPlayerStatsChanged : EventBase {
     public new const Int32 ID = 61;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Equipment Gear;
-    public Int32 Slot;
     public Quantum.Stats PreviousStats;
     public Quantum.Stats CurrentStats;
-    protected EventOnLocalPlayerGearChanged(Int32 id, EventFlags flags) : 
+    protected EventOnLocalPlayerStatsChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerGearChanged() : 
+    public EventOnLocalPlayerStatsChanged() : 
         base(61, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7576,8 +7566,6 @@ namespace Quantum {
         var hash = 367;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Gear.GetHashCode();
-        hash = hash * 31 + Slot.GetHashCode();
         hash = hash * 31 + PreviousStats.GetHashCode();
         hash = hash * 31 + CurrentStats.GetHashCode();
         return hash;

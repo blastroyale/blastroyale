@@ -7,8 +7,7 @@ using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
+using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -202,7 +201,7 @@ namespace Src.FirstLight.Tools
 
 				if (Enum.TryParse(prefabResource.name, out GameId gameId))
 				{
-					metadata.name = gameId.ToString();
+					metadata.name = LocalizationManager.GetTranslation ($"GameIds/{gameId.ToString()}");
 					var config =_baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
 					metadata.attibutesDictionary["manufacturer"] = (int)config.Manufacturer;
 				}
@@ -212,20 +211,21 @@ namespace Src.FirstLight.Tools
 				if (ercRenderable != null)
 				{
 					ercRenderable.Initialise(metadata);
-
-					var bounds = GetBounds(go);
-					go.transform.localPosition = -bounds.center;
-					go.transform.localRotation = Quaternion.identity;
-
-					var max = bounds.size;
-					var radius = max.magnitude / 2f;
-					var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
-					var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-					var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-					_camera.transform.position = new Vector3(-dist, 0, 0);
 				}
 
+				var bounds = GetBounds(go);
+				go.transform.localPosition = -bounds.center;
+				go.transform.localRotation = Quaternion.identity;
+
+				var max = bounds.size;
+				var radius = max.magnitude / 2f;
+				var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
+				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
+				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
+
+				_camera.transform.position = new Vector3(-dist, 0, 0);
+				
+				
 				_canvas.SetActive(true);
 				
 				backgroundErcRenderable?.Initialise(metadata);

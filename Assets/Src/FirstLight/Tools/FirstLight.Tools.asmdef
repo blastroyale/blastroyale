@@ -2,7 +2,9 @@
     "name": "FirstLight.Tools",
     "rootNamespace": "",
     "references": [
-        "GUID:69e6b98aed01b4e88976f0c27b7e17d1"
+        "GUID:69e6b98aed01b4e88976f0c27b7e17d1",
+        "GUID:3853d177c6459ed43914f4d8e24e43e2",
+        "GUID:7463d854e25437047a568158c3fee62b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

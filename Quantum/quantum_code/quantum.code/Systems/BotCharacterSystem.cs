@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -278,17 +279,19 @@ namespace Quantum.Systems
 				return false;
 			}
 
+			var playerCharacter = filter.PlayerCharacter;
+
+			return TryUseSpecial(f, playerCharacter->WeaponSlots[0].Special1, 0, ref filter)
+			       || TryUseSpecial(f, playerCharacter->WeaponSlots[1].Special1, 1, ref filter);
+		}
+
+		private bool TryUseSpecial(Frame f, Special special, int specialIndex, ref BotCharacterFilter filter)
+		{
 			var target = filter.BotCharacter->Target;
-
-			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
+			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
+			    special.IsValid && special.TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
 			{
-				var special = filter.PlayerCharacter->Specials.GetPointer(specialIndex);
-
-				if ((target != EntityRef.None || special->SpecialType == SpecialType.ShieldSelfStatus) &&
-				    special->IsValid && special->TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
-				{
-					return true;
-				}
+				return true;
 			}
 
 			return false;

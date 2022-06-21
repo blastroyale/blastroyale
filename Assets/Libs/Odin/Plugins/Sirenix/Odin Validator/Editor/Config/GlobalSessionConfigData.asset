@@ -61,4 +61,28 @@ MonoBehaviour:
       IncludeAssetDependencies: 0
     AssetBundle: 
     AddressableGroup: 
-  Exclude: []
+  Exclude:
+  - Enabled: 1
+    Type: 2
+    Asset:
+      Path: 
+      Filter: 
+    Object: {fileID: 0}
+    Scene:
+      Type: 0
+      Value: Assets/Art
+      IncludeAssetDependencies: 0
+    AssetBundle: 
+    AddressableGroup: 
+  - Enabled: 1
+    Type: 0
+    Asset:
+      Path: Assets/Art/
+      Filter: 
+    Object: {fileID: 0}
+    Scene:
+      Type: 0
+      Value: 
+      IncludeAssetDependencies: 0
+    AssetBundle: 
+    AddressableGroup: 

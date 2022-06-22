@@ -2,6 +2,7 @@ using System;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -19,6 +20,8 @@ namespace FirstLight.Game.Services
 		{
 			_assetResolver = assetResolver;
 			_messageBroker = messageBrokerService;
+
+			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 		}
 
 		/// <inheritdoc />
@@ -93,6 +96,35 @@ namespace FirstLight.Game.Services
 			}
 			
 			base.PlayMusic(id, delay);
+		}
+
+		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		{
+			var frame = callback.Game.Frames.Verified;
+			
+			if (callback.Game.PlayerIsLocal(callback.Player))
+			{
+				if (callback.ShieldDamage > 0)
+				{
+					PlayClip2D(AudioId.TakeShieldDamage);
+				}
+				else if (callback.HealthDamage > 0)
+				{
+					PlayClip2D(AudioId.TakeHealthDamage);
+				}
+			}
+			else if (frame.TryGet<PlayerCharacter>(callback.Attacker, out var attacker) &&
+			         callback.Game.PlayerIsLocal(attacker.Player))
+			{
+				if (callback.ShieldDamage > 0)
+				{
+					PlayClip2D(AudioId.HitShieldDamage);
+				}
+				else if (callback.HealthDamage > 0)
+				{
+					PlayClip2D(AudioId.HitHealthDamage);
+				}
+			}
 		}
 	}
 }

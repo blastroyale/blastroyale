@@ -57,9 +57,9 @@ namespace FirstLight.Game.StateMachines
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
+			aliveCheck.OnExit(OpenMatchHud);
 			
-
-			countdown.OnEnter(OpenAdventureHud);
+			countdown.OnEnter(OpenMatchHud);
 			countdown.OnEnter(ShowCountdownHud);
 			countdown.WaitingFor(Countdown).Target(alive);
 			countdown.OnExit(PublishMatchStarted);
@@ -70,8 +70,8 @@ namespace FirstLight.Game.StateMachines
 
 			dead.OnEnter(CloseAdventureHud);
 			dead.OnEnter(OpenKilledHud);
-			dead.Event(_localPlayerAliveEvent).OnTransition(OpenAdventureHud).Target(alive);
-			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenAdventureHud).Target(respawning);
+			dead.Event(_localPlayerAliveEvent).OnTransition(OpenMatchHud).Target(alive);
+			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenMatchHud).Target(respawning);
 			dead.OnExit(CloseKilledHud);
 
 			respawning.Event(_localPlayerAliveEvent).Target(alive);
@@ -164,7 +164,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
 
-		private void OpenAdventureHud()
+		private void OpenMatchHud()
 		{
 			_uiService.OpenUi<MatchHudPresenter>();
 		}

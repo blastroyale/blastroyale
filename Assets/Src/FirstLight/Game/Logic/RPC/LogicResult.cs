@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using PlayFab.SharedModels;
 
-namespace FirstLight.Game.Logic
+namespace FirstLight.Game.Logic.RPC
 {
 	/// <summary>
 	/// This object defines the result of an function app logic execution

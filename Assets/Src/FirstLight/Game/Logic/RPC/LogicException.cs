@@ -1,6 +1,6 @@
 using System;
 
-namespace FirstLight.Game.Logic
+namespace FirstLight.Game.Logic.RPC
 {
 	/// <summary>
 	/// Exception to be used in any part of the logic

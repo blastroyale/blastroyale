@@ -1,5 +1,7 @@
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
@@ -23,7 +25,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.CS, 0));
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, 0));
 			
 			_currencyLogic.AddCurrency(GameId.CS, amount);
 			
@@ -35,7 +37,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.CS, amount));
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, amount));
 			
 			_currencyLogic.DeductCurrency(GameId.CS, amount);
 			
@@ -47,7 +49,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.CS, amount));
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, amount));
 			
 			Assert.Throws<LogicException>(() => _currencyLogic.DeductCurrency(GameId.CS, amount * 3));
 		}
@@ -60,12 +62,42 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.Throws<LogicException>(() => _currencyLogic.GetCurrencyAmount(GameId.Random));
 		}
 
-		private void SetData(params Pair<GameId, uint>[] currencies)
+		[Test]
+		public void WithdrawFromResourcePoolCheck()
+		{
+			const int amount = 100;
+			
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, amount));
+			
+			_currencyLogic.DeductCurrency(GameId.CS, amount);
+			
+			Assert.AreEqual(0, _currencyLogic.GetCurrencyAmount(GameId.CS));
+		}
+
+		[Test]
+		public void WithdrawFromResourcePool_EmptyPool_NothingHappens()
+		{
+			const int amount = 100;
+			
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, amount));
+			
+			_currencyLogic.DeductCurrency(GameId.CS, amount);
+			
+			Assert.AreEqual(0, _currencyLogic.GetCurrencyAmount(GameId.CS));
+		}
+
+		private void SetCurrencyData(params Pair<GameId, uint>[] currencies)
 		{
 			foreach (var pair in currencies)
 			{
 				TestData.Currencies.Add(pair.Key, pair.Value);
 			}
+		}
+
+		private void SetPoolData(ResourcePoolData data)
+		{
+			TestData.ResourcePools.Add(data.Id, data);
+			
 		}
 	}
 }

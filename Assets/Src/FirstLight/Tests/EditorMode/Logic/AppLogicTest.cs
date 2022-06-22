@@ -1,5 +1,6 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using NUnit.Framework;
 
 namespace FirstLight.Tests.EditorMode.Logic

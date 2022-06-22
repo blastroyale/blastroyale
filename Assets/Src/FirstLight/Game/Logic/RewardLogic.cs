@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Logic
 	{
 		/// <inheritdoc />
 		public IReadOnlyList<RewardData> UnclaimedRewards => Data.UncollectedRewards;
+		
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -102,7 +104,7 @@ namespace FirstLight.Game.Logic
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 			
 			var csTake = (uint) Math.Ceiling(GetMatchRewardPoolTake(GameId.CS) * csPercent);
-			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool(csTake, GameId.CS);
+			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool(GameId.CS, csTake);
 			
 			if (csWithdrawn > 0)
 			{

@@ -2,6 +2,7 @@ using System;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
 using Quantum;

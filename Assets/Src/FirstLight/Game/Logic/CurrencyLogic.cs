@@ -6,12 +6,13 @@ using FirstLight.Services;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using Quantum;
 
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
-	/// This logic provides the necessary behaviour to manage the player's currency
+	/// This logic provides the necessary behaviour to manage the player's resources
 	/// </summary>
 	public interface ICurrencyDataProvider
 	{
@@ -63,15 +64,10 @@ namespace FirstLight.Game.Logic
 		void DeductCurrency(GameId currency, ulong amount);
 
 		/// <summary>
-		/// Tries to restock a given pool type (restocking dependent on last restock time, current time)
-		/// </summary>
-		void RestockResourcePool(GameId poolType);
-
-		/// <summary>
 		/// Tries to withdraw and award a currency/resource from a given <paramref name="pool"/>
 		/// </summary>
 		/// <returns>Amount of currency/resource that was awarded from resource pool.</returns>
-		uint WithdrawFromResourcePool(uint amountToAward, GameId pool);
+		uint WithdrawFromResourcePool(GameId pool, uint amountToAward);
 	}
 
 	/// <inheritdoc cref="ICurrencyLogic"/>
@@ -84,6 +80,7 @@ namespace FirstLight.Game.Logic
 		public IObservableDictionaryReader<GameId, ulong> Currencies => _currencies;
 		/// <inheritdoc />
 		public IObservableDictionaryReader<GameId, ResourcePoolData> ResourcePools => _resourcePools;
+		
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public CurrencyLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -113,51 +110,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			return amount;
-		}
-
-		/// <inheritdoc />
-		public void AddCurrency(GameId currency, ulong amount)
-		{
-			var oldAmount = GetCurrencyAmount(currency);
-			var newAmount = oldAmount + amount;
-
-			_currencies[currency] = newAmount;
-		}
-
-		/// <inheritdoc />
-		public void DeductCurrency(GameId currency, ulong amount)
-		{
-			var oldAmount = GetCurrencyAmount(currency);
-
-			if (amount > oldAmount)
-			{
-				throw new
-					LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
-					               $"and only has {oldAmount.ToString()}");
-			}
-
-			_currencies[currency] = oldAmount - amount;
-		}
-		
-		/// <inheritdoc />
-		public uint WithdrawFromResourcePool(uint amountToAward, GameId pool)
-		{
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
-			var poolData = GameLogic.CurrencyLogic.ResourcePools[pool];
-			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool ? poolData.CurrentResourceAmountInPool : amountToAward;
-			
-			// If withdrawing from full pool, the next restock timer needs to restarted, as opposed to ticking already.
-			// When at max pool capacity, the player will see 'Storage Full' on the ResourcePoolWidget
-			if (poolData.CurrentResourceAmountInPool >= poolConfig.PoolCapacity)
-			{
-				poolData.LastPoolRestockTime = DateTime.UtcNow;
-			}
-
-			poolData.CurrentResourceAmountInPool -= amountWithdrawn;
-			
-			Data.ResourcePools[pool] = poolData;
-
-			return amountWithdrawn;
 		}
 
 		/// <inheritdoc />
@@ -239,10 +191,34 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
+		public void AddCurrency(GameId currency, ulong amount)
+		{
+			var oldAmount = GetCurrencyAmount(currency);
+			var newAmount = oldAmount + amount;
+
+			_currencies[currency] = newAmount;
+		}
+
+		/// <inheritdoc />
+		public void DeductCurrency(GameId currency, ulong amount)
+		{
+			var oldAmount = GetCurrencyAmount(currency);
+
+			if (amount > oldAmount)
+			{
+				throw new
+					LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
+					               $"and only has {oldAmount.ToString()}");
+			}
+
+			_currencies[currency] = oldAmount - amount;
+		}
+
+		/// <inheritdoc />
 		public void RestockResourcePool(GameId poolType)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-			var poolData = GameLogic.CurrencyLogic.ResourcePools[poolType];
+			var poolData = _resourcePools[poolType];
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
 			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
@@ -268,7 +244,29 @@ namespace FirstLight.Game.Logic
 				poolData.CurrentResourceAmountInPool = currentPoolCapacity;
 			}
 			
-			Data.ResourcePools[poolType] = poolData;
+			_resourcePools[poolType] = poolData;
+		}
+		
+		/// <inheritdoc />
+		public uint WithdrawFromResourcePool(GameId poolType, uint amountToAward)
+		{
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
+			var poolData = _resourcePools.TryGetValue(poolType, out var pool) ? pool
+				               : new ResourcePoolData(poolType, GetCurrentPoolCapacity(poolType), DateTime.UtcNow);
+			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool ? poolData.CurrentResourceAmountInPool : amountToAward;
+			
+			// If withdrawing from full pool, the next restock timer needs to restarted, as opposed to ticking already.
+			// When at max pool capacity, the player will see 'Storage Full' on the ResourcePoolWidget
+			if (poolData.CurrentResourceAmountInPool >= poolConfig.PoolCapacity)
+			{
+				poolData.LastPoolRestockTime = DateTime.UtcNow;
+			}
+
+			poolData.CurrentResourceAmountInPool -= amountWithdrawn;
+			
+			_resourcePools[pool] = poolData;
+
+			return amountWithdrawn;
 		}
 	}
 }

@@ -276,5 +276,12 @@ public partial class SROptions
 
 		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
 	}
+
+	[Category("Misc")]
+	private void DisconnectPhoton()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		services.NetworkService.QuantumClient.Disconnect();
+	}
 #endif
 }

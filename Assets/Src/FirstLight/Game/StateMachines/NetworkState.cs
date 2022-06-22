@@ -129,7 +129,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
-			_services.TickService.SubscribeOnUpdate(CheatUpdate, Time.deltaTime);
+			_services.TickService.SubscribeOnUpdate(CheatUpdate, Time.deltaTime/2f);
 		}
 
 		private void UnsubscribeEvents()

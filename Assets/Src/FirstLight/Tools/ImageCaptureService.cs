@@ -81,18 +81,28 @@ namespace Src.FirstLight.Tools
 			
 			
 			_assetDictionary.Clear();
+			var keys = new List<object>();
+			var gameIds = new List<GameId>();
+			
 			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
 			{
 				var ids = gameIdGroups[categoryIndex].GetIds();
-				
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
 					var groupId = gameIdGroups.ElementAt(categoryIndex);
 					var gameId = ids.ElementAt(subCategoryIndex);
-					var go = await LoadAssetAsync<GameObject>($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
-					_assetDictionary.Add(gameId, go);
+					keys.Add($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
+					gameIds.Add(gameId);
 				}
 			}
+			
+			var assetLoadedCount = 0;
+			await Addressables.LoadAssetsAsync<GameObject>(keys, addressable => 
+			                                               {
+				                                               _assetDictionary.Add(gameIds.ElementAt(assetLoadedCount), addressable);
+				                                               assetLoadedCount++;
+			                                               }, Addressables.MergeMode.Union, false).Task; 
+			
 			
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
@@ -147,7 +157,7 @@ namespace Src.FirstLight.Tools
 
 			for (var i = 0; i < _assetDictionary.Count; i++)
 			{
-				UnloadAsset(_assetDictionary.ElementAt(i).Value);
+				Addressables.Release(_assetDictionary.ElementAt(i).Value);
 			}
 
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
@@ -320,39 +330,6 @@ namespace Src.FirstLight.Tools
 			}
 			
 			return sBuilder.ToString();
-		}
-		
-		private async Task<GameObject> InstantiatePrefabAsync(object key, InstantiationParameters instantiateParameters = new InstantiationParameters())
-		{
-			var operation = Addressables.InstantiateAsync(key, instantiateParameters);
-
-			await operation.Task;
-
-			if (operation.Status != AsyncOperationStatus.Succeeded)
-			{
-				throw operation.OperationException;
-			}
-			
-			return operation.Result;
-		}
-		
-		public async Task<T> LoadAssetAsync<T>(object key)
-		{			
-			var operation = Addressables.LoadAssetAsync<T>(key);
-
-			await operation.Task;
-
-			if (operation.Status != AsyncOperationStatus.Succeeded)
-			{
-				throw operation.OperationException;
-			}
-			
-			return operation.Result;
-		}
-		
-		public void UnloadAsset<T>(T asset)
-		{
-			Addressables.Release(asset);
 		}
 	}
 }

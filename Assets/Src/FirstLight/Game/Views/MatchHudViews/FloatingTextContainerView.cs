@@ -50,6 +50,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
+			QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -80,10 +81,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			    && _entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				var capacityChange = callback.ShieldCapacity - callback.PreviousShieldCapacity;
-				var messageText = ScriptLocalization.AdventureMenu.StatShield + (capacityChange > 0 ? " +" : " -") + capacityChange;
-				
-				EnqueueText(_pool, entityBase, messageText, _neutralTextColor);
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.General.Shield,
+				                      callback.ShieldCapacity - callback.PreviousShieldCapacity);
 			}
 			
 			if (callback.PreviousShield != callback.CurrentShield)
@@ -91,6 +90,40 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousShield,
 				               callback.CurrentShield, _poolArmour, _armourLossTextColor, _armourGainTextColor);
 			}
+		}
+
+		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
+		{
+			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
+		}
+
+		private void ShowStatDifferenceOnEquipmentChange(EntityRef e, Stats previousStats, Stats currentStats)
+		{
+			if (_entityViewUpdaterService.TryGetView(e, out var entityView)
+			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			{
+				for (int i = 0; i < Constants.TOTAL_STATS; i++)
+				{
+					var difference = currentStats.Values[i].BaseValue.AsFloat - previousStats.Values[i].BaseValue.AsFloat;
+					var statName = currentStats.Values[i].Type.GetTranslation();
+					
+					EnqueueValueIfNonZero(entityBase, statName, Mathf.RoundToInt(difference));
+				}
+			}
+		}
+
+		private void EnqueueValueIfNonZero(HealthEntityBase entityBase, string valueName, int value)
+		{
+			if (value == 0)
+			{
+				return;
+			}
+
+			var valueSign = value > 0 ? " +" : " ";
+			var messageText = valueName + valueSign + value;
+			var messageColor = value > 0 ? _neutralTextColor : _hitTextColor;
+
+			EnqueueText(_pool, entityBase, messageText, messageColor);
 		}
 		
 		private void OnHealthUpdate(EventOnHealthChanged callback)

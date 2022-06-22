@@ -457,7 +457,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Movement Speed
+      - Speed
       Flags: 00
       Languages_Touch: []
     - Term: General/TapSkip
@@ -703,6 +703,34 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Health
+      TermType: 0
+      Description: 
+      Languages:
+      - Health
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Armour
+      TermType: 0
+      Description: 
+      Languages:
+      - Armour
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Power
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage
       Flags: 00
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
@@ -5273,41 +5301,6 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
-    - Term: AdventureMenu/StatShield
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/StatHealth
-      TermType: 0
-      Description: 
-      Languages:
-      - Health
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/StatArmour
-      TermType: 0
-      Description: 
-      Languages:
-      - Armour
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/StatSpeed
-      TermType: 0
-      Description: 
-      Languages:
-      - Speed
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/StatPower
-      TermType: 0
-      Description: 
-      Languages:
-      - Damage
-      Flags: 00
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5320,7 +5313,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1655744183409
+    Google_LastUpdatedVersion: 1655810929641
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

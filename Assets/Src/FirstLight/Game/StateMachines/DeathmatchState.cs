@@ -45,12 +45,19 @@ namespace FirstLight.Game.StateMachines
 			var alive = stateFactory.State("Alive Hud");
 			var dead = stateFactory.State("Dead Hud");
 			var respawning = stateFactory.State("Respawning");
-
-			initial.Transition().Target(countdown);
+			var resyncCheck = stateFactory.Choice("Resync Check");
+			var aliveCheck = stateFactory.Choice("Alive Check");
+			
+			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SendReadyForResyncMessage);
 			
-			// TODO - DO A RESYNC CHECK, AND THEN SKIP SPAWNING STATE AND GO STRAIGHT TO ALIVE/DEAD
+			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
+			resyncCheck.Transition().Target(countdown);
+			
+			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
+			aliveCheck.Transition().Target(dead);
+			
 
 			countdown.OnEnter(OpenAdventureHud);
 			countdown.OnEnter(ShowCountdownHud);
@@ -83,6 +90,23 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private bool IsLocalPlayerAlive()
+		{
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayerStats = game.Frames.Verified.Get<Stats>(localPlayer.Entity);
+			
+			return localPlayerStats.CurrentHealth > 0;
+		}
+		
+		private bool IsResyncing()
+		{
+			return !_services.NetworkService.IsJoiningNewRoom;
 		}
 		
 		private void SendReadyForResyncMessage()

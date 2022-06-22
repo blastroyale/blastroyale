@@ -1,3 +1,4 @@
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -49,19 +50,35 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
 		}
 
 		private void OnDestroy()
 		{
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
 		}
-
+		
 		private void ToggleMiniMapView()
 		{
 			_animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
 			_animation.Play();
 
 			_smallMapActivated = !_smallMapActivated;
+		}
+		
+		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage obj)
+		{
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+
+			if (!frame.Has<DeadPlayerCharacter>(localPlayer.Entity))
+			{
+				_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+				_services.TickService.SubscribeOnUpdate(UpdateTick);
+			}
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)

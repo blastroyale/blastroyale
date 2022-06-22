@@ -38,7 +38,7 @@ namespace FirstLight.Game.Ids
 		
 		//Music
 		MainMenuStart,
-		MainMenuLoop,
+		MainMenuLoopNew,
 		BrLowLoop,
 		BrMidLoop,
 		BrFinalDuelLoop,
@@ -105,6 +105,9 @@ namespace FirstLight.Game.Ids
 		InvStart,
 		InvEnd,
 		InvDamageAbsorb,
+		SdLoop,
+		SdStart,
+		SdEnd,
 		
 		//GameplaySounds
 		AmmoPickup,

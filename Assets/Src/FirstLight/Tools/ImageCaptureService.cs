@@ -78,25 +78,22 @@ namespace Src.FirstLight.Tools
 				GameIdGroup.Amulet,
 				GameIdGroup.Weapon
 			};
-
-			_assetDictionary.Clear();
 			
+			
+			_assetDictionary.Clear();
 			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
 			{
 				var ids = gameIdGroups[categoryIndex].GetIds();
-
+				
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
 					var groupId = gameIdGroups.ElementAt(categoryIndex);
 					var gameId = ids.ElementAt(subCategoryIndex);
-			
 					var go = await LoadAssetAsync<GameObject>($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
-					
 					_assetDictionary.Add(gameId, go);
 				}
 			}
-
-
+			
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
 			var metadata = new Erc721MetaData {attibutesDictionary = new Dictionary<string, int>()};
@@ -138,7 +135,7 @@ namespace Src.FirstLight.Tools
 										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-
+										
 										imagesExportedCount++;
 									}
 								}

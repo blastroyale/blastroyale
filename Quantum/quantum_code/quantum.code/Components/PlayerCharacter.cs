@@ -206,13 +206,7 @@ namespace Quantum
 			var weapon = CurrentWeapon;
 			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
 
-			// We request stats and store their current base values
-			var previousStats = f.Get<Stats>(e);
-
 			RefreshStats(f, e);
-
-			// After the refresh we request updated stats
-			var currentStats = f.Get<Stats>(e);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			//the total time it takes for a burst to complete should be half of the weapon's cooldown
@@ -231,7 +225,7 @@ namespace Quantum
 			if (triggerEvents)
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot, previousStats, currentStats);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
 			}
 
 			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
@@ -250,16 +244,9 @@ namespace Quantum
 			var gearSlot = GetGearSlot(gear);
 			Gear[gearSlot] = gear;
 
-			// We request stats and store their current base values
-			var previousStats = f.Get<Stats>(e);
-
 			RefreshStats(f, e);
 
-			// After the refresh we request updated stats
-			var currentStats = f.Get<Stats>(e);
-
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
-			f.Events.OnLocalPlayerGearChanged(Player, e, gear, gearSlot, previousStats, currentStats);
 		}
 
 		/// <summary>
@@ -409,6 +396,9 @@ namespace Quantum
 
 		private void RefreshStats(Frame f, EntityRef e)
 		{
+			// We request stats and store their current base values
+			var previousStats = f.Get<Stats>(e);
+			
 			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
 			                                     out var speed,
 			                                     out var power);
@@ -426,6 +416,11 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
+			
+			// After the refresh we request updated stats
+			var currentStats = f.Get<Stats>(e);
+			
+			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)

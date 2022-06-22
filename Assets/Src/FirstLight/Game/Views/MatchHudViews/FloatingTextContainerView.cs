@@ -50,8 +50,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnLocalPlayerGearChanged>(this, OnLocalPlayerGearChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -93,12 +92,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			}
 		}
 
-		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
-		}
-
-		private void OnLocalPlayerGearChanged(EventOnLocalPlayerGearChanged callback)
+		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
 		{
 			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
 		}

@@ -10,11 +10,15 @@ namespace FirstLight.Game.Services
 	public class GameAudioFxService : AudioFxService<AudioId>, IAudioFxService<AudioId>
 	{
 		private readonly IAssetResolverService _assetResolver;
+		private readonly IMessageBrokerService _messageBroker;
 		
-		public GameAudioFxService(IAssetResolverService assetResolver) : 
-			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, GameConstants.Audio.BGM_DEFAULT_VOLUME)
+		public GameAudioFxService(IAssetResolverService assetResolver, IMessageBrokerService messageBrokerService) : 
+			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, 
+				GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, 
+				GameConstants.Audio.BGM_DEFAULT_VOLUME)
 		{
 			_assetResolver = assetResolver;
+			_messageBroker = messageBrokerService;
 		}
 
 		/// <inheritdoc />

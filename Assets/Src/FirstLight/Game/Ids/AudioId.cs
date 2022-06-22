@@ -3,7 +3,8 @@ using System.Collections.Generic;
 namespace FirstLight.Game.Ids
 {
 	public enum AudioId
-	{
+	{ 
+		// Check all
 		ElClassico,
 		CollectPickupRage,
 		CollectPickupHealth,

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -56,6 +57,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
+			Services.MessageBrokerService.Subscribe<MatchReadyMessage>(OnMatchReadyForResyncMessage);
+		}
+
+		private void OnDestroy()
+		{
+			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -77,6 +84,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public void SetMovingState(bool isAiming)
 		{
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+		}
+		
+		private void OnMatchReadyForResyncMessage(MatchReadyMessage obj)
+		{
+			AnimatorWrapper.SetBool(Bools.Flying, false);
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+
+			if (f.Has<DeadPlayerCharacter>(EntityView.EntityRef))
+			{
+				AnimatorWrapper.SetTrigger(Triggers.Die);
+			}
 		}
 
 		protected override void OnAvatarEliminated(QuantumGame game)

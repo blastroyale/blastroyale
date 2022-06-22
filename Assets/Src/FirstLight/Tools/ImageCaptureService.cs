@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
@@ -14,8 +13,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceProviders;
+
 
 namespace Src.FirstLight.Tools
 {
@@ -33,23 +31,17 @@ namespace Src.FirstLight.Tools
 			Standalone,
 			Both
 		}
-
-		[BoxGroup("Folder Paths")]
-		[FolderPath(AbsolutePath = true)]
-		public string _importFolderPath;
+		
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _exportFolderPath;
-		[FilePath(Extensions = "json")]
-		public string _metadataJsonFilePath;
-
+		
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
 		[SerializeField] private RenderTexture _renderTextureStandalone;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private GameObject _canvas;
 		[SerializeField] private GameObject _canvasRoot;
-		//[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
 		[SerializeField] private RenderTextureMode _renderTextureMode;
 		[SerializeField] private int _subFolderId;
 		[SerializeField] private int _collectionId;
@@ -180,7 +172,6 @@ namespace Src.FirstLight.Tools
 		/// </summary>
 		private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 		{
-			var groupId = (GameIdGroup)metadata.attibutesDictionary["category"];
 			var subcategoryId = metadata.attibutesDictionary["subCategory"];
 			var gameId = (GameId) subcategoryId;
 

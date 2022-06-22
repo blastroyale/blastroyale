@@ -57,59 +57,7 @@ namespace Src.FirstLight.Tools
 		
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
-
-		
-		[Button("Export Render Textures [Metadata Json Collection]")]
-		public void ExportMetadataCollection()
-		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
-			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
-			}
-			
-			if (_importFolderPath == "" || !Directory.Exists(_importFolderPath))
-			{
-				Debug.LogError($"Invalid import folder path [{_importFolderPath}]");
-				
-				return;
-			}
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
-
-			var fileCount = 0;
-			foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
-			{
-				ExportRenderTexture(filePath, backgroundErcRenderable);
-				fileCount++;
-			}
-			
-			Debug.Log($"Loaded [{fileCount} metadata files]");
-		}
-
-		[Button("Export Render Texture [Metadata Json]")]
-		public void ExportRenderTextureFromMetadataJson()
-		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
-			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
-			}
-			
-			if (_metadataJsonFilePath == "" || !File.Exists(_metadataJsonFilePath))
-			{
-				Debug.LogError($"Invalid json file path [{_metadataJsonFilePath}]");
-				
-				return;
-			}
-			
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
-			
-			ExportRenderTexture(_metadataJsonFilePath, backgroundErcRenderable);
-		}
+		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
 
 		
 		[Button("Export All Render Textures")]
@@ -121,7 +69,7 @@ namespace Src.FirstLight.Tools
 				
 				return;
 			}
-
+			
 			var gameIdGroups = new[]
 			{
 				GameIdGroup.Helmet, 
@@ -130,8 +78,25 @@ namespace Src.FirstLight.Tools
 				GameIdGroup.Amulet,
 				GameIdGroup.Weapon
 			};
+
+			_assetDictionary.Clear();
 			
+			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
+			{
+				var ids = gameIdGroups[categoryIndex].GetIds();
+
+				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
+				{
+					var groupId = gameIdGroups.ElementAt(categoryIndex);
+					var gameId = ids.ElementAt(subCategoryIndex);
 			
+					var go = await LoadAssetAsync<GameObject>($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
+					
+					_assetDictionary.Add(gameId, go);
+				}
+			}
+
+
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
 			var metadata = new Erc721MetaData {attibutesDictionary = new Dictionary<string, int>()};
@@ -172,7 +137,7 @@ namespace Src.FirstLight.Tools
 										var hash = GenerateImageFilenameHash(metadata);
 										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 
-										await ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 
 										imagesExportedCount++;
 									}
@@ -182,7 +147,12 @@ namespace Src.FirstLight.Tools
 					}
 				}
 			}
-			
+
+			for (var i = 0; i < _assetDictionary.Count; i++)
+			{
+				UnloadAsset(_assetDictionary.ElementAt(i).Value);
+			}
+
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
 
@@ -201,17 +171,17 @@ namespace Src.FirstLight.Tools
 		/// <summary>
 		/// Export a render texture image given a metadata object and renderable background
 		/// </summary>
-		private async Task ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
+		private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 		{
 			var groupId = (GameIdGroup)metadata.attibutesDictionary["category"];
 			var subcategoryId = metadata.attibutesDictionary["subCategory"];
 			var gameId = (GameId) subcategoryId;
+
+			var asset = _assetDictionary[gameId];
 			
-			var result = await LoadAssetAsync<GameObject>($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
-			
-			if (result.GetComponent<IErcRenderable>() != null)
+			if (asset.GetComponent<IErcRenderable>() != null)
 			{
-				var go = Instantiate(result);
+				var go = Instantiate(asset);
 				go.transform.SetParent(_markerTransform);
 				go.transform.localScale = Vector3.one;
 				go.transform.localPosition = Vector3.zero;
@@ -253,8 +223,6 @@ namespace Src.FirstLight.Tools
 			{
 				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
 			}
-			
-			UnloadAsset(result);
 		}
 
 		

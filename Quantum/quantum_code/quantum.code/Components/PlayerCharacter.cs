@@ -396,6 +396,9 @@ namespace Quantum
 
 		private void RefreshStats(Frame f, EntityRef e)
 		{
+			// We request stats and store their current base values
+			var previousStats = f.Get<Stats>(e);
+			
 			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
 			                                     out var speed,
 			                                     out var power);
@@ -413,6 +416,11 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
+			
+			// After the refresh we request updated stats
+			var currentStats = f.Get<Stats>(e);
+			
+			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)

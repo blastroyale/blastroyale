@@ -217,6 +217,14 @@ synced event OnLocalPlayerWeaponChanged
 	Int32 Slot;
 }
 
+synced event OnLocalPlayerStatsChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Quantum.Stats PreviousStats;
+	Quantum.Stats CurrentStats;
+}
+
 synced event OnLocalPlayerDamaged
 {
 	local player_ref Player;

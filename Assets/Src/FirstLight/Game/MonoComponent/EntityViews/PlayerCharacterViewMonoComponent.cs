@@ -341,10 +341,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_lastPosition = currentPosition;
-			if (IsLocalPlayer)
-			{
-				QuantumRunner.Default.Game.SetPredictionArea(currentPosition.ToFPVector3(), 10);
-			}
 		}
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)

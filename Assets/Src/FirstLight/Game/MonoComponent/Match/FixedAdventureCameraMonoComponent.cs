@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -31,7 +32,10 @@ namespace FirstLight.Game.MonoComponent.Match
 		private EntityView _spectatePlayerView;
 		private EntityRef _latestKiller;
 
-		private bool spectating = false;
+		private bool _hasTarget;
+		private Transform _targetTransform;
+
+		private bool _spectating;
 
 		private void Awake()
 		{
@@ -54,6 +58,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
+		}
+
+		private void Update()
+		{
+			if (_hasTarget)
+			{
+				QuantumRunner.Default.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), 10);
+			}
 		}
 
 		private void OnDestroy()
@@ -116,13 +128,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnSpectate(SpectateKillerMessage message)
 		{
-			spectating = true;
+			_spectating = true;
 			RefreshSpectator();
 		}
 
 		private void RefreshSpectator()
 		{
-			if (spectating)
+			if (_spectating)
 			{
 				SetTargetTransform(_entityViewUpdaterService.GetManualView(_latestKiller).transform);
 			}
@@ -141,6 +153,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
+			_targetTransform = entityViewTransform;
+			_hasTarget = true;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;
 			_deathCamera.LookAt = entityViewTransform;

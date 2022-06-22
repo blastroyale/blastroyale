@@ -50,14 +50,14 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(SendReadyForResyncMessage);
-			
+
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
 			aliveCheck.OnExit(OpenMatchHud);
+			aliveCheck.OnExit(SendReadyForResyncMessage);
 			
 			countdown.OnEnter(OpenMatchHud);
 			countdown.OnEnter(ShowCountdownHud);

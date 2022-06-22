@@ -49,7 +49,6 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(SendReadyForResyncMessage);
 
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(spawning);
@@ -57,6 +56,7 @@ namespace FirstLight.Game.StateMachines
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
 			aliveCheck.OnExit(OpenMatchHud);
+			aliveCheck.OnExit(SendReadyForResyncMessage);
 			
 			spawning.OnEnter(OpenMatchHud);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);

@@ -479,7 +479,7 @@ MonoBehaviour:
       AimTime:
         RawValue: 52429
       AttackCooldown:
-        RawValue: 65536
+        RawValue: 43254
       AttackHitSpeed:
         RawValue: 5898240
       MinAttackAngle: 5

@@ -42,12 +42,12 @@ public class GameLogicWebWebService : ILogicWebService
 	private readonly GameServer _server;
 	private readonly IEventManager _eventManager;
 	private readonly IStateMigrator<ServerState> _migrator;
-	
+
 	public GameLogicWebWebService(
 			IEventManager eventManager,
 			ILogger log,
-			IStateMigrator<ServerState> migrator, 
-			IPlayerSetupService service, 
+			IStateMigrator<ServerState> migrator,
+			IPlayerSetupService service,
 			IServerStateService stateService,
 			GameServer server
 			)
@@ -64,7 +64,6 @@ public class GameLogicWebWebService : ILogicWebService
 	{
 		return new PlayFabResult<BackendLogicResult>
 		{
-			
 			Result = _server.RunLogic(playerId, request)
 		};
 	}
@@ -85,7 +84,7 @@ public class GameLogicWebWebService : ILogicWebService
 				_log.LogDebug($"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
 			}
 		}
-	
+
 		_eventManager.CallEvent(new PlayerDataLoadEvent(playerId));
 		return new PlayFabResult<BackendLogicResult>
 		{
@@ -96,7 +95,7 @@ public class GameLogicWebWebService : ILogicWebService
 			}
 		};
 	}
-	
+
 	public async Task<PlayFabResult<BackendLogicResult>> SetupPlayer(string playerId)
 	{
 		var serverData = _setupService.GetInitialState(playerId);

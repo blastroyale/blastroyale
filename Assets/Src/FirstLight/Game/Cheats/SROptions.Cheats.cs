@@ -161,6 +161,28 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
+	/// <summary>
+	/// This cheat helps to test all 2D sprites and 3D models for all equipment in the game
+	/// </summary>
+	[Category("Equipment")]
+	public void UnlockAllEquipmentGameIDs()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+
+		for (var i = 0; i < equipmentConfigs.Count; i++)
+		{
+			gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[i].Id,
+			                                                      rarity: EquipmentRarity.LegendaryPlus,
+			                                                      adjective: EquipmentAdjective.Divine,
+			                                                      grade: EquipmentGrade.GradeI, durability: 75,
+			                                                      level: 30));
+		}
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{

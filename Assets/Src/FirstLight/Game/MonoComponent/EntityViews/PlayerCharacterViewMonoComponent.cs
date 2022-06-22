@@ -57,7 +57,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
-			Services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
 		}
 
 		private void OnDestroy()
@@ -70,12 +69,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnInit(game);
 
 			var frame = game.Frames.Verified;
-
-			AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
-			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef)
-				                           ? Triggers.Die
-				                           : Triggers.Spawn);
 			IsLocalPlayer = frame.Context.IsLocalPlayer(frame.Get<PlayerCharacter>(EntityRef).Player);
+			
+			if (Services.NetworkService.IsJoiningNewRoom)
+			{
+				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+				AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef) ? Triggers.Die : Triggers.Spawn);
+			}
+			else
+			{
+				AnimatorWrapper.SetBool(Bools.Flying, false);
+				
+				if (frame.Has<DeadPlayerCharacter>(EntityView.EntityRef))
+				{
+					AnimatorWrapper.SetTrigger(Triggers.Die);
+				}
+			}
 		}
 
 		/// <summary>
@@ -84,19 +93,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public void SetMovingState(bool isAiming)
 		{
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
-		}
-		
-		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage obj)
-		{
-			AnimatorWrapper.SetBool(Bools.Flying, false);
-			
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-
-			if (f.Has<DeadPlayerCharacter>(EntityView.EntityRef))
-			{
-				AnimatorWrapper.SetTrigger(Triggers.Die);
-			}
 		}
 
 		protected override void OnAvatarEliminated(QuantumGame game)

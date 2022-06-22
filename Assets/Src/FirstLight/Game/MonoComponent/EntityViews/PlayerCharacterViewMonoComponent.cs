@@ -57,7 +57,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
-			Services.MessageBrokerService.Subscribe<MatchReadyMessage>(OnMatchReadyForResyncMessage);
+			Services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
 		}
 
 		private void OnDestroy()
@@ -86,7 +86,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 		
-		private void OnMatchReadyForResyncMessage(MatchReadyMessage obj)
+		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage obj)
 		{
 			AnimatorWrapper.SetBool(Bools.Flying, false);
 			

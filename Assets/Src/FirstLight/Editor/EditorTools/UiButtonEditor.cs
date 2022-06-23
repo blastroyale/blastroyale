@@ -20,7 +20,8 @@ namespace FirstLight.Editor.EditorTools
 		private SerializedProperty _pressedScale;
 		private SerializedProperty _anchor;
 		private SerializedProperty _clickClip;
-		private SerializedProperty _tapSoundAudioId;
+		private SerializedProperty _overrideSfx;
+		private SerializedProperty _overrideSfxAudioId;
 		private SerializedProperty _hapticType;
 		
 		/// <inheritdoc />
@@ -32,7 +33,8 @@ namespace FirstLight.Editor.EditorTools
 			_pressedScale = serializedObject.FindProperty(nameof(UiButtonView.PressedScale));
 			_anchor = serializedObject.FindProperty(nameof(UiButtonView.Anchor));
 			_clickClip = serializedObject.FindProperty(nameof(UiButtonView.ClickClip));
-			_tapSoundAudioId = serializedObject.FindProperty(nameof(UiButtonView.TapSoundFx));
+			_overrideSfx = serializedObject.FindProperty(nameof(UiButtonView.OverrideSfx));
+			_overrideSfxAudioId = serializedObject.FindProperty(nameof(UiButtonView.OverrideSfxClip));
 			_hapticType = serializedObject.FindProperty(nameof(UiButtonView.HapticType));
 		}
 		
@@ -48,7 +50,8 @@ namespace FirstLight.Editor.EditorTools
 			EditorGUILayout.PropertyField(_pressedScale);
 			EditorGUILayout.PropertyField(_anchor);
 			EditorGUILayout.PropertyField(_clickClip);
-			EditorGUILayout.PropertyField(_tapSoundAudioId);
+			EditorGUILayout.PropertyField(_overrideSfx);
+			EditorGUILayout.PropertyField(_overrideSfxAudioId);
 			EditorGUILayout.PropertyField(_hapticType);
 			serializedObject.ApplyModifiedProperties();
 		}

@@ -80,9 +80,8 @@ namespace Src.FirstLight.Tools
 				var ids = gameIdGroups[categoryIndex].GetIds();
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
-					var groupId = gameIdGroups.ElementAt(categoryIndex);
 					var gameId = ids.ElementAt(subCategoryIndex);
-					keys.Add($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
+					keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
 				}
 			}
 			

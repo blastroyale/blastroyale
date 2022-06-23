@@ -99,7 +99,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAvatarEliminated(game);
 
-			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
+			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath, transform.position);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -208,7 +208,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
 
-			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnStart1, transform.position);
+			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnStart, transform.position);
 			RenderersContainerProxy.SetRendererState(false);
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
@@ -220,7 +220,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired01, transform.position);
+			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired, transform.position);
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
 		}
 

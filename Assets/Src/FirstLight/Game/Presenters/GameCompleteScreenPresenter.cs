@@ -95,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());
 			
-			Services.AudioFxService.PlayClip2D(AudioId.Victory1);
+			Services.AudioFxService.PlayClip2D(AudioId.Victory);
 			
 			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{

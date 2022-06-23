@@ -5427,7 +5427,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity) {
+      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity, FPVector3 HitPosition) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerDamaged>(EventOnPlayerDamaged.ID);
         ev.Player = Player;
@@ -5438,6 +5438,7 @@ namespace Quantum {
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
         ev.ShieldCapacity = ShieldCapacity;
+        ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5593,7 +5594,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerDamaged OnLocalPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity) {
+      public EventOnLocalPlayerDamaged OnLocalPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity, FPVector3 HitPosition) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerDamaged>(EventOnLocalPlayerDamaged.ID);
@@ -5605,6 +5606,7 @@ namespace Quantum {
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
         ev.ShieldCapacity = ShieldCapacity;
+        ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7100,6 +7102,7 @@ namespace Quantum {
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
     public Int32 ShieldCapacity;
+    public FPVector3 HitPosition;
     protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7125,6 +7128,7 @@ namespace Quantum {
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
         hash = hash * 31 + ShieldCapacity.GetHashCode();
+        hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
     }
@@ -7582,6 +7586,7 @@ namespace Quantum {
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
     public Int32 ShieldCapacity;
+    public FPVector3 HitPosition;
     protected EventOnLocalPlayerDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7607,6 +7612,7 @@ namespace Quantum {
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
         hash = hash * 31 + ShieldCapacity.GetHashCode();
+        hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
     }

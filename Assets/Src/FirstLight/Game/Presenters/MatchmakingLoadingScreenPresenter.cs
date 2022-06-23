@@ -133,7 +133,12 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 		}
-		
+
+		protected override void OnClosed()
+		{
+			MapSelectionView.CleanupMapView();
+		}
+
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
 			// For custom games, only show leave room button if we are not loading straight into the match (if host locked room while we were loading)

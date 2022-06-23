@@ -1,12 +1,12 @@
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
+using SRF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -100,6 +100,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 					rt.sizeDelta = containerSize / gridSize;
 				}
 			}
+		}
+		
+		/// <summary>
+		/// Cleans up entities that aren't required anymore.
+		/// </summary>
+		public void CleanupMapView()
+		{
+			_gridOverlay.DestroyChildren();
 		}
 
 		/// <inheritdoc />

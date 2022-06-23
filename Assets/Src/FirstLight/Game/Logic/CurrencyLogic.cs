@@ -215,56 +215,33 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void RestockResourcePool(GameId poolType)
-		{
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-			var poolData = _resourcePools[poolType];
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
-			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
-			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
-			
-			if (amountOfRestocks == 0)
-			{
-				// This is called here, as if the player sells their NFT and comes back into the game, the capacity is going to 
-				// change and should be corrected at withdrawal time, just to be sure.
-				if (poolData.CurrentResourceAmountInPool > currentPoolCapacity)
-				{
-					poolData.CurrentResourceAmountInPool = currentPoolCapacity;
-					Data.ResourcePools[poolType] = poolData;
-				}
-				
-				return;
-			}
-			
-			poolData.LastPoolRestockTime = poolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * poolConfig.RestockIntervalMinutes);
-			poolData.CurrentResourceAmountInPool += GetPoolRestockAmountPerInterval(poolType) * amountOfRestocks;
-
-			if (poolData.CurrentResourceAmountInPool > currentPoolCapacity)
-			{
-				poolData.CurrentResourceAmountInPool = currentPoolCapacity;
-			}
-			
-			_resourcePools[poolType] = poolData;
-		}
-		
-		/// <inheritdoc />
 		public uint WithdrawFromResourcePool(GameId poolType, uint amountToAward)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
-			var poolData = _resourcePools.TryGetValue(poolType, out var pool) ? pool
-				               : new ResourcePoolData(poolType, GetCurrentPoolCapacity(poolType), DateTime.UtcNow);
-			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool ? poolData.CurrentResourceAmountInPool : amountToAward;
+			var poolCapacity = GetCurrentPoolCapacity(poolType);
+			var poolData = _resourcePools.TryGetValue(poolType, out var pool)
+				               ? pool
+				               : new ResourcePoolData(poolType, poolCapacity, DateTime.UtcNow);
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
+			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
+			var maxRestocks = poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
 			
-			// If withdrawing from full pool, the next restock timer needs to restarted, as opposed to ticking already.
-			// When at max pool capacity, the player will see 'Storage Full' on the ResourcePoolWidget
-			if (poolData.CurrentResourceAmountInPool >= poolConfig.PoolCapacity)
+			poolData.LastPoolRestockTime = poolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * poolConfig.RestockIntervalMinutes);
+			poolData.CurrentResourceAmountInPool += amountOfRestocks * poolCapacity / maxRestocks;
+
+			if (poolData.CurrentResourceAmountInPool > poolCapacity)
 			{
+				poolData.CurrentResourceAmountInPool = poolCapacity;
 				poolData.LastPoolRestockTime = DateTime.UtcNow;
 			}
+			
+			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool
+				                      ? poolData.CurrentResourceAmountInPool
+				                      : amountToAward;
 
 			poolData.CurrentResourceAmountInPool -= amountWithdrawn;
 			
-			_resourcePools[pool] = poolData;
+			_resourcePools[poolType] = poolData;
 
 			return amountWithdrawn;
 		}

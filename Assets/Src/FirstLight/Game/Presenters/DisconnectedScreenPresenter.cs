@@ -7,6 +7,7 @@ using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
@@ -27,7 +28,7 @@ namespace FirstLight.Game.Presenters
 		private const float DIM_SCREEN_SECONDS = 5f;
 		
 		[SerializeField, Required] private Button _reconnectButton;
-		[SerializeField, Required] private Button _leaveButton;
+		[SerializeField, Required] private Button _menuButton;
 		[SerializeField, Required] private GameObject _frontDimBlocker;
 
 		private IGameServices _services;
@@ -37,12 +38,22 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_reconnectButton.onClick.AddListener(OnReconnectClicked);
-			_leaveButton.onClick.AddListener(OnLeaveClicked);
+			_menuButton.onClick.AddListener(OnLeaveClicked);
 		}
 
 		protected override void OnOpened()
 		{
 			SetFrontDimBlockerActive(false);
+
+			// If this present is shown in main menu screen, we only want to see the Reconnect button
+			if (SceneManager.GetActiveScene().name == GameConstants.Scenes.SCENE_MAIN_MENU)
+			{
+				_menuButton.gameObject.SetActive(false);
+			}
+			else
+			{
+				_menuButton.gameObject.SetActive(true);
+			}
 			
 			var dictionary = new Dictionary<string, object>
 			{

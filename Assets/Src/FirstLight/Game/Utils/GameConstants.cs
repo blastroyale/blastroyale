@@ -14,6 +14,11 @@ namespace FirstLight.Game.Utils
 			public const string PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY = "EnableStateMachineDebug";
 		}
 
+		public static class Scenes
+		{
+			public const string SCENE_MAIN_MENU = "MainMenu";
+		}
+
 		public static class Links
 		{
 			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";

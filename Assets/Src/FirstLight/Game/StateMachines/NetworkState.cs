@@ -13,6 +13,7 @@ using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.StateMachines
@@ -61,7 +62,9 @@ namespace FirstLight.Game.StateMachines
 			var connected = stateFactory.State("NETWORK - Connected");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
 			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
-			var reconnectingScreen = stateFactory.State("NETWORK - Reconnecting Screen");
+			var reconnectingGame = stateFactory.State("NETWORK - Reconnecting Screen Game");
+			var reconnectingMenu = stateFactory.State("NETWORK - Reconnecting Screen Menu");
+			var reconnectingSceneCheck = stateFactory.Choice("NETWORK - Reconnecting Scene Check");
 			
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
@@ -72,21 +75,34 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
-			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnectingScreen);
+			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnectingSceneCheck);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
+
+			reconnectingSceneCheck.Transition().Condition(IsReconnectingToMatch).Target(reconnectingGame);
+			reconnectingSceneCheck.Transition().Target(reconnectingMenu);
 			
-			reconnectingScreen.OnEnter(DimDisconnectedScreen);
-			reconnectingScreen.Event(JoinedRoomEvent).Target(connected);
-			reconnectingScreen.Event(JoinRoomFailedEvent).Target(disconnected);
-			reconnectingScreen.OnEnter(UndimDisconnectedScreen);
-			reconnectingScreen.OnExit(CloseDisconnectedScreen);
+			reconnectingMenu.OnEnter(DimDisconnectedScreen);
+			reconnectingMenu.Event(PhotonMasterConnectedEvent).Target(connected);
+			reconnectingMenu.OnExit(UndimDisconnectedScreen);
+			reconnectingMenu.OnExit(CloseDisconnectedScreen);
+			
+			reconnectingGame.OnEnter(DimDisconnectedScreen);
+			reconnectingGame.Event(JoinedRoomEvent).Target(connected);
+			reconnectingGame.Event(JoinRoomFailedEvent).Target(disconnected);
+			reconnectingGame.OnExit(UndimDisconnectedScreen);
+			reconnectingGame.OnExit(CloseDisconnectedScreen);
 			
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
+		private bool IsReconnectingToMatch()
+		{
+			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
+		}
+
 		private void CheatUpdate(float delta)
 		{
 			if (UnityEngine.Input.GetKeyDown(KeyCode.P))
@@ -102,8 +118,17 @@ namespace FirstLight.Game.StateMachines
 				ReconnectClicked = () =>
 				{
 					_statechartTrigger(AttemptReconnectEvent);
-					_networkService.IsJoiningNewRoom.Value = false;
-					_networkService.QuantumClient.ReconnectAndRejoin();
+					
+					if (IsReconnectingToMatch())
+					{
+						_networkService.IsJoiningNewRoom.Value = false;
+						_networkService.QuantumClient.ReconnectAndRejoin();
+					}
+					else
+					{
+						_networkService.QuantumClient.ReconnectToMaster();
+					}
+					
 				},
 				BackClicked = () =>
 				{

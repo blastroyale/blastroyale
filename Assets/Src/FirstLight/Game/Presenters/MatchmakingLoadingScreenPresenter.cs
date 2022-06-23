@@ -67,16 +67,12 @@ namespace FirstLight.Game.Presenters
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
-			
-			//SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
 		private void OnDestroy()
 		{
 			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			
-			//SceneManager.activeSceneChanged -= OnSceneChanged;
 		}
 
 		/// <inheritdoc />

@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _reconnectButton: {fileID: 8755334718715331996}
-  _leaveButton: {fileID: 9187843408229272099}
+  _menuButton: {fileID: 9187843408229272099}
   _frontDimBlocker: {fileID: 6293222408882273798}
 --- !u!1 &2215982194696942680
 GameObject:

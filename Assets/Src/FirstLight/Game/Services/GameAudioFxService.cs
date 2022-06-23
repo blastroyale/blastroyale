@@ -11,17 +11,13 @@ namespace FirstLight.Game.Services
 	public class GameAudioFxService : AudioFxService<AudioId>, IAudioFxService<AudioId>
 	{
 		private readonly IAssetResolverService _assetResolver;
-		private readonly IMessageBrokerService _messageBroker;
 		
-		public GameAudioFxService(IAssetResolverService assetResolver, IMessageBrokerService messageBrokerService) : 
+		public GameAudioFxService(IAssetResolverService assetResolver) : 
 			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, 
-				GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, 
+			     GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, 
 				GameConstants.Audio.BGM_DEFAULT_VOLUME)
 		{
 			_assetResolver = assetResolver;
-			_messageBroker = messageBrokerService;
-
-			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 		}
 
 		/// <inheritdoc />
@@ -96,35 +92,6 @@ namespace FirstLight.Game.Services
 			}
 			
 			base.PlayMusic(id, delay);
-		}
-
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
-		{
-			var frame = callback.Game.Frames.Verified;
-			
-			if (callback.Game.PlayerIsLocal(callback.Player))
-			{
-				if (callback.ShieldDamage > 0)
-				{
-					PlayClip2D(AudioId.TakeShieldDamage);
-				}
-				else if (callback.HealthDamage > 0)
-				{
-					PlayClip2D(AudioId.TakeHealthDamage);
-				}
-			}
-			else if (frame.TryGet<PlayerCharacter>(callback.Attacker, out var attacker) &&
-			         callback.Game.PlayerIsLocal(attacker.Player))
-			{
-				if (callback.ShieldDamage > 0)
-				{
-					PlayClip2D(AudioId.HitShieldDamage);
-				}
-				else if (callback.HealthDamage > 0)
-				{
-					PlayClip2D(AudioId.HitHealthDamage);
-				}
-			}
 		}
 	}
 }

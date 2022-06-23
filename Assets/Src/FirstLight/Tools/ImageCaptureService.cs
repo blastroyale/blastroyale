@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+
 
 namespace Src.FirstLight.Tools
 {
@@ -29,23 +31,17 @@ namespace Src.FirstLight.Tools
 			Standalone,
 			Both
 		}
-
-		[BoxGroup("Folder Paths")]
-		[FolderPath(AbsolutePath = true)]
-		public string _importFolderPath;
+		
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _exportFolderPath;
-		[FilePath(Extensions = "json")]
-		public string _metadataJsonFilePath;
-
+		
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
 		[SerializeField] private RenderTexture _renderTextureStandalone;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private GameObject _canvas;
 		[SerializeField] private GameObject _canvasRoot;
-		[SerializeField] private EquipmentSnapshotResource _equipmentSnapshotResource;
 		[SerializeField] private RenderTextureMode _renderTextureMode;
 		[SerializeField] private int _subFolderId;
 		[SerializeField] private int _collectionId;
@@ -53,59 +49,7 @@ namespace Src.FirstLight.Tools
 		
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
-
-		
-		[Button("Export Render Textures [Metadata Json Collection]")]
-		public void ExportMetadataCollection()
-		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
-			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
-			}
-			
-			if (_importFolderPath == "" || !Directory.Exists(_importFolderPath))
-			{
-				Debug.LogError($"Invalid import folder path [{_importFolderPath}]");
-				
-				return;
-			}
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
-
-			var fileCount = 0;
-			foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
-			{
-				ExportRenderTexture(filePath, backgroundErcRenderable);
-				fileCount++;
-			}
-			
-			Debug.Log($"Loaded [{fileCount} metadata files]");
-		}
-
-		[Button("Export Render Texture [Metadata Json]")]
-		public void ExportRenderTextureFromMetadataJson()
-		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
-			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
-			}
-			
-			if (_metadataJsonFilePath == "" || !File.Exists(_metadataJsonFilePath))
-			{
-				Debug.LogError($"Invalid json file path [{_metadataJsonFilePath}]");
-				
-				return;
-			}
-			
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
-			
-			ExportRenderTexture(_metadataJsonFilePath, backgroundErcRenderable);
-		}
+		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
 
 		
 		[Button("Export All Render Textures")]
@@ -118,19 +62,54 @@ namespace Src.FirstLight.Tools
 				return;
 			}
 			
-				
+			var gameIdGroups = new[]
+			{
+				GameIdGroup.Helmet, 
+				GameIdGroup.Shield,
+				GameIdGroup.Armor,
+				GameIdGroup.Amulet,
+				GameIdGroup.Weapon
+			};
+			
+			
+			_assetDictionary.Clear();
+			var keys = new List<object>();
+			var gameIds = new List<GameId>();
+			
+			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
+			{
+				var ids = gameIdGroups[categoryIndex].GetIds();
+				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
+				{
+					var groupId = gameIdGroups.ElementAt(categoryIndex);
+					var gameId = ids.ElementAt(subCategoryIndex);
+					keys.Add($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
+					gameIds.Add(gameId);
+				}
+			}
+			
+			var assetLoadedCount = 0;
+			await Addressables.LoadAssetsAsync<GameObject>(keys, addressable => 
+			                                               {
+				                                               _assetDictionary.Add(gameIds.ElementAt(assetLoadedCount), addressable);
+				                                               assetLoadedCount++;
+			                                               }, Addressables.MergeMode.Union, false).Task; 
+			
+			
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
 			var metadata = new Erc721MetaData {attibutesDictionary = new Dictionary<string, int>()};
 			
 			var imagesExportedCount = 0;
 			
-			for (var categoryIndex = 0; categoryIndex < _equipmentSnapshotResource.Categories.Length; categoryIndex++)
+			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
 			{
-				var categoryPrefabData = _equipmentSnapshotResource.Categories[categoryIndex];
+				var ids = gameIdGroups[categoryIndex].GetIds();
 				
-				for (var subCategoryIndex = 0; subCategoryIndex < categoryPrefabData.GameObjects.Length; subCategoryIndex++)
+				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
+					var gameId = ids.ElementAt(subCategoryIndex);
+					
 					for (var rarityIndex = 0; rarityIndex < (int)EquipmentRarity.TOTAL; rarityIndex++)
 					{
 						for (var materialIndex = 0; materialIndex < (int)EquipmentMaterial.TOTAL; materialIndex++)
@@ -141,9 +120,13 @@ namespace Src.FirstLight.Tools
 								{
 									for (var adjectiveIndex = 0; adjectiveIndex < (int) EquipmentAdjective.TOTAL; adjectiveIndex++)
 									{
-										metadata.attibutesDictionary["category"] = categoryIndex;
-										metadata.attibutesDictionary["subCategory"] = subCategoryIndex;
-										metadata.attibutesDictionary["manufacturer"] = 0;
+										metadata.name = LocalizationManager.GetTranslation ($"GameIds/{gameId.ToString()}");
+										metadata.attibutesDictionary["category"] = (int)gameIdGroups.ElementAt(categoryIndex);
+										metadata.attibutesDictionary["subCategory"] = (int)gameId;
+										
+										var config =_baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
+										metadata.attibutesDictionary["manufacturer"] = (int)config.Manufacturer;
+										
 										metadata.attibutesDictionary["rarity"] = rarityIndex;
 										metadata.attibutesDictionary["material"] = materialIndex;
 										metadata.attibutesDictionary["faction"] = factionIndex;
@@ -154,7 +137,7 @@ namespace Src.FirstLight.Tools
 										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-
+										
 										imagesExportedCount++;
 									}
 								}
@@ -163,7 +146,12 @@ namespace Src.FirstLight.Tools
 					}
 				}
 			}
-			
+
+			for (var i = 0; i < _assetDictionary.Count; i++)
+			{
+				Addressables.Release(_assetDictionary.ElementAt(i).Value);
+			}
+
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
 
@@ -184,83 +172,54 @@ namespace Src.FirstLight.Tools
 		/// </summary>
 		private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 		{
-			var categoryId = metadata.attibutesDictionary["category"];
 			var subcategoryId = metadata.attibutesDictionary["subCategory"];
-			
-			
-			var categoryPrefabData = _equipmentSnapshotResource.Categories[categoryId];
-			
-			if (categoryPrefabData.GameObjects.Length > subcategoryId)
-			{
-				var prefabResource = _equipmentSnapshotResource.Categories[categoryId].GameObjects[subcategoryId];
+			var gameId = (GameId) subcategoryId;
 
-				var go = Instantiate(prefabResource);
+			var asset = _assetDictionary[gameId];
+			
+			if (asset.GetComponent<IErcRenderable>() != null)
+			{
+				var go = Instantiate(asset);
 				go.transform.SetParent(_markerTransform);
 				go.transform.localScale = Vector3.one;
 				go.transform.localPosition = Vector3.zero;
-
-				if (Enum.TryParse(prefabResource.name, out GameId gameId))
-				{
-					metadata.name = LocalizationManager.GetTranslation ($"GameIds/{gameId.ToString()}");
-					var config =_baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
-					metadata.attibutesDictionary["manufacturer"] = (int)config.Manufacturer;
-				}
-
-				var ercRenderable = go.GetComponent<IErcRenderable>();
-
-				if (ercRenderable != null)
-				{
-					ercRenderable.Initialise(metadata);
-				}
-
+				
+				go.GetComponent<IErcRenderable>().Initialise(metadata);
+				
 				var bounds = GetBounds(go);
 				go.transform.localPosition = -bounds.center;
 				go.transform.localRotation = Quaternion.identity;
 
 				var max = bounds.size;
 				var radius = max.magnitude / 2f;
-				var horizontalFOV = 2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) * Mathf.Rad2Deg;
+				var horizontalFOV =
+					2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
+					Mathf.Rad2Deg;
 				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
 				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
 
 				_camera.transform.position = new Vector3(-dist, 0, 0);
-				
-				
-				_canvas.SetActive(true);
-				
-				backgroundErcRenderable?.Initialise(metadata);
-
-				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
-				{
-					WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
-				}
-
-				_canvas.SetActive(false);
-
-				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
-				{
-					WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
-				}
-
-				DestroyImmediate(go);
 			}
-			else
+			
+			_canvas.SetActive(true);
+			
+			backgroundErcRenderable?.Initialise(metadata);
+
+			if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
 			{
-				_canvas.SetActive(true);
-				
-				backgroundErcRenderable?.Initialise(metadata);
+				WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
+			}
 
-				if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
-				{
-					WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
-				}
+			_canvas.SetActive(false);
 
-				_canvas.SetActive(false);
+			if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
+			{
+				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
+			}
 
-				if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
-				{
-					WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
-				}
+			if (_markerTransform.transform.childCount > 0)
+			{
+				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
 			}
 		}
 

@@ -7,7 +7,6 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
-using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -25,7 +24,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
 
 		/// <summary>
 		/// Get amount of pooled resource that can be withdrawn based on currently equipped NFTs for a given <paramref name="poolId"/>
@@ -65,10 +64,10 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var mapConfig = GameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
-			var rewards = new Dictionary<GameId, int>();
+			var rewards = new List<RewardData>();
 			
 			// Currently, there is no plan on giving rewards on anything but BR mode
 			if (mapConfig.GameMode != GameMode.BattleRoyale)
@@ -103,12 +102,13 @@ namespace FirstLight.Game.Logic
 			var csPercent = csRewardPair.Value / 100d;
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 			
+			var csPool = GameLogic.CurrencyLogic.GetResourcePoolInfo(GameId.CS);
 			var csTake = (uint) Math.Ceiling(GetMatchRewardPoolTake(GameId.CS) * csPercent);
-			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool(GameId.CS, csTake);
+			var csWithdrawn = (int) Math.Min(csPool.CurrentAmount, csTake);
 			
 			if (csWithdrawn > 0)
 			{
-				rewards.Add(GameId.CS, csWithdrawn);
+				rewards.Add(new RewardData(GameId.CS, csWithdrawn));
 			}
 
 			return rewards;
@@ -172,17 +172,16 @@ namespace FirstLight.Game.Logic
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
-			var rewardsList = new List<RewardData>();
+			var poolRewards = rewards.FindAll(reward => reward.RewardId.IsInGroup(GameIdGroup.ResourcePool));
 
-			foreach (var reward in rewards)
+			foreach (var reward in poolRewards)
 			{
-				var rewardData = new RewardData(reward.Key, reward.Value);
-				
-				rewardsList.Add(rewardData);
-				Data.UncollectedRewards.Add(rewardData);
+				GameLogic.CurrencyLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
 			}
+			
+			Data.UncollectedRewards.AddRange(rewards);
 
-			return rewardsList;
+			return rewards;
 		}
 
 		/// <inheritdoc />

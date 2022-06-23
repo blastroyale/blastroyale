@@ -31,16 +31,12 @@ namespace FirstLight.Game.Logic
 		/// If the player has no currency of the given type, it will add it with 0 quantity to the player saved data
 		/// </summary>
 		ulong GetCurrencyAmount(GameId currency);
-		
-		/// <summary>
-		/// Requests the current capacity of a given <paramref name="poolType"/>, based on various factors, such as amount of NFTs owned
-		/// </summary>
-		uint GetCurrentPoolCapacity(GameId poolType);
 
 		/// <summary>
-		/// Requests the amount of resource restocked per interval of a given <paramref name="poolType"/>
+		/// Requests the current <see cref="ResourcePoolInfo"/> of a given <paramref name="poolType"/>,
+		/// based on various factors, such as amount of NFTs owned
 		/// </summary>
-		uint GetPoolRestockAmountPerInterval(GameId poolType);
+		ResourcePoolInfo GetResourcePoolInfo(GameId poolType);
 	}
 
 	/// <inheritdoc />
@@ -113,7 +109,70 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public uint GetCurrentPoolCapacity(GameId poolType)
+		public ResourcePoolInfo GetResourcePoolInfo(GameId poolType)
+		{
+			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
+			var capacity = GetCurrentPoolCapacity(poolType);
+			var poolData = _resourcePools.TryGetValue(poolType, out var pool)
+				               ? pool
+				               : new ResourcePoolData(poolType, capacity, DateTime.UtcNow);
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
+			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
+			var restockPerInterval = capacity / poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
+			var nextRestockMinutes = (amountOfRestocks + 1) * poolConfig.RestockIntervalMinutes;
+			var addAmount = amountOfRestocks * restockPerInterval;
+
+			return new ResourcePoolInfo
+			{
+				Id = poolType,
+				PoolCapacity = capacity,
+				CurrentAmount = Math.Min(pool.CurrentResourceAmountInPool + addAmount, capacity),
+				RestockPerInterval = restockPerInterval,
+				NextRestockTime = poolData.LastPoolRestockTime.AddMinutes(nextRestockMinutes)
+			};
+		}
+
+		/// <inheritdoc />
+		public void AddCurrency(GameId currency, ulong amount)
+		{
+			var oldAmount = GetCurrencyAmount(currency);
+			var newAmount = oldAmount + amount;
+
+			_currencies[currency] = newAmount;
+		}
+
+		/// <inheritdoc />
+		public void DeductCurrency(GameId currency, ulong amount)
+		{
+			var oldAmount = GetCurrencyAmount(currency);
+
+			if (amount > oldAmount)
+			{
+				throw new
+					LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
+					               $"and only has {oldAmount.ToString()}");
+			}
+
+			_currencies[currency] = oldAmount - amount;
+		}
+
+		/// <inheritdoc />
+		public uint WithdrawFromResourcePool(GameId poolType, uint amountToAward)
+		{
+			var poolInfo = GetResourcePoolInfo(poolType);
+			var poolData = _resourcePools[poolType];
+			var amountWithdrawn = amountToAward > poolInfo.CurrentAmount ? poolInfo.CurrentAmount : amountToAward;
+			var restockTime = poolInfo.NextRestockTime.AddMinutes(-poolInfo.Config.RestockIntervalMinutes);
+
+			poolData.CurrentResourceAmountInPool = poolInfo.CurrentAmount - amountWithdrawn;
+			poolData.LastPoolRestockTime = poolInfo.IsFull ? DateTime.UtcNow : restockTime;
+			
+			_resourcePools[poolType] = poolData;
+
+			return amountWithdrawn;
+		}
+
+		private uint GetCurrentPoolCapacity(GameId poolType)
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
@@ -179,71 +238,6 @@ namespace FirstLight.Game.Logic
 			poolCapacity -= durabilityDecrease;
 			
 			return (uint)poolCapacity;
-		}
-
-		/// <inheritdoc />
-		public uint GetPoolRestockAmountPerInterval(GameId poolType)
-		{
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
-			var currentPoolCapacity = GetCurrentPoolCapacity(poolType);
-
-			return currentPoolCapacity / (poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes);
-		}
-
-		/// <inheritdoc />
-		public void AddCurrency(GameId currency, ulong amount)
-		{
-			var oldAmount = GetCurrencyAmount(currency);
-			var newAmount = oldAmount + amount;
-
-			_currencies[currency] = newAmount;
-		}
-
-		/// <inheritdoc />
-		public void DeductCurrency(GameId currency, ulong amount)
-		{
-			var oldAmount = GetCurrencyAmount(currency);
-
-			if (amount > oldAmount)
-			{
-				throw new
-					LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
-					               $"and only has {oldAmount.ToString()}");
-			}
-
-			_currencies[currency] = oldAmount - amount;
-		}
-
-		/// <inheritdoc />
-		public uint WithdrawFromResourcePool(GameId poolType, uint amountToAward)
-		{
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
-			var poolCapacity = GetCurrentPoolCapacity(poolType);
-			var poolData = _resourcePools.TryGetValue(poolType, out var pool)
-				               ? pool
-				               : new ResourcePoolData(poolType, poolCapacity, DateTime.UtcNow);
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
-			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
-			var maxRestocks = poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
-			
-			poolData.LastPoolRestockTime = poolData.LastPoolRestockTime.AddMinutes(amountOfRestocks * poolConfig.RestockIntervalMinutes);
-			poolData.CurrentResourceAmountInPool += amountOfRestocks * poolCapacity / maxRestocks;
-
-			if (poolData.CurrentResourceAmountInPool > poolCapacity)
-			{
-				poolData.CurrentResourceAmountInPool = poolCapacity;
-				poolData.LastPoolRestockTime = DateTime.UtcNow;
-			}
-			
-			var amountWithdrawn = amountToAward > poolData.CurrentResourceAmountInPool
-				                      ? poolData.CurrentResourceAmountInPool
-				                      : amountToAward;
-
-			poolData.CurrentResourceAmountInPool -= amountWithdrawn;
-			
-			_resourcePools[poolType] = poolData;
-
-			return amountWithdrawn;
 		}
 	}
 }

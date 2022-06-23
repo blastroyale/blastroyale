@@ -54,14 +54,6 @@ namespace FirstLight.Game.Presenters
 			{
 				_menuButton.gameObject.SetActive(true);
 			}
-			
-			var dictionary = new Dictionary<string, object>
-			{
-				{"disconnected_cause", _services.NetworkService.QuantumClient.DisconnectedCause}
-			};
-			
-			_services.AnalyticsService.LogEvent("disconnected", dictionary);
-			_services.AnalyticsService.CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
 
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{

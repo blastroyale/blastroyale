@@ -8,6 +8,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Realtime;
@@ -199,6 +200,14 @@ namespace FirstLight.Game.StateMachines
 		public void OnDisconnected(DisconnectCause cause)
 		{
 			FLog.Info("OnDisconnected " + cause);
+			
+			var dictionary = new Dictionary<string, object>
+			{
+				{"disconnected_cause", _services.NetworkService.QuantumClient.DisconnectedCause}
+			};
+			
+			_services.AnalyticsService.LogEvent("disconnected", dictionary);
+			_services.AnalyticsService.CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
 
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}

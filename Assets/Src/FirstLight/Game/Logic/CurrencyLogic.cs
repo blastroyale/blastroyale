@@ -190,7 +190,6 @@ namespace FirstLight.Game.Logic
 			var scaleMult = (double) poolConfig.ScaleMultiplier;
 			var nftAssumed = GameConfig.NftAssumedOwned;
 			var minNftOwned = GameConfig.MinNftForEarnings;
-			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
 			var nftsm = nftAssumed * shapeMod;
 			var poolDecreaseExp = (double) poolConfig.PoolCapacityDecreaseExponent;
 			var maxPoolDecreaseMod = (double) poolConfig.MaxPoolCapacityDecreaseModifier;
@@ -203,28 +202,7 @@ namespace FirstLight.Game.Logic
 			poolCapacity += poolConfig.PoolCapacity + capacityNftBonus;
 
 			// ----- Increase pool capacity based on owned NFT rarity and adjectives
-			var modEquipmentList = new List<Tuple<double, Equipment>>();
-			var augmentedModSum = (double) 0;
-			
-			foreach (var nft in inventory)
-			{
-				var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)nft.Equipment.Rarity);
-				var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)nft.Equipment.Adjective);
-				var modSum = (double) rarityConfig.PoolCapacityModifier + (double) adjectiveConfig.PoolCapacityModifier;
-				
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Equipment));
-			}
-			
-			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
-
-			for (var i = 0; i < modEquipmentList.Count; i++)
-			{
-				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, adjRarityCurveMod) / nftAssumed), minNftOwned);
-				
-				augmentedModSum += modEquipmentList[i].Item1 * strength;
-			}
-
-			poolCapacity += poolCapacity * augmentedModSum;
+			poolCapacity += poolCapacity * inventory.GetAugmentedModSum(GameConfig, ModSumCalculation);
 			
 			// ----- Increase pool capacity based on current player Trophies
 			poolCapacity += poolCapacity * Math.Round(GameLogic.PlayerDataProvider.Trophies.Value / poolCapacityTrophiesMod);
@@ -238,6 +216,14 @@ namespace FirstLight.Game.Logic
 			poolCapacity -= durabilityDecrease;
 			
 			return (uint)poolCapacity;
+		}
+
+		private double ModSumCalculation(EquipmentInfo info)
+		{
+			var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int)info.Equipment.Rarity);
+			var adjectiveConfig = GameLogic.ConfigsProvider.GetConfig<AdjectiveDataConfig>((int)info.Equipment.Adjective);
+			
+			return rarityConfig.PoolCapacityModifier.AsDouble + adjectiveConfig.PoolCapacityModifier.AsDouble;
 		}
 	}
 }

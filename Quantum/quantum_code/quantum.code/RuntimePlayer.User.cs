@@ -1,9 +1,10 @@
-﻿using Photon.Deterministic;
+using Photon.Deterministic;
 
 namespace Quantum 
 {
 	unsafe partial class RuntimePlayer
 	{
+		public string PlayerId;
 		public string PlayerName;
 		public GameId Skin;
 		public uint PlayerLevel;
@@ -15,7 +16,8 @@ namespace Quantum
 		{
 			var serializer = new FrameSerializer(DeterministicFrameSerializeMode.Serialize, null, stream);
 			var skin = (int) Skin;
-			
+
+			stream.Serialize(ref PlayerId);
 			stream.Serialize(ref PlayerName);
 			stream.Serialize(ref skin);
 			stream.Serialize(ref PlayerLevel);

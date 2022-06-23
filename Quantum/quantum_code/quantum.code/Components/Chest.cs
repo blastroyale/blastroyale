@@ -33,11 +33,11 @@ namespace Quantum
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			var config = f.ChestConfigs.GetConfig(ChestType);
 
-			var hasPrimaryWeaponEquipped = playerCharacter->Weapons[Constants.WEAPON_INDEX_PRIMARY].IsValid();
+			var hasPrimaryWeaponEquipped = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
-			var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
+			var nextGearItem = isBot ? Equipment.None : GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
 
 			var medianRarity = f.Context.MedianRarity;
 			var weapons = f.Context.PlayerWeapons;

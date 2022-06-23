@@ -56,7 +56,7 @@ namespace Quantum.Systems
 				_hitsDone.Add(hits[0].Entity);
 				
 				var spell = Spell.CreateInstant(f, hits[0].Entity, filter.RaycastShots->Attacker, filter.RaycastShots->Attacker,
-				                                filter.RaycastShots->PowerAmount, hits[0].Point, filter.RaycastShots->TeamSource);
+				                                filter.RaycastShots->PowerAmount, filter.RaycastShots->KnockbackAmount, hits[0].Point, filter.RaycastShots->TeamSource);
 
 				if (filter.RaycastShots->SplashRadius > FP._0)
 				{

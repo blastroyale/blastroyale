@@ -96,6 +96,14 @@ MonoBehaviour:
     m_Address: Timeline
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e43b1281a85e748428ab0967a7990ef7
+    m_Address: Assets/Scenes/Boot.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9fc0d4010bbf28b4594072e72b8655ab
+    m_Address: Assets/Scenes/Main.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

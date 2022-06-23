@@ -73,7 +73,6 @@ namespace FirstLight.Game.StateMachines
 			disconnectedScreen.Event(JoinedRoomEvent).Target(connected);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).Target(disconnected);
 			disconnectedScreen.OnExit(CloseDisconnectedScreen);
-			disconnectedScreen.OnExit(OpenLoadingScreen);
 			
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);

@@ -94,6 +94,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(CloseLoadingScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(disconnectReload);
 			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
+			disconnected.OnExit(OpenLoadingScreen);
 			
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(gameSimulation);
 			disconnectReload.OnExit(CloseLoadingScreen);

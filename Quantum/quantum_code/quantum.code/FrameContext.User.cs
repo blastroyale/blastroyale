@@ -21,7 +21,7 @@ namespace Quantum
 		{
 			if (f.PlayerCount != _playersWeaponPool.Count)
 			{
-				var offPool = Constants.OFFHAND_WEAPON_POOL;
+				var offPool = GameIdGroup.Weapon.GetIds();
 				
 				for (var i = 0; i < f.PlayerCount; i++)
 				{
@@ -41,7 +41,7 @@ namespace Quantum
 				}
 
 				// Fill up weapon pool to a minimum size
-				for (var i = _playersWeaponPool.Count; i < offPool.Length; i++)
+				for (var i = _playersWeaponPool.Count; i < Constants.OFFHAND_POOLSIZE; i++)
 				{
 					_playersWeaponPool.Add(new Equipment(offPool[i]));
 				}

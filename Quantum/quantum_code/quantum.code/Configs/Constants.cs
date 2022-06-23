@@ -11,6 +11,7 @@ namespace Quantum
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_50;
 		public static readonly int DROP_AMOUNT_ANGLES = 5;
 		public static readonly int BOT_DIFFICULTY_LEVEL = 1;
+		public static readonly int OFFHAND_POOLSIZE = 1;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";
@@ -25,10 +26,5 @@ namespace Quantum
 		public static readonly string RampUpTimeStart = "RampUpTimeStart";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
-
-		public static readonly GameId[] OFFHAND_WEAPON_POOL = {
-			GameId.ApoMinigun, GameId.ApoSniper, GameId.ApoShotgun, GameId.ModPistol, GameId.ModHeavyMachineGun,
-			GameId.ModMachineGun, GameId.SciCannon, GameId.SciNeedleGun, GameId.SciMelter
-		};
 	}
 }

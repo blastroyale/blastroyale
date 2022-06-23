@@ -156,7 +156,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_animator = instance.GetComponent<Animator>();
 
-			_services.AudioFxService.PlayClip2D(AudioId.ActorSpawnStart1);
+			_services.AudioFxService.PlayClip2D(AudioId.ActorSpawnStart);
 			_characterLoadedEvent?.Invoke();
 		}
 	}

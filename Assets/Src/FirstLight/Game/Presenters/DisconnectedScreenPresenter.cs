@@ -80,10 +80,6 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			Data.ReconnectClicked.Invoke();
-			
-			// Prevent reconect click spam for X seconds
-			SetFrontDimBlockerActive(true);
-			this.LateCoroutineCall(DIM_SCREEN_SECONDS, () => { SetFrontDimBlockerActive(false);});
 		}
 
 		private void OpenNoInternetPopup()

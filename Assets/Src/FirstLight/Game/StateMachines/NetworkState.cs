@@ -22,14 +22,15 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks
 	{
-		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("Photon Master Connected Event");
-		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("Photon Disconnected Event");
-		public static readonly IStatechartEvent DisconnectedScreenBackEvent = new StatechartEvent("Disconnected Screen Back Event");
-		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("Create Room Failed Event");
-		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("Joined Room Event");
-		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("Join Room Fail Event");
-		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("Left Room Event");
-		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("Room Closed Event");
+		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
+		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
+		public static readonly IStatechartEvent DisconnectedScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
+		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
+		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("NETWORK - Joined Room Event");
+		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("NETWORK - Join Room Fail Event");
+		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
+		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
+		public static readonly IStatechartEvent AttemptReconnectEvent = new StatechartEvent("NETWORK - Attempt Reconnect Event");
 		
 		private readonly IGameServices _services; 
 		private readonly IGameDataProvider _gameDataProvider;
@@ -60,7 +61,8 @@ namespace FirstLight.Game.StateMachines
 			var connected = stateFactory.State("NETWORK - Connected");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
 			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
-
+			var reconnectingScreen = stateFactory.State("NETWORK - Reconnecting Screen");
+			
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
 
@@ -70,13 +72,17 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
-			disconnectedScreen.Event(JoinedRoomEvent).Target(connected);
-			disconnectedScreen.Event(DisconnectedScreenBackEvent).Target(disconnected);
-			disconnectedScreen.OnExit(CloseDisconnectedScreen);
+			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnectingScreen);
+			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
+			
+			reconnectingScreen.OnEnter(DimDisconnectedScreen);
+			reconnectingScreen.Event(JoinedRoomEvent).OnTransition(CloseDisconnectedScreen).Target(connected);
+			reconnectingScreen.Event(JoinRoomFailedEvent).Target(disconnectedScreen);
+			reconnectingScreen.OnEnter(UndimDisconnectedScreen);
 			
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -114,6 +120,16 @@ namespace FirstLight.Game.StateMachines
 		private void CloseDisconnectedScreen()
 		{
 			_uiService.CloseUi<DisconnectedScreenPresenter>();
+		}
+		
+		private void DimDisconnectedScreen()
+		{
+			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
+		}
+		
+		private void UndimDisconnectedScreen()
+		{
+			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
 		}
 		
 		private void SubscribeEvents()

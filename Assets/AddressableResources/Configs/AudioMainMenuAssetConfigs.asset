@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/Audio/MainMenu
   _configs:
-  - Key: 7
-    Value:
-      m_AssetGUID: 504cfd82ef544db499d135339b12b10e
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 31
+  - Key: 0
     Value:
       m_AssetGUID: 8451ac9003fa54090b7044a68593139a
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 32
+  - Key: 1
     Value:
       m_AssetGUID: e0ae0d09482d24f7caa3ab489bf6cc50
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 14
+    Value:
+      m_AssetGUID: 504cfd82ef544db499d135339b12b10e
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

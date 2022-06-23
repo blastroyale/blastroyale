@@ -3,40 +3,7 @@ using System.Collections.Generic;
 namespace FirstLight.Game.Ids
 {
 	public enum AudioId
-	{ 
-		// Check all
-		ElClassico,
-		CollectPickupRage,
-		CollectPickupHealth,
-		CollectPickupSpecial,
-		AdventureBossLoop,
-		AdventureMainLoop,
-		AdventureRelaxedLoop,
-		MenuMainLoop,
-		AdventureStart1,
-		PlayerRevived1,
-		GameOver1,
-		Victory1,
-		LootDropped01,
-		ActorSpawnStart1,
-		ActorSpawnEnd1,
-		ProjectileFired01,
-		ActorHit01,
-		ActorDeath01,
-		GeneralTap,
-		GeneralPopupOpen,
-		DoubleKill,
-		MultiKill,
-		KillingSpree,
-		YouTasteDeath,
-		OhYeah01,
-		OhYeah02,
-		LetsRock,
-		LockAndLoad,
-		ComeGetSome,
-		Groovy,
-		HastaLaVista,
-		
+	{
 		//Music
 		MainMenuStart,
 		MainMenuLoopNew,
@@ -49,6 +16,11 @@ namespace FirstLight.Game.Ids
 		DefeatJingle,
 		PostMatchLoop,
 		FinalDuelTransitionJingle,
+		//Old Music
+		AdventureBossLoop,
+		AdventureMainLoop,
+		AdventureRelaxedLoop,
+		MenuMainLoop,
 		
 		//Weapons
 		PlaCrossbowWeaponShot,
@@ -109,6 +81,13 @@ namespace FirstLight.Game.Ids
 		SdLoop,
 		SdStart,
 		SdEnd,
+		//Old sounds 
+		PlayerRevived1,
+		ActorSpawnStart,
+		ActorSpawnEnd1,
+		ProjectileFired,
+		ActorDeath,
+		ActorHit,
 		
 		//GameplaySounds
 		AmmoPickup,
@@ -164,6 +143,40 @@ namespace FirstLight.Game.Ids
 		FrostAmbientLoop,
 		LavaAmbientLoop,
 		WaterAmbientLoop,
+		
+		//Old announcer
+		AdventureStart,
+		DoubleKill,
+		Groovy,
+		HastaLaVista,
+		KillingSpree,
+		LetsGo,
+		LetsRock,
+		LockAndLoad,
+		MultiKill,
+		OhYeah,
+		PentaKill,
+		Perfect,
+		Victory,
+		WelcomeToTheWasteland,
+		YouTasteDeath,
+		//Recently added old announcers
+		DamnYoureGood,
+		Faultless,
+		FlawlessVictory,
+		GetThisPartyStarted,
+		Headshot,
+		MissionStart,
+		Perfection, 
+		PlayerWasted,
+		ShallWePlayAGame,
+		TotalVictory,
+		Victorious,
+		WinnerWinner,
+		YouWin,
+		SmashingIt,
+		GameOver,
+		ElClassico,
 		None, // TODO: Make an Enum selector
 	}
 	

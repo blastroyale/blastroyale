@@ -25,5 +25,10 @@ namespace Quantum
 		public static readonly string RampUpTimeStart = "RampUpTimeStart";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
+
+		public static readonly GameId[] OFFHAND_WEAPON_POOL = {
+			GameId.ApoMinigun, GameId.ApoSniper, GameId.ApoShotgun, GameId.ModPistol, GameId.ModHeavyMachineGun,
+			GameId.ModMachineGun, GameId.SciCannon, GameId.SciNeedleGun, GameId.SciMelter
+		};
 	}
 }

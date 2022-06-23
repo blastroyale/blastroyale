@@ -76,9 +76,10 @@ namespace FirstLight.Game.StateMachines
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
 			
 			reconnectingScreen.OnEnter(DimDisconnectedScreen);
-			reconnectingScreen.Event(JoinedRoomEvent).OnTransition(CloseDisconnectedScreen).Target(connected);
-			reconnectingScreen.Event(JoinRoomFailedEvent).Target(disconnectedScreen);
+			reconnectingScreen.Event(JoinedRoomEvent).Target(connected);
+			reconnectingScreen.Event(JoinRoomFailedEvent).Target(disconnected);
 			reconnectingScreen.OnEnter(UndimDisconnectedScreen);
+			reconnectingScreen.OnExit(CloseDisconnectedScreen);
 			
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
@@ -100,6 +101,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				ReconnectClicked = () =>
 				{
+					_statechartTrigger(AttemptReconnectEvent);
 					_networkService.IsJoiningNewRoom.Value = false;
 					_networkService.QuantumClient.ReconnectAndRejoin();
 				},

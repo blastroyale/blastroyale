@@ -2066,9 +2066,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Item on cooldown for
-
-        {0}'
+      - Item on cooldown for {0}
       Flags: 00
       Languages_Touch: []
     - Term: MainMenu/NftCooldownTimerTooltip
@@ -2128,6 +2126,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - Reconnect
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/StatShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -5313,7 +5318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1655810929641
+    Google_LastUpdatedVersion: 1655931781006
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

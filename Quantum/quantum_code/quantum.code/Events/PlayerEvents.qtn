@@ -112,6 +112,7 @@ synced event OnPlayerDamaged
 	UInt32 TotalDamage;
 	Int32 MaxHealth;
 	Int32 ShieldCapacity;
+	FPVector3 HitPosition;
 }
 
 synced event OnPlayerAttackHit
@@ -235,6 +236,7 @@ synced event OnLocalPlayerDamaged
 	UInt32 TotalDamage;
 	Int32 MaxHealth;
 	Int32 ShieldCapacity;
+	FPVector3 HitPosition;
 }
 
 synced event OnLocalPlayerAttack

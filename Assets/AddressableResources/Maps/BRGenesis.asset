@@ -21291,8 +21291,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 71
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21367,8 +21367,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 71
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21443,8 +21443,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21519,8 +21519,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21595,8 +21595,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 92
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21671,8 +21671,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 92
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21747,8 +21747,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 92
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21823,8 +21823,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 93
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -21899,8 +21899,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 93
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33527,8 +33527,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 87
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33603,8 +33603,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 87
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33679,8 +33679,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 86
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33755,8 +33755,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 86
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33831,8 +33831,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 98
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33907,8 +33907,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 98
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -33983,8 +33983,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -34059,8 +34059,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -34135,8 +34135,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 91
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -34211,8 +34211,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 91
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42191,8 +42191,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 71
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42267,8 +42267,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 71
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42343,8 +42343,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 91
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42419,8 +42419,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 91
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42495,8 +42495,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 93
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42571,8 +42571,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 93
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42647,8 +42647,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 92
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -42723,8 +42723,8 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 92
-      RarityModifier: 0
+        Value: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []

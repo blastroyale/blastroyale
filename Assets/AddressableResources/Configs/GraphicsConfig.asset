@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e626491760104592ae799bb6e505369c, type: 3}
   m_Name: GraphicsConfig
   m_EditorClassIdentifier: 
-  LowQualityURPSettingsAsset: {fileID: 11400000, guid: f313e5d78c956e745b9164c9a6caf7ab, type: 2}
-  MediumQualityURPSettingsAsset: {fileID: 11400000, guid: 33942f5b9875d1b43bd809adf8bd79ca, type: 2}
-  HighQualityURPSettingsAsset: {fileID: 11400000, guid: d9967888ecad7f740a902bf820942760, type: 2}
+  DetailLevels:
+  - Name: 2
+    DetailLevelIndex: 0
+    Fps: 30
+  - Name: 1
+    DetailLevelIndex: 1
+    Fps: 30
+  - Name: 0
+    DetailLevelIndex: 2
+    Fps: 60

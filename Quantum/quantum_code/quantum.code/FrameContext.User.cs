@@ -8,16 +8,11 @@ namespace Quantum
 	public unsafe partial class FrameContextUser
 	{
 		private readonly List<Equipment> _playersWeaponPool = new List<Equipment>();
+
+		private EquipmentRarity _medianRarity;
 		
 		public QuantumMapConfig MapConfig { get; internal set; }
 		public int TargetAllLayerMask { get; internal set; }
-
-		/// <summary>
-		/// Obtains the current saved median rarity from the weapon pool
-		/// DON'T MAKE THIS METHOD PUBLIC
-		/// </summary>
-		private EquipmentRarity MedianRarity =>
-			_playersWeaponPool[FPMath.FloorToInt(_playersWeaponPool.Count / FP._2)].Rarity;
 
 		/// <summary>
 		/// Requests the players weapon pool list, ordered by its rarity
@@ -50,11 +45,12 @@ namespace Quantum
 				{
 					_playersWeaponPool.Add(new Equipment(offPool[i]));
 				}
-			}
 			
-			_playersWeaponPool.Sort((a, b) => ((int)a.Rarity).CompareTo((int) b.Rarity));
+				_playersWeaponPool.Sort((a, b) => ((int)a.Rarity).CompareTo((int) b.Rarity));
+				_medianRarity = _playersWeaponPool[FPMath.FloorToInt(_playersWeaponPool.Count / FP._2)].Rarity;
+			}
 
-			medianRarity = MedianRarity;
+			medianRarity = _medianRarity;
 				
 			return _playersWeaponPool;
 		}

@@ -3,13 +3,19 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
-	public unsafe class GameSystem : SystemMainThread,
+	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
 	                                 ISignalGameEnded, ISignalHealthIsZero
 	{
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
 			f.ResolveList(f.Global->Queries).Clear();
+		}
+
+		/// <inheritdoc />
+		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
+		{
+			component->TargetProgress = f.Context.MapConfig.GameEndTarget;
 		}
 
 		/// <inheritdoc />

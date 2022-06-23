@@ -10,11 +10,6 @@ namespace Quantum.Systems
 	public unsafe class SetupRuntimeDataSystem : SystemSignalsOnly,
 	                                             ISignalOnPlayerDataSet
 	{
-		public override void OnInit(Frame f)
-		{
-			SetupTargetAllMask(f);
-		}
-
 		public void OnPlayerDataSet(Frame f, PlayerRef player)
 		{
 			if (f.ComponentCount<PlayerCharacter>() == f.PlayerCount)
@@ -72,15 +67,6 @@ namespace Quantum.Systems
 
 			f.Context.MedianRarity = rarities[(int) Math.Floor((decimal) rarities.Count / 2)];
 			f.Context.PlayerWeapons = weapons.ToArray();
-		}
-
-		/// <summary>
-		/// Sets up the <see cref="FrameContextUser.TargetAllLayerMask"/> for targeting everything.
-		/// </summary>
-		private void SetupTargetAllMask(Frame f)
-		{
-			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
-			                                                     "Prop", "World", "Environment No Silhouette");
 		}
 	}
 }

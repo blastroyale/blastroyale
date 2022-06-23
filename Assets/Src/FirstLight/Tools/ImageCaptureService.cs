@@ -50,7 +50,7 @@ namespace Src.FirstLight.Tools
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
 		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
-
+		
 		
 		[Button("Export All Render Textures")]
 		private async void ExportAllRenderTextures()
@@ -74,26 +74,28 @@ namespace Src.FirstLight.Tools
 			
 			_assetDictionary.Clear();
 			var keys = new List<object>();
-			var gameIds = new List<GameId>();
 			
 			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
 			{
 				var ids = gameIdGroups[categoryIndex].GetIds();
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
-					var groupId = gameIdGroups.ElementAt(categoryIndex);
 					var gameId = ids.ElementAt(subCategoryIndex);
-					keys.Add($"AdventureAssets/{groupId.ToString()}/{gameId.ToString()}.prefab");
-					gameIds.Add(gameId);
+					keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
 				}
 			}
 			
-			var assetLoadedCount = 0;
-			await Addressables.LoadAssetsAsync<GameObject>(keys, addressable => 
-			                                               {
-				                                               _assetDictionary.Add(gameIds.ElementAt(assetLoadedCount), addressable);
-				                                               assetLoadedCount++;
-			                                               }, Addressables.MergeMode.Union, false).Task; 
+			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+			{
+				if (Enum.TryParse(addressable.name, out GameId gameId))
+                {
+                   _assetDictionary.Add(gameId, addressable);
+                }
+				else
+				{
+					throw new Exception($"Unable to parse GameId {addressable.name}");
+				}
+			}, Addressables.MergeMode.Union, false).Task; 
 			
 			
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
@@ -147,9 +149,9 @@ namespace Src.FirstLight.Tools
 				}
 			}
 
-			for (var i = 0; i < _assetDictionary.Count; i++)
+			for (var i = 0; i < operationHandle.Count; i++)
 			{
-				Addressables.Release(_assetDictionary.ElementAt(i).Value);
+				Addressables.Release(operationHandle.ElementAt(i));
 			}
 
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");

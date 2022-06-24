@@ -39,7 +39,7 @@ namespace Quantum
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var nextGearItem = isBot ? Equipment.None : GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
 
-			var medianRarity = EquipmentRarity.Rare;//f.Context.MedianRarity;
+			var medianRarity = f.Context.MedianRarity;
 			var weapons = f.Context.PlayerWeapons;
 
 			var angleStep = 0;

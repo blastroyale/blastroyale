@@ -52,12 +52,16 @@ namespace FirstLight.Game.MonoComponent
 
 				r.SetPropertyBlock(_propBlock, 0);	
 			}
+
+			if (_equipmentRarityGameObjects == null || _equipmentRarityGameObjects.Length <= 0)
+			{
+				return;
+			}
 			
 			for (var i = 0; i <= rarityId; i++)
 			{
 				_equipmentRarityGameObjects[i].SetActive(true);
 			}
-
 		}
 	}
 }

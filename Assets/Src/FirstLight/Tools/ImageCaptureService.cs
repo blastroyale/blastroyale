@@ -35,6 +35,8 @@ namespace Src.FirstLight.Tools
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _exportFolderPath;
+		[FilePath(Extensions = "json")]
+		public string _metadataJsonFilePath;
 		
 		[SerializeField] private Transform _markerTransform;
 		[SerializeField] private RenderTexture _renderTexture;
@@ -51,6 +53,40 @@ namespace Src.FirstLight.Tools
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
 		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
 		
+		[Button("Export Render Texture [Metadata Json]")]
+		public async void ExportRenderTextureFromMetadataJson()
+		{
+			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+			{
+				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
+				
+				return;
+			}
+			
+			if (_metadataJsonFilePath == "" || !File.Exists(_metadataJsonFilePath))
+			{
+				Debug.LogError($"Invalid json file path [{_metadataJsonFilePath}]");
+				
+				return;
+			}
+			
+			_assetDictionary.Clear();
+			
+			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
+			
+			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(_metadataJsonFilePath));
+			
+			Debug.Log($"Loading Erc721Metadata JSON file [{_metadataJsonFilePath}]");
+
+			var gameId = (GameId)metadata.attibutesDictionary["subCategory"];
+			
+			var asset = await Addressables.LoadAssetAsync<GameObject>($"AdventureAssets/items/{gameId.ToString()}.prefab").Task;
+				   
+			_assetDictionary.Add(gameId, asset);
+			
+			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+		}
+		
 		
 		[Button("Export All Render Textures")]
 		private async void ExportAllRenderTextures()
@@ -64,10 +100,10 @@ namespace Src.FirstLight.Tools
 			
 			var gameIdGroups = new[]
 			{
-				GameIdGroup.Helmet, 
-				GameIdGroup.Shield,
-				GameIdGroup.Armor,
-				GameIdGroup.Amulet,
+				//GameIdGroup.Helmet, 
+				//GameIdGroup.Shield,
+				//GameIdGroup.Armor,
+				//GameIdGroup.Amulet,
 				GameIdGroup.Weapon
 			};
 			
@@ -156,18 +192,7 @@ namespace Src.FirstLight.Tools
 
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
-
-		/// <summary>
-		/// Export a render texture image given a metadata json file path and renderable background
-		/// </summary>
-		private void ExportRenderTexture(string filePath, IErcRenderable backgroundErcRenderable)
-		{
-			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(filePath));
-			
-			Debug.Log($"Loading Erc721Metadata JSON file [{filePath}]");
-			
-			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-		}
+		
 		
 		/// <summary>
 		/// Export a render texture image given a metadata object and renderable background
@@ -221,7 +246,7 @@ namespace Src.FirstLight.Tools
 
 			if (_markerTransform.transform.childCount > 0)
 			{
-				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
+				//DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
 			}
 		}
 

@@ -48,6 +48,7 @@ public partial class SROptions
 
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
 		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
+		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =
 			$"https://devmarketplaceapi.azure-api.net/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";

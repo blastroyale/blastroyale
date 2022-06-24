@@ -38,7 +38,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<TempItemUnequippedMessage>(OnItemUnequipped);
 			_button.onClick.AddListener(OnButtonClick);
 		}
 
@@ -93,14 +92,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_iconImage.enabled = false;
 			_slotImage.enabled = true;
 			_rarityImage.enabled = false;
-		}
-
-		private void OnItemUnequipped(TempItemUnequippedMessage tempItemMessage)
-		{
-			if (tempItemMessage.ItemId == ItemId)
-			{
-				UpdateItem();
-			}
 		}
 
 		protected virtual void OnButtonClick()

@@ -29,7 +29,6 @@ namespace FirstLight.Game.Presenters
 			public Action<UniqueId> OnEquipmentButtonClicked;
 			public Action OnChangeSkinClicked;
 			public Action OnLootBackButtonClicked;
-			public IReadOnlyDictionary<GameIdGroup, UniqueId> CurrentTempLoadout;
 		}
 
 		[SerializeField] private FilterLootView[] _filterButtons;
@@ -96,12 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetBasicPlayerInformation()
 		{
-			var loadout = new List<EquipmentInfo>();
-
-			foreach (var (slot, id) in Data.CurrentTempLoadout)
-			{
-				loadout.Add(_gameDataProvider.EquipmentDataProvider.GetInfo(id));
-			}
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo();
 
 			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;

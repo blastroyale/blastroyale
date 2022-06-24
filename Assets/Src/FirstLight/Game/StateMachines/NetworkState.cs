@@ -89,7 +89,7 @@ namespace FirstLight.Game.StateMachines
 			
 			reconnectingGame.OnEnter(DimDisconnectedScreen);
 			reconnectingGame.Event(JoinedRoomEvent).Target(connected);
-			reconnectingGame.Event(JoinRoomFailedEvent).Target(disconnected);
+			reconnectingGame.Event(JoinRoomFailedEvent).Target(connected); // TODO - DOUBLE CHECK IF ROOM FAILED CAN CALL IF YOU CLICK RECONNECT
 			reconnectingGame.OnExit(UndimDisconnectedScreen);
 			reconnectingGame.OnExit(CloseDisconnectedScreen);
 			

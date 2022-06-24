@@ -12,6 +12,13 @@ namespace FirstLight.Game.Commands
 		/// On development servers, everyone is admin.
 		/// </summary>
 		CommandAccessLevel AccessLevel => CommandAccessLevel.Player;
+
+		/// <summary>
+		/// Marks this command to be executed only on the client or also on the server.
+		/// By default <see cref="IGameCommand"/> always runs on the server. To only run on the client, please mark on
+		/// the interface implementation as false.
+		/// </summary>
+		bool ExecuteServer => true;
 		
 		/// <summary>
 		/// Executes the command logic

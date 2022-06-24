@@ -24,7 +24,7 @@ namespace Quantum.Systems
 					Type = StatType.Power,
 					Power = component->Power,
 					Duration = FP.MaxValue,
-					StartTime = 0,
+					StartTime = FP._0,
 					IsNegative = false
 				};
 			

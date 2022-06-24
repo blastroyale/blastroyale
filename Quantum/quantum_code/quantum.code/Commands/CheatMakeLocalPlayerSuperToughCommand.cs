@@ -27,7 +27,7 @@ namespace Quantum.Commands
 				Type = StatType.Health,
 				Power = healthMultiplier,
 				Duration = FP.MaxValue,
-				StartTime = 0,
+				StartTime = FP._0,
 				IsNegative = false
 			};
 			

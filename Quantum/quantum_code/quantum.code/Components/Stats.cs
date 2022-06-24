@@ -156,7 +156,7 @@ namespace Quantum
 				Type = StatType.Shield,
 				Power = modifierPower,
 				Duration = FP.MaxValue,
-				StartTime = 0,
+				StartTime = FP._0,
 				IsNegative = false
 			};
 

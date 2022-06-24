@@ -49,26 +49,23 @@ namespace Quantum.Systems
 				                           filter.Spell->OriginalHitPosition);
 			}
 			
-			HandleHealth(f, filter.Spell, false);
+			HandleHealth(f, *filter.Spell, false);
 		}
 		
-		private void HandleHealth(Frame f, Spell* spell, bool isHealing)
+		private void HandleHealth(Frame f, Spell spell, bool isHealing)
 		{
-			if (!f.Unsafe.TryGetPointer<Stats>(spell->Victim, out var stats) || spell->PowerAmount == 0)
+			if (!f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats) || spell.PowerAmount == 0)
 			{
 				return;
 			}
 			
-			var armour = f.Get<Stats>(spell->Victim).Values[(int) StatType.Armour].StatValue;
-			var damage = FPMath.Max(spell->PowerAmount - armour, 0).AsInt;
-			
 			if (isHealing)
 			{
-				stats->GainHealth(f, spell->Victim, spell->Attacker, spell->PowerAmount);
+				stats->GainHealth(f, spell);
 			}
-			else if(damage > 0)
+			else
 			{
-				stats->ReduceHealth(f, spell->Victim, spell->Attacker, (uint) damage);
+				stats->ReduceHealth(f, spell);
 			}
 		}
 	}

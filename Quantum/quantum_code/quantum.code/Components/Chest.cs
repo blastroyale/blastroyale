@@ -32,15 +32,12 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			var config = f.ChestConfigs.GetConfig(ChestType);
-
 			var hasPrimaryWeaponEquipped = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var nextGearItem = isBot ? Equipment.None : GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
-
-			var medianRarity = f.Context.MedianRarity;
-			var weapons = f.Context.PlayerWeapons;
+			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
 
 			var angleStep = 0;
 
@@ -75,7 +72,7 @@ namespace Quantum
 
 						if (drop == GameId.Random)
 						{
-							var weapon = weapons[f.RNG->Next(0, weapons.Length)];
+							var weapon = weaponPool[f.RNG->Next(0, weaponPool.Count)];
 
 							// TODO: This should happen when we pick up a weapon, not when we drop it 
 							// I think this is silly, but "When a player picks up a weapon we inherit all NFT

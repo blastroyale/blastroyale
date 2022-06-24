@@ -2,6 +2,7 @@ using System;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -12,7 +13,9 @@ namespace FirstLight.Game.Services
 		private readonly IAssetResolverService _assetResolver;
 		
 		public GameAudioFxService(IAssetResolverService assetResolver) : 
-			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, GameConstants.Audio.BGM_DEFAULT_VOLUME)
+			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, 
+			     GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, 
+				GameConstants.Audio.BGM_DEFAULT_VOLUME)
 		{
 			_assetResolver = assetResolver;
 		}

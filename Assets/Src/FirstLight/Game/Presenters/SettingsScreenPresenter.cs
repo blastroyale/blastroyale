@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using UnityEngine;
@@ -86,7 +87,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
 		}
 
-		private void OnDetailLevelChanged(AppData.DetailLevel detailLevel)
+		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
 		{
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
 		}

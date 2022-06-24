@@ -37,7 +37,7 @@ namespace Quantum.Systems
 
 			for (var i = list.Count - 1; i > -1 ; i--)
 			{
-				if (f.Time > list[i].EndTime)
+				if (f.Time > list[i].StartTime + list[i].Duration)
 				{
 					filter.Stats->RemoveModifier(f, list[i]);
 					list.RemoveAt(i);

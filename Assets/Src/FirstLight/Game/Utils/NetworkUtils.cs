@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using Photon.Realtime;
@@ -184,12 +183,12 @@ namespace FirstLight.Game.Utils
 				{
 					dropPattern[x][y - 1] = true;
 				}
-				
+
 				if (x > 0)
 				{
 					dropPattern[x - 1][y] = true;
 				}
-				
+
 				if (x > 0 && y > 0)
 				{
 					dropPattern[x - 1][y - 1] = true;
@@ -216,6 +215,20 @@ namespace FirstLight.Game.Utils
 					dropPattern[x][y - 1] = true;
 				}
 			}
+
+			// Flip vertically
+			if (Random.Range(0, 2) == 0)
+			{
+				for (int ix = 0; ix < dropPattern.Length; ix++)
+				{
+					for (int iy = 0; iy < dropPattern[ix].Length / 2; iy++)
+					{
+						(dropPattern[ix][iy], dropPattern[ix][dropPattern[ix].Length - iy - 1]) =
+							(dropPattern[ix][dropPattern[ix].Length - iy - 1], dropPattern[ix][iy]);
+					}
+				}
+			}
+
 
 			return dropPattern;
 		}

@@ -1,12 +1,12 @@
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
+using SRF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,14 +24,16 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private TextMeshProUGUI _selectedDropAreaText;
 		[SerializeField, Required] private RectTransform _selectedPoint;
 		[SerializeField, Required] private Camera _uiCamera;
-		[SerializeField, Required] private AspectRatioFitter _aspectRatioFitter;	
+		[SerializeField, Required] private AspectRatioFitter _aspectRatioFitter;
 		[SerializeField, Required] private Image _mapImage;
-		
+		[SerializeField, Required] private RectTransform _gridOverlay;
+		[SerializeField] private Color _unavailableGridColor;
+
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		private RectTransform _rectTransform;
 		private bool _selectionEnabled = false;
-		
+
 		/// <summary>
 		/// Returns the player's selected point on the map in a normalized state
 		/// </summary>
@@ -51,7 +53,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public async void SetupMapView(int mapId)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
-			
+			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
@@ -59,7 +62,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
 			_selectedPoint.gameObject.SetActive(_selectionEnabled);
-			
+
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
 			// images on the UI, but then landing location grid will be completely broken for BR game mode
@@ -69,7 +72,44 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				SetGridPosition(GetRandomGridPosition());
 			}
+
+			var containerSize = _gridOverlay.rect.size;
+			var gridSize = gridConfigs.GetSize();
+			var dropPattern = (bool[][]) _services.NetworkService.QuantumClient.CurrentRoom.CustomProperties
+				[GameConstants.Network.ROOM_PROPS_DROP_PATTERN];
+			for (int y = 0; y < gridSize.y; y++)
+			{
+				for (int x = 0; x < gridSize.x; x++)
+				{
+					if (dropPattern[x][y])
+					{
+						continue;
+					}
+
+					var go = new GameObject($"[{x},{y}]");
+					go.transform.parent = _gridOverlay.transform;
+					go.transform.localScale = Vector3.one;
+
+					var image = go.AddComponent<RawImage>();
+					image.color = _unavailableGridColor;
+
+					var rt = go.GetComponent<RectTransform>();
+					rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
+					                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
+					                      containerSize / 2f + (containerSize / gridSize / 2);
+					rt.sizeDelta = containerSize / gridSize;
+				}
+			}
 		}
+		
+		/// <summary>
+		/// Cleans up entities that aren't required anymore.
+		/// </summary>
+		public void CleanupMapView()
+		{
+			_gridOverlay.DestroyChildren();
+		}
+
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
@@ -78,6 +118,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void SetGridPosition(Vector2Int pos)
 		{
+			if (!IsValidPosition(pos))
+			{
+				return;
+			}
+
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 
@@ -86,41 +131,33 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
 			NormalizedSelectionPoint = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y);
-			
+
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}
 
 		private Vector2Int GetRandomGridPosition()
 		{
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var gridSize = mapGridConfigs.GetSize() - Vector2Int.one;
-			var availableGridPositions = new HashSet<MapGridConfig>(gridSize.x * gridSize.y);
+			var gridSize = mapGridConfigs.GetSize();
 
-			for (var x = 0; x < gridSize.x; x++)
+			Vector2Int position;
+			do
 			{
-				for (var y = 0; y < gridSize.y; y++)
-				{
-					var config = mapGridConfigs.GetConfig(x, y);
-					if (config.IsValidNamedArea)
-					{
-						availableGridPositions.Add(config);
-					}
-				}
-			}
+				position = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
+			} while (!IsValidPosition(position));
 
-			var position = availableGridPositions.ElementAt(Random.Range(0, availableGridPositions.Count));
-			
-			return new Vector2Int(position.X, position.Y);
+			return position;
 		}
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)
 		{
 			var pointerVec3 = new Vector3(pointer.x, pointer.y, 0);
 			var screenPoint = RectTransformUtility.WorldToScreenPoint(_uiCamera, pointerVec3);
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, screenPoint, _uiCamera, out var localPos);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, screenPoint, _uiCamera,
+			                                                        out var localPos);
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var size = mapGridConfigs.GetSize()  - Vector2Int.one;
+			var size = mapGridConfigs.GetSize() - Vector2Int.one;
 			var sizeDelta = _rectTransform.sizeDelta;
 			var calcPos = new Vector2(localPos.x + sizeDelta.x / 2f, Mathf.Abs(localPos.y - sizeDelta.y / 2f));
 
@@ -135,11 +172,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var sizeDelta = _rectTransform.sizeDelta;
 			var normalizedPos = new Vector2((float) pos.x / size.x, (float) pos.y / size.y);
 			var positionInRectangle = sizeDelta * normalizedPos;
-			
+
 			positionInRectangle.x -= sizeDelta.x / 2f;
 			positionInRectangle.y = sizeDelta.y - positionInRectangle.y - sizeDelta.y / 2f;
 
 			return positionInRectangle;
+		}
+
+		private bool IsValidPosition(Vector2Int position)
+		{
+			var dropPattern = (bool[][]) _services.NetworkService.QuantumClient.CurrentRoom.CustomProperties
+				[GameConstants.Network.ROOM_PROPS_DROP_PATTERN];
+
+			return dropPattern[position.x][position.y];
 		}
 	}
 }

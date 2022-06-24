@@ -305,11 +305,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(QuantumMapConfig mapConfig)
 		{
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, null, GameConstants.Network.DefaultPlayerTtl);
+			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, null, GameConstants.Network.DefaultPlayerTtl);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig);
 
 			QuantumRunnerConfigs.IsOfflineMode = mapConfig.PlayersLimit == 1;
-			
+
 			UpdateQuantumClientProperties();
 
 			if (!_networkService.QuantumClient.InRoom)
@@ -334,10 +335,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
 		{
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, roomName, GameConstants.Network.DefaultPlayerTtl);
+			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+			var enterParams =
+				NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName,
+				                                 GameConstants.Network.DefaultPlayerTtl);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
-			
+
 			UpdateQuantumClientProperties();
 
 			if (!_networkService.QuantumClient.InRoom)

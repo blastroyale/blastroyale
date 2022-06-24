@@ -18,6 +18,9 @@ namespace FirstLight.Game.Commands
 		/// By default <see cref="IGameCommand"/> always runs on the server. To only run on the client, please mark on
 		/// the interface implementation as false.
 		/// </summary>
+		/// <remarks>
+		/// Use this check with care and guarantee that will not create de-syncs between the local and server state
+		/// </remarks>
 		bool ExecuteServer => true;
 		
 		/// <summary>

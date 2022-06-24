@@ -99,9 +99,13 @@ namespace FirstLight.Game.StateMachines
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			var localPlayerStats = game.Frames.Verified.Get<Stats>(localPlayer.Entity);
-			
-			return localPlayerStats.CurrentHealth > 0;
+
+			if (game.Frames.Verified.Has<DeadPlayerCharacter>(localPlayer.Entity))
+			{
+				return true;
+			}
+		
+			return false;
 		}
 		
 		private bool IsResyncing()

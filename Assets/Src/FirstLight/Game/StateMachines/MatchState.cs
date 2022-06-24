@@ -58,6 +58,7 @@ namespace FirstLight.Game.StateMachines
 			var unloading = stateFactory.TaskWait("Unloading");
 			var disconnectCheck = stateFactory.Choice("Disconnect Check");
 			var disconnected = stateFactory.State("Disconnected");
+			var postDisconnectReloadCheck = stateFactory.Choice("Post Reload Check");
 		
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
@@ -80,7 +81,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyWait.OnEnter(LoadPlayerMatchAssets);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
-
+			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
 			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
@@ -96,8 +97,12 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
 			disconnected.OnExit(OpenLoadingScreen);
 			
-			disconnectReload.WaitingFor(LoadMatchAssets).Target(gameSimulation);
+			disconnectReload.WaitingFor(LoadMatchAssets).Target(postDisconnectReloadCheck);
 			disconnectReload.OnExit(CloseLoadingScreen);
+			
+			// TODO - HANDLE EITHER GOING TO MATCHMAKING, OR PLAYER READY WAIT (IF DC MID-LOADING)
+			postDisconnectReloadCheck.Transition().Condition(IsRoomClosed).Target(gameSimulation);
+			postDisconnectReloadCheck.Transition().Target(matchmaking);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}

@@ -50,7 +50,9 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_menuButton.gameObject.SetActive(true);
+				// If room is closed, it means the match has started, and we can show button to go back to main menu
+				// Else, we just want a reconnect button to be dropped back into matchmaking screen
+				_menuButton.gameObject.SetActive(!_services.NetworkService.QuantumClient.CurrentRoom.IsOpen);
 			}
 
 			if (Application.internetReachability == NetworkReachability.NotReachable)

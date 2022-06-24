@@ -38909,7 +38909,7 @@ GameObject:
   - component: {fileID: 2228932138845084722}
   - component: {fileID: 6609297592621284676}
   - component: {fileID: 6671044932016379133}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wep_Minigun_02_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39006,7 +39006,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581295853275894912}
-  m_Layer: 10
+  - component: {fileID: 2334683695977348242}
+  m_Layer: 0
   m_Name: ApoMinigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39029,6 +39030,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2334683695977348242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581295853275894919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 8877846070269682493}
+  - {fileID: 8877846070269682493}
+  - {fileID: 6502054532944344665}
+  - {fileID: 6502054532944344665}
+  - {fileID: 2834138637921533980}
+  - {fileID: 2834138637921533980}
+  - {fileID: 2971843748404638972}
+  - {fileID: 2971843748404638972}
+  - {fileID: 7181056077563664599}
+  - {fileID: 7181056077563664599}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 8007866020648241149}
+  - {fileID: 3101056063744091586}
+  - {fileID: 892343248475829593}
+  - {fileID: 6119694687420518031}
+  - {fileID: 6930276909009371049}
+  - {fileID: 194268342}
+  - {fileID: 1065778483}
+  - {fileID: 337406594}
+  - {fileID: 446270808}
+  - {fileID: 1195610297}
+  - {fileID: 1564641015}
+  - {fileID: 656332436}
+  - {fileID: 383369271}
 --- !u!1 &2834138637921533980
 GameObject:
   m_ObjectHideFlags: 0
@@ -39038,7 +39077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2210285425763433726}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Rare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39070,7 +39109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6401959810435779667}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Epic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39104,7 +39143,7 @@ GameObject:
   - component: {fileID: 1415204310463451279}
   - component: {fileID: 7494627360265020061}
   - component: {fileID: 3101056063744091586}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39187,7 +39226,7 @@ GameObject:
   - component: {fileID: 6027233177552142978}
   - component: {fileID: 2012838877860917363}
   - component: {fileID: 6930276909009371049}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39268,7 +39307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4248482077470919127}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Uncommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39302,7 +39341,7 @@ GameObject:
   - component: {fileID: 3911652596220137443}
   - component: {fileID: 5226846137989806476}
   - component: {fileID: 6119694687420518031}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39385,7 +39424,7 @@ GameObject:
   - component: {fileID: 272916494343476409}
   - component: {fileID: 3773508898337573306}
   - component: {fileID: 892343248475829593}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39466,7 +39505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1212124951281666368}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Legendary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39500,7 +39539,7 @@ GameObject:
   - component: {fileID: 2529891831230035539}
   - component: {fileID: 6756429324207978452}
   - component: {fileID: 8007866020648241149}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

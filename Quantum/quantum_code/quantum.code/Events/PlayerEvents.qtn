@@ -112,6 +112,7 @@ synced event OnPlayerDamaged
 	UInt32 TotalDamage;
 	Int32 MaxHealth;
 	Int32 ShieldCapacity;
+	FPVector3 HitPosition;
 }
 
 synced event OnPlayerAttackHit
@@ -217,6 +218,14 @@ synced event OnLocalPlayerWeaponChanged
 	Int32 Slot;
 }
 
+synced event OnLocalPlayerStatsChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Quantum.Stats PreviousStats;
+	Quantum.Stats CurrentStats;
+}
+
 synced event OnLocalPlayerDamaged
 {
 	local player_ref Player;
@@ -227,6 +236,7 @@ synced event OnLocalPlayerDamaged
 	UInt32 TotalDamage;
 	Int32 MaxHealth;
 	Int32 ShieldCapacity;
+	FPVector3 HitPosition;
 }
 
 synced event OnLocalPlayerAttack

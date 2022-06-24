@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -8,7 +9,7 @@ namespace Quantum
 		/// <summary>
 		/// Requests the current weapon of player character
 		/// </summary>
-		public Equipment CurrentWeapon => Weapons[CurrentWeaponSlot];
+		public Equipment CurrentWeapon => WeaponSlots[CurrentWeaponSlot].Weapon;
 
 		/// <summary>
 		/// Marks that the player left the game
@@ -41,12 +42,12 @@ namespace Quantum
 			// being the attributes of your primary loadout weapon if you have one.
 			if (loadoutWeapon.IsValid())
 			{
-				Weapons[Constants.WEAPON_INDEX_DEFAULT] = loadoutWeapon;
-				Weapons[Constants.WEAPON_INDEX_DEFAULT].GameId = GameId.Hammer;
+				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = loadoutWeapon;
+				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.GameId = GameId.Hammer;
 			}
 			else
 			{
-				Weapons[Constants.WEAPON_INDEX_DEFAULT] = new Equipment(GameId.Hammer);
+				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
 			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
@@ -74,8 +75,14 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{
+			// Replenish Special's charges
+			for (var i = 0; i < WeaponSlots.Length; i++)
+			{
+				WeaponSlots[i].Special1Charges = 1;
+				WeaponSlots[i].Special2Charges = 1;
+			}
+			
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
-
 			if (isRespawning)
 			{
 				CurrentWeaponSlot = Constants.WEAPON_INDEX_DEFAULT;
@@ -163,7 +170,7 @@ namespace Quantum
 			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 
 			var primaryReplaced = false;
-			var primaryWeapon = Weapons[Constants.WEAPON_INDEX_PRIMARY];
+			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
 			{
@@ -172,15 +179,15 @@ namespace Quantum
 			}
 
 			// In Battle Royale if there's a different weapon in a slot then we drop it
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && Weapons[slot].IsValid()
-			                                                          && (Weapons[slot].GameId != weapon.GameId ||
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()
+			                                                          && (WeaponSlots[slot].Weapon.GameId != weapon.GameId ||
 			                                                              primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
-				Collectable.DropEquipment(f, Weapons[slot], dropPosition, 0);
+				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
-			Weapons[slot] = weapon;
+			WeaponSlots[slot].Weapon = weapon;
 			CurrentWeaponSlot = slot;
 
 			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f));
@@ -197,6 +204,7 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
+			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
 
 			RefreshStats(f, e);
 
@@ -220,20 +228,10 @@ namespace Quantum
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
 			}
 
-			// TODO: Specials should have charges and remember charges used for each weapon
-			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
-			{
-				var specialId = weaponConfig.Specials[i];
+			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
+			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
 
-				if (specialId == default)
-				{
-					continue;
-				}
-
-				var specialConfig = f.SpecialConfigs.GetConfig(specialId);
-
-				Specials[i] = new Special(f, specialConfig);
-			}
+			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
 		}
 
 		/// <summary>
@@ -256,7 +254,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(Weapons[CurrentWeaponSlot].GameId).MaxAmmo.Get(f);
+			maxAmmo = f.WeaponConfigs.GetConfig(WeaponSlots[CurrentWeaponSlot].Weapon.GameId).MaxAmmo.Get(f);
 
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
@@ -398,6 +396,9 @@ namespace Quantum
 
 		private void RefreshStats(Frame f, EntityRef e)
 		{
+			// We request stats and store their current base values
+			var previousStats = f.Get<Stats>(e);
+			
 			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
 			                                     out var speed,
 			                                     out var power);
@@ -415,6 +416,11 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
+			
+			// After the refresh we request updated stats
+			var currentStats = f.Get<Stats>(e);
+			
+			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
@@ -430,6 +436,18 @@ namespace Quantum
 					Gear[GetGearSlot(item)] = item;
 				}
 			}
+		}
+		
+		private Special GetSpecial(Frame f, GameId specialId)
+		{
+			if (specialId == default)
+			{
+				return new Special();
+			}
+
+			var specialConfig = f.SpecialConfigs.GetConfig(specialId);
+
+			return new Special(f, specialConfig);
 		}
 	}
 }

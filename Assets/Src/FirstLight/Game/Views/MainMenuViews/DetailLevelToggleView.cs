@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private Button _mediumSettingsButton;
 		[SerializeField] private Button _highSettingsButton;
 
-		public event Action<AppData.DetailLevel> ValueChanged;
+		public event Action<GraphicsConfig.DetailLevel> ValueChanged;
 
 		private void Awake()
 		{
@@ -26,7 +27,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Sets the visual button state based on the given <paramref name="detailLevel"/>
 		/// </summary>
-		public void SetSelectedDetailLevel(AppData.DetailLevel detailLevel)
+		public void SetSelectedDetailLevel(GraphicsConfig.DetailLevel detailLevel)
 		{
 			ShowSelectedDetailLevel(detailLevel);
 			ValueChanged?.Invoke(detailLevel);
@@ -34,24 +35,24 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnHighClicked()
 		{
-			SetSelectedDetailLevel(AppData.DetailLevel.High);
+			SetSelectedDetailLevel(GraphicsConfig.DetailLevel.High);
 		}
 
 		private void OnMediumClicked()
 		{
-			SetSelectedDetailLevel(AppData.DetailLevel.Medium);
+			SetSelectedDetailLevel(GraphicsConfig.DetailLevel.Medium);
 		}
 
 		private void OnLowClicked()
 		{
-			SetSelectedDetailLevel(AppData.DetailLevel.Low);
+			SetSelectedDetailLevel(GraphicsConfig.DetailLevel.Low);
 		}
 
-		private void ShowSelectedDetailLevel(AppData.DetailLevel detailLevel)
+		private void ShowSelectedDetailLevel(GraphicsConfig.DetailLevel detailLevel)
 		{
-			UpdateButton(_highSettingsButton, detailLevel == AppData.DetailLevel.High);
-			UpdateButton(_mediumSettingsButton, detailLevel == AppData.DetailLevel.Medium);
-			UpdateButton(_lowSettingsButton, detailLevel == AppData.DetailLevel.Low);
+			UpdateButton(_highSettingsButton, detailLevel == GraphicsConfig.DetailLevel.High);
+			UpdateButton(_mediumSettingsButton, detailLevel == GraphicsConfig.DetailLevel.Medium);
+			UpdateButton(_lowSettingsButton, detailLevel == GraphicsConfig.DetailLevel.Low);
 		}
 
 		private void UpdateButton(Button button, bool selected)

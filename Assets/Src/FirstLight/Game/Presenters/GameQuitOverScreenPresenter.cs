@@ -28,7 +28,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			Services.AudioFxService.PlayClip2D(AudioId.GameOver1);
+			Services.AudioFxService.PlayClip2D(AudioId.GameOver);
 		}
 
 		private void OnContinueButtonClicked()

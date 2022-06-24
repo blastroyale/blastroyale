@@ -39,13 +39,13 @@ namespace Quantum
 		/// </summary>
 		public bool TryActivate(Frame f, EntityRef playerEntity, FPVector2 aimInput, int specialIndex)
 		{
-			if (!IsSpecialAvailable(f) || !TryUse(f, playerEntity, aimInput))
+			if (!IsValid || !IsSpecialAvailable(f) || !TryUse(f, playerEntity, aimInput))
 			{
 				return false;
 			}
 			
 			var player = f.Get<PlayerCharacter>(playerEntity).Player;
-			
+
 			AvailableTime = FP._0;
 			
 			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);

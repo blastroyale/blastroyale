@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -278,17 +279,19 @@ namespace Quantum.Systems
 				return false;
 			}
 
+			var playerCharacter = filter.PlayerCharacter;
+
+			return TryUseSpecial(f, playerCharacter->WeaponSlots[0].Special1, 0, ref filter)
+			       || TryUseSpecial(f, playerCharacter->WeaponSlots[1].Special1, 1, ref filter);
+		}
+
+		private bool TryUseSpecial(Frame f, Special special, int specialIndex, ref BotCharacterFilter filter)
+		{
 			var target = filter.BotCharacter->Target;
-
-			for (var specialIndex = 0; specialIndex < Constants.MAX_SPECIALS; specialIndex++)
+			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
+			    special.IsValid && special.TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
 			{
-				var special = filter.PlayerCharacter->Specials.GetPointer(specialIndex);
-
-				if ((target != EntityRef.None || special->SpecialType == SpecialType.ShieldSelfStatus) &&
-				    special->IsValid && special->TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
-				{
-					return true;
-				}
+				return true;
 			}
 
 			return false;
@@ -309,14 +312,20 @@ namespace Quantum.Systems
 				return true;
 			}
 
-			var sqrDistanceFromSafeAreaCenter =
-				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.TargetCircleCenter);
+			var distanceFromSafeAreaCenter =
+				FPVector2.Distance(filter.Transform->Position.XZ, circle.TargetCircleCenter);
+			var moveDistance = filter.BotCharacter->WanderRadius > distanceFromSafeAreaCenter
+				                   ? distanceFromSafeAreaCenter
+				                   : filter.BotCharacter->WanderRadius;
+
+			var sqrDistanceFromSafeAreaCenter = distanceFromSafeAreaCenter * distanceFromSafeAreaCenter;
 			var sqrSafeAreaRadius = circle.TargetRadius * circle.TargetRadius;
 			var safeCircleCenter = circle.TargetCircleCenter.XOY;
 			safeCircleCenter.Y = filter.Transform->Position.Y;
 
-			var direction = filter.Transform->Position - safeCircleCenter;
-			direction = direction.Normalized * filter.BotCharacter->WanderRadius * 3;
+			var direction = safeCircleCenter - filter.Transform->Position;
+			var targetPosition =
+				filter.Transform->Position + (direction.Normalized * moveDistance);
 
 			// If sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius > 1 then the bot is outside the safe area
 			// If sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius < 1 then the bot is safe, inside safe area
@@ -324,7 +333,7 @@ namespace Quantum.Systems
 			var isGoing = sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius >
 			              filter.BotCharacter->ShrinkingCircleRiskTolerance;
 
-			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, direction,
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, targetPosition,
 			                                                     filter.BotCharacter->WanderRadius);
 			filter.BotCharacter->MoveTarget = EntityRef.None;
 
@@ -537,8 +546,6 @@ namespace Quantum.Systems
 					return true;
 				}
 			}
-			
-			
 
 			return false;
 		}

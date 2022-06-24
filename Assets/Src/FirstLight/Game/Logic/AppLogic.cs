@@ -43,12 +43,17 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Is high res mode on device enabled?
 		/// </summary>
-		AppData.DetailLevel CurrentDetailLevel { get; set; }
+		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
 
 		/// <summary>
 		/// Requests the player's Nickname
 		/// </summary>
 		string Nickname { get; }
+
+		/// <summary>
+		/// Obtains the player unique id
+		/// </summary>
+		string PlayerId { get; }
 		
 		/// <summary>
 		/// Requests the player's Nickname
@@ -74,7 +79,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
-		void SetDetailLevel(AppData.DetailLevel highRes);
+		void SetDetailLevel(GraphicsConfig.DetailLevel highRes);
 		
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
@@ -150,7 +155,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public AppData.DetailLevel CurrentDetailLevel
+		public GraphicsConfig.DetailLevel CurrentDetailLevel
 		{
 			get => Data.CurrentDetailLevel;
 			set
@@ -163,6 +168,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
 			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+
+		/// <inheritdoc />
+		public string PlayerId => Data.PlayerId;
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
@@ -209,17 +217,13 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
-		public void SetDetailLevel(AppData.DetailLevel highRes)
+		public void SetDetailLevel(GraphicsConfig.DetailLevel detailLevel)
 		{
-			var urpAsset = highRes switch
-			{
-				AppData.DetailLevel.Low => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().LowQualityURPSettingsAsset,
-				AppData.DetailLevel.Medium => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().MediumQualityURPSettingsAsset,
-				AppData.DetailLevel.High => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().HighQualityURPSettingsAsset,
-				_ => GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().HighQualityURPSettingsAsset
-			};
+			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
+			                        .Find(detailLevelConf => detailLevelConf.Name == detailLevel);
 
-			QualitySettings.renderPipeline = urpAsset;
+			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
+			Application.targetFrameRate = detailLevelConf.Fps;
 		}
 	}
 }

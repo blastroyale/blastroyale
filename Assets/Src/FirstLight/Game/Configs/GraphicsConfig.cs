@@ -1,14 +1,26 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace FirstLight.Game.Configs
 {
 	[CreateAssetMenu(fileName = "GraphicsConfig", menuName = "ScriptableObjects/Configs/GraphicsConfig")]
 	public class GraphicsConfig : ScriptableObject
 	{
-		public RenderPipelineAsset LowQualityURPSettingsAsset;
-		public RenderPipelineAsset MediumQualityURPSettingsAsset;
-		public RenderPipelineAsset HighQualityURPSettingsAsset;
-		
+		[Serializable]
+		public struct DetailLevelConf
+		{
+			public DetailLevel Name;
+			public int DetailLevelIndex;
+			public int Fps;
+		}
+		public enum DetailLevel
+		{
+			High, Medium, Low
+		}
+
+		public List<DetailLevelConf> DetailLevels;
 	}
+	
+	
 }

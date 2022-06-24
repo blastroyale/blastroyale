@@ -18,10 +18,6 @@ MonoBehaviour:
       Guid:
         Value: 1565542650131154954
     Navigation:
-      AvoidanceRange:
-        RawValue: 524288
-      MaxAvoidanceCandidates: 64
-      EnableAvoidance: 1
       DefaultNavMeshAgent:
         Id:
           Value: 4427458006344599318
@@ -30,6 +26,12 @@ MonoBehaviour:
         RawValue: 65536
       HeightThresholdForAvoidance:
         RawValue: 65536
+      RawPathSize: 256
+      RawPathAllocationStrategy: 0
+      EnableAvoidance: 1
+      AvoidanceRange:
+        RawValue: 524288
+      MaxAvoidanceCandidates: 64
       VelocityObstacleTruncationFactor:
         RawValue: 72089
     Physics:
@@ -136,8 +138,8 @@ MonoBehaviour:
     AutoLoadSceneFromMap: 0
     DeltaTimeType: 0
     HeapPageShift: 15
-    HeapPageCount: 256
-    HeapExtraCount: 1
+    HeapPageCount: 32
+    HeapExtraCount: 0
     ThreadCount: 2
     ChecksumSnapshotHistoryLengthSeconds:
       RawValue: 196608

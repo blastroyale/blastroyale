@@ -83,14 +83,13 @@ namespace Quantum
 		{
 			// TODO: Clean this up when we start spawning gear
 			var configs = f.WeaponConfigs;
-
-
+			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			var rarity = (EquipmentRarity) FPMath.Clamp((int) f.Context.MedianRarity + rarityModifier,
+			var rarity = (EquipmentRarity) FPMath.Clamp((int) medianRarity + rarityModifier,
 			                                            0,
 			                                            (int) EquipmentRarity.TOTAL - 1);
 			var equipment = id == GameId.Random
-				                ? f.Context.PlayerWeapons[f.RNG->Next(0, f.Context.PlayerWeapons.Length)]
+				                ? weaponPool[f.RNG->Next(0, weaponPool.Count)]
 				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,

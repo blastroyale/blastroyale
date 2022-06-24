@@ -78,14 +78,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 			
-			var follow = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+			_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
 
-			SetTargetTransform(follow.transform);
+			SetTargetTransform(_playerView.transform);
 			SetActiveCamera(_adventureCamera);
 			
 			// We place audio listener roughly "in the player character's head"
-			audioListenerTransform.SetParent(follow.transform);
+			audioListenerTransform.SetParent(_playerView.transform);
 			audioListenerTransform.localPosition = Vector3.up;
 			audioListenerTransform.rotation = Quaternion.identity;
 		}

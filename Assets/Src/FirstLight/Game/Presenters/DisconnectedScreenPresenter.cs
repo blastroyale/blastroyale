@@ -25,8 +25,6 @@ namespace FirstLight.Game.Presenters
 			public Action BackClicked;
 		}
 
-		private const float DIM_SCREEN_SECONDS = 5f;
-		
 		[SerializeField, Required] private Button _reconnectButton;
 		[SerializeField, Required] private Button _menuButton;
 		[SerializeField, Required] private GameObject _frontDimBlocker;

@@ -69,6 +69,17 @@ namespace FirstLight.Game.Logic
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
 		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
+		
+		/// <summary>
+		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
+		/// </summary>
+		void Equip(UniqueId itemId);
+
+		/// <summary>
+		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
+		/// </summary>
+		void Unequip(UniqueId itemId);
+
 	}
 	
 	/// <inheritdoc cref="IEquipmentLogic"/>
@@ -249,7 +260,7 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		private void Equip(UniqueId itemId)
+		public void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
@@ -267,7 +278,7 @@ namespace FirstLight.Game.Logic
 			_loadout.Add(slot, itemId);
 		}
 
-		private void Unequip(UniqueId itemId)
+		public void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();

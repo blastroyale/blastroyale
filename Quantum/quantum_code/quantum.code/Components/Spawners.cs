@@ -50,9 +50,7 @@ namespace Quantum
 			{
 				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
 			}
-			else if (GameId.IsInGroup(GameIdGroup.Helmet) || GameId.IsInGroup(GameIdGroup.Armor)
-			                                              || GameId.IsInGroup(GameIdGroup.Shield)
-			                                              || GameId.IsInGroup(GameIdGroup.Amulet))
+			else if (GameId.IsInGroup(GameIdGroup.Equipment))
 			{
 				Collectable = SpawnGear(f, GameId, RarityModifier, transform);
 			}

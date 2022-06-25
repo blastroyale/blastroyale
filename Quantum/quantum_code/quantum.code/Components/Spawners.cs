@@ -50,6 +50,12 @@ namespace Quantum
 			{
 				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
 			}
+			else if (GameId.IsInGroup(GameIdGroup.Helmet) || GameId.IsInGroup(GameIdGroup.Armor)
+			                                              || GameId.IsInGroup(GameIdGroup.Shield)
+			                                              || GameId.IsInGroup(GameIdGroup.Amulet))
+			{
+				Collectable = SpawnGear(f, GameId, RarityModifier, transform);
+			}
 			else
 			{
 				throw new
@@ -81,7 +87,7 @@ namespace Quantum
 		/// </summary>
 		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
-			// TODO: Clean this up when we start spawning gear
+			// TODO: Clean this up and merge with SpawnGear when we start spawning freelying gear for public
 			var configs = f.WeaponConfigs;
 			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
@@ -91,6 +97,20 @@ namespace Quantum
 			var equipment = id == GameId.Random
 				                ? weaponPool[f.RNG->Next(0, weaponPool.Count)]
 				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
+
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			                                                        equipment);
+
+			return entity;
+		}
+
+		/// <summary>
+		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform)
+		{
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
+			var equipment = new Equipment(id);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
 			                                                        equipment);

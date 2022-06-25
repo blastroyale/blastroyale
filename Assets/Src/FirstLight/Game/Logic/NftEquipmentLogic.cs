@@ -182,7 +182,7 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		private void Equip(UniqueId itemId)
+		public void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
@@ -200,7 +200,7 @@ namespace FirstLight.Game.Logic
 			_loadout.Add(slot, itemId);
 		}
 
-		private void Unequip(UniqueId itemId)
+		public void Unequip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();

@@ -2622,24 +2622,24 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public FP Duration;
-    [FieldOffset(24)]
-    public FP EndTime;
     [FieldOffset(8)]
     public UInt32 Id;
     [FieldOffset(0)]
     public QBoolean IsNegative;
-    [FieldOffset(32)]
+    [FieldOffset(24)]
     public FP Power;
+    [FieldOffset(32)]
+    public FP StartTime;
     [FieldOffset(4)]
     public StatType Type;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 281;
         hash = hash * 31 + Duration.GetHashCode();
-        hash = hash * 31 + EndTime.GetHashCode();
         hash = hash * 31 + Id.GetHashCode();
         hash = hash * 31 + IsNegative.GetHashCode();
         hash = hash * 31 + Power.GetHashCode();
+        hash = hash * 31 + StartTime.GetHashCode();
         hash = hash * 31 + (Int32)Type;
         return hash;
       }
@@ -2650,8 +2650,8 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Type);
         serializer.Stream.Serialize(&p->Id);
         FP.Serialize(&p->Duration, serializer);
-        FP.Serialize(&p->EndTime, serializer);
         FP.Serialize(&p->Power, serializer);
+        FP.Serialize(&p->StartTime, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -9236,15 +9236,15 @@ namespace Quantum.Prototypes {
     public StatType_Prototype Type;
     public FP Power;
     public FP Duration;
-    public FP EndTime;
+    public FP StartTime;
     public QBoolean IsNegative;
     partial void MaterializeUser(Frame frame, ref Modifier result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Modifier result, in PrototypeMaterializationContext context) {
       result.Duration = this.Duration;
-      result.EndTime = this.EndTime;
       result.Id = this.Id;
       result.IsNegative = this.IsNegative;
       result.Power = this.Power;
+      result.StartTime = this.StartTime;
       result.Type = this.Type;
       MaterializeUser(frame, ref result, in context);
     }

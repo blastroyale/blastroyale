@@ -59,6 +59,7 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
+			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
 		}
 
 		public static class Visuals

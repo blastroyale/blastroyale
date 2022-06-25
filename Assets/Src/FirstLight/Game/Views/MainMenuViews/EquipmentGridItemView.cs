@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
+			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_button.onClick.AddListener(OnButtonClick);
 			OnAwake();
 		}
@@ -83,15 +83,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_uniqueId = data.Id;
 		}
 
-		private void OnTempItemEquippedMessage(TempItemEquippedMessage message)
+		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
 		{
-			if (message.ItemId == _uniqueId)
+			if (newId != _uniqueId || updateType != ObservableUpdateType.Added)
 			{
-				_cardItemAnimation.clip = _equipCardAnimationClip;
-
-				_cardItemAnimation.Rewind();
-				_cardItemAnimation.Play();
+				return;
 			}
+			
+			_cardItemAnimation.clip = _equipCardAnimationClip;
+
+			_cardItemAnimation.Rewind();
+			_cardItemAnimation.Play();
 		}
 
 		private void OnButtonClick()

@@ -68,7 +68,7 @@ namespace FirstLight.Game.Configs
 				LocalPlayerCount = 1,
 				RecordingFlags = RecordingFlags.All,
 				ResourceManagerOverride = null,
-				InstantReplayConfig = InstantReplaySettings.Default,
+				InstantReplayConfig = default,
 				HeapExtraCount = 0,
 				PlayerCount =playerLimit
 			};

@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
@@ -30,9 +31,6 @@ namespace FirstLight.Game.Presenters
 		{
 			public GameIdGroup EquipmentSlot;
 			public Action OnCloseClicked;
-			public Action<UniqueId> ItemEquipped;
-			public Action<UniqueId> ItemUnequipped;
-			public Func<UniqueId, bool> IsTempEquipped;
 		}
 
 		[Header("Equipment Dialog / OSA")] [SerializeField, Required]  
@@ -96,6 +94,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Color _manualFireColor;
 
 		private IMainMenuServices _mainMenuServices;
+		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		private EquipmentSorter.EquipmentSortState _equipmentSortState;
 		private IObjectPool<EquipmentStatInfoView> _statInfoViewPool;
@@ -106,6 +105,7 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_statInfoViewPool = new GameObjectPool<EquipmentStatInfoView>(4, _statInfoViewPoolRef);
@@ -171,11 +171,10 @@ namespace FirstLight.Game.Presenters
 		private void SetStats()
 		{
 			var equipmentProvider = _gameDataProvider.EquipmentDataProvider;
-			var itemEquipped = Data.IsTempEquipped(_selectedId);
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
-			_equippedStatusObject.SetActive(itemEquipped);
+			_equippedStatusObject.SetActive(equipmentProvider.Loadout.ReadOnlyDictionary.Values.Contains(_selectedId));
 
 			if (_selectedId == UniqueId.Invalid)
 			{
@@ -197,9 +196,9 @@ namespace FirstLight.Game.Presenters
 
 			SetStatInfoData(equipment);
 			SetCooldownStatus();
-			SetEquipButtonStatus();
-
+			
 			// TODO: Add proper translation logic
+			_equipButtonText.SetText(equipment.IsEquipped ? ScriptLocalization.General.Unequip : ScriptLocalization.General.Equip);
 			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, equipment.Stats[EquipmentStatType.Damage].ToString());
 			_itemTitleText.text = $"{equipment.Equipment.Adjective} {equipment.Equipment.GameId.GetTranslation()}";
 			_editionText.text = equipment.Equipment.Edition.ToString();
@@ -333,14 +332,6 @@ namespace FirstLight.Game.Presenters
 			slotInfo.SetInfo(title, specialId, sprite);
 		}
 
-		private void SetEquipButtonStatus()
-		{
-			var status = Data.IsTempEquipped(_selectedId)
-				             ? ScriptLocalization.General.Unequip
-				             : ScriptLocalization.General.Equip;
-			_equipButtonText.SetText(status);
-		}
-
 		private void OnEquipmentClicked(UniqueId itemClicked)
 		{
 			_selectedId = itemClicked;
@@ -353,11 +344,13 @@ namespace FirstLight.Game.Presenters
 		private void OnEquipButtonClicked()
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
-			var previousDamage = dataProvider.GetLoadoutEquipmentInfo().GetTotalStat(EquipmentStatType.Damage);
+			var loadout = dataProvider.GetLoadoutEquipmentInfo();
+			var previousDamage = loadout.GetTotalStat(EquipmentStatType.Damage);
+			var item = loadout.Find(infoItem => infoItem.Id == _selectedId);
 
-			if (Data.IsTempEquipped(_selectedId))
+			if (item.IsEquipped)
 			{
-				var isWeapon = dataProvider.Inventory[_selectedId].IsWeapon();
+				var isWeapon = item.Equipment.IsWeapon();
 
 				// Can't unequip your last weapon.
 				if (isWeapon && dataProvider.GetInventoryEquipmentInfo()
@@ -410,14 +403,16 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
-			Data.ItemEquipped(item);
+			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
+			
 			UpdateEquipmentMenu();
 			SetStats();
 		}
 
 		private void UnequipItem(UniqueId item)
 		{
-			Data.ItemUnequipped(item);
+			_services.CommandService.ExecuteCommand(new UnequipItemCommand { Item = item });
+			
 			UpdateEquipmentMenu();
 			SetStats();
 		}

@@ -317,7 +317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b92473f53c73026409b6d5c3049b2693, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I
+  m_text: V
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Maus Helmet
+  m_text: Hockey Mask
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
   m_sharedMaterial: {fileID: 9083620908800635010, guid: ade259de2fb514a40a181064a7594bc4, type: 2}
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.1
+  m_fontSize: 24.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -707,7 +707,7 @@ Transform:
   m_GameObject: {fileID: 798466085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.08012048, y: 0.08300781, z: 1}
+  m_LocalScale: {x: 0.16024096, y: 0.1665039, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 537103968}
@@ -844,7 +844,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b92473f53c73026409b6d5c3049b2693, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.69411767}
   m_FlipX: 0
   m_FlipY: 0
@@ -1159,16 +1159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a96ae0777883d14cbec3f41652ba1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _importFolderPath: 
-  _exportFolderPath: C:/Users/mattj/Documents/1
-  _metadataJsonFilePath: ../flgnftmetadatagenerator/FlgNFTMetadataGenerator/FlgNFTMetadataGenerator/bin/Debug/nftmetadata/0/1/000eb550be618111396ee6586b52b29461abfa94eaa79db00f22c5ff577724e0.json
+  _exportFolderPath: C:/Users/mattj/Documents/1_standalone/1
+  _metadataJsonFilePath: ../nftmetadata/nftmetadata/0/1/00d2be24e06d5e71cc16042614442da8fd295a5483e8ffc8e83cf4af3ada314c.json
   _markerTransform: {fileID: 6467920951248308136}
   _renderTexture: {fileID: 8400000, guid: 8d99cbf62f9269840bd4b9448ae0acc6, type: 2}
   _renderTextureStandalone: {fileID: 8400000, guid: 92dead6c74f18f2439c00c61464552a2, type: 2}
   _camera: {fileID: 6467920952292208544}
   _canvas: {fileID: 6467920952026055733}
   _canvasRoot: {fileID: 798466085}
-  _renderTextureMode: 0
+  _renderTextureMode: 1
   _subFolderId: 0
   _collectionId: 1
   _baseEquipmentStatsConfigs: {fileID: 11400000, guid: cce42c611f6104cf58fc1f5386cc068b, type: 2}
@@ -1223,7 +1222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6467920952292208546}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.4079416, y: 0, z: 0}
+  m_LocalPosition: {x: -0.8683156, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

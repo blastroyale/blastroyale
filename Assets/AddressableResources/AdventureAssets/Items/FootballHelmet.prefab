@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6617769083312792021}
   - component: {fileID: 2711869861892670327}
   - component: {fileID: 6786457750036892652}
-  - component: {fileID: 5964199825890840759}
-  m_Layer: 10
+  - component: {fileID: 5905474103244410328}
+  m_Layer: 0
   m_Name: FootballHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5964199825890840759
+--- !u!114 &5905474103244410328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,12 +93,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7066339934735173899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 0daf603ac407bf746b04e11eafb1af43, type: 2}
+  _equipmentRarityGameObjects: []
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
   _renderers:
   - {fileID: 6786457750036892652}
-  _particleRenderers: []
-  _mainRenderer: {fileID: 6786457750036892652}

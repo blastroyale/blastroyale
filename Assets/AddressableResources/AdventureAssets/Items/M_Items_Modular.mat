@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Items_Modular
   m_Shader: {fileID: -6465566751694194690, guid: 3bfce1a0d0d150c48ad5dc01f99387f2, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _SURFACEENABLE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -105,7 +105,7 @@ Material:
     - _PATTERN: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SURFACEENABLE: 0
+    - _SURFACEENABLE: 1
     m_Colors:
     - _BaseOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ColorOffset: {r: 0, g: 0, b: 0, a: 0}

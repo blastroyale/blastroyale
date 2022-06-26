@@ -17,7 +17,6 @@ namespace FirstLight.Game.MonoComponent
 		
 		private MaterialPropertyBlock _propBlock;
 		
-		private readonly int _surfaceEnableId = Shader.PropertyToID("_SURFACEENABLE");
 		private readonly int _surfaceTextureId = Shader.PropertyToID("_SurfaceTexture");
 		private readonly int _adjectiveTextureId = Shader.PropertyToID("_AdjectiveTexture");
 		
@@ -41,15 +40,13 @@ namespace FirstLight.Game.MonoComponent
 			_propBlock ??= new MaterialPropertyBlock();
 						
 			_propBlock.Clear();
-
+			
 			foreach (var r in _renderers)
 			{
 				r.GetPropertyBlock(_propBlock);
 				
-				_propBlock.SetFloat(_surfaceEnableId, 1);
 				_propBlock.SetTexture(_surfaceTextureId, _equipmentErcSpriteData.SurfaceTexture[materialId].texture);
 				_propBlock.SetTexture(_adjectiveTextureId, _equipmentErcSpriteData.AdjectiveTexture[adjectiveId].texture);
-
 				r.SetPropertyBlock(_propBlock, 0);	
 			}
 

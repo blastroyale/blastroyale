@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5590906306045502518}
   - component: {fileID: 7598752704699998360}
   - component: {fileID: 5094298839151783973}
-  m_Layer: 10
+  - component: {fileID: 4434336049203252645}
+  m_Layer: 0
   m_Name: WarriorShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,3 +103,19 @@ MonoBehaviour:
   - {fileID: 7598752704699998360}
   _particleRenderers: []
   _mainRenderer: {fileID: 7598752704699998360}
+--- !u!114 &4434336049203252645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5138078209816455070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects: []
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 7598752704699998360}

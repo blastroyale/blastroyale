@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6220474684657057504}
   - component: {fileID: 917423063744506567}
   - component: {fileID: 1879656307354358431}
-  m_Layer: 10
+  - component: {fileID: 2066940230295462827}
+  m_Layer: 0
   m_Name: MouseAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,3 +103,19 @@ MonoBehaviour:
   - {fileID: 917423063744506567}
   _particleRenderers: []
   _mainRenderer: {fileID: 917423063744506567}
+--- !u!114 &2066940230295462827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841061749271183556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects: []
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 917423063744506567}

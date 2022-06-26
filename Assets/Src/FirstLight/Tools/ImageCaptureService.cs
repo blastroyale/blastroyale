@@ -101,10 +101,10 @@ namespace Src.FirstLight.Tools
 			var gameIdGroups = new[]
 			{
 				//GameIdGroup.Helmet, 
-				//GameIdGroup.Shield,
+				GameIdGroup.Shield,
 				//GameIdGroup.Armor,
 				//GameIdGroup.Amulet,
-				GameIdGroup.Weapon
+				//GameIdGroup.Weapon
 			};
 			
 			
@@ -246,7 +246,7 @@ namespace Src.FirstLight.Tools
 
 			if (_markerTransform.transform.childCount > 0)
 			{
-				//DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
+				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
 			}
 		}
 

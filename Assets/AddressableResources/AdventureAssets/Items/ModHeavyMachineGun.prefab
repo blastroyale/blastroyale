@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 51205729}
   - component: {fileID: 51205731}
   - component: {fileID: 51205730}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OORSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4893,7 +4893,7 @@ GameObject:
   - component: {fileID: 181772936}
   - component: {fileID: 181772938}
   - component: {fileID: 181772937}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9763,7 +9763,7 @@ GameObject:
   - component: {fileID: 244013794}
   - component: {fileID: 244013796}
   - component: {fileID: 244013795}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14633,7 +14633,7 @@ GameObject:
   - component: {fileID: 1402248437}
   - component: {fileID: 1402248439}
   - component: {fileID: 1402248438}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19515,7 +19515,7 @@ GameObject:
   - component: {fileID: 1532025505}
   - component: {fileID: 1532025507}
   - component: {fileID: 1532025506}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24385,7 +24385,7 @@ GameObject:
   - component: {fileID: 1559383828}
   - component: {fileID: 1559383830}
   - component: {fileID: 1559383829}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29282,7 +29282,7 @@ GameObject:
   - component: {fileID: 1563231415}
   - component: {fileID: 1563231417}
   - component: {fileID: 1563231416}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34094,7 +34094,7 @@ GameObject:
   - component: {fileID: 1838709868}
   - component: {fileID: 1838709870}
   - component: {fileID: 1838709869}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38908,7 +38908,7 @@ GameObject:
   - component: {fileID: 3980355726791152461}
   - component: {fileID: 3152909697305451858}
   - component: {fileID: 2425883586472013668}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Handle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38989,8 +38989,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5632333061012285426}
-  m_Layer: 10
-  m_Name: Uncommon 1
+  m_Layer: 0
+  m_Name: 'Uncommon '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39023,7 +39023,7 @@ GameObject:
   - component: {fileID: 7019478341675218894}
   - component: {fileID: 2553371013181311913}
   - component: {fileID: 1942512320774300209}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Stock 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39104,6 +39104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4908678286155397114}
+  - component: {fileID: 725187447808623038}
   m_Layer: 0
   m_Name: ModHeavyMachineGun
   m_TagString: Untagged
@@ -39127,6 +39128,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &725187447808623038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908678286155397115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 8367381482176762704}
+  - {fileID: 8367381482176762704}
+  - {fileID: 903699005985538302}
+  - {fileID: 903699005985538302}
+  - {fileID: 8771522806558504937}
+  - {fileID: 8771522806558504937}
+  - {fileID: 7886840807816801123}
+  - {fileID: 7886840807816801123}
+  - {fileID: 7137720198606730996}
+  - {fileID: 7137720198606730996}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 8747078929391676940}
+  - {fileID: 7772516285893778934}
+  - {fileID: 6619922985125886466}
+  - {fileID: 2425883586472013668}
+  - {fileID: 1942512320774300209}
+  - {fileID: 1559383829}
+  - {fileID: 181772937}
+  - {fileID: 244013795}
+  - {fileID: 1532025506}
+  - {fileID: 51205730}
+  - {fileID: 1838709869}
+  - {fileID: 1402248438}
+  - {fileID: 1563231416}
 --- !u!1 &7137720198606730996
 GameObject:
   m_ObjectHideFlags: 0
@@ -39136,8 +39175,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7254046429796486588}
-  m_Layer: 10
-  m_Name: Legendary 1
+  m_Layer: 0
+  m_Name: 'Legendary '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39168,8 +39207,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7863012174326059781}
-  m_Layer: 10
-  m_Name: Epic 1
+  m_Layer: 0
+  m_Name: 'Epic '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39202,8 +39241,8 @@ GameObject:
   - component: {fileID: 5969218450089847315}
   - component: {fileID: 314517417261035369}
   - component: {fileID: 8747078929391676940}
-  m_Layer: 10
-  m_Name: Body 1
+  m_Layer: 0
+  m_Name: 'Body '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39286,7 +39325,7 @@ GameObject:
   - component: {fileID: 3766650428845293178}
   - component: {fileID: 3791729261120872808}
   - component: {fileID: 8524683126273381141}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wep_MachineGun_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39385,7 +39424,7 @@ GameObject:
   - component: {fileID: 4581913569627407425}
   - component: {fileID: 4220841189857445449}
   - component: {fileID: 7772516285893778934}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39466,8 +39505,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4349459028765471533}
-  m_Layer: 10
-  m_Name: Rare 1
+  m_Layer: 0
+  m_Name: 'Rare '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39500,7 +39539,7 @@ GameObject:
   - component: {fileID: 6692409031827484114}
   - component: {fileID: 7917549540071599025}
   - component: {fileID: 6619922985125886466}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sight 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

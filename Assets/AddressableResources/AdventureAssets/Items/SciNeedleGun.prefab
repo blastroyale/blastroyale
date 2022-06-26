@@ -29259,7 +29259,7 @@ GameObject:
   - component: {fileID: 389310343670654605}
   - component: {fileID: 6273844664449274431}
   - component: {fileID: 3633948973571402034}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wep_Needle_Gun_Scifi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29358,7 +29358,7 @@ GameObject:
   - component: {fileID: 1932680345223109785}
   - component: {fileID: 7681360288848704988}
   - component: {fileID: 1798233466327846973}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34309,7 +34309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6100839127548356212}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Rare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34343,7 +34343,7 @@ GameObject:
   - component: {fileID: 4508494760878214978}
   - component: {fileID: 4754739360351742007}
   - component: {fileID: 6156075119443514122}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34426,7 +34426,7 @@ GameObject:
   - component: {fileID: 5664203160772722915}
   - component: {fileID: 7009863730449316987}
   - component: {fileID: 3992275220647312704}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34507,7 +34507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3556510570905774867}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Epic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34539,7 +34539,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4851376859659408033}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Uncommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34573,7 +34573,7 @@ GameObject:
   - component: {fileID: 3615573258636016337}
   - component: {fileID: 7751530459441012553}
   - component: {fileID: 4004460208283837083}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: LaserSight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34654,7 +34654,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7908905773447267334}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Legenday
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34686,6 +34686,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
+  - component: {fileID: 7674370780181181590}
   m_Layer: 0
   m_Name: SciNeedleGun
   m_TagString: Untagged
@@ -34709,6 +34710,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7674370780181181590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348189754933789881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 4783397768757295690}
+  - {fileID: 4783397768757295690}
+  - {fileID: 5283767636447222084}
+  - {fileID: 5283767636447222084}
+  - {fileID: 2730866358762204105}
+  - {fileID: 2730866358762204105}
+  - {fileID: 5236762714070835517}
+  - {fileID: 5236762714070835517}
+  - {fileID: 6242307166938744668}
+  - {fileID: 6242307166938744668}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 3992275220647312704}
+  - {fileID: 4004460208283837083}
+  - {fileID: 6156075119443514122}
+  - {fileID: 1798233466327846973}
+  - {fileID: 676567908212970937}
+  - {fileID: 613577898}
+  - {fileID: 1574177253}
+  - {fileID: 514738052}
+  - {fileID: 1776448776}
+  - {fileID: 1587561003}
+  - {fileID: 1587642357}
+  - {fileID: 4709210554309863563}
 --- !u!1 &7279501624015470699
 GameObject:
   m_ObjectHideFlags: 0
@@ -34720,7 +34758,7 @@ GameObject:
   - component: {fileID: 8280575388767613161}
   - component: {fileID: 9050864152284160956}
   - component: {fileID: 676567908212970937}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

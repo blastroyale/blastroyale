@@ -29259,7 +29259,7 @@ GameObject:
   - component: {fileID: 1835855057065976743}
   - component: {fileID: 4140725757114992893}
   - component: {fileID: 4540929228045353103}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: LaserSight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29340,7 +29340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8892126796058911714}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Rare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34245,7 +34245,7 @@ GameObject:
   - component: {fileID: 6052887172588030748}
   - component: {fileID: 309976683810310288}
   - component: {fileID: 5716697302530536797}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wep_Pulse_Rifle_Scifi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34341,7 +34341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7485150172617929031}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Uncommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34373,7 +34373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7109664163431513750}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Legendary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34407,7 +34407,7 @@ GameObject:
   - component: {fileID: 8127715976626908228}
   - component: {fileID: 8191763802024576556}
   - component: {fileID: 671160704709985937}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34490,7 +34490,7 @@ GameObject:
   - component: {fileID: 8593842787158077490}
   - component: {fileID: 7468812431849543613}
   - component: {fileID: 7634680865008462894}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34571,6 +34571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
+  - component: {fileID: 3662251952469238226}
   m_Layer: 0
   m_Name: SciSniper
   m_TagString: Untagged
@@ -34594,6 +34595,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3662251952469238226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348189754933789881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects:
+  - {fileID: 6428560098730332011}
+  - {fileID: 6428560098730332011}
+  - {fileID: 2347265300130647331}
+  - {fileID: 2347265300130647331}
+  - {fileID: 1899247394118866236}
+  - {fileID: 1899247394118866236}
+  - {fileID: 8513892832436298295}
+  - {fileID: 8513892832436298295}
+  - {fileID: 2524078962467834501}
+  - {fileID: 2524078962467834501}
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 8960355365538987055}
+  - {fileID: 7373570177934751029}
+  - {fileID: 4540929228045353103}
+  - {fileID: 7634680865008462894}
+  - {fileID: 671160704709985937}
+  - {fileID: 514738052}
+  - {fileID: 1776448776}
+  - {fileID: 1587561003}
+  - {fileID: 1587642357}
+  - {fileID: 4709210554309863563}
+  - {fileID: 613577898}
+  - {fileID: 1574177253}
 --- !u!1 &6428560098730332011
 GameObject:
   m_ObjectHideFlags: 0
@@ -34605,7 +34643,7 @@ GameObject:
   - component: {fileID: 3043461803808207299}
   - component: {fileID: 4154809647108220846}
   - component: {fileID: 8960355365538987055}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34688,7 +34726,7 @@ GameObject:
   - component: {fileID: 6424383908963537598}
   - component: {fileID: 8667546997675598571}
   - component: {fileID: 7373570177934751029}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34769,7 +34807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2626127539633320372}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Epic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

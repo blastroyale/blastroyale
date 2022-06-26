@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 488603955928888896}
   - component: {fileID: 1701102408737196538}
   - component: {fileID: 5192946147333867266}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ArmorPadR_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 5228931968464257077}
   - component: {fileID: 8907608499666640200}
   - component: {fileID: 6459604162980268825}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ArmorChest_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6772095483247031561}
-  m_Layer: 10
+  - component: {fileID: 2837182300956724038}
+  m_Layer: 0
   m_Name: MouseArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2837182300956724038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180440777399539181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentRarityGameObjects: []
+  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
+  _renderers:
+  - {fileID: 6663202820789291953}
+  - {fileID: 1701102408737196538}
+  - {fileID: 8907608499666640200}
 --- !u!1 &7289805721524057638
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +269,7 @@ GameObject:
   - component: {fileID: 8961989222393837771}
   - component: {fileID: 6663202820789291953}
   - component: {fileID: 8991368096816233759}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ArmorPadL_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}

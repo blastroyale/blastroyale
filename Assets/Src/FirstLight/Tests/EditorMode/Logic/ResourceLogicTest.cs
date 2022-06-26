@@ -22,30 +22,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void Init()
 		{
 			_resourceLogic = new ResourceLogic(GameLogic, DataService);
-			_poolConfig = new ResourcePoolConfig
-			{
-				Id = GameId.CS,
-				PoolCapacity = 1000,
-				RestockIntervalMinutes = 100,
-				TotalRestockIntervalMinutes = 1000,
-				BaseMaxTake = 16,
-				ScaleMultiplier = 15,
-				ShapeModifier = FP._1_50,
-				MaxPoolCapacityDecreaseModifier = FP.FromString("0.9"),
-				PoolCapacityDecreaseExponent = FP.FromString("0.3"),
-				MaxTakeDecreaseModifier = FP.FromString("0.11"),
-				TakeDecreaseExponent = FP.FromString("0.18"),
-				PoolCapacityTrophiesModifier = 10000
-			};
 			
+			SetupPoolConfigs();
 			_resourceLogic.Init();
 		}
 		
 		[Test]
 		public void GetResourcePoolInfoCheck()
 		{
-			SetPoolConfigs();
-			
 			var info = _resourceLogic.GetResourcePoolInfo(_poolConfig.Id);
 			
 			Assert.AreEqual(_poolConfig.Id, info.Id);
@@ -64,7 +48,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			                                    DateTime.UtcNow.AddMinutes(-_poolConfig.RestockIntervalMinutes - extraTime));
 			
 			TestData.ResourcePools.Add(poolData.Id, poolData);
-			SetPoolConfigs();
 			
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, 100);
 			
@@ -80,7 +63,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var poolData = new ResourcePoolData(_poolConfig.Id, 0, DateTime.UtcNow);
 			
 			TestData.ResourcePools.Add(poolData.Id, poolData);
-			SetPoolConfigs();
 			
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(_poolConfig.Id, 100);
 			
@@ -97,7 +79,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var poolData = new ResourcePoolData(_poolConfig.Id, 100, DateTime.UtcNow);
 			
 			TestData.ResourcePools.Add(poolData.Id, poolData);
-			SetPoolConfigs();
 			
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, widrawAmount);
 			
@@ -114,7 +95,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var poolData = new ResourcePoolData(_poolConfig.Id, 0, DateTime.UtcNow.AddDays(-1));
 			
 			TestData.ResourcePools.Add(poolData.Id, poolData);
-			SetPoolConfigs();
 			
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, widrawAmount);
 			
@@ -123,7 +103,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.That(DateTime.UtcNow, Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
 		}
 
-		private void SetPoolConfigs()
+		private void SetupPoolConfigs()
 		{
 			var list = new List<EquipmentInfo>
 			{
@@ -133,8 +113,24 @@ namespace FirstLight.Tests.EditorMode.Logic
 				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, durability: 34, maxDurability: 100 )},
 				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, durability: 97, maxDurability: 100 )},
 			};
+			
+			_poolConfig = new ResourcePoolConfig
+			{
+				Id = GameId.CS,
+				PoolCapacity = 1000,
+				RestockIntervalMinutes = 100,
+				TotalRestockIntervalMinutes = 1000,
+				BaseMaxTake = 16,
+				ScaleMultiplier = 15,
+				ShapeModifier = FP._1_50,
+				MaxPoolCapacityDecreaseModifier = FP.FromString("0.9"),
+				PoolCapacityDecreaseExponent = FP.FromString("0.3"),
+				MaxTakeDecreaseModifier = FP.FromString("0.11"),
+				TakeDecreaseExponent = FP.FromString("0.18"),
+				PoolCapacityTrophiesModifier = 10000
+			};
 
-			GameLogic.PlayerDataProvider.Trophies.Returns(new ObservableField<uint>(1000));
+			GameLogic.PlayerLogic.Trophies.Returns(new ObservableField<uint>(1000));
 			GameLogic.EquipmentLogic.Loadout.Count.Returns(list.Count);
 			EquipmentLogic.GetInventoryEquipmentInfo().Returns(list);
 			EquipmentLogic.GetLoadoutEquipmentInfo().Returns(list);

@@ -1,6 +1,9 @@
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
+using NSubstitute;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
@@ -11,11 +14,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 	public class RewardLogicTest : BaseTestFixture<PlayerData>
 	{
 		private RewardLogic _rewardLogic;
+		private QuantumPlayerMatchData _matchData;
 
 		[SetUp]
 		public void Init()
 		{
 			_rewardLogic = new RewardLogic(GameLogic, DataService);
+			
+			SetupData();
+			_rewardLogic.Init();
 		}
 
 		[Test]
@@ -45,15 +52,21 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_PlayerQuit_RewardsNothing()
 		{
+			var rewards = _rewardLogic.GiveMatchRewards(_matchData, true);
+			
+			Assert.AreEqual(0, rewards.Count);
+		}
+
+		[Test]
+		public void GiveMatchRewards_NotBattleRoyale_RewardsNothing()
+		{
 			// TODO:
 		}
 		
 		[Test]
 		public void GiveMatchRewards_EmptyMatchData_RewardsNothing()
 		{
-			_rewardLogic.GiveMatchRewards(new QuantumPlayerMatchData(), false);
-			
-			Assert.AreEqual(0,TestData.UncollectedRewards.Count);
+			// TODO:
 		}
 
 		[Test]
@@ -77,6 +90,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var rewards = _rewardLogic.ClaimUncollectedRewards();
 			
 			Assert.AreEqual(0,rewards.Count);
+		}
+
+		private void SetupData()
+		{
+			var resourceInfo = new ResourcePoolInfo { WinnerRewardAmount = 10, CurrentAmount = 10 };
+
+			ResourceLogic.GetResourcePoolInfo(Arg.Any<GameId>()).Returns(resourceInfo);
+			InitConfigData(new QuantumMapConfig { Id = _matchData.MapId, GameMode = GameMode.BattleRoyale });
+			InitConfigData(new MatchRewardConfig { Placement = 1, Rewards = new GameIdUintDictionary { { GameId.CS, 100 }} });
 		}
 	}
 }

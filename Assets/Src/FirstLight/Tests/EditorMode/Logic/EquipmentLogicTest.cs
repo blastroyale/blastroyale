@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -20,10 +21,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[SetUp]
 		public void Init()
 		{
-			_item = SetupItem(1, GameId.Hammer, 1, 2);
+			var mockStatsConfigs = Substitute.For<EquipmentStatsConfigs>();
+			
+			_item = SetupItem(1, GameId.ApoCrossbow, 1, 2);
 			_equipmentLogic = new NftEquipmentLogic(GameLogic, DataService);
 			_playerData = Activator.CreateInstance<PlayerData>();
 			
+			mockStatsConfigs.GetConfig(Arg.Do<Equipment>(_ => new QuantumEquipmentStatsConfig()));
+			InitConfigData(mockStatsConfigs);
+			InitConfigData(new QuantumWeaponConfig { Specials = new List<GameId> { GameId.SpecialShieldSelf, GameId.SpecialShieldSelf } });
 			DataService.GetData<PlayerData>().Returns(x => _playerData);
 			_equipmentLogic.Init();
 		}
@@ -34,7 +40,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var id = _equipmentLogic.AddToInventory(_item.Value);
 
 			Assert.AreEqual(1, _equipmentLogic.Inventory.Count);
-			Assert.AreEqual(_item, _equipmentLogic.Inventory[id]);
+			Assert.AreEqual(_item.Value, _equipmentLogic.Inventory[id]);
 		}
 		
 		[Test]
@@ -42,21 +48,22 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			_equipmentLogic.AddToInventory(_item.Value);
 			
-			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(_item.Value));
+			Assert.Throws<ArgumentException>(() => _equipmentLogic.AddToInventory(_item.Value));
 		}
 		
 		[Test]
 		public void AddToInventory_NotEquipment_ThrowsException()
 		{
-			var id = SetupItem(1, GameId.Barrel, 1, 2);
+			var item = SetupItem(1, GameId.Barrel, 1, 2);
 			
-			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(_item.Value));
+			Assert.Throws<LogicException>(() => _equipmentLogic.AddToInventory(item.Value));
 		}
 		
 		[Test]
 		public void RemoveFromInventoryCheck()
 		{
 			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
 
 			Assert.True(_equipmentLogic.RemoveFromInventory(_item.Key));
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
@@ -69,6 +76,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var dic = new Dictionary<GameIdGroup, UniqueId> { { group, _item.Key } };
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
 			_equipmentLogic.SetLoadout(dic);
 
 			Assert.AreEqual(1, _equipmentLogic.Loadout.Count);
@@ -83,6 +91,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			TestData.Inventory.Add(item.Key, item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
+			TestData.InsertionTimestamps.Add(item.Key, 0);
 			_equipmentLogic.SetLoadout(new Dictionary<GameIdGroup, UniqueId> { { group, _item.Key } });
 			_equipmentLogic.SetLoadout(new Dictionary<GameIdGroup, UniqueId> { { group, item.Key } });
 
@@ -97,6 +107,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var dic = new Dictionary<GameIdGroup, UniqueId> { { _item.Value.GameId.GetGroups()[0], _item.Key } };
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
 			_equipmentLogic.SetLoadout(dic);
 
 			Assert.True(_equipmentLogic.RemoveFromInventory(_item.Key));
@@ -113,6 +124,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void EquipCheck()
 		{
 			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
 			
 			_equipmentLogic.Equip(_item.Key);
 
@@ -127,6 +139,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			TestData.Inventory.Add(gear.Key, gear.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
+			TestData.InsertionTimestamps.Add(gear.Key, 0);
 			
 			_equipmentLogic.Equip(_item.Key);
 			_equipmentLogic.Equip(gear.Key);
@@ -144,6 +158,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			TestData.Inventory.Add(item.Key, item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
+			TestData.InsertionTimestamps.Add(item.Key, 0);
 			
 			_equipmentLogic.Equip(item.Key);
 			_equipmentLogic.Equip(_item.Key);
@@ -157,13 +173,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void Equip_NotInInventory_ThrowsException()
 		{
-			Assert.Throws<LogicException>(() => _equipmentLogic.Equip(UniqueId.Invalid));
+			Assert.Throws<ArgumentException>(() => _equipmentLogic.Equip(UniqueId.Invalid));
 		}
 		
 		[Test]
 		public void UnequipCheck()
 		{
 			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
 			_playerData.Equipped.Add(GameIdGroup.Weapon, _item.Key);
 			
 			_equipmentLogic.Unequip(_item.Key);
@@ -176,6 +193,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void Unequip_EmptySlot_ThrowsException()
 		{
 			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.InsertionTimestamps.Add(_item.Key, 0);
 			
 			Assert.Throws<LogicException>(() => _equipmentLogic.Unequip(_item.Key));
 		}

@@ -248,7 +248,7 @@ namespace FirstLight.Game.Logic
 			{
 				if (newLoadout.TryGetValue(slot, out var id))
 				{
-					if (_loadout.TryGetValue(slot, out var equippedId) && id != equippedId)
+					if (!_loadout.TryGetValue(slot, out var equippedId) || id != equippedId)
 					{
 						Equip(id);
 					}

@@ -74,7 +74,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 
-			var poolInfo = _dataProvider.CurrencyDataProvider.GetResourcePoolInfo(_poolToObserve);
+			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(_poolToObserve);
 
 			if (poolInfo.IsFull)
 			{

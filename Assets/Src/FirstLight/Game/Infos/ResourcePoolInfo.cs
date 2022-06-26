@@ -11,6 +11,7 @@ namespace FirstLight.Game.Infos
 		public ResourcePoolConfig Config;
 		public uint PoolCapacity;
 		public uint CurrentAmount;
+		public uint WinnerRewardAmount;
 		public uint RestockPerInterval;
 		public DateTime NextRestockTime;
 

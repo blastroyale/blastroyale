@@ -67,10 +67,11 @@ namespace FirstLight.Game.Logic
 				
 				_resourcePools.Add(poolType, pool);
 			}
-			
+
+			var totalRestock = poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - pool.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
-			var restockPerInterval = capacity / poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
+			var restockPerInterval = (uint) Math.Floor((double) capacity / totalRestock);
 			var nextRestockMinutes = (amountOfRestocks + 1) * poolConfig.RestockIntervalMinutes;
 			var addAmount = amountOfRestocks * restockPerInterval;
 

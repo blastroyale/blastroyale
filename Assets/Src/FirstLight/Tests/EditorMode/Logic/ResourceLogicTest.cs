@@ -49,8 +49,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var info = _resourceLogic.GetResourcePoolInfo(_poolConfig.Id);
 			
 			Assert.AreEqual(_poolConfig.Id, info.Id);
-			Assert.AreEqual(0, info.CurrentAmount);
-			Assert.AreEqual(446, info.PoolCapacity);
+			Assert.That(20, Is.EqualTo(info.WinnerRewardAmount).Within(1));
+			Assert.That(446, Is.EqualTo(info.CurrentAmount).Within(1)); // 668 - 223
+			Assert.That(446, Is.EqualTo(info.PoolCapacity).Within(1)); // 668 - 223
 			Assert.That(DateTime.UtcNow.AddMinutes(_poolConfig.RestockIntervalMinutes), 
 			            Is.EqualTo(info.NextRestockTime).Within(10).Seconds);
 		}
@@ -67,7 +68,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, 100);
 			
-			Assert.AreEqual(poolData.CurrentResourceAmountInPool, withdraw);
+			Assert.AreEqual(44, withdraw);
 			Assert.AreEqual(0, _resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
 			Assert.That(DateTime.UtcNow.AddMinutes(-extraTime), 
 			            Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
@@ -118,8 +119,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, widrawAmount);
 			
 			Assert.AreEqual(widrawAmount, withdraw);
-			Assert.AreEqual(_poolConfig.PoolCapacity - widrawAmount, 
-			                _resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
+			Assert.That(346, Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool).Within(1));
 			Assert.That(DateTime.UtcNow, Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
 		}
 
@@ -135,6 +135,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			};
 
 			GameLogic.PlayerDataProvider.Trophies.Returns(new ObservableField<uint>(1000));
+			GameLogic.EquipmentLogic.Loadout.Count.Returns(list.Count);
 			EquipmentLogic.GetInventoryEquipmentInfo().Returns(list);
 			EquipmentLogic.GetLoadoutEquipmentInfo().Returns(list);
 			InitConfigData(_poolConfig);

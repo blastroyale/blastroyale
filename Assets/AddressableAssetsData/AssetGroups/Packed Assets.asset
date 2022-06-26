@@ -52,6 +52,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Quantum
+    - GenerateIds
   - m_GUID: b905d4b46c36744f087748d11391932d
     m_Address: Ui
     m_ReadOnly: 0
@@ -73,10 +74,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ignore
-  - m_GUID: de828951f9120394a9ad3e974f562496
-    m_Address: Video
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: e8d470cf8919e4bb78638804bc4397ba
     m_Address: Maps
     m_ReadOnly: 0
@@ -87,15 +84,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Ignore
-  - m_GUID: 949093c53448e38449c646c9cf2e1574
-    m_Address: Shop
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Ignore
   - m_GUID: 0c7a161c5a66842a991358994dd6ae53
     m_Address: Timeline
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GenerateIds
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

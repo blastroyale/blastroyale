@@ -16,7 +16,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 {
 	public class RewardLogicTest : BaseTestFixture<PlayerData>
 	{
-		/*private RewardLogic _rewardLogic;
+		private RewardLogic _rewardLogic;
 
 		[SetUp]
 		public void Init()
@@ -25,102 +25,33 @@ namespace FirstLight.Tests.EditorMode.Logic
 		}
 
 		[Test]
-		public void GenerateRewardsCheck()
+		public void GiveMatchRewardsCheck()
 		{
-			const int enemiesKilled = 3;
-			const int coinsPerEnemy = 50;
-			const int xpPerEnemy = 20;
-			const int lootCollected = 1;
-			const GameId loot = GameId.CommonBox;
+			// TODO:
+		}
 
-			SetupLootConfig(lootCollected, loot);
-			SetupQuestConfig(coinsPerEnemy, xpPerEnemy);
-			
-			_rewardLogic.GenerateRewards(SetupMatchData(enemiesKilled, lootCollected), Arg.Any<uint>());
-			
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS && !x.IsLevelUpReward && 
-			                                                      x.Quantity == enemiesKilled * coinsPerEnemy), 0);
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.XP && !x.IsLevelUpReward && 
-			                                                      x.Quantity == enemiesKilled * xpPerEnemy), 0);
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == loot && !x.IsLevelUpReward && 
-			                                                      x.Data == lootCollected), 0);
-			Assert.AreEqual(3,TestData.Rewards.Count);
-		}
-		
 		[Test]
-		public void GenerateRewards_OnlyLootCollected_RewardsOnlyLoot()
+		public void GiveMatchRewards_EmptyPool_RewardsNothing()
 		{
-			const int lootCollected = 1;
-			const GameId loot = GameId.CommonBox;
-			
-			SetupLootConfig(lootCollected, loot);
-			
-			_rewardLogic.GenerateRewards(SetupMatchData(0, lootCollected), Arg.Any<uint>());
-			
-			Assert.Less(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS), 0);
-			Assert.Less(TestData.Rewards.FindIndex(x => x.RewardId == GameId.XP), 0);
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == loot && !x.IsLevelUpReward && 
-			                                                      x.Data == lootCollected), 0);
-			Assert.AreEqual(1,TestData.Rewards.Count);
+			// TODO:
 		}
-		
+
 		[Test]
-		public void GenerateRewards_OnlyEnemiesKilled_RewardsLoot()
+		public void GiveMatchRewards_PlayerQuit_RewardsNothing()
 		{
-			const int enemiesKilled = 3;
-			const int coinsPerEnemy = 50;
-			const int xpPerEnemy = 20;
-			
-			SetupQuestConfig(coinsPerEnemy, xpPerEnemy);
-			
-			_rewardLogic.GenerateRewards(SetupMatchData(enemiesKilled), Arg.Any<uint>());
-			
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS && !x.IsLevelUpReward && 
-			                                                      x.Quantity == enemiesKilled * coinsPerEnemy), 0);
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.XP && !x.IsLevelUpReward && 
-			                                                      x.Quantity == enemiesKilled * xpPerEnemy), 0);
-			Assert.AreEqual(2,TestData.Rewards.Count);
+			// TODO:
 		}
 		
 		[Test]
 		public void GenerateRewards_EmptyMatchData_RewardsNothing()
 		{
-			_rewardLogic.GenerateRewards(new QuantumPlayerMatchData(), Arg.Any<uint>());
-			
-			Assert.AreEqual(0,TestData.Rewards.Count);
-		}
-
-		[TestCase(1u, 2u)]
-		[TestCase(1u, 3u)]
-		[TestCase(1u, 10u)]
-		public void AddLevelUpRewardCheck(uint startLevel, uint endLevel)
-		{
-			const int coinsPerLevel = 50;
-
-			SetupPlayerLevelConfig(coinsPerLevel);
-
-			_rewardLogic.AddLevelUpRewards(startLevel, endLevel);
-			
-			Assert.GreaterOrEqual(TestData.Rewards.FindIndex(x => x.RewardId == GameId.CS && x.Quantity == coinsPerLevel), 0);
-			Assert.AreEqual(endLevel - startLevel,TestData.Rewards.Count);
-		}
-
-		[Test]
-		public void AddLevelUpReward_InverseLevels_DoesNothing()
-		{
-			const int coinsPerLevel = 50;
-			const int startLevel = 2;
-			const int endLevel = 1;
-
-			SetupPlayerLevelConfig(coinsPerLevel);
-
-			_rewardLogic.AddLevelUpRewards(startLevel, endLevel);
+			_rewardLogic.GiveMatchRewards(new QuantumPlayerMatchData(), false);
 			
 			Assert.AreEqual(0,TestData.Rewards.Count);
 		}
 
 		[Test]
-		public void CollectRewardCheck()
+		public void CollectRewardsCheck()
 		{ 
 			var testReward1 = new RewardData { RewardId = GameId.AssaultRifle, IsLevelUpReward = false };
 			var testReward2 = new RewardData { RewardId = GameId.XP, IsLevelUpReward = true };
@@ -139,28 +70,27 @@ namespace FirstLight.Tests.EditorMode.Logic
 		}
 
 		[Test]
-		public void CollectReward_WithLootBox_OnlyCollectsFirstLootBox()
-		{ 
-			var testReward1 = new RewardData { RewardId = GameId.CommonBox, IsLevelUpReward = false };
-			var testReward2 = new RewardData { RewardId = GameId.XP, IsLevelUpReward = true };
-			var testReward3 = new RewardData { RewardId = GameId.CS, IsLevelUpReward = true };
-			var testReward4 = new RewardData { RewardId = GameId.UncommonBox, IsLevelUpReward = true };
-			
-			TestData.Rewards.Add(testReward1);
-			TestData.Rewards.Add(testReward2);
-			TestData.Rewards.Add(testReward3);
-			TestData.Rewards.Add(testReward4);
-
-			var rewards = _rewardLogic.CollectRewards();
-
-			Assert.Contains(testReward1, rewards);
-			Assert.AreEqual(1, rewards.Count);
-		}
-
-		[Test]
 		public void CollectRewards_Empty_ThrowsException()
 		{
 			Assert.Throws<LogicException>(() => _rewardLogic.CollectRewards());
+		}
+
+		[Test]
+		public void CollectRewardCheck()
+		{ 
+			var testReward = new RewardData { RewardId = GameId.CS, IsLevelUpReward = true };
+			
+			TestData.Rewards.Add(testReward);
+
+			Assert.AreEqual(testReward, _rewardLogic.CollectReward(testReward));
+		}
+
+		[Test]
+		public void CollectReward_Empty_ThrowsException()
+		{
+			var testReward = new RewardData { RewardId = GameId.CS, IsLevelUpReward = true };
+			
+			Assert.Throws<LogicException>(() => _rewardLogic.CollectReward(testReward));
 		}
 
 		private QuantumPlayerMatchData SetupMatchData(uint enemiesKilled, params uint[] lootCollected)
@@ -183,39 +113,5 @@ namespace FirstLight.Tests.EditorMode.Logic
 				TotalKillsAtQuestEnd = questEndKillCount,
 			};
 		}
-
-		private void SetupQuestConfig(uint coinsPerEnemy, uint xpPerEnemy)
-		{
-			var config = new QuantumQuestBucketConfig { Quests = new List<QuantumQuestConfig>() };
-
-			for (var i = 0; i < Constants.QUEST_COUNT; i++)
-			{
-				config.Quests.Add(new QuantumQuestConfig
-				{
-					Coins = coinsPerEnemy, 
-					MetaXp = xpPerEnemy
-				});
-			}
-			
-			InitConfigData(config);
-		}
-
-		private void SetupLootConfig(int lootId, GameId boxId)
-		{
-			var config = new QuantumLootBoxConfig { Id =  lootId, LootBoxId = boxId };
-			
-			InitConfigData(x => x.Id, config);
-		}
-
-		private void SetupPlayerLevelConfig(uint coinsReward)
-		{
-			var config = new QuantumPlayerLevelConfig
-			{
-				RewardGameId = GameId.CS,
-				RewardCoins = coinsReward
-			};
-			
-			InitConfigData(config);
-		}*/
 	}
 }

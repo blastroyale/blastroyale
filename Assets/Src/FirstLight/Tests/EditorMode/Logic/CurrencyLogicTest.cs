@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using NSubstitute;
 using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
 
@@ -25,14 +29,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 				PoolCapacity = 1000,
 				RestockIntervalMinutes = 100,
 				TotalRestockIntervalMinutes = 1000,
-				BaseMaxTake = 0,
-				ScaleMultiplier = default,
-				ShapeModifier = default,
-				MaxPoolCapacityDecreaseModifier = default,
-				PoolCapacityDecreaseExponent = default,
-				MaxTakeDecreaseModifier = default,
-				TakeDecreaseExponent = default,
-				PoolCapacityTrophiesModifier = default
+				BaseMaxTake = 16,
+				ScaleMultiplier = 15,
+				ShapeModifier = FP._1_50,
+				MaxPoolCapacityDecreaseModifier = FP.FromString("0.9"),
+				PoolCapacityDecreaseExponent = FP.FromString("0.3"),
+				MaxTakeDecreaseModifier = FP.FromString("0.11"),
+				TakeDecreaseExponent = FP.FromString("0.18"),
+				PoolCapacityTrophiesModifier = 10000
 			};
 			
 			_currencyLogic.Init();
@@ -79,6 +83,20 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.Throws<LogicException>(() => _currencyLogic.DeductCurrency(GameId.Random, 0));
 			Assert.Throws<LogicException>(() => _currencyLogic.GetCurrencyAmount(GameId.Random));
 		}
+		
+		[Test]
+		public void GetResourcePoolInfoCheck()
+		{
+			SetPoolConfigs();
+			
+			var info = _currencyLogic.GetResourcePoolInfo(_poolConfig.Id);
+			
+			Assert.AreEqual(_poolConfig.Id, info.Id);
+			Assert.AreEqual(0, info.CurrentAmount);
+			Assert.AreEqual(446, info.PoolCapacity);
+			Assert.That(DateTime.UtcNow.AddMinutes(_poolConfig.RestockIntervalMinutes), 
+			            Is.EqualTo(info.NextRestockTime).Within(10).Seconds);
+		}
 
 		[Test]
 		public void WithdrawFromResourcePoolCheck()
@@ -87,14 +105,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var poolData = new ResourcePoolData(_poolConfig.Id, 0,
 			                                    DateTime.UtcNow.AddMinutes(-_poolConfig.RestockIntervalMinutes - extraTime));
 			
-			SetPoolData(poolData);
+			TestData.ResourcePools.Add(poolData.Id, poolData);
+			SetPoolConfigs();
 			
 			var withdraw = _currencyLogic.WithdrawFromResourcePool(poolData.Id, 100);
 			
 			Assert.AreEqual(poolData.CurrentResourceAmountInPool, withdraw);
 			Assert.AreEqual(0, _currencyLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
-			Assert.AreEqual(DateTime.UtcNow.AddMinutes(-extraTime), 
-			                _currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime);
+			Assert.That(DateTime.UtcNow.AddMinutes(-extraTime), 
+			            Is.EqualTo(_currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
 		}
 
 		[Test]
@@ -102,13 +121,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var poolData = new ResourcePoolData(_poolConfig.Id, 0, DateTime.UtcNow);
 			
-			SetPoolData(poolData);
+			TestData.ResourcePools.Add(poolData.Id, poolData);
+			SetPoolConfigs();
 			
-			var withdraw = _currencyLogic.WithdrawFromResourcePool(poolData.Id, 100);
+			var withdraw = _currencyLogic.WithdrawFromResourcePool(_poolConfig.Id, 100);
 			
 			Assert.AreEqual(0, withdraw);
-			Assert.AreEqual(0, _currencyLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
-			Assert.AreEqual(DateTime.UtcNow, _currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime);
+			Assert.AreEqual(0, _currencyLogic.ResourcePools[_poolConfig.Id].CurrentResourceAmountInPool);
+			Assert.That(DateTime.UtcNow, Is.EqualTo(_currencyLogic.ResourcePools[_poolConfig.Id].LastPoolRestockTime).Within(10).Seconds);
 		}
 
 		[Test]
@@ -118,13 +138,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			var poolData = new ResourcePoolData(_poolConfig.Id, 100, DateTime.UtcNow);
 			
-			SetPoolData(poolData);
+			TestData.ResourcePools.Add(poolData.Id, poolData);
+			SetPoolConfigs();
 			
 			var withdraw = _currencyLogic.WithdrawFromResourcePool(poolData.Id, widrawAmount);
 			
 			Assert.AreEqual(100, withdraw);
 			Assert.AreEqual(0, _currencyLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
-			Assert.AreEqual(DateTime.UtcNow, _currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime);
+			Assert.That(DateTime.UtcNow, Is.EqualTo(_currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
 		}
 
 		[Test]
@@ -134,14 +155,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			var poolData = new ResourcePoolData(_poolConfig.Id, 0, DateTime.UtcNow.AddDays(-1));
 			
-			SetPoolData(poolData);
+			TestData.ResourcePools.Add(poolData.Id, poolData);
+			SetPoolConfigs();
 			
 			var withdraw = _currencyLogic.WithdrawFromResourcePool(poolData.Id, widrawAmount);
 			
 			Assert.AreEqual(widrawAmount, withdraw);
 			Assert.AreEqual(_poolConfig.PoolCapacity - widrawAmount, 
 			                _currencyLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
-			Assert.AreEqual(DateTime.UtcNow, _currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime);
+			Assert.That(DateTime.UtcNow, Is.EqualTo(_currencyLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
 		}
 
 		private void SetCurrencyData(params Pair<GameId, uint>[] currencies)
@@ -152,11 +174,31 @@ namespace FirstLight.Tests.EditorMode.Logic
 			}
 		}
 
-		private void SetPoolData(ResourcePoolData data)
+		private void SetPoolConfigs()
 		{
-			TestData.ResourcePools.Add(data.Id, data);
-			
+			var list = new List<EquipmentInfo>
+			{
+				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.RarePlus, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 50, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, durability: 70, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, durability: 65, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, durability: 34, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, durability: 97, maxDurability: 100 )},
+			};
+
+			GameLogic.PlayerDataProvider.Trophies.Returns(new ObservableField<uint>(1000));
+			EquipmentLogic.GetInventoryEquipmentInfo().Returns(list);
 			InitConfigData(_poolConfig);
+			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3 });
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Regular, PoolCapacityModifier = FP._0});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Exquisite, PoolCapacityModifier = FP.FromString("0.00125")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Cool, PoolCapacityModifier = FP._0});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Royal, PoolCapacityModifier = FP._0_01});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Divine, PoolCapacityModifier = FP._0_01});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.RarePlus, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Rare, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Uncommon, PoolCapacityModifier = FP.FromString("0.00125")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Legendary, PoolCapacityModifier = FP._0_01});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.LegendaryPlus, PoolCapacityModifier = FP._0_01});
 		}
 	}
 }

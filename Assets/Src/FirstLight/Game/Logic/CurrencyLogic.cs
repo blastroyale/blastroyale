@@ -113,10 +113,15 @@ namespace FirstLight.Game.Logic
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
 			var capacity = GetCurrentPoolCapacity(poolType);
-			var poolData = _resourcePools.TryGetValue(poolType, out var pool)
-				               ? pool
-				               : new ResourcePoolData(poolType, capacity, DateTime.UtcNow);
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - poolData.LastPoolRestockTime).TotalMinutes;
+
+			if (!_resourcePools.TryGetValue(poolType, out var pool))
+			{
+				pool =  new ResourcePoolData(poolType, capacity, DateTime.UtcNow);
+				
+				_resourcePools.Add(poolType, pool);
+			}
+			
+			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - pool.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);
 			var restockPerInterval = capacity / poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
 			var nextRestockMinutes = (amountOfRestocks + 1) * poolConfig.RestockIntervalMinutes;
@@ -128,7 +133,7 @@ namespace FirstLight.Game.Logic
 				PoolCapacity = capacity,
 				CurrentAmount = Math.Min(pool.CurrentResourceAmountInPool + addAmount, capacity),
 				RestockPerInterval = restockPerInterval,
-				NextRestockTime = poolData.LastPoolRestockTime.AddMinutes(nextRestockMinutes)
+				NextRestockTime = pool.LastPoolRestockTime.AddMinutes(nextRestockMinutes)
 			};
 		}
 

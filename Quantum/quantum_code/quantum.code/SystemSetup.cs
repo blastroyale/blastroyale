@@ -50,7 +50,6 @@ namespace Quantum
 				new BotSDKDebuggerSystem(),
 
 				// Finalizer systems
-				new SetupRuntimeDataSystem(),
 				new GameSystem(),
 				new EntityLateDestroyerSystem()
 			};

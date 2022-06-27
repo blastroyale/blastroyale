@@ -26,7 +26,7 @@ namespace Quantum.Commands
 				Type = StatType.Power,
 				Power = FP._1000,
 				Duration = FP.MaxValue,
-				EndTime = FP.MaxValue,
+				StartTime = FP._0,
 				IsNegative = false
 			};
 			

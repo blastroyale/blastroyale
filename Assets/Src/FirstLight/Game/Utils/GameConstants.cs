@@ -29,13 +29,6 @@ namespace FirstLight.Game.Utils
 			public const int NFT_AMOUNT_FOR_PLAY = 3;
 		}
 
-		public static class Quality
-		{
-			// Resolution 
-			public const float DYNAMIC_RES_HIGH = 1f;
-			public const float DYNAMIC_RES_LOW = 0.55f;
-		}
-
 		public static class Audio
 		{
 			// The audios default starting volume
@@ -66,6 +59,7 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
+			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
 		}
 
 		public static class Visuals

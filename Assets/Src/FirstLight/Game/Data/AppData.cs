@@ -13,7 +13,7 @@ namespace FirstLight.Game.Data
 	public class AppData
 	{
 		public string NickNameId;
-		
+		public string PlayerId;
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
@@ -27,16 +27,11 @@ namespace FirstLight.Game.Data
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
-		public DetailLevel CurrentDetailLevel;
+		public GraphicsConfig.DetailLevel CurrentDetailLevel;
 
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();
-
-		public enum DetailLevel
-		{
-			High, Medium, Low
-		}
 	}
 
 

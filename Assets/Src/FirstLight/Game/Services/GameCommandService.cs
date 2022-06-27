@@ -81,7 +81,10 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
-				EnqueueCommandToServer(command);
+				if (command.ExecuteServer)
+				{
+					EnqueueCommandToServer(command);
+				}
 				command.Execute(_gameLogic, _dataProvider);
 			}
 			catch (Exception e)

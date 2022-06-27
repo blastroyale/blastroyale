@@ -35,8 +35,7 @@ namespace FirstLight.UiService
 		[HideInInspector]
 		public RectTransform RectTransform;
 		public Transform Anchor;
-		public AudioId TapSoundFx;
-		
+
 		private Coroutine _coroutine;
 		protected IGameServices _gameService;
 		
@@ -120,7 +119,7 @@ namespace FirstLight.UiService
 			
 			if (!RectTransformUtility.RectangleContainsScreenPoint(RectTransform, eventData.position))
 			{
-				_gameService.AudioFxService.PlayClip2D(TapSoundFx);
+				_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 				
 				_coroutine = _gameService.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(Vector3.one));
 			}
@@ -131,7 +130,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void OnClick()
 		{
-			_gameService.AudioFxService.PlayClip2D(TapSoundFx);
+			_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 			
 			Animation.clip = !isOn ? ToggleOnPressedClip : ToggleOffPressedClip;
 			Animation.Rewind(); 

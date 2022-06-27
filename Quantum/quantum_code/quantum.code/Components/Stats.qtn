@@ -35,7 +35,7 @@ struct Modifier
 	StatType Type;
 	FP Power;
 	FP Duration;
-	FP EndTime;
+	FP StartTime;
 	bool IsNegative;
 }
 

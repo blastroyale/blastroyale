@@ -30,20 +30,17 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		private Animator _animator;
-		private List<GameIdGroup> _equippedSlots;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_equippedSlots = new List<GameIdGroup>();
 
 			_defaultCharacterRotation = transform.localRotation;
 
+			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
-			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadout);
-			_services.MessageBrokerService.Subscribe<TempItemEquippedMessage>(OnTempItemEquippedMessage);
-			_services.MessageBrokerService.Subscribe<TempItemUnequippedMessage>(OnTempItemUnequippedMessage);
+			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
 		private void Start()
@@ -64,59 +61,33 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
-		private void OnTempItemEquippedMessage(TempItemEquippedMessage msg)
+		private async void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
 		{
-			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[msg.ItemId];
-			var slot = gameId.GetSlot();
+			if (updateType == ObservableUpdateType.Removed)
+			{
+				_characterViewComponent.UnequipItem(key);
 			
-			OnEquippedItemsAdded(slot, msg.ItemId);
-		}
-		
-		private void OnTempItemUnequippedMessage(TempItemUnequippedMessage msg)
-		{
-			var gameId = _gameDataProvider.UniqueIdDataProvider.Ids[msg.ItemId];
-			var slot = gameId.GetSlot();
-			
-			OnEquippedItemsRemoved(slot, msg.ItemId);
-		}
-
-		private async void OnEquippedItemsAdded(GameIdGroup slot, UniqueId item)
-		{
-			if (!_equippedSlots.Contains(slot))
-			{
-				_equippedSlots.Add(slot);
+				if (key == GameIdGroup.Weapon)
+				{
+					EquipDefault();
+				}
 			}
-
-			await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[item]);
-		}
-
-		private void OnEquippedItemsRemoved(GameIdGroup slot, UniqueId item)
-		{
-			if (_equippedSlots.Contains(slot))
+			else if(updateType == ObservableUpdateType.Added)
 			{
-				_equippedSlots.Remove(slot);
-			}
-
-			_characterViewComponent.UnequipItem(slot);
-			
-			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
-			{
-				EquipDefault();
+				await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[newId]);
 			}
 		}
 
-		private void OnUpdatedLoadout(UpdatedLoadoutMessage msg)
+		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
 		{
-			if (_equippedSlots.Count == 1)
+			if (msg.SlotsUpdated.Count == 1)
 			{
-				_animator.SetTrigger(_equippedSlots[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
+				_animator.SetTrigger(msg.SlotsUpdated.Keys.ToArray()[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
 			}
-			else if (_equippedSlots.Count > 1)
+			else if (msg.SlotsUpdated.Count > 1)
 			{
 				_animator.SetTrigger(_victoryHash);
 			}
-
-			_equippedSlots.Clear();
 		}
 
 		private void OnChangeCharacterSkinMessage(PlayerSkinUpdatedMessage callback)
@@ -156,7 +127,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_animator = instance.GetComponent<Animator>();
 
-			_services.AudioFxService.PlayClip2D(AudioId.ActorSpawnStart1);
+			_services.AudioFxService.PlayClip2D(AudioId.ActorSpawnStart);
 			_characterLoadedEvent?.Invoke();
 		}
 	}

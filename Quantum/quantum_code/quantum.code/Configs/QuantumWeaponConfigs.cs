@@ -26,6 +26,7 @@ namespace Quantum
 		public List<GameId> Specials;
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
+		public uint KnockbackAmount;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon

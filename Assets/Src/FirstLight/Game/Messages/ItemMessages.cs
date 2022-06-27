@@ -9,14 +9,4 @@ namespace FirstLight.Game.Messages
 	{
 		public IDictionary<GameIdGroup,UniqueId> SlotsUpdated;
 	}
-
-	public struct TempItemEquippedMessage : IMessage
-	{
-		public UniqueId ItemId;
-	}
-
-	public struct TempItemUnequippedMessage : IMessage
-	{
-		public UniqueId ItemId;
-	}
 }

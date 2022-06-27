@@ -11,6 +11,7 @@ namespace Quantum
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_50;
 		public static readonly int DROP_AMOUNT_ANGLES = 5;
 		public static readonly int BOT_DIFFICULTY_LEVEL = 1;
+		public static readonly int OFFHAND_POOLSIZE = 10;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";

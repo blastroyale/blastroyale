@@ -156,7 +156,7 @@ namespace Quantum
 				Type = StatType.Shield,
 				Power = modifierPower,
 				Duration = FP.MaxValue,
-				EndTime = FP.MaxValue,
+				StartTime = FP._0,
 				IsNegative = false
 			};
 
@@ -195,10 +195,16 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Gives the given health <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
-		/// This health gain was induced by the given <paramref name="attacker"/>.
-		/// If the given <paramref name="attacker"/> equals <seealso cref="EntityRef.None"/> or invalid, then it is dead
-		/// or non existent anymore.
+		/// Gives this entity the health based on the given `<paramref name="spell"/> 
+		/// </summary>
+		internal void GainHealth(Frame f, Spell spell)
+		{
+			GainHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);
+		}
+
+		/// <summary>
+		/// Gives the given health <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change
+		/// based on the given data
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, uint amount)
 		{
@@ -206,17 +212,17 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Reduces the given health <paramref name="damageAmount"/> to this <paramref name="entity"/> and notifies the change.
-		/// First reduces the entity's armour before reducing it's health
+		/// Reduces the health of this entity based on the given <paramref name="spell"/> data
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, EntityRef attacker, uint damageAmount)
+		internal void ReduceHealth(Frame f, Spell spell)
 		{
-			var currentDamageAmount = (int) damageAmount;
+			var entity = spell.Victim;
 			var previousHealth = CurrentHealth;
 			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			var previousShield = CurrentShield;
 			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
 			var armour = Values[(int)StatType.Armour].StatValue.AsInt;
+			var currentDamageAmount = FPMath.Max((int) spell.PowerAmount - armour, 0).AsInt;
 
 			if (IsImmune)
 			{
@@ -233,19 +239,21 @@ namespace Quantum
 				CurrentShield = Math.Max(previousShield - currentDamageAmount, 0);
 				currentDamageAmount = Math.Max(currentDamageAmount - previousShield, 0);
 
-				f.Events.OnShieldChanged(entity, attacker, previousShield, CurrentShield,
+				f.Events.OnShieldChanged(entity, spell.Attacker, previousShield, CurrentShield,
 				                         currentShieldCapacity, currentShieldCapacity);
 			}
 
 			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
-				var shieldDamage = damageAmount - (uint) currentDamageAmount;
+				var shieldDamage = spell.PowerAmount - (uint) currentDamageAmount;
 				var healthDamage = (uint) currentDamageAmount;
 
-				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, attacker, shieldDamage,
-				                         healthDamage, damageAmount, maxHealth, currentShieldCapacity);
-				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, attacker, shieldDamage,
-				                              healthDamage, damageAmount, maxHealth, currentShieldCapacity);
+				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage,
+				                         healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,
+				                         spell.OriginalHitPosition);
+				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage,
+				                              healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,
+				                              spell.OriginalHitPosition);
 			}
 
 			if (currentDamageAmount <= 0)
@@ -253,12 +261,12 @@ namespace Quantum
 				return;
 			}
 
-			SetCurrentHealth(f, entity, attacker, previousHealth - currentDamageAmount);
+			SetCurrentHealth(f, entity, spell.Attacker, previousHealth - currentDamageAmount);
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, attacker, (int) damageAmount, maxHealth);
-				f.Signals.HealthIsZero(entity, attacker);
+				f.Events.OnHealthIsZero(entity, spell.Attacker, (int) spell.PowerAmount, maxHealth);
+				f.Signals.HealthIsZero(entity, spell.Attacker);
 			}
 		}
 

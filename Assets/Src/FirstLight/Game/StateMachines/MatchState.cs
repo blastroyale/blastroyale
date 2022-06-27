@@ -228,7 +228,10 @@ namespace FirstLight.Game.StateMachines
 			foreach (var spawner in spawners)
 			{
 				var id = (GameId) spawner.Prototype.GameId.Value;
-				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+				if (id != GameId.Random)
+				{
+					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+				}
 			}
 			
 			return tasks;
@@ -277,7 +280,7 @@ namespace FirstLight.Game.StateMachines
 			
 			// Preload Audio
 			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureMainLoop, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureStart1, true, false));
+			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureStart, true, false));
 			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.ActorSpawnEnd1, true, false));
 
 			return tasks;

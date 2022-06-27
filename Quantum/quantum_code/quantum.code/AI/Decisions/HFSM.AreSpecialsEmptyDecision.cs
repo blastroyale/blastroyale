@@ -12,17 +12,11 @@ namespace Quantum
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e)
 		{
-			var specials = f.Get<PlayerCharacter>(e).Specials;
-			
-			for (var i = 0; i < specials.Length; i++)
-			{
-				if (specials[i].IsSpecialAvailable(f))
-				{
-					return false;
-				}
-			}
-			
-			return true;
+			var playerCharacter = f.Get<PlayerCharacter>(e);
+			var currentWeaponSlot = playerCharacter.WeaponSlots[playerCharacter.CurrentWeaponSlot];
+
+			return !currentWeaponSlot.Special1.IsSpecialAvailable(f) 
+			       || !currentWeaponSlot.Special2.IsSpecialAvailable(f);
 		}
 	}
 }

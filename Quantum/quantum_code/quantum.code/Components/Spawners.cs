@@ -46,9 +46,13 @@ namespace Quantum
 			{
 				Collectable = SpawnChest(f, GameId, transform);
 			}
-			else if (GameId.IsInGroup(GameIdGroup.Weapon))
+			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
+			}
+			else if (GameId.IsInGroup(GameIdGroup.Equipment))
+			{
+				Collectable = SpawnGear(f, GameId, RarityModifier, transform);
 			}
 			else
 			{
@@ -81,17 +85,30 @@ namespace Quantum
 		/// </summary>
 		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
-			// TODO: Clean this up when we start spawning gear
+			// TODO: Clean this up and merge with SpawnGear when we start spawning freelying gear for public
 			var configs = f.WeaponConfigs;
-			var config = id == GameId.Random
-				             ? configs.QuantumConfigs[f.RNG->Next(0, configs.QuantumConfigs.Count)]
-				             : configs.GetConfig(id);
+			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-
-			var rarity = (EquipmentRarity) FPMath.Clamp((int) f.Context.MedianRarity + rarityModifier,
+			var rarity = (EquipmentRarity) FPMath.Clamp((int) medianRarity + rarityModifier,
 			                                            0,
 			                                            (int) EquipmentRarity.TOTAL - 1);
-			var equipment = new Equipment(config.Id, rarity: rarity);
+			var equipment = id == GameId.Random
+				                ? weaponPool[f.RNG->Next(0, weaponPool.Count)]
+				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
+
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			                                                        equipment);
+
+			return entity;
+		}
+
+		/// <summary>
+		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// </summary>
+		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform)
+		{
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
+			var equipment = new Equipment(id);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
 			                                                        equipment);

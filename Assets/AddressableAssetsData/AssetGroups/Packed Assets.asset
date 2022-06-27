@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Packed Assets
+  m_EditorClassIdentifier: 
+  m_GroupName: Packed Assets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8f2309753d6404b9bb6ca7cdddcb1a91
+  m_SerializeEntries:
+  - m_GUID: 0394e693bae9541f7aa521525867ece2
+    m_Address: VFX
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: 11d21ca7759c5374da52d1e4cca5f578
+    m_Address: Materials
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: 11d57e767718d493580978f3366fb7b5
+    m_Address: AdventureAssets
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: 518db8b02055242258e1c098b9c401f7
+    m_Address: MainMenuAssets
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: 67534e881d4174dc59a1c998aeda5bc6
+    m_Address: Audio
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: aa29c48334b522d4591d90c5b472c698
+    m_Address: Sprites
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: aa9c5497372c14d9ea5dab0d6be12609
+    m_Address: Configs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Quantum
+    - GenerateIds
+  - m_GUID: b905d4b46c36744f087748d11391932d
+    m_Address: Ui
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: bb2c68c2697e4e4428ad4dddf3390ba4
+    m_Address: QuantumAssets
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Quantum
+    - Ignore
+  - m_GUID: e03e6e2a82c494767b45513bc3068782
+    m_Address: CustomAssets
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: d1a12da34601b469c887d3f4e0c245e8
+    m_Address: Scenes
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: e8d470cf8919e4bb78638804bc4397ba
+    m_Address: Maps
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: e7b1355f609cb304da5529115986eb8b
+    m_Address: Profilers
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ignore
+  - m_GUID: 0c7a161c5a66842a991358994dd6ae53
+    m_Address: Timeline
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GenerateIds
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e2a6147a1a9e442e087d5db36b71cfc4, type: 2}
+    - {fileID: 11400000, guid: 684ba49c772bd4a7090e4256db4b8641, type: 2}

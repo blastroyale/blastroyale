@@ -31,7 +31,13 @@ namespace Src.FirstLight.Tools
 			Standalone,
 			Both
 		}
-		
+
+		private enum TextureMode
+		{
+			Png,
+			Jpg
+		}
+
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _exportFolderPath;
@@ -48,6 +54,7 @@ namespace Src.FirstLight.Tools
 		[SerializeField] private GameObject _canvas;
 		[SerializeField] private GameObject _canvasRoot;
 		[SerializeField] private RenderTextureMode _renderTextureMode;
+		[SerializeField] private TextureMode _textureMode;
 		[SerializeField] private int _subFolderId;
 		[SerializeField] private int _collectionId;
 		[SerializeField] private BaseEquipmentStatsConfigs _baseEquipmentStatsConfigs;
@@ -367,7 +374,7 @@ namespace Src.FirstLight.Tools
 			RenderTexture.active = null;
 			_camera.targetTexture = null;
 			
-			byte[] bytes = image.EncodeToPNG();
+			byte[] bytes = _textureMode == TextureMode.Png ? image.EncodeToPNG() : image.EncodeToJPG();
 			DestroyImmediate(image);
 			
 			var path = Path.Combine(_exportFolderPath, filename + ".png");

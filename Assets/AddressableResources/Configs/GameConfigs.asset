@@ -68,20 +68,20 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 250
+      StatsPowerBaseValue: 200
       StatsPowerRarityMultiplier:
-        RawValue: 81920
+        RawValue: 68813
       StatsPowerLevelStepMultiplier:
-        RawValue: 459
+        RawValue: 328
       StatsPowerGradeStepMultiplier:
-        RawValue: 3277
-      StatsHpBaseValue: 400
+        RawValue: 4588
+      StatsHpBaseValue: 300
       StatsHpRarityMultiplier:
         RawValue: 72090
       StatsHpLevelStepMultiplier:
-        RawValue: 1311
+        RawValue: 328
       StatsHpGradeStepMultiplier:
-        RawValue: 16384
+        RawValue: 3277
       StatsSpeedBaseValue:
         RawValue: 13107
       StatsSpeedRarityMultiplier:
@@ -105,7 +105,6 @@ MonoBehaviour:
         RawValue: 16384
       TrophyEloRange: 50
       TrophyEloK: 5
-      MinOffhandWeaponPoolSize: 10
       NftAssumedOwned: 40
       MinNftForEarnings: 3
       AdjectiveRarityEarningsMod:

@@ -376,8 +376,10 @@ namespace Src.FirstLight.Tools
 			
 			byte[] bytes = _textureMode == TextureMode.Png ? image.EncodeToPNG() : image.EncodeToJPG();
 			DestroyImmediate(image);
+
+			var ext = _textureMode == TextureMode.Png ? ".png" : ".jpg";
 			
-			var path = Path.Combine(_exportFolderPath, filename + ".png");
+			var path = Path.Combine(_exportFolderPath, filename + ext);
 			File.WriteAllBytes(path, bytes);
 		}
 		

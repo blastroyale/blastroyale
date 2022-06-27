@@ -127,7 +127,7 @@ namespace FirstLightEditor.StateChart.Tests
 			{
 				var state = factory.State("State");
 
-				SetupSplit(factory, SetupSimple, nestFactory => SetupLeave(nestFactory, state), false);
+				SetupSplit(factory, true, SetupSimple, nestFactory => SetupLeave(nestFactory, state));
 
 				state.OnEnter(() => _caller.StateOnEnterCall(2));
 				state.OnExit(() => _caller.StateOnExitCall(2));
@@ -160,7 +160,7 @@ namespace FirstLightEditor.StateChart.Tests
 			{
 				var state = factory.State("State");
 
-				SetupSplit(factory, SetupSimple, nestFactory => SetupLeave(nestFactory, state), true);
+				SetupSplit(factory, true, SetupSimple, nestFactory => SetupLeave(nestFactory, state));
 
 				state.OnEnter(() => _caller.StateOnEnterCall(2));
 				state.OnExit(() => _caller.StateOnExitCall(2));
@@ -194,7 +194,8 @@ namespace FirstLightEditor.StateChart.Tests
 			{
 				var state = factory.State("State");
 
-				SetupSplit(factory, SetupSimpleEventState, nestFactory => SetupLeave(nestFactory, state), false);
+				SetupSplit(factory, false, SetupSimpleEventState, 
+				           nestFactory => SetupLeave(nestFactory, state));
 
 				state.OnEnter(() => _caller.StateOnEnterCall(2));
 				state.OnExit(() => _caller.StateOnExitCall(2));
@@ -228,7 +229,7 @@ namespace FirstLightEditor.StateChart.Tests
 			{
 				var state = factory.State("State");
 
-				SetupSplit(factory, SetupSimpleEventState, nestFactory => SetupLeave(nestFactory, state), true);
+				SetupSplit(factory,true, SetupSimpleEventState, nestFactory => SetupLeave(nestFactory, state));
 
 				state.OnEnter(() => _caller.StateOnEnterCall(2));
 				state.OnExit(() => _caller.StateOnExitCall(2));
@@ -249,7 +250,7 @@ namespace FirstLightEditor.StateChart.Tests
 		{
 			Assert.Throws<MissingMemberException>(() => new Statechart(factory =>
 			{
-				SetupSplit(factory, SetupSimple, SetupLeave_WithoutTarget, false);
+				SetupSplit(factory, false, SetupSimple, SetupLeave_WithoutTarget);
 			}));
 		}
 
@@ -386,18 +387,23 @@ namespace FirstLightEditor.StateChart.Tests
 			final.OnEnter(() => _caller.FinalOnEnterCall(1));
 		}
 
-		private void SetupSplit(IStateFactory factory, Action<IStateFactory> setup1, Action<IStateFactory> setup2, bool executeFinal)
+		private void SetupSplit(IStateFactory factory, bool executeFinal, params Action<IStateFactory>[] setups)
 		{
 			var initial = factory.Initial("Initial");
 			var split = factory.Split("Split");
 			var final = factory.Final("final");
+			var data = new ISplitState.StateData[setups.Length];
+
+			for (var i = 0; i < setups.Length; i++)
+			{
+				data[i] = new ISplitState.StateData(setups[i], true, executeFinal);
+			}
 
 			initial.Transition().OnTransition(() => _caller.OnTransitionCall(2)).Target(split);
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			split.OnEnter(() => _caller.StateOnEnterCall(1));
-			split.Split(setup1, setup2, true, true,executeFinal, executeFinal)
-			     .OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
+			split.Split(data).OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
 			split.Event(_event2).OnTransition(() => _caller.OnTransitionCall(4)).Target(final);
 			split.OnExit(() => _caller.StateOnExitCall(1));
 

@@ -53,7 +53,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimple, SetupSimple, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimple, true, false),
+				           new ISplitState.StateData(SetupSimple, true, false)
+				           );
 			}
 		}
 
@@ -106,7 +109,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimpleEventState, true, false)
+				          );
 			}
 		}
 
@@ -134,7 +140,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, true);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, true),
+				           new ISplitState.StateData(SetupSimpleEventState, true, true)
+				          );
 			}
 		}
 
@@ -162,7 +171,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, false, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, false, false),
+				           new ISplitState.StateData(SetupSimpleEventState, false, false)
+				           );
 			}
 		}
 
@@ -190,7 +202,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimpleEventState, true, false)
+				           );
 			}
 		}
 
@@ -218,7 +233,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, true);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, true),
+				           new ISplitState.StateData(SetupSimpleEventState, true, true)
+				           );
 			}
 		}
 
@@ -246,7 +264,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, false, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, false, false),
+				           new ISplitState.StateData(SetupSimpleEventState, false, false)
+				          );
 			}
 		}
 
@@ -274,7 +295,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, false, true);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, false, true),
+				           new ISplitState.StateData(SetupSimpleEventState, false, true)
+				          );
 			}
 		}
 
@@ -302,12 +326,18 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void SetupLayer0(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupLayer1, SetupLayer1, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupLayer1, true, false),
+				           new ISplitState.StateData(SetupLayer1, true, false)
+				          );
 			}
 			
 			void SetupLayer1(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimpleEventState, true, false)
+				          );
 			}
 		}
 
@@ -335,12 +365,18 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void SetupLayer0(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupLayer1, SetupLayer1, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupLayer1, true, false),
+				           new ISplitState.StateData(SetupLayer1, true, false)
+				          );
 			}
 
 			void SetupLayer1(IStateFactory factory)
 			{
-				SetupSplit(factory, _event1, SetupSimpleEventState, SetupSimpleEventState, true, false);
+				SetupSplit(factory, _event1, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimpleEventState, true, false)
+				          );
 			}
 		}
 
@@ -368,12 +404,18 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void SetupLayer0(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupLayer1, SetupLayer1, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupLayer1, true, false),
+				           new ISplitState.StateData(SetupLayer1, true, false)
+				          );
 			}
 
 			void SetupLayer1(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimpleEventState, true, false)
+				          );
 			}
 		}
 
@@ -404,7 +446,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimpleEventState, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimpleEventState, true, false)
+				          );
 			}
 		}
 
@@ -424,7 +469,10 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void Setup(IStateFactory factory)
 			{
-				SetupSplit(factory, _event2, SetupSimpleEventState, SetupSimple, true, false);
+				SetupSplit(factory, _event2, 
+				           new ISplitState.StateData(SetupSimpleEventState, true, false),
+				           new ISplitState.StateData(SetupSimple, true, false)
+				          );
 			}
 		}
 
@@ -475,8 +523,7 @@ namespace FirstLightEditor.StateChart.Tests
 			final.OnEnter(() => _caller.FinalOnEnterCall(0));
 		}
 
-		private void SetupSplit(IStateFactory factory, IStatechartEvent eventTrigger, Action<IStateFactory> setup1, 
-		                        Action<IStateFactory> setup2, bool executeExit, bool executeFinal)
+		private void SetupSplit(IStateFactory factory, IStatechartEvent eventTrigger, params ISplitState.StateData[] data)
 		{
 			var initial = factory.Initial("Initial");
 			var split = factory.Split("Split");
@@ -486,16 +533,14 @@ namespace FirstLightEditor.StateChart.Tests
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			split.OnEnter(() => _caller.StateOnEnterCall(1));
-			split.Split(setup1, setup2, executeExit, executeExit, executeFinal, executeFinal)
-			     .OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
+			split.Split(data).OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
 			split.Event(eventTrigger).OnTransition(() => _caller.OnTransitionCall(4)).Target(final);
 			split.OnExit(() => _caller.StateOnExitCall(1));
 
 			final.OnEnter(() => _caller.FinalOnEnterCall(1));
 		}
 
-		private void SetupSplit_WithoutTarget(IStateFactory factory, IStatechartEvent eventTrigger, Action<IStateFactory> setup1, 
-		                        Action<IStateFactory> setup2)
+		private void SetupSplit_WithoutTarget(IStateFactory factory, IStatechartEvent eventTrigger, params Action<IStateFactory>[] setups)
 		{
 			var initial = factory.Initial("Initial");
 			var split = factory.Split("Split");
@@ -505,7 +550,7 @@ namespace FirstLightEditor.StateChart.Tests
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			split.OnEnter(() => _caller.StateOnEnterCall(1));
-			split.Split(setup1, setup2).OnTransition(() => _caller.OnTransitionCall(3));
+			split.Split(setups).OnTransition(() => _caller.OnTransitionCall(3));
 			split.Event(eventTrigger).OnTransition(() => _caller.OnTransitionCall(4));
 			split.OnExit(() => _caller.StateOnExitCall(1));
 

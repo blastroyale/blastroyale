@@ -137,28 +137,34 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
 
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id,
+		var overrideTimestamp = DateTime.UtcNow.AddDays(-1).Ticks;
+		
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id, rarity: EquipmentRarity.RarePlus,
+		                                                      adjective: EquipmentAdjective.Regular,
+		                                                      grade: EquipmentGrade.GradeV, durability: 50,
+		                                                      level: 3), overrideTimestamp);
+		
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[1].Id, rarity: EquipmentRarity.Rare,
+		                                                      adjective: EquipmentAdjective.Exquisite,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 70,
+		                                                      level: 3), overrideTimestamp);
+		
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[2].Id, rarity: EquipmentRarity.Uncommon,
+		                                                      adjective: EquipmentAdjective.Cool,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 65,
+		                                                      level: 3), overrideTimestamp);
+		
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[3].Id, rarity: EquipmentRarity.Legendary,
+		                                                      adjective: EquipmentAdjective.Royal,
+		                                                      grade: EquipmentGrade.GradeI, durability: 34,
+		                                                      level: 3), overrideTimestamp);
+		
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[45].Id,
 		                                                      rarity: EquipmentRarity.LegendaryPlus,
 		                                                      adjective: EquipmentAdjective.Divine,
-		                                                      grade: EquipmentGrade.GradeIV, durability: 18,
-		                                                      level: 3));
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[4].Id, rarity: EquipmentRarity.Legendary,
-		                                                      adjective: EquipmentAdjective.Royal,
-		                                                      grade: EquipmentGrade.GradeI, durability: 43,
-		                                                      level: 3));
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Uncommon,
-		                                                      adjective: EquipmentAdjective.Cool,
-		                                                      grade: EquipmentGrade.GradeIII, durability: 51,
-		                                                      level: 3));
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[6].Id, rarity: EquipmentRarity.Rare,
-		                                                      adjective: EquipmentAdjective.Exquisite,
-		                                                      grade: EquipmentGrade.GradeIII, durability: 62,
-		                                                      level: 3));
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[26].Id, rarity: EquipmentRarity.RarePlus,
-		                                                      adjective: EquipmentAdjective.Regular,
-		                                                      grade: EquipmentGrade.GradeV, durability: 96,
-		                                                      level: 3));
-
+		                                                      grade: EquipmentGrade.GradeIV, durability: 97,
+		                                                      level: 3), overrideTimestamp);
+		
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 

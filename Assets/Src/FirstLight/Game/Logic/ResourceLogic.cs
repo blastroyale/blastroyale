@@ -136,7 +136,8 @@ namespace FirstLight.Game.Logic
 			poolCapacity += poolCapacity * inventory.GetAugmentedModSum(GameConfig, CapacityModSumCalculation);
 			
 			// ----- Increase pool capacity based on current player Trophies
-			poolCapacity += poolCapacity * Math.Round(GameLogic.PlayerLogic.Trophies.Value / poolCapacityTrophiesMod);
+			var trophiesIncrease = poolCapacity * (GameLogic.PlayerLogic.Trophies.Value  / poolCapacityTrophiesMod);
+			poolCapacity += Math.Round(trophiesIncrease);
 			
 			// ----- Decrease pool capacity based on owned NFT durability
 			var totalDurability = inventory.GetAvgDurability(out var maxDurability);

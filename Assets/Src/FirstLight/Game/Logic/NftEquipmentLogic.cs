@@ -58,7 +58,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
-		UniqueId AddToInventory(Equipment equipment);
+		UniqueId AddToInventory(Equipment equipment, long overrideTimestamp = -1);
 
 		/// <summary>
 		/// Tries to remove an item from inventory, and returns true if a removal was successful
@@ -200,7 +200,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		// TODO: Remove method and refactor cheats
-		public UniqueId AddToInventory(Equipment equipment)
+		public UniqueId AddToInventory(Equipment equipment, long overrideTimestamp = -1)
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
@@ -211,7 +211,16 @@ namespace FirstLight.Game.Logic
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
 			
 			_inventory.Add(id, equipment);
-			_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
+
+			if (overrideTimestamp >= 0)
+			{
+				_insertionTimestamps.Add(id, overrideTimestamp);
+				
+			}
+			else
+			{
+				_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
+			}
 			
 			return id;
 		}

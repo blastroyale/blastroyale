@@ -39,17 +39,11 @@ namespace Quantum
 			transform->Rotation = spawnPosition.Rotation;
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
-			//if now loadout weapon is present, set it to order by default
 			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
 			if (loadoutWeapon.IsValid())
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
-			else
-			{
-				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = EquipmentFaction.Order;
-			}
-		
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.

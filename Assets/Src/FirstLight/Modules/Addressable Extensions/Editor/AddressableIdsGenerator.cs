@@ -18,7 +18,7 @@ namespace FirstLightEditor.AddressablesExtensions
 	{
 		private const string _objectName = "AddressableId";
 		private const string _namespace = "FirstLight.Game.Ids";
-		private const string _ignoreLabel = "Ignore";
+		private const string _generateLabel = "GenerateIds";
 		
 		[MenuItem("Tools/Generate AddressableIds")]
 		private static void GenerateAddressableIds()
@@ -235,7 +235,7 @@ namespace FirstLightEditor.AddressablesExtensions
 			{
 				foreach (var label in assetList[i].labels)
 				{
-					if (label == _ignoreLabel)
+					if (label != _generateLabel)
 					{
 						continue;
 					}
@@ -249,7 +249,7 @@ namespace FirstLightEditor.AddressablesExtensions
 					list.Add(assetList[i]);
 				}
 				
-				if (assetList[i].labels.Contains(_ignoreLabel))
+				if (!assetList[i].labels.Contains(_generateLabel))
 				{
 					assetList.RemoveAt(i);
 					continue;

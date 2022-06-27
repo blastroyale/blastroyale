@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -5,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -31,7 +33,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		private EntityView _spectatePlayerView;
 		private EntityRef _latestKiller;
 
-		private bool spectating = false;
+		private bool _hasTarget;
+		private Transform _targetTransform;
+
+		private bool _spectating;
+		private FP _visionRangeRadius;
 
 		private void Awake()
 		{
@@ -52,8 +58,19 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView);
 
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
+			
+			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+		}
+
+		private void OnQuantumUpdateView(CallbackUpdateView callback)
+		{
+			if (_hasTarget)
+			{
+				callback.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), _visionRangeRadius);
+			}
 		}
 
 		private void OnDestroy()
@@ -116,13 +133,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnSpectate(SpectateKillerMessage message)
 		{
-			spectating = true;
+			_spectating = true;
 			RefreshSpectator();
 		}
 
 		private void RefreshSpectator()
 		{
-			if (spectating)
+			if (_spectating)
 			{
 				SetTargetTransform(_entityViewUpdaterService.GetManualView(_latestKiller).transform);
 			}
@@ -141,6 +158,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
+			_targetTransform = entityViewTransform;
+			_hasTarget = true;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;
 			_deathCamera.LookAt = entityViewTransform;

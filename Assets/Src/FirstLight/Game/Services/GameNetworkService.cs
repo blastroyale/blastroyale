@@ -78,15 +78,17 @@ namespace FirstLight.Game.Services
 		
 		private IConfigsProvider _configsProvider;
 		private bool _isJoiningNewRoom;
+		
 		public IObservableField<string> UserId { get; }
-		bool IGameNetworkService.IsJoiningNewRoom => IsJoiningNewRoom.Value;
 		public IObservableField<bool> IsJoiningNewRoom { get; }
+		public QuantumLoadBalancingClient QuantumClient { get; }
+		private IObservableField<bool> HasLag { get; }
+		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
+		
 		string IGameNetworkService.UserId => UserId.Value;
+		bool IGameNetworkService.IsJoiningNewRoom => IsJoiningNewRoom.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
-		public QuantumLoadBalancingClient QuantumClient { get; }
-		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
-
 		/// <inheritdoc />
 		public QuantumMapConfig? CurrentRoomMapConfig
 		{
@@ -100,13 +102,6 @@ namespace FirstLight.Game.Services
 				return _configsProvider.GetConfig<QuantumMapConfig>(QuantumClient.CurrentRoom.GetMapId());
 			}
 		}
-
-		public bool IsMatchmakingRoom(Room room)
-		{
-			return room.IsVisible;
-		}
-
-		private IObservableField<bool> HasLag { get; }
 
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
@@ -126,6 +121,11 @@ namespace FirstLight.Game.Services
 			var lastAckCheck = lastTimestamp > 0 && SupportClass.GetTickCount() - lastTimestamp > _lagRoundtripThreshold;
 			
 			HasLag.Value = roundTripCheck || lastAckCheck;*/
+		}
+
+		public bool IsMatchmakingRoom(Room room)
+		{
+			return room.IsVisible;
 		}
 
 		private void SetUserId(string id)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -32,8 +33,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private EntityView _spectatePlayerView;
 		private EntityRef _latestKiller;
-
-		private bool _hasTarget;
+		private EntityRef _leader;
+		
 		private Transform _targetTransform;
 
 		private bool _spectating;
@@ -67,7 +68,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
-			if (_hasTarget)
+			if (_targetTransform != null)
 			{
 				callback.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), _visionRangeRadius);
 			}
@@ -113,6 +114,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			_leader = callback.EntityLeader;
 			if (callback.EntityDead == _latestKiller)
 			{
 				_latestKiller = callback.EntityKiller;
@@ -141,8 +143,35 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_spectating)
 			{
-				SetTargetTransform(_entityViewUpdaterService.GetManualView(_latestKiller).transform);
+				var nextPlayerView = GetNextPlayerView();
+				SetTargetTransform(nextPlayerView.transform);
 			}
+		}
+
+		private EntityView GetNextPlayerView()
+		{
+			EntityView nextPlayer = null;
+
+			try
+			{
+				nextPlayer = _entityViewUpdaterService.GetManualView(_latestKiller);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				if (_leader.IsValid)
+				{
+					try
+					{
+						nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
+					}
+					catch (KeyNotFoundException)
+					{
+						nextPlayer = null;
+					}
+				}
+			}
+
+			return nextPlayer;
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
@@ -158,8 +187,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
+			
 			_targetTransform = entityViewTransform;
-			_hasTarget = true;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;
 			_deathCamera.LookAt = entityViewTransform;

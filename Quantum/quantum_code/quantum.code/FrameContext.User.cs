@@ -19,12 +19,10 @@ namespace Quantum
 		/// </summary>
 		public IReadOnlyList<Equipment> GetPlayerWeapons(Frame f, out EquipmentRarity averageRarity)
 		{
-			if (f.IsVerified && f.PlayerCount != _playersWeaponPool.Count && _playersWeaponPool.Count < Constants.OFFHAND_POOLSIZE)
+			if (f.IsVerified && _playersWeaponPool.Count == 0)
 			{
 				var offPool = GameIdGroup.Weapon.GetIds();
 				var rarity = 0;
-				
-				_playersWeaponPool.Clear();
 				
 				for (var i = 0; i < f.PlayerCount; i++)
 				{

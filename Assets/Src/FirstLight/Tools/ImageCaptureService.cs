@@ -170,9 +170,9 @@ namespace Src.FirstLight.Tools
 			{
 				//GameIdGroup.Helmet, 
 				//GameIdGroup.Shield,
-				GameIdGroup.Armor,
+				//GameIdGroup.Armor,
 				//GameIdGroup.Amulet,
-				//GameIdGroup.Weapon
+				GameIdGroup.Weapon
 			};
 			
 			
@@ -215,7 +215,12 @@ namespace Src.FirstLight.Tools
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
 					var gameId = ids.ElementAt(subCategoryIndex);
-					
+
+					if (gameId == GameId.Hammer)
+					{
+						continue;
+					}
+
 					for (var rarityIndex = 0; rarityIndex < (int)EquipmentRarity.TOTAL; rarityIndex++)
 					{
 						for (var materialIndex = 0; materialIndex < (int)EquipmentMaterial.TOTAL; materialIndex++)
@@ -383,6 +388,11 @@ namespace Src.FirstLight.Tools
 			{
 				foreach (Renderer renderer in renderers)
 				{
+					if (renderer is ParticleSystemRenderer)
+					{
+						continue;
+					}
+
 					if (renderer.enabled && gameObject.activeSelf)
 					{
 						bounds = renderer.bounds;
@@ -393,6 +403,11 @@ namespace Src.FirstLight.Tools
 				
 				foreach (Renderer renderer in renderers)
 				{
+					if (renderer is ParticleSystemRenderer)
+					{
+						continue;
+					}
+					
 					if (renderer.enabled && gameObject.activeSelf)
 					{
 						bounds.Encapsulate(renderer.bounds);

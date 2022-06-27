@@ -8,6 +8,7 @@ using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Microsoft.Extensions.DependencyInjection;

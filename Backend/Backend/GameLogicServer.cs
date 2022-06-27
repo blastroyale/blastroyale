@@ -3,6 +3,7 @@ using Backend.Game;
 using Backend.Game.Services;
 using Backend.Models;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using ServerSDK;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8892619923193925637}
   - component: {fileID: 1905541780505219322}
   - component: {fileID: 6126643517410669255}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MouseShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

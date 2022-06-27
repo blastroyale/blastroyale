@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7217938898827436401}
   - component: {fileID: 41342423535958196}
   - component: {fileID: 5660583499352986717}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RiotHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

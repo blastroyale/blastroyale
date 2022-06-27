@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5521775273959065331}
   - component: {fileID: 5402083071071753179}
   - component: {fileID: 469934211769451738}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorChest_Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5175104466260548641}
   - component: {fileID: 4369915553929753895}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoadSignArmour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4841646806182684426}
   - component: {fileID: 8690155390510185559}
   - component: {fileID: 1036216977028993556}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadR_Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 2447767491449733788}
   - component: {fileID: 7198748021637608325}
   - component: {fileID: 7457068816349804388}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadL_Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}

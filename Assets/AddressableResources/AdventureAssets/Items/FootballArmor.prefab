@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2804594635043397133}
   - component: {fileID: 3241919536905452113}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FootballArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 6536088468968148842}
   - component: {fileID: 2087620975997975563}
   - component: {fileID: 6308508849827383648}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AFDarkArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 2770460096376532574}
   - component: {fileID: 4066512044327890769}
   - component: {fileID: 6934131973647153010}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadR_AFDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 5506007717679639307}
   - component: {fileID: 8676365146444641613}
   - component: {fileID: 120345078191253622}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadL_AFDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

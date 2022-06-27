@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8526267834197534927}
   - component: {fileID: 3281584621515616729}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SoldierArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 2102293251182916707}
   - component: {fileID: 4255883002064817314}
   - component: {fileID: 4843588792411186713}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadR_Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 8475377344775538261}
   - component: {fileID: 3112351184230936855}
   - component: {fileID: 7251167761657195348}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadL_Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1644844327452812967}
   - component: {fileID: 457136226023594939}
   - component: {fileID: 9053916666167095758}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorChest_Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

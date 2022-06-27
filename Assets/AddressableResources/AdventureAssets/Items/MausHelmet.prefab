@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3655252458560614637}
   - component: {fileID: 3190311426441500023}
   - component: {fileID: 1660317457545482569}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MausHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1964886866128681093}
   - component: {fileID: 8542213965508290206}
   - component: {fileID: 305044892867349824}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SoldierShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7694019181515819444}
   - component: {fileID: 1214783464572059688}
   - component: {fileID: 5886936304591130808}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoadHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -33,11 +33,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var info = _resourceLogic.GetResourcePoolInfo(_poolConfig.Id);
 			
 			Assert.AreEqual(_poolConfig.Id, info.Id);
-			Assert.That(20, Is.EqualTo(info.WinnerRewardAmount).Within(1));
-			Assert.That(446, Is.EqualTo(info.CurrentAmount).Within(1)); // 668 - 223
-			Assert.That(446, Is.EqualTo(info.PoolCapacity).Within(1)); // 668 - 223
-			Assert.That(DateTime.UtcNow.AddMinutes(_poolConfig.RestockIntervalMinutes), 
-			            Is.EqualTo(info.NextRestockTime).Within(10).Seconds);
+			Assert.That(info.WinnerRewardAmount, Is.EqualTo(20).Within(1));
+			Assert.That(info.CurrentAmount, Is.EqualTo(223).Within(1));
+			Assert.That(info.PoolCapacity, Is.EqualTo(223).Within(1));
+			Assert.That(info.NextRestockTime, 
+			            Is.EqualTo(DateTime.UtcNow.AddMinutes(_poolConfig.RestockIntervalMinutes)).Within(10).Seconds);
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			Assert.AreEqual(100, withdraw);
 			Assert.AreEqual(0, _resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
-			Assert.That(DateTime.UtcNow, Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
+			Assert.That(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime, Is.EqualTo(DateTime.UtcNow).Within(10).Seconds);
 		}
 
 		[Test]
@@ -99,8 +99,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, widrawAmount);
 			
 			Assert.AreEqual(widrawAmount, withdraw);
-			Assert.That(346, Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool).Within(1));
-			Assert.That(DateTime.UtcNow, Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
+			Assert.That(_resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool, Is.EqualTo(223 - widrawAmount).Within(1));
+			Assert.That(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime, Is.EqualTo(DateTime.UtcNow).Within(10).Seconds);
 		}
 
 		private void SetupPoolConfigs()
@@ -126,7 +126,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MaxPoolCapacityDecreaseModifier = FP.FromString("0.9"),
 				PoolCapacityDecreaseExponent = FP.FromString("0.3"),
 				MaxTakeDecreaseModifier = FP.FromString("0.11"),
-				TakeDecreaseExponent = FP.FromString("0.18"),
+				TakeDecreaseExponent = FP.FromString("1.8"),
 				PoolCapacityTrophiesModifier = 10000
 			};
 
@@ -137,10 +137,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3 });
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP._0});
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP._0_05});
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP._0_05});
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP.FromString("0.135")});
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP.FromString("0.025")});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIII, PoolIncreaseModifier = FP._0_05});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIII, PoolIncreaseModifier = FP._0_05});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeI, PoolIncreaseModifier = FP.FromString("0.135")});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIV, PoolIncreaseModifier = FP.FromString("0.025")});
 			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Regular, PoolCapacityModifier = FP._0});
 			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Exquisite, PoolCapacityModifier = FP.FromString("0.00125")});
 			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Cool, PoolCapacityModifier = FP._0});

@@ -51,10 +51,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			var withdraw = _resourceLogic.WithdrawFromResourcePool(poolData.Id, 100);
 			
-			Assert.AreEqual(44, withdraw);
+			Assert.That(withdraw, Is.EqualTo(55).Within(1));
 			Assert.AreEqual(0, _resourceLogic.ResourcePools[poolData.Id].CurrentResourceAmountInPool);
-			Assert.That(DateTime.UtcNow.AddMinutes(-extraTime), 
-			            Is.EqualTo(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime).Within(10).Seconds);
+			Assert.That(_resourceLogic.ResourcePools[poolData.Id].LastPoolRestockTime, 
+			            Is.EqualTo(DateTime.UtcNow.AddMinutes(-extraTime)).Within(10).Seconds);
 		}
 
 		[Test]
@@ -117,9 +117,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_poolConfig = new ResourcePoolConfig
 			{
 				Id = GameId.CS,
-				PoolCapacity = 1000,
-				RestockIntervalMinutes = 100,
-				TotalRestockIntervalMinutes = 1000,
+				PoolCapacity = 300,
+				RestockIntervalMinutes = 180,
+				TotalRestockIntervalMinutes = 720,
 				BaseMaxTake = 16,
 				ScaleMultiplier = 15,
 				ShapeModifier = FP._1_50,

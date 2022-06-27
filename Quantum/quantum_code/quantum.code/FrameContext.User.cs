@@ -9,7 +9,7 @@ namespace Quantum
 	{
 		private readonly List<Equipment> _playersWeaponPool = new List<Equipment>();
 
-		private EquipmentRarity _medianRarity;
+		private EquipmentRarity _averageRarity;
 		
 		public QuantumMapConfig MapConfig { get; internal set; }
 		public int TargetAllLayerMask { get; internal set; }
@@ -17,11 +17,14 @@ namespace Quantum
 		/// <summary>
 		/// Requests the players weapon pool list, ordered by its rarity
 		/// </summary>
-		public IReadOnlyList<Equipment> GetPlayerWeapons(Frame f, out EquipmentRarity medianRarity)
+		public IReadOnlyList<Equipment> GetPlayerWeapons(Frame f, out EquipmentRarity averageRarity)
 		{
-			if (f.PlayerCount != _playersWeaponPool.Count)
+			if (f.IsVerified && f.PlayerCount != _playersWeaponPool.Count && _playersWeaponPool.Count < Constants.OFFHAND_POOLSIZE)
 			{
 				var offPool = GameIdGroup.Weapon.GetIds();
+				var rarity = 0;
+				
+				_playersWeaponPool.Clear();
 				
 				for (var i = 0; i < f.PlayerCount; i++)
 				{
@@ -36,6 +39,8 @@ namespace Quantum
 
 					if (weapon.IsValid())
 					{
+						rarity += (int)weapon.Rarity;
+						
 						_playersWeaponPool.Add(weapon);
 					}
 				}
@@ -43,14 +48,17 @@ namespace Quantum
 				// Fill up weapon pool to a minimum size
 				for (var i = _playersWeaponPool.Count; i < Constants.OFFHAND_POOLSIZE; i++)
 				{
-					_playersWeaponPool.Add(new Equipment(offPool[i]));
+					var equipment = new Equipment(offPool[i]);
+					
+					rarity += (int)equipment.Rarity;
+					
+					_playersWeaponPool.Add(equipment);
 				}
-			
-				_playersWeaponPool.Sort((a, b) => ((int)a.Rarity).CompareTo((int) b.Rarity));
-				_medianRarity = _playersWeaponPool[FPMath.FloorToInt(_playersWeaponPool.Count / FP._2)].Rarity;
+
+				_averageRarity = (EquipmentRarity)FPMath.FloorToInt((FP) rarity / _playersWeaponPool.Count);
 			}
 
-			medianRarity = _medianRarity;
+			averageRarity = _averageRarity;
 				
 			return _playersWeaponPool;
 		}

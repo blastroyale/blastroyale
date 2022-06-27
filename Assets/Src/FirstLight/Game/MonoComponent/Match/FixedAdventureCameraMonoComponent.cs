@@ -6,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -36,7 +37,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private Transform _targetTransform;
 
 		private bool _spectating;
-		private float _visionRangeRadius;
+		private FP _visionRangeRadius;
 
 		private void Awake()
 		{
@@ -61,7 +62,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
 			
-			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange.AsFloat;
+			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)

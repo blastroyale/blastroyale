@@ -89,7 +89,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - Quantum
-    - Ignore
+    - GenerateIds
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1e1411d15bd0747d08255cbe53d40e15, type: 2}

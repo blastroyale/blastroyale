@@ -77,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
-
+			
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
@@ -144,6 +144,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsDeathmatch()
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+		}
+		
+		private void SendReadyForResyncMessage()
+		{
+			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
 		}
 
 		private async void OnGameStart(CallbackGameStarted callback)

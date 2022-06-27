@@ -63,9 +63,7 @@ namespace FirstLight.Game.StateMachines
 			var connected = stateFactory.State("NETWORK - Connected");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
 			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
-			var reconnectingGame = stateFactory.State("NETWORK - Reconnecting Screen Game");
-			var reconnectingMenu = stateFactory.State("NETWORK - Reconnecting Screen Menu");
-			var reconnectingSceneCheck = stateFactory.Choice("NETWORK - Reconnecting Scene Check");
+			var reconnecting = stateFactory.State("NETWORK - Reconnecting Screen");
 			
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
@@ -76,29 +74,20 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
-			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnectingSceneCheck);
+			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnecting);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
 
-			reconnectingSceneCheck.Transition().Condition(IsReconnectingToMatch).Target(reconnectingGame);
-			reconnectingSceneCheck.Transition().Target(reconnectingMenu);
-			
-			reconnectingMenu.OnEnter(DimDisconnectedScreen);
-			reconnectingMenu.Event(PhotonMasterConnectedEvent).Target(connected);
-			reconnectingMenu.OnExit(UndimDisconnectedScreen);
-			reconnectingMenu.OnExit(CloseDisconnectedScreen);
-			
-			reconnectingGame.OnEnter(DimDisconnectedScreen);
-			reconnectingGame.Event(JoinedRoomEvent).Target(connected);
-			reconnectingGame.Event(JoinRoomFailedEvent).Target(connected); // TODO - DOUBLE CHECK IF ROOM FAILED CAN CALL IF YOU CLICK RECONNECT
-			reconnectingGame.OnExit(UndimDisconnectedScreen);
-			reconnectingGame.OnExit(CloseDisconnectedScreen);
-			
+			reconnecting.OnEnter(DimDisconnectedScreen);
+			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
+			reconnecting.OnExit(UndimDisconnectedScreen);
+			reconnecting.OnExit(CloseDisconnectedScreen);
+
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-
+		
 		private bool IsReconnectingToMatch()
 		{
 			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;

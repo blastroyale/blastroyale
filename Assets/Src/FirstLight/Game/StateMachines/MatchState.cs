@@ -100,7 +100,6 @@ namespace FirstLight.Game.StateMachines
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(postDisconnectReloadCheck);
 			disconnectReload.OnExit(CloseLoadingScreen);
 			
-			// TODO - HANDLE EITHER GOING TO MATCHMAKING, OR PLAYER READY WAIT (IF DC MID-LOADING)
 			postDisconnectReloadCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			postDisconnectReloadCheck.Transition().Target(matchmaking);
 			

@@ -49,16 +49,15 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(OpenMatchHud);
 
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(spawning);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
-			aliveCheck.OnExit(OpenMatchHud);
 			aliveCheck.OnExit(SendReadyForResyncMessage);
-			
-			spawning.OnEnter(OpenMatchHud);
+
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 			spawning.OnExit(PublishMatchStarted);
 
@@ -66,7 +65,7 @@ namespace FirstLight.Game.StateMachines
 			alive.Event(_localPlayerDeadEvent).Target(dead);
 			alive.OnExit(CloseControlsHud);
 
-			dead.OnEnter(CloseAdventureHud);
+			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenKillScreen);
 			dead.Event(_localPlayerExitEvent).Target(final);
 			dead.Event(_localPlayerSpectateEvent).Target(spectating);
@@ -76,7 +75,7 @@ namespace FirstLight.Game.StateMachines
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.OnExit(CloseSpectateScreen);
 
-			final.OnEnter(CloseAdventureHud);
+			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -144,7 +143,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<MatchHudPresenter>();
 		}
 
-		private void CloseAdventureHud()
+		private void CloseMatchHud()
 		{
 			_uiService.CloseUi<MatchHudPresenter>();
 		}

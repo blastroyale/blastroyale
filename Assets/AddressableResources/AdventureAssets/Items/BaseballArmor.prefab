@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9122491841141002444}
   - component: {fileID: 4511409744892407575}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseballArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 2924772856737561110}
   - component: {fileID: 2136621516778100995}
   - component: {fileID: 7971472980506038292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AFLightArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 8127268277809552850}
   - component: {fileID: 8222814102797359200}
   - component: {fileID: 5878284120889947209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadL_AFLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 8438650214039840335}
   - component: {fileID: 3911908133099432427}
   - component: {fileID: 3036857095840594275}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadR_AFLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

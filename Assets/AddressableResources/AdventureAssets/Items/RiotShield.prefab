@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 466582419410931095}
   - component: {fileID: 5834274149511954579}
   - component: {fileID: 3708571096088231903}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RiotShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

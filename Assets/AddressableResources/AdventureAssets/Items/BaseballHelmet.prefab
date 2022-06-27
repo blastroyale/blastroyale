@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5970671341126838380}
   - component: {fileID: 4245140856906843514}
   - component: {fileID: 5336494811489208024}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseballHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

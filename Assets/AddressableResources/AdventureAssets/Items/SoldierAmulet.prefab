@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4715844585768302288}
   - component: {fileID: 4024873311786433992}
   - component: {fileID: 7164782991914870364}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SoldierAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

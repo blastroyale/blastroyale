@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5793654449448218884}
   - component: {fileID: 8254824758906603911}
   - component: {fileID: 9181036758042184526}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadR_Riot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 8556224925997406519}
   - component: {fileID: 3895787172957603679}
   - component: {fileID: 7026940623612023272}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorChest_Riot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 5592014666637904814}
   - component: {fileID: 127960892575344777}
   - component: {fileID: 4387263697338064845}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadL_Riot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263966835548450922}
   - component: {fileID: 7269652479528313296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RiotArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

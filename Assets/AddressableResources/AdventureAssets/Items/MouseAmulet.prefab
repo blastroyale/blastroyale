@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 917423063744506567}
   - component: {fileID: 1879656307354358431}
   - component: {fileID: 2066940230295462827}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MouseAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

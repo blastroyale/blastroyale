@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6679562246286864508}
   - component: {fileID: 7087697583814724049}
   - component: {fileID: 3064387917075146546}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoadShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8590128011061614658}
   - component: {fileID: 3625777603763343892}
   - component: {fileID: 3721430207077385330}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RiotAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

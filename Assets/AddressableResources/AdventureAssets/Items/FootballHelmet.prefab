@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2711869861892670327}
   - component: {fileID: 6786457750036892652}
   - component: {fileID: 5905474103244410328}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FootballHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

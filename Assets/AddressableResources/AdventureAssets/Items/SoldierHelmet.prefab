@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7596623339603617049}
   - component: {fileID: 4732370368829068968}
   - component: {fileID: 3446877555426741897}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SoldierHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

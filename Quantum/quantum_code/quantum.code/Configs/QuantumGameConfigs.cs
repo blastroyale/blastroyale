@@ -60,6 +60,7 @@ namespace Quantum
 		public FP AdjectiveRarityEarningsMod;
 		public uint NftUsageCooldownMinutes;
 		public uint NftRequiredEquippedForPlay;
+		public FP PlayerVisionRange;
 	}
 
 	/// <summary>

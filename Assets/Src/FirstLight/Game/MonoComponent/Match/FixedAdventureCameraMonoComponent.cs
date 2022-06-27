@@ -56,15 +56,17 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView);
 
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
 		}
 
-		private void Update()
+		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
 			if (_hasTarget)
 			{
-				QuantumRunner.Default.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), 10);
+				var visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+				QuantumRunner.Default.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), visionRangeRadius);
 			}
 		}
 

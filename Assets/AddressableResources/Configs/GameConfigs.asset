@@ -39,7 +39,7 @@ MonoBehaviour:
         Deathmatch: 800
       PlayerDefaultSpeed:
         BattleRoyale:
-          RawValue: 249037
+          RawValue: 222822
         Deathmatch:
           RawValue: 314573
       PlayerMaxShieldCapacity:
@@ -68,7 +68,7 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 200
+      StatsPowerBaseValue: 250
       StatsPowerRarityMultiplier:
         RawValue: 81920
       StatsPowerLevelStepMultiplier:
@@ -110,6 +110,7 @@ MonoBehaviour:
       MinNftForEarnings: 3
       AdjectiveRarityEarningsMod:
         RawValue: 52429
-      LoadoutSlots: 5
       NftUsageCooldownMinutes: 1440
       NftRequiredEquippedForPlay: 3
+      PlayerVisionRange:
+        RawValue: 1245184

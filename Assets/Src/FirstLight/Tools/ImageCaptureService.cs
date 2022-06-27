@@ -35,6 +35,9 @@ namespace Src.FirstLight.Tools
 		[BoxGroup("Folder Paths")]
 		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
 		public string _exportFolderPath;
+		[BoxGroup("Folder Paths")]
+		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
+		public string _importFolderPath;
 		[FilePath(Extensions = "json")]
 		public string _metadataJsonFilePath;
 		
@@ -52,6 +55,71 @@ namespace Src.FirstLight.Tools
 		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 		private readonly Vector2 _referenceResolution = new(1660, 2048);
 		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
+		
+		[Button("Export Metadata Collection")]
+		public async void ExportMetadataCollection()
+		{
+			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+			{
+				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
+				
+				return;
+			}
+			
+			if (_importFolderPath == "" || !Directory.Exists(_importFolderPath))
+			{
+				Debug.LogError($"Invalid import folder path [{_importFolderPath}]");
+				
+				return;
+			}
+			
+			var gameIdGroups = new[]
+			{
+				GameIdGroup.Helmet, 
+				GameIdGroup.Shield,
+				GameIdGroup.Armor,
+				GameIdGroup.Amulet,
+				GameIdGroup.Weapon
+			};
+			
+			
+			_assetDictionary.Clear();
+			var keys = new List<object>();
+			
+			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
+			{
+				var ids = gameIdGroups[categoryIndex].GetIds();
+				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
+				{
+					var gameId = ids.ElementAt(subCategoryIndex);
+					keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
+				}
+			}
+			
+			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+			{
+				if (Enum.TryParse(addressable.name, out GameId gameId))
+				{
+					_assetDictionary.Add(gameId, addressable);
+				}
+				else
+				{
+					throw new Exception($"Unable to parse GameId {addressable.name}");
+				}
+			}, Addressables.MergeMode.Union, false).Task;
+			
+			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
+
+			var fileCount = 0;
+			foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
+			{
+				var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(filePath));
+				ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+				fileCount++;
+			}
+			
+			Debug.Log($"Loaded [{fileCount} metadata files]");
+		}
 		
 		[Button("Export Render Texture [Metadata Json]")]
 		public async void ExportRenderTextureFromMetadataJson()
@@ -101,8 +169,8 @@ namespace Src.FirstLight.Tools
 			var gameIdGroups = new[]
 			{
 				//GameIdGroup.Helmet, 
-				GameIdGroup.Shield,
-				//GameIdGroup.Armor,
+				//GameIdGroup.Shield,
+				GameIdGroup.Armor,
 				//GameIdGroup.Amulet,
 				//GameIdGroup.Weapon
 			};
@@ -307,7 +375,7 @@ namespace Src.FirstLight.Tools
 		{
 			var bounds = new Bounds();
 
-			var renderers = go.GetComponentsInChildren<Renderer>();
+			var renderers = go.GetComponentsInChildren<Renderer>(true);
 			
 			if (renderers.Length > 0)
 			{

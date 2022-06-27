@@ -50,6 +50,7 @@ namespace Quantum
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
 			}
 
+			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Rarity = EquipmentRarity.Common;
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
 			//BotSDKDebuggerSystem.AddToDebugger(e);

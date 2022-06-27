@@ -267,6 +267,11 @@ namespace Src.FirstLight.Tools
 		/// </summary>
 		private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 		{
+			if (_markerTransform.transform.childCount > 0)
+			{
+				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
+			}
+        			
 			var subcategoryId = metadata.attibutesDictionary["subCategory"];
 			var gameId = (GameId) subcategoryId;
 
@@ -311,11 +316,8 @@ namespace Src.FirstLight.Tools
 			{
 				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
 			}
-
-			if (_markerTransform.transform.childCount > 0)
-			{
-				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
-			}
+			
+			_canvas.SetActive(true);
 		}
 
 		

@@ -36,6 +36,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private Transform _targetTransform;
 
 		private bool _spectating;
+		private float _visionRangeRadius;
 
 		private void Awake()
 		{
@@ -59,14 +60,15 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView);
 
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
+			
+			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange.AsFloat;
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
 			if (_hasTarget)
 			{
-				var visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
-				QuantumRunner.Default.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), visionRangeRadius);
+				callback.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), _visionRangeRadius);
 			}
 		}
 

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -118,7 +116,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (callback.EntityDead == _latestKiller)
 			{
 				_latestKiller = callback.EntityKiller;
-				RefreshSpectator();
+				RefreshSpectator(callback.Game.Frames.Verified);
 			}
 		}
 
@@ -136,39 +134,28 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnSpectate(SpectateKillerMessage message)
 		{
 			_spectating = true;
-			RefreshSpectator();
+			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
-		private void RefreshSpectator()
+		private void RefreshSpectator(Frame f)
 		{
 			if (_spectating)
 			{
-				var nextPlayerView = GetNextPlayerView();
+				var nextPlayerView = GetNextPlayerView(f);
 				SetTargetTransform(nextPlayerView.transform);
 			}
 		}
 
-		private EntityView GetNextPlayerView()
+		private EntityView GetNextPlayerView(Frame f)
 		{
 			EntityView nextPlayer = null;
 
-			try
-			{
+			if (f.Exists(_latestKiller)){
 				nextPlayer = _entityViewUpdaterService.GetManualView(_latestKiller);
 			}
-			catch (KeyNotFoundException ex)
+			else if (_leader.IsValid)
 			{
-				if (_leader.IsValid)
-				{
-					try
-					{
-						nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
-					}
-					catch (KeyNotFoundException)
-					{
-						nextPlayer = null;
-					}
-				}
+				nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
 			}
 
 			return nextPlayer;

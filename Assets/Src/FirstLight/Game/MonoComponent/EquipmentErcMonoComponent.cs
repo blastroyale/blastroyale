@@ -4,8 +4,15 @@ using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent
 {
+	/// <summary>
+	/// This logic provides the necessary behaviour to manage any erc renderable object 
+	/// </summary>
 	public interface IErcRenderable
 	{
+		/// <summary>
+		/// Initialises a erc object given erc metadata <see cref="metadata"/>
+		/// </summary>
+		/// <param name="metadata"></param>
 		public void Initialise(Erc721MetaData metadata);
 	}
 	

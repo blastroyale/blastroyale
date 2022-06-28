@@ -42,16 +42,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected, onlyIfActiveAndEnabled: true);
 		}
 
-		private void OnAirDropCollected(EventOnAirDropCollected callback)
-		{
-			// TODO Eve: Add logic for AirDrop directional arrow.
-			FLog.Info($"AirDrop Collected: {callback.AirDrop}");
-		}
-
 		private void OnAirDropStarted(EventOnAirDropStarted callback)
 		{
 			// TODO Eve: Add logic for AirDrop directional arrow.
-			FLog.Info($"AirDrop Started: {callback.AirDrop}");
+			FLog.Info($"AirDrop OnAirDropStarted: callback.Entity({callback.Entity}), callback.AirDrop.Position({callback.AirDrop.Position})");
+		}
+
+		private void OnAirDropCollected(EventOnAirDropCollected callback)
+		{
+			// TODO Eve: Add logic for AirDrop directional arrow.
+			FLog.Info($"AirDrop OnAirDropCollected: callback.Entity({callback.Entity}), callback.AirDrop.Position({callback.AirDrop.Position})");
 		}
 
 		private void OnDestroy()
@@ -86,9 +86,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GetReady;
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
-			
+
 			yield return new WaitForSeconds(time);
- 
+
 
 			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
@@ -119,7 +119,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			while (Time.time < time)
 			{
 				_timerText.text = (time - Time.time).ToString("N0");
-				
+
 				UpdateDirectionPointer(targetCircleCenter, circleRadius);
 
 				yield return null;
@@ -152,5 +152,3 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 	}
 }
-
-

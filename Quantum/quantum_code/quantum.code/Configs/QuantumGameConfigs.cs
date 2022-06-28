@@ -62,6 +62,7 @@ namespace Quantum
 		public FP PlayerVisionRange;
 		public FP AirdropPositionOffsetMultiplier;
 		public FP AirdropRandomAreaMultiplier;
+		public FP AirdropHeight;
 	}
 
 	/// <summary>

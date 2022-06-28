@@ -1,21 +1,35 @@
-using FirstLight.Game.MonoComponent.EntityViews;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
 {
-	public class AirDropMonoComponent: EntityBase
+	/// <summary>
+	/// Responsible for instantiating the AirDrop.
+	/// </summary>
+	public class AirDropMonoComponent : EntityBase
 	{
-		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
+		[SerializeField, Required] private GameObject _parachute;
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
-			var airDrop = GetComponentData<AirDrop>(game);
-			
-			_collectableView.SetEntityView(game, EntityView);
+			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
+			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
+		}
 
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(airDrop.Chest, true, true, OnLoaded);
+		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		{
+			if (callback.Entity == EntityView.EntityRef)
+			{
+				Services.AssetResolverService.RequestAsset<GameId, GameObject>(callback.AirDrop.Chest, true, true,
+				                                                               OnLoaded);
+				_parachute.SetActive(true);
+			}
+		}
+
+		private void OnAirDropDropped(EventOnAirDropDropped callback)
+		{
+			_parachute.SetActive(false);
 		}
 	}
 }

@@ -117,3 +117,5 @@ MonoBehaviour:
         RawValue: 32768
       AirdropRandomAreaMultiplier:
         RawValue: 16384
+      AirdropHeight:
+        RawValue: 3276800

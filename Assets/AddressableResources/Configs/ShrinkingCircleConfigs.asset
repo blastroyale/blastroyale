@@ -30,8 +30,10 @@ MonoBehaviour:
       AirdropChance:
         RawValue: 13107
       AirdropStartTimeRange:
-        Value1: 28
-        Value2: 35
+        Value1:
+          RawValue: 1835008
+        Value2:
+          RawValue: 2293760
       AirdropDropDuration:
         RawValue: 655360
       AirdropChest: 19
@@ -47,8 +49,10 @@ MonoBehaviour:
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
-        Value1: 0
-        Value2: 0
+        Value1:
+          RawValue: 0
+        Value2:
+          RawValue: 0
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
@@ -64,8 +68,10 @@ MonoBehaviour:
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
-        Value1: 0
-        Value2: 0
+        Value1:
+          RawValue: 0
+        Value2:
+          RawValue: 0
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
@@ -81,8 +87,10 @@ MonoBehaviour:
       AirdropChance:
         RawValue: 22938
       AirdropStartTimeRange:
-        Value1: 13
-        Value2: 25
+        Value1:
+          RawValue: 851968
+        Value2:
+          RawValue: 1638400
       AirdropDropDuration:
         RawValue: 655360
       AirdropChest: 19
@@ -98,8 +106,10 @@ MonoBehaviour:
       AirdropChance:
         RawValue: 29491
       AirdropStartTimeRange:
-        Value1: 20
-        Value2: 30
+        Value1:
+          RawValue: 1310720
+        Value2:
+          RawValue: 1966080
       AirdropDropDuration:
         RawValue: 983040
       AirdropChest: 19

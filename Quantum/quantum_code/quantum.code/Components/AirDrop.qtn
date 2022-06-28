@@ -21,6 +21,12 @@ synced event OnAirDropStarted
 	AirDrop AirDrop;
 }
 
+synced event OnAirDropDropped
+{
+	entity_ref Entity;
+	AirDrop AirDrop;
+}
+
 synced event OnAirDropCollected
 {
 	entity_ref Entity;

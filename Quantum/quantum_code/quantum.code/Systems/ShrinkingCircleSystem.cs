@@ -96,8 +96,7 @@ namespace Quantum.Systems
 			f.Events.OnNewShrinkingCircle(*circle);
 
 			// Air drop
-			// TODO mihak: Remove config.AirdropChance >= 0
-			if (config.AirdropChance >= 0 || config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
+			if (config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
 			{
 				AirDrop.Create(f, config);
 			}

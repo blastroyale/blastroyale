@@ -9,8 +9,6 @@ namespace Quantum
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.AirDropPrototype.Id));
 
-			f.Add<Chest>(entity);
-
 			f.Add(entity, new AirDrop
 			{
 				Delay = f.RNG->NextInclusive(config.AirdropStartTimeRange.Value1, config.AirdropStartTimeRange.Value2),

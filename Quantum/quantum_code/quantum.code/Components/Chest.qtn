@@ -1,5 +1,6 @@
 component Chest
 {
+	[HideInInspector] GameId Id;
 	[HideInInspector] ChestType ChestType;
 }
 

@@ -85,8 +85,8 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(unloading);
 			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
-			gameSimulation.OnExit(OpenLoadingScreen);
 			
+			unloading.OnEnter(OpenLoadingScreen);
 			unloading.WaitingFor(UnloadMatchAssets).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);

@@ -24,9 +24,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private GameObject _timerOutline;
 		[SerializeField, Required] private Animation _mapShrinkingTimerAnimation;
 		[SerializeField, Required] private Transform _safeAreaRadialTransform;
+		[SerializeField, Required] private Transform _airDropRadialTransform;
 
 		private IGameServices _services;
 		private Transform _cameraTransform;
+		private Coroutine _airDropCoroutine;
 
 		private void Awake()
 		{
@@ -44,14 +46,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnAirDropStarted(EventOnAirDropStarted callback)
 		{
-			// TODO Eve: Add logic for AirDrop directional arrow.
-			FLog.Info($"AirDrop OnAirDropStarted: callback.Entity({callback.Entity}), callback.AirDrop.Position({callback.AirDrop.Position})");
+			_airDropRadialTransform.gameObject.SetActive(true);
+			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
 		}
 
 		private void OnAirDropCollected(EventOnAirDropCollected callback)
 		{
-			// TODO Eve: Add logic for AirDrop directional arrow.
-			FLog.Info($"AirDrop OnAirDropCollected: callback.Entity({callback.Entity}), callback.AirDrop.Position({callback.AirDrop.Position})");
+			StopCoroutine(_airDropCoroutine);
+			_airDropRadialTransform.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()
@@ -63,7 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 
-			if (frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+			if (frame.TryGetSingleton<ShrinkingCircle>(out _))
 			{
 				StartCoroutine(UpdateShrinkingCircleTimer(frame));
 			}
@@ -72,6 +74,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
 			StartCoroutine(UpdateShrinkingCircleTimer(callback.Game.Frames.Verified));
+		}
+
+		private IEnumerator UpdateAirDropArrow(AirDrop airDrop)
+		{
+			// Calculate and Apply rotation
+			while (true)
+			{
+				var targetPosLocal = _cameraTransform.InverseTransformPoint(airDrop.Position.ToUnityVector3());
+				var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+
+				_airDropRadialTransform.eulerAngles = new Vector3(0, 0, targetAngle);
+				yield return null;
+			}
 		}
 
 		private IEnumerator UpdateShrinkingCircleTimer(Frame f)

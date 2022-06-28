@@ -83,7 +83,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var button = new AlertButton
 			{
-				Callback = Data.ReconnectClicked,
 				Style = AlertButtonStyle.Positive,
 				Text = ScriptLocalization.General.Confirm
 			};

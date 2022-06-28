@@ -19,45 +19,59 @@ namespace Quantum
 		/// </summary>
 		public IReadOnlyList<Equipment> GetPlayerWeapons(Frame f, out EquipmentRarity averageRarity)
 		{
-			if (f.IsVerified && _playersWeaponPool.Count == 0)
+			if (_playersWeaponPool.Count > 0)
 			{
-				var offPool = GameIdGroup.Weapon.GetIds();
-				var rarity = 0;
+				averageRarity = _averageRarity;
 				
-				for (var i = 0; i < f.PlayerCount; i++)
-				{
-					var playerData = f.GetPlayerData(i);
+				return _playersWeaponPool;
+			}
+			
+			var offPool = GameIdGroup.Weapon.GetIds();
+			var rarity = 0;
+				
+			for (var i = 0; i < f.PlayerCount; i++)
+			{
+				var playerData = f.GetPlayerData(i);
 					
-					if (playerData == null)
-					{
-						continue;
-					}
+				if (playerData == null)
+				{
+					continue;
+				}
 
-					var weapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon());
+				var weapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon());
 
-					if (weapon.IsValid())
-					{
-						rarity += (int)weapon.Rarity;
+				if (weapon.IsValid())
+				{
+					rarity += (int)weapon.Rarity;
 						
-						_playersWeaponPool.Add(weapon);
-					}
+					_playersWeaponPool.Add(weapon);
 				}
-
-				// Fill up weapon pool to a minimum size
-				for (var i = _playersWeaponPool.Count; i < Constants.OFFHAND_POOLSIZE; i++)
-				{
-					var equipment = new Equipment(offPool[i]);
-					
-					rarity += (int)equipment.Rarity;
-					
-					_playersWeaponPool.Add(equipment);
-				}
-
-				_averageRarity = (EquipmentRarity)FPMath.FloorToInt((FP) rarity / _playersWeaponPool.Count);
 			}
 
-			averageRarity = _averageRarity;
+			// Fill up weapon pool to a minimum size
+			for (var i = _playersWeaponPool.Count; i < Constants.OFFHAND_POOLSIZE; i++)
+			{
+				var equipment = new Equipment(offPool[i]);
+					
+				rarity += (int)equipment.Rarity;
+					
+				_playersWeaponPool.Add(equipment);
+			}
+
+			averageRarity = (EquipmentRarity)FPMath.FloorToInt((FP) rarity / _playersWeaponPool.Count);
+
+			// We only save the list on verified frames to avoid de-syncs
+			if (f.IsPredicted)
+			{
+				var predictedList = new List<Equipment>(_playersWeaponPool);
 				
+				_playersWeaponPool.Clear();
+
+				return predictedList;
+			}
+
+			_averageRarity = averageRarity;
+
 			return _playersWeaponPool;
 		}
 	}

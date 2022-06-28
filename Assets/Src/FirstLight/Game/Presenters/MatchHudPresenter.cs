@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using System.Text;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -39,6 +38,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button[] _weaponSlotButtons;
 		[SerializeField, Required] private GameObject _minimapHolder;
 
+		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
@@ -68,6 +69,16 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderMessageView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
+
+			if (SROptions.Current.EnableEquipmentDebug)
+			{
+				_equippedDebugText.gameObject.SetActive(true);
+				QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
+			}
+			else
+			{
+				_equippedDebugText.gameObject.SetActive(false);
+			}
 		}
 
 		private void OnDestroy()
@@ -80,7 +91,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
-			
+
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
 
@@ -90,7 +101,7 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
-			
+
 			_standings.Initialise(frame.PlayerCount, false, true);
 		}
 
@@ -122,6 +133,44 @@ namespace FirstLight.Game.Presenters
 			};
 			
 			QuantumRunner.Default.Game.SendCommand(command);
+		}
+
+		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
+		{
+			var playerCharacter = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
+
+			var sb = new StringBuilder();
+
+			sb.AppendLine("Weapon:");
+			AppendEquipmentDebugText(sb, playerCharacter.CurrentWeapon);
+
+			sb.AppendLine("\nGear:");
+			for (int i = 0; i < playerCharacter.Gear.Length; i++)
+			{
+				var gear = playerCharacter.Gear[i];
+				if (gear.IsValid())
+				{
+					AppendEquipmentDebugText(sb, gear);
+				}
+			}
+
+			_equippedDebugText.text = sb.ToString();
+		}
+
+		private static void AppendEquipmentDebugText(StringBuilder sb, Equipment equipment)
+		{
+			sb.AppendLine(equipment.GameId.ToString());
+
+			sb.Append(equipment.Adjective.ToString());
+			sb.Append(" Level ");
+			sb.Append(equipment.Level);
+			sb.Append(" ");
+			sb.AppendLine(equipment.Grade.ToString());
+
+			sb.Append(equipment.Faction.ToString());
+			sb.Append(" ");
+			sb.AppendLine(equipment.Rarity.ToString());
+			sb.AppendLine();
 		}
 	}
 }

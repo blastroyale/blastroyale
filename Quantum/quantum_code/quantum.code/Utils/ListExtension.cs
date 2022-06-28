@@ -10,6 +10,9 @@ namespace Quantum
 	/// </summary>
 	/// <author>Jackson Dunstan, http://JacksonDunstan.com/articles/3189</author>
 	/// <license>MIT</license>
+	/// <remarks>
+	/// IMPORTANT: This sorting might not be deterministic. AVOID using it in the quantum simulation update
+	/// </remarks>
 	public static class ListExtensions
 	{
 		/// <summary>

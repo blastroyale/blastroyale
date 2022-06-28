@@ -268,6 +268,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private async void HandlePlayerGearChanged(EventOnPlayerGearChanged callback)
 		{
+			if (callback.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+
 			await _characterView.EquipItem(callback.Gear.GameId);
 		}
 

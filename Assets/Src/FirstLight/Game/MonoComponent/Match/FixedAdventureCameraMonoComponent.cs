@@ -78,7 +78,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnDestroy()
 		{
 			_localInput?.Dispose();
-			_services.MessageBrokerService.UnsubscribeAll();
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)

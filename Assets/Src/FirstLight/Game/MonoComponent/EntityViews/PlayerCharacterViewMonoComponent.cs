@@ -18,7 +18,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[FormerlySerializedAs("_adventureCharacterView")] [SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		public Transform RootTransform;
-
+		
 		private Vector3 _lastPosition;
 
 		/// <summary>
@@ -342,7 +342,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_lastPosition = currentPosition;
 		}
-
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)
 		{

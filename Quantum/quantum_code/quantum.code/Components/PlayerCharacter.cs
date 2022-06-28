@@ -38,16 +38,11 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 
-			// I think this is silly, but "Hammer inherits ALL attributes from the Record" (record
-			// being the attributes of your primary loadout weapon if you have one.
+			// The hammer should inherit ONLY the faction from your loadout weapon
+			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
 			if (loadoutWeapon.IsValid())
 			{
-				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = loadoutWeapon;
-				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.GameId = GameId.Hammer;
-			}
-			else
-			{
-				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
+				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see

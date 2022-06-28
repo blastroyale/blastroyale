@@ -45,17 +45,7 @@ namespace FirstLight.Game.Presenters
 		{
 			SetFrontDimBlockerActive(false);
 
-			// If this present is shown in main menu screen, we only want to see the Reconnect button
-			if (SceneManager.GetActiveScene().name == GameConstants.Scenes.SCENE_MAIN_MENU)
-			{
-				_menuButton.gameObject.SetActive(false);
-			}
-			else
-			{
-				// If room is closed, it means the match has started, and we can show button to go back to main menu
-				// Else, we just want a reconnect button to be dropped back into matchmaking screen
-				_menuButton.gameObject.SetActive(!_services.NetworkService.QuantumClient.CurrentRoom.IsOpen);
-			}
+			_menuButton.gameObject.SetActive(SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU);
 
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{

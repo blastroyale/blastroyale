@@ -33,6 +33,7 @@ MonoBehaviour:
         RawValue: 0
       MaxRange:
         RawValue: 655360
+      Knockback: 20
     - Id: 85
       SpecialType: 1
       Indicator: 6
@@ -48,6 +49,7 @@ MonoBehaviour:
         RawValue: 0
       MaxRange:
         RawValue: 458752
+      Knockback: 10
     - Id: 89
       SpecialType: 2
       Indicator: 0
@@ -63,6 +65,7 @@ MonoBehaviour:
         RawValue: 0
       MaxRange:
         RawValue: 0
+      Knockback: 10
     - Id: 110
       SpecialType: 3
       Indicator: 6
@@ -78,6 +81,7 @@ MonoBehaviour:
         RawValue: 0
       MaxRange:
         RawValue: 786432
+      Knockback: 10
     - Id: 119
       SpecialType: 4
       Indicator: 2
@@ -93,6 +97,7 @@ MonoBehaviour:
         RawValue: 196608
       MaxRange:
         RawValue: 458752
+      Knockback: 10
     - Id: 102
       SpecialType: 5
       Indicator: 6
@@ -108,6 +113,7 @@ MonoBehaviour:
         RawValue: 0
       MaxRange:
         RawValue: 524288
+      Knockback: 20
     - Id: 141
       SpecialType: 4
       Indicator: 2
@@ -123,3 +129,4 @@ MonoBehaviour:
         RawValue: 196608
       MaxRange:
         RawValue: 458752
+      Knockback: 10

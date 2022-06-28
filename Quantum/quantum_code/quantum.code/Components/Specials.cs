@@ -24,6 +24,7 @@ namespace Quantum
 			Speed = config.Speed;
 			MaxRange = config.MaxRange;
 			AvailableTime = f.Time + config.Cooldown;
+			Knockback = config.Knockback;
 		}
 		
 		/// <summary>

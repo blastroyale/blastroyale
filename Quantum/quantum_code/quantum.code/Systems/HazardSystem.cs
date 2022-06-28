@@ -40,7 +40,8 @@ namespace Quantum.Systems
 				PowerAmount = hazard->PowerAmount,
 				SpellSource = filter.Entity,
 				TeamSource = hazard->TeamSource,
-				Victim = default
+				Victim = default,
+				KnockbackAmount = hazard->Knockback
 			};
 			
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;

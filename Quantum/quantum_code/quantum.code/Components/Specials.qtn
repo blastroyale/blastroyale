@@ -9,6 +9,7 @@ struct Special
 	FP PowerAmount;
 	FP Speed;
 	FP MaxRange;
+	UInt32 Knockback;
 	FP AvailableTime;
 }
 

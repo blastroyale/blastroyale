@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
 
@@ -115,17 +115,29 @@ namespace Quantum
 			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
+			
 
 			for (var j = 0; j < hits.Count; j++)
 			{
 				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
-				                                   spell.PowerAmount, spell.KnockbackAmount, hits[j].Point, spell.TeamSource);
+				                                   spell.PowerAmount, spell.KnockbackAmount, spell.OriginalHitPosition, spell.TeamSource);
+
+				var newSpell = Spell.CreateInstant(
+					f, 
+					hits[j].Entity, 
+					spell.Attacker, 
+					spell.SpellSource, 
+					spell.PowerAmount, 
+					spell.KnockbackAmount,
+					spell.OriginalHitPosition, 
+					spell.TeamSource
+					);
 
 				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
 				{
 					continue;
 				}
-				
+
 				hitCount++;
 					
 				onHitCallback?.Invoke(f, hitSpell);

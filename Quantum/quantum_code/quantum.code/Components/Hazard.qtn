@@ -11,6 +11,7 @@ component Hazard
 	UInt32 Knockback;
 	FP StunDuration;
 	UInt32 MaxHitCount;
+	bool PercentHealthDamage;
 }
 
 synced event OnHazardHit

@@ -7,7 +7,7 @@ namespace Quantum
 	{
 		public static bool Use(Frame f, EntityRef e, Special special)
 		{
-			var duration = special.PowerRatio;
+			var duration = special.SpecialPower;
 			
 			switch (special.SpecialType)
 			{

@@ -22,11 +22,12 @@ namespace Quantum
 			SpecialType = config.SpecialType;
 			Cooldown = config.Cooldown;
 			Radius = config.Radius;
-			PowerRatio = config.PowerRatio;
+			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;
 			MaxRange = config.MaxRange;
 			AvailableTime = f.Time + config.Cooldown;
 			Knockback = config.Knockback;
+			PercentHealthDamage = config.PercentHealthDamage;
 		}
 		
 		/// <summary>

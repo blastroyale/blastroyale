@@ -11,6 +11,7 @@ component Spell
 	FP Cooldown;
 	FP NextHitTime;
 	FP EndTime;
+	bool PercentHealthDamage;
 }
 
 synced event OnSpellHit

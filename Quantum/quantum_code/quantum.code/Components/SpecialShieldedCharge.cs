@@ -71,16 +71,15 @@ namespace Quantum
 			}
 			
 			var chargeDuration = chargeDistance / special.Speed;
-			var characterStats = f.Get<Stats>(e);
-			var powerAmount = characterStats.GetStatData(StatType.Power).StatValue * special.PowerRatio;
-			Log.Warn(characterStats.GetStatData(StatType.Power).StatValue);
+
 			var chargeComponent = new PlayerCharging
 			{
 				ChargeDuration = chargeDuration,
 				ChargeStartPos = attackerPosition,
 				ChargeEndPos = targetPosition,
 				ChargeStartTime = f.Time,
-				PowerAmount = (uint)powerAmount
+				PowerAmount = (uint)special.SpecialPower,
+				PercentHealthDamage = special.PercentHealthDamage
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);

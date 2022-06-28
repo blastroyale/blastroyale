@@ -41,7 +41,8 @@ namespace Quantum.Systems
 				SpellSource = filter.Entity,
 				TeamSource = hazard->TeamSource,
 				Victim = default,
-				KnockbackAmount = hazard->Knockback
+				KnockbackAmount = hazard->Knockback,
+				PercentHealthDamage = hazard->PercentHealthDamage
 			};
 			
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;

@@ -6,11 +6,12 @@ struct Special
 	SpecialType SpecialType;
 	FP Cooldown;
 	FP Radius;
-	FP PowerRatio;
+	FP SpecialPower;
 	FP Speed;
 	FP MaxRange;
 	UInt32 Knockback;
 	FP AvailableTime;
+	bool PercentHealthDamage;
 }
 
 enum SpecialType

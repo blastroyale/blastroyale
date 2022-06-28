@@ -57,9 +57,10 @@ namespace Quantum
 				NextTickTime = f.Time + launchTime,
 				PowerAmount = 0,
 				Radius = special.Radius,
-				StunDuration = special.PowerRatio,
+				StunDuration = special.SpecialPower,
 				TeamSource = team,
-				MaxHitCount = uint.MaxValue
+				MaxHitCount = uint.MaxValue,
+				PercentHealthDamage = special.PercentHealthDamage
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

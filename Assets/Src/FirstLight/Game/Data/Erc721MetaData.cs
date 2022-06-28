@@ -9,6 +9,9 @@ namespace FirstLight.Game.Data
 		public int value;
 	}
 	
+	/// <summary>
+	/// ERC 721 Metadata object 
+	/// </summary>
 	public struct Erc721MetaData
 	{
 		public string name;

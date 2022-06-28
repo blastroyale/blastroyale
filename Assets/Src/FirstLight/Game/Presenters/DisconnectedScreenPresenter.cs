@@ -25,6 +25,8 @@ namespace FirstLight.Game.Presenters
 			public Action BackClicked;
 		}
 
+		private const float TIMEOUT_DIM_SECONDS = 5f;
+
 		[SerializeField, Required] private Button _reconnectButton;
 		[SerializeField, Required] private Button _menuButton;
 		[SerializeField, Required] private GameObject _frontDimBlocker;
@@ -34,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			_reconnectButton.onClick.AddListener(OnReconnectClicked);
 			_menuButton.onClick.AddListener(OnLeaveClicked);
 		}
@@ -60,7 +62,7 @@ namespace FirstLight.Game.Presenters
 				OpenNoInternetPopup();
 			}
 		}
-		
+
 		/// <summary>
 		/// Sets the activity of the dimmed blocker image that covers the presenter
 		/// </summary>
@@ -81,7 +83,9 @@ namespace FirstLight.Game.Presenters
 				OpenNoInternetPopup();
 				return;
 			}
-			
+
+			// Just in case reconnect stalls, undim the blocker after X seconds
+			this.LateCoroutineCall(TIMEOUT_DIM_SECONDS, () => { SetFrontDimBlockerActive(false); });
 			Data.ReconnectClicked.Invoke();
 		}
 
@@ -93,8 +97,8 @@ namespace FirstLight.Game.Presenters
 				Style = AlertButtonStyle.Positive,
 				Text = ScriptLocalization.General.Confirm
 			};
-			
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet, 
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
 			                               ScriptLocalization.General.NoInternetDescription, button);
 		}
 	}

@@ -1,4 +1,3 @@
-using System;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -32,8 +31,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private EntityView _spectatePlayerView;
 		private EntityRef _latestKiller;
-
-		private bool _hasTarget;
+		private EntityRef _leader;
+		
 		private Transform _targetTransform;
 
 		private bool _spectating;
@@ -67,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
-			if (_hasTarget)
+			if (_targetTransform != null)
 			{
 				callback.Game.SetPredictionArea(_targetTransform.position.ToFPVector3(), _visionRangeRadius);
 			}
@@ -113,10 +112,11 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			_leader = callback.EntityLeader;
 			if (callback.EntityDead == _latestKiller)
 			{
 				_latestKiller = callback.EntityKiller;
-				RefreshSpectator();
+				RefreshSpectator(callback.Game.Frames.Verified);
 			}
 		}
 
@@ -134,15 +134,31 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnSpectate(SpectateKillerMessage message)
 		{
 			_spectating = true;
-			RefreshSpectator();
+			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
-		private void RefreshSpectator()
+		private void RefreshSpectator(Frame f)
 		{
 			if (_spectating)
 			{
-				SetTargetTransform(_entityViewUpdaterService.GetManualView(_latestKiller).transform);
+				var nextPlayerView = GetNextPlayerView(f);
+				SetTargetTransform(nextPlayerView.transform);
 			}
+		}
+
+		private EntityView GetNextPlayerView(Frame f)
+		{
+			EntityView nextPlayer = null;
+
+			if (f.Exists(_latestKiller)){
+				nextPlayer = _entityViewUpdaterService.GetManualView(_latestKiller);
+			}
+			else if (_leader.IsValid)
+			{
+				nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
+			}
+
+			return nextPlayer;
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
@@ -158,8 +174,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
+			
 			_targetTransform = entityViewTransform;
-			_hasTarget = true;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;
 			_deathCamera.LookAt = entityViewTransform;

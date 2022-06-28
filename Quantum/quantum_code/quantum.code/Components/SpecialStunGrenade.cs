@@ -47,6 +47,7 @@ namespace Quantum
 			
 			var targetRange = special.MaxRange;
 			var launchTime = special.Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
+
 			var hazardData = new Hazard
 			{
 				Attacker = e,
@@ -56,7 +57,7 @@ namespace Quantum
 				NextTickTime = f.Time + launchTime,
 				PowerAmount = 0,
 				Radius = special.Radius,
-				StunDuration = special.PowerAmount,
+				StunDuration = special.PowerRatio,
 				TeamSource = team,
 				MaxHitCount = uint.MaxValue
 			};

@@ -2741,7 +2741,7 @@ namespace Quantum {
     [FieldOffset(32)]
     public FP MaxRange;
     [FieldOffset(40)]
-    public FP PowerAmount;
+    public FP PowerRatio;
     [FieldOffset(48)]
     public FP Radius;
     [FieldOffset(0)]
@@ -2757,7 +2757,7 @@ namespace Quantum {
         hash = hash * 31 + Cooldown.GetHashCode();
         hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxRange.GetHashCode();
-        hash = hash * 31 + PowerAmount.GetHashCode();
+        hash = hash * 31 + PowerRatio.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
         hash = hash * 31 + (Int32)SpecialId;
         hash = hash * 31 + (Int32)SpecialType;
@@ -2773,7 +2773,7 @@ namespace Quantum {
         FP.Serialize(&p->AvailableTime, serializer);
         FP.Serialize(&p->Cooldown, serializer);
         FP.Serialize(&p->MaxRange, serializer);
-        FP.Serialize(&p->PowerAmount, serializer);
+        FP.Serialize(&p->PowerRatio, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->Speed, serializer);
     }
@@ -9588,7 +9588,7 @@ namespace Quantum.Prototypes {
     public SpecialType_Prototype SpecialType;
     public FP Cooldown;
     public FP Radius;
-    public FP PowerAmount;
+    public FP PowerRatio;
     public FP Speed;
     public FP MaxRange;
     public UInt32 Knockback;
@@ -9599,7 +9599,7 @@ namespace Quantum.Prototypes {
       result.Cooldown = this.Cooldown;
       result.Knockback = this.Knockback;
       result.MaxRange = this.MaxRange;
-      result.PowerAmount = this.PowerAmount;
+      result.PowerRatio = this.PowerRatio;
       result.Radius = this.Radius;
       result.SpecialId = this.SpecialId;
       result.SpecialType = this.SpecialType;

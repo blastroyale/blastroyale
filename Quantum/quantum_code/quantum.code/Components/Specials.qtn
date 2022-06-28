@@ -6,7 +6,7 @@ struct Special
 	SpecialType SpecialType;
 	FP Cooldown;
 	FP Radius;
-	FP PowerAmount;
+	FP PowerRatio;
 	FP Speed;
 	FP MaxRange;
 	UInt32 Knockback;

@@ -122,17 +122,6 @@ namespace Quantum
 				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
 				                                   spell.PowerAmount, spell.KnockbackAmount, spell.OriginalHitPosition, spell.TeamSource);
 
-				var newSpell = Spell.CreateInstant(
-					f, 
-					hits[j].Entity, 
-					spell.Attacker, 
-					spell.SpellSource, 
-					spell.PowerAmount, 
-					spell.KnockbackAmount,
-					spell.OriginalHitPosition, 
-					spell.TeamSource
-					);
-
 				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
 				{
 					continue;

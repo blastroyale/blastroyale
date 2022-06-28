@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace FirstLight.Game.Data
 {
+	/// <summary>
+	/// Equipment erc view data for models 
+	/// </summary>
 	[CreateAssetMenu(fileName = "EquipmentErcRenderableData", menuName = "ScriptableObjects/EquipmentErcRenderableData", order = 1)]
 	public class EquipmentErcRenderableData : ScriptableObject
 	{

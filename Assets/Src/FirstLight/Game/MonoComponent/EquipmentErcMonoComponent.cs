@@ -9,6 +9,9 @@ namespace FirstLight.Game.MonoComponent
 		public void Initialise(Erc721MetaData metadata);
 	}
 	
+	/// <summary>
+	/// This Mono component handles visual setup for a equipment item
+	/// </summary>
 	public class EquipmentErcMonoComponent : MonoBehaviour, IErcRenderable
 	{
 		[SerializeField] private GameObject[] _equipmentRarityGameObjects;
@@ -30,6 +33,9 @@ namespace FirstLight.Game.MonoComponent
 			_renderers = GetComponentsInChildren<Renderer>(true);
 		}
 		
+		/// <summary>
+		/// Initialise material and game objects based on metadata object 
+		/// </summary>
 		public void Initialise(Erc721MetaData metadata)
 		{
 			var rarityId = metadata.attibutesDictionary["rarity"];

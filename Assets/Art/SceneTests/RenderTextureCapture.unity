@@ -1289,9 +1289,12 @@ MonoBehaviour:
   _canvas: {fileID: 6467920952026055733}
   _canvasRoot: {fileID: 798466085}
   _renderTextureMode: 2
+  _textureMode: 0
   _subFolderId: 0
   _collectionId: 1
   _baseEquipmentStatsConfigs: {fileID: 11400000, guid: cce42c611f6104cf58fc1f5386cc068b, type: 2}
+  _referenceResolution: {x: 1600, y: 2048}
+  _webMarketplaceUri: https://flgmarketplacestorage.z33.web.core.windows.net
 --- !u!20 &6467920952292208544
 Camera:
   m_ObjectHideFlags: 0

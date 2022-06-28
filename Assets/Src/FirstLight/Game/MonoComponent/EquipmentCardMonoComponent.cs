@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent
 {
+	/// <summary>
+	/// This Mono component handles visual setup for a equipment card item
+	/// </summary>
 	public class EquipmentCardMonoComponent : MonoBehaviour, IErcRenderable
 	{
 		[SerializeField] private TextMeshProUGUI _nameText;
@@ -28,6 +31,9 @@ namespace FirstLight.Game.MonoComponent
 			_propBlock = new MaterialPropertyBlock();
 		}
 		
+		/// <summary>
+		/// Initialise material and visual elements based on metadata object 
+		/// </summary>
 		public void Initialise(Erc721MetaData metadata)
 		{
 			_propBlock ??= new MaterialPropertyBlock();

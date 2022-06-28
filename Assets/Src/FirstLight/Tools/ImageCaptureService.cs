@@ -23,6 +23,10 @@ namespace Src.FirstLight.Tools
 		public GameObject[] GameObjects;
 	}
 	
+	/// <summary>
+	/// This Mono component provides functionality for generating render texture exported images for GameIds
+	/// based on NFT metadata 
+	/// </summary>
 	public class ImageCaptureService : MonoBehaviour
 	{
 		private enum RenderTextureMode
@@ -58,11 +62,14 @@ namespace Src.FirstLight.Tools
 		[SerializeField] private int _subFolderId;
 		[SerializeField] private int _collectionId;
 		[SerializeField] private BaseEquipmentStatsConfigs _baseEquipmentStatsConfigs;
+		[SerializeField] private Vector2 _referenceResolution;
+		[SerializeField] private string _webMarketplaceUri;
 		
-		private const string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
-		private readonly Vector2 _referenceResolution = new(1660, 2048);
 		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
 		
+		/// <summary>
+		/// Export render texture image collection referencing NFT metadata json folder 
+		/// </summary>
 		[Button("Export Metadata Collection")]
 		public async void ExportMetadataCollection()
 		{
@@ -128,6 +135,9 @@ namespace Src.FirstLight.Tools
 			Debug.Log($"Loaded [{fileCount} metadata files]");
 		}
 		
+		/// <summary>
+		/// Export render texture image referencing NFT metadata json file 
+		/// </summary>
 		[Button("Export Render Texture [Metadata Json]")]
 		public async void ExportRenderTextureFromMetadataJson()
 		{
@@ -162,7 +172,9 @@ namespace Src.FirstLight.Tools
 			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 		}
 		
-		
+		/// <summary>
+		/// Export all render texture images for Gameids 
+		/// </summary>
 		[Button("Export All Render Textures")]
 		private async void ExportAllRenderTextures()
 		{
@@ -175,10 +187,10 @@ namespace Src.FirstLight.Tools
 			
 			var gameIdGroups = new[]
 			{
-				//GameIdGroup.Helmet, 
-				//GameIdGroup.Shield,
-				//GameIdGroup.Armor,
-				//GameIdGroup.Amulet,
+				GameIdGroup.Helmet, 
+				GameIdGroup.Shield,
+				GameIdGroup.Armor,
+				GameIdGroup.Amulet,
 				GameIdGroup.Weapon
 			};
 			

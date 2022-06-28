@@ -95,13 +95,15 @@ public class NftSynchronizer
 	/// </summary>
 	protected virtual async Task<IEnumerable<PolygonNFTMetadata>?> RequestBlockchainIndexedNfts(string playerId)
 	{
+		string url = $"{_externalUrl}/indexed?key={_apiKey}&playfabId={playerId}";
 		var response = await _client.GetAsync($"{_externalUrl}/indexed?key={_apiKey}&playfabId={playerId}");
+		var responseString = await response.Content.ReadAsStringAsync();
+		
 		if (response.StatusCode != HttpStatusCode.OK)
 		{
-			_ctx.Log.LogError($"Error obtaining indexed NFTS Response {response.StatusCode.ToString()}");
+			_ctx.Log.LogError($"Error obtaining indexed NFTS Response {response.StatusCode.ToString()} - {responseString}");
 			return _EMPTY_LIST;
 		}
-		var responseString = await response.Content.ReadAsStringAsync();
 		return JsonConvert.DeserializeObject<List<PolygonNFTMetadata>>(responseString);
 	}
 

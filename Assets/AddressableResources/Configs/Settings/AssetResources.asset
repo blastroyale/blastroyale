@@ -102,6 +102,11 @@ MonoBehaviour:
         Id:
           Value: 513288819591249207
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPMultiplierFunction_0]
+    - Path: AddressableResources/QuantumAssets/Collectables/AirDrop|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 515801528670249359
+      Address: QuantumAssets/Collectables/AirDrop.prefab[AirDropEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_3
       AssetRef:
         Id:
@@ -423,6 +428,11 @@ MonoBehaviour:
         Id:
           Value: 2484679898586298056
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerPhysicsAction_8]
+    - Path: AddressableResources/QuantumAssets/Collectables/AirDrop|EntityView
+      AssetRef:
+        Id:
+          Value: 2526948452384311002
+      Address: QuantumAssets/Collectables/AirDrop.prefab[AirDropEntityView]
     - Path: AddressableResources/Maps/FtueDeck_NavMesh_data
       AssetRef:
         Id:

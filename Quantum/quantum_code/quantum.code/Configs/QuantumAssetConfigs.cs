@@ -12,6 +12,8 @@ namespace Quantum
 		public AssetRefEntityPrototype WeaponPlatformPrototype;
 		public AssetRefEntityPrototype ConsumablePlatformPrototype;
 		public AssetRefEntityPrototype EquipmentPickUpPrototype;
+		public AssetRefEntityPrototype ChestPrototype;
+		public AssetRefEntityPrototype AirDropPrototype;
 		public AssetRefNavMeshAgentConfig BotNavMeshConfig;
 	}
 }

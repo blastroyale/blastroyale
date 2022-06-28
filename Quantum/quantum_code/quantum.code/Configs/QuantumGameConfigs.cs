@@ -60,6 +60,8 @@ namespace Quantum
 		public uint NftUsageCooldownMinutes;
 		public uint NftRequiredEquippedForPlay;
 		public FP PlayerVisionRange;
+		public FP AirdropPositionOffsetMultiplier;
+		public FP AirdropRandomAreaMultiplier;
 	}
 
 	/// <summary>

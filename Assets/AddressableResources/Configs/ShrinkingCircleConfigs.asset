@@ -27,6 +27,14 @@ MonoBehaviour:
         RawValue: 3276800
       ShrinkingSizeK:
         RawValue: 27853
+      AirdropChance:
+        RawValue: 13107
+      AirdropStartTimeRange:
+        Value1: 28
+        Value2: 35
+      AirdropDropDuration:
+        RawValue: 655360
+      AirdropChest: 19
     - Step: 2
       DelayTime:
         RawValue: 458752
@@ -36,6 +44,14 @@ MonoBehaviour:
         RawValue: 655360
       ShrinkingSizeK:
         RawValue: 50790
+      AirdropChance:
+        RawValue: 0
+      AirdropStartTimeRange:
+        Value1: 0
+        Value2: 0
+      AirdropDropDuration:
+        RawValue: 0
+      AirdropChest: 13
     - Step: 3
       DelayTime:
         RawValue: 458752
@@ -45,6 +61,14 @@ MonoBehaviour:
         RawValue: 458752
       ShrinkingSizeK:
         RawValue: 50790
+      AirdropChance:
+        RawValue: 0
+      AirdropStartTimeRange:
+        Value1: 0
+        Value2: 0
+      AirdropDropDuration:
+        RawValue: 0
+      AirdropChest: 13
     - Step: 4
       DelayTime:
         RawValue: 655360
@@ -54,6 +78,14 @@ MonoBehaviour:
         RawValue: 983040
       ShrinkingSizeK:
         RawValue: 19661
+      AirdropChance:
+        RawValue: 22938
+      AirdropStartTimeRange:
+        Value1: 13
+        Value2: 25
+      AirdropDropDuration:
+        RawValue: 655360
+      AirdropChest: 19
     - Step: 5
       DelayTime:
         RawValue: 655360
@@ -63,3 +95,11 @@ MonoBehaviour:
         RawValue: 3604480
       ShrinkingSizeK:
         RawValue: 66
+      AirdropChance:
+        RawValue: 29491
+      AirdropStartTimeRange:
+        Value1: 20
+        Value2: 30
+      AirdropDropDuration:
+        RawValue: 983040
+      AirdropChest: 19

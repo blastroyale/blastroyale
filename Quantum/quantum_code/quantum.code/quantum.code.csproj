@@ -197,6 +197,7 @@
     <Compile Include="Commands\SpecialUsedCommand.cs" />
     <Compile Include="Commands\CollectablePlatformSpawnCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
+    <Compile Include="Components\AirDrop.cs" />
     <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="SystemSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
+    <Compile Include="Systems\AirDropSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
     <Compile Include="Systems\PreRaycastShotSytem.cs" />
     <Compile Include="Systems\RaycastShotsSystem.cs" />
@@ -297,6 +299,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="BotSDK\Samples\.DS_Store" />
+    <Content Include="Components\AirDrop.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
     <Content Include="Components\RaycastShots.qtn" />

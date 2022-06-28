@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -37,8 +38,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected, onlyIfActiveAndEnabled: true);
 		}
-		
+
+		private void OnAirDropCollected(EventOnAirDropCollected callback)
+		{
+			// TODO Eve: Add logic for AirDrop directional arrow.
+			FLog.Info($"AirDrop Collected: {callback.AirDrop}");
+		}
+
+		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		{
+			// TODO Eve: Add logic for AirDrop directional arrow.
+			FLog.Info($"AirDrop Started: {callback.AirDrop}");
+		}
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);

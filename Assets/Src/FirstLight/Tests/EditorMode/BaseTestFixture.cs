@@ -55,6 +55,7 @@ namespace FirstLight.Tests.EditorMode
 		protected IUniqueIdLogic UniqueIdLogic;
 		protected IRngLogic RngLogic;
 		protected ICurrencyLogic CurrencyLogic;
+		protected IResourceLogic ResourceLogic;
 		protected IPlayerLogic PlayerLogic;
 		protected IEquipmentLogic EquipmentLogic;
 		protected IRewardLogic RewardLogic;
@@ -82,6 +83,7 @@ namespace FirstLight.Tests.EditorMode
 			UniqueIdLogic = Substitute.For<IUniqueIdLogic>();
 			RngLogic = Substitute.For<IRngLogic>();
 			CurrencyLogic = Substitute.For<ICurrencyLogic>();
+			ResourceLogic = Substitute.For<IResourceLogic>();
 			PlayerLogic = Substitute.For<IPlayerLogic>();
 			EquipmentLogic = Substitute.For<IEquipmentLogic>();
 			RewardLogic = Substitute.For<IRewardLogic>();
@@ -91,6 +93,7 @@ namespace FirstLight.Tests.EditorMode
 			GameLogic.UniqueIdLogic.Returns(UniqueIdLogic);
 			GameLogic.RngLogic.Returns(RngLogic);
 			GameLogic.CurrencyLogic.Returns(CurrencyLogic);
+			GameLogic.ResourceLogic.Returns(ResourceLogic);
 			GameLogic.PlayerLogic.Returns(PlayerLogic);
 			GameLogic.EquipmentLogic.Returns(EquipmentLogic);
 			GameLogic.RewardLogic.Returns(RewardLogic);

@@ -1,5 +1,5 @@
 {
-    "name": "FistLight.Game.Editor.Tests",
+    "name": "FirstLight.Game.Editor.Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",

@@ -54,6 +54,8 @@ MonoBehaviour:
         RawValue: 294912
       ShrinkingCircleRiskTolerance:
         RawValue: 53477
+      ChanceToSeekChests:
+        RawValue: 0
     - BehaviourType: 2
       GameMode: 1
       Difficulty: 1
@@ -90,6 +92,8 @@ MonoBehaviour:
         RawValue: 131072
       ShrinkingCircleRiskTolerance:
         RawValue: 35389
+      ChanceToSeekChests:
+        RawValue: 0
     - BehaviourType: 0
       GameMode: 1
       Difficulty: 1
@@ -126,6 +130,8 @@ MonoBehaviour:
         RawValue: 229376
       ShrinkingCircleRiskTolerance:
         RawValue: 51118
+      ChanceToSeekChests:
+        RawValue: 0
     - BehaviourType: 1
       GameMode: 1
       Difficulty: 1
@@ -162,6 +168,8 @@ MonoBehaviour:
         RawValue: 196608
       ShrinkingCircleRiskTolerance:
         RawValue: 58982
+      ChanceToSeekChests:
+        RawValue: 0
     - BehaviourType: 2
       GameMode: 1
       Difficulty: 1
@@ -198,6 +206,8 @@ MonoBehaviour:
         RawValue: 262144
       ShrinkingCircleRiskTolerance:
         RawValue: 39322
+      ChanceToSeekChests:
+        RawValue: 0
     - BehaviourType: 1
       GameMode: 2
       Difficulty: 1
@@ -208,13 +218,13 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: -65536
       LowArmourSensitivity:
-        RawValue: 5242880
+        RawValue: 2949120
       LowHealthSensitivity:
         RawValue: 5242880
       LowAmmoSensitivity:
         RawValue: 3276800
       ChanceToSeekWeapons:
-        RawValue: 6554
+        RawValue: 9830
       ChanceToSeekEnemies:
         RawValue: 6554
       ChanceToSeekReplenishSpecials:
@@ -234,6 +244,8 @@ MonoBehaviour:
         RawValue: 294912
       ShrinkingCircleRiskTolerance:
         RawValue: 53477
+      ChanceToSeekChests:
+        RawValue: 39322
     - BehaviourType: 2
       GameMode: 2
       Difficulty: 1
@@ -244,7 +256,7 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: -65536
       LowArmourSensitivity:
-        RawValue: 655360
+        RawValue: 983040
       LowHealthSensitivity:
         RawValue: 1310720
       LowAmmoSensitivity:
@@ -270,6 +282,8 @@ MonoBehaviour:
         RawValue: 131072
       ShrinkingCircleRiskTolerance:
         RawValue: 35389
+      ChanceToSeekChests:
+        RawValue: 16384
     - BehaviourType: 0
       GameMode: 2
       Difficulty: 1
@@ -280,13 +294,13 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: 37748736
       LowArmourSensitivity:
-        RawValue: 3276800
+        RawValue: 2293760
       LowHealthSensitivity:
         RawValue: 6553600
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 3277
+        RawValue: 13107
       ChanceToSeekEnemies:
         RawValue: 13107
       ChanceToSeekReplenishSpecials:
@@ -306,6 +320,8 @@ MonoBehaviour:
         RawValue: 229376
       ShrinkingCircleRiskTolerance:
         RawValue: 51118
+      ChanceToSeekChests:
+        RawValue: 29491
     - BehaviourType: 1
       GameMode: 2
       Difficulty: 1
@@ -316,7 +332,7 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: 23658496
       LowArmourSensitivity:
-        RawValue: 6553600
+        RawValue: 3604480
       LowHealthSensitivity:
         RawValue: 6553600
       LowAmmoSensitivity:
@@ -342,6 +358,8 @@ MonoBehaviour:
         RawValue: 196608
       ShrinkingCircleRiskTolerance:
         RawValue: 58982
+      ChanceToSeekChests:
+        RawValue: 32768
     - BehaviourType: 2
       GameMode: 2
       Difficulty: 1
@@ -352,7 +370,7 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: -65536
       LowArmourSensitivity:
-        RawValue: 65536
+        RawValue: 655360
       LowHealthSensitivity:
         RawValue: 0
       LowAmmoSensitivity:
@@ -378,3 +396,5 @@ MonoBehaviour:
         RawValue: 262144
       ShrinkingCircleRiskTolerance:
         RawValue: 39322
+      ChanceToSeekChests:
+        RawValue: 22938

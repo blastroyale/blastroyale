@@ -5,8 +5,8 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
-using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -19,17 +19,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
-		IReadOnlyList<RewardData> UnclaimedRewards { get; }
+		IObservableListReader<RewardData> UnclaimedRewards { get; }
 
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
-
-		/// <summary>
-		/// Get amount of pooled resource that can be withdrawn based on currently equipped NFTs for a given <paramref name="poolId"/>
-		/// </summary>
-		public uint GetMatchRewardPoolTake(GameId poolId);
+		List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
 	}
 
 	/// <inheritdoc />
@@ -44,18 +39,16 @@ namespace FirstLight.Game.Logic
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
 		List<RewardData> ClaimUncollectedRewards();
-
-		/// <summary>
-		/// Awards the given <paramref name="reward"/> to the player
-		/// </summary>
-		RewardData ClaimReward(RewardData reward);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
-	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic
+	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
+		private IObservableList<RewardData> _unclaimedRewards;
+		
 		/// <inheritdoc />
-		public IReadOnlyList<RewardData> UnclaimedRewards => Data.UncollectedRewards;
+		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
+		
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -63,13 +56,19 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public Dictionary<GameId, int> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public void Init()
+		{
+			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
+		}
+
+		/// <inheritdoc />
+		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var mapConfig = GameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
-			var rewards = new Dictionary<GameId, int>();
+			var rewards = new List<RewardData>();
 			
 			// Currently, there is no plan on giving rewards on anything but BR mode
-			if (mapConfig.GameMode != GameMode.BattleRoyale)
+			if (mapConfig.GameMode != GameMode.BattleRoyale || didPlayerQuit)
 			{
 				return rewards;
 			}
@@ -101,97 +100,38 @@ namespace FirstLight.Game.Logic
 			var csPercent = csRewardPair.Value / 100d;
 			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
 			
-			var csTake = (uint) Math.Ceiling(GetMatchRewardPoolTake(GameId.CS) * csPercent);
-			var csWithdrawn = (int) GameLogic.CurrencyLogic.WithdrawFromResourcePool(csTake, GameId.CS);
+			var csInfo = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
+			var csTake = (uint) Math.Ceiling(csInfo.WinnerRewardAmount * csPercent);
+			var csWithdrawn = (int) Math.Min(csInfo.CurrentAmount, csTake);
 			
 			if (csWithdrawn > 0)
 			{
-				rewards.Add(GameId.CS, csWithdrawn);
+				rewards.Add(new RewardData(GameId.CS, csWithdrawn));
 			}
 
 			return rewards;
 		}
 
 		/// <inheritdoc />
-		public uint GetMatchRewardPoolTake(GameId poolId)
-		{
-			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
-			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
-
-			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutEquipmentInfo();
-			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
-			var maxTake = poolConfig.BaseMaxTake;
-			var nftAssumed = GameConfig.NftAssumedOwned;
-			var minNftOwned = GameConfig.MinNftForEarnings;
-			var adjRarityCurveMod = (double) GameConfig.AdjectiveRarityEarningsMod;
-			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
-			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
-			var nftsEquipped = (uint) GameLogic.EquipmentLogic.Loadout.Count;
-			
-			// ----- Increase CS max take per grade of equipped NFTs
-			var modEquipmentList = new List<Tuple<double, Equipment>>();
-			var augmentedModSum = (double) 0;
-			
-			foreach (var nft in loadoutItems)
-			{
-				var gradeConfig = GameLogic.ConfigsProvider.GetConfig<GradeDataConfig>((int)nft.Equipment.Grade);
-				var modSum = (double) gradeConfig.PoolIncreaseModifier;
-				
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSum,nft.Equipment));
-			}
-			
-			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
-			
-			for (var i = 0; i < modEquipmentList.Count; i++)
-			{
-				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, adjRarityCurveMod) / nftAssumed), minNftOwned);
-				
-				augmentedModSum += modEquipmentList[i].Item1 * strength;
-			}
-			
-			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
-			
-			// ----- Decrease CS max take based on equipped NFT durability
-			var totalDurability = loadoutItems.GetAvgDurability(out var maxDurability);
-			var nftDurabilityPercent = (double)totalDurability / maxDurability;
-			var durabilityDecreaseMult = Math.Pow(1 - nftDurabilityPercent, takeDecreaseExp) * takeDecreaseMod;
-			
-			maxTake -= (uint) Math.Round(maxTake * durabilityDecreaseMult);
-			
-			// ----- Get take based on amount of NFTs equipped
-			var csTake = (uint) Math.Ceiling((double) maxTake / Equipment.EquipmentSlots.Count * nftsEquipped);
-			
-			// NOTE: Final take should afterwards be modified by placement in match
-			
-			return csTake;
-		}
-
-		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
-			var rewardsList = new List<RewardData>();
+			var poolRewards = rewards.FindAll(reward => reward.RewardId.IsInGroup(GameIdGroup.ResourcePool));
 
-			foreach (var reward in rewards)
+			foreach (var reward in poolRewards)
 			{
-				var rewardData = new RewardData(reward.Key, reward.Value);
-				
-				rewardsList.Add(rewardData);
-				Data.UncollectedRewards.Add(rewardData);
+				GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
 			}
+			
+			Data.UncollectedRewards.AddRange(rewards);
 
-			return rewardsList;
+			return rewards;
 		}
 
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
-			
-			if (Data.UncollectedRewards.Count == 0)
-			{
-				throw new LogicException("The player does not have any rewards to collect.");
-			}
 			
 			foreach (var reward in Data.UncollectedRewards)
 			{
@@ -203,8 +143,7 @@ namespace FirstLight.Game.Logic
 			return rewards;
 		}
 
-		/// <inheritdoc />
-		public RewardData ClaimReward(RewardData reward)
+		private RewardData ClaimReward(RewardData reward)
 		{
 			var groups = reward.RewardId.GetGroups();
 

@@ -152,7 +152,7 @@ namespace I2.Loc
 
 				if (TestButtonArg( eTest_ActionType.Button_Languages_TranslateAll, i, new GUIContent("Translate", "Translate all empty terms"), EditorStyles.toolbarButton, GUILayout.ExpandWidth(false))) 
 				{
-                    GUITools.DelayedCall(() => TranslateAllToLanguage(LanName));
+                    GUITools.DelayedCall( () => TranslateAllToLanguage(LanName));
 				}
 				GUI.enabled = true;
                 GUI.color = Color.white;

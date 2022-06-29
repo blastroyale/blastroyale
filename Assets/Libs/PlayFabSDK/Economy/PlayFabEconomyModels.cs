@@ -30,9 +30,21 @@ namespace PlayFab.EconomyModels
         /// </summary>
         public List<DisplayPropertyIndexInfo> DisplayPropertyIndexInfos;
         /// <summary>
+        /// The set of configuration that only applies to Files.
+        /// </summary>
+        public FileConfig File;
+        /// <summary>
+        /// The set of configuration that only applies to Images.
+        /// </summary>
+        public ImageConfig Image;
+        /// <summary>
         /// Flag defining whether catalog is enabled.
         /// </summary>
         public bool IsCatalogEnabled;
+        /// <summary>
+        /// A list of Platforms that can be applied to catalog items.
+        /// </summary>
+        public List<string> Platforms;
         /// <summary>
         /// A set of player entity keys that are allowed to review content.
         /// </summary>
@@ -134,6 +146,75 @@ namespace PlayFab.EconomyModels
         public string Type;
     }
 
+    [Serializable]
+    public class CatalogItemReference : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The amount of the catalog item.
+        /// </summary>
+        public int? Amount;
+        /// <summary>
+        /// The unique ID of the catalog item.
+        /// </summary>
+        public string Id;
+        /// <summary>
+        /// The price of the catalog item.
+        /// </summary>
+        public CatalogPrice Price;
+    }
+
+    [Serializable]
+    public class CatalogPrice : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Prices of the catalog item.
+        /// </summary>
+        public List<CatalogPriceInstance> Prices;
+        /// <summary>
+        /// Real prices of the catalog item.
+        /// </summary>
+        public List<CatalogPriceInstance> RealPrices;
+        /// <summary>
+        /// A standardized sorting key to allow proper sorting between items with prices in different currencies.
+        /// </summary>
+        public int? Sort;
+    }
+
+    [Serializable]
+    public class CatalogPriceAmount : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The amount of the catalog price.
+        /// </summary>
+        public int Amount;
+        /// <summary>
+        /// The Item ID of the price.
+        /// </summary>
+        public string Id;
+    }
+
+    [Serializable]
+    public class CatalogPriceInstance : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The amounts of the catalog item price.
+        /// </summary>
+        public List<CatalogPriceAmount> Amounts;
+    }
+
+    [Serializable]
+    public class CatalogSpecificConfig : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The set of content types that will be used for validation.
+        /// </summary>
+        public List<string> ContentTypes;
+        /// <summary>
+        /// The set of tags that will be used for validation.
+        /// </summary>
+        public List<string> Tags;
+    }
+
     public enum ConcernCategory
     {
         None,
@@ -164,9 +245,22 @@ namespace PlayFab.EconomyModels
         /// </summary>
         public string MinClientVersion;
         /// <summary>
+        /// The list of tags that are associated with this content.
+        /// </summary>
+        public List<string> Tags;
+        /// <summary>
+        /// The client-defined type of the content.
+        /// </summary>
+        public string Type;
+        /// <summary>
         /// The Azure CDN URL for retrieval of the catalog item binary content.
         /// </summary>
         public string Url;
+    }
+
+    [Serializable]
+    public class ContentFeed : PlayFabBaseModel
+    {
     }
 
     /// <summary>
@@ -223,6 +317,19 @@ namespace PlayFab.EconomyModels
         /// List of URLs metadata for the files to be uploaded by the client.
         /// </summary>
         public List<UploadUrlMetadata> UploadUrls;
+    }
+
+    [Serializable]
+    public class DeepLinkFormat : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The format of the deep link to return. The format should contain '{id}' to represent where the item ID should be placed.
+        /// </summary>
+        public string Format;
+        /// <summary>
+        /// The target platform for the deep link.
+        /// </summary>
+        public string Platform;
     }
 
     [Serializable]
@@ -305,6 +412,24 @@ namespace PlayFab.EconomyModels
         /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
         public string Type;
+    }
+
+    [Serializable]
+    public class FileConfig : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The set of content types that will be used for validation.
+        /// </summary>
+        public List<string> ContentTypes;
+        /// <summary>
+        /// The set of tags that will be used for validation.
+        /// </summary>
+        public List<string> Tags;
+    }
+
+    [Serializable]
+    public class FilterOptions : PlayFabBaseModel
+    {
     }
 
     [Serializable]
@@ -505,10 +630,6 @@ namespace PlayFab.EconomyModels
     public class GetItemPublishStatusResponse : PlayFabResultCommon
     {
         /// <summary>
-        /// Scan results for any items that failed content scans.
-        /// </summary>
-        public List<ScanResult> FailedScanResults;
-        /// <summary>
         /// High level status of the published item.
         /// </summary>
         public PublishResult? Result;
@@ -631,6 +752,36 @@ namespace PlayFab.EconomyModels
         public int ReviewsCount;
     }
 
+    [Serializable]
+    public class GetItemsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// List of item alternate IDs.
+        /// </summary>
+        public List<CatalogAlternateId> AlternateIds;
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags;
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity;
+        /// <summary>
+        /// List of Item Ids.
+        /// </summary>
+        public List<string> Ids;
+    }
+
+    [Serializable]
+    public class GetItemsResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Metadata of set of items.
+        /// </summary>
+        public List<CatalogItem> Items;
+    }
+
     public enum HelpfulnessVote
     {
         None,
@@ -646,6 +797,10 @@ namespace PlayFab.EconomyModels
         /// </summary>
         public string Id;
         /// <summary>
+        /// The client-defined tag associated with this image.
+        /// </summary>
+        public string Tag;
+        /// <summary>
         /// The client-defined type of this image.
         /// </summary>
         public string Type;
@@ -653,6 +808,15 @@ namespace PlayFab.EconomyModels
         /// The URL for retrieval of the image.
         /// </summary>
         public string Url;
+    }
+
+    [Serializable]
+    public class ImageConfig : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The set of tags that will be used for validation.
+        /// </summary>
+        public List<string> Tags;
     }
 
     [Serializable]
@@ -687,6 +851,33 @@ namespace PlayFab.EconomyModels
         AwaitingModeration,
         Approved,
         Rejected
+    }
+
+    [Serializable]
+    public class PayoutDetails : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The Dev Center account ID of the payee.
+        /// </summary>
+        public string AccountSellerId;
+        /// <summary>
+        /// The tax code for payout calculations.
+        /// </summary>
+        public string TaxCode;
+        /// <summary>
+        /// The Universal account ID of the payee.
+        /// </summary>
+        public string Uaid;
+    }
+
+    [Serializable]
+    public class PriceOverride : PlayFabBaseModel
+    {
+    }
+
+    [Serializable]
+    public class PricesOverride : PlayFabBaseModel
+    {
     }
 
     /// <summary>
@@ -732,6 +923,11 @@ namespace PlayFab.EconomyModels
         Succeeded,
         Failed,
         Canceled
+    }
+
+    [Serializable]
+    public class PurchaseOverride : PlayFabBaseModel
+    {
     }
 
     [Serializable]
@@ -849,10 +1045,6 @@ namespace PlayFab.EconomyModels
         /// The number of negative helpfulness votes for this review.
         /// </summary>
         public int HelpfulNegative;
-        /// <summary>
-        /// Total number of helpfulness votes for this review.
-        /// </summary>
-        public int HelpfulnessVotes;
         /// <summary>
         /// The number of positive helpfulness votes for this review.
         /// </summary>
@@ -1037,6 +1229,24 @@ namespace PlayFab.EconomyModels
     }
 
     [Serializable]
+    public class StoreDetails : PlayFabBaseModel
+    {
+    }
+
+    [Serializable]
+    public class StoreInfo : PlayFabBaseModel
+    {
+        /// <summary>
+        /// An alternate ID of the store.
+        /// </summary>
+        public CatalogAlternateId AlternateId;
+        /// <summary>
+        /// The unique ID of the store.
+        /// </summary>
+        public string Id;
+    }
+
+    [Serializable]
     public class SubmitItemReviewVoteRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1068,6 +1278,15 @@ namespace PlayFab.EconomyModels
     [Serializable]
     public class SubmitItemReviewVoteResponse : PlayFabResultCommon
     {
+    }
+
+    [Serializable]
+    public class SubscriptionDetails : PlayFabBaseModel
+    {
+        /// <summary>
+        /// The length of time that the subscription will last in seconds.
+        /// </summary>
+        public double DurationInSeconds;
     }
 
     /// <summary>
@@ -1166,11 +1385,11 @@ namespace PlayFab.EconomyModels
     public class UserGeneratedContentSpecificConfig : PlayFabBaseModel
     {
         /// <summary>
-        /// The set of content types that will be used for validation and if no values are provided then anything is allowed.
+        /// The set of content types that will be used for validation.
         /// </summary>
         public List<string> ContentTypes;
         /// <summary>
-        /// The set of tags that will be used for validation and if no values are provided then anything is allowed.
+        /// The set of tags that will be used for validation.
         /// </summary>
         public List<string> Tags;
     }

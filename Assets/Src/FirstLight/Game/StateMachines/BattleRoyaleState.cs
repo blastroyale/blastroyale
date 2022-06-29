@@ -56,11 +56,10 @@ namespace FirstLight.Game.StateMachines
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
-			//aliveCheck.OnExit(PublishMatchStarted);
-			aliveCheck.OnExit(SendReadyForResyncMessage);
+			aliveCheck.OnExit(PublishReadyForResyncMessage);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
-			spawning.OnExit(PublishMatchStarted);
+			spawning.OnExit(PublishMatchStartedMessage);
 
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(dead);
@@ -101,10 +100,10 @@ namespace FirstLight.Game.StateMachines
 
 			if (game.Frames.Verified.Has<DeadPlayerCharacter>(localPlayer.Entity))
 			{
-				return true;
+				return false;
 			}
 		
-			return false;
+			return true;
 		}
 		
 		private bool IsResyncing()
@@ -112,7 +111,7 @@ namespace FirstLight.Game.StateMachines
 			return !_services.NetworkService.IsJoiningNewRoom;
 		}
 		
-		private void SendReadyForResyncMessage()
+		private void PublishReadyForResyncMessage()
 		{
 			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
 		}
@@ -131,11 +130,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenControlsHud()
 		{
+			Debug.LogError("OPEN CONTROLS HUD");
 			_uiService.OpenUi<MatchControlsHudPresenter>();
 		}
 
 		private void CloseControlsHud()
 		{
+			Debug.LogError("CLOSE CONTROLS HUD");
 			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
 
@@ -183,7 +184,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattleRoyaleSpectateScreenPresenter>();
 		}
 
-		private void PublishMatchStarted()
+		private void PublishMatchStartedMessage()
 		{
 			_services.MessageBrokerService.Publish(new MatchStartedMessage());
 		}

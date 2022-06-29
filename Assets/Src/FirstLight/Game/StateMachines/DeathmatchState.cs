@@ -57,11 +57,11 @@ namespace FirstLight.Game.StateMachines
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
-			aliveCheck.OnExit(SendReadyForResyncMessage);
+			aliveCheck.OnExit(PublishMatchReadyForResyncMessage);
 			
 			countdown.OnEnter(ShowCountdownHud);
 			countdown.WaitingFor(Countdown).Target(alive);
-			countdown.OnExit(PublishMatchStarted);
+			countdown.OnExit(PublishMatchStartedMessage);
 
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(dead);
@@ -112,7 +112,7 @@ namespace FirstLight.Game.StateMachines
 			return !_services.NetworkService.IsJoiningNewRoom;
 		}
 		
-		private void SendReadyForResyncMessage()
+		private void PublishMatchReadyForResyncMessage()
 		{
 			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
 		}
@@ -151,7 +151,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void PublishMatchStarted()
+		private void PublishMatchStartedMessage()
 		{
 			_killsDictionary.Clear();
 			_services.MessageBrokerService.Publish(new MatchStartedMessage());

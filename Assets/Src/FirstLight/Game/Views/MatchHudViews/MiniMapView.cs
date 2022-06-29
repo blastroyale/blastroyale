@@ -44,8 +44,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_cameraTransform = _camera.transform;
-			
-			Debug.LogError("awake");
 
 			_closeButton.onClick.AddListener(ToggleMiniMapView);
 			_toggleMiniMapViewButton.onClick.AddListener(ToggleMiniMapView);
@@ -72,7 +70,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage obj)
 		{
-			Debug.LogError("resync");
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();

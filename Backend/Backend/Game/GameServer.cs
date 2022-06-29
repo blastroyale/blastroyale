@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Backend.Game.Services;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using Microsoft.Extensions.Logging;
 using ServerSDK.Models;

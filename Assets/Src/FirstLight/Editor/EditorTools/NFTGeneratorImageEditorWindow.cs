@@ -7,67 +7,65 @@ using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
-using FirstLight.Game.Utils;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using LayerMask = UnityEngine.LayerMask;
 
 
-namespace Src.FirstLight.Tools
+/// <summary>
+/// This editor window provides functionality for generating render texture exported images for GameIds
+/// based on NFT metadata 
+/// </summary>
+public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 {
-	[Serializable]
-	public struct CategoryPrefabData
+	private enum RenderTextureMode
 	{
-		public GameObject[] GameObjects;
+		Standard,
+		Standalone,
+		Both
+	}
+
+	private enum TextureMode
+	{
+		Png,
+		Jpg
 	}
 	
-	/// <summary>
-	/// This Mono component provides functionality for generating render texture exported images for GameIds
-	/// based on NFT metadata 
-	/// </summary>
-	public class ImageCaptureService : MonoBehaviour
+	[MenuItem("FLG/NFT Generator ImageEditorWindow")]
+	private static void OpenWindow()
 	{
-		private enum RenderTextureMode
-		{
-			Standard,
-			Standalone,
-			Both
-		}
+		GetWindow<NFTGeneratorImageEditorWindow>("NFT Generator ImageEditorWindow").Show();
+	}
 
-		private enum TextureMode
-		{
-			Png,
-			Jpg
-		}
-
-		[BoxGroup("Folder Paths")]
-		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
-		public string _exportFolderPath;
-		[BoxGroup("Folder Paths")]
-		[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
-		public string _importFolderPath;
-		[FilePath(Extensions = "json")]
-		public string _metadataJsonFilePath;
-		
-		[SerializeField] private Transform _markerTransform;
-		[SerializeField] private RenderTexture _renderTexture;
-		[SerializeField] private RenderTexture _renderTextureStandalone;
-		[SerializeField] private Camera _camera;
-		[SerializeField] private GameObject _canvas;
-		[SerializeField] private GameObject _canvasRoot;
-		[SerializeField] private RenderTextureMode _renderTextureMode;
-		[SerializeField] private TextureMode _textureMode;
-		[SerializeField] private int _subFolderId;
-		[SerializeField] private int _collectionId;
-		[SerializeField] private BaseEquipmentStatsConfigs _baseEquipmentStatsConfigs;
-		[SerializeField] private Vector2 _referenceResolution;
-		[SerializeField] private string _webMarketplaceUri;
-		
-		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
+	[BoxGroup("Folder Paths")]
+	[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
+	public string _exportFolderPath;
+	[BoxGroup("Folder Paths")]
+	[FolderPath(AbsolutePath = true, RequireExistingPath = true)]
+	public string _importFolderPath;
+	public string _metadataJsonFilePath;
+	
+	[SerializeField] private RenderTexture _renderTexture;
+	[SerializeField] private RenderTexture _renderTextureStandalone;
+	[SerializeField] private int _subFolderId;
+	[SerializeField] private int _collectionId = 1;
+	[SerializeField] private BaseEquipmentStatsConfigs _baseEquipmentStatsConfigs;
+	[SerializeField] private Vector2 _referenceResolution = new (1600, 2048);
+	[SerializeField] private string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
+	
+	[SerializeField] private Transform _markerTransform;
+	[SerializeField] private Camera _camera;
+	[SerializeField] private GameObject _canvas;
+	[SerializeField] private GameObject _canvasRoot;
+	[SerializeField] private RenderTextureMode _renderTextureMode = RenderTextureMode.Both;
+	[SerializeField] private TextureMode _textureMode = TextureMode.Png;
+	
+	private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
 		
 		/// <summary>
 		/// Export render texture image collection referencing NFT metadata json folder 
@@ -315,7 +313,7 @@ namespace Src.FirstLight.Tools
 			var bounds = GetBounds(go);
 			go.transform.localPosition = -bounds.center;
 			go.transform.localRotation = Quaternion.identity;
-
+			
 			var max = bounds.size;
 			var radius = max.magnitude / 2f;
 			var horizontalFOV =
@@ -416,7 +414,7 @@ namespace Src.FirstLight.Tools
 						continue;
 					}
 
-					if (renderer.enabled && gameObject.activeSelf)
+					if (renderer.enabled && renderer.gameObject.activeSelf)
 					{
 						bounds = renderer.bounds;
 						
@@ -431,7 +429,7 @@ namespace Src.FirstLight.Tools
 						continue;
 					}
 					
-					if (renderer.enabled && gameObject.activeSelf)
+					if (renderer.enabled && renderer.gameObject.activeSelf)
 					{
 						bounds.Encapsulate(renderer.bounds);
 					}
@@ -457,5 +455,7 @@ namespace Src.FirstLight.Tools
 			
 			return sBuilder.ToString();
 		}
-	}
 }
+
+
+

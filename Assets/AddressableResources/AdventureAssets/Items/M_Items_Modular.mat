@@ -99,7 +99,7 @@ Material:
     - _ENABLE_PATTERN_B: 0
     - _EmissiveAmount: 10
     - _Float: 6.39
-    - _GI_Amount: 5
+    - _GI_Amount: 2
     - _GlowAmount: 0.5
     - _GlowPower: 5
     - _PATTERN: 0

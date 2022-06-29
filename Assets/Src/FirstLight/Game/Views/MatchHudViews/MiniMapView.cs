@@ -38,12 +38,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private const float CameraHeight = 10;
 		private bool _smallMapActivated = true;
 		private RenderTextureMode _renderTextureMode = RenderTextureMode.None;
-
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_cameraTransform = _camera.transform;
+			
+			Debug.LogError("awake");
 
 			_closeButton.onClick.AddListener(ToggleMiniMapView);
 			_toggleMiniMapViewButton.onClick.AddListener(ToggleMiniMapView);
@@ -56,6 +58,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 		
 		private void ToggleMiniMapView()
@@ -68,11 +72,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage obj)
 		{
+			Debug.LogError("resync");
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			if (!frame.Has<DeadPlayerCharacter>(localPlayer.Entity))
 			{

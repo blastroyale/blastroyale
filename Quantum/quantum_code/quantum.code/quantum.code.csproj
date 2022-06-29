@@ -185,7 +185,7 @@
     <Compile Include="BotSDK\Utilities\StopwatchBlock.cs" />
     <Compile Include="CommandSetup.User.cs" />
     <Compile Include="Commands\CheatCompleteKillCountCommand.cs" />
-    <Compile Include="Commands\CheatMakeLocalPlayerBigDamagerCommand.cs" />
+    <Compile Include="Commands\CheatRefillAmmoAndSpecials.cs" />
     <Compile Include="Commands\CheatMakeLocalPlayerSuperToughCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DummySpawnCommand.cs" />

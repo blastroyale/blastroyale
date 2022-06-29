@@ -4,7 +4,6 @@ using PlayFab.SharedModels;
 using System;
 using System.Collections;
 using System.IO;
-using System.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -94,6 +93,8 @@ namespace PlayFab.Internal
                 {
                     successCallback(request.downloadHandler.data);
                 }
+
+                request.Dispose();
             }
         }
 
@@ -180,8 +181,9 @@ namespace PlayFab.Internal
                 var serializer = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
                 var httpResult = serializer.DeserializeObject<HttpResponseObject>(response);
 
-                if (httpResult.code == (int)HttpStatusCode.OK)
+                if (httpResult.code == 200)
                 {
+                    // We have a good response from the server
                     reqContainer.JsonResponse = serializer.SerializeObject(httpResult.data);
                     reqContainer.DeserializeResultJson();
                     reqContainer.ApiResult.Request = reqContainer.ApiRequest;

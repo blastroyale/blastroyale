@@ -380,7 +380,7 @@ namespace FirstLightEditor.StateChart.Tests
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			nest.OnEnter(() => _caller.StateOnEnterCall(1));
-			nest.Nest(nestSetup, true, executeFinal).OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
+			nest.Nest(new NestedStateData(nestSetup, true, executeFinal)).OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
 			nest.Event(_event2).OnTransition(() => _caller.OnTransitionCall(4)).Target(final);
 			nest.OnExit(() => _caller.StateOnExitCall(1));
 
@@ -392,11 +392,11 @@ namespace FirstLightEditor.StateChart.Tests
 			var initial = factory.Initial("Initial");
 			var split = factory.Split("Split");
 			var final = factory.Final("final");
-			var data = new ISplitState.StateData[setups.Length];
+			var data = new NestedStateData[setups.Length];
 
 			for (var i = 0; i < setups.Length; i++)
 			{
-				data[i] = new ISplitState.StateData(setups[i], true, executeFinal);
+				data[i] = new NestedStateData(setups[i], true, executeFinal);
 			}
 
 			initial.Transition().OnTransition(() => _caller.OnTransitionCall(2)).Target(split);

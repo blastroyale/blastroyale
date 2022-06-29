@@ -8,11 +8,10 @@ namespace FirstLight.Statechart.Internal
 	/// <inheritdoc cref="ISplitState"/>
 	internal class SplitState : StateInternal, ISplitState
 	{
-		
-		private readonly IList<Action> _onEnter = new List<Action>();
-		private readonly IList<Action> _onExit = new List<Action>();
-		private readonly IDictionary<IStatechartEvent, ITransitionInternal> _events = new Dictionary<IStatechartEvent, ITransitionInternal>();
-		private readonly IList<InnerStateData> _innerStates = new List<InnerStateData>();
+		protected readonly IList<Action> _onEnter = new List<Action>();
+		protected readonly IList<Action> _onExit = new List<Action>();
+		protected readonly IDictionary<IStatechartEvent, ITransitionInternal> _events = new Dictionary<IStatechartEvent, ITransitionInternal>();
+		protected readonly IList<InnerStateData> _innerStates = new List<InnerStateData>();
 		
 		private ITransitionInternal _transition;
 
@@ -66,9 +65,21 @@ namespace FirstLight.Statechart.Internal
 		public override void Validate()
 		{
 #if UNITY_EDITOR || DEBUG
+			if (_innerStates.Count < 2)
+			{
+				throw new MissingMemberException($"Split state {Name} doesn't have enough nested setup defined." +
+				                                 $"It needs min 2 nested states to be a proper {nameof(ISplitState)}");
+			}
+#endif
+			OnValidate();
+		}
+
+		protected void OnValidate()
+		{
+#if UNITY_EDITOR || DEBUG
 			if (_innerStates.Count == 0)
 			{
-				throw new MissingMemberException($"Split state {Name} doesn't have the nested setup defined correctly");
+				throw new MissingMemberException($"This state {Name} doesn't have the nested setup defined correctly");
 			}
 			
 			for (var i = 0; i < _innerStates.Count; i++)
@@ -77,7 +88,7 @@ namespace FirstLight.Statechart.Internal
 
 				if (innerState.ExecuteExit && innerState.NestedFactory == null)
 				{
-					throw new MissingMemberException($"Split state {Name} doesn't have a final state in his first nested " +
+					throw new MissingMemberException($"This state {Name} doesn't have a final state in his first nested " +
 					                                 $"setup and is marked to execute it's {nameof(IFinalState.OnEnter)} when completed");
 				}
 			}
@@ -135,7 +146,20 @@ namespace FirstLight.Statechart.Internal
 		}
 
 		/// <inheritdoc />
-		public ITransition Split(params ISplitState.StateData[] data)
+		public ITransition Split(params Action<IStateFactory>[] data)
+		{
+			var array = new NestedStateData[data.Length];
+
+			for (var i = 0; i < array.Length; i++)
+			{
+				array[i] = data[i];
+			}
+
+			return Split(array);
+		}
+
+		/// <inheritdoc />
+		public ITransition Split(params NestedStateData[] data)
 		{
 			if (_transition != null)
 			{
@@ -165,24 +189,6 @@ namespace FirstLight.Statechart.Internal
 		}
 
 		/// <inheritdoc />
-		public ITransition Split(params Action<IStateFactory>[] data)
-		{
-			var array = new ISplitState.StateData[data.Length];
-
-			for (var i = 0; i < array.Length; i++)
-			{
-				array[i] = new ISplitState.StateData
-				{
-					Setup = data[i],
-					ExecuteExit = true,
-					ExecuteFinal = true
-				};
-			}
-
-			return Split(array);
-		}
-
-		/// <inheritdoc />
 		protected override ITransitionInternal OnTrigger(IStatechartEvent statechartEvent)
 		{
 			if (statechartEvent != null && _events.TryGetValue(statechartEvent, out var transition))
@@ -200,6 +206,8 @@ namespace FirstLight.Statechart.Internal
 					innerState.CurrenState = nextState;
 					nextState = innerState.CurrenState.Trigger(null);
 				}
+
+				_innerStates[i] = innerState;
 			}
 
 			var areAllFinished = true;
@@ -219,15 +227,6 @@ namespace FirstLight.Statechart.Internal
 			}
 
 			return areAllFinished ? _transition : null;
-		}
-		
-		private struct InnerStateData
-		{
-			public IStateInternal InitialState;
-			public IStateInternal CurrenState;
-			public IStateFactoryInternal NestedFactory;
-			public bool ExecuteExit;
-			public bool ExecuteFinal;
 		}
 	}
 }

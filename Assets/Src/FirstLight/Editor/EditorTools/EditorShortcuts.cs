@@ -80,10 +80,10 @@ namespace FirstLight.Editor.EditorTools
 		}
 
 #if DEVELOPMENT_BUILD
-		[MenuItem("FLG/Cheats/Make Player Big Damager %m")]
-		private static void MakePlayerBigDamager()
+		[MenuItem("FLG/Cheats/Refill Ammo And Specials %m")]
+		private static void RefillAmmoAndSpecials()
 		{
-			SROptions.Current.MakeLocalPlayerBigDamager();
+			SROptions.Current.RefillAmmoAndSpecials();
 		}
 		
 		[MenuItem("FLG/Cheats/Make Player Super Tough %l")]

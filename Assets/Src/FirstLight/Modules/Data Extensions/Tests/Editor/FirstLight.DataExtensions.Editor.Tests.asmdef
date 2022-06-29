@@ -1,5 +1,5 @@
 {
-    "name": "FistLight.DataExtensions.Editor.Tests",
+    "name": "FirstLight.DataExtensions.Editor.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

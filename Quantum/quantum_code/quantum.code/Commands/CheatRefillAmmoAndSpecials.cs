@@ -5,7 +5,7 @@ namespace Quantum.Commands
 	/// <summary>
 	/// This command gives the player a huge damage executing the command
 	/// </summary>
-	public unsafe class CheatMakeLocalPlayerBigDamagerCommand : CommandBase
+	public unsafe class CheatRefillAmmoAndSpecials : CommandBase
 	{
 		/// <inheritdoc />
 		public override void Serialize(BitStream stream)

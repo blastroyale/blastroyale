@@ -75,9 +75,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			//_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
-			if (!frame.Has<DeadPlayerCharacter>(localPlayer.Entity))
+			if (localPlayer.Entity.IsAlive(frame))
 			{
 				_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
 				_services.TickService.SubscribeOnUpdate(UpdateTick);

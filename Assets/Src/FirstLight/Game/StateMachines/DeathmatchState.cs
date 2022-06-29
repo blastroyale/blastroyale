@@ -5,6 +5,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 
@@ -98,13 +99,8 @@ namespace FirstLight.Game.StateMachines
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-
-			if (game.Frames.Verified.Has<DeadPlayerCharacter>(localPlayer.Entity))
-			{
-				return true;
-			}
-		
-			return false;
+			
+			return localPlayer.Entity.IsAlive(f);
 		}
 		
 		private bool IsResyncing()

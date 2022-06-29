@@ -74,13 +74,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (Services.NetworkService.IsJoiningNewRoom)
 			{
 				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
-				AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef) ? Triggers.Die : Triggers.Spawn);
+				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
 			}
 			else
 			{
 				AnimatorWrapper.SetBool(Bools.Flying, false);
 				
-				if (frame.Has<DeadPlayerCharacter>(EntityView.EntityRef))
+				if (!EntityView.EntityRef.IsAlive(frame))
 				{
 					AnimatorWrapper.SetTrigger(Triggers.Die);
 				}

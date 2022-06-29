@@ -3,6 +3,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using UnityEngine;
@@ -98,12 +99,7 @@ namespace FirstLight.Game.StateMachines
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 
-			if (game.Frames.Verified.Has<DeadPlayerCharacter>(localPlayer.Entity))
-			{
-				return false;
-			}
-		
-			return true;
+			return localPlayer.Entity.IsAlive(f);
 		}
 		
 		private bool IsResyncing()
@@ -130,13 +126,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenControlsHud()
 		{
-			Debug.LogError("OPEN CONTROLS HUD");
 			_uiService.OpenUi<MatchControlsHudPresenter>();
 		}
 
 		private void CloseControlsHud()
 		{
-			Debug.LogError("CLOSE CONTROLS HUD");
 			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
 

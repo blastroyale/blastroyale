@@ -89,6 +89,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return;
 			}
+			
+			SetActiveCamera(_adventureCamera);
 
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
@@ -96,16 +98,23 @@ namespace FirstLight.Game.MonoComponent.Match
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 			
-			_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
+			if (!localPlayer.Entity.IsAlive(f))
+			{
+				gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
+				var leaderPlayer = playersData[leader];
+				_leader = leaderPlayer.Entity;
 
-			SetTargetTransform(_playerView.transform);
-			SetActiveCamera(_adventureCamera);
+				SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+				OnSpectate();
+			
+				return;
+			}
+			
+			_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
 			
 			// We place audio listener roughly "in the player character's head"
-			audioListenerTransform.SetParent(_playerView.transform);
-			audioListenerTransform.localPosition = Vector3.up;
-			audioListenerTransform.rotation = Quaternion.identity;
+			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
+			SetTargetTransform(_playerView.transform);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -113,13 +122,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
 
+			// We place audio listener roughly "in the player character's head"
+			SetAudioListenerTransform(follow.transform, Vector3.up, Quaternion.identity);
 			SetTargetTransform(follow.transform);
 			SetActiveCamera(_spawnCamera);
-
-			// We place audio listener roughly "in the player character's head"
-			audioListenerTransform.SetParent(follow.transform);
-			audioListenerTransform.localPosition = Vector3.up;
-			audioListenerTransform.rotation = Quaternion.identity;
 		}
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
@@ -130,11 +136,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			// We place audio listener back to main camera
-			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
-			audioListenerTransform.SetParent(Camera.main.transform);
-			audioListenerTransform.position = Vector3.zero;
-			audioListenerTransform.rotation = Quaternion.identity;
-
+			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 			SetTargetTransform(_playerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
 
 			_latestKiller = callback.EntityKiller;
@@ -160,6 +162,12 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetActiveCamera(_adventureCamera);
 			}
 		}
+		
+		private void OnSpectate()
+		{
+			_spectating = true;
+			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
+		}
 
 		private void OnSpectate(SpectateKillerMessage message)
 		{
@@ -180,7 +188,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			EntityView nextPlayer = null;
 
-			if (f.Exists(_latestKiller)){
+			if (f.Exists(_latestKiller))
+			{
 				nextPlayer = _entityViewUpdaterService.GetManualView(_latestKiller);
 			}
 			else if (_leader.IsValid)
@@ -204,7 +213,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
-			
 			_targetTransform = entityViewTransform;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;
@@ -214,6 +222,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			_adventureCamera.Follow = entityViewTransform;
 			_specialAimCamera.LookAt = entityViewTransform;
 			_specialAimCamera.Follow = entityViewTransform;
+		}
+
+		private void SetAudioListenerTransform(Transform t, Vector3 pos, Quaternion rot)
+		{
+			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
+			audioListenerTransform.SetParent(t);
+			audioListenerTransform.localPosition = pos;
+			audioListenerTransform.rotation = rot;
 		}
 	}
 }

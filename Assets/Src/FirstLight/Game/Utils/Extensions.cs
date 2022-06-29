@@ -248,6 +248,25 @@ namespace FirstLight.Game.Utils
 
 			return groups[0];
 		}
+		
+		/// <summary>
+		/// Requests the alive/dead status of the player entity (exists? alive?)
+		/// </summary>
+		public static bool IsAlive(this EntityRef entity, Frame f)
+		{
+			if (!f.Exists(entity))
+			{
+				return false;
+			}
+
+			if (!f.Has<Stats>(entity))
+			{
+				return false;
+			}
+			
+			var stats = f.Get<Stats>(entity);
+			return stats.CurrentHealth > 0;
+		}
 
 		/// <summary>
 		/// Requests the player name for the given player's match <paramref name="data"/>

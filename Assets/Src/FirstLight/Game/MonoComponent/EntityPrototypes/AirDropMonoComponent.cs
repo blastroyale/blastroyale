@@ -29,7 +29,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
-			_parachute.SetActive(false);
+			if (callback.Entity == EntityView.EntityRef)
+			{
+				_parachute.SetActive(false);
+			}
 		}
 	}
 }

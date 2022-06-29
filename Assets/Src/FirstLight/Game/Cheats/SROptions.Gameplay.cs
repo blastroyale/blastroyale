@@ -81,6 +81,19 @@ public partial class SROptions
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();
 	}
+	
+	[Category("Gameplay")]
+	public void SpawnAirDrop()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+		
+		game.SendCommand(new CheatSpawnAirDropCommand());
+	}
 #endif
 	
 	

@@ -187,6 +187,7 @@
     <Compile Include="Commands\CheatCompleteKillCountCommand.cs" />
     <Compile Include="Commands\CheatRefillAmmoAndSpecials.cs" />
     <Compile Include="Commands\CheatMakeLocalPlayerSuperToughCommand.cs" />
+    <Compile Include="Commands\CheatSpawnAirDropCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DummySpawnCommand.cs" />
     <Compile Include="Commands\PlatformSpawnCommand.cs" />

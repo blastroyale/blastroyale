@@ -19,10 +19,14 @@ namespace Quantum.Systems
 		{
 			var circle = f.GetSingleton<ShrinkingCircle>();
 
-			var initialPos = (circle.CurrentCircleCenter - circle.TargetCircleCenter).Normalized *
-			                 circle.CurrentRadius * f.GameConfig.AirdropPositionOffsetMultiplier;
-			var radius = circle.CurrentRadius * f.GameConfig.AirdropRandomAreaMultiplier;
-			QuantumHelpers.TryFindPosOnNavMesh(f, initialPos.XOY, radius, out var dropPosition);
+			var dropPosition = component->Position;
+			if (dropPosition == FPVector3.Zero)
+			{
+				var initialPos = (circle.CurrentCircleCenter - circle.TargetCircleCenter).Normalized *
+				                 circle.CurrentRadius * f.GameConfig.AirdropPositionOffsetMultiplier;
+				var radius = circle.CurrentRadius * f.GameConfig.AirdropRandomAreaMultiplier;
+				QuantumHelpers.TryFindPosOnNavMesh(f, initialPos.XOY, radius, out dropPosition);
+			}
 
 			component->Position = dropPosition;
 			component->StartTime = f.Time;

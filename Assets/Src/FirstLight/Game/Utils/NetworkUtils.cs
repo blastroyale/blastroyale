@@ -115,7 +115,10 @@ namespace FirstLight.Game.Utils
 		{
 			var properties = GetJoinRoomProperties(mapConfig);
 
-			properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
+			if (mapConfig.GameMode == GameMode.BattleRoyale && !mapConfig.IsTestMap)
+			{
+				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
+			}
 
 			return properties;
 		}

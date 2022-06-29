@@ -51,7 +51,7 @@ public partial class SROptions
 	}
 	
 	[Category("Gameplay")]
-	public void MakeLocalPlayerBigDamager()
+	public void RefillAmmoAndSpecials()
 	{
 		var game = QuantumRunner.Default.Game;
 		if (game == null)
@@ -60,7 +60,7 @@ public partial class SROptions
 			return;
 		}
 		
-		game.SendCommand(new CheatMakeLocalPlayerBigDamagerCommand());
+		game.SendCommand(new CheatRefillAmmoAndSpecials());
 	}
 	
 	[Category("Gameplay")]

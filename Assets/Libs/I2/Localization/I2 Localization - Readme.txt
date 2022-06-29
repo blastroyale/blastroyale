@@ -1,6 +1,6 @@
 ﻿----------------------------------------------
               I2 Localization
-                  2.8.16
+                  2.8.20 f2
         http://www.inter-illusion.com
           inter.illusion@gmail.com
 ----------------------------------------------
@@ -27,7 +27,7 @@ drop by the I2 forum: http://www.inter-illusion.com/forum/index
 5- Create the languages you will support.
 6- The I2Languages source is a global source accessible by all scenes
 
-The documentation provides further explanaition on each of those steps and some tutorials.
+The documentation provides further explanation on each of those steps and some tutorials.
 Also its presented how to convert an existing NGUI localization into the I2 Localization system.
 
 
@@ -36,7 +36,7 @@ PLAYMAKER
 -----------------------
 
 If you use PlayMaker, please, install:
-   - https://www.inter-illusion.com/Downloads/I2Localization_PlayMaker.unitypackage
+   - http://www.inter-illusion.com/Downloads/I2Localization_PlayMaker.unitypackage
    - PlayMaker Unity UI Addon  (from the Playmaker website - only needed for the example scenes that use Unity UI)
 
 That will install custom actions to access and modify the localization.
@@ -66,6 +66,18 @@ AssetStore Deals   - A bot that constantly checks the Store to find you the late
 -----------------------
  Version History
 -----------------------
+2.8.20
+NEW: Missing translations are now shown in the console log.
+FIX: Null Exception when running in 2021.3
+
+2.8.19
+NEW: Baking terms now supports the use of Chinese/Japanese characters
+FIX: Calling Import_Google with force=true, was not using the force parameter and skipping importing the data
+FIX: Url to download the Playmaker actions was not right.
+
+2.8.18
+NEW: Translations fallbacks now working with multiple language sources 
+
 2.8.17
 NEW: When generating ScriptLocalization.cs, if a term name is a C# keyword the variable now is set to start with @
 NEW: There is now LocalizationManager.CustomApplyLocalizationParams to process ALL translations before ApplyLocalizationParams runs

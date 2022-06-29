@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
@@ -29,10 +30,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _spectateButton;
 		[SerializeField, Required] private TextMeshProUGUI _killerText;
 
+		private IGameServices _services;
+
 		private void Awake()
 		{
 			_leaveButton.onClick.AddListener(OnLeavePressed);
 			_spectateButton.onClick.AddListener(OnSpectatePressed);
+			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void OnOpened()
@@ -41,6 +45,8 @@ namespace FirstLight.Game.Presenters
 
 			var killerName = "Shrinking Circle";
 
+			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
+			
 			if (Data.Killer != PlayerRef.None)
 			{
 				var f = QuantumRunner.Default.Game.Frames.Verified;
@@ -50,8 +56,17 @@ namespace FirstLight.Game.Presenters
 				killerName = data.GetPlayerName();
 			}
 
-			_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
-			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
+			// Killed by circle normally. Else if reconnecting - no info on the killer, so just dont show the kill banner
+			// 'Killed by' field should be added to quantum PlayerMatchData for future use - would be useful
+			if (_services.NetworkService.IsJoiningNewRoom)
+			{
+				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
+			}
+			else
+			{
+				_killerText.text = ScriptLocalization.AdventureMenu.YouDied;
+				_spectateButton.gameObject.SetActive(false);
+			}
 		}
 
 		private void OnLeavePressed()

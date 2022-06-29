@@ -5040,6 +5040,13 @@ MonoBehaviour:
       - 'KILLED BY: {0}'
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/YouDied
+      TermType: 0
+      Description: 
+      Languages:
+      - You Died!
+      Flags: 00
+      Languages_Touch: []
     - Term: AdventureMenu/GameOver
       TermType: 0
       Description: 
@@ -5150,13 +5157,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'Unlocks In: {0}'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/YouDied
-      TermType: 0
-      Description: 
-      Languages:
-      - You Died!
       Flags: 00
       Languages_Touch: []
     - Term: AdventureMenu/YourLoot
@@ -5346,7 +5346,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1656423106664
+    Google_LastUpdatedVersion: 1656523143887
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

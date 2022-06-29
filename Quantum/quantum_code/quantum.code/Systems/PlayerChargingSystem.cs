@@ -46,7 +46,7 @@ namespace Quantum.Systems
 			}
 
 			var spell = Spell.CreateInstant(f, targetHit, attacker, attacker, charging.PowerAmount, 0,
-			                                f.Get<Transform3D>(targetHit).Position);
+			                                f.Get<Transform3D>(targetHit).Position, charging.PercentHealthDamage);
 
 			QuantumHelpers.ProcessHit(f, spell);
 		}

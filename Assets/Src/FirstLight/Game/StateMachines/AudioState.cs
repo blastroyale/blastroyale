@@ -27,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("AUDIO - Initial");
 			var final = stateFactory.Final("AUDIO - Final");
-			var audioListener = stateFactory.Final("AUDIO - Audio Listener");
+			var audioListener = stateFactory.State("AUDIO - Audio Listener");
 
 			initial.Transition().Target(audioListener);
 			initial.OnExit(SubscribeEvents);

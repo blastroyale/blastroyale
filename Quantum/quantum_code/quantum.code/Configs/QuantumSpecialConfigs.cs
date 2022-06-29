@@ -17,7 +17,6 @@ namespace Quantum
 		public FP MinRange;
 		public FP MaxRange;
 		public uint Knockback;
-		public bool PercentHealthDamage;
 
 		public bool IsAimable => MaxRange > FP._0;
 	}

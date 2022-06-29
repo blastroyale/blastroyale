@@ -56,7 +56,6 @@ namespace Quantum
 				TeamSource = team,
 				MaxHitCount = 1,
 				Knockback = special.Knockback,
-				PercentHealthDamage = special.PercentHealthDamage
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

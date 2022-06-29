@@ -2736,19 +2736,17 @@ namespace Quantum {
     public FP AvailableTime;
     [FieldOffset(24)]
     public FP Cooldown;
-    [FieldOffset(12)]
+    [FieldOffset(8)]
     public UInt32 Knockback;
     [FieldOffset(32)]
     public FP MaxRange;
-    [FieldOffset(4)]
-    public QBoolean PercentHealthDamage;
     [FieldOffset(40)]
     public FP Radius;
     [FieldOffset(0)]
     public GameId SpecialId;
     [FieldOffset(48)]
     public FP SpecialPower;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     public SpecialType SpecialType;
     [FieldOffset(56)]
     public FP Speed;
@@ -2759,7 +2757,6 @@ namespace Quantum {
         hash = hash * 31 + Cooldown.GetHashCode();
         hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxRange.GetHashCode();
-        hash = hash * 31 + PercentHealthDamage.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
         hash = hash * 31 + (Int32)SpecialId;
         hash = hash * 31 + SpecialPower.GetHashCode();
@@ -2771,7 +2768,6 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Special*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SpecialId);
-        QBoolean.Serialize(&p->PercentHealthDamage, serializer);
         serializer.Stream.Serialize((Int32*)&p->SpecialType);
         serializer.Stream.Serialize(&p->Knockback);
         FP.Serialize(&p->AvailableTime, serializer);
@@ -4014,24 +4010,22 @@ namespace Quantum {
   public unsafe partial struct Hazard : Quantum.IComponent {
     public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
     public EntityRef Attacker;
-    [FieldOffset(32)]
+    [FieldOffset(24)]
     public FP EndTime;
     [FieldOffset(0)]
     public GameId GameId;
-    [FieldOffset(40)]
+    [FieldOffset(32)]
     public FP Interval;
-    [FieldOffset(12)]
-    public UInt32 Knockback;
-    [FieldOffset(16)]
-    public UInt32 MaxHitCount;
-    [FieldOffset(48)]
-    public FP NextTickTime;
     [FieldOffset(8)]
-    public QBoolean PercentHealthDamage;
-    [FieldOffset(20)]
-    public UInt32 PowerAmount;
+    public UInt32 Knockback;
+    [FieldOffset(12)]
+    public UInt32 MaxHitCount;
+    [FieldOffset(40)]
+    public FP NextTickTime;
+    [FieldOffset(48)]
+    public FP PowerAmount;
     [FieldOffset(56)]
     public FP Radius;
     [FieldOffset(64)]
@@ -4048,7 +4042,6 @@ namespace Quantum {
         hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxHitCount.GetHashCode();
         hash = hash * 31 + NextTickTime.GetHashCode();
-        hash = hash * 31 + PercentHealthDamage.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
         hash = hash * 31 + StunDuration.GetHashCode();
@@ -4060,14 +4053,13 @@ namespace Quantum {
         var p = (Hazard*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         serializer.Stream.Serialize(&p->TeamSource);
-        QBoolean.Serialize(&p->PercentHealthDamage, serializer);
         serializer.Stream.Serialize(&p->Knockback);
         serializer.Stream.Serialize(&p->MaxHitCount);
-        serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         FP.Serialize(&p->EndTime, serializer);
         FP.Serialize(&p->Interval, serializer);
         FP.Serialize(&p->NextTickTime, serializer);
+        FP.Serialize(&p->PowerAmount, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->StunDuration, serializer);
     }
@@ -4164,18 +4156,16 @@ namespace Quantum {
   public unsafe partial struct PlayerCharging : Quantum.IComponent {
     public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(0)]
     public FP ChargeDuration;
     [FieldOffset(24)]
     public FPVector3 ChargeEndPos;
     [FieldOffset(48)]
     public FPVector3 ChargeStartPos;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
     public FP ChargeStartTime;
-    [FieldOffset(0)]
-    public QBoolean PercentHealthDamage;
-    [FieldOffset(4)]
-    public UInt32 PowerAmount;
+    [FieldOffset(16)]
+    public FP PowerAmount;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 467;
@@ -4183,17 +4173,15 @@ namespace Quantum {
         hash = hash * 31 + ChargeEndPos.GetHashCode();
         hash = hash * 31 + ChargeStartPos.GetHashCode();
         hash = hash * 31 + ChargeStartTime.GetHashCode();
-        hash = hash * 31 + PercentHealthDamage.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharging*)ptr;
-        QBoolean.Serialize(&p->PercentHealthDamage, serializer);
-        serializer.Stream.Serialize(&p->PowerAmount);
         FP.Serialize(&p->ChargeDuration, serializer);
         FP.Serialize(&p->ChargeStartTime, serializer);
+        FP.Serialize(&p->PowerAmount, serializer);
         FPVector3.Serialize(&p->ChargeEndPos, serializer);
         FPVector3.Serialize(&p->ChargeStartPos, serializer);
     }
@@ -4483,31 +4471,29 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Spell : Quantum.IComponent {
-    public const Int32 SIZE = 96;
+    public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(24)]
-    public EntityRef Attacker;
-    [FieldOffset(48)]
-    public FP Cooldown;
-    [FieldOffset(56)]
-    public FP EndTime;
-    [FieldOffset(8)]
-    public UInt32 Id;
-    [FieldOffset(12)]
-    public UInt32 KnockbackAmount;
-    [FieldOffset(64)]
-    public FP NextHitTime;
-    [FieldOffset(72)]
-    public FPVector3 OriginalHitPosition;
-    [FieldOffset(4)]
-    public QBoolean PercentHealthDamage;
     [FieldOffset(16)]
+    public EntityRef Attacker;
+    [FieldOffset(40)]
+    public FP Cooldown;
+    [FieldOffset(48)]
+    public FP EndTime;
+    [FieldOffset(4)]
+    public UInt32 Id;
+    [FieldOffset(8)]
+    public UInt32 KnockbackAmount;
+    [FieldOffset(56)]
+    public FP NextHitTime;
+    [FieldOffset(64)]
+    public FPVector3 OriginalHitPosition;
+    [FieldOffset(12)]
     public UInt32 PowerAmount;
-    [FieldOffset(32)]
+    [FieldOffset(24)]
     public EntityRef SpellSource;
     [FieldOffset(0)]
     public Int32 TeamSource;
-    [FieldOffset(40)]
+    [FieldOffset(32)]
     public EntityRef Victim;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -4519,7 +4505,6 @@ namespace Quantum {
         hash = hash * 31 + KnockbackAmount.GetHashCode();
         hash = hash * 31 + NextHitTime.GetHashCode();
         hash = hash * 31 + OriginalHitPosition.GetHashCode();
-        hash = hash * 31 + PercentHealthDamage.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + SpellSource.GetHashCode();
         hash = hash * 31 + TeamSource.GetHashCode();
@@ -4530,7 +4515,6 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Spell*)ptr;
         serializer.Stream.Serialize(&p->TeamSource);
-        QBoolean.Serialize(&p->PercentHealthDamage, serializer);
         serializer.Stream.Serialize(&p->Id);
         serializer.Stream.Serialize(&p->KnockbackAmount);
         serializer.Stream.Serialize(&p->PowerAmount);
@@ -9213,11 +9197,10 @@ namespace Quantum.Prototypes {
     public FP EndTime;
     public FP Interval;
     public FP NextTickTime;
-    public UInt32 PowerAmount;
+    public FP PowerAmount;
     public UInt32 Knockback;
     public FP StunDuration;
     public UInt32 MaxHitCount;
-    public QBoolean PercentHealthDamage;
     partial void MaterializeUser(Frame frame, ref Hazard result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Hazard component = default;
@@ -9232,7 +9215,6 @@ namespace Quantum.Prototypes {
       result.Knockback = this.Knockback;
       result.MaxHitCount = this.MaxHitCount;
       result.NextTickTime = this.NextTickTime;
-      result.PercentHealthDamage = this.PercentHealthDamage;
       result.PowerAmount = this.PowerAmount;
       result.Radius = this.Radius;
       result.StunDuration = this.StunDuration;
@@ -9350,8 +9332,7 @@ namespace Quantum.Prototypes {
     public FPVector3 ChargeEndPos;
     public FP ChargeDuration;
     public FP ChargeStartTime;
-    public UInt32 PowerAmount;
-    public QBoolean PercentHealthDamage;
+    public FP PowerAmount;
     partial void MaterializeUser(Frame frame, ref PlayerCharging result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharging component = default;
@@ -9363,7 +9344,6 @@ namespace Quantum.Prototypes {
       result.ChargeEndPos = this.ChargeEndPos;
       result.ChargeStartPos = this.ChargeStartPos;
       result.ChargeStartTime = this.ChargeStartTime;
-      result.PercentHealthDamage = this.PercentHealthDamage;
       result.PowerAmount = this.PowerAmount;
       MaterializeUser(frame, ref result, in context);
     }
@@ -9631,14 +9611,12 @@ namespace Quantum.Prototypes {
     public FP MaxRange;
     public UInt32 Knockback;
     public FP AvailableTime;
-    public QBoolean PercentHealthDamage;
     partial void MaterializeUser(Frame frame, ref Special result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Special result, in PrototypeMaterializationContext context) {
       result.AvailableTime = this.AvailableTime;
       result.Cooldown = this.Cooldown;
       result.Knockback = this.Knockback;
       result.MaxRange = this.MaxRange;
-      result.PercentHealthDamage = this.PercentHealthDamage;
       result.Radius = this.Radius;
       result.SpecialId = this.SpecialId;
       result.SpecialPower = this.SpecialPower;
@@ -9661,7 +9639,6 @@ namespace Quantum.Prototypes {
     public FP Cooldown;
     public FP NextHitTime;
     public FP EndTime;
-    public QBoolean PercentHealthDamage;
     partial void MaterializeUser(Frame frame, ref Spell result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Spell component = default;
@@ -9676,7 +9653,6 @@ namespace Quantum.Prototypes {
       result.KnockbackAmount = this.KnockbackAmount;
       result.NextHitTime = this.NextHitTime;
       result.OriginalHitPosition = this.OriginalHitPosition;
-      result.PercentHealthDamage = this.PercentHealthDamage;
       result.PowerAmount = this.PowerAmount;
       PrototypeValidator.FindMapEntity(this.SpellSource, in context, out result.SpellSource);
       result.TeamSource = this.TeamSource;

@@ -27,7 +27,6 @@ namespace Quantum
 			MaxRange = config.MaxRange;
 			AvailableTime = f.Time + config.Cooldown;
 			Knockback = config.Knockback;
-			PercentHealthDamage = config.PercentHealthDamage;
 		}
 		
 		/// <summary>

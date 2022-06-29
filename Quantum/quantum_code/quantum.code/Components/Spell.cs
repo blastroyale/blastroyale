@@ -17,7 +17,7 @@ namespace Quantum
 		/// Creates an instant hit <see cref="Spell"/> based on the given data
 		/// </summary>
 		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource, 
-		                                  uint powerAmount, uint knockbackAmount, FPVector3 position, bool percentHealthDamage = false)
+		                                  uint powerAmount, uint knockbackAmount, FPVector3 position)
 		{
 			return new Spell
 			{
@@ -32,7 +32,6 @@ namespace Quantum
 				PowerAmount = powerAmount,
 				KnockbackAmount = knockbackAmount,
 				TeamSource = f.Get<Targetable>(attacker).Team,
-				PercentHealthDamage = percentHealthDamage
 			};
 		}
 		
@@ -40,7 +39,7 @@ namespace Quantum
 		/// Creates an instant hit <see cref="Spell"/> based on the given data
 		/// </summary>
 		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource, 
-		                               uint powerAmount, uint knockbackAmount, FPVector3 position, Int32 team, bool percentHealthDamage = false)
+		                               uint powerAmount, uint knockbackAmount, FPVector3 position, Int32 team)
 		{
 			return new Spell
 			{
@@ -54,8 +53,7 @@ namespace Quantum
 				OriginalHitPosition = position,
 				PowerAmount = powerAmount,
 				KnockbackAmount = knockbackAmount,
-				TeamSource = team,
-				PercentHealthDamage = percentHealthDamage
+				TeamSource = team
 			};
 		}
 	}

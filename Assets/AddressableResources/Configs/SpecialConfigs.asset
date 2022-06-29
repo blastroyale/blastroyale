@@ -26,7 +26,7 @@ MonoBehaviour:
       Radius:
         RawValue: 229376
       SpecialPower:
-        RawValue: 5242880
+        RawValue: 52428
       Speed:
         RawValue: 655360
       MinRange:
@@ -34,7 +34,6 @@ MonoBehaviour:
       MaxRange:
         RawValue: 655360
       Knockback: 50
-      PercentHealthDamage: 1
     - Id: 85
       SpecialType: 1
       Indicator: 6
@@ -51,7 +50,6 @@ MonoBehaviour:
       MaxRange:
         RawValue: 458752
       Knockback: 10
-      PercentHealthDamage: 0
     - Id: 89
       SpecialType: 2
       Indicator: 0
@@ -68,7 +66,6 @@ MonoBehaviour:
       MaxRange:
         RawValue: 0
       Knockback: 0
-      PercentHealthDamage: 0
     - Id: 110
       SpecialType: 3
       Indicator: 6
@@ -77,7 +74,7 @@ MonoBehaviour:
       Radius:
         RawValue: 180224
       SpecialPower:
-        RawValue: 1966080
+        RawValue: 19660
       Speed:
         RawValue: 45875
       MinRange:
@@ -85,7 +82,6 @@ MonoBehaviour:
       MaxRange:
         RawValue: 786432
       Knockback: 20
-      PercentHealthDamage: 1
     - Id: 119
       SpecialType: 4
       Indicator: 2
@@ -94,7 +90,7 @@ MonoBehaviour:
       Radius:
         RawValue: 0
       SpecialPower:
-        RawValue: 1310720
+        RawValue: 13107
       Speed:
         RawValue: 1048576
       MinRange:
@@ -102,7 +98,6 @@ MonoBehaviour:
       MaxRange:
         RawValue: 458752
       Knockback: 10
-      PercentHealthDamage: 1
     - Id: 102
       SpecialType: 5
       Indicator: 6
@@ -111,7 +106,7 @@ MonoBehaviour:
       Radius:
         RawValue: 655360
       SpecialPower:
-        RawValue: 3276800
+        RawValue: 32768
       Speed:
         RawValue: 65536
       MinRange:
@@ -119,7 +114,6 @@ MonoBehaviour:
       MaxRange:
         RawValue: 524288
       Knockback: 30
-      PercentHealthDamage: 1
     - Id: 141
       SpecialType: 4
       Indicator: 2
@@ -128,7 +122,7 @@ MonoBehaviour:
       Radius:
         RawValue: 0
       SpecialPower:
-        RawValue: 1310720
+        RawValue: 13107
       Speed:
         RawValue: 1048576
       MinRange:
@@ -136,4 +130,3 @@ MonoBehaviour:
       MaxRange:
         RawValue: 458752
       Knockback: 10
-      PercentHealthDamage: 1

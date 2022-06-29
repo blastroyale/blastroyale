@@ -60,8 +60,7 @@ namespace Quantum
 				StunDuration = FP._0,
 				TeamSource = team,
 				MaxHitCount = uint.MaxValue,
-				Knockback = special.Knockback,
-				PercentHealthDamage = special.PercentHealthDamage
+				Knockback = special.Knockback
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

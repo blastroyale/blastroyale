@@ -222,9 +222,7 @@ namespace Quantum
 			var previousShield = CurrentShield;
 			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
 			var armour = Values[(int)StatType.Armour].StatValue.AsInt;
-
-			var damage = spell.PercentHealthDamage ? maxHealth * (spell.PowerAmount / FP._100) : spell.PowerAmount;
-			var currentDamageAmount = damage.AsInt;
+			var currentDamageAmount = (int)spell.PowerAmount;
 
 			if (IsImmune)
 			{

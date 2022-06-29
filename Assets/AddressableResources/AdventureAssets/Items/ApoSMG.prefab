@@ -24630,7 +24630,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  - component: {fileID: 1753927080862027928}
   m_Layer: 0
   m_Name: ApoSMG
   m_TagString: Untagged
@@ -24654,44 +24653,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1753927080862027928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6141187416942925851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 4395550824055608633}
-  - {fileID: 4395550824055608633}
-  - {fileID: 3409277627225509060}
-  - {fileID: 3409277627225509060}
-  - {fileID: 8706839138141355663}
-  - {fileID: 8706839138141355663}
-  - {fileID: 762369494002355121}
-  - {fileID: 762369494002355121}
-  - {fileID: 7103484570349850493}
-  - {fileID: 7103484570349850493}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 5370530953546834348}
-  - {fileID: 8308070723482225571}
-  - {fileID: 7045974397588369280}
-  - {fileID: 4499526274469425551}
-  - {fileID: 2830371079884664567}
-  - {fileID: 4765790118264190557}
-  - {fileID: 6836436583180737306}
-  - {fileID: 6850330808670219720}
-  - {fileID: 2511222648497802897}
-  - {fileID: 6608228970921030014}
-  - {fileID: 4107126355236718146}
-  - {fileID: 484322344989870205}
-  - {fileID: 3825899257050659150}
 --- !u!1 &6194195938563840863
 GameObject:
   m_ObjectHideFlags: 0

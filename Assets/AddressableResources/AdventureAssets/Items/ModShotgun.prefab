@@ -19863,7 +19863,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516585669790791155}
-  - component: {fileID: 1450571115304773039}
   m_Layer: 0
   m_Name: ModShotgun
   m_TagString: Untagged
@@ -19887,44 +19886,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1450571115304773039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4516585669790791156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 333787421592773913}
-  - {fileID: 333787421592773913}
-  - {fileID: 1606537433369421661}
-  - {fileID: 1606537433369421661}
-  - {fileID: 4841504499339051744}
-  - {fileID: 4841504499339051744}
-  - {fileID: 1538911260172150046}
-  - {fileID: 1538911260172150046}
-  - {fileID: 642994744644652251}
-  - {fileID: 642994744644652251}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 8299394903812650124}
-  - {fileID: 4371223150914495499}
-  - {fileID: 278001428118895310}
-  - {fileID: 5487631731396715986}
-  - {fileID: 2771366618208262068}
-  - {fileID: 1619754360486928129}
-  - {fileID: 8479397337943808347}
-  - {fileID: 5962080958930081234}
-  - {fileID: 128768576721215129}
-  - {fileID: 7497214699223014455}
-  - {fileID: 8030625994436633200}
-  - {fileID: 2686466951611175667}
-  - {fileID: 2927426723504251844}
 --- !u!1 &4768144796234286888
 GameObject:
   m_ObjectHideFlags: 0

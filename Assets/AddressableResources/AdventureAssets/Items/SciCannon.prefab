@@ -24782,7 +24782,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  - component: {fileID: 2679472313752402366}
   m_Layer: 0
   m_Name: SciCannon
   m_TagString: Untagged
@@ -24807,45 +24806,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2679472313752402366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6348189754933789881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 7483345011514023697}
-  - {fileID: 7483345011514023697}
-  - {fileID: 2510999888896866357}
-  - {fileID: 2510999888896866357}
-  - {fileID: 7980573651007984293}
-  - {fileID: 7980573651007984293}
-  - {fileID: 2299016949359954139}
-  - {fileID: 2299016949359954139}
-  - {fileID: 8823176702396998386}
-  - {fileID: 8823176702396998386}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 8797307377130321686}
-  - {fileID: 7953486371235377003}
-  - {fileID: 5129109375889114006}
-  - {fileID: 5636275680414894924}
-  - {fileID: 457819865090889877}
-  - {fileID: 8093026393694487114}
-  - {fileID: 1675698776148703335}
-  - {fileID: 7497549719164632774}
-  - {fileID: 8994814111897518501}
-  - {fileID: 1270698466508669672}
-  - {fileID: 4148970742473127699}
-  - {fileID: 4012290542981401308}
-  - {fileID: 5871192997882101194}
-  - {fileID: 660038314848666461}
 --- !u!1 &6619656835249107292
 GameObject:
   m_ObjectHideFlags: 0
@@ -39727,11 +39687,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44fd5f1c5b098e74c93a40474f9d7eb4, type: 3}
---- !u!23 &7497549719164632774 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 44fd5f1c5b098e74c93a40474f9d7eb4, type: 3}
-  m_PrefabInstance: {fileID: 9209069723315184194}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8290099758703091475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 44fd5f1c5b098e74c93a40474f9d7eb4, type: 3}

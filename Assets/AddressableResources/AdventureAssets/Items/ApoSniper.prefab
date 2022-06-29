@@ -29678,7 +29678,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  - component: {fileID: 4811497217299380498}
   m_Layer: 0
   m_Name: ApoSniper
   m_TagString: Untagged
@@ -29702,45 +29701,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4811497217299380498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6141187416942925851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 4649453272757108678}
-  - {fileID: 4649453272757108678}
-  - {fileID: 4487852544872058652}
-  - {fileID: 4487852544872058652}
-  - {fileID: 5308606349537010676}
-  - {fileID: 5308606349537010676}
-  - {fileID: 9040650546212246292}
-  - {fileID: 9040650546212246292}
-  - {fileID: 8706114303525413519}
-  - {fileID: 8706114303525413519}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 1405411830819400330}
-  - {fileID: 7825519083563908513}
-  - {fileID: 4357824866970964427}
-  - {fileID: 4189116771380419271}
-  - {fileID: 3718619431005105964}
-  - {fileID: 4305544655252579854}
-  - {fileID: 6658959837469761351}
-  - {fileID: 5030556129572628237}
-  - {fileID: 3397699730923008712}
-  - {fileID: 4547911749700669406}
-  - {fileID: 6365198674716193091}
-  - {fileID: 8722464568992888633}
-  - {fileID: 5991132025223944214}
-  - {fileID: 265952731431194156}
 --- !u!1 &6658071990872224906
 GameObject:
   m_ObjectHideFlags: 0

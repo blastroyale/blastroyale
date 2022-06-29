@@ -39104,7 +39104,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4908678286155397114}
-  - component: {fileID: 725187447808623038}
   m_Layer: 0
   m_Name: ModHeavyMachineGun
   m_TagString: Untagged
@@ -39128,44 +39127,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &725187447808623038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4908678286155397115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 8367381482176762704}
-  - {fileID: 8367381482176762704}
-  - {fileID: 903699005985538302}
-  - {fileID: 903699005985538302}
-  - {fileID: 8771522806558504937}
-  - {fileID: 8771522806558504937}
-  - {fileID: 7886840807816801123}
-  - {fileID: 7886840807816801123}
-  - {fileID: 7137720198606730996}
-  - {fileID: 7137720198606730996}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 8747078929391676940}
-  - {fileID: 7772516285893778934}
-  - {fileID: 6619922985125886466}
-  - {fileID: 2425883586472013668}
-  - {fileID: 1942512320774300209}
-  - {fileID: 1559383829}
-  - {fileID: 181772937}
-  - {fileID: 244013795}
-  - {fileID: 1532025506}
-  - {fileID: 51205730}
-  - {fileID: 1838709869}
-  - {fileID: 1402248438}
-  - {fileID: 1563231416}
 --- !u!1 &7137720198606730996
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2391013352190283306}
   - component: {fileID: 3655252458560614637}
   - component: {fileID: 3190311426441500023}
-  - component: {fileID: 1660317457545482569}
   m_Layer: 10
   m_Name: MausHelmet
   m_TagString: Untagged
@@ -103,19 +102,3 @@ MonoBehaviour:
   - {fileID: 3655252458560614637}
   _particleRenderers: []
   _mainRenderer: {fileID: 3655252458560614637}
---- !u!114 &1660317457545482569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2480050361692540939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects: []
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 3655252458560614637}

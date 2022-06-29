@@ -34622,7 +34622,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  - component: {fileID: 4726558231088943437}
   m_Layer: 0
   m_Name: SciMelter
   m_TagString: Untagged
@@ -34646,43 +34645,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4726558231088943437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6348189754933789881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 3727530577535917280}
-  - {fileID: 3727530577535917280}
-  - {fileID: 1925187004671113852}
-  - {fileID: 1925187004671113852}
-  - {fileID: 7102541273364920680}
-  - {fileID: 7102541273364920680}
-  - {fileID: 6798623351132427433}
-  - {fileID: 6798623351132427433}
-  - {fileID: 3956405803445427389}
-  - {fileID: 3956405803445427389}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 5603269866435747222}
-  - {fileID: 401907474659870799}
-  - {fileID: 7057800064401103088}
-  - {fileID: 9061059187040621068}
-  - {fileID: 254760603215388252}
-  - {fileID: 613577898}
-  - {fileID: 1574177253}
-  - {fileID: 514738052}
-  - {fileID: 1776448776}
-  - {fileID: 1587561003}
-  - {fileID: 1587642357}
-  - {fileID: 4709210554309863563}
 --- !u!1 &6798623351132427433
 GameObject:
   m_ObjectHideFlags: 0

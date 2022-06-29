@@ -19916,7 +19916,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6107789389667213140}
-  - component: {fileID: 5919145815962048875}
   m_Layer: 0
   m_Name: ApoRifle
   m_TagString: Untagged
@@ -19940,44 +19939,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5919145815962048875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6107789389667213141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 6316392606500752766}
-  - {fileID: 6316392606500752766}
-  - {fileID: 6541011517767771621}
-  - {fileID: 6541011517767771621}
-  - {fileID: 6374036140113964078}
-  - {fileID: 6374036140113964078}
-  - {fileID: 971879675156238993}
-  - {fileID: 971879675156238993}
-  - {fileID: 6043951081791237142}
-  - {fileID: 6043951081791237142}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 8432996538519898857}
-  - {fileID: 5212699377395572094}
-  - {fileID: 7010711622641516230}
-  - {fileID: 2158192494970455333}
-  - {fileID: 7937869803704892618}
-  - {fileID: 2934849055021231770}
-  - {fileID: 7798531850554949696}
-  - {fileID: 8574087060592357332}
-  - {fileID: 4782085956313523572}
-  - {fileID: 4089901862497408497}
-  - {fileID: 1169450937639797089}
-  - {fileID: 7985285320840370450}
-  - {fileID: 5361582672634275390}
 --- !u!1 &6316392606500752766
 GameObject:
   m_ObjectHideFlags: 0

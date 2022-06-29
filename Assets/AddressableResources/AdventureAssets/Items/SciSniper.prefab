@@ -34571,7 +34571,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  - component: {fileID: 3662251952469238226}
   m_Layer: 0
   m_Name: SciSniper
   m_TagString: Untagged
@@ -34595,43 +34594,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3662251952469238226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6348189754933789881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 6428560098730332011}
-  - {fileID: 6428560098730332011}
-  - {fileID: 2347265300130647331}
-  - {fileID: 2347265300130647331}
-  - {fileID: 1899247394118866236}
-  - {fileID: 1899247394118866236}
-  - {fileID: 8513892832436298295}
-  - {fileID: 8513892832436298295}
-  - {fileID: 2524078962467834501}
-  - {fileID: 2524078962467834501}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 8960355365538987055}
-  - {fileID: 7373570177934751029}
-  - {fileID: 4540929228045353103}
-  - {fileID: 7634680865008462894}
-  - {fileID: 671160704709985937}
-  - {fileID: 514738052}
-  - {fileID: 1776448776}
-  - {fileID: 1587561003}
-  - {fileID: 1587642357}
-  - {fileID: 4709210554309863563}
-  - {fileID: 613577898}
-  - {fileID: 1574177253}
 --- !u!1 &6428560098730332011
 GameObject:
   m_ObjectHideFlags: 0

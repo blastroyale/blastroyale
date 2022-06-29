@@ -29976,7 +29976,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  - component: {fileID: 3392464800344219008}
   m_Layer: 0
   m_Name: ApoCrossbow
   m_TagString: Untagged
@@ -30000,45 +29999,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3392464800344219008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6141187416942925851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 4473272391308109705}
-  - {fileID: 4473272391308109705}
-  - {fileID: 4143785169996986510}
-  - {fileID: 4143785169996986510}
-  - {fileID: 2970626233930504199}
-  - {fileID: 2970626233930504199}
-  - {fileID: 8738784128216320105}
-  - {fileID: 8738784128216320105}
-  - {fileID: 4117925403693318255}
-  - {fileID: 4117925403693318255}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 4606655388748432364}
-  - {fileID: 629299320317473951}
-  - {fileID: 8802534761728912194}
-  - {fileID: 1859061429023497067}
-  - {fileID: 2516278118996066358}
-  - {fileID: 4632540453780891136}
-  - {fileID: 4886304652245961023}
-  - {fileID: 5947702066668058552}
-  - {fileID: 4986218013470055125}
-  - {fileID: 7254109113990046095}
-  - {fileID: 2305363022905981893}
-  - {fileID: 993019761364923225}
-  - {fileID: 3055203163191874257}
-  - {fileID: 6355549422834847509}
 --- !u!1 &8738784128216320105
 GameObject:
   m_ObjectHideFlags: 0

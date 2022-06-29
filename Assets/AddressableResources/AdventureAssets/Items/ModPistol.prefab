@@ -39485,7 +39485,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516585669790791155}
-  - component: {fileID: 2490018519853055792}
   m_Layer: 0
   m_Name: ModPistol
   m_TagString: Untagged
@@ -39509,44 +39508,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2490018519853055792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4516585669790791156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects:
-  - {fileID: 1185766068182370458}
-  - {fileID: 1185766068182370458}
-  - {fileID: 9087847576575043733}
-  - {fileID: 9087847576575043733}
-  - {fileID: 9199994540406206924}
-  - {fileID: 9199994540406206924}
-  - {fileID: 5220679493188895203}
-  - {fileID: 5220679493188895203}
-  - {fileID: 3285203550571014461}
-  - {fileID: 3285203550571014461}
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 5467926748385619159}
-  - {fileID: 1355156905740733042}
-  - {fileID: 536899010547538526}
-  - {fileID: 2432649616545329527}
-  - {fileID: 2583801123345080993}
-  - {fileID: 1259127175}
-  - {fileID: 1170091509}
-  - {fileID: 2042391198}
-  - {fileID: 1870382937}
-  - {fileID: 1364640663}
-  - {fileID: 2108136236}
-  - {fileID: 1364047490}
-  - {fileID: 1983629360}
 --- !u!1 &5220679493188895203
 GameObject:
   m_ObjectHideFlags: 0

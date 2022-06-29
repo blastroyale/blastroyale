@@ -7,12 +7,14 @@ using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using LayerMask = UnityEngine.LayerMask;
 
 
 namespace Src.FirstLight.Tools
@@ -301,29 +303,31 @@ namespace Src.FirstLight.Tools
 
 			var asset = _assetDictionary[gameId];
 			
-			if (asset.GetComponent<IErcRenderable>() != null)
-			{
-				var go = Instantiate(asset);
-				go.transform.SetParent(_markerTransform);
-				go.transform.localScale = Vector3.one;
-				go.transform.localPosition = Vector3.zero;
-				
-				go.GetComponent<IErcRenderable>().Initialise(metadata);
-				
-				var bounds = GetBounds(go);
-				go.transform.localPosition = -bounds.center;
-				go.transform.localRotation = Quaternion.identity;
+			
+			var go = Instantiate(asset);
+			go.transform.SetParent(_markerTransform);
+			go.transform.localScale = Vector3.one;
+			go.transform.localPosition = Vector3.zero;
+			
+			go.SetLayer(LayerMask.NameToLayer("Default"), true);
+			
+			var ercRenderable = go.GetComponent<IErcRenderable>();
+			ercRenderable?.Initialise(metadata);
+			
+			var bounds = GetBounds(go);
+			go.transform.localPosition = -bounds.center;
+			go.transform.localRotation = Quaternion.identity;
 
-				var max = bounds.size;
-				var radius = max.magnitude / 2f;
-				var horizontalFOV =
-					2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
-					Mathf.Rad2Deg;
-				var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-				var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
+			var max = bounds.size;
+			var radius = max.magnitude / 2f;
+			var horizontalFOV =
+				2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
+				Mathf.Rad2Deg;
+			var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
+			var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
 
-				_camera.transform.position = new Vector3(-dist, 0, 0);
-			}
+			_camera.transform.position = new Vector3(-dist, 0, 0);
+			
 			
 			_canvas.SetActive(true);
 			

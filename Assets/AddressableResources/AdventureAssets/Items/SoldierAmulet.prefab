@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1272660804772614204}
   - component: {fileID: 4715844585768302288}
   - component: {fileID: 4024873311786433992}
-  - component: {fileID: 7164782991914870364}
   m_Layer: 10
   m_Name: SoldierAmulet
   m_TagString: Untagged
@@ -103,19 +102,3 @@ MonoBehaviour:
   - {fileID: 4715844585768302288}
   _particleRenderers: []
   _mainRenderer: {fileID: 4715844585768302288}
---- !u!114 &7164782991914870364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7805446406382104466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f64084c2db71b04d9523bbf586cb9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _equipmentRarityGameObjects: []
-  _equipmentErcSpriteData: {fileID: 11400000, guid: c1060f0d31547974288641cbb18e609e, type: 2}
-  _renderers:
-  - {fileID: 4715844585768302288}

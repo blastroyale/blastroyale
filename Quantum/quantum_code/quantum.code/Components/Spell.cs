@@ -31,7 +31,7 @@ namespace Quantum
 				OriginalHitPosition = position,
 				PowerAmount = powerAmount,
 				KnockbackAmount = knockbackAmount,
-				TeamSource = f.Get<Targetable>(attacker).Team,
+				TeamSource = f.Get<Targetable>(attacker).Team
 			};
 		}
 		

@@ -222,7 +222,7 @@ namespace Quantum
 			var previousShield = CurrentShield;
 			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
 			var armour = Values[(int)StatType.Armour].StatValue.AsInt;
-			var currentDamageAmount = (int)spell.PowerAmount;
+			var currentDamageAmount = Math.Max((int)spell.PowerAmount, 0);
 
 			if (IsImmune)
 			{

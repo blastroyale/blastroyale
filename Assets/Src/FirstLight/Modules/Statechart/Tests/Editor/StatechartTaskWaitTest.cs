@@ -141,7 +141,7 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void InternalSetupNest(IStateFactory factory)
 			{
-				SetupNest(factory, _event2, InnerSetupTaskWaitState, true, false);
+				SetupNest(factory, _event2, new NestedStateData(InnerSetupTaskWaitState, true, false));
 			}
 
 			void InnerSetupTaskWaitState(IStateFactory factory)
@@ -220,8 +220,7 @@ namespace FirstLightEditor.StateChart.Tests
 			final.OnEnter(() => _caller.FinalOnEnterCall(0));
 		}
 
-		private void SetupNest(IStateFactory factory, IStatechartEvent eventTrigger, Action<IStateFactory> nestSetup,
-		                       bool executeExit, bool executeFinal)
+		private void SetupNest(IStateFactory factory, IStatechartEvent eventTrigger, NestedStateData nestedStateData)
 		{
 			var initial = factory.Initial("Initial");
 			var nest = factory.Nest("Nest");
@@ -231,7 +230,7 @@ namespace FirstLightEditor.StateChart.Tests
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			nest.OnEnter(() => _caller.StateOnEnterCall(1));
-			nest.Nest(nestSetup, executeExit, executeFinal).OnTransition(() => _caller.OnTransitionCall(4)).Target(final);
+			nest.Nest(nestedStateData).OnTransition(() => _caller.OnTransitionCall(4)).Target(final);
 			nest.Event(eventTrigger).OnTransition(() => _caller.OnTransitionCall(5)).Target(final);
 			nest.OnExit(() => _caller.StateOnExitCall(1));
 

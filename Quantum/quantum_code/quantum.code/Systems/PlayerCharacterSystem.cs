@@ -19,7 +19,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
-			//ProcessPlayerDisconnect(f, ref filter);
 			ProcessPlayerInput(f, ref filter);
 		}
 

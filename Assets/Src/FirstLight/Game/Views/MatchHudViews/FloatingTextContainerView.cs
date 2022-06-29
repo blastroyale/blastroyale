@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This Mono Component controls the display of floating text objects using a queue or

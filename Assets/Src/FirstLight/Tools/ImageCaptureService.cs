@@ -309,8 +309,6 @@ namespace Src.FirstLight.Tools
 			go.transform.localScale = Vector3.one;
 			go.transform.localPosition = Vector3.zero;
 			
-			go.SetLayer(LayerMask.NameToLayer("Default"), true);
-			
 			var ercRenderable = go.GetComponent<IErcRenderable>();
 			ercRenderable?.Initialise(metadata);
 			

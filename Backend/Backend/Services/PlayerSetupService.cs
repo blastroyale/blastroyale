@@ -92,7 +92,7 @@ public class PlayerSetupService : IPlayerSetupService
 		var playerData = new PlayerData();
 		playerData.Level = 1;
 		playerData.PlayerSkinId = _initialSkins[rngSkin];
-		playerData.Trophies = 100;
+		playerData.Trophies = 1000;
 		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.Currencies.Add(GameId.CS, 0);

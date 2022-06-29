@@ -38,7 +38,7 @@ public partial class SROptions
 	public void StartMultiClientBR()
 	{
 		IsMultiClient = true;
-		GameObject.FindObjectOfType<HomeScreenPresenter>().SendMessage("OnPlayOfflineClicked");
+		GameObject.FindObjectOfType<HomeScreenPresenter>().SendMessage("OnPlayOnlineClicked");
 	}
 	
 	[Category("Quantum")]

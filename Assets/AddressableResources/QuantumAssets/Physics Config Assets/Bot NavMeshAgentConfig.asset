@@ -41,7 +41,7 @@ MonoBehaviour:
     Speed:
       RawValue: 327680
     AngularSpeed:
-      RawValue: 524288
+      RawValue: 786432
     Acceleration:
       RawValue: 6553600
     StoppingDistance:

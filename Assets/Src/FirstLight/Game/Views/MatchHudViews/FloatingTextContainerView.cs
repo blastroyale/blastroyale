@@ -94,6 +94,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
 		{
+			// Don't show stat changes in Deathmatch game mode
+			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				return;
+			}
+			
 			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
 		}
 

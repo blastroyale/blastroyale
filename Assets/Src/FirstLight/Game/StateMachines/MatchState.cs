@@ -66,7 +66,7 @@ namespace FirstLight.Game.StateMachines
 			loading.OnEnter(OpenMatchmakingScreen);
 			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
-
+			// TODO - handle disconnection during matchmaking screen
 			roomCheck.Transition().Condition(IsDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			roomCheck.Transition().Target(matchmaking);

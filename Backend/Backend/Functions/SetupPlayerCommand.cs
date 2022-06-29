@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;

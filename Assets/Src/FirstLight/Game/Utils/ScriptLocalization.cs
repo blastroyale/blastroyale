@@ -612,6 +612,8 @@ namespace I2.Loc
 			public static string Crates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Crates"); } }
 			public static string CreateRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CreateRoom"); } }
 			public static string CurrentXP 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CurrentXP"); } }
+			public static string CustomMatchBotsToggle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomMatchBotsToggle"); } }
+			public static string CustomMatchSpectateToggle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomMatchSpectateToggle"); } }
 			public static string Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Deathmatch"); } }
 			public static string DeathmatchPlayOffline 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayOffline"); } }
 			public static string DeathmatchPlayOnline 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayOnline"); } }
@@ -713,6 +715,8 @@ namespace I2.Loc
 			public static string Selected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Selected"); } }
 			public static string SelectedGameModeText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeText"); } }
 			public static string Settings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Settings"); } }
+			public static string SettingsFaqButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsFaqButton"); } }
+			public static string SettingsHelpSupport 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsHelpSupport"); } }
 			public static string Shop 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Shop"); } }
 			public static string Social 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Social"); } }
 			public static string Sort 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Sort"); } }
@@ -1412,6 +1416,8 @@ namespace I2.Loc
 		    public const string Crates = "MainMenu/Crates";
 		    public const string CreateRoom = "MainMenu/CreateRoom";
 		    public const string CurrentXP = "MainMenu/CurrentXP";
+		    public const string CustomMatchBotsToggle = "MainMenu/CustomMatchBotsToggle";
+		    public const string CustomMatchSpectateToggle = "MainMenu/CustomMatchSpectateToggle";
 		    public const string Deathmatch = "MainMenu/Deathmatch";
 		    public const string DeathmatchPlayOffline = "MainMenu/DeathmatchPlayOffline";
 		    public const string DeathmatchPlayOnline = "MainMenu/DeathmatchPlayOnline";
@@ -1513,6 +1519,8 @@ namespace I2.Loc
 		    public const string Selected = "MainMenu/Selected";
 		    public const string SelectedGameModeText = "MainMenu/SelectedGameModeText";
 		    public const string Settings = "MainMenu/Settings";
+		    public const string SettingsFaqButton = "MainMenu/SettingsFaqButton";
+		    public const string SettingsHelpSupport = "MainMenu/SettingsHelpSupport";
 		    public const string Shop = "MainMenu/Shop";
 		    public const string Social = "MainMenu/Social";
 		    public const string Sort = "MainMenu/Sort";

@@ -103,6 +103,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenDisconnectedScreen()
 		{
+			Debug.LogError("OPENING DC SCREEN");
+			
 			var data = new DisconnectedScreenPresenter.StateData
 			{
 				ReconnectClicked = () =>
@@ -137,6 +139,7 @@ namespace FirstLight.Game.StateMachines
 		private void CloseDisconnectedScreen()
 		{
 			_uiService.CloseUi<DisconnectedScreenPresenter>();
+			Debug.LogError("CLOSING DC SCREEN");
 		}
 		
 		private void DimDisconnectedScreen()

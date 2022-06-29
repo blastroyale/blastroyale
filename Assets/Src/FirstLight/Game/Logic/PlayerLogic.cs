@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;

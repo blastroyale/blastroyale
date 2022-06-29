@@ -56,6 +56,7 @@ namespace FirstLight.Game.StateMachines
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
+			aliveCheck.OnExit(PublishMatchStarted);
 			aliveCheck.OnExit(SendReadyForResyncMessage);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
@@ -113,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SendReadyForResyncMessage()
 		{
-			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
+			//_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)

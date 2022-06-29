@@ -78,6 +78,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_localInput?.Dispose();
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)

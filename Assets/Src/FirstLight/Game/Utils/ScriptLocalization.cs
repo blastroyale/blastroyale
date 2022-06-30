@@ -504,6 +504,7 @@ namespace I2.Loc
 			public static string Heroes 		{ get{ return LocalizationManager.GetTranslation ("General/Heroes"); } }
 			public static string Home 		{ get{ return LocalizationManager.GetTranslation ("General/Home"); } }
 			public static string Hp 		{ get{ return LocalizationManager.GetTranslation ("General/Hp"); } }
+			public static string Leave 		{ get{ return LocalizationManager.GetTranslation ("General/Leave"); } }
 			public static string LeaveFeedback 		{ get{ return LocalizationManager.GetTranslation ("General/LeaveFeedback"); } }
 			public static string Level 		{ get{ return LocalizationManager.GetTranslation ("General/Level"); } }
 			public static string Maintenance 		{ get{ return LocalizationManager.GetTranslation ("General/Maintenance"); } }
@@ -560,6 +561,7 @@ namespace I2.Loc
 			public static string Shield 		{ get{ return LocalizationManager.GetTranslation ("General/Shield"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
+			public static string Spectate 		{ get{ return LocalizationManager.GetTranslation ("General/Spectate"); } }
 			public static string Speed 		{ get{ return LocalizationManager.GetTranslation ("General/Speed"); } }
 			public static string TapSkip 		{ get{ return LocalizationManager.GetTranslation ("General/TapSkip"); } }
 			public static string TargetRange 		{ get{ return LocalizationManager.GetTranslation ("General/TargetRange"); } }
@@ -1308,6 +1310,7 @@ namespace I2.Loc
 		    public const string Heroes = "General/Heroes";
 		    public const string Home = "General/Home";
 		    public const string Hp = "General/Hp";
+		    public const string Leave = "General/Leave";
 		    public const string LeaveFeedback = "General/LeaveFeedback";
 		    public const string Level = "General/Level";
 		    public const string Maintenance = "General/Maintenance";
@@ -1364,6 +1367,7 @@ namespace I2.Loc
 		    public const string Shield = "General/Shield";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
+		    public const string Spectate = "General/Spectate";
 		    public const string Speed = "General/Speed";
 		    public const string TapSkip = "General/TapSkip";
 		    public const string TargetRange = "General/TargetRange";

@@ -227,6 +227,20 @@ MonoBehaviour:
       - Home
       Flags: 00
       Languages_Touch: []
+    - Term: General/Spectate
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectate
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Leave
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave
+      Flags: 00
+      Languages_Touch: []
     - Term: General/Hp
       TermType: 0
       Description: 
@@ -5346,7 +5360,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1656523143887
+    Google_LastUpdatedVersion: 1656585312434
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

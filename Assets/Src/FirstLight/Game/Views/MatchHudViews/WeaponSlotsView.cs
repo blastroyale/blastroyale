@@ -117,22 +117,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private async void UpdateWeaponSlot(Equipment equipment, int slotIndex)
 		{
+			if (equipment.GameId == GameId.Random)
+			{
+				return;
+			}
+			
 			var slot = _slots[slotIndex];
 
 			slot.Name.text = equipment.GameId.GetTranslation();
 			SetRarity(slot, equipment.Rarity);
-
-			try
-			{
-
 			
 			slot.Weapon.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
 		}
 
 		private void SetRarity(SlotInfo slot, EquipmentRarity rarity)

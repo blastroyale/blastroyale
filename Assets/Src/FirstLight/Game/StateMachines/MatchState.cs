@@ -88,25 +88,25 @@ namespace FirstLight.Game.StateMachines
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
-			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
+			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
-			unloading.WaitingFor(UnloadAllAssets).Target(disconnectCheck);
+			unloading.WaitingFor(UnloadAllMatchAssets).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);
 			disconnectCheck.Transition().Target(disconnected);
 			
 			disconnected.OnEnter(CloseLoadingScreen);
-			disconnected.Event(NetworkState.JoinedRoomEvent).Target(disconnectReload);
-			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).OnTransition(CloseMatchmakingScreen).Target(final);
-			disconnected.OnExit(OpenLoadingScreen);
+			disconnected.Event(NetworkState.JoinedRoomEvent).OnTransition(OpenMatchmakingScreen).Target(disconnectReload);
+			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
+			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
 			
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(postDisconnectReloadCheck);
-			disconnectReload.OnExit(CloseLoadingScreen);
 			
 			postDisconnectReloadCheck.Transition().Condition(IsRoomReadyForSimulation).Target(playerReadyCheck);
-			postDisconnectReloadCheck.Transition().OnTransition(OpenMatchmakingScreen).Target(roomCheck);
+			postDisconnectReloadCheck.Transition().Target(roomCheck);
 			
+			final.OnEnter(OpenLoadingScreen);
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -125,35 +125,26 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
+		private void OnDisconnectDuringMatchmaking()
+		{
+			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Matchmaking;
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+		}
+		
 		private void OnDisconnectDuringFinalPreload()
 		{
-			_networkService.DisconnectedDuringMatchmaking.Value = false;
+			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Loading;
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
 		}
 
 		private void OnDisconnectDuringSimulation()
 		{
-			_networkService.DisconnectedDuringMatchmaking.Value = false;
-		}
-		
-		private void OnDisconnectDuringMatchmaking()
-		{
-			_networkService.DisconnectedDuringMatchmaking.Value = true;
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 		}
 
 		private void OpenMatchmakingScreen()
 		{
-			/*
-			 This is ugly but unfortunately saving the main character view state will over-engineer the simplicity to
-			 just request the object and also to Inject the UiService to a presenter and give it control to the entire UI.
-			 Because this is only executed once before the loading of a the game map, it is ok to have garbage and a slow 
-			 call as it all be cleaned up in the end of the loading.
-			 Feel free to improve this solution if it doesn't over-engineer the entire tech.
-			 */
-			var data = new MatchmakingLoadingScreenPresenter.StateData
-			{
-				UiService = _uiService
-			};
+			var data = new MatchmakingLoadingScreenPresenter.StateData();
 
 			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
 		}
@@ -185,8 +176,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsRoomReadyForSimulation()
 		{
-			return _networkService.DisconnectedDuringMatchmaking.Value == false && 
-			       _services.NetworkService.QuantumClient.CurrentRoom.IsOpen == false;
+			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Simulation;
 		}
 
 		private bool AreAllPlayersReady()
@@ -254,7 +244,7 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
-		private async Task UnloadAllAssets()
+		private async Task UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;

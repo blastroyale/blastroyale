@@ -90,6 +90,8 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			
+			Debug.LogError("MATCH READY FOR RESYNC FO SHO!");
+			
 			SetActiveCamera(_adventureCamera);
 
 			var game = QuantumRunner.Default.Game;

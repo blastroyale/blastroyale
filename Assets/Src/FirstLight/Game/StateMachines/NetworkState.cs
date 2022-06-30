@@ -73,6 +73,7 @@ namespace FirstLight.Game.StateMachines
 			
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 
+			disconnected.OnEnter(UpdateDisconnectionLocation);
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
 			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnecting);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
@@ -88,8 +89,18 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
-		private bool IsReconnectingToMatchState()
+
+		private void UpdateDisconnectionLocation()
+		{
+			// Only update DC location for main menu - match disconnections are more complex, and handled specifically
+			// inside of MatchState.
+			if (!CurrentSceneIsMatch())
+			{
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Menu;
+			}
+		}
+
+		private bool CurrentSceneIsMatch()
 		{
 			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
 		}
@@ -102,15 +113,23 @@ namespace FirstLight.Game.StateMachines
 				{
 					_statechartTrigger(AttemptReconnectEvent);
 					
-					if (IsReconnectingToMatchState())
+					if (CurrentSceneIsMatch())
 					{
-						_networkService.IsJoiningNewMatch.Value = !_networkService.DisconnectedDuringMatchmaking.Value;
+						_networkService.IsJoiningNewMatch.Value = false;
+						
+						if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
+						{
+							_networkService.IsJoiningNewMatch.Value = true;
+						}
+
 						_networkService.QuantumClient.ReconnectAndRejoin();
 					}
 					else
 					{
 						_networkService.QuantumClient.ReconnectToMaster();
 					}
+					
+					Debug.LogError($"JOIN NEW MATCH {_networkService.IsJoiningNewMatch.Value}");
 					
 				},
 				BackClicked = () =>
@@ -406,6 +425,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.InRoom)
 			{
 				_networkService.IsJoiningNewMatch.Value = true;
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
 		}
@@ -421,6 +441,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.InRoom)
 			{
 				_networkService.IsJoiningNewMatch.Value = true;
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
 		}
@@ -437,6 +458,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.InRoom)
 			{
 				_networkService.IsJoiningNewMatch.Value = true;
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpCreateRoom(enterParams);
 			}
 		}

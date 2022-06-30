@@ -29,7 +29,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the check if the last disconnection was in matchmaking, before the match started
 		/// </summary>
-		bool DisconnectedDuringMatchmaking { get; }
+		LastDisconnectionLocation LastDisconnectLocation { get; }
 
 		/// <summary>
 		/// Requests the ping status with the quantum server
@@ -70,8 +70,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
 		new IObservableField<bool> IsJoiningNewMatch { get; }
 		
-		/// <inheritdoc cref="IGameNetworkService.DisconnectedDuringMatchmaking" />
-		new IObservableField<bool> DisconnectedDuringMatchmaking { get; }
+		/// <inheritdoc cref="IGameNetworkService.LastDisconnectLocation" />
+		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		
 		/// <summary>
 		/// Checks if the current frame is having connections issues and if it is lagging
@@ -89,14 +89,14 @@ namespace FirstLight.Game.Services
 		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
-		public IObservableField<bool> DisconnectedDuringMatchmaking { get; }
+		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
 		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
 		
 		string IGameNetworkService.UserId => UserId.Value;
 		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
-		bool IGameNetworkService.DisconnectedDuringMatchmaking => DisconnectedDuringMatchmaking.Value;
+		LastDisconnectionLocation IGameNetworkService.LastDisconnectLocation => LastDisconnectLocation.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
 		/// <inheritdoc />
@@ -118,7 +118,7 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
-			DisconnectedDuringMatchmaking = new ObservableField<bool>(false);
+			LastDisconnectLocation = new ObservableField<LastDisconnectionLocation>(LastDisconnectionLocation.None);
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 			UserId.Value = PlayFabSettings.DeviceUniqueIdentifier;
@@ -146,5 +146,14 @@ namespace FirstLight.Game.Services
 
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
+	}
+
+	public enum LastDisconnectionLocation
+	{
+		None,
+		Menu,
+		Matchmaking,
+		Loading,
+		Simulation
 	}
 }

@@ -71,6 +71,7 @@ namespace FirstLight.Game.StateMachines
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
+			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.OnExit(PrepareMatch);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);

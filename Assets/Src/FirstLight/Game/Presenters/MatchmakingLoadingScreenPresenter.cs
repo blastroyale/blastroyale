@@ -25,7 +25,6 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public IUiService UiService;
 		}
 
 		public MapSelectionView MapSelectionView;
@@ -79,7 +78,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			
+
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
@@ -91,9 +90,9 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
-
-			MapSelectionView.SetupMapView(room.GetMapId());
 			_playerListHolder.WipeAllSlots();
+			
+			MapSelectionView.SetupMapView(room.GetMapId());
 
 			if (IsMatchmakingRoom)
 			{
@@ -146,7 +145,8 @@ namespace FirstLight.Game.Presenters
 			
 			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom)
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom && 
+			    _services.NetworkService.QuantumClient.CurrentRoom.IsOpen)
 			{
 				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
 				_lockRoomButton.gameObject.SetActive(true);

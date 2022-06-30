@@ -11,6 +11,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	{
 		[SerializeField, Required] private GameObject _parachute;
 		[SerializeField, Required] private ParticleSystem _landingPS;
+		[SerializeField, Required] private Animation _landingAnim;
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
@@ -33,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			if (callback.Entity == EntityView.EntityRef)
 			{
 				_landingPS.Play();
-				_parachute.SetActive(false);
+				_landingAnim.Play();
 			}
 		}
 	}

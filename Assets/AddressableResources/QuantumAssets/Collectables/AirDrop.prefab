@@ -228,6 +228,7 @@ MonoBehaviour:
   EntityView: {fileID: 7757663921541325714}
   _parachute: {fileID: 9180705309567396720}
   _landingPS: {fileID: 1237357947711941916}
+  _landingAnim: {fileID: 4112324407107369492}
 --- !u!1 &4764048967066448840
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +580,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c8e38b091419ad40905c6f342206c6e, type: 3}
+--- !u!1 &8384721004492821916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c8e38b091419ad40905c6f342206c6e, type: 3}
+  m_PrefabInstance: {fileID: 8691360715824441549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &4112324407107369492
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384721004492821916}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e1dd70d4a399d6445a111a8ea5f4a015, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e1dd70d4a399d6445a111a8ea5f4a015, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 1
 --- !u!4 &9157880695375089446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5c8e38b091419ad40905c6f342206c6e, type: 3}

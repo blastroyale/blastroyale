@@ -116,8 +116,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// TODO mihak: Add proper localization if this stays here
 			var messageData = new MessageData
 			{
-				TopText = "Air Drop Incoming!",
-				BottomText = "Hurry Up!",
+				TopText = ScriptLocalization.AdventureMenu.AirDropIncomingLine1,
+				BottomText = ScriptLocalization.AdventureMenu.AirDropIncomingLine2,
 				MessageEntry = _messages[Random.Range(0, _messages.Count)]
 			};
 					

@@ -112,7 +112,7 @@ namespace FirstLight.Game.StateMachines
 					
 					if (IsReconnectingToMatch())
 					{
-						_networkService.IsJoiningNewRoom.Value = false;
+						_networkService.IsJoiningNewMatch.Value = false;
 						_networkService.QuantumClient.ReconnectAndRejoin();
 					}
 					else
@@ -162,6 +162,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.TickService.SubscribeOnUpdate(CheatUpdate, Time.deltaTime/2f);
 		}
 
@@ -385,6 +386,16 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
+		
+		private void OnAssetReloadRequiredMessage(AssetReloadRequiredMessage msg)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{ GameConstants.Network.PLAYER_PROPS_LOADED, false }
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage data)
 		{
@@ -403,7 +414,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewRoom.Value = true;
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
 		}
@@ -418,7 +429,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewRoom.Value = true;
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
 		}
@@ -434,7 +445,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewRoom.Value = true;
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.QuantumClient.OpCreateRoom(enterParams);
 			}
 		}

@@ -34,6 +34,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnEventOnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
 		}
+
+		private void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
+		}
 		
 		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
 		{
@@ -116,7 +122,17 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			slot.Name.text = equipment.GameId.GetTranslation();
 			SetRarity(slot, equipment.Rarity);
 
+			try
+			{
+
+			
 			slot.Weapon.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 
 		private void SetRarity(SlotInfo slot, EquipmentRarity rarity)

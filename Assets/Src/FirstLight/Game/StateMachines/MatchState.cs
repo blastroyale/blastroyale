@@ -30,6 +30,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IAssetAdderService _assetAdderService;
 
+		private bool _arePlayerAssetsLoaded = false;
+
 		public MatchState(IGameServices services, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -66,7 +68,7 @@ namespace FirstLight.Game.StateMachines
 			loading.OnEnter(OpenMatchmakingScreen);
 			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
-			// TODO - handle disconnection during matchmaking screen
+			
 			roomCheck.Transition().Condition(IsDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			roomCheck.Transition().Target(matchmaking);
@@ -74,11 +76,12 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.LeftRoomEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
-
+			
+			playerReadyCheck.OnEnter(CheckPlayerAssetsLoaded);
 			playerReadyCheck.Transition().Condition(AreAllPlayersReady).Target(gameSimulation);
 			playerReadyCheck.Transition().Target(playerReadyWait);
-
-			playerReadyWait.OnEnter(LoadPlayerMatchAssets);
+			
+			playerReadyWait.OnEnter(PreloadPlayerMatchAssets);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			
@@ -87,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
-			unloading.WaitingFor(UnloadMatchAssets).Target(disconnectCheck);
+			unloading.WaitingFor(UnloadAllAssets).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);
 			disconnectCheck.Transition().Target(disconnected);
@@ -105,7 +108,7 @@ namespace FirstLight.Game.StateMachines
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
-
+		
 		public bool IsPhotonConnected()
 		{
 			return _services.NetworkService.QuantumClient.IsConnected;
@@ -165,7 +168,15 @@ namespace FirstLight.Game.StateMachines
 
 		private bool AreAllPlayersReady()
 		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
+			return _services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady() && _arePlayerAssetsLoaded;
+		}
+		
+		private void CheckPlayerAssetsLoaded()
+		{
+			if (!_arePlayerAssetsLoaded)
+			{
+				_services.MessageBrokerService.Publish(new AssetReloadRequiredMessage());
+			}
 		}
 
 		private List<Task> LoadQuantumAssets(string map)
@@ -220,7 +231,7 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
-		private async Task UnloadMatchAssets()
+		private async Task UnloadAllAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
@@ -238,6 +249,8 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			Resources.UnloadUnusedAssets();
+
+			_arePlayerAssetsLoaded = false;
 		}
 
 		private IEnumerable<Task> PreloadMapAssets()
@@ -307,7 +320,7 @@ namespace FirstLight.Game.StateMachines
 			return tasks;
 		}
 
-		private async void LoadPlayerMatchAssets()
+		private async void PreloadPlayerMatchAssets()
 		{
 			_services.MessageBrokerService.Publish(new StartedFinalPreloadMessage());
 
@@ -316,17 +329,24 @@ namespace FirstLight.Game.StateMachines
 			// Preload players assets
 			foreach (var player in _services.NetworkService.QuantumClient.CurrentRoom.Players)
 			{
-				var preloadIds = (int[]) player.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS];
+				var preloadPropsInRoom = (int[]) player.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS];
+				var preloadIds = new HashSet<GameId>();
 
-				foreach (var item in preloadIds)
+				foreach (var prop in preloadPropsInRoom)
 				{
-					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>((GameId) item, true,
+					preloadIds.Add((GameId) prop);
+				}
+				
+				foreach (var id in preloadIds)
+				{
+					tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true,
 						          false));
 				}
 			}
 
 			await Task.WhenAll(tasks);
 
+			_arePlayerAssetsLoaded = true;
 			_services.MessageBrokerService.Publish(new AllMatchAssetsLoadedMessage());
 		}
 

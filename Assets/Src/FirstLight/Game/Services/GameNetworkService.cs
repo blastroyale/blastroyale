@@ -63,7 +63,7 @@ namespace FirstLight.Game.Services
 		new IObservableField<string> UserId { get; }
 		
 		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewRoom" />
-		new IObservableField<bool> IsJoiningNewRoom { get; }
+		new IObservableField<bool> IsJoiningNewMatch { get; }
 		
 		/// <summary>
 		/// Checks if the current frame is having connections issues and if it is lagging
@@ -80,13 +80,13 @@ namespace FirstLight.Game.Services
 		private bool _isJoiningNewRoom;
 		
 		public IObservableField<string> UserId { get; }
-		public IObservableField<bool> IsJoiningNewRoom { get; }
+		public IObservableField<bool> IsJoiningNewMatch { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
 		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
 		
 		string IGameNetworkService.UserId => UserId.Value;
-		bool IGameNetworkService.IsJoiningNewRoom => IsJoiningNewRoom.Value;
+		bool IGameNetworkService.IsJoiningNewRoom => IsJoiningNewMatch.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
 		/// <inheritdoc />
@@ -107,7 +107,7 @@ namespace FirstLight.Game.Services
 		{
 			_configsProvider = configsProvider;
 			QuantumClient = new QuantumLoadBalancingClient();
-			IsJoiningNewRoom = new ObservableField<bool>(false);
+			IsJoiningNewMatch = new ObservableField<bool>(false);
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 			UserId.Value = PlayFabSettings.DeviceUniqueIdentifier;

@@ -10,6 +10,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public class AirDropMonoComponent : EntityBase
 	{
 		[SerializeField, Required] private GameObject _parachute;
+		[SerializeField, Required] private ParticleSystem _landingPS;
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
@@ -31,6 +32,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (callback.Entity == EntityView.EntityRef)
 			{
+				_landingPS.Play();
 				_parachute.SetActive(false);
 			}
 		}

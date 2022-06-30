@@ -3340,7 +3340,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct AirDrop : Quantum.IComponent {
-    public const Int32 SIZE = 56;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     [HideInInspector()]
@@ -3348,10 +3348,13 @@ namespace Quantum {
     [FieldOffset(8)]
     [HideInInspector()]
     public FP Delay;
+    [FieldOffset(32)]
+    [HideInInspector()]
+    public FPVector2 Direction;
     [FieldOffset(16)]
     [HideInInspector()]
     public FP Duration;
-    [FieldOffset(32)]
+    [FieldOffset(48)]
     [HideInInspector()]
     public FPVector3 Position;
     [FieldOffset(0)]
@@ -3365,6 +3368,7 @@ namespace Quantum {
         var hash = 359;
         hash = hash * 31 + (Int32)Chest;
         hash = hash * 31 + Delay.GetHashCode();
+        hash = hash * 31 + Direction.GetHashCode();
         hash = hash * 31 + Duration.GetHashCode();
         hash = hash * 31 + Position.GetHashCode();
         hash = hash * 31 + (Int32)Stage;
@@ -3379,6 +3383,7 @@ namespace Quantum {
         FP.Serialize(&p->Delay, serializer);
         FP.Serialize(&p->Duration, serializer);
         FP.Serialize(&p->StartTime, serializer);
+        FPVector2.Serialize(&p->Direction, serializer);
         FPVector3.Serialize(&p->Position, serializer);
     }
   }
@@ -8729,6 +8734,8 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public FPVector3 Position;
     [HideInInspector()]
+    public FPVector2 Direction;
+    [HideInInspector()]
     public FP StartTime;
     [HideInInspector()]
     public FP Delay;
@@ -8747,6 +8754,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref AirDrop result, in PrototypeMaterializationContext context) {
       result.Chest = this.Chest;
       result.Delay = this.Delay;
+      result.Direction = this.Direction;
       result.Duration = this.Duration;
       result.Position = this.Position;
       result.Stage = this.Stage;

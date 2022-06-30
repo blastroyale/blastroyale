@@ -7,7 +7,8 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this <see cref="AirDrop"/> with values from <see cref="QuantumShrinkingCircleConfig"/>
 		/// </summary>
-		public static EntityRef Create(Frame f, QuantumShrinkingCircleConfig config, FPVector3 positionOverride = new FPVector3())
+		public static EntityRef Create(Frame f, QuantumShrinkingCircleConfig config,
+		                               FPVector3 positionOverride = new FPVector3())
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.AirDropPrototype.Id));
 
@@ -17,7 +18,8 @@ namespace Quantum
 				Duration = config.AirdropDropDuration,
 				Stage = AirDropStage.Waiting,
 				Chest = config.AirdropChest,
-				Position = positionOverride
+				Position = positionOverride,
+				Direction = FPVector2.Rotate(FPVector2.Up, FP.Pi * f.RNG->Next(FP._0, FP._2))
 			});
 
 			return entity;

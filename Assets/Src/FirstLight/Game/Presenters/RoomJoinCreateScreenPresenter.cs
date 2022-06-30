@@ -74,6 +74,7 @@ namespace FirstLight.Game.Presenters
 		private void CreateRoomClicked()
 		{
 			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
+			// This should correspond to GameConstants.Data.ROOM_NAME_CODE_LENGTH
 			var roomName = Random.Range(0, 999999).ToString("000000");
 			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
 			var message = new PlayCreateRoomClickedMessage

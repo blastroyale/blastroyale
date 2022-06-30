@@ -11,6 +11,21 @@ namespace Quantum
 		                               FPVector3 positionOverride = new FPVector3())
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.AirDropPrototype.Id));
+			var circle = f.GetSingleton<ShrinkingCircle>();
+
+			// Calculate drop position
+			var dropPosition = positionOverride;
+			if (dropPosition == FPVector3.Zero)
+			{
+				var initialPos = (circle.CurrentCircleCenter - circle.TargetCircleCenter).Normalized *
+				                 circle.CurrentRadius * f.GameConfig.AirdropPositionOffsetMultiplier;
+				var radius = circle.CurrentRadius * f.GameConfig.AirdropRandomAreaMultiplier;
+				QuantumHelpers.TryFindPosOnNavMesh(f, initialPos.XOY, radius, out dropPosition);
+			}
+
+			// Move entity to the drop position at a predetermined height
+			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
+			transform->Position = dropPosition + FPVector3.Up * f.GameConfig.AirdropHeight;
 
 			f.Add(entity, new AirDrop
 			{
@@ -18,8 +33,9 @@ namespace Quantum
 				Duration = config.AirdropDropDuration,
 				Stage = AirDropStage.Waiting,
 				Chest = config.AirdropChest,
-				Position = positionOverride,
-				Direction = FPVector2.Rotate(FPVector2.Up, FP.Pi * f.RNG->Next(FP._0, FP._2))
+				Position = dropPosition,
+				Direction = FPVector2.Rotate(FPVector2.Up, FP.Pi * f.RNG->Next(FP._0, FP._2)),
+				StartTime = f.Time
 			});
 
 			return entity;

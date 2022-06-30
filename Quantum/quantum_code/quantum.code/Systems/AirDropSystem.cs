@@ -6,33 +6,12 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system is responsible for handling all the stages of an AirDrop.
 	/// </summary>
-	public unsafe class AirDropSystem : SystemMainThreadFilter<AirDropSystem.AirDropFilter>,
-	                                    ISignalOnComponentAdded<AirDrop>
+	public unsafe class AirDropSystem : SystemMainThreadFilter<AirDropSystem.AirDropFilter>
 	{
 		public struct AirDropFilter
 		{
 			public EntityRef Entity;
 			public AirDrop* AirDrop;
-		}
-
-		public void OnAdded(Frame f, EntityRef entity, AirDrop* component)
-		{
-			var circle = f.GetSingleton<ShrinkingCircle>();
-
-			var dropPosition = component->Position;
-			if (dropPosition == FPVector3.Zero)
-			{
-				var initialPos = (circle.CurrentCircleCenter - circle.TargetCircleCenter).Normalized *
-				                 circle.CurrentRadius * f.GameConfig.AirdropPositionOffsetMultiplier;
-				var radius = circle.CurrentRadius * f.GameConfig.AirdropRandomAreaMultiplier;
-				QuantumHelpers.TryFindPosOnNavMesh(f, initialPos.XOY, radius, out dropPosition);
-			}
-
-			component->Position = dropPosition;
-			component->StartTime = f.Time;
-
-			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
-			transform->Position = dropPosition + FPVector3.Up * f.GameConfig.AirdropHeight;
 		}
 
 		public override void Update(Frame f, ref AirDropFilter filter)

@@ -2,6 +2,11 @@ using Photon.Deterministic;
 
 namespace Quantum.Commands
 {
+	/// <summary>
+	/// Spawns an airdrop with no delays and an optional <see cref="Position"/> and <see cref="Chest"/>.
+	///
+	/// If position isn't set it will spawn on top of the current player.
+	/// </summary>
 	public class CheatSpawnAirDropCommand : CommandBase
 	{
 		public FPVector3 Position;

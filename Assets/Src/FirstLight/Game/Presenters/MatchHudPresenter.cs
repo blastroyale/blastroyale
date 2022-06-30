@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private MapTimerView _mapTimerView;
 		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
-		[SerializeField, Required] private GameObject _weaponSlotsHolder;
 		[SerializeField, Required] private GameObject _minimapHolder;
 
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
@@ -94,7 +93,6 @@ namespace FirstLight.Game.Presenters
 			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 
 			_standings.Initialise(frame.PlayerCount, false, true);

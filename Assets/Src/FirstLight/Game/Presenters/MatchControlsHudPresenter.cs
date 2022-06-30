@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
 		[SerializeField] private Button[] _weaponSlotButtons;
+		[SerializeField, Required] private GameObject _weaponSlotsHolder;
 		
 		private IGameServices _services;
 		private LocalInput _localInput;
@@ -63,7 +64,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			
 			_localInput.Enable();
+			
+			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
+			
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}

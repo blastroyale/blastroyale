@@ -671,6 +671,7 @@ MonoBehaviour:
   - {fileID: 3626502624678355086}
   - {fileID: 2671132399110932870}
   - {fileID: 7329213604981414896}
+  _weaponSlotsHolder: {fileID: 194285906115883893}
 --- !u!114 &1027417033953710780
 MonoBehaviour:
   m_ObjectHideFlags: 0

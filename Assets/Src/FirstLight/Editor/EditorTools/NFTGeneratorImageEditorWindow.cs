@@ -59,7 +59,6 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 	[SerializeField] private string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 	
 	[SerializeField] private Transform _markerTransform;
-	[SerializeField] private Transform _poolTransform;
 	[SerializeField] private Camera _camera;
 	[SerializeField] private GameObject _canvas;
 	[SerializeField] private GameObject _canvasRoot;
@@ -115,7 +114,9 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 		{
 			if (Enum.TryParse(addressable.name, out GameId gameId))
 			{
-				_assetDictionary.Add(gameId, Instantiate(addressable, _poolTransform));
+				var go = Instantiate(addressable, _markerTransform);
+				go.SetActive(false);
+				_assetDictionary.Add(gameId, go);
 			}
 			else
 			{
@@ -171,9 +172,8 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 		var gameId = (GameId)metadata.attibutesDictionary["subCategory"];
 		
 		var asset = await Addressables.LoadAssetAsync<GameObject>($"AdventureAssets/items/{gameId.ToString()}.prefab").Task;
-			   
-		_assetDictionary.Add(gameId, Instantiate(asset, _poolTransform));
-		
+
+		var go = Instantiate(asset, _markerTransform);		
 		ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 
 		DestroyPool();
@@ -182,10 +182,10 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 
 	private void DestroyPool()
 	{
-		var childCount = _poolTransform.transform.childCount;
+		var childCount = _markerTransform.transform.childCount;
 		for (var i = childCount - 1; i >= 0; i--) 
 		{
-			GameObject.DestroyImmediate( _poolTransform.transform.GetChild( i ).gameObject );
+			GameObject.DestroyImmediate( _markerTransform.transform.GetChild( i ).gameObject );
 		}
 	}
 
@@ -228,8 +228,9 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 		var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
 		{
 			if (Enum.TryParse(addressable.name, out GameId gameId))
-            {
-               _assetDictionary.Add(gameId, Instantiate(addressable, _poolTransform));
+			{
+				var go = Instantiate(addressable, _markerTransform);
+               _assetDictionary.Add(gameId, go);
             }
 			else
 			{
@@ -310,15 +311,11 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 	/// </summary>
 	private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
 	{
-		if (_markerTransform.transform.childCount > 0)
-		{
-			_markerTransform.transform.GetChild(0).SetParent(_poolTransform);
-		}
-        		
 		var subcategoryId = metadata.attibutesDictionary["subCategory"];
 		var gameId = (GameId) subcategoryId;
 
 		var go = _assetDictionary[gameId];
+		go.SetActive(true);
 		go.transform.SetParent(_markerTransform);
 		go.transform.localScale = Vector3.one;
 		go.transform.localPosition = Vector3.zero;
@@ -357,6 +354,7 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 			WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
 		}
 		
+		go.SetActive(false);
 		_canvas.SetActive(true);
 	}
 

@@ -1,13 +1,14 @@
 using FirstLight.Game.Data;
+using FirstLight.Game.MonoComponent;
 using TMPro;
 using UnityEngine;
 
-namespace FirstLight.Game.MonoComponent
+namespace FirstLight.Game.Views
 {
 	/// <summary>
 	/// This Mono component handles visual setup for a equipment card item
 	/// </summary>
-	public class EquipmentCardMonoComponent : MonoBehaviour, IErcRenderable
+	public class EquipmentCardView : MonoBehaviour, IErcRenderable
 	{
 		[SerializeField] private TextMeshProUGUI _nameText;
 		[SerializeField] private TextMeshProUGUI _gradeText;

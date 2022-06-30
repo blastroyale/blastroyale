@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
 
@@ -115,6 +115,7 @@ namespace Quantum
 			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
+			
 
 			for (var j = 0; j < hits.Count; j++)
 			{
@@ -125,7 +126,7 @@ namespace Quantum
 				{
 					continue;
 				}
-				
+
 				hitCount++;
 					
 				onHitCallback?.Invoke(f, hitSpell);

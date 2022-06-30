@@ -146,7 +146,7 @@ namespace I2.Loc
             #endif
 
 			//--[ Checking google for updated data ]-----------------
-			CoroutineManager.Start(Import_Google_Coroutine(justCheck));
+			CoroutineManager.Start(Import_Google_Coroutine(ForceUpdate, justCheck));
 		}
 
 		string GetSourcePlayerPrefName()
@@ -168,9 +168,9 @@ namespace I2.Loc
 #endif
 		}
 
-		IEnumerator Import_Google_Coroutine(bool JustCheck)
+		IEnumerator Import_Google_Coroutine(bool forceUpdate, bool JustCheck)
 		{
-            UnityWebRequest www = Import_Google_CreateWWWcall(false, JustCheck);
+            UnityWebRequest www = Import_Google_CreateWWWcall(forceUpdate, JustCheck);
 			if (www==null)
 				yield break;
 
@@ -178,13 +178,12 @@ namespace I2.Loc
 				yield return null;
 
 			//Debug.Log ("Google Result: " + www.text);
-			bool notError = string.IsNullOrEmpty(www.error);
-			string wwwText = null;
+			byte[] bytes = www.downloadHandler.data;
+			bool notError = string.IsNullOrEmpty(www.error) && bytes!=null;
 
 			if (notError)
 			{
-				var bytes = www.downloadHandler.data;
-				wwwText = Encoding.UTF8.GetString(bytes, 0, bytes.Length); //www.text
+				string wwwText = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
                 bool isEmpty = string.IsNullOrEmpty(wwwText) || wwwText == "\"\"";
 

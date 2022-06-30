@@ -734,6 +734,8 @@ namespace I2.Loc
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
 			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
+			public static string CustomMatchBotsToggle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomMatchBotsToggle"); } }
+			public static string CustomMatchSpectateToggle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomMatchSpectateToggle"); } }
 		}
 
 		public static class MapDropPoints
@@ -1533,6 +1535,8 @@ namespace I2.Loc
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
 		    public const string MainMenuButton = "MainMenu/MainMenuButton";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
+		    public const string CustomMatchBotsToggle = "MainMenu/CustomMatchBotsToggle";
+		    public const string CustomMatchSpectateToggle = "MainMenu/CustomMatchSpectateToggle";
 		}
 
 		public static class MapDropPoints

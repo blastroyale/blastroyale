@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngineInternal;
 
 namespace I2.Loc
 {
@@ -216,12 +217,20 @@ namespace I2.Loc
 			// Remove invalid characters
 			char[] chars = Term.ToCharArray();
 			for (int i=0, imax=chars.Length; i<imax; ++i)
-				if (I2Utils.ValidChars.IndexOf(chars[i])<0)
-					chars[i]='_';
+			{
+				if (!IsValidCharacter(chars[i]))
+					chars[i] = '_';
+			}
 			
 			Term = new string(chars);
 			if (IsCSharpKeyword(Term)) return string.Concat('@', Term);
 			return Term;
+
+			bool IsValidCharacter(char c)
+			{
+				if (I2Utils.ValidChars.IndexOf(c)>=0) return true;
+				return c>='\u4e00' && c<='\u9fff'; // Chinese/Japanese characters
+			}
 		}
 
 		void ScriptTool_EnumerateDuplicatedTerms(List<string> AdjustedTerms)

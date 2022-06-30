@@ -73,51 +73,25 @@ namespace FirstLight.Game.Views.MainMenuViews
 				_visualsAnchorRoot.SetActive(false);
 				return;
 			}
-			
-			_visualsAnchorRoot.SetActive(true);
-			var currentCapacity = _dataProvider.CurrencyDataProvider.GetCurrentPoolCapacity(_poolToObserve);
-			var restockPerInterval = _dataProvider.CurrencyDataProvider.GetPoolRestockAmountPerInterval(_poolToObserve);
-			var poolConfig = _services.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) _poolToObserve);
-			var currentPoolData = _dataProvider.CurrencyDataProvider.ResourcePools[_poolToObserve];
-			var restockForTime = CalculatePoolRestockAmount(poolConfig, currentPoolData, currentCapacity, restockPerInterval) + 1;
-			var nextRestockTime = currentPoolData.LastPoolRestockTime.AddMinutes(restockForTime * poolConfig.RestockIntervalMinutes);
-			var currentAmount = Math.Clamp(currentPoolData.CurrentResourceAmountInPool, 0, currentCapacity);
-			var timeDiff = nextRestockTime - DateTime.UtcNow;
-			var timeDiffText = timeDiff.ToString(@"h\h\ mm\m");
 
-			if (currentAmount < currentCapacity)
-			{
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, restockPerInterval, timeDiffText);
-			}
-			else
+			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(_poolToObserve);
+
+			if (poolInfo.IsFull)
 			{
 				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResoucePoolFull);
 			}
-
-			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, currentAmount.ToString(), currentCapacity);
-		}
-		
-		private uint CalculatePoolRestockAmount(ResourcePoolConfig config, ResourcePoolData currentPoolData, 
-		                                        uint currentCapacity, uint restockPerInterval)
-		{
-			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - currentPoolData.LastPoolRestockTime).TotalMinutes;
-			var amountOfRestocks = (uint) 0;
-			
-			amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / config.RestockIntervalMinutes);
-			
-			if (amountOfRestocks == 0)
+			else
 			{
-				return 0;
-			}
-			
-			currentPoolData.CurrentResourceAmountInPool += restockPerInterval * amountOfRestocks;
-			
-			if (currentPoolData.CurrentResourceAmountInPool > currentCapacity)
-			{
-				currentPoolData.CurrentResourceAmountInPool = currentCapacity;
+				var timeDiff = poolInfo.NextRestockTime - DateTime.UtcNow;
+				
+				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, poolInfo.RestockPerInterval,
+				                                  timeDiff.ToString(@"h\h\ mm\m"));
 			}
 
-			return amountOfRestocks;
+			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, poolInfo.CurrentAmount.ToString(), 
+			                                 poolInfo.PoolCapacity);
+			
+			_visualsAnchorRoot.SetActive(true);
 		}
 	}
 }

@@ -169,6 +169,7 @@ namespace FirstLight.UiService
 			var layer = AddLayer(config.Layer);
 			var gameObject = await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
 			
+			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
 			if (HasUiPresenter(type))
 			{
 				var ui = GetUi(type);
@@ -182,7 +183,6 @@ namespace FirstLight.UiService
 			var uiPresenter = gameObject.GetComponent<UiPresenter>();
 			
 			gameObject.SetActive(false);
-
 			AddUi(uiPresenter, config.Layer, openAfter);
 
 			return uiPresenter;

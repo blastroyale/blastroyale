@@ -1,17 +1,87 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
-using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Logic
 {
+	/// <summary>
+	/// This logic provides the necessary behaviour to manage the player's equipment
+	/// </summary>
+	public interface IEquipmentDataProvider
+	{
+		/// <summary>
+		/// Requests the player's loadout.
+		/// </summary>
+		IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout { get; }
+
+		/// <summary>
+		/// Requests the player's inventory.
+		/// </summary>
+		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
+
+		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
+		/// </summary>
+		EquipmentInfo GetInfo(UniqueId id);
+
+		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for all the loadout
+		/// </summary>
+		List<EquipmentInfo> GetLoadoutEquipmentInfo();
+
+		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for all the inventory
+		/// </summary>
+		List<EquipmentInfo> GetInventoryEquipmentInfo();
+
+		/// <summary>
+		/// Request the stats a specific piece of equipment has
+		/// </summary>
+		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment);
+
+		/// <summary>
+		/// Requests to see if player has enough NFTs equipped for play
+		/// </summary>
+		bool EnoughLoadoutEquippedToPlay();
+	}
+
+	/// <inheritdoc />
+	public interface IEquipmentLogic : IEquipmentDataProvider
+	{
+		/// <summary>
+		/// Adds an item to the inventory and assigns it a new UniqueId.
+		/// </summary>
+		UniqueId AddToInventory(Equipment equipment, long overrideTimestamp = -1);
+
+		/// <summary>
+		/// Tries to remove an item from inventory, and returns true if a removal was successful
+		/// </summary>
+		bool RemoveFromInventory(UniqueId equipment);
+
+		/// <summary>
+		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
+		/// </summary>
+		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
+		
+		/// <summary>
+		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
+		/// </summary>
+		void Equip(UniqueId itemId);
+
+		/// <summary>
+		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
+		/// </summary>
+		void Unequip(UniqueId itemId);
+
+	}
+	
 	/// <inheritdoc cref="IEquipmentLogic"/>
 	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
@@ -130,11 +200,28 @@ namespace FirstLight.Game.Logic
 		}
 
 		// TODO: Remove method and refactor cheats
-		public UniqueId AddToInventory(Equipment equipment)
+		public UniqueId AddToInventory(Equipment equipment, long overrideTimestamp = -1)
 		{
+			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
+			{
+				throw new LogicException($"The given '{equipment.GameId}' id is not of '{GameIdGroup.Equipment}'" +
+				                         "game id group");
+			}
+			
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
+			
 			_inventory.Add(id, equipment);
-			_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
+
+			if (overrideTimestamp >= 0)
+			{
+				_insertionTimestamps.Add(id, overrideTimestamp);
+				
+			}
+			else
+			{
+				_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
+			}
+			
 			return id;
 		}
 
@@ -143,7 +230,7 @@ namespace FirstLight.Game.Logic
 		{
 			if (!_inventory.ContainsKey(equipment))
 			{
-				return false;
+				throw new LogicException($"The given '{equipment}' id is not in the inventory");
 			}
 
 			// Unequip the item before removing it from inventory
@@ -170,7 +257,7 @@ namespace FirstLight.Game.Logic
 			{
 				if (newLoadout.TryGetValue(slot, out var id))
 				{
-					if (_loadout.TryGetValue(slot, out var equippedId) && id != equippedId)
+					if (!_loadout.TryGetValue(slot, out var equippedId) || id != equippedId)
 					{
 						Equip(id);
 					}

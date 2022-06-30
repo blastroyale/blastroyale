@@ -30,12 +30,7 @@ namespace FirstLight.Game.Commands
 			                          && gameLogic.EquipmentLogic.EnoughLoadoutEquippedToPlay())
 			{
 				trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
-
-				gameLogic.CurrencyLogic.RestockResourcePool(GameId.CS);
-				gameLogic.CurrencyLogic.RestockResourcePool(GameId.EquipmentXP);
-
-				var player = PlayersMatchData[LocalPlayerRef];
-				rewards = gameLogic.RewardLogic.GiveMatchRewards(player, DidPlayerQuit);
+				rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayersMatchData[LocalPlayerRef], DidPlayerQuit);
 			}
 
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage

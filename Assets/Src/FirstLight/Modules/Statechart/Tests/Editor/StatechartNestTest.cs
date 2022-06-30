@@ -36,7 +36,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void BasicSetup()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimple, true,false));
+			var nestedStateData = new NestedStateData(SetupSimple, true, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 
@@ -55,7 +56,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void BasicSetup_WithoutTarget()
 		{
-			var statechart = new Statechart(factory => SetupNest_WithoutTarget(factory, _event2, SetupSimple));
+			var nestedStateData = new NestedStateData(SetupSimple, true, false);
+			var statechart = new Statechart(factory => SetupNest_WithoutTarget(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event2);
@@ -75,7 +77,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void InnerEventTrigger()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, true,false));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, true, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event1);
@@ -98,7 +101,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void InnerEventTrigger_ExecuteFinal_SameResult()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, true,false));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, true, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event1);
@@ -121,7 +125,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void InnerEventTrigger_NotExecuteExit_SameResult()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, false,false));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, false, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event1);
@@ -144,7 +149,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void OuterEventTrigger()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, true,false));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, true, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event2);
@@ -167,7 +173,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void OuterEventTrigger_ExecuteFinal()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, true,true));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, true, true);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event2);
@@ -190,7 +197,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void OuterEventTrigger_NotExecuteExit()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, false,false));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, false, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event2);
@@ -213,7 +221,8 @@ namespace FirstLightEditor.StateChart.Tests
 		[Test]
 		public void OuterEventTrigger_NotExecuteExit_ExecuteFinal()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, false,true));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, false, true);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event2);
@@ -257,12 +266,12 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void SetupLayer0(IStateFactory factory)
 			{
-				SetupNest(factory, _event2, SetupLayer1, true,false);
+				SetupNest(factory, _event2, new NestedStateData(SetupLayer1, true, false));
 			}
 
 			void SetupLayer1(IStateFactory factory)
 			{
-				SetupNest(factory, _event2, SetupSimpleEventState, true,false);
+				SetupNest(factory, _event2, new NestedStateData(SetupSimpleEventState, true, false));
 			}
 		}
 
@@ -290,19 +299,20 @@ namespace FirstLightEditor.StateChart.Tests
 
 			void SetupLayer0(IStateFactory factory)
 			{
-				SetupNest(factory, _event2, SetupLayer1, true,false);
+				SetupNest(factory, _event2, new NestedStateData(SetupLayer1, true, false));
 			}
 
 			void SetupLayer1(IStateFactory factory)
 			{
-				SetupNest(factory, _event1, SetupSimpleEventState, true,false);
+				SetupNest(factory, _event1, new NestedStateData(SetupSimpleEventState, true, false));
 			}
 		}
 
 		[Test]
 		public void InnerEventTrigger_RunResetRun()
 		{
-			var statechart = new Statechart(factory => SetupNest(factory, _event2, SetupSimpleEventState, true,false));
+			var nestedStateData = new NestedStateData(SetupSimpleEventState, true, false);
+			var statechart = new Statechart(factory => SetupNest(factory, _event2, nestedStateData));
 
 			statechart.Run();
 			statechart.Trigger(_event1);
@@ -372,8 +382,7 @@ namespace FirstLightEditor.StateChart.Tests
 			final.OnEnter(() => _caller.FinalOnEnterCall(0));
 		}
 
-		private void SetupNest(IStateFactory factory, IStatechartEvent eventTrigger, Action<IStateFactory> nestSetup,
-		                       bool executeExit, bool executeFinal)
+		private void SetupNest(IStateFactory factory, IStatechartEvent eventTrigger, NestedStateData nestedStateData)
 		{
 			var initial = factory.Initial("Initial");
 			var nest = factory.Nest("Nest");
@@ -383,14 +392,14 @@ namespace FirstLightEditor.StateChart.Tests
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			nest.OnEnter(() => _caller.StateOnEnterCall(1));
-			nest.Nest(nestSetup, executeExit, executeFinal).OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
+			nest.Nest(nestedStateData).OnTransition(() => _caller.OnTransitionCall(3)).Target(final);
 			nest.Event(eventTrigger).OnTransition(() => _caller.OnTransitionCall(4)).Target(final);
 			nest.OnExit(() => _caller.StateOnExitCall(1));
 
 			final.OnEnter(() => _caller.FinalOnEnterCall(1));
 		}
 
-		private void SetupNest_WithoutTarget(IStateFactory factory, IStatechartEvent eventTrigger, Action<IStateFactory> nestSetup)
+		private void SetupNest_WithoutTarget(IStateFactory factory, IStatechartEvent eventTrigger, NestedStateData nestedStateData)
 		{
 			var initial = factory.Initial("Initial");
 			var nest = factory.Nest("Nest");
@@ -400,7 +409,7 @@ namespace FirstLightEditor.StateChart.Tests
 			initial.OnExit(() => _caller.InitialOnExitCall(1));
 
 			nest.OnEnter(() => _caller.StateOnEnterCall(1));
-			nest.Nest(nestSetup, true, false).OnTransition(() => _caller.OnTransitionCall(3));
+			nest.Nest(nestedStateData).OnTransition(() => _caller.OnTransitionCall(3));
 			nest.Event(eventTrigger).OnTransition(() => _caller.OnTransitionCall(4));
 			nest.OnExit(() => _caller.StateOnExitCall(1));
 

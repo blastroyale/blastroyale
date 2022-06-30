@@ -1,6 +1,7 @@
 using System.Text;
 using Backend;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PlayFab;
 using PlayFab.CloudScriptModels;

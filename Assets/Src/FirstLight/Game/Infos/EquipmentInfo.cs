@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Ids;
 using Quantum;
 
@@ -49,6 +50,36 @@ namespace FirstLight.Game.Infos
 	/// </summary>
 	public static class EquipmentInfoExtensions
 	{
+		/// <summary>
+		/// Requests the Augmented Sum value for the <see cref="EquipmentInfo"/> list based on the given
+		/// <paramref name="modSumFunc"/> modifier
+		/// </summary>
+		public static double GetAugmentedModSum(this List<EquipmentInfo> items, QuantumGameConfig gameConfig,
+		                                        Func<EquipmentInfo, double> modSumFunc)
+		{
+			var modEquipmentList = new List<Tuple<double, Equipment>>();
+			var nftAssumed = gameConfig.NftAssumedOwned;
+			var minNftOwned = gameConfig.MinNftForEarnings;
+			var adjRarityCurveMod = (double) gameConfig.AdjectiveRarityEarningsMod;
+			var augmentedModSum = 0d;
+			
+			foreach (var nft in items)
+			{
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSumFunc(nft),nft.Equipment));
+			}
+			
+			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
+
+			for (var i = 0; i < modEquipmentList.Count; i++)
+			{
+				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, adjRarityCurveMod) / nftAssumed), minNftOwned);
+				
+				augmentedModSum += modEquipmentList[i].Item1 * strength;
+			}
+
+			return augmentedModSum;
+		}
+		
 		/// <summary>
 		/// Requests the durability states for all the equipments in the given <paramref name="items"/>
 		/// </summary>

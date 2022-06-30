@@ -2730,33 +2730,36 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Special {
-    public const Int32 SIZE = 56;
+    public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
-    public FP AvailableTime;
     [FieldOffset(16)]
-    public FP Cooldown;
+    public FP AvailableTime;
     [FieldOffset(24)]
-    public FP MaxRange;
+    public FP Cooldown;
+    [FieldOffset(8)]
+    public UInt32 Knockback;
     [FieldOffset(32)]
-    public FP PowerAmount;
+    public FP MaxRange;
     [FieldOffset(40)]
     public FP Radius;
     [FieldOffset(0)]
     public GameId SpecialId;
+    [FieldOffset(48)]
+    public FP SpecialPower;
     [FieldOffset(4)]
     public SpecialType SpecialType;
-    [FieldOffset(48)]
+    [FieldOffset(56)]
     public FP Speed;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 293;
         hash = hash * 31 + AvailableTime.GetHashCode();
         hash = hash * 31 + Cooldown.GetHashCode();
+        hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxRange.GetHashCode();
-        hash = hash * 31 + PowerAmount.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
         hash = hash * 31 + (Int32)SpecialId;
+        hash = hash * 31 + SpecialPower.GetHashCode();
         hash = hash * 31 + (Int32)SpecialType;
         hash = hash * 31 + Speed.GetHashCode();
         return hash;
@@ -2766,11 +2769,12 @@ namespace Quantum {
         var p = (Special*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SpecialId);
         serializer.Stream.Serialize((Int32*)&p->SpecialType);
+        serializer.Stream.Serialize(&p->Knockback);
         FP.Serialize(&p->AvailableTime, serializer);
         FP.Serialize(&p->Cooldown, serializer);
         FP.Serialize(&p->MaxRange, serializer);
-        FP.Serialize(&p->PowerAmount, serializer);
         FP.Serialize(&p->Radius, serializer);
+        FP.Serialize(&p->SpecialPower, serializer);
         FP.Serialize(&p->Speed, serializer);
     }
   }
@@ -2931,17 +2935,17 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponSlot {
-    public const Int32 SIZE = 184;
+    public const Int32 SIZE = 200;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(72)]
     public Special Special1;
     [FieldOffset(0)]
     public Int32 Special1Charges;
-    [FieldOffset(64)]
+    [FieldOffset(136)]
     public Special Special2;
     [FieldOffset(4)]
     public Int32 Special2Charges;
-    [FieldOffset(120)]
+    [FieldOffset(8)]
     public Equipment Weapon;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2958,9 +2962,9 @@ namespace Quantum {
         var p = (WeaponSlot*)ptr;
         serializer.Stream.Serialize(&p->Special1Charges);
         serializer.Stream.Serialize(&p->Special2Charges);
+        Quantum.Equipment.Serialize(&p->Weapon, serializer);
         Quantum.Special.Serialize(&p->Special1, serializer);
         Quantum.Special.Serialize(&p->Special2, serializer);
-        Quantum.Equipment.Serialize(&p->Weapon, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3453,7 +3457,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 176;
+    public const Int32 SIZE = 216;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(12)]
     public UInt32 AccuracySpreadAngle;
@@ -3464,44 +3468,50 @@ namespace Quantum {
     [FieldOffset(32)]
     public FP ChanceToAbandonTarget;
     [FieldOffset(40)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToSeekChests;
     [FieldOffset(48)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(56)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekRage;
     [FieldOffset(64)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(72)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(80)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToUseSpecial;
     [FieldOffset(88)]
-    public FP DecisionInterval;
+    public FP CloseFightIntolerance;
     [FieldOffset(96)]
-    public FP LookForTargetsToShootAtInterval;
+    public FP CurrentEvasionStepEndTime;
     [FieldOffset(104)]
-    public FP LowAmmoSensitivity;
+    public FP DecisionInterval;
     [FieldOffset(112)]
-    public FP LowArmourSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(120)]
+    public FP LowAmmoSensitivity;
+    [FieldOffset(128)]
+    public FP LowArmourSensitivity;
+    [FieldOffset(136)]
     public FP LowHealthSensitivity;
     [FieldOffset(16)]
     public EntityRef MoveTarget;
-    [FieldOffset(128)]
-    public FP NextDecisionTime;
-    [FieldOffset(136)]
-    public FP NextLookForTargetsToShootAtTime;
     [FieldOffset(144)]
+    public FP NextDecisionTime;
+    [FieldOffset(152)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(160)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(4)]
     public GameId Skin;
-    [FieldOffset(152)]
+    [FieldOffset(168)]
     public FP SpecialAimingDeviation;
+    [FieldOffset(192)]
+    public FPVector3 StuckDetectionPosition;
     [FieldOffset(24)]
     public EntityRef Target;
-    [FieldOffset(160)]
+    [FieldOffset(176)]
     public FP VisionRangeSqr;
-    [FieldOffset(168)]
+    [FieldOffset(184)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3510,12 +3520,14 @@ namespace Quantum {
         hash = hash * 31 + (Int32)BehaviourType;
         hash = hash * 31 + BotNameIndex.GetHashCode();
         hash = hash * 31 + ChanceToAbandonTarget.GetHashCode();
+        hash = hash * 31 + ChanceToSeekChests.GetHashCode();
         hash = hash * 31 + ChanceToSeekEnemies.GetHashCode();
         hash = hash * 31 + ChanceToSeekRage.GetHashCode();
         hash = hash * 31 + ChanceToSeekReplenishSpecials.GetHashCode();
         hash = hash * 31 + ChanceToSeekWeapons.GetHashCode();
         hash = hash * 31 + ChanceToUseSpecial.GetHashCode();
         hash = hash * 31 + CloseFightIntolerance.GetHashCode();
+        hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
         hash = hash * 31 + DecisionInterval.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
@@ -3527,6 +3539,7 @@ namespace Quantum {
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
         hash = hash * 31 + (Int32)Skin;
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
+        hash = hash * 31 + StuckDetectionPosition.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
         hash = hash * 31 + VisionRangeSqr.GetHashCode();
         hash = hash * 31 + WanderRadius.GetHashCode();
@@ -3542,12 +3555,14 @@ namespace Quantum {
         EntityRef.Serialize(&p->MoveTarget, serializer);
         EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->ChanceToAbandonTarget, serializer);
+        FP.Serialize(&p->ChanceToSeekChests, serializer);
         FP.Serialize(&p->ChanceToSeekEnemies, serializer);
         FP.Serialize(&p->ChanceToSeekRage, serializer);
         FP.Serialize(&p->ChanceToSeekReplenishSpecials, serializer);
         FP.Serialize(&p->ChanceToSeekWeapons, serializer);
         FP.Serialize(&p->ChanceToUseSpecial, serializer);
         FP.Serialize(&p->CloseFightIntolerance, serializer);
+        FP.Serialize(&p->CurrentEvasionStepEndTime, serializer);
         FP.Serialize(&p->DecisionInterval, serializer);
         FP.Serialize(&p->LookForTargetsToShootAtInterval, serializer);
         FP.Serialize(&p->LowAmmoSensitivity, serializer);
@@ -3559,6 +3574,7 @@ namespace Quantum {
         FP.Serialize(&p->SpecialAimingDeviation, serializer);
         FP.Serialize(&p->VisionRangeSqr, serializer);
         FP.Serialize(&p->WanderRadius, serializer);
+        FPVector3.Serialize(&p->StuckDetectionPosition, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3992,7 +4008,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Hazard : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public EntityRef Attacker;
@@ -4003,14 +4019,16 @@ namespace Quantum {
     [FieldOffset(32)]
     public FP Interval;
     [FieldOffset(8)]
+    public UInt32 Knockback;
+    [FieldOffset(12)]
     public UInt32 MaxHitCount;
     [FieldOffset(40)]
     public FP NextTickTime;
-    [FieldOffset(12)]
-    public UInt32 PowerAmount;
     [FieldOffset(48)]
-    public FP Radius;
+    public FP PowerAmount;
     [FieldOffset(56)]
+    public FP Radius;
+    [FieldOffset(64)]
     public FP StunDuration;
     [FieldOffset(4)]
     public Int32 TeamSource;
@@ -4021,6 +4039,7 @@ namespace Quantum {
         hash = hash * 31 + EndTime.GetHashCode();
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + Interval.GetHashCode();
+        hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxHitCount.GetHashCode();
         hash = hash * 31 + NextTickTime.GetHashCode();
         hash = hash * 31 + PowerAmount.GetHashCode();
@@ -4034,12 +4053,13 @@ namespace Quantum {
         var p = (Hazard*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         serializer.Stream.Serialize(&p->TeamSource);
+        serializer.Stream.Serialize(&p->Knockback);
         serializer.Stream.Serialize(&p->MaxHitCount);
-        serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
         FP.Serialize(&p->EndTime, serializer);
         FP.Serialize(&p->Interval, serializer);
         FP.Serialize(&p->NextTickTime, serializer);
+        FP.Serialize(&p->PowerAmount, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->StunDuration, serializer);
     }
@@ -4062,7 +4082,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 880;
+    public const Int32 SIZE = 928;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -4091,7 +4111,7 @@ namespace Quantum {
     [FieldOffset(328)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
-    private fixed Byte _WeaponSlots_[552];
+    private fixed Byte _WeaponSlots_[600];
     public FixedArray<Equipment> Gear {
       get {
         fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 4); }
@@ -4099,7 +4119,7 @@ namespace Quantum {
     }
     public FixedArray<WeaponSlot> WeaponSlots {
       get {
-        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 184, 3); }
+        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 200, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -4136,16 +4156,16 @@ namespace Quantum {
   public unsafe partial struct PlayerCharging : Quantum.IComponent {
     public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(0)]
     public FP ChargeDuration;
     [FieldOffset(24)]
     public FPVector3 ChargeEndPos;
     [FieldOffset(48)]
     public FPVector3 ChargeStartPos;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
     public FP ChargeStartTime;
-    [FieldOffset(0)]
-    public UInt32 PowerAmount;
+    [FieldOffset(16)]
+    public FP PowerAmount;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 467;
@@ -4159,9 +4179,9 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharging*)ptr;
-        serializer.Stream.Serialize(&p->PowerAmount);
         FP.Serialize(&p->ChargeDuration, serializer);
         FP.Serialize(&p->ChargeStartTime, serializer);
+        FP.Serialize(&p->PowerAmount, serializer);
         FPVector3.Serialize(&p->ChargeEndPos, serializer);
         FPVector3.Serialize(&p->ChargeStartPos, serializer);
     }
@@ -8710,6 +8730,8 @@ namespace Quantum.Prototypes {
     public FP NextLookForTargetsToShootAtTime;
     public MapEntityId Target;
     public MapEntityId MoveTarget;
+    public FP CurrentEvasionStepEndTime;
+    public FPVector3 StuckDetectionPosition;
     public FP VisionRangeSqr;
     public FP LowArmourSensitivity;
     public FP LowHealthSensitivity;
@@ -8725,6 +8747,7 @@ namespace Quantum.Prototypes {
     public FP ChanceToUseSpecial;
     public FP SpecialAimingDeviation;
     public FP ShrinkingCircleRiskTolerance;
+    public FP ChanceToSeekChests;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -8736,12 +8759,14 @@ namespace Quantum.Prototypes {
       result.BehaviourType = this.BehaviourType;
       result.BotNameIndex = this.BotNameIndex;
       result.ChanceToAbandonTarget = this.ChanceToAbandonTarget;
+      result.ChanceToSeekChests = this.ChanceToSeekChests;
       result.ChanceToSeekEnemies = this.ChanceToSeekEnemies;
       result.ChanceToSeekRage = this.ChanceToSeekRage;
       result.ChanceToSeekReplenishSpecials = this.ChanceToSeekReplenishSpecials;
       result.ChanceToSeekWeapons = this.ChanceToSeekWeapons;
       result.ChanceToUseSpecial = this.ChanceToUseSpecial;
       result.CloseFightIntolerance = this.CloseFightIntolerance;
+      result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
       result.DecisionInterval = this.DecisionInterval;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
@@ -8753,6 +8778,7 @@ namespace Quantum.Prototypes {
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
       result.Skin = this.Skin;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
+      result.StuckDetectionPosition = this.StuckDetectionPosition;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);
       result.VisionRangeSqr = this.VisionRangeSqr;
       result.WanderRadius = this.WanderRadius;
@@ -9171,7 +9197,8 @@ namespace Quantum.Prototypes {
     public FP EndTime;
     public FP Interval;
     public FP NextTickTime;
-    public UInt32 PowerAmount;
+    public FP PowerAmount;
+    public UInt32 Knockback;
     public FP StunDuration;
     public UInt32 MaxHitCount;
     partial void MaterializeUser(Frame frame, ref Hazard result, in PrototypeMaterializationContext context);
@@ -9185,6 +9212,7 @@ namespace Quantum.Prototypes {
       result.EndTime = this.EndTime;
       result.GameId = this.GameId;
       result.Interval = this.Interval;
+      result.Knockback = this.Knockback;
       result.MaxHitCount = this.MaxHitCount;
       result.NextTickTime = this.NextTickTime;
       result.PowerAmount = this.PowerAmount;
@@ -9304,7 +9332,7 @@ namespace Quantum.Prototypes {
     public FPVector3 ChargeEndPos;
     public FP ChargeDuration;
     public FP ChargeStartTime;
-    public UInt32 PowerAmount;
+    public FP PowerAmount;
     partial void MaterializeUser(Frame frame, ref PlayerCharging result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharging component = default;
@@ -9578,18 +9606,20 @@ namespace Quantum.Prototypes {
     public SpecialType_Prototype SpecialType;
     public FP Cooldown;
     public FP Radius;
-    public FP PowerAmount;
+    public FP SpecialPower;
     public FP Speed;
     public FP MaxRange;
+    public UInt32 Knockback;
     public FP AvailableTime;
     partial void MaterializeUser(Frame frame, ref Special result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Special result, in PrototypeMaterializationContext context) {
       result.AvailableTime = this.AvailableTime;
       result.Cooldown = this.Cooldown;
+      result.Knockback = this.Knockback;
       result.MaxRange = this.MaxRange;
-      result.PowerAmount = this.PowerAmount;
       result.Radius = this.Radius;
       result.SpecialId = this.SpecialId;
+      result.SpecialPower = this.SpecialPower;
       result.SpecialType = this.SpecialType;
       result.Speed = this.Speed;
       MaterializeUser(frame, ref result, in context);

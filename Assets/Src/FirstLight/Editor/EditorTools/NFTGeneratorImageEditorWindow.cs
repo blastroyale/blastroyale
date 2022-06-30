@@ -59,6 +59,7 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 	[SerializeField] private string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 	
 	[SerializeField] private Transform _markerTransform;
+	[SerializeField] private Transform _poolTransform;
 	[SerializeField] private Camera _camera;
 	[SerializeField] private GameObject _canvas;
 	[SerializeField] private GameObject _canvasRoot;
@@ -67,394 +68,409 @@ public class NFTGeneratorImageEditorWindow : OdinEditorWindow
 	
 	private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
 		
-		/// <summary>
-		/// Export render texture image collection referencing NFT metadata json folder 
-		/// </summary>
-		[Button("Export Metadata Collection")]
-		public async void ExportMetadataCollection()
+	/// <summary>
+	/// Export render texture image collection referencing NFT metadata json folder 
+	/// </summary>
+	[Button("Export Metadata Collection")]
+	public async void ExportMetadataCollection()
+	{
+		if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
 		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
-			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
-			}
+			Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
 			
-			if (_importFolderPath == "" || !Directory.Exists(_importFolderPath))
-			{
-				Debug.LogError($"Invalid import folder path [{_importFolderPath}]");
-				
-				return;
-			}
-			
-			var gameIdGroups = new[]
-			{
-				GameIdGroup.Helmet, 
-				GameIdGroup.Shield,
-				GameIdGroup.Armor,
-				GameIdGroup.Amulet,
-				GameIdGroup.Weapon
-			};
-			
-			
-			_assetDictionary.Clear();
-			var keys = new List<object>();
-			
-			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
-			{
-				var ids = gameIdGroups[categoryIndex].GetIds();
-				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
-				{
-					var gameId = ids.ElementAt(subCategoryIndex);
-					keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
-				}
-			}
-			
-			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
-			{
-				if (Enum.TryParse(addressable.name, out GameId gameId))
-				{
-					_assetDictionary.Add(gameId, addressable);
-				}
-				else
-				{
-					throw new Exception($"Unable to parse GameId {addressable.name}");
-				}
-			}, Addressables.MergeMode.Union, false).Task;
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
-
-			var fileCount = 0;
-			foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
-			{
-				var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(filePath));
-				ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-				fileCount++;
-			}
-			
-			Debug.Log($"Loaded [{fileCount} metadata files]");
+			return;
 		}
 		
-		/// <summary>
-		/// Export render texture image referencing NFT metadata json file 
-		/// </summary>
-		[Button("Export Render Texture [Metadata Json]")]
-		public async void ExportRenderTextureFromMetadataJson()
+		if (_importFolderPath == "" || !Directory.Exists(_importFolderPath))
 		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+			Debug.LogError($"Invalid import folder path [{_importFolderPath}]");
+			
+			return;
+		}
+		
+		var gameIdGroups = new[]
+		{
+			GameIdGroup.Helmet, 
+			GameIdGroup.Shield,
+			GameIdGroup.Armor,
+			GameIdGroup.Amulet,
+			GameIdGroup.Weapon
+		};
+		
+		
+		_assetDictionary.Clear();
+		var keys = new List<object>();
+		
+		for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
+		{
+			var ids = gameIdGroups[categoryIndex].GetIds();
+			for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
+				var gameId = ids.ElementAt(subCategoryIndex);
+				keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
 			}
-			
-			if (_metadataJsonFilePath == "" || !File.Exists(_metadataJsonFilePath))
+		}
+		
+		await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+		{
+			if (Enum.TryParse(addressable.name, out GameId gameId))
 			{
-				Debug.LogError($"Invalid json file path [{_metadataJsonFilePath}]");
-				
-				return;
+				_assetDictionary.Add(gameId, Instantiate(addressable, _poolTransform));
 			}
-			
-			_assetDictionary.Clear();
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
-			
-			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(_metadataJsonFilePath));
-			
-			Debug.Log($"Loading Erc721Metadata JSON file [{_metadataJsonFilePath}]");
+			else
+			{
+				throw new Exception($"Unable to parse GameId {addressable.name}");
+			}
+		}, Addressables.MergeMode.Union, false).Task;
+		
+		var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
-			var gameId = (GameId)metadata.attibutesDictionary["subCategory"];
-			
-			var asset = await Addressables.LoadAssetAsync<GameObject>($"AdventureAssets/items/{gameId.ToString()}.prefab").Task;
-				   
-			_assetDictionary.Add(gameId, asset);
-			
+		var fileCount = 0;
+		foreach (var filePath in Directory.EnumerateFiles(_importFolderPath, "*.json"))
+		{
+			var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(filePath));
 			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+			fileCount++;
+		}
+
+		DestroyPool();
+		
+		Debug.Log($"Loaded [{fileCount} metadata files]");
+	}
+	
+	/// <summary>
+	/// Export render texture image referencing NFT metadata json file 
+	/// </summary>
+	[Button("Export Render Texture [Metadata Json]")]
+	public async void ExportRenderTextureFromMetadataJson()
+	{
+		if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+		{
+			Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
+			
+			return;
 		}
 		
-		/// <summary>
-		/// Export all render texture images for Gameids 
-		/// </summary>
-		[Button("Export All Render Textures")]
-		private async void ExportAllRenderTextures()
+		if (_metadataJsonFilePath == "" || !File.Exists(_metadataJsonFilePath))
 		{
-			if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+			Debug.LogError($"Invalid json file path [{_metadataJsonFilePath}]");
+			
+			return;
+		}
+		
+		_assetDictionary.Clear();
+		
+		var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
+		
+		var metadata = JsonConvert.DeserializeObject<Erc721MetaData>(File.ReadAllText(_metadataJsonFilePath));
+		
+		Debug.Log($"Loading Erc721Metadata JSON file [{_metadataJsonFilePath}]");
+		
+		QualitySettings.SetQualityLevel(2, true);
+
+		var gameId = (GameId)metadata.attibutesDictionary["subCategory"];
+		
+		var asset = await Addressables.LoadAssetAsync<GameObject>($"AdventureAssets/items/{gameId.ToString()}.prefab").Task;
+			   
+		_assetDictionary.Add(gameId, Instantiate(asset, _poolTransform));
+		
+		ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+
+		DestroyPool();
+	}
+
+
+	private void DestroyPool()
+	{
+		var childCount = _poolTransform.transform.childCount;
+		for (var i = childCount - 1; i >= 0; i--) 
+		{
+			GameObject.DestroyImmediate( _poolTransform.transform.GetChild( i ).gameObject );
+		}
+	}
+
+	/// <summary>
+	/// Export all render texture images for Gameids 
+	/// </summary>
+	[Button("Export All Render Textures")]
+	private async void ExportAllRenderTextures()
+	{
+		if (_exportFolderPath == "" || !Directory.Exists(_exportFolderPath))
+		{
+			Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
+			
+			return;
+		}
+		
+		var gameIdGroups = new[]
+		{
+			GameIdGroup.Helmet, 
+			GameIdGroup.Shield,
+			GameIdGroup.Armor,
+			GameIdGroup.Amulet,
+			GameIdGroup.Weapon
+		};
+		
+		
+		_assetDictionary.Clear();
+		var keys = new List<object>();
+		
+		for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
+		{
+			var ids = gameIdGroups[categoryIndex].GetIds();
+			for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 			{
-				Debug.LogError($"Invalid export folder path [{_exportFolderPath}]");
-				
-				return;
+				var gameId = ids.ElementAt(subCategoryIndex);
+				keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
 			}
-			
-			var gameIdGroups = new[]
+		}
+		
+		var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+		{
+			if (Enum.TryParse(addressable.name, out GameId gameId))
+            {
+               _assetDictionary.Add(gameId, Instantiate(addressable, _poolTransform));
+            }
+			else
 			{
-				GameIdGroup.Helmet, 
-				GameIdGroup.Shield,
-				GameIdGroup.Armor,
-				GameIdGroup.Amulet,
-				GameIdGroup.Weapon
-			};
-			
-			
-			_assetDictionary.Clear();
-			var keys = new List<object>();
-			
-			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
-			{
-				var ids = gameIdGroups[categoryIndex].GetIds();
-				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
-				{
-					var gameId = ids.ElementAt(subCategoryIndex);
-					keys.Add($"AdventureAssets/items/{gameId.ToString()}.prefab");
-				}
+				throw new Exception($"Unable to parse GameId {addressable.name}");
 			}
+		}, Addressables.MergeMode.Union, false).Task; 
+		
+		
+		var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
+
+		var metadata = new Erc721MetaData {attibutesDictionary = new Dictionary<string, int>()};
+		
+		var imagesExportedCount = 0;
+		
+		for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
+		{
+			var ids = gameIdGroups[categoryIndex].GetIds();
 			
-			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+			for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 			{
-				if (Enum.TryParse(addressable.name, out GameId gameId))
-                {
-                   _assetDictionary.Add(gameId, addressable);
-                }
-				else
+				var gameId = ids.ElementAt(subCategoryIndex);
+
+				if (gameId == GameId.Hammer)
 				{
-					throw new Exception($"Unable to parse GameId {addressable.name}");
+					continue;
 				}
-			}, Addressables.MergeMode.Union, false).Task; 
-			
-			
-			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
 
-			var metadata = new Erc721MetaData {attibutesDictionary = new Dictionary<string, int>()};
-			
-			var imagesExportedCount = 0;
-			
-			for (var categoryIndex = 0; categoryIndex < gameIdGroups.Length; categoryIndex++)
-			{
-				var ids = gameIdGroups[categoryIndex].GetIds();
-				
-				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
+				for (var rarityIndex = 0; rarityIndex < (int)EquipmentRarity.TOTAL; rarityIndex++)
 				{
-					var gameId = ids.ElementAt(subCategoryIndex);
-
-					if (gameId == GameId.Hammer)
+					for (var materialIndex = 0; materialIndex < (int)EquipmentMaterial.TOTAL; materialIndex++)
 					{
-						continue;
-					}
-
-					for (var rarityIndex = 0; rarityIndex < (int)EquipmentRarity.TOTAL; rarityIndex++)
-					{
-						for (var materialIndex = 0; materialIndex < (int)EquipmentMaterial.TOTAL; materialIndex++)
+						for (var factionIndex = 0; factionIndex < (int)EquipmentFaction.TOTAL; factionIndex++)
 						{
-							for (var factionIndex = 0; factionIndex < (int)EquipmentFaction.TOTAL; factionIndex++)
+							for (var gradeIndex = 0; gradeIndex < (int)EquipmentGrade.TOTAL; gradeIndex++)
 							{
-								for (var gradeIndex = 0; gradeIndex < (int)EquipmentGrade.TOTAL; gradeIndex++)
+								for (var adjectiveIndex = 0; adjectiveIndex < (int) EquipmentAdjective.TOTAL; adjectiveIndex++)
 								{
-									for (var adjectiveIndex = 0; adjectiveIndex < (int) EquipmentAdjective.TOTAL; adjectiveIndex++)
-									{
-										metadata.name = LocalizationManager.GetTranslation ($"GameIds/{gameId.ToString()}");
-										metadata.attibutesDictionary["category"] = (int)gameIdGroups.ElementAt(categoryIndex);
-										metadata.attibutesDictionary["subCategory"] = (int)gameId;
-										
-										var config =_baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
-										metadata.attibutesDictionary["manufacturer"] = (int)config.Manufacturer;
-										
-										metadata.attibutesDictionary["rarity"] = rarityIndex;
-										metadata.attibutesDictionary["material"] = materialIndex;
-										metadata.attibutesDictionary["faction"] = factionIndex;
-										metadata.attibutesDictionary["grade"] = gradeIndex;
-										metadata.attibutesDictionary["adjective"] = adjectiveIndex;
+									metadata.name = LocalizationManager.GetTranslation ($"GameIds/{gameId.ToString()}");
+									metadata.attibutesDictionary["category"] = (int)gameIdGroups.ElementAt(categoryIndex);
+									metadata.attibutesDictionary["subCategory"] = (int)gameId;
+									
+									var config =_baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
+									metadata.attibutesDictionary["manufacturer"] = (int)config.Manufacturer;
+									
+									metadata.attibutesDictionary["rarity"] = rarityIndex;
+									metadata.attibutesDictionary["material"] = materialIndex;
+									metadata.attibutesDictionary["faction"] = factionIndex;
+									metadata.attibutesDictionary["grade"] = gradeIndex;
+									metadata.attibutesDictionary["adjective"] = adjectiveIndex;
 
-										var hash = GenerateImageFilenameHash(metadata);
-										metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
+									var hash = GenerateImageFilenameHash(metadata);
+									metadata.image = $"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 
-										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-										
-										imagesExportedCount++;
-									}
+									ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
+									
+									imagesExportedCount++;
 								}
 							}
 						}
 					}
 				}
 			}
-
-			for (var i = 0; i < operationHandle.Count; i++)
-			{
-				Addressables.Release(operationHandle.ElementAt(i));
-			}
-
-			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
-		}
-		
-		
-		/// <summary>
-		/// Export a render texture image given a metadata object and renderable background
-		/// </summary>
-		private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
-		{
-			if (_markerTransform.transform.childCount > 0)
-			{
-				DestroyImmediate(_markerTransform.transform.GetChild(0).gameObject);
-			}
-        			
-			var subcategoryId = metadata.attibutesDictionary["subCategory"];
-			var gameId = (GameId) subcategoryId;
-
-			var asset = _assetDictionary[gameId];
-			
-			
-			var go = Instantiate(asset);
-			go.transform.SetParent(_markerTransform);
-			go.transform.localScale = Vector3.one;
-			go.transform.localPosition = Vector3.zero;
-			
-			var ercRenderable = go.GetComponent<IErcRenderable>();
-			ercRenderable?.Initialise(metadata);
-			
-			var bounds = GetBounds(go);
-			go.transform.localPosition = -bounds.center;
-			go.transform.localRotation = Quaternion.identity;
-			
-			var max = bounds.size;
-			var radius = max.magnitude / 2f;
-			var horizontalFOV =
-				2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
-				Mathf.Rad2Deg;
-			var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-			var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-			_camera.transform.position = new Vector3(-dist, 0, 0);
-			
-			
-			_canvas.SetActive(true);
-			
-			backgroundErcRenderable?.Initialise(metadata);
-
-			if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
-			{
-				WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
-			}
-
-			_canvas.SetActive(false);
-
-			if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
-			{
-				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
-			}
-			
-			_canvas.SetActive(true);
 		}
 
-		
-		/// <summary>
-		/// Generate image filename unique hash given metadata object
-		/// </summary>
-		private string GenerateImageFilenameHash(Erc721MetaData metadata)
+		for (var i = 0; i < operationHandle.Count; i++)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append(metadata.attibutesDictionary["category"]);
-			stringBuilder.Append(metadata.attibutesDictionary["subCategory"]);
-			stringBuilder.Append(metadata.attibutesDictionary["manufacturer"]);
-			stringBuilder.Append(metadata.attibutesDictionary["rarity"]);
-			stringBuilder.Append(metadata.attibutesDictionary["material"]);
-			stringBuilder.Append(metadata.attibutesDictionary["faction"]);
-			stringBuilder.Append(metadata.attibutesDictionary["grade"]);
-			stringBuilder.Append(metadata.attibutesDictionary["adjective"]);
-			
-			using (var sha256Hash = SHA256.Create())
-			{
-				var hash = GetHash(sha256Hash, stringBuilder.ToString());
-				return hash;
-			}
+			Addressables.Release(operationHandle.ElementAt(i));
 		}
 
-		/// <summary>
-		///  Write render texture image to disk given a file path and render texture object
-		/// </summary>
-		private void WriteRenderTextureToDisk(string filename, RenderTexture renderTexture)
+		DestroyPool();
+
+		Debug.Log($"Exported [{imagesExportedCount}] image combinations");
+	}
+	
+	
+	/// <summary>
+	/// Export a render texture image given a metadata object and renderable background
+	/// </summary>
+	private void ExportRenderTextureFromMetadata(Erc721MetaData metadata, IErcRenderable backgroundErcRenderable)
+	{
+		if (_markerTransform.transform.childCount > 0)
 		{
-			_canvasRoot.transform.localScale = new Vector3(renderTexture.width / _referenceResolution.x,
-			                                               renderTexture.height / _referenceResolution.y, 1);
-			_camera.targetTexture = renderTexture;
+			_markerTransform.transform.GetChild(0).SetParent(_poolTransform);
+		}
+        		
+		var subcategoryId = metadata.attibutesDictionary["subCategory"];
+		var gameId = (GameId) subcategoryId;
 
-			RenderTexture.active = renderTexture;
+		var go = _assetDictionary[gameId];
+		go.transform.SetParent(_markerTransform);
+		go.transform.localScale = Vector3.one;
+		go.transform.localPosition = Vector3.zero;
+		go.transform.localRotation = Quaternion.Euler(-7.215f, -53.91f, -8.94f);
+		
+		var ercRenderable = go.GetComponent<IErcRenderable>();
+		ercRenderable?.Initialise(metadata);
+		
+		var bounds = GetBounds(go);
+		go.transform.position = -bounds.center;
 
-			_camera.Render();
+		
+		var max = bounds.size;
+		var radius = max.magnitude / 2f;
+		var horizontalFOV =
+			2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
+			Mathf.Rad2Deg;
+		var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
+		var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
 
-			Texture2D image = new Texture2D(_camera.targetTexture.width, _camera.targetTexture.height);
-			image.ReadPixels(new Rect(0, 0, _camera.targetTexture.width, _camera.targetTexture.height), 0, 0);
-			image.Apply();
-			RenderTexture.active = null;
-			_camera.targetTexture = null;
-			
-			byte[] bytes = _textureMode == TextureMode.Png ? image.EncodeToPNG() : image.EncodeToJPG();
-			DestroyImmediate(image);
+		_camera.transform.position = new Vector3(-dist, 0, 0);
+		
+		_canvas.SetActive(true);
+		
+		backgroundErcRenderable?.Initialise(metadata);
 
-			var ext = _textureMode == TextureMode.Png ? ".png" : ".jpg";
-			
-			var path = Path.Combine(_exportFolderPath, filename + ext);
-			File.WriteAllBytes(path, bytes);
+		if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
+		{
+			WriteRenderTextureToDisk(Path.GetFileNameWithoutExtension(metadata.image), _renderTexture);
+		}
+
+		_canvas.SetActive(false);
+
+		if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
+		{
+			WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone);
 		}
 		
-		
-		/// <summary>
-		/// Query bounding box for a given game object
-		/// </summary>
-		private Bounds GetBounds(GameObject go)
-		{
-			var bounds = new Bounds();
+		_canvas.SetActive(true);
+	}
 
-			var renderers = go.GetComponentsInChildren<Renderer>(true);
-			
-			if (renderers.Length > 0)
+	
+	/// <summary>
+	/// Generate image filename unique hash given metadata object
+	/// </summary>
+	private string GenerateImageFilenameHash(Erc721MetaData metadata)
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.Append(metadata.attibutesDictionary["category"]);
+		stringBuilder.Append(metadata.attibutesDictionary["subCategory"]);
+		stringBuilder.Append(metadata.attibutesDictionary["manufacturer"]);
+		stringBuilder.Append(metadata.attibutesDictionary["rarity"]);
+		stringBuilder.Append(metadata.attibutesDictionary["material"]);
+		stringBuilder.Append(metadata.attibutesDictionary["faction"]);
+		stringBuilder.Append(metadata.attibutesDictionary["grade"]);
+		stringBuilder.Append(metadata.attibutesDictionary["adjective"]);
+		
+		using (var sha256Hash = SHA256.Create())
+		{
+			var hash = GetHash(sha256Hash, stringBuilder.ToString());
+			return hash;
+		}
+	}
+
+	/// <summary>
+	///  Write render texture image to disk given a file path and render texture object
+	/// </summary>
+	private void WriteRenderTextureToDisk(string filename, RenderTexture renderTexture)
+	{
+		_canvasRoot.transform.localScale = new Vector3(renderTexture.width / _referenceResolution.x,
+		                                               renderTexture.height / _referenceResolution.y, 1);
+		_camera.targetTexture = renderTexture;
+
+		RenderTexture.active = renderTexture;
+
+		_camera.Render();
+
+		Texture2D image = new Texture2D(_camera.targetTexture.width, _camera.targetTexture.height);
+		image.ReadPixels(new Rect(0, 0, _camera.targetTexture.width, _camera.targetTexture.height), 0, 0);
+		image.Apply();
+		RenderTexture.active = null;
+		_camera.targetTexture = null;
+		
+		byte[] bytes = _textureMode == TextureMode.Png ? image.EncodeToPNG() : image.EncodeToJPG();
+		DestroyImmediate(image);
+
+		var ext = _textureMode == TextureMode.Png ? ".png" : ".jpg";
+		
+		var path = Path.Combine(_exportFolderPath, filename + ext);
+		File.WriteAllBytes(path, bytes);
+	}
+	
+	
+	/// <summary>
+	/// Query bounding box for a given game object
+	/// </summary>
+	private Bounds GetBounds(GameObject go)
+	{
+		var bounds = new Bounds();
+
+		var renderers = go.GetComponentsInChildren<Renderer>(true);
+		
+		if (renderers.Length > 0)
+		{
+			foreach (Renderer renderer in renderers)
 			{
-				foreach (Renderer renderer in renderers)
+				if (renderer is ParticleSystemRenderer)
 				{
-					if (renderer is ParticleSystemRenderer)
-					{
-						continue;
-					}
+					continue;
+				}
 
-					if (renderer.enabled && renderer.gameObject.activeSelf)
-					{
-						bounds = renderer.bounds;
-						
-						break;
-					}
+				if (renderer.enabled && renderer.gameObject.activeSelf)
+				{
+					bounds = renderer.bounds;
+					
+					break;
+				}
+			}
+			
+			foreach (Renderer renderer in renderers)
+			{
+				if (renderer is ParticleSystemRenderer)
+				{
+					continue;
 				}
 				
-				foreach (Renderer renderer in renderers)
+				if (renderer.enabled && renderer.gameObject.activeSelf)
 				{
-					if (renderer is ParticleSystemRenderer)
-					{
-						continue;
-					}
-					
-					if (renderer.enabled && renderer.gameObject.activeSelf)
-					{
-						bounds.Encapsulate(renderer.bounds);
-					}
+					bounds.Encapsulate(renderer.bounds);
 				}
 			}
+		}
 
-			return bounds;
+		return bounds;
+	}
+	
+	/// <summary>
+	/// Query string hash for a given string input given hash algorithm 
+	/// </summary>
+	private string GetHash(HashAlgorithm hashAlgorithm, string input)
+	{
+		var data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+		
+		var sBuilder = new StringBuilder();
+		
+		for (var i = 0; i < data.Length; i++)
+		{
+			sBuilder.Append(data[i].ToString("x2"));
 		}
 		
-		/// <summary>
-		/// Query string hash for a given string input given hash algorithm 
-		/// </summary>
-		private string GetHash(HashAlgorithm hashAlgorithm, string input)
-		{
-			var data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
-			
-			var sBuilder = new StringBuilder();
-			
-			for (var i = 0; i < data.Length; i++)
-			{
-				sBuilder.Append(data[i].ToString("x2"));
-			}
-			
-			return sBuilder.ToString();
-		}
+		return sBuilder.ToString();
+	}
 }
 
 

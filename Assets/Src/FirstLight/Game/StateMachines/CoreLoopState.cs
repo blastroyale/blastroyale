@@ -20,7 +20,8 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 namespace FirstLight.Game.StateMachines
 {
 	/// <summary>
-	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
+	/// This object contains the behaviour logic to control the loop between the <see cref="MainMenuState"/>
+	/// and the <see cref="MatchState"/> in the <seealso cref="GameStateMachine"/>
 	/// </summary>
 	public class CoreLoopState
 	{

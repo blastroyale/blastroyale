@@ -119,10 +119,10 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="Chest"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnChest(Frame f, GameId id, Transform3D transform)
+		public static EntityRef SpawnChest(Frame f, GameId id, Transform3D transform)
 		{
 			var config = f.ChestConfigs.GetConfig(id);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
 
 			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
 

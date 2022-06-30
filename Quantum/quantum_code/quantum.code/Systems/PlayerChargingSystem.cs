@@ -44,11 +44,20 @@ namespace Quantum.Systems
 			{
 				return;
 			}
+			
+			if(f.TryGet<Stats>(targetHit, out var targetStats))
+			{
+				var targetMaxHP = targetStats.GetStatData(StatType.Health).BaseValue;
+				var damage = targetMaxHP * charging.PowerAmount;
 
-			var spell = Spell.CreateInstant(f, targetHit, attacker, attacker, charging.PowerAmount, 0,
-			                                f.Get<Transform3D>(targetHit).Position);
+				var spell = Spell.CreateInstant(f, targetHit, attacker, attacker, (uint)damage, 0,
+											f.Get<Transform3D>(targetHit).Position);
+				QuantumHelpers.ProcessHit(f, spell);
+			}
 
-			QuantumHelpers.ProcessHit(f, spell);
+			
+
+			
 		}
 	}
 }

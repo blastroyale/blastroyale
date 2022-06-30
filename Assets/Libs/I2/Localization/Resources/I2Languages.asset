@@ -5348,6 +5348,20 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/AirDropIncomingLine1
+      TermType: 0
+      Description: 
+      Languages:
+      - Air Drop Incoming!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AirDropIncomingLine2
+      TermType: 0
+      Description: 
+      Languages:
+      - Hurry Up!
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5360,7 +5374,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1656585312434
+    Google_LastUpdatedVersion: 1656603185346
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -10,7 +10,6 @@ namespace Quantum
 		public GameIdGroup Category;
 		public EquipmentAdjective Adjective;
 		public EquipmentFaction Faction;
-
 		public FP HpRatioToBaseK;
 		public FP ArmorRatioToBaseK;
 		public FP SpeedRatioToBaseK;

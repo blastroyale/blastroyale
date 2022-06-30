@@ -1,0 +1,36 @@
+component AirDrop
+{
+	[HideInInspector] FPVector3 Position;
+	[HideInInspector] FPVector2 Direction;
+	[HideInInspector] FP StartTime;
+	[HideInInspector] FP Delay;
+	[HideInInspector] FP Duration;
+	[HideInInspector] AirDropStage Stage;
+	[HideInInspector] GameId Chest;
+}
+
+enum AirDropStage
+{
+	Waiting,
+	Announcing,
+	Dropped
+}
+
+synced event OnAirDropStarted
+{
+	entity_ref Entity;
+	AirDrop AirDrop;
+}
+
+synced event OnAirDropDropped
+{
+	entity_ref Entity;
+	AirDrop AirDrop;
+}
+
+synced event OnAirDropCollected
+{
+	entity_ref Entity;
+	entity_ref PlayerEntity;
+	AirDrop AirDrop;
+}

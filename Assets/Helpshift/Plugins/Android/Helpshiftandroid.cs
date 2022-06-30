@@ -11,7 +11,7 @@ using HSMiniJSON;
 
 namespace Helpshift
 {
-    public class HelpshiftXAndroid : HelpshiftSdk
+    public class HelpshiftXAndroid
     {
 
         private AndroidJavaClass jc;

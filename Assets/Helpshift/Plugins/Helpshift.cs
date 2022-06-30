@@ -39,7 +39,7 @@ namespace Helpshift
 #elif UNITY_ANDROID
         private static HelpshiftXAndroid nativeSdk = null;
 #endif
-	    public HelpshiftSdk()
+        private HelpshiftSdk()
         {
         }
 

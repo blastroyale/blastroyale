@@ -53,7 +53,7 @@ component PlayerCharging
 	FPVector3 ChargeEndPos;
 	FP ChargeDuration;
 	FP ChargeStartTime;
-	UInt32 PowerAmount;
+	FP PowerAmount;
 }
 
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);

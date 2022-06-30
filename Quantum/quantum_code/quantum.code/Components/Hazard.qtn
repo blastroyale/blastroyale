@@ -7,7 +7,8 @@ component Hazard
 	FP EndTime;
 	FP Interval;
 	FP NextTickTime;
-	UInt32 PowerAmount;
+	FP PowerAmount;
+	UInt32 Knockback;
 	FP StunDuration;
 	UInt32 MaxHitCount;
 }

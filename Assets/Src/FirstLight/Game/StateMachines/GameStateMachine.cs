@@ -27,6 +27,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
+		private readonly AudioState _audioState;
 		private readonly NetworkState _networkState;
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
@@ -54,6 +55,7 @@ namespace FirstLight.Game.StateMachines
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger);
+			_audioState = new AudioState(gameLogic, services);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_coreLoopState = new CoreLoopState(services, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
@@ -90,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(core);
 			initialLoading.OnExit(InitializeGame);
 			
-			core.Split(_networkState.Setup, _coreLoopState.Setup).Target(final);
+			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}

@@ -84,11 +84,11 @@ namespace FirstLight.Game.StateMachines
 			
 			playerReadyWait.OnEnter(PreloadPlayerMatchAssets);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
-			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
+			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
-			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
+			gameSimulation.Event(NetworkState.LeftRoomEvent).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.WaitingFor(UnloadAllAssets).Target(disconnectCheck);
@@ -104,8 +104,8 @@ namespace FirstLight.Game.StateMachines
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(postDisconnectReloadCheck);
 			disconnectReload.OnExit(CloseLoadingScreen);
 			
-			postDisconnectReloadCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
-			postDisconnectReloadCheck.Transition().Target(matchmaking);
+			postDisconnectReloadCheck.Transition().Condition(IsRoomReadyForSimulation).Target(playerReadyCheck);
+			postDisconnectReloadCheck.Transition().OnTransition(OpenMatchmakingScreen).Target(roomCheck);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -125,6 +125,11 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
+		private void OnDisconnectDuringFinalPreload()
+		{
+			_networkService.DisconnectedDuringMatchmaking.Value = false;
+		}
+
 		private void OnDisconnectDuringSimulation()
 		{
 			_networkService.DisconnectedDuringMatchmaking.Value = false;
@@ -176,6 +181,12 @@ namespace FirstLight.Game.StateMachines
 		private bool IsRoomClosed()
 		{
 			return _services.NetworkService.QuantumClient.CurrentRoom.IsOpen == false;
+		}
+		
+		private bool IsRoomReadyForSimulation()
+		{
+			return _networkService.DisconnectedDuringMatchmaking.Value == false && 
+			       _services.NetworkService.QuantumClient.CurrentRoom.IsOpen == false;
 		}
 
 		private bool AreAllPlayersReady()

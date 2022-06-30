@@ -118,6 +118,7 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
+			DisconnectedDuringMatchmaking = new ObservableField<bool>(false);
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 			UserId.Value = PlayFabSettings.DeviceUniqueIdentifier;

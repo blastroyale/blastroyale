@@ -103,6 +103,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
 				var leaderPlayer = playersData[leader];
 				_leader = leaderPlayer.Entity;
+				_latestKiller = leaderPlayer.Entity;
 
 				SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 				OnSpectate();
@@ -145,6 +146,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			_leader = callback.EntityLeader;
+			
 			if (callback.EntityDead == _latestKiller)
 			{
 				_latestKiller = callback.EntityKiller;
@@ -213,6 +215,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
+			
 			_targetTransform = entityViewTransform;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;

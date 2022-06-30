@@ -35,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _weaponSlotsHolder;
-		[SerializeField] private Button[] _weaponSlotButtons;
 		[SerializeField, Required] private GameObject _minimapHolder;
 
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
@@ -53,10 +52,6 @@ namespace FirstLight.Game.Presenters
 			{
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
-
-			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
-			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
-			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
@@ -123,16 +118,6 @@ namespace FirstLight.Game.Presenters
 
 			_standings.UpdateStandings(playerData);
 			_standings.gameObject.SetActive(true);
-		}
-
-		private void OnWeaponSlotClicked(int weaponSlotIndex)
-		{
-			var command = new WeaponSlotSwitchCommand()
-			{
-				WeaponSlotIndex = weaponSlotIndex
-			};
-			
-			QuantumRunner.Default.Game.SendCommand(command);
 		}
 
 		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)

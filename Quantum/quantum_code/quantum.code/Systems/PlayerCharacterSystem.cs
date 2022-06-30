@@ -102,28 +102,6 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void ProcessPlayerDisconnect(Frame f, ref PlayerCharacterFilter filter)
-		{
-			if (f.Has<BotCharacter>(filter.Entity))
-			{
-				return;
-			}
-
-			if ((f.GetPlayerInputFlags(filter.Player->Player) & DeterministicInputFlags.PlayerNotPresent) == 0)
-			{
-				filter.Player->DisconnectedDuration = 0;
-
-				return;
-			}
-
-			filter.Player->DisconnectedDuration += f.DeltaTime;
-
-			if (filter.Player->DisconnectedDuration > f.GameConfig.DisconnectedDestroySeconds)
-			{
-				filter.Player->PlayerLeft(f, filter.Entity);
-			}
-		}
-
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive

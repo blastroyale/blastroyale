@@ -1,5 +1,6 @@
 ﻿using System;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -29,8 +30,30 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
+			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnEventOnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
+		}
+		
+		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
+		{
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+
+			if (!localPlayer.Entity.IsAlive(f))
+			{
+				return;
+			}
+
+			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
+			
+			UpdateWeaponSlot(playerCharacter.WeaponSlots[0].Weapon, 0);
+			UpdateWeaponSlot(playerCharacter.WeaponSlots[1].Weapon, 1);
+			UpdateWeaponSlot(playerCharacter.WeaponSlots[2].Weapon, 2);
+			SetSelectedSlot(playerCharacter.CurrentWeaponSlot);
 		}
 
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)

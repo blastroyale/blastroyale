@@ -38,7 +38,6 @@ component PlayerCharacter
 	AssetRefAIBlackboard BlackboardRef;
 	AssetRefCharacterController3DConfig KccConfigRef;
 	FPVector3 ProjectileSpawnOffset;
-	[HideInInspector] FP DisconnectedDuration;
 	[HideInInspector] player_ref Player;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;

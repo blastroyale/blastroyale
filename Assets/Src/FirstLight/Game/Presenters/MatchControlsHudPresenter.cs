@@ -14,6 +14,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -25,12 +26,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private SpecialButtonView _specialButton0;
 		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
+		[SerializeField] private Button[] _weaponSlotButtons;
 		
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
 		private int _currentWeaponSlot;
-
 		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
@@ -42,6 +43,10 @@ namespace FirstLight.Game.Presenters
 			_currentWeaponSlot = 0;
 
 			_localInput.Gameplay.SetCallbacks(this);
+			
+			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
+			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
+			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
 			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
@@ -231,6 +236,16 @@ namespace FirstLight.Game.Presenters
 				AimInput = aimDirection.ToFPVector2(),
 			};
 
+			QuantumRunner.Default.Game.SendCommand(command);
+		}
+		
+		private void OnWeaponSlotClicked(int weaponSlotIndex)
+		{
+			var command = new WeaponSlotSwitchCommand()
+			{
+				WeaponSlotIndex = weaponSlotIndex
+			};
+			
 			QuantumRunner.Default.Game.SendCommand(command);
 		}
 	}

@@ -4074,20 +4074,17 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 880;
+    public const Int32 SIZE = 872;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(0)]
     [HideInInspector()]
     public Int32 CurrentWeaponSlot;
-    [FieldOffset(40)]
-    [HideInInspector()]
-    public FP DisconnectedDuration;
     [FieldOffset(4)]
     [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
-    [FieldOffset(72)]
+    [FieldOffset(64)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 4)]
     private fixed Byte _Gear_[256];
@@ -4098,9 +4095,9 @@ namespace Quantum {
     [FieldOffset(8)]
     [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(48)]
+    [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(328)]
+    [FieldOffset(320)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
     private fixed Byte _WeaponSlots_[552];
@@ -4119,7 +4116,6 @@ namespace Quantum {
         var hash = 463;
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
-        hash = hash * 31 + DisconnectedDuration.GetHashCode();
         hash = hash * 31 + DroppedLoadoutFlags.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
         hash = hash * 31 + HfsmRootRef.GetHashCode();
@@ -4138,7 +4134,6 @@ namespace Quantum {
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
-        FP.Serialize(&p->DisconnectedDuration, serializer);
         FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
         FixedArray.Serialize(p->Gear, serializer, StaticDelegates.SerializeEquipment);
         FixedArray.Serialize(p->WeaponSlots, serializer, StaticDelegates.SerializeWeaponSlot);
@@ -9275,8 +9270,6 @@ namespace Quantum.Prototypes {
     public AssetRefCharacterController3DConfig KccConfigRef;
     public FPVector3 ProjectileSpawnOffset;
     [HideInInspector()]
-    public FP DisconnectedDuration;
-    [HideInInspector()]
     public PlayerRef Player;
     [HideInInspector()]
     public Int32 CurrentWeaponSlot;
@@ -9297,7 +9290,6 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
       result.BlackboardRef = this.BlackboardRef;
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
-      result.DisconnectedDuration = this.DisconnectedDuration;
       result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
       for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 4, in context); i < count; ++i) {
         this.Gear[i].Materialize(frame, ref *result.Gear.GetPointer(i), in context);

@@ -24,7 +24,12 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the check if the last connection to a room was for a new room (new match), or a rejoin
 		/// </summary>
-		bool IsJoiningNewRoom { get; }
+		bool IsJoiningNewMatch { get; }
+		
+		/// <summary>
+		/// Requests the check if the last disconnection was in matchmaking, before the match started
+		/// </summary>
+		bool DisconnectedDuringMatchmaking { get; }
 
 		/// <summary>
 		/// Requests the ping status with the quantum server
@@ -62,8 +67,11 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameNetworkService.UserId" />
 		new IObservableField<string> UserId { get; }
 		
-		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewRoom" />
+		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
 		new IObservableField<bool> IsJoiningNewMatch { get; }
+		
+		/// <inheritdoc cref="IGameNetworkService.DisconnectedDuringMatchmaking" />
+		new IObservableField<bool> DisconnectedDuringMatchmaking { get; }
 		
 		/// <summary>
 		/// Checks if the current frame is having connections issues and if it is lagging
@@ -81,12 +89,14 @@ namespace FirstLight.Game.Services
 		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
+		public IObservableField<bool> DisconnectedDuringMatchmaking { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
 		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
 		
 		string IGameNetworkService.UserId => UserId.Value;
-		bool IGameNetworkService.IsJoiningNewRoom => IsJoiningNewMatch.Value;
+		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
+		bool IGameNetworkService.DisconnectedDuringMatchmaking => DisconnectedDuringMatchmaking.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
 		/// <inheritdoc />

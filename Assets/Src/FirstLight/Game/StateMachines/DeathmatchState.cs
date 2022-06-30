@@ -105,7 +105,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsResyncing()
 		{
-			return !_services.NetworkService.IsJoiningNewRoom;
+			return !_services.NetworkService.IsJoiningNewMatch;
 		}
 		
 		private void PublishMatchReadyForResyncMessage()

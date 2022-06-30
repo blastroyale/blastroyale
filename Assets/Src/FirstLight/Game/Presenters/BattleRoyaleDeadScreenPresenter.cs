@@ -58,7 +58,7 @@ namespace FirstLight.Game.Presenters
 
 			// Killed by circle normally. Else if reconnecting - no info on the killer, so just dont show the kill banner
 			// 'Killed by' field should be added to quantum PlayerMatchData for future use - would be useful
-			if (_services.NetworkService.IsJoiningNewRoom)
+			if (_services.NetworkService.IsJoiningNewMatch)
 			{
 				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
 			}

@@ -85,7 +85,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
 		{
 			// This method is only for when rejoining rooms
-			if (_services.NetworkService.IsJoiningNewRoom)
+			if (_services.NetworkService.IsJoiningNewMatch)
 			{
 				return;
 			}

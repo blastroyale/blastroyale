@@ -89,17 +89,9 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
-		private bool IsReconnectingToMatch()
+		private bool IsReconnectingToMatchState()
 		{
 			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
-		}
-
-		private void CheatUpdate(float delta)
-		{
-			if (UnityEngine.Input.GetKeyDown(KeyCode.P))
-			{
-				DisconnectPhoton();
-			}
 		}
 
 		private void OpenDisconnectedScreen()
@@ -110,9 +102,9 @@ namespace FirstLight.Game.StateMachines
 				{
 					_statechartTrigger(AttemptReconnectEvent);
 					
-					if (IsReconnectingToMatch())
+					if (IsReconnectingToMatchState())
 					{
-						_networkService.IsJoiningNewMatch.Value = false;
+						_networkService.IsJoiningNewMatch.Value = !_networkService.DisconnectedDuringMatchmaking.Value;
 						_networkService.QuantumClient.ReconnectAndRejoin();
 					}
 					else
@@ -163,7 +155,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
-			_services.TickService.SubscribeOnUpdate(CheatUpdate, Time.deltaTime/2f);
 		}
 
 		private void UnsubscribeEvents()
@@ -484,11 +475,6 @@ namespace FirstLight.Game.StateMachines
 			
 			UpdateQuantumClientProperties();
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.Nickname);
-		}
-		
-		private void DisconnectPhoton()
-		{
-			_networkService.QuantumClient.Disconnect();
 		}
 
 		private void LeaveRoom()

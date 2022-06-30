@@ -71,7 +71,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var frame = game.Frames.Verified;
 			IsLocalPlayer = frame.Context.IsLocalPlayer(frame.Get<PlayerCharacter>(EntityRef).Player);
 			
-			if (Services.NetworkService.IsJoiningNewRoom)
+			if (Services.NetworkService.IsJoiningNewMatch)
 			{
 				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
 				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);

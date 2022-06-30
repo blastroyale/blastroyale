@@ -104,19 +104,27 @@ namespace FirstLight.Statechart
 
 	/// <summary>
 	/// A nest state allows the state chart to create new nested region in the <see cref="IStatechart"/>.
-	/// This can be very helpfull to reduced bloated code in order to make it more readable.
+	/// This can be very helpful to reduced bloated code in order to make it more readable.
 	/// </summary>
 	public interface INestState : IStateEnter, IStateExit, IStateEvent
 	{
+		/// <inheritdoc cref="Nest(NestedStateData)"/>
+		/// <remarks>
+		/// Nest state with the <see cref="NestedStateData"/> executes set to true
+		/// </remarks>
+		ITransition Nest(Action<IStateFactory> data);
+		
 		/// <summary>
-		/// Creates a new nested region with a specific <paramref name="setup"/>.
+		/// Creates a new nested region defined in the <paramref name="data"/>.
 		/// It will return the created <see cref="ITransition"/> that will triggered as soon as the nested region is finalized.
-		/// If the given <paramref name="executeExit"/> is true, it will executes the <see cref="IStateExit.OnExit"/> of
-		/// the current active state when this <see cref="INestState"/> is completed.
-		/// If the given <paramref name="executeFinal"/> is true, then the internal <see cref="IFinalState"/> will
-		/// be executed when leaving the nested state from an event or from a <see cref="ILeaveState"/> from the nested state.
 		/// </summary>
-		ITransition Nest(Action<IStateFactory> setup, bool executeExit = true, bool executeFinal = true);
+		/// <remarks>
+		/// It executes the <see cref="IStateExit.OnExit"/> of the current active states when this
+		/// <see cref="INestState"/> is completed.
+		/// It does not execute the <see cref="IFinalState"/> of it's nested states when this
+		/// <see cref="INestState"/> is completed.
+		/// </remarks>
+		ITransition Nest(NestedStateData data);
 	}
 
 	/// <summary>
@@ -165,9 +173,15 @@ namespace FirstLight.Statechart
 	/// </summary>
 	public interface ISplitState : IStateEnter, IStateExit, IStateEvent
 	{
+		/// <inheritdoc cref="Split(NestedStateData[])"/>
+		/// <remarks>
+		/// Split state with the <see cref="NestedStateData"/> executes set to true
+		/// </remarks>
+		ITransition Split(params Action<IStateFactory>[] data);
+		
 		/// <summary>
 		/// Splits the state into two new nested parallel regions that will be active at the same time.
-		/// Setup both nested region's <paramref name="setup1"/> and <paramref name="setup2"/> to have the split properly configured.
+		/// Setups all nested region's defined in the <paramref name="data"/>.
 		/// It will return the created <see cref="ITransition"/> that will triggered when both nested regions finalize.
 		/// their execution by both regions reaching their respectively <see cref="IFinalState"/>.
 		/// </summary>
@@ -176,16 +190,8 @@ namespace FirstLight.Statechart
 		/// <see cref="ISplitState"/> is completed.
 		/// It does not execute the <see cref="IFinalState"/> of it's nested states when this
 		/// <see cref="ISplitState"/> is completed.
-		/// If the given <paramref name="executeExit1"/> or <paramref name="executeExit2"/> or is true,
-		/// then the internal current active <see cref="IStateExit.OnExit"/> will be executed when leaving the nested state
-		/// from completion of this <see cref="ISplitState"/>.
-		/// If the given <paramref name="executeFinal1"/> or <paramref name="executeFinal2"/> or is true,
-		/// then the internal <see cref="IFinalState"/> will be executed when leaving the nested state from an event
-		/// or from a <see cref="ILeaveState"/> from one of the inner states.
 		/// </remarks>
-		ITransition Split(Action<IStateFactory> setup1, Action<IStateFactory> setup2,
-		                  bool executeExit1 = true, bool executeExit2 = true,
-		                  bool executeFinal1 = true, bool executeFinal2 = true);
+		ITransition Split(params NestedStateData[] data);
 	}
 
 	/// <summary>
@@ -196,6 +202,46 @@ namespace FirstLight.Statechart
 	/// </summary>
 	public interface ILeaveState : IStateEnter, IStateTransition
 	{
+	}
+	
+	/// <summary>
+	/// Data composition to setup nested states for <see cref="ISplitState"/> & <see cref="INestState"/>
+	/// </summary>
+	public struct NestedStateData
+	{
+		/// <summary>
+		/// Setups of this nested state definition
+		/// </summary>
+		public Action<IStateFactory> Setup;
+		/// <summary>
+		/// If true then the internal current active <see cref="IStateExit.OnExit"/> will be executed when leaving
+		/// the nested state from completion of this <see cref="ISplitState"/>.
+		/// </summary>
+		public bool ExecuteExit;
+		/// <summary>
+		/// If true then the internal <see cref="IFinalState"/> will be executed when leaving the nested state from
+		/// an event or from a <see cref="ILeaveState"/> from one of the inner states.
+		/// </summary>
+		public bool ExecuteFinal;
+
+		public NestedStateData(Action<IStateFactory> setup, bool executeExit, bool executeFinal)
+		{
+			Setup = setup;
+			ExecuteExit = executeExit;
+			ExecuteFinal = executeFinal;
+		}
+
+		public NestedStateData(Action<IStateFactory> setup)
+		{
+			Setup = setup;
+			ExecuteExit = true;
+			ExecuteFinal = true;
+		}
+
+		public static implicit operator NestedStateData(Action<IStateFactory> setup)
+		{
+			return new NestedStateData(setup);
+		}
 	}
 
 	#endregion

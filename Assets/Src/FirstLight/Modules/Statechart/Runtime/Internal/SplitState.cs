@@ -8,21 +8,12 @@ namespace FirstLight.Statechart.Internal
 	/// <inheritdoc cref="ISplitState"/>
 	internal class SplitState : StateInternal, ISplitState
 	{
-		private readonly IList<Action> _onEnter = new List<Action>();
-		private readonly IList<Action> _onExit = new List<Action>();
-		private readonly IDictionary<IStatechartEvent, ITransitionInternal> _events = new Dictionary<IStatechartEvent, ITransitionInternal>();
+		protected readonly IList<Action> _onEnter = new List<Action>();
+		protected readonly IList<Action> _onExit = new List<Action>();
+		protected readonly IDictionary<IStatechartEvent, ITransitionInternal> _events = new Dictionary<IStatechartEvent, ITransitionInternal>();
+		protected readonly IList<InnerStateData> _innerStates = new List<InnerStateData>();
 		
 		private ITransitionInternal _transition;
-		private IStateInternal _initialInnerState1;
-		private IStateInternal _initialInnerState2;
-		private IStateInternal _currentInnerState1;
-		private IStateInternal _currentInnerState2;
-		private IStateFactoryInternal _nestStateFactory1;
-		private IStateFactoryInternal _nestStateFactory2;
-		private bool _executeExit1;
-		private bool _executeExit2;
-		private bool _executeFinal1;
-		private bool _executeFinal2;
 
 		public SplitState(string name, IStateFactoryInternal factory) : base(name, factory)
 		{
@@ -31,8 +22,14 @@ namespace FirstLight.Statechart.Internal
 		/// <inheritdoc />
 		public override void Enter()
 		{
-			_currentInnerState1 = _initialInnerState1;
-			_currentInnerState2 = _initialInnerState2;
+			for (var i = 0; i < _innerStates.Count; i++)
+			{
+				var innerState = _innerStates[i];
+
+				innerState.CurrenState = innerState.InitialState;
+
+				_innerStates[i] = innerState;
+			}
 
 			foreach (var action in _onEnter)
 			{
@@ -43,24 +40,19 @@ namespace FirstLight.Statechart.Internal
 		/// <inheritdoc />
 		public override void Exit()
 		{
-			if (_executeExit1)
+			for (var i = 0; i < _innerStates.Count; i++)
 			{
-				_currentInnerState1.Exit();
-			}
+				var innerState = _innerStates[i];
 
-			if (_executeExit2)
-			{
-				_currentInnerState2.Exit();
-			}
-			
-			if (_executeFinal1 && !(_currentInnerState1 is FinalState) && !(_currentInnerState1 is LeaveState))
-			{
-				_nestStateFactory1.FinalState?.Enter();
-			}
-			
-			if (_executeFinal2 && !(_currentInnerState2 is FinalState) && !(_currentInnerState2 is LeaveState))
-			{
-				_nestStateFactory2.FinalState?.Enter();
+				if (innerState.ExecuteExit)
+				{
+					innerState.CurrenState.Exit();
+				}
+
+				if (innerState.ExecuteFinal && !(innerState.CurrenState is FinalState) && !(innerState.CurrenState is LeaveState))
+				{
+					innerState.NestedFactory.FinalState?.Enter();
+				}
 			}
 			
 			foreach (var action in _onExit)
@@ -73,21 +65,32 @@ namespace FirstLight.Statechart.Internal
 		public override void Validate()
 		{
 #if UNITY_EDITOR || DEBUG
-			if (_initialInnerState1 == null || _initialInnerState2 == null)
+			if (_innerStates.Count < 2)
 			{
-				throw new MissingMemberException($"Split state {Name} doesn't have the nested setup defined correctly");
+				throw new MissingMemberException($"Split state {Name} doesn't have enough nested setup defined." +
+				                                 $"It needs min 2 nested states to be a proper {nameof(ISplitState)}");
 			}
+#endif
+			OnValidate();
+		}
 
-			if (_executeFinal1 && _nestStateFactory1.FinalState == null)
+		protected void OnValidate()
+		{
+#if UNITY_EDITOR || DEBUG
+			if (_innerStates.Count == 0)
 			{
-				throw new MissingMemberException($"Split state {Name} doesn't have a final state in his first nested " +
-				                                 $"setup and is marked to execute it's {nameof(IFinalState.OnEnter)} when completed");
+				throw new MissingMemberException($"This state {Name} doesn't have the nested setup defined correctly");
 			}
-
-			if (_executeFinal2 && _nestStateFactory2.FinalState == null)
+			
+			for (var i = 0; i < _innerStates.Count; i++)
 			{
-				throw new MissingMemberException($"Split state {Name} doesn't have a final state in his second nested " +
-				                                 $"setup and is marked to execute it's {nameof(IFinalState.OnEnter)} when completed");
+				var innerState = _innerStates[i];
+
+				if (innerState.ExecuteExit && innerState.NestedFactory == null)
+				{
+					throw new MissingMemberException($"This state {Name} doesn't have a final state in his first nested " +
+					                                 $"setup and is marked to execute it's {nameof(IFinalState.OnEnter)} when completed");
+				}
 			}
 
 			if (_transition.TargetState?.Id == Id)
@@ -143,29 +146,43 @@ namespace FirstLight.Statechart.Internal
 		}
 
 		/// <inheritdoc />
-		public ITransition Split(Action<IStateFactory> setup1, Action<IStateFactory> setup2, bool executeExit1 = true, 
-		                                  bool executeExit2 = true, bool executeFinal1 = true, bool executeFinal2 = true)
+		public ITransition Split(params Action<IStateFactory>[] data)
+		{
+			var array = new NestedStateData[data.Length];
+
+			for (var i = 0; i < array.Length; i++)
+			{
+				array[i] = data[i];
+			}
+
+			return Split(array);
+		}
+
+		/// <inheritdoc />
+		public ITransition Split(params NestedStateData[] data)
 		{
 			if (_transition != null)
 			{
 				throw new InvalidOperationException($"State {Name} is nesting multiple times");
 			}
 
-			_nestStateFactory1 = new StateFactory(_stateFactory.RegionLayer + 1, _stateFactory.Data);
-			_nestStateFactory2 = new StateFactory(_stateFactory.RegionLayer + 1, _stateFactory.Data);
-
-			setup1(_nestStateFactory1);
-			setup2(_nestStateFactory2);
-
-			_stateFactory.Add(_nestStateFactory1.States);
-			_stateFactory.Add(_nestStateFactory2.States);
-
-			_executeExit1 = executeExit1;
-			_executeExit2 = executeExit2;
-			_executeFinal1 = executeFinal1;
-			_executeFinal2 = executeFinal2;
-			_initialInnerState1 = _nestStateFactory1.InitialState;
-			_initialInnerState2 = _nestStateFactory2.InitialState;
+			foreach (var stateData in data)
+			{
+				var factory = new StateFactory(_stateFactory.RegionLayer + 1, _stateFactory.Data);
+				
+				stateData.Setup(factory);
+				
+				_stateFactory.Add(factory.States);
+				_innerStates.Add(new InnerStateData
+				{
+					InitialState = factory.InitialState,
+					CurrenState = null,
+					NestedFactory = factory,
+					ExecuteExit = stateData.ExecuteExit,
+					ExecuteFinal = stateData.ExecuteFinal
+				});
+			}
+			
 			_transition = new Transition();
 
 			return _transition;
@@ -178,37 +195,38 @@ namespace FirstLight.Statechart.Internal
 			{
 				return transition;
 			}
-
-			var nextState = _currentInnerState1.Trigger(statechartEvent);
-			while (nextState != null)
-			{
-				_currentInnerState1 = nextState;
-				nextState = _currentInnerState1.Trigger(null);
-			}
-
-			nextState = _currentInnerState2.Trigger(statechartEvent);
-			while (nextState != null)
-			{
-				_currentInnerState2 = nextState;
-				nextState = _currentInnerState2.Trigger(null);
-			}
-
-			if (_currentInnerState1 is FinalState && _currentInnerState2 is FinalState)
-			{
-				return _transition;
-			}
-
-			if (_currentInnerState1 is LeaveState leaveState)
-			{
-				return leaveState.LeaveTransition;
-			}
 			
-			if(_currentInnerState2 is LeaveState state)
+			for (var i = 0; i < _innerStates.Count; i++)
 			{
-				return state.LeaveTransition;
+				var innerState = _innerStates[i];
+				var nextState = innerState.CurrenState.Trigger(statechartEvent);
+				
+				while (nextState != null)
+				{
+					innerState.CurrenState = nextState;
+					nextState = innerState.CurrenState.Trigger(null);
+				}
+
+				_innerStates[i] = innerState;
 			}
 
-			return null;
+			var areAllFinished = true;
+			for (var i = 0; i < _innerStates.Count; i++)
+			{
+				var currenState = _innerStates[i].CurrenState;
+
+				if (currenState is LeaveState leaveState)
+				{
+					return leaveState.LeaveTransition;
+				}
+				
+				if(currenState is not FinalState)
+				{
+					areAllFinished = false;
+				}
+			}
+
+			return areAllFinished ? _transition : null;
 		}
 	}
 }

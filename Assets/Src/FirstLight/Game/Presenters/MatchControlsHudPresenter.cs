@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -42,6 +43,7 @@ namespace FirstLight.Game.Presenters
 
 			_localInput.Gameplay.SetCallbacks(this);
 
+			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -111,6 +113,27 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+		}
+		
+		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
+		{
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+
+			if (!localPlayer.Entity.IsAlive(f))
+			{
+				return;
+			}
+
+			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
+			_currentWeaponSlot = 0;
+			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			
+			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnPlayerSpawned(EventOnLocalPlayerSpawned callback)

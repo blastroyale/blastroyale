@@ -42,9 +42,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
-			var killerName = "Shrinking Circle";
-
+			
 			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
 			
 			if (Data.Killer != PlayerRef.None)
@@ -52,20 +50,16 @@ namespace FirstLight.Game.Presenters
 				var f = QuantumRunner.Default.Game.Frames.Verified;
 				var playersData = f.GetSingleton<GameContainer>().PlayersData;
 				var data = new QuantumPlayerMatchData(f, playersData[Data.Killer]);
-
-				killerName = data.GetPlayerName();
-			}
-
-			// Killed by circle normally. Else if reconnecting - no info on the killer, so just dont show the kill banner
-			// 'Killed by' field should be added to quantum PlayerMatchData for future use - would be useful
-			if (_services.NetworkService.IsJoiningNewMatch)
-			{
-				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
+				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, data.GetPlayerName());
 			}
 			else
 			{
 				_killerText.text = ScriptLocalization.AdventureMenu.YouDied;
-				_spectateButton.gameObject.SetActive(false);
+				
+				if (!_services.NetworkService.IsJoiningNewMatch)
+				{
+					_spectateButton.gameObject.SetActive(false);
+				}
 			}
 		}
 

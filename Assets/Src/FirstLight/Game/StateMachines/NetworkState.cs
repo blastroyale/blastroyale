@@ -128,9 +128,6 @@ namespace FirstLight.Game.StateMachines
 					{
 						_networkService.QuantumClient.ReconnectToMaster();
 					}
-					
-					Debug.LogError($"JOIN NEW MATCH {_networkService.IsJoiningNewMatch.Value}");
-					
 				},
 				BackClicked = () =>
 				{

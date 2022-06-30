@@ -1,0 +1,16 @@
+{
+    "name": "FirstLight.HelpdeskService",
+    "rootNamespace": "",
+    "references": [
+        "GUID:834891781a9544aedb47708922572761"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -5,13 +5,19 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumShrinkingCircleConfig
+	public struct QuantumShrinkingCircleConfig
 	{
 		public int Step;
+
 		public FP DelayTime;
 		public FP WarningTime;
 		public FP ShrinkingTime;
 		public FP ShrinkingSizeK;
+
+		public FP AirdropChance;
+		public QuantumPair<FP, FP> AirdropStartTimeRange;
+		public FP AirdropDropDuration;
+		public GameId AirdropChest;
 	}
 
 	/// <summary>

@@ -185,8 +185,13 @@ namespace Quantum
 			WeaponSlots[slot].Weapon = weapon;
 			CurrentWeaponSlot = slot;
 
-			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f));
-
+			//if your current ammo is less than your filled amount, gain ammo 
+			if(GetAmmoAmountFilled(f, e) < f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f))
+			{
+				var amount = f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e);
+				GainAmmo(f, e, amount);
+			}
+			
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
 

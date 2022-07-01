@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -62,15 +63,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_localInput.Enable();
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
-			_services.MessageBrokerService.Subscribe<MatchReadyMessage>(OnMatchReady);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			gameObject.SetActive(false);
-			Debug.LogError("AWAKE");
 		}
 
-		private void OnMatchReady(MatchReadyMessage obj)
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage obj)
 		{
 			gameObject.SetActive(true);
-			Debug.LogError("read");
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -210,10 +209,19 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+			try
 			{
-				return;
+				if (virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+				{
+					return;
+				}
 			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+			
 
 			_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.SetActive(false);
 			virtualCamera.gameObject.SetActive(true);

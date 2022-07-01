@@ -175,8 +175,6 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchStartedMessage()
 		{
 			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
-			
-			Debug.LogError("IS RESYNC MATCH READY? - " + IsResyncing());
 		}
 	}
 }

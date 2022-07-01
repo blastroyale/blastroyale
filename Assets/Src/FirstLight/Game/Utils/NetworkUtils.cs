@@ -26,7 +26,7 @@ namespace FirstLight.Game.Utils
 			
 			var roomParams = new EnterRoomParams
 			{
-				RoomName = isRandomMatchmaking ? null : roomName,// + ROOM_SEPARATOR + VersionUtils.Commit,
+				RoomName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Utils
 		{
 			return new EnterRoomParams
 			{
-				RoomName = roomName ,//+ ROOM_SEPARATOR + VersionUtils.Commit,
+				RoomName = roomName + ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,

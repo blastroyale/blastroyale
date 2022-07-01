@@ -180,6 +180,8 @@ namespace FirstLight.Editor.Build
 				symbols.AddRange(DebugSymbols);
 			}
 			
+			symbols.Add(buildSymbol);
+			
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols.ToArray());
 		}
 

@@ -1,9 +1,9 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
 using SRF;
@@ -53,7 +53,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public async void SetupMapView(int mapId)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
-			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
@@ -73,35 +72,34 @@ namespace FirstLight.Game.Views.MainMenuViews
 				SetGridPosition(GetRandomGridPosition());
 			}
 
-			var containerSize = _gridOverlay.rect.size;
-			var gridSize = gridConfigs.GetSize();
-			var dropPattern = (bool[][]) _services.NetworkService.QuantumClient.CurrentRoom.CustomProperties
-				[GameConstants.Network.ROOM_PROPS_DROP_PATTERN];
-			for (int y = 0; y < gridSize.y; y++)
+			if (TryGetDropPattern(out var pattern))
 			{
-				for (int x = 0; x < gridSize.x; x++)
+				var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+				var containerSize = _gridOverlay.rect.size;
+				var gridSize = gridConfigs.GetSize();
+				for (int y = 0; y < gridSize.y; y++)
 				{
-					if (dropPattern[x][y])
+					for (int x = 0; x < gridSize.x; x++)
 					{
-						continue;
+						if (pattern[x][y]) continue;
+
+						var go = new GameObject($"[{x},{y}]");
+						go.transform.parent = _gridOverlay.transform;
+						go.transform.localScale = Vector3.one;
+
+						var image = go.AddComponent<RawImage>();
+						image.color = _unavailableGridColor;
+
+						var rt = go.GetComponent<RectTransform>();
+						rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
+						                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
+						                      containerSize / 2f + (containerSize / gridSize / 2);
+						rt.sizeDelta = containerSize / gridSize;
 					}
-
-					var go = new GameObject($"[{x},{y}]");
-					go.transform.parent = _gridOverlay.transform;
-					go.transform.localScale = Vector3.one;
-
-					var image = go.AddComponent<RawImage>();
-					image.color = _unavailableGridColor;
-
-					var rt = go.GetComponent<RectTransform>();
-					rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
-					                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
-					                      containerSize / 2f + (containerSize / gridSize / 2);
-					rt.sizeDelta = containerSize / gridSize;
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Cleans up entities that aren't required anymore.
 		/// </summary>
@@ -113,6 +111,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
+			if (!_selectionEnabled) return;
+
 			SetGridPosition(ScreenToGridPosition(eventData.position));
 		}
 
@@ -181,10 +181,20 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private bool IsValidPosition(Vector2Int position)
 		{
-			var dropPattern = (bool[][]) _services.NetworkService.QuantumClient.CurrentRoom.CustomProperties
-				[GameConstants.Network.ROOM_PROPS_DROP_PATTERN];
+			return !TryGetDropPattern(out var pattern) || pattern[position.x][position.y];
+		}
 
-			return dropPattern[position.x][position.y];
+		private bool TryGetDropPattern(out bool[][] pattern)
+		{
+			if (_services.NetworkService.QuantumClient.CurrentRoom.CustomProperties
+			             .TryGetValue(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, out var dropPattern))
+			{
+				pattern = (bool[][]) dropPattern;
+				return true;
+			}
+
+			pattern = Array.Empty<bool[]>();
+			return false;
 		}
 	}
 }

@@ -51,7 +51,7 @@ public partial class SROptions
 	}
 	
 	[Category("Gameplay")]
-	public void MakeLocalPlayerBigDamager()
+	public void RefillAmmoAndSpecials()
 	{
 		var game = QuantumRunner.Default.Game;
 		if (game == null)
@@ -60,7 +60,7 @@ public partial class SROptions
 			return;
 		}
 		
-		game.SendCommand(new CheatMakeLocalPlayerBigDamagerCommand());
+		game.SendCommand(new CheatRefillAmmoAndSpecials());
 	}
 	
 	[Category("Gameplay")]
@@ -80,6 +80,19 @@ public partial class SROptions
 	public void SkipTutorialStep()
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();
+	}
+	
+	[Category("Gameplay")]
+	public void SpawnAirDrop()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+		
+		game.SendCommand(new CheatSpawnAirDropCommand());
 	}
 #endif
 	

@@ -227,6 +227,20 @@ MonoBehaviour:
       - Home
       Flags: 00
       Languages_Touch: []
+    - Term: General/Spectate
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectate
+      Flags: 00
+      Languages_Touch: []
+    - Term: General/Leave
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave
+      Flags: 00
+      Languages_Touch: []
     - Term: General/Hp
       TermType: 0
       Description: 
@@ -2133,6 +2147,34 @@ MonoBehaviour:
       Description: 
       Languages:
       - Shield
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/SettingsHelpSupport
+      TermType: 0
+      Description: 
+      Languages:
+      - HELP & SUPPORT
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/SettingsFaqButton
+      TermType: 0
+      Description: 
+      Languages:
+      - FAQ
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/CustomMatchBotsToggle
+      TermType: 0
+      Description: 
+      Languages:
+      - Bots
+      Flags: 00
+      Languages_Touch: []
+    - Term: MainMenu/CustomMatchSpectateToggle
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectate
       Flags: 00
       Languages_Touch: []
     - Term: BotNames/Bot1
@@ -5012,6 +5054,13 @@ MonoBehaviour:
       - 'KILLED BY: {0}'
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/YouDied
+      TermType: 0
+      Description: 
+      Languages:
+      - You Died!
+      Flags: 00
+      Languages_Touch: []
     - Term: AdventureMenu/GameOver
       TermType: 0
       Description: 
@@ -5122,13 +5171,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'Unlocks In: {0}'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/YouDied
-      TermType: 0
-      Description: 
-      Languages:
-      - You Died!
       Flags: 00
       Languages_Touch: []
     - Term: AdventureMenu/YourLoot
@@ -5306,6 +5348,20 @@ MonoBehaviour:
       - STATUS
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/AirDropIncomingLine1
+      TermType: 0
+      Description: 
+      Languages:
+      - Air Drop Incoming!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AirDropIncomingLine2
+      TermType: 0
+      Description: 
+      Languages:
+      - Hurry Up!
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5318,7 +5374,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1655931781006
+    Google_LastUpdatedVersion: 1656603185346
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

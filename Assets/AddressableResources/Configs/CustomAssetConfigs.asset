@@ -35,6 +35,12 @@ MonoBehaviour:
     EquipmentPickUpPrototype:
       Id:
         Value: 4070827363264793974
+    ChestPrototype:
+      Id:
+        Value: 4486983998464243699
+    AirDropPrototype:
+      Id:
+        Value: 515801528670249359
     BotNavMeshConfig:
       Id:
         Value: 1093005050644660195
@@ -61,6 +67,3 @@ MonoBehaviour:
   ConsumablePrototype:
     Id:
       Value: 240296495379453662
-  ChestPrototype:
-    Id:
-      Value: 4486983998464243699

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FirstLight.Game.Logic
+namespace FirstLight.Game.Logic.RPC
 {
 	/// <summary>
 	/// This object defines the request structure to execution a logic function

@@ -12,6 +12,7 @@ namespace Quantum
 		public static readonly int DROP_AMOUNT_ANGLES = 7;
 		public static readonly int BOT_DIFFICULTY_LEVEL = 1;
 		public static readonly int OFFHAND_POOLSIZE = 10;
+		public static readonly FP BOT_STUCK_DETECTION_DISTANCE = FP._0_50;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";

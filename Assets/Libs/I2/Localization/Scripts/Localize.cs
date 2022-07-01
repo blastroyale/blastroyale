@@ -179,6 +179,7 @@ namespace I2.Loc
 			if (!hasCallback && string.IsNullOrEmpty (FinalTerm) && string.IsNullOrEmpty (FinalSecondaryTerm))
 				return;
 
+			CurrentLocalizeComponent = this;
 			CallBackTerm = FinalTerm;
 			CallBackSecondaryTerm = FinalSecondaryTerm;
 			MainTranslation = string.IsNullOrEmpty(FinalTerm) || FinalTerm=="-" ? null : LocalizationManager.GetTranslation (FinalTerm, false);
@@ -186,8 +187,6 @@ namespace I2.Loc
 
 			if (!hasCallback && /*string.IsNullOrEmpty (MainTranslation)*/ string.IsNullOrEmpty(FinalTerm) && string.IsNullOrEmpty (SecondaryTranslation))
 				return;
-
-			CurrentLocalizeComponent = this;
 
 			{
 				LocalizeCallBack.Execute (this);  // This allows scripts to modify the translations :  e.g. "Player {0} wins"  ->  "Player Red wins"

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This Mono Component controls the display of floating text objects using a queue or
@@ -94,6 +93,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
 		{
+			// Don't show stat changes in Deathmatch game mode
+			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				return;
+			}
+			
 			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
 		}
 

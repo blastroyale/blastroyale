@@ -31,6 +31,8 @@ namespace FirstLight.Game.Logic
 		IRngDataProvider RngDataProvider { get; }
 		/// <inheritdoc cref="ICurrencyDataProvider"/>
 		ICurrencyDataProvider CurrencyDataProvider { get; }
+		/// <inheritdoc cref="IResourceDataProvider"/>
+		IResourceDataProvider ResourceDataProvider { get; }
 		/// <inheritdoc cref="IPlayerDataProvider"/>
 		IPlayerDataProvider PlayerDataProvider { get; }
 		/// <inheritdoc cref="IEquipmentDataProvider"/>
@@ -63,6 +65,8 @@ namespace FirstLight.Game.Logic
 		IRngLogic RngLogic { get; }
 		/// <inheritdoc cref="ICurrencyLogic"/>
 		ICurrencyLogic CurrencyLogic { get; }
+		/// <inheritdoc cref="IResourceLogic"/>
+		IResourceLogic ResourceLogic { get; }
 		/// <inheritdoc cref="IPlayerLogic"/>
 		IPlayerLogic PlayerLogic { get; }
 		/// <inheritdoc cref="IEquipmentLogic"/>
@@ -93,6 +97,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public ICurrencyDataProvider CurrencyDataProvider => CurrencyLogic;
 		/// <inheritdoc />
+		public IResourceDataProvider ResourceDataProvider => ResourceLogic;
+		/// <inheritdoc />
 		public IPlayerDataProvider PlayerDataProvider => PlayerLogic;
 		/// <inheritdoc />
 		public IEquipmentDataProvider EquipmentDataProvider => EquipmentLogic;
@@ -106,6 +112,9 @@ namespace FirstLight.Game.Logic
 		public IRngLogic RngLogic { get; }
 		/// <inheritdoc />
 		public ICurrencyLogic CurrencyLogic { get; }
+		/// <inheritdoc />
+		public IResourceLogic ResourceLogic { get; }
+
 		/// <inheritdoc />
 		public IPlayerLogic PlayerLogic { get; }
 
@@ -126,6 +135,7 @@ namespace FirstLight.Game.Logic
 			UniqueIdLogic = new UniqueIdLogic(this, dataProvider);
 			RngLogic = new RngLogic(this, dataProvider);
 			CurrencyLogic = new CurrencyLogic(this, dataProvider);
+			ResourceLogic = new ResourceLogic(this, dataProvider);
 			PlayerLogic = new PlayerLogic(this, dataProvider);
 			EquipmentLogic = new NftEquipmentLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
@@ -137,10 +147,12 @@ namespace FirstLight.Game.Logic
 			// ReSharper disable PossibleNullReferenceException
 			
 			(AppLogic as IGameLogicInitializer).Init();
-			(EquipmentLogic as IGameLogicInitializer).Init();
-			(CurrencyLogic as IGameLogicInitializer).Init();
-			(PlayerLogic as IGameLogicInitializer).Init();
 			(UniqueIdLogic as IGameLogicInitializer).Init();
+			(CurrencyLogic as IGameLogicInitializer).Init();
+			(ResourceLogic as IGameLogicInitializer).Init();
+			(PlayerLogic as IGameLogicInitializer).Init();
+			(EquipmentLogic as IGameLogicInitializer).Init();
+			(RewardLogic as IGameLogicInitializer).Init();
 		}
 	}
 }

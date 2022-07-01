@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -23,9 +24,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private GameObject _timerOutline;
 		[SerializeField, Required] private Animation _mapShrinkingTimerAnimation;
 		[SerializeField, Required] private Transform _safeAreaRadialTransform;
+		[SerializeField, Required] private Transform _airDropRadialTransform;
 
 		private IGameServices _services;
 		private Transform _cameraTransform;
+		private Coroutine _airDropCoroutine;
 
 		private void Awake()
 		{
@@ -37,8 +40,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected, onlyIfActiveAndEnabled: true);
 		}
-		
+
+		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		{
+			_airDropRadialTransform.gameObject.SetActive(true);
+			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
+		}
+
+		private void OnAirDropCollected(EventOnAirDropCollected callback)
+		{
+			StopCoroutine(_airDropCoroutine);
+			_airDropRadialTransform.gameObject.SetActive(false);
+		}
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -48,7 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 
-			if (frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+			if (frame.TryGetSingleton<ShrinkingCircle>(out _))
 			{
 				StartCoroutine(UpdateShrinkingCircleTimer(frame));
 			}
@@ -57,6 +74,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
 			StartCoroutine(UpdateShrinkingCircleTimer(callback.Game.Frames.Verified));
+		}
+
+		private IEnumerator UpdateAirDropArrow(AirDrop airDrop)
+		{
+			// Calculate and Apply rotation
+			while (true)
+			{
+				var targetPosLocal = _cameraTransform.InverseTransformPoint(airDrop.Position.ToUnityVector3());
+				var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+
+				_airDropRadialTransform.eulerAngles = new Vector3(0, 0, targetAngle);
+				yield return null;
+			}
 		}
 
 		private IEnumerator UpdateShrinkingCircleTimer(Frame f)
@@ -71,9 +101,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GetReady;
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
-			
+
 			yield return new WaitForSeconds(time);
- 
+
 
 			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
@@ -104,7 +134,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			while (Time.time < time)
 			{
 				_timerText.text = (time - Time.time).ToString("N0");
-				
+
 				UpdateDirectionPointer(targetCircleCenter, circleRadius);
 
 				yield return null;
@@ -137,5 +167,3 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 	}
 }
-
-

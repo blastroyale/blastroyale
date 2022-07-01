@@ -69,13 +69,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventGameEnd);
+			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
 		}
-		
-		private void OnEventGameEnd(EventOnGameEnded callback)
-		{
-			StopTimerCoroutine();
-		}
-		
+
 		/// <summary>
 		/// Handles Double Kills, Multi Kills, Killing Sprees.
 		/// </summary>
@@ -113,6 +109,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				CheckGodlike(callback.PlayerKiller, killerData.PlayerName);
 			}
+		}
+		
+		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		{
+			// TODO mihak: Add proper localization if this stays here
+			var messageData = new MessageData
+			{
+				TopText = ScriptLocalization.AdventureMenu.AirDropIncomingLine1,
+				BottomText = ScriptLocalization.AdventureMenu.AirDropIncomingLine2,
+				MessageEntry = _messages[Random.Range(0, _messages.Count)]
+			};
+					
+			EnqueueMessage(messageData);
+		}
+		
+		private void OnEventGameEnd(EventOnGameEnded callback)
+		{
+			StopTimerCoroutine();
 		}
 
 		private void CheckKillingSpree(QuantumPlayerMatchData killerData, QuantumPlayerMatchData deadData)

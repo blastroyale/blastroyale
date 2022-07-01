@@ -27,6 +27,7 @@ namespace Quantum
 		public FP ChanceToUseSpecial;
 		public FP SpecialAimingDeviation;
 		public FP ShrinkingCircleRiskTolerance;
+		public FP ChanceToSeekChests;
 	}
 	
 	/// <summary>

@@ -14,16 +14,19 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Special with all the necessary data
 		/// </summary>
+		/// 
+		
 		public Special(Frame f, QuantumSpecialConfig config) : this()
 		{
 			SpecialId = config.Id;
 			SpecialType = config.SpecialType;
 			Cooldown = config.Cooldown;
 			Radius = config.Radius;
-			PowerAmount = config.PowerAmount;
+			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;
 			MaxRange = config.MaxRange;
 			AvailableTime = f.Time + config.Cooldown;
+			Knockback = config.Knockback;
 		}
 		
 		/// <summary>

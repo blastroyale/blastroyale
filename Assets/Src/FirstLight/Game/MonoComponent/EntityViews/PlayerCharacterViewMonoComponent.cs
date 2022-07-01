@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -58,17 +59,32 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 		}
 
+		private void OnDestroy()
+		{
+			Services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
 
 			var frame = game.Frames.Verified;
-
-			AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
-			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef)
-				                           ? Triggers.Die
-				                           : Triggers.Spawn);
 			IsLocalPlayer = frame.Context.IsLocalPlayer(frame.Get<PlayerCharacter>(EntityRef).Player);
+			
+			if (Services.NetworkService.IsJoiningNewMatch)
+			{
+				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+			}
+			else
+			{
+				AnimatorWrapper.SetBool(Bools.Flying, false);
+				
+				if (!EntityView.EntityRef.IsAlive(frame))
+				{
+					AnimatorWrapper.SetTrigger(Triggers.Die);
+				}
+			}
 		}
 
 		/// <summary>
@@ -252,6 +268,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private async void HandlePlayerGearChanged(EventOnPlayerGearChanged callback)
 		{
+			if (callback.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+
 			await _characterView.EquipItem(callback.Gear.GameId);
 		}
 

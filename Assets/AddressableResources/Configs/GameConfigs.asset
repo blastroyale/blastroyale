@@ -113,3 +113,9 @@ MonoBehaviour:
       NftRequiredEquippedForPlay: 3
       PlayerVisionRange:
         RawValue: 1245184
+      AirdropPositionOffsetMultiplier:
+        RawValue: 0
+      AirdropRandomAreaMultiplier:
+        RawValue: 0
+      AirdropHeight:
+        RawValue: 0

@@ -146,11 +146,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
 		}
-		
-		private void SendReadyForResyncMessage()
-		{
-			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
-		}
 
 		private async void OnGameStart(CallbackGameStarted callback)
 		{

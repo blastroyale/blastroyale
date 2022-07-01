@@ -52,7 +52,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_localInput.Enable();
 
-			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
@@ -82,10 +82,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			// This method is only for when rejoining rooms
-			if (_services.NetworkService.IsJoiningNewMatch)
+			if (!msg.IsResync)
 			{
 				return;
 			}

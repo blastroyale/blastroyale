@@ -109,35 +109,34 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				ReconnectClicked = () =>
-				{
-					_statechartTrigger(AttemptReconnectEvent);
-					
-					if (CurrentSceneIsMatch())
-					{
-						_networkService.IsJoiningNewMatch.Value = false;
-						
-						if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
-						{
-							_networkService.IsJoiningNewMatch.Value = true;
-						}
-
-						_networkService.QuantumClient.ReconnectAndRejoin();
-					}
-					else
-					{
-						_networkService.QuantumClient.ReconnectToMaster();
-					}
-				},
-				BackClicked = () =>
-				{
-					_statechartTrigger(DisconnectedScreenBackEvent);
-				}
+				ReconnectClicked = OnAttemptReconnectClicked,
+				BackClicked = () => { _statechartTrigger(DisconnectedScreenBackEvent);}
 			};
 
 			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
-		
+
+		private void OnAttemptReconnectClicked()
+		{
+			_statechartTrigger(AttemptReconnectEvent);
+					
+			if (CurrentSceneIsMatch())
+			{
+				_networkService.IsJoiningNewMatch.Value = false;
+						
+				if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
+				{
+					_networkService.IsJoiningNewMatch.Value = true;
+				}
+
+				_networkService.QuantumClient.ReconnectAndRejoin();
+			}
+			else
+			{
+				_networkService.QuantumClient.ReconnectToMaster();
+			}
+		}
+
 		private void OpenLoadingScreen()
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();

@@ -9,6 +9,15 @@ using Quantum;
 
 namespace FirstLight.Game.Services
 {
+	public enum LastDisconnectionLocation
+	{
+		None,
+		Menu,
+		Matchmaking,
+		Loading,
+		Simulation
+	}
+	
 	/// <summary>
 	/// This service provides the possibility to process any network code or to relay backend logic code to a game server
 	/// running online.
@@ -146,14 +155,5 @@ namespace FirstLight.Game.Services
 
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
-	}
-
-	public enum LastDisconnectionLocation
-	{
-		None,
-		Menu,
-		Matchmaking,
-		Loading,
-		Simulation
 	}
 }

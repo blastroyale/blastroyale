@@ -55,14 +55,13 @@ namespace FirstLight.Game.StateMachines
 
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
+			resyncCheck.OnExit(PublishMatchStartedMessage);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
-			aliveCheck.OnExit(PublishMatchReadyForResyncMessage);
-			
+
 			countdown.OnEnter(ShowCountdownHud);
 			countdown.WaitingFor(Countdown).Target(alive);
-			countdown.OnExit(PublishMatchStartedMessage);
 
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(dead);
@@ -107,11 +106,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
 		}
-		
-		private void PublishMatchReadyForResyncMessage()
-		{
-			_services.MessageBrokerService.Publish(new MatchReadyForResyncMessage());
-		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
@@ -150,7 +144,7 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchStartedMessage()
 		{
 			_killsDictionary.Clear();
-			_services.MessageBrokerService.Publish(new MatchStartedMessage());
+			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
 		}
 
 		private void OpenControlsHud()

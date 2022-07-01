@@ -15,7 +15,6 @@ namespace FirstLight.Editor.EditorTools
 	public static class BackendMenu
 	{
 		private const string USE_LOCAL_SERVER_KEY = "UseLocalServer";
-		private const string ENABLE_STATE_MACHINE_DEBUG = "EnableStateMachineDebug";
 		
 		private static readonly string _unityPath = $"{Application.dataPath}/../Library/ScriptAssemblies/";
 		private static readonly string _quantumLibPath = $"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
@@ -103,20 +102,6 @@ namespace FirstLight.Editor.EditorTools
 			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
 			PlayFabSettings.LocalApiServer = null;
 			Debug.Log("Requests will go to REMOTE server now");
-		}
-		
-		[MenuItem("FLG/Logging/Enable State Machine Debug")]
-		private static void EnableStateMachineDebug()
-		{
-			EditorPrefs.SetBool(ENABLE_STATE_MACHINE_DEBUG, true);
-			Debug.Log("State machine debug has been ENABLED.");
-		}
-
-		[MenuItem("FLG/Logging/Disable State Machine Debug")]
-		private static void DisableStateMachineDebug()
-		{
-			EditorPrefs.SetBool(ENABLE_STATE_MACHINE_DEBUG, false);
-			Debug.Log("State machine debug has been DISABLED.");
 		}
 	}
 }

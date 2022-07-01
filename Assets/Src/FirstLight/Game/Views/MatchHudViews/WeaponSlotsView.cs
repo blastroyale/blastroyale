@@ -30,7 +30,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnEventOnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
 		}
@@ -41,8 +41,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
-		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
+			if (!msg.IsResync)
+			{
+				return;
+			}
+			
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();

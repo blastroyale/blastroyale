@@ -45,7 +45,7 @@ namespace FirstLight.Game.Presenters
 		{
 			SetFrontDimBlockerActive(false);
 
-			_menuButton.gameObject.SetActive(SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU);
+			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
 
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{

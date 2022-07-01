@@ -318,7 +318,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			// If game disconnects and unloads assets, this async method still runs (CoroutineService
 			// and this script can become null.
-			if (this != null)
+			if (!this.IsDestroyed())
 			{
 				RenderersContainerProxy.ResetToOriginalMaterials();
 			}

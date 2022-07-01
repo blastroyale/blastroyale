@@ -49,7 +49,7 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
-			_services.MessageBrokerService.Subscribe<MatchReadyForResyncMessage>(OnMatchReadyForResyncMessage);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -127,8 +127,13 @@ namespace FirstLight.Game.Presenters
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 		
-		private void OnMatchReadyForResyncMessage(MatchReadyForResyncMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
+			if (!msg.IsResync)
+			{
+				return;
+			}
+			
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();

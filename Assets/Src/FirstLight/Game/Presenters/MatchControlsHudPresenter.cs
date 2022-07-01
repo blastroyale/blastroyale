@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -13,6 +14,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -24,12 +26,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private SpecialButtonView _specialButton0;
 		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
+		[SerializeField] private Button[] _weaponSlotButtons;
+		[SerializeField, Required] private GameObject _weaponSlotsHolder;
 		
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
 		private int _currentWeaponSlot;
-
 		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
@@ -41,7 +44,12 @@ namespace FirstLight.Game.Presenters
 			_currentWeaponSlot = 0;
 
 			_localInput.Gameplay.SetCallbacks(this);
+			
+			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
+			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
+			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -56,7 +64,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			
 			_localInput.Enable();
+			
+			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
+			
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -111,6 +125,32 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+		}
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync)
+			{
+				return;
+			}
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+
+			if (!localPlayer.Entity.IsAlive(f))
+			{
+				return;
+			}
+
+			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
+			_currentWeaponSlot = 0;
+			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			
+			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -208,6 +248,16 @@ namespace FirstLight.Game.Presenters
 				AimInput = aimDirection.ToFPVector2(),
 			};
 
+			QuantumRunner.Default.Game.SendCommand(command);
+		}
+		
+		private void OnWeaponSlotClicked(int weaponSlotIndex)
+		{
+			var command = new WeaponSlotSwitchCommand()
+			{
+				WeaponSlotIndex = weaponSlotIndex
+			};
+			
 			QuantumRunner.Default.Game.SendCommand(command);
 		}
 	}

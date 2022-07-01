@@ -1,3 +1,4 @@
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -37,7 +38,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private const float CameraHeight = 10;
 		private bool _smallMapActivated = true;
 		private RenderTextureMode _renderTextureMode = RenderTextureMode.None;
-
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -49,19 +50,44 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
 		private void OnDestroy()
 		{
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
-
+		
 		private void ToggleMiniMapView()
 		{
 			_animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
 			_animation.Play();
 
 			_smallMapActivated = !_smallMapActivated;
+		}
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync)
+			{
+				return;
+			}
+			
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			
+			_cameraTransform = _camera.transform;
+
+			if (localPlayer.Entity.IsAlive(frame))
+			{
+				_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+				_services.TickService.SubscribeOnUpdate(UpdateTick);
+			}
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
@@ -78,6 +104,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateTick(float deltaTime)
 		{
+			if (_cameraTransform == null)
+			{
+				return;
+			}
+			
 			_cameraTransform.position = new Vector3(0, CameraHeight, 0);
 
 			if (_smallMapActivated)

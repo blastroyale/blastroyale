@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 651991929898541163}
   - component: {fileID: 5133683580631236413}
   m_Layer: 5
-  m_Name: Text_Name
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deathmatch Tech Beta
+  m_text: Pre-Release
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7b331517660d474596db465e3089916, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b83504fa082014114bc4bea2cb0e9cc4, type: 2}
@@ -569,7 +569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478813209855015657}
   m_Layer: 5
-  m_Name: BetaText
+  m_Name: InfoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

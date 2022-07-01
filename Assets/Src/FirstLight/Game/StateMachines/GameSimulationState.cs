@@ -65,22 +65,21 @@ namespace FirstLight.Game.StateMachines
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
-			
+
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
-			startSimulation.OnExit(MatchStartAnalytics);
-			startSimulation.OnExit(SetPlayerMatchData);
+			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.OnExit(CloseMatchmakingScreen);
 			startSimulation.OnExit(PublishMatchReadyMessage);
-
+			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
-
+			
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
@@ -126,7 +125,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
-
+		
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
@@ -223,7 +222,7 @@ namespace FirstLight.Game.StateMachines
 				PlayedMatchmakingGame = _services.NetworkService.IsCurrentRoomForMatchmaking
 			});
 		}
-		
+
 		private void SendGameplayDataAnalytics()
 		{
 			SendGameplayData(false);
@@ -265,7 +264,7 @@ namespace FirstLight.Game.StateMachines
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount);
 
 			startParams.NetworkClient = client;
-
+			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
@@ -375,6 +374,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchReadyMessage()
 		{
+			if (_services.NetworkService.IsJoiningNewMatch)
+			{
+				MatchStartAnalytics();
+				SetPlayerMatchData();
+			}
+			
+			CloseMatchmakingScreen();
+			
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}
 

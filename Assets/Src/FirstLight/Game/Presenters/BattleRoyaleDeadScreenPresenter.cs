@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
@@ -29,29 +30,37 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _spectateButton;
 		[SerializeField, Required] private TextMeshProUGUI _killerText;
 
+		private IGameServices _services;
+
 		private void Awake()
 		{
 			_leaveButton.onClick.AddListener(OnLeavePressed);
 			_spectateButton.onClick.AddListener(OnSpectatePressed);
+			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
-			var killerName = "Shrinking Circle";
-
+			
+			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
+			
 			if (Data.Killer != PlayerRef.None)
 			{
 				var f = QuantumRunner.Default.Game.Frames.Verified;
 				var playersData = f.GetSingleton<GameContainer>().PlayersData;
 				var data = new QuantumPlayerMatchData(f, playersData[Data.Killer]);
-
-				killerName = data.GetPlayerName();
+				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, data.GetPlayerName());
 			}
-
-			_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerName);
-			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
+			else
+			{
+				_killerText.text = ScriptLocalization.AdventureMenu.YouDied;
+				
+				if (!_services.NetworkService.IsJoiningNewMatch)
+				{
+					_spectateButton.gameObject.SetActive(false);
+				}
+			}
 		}
 
 		private void OnLeavePressed()

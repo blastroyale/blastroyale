@@ -2,7 +2,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
-using FirstLight.HelpdeskService;
 using FirstLight.NotificationService;
 
 namespace FirstLight.Game.Services
@@ -141,7 +140,7 @@ namespace FirstLight.Game.Services
 						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL,
 					                                                    GameConstants.Notifications
 						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL));
-			HelpdeskService = new HelpdeskService.HelpdeskService();
+			HelpdeskService = new HelpdeskService();
 		}
 		
 	}

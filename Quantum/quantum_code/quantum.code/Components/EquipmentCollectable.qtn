@@ -1,5 +1,5 @@
 component EquipmentCollectable
 {
-	Equipment Item;
-	player_ref Owner; // Optionally set if this weapon is from a Loadout of a player
+	[HideInInspector] Equipment Item;
+	[HideInInspector] player_ref Owner; // Optionally set if this weapon is from a Loadout of a player
 }

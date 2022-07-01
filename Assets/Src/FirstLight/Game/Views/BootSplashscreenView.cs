@@ -10,6 +10,7 @@ using FirstLight.Game.Data;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine.Analytics;
+#pragma warning disable CS1998
 
 namespace FirstLight.Game.Views
 {

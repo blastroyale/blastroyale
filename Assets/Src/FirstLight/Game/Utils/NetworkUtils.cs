@@ -21,9 +21,11 @@ namespace FirstLight.Game.Utils
 		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
 		                                                  string roomName, int playerTtl)
 		{
+			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
+			
 			var roomParams = new EnterRoomParams
 			{
-				RoomName = roomName,
+				RoomName = isRandomMatchmaking ? null : roomName + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
@@ -44,7 +46,7 @@ namespace FirstLight.Game.Utils
 					DeleteNullProperties = true,
 					EmptyRoomTtl = 0,
 					IsOpen = true,
-					IsVisible = string.IsNullOrEmpty(roomName),
+					IsVisible = isRandomMatchmaking,
 					MaxPlayers = (byte) mapConfig.PlayersLimit,
 					PlayerTtl = playerTtl
 				}
@@ -60,7 +62,7 @@ namespace FirstLight.Game.Utils
 		{
 			return new EnterRoomParams
 			{
-				RoomName = roomName,
+				RoomName = roomName + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,

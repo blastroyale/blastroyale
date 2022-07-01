@@ -71,7 +71,10 @@ namespace FirstLight.Game.StateMachines
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
-			startSimulation.OnExit(PrepareMatch);
+			startSimulation.OnExit(MatchStartAnalytics);
+			startSimulation.OnExit(SetPlayerMatchData);
+			startSimulation.OnExit(CloseMatchmakingScreen);
+			startSimulation.OnExit(PublishMatchReadyMessage);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
@@ -370,12 +373,8 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
 		}
 
-		private void PrepareMatch()
+		private void PublishMatchReadyMessage()
 		{
-			MatchStartAnalytics();
-			SetPlayerMatchData();
-			CloseMatchmakingScreen();
-
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}
 

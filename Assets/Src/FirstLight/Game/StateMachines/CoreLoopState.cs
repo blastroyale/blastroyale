@@ -31,11 +31,11 @@ namespace FirstLight.Game.StateMachines
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(IGameServices services, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_matchState = new MatchState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 		}
 

@@ -119,6 +119,10 @@ namespace Quantum.Systems
 			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
 			{
 				chest->Open(f, entity, playerEntity, player);
+				if (f.TryGet<AirDrop>(entity, out var airDrop))
+				{
+					f.Events.OnAirDropCollected(entity, playerEntity, airDrop);
+				}
 			}
 			else
 			{

@@ -8,7 +8,6 @@ namespace Quantum
 	public partial struct QuantumChestConfig
 	{
 		public GameId Id;
-		public AssetRefEntityPrototype AssetRef;
 		public ChestType ChestType;
 
 		public List<QuantumPair<FP, uint>> RandomEquipment;

@@ -5,6 +5,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 
@@ -45,28 +46,36 @@ namespace FirstLight.Game.StateMachines
 			var alive = stateFactory.State("Alive Hud");
 			var dead = stateFactory.State("Dead Hud");
 			var respawning = stateFactory.State("Respawning");
-
-			initial.Transition().Target(countdown);
+			var resyncCheck = stateFactory.Choice("Resync Check");
+			var aliveCheck = stateFactory.Choice("Alive Check");
+			
+			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(OpenMatchHud);
 
-			countdown.OnEnter(OpenAdventureHud);
+			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
+			resyncCheck.Transition().Target(countdown);
+			resyncCheck.OnExit(PublishMatchStartedMessage);
+			
+			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
+			aliveCheck.Transition().Target(dead);
+
 			countdown.OnEnter(ShowCountdownHud);
 			countdown.WaitingFor(Countdown).Target(alive);
-			countdown.OnExit(PublishMatchStarted);
 
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(dead);
 			alive.OnExit(CloseControlsHud);
 
-			dead.OnEnter(CloseAdventureHud);
+			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenKilledHud);
-			dead.Event(_localPlayerAliveEvent).OnTransition(OpenAdventureHud).Target(alive);
-			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenAdventureHud).Target(respawning);
+			dead.Event(_localPlayerAliveEvent).OnTransition(OpenControlsHud).Target(alive);
+			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenControlsHud).Target(respawning);
 			dead.OnExit(CloseKilledHud);
 
 			respawning.Event(_localPlayerAliveEvent).Target(alive);
 
-			final.OnEnter(CloseAdventureHud);
+			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -80,6 +89,22 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private bool IsLocalPlayerAlive()
+		{
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			
+			return localPlayer.Entity.IsAlive(f);
+		}
+		
+		private bool IsResyncing()
+		{
+			return !_services.NetworkService.IsJoiningNewMatch;
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
@@ -116,10 +141,10 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void PublishMatchStarted()
+		private void PublishMatchStartedMessage()
 		{
 			_killsDictionary.Clear();
-			_services.MessageBrokerService.Publish(new MatchStartedMessage());
+			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
 		}
 
 		private void OpenControlsHud()
@@ -132,12 +157,12 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchControlsHudPresenter>();
 		}
 
-		private void OpenAdventureHud()
+		private void OpenMatchHud()
 		{
 			_uiService.OpenUi<MatchHudPresenter>();
 		}
 
-		private void CloseAdventureHud()
+		private void CloseMatchHud()
 		{
 			_uiService.CloseUi<MatchHudPresenter>();
 		}

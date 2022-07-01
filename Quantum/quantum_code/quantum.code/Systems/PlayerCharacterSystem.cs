@@ -19,7 +19,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
-			ProcessPlayerDisconnect(f, ref filter);
 			ProcessPlayerInput(f, ref filter);
 		}
 
@@ -100,28 +99,6 @@ namespace Quantum.Systems
 			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
 			{
 				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
-			}
-		}
-
-		private void ProcessPlayerDisconnect(Frame f, ref PlayerCharacterFilter filter)
-		{
-			if (f.Has<BotCharacter>(filter.Entity))
-			{
-				return;
-			}
-
-			if ((f.GetPlayerInputFlags(filter.Player->Player) & DeterministicInputFlags.PlayerNotPresent) == 0)
-			{
-				filter.Player->DisconnectedDuration = 0;
-
-				return;
-			}
-
-			filter.Player->DisconnectedDuration += f.DeltaTime;
-
-			if (filter.Player->DisconnectedDuration > f.GameConfig.DisconnectedDestroySeconds)
-			{
-				filter.Player->PlayerLeft(f, filter.Entity);
 			}
 		}
 

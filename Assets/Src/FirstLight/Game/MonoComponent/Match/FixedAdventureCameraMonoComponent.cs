@@ -62,13 +62,15 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_localInput.Enable();
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
-			_services.MessageBrokerService.Subscribe<MatchReadyMessage>(OnMatchReadty);
+			_services.MessageBrokerService.Subscribe<MatchReadyMessage>(OnMatchReady);
 			gameObject.SetActive(false);
+			Debug.LogError("AWAKE");
 		}
 
-		private void OnMatchReadty(MatchReadyMessage obj)
+		private void OnMatchReady(MatchReadyMessage obj)
 		{
 			gameObject.SetActive(true);
+			Debug.LogError("read");
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)

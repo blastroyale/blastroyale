@@ -185,12 +185,7 @@ namespace Quantum
 			WeaponSlots[slot].Weapon = weapon;
 			CurrentWeaponSlot = slot;
 
-			//if your current ammo is less than your filled amount, gain ammo 
-			if(GetAmmoAmountFilled(f, e) < f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f))
-			{
-				var amount = f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e);
-				GainAmmo(f, e, amount);
-			}
+			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e));
 			
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
@@ -254,7 +249,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(WeaponSlots[CurrentWeaponSlot].Weapon.GameId).MaxAmmo.Get(f);
+			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
 
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
@@ -343,8 +338,23 @@ namespace Quantum
 		/// <summary>
 		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
 		/// </summary>
+		internal void GainAmmo(Frame f, EntityRef e, uint amount)
+		{
+			var maxAmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
+
+			GainAmmo(f, e, (FP) amount / maxAmo);
+		}
+
+		/// <summary>
+		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
 		internal void GainAmmo(Frame f, EntityRef e, FP amount)
 		{
+			if (amount < FP._0)
+			{
+				return;
+			}
+			
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);

@@ -63,7 +63,7 @@ namespace FirstLight.Game.Utils
 		{
 			return new EnterRoomParams
 			{
-				RoomName = roomName + ROOM_SEPARATOR,// + VersionUtils.Commit,
+				RoomName = roomName ,//+ ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,

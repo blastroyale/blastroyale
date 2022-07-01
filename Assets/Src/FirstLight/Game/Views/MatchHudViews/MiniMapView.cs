@@ -80,6 +80,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			
+			_cameraTransform = _camera.transform;
 
 			if (localPlayer.Entity.IsAlive(frame))
 			{
@@ -102,6 +104,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateTick(float deltaTime)
 		{
+			if (_cameraTransform == null)
+			{
+				return;
+			}
+			
 			_cameraTransform.position = new Vector3(0, CameraHeight, 0);
 
 			if (_smallMapActivated)

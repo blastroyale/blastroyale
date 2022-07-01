@@ -72,8 +72,9 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
-			startSimulation.OnExit(PrepareMatch);
-
+			startSimulation.OnExit(CloseMatchmakingScreen);
+			startSimulation.OnExit(PublishMatchReadyMessage);
+			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
@@ -371,7 +372,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
 		}
 
-		private void PrepareMatch()
+		private void PublishMatchReadyMessage()
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{

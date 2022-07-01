@@ -14,6 +14,7 @@ using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Editor.Configs
 {
@@ -80,7 +81,7 @@ namespace FirstLight.Editor.Configs
 					var request = UnityWebRequest.Get(url);
 
 					// TODO: Would be nice to disable the Import button while this is running.
-					request.SendWebRequest().completed += d => { ProcessRequest(request, importer); };
+					request.SendWebRequest().completed += _ => { ProcessRequest(request, importer); };
 				}
 			}
 			SirenixEditorGUI.EndHorizontalToolbar();
@@ -122,20 +123,24 @@ namespace FirstLight.Editor.Configs
 
 
 		private class QuantumConfigWrapper<TAsset, TConfig> where TConfig : struct
-		                                                    where TAsset : ISingleConfigContainer<TConfig>
+		                                                    where TAsset : Object, ISingleConfigContainer<TConfig>
 		{
-			private TAsset Asset;
+			private readonly TAsset _asset;
 
 			[ShowInInspector, HideLabel]
 			public TConfig Config
 			{
-				get => Asset.Config;
-				set => Asset.Config = value;
+				get => _asset.Config;
+				set
+				{
+					_asset.Config = value;
+					EditorUtility.SetDirty(_asset);
+				}
 			}
 
 			public QuantumConfigWrapper(TAsset asset)
 			{
-				Asset = asset;
+				_asset = asset;
 			}
 		}
 	}

@@ -44,13 +44,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_localInput = new LocalInput();
+			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 
 			_localInput.Gameplay.SpecialButton0.started += ctx => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton0.canceled += ctx => SetActiveCamera(_adventureCamera);
 			_localInput.Gameplay.SpecialButton1.started += ctx => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton1.canceled += ctx => SetActiveCamera(_adventureCamera);
-
-			_localInput.Enable();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
@@ -59,11 +58,17 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
 
+			_localInput.Enable();
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
-			
-			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+			_services.MessageBrokerService.Subscribe<MatchReadyMessage>(OnMatchReadty);
+			gameObject.SetActive(false);
+		}
+
+		private void OnMatchReadty(MatchReadyMessage obj)
+		{
+			gameObject.SetActive(true);
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -214,7 +219,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform entityViewTransform)
 		{
-			
 			_targetTransform = entityViewTransform;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;

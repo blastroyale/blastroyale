@@ -251,7 +251,6 @@ namespace FirstLight.Game.StateMachines
 			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			MainInstaller.Clean<IEntityViewUpdaterService>();
-			Camera.main.gameObject.SetActive(false);
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 

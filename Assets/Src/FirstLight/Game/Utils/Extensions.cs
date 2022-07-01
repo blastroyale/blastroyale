@@ -308,6 +308,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Obtains the current selected map id in the given <paramref name="room"/>
+		/// </summary>
+		public static string GetRoomName(this Room room)
+		{
+			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
+		}
+
+		/// <summary>
 		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
 		/// based on loading state of all players assets
 		/// </summary>

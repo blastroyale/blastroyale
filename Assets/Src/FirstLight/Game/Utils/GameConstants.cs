@@ -55,7 +55,6 @@ namespace FirstLight.Game.Utils
 
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
 			public const int PLAYER_NAME_MAX_LENGTH = 20;
-			public const int ROOM_NAME_CODE_LENGTH = 6;
 		}
 
 		public static class Network

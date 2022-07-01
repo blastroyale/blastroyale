@@ -21,7 +21,7 @@ MonoBehaviour:
     - Id: 31
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -56,7 +56,7 @@ MonoBehaviour:
     - Id: 60
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -91,7 +91,7 @@ MonoBehaviour:
     - Id: 71
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -126,7 +126,7 @@ MonoBehaviour:
     - Id: 78
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -161,7 +161,7 @@ MonoBehaviour:
     - Id: 79
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -196,7 +196,7 @@ MonoBehaviour:
     - Id: 84
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -231,7 +231,7 @@ MonoBehaviour:
     - Id: 86
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -266,7 +266,7 @@ MonoBehaviour:
     - Id: 87
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -280,8 +280,8 @@ MonoBehaviour:
         RawValue: 3277
       AttackHitSpeed:
         RawValue: 1310720
-      MinAttackAngle: 10
-      MaxAttackAngle: 10
+      MinAttackAngle: 33
+      MaxAttackAngle: 33
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
@@ -301,7 +301,7 @@ MonoBehaviour:
     - Id: 88
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -336,7 +336,7 @@ MonoBehaviour:
     - Id: 90
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -371,7 +371,7 @@ MonoBehaviour:
     - Id: 91
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -406,7 +406,7 @@ MonoBehaviour:
     - Id: 92
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -441,7 +441,7 @@ MonoBehaviour:
     - Id: 93
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -476,7 +476,7 @@ MonoBehaviour:
     - Id: 94
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -511,7 +511,7 @@ MonoBehaviour:
     - Id: 95
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -522,11 +522,11 @@ MonoBehaviour:
       AimTime:
         RawValue: 19661
       AttackCooldown:
-        RawValue: 17695
+        RawValue: 13107
       AttackHitSpeed:
         RawValue: 3276800
-      MinAttackAngle: 10
-      MaxAttackAngle: 20
+      MinAttackAngle: 5
+      MaxAttackAngle: 35
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
@@ -546,7 +546,7 @@ MonoBehaviour:
     - Id: 96
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -581,7 +581,7 @@ MonoBehaviour:
     - Id: 97
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -616,7 +616,7 @@ MonoBehaviour:
     - Id: 98
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -651,7 +651,7 @@ MonoBehaviour:
     - Id: 99
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -686,7 +686,7 @@ MonoBehaviour:
     - Id: 100
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -703,7 +703,7 @@ MonoBehaviour:
       MinAttackAngle: 5
       MaxAttackAngle: 15
       NumberOfShots: 1
-      NumberOfBursts: 4
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 720896
       CanHitSameTarget: 1
@@ -721,7 +721,7 @@ MonoBehaviour:
     - Id: 101
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -756,7 +756,7 @@ MonoBehaviour:
     - Id: 103
       InitialAmmoFilled:
         BattleRoyale:
-          RawValue: 0
+          RawValue: 19661
         Deathmatch:
           RawValue: 65536
       MaxAmmo:
@@ -767,12 +767,12 @@ MonoBehaviour:
       AimTime:
         RawValue: 19661
       AttackCooldown:
-        RawValue: 655
+        RawValue: 1311
       AttackHitSpeed:
-        RawValue: 2162688
-      MinAttackAngle: 35
-      MaxAttackAngle: 45
-      NumberOfShots: 4
+        RawValue: 655360
+      MinAttackAngle: 10
+      MaxAttackAngle: 10
+      NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
         RawValue: 393216

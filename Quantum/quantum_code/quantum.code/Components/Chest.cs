@@ -39,6 +39,7 @@ namespace Quantum
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
+			
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);

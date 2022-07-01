@@ -297,9 +297,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 5662700448216563914}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &1630217148234354640
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,9 +869,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 8220132513507660487}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &4073292402343234599
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +937,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!114 &4073292402343234598
 MonoBehaviour:
@@ -949,7 +955,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130999
 --- !u!114 &5863388544096724369
 MonoBehaviour:
   m_ObjectHideFlags: 0

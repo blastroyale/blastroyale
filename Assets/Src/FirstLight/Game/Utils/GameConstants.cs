@@ -26,7 +26,6 @@ namespace FirstLight.Game.Utils
 		public static class Balance
 		{
 			public const float MAP_ROTATION_TIME_MINUTES = 10;
-			public const int NFT_AMOUNT_FOR_PLAY = 0;
 		}
 
 		public static class Audio

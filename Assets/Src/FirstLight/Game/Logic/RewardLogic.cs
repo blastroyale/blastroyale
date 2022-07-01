@@ -106,7 +106,8 @@ namespace FirstLight.Game.Logic
 			
 			if (csWithdrawn > 0)
 			{
-				rewards.Add(new RewardData(GameId.CS, csWithdrawn));
+				// TODO: Uncomment when we reward CS again
+				//rewards.Add(new RewardData(GameId.CS, csWithdrawn));
 			}
 
 			return rewards;
@@ -116,15 +117,17 @@ namespace FirstLight.Game.Logic
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
-			var poolRewards = rewards.FindAll(reward => reward.RewardId.IsInGroup(GameIdGroup.ResourcePool));
-
-			foreach (var reward in poolRewards)
+			
+			foreach (var reward in rewards)
 			{
-				GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+				if (reward.RewardId.IsInGroup(GameIdGroup.ResourcePool))
+				{
+					GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+				}
+				
+				Data.UncollectedRewards.Add(reward);
 			}
 			
-			Data.UncollectedRewards.AddRange(rewards);
-
 			return rewards;
 		}
 

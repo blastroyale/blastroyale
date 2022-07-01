@@ -179,9 +179,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			return positionInRectangle;
 		}
 
-		private bool IsValidPosition(Vector2Int position)
+		private bool IsValidPosition(Vector2Int position, bool ignoreWater)
 		{
-			return !TryGetDropPattern(out var pattern) || pattern[position.x][position.y];
+			// TODO - IF IGNORE WATER, CHECK IF THE MAP TILE IS NAMED/HAS DATA 
+			return (!TryGetDropPattern(out var pattern) || pattern[position.x][position.y]) &&
+			       (ignoreWater || (!ignoreWater && ));
 		}
 
 		private bool TryGetDropPattern(out bool[][] pattern)

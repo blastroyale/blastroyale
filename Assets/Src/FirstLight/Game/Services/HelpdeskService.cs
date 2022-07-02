@@ -27,24 +27,19 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			//Do nothing
 #elif UNITY_ANDROID
-			HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609109-850eeb708117baf", 
+			Helpshift.HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609109-850eeb708117baf", 
 				"blastroyale.helpshift.com", new Dictionary<string, object>());
 #elif UNITY_IOS
-			HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609081-cb7c86c0c85e18c", 
+			Helpshift.HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609081-cb7c86c0c85e18c", 
 				"blastroyale.helpshift.com", new Dictionary<string, object>());
 #endif
 		}
 
 		public void Login(string id, string email, string username)
 		{
-			var sdk = HelpshiftSdk.GetInstance();
-			
-			if (sdk == null)
-			{
-				Debug.Log("Helpdesk Login called. Doesn't work in Unity Editor");
-				return;
-			}
-			
+#if UNITY_EDITOR
+			Debug.Log("Helpdesk Login called. Doesn't work in Unity Editor");
+#else
 			var userDetails = new Dictionary<string, string>
 			{
 				{ "userId", id },
@@ -52,47 +47,36 @@ namespace FirstLight.Game.Services
 				{ "userName", username }
 			};
 			
-			sdk.Login(userDetails);
+			Helpshift.HelpshiftSdk.GetInstance().Login(userDetails);
+#endif
 		}
 
 
 		public void Logout()
 		{
-			var sdk = HelpshiftSdk.GetInstance();
-			
-			if (sdk == null)
-			{
-				Debug.Log("Helpdesk Logout called. Doesn't work in Unity Editor");
-				return;
-			}
-			
-			sdk.Logout();
+#if UNITY_EDITOR
+			Debug.Log("Helpdesk Logout called. Doesn't work in Unity Editor");
+#else
+			Helpshift.HelpshiftSdk.GetInstance().Logout();
+#endif
 		}
 
 		public void StartConversation()
 		{
-			var sdk = HelpshiftSdk.GetInstance();
-			
-			if (sdk == null)
-			{
-				Debug.Log("Helpdesk StartConversation called. Doesn't work in Unity Editor");
-				return;
-			}
-			
-			sdk.ShowConversation();
+#if UNITY_EDITOR
+			Debug.Log("Helpdesk StartConversation called. Doesn't work in Unity Editor");
+#else	
+			Helpshift.HelpshiftSdk.GetInstance().ShowConversation();
+#endif
 		}
 
 		public void ShowFaq()
 		{
-			var sdk = HelpshiftSdk.GetInstance();
-			
-			if (sdk == null)
-			{
-				Debug.Log("Helpdesk ShowFaq called. Doesn't work in Unity Editor");
-				return;
-			}
-			
-			sdk.ShowFAQs();
+#if UNITY_EDITOR
+			Debug.Log("Helpdesk ShowFaq called. Doesn't work in Unity Editor");
+#else
+			Helpshift.HelpshiftSdk.GetInstance().ShowFAQs();
+#endif	
 		}
 	}
 }

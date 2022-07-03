@@ -1,4 +1,4 @@
-#if UNITY_IOS
+/*#if UNITY_IOS
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -100,4 +100,4 @@ public class HelpshiftPostProcess : MonoBehaviour
         File.WriteAllText(preprocessorPath, text);
     }
 }
-#endif
+#endif*/

@@ -27,11 +27,11 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			//Do nothing
 #elif UNITY_ANDROID
-			Helpshift.HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609109-850eeb708117baf", 
-				"blastroyale.helpshift.com", new Dictionary<string, object>());
+			//Helpshift.HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609109-850eeb708117baf", 
+			//	"blastroyale.helpshift.com", new Dictionary<string, object>());
 #elif UNITY_IOS
-			Helpshift.HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609081-cb7c86c0c85e18c", 
-				"blastroyale.helpshift.com", new Dictionary<string, object>());
+			//Helpshift.HelpshiftSdk.GetInstance().Install("blastroyale_platform_20220614135609081-cb7c86c0c85e18c", 
+			//	"blastroyale.helpshift.com", new Dictionary<string, object>());
 #endif
 		}
 
@@ -47,7 +47,7 @@ namespace FirstLight.Game.Services
 				{ "userName", username }
 			};
 			
-			Helpshift.HelpshiftSdk.GetInstance().Login(userDetails);
+			//Helpshift.HelpshiftSdk.GetInstance().Login(userDetails);
 #endif
 		}
 
@@ -57,7 +57,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			Debug.Log("Helpdesk Logout called. Doesn't work in Unity Editor");
 #else
-			Helpshift.HelpshiftSdk.GetInstance().Logout();
+			//Helpshift.HelpshiftSdk.GetInstance().Logout();
 #endif
 		}
 
@@ -66,7 +66,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			Debug.Log("Helpdesk StartConversation called. Doesn't work in Unity Editor");
 #else	
-			Helpshift.HelpshiftSdk.GetInstance().ShowConversation();
+			//Helpshift.HelpshiftSdk.GetInstance().ShowConversation();
 #endif
 		}
 
@@ -75,7 +75,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			Debug.Log("Helpdesk ShowFaq called. Doesn't work in Unity Editor");
 #else
-			Helpshift.HelpshiftSdk.GetInstance().ShowFAQs();
+			//Helpshift.HelpshiftSdk.GetInstance().ShowFAQs();
 #endif	
 		}
 	}

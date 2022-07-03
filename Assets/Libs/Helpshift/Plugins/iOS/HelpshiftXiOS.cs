@@ -20,7 +20,7 @@ namespace Helpshift
     {
         // Runtime linked C methods. These methods should be named exactlly as they are declared in the native code.
 
-        [DllImport("__Internal")]
+        /*[DllImport("__Internal")]
         private static extern void HsInstallForPlatformIdWithConfig(string platformId, string domainName, string jsonOptionsDict);
 
         [DllImport("__Internal")]
@@ -63,7 +63,7 @@ namespace Helpshift
         private static extern void HsLeaveBreadcrumb(string breadcrumb);
 
         [DllImport("__Internal")]
-        private static extern void HsClearBreadcrumbs();
+        private static extern void HsClearBreadcrumbs();*/
 
         public HelpshiftXiOS()
         {
@@ -75,43 +75,43 @@ namespace Helpshift
         public void Install(string platformId, string domainName, Dictionary<string, object> installConfig)
         {
             HelpshiftInternalLogger.d("Install called : Domain : " + domainName + "Platform ID : " + platformId + ", Config : " + SerializeDictionary(installConfig));
-            HsInstallForPlatformIdWithConfig(platformId, domainName, SerializeDictionary(installConfig));
+            //HsInstallForPlatformIdWithConfig(platformId, domainName, SerializeDictionary(installConfig));
         }
 
         public void ShowConversation(Dictionary<string, object> config)
         {
             HelpshiftInternalLogger.d("show conversation api called with config" + SerializeDictionary(config));
-            HsShowConversationWithConfig(SerializeDictionary(config));
+            //HsShowConversationWithConfig(SerializeDictionary(config));
         }
 
         public void ShowFAQs(Dictionary<string, object> configMap)
         {
             HelpshiftInternalLogger.d("show FAQs api called with config" + SerializeDictionary(configMap));
-            HsShowFaqsWithConfig(SerializeDictionary(configMap));
+            //HsShowFaqsWithConfig(SerializeDictionary(configMap));
         }
 
         public void ShowSingleFAQ(string faqId, Dictionary<string, object> configMap)
         {
             HelpshiftInternalLogger.d("show single FAQ api called with faqId" + faqId + " config" + SerializeDictionary(configMap));
-            HsShowSingleFaqWithConfig(faqId, SerializeDictionary(configMap));
+            //HsShowSingleFaqWithConfig(faqId, SerializeDictionary(configMap));
         }
 
         public void ShowFAQSection(string sectionId, Dictionary<string, object> configMap)
         {
             HelpshiftInternalLogger.d("show FAQ section api called with sectionId" + sectionId+ " config" + SerializeDictionary(configMap));
-            HsShowFaqSectionWithConfig(sectionId, SerializeDictionary(configMap));
+            //HsShowFaqSectionWithConfig(sectionId, SerializeDictionary(configMap));
         }
 
         public void RequestUnreadMessageCount(Boolean shouldFetchFromServer)
         {
             HelpshiftInternalLogger.d("request unread message count api called with remote fetch : " + shouldFetchFromServer); 
-            HsRequestUnreadMessageCount(shouldFetchFromServer);
+            //HsRequestUnreadMessageCount(shouldFetchFromServer);
         }
 
         public void SetSDKLanguage(string languageCode)
         {
             HelpshiftInternalLogger.d("setLanguage api called for language " + languageCode);
-            HsSetLanguage(languageCode);
+            //HsSetLanguage(languageCode);
         }
 
         public void Login(Dictionary<string, string> userDetails)
@@ -122,37 +122,37 @@ namespace Helpshift
                 userDetails = new Dictionary<string, string>();
             }
             HelpshiftInternalLogger.d("Login called : " + userDetails);
-            HsLogin(Json.Serialize(userDetails));
+            //HsLogin(Json.Serialize(userDetails));
         }
 
         public void Logout()
         {
             HelpshiftInternalLogger.d("logout api called");
-            HsLogout();
+            //HsLogout();
         }
 
         public void ClearAnonymousUserOnLogin()
         {
             HelpshiftInternalLogger.d("ClearAnonymouseUserOnLogin api called");
-            HsClearAnonymousUserOnLogin();
+            //HsClearAnonymousUserOnLogin();
         }
 
         public void RegisterPushToken(string deviceToken)
         {
             HelpshiftInternalLogger.d("Register device token :" + deviceToken);
-            HsRegisterDeviceToken(deviceToken);
+            //HsRegisterDeviceToken(deviceToken);
         }
 
         public void PauseDisplayOfInAppNotification(bool pauseInAppNotifications)
         {
             HelpshiftInternalLogger.d("Pause in-app notification called with shouldPause :" + pauseInAppNotifications);
-            HsPauseDisplayOfInAppNotification(pauseInAppNotifications);
+            //HsPauseDisplayOfInAppNotification(pauseInAppNotifications);
         }
 
         public void HandlePushNotification(Dictionary<string, object> notificationDataDict)
         {
             HelpshiftInternalLogger.d("Handle push notification data :" + SerializeDictionary(notificationDataDict));
-            HsHandleNotificationWithUserInfoDictionary(SerializeDictionary(notificationDataDict), false);
+            //HsHandleNotificationWithUserInfoDictionary(SerializeDictionary(notificationDataDict), false);
         }
 
         public void SetHelpshiftEventsListener(IHelpshiftEventsListener listener)
@@ -163,12 +163,12 @@ namespace Helpshift
 
         public void LeaveBreadcrumb(string breadcrumb)
         {
-            HsLeaveBreadcrumb(breadcrumb);
+            //HsLeaveBreadcrumb(breadcrumb);
         }
 
         public void ClearBreadcrumbs()
         {
-            HsClearBreadcrumbs();
+            //HsClearBreadcrumbs();
         }
 
 
@@ -190,11 +190,11 @@ namespace Helpshift
     public class HelpshiftiOSLog
     {
 
-        [DllImport("__Internal")]
+        /*[DllImport("__Internal")]
         private static extern void HsAddDebugLog(string log);
 
         [DllImport("__Internal")]
-        private static extern void HsLog(string log);
+        private static extern void HsLog(string log);*/
 
         private HelpshiftiOSLog()
         {
@@ -202,37 +202,37 @@ namespace Helpshift
 
         public static int v(String tag, String log)
         {
-            HsAddDebugLog("HelpshiftLog:Verbose::" + tag + "::" + log);
+            //HsAddDebugLog("HelpshiftLog:Verbose::" + tag + "::" + log);
             return 0;
         }
 
         public static int d(String tag, String log)
         {
-            HsAddDebugLog("HelpshiftLog:Debug::" + tag + "::" + log);
+            //HsAddDebugLog("HelpshiftLog:Debug::" + tag + "::" + log);
             return 0;
         }
 
         public static int i(String tag, String log)
         {
-            HsAddDebugLog("HelpshiftLog:Info::" + tag + "::" + log);
+            //HsAddDebugLog("HelpshiftLog:Info::" + tag + "::" + log);
             return 0;
         }
 
         public static int w(String tag, String log)
         {
-            HsAddDebugLog("HelpshiftLog:Warn::" + tag + "::" + log);
+            //HsAddDebugLog("HelpshiftLog:Warn::" + tag + "::" + log);
             return 0;
         }
 
         public static int e(String tag, String log)
         {
-            HsAddDebugLog("HelpshiftLog:Error::" + tag + "::" + log);
+            //HsAddDebugLog("HelpshiftLog:Error::" + tag + "::" + log);
             return 0;
         }
 
         public static int log(String log)
         {
-            HsLog(log);
+            //HsLog(log);
             return 0;
         }
 

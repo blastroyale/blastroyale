@@ -1,6 +1,0 @@
-framework module HelpshiftX {
-  umbrella header "HelpshiftX.h"
-
-  export *
-  module * { export * }
-}

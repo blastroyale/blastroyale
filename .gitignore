@@ -90,10 +90,16 @@ crashlytics-build.properties
 [Aa]ssets/StreamingAssets.meta
 [Aa]ssets/BuildReports/
 [Aa]ssets/BuildReports.meta
-[Aa]ssets/Editor Default Resources/Configs/
-[Aa]ssets/Editor Default Resources/Configs.meta
+[Aa]ssets/Editor Default Resources/
+[Aa]ssets/Editor Default Resources.meta
 [Aa]ssets/Build/
 [Aa]ssets/Build.meta
+[Aa]ssets/AddressableAssetsData/iOS/
+[Aa]ssets/AddressableAssetsData/iOS.meta
+[Aa]ssets/AddressableAssetsData/Android/
+[Aa]ssets/AddressableAssetsData/Android.meta
+[Aa]ssets/AddressableAssetsData/link.xml
+[Aa]ssets/AddressableAssetsData/link.xml.meta
 !Quantum/**/*.csproj
 !Quantum/**/*.pdb
 !Quantum/quantum_code/quantum_code.sln

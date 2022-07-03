@@ -1,4 +1,4 @@
-#if UNITY_IOS
+/*#if UNITY_IOS
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -17,6 +17,11 @@ public class HelpshiftPostProcess : MonoBehaviour
             return;
         }
 
+        var pattern = new[] { '\\', '/' };
+        var guidPath = AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets(nameof(HelpshiftPostProcess))[0]);
+        var substring = guidPath.Substring(0, guidPath.LastIndexOfAny(pattern));
+        var folderPath = substring.Substring(0, substring.LastIndexOfAny(pattern));
+
         // Create a PBXProject object for the generated Xcode project
         PBXProject project = new PBXProject();
         string pbxProjectPath = PBXProject.GetPBXProjectPath(path);
@@ -34,7 +39,7 @@ public class HelpshiftPostProcess : MonoBehaviour
         string unityHeaderGuid = project.FindFileGuidByProjectPath(unityHeaderProjectPath);
         if (unityHeaderGuid == null)
         {
-            string unityHeaderDiskPath = Application.dataPath + "/Helpshift/Plugins/iOS/HelpshiftX-Unity.h";
+            string unityHeaderDiskPath = folderPath + "/Plugins/iOS/HelpshiftX-Unity.h";
             project.AddFile(unityHeaderDiskPath, unityHeaderProjectPath, PBXSourceTree.Absolute);
         }
 
@@ -43,7 +48,7 @@ public class HelpshiftPostProcess : MonoBehaviour
         string unityAppControllerGuid = project.FindFileGuidByProjectPath(unityHeaderProjectPath);
         if (unityAppControllerGuid == null)
         {
-            string unityAppControllerDiskPath = Application.dataPath + "/Helpshift/Plugins/iOS/HsUnityAppController.mm";
+            string unityAppControllerDiskPath = folderPath + "/Plugins/iOS/HsUnityAppController.mm";
             unityAppControllerGuid = project.AddFile(unityAppControllerDiskPath, unityAppControllerProjectPath, PBXSourceTree.Absolute);
             project.AddFileToBuild(unityFrameworkTargetGuid ?? unityAppTargetGuid, unityAppControllerGuid);
         }
@@ -53,11 +58,11 @@ public class HelpshiftPostProcess : MonoBehaviour
         string frameworkGuid = project.FindFileGuidByProjectPath(frameworkProjectPath);
         if (frameworkGuid == null)
         {
-            string frameworkDiskPath = Application.dataPath + "/Helpshift/Plugins/iOS/HelpshiftX.framework";
+            string frameworkDiskPath = folderPath + "/Plugins/iOS/HelpshiftX.framework";
             frameworkGuid = project.AddFile(frameworkDiskPath, frameworkProjectPath, PBXSourceTree.Absolute);
             project.AddFileToBuild(unityFrameworkTargetGuid ?? unityAppTargetGuid, frameworkGuid);
             // If framework is added to project via this script, we also need to set the Framework Search Path to path of framework on disk.
-            project.AddBuildProperty(unityFrameworkTargetGuid ?? unityAppTargetGuid, "FRAMEWORK_SEARCH_PATHS", frameworkDiskPath.Replace("/HelpshiftX.framework", ""));
+            project.AddBuildProperty(unityFrameworkTargetGuid ?? unityAppTargetGuid, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/Frameworks/Helpshift/");
         }
 
         // Embed HelpshiftX.framework into main app target
@@ -95,4 +100,4 @@ public class HelpshiftPostProcess : MonoBehaviour
         File.WriteAllText(preprocessorPath, text);
     }
 }
-#endif
+#endif*/

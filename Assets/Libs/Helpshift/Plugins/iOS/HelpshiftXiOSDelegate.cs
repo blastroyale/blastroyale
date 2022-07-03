@@ -27,14 +27,14 @@ namespace Helpshift
         /// <param name="methodName">The name of the method that was invoked</param>
         /// <param name="parametersJson">The JSON representation of the parameters of the method</param>
         private delegate void UnitySupportMessageCallback(string methodName, string parametersJson);
-
+/*
         /// <summary>
         /// Runtimed linked C method to register callback with the declared signature
         /// </summary>
         /// <param name="callback">The callback object</param>
         [DllImport("__Internal")]
         private static extern void HsRegisterHelpshiftDelegateCallback(UnitySupportMessageCallback callback);
-
+*/
         /// <summary>
         /// The shared instance of this class.
         /// </summary>
@@ -72,7 +72,7 @@ namespace Helpshift
 
         private static void RegisterHelpshiftDelegateCallback()
         {
-            HsRegisterHelpshiftDelegateCallback(UnityHelpshiftDelegateCallbackImpl);
+            //HsRegisterHelpshiftDelegateCallback(UnityHelpshiftDelegateCallbackImpl);
         }
 
         [MonoPInvokeCallback(typeof(UnitySupportMessageCallback))]

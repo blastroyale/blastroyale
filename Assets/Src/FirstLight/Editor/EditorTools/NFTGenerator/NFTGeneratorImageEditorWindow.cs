@@ -4,9 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using FirstLight.Editor.EditorTools.Data;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
 using I2.Loc;
 using Newtonsoft.Json;
@@ -18,7 +16,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 
-namespace FirstLight.Editor.EditorTools
+namespace FirstLight.Editor.EditorTools.NFTGenerator
 {
 	/// <summary>
 	/// This editor window provides functionality for generating render texture exported images for GameIds

@@ -11,12 +11,24 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class EquipmentCardView : MonoBehaviour, IErcRenderable
 	{
+		[System.Serializable]
+		public class SpriteDimensional
+		{
+			public Sprite[] Array;
+		}
+		
+		public Sprite[] _factionSprites;
+		public SpriteDimensional[] _backSprites;
+		public SpriteDimensional[] _frameSprites;
+		public Sprite[] _frameShapeMasks;
+		public Sprite[] _NameTagSprites;
+		public Sprite[] _adjectivePatternSprites;
+		public Sprite[] _plusAmountGradePatternSprites;
+		
 		[SerializeField] private TextMeshProUGUI _nameText;
 		[SerializeField] private TextMeshProUGUI _gradeText;
 		[SerializeField] private SpriteRenderer _factionSpriteRenderer;
 		[SerializeField] private SpriteRenderer _factionShadowSpriteRenderer;
-	
-		[SerializeField] private EquipmentCardErcRenderableData _itemCardSpriteData;
 		[SerializeField] private Renderer _renderer;
 
 		private MaterialPropertyBlock _propBlock;
@@ -52,18 +64,18 @@ namespace FirstLight.Game.Views
 			var adjectiveId = (int)metadata.Adjective;
 			var materialId = (int)metadata.Material;
 			
-			_factionSpriteRenderer.sprite = _itemCardSpriteData.FactionSprites[factionId];
-			_factionShadowSpriteRenderer.sprite = _itemCardSpriteData.FactionSprites[factionId];
+			_factionSpriteRenderer.sprite = _factionSprites[factionId];
+			_factionShadowSpriteRenderer.sprite = _factionSprites[factionId];
 			
 			_propBlock.Clear();
 			_renderer.GetPropertyBlock(_propBlock);
 			
-			_propBlock.SetTexture(_backId, _itemCardSpriteData.Back[materialId].Array[rarityId].texture);
-			_propBlock.SetTexture(_frameId, _itemCardSpriteData.Frame[materialId].Array[rarityId].texture);
-			_propBlock.SetTexture(_frameShapeMaskId, _itemCardSpriteData.FrameShapeMask[rarityId].texture);
-			_propBlock.SetTexture(_nameTagId, _itemCardSpriteData.NameTag[materialId].texture);
-			_propBlock.SetTexture(_adjectivePatternId, _itemCardSpriteData.AdjectivePattern[adjectiveId].texture);
-			_propBlock.SetTexture(_plusAmountGradePatternId, _itemCardSpriteData.PlusAmountGradePattern[rarityId].texture);
+			_propBlock.SetTexture(_backId, _backSprites[materialId].Array[rarityId].texture);
+			_propBlock.SetTexture(_frameId, _frameSprites[materialId].Array[rarityId].texture);
+			_propBlock.SetTexture(_frameShapeMaskId, _frameShapeMasks[rarityId].texture);
+			_propBlock.SetTexture(_nameTagId, _NameTagSprites[materialId].texture);
+			_propBlock.SetTexture(_adjectivePatternId, _adjectivePatternSprites[adjectiveId].texture);
+			_propBlock.SetTexture(_plusAmountGradePatternId, _plusAmountGradePatternSprites[rarityId].texture);
 			
 			_renderer.SetPropertyBlock(_propBlock, 0);
 		}

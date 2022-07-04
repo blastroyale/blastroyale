@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace FirstLight.Editor.EditorTools.Data
+namespace FirstLight.Editor.EditorTools.NFTGenerator
 {
 	public struct TraitAttribute
 	{

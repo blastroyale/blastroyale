@@ -1,4 +1,3 @@
-using FirstLight.Game.Data;
 using Quantum;
 using UnityEngine;
 
@@ -23,7 +22,8 @@ namespace FirstLight.Game.MonoComponent
 	public class EquipmentErcMonoComponent : MonoBehaviour, IErcRenderable
 	{
 		[SerializeField] private GameObject[] _equipmentRarityGameObjects;
-		[SerializeField] private EquipmentErcRenderableData _equipmentErcSpriteData;
+		[SerializeField] private Sprite[] _surfaceTextures;
+		[SerializeField] private Sprite[] _adjectiveTextures;
 		[SerializeField] private Renderer[] _renderers;
 		
 		private MaterialPropertyBlock _propBlock;
@@ -54,8 +54,8 @@ namespace FirstLight.Game.MonoComponent
 			{
 				r.GetPropertyBlock(_propBlock);
 				
-				_propBlock.SetTexture(_surfaceTextureId, _equipmentErcSpriteData.SurfaceTexture[(int)metadata.Material].texture);
-				_propBlock.SetTexture(_adjectiveTextureId, _equipmentErcSpriteData.AdjectiveTexture[(int)metadata.Adjective].texture);
+				_propBlock.SetTexture(_surfaceTextureId, _surfaceTextures[(int)metadata.Material].texture);
+				_propBlock.SetTexture(_adjectiveTextureId, _adjectiveTextures[(int)metadata.Adjective].texture);
 				r.SetPropertyBlock(_propBlock, 0);	
 			}
 

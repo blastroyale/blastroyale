@@ -118,6 +118,8 @@ namespace FirstLight.Game.Logic
 		{
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 			
+			return new List<RewardData>();
+			
 			foreach (var reward in rewards)
 			{
 				if (reward.RewardId.IsInGroup(GameIdGroup.ResourcePool))

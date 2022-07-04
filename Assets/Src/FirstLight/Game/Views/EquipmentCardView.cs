@@ -1,5 +1,6 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
+using Quantum;
 using TMPro;
 using UnityEngine;
 
@@ -31,21 +32,25 @@ namespace FirstLight.Game.Views
 		{
 			_propBlock = new MaterialPropertyBlock();
 		}
-		
+
+		public string Name
+		{
+			set => _nameText.text = value;
+		}
+
 		/// <summary>
 		/// Initialise material and visual elements based on metadata object 
 		/// </summary>
-		public void Initialise(Erc721MetaData metadata)
+		public void Initialise(Equipment metadata)
 		{
 			_propBlock ??= new MaterialPropertyBlock();
 			
-			_nameText.text = metadata.name;
-			_gradeText.text = _gradeRomanNumerals[metadata.attibutesDictionary["grade"]];
-			
-			var factionId = metadata.attibutesDictionary["faction"];
-			var rarityId = metadata.attibutesDictionary["rarity"];
-			var adjectiveId = metadata.attibutesDictionary["adjective"];
-			var materialId = metadata.attibutesDictionary["material"];
+			_gradeText.text = _gradeRomanNumerals[(int)metadata.Grade];
+
+			var factionId = (int)metadata.Faction;
+			var rarityId = (int)metadata.Rarity;
+			var adjectiveId = (int)metadata.Adjective;
+			var materialId = (int)metadata.Material;
 			
 			_factionSpriteRenderer.sprite = _itemCardSpriteData.FactionSprites[factionId];
 			_factionShadowSpriteRenderer.sprite = _itemCardSpriteData.FactionSprites[factionId];

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace FirstLight.Game.Data
+namespace FirstLight.Editor.EditorTools.Data
 {
 	public struct TraitAttribute
 	{

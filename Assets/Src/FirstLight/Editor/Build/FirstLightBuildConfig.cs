@@ -242,7 +242,6 @@ namespace FirstLight.Editor.Build
 		private static void SetLocalBuildConfig(ref BuildPlayerOptions buildConfig)
 		{
 			buildConfig.options |= BuildOptions.AutoRunPlayer;
-			buildConfig.options |= BuildOptions.ConnectWithProfiler;
 			buildConfig.options |= BuildOptions.DetailedBuildReport;
 		}
 

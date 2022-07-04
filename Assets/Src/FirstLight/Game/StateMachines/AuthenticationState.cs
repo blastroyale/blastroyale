@@ -145,7 +145,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCachedLoginEmail()
 		{
-			//This line disables login flow, revert for  the next release stage
+			// TODO RELEASE - Restore login flow
 			//return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
 			return true;
 		}

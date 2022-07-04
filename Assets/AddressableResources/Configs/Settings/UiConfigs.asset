@@ -62,23 +62,23 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.GameTimeOverScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericDialog.prefab
-    Layer: 9
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericHCDialog.prefab
-    Layer: 9
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogHcPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericIconDialog.prefab
-    Layer: 9
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogIconPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericInputField Dialog.prefab
-    Layer: 9
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogInputFieldPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericVideoDialog.prefab
-    Layer: 9
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogVideoPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Home Screen.prefab
@@ -86,7 +86,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Loading Screen.prefab
-    Layer: 8
+    Layer: 9
     UiType: FirstLight.Game.Presenters.LoadingScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LoginScreen.prefab

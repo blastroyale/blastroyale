@@ -89,7 +89,8 @@ namespace Quantum
 				{
 					GameId.EquipmentXP, new List<GameIdGroup>
 					{
-						GameIdGroup.Resource
+						GameIdGroup.Resource,
+						GameIdGroup.ResourcePool
 					}.AsReadOnly()
 				},
 				{
@@ -680,7 +681,8 @@ namespace Quantum
 				{
 					GameIdGroup.ResourcePool, new List<GameId>
 					{
-						GameId.CS
+						GameId.CS,
+						GameId.EquipmentXP
 					}.AsReadOnly()
 				},
 				{

@@ -68,20 +68,20 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 250
+      StatsPowerBaseValue: 200
       StatsPowerRarityMultiplier:
-        RawValue: 81920
+        RawValue: 68813
       StatsPowerLevelStepMultiplier:
-        RawValue: 459
+        RawValue: 328
       StatsPowerGradeStepMultiplier:
-        RawValue: 3277
-      StatsHpBaseValue: 400
+        RawValue: 4588
+      StatsHpBaseValue: 300
       StatsHpRarityMultiplier:
         RawValue: 72090
       StatsHpLevelStepMultiplier:
-        RawValue: 1311
+        RawValue: 328
       StatsHpGradeStepMultiplier:
-        RawValue: 16384
+        RawValue: 3277
       StatsSpeedBaseValue:
         RawValue: 13107
       StatsSpeedRarityMultiplier:
@@ -106,7 +106,7 @@ MonoBehaviour:
       TrophyEloRange: 50
       TrophyEloK: 5
       NftAssumedOwned: 40
-      MinNftForEarnings: 3
+      MinNftForEarnings: 0
       AdjectiveRarityEarningsMod:
         RawValue: 52429
       NftUsageCooldownMinutes: 1440
@@ -114,8 +114,8 @@ MonoBehaviour:
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
-        RawValue: 32768
+        RawValue: 0
       AirdropRandomAreaMultiplier:
-        RawValue: 16384
+        RawValue: 0
       AirdropHeight:
-        RawValue: 3276800
+        RawValue: 0

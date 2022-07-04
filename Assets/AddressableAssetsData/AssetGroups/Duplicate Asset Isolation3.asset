@@ -1,0 +1,373 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation3
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation3
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3fb156efd194944979fe395e0cfc5439
+  m_SerializeEntries:
+  - m_GUID: b2bcfc4b0af72f240a5a1b07cf4f12b2
+    m_Address: Assets/Art/Models/Weapons/Projectiles/M_Projectiles.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 20fc1a40907004c4aaac0d7aa19f035c
+    m_Address: Assets/Art/Models/Pickups/M_CoinsBasic.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: da41ae21c658fc541b9c9d96b396e739
+    m_Address: Assets/Art/Models/Pickups/CurrencyTokens.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 790a6820ffe7f9b4fa6075c7f53a3008
+    m_Address: Assets/Art/Models/Pickups/T_Currency_MR.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 08bdc11d2e698bb4baf6da7141046bc7
+    m_Address: Assets/Art/Models/Pickups/T_Currency_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 534827b22e83a4c42aaa1fede17b6c60
+    m_Address: Assets/Art/Materials/Particles/M_FW_Sparkle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a4cfc4045b50cc34b8df574fc6f18a8c
+    m_Address: Assets/Art/Materials/Particles/M_FW_Trail.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 405bd30f6aa36a8419d676e89e5b6e3b
+    m_Address: Assets/Art/Materials/Particles/M_FW_Rocket.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a38f64112f130c40bb9aac2480fe37d
+    m_Address: Assets/Art/Models/Weapons/Projectiles/Meteor.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7c0dd826f038e34794a4875d14b1156
+    m_Address: Assets/Art/Models/Weapons/Projectiles/M_Debris.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d123caeea18c2e348a50583399f095a7
+    m_Address: Assets/Art/Materials/Particles/M_Shockwave.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fc0769203fc07524db27e789c336d31b
+    m_Address: Assets/Art/Textures/Particles/Circle04SW.PNG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bb4cc5f808c9e44349f388e18950b711
+    m_Address: Assets/Art/Materials/Particles/M_Lightning.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a61bd5dffed9924aae0637e50d24938
+    m_Address: Assets/Art/Materials/Particles/M_Skybeam_Tell.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e49c68dd2b389f644bce6450495197fc
+    m_Address: Assets/Art/Materials/Particles/M_SpawnFlash.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e8bdf0009b3a4834381dcb3ec8f9cc60
+    m_Address: Assets/Art/Textures/Particles/ShockWave02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ba2966107d34c6e4f8cb75f0aa350aee
+    m_Address: Assets/Art/Shaders/SG_Lightning.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ce63e895be79d1647adc81956ae6181d
+    m_Address: Assets/Art/Models/Pickups/DeathMatch_Pickups.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 35fd5f4b89c460f40be4bbe161dd5b65
+    m_Address: Assets/Art/Models/Pickups/M_PickupsMet.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 183ee337cc83db746a2aebb477df911a
+    m_Address: Assets/Art/Shaders/SG_FresnelGlow.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bf5bd6da21e385849ba37a93b6d7b744
+    m_Address: Assets/Art/Models/Characters/Player/Female01/T_Char_Female01HQ_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c34f3be2c2459bf4eada94464aa4e496
+    m_Address: Assets/Art/Shaders/SG_Indicator_Target.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8947fe6bbb65bcf4c8283da186791053
+    m_Address: Assets/Art/Models/Items/Mouse_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 422651e6be586cc48aebfd5814d5907e
+    m_Address: Assets/Art/Models/Items/Riot_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a347c41a6c82c94fb8a57c4b370c465
+    m_Address: Assets/Art/Models/Items/Soldier_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e497bf600bf032b4ab9a124fc83cec7c
+    m_Address: Assets/Art/Models/Items/Warrior_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c0a5008228f05694a87022b70dea4049
+    m_Address: Assets/Art/Models/Items/AFLight_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7351096573456d14987f60d60dfd6bb5
+    m_Address: Assets/Art/Models/Items/AFDark_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b21da74095689d74c9364e64b158dadf
+    m_Address: Assets/Art/Models/Items/Nutter_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 80667d8194120b844bb70bf48b18b23d
+    m_Address: Assets/Art/Animation/PickUps/PickupSpawn.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 20fccc7415f6e1e4a972e7be8eff7249
+    m_Address: Assets/Art/Animation/PickUps/PickupCollect.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a06ab19cd7973a469664ed25f9e15c6
+    m_Address: Assets/Art/Animation/PickUps/PickupIdle.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8709dee4b32073648987691d33990209
+    m_Address: Assets/Art/Models/Pickups/LootBoxes.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 273a82a7641d5a64fa1b229d702691ad
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxCommon.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c2431dfbd81df1a4aa42e3dab0019235
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxCommonGlow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb6286d018aabce4096fc7bcc2abe6d7
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxEpic.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 94c23622bd47b7d46aec31948f5ee5f1
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxRare.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2c666af29b283ab4c9260e3b87ae65c9
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxRareGlow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ac74d7afbd638724c846c42fede5993e
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxEpicGlow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9834219b897b0c34894ba5f620e788cf
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxLegendary.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf61267dc73fc5b4d8e57362c71bc583
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxLegendaryGlow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d756731c196e35744bcc581ac2aab3be
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxUnCommonGlow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7b47d90dd2421c747b9d32eac62c6b99
+    m_Address: Assets/Art/Models/Pickups/M_LootBoxUnCommon.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ca3ee76254787ee46b3f9b1c54d31366
+    m_Address: Assets/Art/Models/Characters/Player/Female01/Char_PlayerFemale01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2255c91a668d043eaadc81b6a1449962
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_AnimController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c39bb301cf0fe9f4fa9d7eb51f49287f
+    m_Address: Assets/Art/Animation/Humanoid/crouch.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4da4b8c1df311884489300552cb9c3c4
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteBackHard.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 281d8da345b309047b8ed3c41b72a1fd
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteLeft.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6deb4e14ad36ad646929fe4b53b86efd
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteForwardHard.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d595d2d6acae4784f8a975e2f2993ff5
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteRight.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 48400ecc3d2ba1f4ca4b69042de3f9e0
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteLanding.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f06e6daee2435e94cb6121e13e8f4da5
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteBack.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 94358f8f380ae2e4fb886a7858a10f45
+    m_Address: Assets/Art/Animation/Humanoid/ParachuteForward.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 741f46e204aff4147aee1c9c68c99632
+    m_Address: Assets/Art/Models/Characters/Player/Female01/M_Char_PlayerFemale01.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c6e668e2d72371b43a919aefe23eab9f
+    m_Address: Assets/Art/Models/Characters/Player/Female01/T_Char_Female01HQ_MS.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9997ac2bc94a09549a2bba4c7948e844
+    m_Address: Assets/Art/Models/Characters/Player/Female02/M_Char_PlayerFemale02.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 846cc1bc111da1d4aad875224d1ffbd2
+    m_Address: Assets/Art/Models/Characters/Player/Female02/Char_PlayerFemale02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02fefe97337f0b64a8283379a0eb2ec4
+    m_Address: Assets/Art/Models/Characters/Player/Female02/T_Char_Female02HQ_MS.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 89abc7c927938744b9489e6a7f77f608
+    m_Address: Assets/Art/Models/Characters/Player/Female02/T_Char_Female02HQ_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d917e07dad87fe84d920fae22f32703d
+    m_Address: Assets/Art/Models/Characters/Player/Male01/Char_PlayerMale01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b731ee45bea158646887742241145a10
+    m_Address: Assets/Art/Models/Characters/Player/Male02/M_Char_PlayerMale02.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 028d81cb2f9eeb74eb077cf7d5419193
+    m_Address: Assets/Art/Models/Characters/Player/Male02/Char_PlayerMale02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 756b36377b2b5b54ea58f3a835df1a52
+    m_Address: Assets/Art/Models/Characters/Player/Male02/T_Char_Male02HQ_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 56b2e93ba1adadd44ad2d2fb979e9727
+    m_Address: Assets/Art/Models/Characters/Player/Male02/T_Char_Male02HQ_MS.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3a5f4f8ace8ba25468683f320f3b7fdb
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_RPGOverride.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e61f59ea515c4754db8ff3a021ebac7d
+    m_Address: Assets/Art/Models/Weapons/RPG.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a3e91bf53c929449980b6075144bc4f
+    m_Address: Assets/Art/Models/Weapons/M_WeaponAtlas02.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 96c8271ca0f857c48a120193208db459
+    m_Address: Assets/Art/Models/Weapons/T_WeaponAtlas02_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 000f89ddaf06f2a4c81276abaa7688cc
+    m_Address: Assets/Art/Models/Weapons/BFG.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8679efaf91eaaa44893d542e8510e4c5
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_BFGOverride.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6823d6e2a8c69a84ca663da4d7eee083
+    m_Address: Assets/Art/Models/Weapons/Shotgun.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0181f92be7fd07b4ab69c60ff08227c3
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_ShotgunOverride.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02cae561722a8ef429dadff05f4b7e45
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_HammerOverride.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b0b536e9d11cc1a4394543c74bd67a11
+    m_Address: Assets/Art/Models/Weapons/Hammer.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8162221127783b6498bd35e301aebd56
+    m_Address: Assets/Art/Animation/Humanoid/fire_hammerFix.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: df3b81b2ca0aa094a9896f67145823d5
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_M60Override.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 93ba233ac96f49644b083db8b531b03a
+    m_Address: Assets/Art/Models/Weapons/Rifle_M60.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 347aa5d6aee4cdd478d20045c8e545bd
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_AssaultRifleOverride.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c47ed028484febc4da7fe0be15bf1573
+    m_Address: Assets/Art/Models/Weapons/Rifle_M16.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1c7c2c20934b0af45a505af66e39413c
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_SniperRifleOverride.overrideController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1f439f8bde8320044bdee42452c7b22e
+    m_Address: Assets/Art/Models/Weapons/Rifle_Sniper.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 718c5ad99ec2645dfb2e5fa1fc76f5c3
+    m_Address: Assets/Art/Textures/Ui/SharedUI/DefaultCircle.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 650dd9526735d5b46b79224bc6e94025
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Unlit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d8b4a3323082b4f7393fb84e13e83e20, type: 2}
+    - {fileID: 11400000, guid: 0a3c3d3c64ef144888af832ede32bc96, type: 2}

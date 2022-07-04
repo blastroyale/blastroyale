@@ -25,6 +25,10 @@ namespace Quantum.Systems
 				return;
 			}
 
+			//if you are full on the stat the collectable is attempting to refill, then do not collect
+			if (IsCollectableFilled(f, info.Entity, info.Other))
+				return;
+				
 			var endTime = collectable->CollectorsEndTime[player.Player];
 
 			if (!collectable->IsCollecting(player.Player))
@@ -55,6 +59,29 @@ namespace Quantum.Systems
 			Collect(f, info.Entity, info.Other, player.Player);
 			f.Events.OnLocalCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
 			f.Events.OnCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
+		}
+
+		private bool IsCollectableFilled(Frame f, EntityRef entity, EntityRef player)
+		{
+			if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
+			{
+				var playerCharacter = f.Get<PlayerCharacter>(player);
+				var stats = f.Get<Stats>(player);
+
+				switch (consumable->ConsumableType)
+				{
+					case ConsumableType.Health:
+						return stats.CurrentHealth == stats.GetStatData(StatType.Health).StatValue;
+					case ConsumableType.Shield:
+						return stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
+					case ConsumableType.ShieldCapacity:
+						return stats.GetStatData(StatType.Shield).BaseValue == stats.GetStatData(StatType.Shield).StatValue;
+					case ConsumableType.Ammo:
+						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
+				}
+			}
+
+			return false;
 		}
 
 		/// <inheritdoc />

@@ -166,11 +166,8 @@ namespace FirstLight.UiService
 				return ui;
 			}
 
-			var startTime = Time.time;
 			var layer = AddLayer(config.Layer);
 			var gameObject = await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
-			var instantiationTime = Time.time - startTime;
-			Debug.Log("> INSTANTIATED "+config.AddressableAddress+", took "+instantiationTime + "s");
 			
 			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
 			if (HasUiPresenter(type))

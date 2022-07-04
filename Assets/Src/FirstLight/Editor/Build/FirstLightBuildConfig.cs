@@ -30,17 +30,6 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
-		/// <summary>
-		/// Scripting defines used in every build.
-		/// </summary>
-		public static readonly string[] CommonSymbols = new []
-		{
-			"QUANTUM_ADDRESSABLES",
-			"QUANTUM_REMOTE_PROFILER",
-			"ENABLE_PLAYFAB_BETA",
-			"TextMeshPro",
-		};
-		
 		private const string _appEnterpriseIdentifier = "com.firstlightgames.blastroyaleenterprise";
 		private const string _appReleaseIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightEnterpriseAppleTeamId = "LR745QRAJR";
@@ -52,6 +41,16 @@ namespace FirstLight.Editor.Build
 		private const int _facebookDevAppIdSelectedIndex = 1;
 		private const int _facebookAppIdSelectedIndex = 0;
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
+		private static readonly string[] CommonSymbols = new []
+		{
+			"QUANTUM_ADDRESSABLES",
+			"ENABLE_PLAYFAB_BETA",
+			"TextMeshPro",
+		};
+		private static readonly string[] DebugSymbols = new []
+		{
+			"QUANTUM_REMOTE_PROFILER",
+		};
 
 		/// <summary>
 		/// Setups the editor for Development build configuration
@@ -174,13 +173,16 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public static void SetScriptingDefineSymbols(string buildSymbol, BuildTargetGroup targetGroup)
 		{
-			var commonSymbolsLength = CommonSymbols.Length;
-			var symbols = new string[commonSymbolsLength + 1];
+			var symbols = new List<string>(CommonSymbols);
+
+			if (buildSymbol == DevelopmentSymbol)
+			{
+				symbols.AddRange(DebugSymbols);
+			}
 			
-			Array.Copy(CommonSymbols, symbols, commonSymbolsLength);
-			symbols[commonSymbolsLength] = buildSymbol;
+			symbols.Add(buildSymbol);
 			
-			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols);
+			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols.ToArray());
 		}
 
 		/// <summary>
@@ -240,7 +242,6 @@ namespace FirstLight.Editor.Build
 		private static void SetLocalBuildConfig(ref BuildPlayerOptions buildConfig)
 		{
 			buildConfig.options |= BuildOptions.AutoRunPlayer;
-			buildConfig.options |= BuildOptions.ConnectWithProfiler;
 			buildConfig.options |= BuildOptions.DetailedBuildReport;
 		}
 

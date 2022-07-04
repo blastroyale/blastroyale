@@ -1,158 +1,71 @@
-using FirstLight.Game.Messages;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using LayerMask = UnityEngine.LayerMask;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
-	/// View for controlling small and extended map views.
+	/// View for controlling the minimap view.
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
-		[SerializeField, Required] private RenderTexture _shrinkingCircleRenderTexture;
-		[SerializeField, Required] private Transform _playerRadarPing;
-		[SerializeField, Required] private Camera _camera;
-		[SerializeField, Required] private RectTransform _defaultImageRectTransform;
-		[SerializeField, Required] private RectTransform _circleImageRectTransform;
-		[SerializeField, Required] private Animation _animation;
-		[SerializeField, Required] private AnimationClip _smallMiniMapClip;
-		[SerializeField, Required] private AnimationClip _extendedMiniMapClip;
-		[SerializeField, Required] private UiButtonView _closeButton;
-		[SerializeField, Required] private UiButtonView _toggleMiniMapViewButton;
+		[SerializeField, Required]
+		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
+		private Camera _minimapCamera;
 
-		private enum RenderTextureMode
-		{
-			None,
-			Default,
-			ShrinkingCircle
-		}
+		[SerializeField, Required] private RawImage _minimapImage;
+		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
+		[SerializeField] private int _cameraHeight = 10;
 
 		private IGameServices _services;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
-		private Transform _cameraTransform;
+
 		private EntityView _playerEntityView;
-		private const float CameraHeight = 10;
-		private bool _smallMapActivated = true;
-		private RenderTextureMode _renderTextureMode = RenderTextureMode.None;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
-			_cameraTransform = _camera.transform;
-
-			_closeButton.onClick.AddListener(ToggleMiniMapView);
-			_toggleMiniMapViewButton.onClick.AddListener(ToggleMiniMapView);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+		}
+
+		[Button]
+		private void RenderMinimap()
+		{
+			FLog.Verbose("Rendering MiniMap camera.");
+			_minimapCamera.transform.position = new Vector3(0, _cameraHeight, 0);
+			_minimapCamera.Render();
+		}
+
+		private void UpdateMinimapViewport(float _)
+		{
+			var viewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
+			_minimapImage.uvRect = new Rect(viewportPoint.x - _viewportSize / 2f,
+			                                viewportPoint.y - _viewportSize / 2f,
+			                                _viewportSize, _viewportSize);
 		}
 
 		private void OnDestroy()
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
-		}
-		
-		private void ToggleMiniMapView()
-		{
-			_animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
-			_animation.Play();
-
-			_smallMapActivated = !_smallMapActivated;
-		}
-		
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
-		{
-			if (!msg.IsResync)
-			{
-				return;
-			}
-			
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var gameContainer = frame.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			
-			_cameraTransform = _camera.transform;
-
-			if (localPlayer.Entity.IsAlive(frame))
-			{
-				_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-				_services.TickService.SubscribeOnUpdate(UpdateTick);
-			}
+			_services?.TickService?.UnsubscribeOnUpdate(UpdateMinimapViewport);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+			_services?.TickService?.UnsubscribeOnUpdate(UpdateMinimapViewport);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
+			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-
-			_services.TickService.SubscribeOnUpdate(UpdateTick);
-		}
-
-		private void UpdateTick(float deltaTime)
-		{
-			if (_cameraTransform == null)
-			{
-				return;
-			}
-			
-			_cameraTransform.position = new Vector3(0, CameraHeight, 0);
-
-			if (_smallMapActivated)
-			{
-				var viewportPoint = _camera.WorldToViewportPoint(_playerEntityView.transform.position);
-				var screenDelta = new Vector2(viewportPoint.x, viewportPoint.y);
-
-				screenDelta.Scale(_defaultImageRectTransform.rect.size);
-				screenDelta -= _defaultImageRectTransform.rect.size * 0.5f;
-
-				_defaultImageRectTransform.localPosition = -screenDelta;
-				_circleImageRectTransform.localPosition = -screenDelta;
-
-				_playerRadarPing.localPosition = Vector3.zero;
-			}
-			else
-			{
-				_defaultImageRectTransform.localPosition = Vector3.zero;
-				_circleImageRectTransform.localPosition = Vector3.zero;
-
-				SetPingPosition(_playerRadarPing, _playerEntityView.transform.position);
-			}
-
-			if (_renderTextureMode == RenderTextureMode.Default)
-			{
-				_camera.targetTexture = _shrinkingCircleRenderTexture;
-				_camera.cullingMask = LayerMask.GetMask("Mini Map Object");
-				_renderTextureMode = RenderTextureMode.ShrinkingCircle;
-			}
-			else if (_renderTextureMode == RenderTextureMode.None)
-			{
-				_renderTextureMode = RenderTextureMode.Default;
-			}
-		}
-
-		private void SetPingPosition(Transform pingTransform, Vector3 positionWorldSpace)
-		{
-			var viewportPoint = _camera.WorldToViewportPoint(positionWorldSpace);
-			var screenDelta = new Vector2(viewportPoint.x, viewportPoint.y);
-
-			screenDelta.Scale(_defaultImageRectTransform.rect.size);
-
-			screenDelta -= _defaultImageRectTransform.rect.size * 0.5f;
-			pingTransform.localPosition = screenDelta;
+			_services.TickService.SubscribeOnUpdate(UpdateMinimapViewport);
 		}
 	}
 }

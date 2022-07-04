@@ -17,8 +17,6 @@ namespace FirstLight.Editor.SheetImporters
 		{
 			var config = QuantumDeserializer.DeserializeTo<QuantumChestConfig>(data);
 
-			config.AssetRef = assetConfigs.ChestPrototype;
-
 			return config;
 		}
 	}

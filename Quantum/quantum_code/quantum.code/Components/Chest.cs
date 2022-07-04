@@ -12,22 +12,34 @@ namespace Quantum
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config)
+		                   QuantumChestConfig config, bool makeCollectable = true)
 		{
-			var collectable = new Collectable {GameId = config.Id};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
+			Id = config.Id;
 			ChestType = config.ChestType;
 
 			transform->Position = position;
 			transform->Rotation = rotation;
 
-			f.Add(e, collectable);
+			if (makeCollectable)
+			{
+				MakeCollectable(f, e);
+			}
+		}
+
+		/// <summary>
+		/// Adds a <see cref="Collectable"/> component to <paramref name="e"/>.
+		/// </summary>
+		internal void MakeCollectable(Frame f, EntityRef e)
+		{
+			f.Add(e, new Collectable {GameId = Id});
 		}
 
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
+			
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);

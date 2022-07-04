@@ -19,6 +19,9 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
+using Quantum.Physics2D;
+using UnityEngine.Video;
+
 
 namespace FirstLight.Game.StateMachines
 {
@@ -374,7 +377,13 @@ namespace FirstLight.Game.StateMachines
 		private void OnLoginSuccess(LoginResult result)
 		{
 			var appData = _dataService.GetData<AppData>();
-			
+
+			var userId = result.PlayFabId;
+			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+			var userName = result.InfoResultPayload.AccountInfo.Username;
+
+			_services.HelpdeskService.Login(userId, email, userName);
+
 			if (!appData.LinkedDevice)
 			{
 				LinkDeviceID();

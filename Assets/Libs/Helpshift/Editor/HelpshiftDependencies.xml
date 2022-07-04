@@ -1,0 +1,9 @@
+<dependencies>
+<!-- Reference: https://github.com/googlesamples/unity-jar-resolver
+     Android dependencies are specified under the "androidPackages" element.
+     Each "androidPackage" element contains the attributes of an Android dependency (e.g AAR, JAR reference).-->
+  <androidPackages>
+    <androidPackage spec="com.android.support:appcompat-v7:28.0.0">
+    </androidPackage>
+  </androidPackages>
+</dependencies>

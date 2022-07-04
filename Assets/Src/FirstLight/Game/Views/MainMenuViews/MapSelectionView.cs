@@ -111,6 +111,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
+			if (!_selectionEnabled) return;
+
 			SetGridPosition(ScreenToGridPosition(eventData.position));
 		}
 
@@ -192,7 +194,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			pattern = Array.Empty<bool[]>();
-			return true;
+			return false;
 		}
 	}
 }

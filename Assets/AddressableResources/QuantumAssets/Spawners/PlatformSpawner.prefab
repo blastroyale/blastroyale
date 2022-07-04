@@ -671,6 +671,7 @@ MonoBehaviour:
     InitialSpawnDelayInSec: 5
     GameId:
       Value: 0
+    RarityModifier: 0
 --- !u!1 &4753864322123932040
 GameObject:
   m_ObjectHideFlags: 0

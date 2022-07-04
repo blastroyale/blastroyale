@@ -8,6 +8,7 @@ singleton component ShrinkingCircle
 	FP ShrinkingDurationTime;
 	Int32 Step;
 	FP ShrinkingSizeK;
+	FP AirDropChance;
 }
 
 synced event OnNewShrinkingCircle

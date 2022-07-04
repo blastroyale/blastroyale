@@ -92,6 +92,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void TryLogOut()
 		{
+			_services.HelpdeskService.Logout();
+			
 #if UNITY_EDITOR
 			var unlink = new UnlinkCustomIDRequest
 			{

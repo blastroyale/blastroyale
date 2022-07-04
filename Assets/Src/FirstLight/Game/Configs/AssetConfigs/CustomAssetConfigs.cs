@@ -16,7 +16,6 @@ namespace FirstLight.Game.Configs.AssetConfigs
 		[Required] public AssetReferenceT<AudioClip> ErrorClip;
 		[Required] public AssetReferenceT<Material> ErrorMaterial;
 		[Required] public AssetRefEntityPrototype ConsumablePrototype;
-		[Required] public AssetRefEntityPrototype ChestPrototype;
 
 		public QuantumAssetConfigs AssetsConfig
 		{

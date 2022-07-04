@@ -1,3 +1,4 @@
+using System.Threading;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -14,7 +15,7 @@ namespace Quantum.Systems
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
 		{
 			circle->CurrentRadius = f.Map.WorldSize / FP._2;
-			
+
 			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
 		}
 
@@ -26,7 +27,7 @@ namespace Quantum.Systems
 			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
 			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
 			radius *= radius;
-			
+
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
 				var transform = f.Get<Transform3D>(pair.Entity);
@@ -52,7 +53,7 @@ namespace Quantum.Systems
 			{
 				return circle;
 			}
-			
+
 			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
 
 			if (circle->Step >= configs.Count)
@@ -61,15 +62,15 @@ namespace Quantum.Systems
 				circle->ShrinkingDurationTime = FP.MaxValue;
 				circle->CurrentRadius = circle->TargetRadius;
 				circle->CurrentCircleCenter = circle->TargetCircleCenter;
-				
+
 				return circle;
 			}
-			
+
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
 			SetShrinkingCircleData(f, circle, configs[circle->Step]);
-			
+
 			return circle;
 		}
 
@@ -80,18 +81,29 @@ namespace Quantum.Systems
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
 			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
-			
+
 			var randomR = f.RNG->NextInclusive(FP._0, circle->CurrentRadius - circle->TargetRadius);
-			circle->TargetCircleCenter += FPVector2.Rotate(FPVector2.Left, f.RNG->NextInclusive(FP._0, FP.PiTimes2)) * randomR;
-			
+			circle->TargetCircleCenter +=
+				FPVector2.Rotate(FPVector2.Left, f.RNG->NextInclusive(FP._0, FP.PiTimes2)) * randomR;
+
 			// When we change a step of a circle, we need to remove current spell from all players
 			// So in update the up-to-date spell will be added
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
 				RemoveShrinkingDamage(f, pair.Entity);
 			}
-			
+
 			f.Events.OnNewShrinkingCircle(*circle);
+
+			// Air drop
+			if (config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
+			{
+				AirDrop.Create(f, config);
+			}
+			else
+			{
+				circle->AirDropChance += config.AirdropChance;
+			}
 		}
 
 		private void AddShrinkingDamage(Frame f, EntityRef playerEntity, FPVector3 position)
@@ -114,7 +126,7 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = f.GameConfig.ShrinkingDamage * (uint)circle.Step,
+				PowerAmount = f.GameConfig.ShrinkingDamage * (uint) circle.Step,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			});
@@ -131,7 +143,7 @@ namespace Quantum.Systems
 		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity)
 		{
 			var spellList = f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects);
-			
+
 			spellEntity = EntityRef.None;
 
 			for (var i = spellList.Count - 1; i > -1; --i)
@@ -147,14 +159,14 @@ namespace Quantum.Systems
 				{
 					continue;
 				}
-				
+
 				spellEntity = spellList[i];
 
 				if (removeIfFound)
 				{
 					spellList.RemoveAt(i);
 				}
-					
+
 				return true;
 			}
 

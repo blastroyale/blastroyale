@@ -145,7 +145,9 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCachedLoginEmail()
 		{
-			return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
+			//This line disables login flow, revert for  the next release stage
+			//return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
+			return true;
 		}
 
 		private void LoginWithDevice()
@@ -380,7 +382,8 @@ namespace FirstLight.Game.StateMachines
 				LinkDeviceID();
 			}
 			
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+			//This line disables login flow, revert for  the next release stage
+			//appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			
 			ProcessAuthentication(result);
 

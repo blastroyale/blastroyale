@@ -348,6 +348,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRoomLockClicked(RoomLockClickedMessage message)
 		{
+			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable{{GameConstants.Network.ROOM_PROPS_BOTS, message.AddBots}});
 			LockRoom();
 		}
 		
@@ -522,7 +523,8 @@ namespace FirstLight.Game.StateMachines
 			var playerProps = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.Network.PLAYER_PROPS_LOADED, false}
+				{GameConstants.Network.PLAYER_PROPS_LOADED, false},
+				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false}
 			};
 			
 			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);

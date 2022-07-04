@@ -26,6 +26,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
+		
+		public uint MaxPlayersForList { get; private set; }
 
 		private void Awake()
 		{
@@ -35,12 +37,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		public void Init(uint playerLimit)
 		{
-			if (_playerNamePool.SpawnedReadOnly.Count > 0)
+			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
 			{
 				_playerNamePool.DespawnAll();
 				_activePlayerEntries.Clear();
 			}
-			
+
+			MaxPlayersForList = playerLimit;
 			_playerNamePool = new GameObjectPool<PlayerNameEntryView>(playerLimit, _nameEntryViewRef);
 			
 			for (var i = 0; i < playerLimit; i++)

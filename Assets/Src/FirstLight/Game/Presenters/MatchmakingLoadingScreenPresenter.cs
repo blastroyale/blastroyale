@@ -273,11 +273,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			
-			room.SetCustomProperties(new Hashtable{{GameConstants.Data.GAME_HAS_BOTS, _botsToggle.isOn}});
-			
-			_services.MessageBrokerService.Publish(new RoomLockClickedMessage());
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.isOn});
 		}
 
 		private void OnLeaveRoomClicked()

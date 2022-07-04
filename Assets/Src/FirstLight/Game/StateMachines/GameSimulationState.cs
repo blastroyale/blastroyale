@@ -256,7 +256,7 @@ namespace FirstLight.Game.StateMachines
 
 			var startPlayersCount = client.CurrentRoom.MaxPlayers;
 
-			if (room.CustomProperties.TryGetValue(GameConstants.Data.GAME_HAS_BOTS, out var gameHasBots) && !(bool)gameHasBots)
+			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) && !(bool)gameHasBots)
 			{
 				startPlayersCount = room.PlayerCount;
 			}

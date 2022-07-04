@@ -327,7 +327,7 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Obtains the current selected map id in the given <paramref name="room"/>
+		/// Obtains the current selected room code name in the given <paramref name="room"/>
 		/// </summary>
 		public static string GetRoomName(this Room room)
 		{

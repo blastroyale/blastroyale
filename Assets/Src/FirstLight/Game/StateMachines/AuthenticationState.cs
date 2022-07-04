@@ -74,23 +74,21 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
-			login.Event(_goToRegisterClickedEvent).Target(register);
+			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
-			login.OnExit(CloseLoginScreen);
-			
+
 			register.OnEnter(OpenRegisterScreen);
-			register.Event(_goToLoginClickedEvent).Target(login);
+			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
-			register.OnExit(CloseRegisterScreen);
 
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_loginCompletedEvent).Target(finalSteps);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
-			authLogin.OnEnter(() => DimLoginScreen(true));
-			authLogin.Event(_loginCompletedEvent).Target(finalSteps);
+			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
+			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(finalSteps);
 			authLogin.Event(_authenticationFailEvent).Target(login);
-			authLogin.OnExit(() => DimLoginScreen(false));
+			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
 			finalSteps.OnEnter(OpenLoadingScreen);
 			finalSteps.WaitingFor(FinalStepsAuthentication).Target(final);
@@ -398,6 +396,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void RegisterClicked(string email, string username, string password)
 		{
+			_statechartTrigger(_loginRegisterTransitionEvent);
+			
 			var register = new RegisterPlayFabUserRequest
 			{
 				Email = email,
@@ -428,10 +428,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<RegisterScreenPresenter>();
 		}
+		
+		private void CloseLoginRegisterScreens()
+		{
+			_uiService.CloseUi<LoginScreenPresenter>();
+			_uiService.CloseUi<RegisterScreenPresenter>();
+		}
 
-		private void DimLoginScreen(bool dimmed)
+		private void DimLoginRegisterScreens(bool dimmed)
 		{
 			_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
 		}
 
 		private void OpenLoginScreen()

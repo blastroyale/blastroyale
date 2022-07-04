@@ -17,6 +17,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
 		private Camera _minimapCamera;
 
+		[SerializeField, Required] private RectTransform _playerIndicator;
 		[SerializeField, Required] private RawImage _minimapImage;
 		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
 		[SerializeField] private int _cameraHeight = 10;
@@ -49,6 +50,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_minimapImage.uvRect = new Rect(viewportPoint.x - _viewportSize / 2f,
 			                                viewportPoint.y - _viewportSize / 2f,
 			                                _viewportSize, _viewportSize);
+
+			_playerIndicator.rotation = Quaternion.Euler(0,0, 360f - _playerEntityView.transform.rotation.eulerAngles.y);
 		}
 
 		private void OnDestroy()

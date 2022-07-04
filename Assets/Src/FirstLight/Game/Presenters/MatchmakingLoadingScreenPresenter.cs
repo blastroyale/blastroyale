@@ -113,8 +113,7 @@ namespace FirstLight.Game.Presenters
 				_playerListHolder.gameObject.SetActive(true);
 				_playerMatchmakingRootObject.SetActive(false);
 				
-				var customRoomName = room.Name.Substring(0, GameConstants.Data.ROOM_NAME_CODE_LENGTH);
-				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, customRoomName);
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
 				_roomNameRootObject.SetActive(true);
 				
 				foreach (var playerKvp in CurrentRoom.Players)

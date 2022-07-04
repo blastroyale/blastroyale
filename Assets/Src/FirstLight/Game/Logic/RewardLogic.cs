@@ -61,7 +61,7 @@ namespace FirstLight.Game.Logic
 		{
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
-#pragma warning disable 0162
+		
 		/// <inheritdoc />
 		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
@@ -107,18 +107,18 @@ namespace FirstLight.Game.Logic
 			
 			if (csWithdrawn > 0)
 			{
-				// TODO: Uncomment when we reward CS again
-				//rewards.Add(new RewardData(GameId.CS, csWithdrawn));
+				rewards.Add(new RewardData(GameId.CS, csWithdrawn));
 			}
 
 			return rewards;
 		}
-#pragma warning restore 0162
 
-#pragma warning disable 0162
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
+			return new List<RewardData>();
+			
+#pragma warning disable 0162
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 
 			foreach (var reward in rewards)
@@ -132,10 +132,9 @@ namespace FirstLight.Game.Logic
 			}
 			
 			return rewards;
-		}
 #pragma warning restore 0162
+		}
 		
-
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{

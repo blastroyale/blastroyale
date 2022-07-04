@@ -40,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
+		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private Toggle _botsToggle;
 		[SerializeField, Required] private Toggle _spectateToggle;
 		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
@@ -95,7 +96,7 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
-			_playerListHolder.WipeAllSlots();
+			
 			
 			MapSelectionView.SetupMapView(room.GetMapId());
 
@@ -110,6 +111,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
+				
+				_playerListHolder.Init((uint)mapInfo.PlayersLimit);
+				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
+				
 				_playerListHolder.gameObject.SetActive(true);
 				_playerMatchmakingRootObject.SetActive(false);
 				

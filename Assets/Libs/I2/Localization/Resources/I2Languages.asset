@@ -2177,6 +2177,384 @@ MonoBehaviour:
       - Spectate
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/AskForHelp
+      TermType: 0
+      Description: 
+      Languages:
+      - Ask other players to revive you!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/BossAngry
+      TermType: 0
+      Description: 
+      Languages:
+      - Is Angry!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/BossFurious
+      TermType: 0
+      Description: 
+      Languages:
+      - Is Furious!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/BossPain
+      TermType: 0
+      Description: 
+      Languages:
+      - Is Feeling the Pain!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Damage
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Deaths
+      TermType: 0
+      Description: 
+      Languages:
+      - Deaths
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/FreeSlot
+      TermType: 0
+      Description: 
+      Languages:
+      - Free Slot
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/FraggedBy
+      TermType: 0
+      Description: 
+      Languages:
+      - 'KILLED BY: {0}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/YouDied
+      TermType: 0
+      Description: 
+      Languages:
+      - You Died!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/GameOver
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME OVER
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/GameStartsIn
+      TermType: 0
+      Description: 
+      Languages:
+      - Game Starts In
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Go
+      TermType: 0
+      Description: 
+      Languages:
+      - GO!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Healing
+      TermType: 0
+      Description: 
+      Languages:
+      - Healing
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/JoinedGame1
+      TermType: 0
+      Description: 
+      Languages:
+      - Has Entered the Game!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/KO
+      TermType: 0
+      Description: 
+      Languages:
+      - KO
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Kills
+      TermType: 0
+      Description: 
+      Languages:
+      - Kills
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/NextWaveIn
+      TermType: 0
+      Description: 
+      Languages:
+      - Next Wave In
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/NoRewardsCollected
+      TermType: 0
+      Description: 
+      Languages:
+      - NO REWARDS COLLECTED
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/PlayerLeft
+      TermType: 0
+      Description: 
+      Languages:
+      - Player Left
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Revives
+      TermType: 0
+      Description: 
+      Languages:
+      - Revives
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/SpawningEnemies
+      TermType: 0
+      Description: 
+      Languages:
+      - Spawning Enemies
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/TimeOver
+      TermType: 0
+      Description: 
+      Languages:
+      - TIME OVER
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/TimeRemaining
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Time Remaining:'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/TotalLooters
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Looters {0}
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/UnlocksIn
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Unlocks In: {0}'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/YourLoot
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR LOOT
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AdventureCompleted
+      TermType: 0
+      Description: 
+      Languages:
+      - Adventure Completed!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/RespawnTime
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Respawning In:'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/PlayerWon
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} WON!'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Suicide
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} TASTED DEATH!'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ChooseDeath
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU TASTE DEATH!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Double
+      TermType: 0
+      Description: 
+      Languages:
+      - DOUBLE
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Multi
+      TermType: 0
+      Description: 
+      Languages:
+      - MULTI
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Killing
+      TermType: 0
+      Description: 
+      Languages:
+      - KILLING
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Kill
+      TermType: 0
+      Description: 
+      Languages:
+      - KILL
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Spree
+      TermType: 0
+      Description: 
+      Languages:
+      - SPREE
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/KillsRemaining
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} KILLS'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Remaining
+      TermType: 0
+      Description: 
+      Languages:
+      - REMAINING!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Dominating
+      TermType: 0
+      Description: 
+      Languages:
+      - IS DOMINATING!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/Godlike
+      TermType: 0
+      Description: 
+      Languages:
+      - IS GODLIKE!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/FirstToXKills
+      TermType: 0
+      Description: 
+      Languages:
+      - FIRST TO {0} KILLS WINS!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/YouKilledPlayer
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU KILLED
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/GoToArea
+      TermType: 0
+      Description: 
+      Languages:
+      - Go to the safe area!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AreaShrinking
+      TermType: 0
+      Description: 
+      Languages:
+      - Area shrinking!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/GetReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Get ready!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ContendersRemaining
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} PLAYERS REMAINING'
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusLoading
+      TermType: 0
+      Description: 
+      Languages:
+      - LOADING...
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusReady
+      TermType: 0
+      Description: 
+      Languages:
+      - READY
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusHost
+      TermType: 0
+      Description: 
+      Languages:
+      - HOST
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - STATUS
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/MatchmakingPlayerTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Player
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/MatchmakingSpectatorTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectator
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AirDropIncomingLine1
+      TermType: 0
+      Description: 
+      Languages:
+      - Air Drop Incoming!
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AirDropIncomingLine2
+      TermType: 0
+      Description: 
+      Languages:
+      - Hurry Up!
+      Flags: 00
+      Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
       Description: 
@@ -4998,370 +5376,6 @@ MonoBehaviour:
       - STEEL CORE
       Flags: 00
       Languages_Touch: []
-    - Term: AdventureMenu/AskForHelp
-      TermType: 0
-      Description: 
-      Languages:
-      - Ask other players to revive you!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/BossAngry
-      TermType: 0
-      Description: 
-      Languages:
-      - Is Angry!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/BossFurious
-      TermType: 0
-      Description: 
-      Languages:
-      - Is Furious!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/BossPain
-      TermType: 0
-      Description: 
-      Languages:
-      - Is Feeling the Pain!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Damage
-      TermType: 0
-      Description: 
-      Languages:
-      - Damage
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Deaths
-      TermType: 0
-      Description: 
-      Languages:
-      - Deaths
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/FreeSlot
-      TermType: 0
-      Description: 
-      Languages:
-      - Free Slot
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/FraggedBy
-      TermType: 0
-      Description: 
-      Languages:
-      - 'KILLED BY: {0}'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/YouDied
-      TermType: 0
-      Description: 
-      Languages:
-      - You Died!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/GameOver
-      TermType: 0
-      Description: 
-      Languages:
-      - GAME OVER
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/GameStartsIn
-      TermType: 0
-      Description: 
-      Languages:
-      - Game Starts In
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Go
-      TermType: 0
-      Description: 
-      Languages:
-      - GO!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Healing
-      TermType: 0
-      Description: 
-      Languages:
-      - Healing
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/JoinedGame1
-      TermType: 0
-      Description: 
-      Languages:
-      - Has Entered the Game!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/KO
-      TermType: 0
-      Description: 
-      Languages:
-      - KO
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Kills
-      TermType: 0
-      Description: 
-      Languages:
-      - Kills
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/NextWaveIn
-      TermType: 0
-      Description: 
-      Languages:
-      - Next Wave In
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/NoRewardsCollected
-      TermType: 0
-      Description: 
-      Languages:
-      - NO REWARDS COLLECTED
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/PlayerLeft
-      TermType: 0
-      Description: 
-      Languages:
-      - Player Left
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Revives
-      TermType: 0
-      Description: 
-      Languages:
-      - Revives
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/SpawningEnemies
-      TermType: 0
-      Description: 
-      Languages:
-      - Spawning Enemies
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/TimeOver
-      TermType: 0
-      Description: 
-      Languages:
-      - TIME OVER
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/TimeRemaining
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Time Remaining:'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/TotalLooters
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Looters {0}
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/UnlocksIn
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Unlocks In: {0}'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/YourLoot
-      TermType: 0
-      Description: 
-      Languages:
-      - YOUR LOOT
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/AdventureCompleted
-      TermType: 0
-      Description: 
-      Languages:
-      - Adventure Completed!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/RespawnTime
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Respawning In:'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/PlayerWon
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} WON!'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Suicide
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} TASTED DEATH!'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/ChooseDeath
-      TermType: 0
-      Description: 
-      Languages:
-      - YOU TASTE DEATH!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Double
-      TermType: 0
-      Description: 
-      Languages:
-      - DOUBLE
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Multi
-      TermType: 0
-      Description: 
-      Languages:
-      - MULTI
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Killing
-      TermType: 0
-      Description: 
-      Languages:
-      - KILLING
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Kill
-      TermType: 0
-      Description: 
-      Languages:
-      - KILL
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Spree
-      TermType: 0
-      Description: 
-      Languages:
-      - SPREE
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/KillsRemaining
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} KILLS'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Remaining
-      TermType: 0
-      Description: 
-      Languages:
-      - REMAINING!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Dominating
-      TermType: 0
-      Description: 
-      Languages:
-      - IS DOMINATING!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/Godlike
-      TermType: 0
-      Description: 
-      Languages:
-      - IS GODLIKE!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/FirstToXKills
-      TermType: 0
-      Description: 
-      Languages:
-      - FIRST TO {0} KILLS WINS!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/YouKilledPlayer
-      TermType: 0
-      Description: 
-      Languages:
-      - YOU KILLED
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/GoToArea
-      TermType: 0
-      Description: 
-      Languages:
-      - Go to the safe area!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/AreaShrinking
-      TermType: 0
-      Description: 
-      Languages:
-      - Area shrinking!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/GetReady
-      TermType: 0
-      Description: 
-      Languages:
-      - Get ready!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/ContendersRemaining
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} PLAYERS REMAINING'
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusLoading
-      TermType: 0
-      Description: 
-      Languages:
-      - LOADING...
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusReady
-      TermType: 0
-      Description: 
-      Languages:
-      - READY
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusHost
-      TermType: 0
-      Description: 
-      Languages:
-      - HOST
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - STATUS
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/AirDropIncomingLine1
-      TermType: 0
-      Description: 
-      Languages:
-      - Air Drop Incoming!
-      Flags: 00
-      Languages_Touch: []
-    - Term: AdventureMenu/AirDropIncomingLine2
-      TermType: 0
-      Description: 
-      Languages:
-      - Hurry Up!
-      Flags: 00
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5374,7 +5388,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1656603185346
+    Google_LastUpdatedVersion: 1656945363175
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

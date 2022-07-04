@@ -52,9 +52,9 @@ namespace FirstLight.Game.Utils
 		public static class Data
 		{
 			public const string GAME_HAS_BOTS = "GameHasBots";
-
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
 			public const int PLAYER_NAME_MAX_LENGTH = 20;
+			public const int MATCH_SPECTATOR_SPOTS = 8;
 		}
 
 		public static class Network

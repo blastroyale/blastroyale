@@ -115,6 +115,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
+#pragma warning disable 0162
+			return new List<RewardData>();
+			
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 			var poolRewards = rewards.FindAll(reward => reward.RewardId.IsInGroup(GameIdGroup.ResourcePool));
 
@@ -126,6 +129,7 @@ namespace FirstLight.Game.Logic
 			Data.UncollectedRewards.AddRange(rewards);
 
 			return rewards;
+#pragma warning restore 0162
 		}
 
 		/// <inheritdoc />

@@ -37,6 +37,8 @@ namespace I2.Loc
 			public static string Killing 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Killing"); } }
 			public static string Kills 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Kills"); } }
 			public static string KillsRemaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KillsRemaining"); } }
+			public static string MatchmakingPlayerTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingPlayerTitle"); } }
+			public static string MatchmakingSpectatorTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingSpectatorTitle"); } }
 			public static string Multi 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Multi"); } }
 			public static string NextWaveIn 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NextWaveIn"); } }
 			public static string NoRewardsCollected 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NoRewardsCollected"); } }
@@ -845,6 +847,8 @@ namespace I2.Loc
 		    public const string Killing = "AdventureMenu/Killing";
 		    public const string Kills = "AdventureMenu/Kills";
 		    public const string KillsRemaining = "AdventureMenu/KillsRemaining";
+		    public const string MatchmakingPlayerTitle = "AdventureMenu/MatchmakingPlayerTitle";
+		    public const string MatchmakingSpectatorTitle = "AdventureMenu/MatchmakingSpectatorTitle";
 		    public const string Multi = "AdventureMenu/Multi";
 		    public const string NextWaveIn = "AdventureMenu/NextWaveIn";
 		    public const string NoRewardsCollected = "AdventureMenu/NoRewardsCollected";

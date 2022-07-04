@@ -27,17 +27,23 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
 
-		public void Awake()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
-
-			_activePlayerEntries = new List<PlayerNameEntryView>();
-			_playerNamePool = new GameObjectPool<PlayerNameEntryView>((uint) mapInfo.PlayersLimit, _nameEntryViewRef);
-
-			for (var i = 0; i < mapInfo.PlayersLimit; i++)
+		}
+		
+		public void Init(uint playerLimit)
+		{
+			if (_playerNamePool.SpawnedReadOnly.Count > 0)
+			{
+				_playerNamePool.DespawnAll();
+				_activePlayerEntries.Clear();
+			}
+			
+			_playerNamePool = new GameObjectPool<PlayerNameEntryView>(playerLimit, _nameEntryViewRef);
+			
+			for (var i = 0; i < playerLimit; i++)
 			{
 				var newEntry = _playerNamePool.Spawn();
 				_activePlayerEntries.Add(newEntry);

@@ -134,7 +134,8 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
-			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
+			playClickedCheck.Transition().Condition(_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay)
+				.OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);

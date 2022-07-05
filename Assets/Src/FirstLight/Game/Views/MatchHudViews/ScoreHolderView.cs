@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_fragTarget = (int) _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 		}
 		
@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnMatchStarted(MatchStartedMessage message)
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
 		{
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;

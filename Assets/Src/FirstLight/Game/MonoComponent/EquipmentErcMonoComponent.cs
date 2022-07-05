@@ -1,4 +1,4 @@
-using FirstLight.Game.Data;
+using Quantum;
 using UnityEngine;
 
 
@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent
 		/// Initialises a erc object given erc metadata <see cref="metadata"/>
 		/// </summary>
 		/// <param name="metadata"></param>
-		public void Initialise(Erc721MetaData metadata);
+		public void Initialise(Equipment metadata);
 	}
 	
 	/// <summary>
@@ -22,7 +22,8 @@ namespace FirstLight.Game.MonoComponent
 	public class EquipmentErcMonoComponent : MonoBehaviour, IErcRenderable
 	{
 		[SerializeField] private GameObject[] _equipmentRarityGameObjects;
-		[SerializeField] private EquipmentErcRenderableData _equipmentErcSpriteData;
+		[SerializeField] private Sprite[] _surfaceTextures;
+		[SerializeField] private Sprite[] _adjectiveTextures;
 		[SerializeField] private Renderer[] _renderers;
 		
 		private MaterialPropertyBlock _propBlock;
@@ -43,13 +44,8 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Initialise material and game objects based on metadata object 
 		/// </summary>
-		public void Initialise(Erc721MetaData metadata)
+		public void Initialise(Equipment metadata)
 		{
-			var rarityId = metadata.attibutesDictionary["rarity"];
-			var materialId = metadata.attibutesDictionary["material"];
-			var adjectiveId = metadata.attibutesDictionary["adjective"];;
-			
-						
 			_propBlock ??= new MaterialPropertyBlock();
 						
 			_propBlock.Clear();
@@ -58,8 +54,8 @@ namespace FirstLight.Game.MonoComponent
 			{
 				r.GetPropertyBlock(_propBlock);
 				
-				_propBlock.SetTexture(_surfaceTextureId, _equipmentErcSpriteData.SurfaceTexture[materialId].texture);
-				_propBlock.SetTexture(_adjectiveTextureId, _equipmentErcSpriteData.AdjectiveTexture[adjectiveId].texture);
+				_propBlock.SetTexture(_surfaceTextureId, _surfaceTextures[(int)metadata.Material].texture);
+				_propBlock.SetTexture(_adjectiveTextureId, _adjectiveTextures[(int)metadata.Adjective].texture);
 				r.SetPropertyBlock(_propBlock, 0);	
 			}
 
@@ -68,7 +64,7 @@ namespace FirstLight.Game.MonoComponent
 				return;
 			}
 			
-			for (var i = 0; i <= rarityId; i++)
+			for (var i = 0; i <= (int)metadata.Rarity; i++)
 			{
 				_equipmentRarityGameObjects[i].SetActive(true);
 			}

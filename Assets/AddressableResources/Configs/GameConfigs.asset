@@ -106,11 +106,11 @@ MonoBehaviour:
       TrophyEloRange: 50
       TrophyEloK: 5
       NftAssumedOwned: 40
-      MinNftForEarnings: 3
+      MinNftForEarnings: 0
       AdjectiveRarityEarningsMod:
         RawValue: 52429
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 3
+      NftRequiredEquippedForPlay: 0
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:

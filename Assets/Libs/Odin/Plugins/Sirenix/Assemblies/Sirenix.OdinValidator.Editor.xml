@@ -14,5 +14,15 @@
             Result will be null if the object is deleted.
             </summary>
         </member>
+        <member name="T:Sirenix.OdinValidator.Editor.EnsureOdinValidatorDefine">
+            <summary>
+            Defines the ODIN_VALIDATOR symbol.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.Editor.GettingStarted.NextOdinGettingStartedWindow.OdinBg">
+            <summary>
+            Gets a texture of an odin bg symbol.
+            </summary>
+        </member>
     </members>
 </doc>

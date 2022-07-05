@@ -1530,7 +1530,7 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  Anchor: {fileID: 0}
+  Anchor: {fileID: 3524027751288417738}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
   OverrideSfx: 0
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  Anchor: {fileID: 0}
+  Anchor: {fileID: 3524027751288417738}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
   OverrideSfx: 0
@@ -2109,7 +2109,7 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  Anchor: {fileID: 0}
+  Anchor: {fileID: 3524027751288417738}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
   OverrideSfx: 0
@@ -4435,6 +4435,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+--- !u!224 &3524027751288417738 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 118174997705972396, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+  m_PrefabInstance: {fileID: 3549974609647564646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6474415247856761561 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7538380655511276991, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}

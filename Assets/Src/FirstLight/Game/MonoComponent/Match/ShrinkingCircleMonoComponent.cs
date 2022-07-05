@@ -41,9 +41,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;
-			var lerp = Mathf.Max(0, (frame.Time.AsFloat - circle.ShrinkingStartTime.AsFloat) / circle.ShrinkingDurationTime.AsFloat);
-			var radius = Mathf.Lerp(circle.CurrentRadius.AsFloat, targetRadius, lerp);
-			var center = Vector2.Lerp(circle.CurrentCircleCenter.ToUnityVector2(), targetCircleCenter, lerp);
+			var radius = circle.MovingRadius.AsFloat;
+			var center = circle.MovingCircleCenter.ToUnityVector2();
+			
 			var cachedShrinkingCircleLineTransform = _shrinkingCircleLinerRenderer.transform;
 			var cachedSafeAreaCircleLine = _safeAreaCircleLinerRenderer.transform;
 			

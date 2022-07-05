@@ -1,8 +1,10 @@
 singleton component ShrinkingCircle
 {
 	FPVector2 CurrentCircleCenter;
+	FPVector2 MovingCircleCenter;
 	FPVector2 TargetCircleCenter;
 	FP CurrentRadius;
+	FP MovingRadius;
 	FP TargetRadius;
 	FP ShrinkingStartTime;
 	FP ShrinkingDurationTime;

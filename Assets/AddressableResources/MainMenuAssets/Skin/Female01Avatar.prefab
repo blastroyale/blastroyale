@@ -2261,7 +2261,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 741f46e204aff4147aee1c9c68c99632, type: 2}
   - {fileID: 2100000, guid: 741f46e204aff4147aee1c9c68c99632, type: 2}
   - {fileID: 2100000, guid: 741f46e204aff4147aee1c9c68c99632, type: 2}
-  - {fileID: 2100000, guid: 2d3a3e8105531d74c827dee5b91bc02e, type: 2}
+  - {fileID: 2100000, guid: 0daf603ac407bf746b04e11eafb1af43, type: 2}
   _renderers:
   - {fileID: 6091127128201621234}
   - {fileID: 8311671380655730472}
@@ -2808,6 +2808,10 @@ PrefabInstance:
     - target: {fileID: 2956627114472664281, guid: b22cfd75433598540a25cf2217f58e7c, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853284413904793833, guid: b22cfd75433598540a25cf2217f58e7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7745273872158143919, guid: b22cfd75433598540a25cf2217f58e7c, type: 3}
       propertyPath: m_RootOrder

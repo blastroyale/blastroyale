@@ -151,24 +151,88 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 8652182290889497696}
-  _minDuration: 1
-  _maxDuration: 1.75
-  _maxOffsetX: 50
+  _minDuration: 0.75
+  _maxDuration: 1.25
+  _maxOffsetX: 100
   _minOffsetY: 50
   _maxOffsetY: 75
   _yPositionAnimCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.50546485
+      value: 0.8325302
+      inSlope: -1.3145694
+      outSlope: -1.3145694
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15918978
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.010368347
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _scaleCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.19688596
+      value: 0.8506642
+      inSlope: 0.5525573
+      outSlope: 0.5525573
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2626657
+    - serializedVersion: 3
+      time: 0.82629824
+      value: 0.828045
+      inSlope: -0.8742328
+      outSlope: -0.8742328
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20728053
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.010368347
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _objectsToFloat: []
+  _objectsToFloat:
+  - {fileID: 3549624027924807928}
 --- !u!114 &4477599224129926259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,24 +976,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 5349255592942236612}
-  _minDuration: 1
-  _maxDuration: 1.75
-  _maxOffsetX: 50
+  _minDuration: 0.75
+  _maxDuration: 1.25
+  _maxOffsetX: 100
   _minOffsetY: 50
   _maxOffsetY: 75
   _yPositionAnimCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.50546485
+      value: 0.8325302
+      inSlope: -1.3145694
+      outSlope: -1.3145694
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15918978
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.010368347
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _scaleCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.19688596
+      value: 0.8506642
+      inSlope: 0.5525573
+      outSlope: 0.5525573
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2626657
+    - serializedVersion: 3
+      time: 0.82629824
+      value: 0.828045
+      inSlope: -0.8742328
+      outSlope: -0.8742328
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20728053
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.010368347
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _objectsToFloat: []
+  _objectsToFloat:
+  - {fileID: 1282318450651774879}
+  - {fileID: 6064706766524340038}
 --- !u!114 &8191121116927377600
 MonoBehaviour:
   m_ObjectHideFlags: 0

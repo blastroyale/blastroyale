@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
@@ -60,7 +61,7 @@ namespace FirstLight.Game.Logic
 		{
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
-
+		
 		/// <inheritdoc />
 		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
@@ -115,19 +116,25 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
+			return new List<RewardData>();
+			
+#pragma warning disable 0162
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
-			var poolRewards = rewards.FindAll(reward => reward.RewardId.IsInGroup(GameIdGroup.ResourcePool));
 
-			foreach (var reward in poolRewards)
+			foreach (var reward in rewards)
 			{
-				GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+				if (reward.RewardId.IsInGroup(GameIdGroup.ResourcePool))
+				{
+					GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+				}
+				
+				Data.UncollectedRewards.Add(reward);
 			}
 			
-			Data.UncollectedRewards.AddRange(rewards);
-
 			return rewards;
+#pragma warning restore 0162
 		}
-
+		
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{

@@ -31,7 +31,7 @@ public class TestNftSyncPlugin
 			services.RemoveAll(typeof(IServerStateService));
 			services.AddSingleton<IServerStateService, InMemoryPlayerState>();
 		});
-		var log = _app.Services.GetService<ILogger>();
+		var log = _app.GetService<ILogger>();
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);
 		_nftSync = new StubbedNftSync(pluginCtx);

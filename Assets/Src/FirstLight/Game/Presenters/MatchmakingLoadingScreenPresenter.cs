@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField, Required] private Button _lockRoomButton;
 		[SerializeField, Required] private Button _leaveRoomButton;
-		[SerializeField] private Image[] _playersWaitingImage;
+		[SerializeField, Required] private Image[] _playersWaitingImage;
 		[SerializeField, Required] private TextMeshProUGUI _playersFoundText;
 		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
@@ -42,11 +42,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
-		[SerializeField, Required] private Toggle _botsToggle;
-		[SerializeField, Required] private Toggle _spectateToggle;
+		[SerializeField, Required] private UiToggleButtonView _botsToggle;
+		[SerializeField, Required] private UiToggleButtonView _spectateToggle;
 		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
 		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
-
+		[SerializeField] private Color _spectateDisabledColor;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		private float _rndWaitingTimeLowest;
@@ -67,7 +68,7 @@ namespace FirstLight.Game.Presenters
 				image.gameObject.SetActive(false);
 			}
 
-			_spectateToggle.onValueChanged.AddListener(SpectatorToggle);
+			_spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
@@ -282,16 +283,34 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			var isSpectator = (bool) _services.NetworkService.QuantumClient.LocalPlayer.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-
+			var relevantPlayerAmount = 0;
+			var relevantPlayerCapacity = 0;
+			
 			if (isSpectator)
 			{
-				_spectateToggle.isOn = CurrentRoom.GetRealPlayerAmount() <
-				                       CurrentRoom.GetRealPlayerCapacity();
+				relevantPlayerAmount = CurrentRoom.GetRealPlayerAmount();
+				relevantPlayerCapacity = CurrentRoom.GetRealPlayerCapacity();
 			}
 			else
 			{
-				_spectateToggle.isOn = CurrentRoom.GetSpectatorAmount() <
-				                       CurrentRoom.GetSpectatorCapacity();
+				relevantPlayerAmount = CurrentRoom.GetSpectatorAmount();
+				relevantPlayerCapacity = CurrentRoom.GetSpectatorCapacity();
+			}
+
+			SetSpectateInteractable(relevantPlayerAmount < relevantPlayerCapacity);
+		}
+
+		private void SetSpectateInteractable(bool interactable)
+		{
+			_spectateToggle.interactable = interactable;
+			
+			if (interactable)
+			{
+				_spectateToggle.SetTargetCustomGraphicsColor(Color.white);
+			}
+			else
+			{
+				_spectateToggle.SetTargetCustomGraphicsColor(_spectateDisabledColor);
 			}
 		}
 
@@ -322,7 +341,7 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator TimeoutSpectatorToggleCoroutine()
 		{
-			_spectateToggle.enabled = false;
+			SetSpectateInteractable(false);
 			_spectatorToggleTimeOut = true;
 			
 			yield return new WaitForSeconds(GameConstants.Data.SPECTATOR_TOGGLE_TIMEOUT);
@@ -358,7 +377,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void SpectatorToggle(bool isOn)
+		private void OnSpectatorToggle(bool isOn)
 		{
 			_services.MessageBrokerService.Publish(new SpectatorToggleMessage() {IsSpectator = isOn});
 			_services.CoroutineService.StartCoroutine(TimeoutSpectatorToggleCoroutine());

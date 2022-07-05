@@ -170,8 +170,8 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
+			_services.MessageBrokerService.Subscribe<SpectatorToggleMessage>(OnSpectatorToggleMessage);
 		}
-
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -350,6 +350,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable{{GameConstants.Network.ROOM_PROPS_BOTS, message.AddBots}});
 			LockRoom();
+		}
+		
+		private void OnSpectatorToggleMessage(SpectatorToggleMessage message)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{ GameConstants.Network.PLAYER_PROPS_SPECTATOR, message.IsSpectator }
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 		
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)

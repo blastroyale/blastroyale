@@ -13,6 +13,10 @@ namespace FirstLight.Game.Messages
 	{
 		public bool AddBots;
 	}
+	public struct SpectatorToggleMessage : IMessage
+	{
+		public bool IsSpectator;
+	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }
 	public struct SelectedGameModeMessage : IMessage { }
@@ -25,4 +29,5 @@ namespace FirstLight.Game.Messages
 		public string RoomName; 
 		public QuantumMapConfig MapConfig;
 	}
+	
 }

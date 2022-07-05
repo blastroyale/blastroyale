@@ -53,6 +53,7 @@ namespace FirstLight.Game.Utils
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
 			public const int PLAYER_NAME_MAX_LENGTH = 20;
 			public const int MATCH_SPECTATOR_SPOTS = 8;
+			public const float SPECTATOR_TOGGLE_TIMEOUT = 5f;
 		}
 
 		public static class Network

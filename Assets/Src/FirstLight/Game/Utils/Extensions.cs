@@ -333,6 +333,62 @@ namespace FirstLight.Game.Utils
 		{
 			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
 		}
+		
+		/// <summary>
+		/// Obtains amount of non-spectator players currently in room
+		/// </summary>
+		public static int GetRealPlayerAmount(this Room room)
+		{
+			int playerAmount = 0;
+			
+			foreach (var kvp in room.Players)
+			{
+				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+
+				if (!isSpectator)
+				{
+					playerAmount++;
+				}
+			}
+
+			return playerAmount;
+		}
+		
+		/// <summary>
+		/// Obtains amount of spectators players currently in room
+		/// </summary>
+		public static int GetSpectatorAmount(this Room room)
+		{
+			int playerAmount = 0;
+			
+			foreach (var kvp in room.Players)
+			{
+				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+
+				if (isSpectator)
+				{
+					playerAmount++;
+				}
+			}
+
+			return playerAmount;
+		}
+		
+		/// <summary>
+		/// Obtains room capacity for non-spectator players
+		/// </summary>
+		public static int GetRealPlayerCapacity(this Room room)
+		{
+			return room.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+		}
+		
+		/// <summary>
+		/// Obtains room capacity for non-spectator players
+		/// </summary>
+		public static int GetSpectatorCapacity(this Room room)
+		{
+			return GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+		}
 
 		/// <summary>
 		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not

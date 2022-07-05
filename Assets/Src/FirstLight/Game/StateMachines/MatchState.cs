@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchmakingLoadingScreenPresenter.StateData();
 
-			_uiService.OpenUi<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
 		}
 
 		private void CloseMatchmakingScreen()
@@ -229,6 +229,13 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
+			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
+			{
+				case GameMode.Deathmatch : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
+					break;
+				case GameMode.BattleRoyale : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
+					break;
+			}
 			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);

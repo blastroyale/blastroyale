@@ -262,7 +262,7 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = OnTabClickedCallback<HomeScreenPresenter>,
 			};
 
-			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
 		private void CloseHeroesMenuUI()
@@ -278,7 +278,7 @@ namespace FirstLight.Game.StateMachines
 				PlayClicked = PlayButtonClicked
 			};
 
-			_uiService.OpenUi<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
 
 		private void CloseRoomJoinCreateMenuUI()

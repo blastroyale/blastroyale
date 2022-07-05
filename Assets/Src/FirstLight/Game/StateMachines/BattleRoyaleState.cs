@@ -147,7 +147,7 @@ namespace FirstLight.Game.StateMachines
 				OnSpectateClicked = () => { _statechartTrigger(_localPlayerSpectateEvent); }
 			};
 
-			_uiService.OpenUi<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
 		}
 
 		private void CloseKillScreen()
@@ -155,14 +155,14 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>();
 		}
 
-		private void OpenSpectateScreen()
+		private async void OpenSpectateScreen()
 		{
 			var data = new BattleRoyaleSpectateScreenPresenter.StateData
 			{
 				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); }
 			};
 
-			_uiService.OpenUi<BattleRoyaleSpectateScreenPresenter, BattleRoyaleSpectateScreenPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<BattleRoyaleSpectateScreenPresenter, BattleRoyaleSpectateScreenPresenter.StateData>(data);
 			
 			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
 		}

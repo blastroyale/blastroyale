@@ -146,6 +146,14 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
 		/// </exception>
+		Task<UiPresenter> GetUiAsync(Type type);
+		
+		/// <summary>
+		/// Requests the UI of given <paramref name="type"/>
+		/// </summary>
+		/// <exception cref="KeyNotFoundException">
+		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
+		/// </exception>
 		UiPresenter GetUi(Type type);
 
 		/// <summary>
@@ -171,8 +179,26 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
 		/// </exception>
+		Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false);
+		
+		/// <summary>
+		/// Opens and returns the UI of given <paramref name="type"/>.
+		/// If the given <paramref name="openedException"/> is true, then will throw an <see cref="InvalidOperationException"/>
+		/// if the <see cref="UiPresenter"/> is already opened.
+		/// </summary>
+		/// <exception cref="KeyNotFoundException">
+		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
+		/// </exception>
 		UiPresenter OpenUi(Type type, bool openedException = false);
 
+		///<inheritdoc cref="OpenUi{T}(bool)"/>
+		/// <remarks>
+		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
+		/// </remarks>
+		Task<T> OpenUiAsync<T, TData>(TData initialData, bool openedException = false) 
+			where T : class, IUiPresenterData 
+			where TData : struct;
+		
 		///<inheritdoc cref="OpenUi{T}(bool)"/>
 		/// <remarks>
 		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
@@ -181,6 +207,15 @@ namespace FirstLight.UiService
 			where T : class, IUiPresenterData 
 			where TData : struct;
 
+		///<inheritdoc cref="OpenUi(Type, bool)"/>
+		/// <exception cref="ArgumentException">
+		/// Thrown if the the given <paramref name="type"/> is not of inhereting from <see cref="UiPresenterData{T}"/> class
+		/// </exception>
+		/// <remarks>
+		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
+		/// </remarks>
+		Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct;
+		
 		///<inheritdoc cref="OpenUi(Type, bool)"/>
 		/// <exception cref="ArgumentException">
 		/// Thrown if the the given <paramref name="type"/> is not of inhereting from <see cref="UiPresenterData{T}"/> class

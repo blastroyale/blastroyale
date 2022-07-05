@@ -82,7 +82,7 @@ namespace FirstLight.Game.StateMachines
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent)
 			};
 
-			_uiService.OpenUi<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseSettingsMenuUI()

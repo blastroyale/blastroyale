@@ -318,7 +318,7 @@ namespace FirstLight.Game.StateMachines
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
 
-			_uiService.OpenUi<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseResultScreen()
@@ -331,7 +331,7 @@ namespace FirstLight.Game.StateMachines
 			var cacheActivity = activity;
 			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
 
-			_uiService.OpenUi<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{

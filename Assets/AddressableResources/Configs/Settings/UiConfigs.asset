@@ -57,10 +57,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/GameTimeOver Screen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.GameTimeOverScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericDialog.prefab
     Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -89,6 +85,10 @@ MonoBehaviour:
     Layer: 9
     UiType: FirstLight.Game.Presenters.LoadingScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/LoadingSpinner.prefab
+    Layer: 9
+    UiType: FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LoginScreen.prefab
     Layer: 3
     UiType: FirstLight.Game.Presenters.LoginScreenPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -164,39 +164,19 @@ MonoBehaviour:
   _sets:
   - SetId: 0
     UiConfigsType:
-    - FirstLight.Game.Presenters.DisconnectedScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogIconPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GenericDialogVideoPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogInputFieldPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogHcPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.FullScreenVideoPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.TalkingHeadDialogPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.MatchmakingLoadingScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.LoginScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.RegisterScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+    - FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:
     - FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.LootScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.EquipmentScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.PlayerSkinScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -204,8 +184,6 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
@@ -216,25 +194,19 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.ResultsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.RewardsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GameTimeOverScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - SetId: 3
+    UiConfigsType:
     - FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.BattleRoyaleSpectateScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - SetId: 4
+    UiConfigsType: []

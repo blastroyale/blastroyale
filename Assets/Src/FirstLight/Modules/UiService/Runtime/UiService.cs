@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.Game.Presenters;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -159,7 +160,7 @@ namespace FirstLight.UiService
 
 			if (HasUiPresenter(type))
 			{
-				var ui = GetUi(type);
+				var ui = await GetUiAsync(type);
 				
 				ui.gameObject.SetActive(openAfter);
 
@@ -172,7 +173,7 @@ namespace FirstLight.UiService
 			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
 			if (HasUiPresenter(type))
 			{
-				var ui = GetUi(type);
+				var ui = await GetUiAsync(type);
 				
 				_assetLoader.UnloadAsset(gameObject);
 				ui.gameObject.SetActive(openAfter);
@@ -227,9 +228,18 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
+		public async Task<UiPresenter> GetUiAsync(Type type)
+		{
+			var presenter = await GetReferenceAsync(type);
+
+			return presenter.Presenter;
+		}
+		
 		public UiPresenter GetUi(Type type)
 		{
-			return GetReference(type).Presenter;
+			var presenter = GetReference(type);
+
+			return presenter.Presenter;
 		}
 
 		/// <inheritdoc />
@@ -245,6 +255,23 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
+		public async Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false)
+		{
+			var ui = await GetUiAsync(type);
+			
+			if (!_visibleUiList.Contains(type))
+			{
+				ui.InternalOpen();
+				_visibleUiList.Add(type);
+			}
+			else if(openedException)
+			{
+				throw new InvalidOperationException($"Is trying to open the {type.Name} ui but is already open");
+			}
+			
+			return ui;
+		}
+		
 		public UiPresenter OpenUi(Type type, bool openedException = false)
 		{
 			var ui = GetUi(type);
@@ -269,6 +296,14 @@ namespace FirstLight.UiService
 		{
 			return OpenUi(typeof(T), initialData, openedException) as T;
 		}
+		
+		/// <inheritdoc />
+		public async Task<T> OpenUiAsync<T, TData>(TData initialData, bool openedException = false) 
+			where T : class, IUiPresenterData 
+			where TData : struct
+		{
+			return await OpenUiAsync(typeof(T), initialData, openedException) as T;
+		}
 
 		/// <inheritdoc />
 		public UiPresenter OpenUi<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
@@ -283,6 +318,21 @@ namespace FirstLight.UiService
 			uiPresenterData.InternalSetData(initialData);
 
 			return OpenUi(type, openedException);
+		}
+		
+		/// <inheritdoc />
+		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
+		{
+			var uiPresenterData = await GetUiAsync(type) as UiPresenterData<TData>;
+
+			if (uiPresenterData == null)
+			{
+				throw new ArgumentException($"The UiPresenter {type} is not of a {nameof(UiPresenterData<TData>)}");
+			}
+			
+			uiPresenterData.InternalSetData(initialData);
+
+			return await OpenUiAsync(type, openedException);
 		}
 
 		/// <inheritdoc />
@@ -495,12 +545,34 @@ namespace FirstLight.UiService
 				CloseUi(set.UiConfigsType[i]);
 			}
 		}
-
+		
 		private UiReference GetReference(Type type)
 		{
-			if (!_uiViews.TryGetValue(type, out UiReference uiReference))
+			UiReference uiReference;
+
+			if (!_uiViews.TryGetValue(type, out uiReference))
 			{
-				throw new KeyNotFoundException($"The Ui {type} was not added to the service. Call {nameof(AddUi)} or {nameof(LoadUiAsync)} first");
+				throw new
+					KeyNotFoundException($"The Ui {type} was not added to the service. Call {nameof(AddUi)} or {nameof(LoadUiAsync)} first");
+			}
+
+			return uiReference;
+		}
+
+		private async Task<UiReference> GetReferenceAsync(Type type)
+		{
+			UiReference uiReference;
+			if (!_uiViews.TryGetValue(type, out uiReference))
+			{
+				OpenLoadingSpinner();
+				await LoadUiAsync(type);
+				CloseLoadingSpinner();
+				
+				if (!_uiViews.TryGetValue(type, out uiReference))
+				{
+					throw new
+						KeyNotFoundException($"The Ui {type} was not added to the service. Call {nameof(AddUi)} or {nameof(LoadUiAsync)} first");
+				}
 			}
 
 			return uiReference;
@@ -531,6 +603,16 @@ namespace FirstLight.UiService
 			{
 				buckets[Interlocked.Increment(ref nextTaskIndex)].TrySetResult(completed);
 			}
+		}
+
+		private void OpenLoadingSpinner()
+		{
+			OpenUi(typeof(LoadingSpinnerPresenter));
+		}
+
+		private void CloseLoadingSpinner()
+		{
+			CloseUi(typeof(LoadingSpinnerPresenter));
 		}
 		
 		private struct UiReference

@@ -41,8 +41,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;
-			var radius = circle.MovingRadius.AsFloat;
-			var center = circle.MovingCircleCenter.ToUnityVector2();
+			
+			circle.GetMovingCircle(frame, out var centerFP, out var radiusFP);
+			var radius = radiusFP.AsFloat;
+			var center = centerFP.ToUnityVector2();
 			
 			var cachedShrinkingCircleLineTransform = _shrinkingCircleLinerRenderer.transform;
 			var cachedSafeAreaCircleLine = _safeAreaCircleLinerRenderer.transform;

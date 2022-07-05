@@ -4481,29 +4481,25 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct ShrinkingCircle : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 112;
+    public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public FP AirDropChance;
-    [FieldOffset(64)]
+    [FieldOffset(56)]
     public FPVector2 CurrentCircleCenter;
     [FieldOffset(16)]
     public FP CurrentRadius;
-    [FieldOffset(80)]
-    public FPVector2 MovingCircleCenter;
     [FieldOffset(24)]
-    public FP MovingRadius;
-    [FieldOffset(32)]
     public FP ShrinkingDurationTime;
-    [FieldOffset(40)]
+    [FieldOffset(32)]
     public FP ShrinkingSizeK;
-    [FieldOffset(48)]
+    [FieldOffset(40)]
     public FP ShrinkingStartTime;
     [FieldOffset(0)]
     public Int32 Step;
-    [FieldOffset(96)]
+    [FieldOffset(72)]
     public FPVector2 TargetCircleCenter;
-    [FieldOffset(56)]
+    [FieldOffset(48)]
     public FP TargetRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -4511,8 +4507,6 @@ namespace Quantum {
         hash = hash * 31 + AirDropChance.GetHashCode();
         hash = hash * 31 + CurrentCircleCenter.GetHashCode();
         hash = hash * 31 + CurrentRadius.GetHashCode();
-        hash = hash * 31 + MovingCircleCenter.GetHashCode();
-        hash = hash * 31 + MovingRadius.GetHashCode();
         hash = hash * 31 + ShrinkingDurationTime.GetHashCode();
         hash = hash * 31 + ShrinkingSizeK.GetHashCode();
         hash = hash * 31 + ShrinkingStartTime.GetHashCode();
@@ -4527,13 +4521,11 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->Step);
         FP.Serialize(&p->AirDropChance, serializer);
         FP.Serialize(&p->CurrentRadius, serializer);
-        FP.Serialize(&p->MovingRadius, serializer);
         FP.Serialize(&p->ShrinkingDurationTime, serializer);
         FP.Serialize(&p->ShrinkingSizeK, serializer);
         FP.Serialize(&p->ShrinkingStartTime, serializer);
         FP.Serialize(&p->TargetRadius, serializer);
         FPVector2.Serialize(&p->CurrentCircleCenter, serializer);
-        FPVector2.Serialize(&p->MovingCircleCenter, serializer);
         FPVector2.Serialize(&p->TargetCircleCenter, serializer);
     }
   }
@@ -9809,10 +9801,8 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(ShrinkingCircle))]
   public sealed unsafe partial class ShrinkingCircle_Prototype : ComponentPrototype<ShrinkingCircle> {
     public FPVector2 CurrentCircleCenter;
-    public FPVector2 MovingCircleCenter;
     public FPVector2 TargetCircleCenter;
     public FP CurrentRadius;
-    public FP MovingRadius;
     public FP TargetRadius;
     public FP ShrinkingStartTime;
     public FP ShrinkingDurationTime;
@@ -9829,8 +9819,6 @@ namespace Quantum.Prototypes {
       result.AirDropChance = this.AirDropChance;
       result.CurrentCircleCenter = this.CurrentCircleCenter;
       result.CurrentRadius = this.CurrentRadius;
-      result.MovingCircleCenter = this.MovingCircleCenter;
-      result.MovingRadius = this.MovingRadius;
       result.ShrinkingDurationTime = this.ShrinkingDurationTime;
       result.ShrinkingSizeK = this.ShrinkingSizeK;
       result.ShrinkingStartTime = this.ShrinkingStartTime;

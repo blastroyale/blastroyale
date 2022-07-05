@@ -822,8 +822,11 @@ MonoBehaviour:
   _playerIndicator: {fileID: 5279995862025689972}
   _minimapImage: {fileID: 8415855882996343762}
   _shrinkingCircleRing: {fileID: 4461045678962933361}
+  _shrinkingCircleRingImage: {fileID: 7979425422119244071}
   _safeAreaRing: {fileID: 4003239868173825082}
+  _safeAreaRingImage: {fileID: 13462133696116966}
   _viewportSize: 0.3
+  _ringWidth: 0.05
   _cameraHeight: 10
 --- !u!114 &3164477673313007931
 MonoBehaviour:
@@ -866,7 +869,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 718c5ad99ec2645dfb2e5fa1fc76f5c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

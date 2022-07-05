@@ -1,3 +1,4 @@
+using System;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -13,6 +14,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
+		private static readonly int _thicknessPID = Shader.PropertyToID("_Thickness");
+
 		[SerializeField, Required]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
 		private Camera _minimapCamera;
@@ -20,8 +23,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private RectTransform _playerIndicator;
 		[SerializeField, Required] private RawImage _minimapImage;
 		[SerializeField, Required] private RectTransform _shrinkingCircleRing;
+		[SerializeField, Required] private Image _shrinkingCircleRingImage;
 		[SerializeField, Required] private RectTransform _safeAreaRing;
+		[SerializeField, Required] private Image _safeAreaRingImage;
 		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
+		[SerializeField, Range(0f, 1f)] private float _ringWidth = 0.05f;
 		[SerializeField] private int _cameraHeight = 10;
 
 		private IGameServices _services;
@@ -33,6 +39,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private bool _safeAreaSet;
 
+		private Material _safeAreaRingMat;
+		private Material _shrinkingCircleMat;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -43,6 +52,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 
 			_safeAreaRing.gameObject.SetActive(false);
+
+			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
+			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
 		}
 
 		[Button, HideInEditorMode]
@@ -53,28 +65,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_minimapCamera.Render();
 		}
 
-		private void UpdateMinimap(float _)
-		{
-			UpdateViewport();
-			UpdatePlayerIndicator();
-			UpdateShrinkingCircle();
-		}
-
 		private void OnDestroy()
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateMinimap);
+			QuantumCallback.UnsubscribeListener(this);
+			Destroy(_safeAreaRingMat);
+			Destroy(_shrinkingCircleMat);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateMinimap);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			_services.TickService.SubscribeOnUpdate(UpdateMinimap);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
+		}
+
+		private void UpdateMinimap(CallbackUpdateView callback)
+		{
+			UpdateViewport();
+			UpdatePlayerIndicator();
+			UpdateShrinkingCircle(callback.Game.Frames.Predicted);
 		}
 
 		private void UpdateViewport()
@@ -91,17 +105,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 				Quaternion.Euler(0, 0, 360f - _playerEntityView.transform.rotation.eulerAngles.y);
 		}
 
-		private void UpdateShrinkingCircle()
+		private void UpdateShrinkingCircle(Frame f)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Predicted;
-
-			if (!frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
 				return;
 			}
 
-			var radius = circle.MovingRadius.AsFloat;
-			var center = circle.MovingCircleCenter.XOY.ToUnityVector3();
+			circle.GetMovingCircle(f, out var centerFP, out var radiusFP);
+
+			var radius = radiusFP.AsFloat;
+			var center = centerFP.XOY.ToUnityVector3();
 			var safeRadius = circle.TargetRadius.AsFloat;
 			var safeCenter = circle.TargetCircleCenter.XOY.ToUnityVector3();
 
@@ -118,6 +132,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var safeUICenter = (safeViewportPoint - playerViewportPoint) * minimapFullSize;
 			var safeUISize = Vector2.one * safeRadius / cameraOrtoSize * minimapFullSize;
 
+			var shrinkingCircleRingWidth = Math.Clamp(_ringWidth * (rect.width / circleUISize.x), 0f, 1f);
+			_shrinkingCircleRingImage.materialForRendering.SetFloat(_thicknessPID, shrinkingCircleRingWidth);
+
 			_shrinkingCircleRing.anchoredPosition = circleUICenter;
 			_shrinkingCircleRing.sizeDelta = circleUISize;
 
@@ -128,7 +145,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 				}
 
-				if (frame.Time < circle.ShrinkingStartTime - _config.WarningTime)
+				if (f.Time < circle.ShrinkingStartTime - _config.WarningTime)
 				{
 					return;
 				}
@@ -136,6 +153,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_safeAreaSet = true;
 				_safeAreaRing.gameObject.SetActive(true);
 			}
+
+			var safeAreaRingWidth = Math.Clamp(_ringWidth * (rect.width / safeUISize.x), 0f, 1f);
+			_safeAreaRingImage.materialForRendering.SetFloat(_thicknessPID, safeAreaRingWidth);
 
 			_safeAreaRing.anchoredPosition = safeUICenter;
 			_safeAreaRing.sizeDelta = safeUISize;

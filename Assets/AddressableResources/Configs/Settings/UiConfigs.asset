@@ -196,8 +196,6 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,

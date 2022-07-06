@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchReadyMessage()
 		{
-			if (_services.NetworkService.IsJoiningNewMatch)
+			if (_services.NetworkService.IsJoiningNewMatch && !_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				MatchStartAnalytics();
 				SetPlayerMatchData();

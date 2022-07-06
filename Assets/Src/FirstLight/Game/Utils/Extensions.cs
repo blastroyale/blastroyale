@@ -391,6 +391,15 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Obtains spectator/player status for player
+		/// </summary>
+		/// <returns></returns>
+		public static bool IsSpectator(this Player player)
+		{
+			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+		}
+
+		/// <summary>
 		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
 		/// based on loading state of all players assets
 		/// </summary>

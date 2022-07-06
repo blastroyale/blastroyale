@@ -33,7 +33,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private EntityView _spectatePlayerView;
 		private EntityRef _latestKiller;
 		private EntityRef _leader;
-		
+
 		private Transform _targetTransform;
 
 		private bool _spectating;
@@ -102,7 +102,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			
+
 			if (!localPlayer.Entity.IsAlive(f))
 			{
 				gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
@@ -112,12 +112,12 @@ namespace FirstLight.Game.MonoComponent.Match
 
 				SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 				OnSpectate();
-			
+
 				return;
 			}
-			
+
 			_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-			
+
 			// We place audio listener roughly "in the player character's head"
 			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
 			SetTargetTransform(_playerView.transform);
@@ -151,7 +151,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			_leader = callback.EntityLeader;
-			
+
 			if (callback.EntityDead == _latestKiller)
 			{
 				_latestKiller = callback.EntityKiller;
@@ -169,7 +169,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetActiveCamera(_adventureCamera);
 			}
 		}
-		
+
 		private void OnSpectate()
 		{
 			_spectating = true;
@@ -209,19 +209,10 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			try
+			if (virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
-				if (virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
-				{
-					return;
-				}
+				return;
 			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
-			
 
 			_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.SetActive(false);
 			virtualCamera.gameObject.SetActive(true);

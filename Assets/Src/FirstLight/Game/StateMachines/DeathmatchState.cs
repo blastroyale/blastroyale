@@ -52,7 +52,9 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(OpenMatchHud);
-
+			
+			// TODO - ADD SPECTATE FUNCTIONALITY
+			
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
 			resyncCheck.OnExit(PublishMatchStartedMessage);
@@ -100,6 +102,11 @@ namespace FirstLight.Game.StateMachines
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 			
 			return localPlayer.Entity.IsAlive(f);
+		}
+		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
 		private bool IsResyncing()

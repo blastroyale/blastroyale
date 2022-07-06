@@ -46,12 +46,16 @@ namespace FirstLight.Game.StateMachines
 			var spectating = stateFactory.State("Spectate Screen");
 			var spawning = stateFactory.State("Spawning");
 			var resyncCheck = stateFactory.Choice("Resync Check");
+			var spectateCheck = stateFactory.Choice("Spectate Check");
 			var aliveCheck = stateFactory.Choice("Alive Check");
 			
-			initial.Transition().Target(resyncCheck);
+			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(OpenMatchHud);
-
+			
+			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
+			spectateCheck.Transition().Target(resyncCheck);
+			
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(spawning);
 			resyncCheck.OnExit(PublishMatchStartedMessage);
@@ -99,6 +103,11 @@ namespace FirstLight.Game.StateMachines
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 
 			return localPlayer.Entity.IsAlive(f);
+		}
+		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
 		private bool IsResyncing()

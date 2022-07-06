@@ -179,8 +179,6 @@ namespace FirstLight.Game.Presenters
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 
 			AddOrUpdatePlayerInList(newPlayer);
-
-			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 		}
 
 		/// <inheritdoc />
@@ -189,8 +187,6 @@ namespace FirstLight.Game.Presenters
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 
 			RemovePlayerInAllLists(otherPlayer);
-
-			UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
 		}
 
 		/// <inheritdoc />

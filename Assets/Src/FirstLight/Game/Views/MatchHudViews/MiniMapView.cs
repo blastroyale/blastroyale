@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -16,19 +17,27 @@ namespace FirstLight.Game.Views.MatchHudViews
 	{
 		private static readonly int _thicknessPID = Shader.PropertyToID("_Thickness");
 
-		[SerializeField, Required]
+		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
 		private Camera _minimapCamera;
 
-		[SerializeField, Required] private RectTransform _playerIndicator;
-		[SerializeField, Required] private RawImage _minimapImage;
+		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
+		[SerializeField] private int _cameraHeight = 10;
+
+		[SerializeField, Required, Title("Shrinking Circle")]
+		private RawImage _minimapImage;
+
 		[SerializeField, Required] private RectTransform _shrinkingCircleRing;
 		[SerializeField, Required] private Image _shrinkingCircleRingImage;
 		[SerializeField, Required] private RectTransform _safeAreaRing;
 		[SerializeField, Required] private Image _safeAreaRingImage;
-		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
 		[SerializeField, Range(0f, 1f)] private float _ringWidth = 0.05f;
-		[SerializeField] private int _cameraHeight = 10;
+
+		[SerializeField, Required, Title("Indicators")]
+		private RectTransform _playerIndicator;
+
+		[SerializeField, Required] private RectTransform _safeAreaArrow;
+		[SerializeField, Required] private RectTransform _airDropArrow;
 
 		private IGameServices _services;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
@@ -36,11 +45,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private RectTransform _rectTransform;
 		private EntityView _playerEntityView;
+		private Transform _cameraTransform;
 
 		private bool _safeAreaSet;
 
 		private Material _safeAreaRingMat;
 		private Material _shrinkingCircleMat;
+		private Coroutine _airDropCoroutine;
 
 		private void Awake()
 		{
@@ -50,11 +61,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
+			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 
 			_safeAreaRing.gameObject.SetActive(false);
 
 			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
 			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
+		}
+
+		private void OnEnable()
+		{
+			if (Camera.main != null)
+			{
+				_cameraTransform = Camera.main.transform;
+			}
 		}
 
 		[Button, HideInEditorMode]
@@ -82,6 +103,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
+		}
+
+		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		{
+			_airDropArrow.gameObject.SetActive(true);
+			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
+		}
+
+		private void OnAirDropCollected(EventOnAirDropCollected callback)
+		{
+			StopCoroutine(_airDropCoroutine);
+			_airDropArrow.gameObject.SetActive(false);
 		}
 
 		private void UpdateMinimap(CallbackUpdateView callback)
@@ -159,6 +192,42 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_safeAreaRing.anchoredPosition = safeUICenter;
 			_safeAreaRing.sizeDelta = safeUISize;
+
+			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
+		}
+
+		private void UpdateSafeAreaArrow(Vector3 circleCenter, float circleRadius)
+		{
+			// Calculate and Apply rotation
+			var targetPosLocal = _cameraTransform.InverseTransformPoint(circleCenter);
+			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
+			var circleRadiusSq = circleRadius * circleRadius;
+			var distanceSqrt = (circleCenter - _cameraTransform.position).sqrMagnitude;
+
+			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);
+
+			if (distanceSqrt < circleRadiusSq && isArrowActive)
+			{
+				_safeAreaArrow.gameObject.SetActive(false);
+			}
+			else if (distanceSqrt > circleRadiusSq && !isArrowActive)
+			{
+				_safeAreaArrow.gameObject.SetActive(true);
+			}
+		}
+
+		private IEnumerator UpdateAirDropArrow(AirDrop airDrop)
+		{
+			// Calculate and Apply rotation
+			while (true)
+			{
+				var targetPosLocal = _cameraTransform.InverseTransformPoint(airDrop.Position.ToUnityVector3());
+				var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+
+				_airDropArrow.eulerAngles = new Vector3(0, 0, targetAngle);
+				yield return null;
+			}
 		}
 	}
 }

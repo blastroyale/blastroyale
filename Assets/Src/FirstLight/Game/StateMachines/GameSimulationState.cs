@@ -35,7 +35,8 @@ namespace FirstLight.Game.StateMachines
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
-		
+		private Vector2 _normalizedMapPickedPosition;
+
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
@@ -72,7 +73,6 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
-			startSimulation.OnExit(CloseMatchmakingScreen);
 			startSimulation.OnExit(PublishMatchReadyMessage);
 			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
@@ -354,7 +354,7 @@ namespace FirstLight.Game.StateMachines
 				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
 			};
 
-			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
@@ -364,12 +364,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseTrophiesScreen()
 		{
-			_uiService.CloseUi<TrophiesScreenPresenter>();
+			_uiService.CloseUi<TrophiesScreenPresenter>(false, true);
 		}
 		
 		private void CloseMatchmakingScreen()
 		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			_normalizedMapPickedPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
 		private void PublishMatchReadyMessage()
@@ -388,7 +389,6 @@ namespace FirstLight.Game.StateMachines
 		private void SetPlayerMatchData()
 		{
 			var game = QuantumRunner.Default.Game;
-			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			
@@ -399,7 +399,7 @@ namespace FirstLight.Game.StateMachines
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
-				NormalizedSpawnPosition = position.ToFPVector2(),
+				NormalizedSpawnPosition = _normalizedMapPickedPosition.ToFPVector2(),
 				Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 			});
 		}

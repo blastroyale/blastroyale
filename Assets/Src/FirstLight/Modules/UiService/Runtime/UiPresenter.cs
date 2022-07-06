@@ -12,7 +12,7 @@ namespace FirstLight.UiService
 	[RequireComponent(typeof(Canvas))]
 	public abstract class UiPresenter : MonoBehaviour
 	{
-		private IUiService _uiService;
+		protected IUiService _uiService;
 
 		/// <summary>
 		/// Requests the open status of the <see cref="UiPresenter"/>
@@ -39,7 +39,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void Close()
 		{
-			_uiService.CloseUi(this);
+			_uiService.CloseUi(this, false, true);
 		}
 		
 		internal void Init(IUiService uiService)
@@ -57,12 +57,12 @@ namespace FirstLight.UiService
 		internal virtual void InternalClose(bool destroy = false)
 		{
 			OnClosed();
-			
+
 			if (gameObject != null)
 			{
 				if (destroy)
 				{
-					DestroyImmediate(gameObject);
+					_uiService.UnloadUi(GetType());
 				}
 				else
 				{
@@ -82,6 +82,14 @@ namespace FirstLight.UiService
 		internal override void InternalClose(bool destroy = false)
 		{
 			OnClosed();
+
+			if (gameObject != null)
+			{
+				if (destroy)
+				{
+					_uiService.UnloadUi(GetType());
+				}
+			}
 		}
 	}
 
@@ -124,6 +132,14 @@ namespace FirstLight.UiService
 		internal override void InternalClose(bool destroy = false)
 		{
 			OnClosed();
+			
+			if (gameObject != null)
+			{
+				if (destroy)
+				{
+					_uiService.UnloadUi(GetType());
+				}
+			}
 		}
 	}
 }

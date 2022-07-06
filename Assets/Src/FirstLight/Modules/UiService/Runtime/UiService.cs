@@ -170,8 +170,7 @@ namespace FirstLight.UiService
 			var layer = AddLayer(config.Layer);
 			var timeBefore = Time.time;
 			var gameObject = await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
-			Debug.Log(config.AddressableAddress+", "+(Time.time - timeBefore)+"s");
-			
+
 			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
 			if (HasUiPresenter(type))
 			{
@@ -260,7 +259,7 @@ namespace FirstLight.UiService
 		public async Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false)
 		{
 			var ui = await GetUiAsync(type);
-			
+
 			if (!_visibleUiList.Contains(type))
 			{
 				ui.InternalOpen();
@@ -348,9 +347,10 @@ namespace FirstLight.UiService
 		{
 			var ui = GetUi(type);
 			
-			if (_visibleUiList.Contains(type))
+			if (_visibleUiList.Contains(type) || destroy)
 			{
 				_visibleUiList.Remove(type);
+
 				ui.InternalClose(destroy);
 			}
 			else if(closedException)

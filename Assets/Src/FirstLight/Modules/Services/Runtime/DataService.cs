@@ -128,7 +128,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void AddData<T>(T data, bool isLocal = false) where T : class
 		{
-			_data.Add(typeof(T), new DataInfo { Data = data, IsLocal = isLocal });
+			_data[typeof(T)] = new DataInfo { Data = data, IsLocal = isLocal };
 		}
 
 		private struct DataInfo

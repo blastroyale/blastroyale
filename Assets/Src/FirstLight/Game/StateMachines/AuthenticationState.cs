@@ -1,11 +1,12 @@
 using System;
+using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -19,9 +20,6 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
-using Quantum.Physics2D;
-using UnityEngine.Video;
-
 
 namespace FirstLight.Game.StateMachines
 {
@@ -64,7 +62,8 @@ namespace FirstLight.Game.StateMachines
 			var register = stateFactory.State("Register");
 			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
-			var finalSteps = stateFactory.Wait("Final Authentication Steps");
+			var getServerState = stateFactory.Wait("Get Server State");
+			var authenticated = stateFactory.Final("Authenticated");
 
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
@@ -82,28 +81,43 @@ namespace FirstLight.Game.StateMachines
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			authLoginDevice.OnEnter(LoginWithDevice);
-			authLoginDevice.Event(_loginCompletedEvent).Target(finalSteps);
+			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
 			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
-			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(finalSteps);
+			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
-			finalSteps.OnEnter(OpenLoadingScreen);
-			finalSteps.WaitingFor(FinalStepsAuthentication).Target(final);
+			getServerState.OnEnter(OpenLoadingScreen);
+			getServerState.WaitingFor(FinalStepsAuthentication).Target(authenticated);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private void SubscribeEvents()
 		{
-			// Subscribe to events
+			_services.MessageBrokerService.Subscribe<ServerHttpError>(OnConnectionError);
 		}
 
 		private void UnsubscribeEvents()
 		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private void OnConnectionError(ServerHttpError msg)
+		{
+			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
+			{
+				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
+			}
+			_services.AnalyticsService.LogEvent("Invalid Session Ticket", new()
+			{
+				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
+			});
+			LoginWithDevice();
+			_services.PlayfabService.CallFunction("GetPlayerData", res => 
+					OnPlayerDataObtained(res, null), OnPlayFabError);
 		}
 		
 		/// <summary>
@@ -112,7 +126,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnCriticalPlayFabError(PlayFabError error) 
 		{
 			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
 			var button = new AlertButton
 			{
 				Callback = Application.Quit,
@@ -323,7 +336,8 @@ namespace FirstLight.Game.StateMachines
 			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(data));
-			activity.Complete();
+			FLog.Verbose("Downloaded state from server");
+			activity?.Complete();
 		}
 
 		private void OpenGameUpdateDialog()

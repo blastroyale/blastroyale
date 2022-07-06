@@ -1,7 +1,10 @@
 using System;
-using System.Collections.Generic;
+using System.Net;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Utils;
+using FirstLight.Game.Messages;
+using FirstLight.Services;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -23,26 +26,31 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
-		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, object parameter=null);
+		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError=null, object parameter=null);
+
+		/// <summary>
+		/// Handles when a request errors out on playfab.
+		/// </summary>
+		void HandleError(PlayFabError error);
 	}
 
 	/// <inheritdoc cref="IPlayfabService" />
 	public class PlayfabService : IPlayfabService
 	{
-		private IAppLogic _app;
+		private readonly IAppLogic _app;
+		private readonly IMessageBrokerService _msgBroker;
 		
-		public PlayfabService(IAppLogic app)
+		public PlayfabService(IAppLogic app, IMessageBrokerService msgBroker)
 		{
 			_app = app;
+			_msgBroker = msgBroker;
 		}
 		
 		/// <inheritdoc />
 		public void UpdateNickname(string newNickname)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest { DisplayName = newNickname };
-			
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnResultCallback, GameCommandService.OnPlayFabError);
-			
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnResultCallback, HandleError);
 			void OnResultCallback(UpdateUserTitleDisplayNameResult result)
 			{
 				_app.NicknameId.Value = result.DisplayName;
@@ -50,7 +58,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError, object parameter = null)
+		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError=null, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -59,7 +67,18 @@ namespace FirstLight.Game.Services
 				FunctionParameter = parameter,
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, onSuccess, onError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, onSuccess, onError ?? HandleError);
+		}
+
+		public void HandleError(PlayFabError error)
+		{
+			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			FLog.Error(descriptiveError);
+			_msgBroker.Publish(new ServerHttpError()
+			{
+				ErrorCode = (HttpStatusCode)error.HttpCode,
+				Message = descriptiveError
+			});
 		}
 	}
 }

@@ -4928,10 +4928,10 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489589387227020765}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.88
   simulationSpeed: 1
   stopAction: 0
-  cullingMode: 0
+  cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
@@ -4943,7 +4943,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.1
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -5915,7 +5915,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
       cycleCount: 1
-      repeatInterval: 0.01
+      repeatInterval: 1.1363636
       probability: 1
   SizeModule:
     enabled: 0
@@ -25126,7 +25126,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5975296895744275200}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.88
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -30072,7 +30072,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8769827065269009100}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.88
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -34944,7 +34944,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9096503808239976271}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.88
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0

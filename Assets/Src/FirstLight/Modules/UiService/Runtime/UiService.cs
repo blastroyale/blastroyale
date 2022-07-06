@@ -374,7 +374,7 @@ namespace FirstLight.UiService
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
-				GetUi(_visibleUiList[i]).InternalClose();
+				GetUi(_visibleUiList[i]).InternalClose(false);
 				_visibleUiList.Remove(_visibleUiList[i]);
 			}
 			
@@ -405,7 +405,7 @@ namespace FirstLight.UiService
 				var reference = GetReference(_visibleUiList[i]);
 				if (reference.Layer == layer)
 				{
-					reference.Presenter.InternalClose();
+					reference.Presenter.InternalClose(false);
 					_visibleUiList.Remove(reference.UiType);
 				}
 			}

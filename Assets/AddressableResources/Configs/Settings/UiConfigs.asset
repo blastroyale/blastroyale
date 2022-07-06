@@ -53,18 +53,10 @@ MonoBehaviour:
     Layer: 3
     UiType: FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/GameQuitOver Screen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.GameQuitOverScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericDialog.prefab
     Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/GenericHCDialog.prefab
-    Layer: 8
-    UiType: FirstLight.Game.Presenters.GenericDialogHcPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericIconDialog.prefab
     Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogIconPresenter, FirstLight.Game,
@@ -164,16 +156,14 @@ MonoBehaviour:
   _sets:
   - SetId: 0
     UiConfigsType:
+    - FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogIconPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogInputFieldPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GenericDialogHcPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:
     - FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,

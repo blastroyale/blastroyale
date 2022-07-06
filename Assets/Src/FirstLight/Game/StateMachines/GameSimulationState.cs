@@ -254,11 +254,11 @@ namespace FirstLight.Game.StateMachines
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var room = client.CurrentRoom;
 
-			var startPlayersCount = client.CurrentRoom.MaxPlayers;
+			var startPlayersCount = client.CurrentRoom.GetRealPlayerCapacity();
 
 			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) && !(bool)gameHasBots)
 			{
-				startPlayersCount = room.PlayerCount;
+				startPlayersCount = room.GetRealPlayerAmount();
 			}
 
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount);

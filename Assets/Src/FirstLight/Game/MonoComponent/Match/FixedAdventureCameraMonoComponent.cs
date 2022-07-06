@@ -148,7 +148,13 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
-
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
+			
 			// We place audio listener roughly "in the player character's head"
 			SetAudioListenerTransform(follow.transform, Vector3.up, Quaternion.identity);
 			SetTargetTransform(follow.transform);

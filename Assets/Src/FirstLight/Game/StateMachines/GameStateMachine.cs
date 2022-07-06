@@ -93,7 +93,7 @@ namespace FirstLight.Game.StateMachines
 			initialLoading.OnExit(InitializeGame);
 			
 			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 		

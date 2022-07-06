@@ -70,7 +70,7 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = default,
 				HeapExtraCount = 0,
-				PlayerCount =playerLimit
+				PlayerCount = playerLimit
 			};
 		}
 	}

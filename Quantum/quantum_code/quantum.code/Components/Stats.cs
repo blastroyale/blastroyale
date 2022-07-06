@@ -161,10 +161,9 @@ namespace Quantum
 			};
 
 			AddModifier(f, capacityModifer);
-
-			//once you have gained shield capacity, fill it with shields
-			//should collecting a shield capacity upgrade just fill your shields up entirely?
-			GainShields(f, entity, attacker, amount);
+			//once you have gained shield capacity, fill all your shields up
+			var missingVal = GetStatData(StatType.Shield).StatValue.AsInt - CurrentShield;
+			GainShields(f, entity, attacker, missingVal);
 
 			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
 			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);

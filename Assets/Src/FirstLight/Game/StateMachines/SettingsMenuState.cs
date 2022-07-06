@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseSettingsMenuUI()
 		{
-			_uiService.CloseUi<SettingsScreenPresenter>();
+			_uiService.CloseUi<SettingsScreenPresenter>(false, true);
 		}
 
 		private void TryLogOut()

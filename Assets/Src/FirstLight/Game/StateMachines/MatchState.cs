@@ -151,7 +151,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseMatchmakingScreen()
 		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
 		private void OpenLoadingScreen()

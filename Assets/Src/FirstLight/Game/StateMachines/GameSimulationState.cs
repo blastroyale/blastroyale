@@ -323,7 +323,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseResultScreen()
 		{
-			_uiService.CloseUi<ResultsScreenPresenter>();
+			_uiService.CloseUi<ResultsScreenPresenter>(false, true);
 		}
 
 		private void OpenRewardsScreen(IWaitActivity activity)
@@ -341,7 +341,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseRewardsScreen()
 		{
-			_uiService.CloseUi<RewardsScreenPresenter>();
+			_uiService.CloseUi<RewardsScreenPresenter>(false, true);
 		}
 		
 		private void OpenTrophiesScreen(IWaitActivity activity)

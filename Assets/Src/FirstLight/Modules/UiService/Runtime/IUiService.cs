@@ -233,7 +233,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given type <typeparamref name="T"/>
 		/// </exception>
-		T CloseUi<T>(bool closedException = false) where T : UiPresenter;
+		T CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Closes and returns the UI of given <paramref name="type"/>.
@@ -243,7 +243,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
 		/// </exception>
-		UiPresenter CloseUi(Type type, bool closedException = false);
+		UiPresenter CloseUi(Type type, bool closedException = false, bool destroy = false);
 
 		/// <summary>
 		/// Closes and returns the same given <paramref name="uiPresenter"/>.
@@ -253,7 +253,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain the given <paramref name="uiPresenter"/>
 		/// </exception>
-		T CloseUi<T>(T uiPresenter, bool closedException = false) where T : UiPresenter;
+		T CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/>

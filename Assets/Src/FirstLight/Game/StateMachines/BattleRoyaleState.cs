@@ -152,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseKillScreen()
 		{
-			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>();
+			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(false, true);
 		}
 
 		private async void OpenSpectateScreen()

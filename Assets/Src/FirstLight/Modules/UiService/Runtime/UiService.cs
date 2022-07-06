@@ -338,20 +338,20 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public T CloseUi<T>(bool closedException = false) where T : UiPresenter
+		public T CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter
 		{
-			return CloseUi(typeof(T)) as T;
+			return CloseUi(typeof(T), closedException, destroy) as T;
 		}
 
 		/// <inheritdoc />
-		public UiPresenter CloseUi(Type type, bool closedException = false)
+		public UiPresenter CloseUi(Type type, bool closedException = false, bool destroy = false)
 		{
 			var ui = GetUi(type);
 			
 			if (_visibleUiList.Contains(type))
 			{
 				_visibleUiList.Remove(type);
-				ui.InternalClose();
+				ui.InternalClose(destroy);
 			}
 			else if(closedException)
 			{
@@ -362,9 +362,9 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public T CloseUi<T>(T uiPresenter, bool closedException = false) where T : UiPresenter
+		public T CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter
 		{
-			CloseUi(uiPresenter.GetType().UnderlyingSystemType, closedException);
+			CloseUi(uiPresenter.GetType().UnderlyingSystemType, closedException, destroy);
 
 			return uiPresenter;
 		}

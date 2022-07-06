@@ -144,7 +144,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseDisconnectedScreen()
 		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>();
+			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
 		}
 		
 		private void DimDisconnectedScreen()

@@ -54,13 +54,20 @@ namespace FirstLight.UiService
 			OnOpened();
 		}
 
-		internal virtual void InternalClose()
+		internal virtual void InternalClose(bool destroy = false)
 		{
 			OnClosed();
 			
 			if (gameObject != null)
 			{
-				gameObject.SetActive(false);
+				if (destroy)
+				{
+					DestroyImmediate(gameObject);
+				}
+				else
+				{
+					gameObject.SetActive(false);
+				}
 			}
 		}
 	}
@@ -72,7 +79,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenter : UiPresenter
 	{
-		internal override void InternalClose()
+		internal override void InternalClose(bool destroy = false)
 		{
 			OnClosed();
 		}
@@ -114,7 +121,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenterData<T> : UiPresenterData<T> where T : struct
 	{
-		internal override void InternalClose()
+		internal override void InternalClose(bool destroy = false)
 		{
 			OnClosed();
 		}

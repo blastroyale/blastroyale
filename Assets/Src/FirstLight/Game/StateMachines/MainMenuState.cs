@@ -267,7 +267,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseHeroesMenuUI()
 		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>();
+			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
 		}
 
 		private void OpenRoomJoinCreateMenuUI()
@@ -283,7 +283,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseRoomJoinCreateMenuUI()
 		{
-			_uiService.CloseUi<RoomJoinCreateScreenPresenter>();
+			_uiService.CloseUi<RoomJoinCreateScreenPresenter>(false, true);
 		}
 
 		private void OpenPlayMenuUI()

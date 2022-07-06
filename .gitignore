@@ -100,6 +100,8 @@ crashlytics-build.properties
 [Aa]ssets/AddressableAssetsData/Android.meta
 [Aa]ssets/AddressableAssetsData/link.xml
 [Aa]ssets/AddressableAssetsData/link.xml.meta
+[Aa]ssets/Plugins/Android/FirebaseApp.androidlib
+[Aa]ssets/Plugins/Android/FirebaseApp.androidlib.meta
 !Quantum/**/*.csproj
 !Quantum/**/*.pdb
 !Quantum/quantum_code/quantum_code.sln

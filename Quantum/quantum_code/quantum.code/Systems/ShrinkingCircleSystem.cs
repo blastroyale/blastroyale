@@ -23,10 +23,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f)
 		{
 			var circle = ProcessShrinkingCircle(f);
-			var lerp = FPMath.Max(0, (f.Time - circle->ShrinkingStartTime) / circle->ShrinkingDurationTime);
-			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
-			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
-			radius *= radius;
+			circle->GetMovingCircle(f, out var center, out var radius);
 
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
@@ -34,7 +31,7 @@ namespace Quantum.Systems
 				var position = transform.Position;
 				var distance = (position.XZ - center).SqrMagnitude;
 
-				if (distance < radius)
+				if (distance < radius * radius)
 				{
 					RemoveShrinkingDamage(f, pair.Entity);
 				}

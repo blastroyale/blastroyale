@@ -25,13 +25,7 @@ public class TestServerLogic
 	{
 		_server = new TestServer();
 		// Running player states in-memory
-		_server.UpdateDependencies(services =>
-		{
-			services.RemoveAll(typeof(IServerStateService)); 
-			services.RemoveAll(typeof(ITestPlayerSetup));
-			services.AddSingleton<IServerStateService, InMemoryPlayerState>();
-			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
-		});
+		_server.SetupInMemoryServer();
 		_stateService = _server.GetService<IServerStateService>();
 		_cmdHandler = _server.GetService<IServerCommahdHandler>();
 	}

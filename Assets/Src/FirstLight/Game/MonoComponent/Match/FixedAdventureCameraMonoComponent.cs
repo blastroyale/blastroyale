@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
@@ -214,7 +215,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (_spectating)
 			{
 				var nextPlayerView = GetNextPlayerView(f);
-				SetTargetTransform(nextPlayerView.transform);
+
+				if (nextPlayerView != null)
+				{
+					SetTargetTransform(nextPlayerView.transform);
+				}
 			}
 		}
 

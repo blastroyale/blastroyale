@@ -20,6 +20,7 @@ def run():
 	copy_assembly(_unityPath, "FirstLight.DataExtensions.dll")
 	copy_assembly(_unityPath, "FirstLight.Game.dll")
 	copy_assembly(_unityPath, "FirstLight.Services.dll")
+	copy_assembly(_unityPath, "PhotonQuantum.dll")
 
 
 if __name__ == "__main__":

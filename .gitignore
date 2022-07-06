@@ -116,4 +116,5 @@ Quantum/quantum_server/packages
 UserSettings/EditorUserSettings.asset
 UserSettings/Layouts
 ProjectSettings/RiderScriptEditorPersistedState.asset
+ProjectSettings/GvhProjectSettings.xml
 build-output.properties

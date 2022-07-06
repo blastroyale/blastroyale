@@ -2,6 +2,7 @@ struct PlayerMatchData
 {
 	player_ref Player;
 	entity_ref Entity;
+	bool IsSpectator;
 	UInt32 PlayerLevel;
 	UInt32 PlayerTrophies;
 	GameId PlayerSkin;

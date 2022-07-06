@@ -400,6 +400,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = position.ToFPVector2(),
+				IsSpectator = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator(),
 				Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 			});
 		}

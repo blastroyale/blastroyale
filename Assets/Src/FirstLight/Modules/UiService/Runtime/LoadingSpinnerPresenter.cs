@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Controls the rotation of the loading spinner
+	/// </summary>
 	public class LoadingSpinnerPresenter : UiPresenter
 	{
 		[SerializeField] private RectTransform _spinnerImage;

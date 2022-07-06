@@ -90,7 +90,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			if (!msg.IsResync)
+			if (!msg.IsResync && !msg.IsSpectator)
 			{
 				return;
 			}
@@ -103,26 +103,47 @@ namespace FirstLight.Game.MonoComponent.Match
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 
-			if (!localPlayer.Entity.IsAlive(f))
+			if (msg.IsSpectator)
 			{
-				gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
-				var leaderPlayer = playersData[leader];
-				_leader = leaderPlayer.Entity;
-				_latestKiller = leaderPlayer.Entity;
+				ResetLeaderAndKiller();
 
-				SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
-				OnSpectate();
-
-				return;
+				_playerView = _entityViewUpdaterService.GetManualView(_leader);
+				
+				// We place audio listener roughly "in the player character's head"
+				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
+				//SetTargetTransform(_playerView.transform);
 			}
+			else
+			{
+				if (!localPlayer.Entity.IsAlive(f))
+				{
+					ResetLeaderAndKiller();
+					SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+					OnSpectate();
+					return;
+				}
 
-			_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-
-			// We place audio listener roughly "in the player character's head"
-			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-			SetTargetTransform(_playerView.transform);
+				_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+				
+				// We place audio listener roughly "in the player character's head"
+				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
+				SetTargetTransform(_playerView.transform);
+			}
 		}
 
+		private void ResetLeaderAndKiller()
+		{
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
+			var leaderPlayer = playersData[leader];
+			
+			_leader = leaderPlayer.Entity;
+			_latestKiller = _leader;
+		}
+		
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
@@ -202,6 +223,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			else if (_leader.IsValid)
 			{
 				nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
+			}
+			else
+			{
+				
 			}
 
 			return nextPlayer;

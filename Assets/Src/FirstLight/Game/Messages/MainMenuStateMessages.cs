@@ -13,7 +13,7 @@ namespace FirstLight.Game.Messages
 	{
 		public bool AddBots;
 	}
-	public struct SpectatorToggleMessage : IMessage
+	public struct SpectatorModeToggledMessage : IMessage
 	{
 		public bool IsSpectator;
 	}

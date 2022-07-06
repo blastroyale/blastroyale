@@ -170,7 +170,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
-			_services.MessageBrokerService.Subscribe<SpectatorToggleMessage>(OnSpectatorToggleMessage);
+			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 		}
 		private void UnsubscribeEvents()
 		{
@@ -352,7 +352,7 @@ namespace FirstLight.Game.StateMachines
 			LockRoom();
 		}
 		
-		private void OnSpectatorToggleMessage(SpectatorToggleMessage message)
+		private void OnSpectatorToggleMessage(SpectatorModeToggledMessage message)
 		{
 			var playerPropsUpdate = new Hashtable
 			{

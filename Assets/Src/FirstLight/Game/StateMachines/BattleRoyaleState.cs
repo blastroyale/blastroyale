@@ -183,7 +183,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchStartedMessage()
 		{
-			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
+			_services.MessageBrokerService.Publish(new MatchStartedMessage()
+			{
+				IsResync = IsResyncing(),
+				IsSpectator = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator()
+			});
 		}
 	}
 }

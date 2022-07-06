@@ -272,6 +272,7 @@ namespace FirstLight.Game.StateMachines
 		private void StopSimulation()
 		{
 			QuantumRunner.ShutdownAll();
+			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = false});
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 		}
 
@@ -374,7 +375,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchReadyMessage()
 		{
-			if (_services.NetworkService.IsJoiningNewMatch && !_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (_services.NetworkService.IsJoiningNewMatch)
 			{
 				MatchStartAnalytics();
 				SetPlayerMatchData();

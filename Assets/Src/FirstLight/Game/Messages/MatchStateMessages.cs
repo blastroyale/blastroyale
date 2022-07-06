@@ -5,7 +5,11 @@ namespace FirstLight.Game.Messages
 	public struct MatchSimulationStartedMessage : IMessage { }
 	public struct MatchSimulationEndedMessage : IMessage { }
 	public struct MatchReadyMessage : IMessage { }
-	public struct MatchStartedMessage : IMessage { public bool IsResync; }
+	public struct MatchStartedMessage : IMessage 
+	{ 
+		public bool IsResync;
+		public bool IsSpectator;
+	}
 	public struct MatchEndedMessage : IMessage { }
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }

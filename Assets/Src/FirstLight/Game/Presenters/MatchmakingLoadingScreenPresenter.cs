@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters
 			_findingPlayersText.gameObject.SetActive(true);
 			_botsToggle.isOn = true;
 			_botsToggleObjectRoot.SetActive(false);
-			_spectateToggle.isOn = false;
+			_spectateToggle.isOn = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 			_spectateToggleObjectRoot.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
@@ -375,7 +375,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSpectatorToggle(bool isOn)
 		{
-			_services.MessageBrokerService.Publish(new SpectatorToggleMessage() {IsSpectator = isOn});
+			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = isOn});
 			_services.CoroutineService.StartCoroutine(TimeoutSpectatorToggleCoroutine());
 		}
 

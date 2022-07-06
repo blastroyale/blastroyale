@@ -146,13 +146,16 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCachedLoginEmail()
 		{
-			// TODO RELEASE - Restore login flow
-			//return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
-			return true;
+			if (!FeatureFlags.EMAIL_AUTH)
+			{
+				return true;
+			}
+			return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
 		}
 
 		private void LoginWithDevice()
 		{
+			FLog.Verbose("Logging in with device ID");
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
 				GetUserAccountInfo = true,
@@ -239,6 +242,9 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
+			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+
+			_dataService.SaveData<AppData>();
 		}
 
 		private void LinkDeviceID()
@@ -282,6 +288,7 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess()
 			{
 				_dataService.GetData<AppData>().LinkedDevice = true;
+				FLog.Verbose("Linked account with device in playfab");
 			}
 		}
 
@@ -383,14 +390,11 @@ namespace FirstLight.Game.StateMachines
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 
 			_services.HelpdeskService.Login(userId, email, userName);
-
+			
 			if (!appData.LinkedDevice)
 			{
 				LinkDeviceID();
 			}
-			
-			//This line disables login flow, revert for  the next release stage
-			//appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			
 			ProcessAuthentication(result);
 

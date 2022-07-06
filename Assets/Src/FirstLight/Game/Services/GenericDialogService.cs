@@ -138,17 +138,6 @@ namespace FirstLight.Game.Services
 			
 			ui.SetInfo(title, descriptionText, id, showCloseButton, button, closeCallback);
 		}
-		
-		/// <inheritdoc />
-		public void OpenHcDialog(string title, string cost, bool showCloseButton, GenericDialogButton button, 
-			bool showSC = false, Action closeCallback = null)
-		{
-			var ui = _uiService.OpenUi<GenericDialogHcPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, cost, showCloseButton, button, showSC, closeCallback);
-		}
 
 		/// <inheritdoc />
 		public void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 

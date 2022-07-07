@@ -73,8 +73,12 @@ namespace FirstLight.UiService
 		
 		public void SetInitialValue(bool valueOn)
 		{
+			SetIsOnWithoutNotify(valueOn);
 			ToggleOff.SetActive(!valueOn);
 			ToggleOn.SetActive(valueOn);
+			Animation.clip = isOn ? ToggleOnPressedClip : ToggleOffPressedClip;
+			Animation.Rewind(); 
+			Animation.Play();
 		}
 
 		/// <inheritdoc />
@@ -110,7 +114,6 @@ namespace FirstLight.UiService
 			
 			OnClick();
 			base.OnPointerClick(eventData);
-			
 		}
 
 		/// <inheritdoc />

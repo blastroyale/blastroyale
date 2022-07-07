@@ -99,9 +99,9 @@ namespace FirstLight.Game.Presenters
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
-			_botsToggle.isOn = true;
+			_botsToggle.SetInitialValue(true);
 			_botsToggleObjectRoot.SetActive(false);
-			_spectateToggle.isOn = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			_spectateToggle.SetInitialValue(false);
 			_spectateToggleObjectRoot.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";

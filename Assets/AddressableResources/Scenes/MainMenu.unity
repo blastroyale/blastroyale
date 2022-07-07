@@ -3219,7 +3219,7 @@ GameObject:
   - component: {fileID: 1382653842}
   - component: {fileID: 1382653841}
   m_Layer: 0
-  m_Name: Far Volume
+  m_Name: Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3238,10 +3238,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 0
+  priority: 1
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 796b758225e216648aa55ad2142bde69, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 1772e1baff17ac444bbe95919f1d4bc1, type: 2}
 --- !u!4 &1382653842
 Transform:
   m_ObjectHideFlags: 0

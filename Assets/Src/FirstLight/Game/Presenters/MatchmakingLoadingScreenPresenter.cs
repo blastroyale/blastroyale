@@ -86,11 +86,24 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
 			
 			MapSelectionView.SetupMapView(room.GetMapId());
 			
 			if (!_services.NetworkService.IsJoiningNewMatch)
 			{
+				_playerListHolder.Init((uint) mapInfo.PlayersLimit);
+				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
+				
+				_spectateToggleObjectRoot.SetActive(false);
+				_botsToggleObjectRoot.SetActive(false);
+				_lockRoomButton.gameObject.SetActive(false);
+				
+				foreach (var playerKvp in CurrentRoom.Players)
+				{
+					AddOrUpdatePlayerInList(playerKvp.Value);
+				}
+				
 				return;
 			}
 			
@@ -120,8 +133,6 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
-
 				_playerListHolder.Init((uint) mapInfo.PlayersLimit);
 				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
 

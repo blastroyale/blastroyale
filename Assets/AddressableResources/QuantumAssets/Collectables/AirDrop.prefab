@@ -227,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityView: {fileID: 7757663921541325714}
   _parachute: {fileID: 9180705309567396720}
+  _airplaneShadow: {fileID: 6693350671122615404}
   _landingPS: {fileID: 1237357947711941916}
   _landingAnim: {fileID: 4112324407107369492}
 --- !u!1 &4764048967066448840
@@ -279,7 +280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7179595809338969361
 Transform:
   m_ObjectHideFlags: 0

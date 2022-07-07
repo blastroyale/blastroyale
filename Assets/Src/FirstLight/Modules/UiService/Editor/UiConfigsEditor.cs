@@ -71,6 +71,7 @@ namespace FirstLightEditor.UiService
 		private ReorderableList _configList;
 		private ReorderableList _setList;
 		private bool _resetValues;
+		private UiConfigs _scriptableObject;
 		
 		private void OnEnable()
 		{
@@ -90,7 +91,9 @@ namespace FirstLightEditor.UiService
 		public override void OnInspectorGUI()
 		{
 			serializedObject.Update();
-			
+			_scriptableObject.LoadingSpinner = EditorGUILayout.ObjectField("Loading Spinner Presenter", _scriptableObject.LoadingSpinner,
+			                                                            typeof(UiPresenter), false) as UiPresenter;
+			EditorGUILayout.Space();
 			EditorGUILayout.HelpBox(_uiConfigGuiContent.tooltip, MessageType.Info);
 			_configList.DoLayoutList();
 			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -112,17 +115,17 @@ namespace FirstLightEditor.UiService
 			var gameObjectType = typeof(GameObject);
 			var uiConfigsAddress = new List<string>();
 			var configs = new List<UiConfig>();
-			var scriptableObject = target as UiConfigs;
+			_scriptableObject = target as UiConfigs;
 			
 			_uiConfigsType.Clear();
 			_assetsPath.Clear();
 
-			if (scriptableObject == null)
+			if (_scriptableObject == null)
 			{
 				throw new NullReferenceException($"The Object is not of type {nameof(UiConfigs)}");
 			}
 
-			var configsCache = scriptableObject.Configs;
+			var configsCache = _scriptableObject.Configs;
 			
 			for (int i = 0; i < assetList.Count; i++)
 			{
@@ -163,10 +166,10 @@ namespace FirstLightEditor.UiService
 				configs.Add(config);
 			}
 
-			scriptableObject.Configs = configs;
+			_scriptableObject.Configs = configs;
 			_uiConfigsAddress = uiConfigsAddress.ToArray();
 
-			EditorUtility.SetDirty(scriptableObject);
+			EditorUtility.SetDirty(_scriptableObject);
 			AssetDatabase.SaveAssets();
 			Resources.UnloadUnusedAssets();
 		}

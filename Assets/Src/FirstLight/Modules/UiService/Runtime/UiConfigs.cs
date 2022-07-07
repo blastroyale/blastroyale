@@ -24,11 +24,17 @@ namespace FirstLight.UiService
 	[CreateAssetMenu(fileName = "UiConfigs", menuName = "ScriptableObjects/Configs/UiConfigs")]
 	public class UiConfigs : ScriptableObject
 	{
+		[SerializeField] private UiPresenter _loadingSpinner;
 		[SerializeField]
 		private List<UiConfigSerializable> _configs = new List<UiConfigSerializable>();
 		[SerializeField]
 		private List<UiSetConfigSerializable> _sets = new List<UiSetConfigSerializable>();
 
+		public UiPresenter LoadingSpinner
+		{
+			get => _loadingSpinner;
+			set => _loadingSpinner = value;
+		}
 		public List<UiConfig> Configs
 		{
 			get { return _configs.ConvertAll(element => (UiConfig) element); }

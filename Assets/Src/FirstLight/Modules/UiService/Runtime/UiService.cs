@@ -19,6 +19,7 @@ namespace FirstLight.UiService
 		private readonly IDictionary<int, UiSetConfig> _uiSets = new Dictionary<int, UiSetConfig>();
 		private readonly IList<Type> _visibleUiList = new List<Type>();
 		private readonly IList<GameObject> _layers = new List<GameObject>();
+		private Type _loadingSpinnerType;
 
 		public UiService(IUiAssetLoader assetLoader)
 		{
@@ -40,6 +41,8 @@ namespace FirstLight.UiService
 			{
 				AddUiSet(set);
 			}
+
+			_loadingSpinnerType = configs.LoadingSpinner.GetType();
 		}
 
 		/// <inheritdoc />
@@ -609,12 +612,25 @@ namespace FirstLight.UiService
 
 		private void OpenLoadingSpinner()
 		{
-			OpenUi(typeof(LoadingSpinnerPresenter));
+			if (_loadingSpinnerType == null)
+			{
+				return;
+			}
+			
+			if (HasUiPresenter(_loadingSpinnerType))
+			{
+				OpenUi(_loadingSpinnerType);
+			}
 		}
 
 		private void CloseLoadingSpinner()
 		{
-			CloseUi(typeof(LoadingSpinnerPresenter));
+			if (_loadingSpinnerType == null)
+			{
+				return;
+			}
+			
+			CloseUi(_loadingSpinnerType);
 		}
 		
 		private struct UiReference

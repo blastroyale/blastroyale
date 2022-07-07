@@ -60,14 +60,6 @@ namespace FirstLight.Game.Services
 		void OpenVideoDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
 			GenericDialogButton button, Action closeCallback = null)
 			where TId : struct, Enum;
-		
-		/// <summary>
-		/// Shows the Generic Dialog box PopUp for the user to spend Hard currency with the given information without
-		/// an option for the user except to click on the close button.
-		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
-		/// </summary>
-		void OpenHcDialog(string title, string cost, bool showCloseButton,
-			GenericDialogButton button,  bool showSC = false, Action closeCallback = null);
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.

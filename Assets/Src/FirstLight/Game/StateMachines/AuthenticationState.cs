@@ -101,7 +101,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void UnsubscribeEvents()
 		{
-			_services.MessageBrokerService?.UnsubscribeAll(this);
+			// TODO: Re-add the unsubscription when we can have global state for the authentication or just the re-login on the connection loss
+			//_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnConnectionError(ServerHttpError msg)

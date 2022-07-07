@@ -61,46 +61,68 @@ namespace Quantum.Systems
 
 		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
+									   EntityRef entityKiller)
 		{
 			var deathPosition = f.Get<Transform3D>(entityDead).Position;
 			var armourDropChance = f.RNG->Next();
 			var step = 0;
 
-			// Try to drop Health pack; Otherwise drop Small Ammo
-			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+			//when killing a player in DM we drop:
+			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
 			{
-				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
-			}
-			else
-			{
-				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
+				// Try to drop Health pack
+				if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+				{
+					Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
+					step++;
+				}
+
+				// Try to drop ShieldLarge
+				if (f.RNG->Next() <= f.GameConfig.DeathDropLargeShieldChance)
+				{
+					Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
+				}
 			}
 
-			step++;
 
-			// Try to drop ShieldLarge, if didn't work then try to drop ShieldSmall
-			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
+			//when you kill a player in BR we drop:
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
 			{
-				Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
+				if (!f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
+				{
+					Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
+					step++;
+				}
+
+				// Try to drop Health pack; Otherwise drop Small Ammo
+				if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+				{
+					Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
+				}
+				else
+				{
+					Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
+				}
 
 				step++;
-			}
-			else if (armourDropChance <= f.GameConfig.DeathDropSmallShieldChance +
-			         f.GameConfig.DeathDropLargeShieldChance)
-			{
-				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
 
-				step++;
-			}
+				// Try to drop ShieldLarge, if didn't work then try to drop ShieldSmall
+				if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
+				{
+					Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
 
-			// If it's Battle Royale then drop Weapon (if it's not Melee)
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale &&
-			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
-			{
-				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
+					step++;
+				}
+				else if (armourDropChance <= f.GameConfig.DeathDropSmallShieldChance +
+						 f.GameConfig.DeathDropLargeShieldChance)
+				{
+					Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
+
+					step++;
+				}
 			}
 		}
+			    
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{

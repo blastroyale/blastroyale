@@ -345,11 +345,11 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public void CloseUi(Type type, bool closedException = false, bool destroy = false)
 		{
-			var ui = GetUi(type);
-			
 			if (_visibleUiList.Contains(type) || destroy)
 			{
 				_visibleUiList.Remove(type);
+				
+				var ui = GetUi(type);
 
 				ui.InternalClose(destroy);
 			}
@@ -612,7 +612,7 @@ namespace FirstLight.UiService
 			{
 				return;
 			}
-			
+
 			if (HasUiPresenter(_loadingSpinnerType))
 			{
 				OpenUi(_loadingSpinnerType);
@@ -625,7 +625,7 @@ namespace FirstLight.UiService
 			{
 				return;
 			}
-			
+
 			CloseUi(_loadingSpinnerType);
 		}
 		

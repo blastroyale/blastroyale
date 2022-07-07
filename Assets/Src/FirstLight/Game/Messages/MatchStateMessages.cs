@@ -8,7 +8,6 @@ namespace FirstLight.Game.Messages
 	public struct MatchStartedMessage : IMessage 
 	{ 
 		public bool IsResync;
-		public bool IsSpectator;
 	}
 	public struct MatchEndedMessage : IMessage { }
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }

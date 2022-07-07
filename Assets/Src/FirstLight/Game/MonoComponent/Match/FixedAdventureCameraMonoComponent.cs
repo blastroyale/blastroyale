@@ -58,6 +58,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
@@ -91,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			if (!msg.IsResync && !msg.IsSpectator)
+			if (!msg.IsResync)
 			{
 				return;
 			}
@@ -102,13 +103,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			
-			if (msg.IsSpectator)
+
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				ResetLeaderAndKiller();
 
 				_playerView = _entityViewUpdaterService.GetManualView(_leader);
-				
+
 				// We place audio listener roughly "in the player character's head"
 				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
 				SetTargetTransform(_playerView.transform);
@@ -116,7 +117,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			else
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
-				
+
 				if (!localPlayer.Entity.IsAlive(f))
 				{
 					ResetLeaderAndKiller();
@@ -126,7 +127,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				}
 
 				_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-				
+
 				// We place audio listener roughly "in the player character's head"
 				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
 				SetTargetTransform(_playerView.transform);
@@ -141,22 +142,22 @@ namespace FirstLight.Game.MonoComponent.Match
 			var playersData = gameContainer.PlayersData;
 			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
 			var leaderPlayer = playersData[leader];
-			
+
 			_leader = leaderPlayer.Entity;
 			_latestKiller = _leader;
 		}
-		
+
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
-			
+
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
-			
+
 			// We place audio listener roughly "in the player character's head"
 			SetAudioListenerTransform(follow.transform, Vector3.up, Quaternion.identity);
 			SetTargetTransform(follow.transform);
@@ -199,6 +200,23 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				return;
+			}
+			
+			ResetLeaderAndKiller();
+
+			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
+
+			// We place audio listener roughly "in the player character's head"
+			SetActiveCamera(_adventureCamera);
+			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
+			SetTargetTransform(_playerView.transform);
+		}
+
 		private void OnSpectate()
 		{
 			_spectating = true;
@@ -235,10 +253,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			else if (_leader.IsValid)
 			{
 				nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
-			}
-			else
-			{
-				
 			}
 
 			return nextPlayer;

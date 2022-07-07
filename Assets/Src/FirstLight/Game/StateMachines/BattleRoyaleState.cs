@@ -185,8 +185,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchStartedMessage()
 			{
-				IsResync = IsResyncing(),
-				IsSpectator = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator()
+				IsResync = IsResyncing()
 			});
 		}
 	}

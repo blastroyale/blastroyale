@@ -51,8 +51,8 @@ namespace FirstLight.Game.Presenters
 			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
 			                                   _gameDataProvider.AppDataProvider.NicknameId.Value);
 
-			_closeButton.onClick.AddListener(Close);
-			_blockerButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(OnClosedCompleted);
+			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_logoutButton.onClick.AddListener(OnLogoutClicked);
 
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);

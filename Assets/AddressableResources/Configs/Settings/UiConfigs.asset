@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0912607e574b4dacb5cee8cd4d10b13, type: 3}
   m_Name: UiConfigs
   m_EditorClassIdentifier: 
-  _loadingSpinnerType: FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService,
+  _loadingSpinnerType: FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.Game,
     Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _configs:
   - AddressableAddress: Ui/Adventure World Hud.prefab
@@ -81,7 +81,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LoadingSpinner.prefab
     Layer: 9
-    UiType: FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService,
+    UiType: FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LoginScreen.prefab
     Layer: 3
@@ -158,8 +158,6 @@ MonoBehaviour:
   _sets:
   - SetId: 0
     UiConfigsType:
-    - FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericDialogIconPresenter, FirstLight.Game, Version=0.0.0.0,

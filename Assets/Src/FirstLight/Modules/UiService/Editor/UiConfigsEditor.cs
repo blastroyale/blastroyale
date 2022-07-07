@@ -114,8 +114,8 @@ namespace FirstLightEditor.UiService
 
 		private void LoadingSpinnerLayout()
 		{
-			List<string> uiPresentersNames = new List<string>() {"<None>"};
-			List<string> uiPresentersAssemblyNames = new List<string>() {"<None>"};
+			var uiPresentersNames = new List<string>{"<None>"};
+			var uiPresentersAssemblyNames = new List<string>{"<None>"};
 
 			foreach (var uiConfig in _scriptableObject.Configs)
 			{

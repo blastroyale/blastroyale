@@ -34,7 +34,7 @@ public partial class SROptions
 		{
 			throw new Exception("Not logged in");
 		}
-
+		var services = MainInstaller.Resolve<IGameServices>();
 		var update = new PlayFab.AdminModels.UpdateUserDataRequest()
 		{
 			KeysToRemove = new List<string>()
@@ -48,7 +48,7 @@ public partial class SROptions
 		};
 
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
-		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
+		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, services.PlayfabService.HandleError);
 		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =
@@ -263,26 +263,18 @@ public partial class SROptions
 	{
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-
+		var services = MainInstaller.Resolve<IGameServices>();
+		
 		// TODO: Remove Logic outside command
 		gameLogic.PlayerLogic.AddXp(amount);
 
 		var data = new Dictionary<string, string>();
 		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-
-		var request = new ExecuteFunctionRequest
+		services.PlayfabService.CallFunction("ExecuteCommand", null, null,new LogicRequest
 		{
-			FunctionName = "ExecuteCommand",
-			GeneratePlayStreamEvent = true,
-			FunctionParameter = new LogicRequest
-			{
-				Command = "CheatAddXpCommand",
-				Data = data
-			},
-			AuthenticationContext = PlayFabSettings.staticPlayer
-		};
-
-		PlayFabCloudScriptAPI.ExecuteFunction(request, null, GameCommandService.OnPlayFabError);
+			Command = "CheatAddXpCommand",
+			Data = data
+		});
 	}
 #endif
 }

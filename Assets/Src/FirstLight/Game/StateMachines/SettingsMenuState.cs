@@ -82,16 +82,18 @@ namespace FirstLight.Game.StateMachines
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent)
 			};
 
-			_uiService.OpenUi<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseSettingsMenuUI()
 		{
-			_uiService.CloseUi<SettingsScreenPresenter>();
+			_uiService.CloseUi<SettingsScreenPresenter>(false, true);
 		}
 
 		private void TryLogOut()
 		{
+			_services.HelpdeskService.Logout();
+			
 #if UNITY_EDITOR
 			var unlink = new UnlinkCustomIDRequest
 			{

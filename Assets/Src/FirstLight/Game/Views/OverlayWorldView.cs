@@ -29,6 +29,7 @@ namespace FirstLight.Game.Views
 		{
 			var position = _isTargetFollow ? _target.position : _position;
 			
+			if(_camera != null)
 			transform.position = _camera.WorldToScreenPoint(position) + (Vector3) _screenOffset;
 		}
 

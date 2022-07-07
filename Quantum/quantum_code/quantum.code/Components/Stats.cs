@@ -161,6 +161,9 @@ namespace Quantum
 			};
 
 			AddModifier(f, capacityModifer);
+			//once you have gained shield capacity, fill all your shields up
+			var missingVal = GetStatData(StatType.Shield).StatValue.AsInt - CurrentShield;
+			GainShields(f, entity, attacker, missingVal);
 
 			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
 			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);

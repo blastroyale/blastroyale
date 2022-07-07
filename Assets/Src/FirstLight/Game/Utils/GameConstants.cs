@@ -11,6 +11,12 @@ namespace FirstLight.Game.Utils
 		public static class Editor
 		{
 			public const string PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
+			public const string PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY = "EnableStateMachineDebug";
+		}
+
+		public static class Scenes
+		{
+			public const string SCENE_MAIN_MENU = "MainMenu";
 		}
 
 		public static class Links
@@ -26,7 +32,6 @@ namespace FirstLight.Game.Utils
 		public static class Balance
 		{
 			public const float MAP_ROTATION_TIME_MINUTES = 10;
-			public const int NFT_AMOUNT_FOR_PLAY = 3;
 		}
 
 		public static class Audio
@@ -53,7 +58,8 @@ namespace FirstLight.Game.Utils
 
 		public static class Network
 		{
-			public const int DefaultPlayerTtl = 1000;
+			public const int DEFAULT_PLAYER_TTL_MS = 30000;
+			public const int EMPTY_ROOM_TTL_MS = 15000;
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_LOADED = "propsLoaded";
 			public const string ROOM_PROPS_START_TIME = "startTime";

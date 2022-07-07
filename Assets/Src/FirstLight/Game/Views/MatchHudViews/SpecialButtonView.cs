@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
@@ -39,6 +40,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			QuantumEvent.Subscribe<EventOnLocalSpecialUsed>(this, OnEventOnLocalSpecialUsed);
 			QuantumEvent.Subscribe<EventOnLocalSpecialAvailable>(this, HandleLocalSpecialAvailable);
+		}
+
+		private void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		/// <inheritdoc />

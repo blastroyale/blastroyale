@@ -36,7 +36,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
-		
+		[SerializeField, Required] private Button _helpdesk;
+		[SerializeField, Required] private Button _faq;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -50,8 +51,8 @@ namespace FirstLight.Game.Presenters
 			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
 			                                   _gameDataProvider.AppDataProvider.NicknameId.Value);
 
-			_closeButton.onClick.AddListener(Close);
-			_blockerButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(OnClosedCompleted);
+			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_logoutButton.onClick.AddListener(OnLogoutClicked);
 
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
@@ -64,12 +65,24 @@ namespace FirstLight.Game.Presenters
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
+			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
+			_faq.onClick.AddListener(OnFaqButtonPressed);
 		}
 		
 		/// <inheritdoc />
 		protected override void OnClosedCompleted()
 		{
 			Data.OnClose();
+		}
+
+		private void OnHelpdeskButtonPressed()
+		{
+			_services.HelpdeskService.StartConversation();
+		}
+
+		private void OnFaqButtonPressed()
+		{
+			_services.HelpdeskService.ShowFaq();
 		}
 
 		private void OnBgmChanged(bool value)

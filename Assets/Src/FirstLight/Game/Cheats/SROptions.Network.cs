@@ -40,4 +40,11 @@ public partial class SROptions
 		IsMultiClient = true;
 		GameObject.FindObjectOfType<HomeScreenPresenter>().SendMessage("OnPlayOnlineClicked");
 	}
+	
+	[Category("Quantum")]
+	public void DisconnectQuantum()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		services.NetworkService.QuantumClient.Disconnect();
+	}
 }

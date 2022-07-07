@@ -652,7 +652,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ead153470ca8afb4580dcebce1c36003, type: 2}
   - {fileID: 2100000, guid: ead153470ca8afb4580dcebce1c36003, type: 2}
   - {fileID: 2100000, guid: ead153470ca8afb4580dcebce1c36003, type: 2}
-  - {fileID: 2100000, guid: 2d3a3e8105531d74c827dee5b91bc02e, type: 2}
+  - {fileID: 2100000, guid: 0daf603ac407bf746b04e11eafb1af43, type: 2}
   _renderers:
   - {fileID: 2712608327123727982}
   - {fileID: 177298631455012788}
@@ -3081,6 +3081,10 @@ PrefabInstance:
     - target: {fileID: 2956627114472664281, guid: b22cfd75433598540a25cf2217f58e7c, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853284413904793833, guid: b22cfd75433598540a25cf2217f58e7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7745273872158143919, guid: b22cfd75433598540a25cf2217f58e7c, type: 3}
       propertyPath: m_RootOrder

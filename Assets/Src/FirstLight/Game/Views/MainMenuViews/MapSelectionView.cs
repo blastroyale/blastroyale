@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (_selectionEnabled)
 			{
-				SetGridPosition(GetRandomGridPosition());
+				SetGridPosition(GetRandomGridPosition(), false);
 			}
 
 			if (TryGetDropPattern(out var pattern))
@@ -111,12 +111,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
-			SetGridPosition(ScreenToGridPosition(eventData.position));
+			if (!_selectionEnabled) return;
+
+			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
 
-		private void SetGridPosition(Vector2Int pos)
+		private void SetGridPosition(Vector2Int pos, bool includeWater)
 		{
-			if (!IsValidPosition(pos))
+			if (!IsValidPosition(pos, includeWater))
 			{
 				return;
 			}
@@ -142,7 +144,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			do
 			{
 				position = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
-			} while (!IsValidPosition(position));
+			} while (!IsValidPosition(position, false));
 
 			return position;
 		}
@@ -177,9 +179,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			return positionInRectangle;
 		}
 
-		private bool IsValidPosition(Vector2Int position)
+		private bool IsValidPosition(Vector2Int position, bool includeWater)
 		{
-			return !TryGetDropPattern(out var pattern) || pattern[position.x][position.y];
+			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+
+			return (!TryGetDropPattern(out var pattern) || pattern[position.x][position.y]) &&
+			       (includeWater || mapGridConfigs.GetConfig(position.x,position.y).IsValidNamedArea);
 		}
 
 		private bool TryGetDropPattern(out bool[][] pattern)
@@ -192,7 +197,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			pattern = Array.Empty<bool[]>();
-			return true;
+			return false;
 		}
 	}
 }

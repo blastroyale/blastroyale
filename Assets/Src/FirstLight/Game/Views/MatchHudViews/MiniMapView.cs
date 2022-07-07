@@ -1,127 +1,233 @@
+using System;
+using System.Collections;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using LayerMask = UnityEngine.LayerMask;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
-	/// View for controlling small and extended map views.
+	/// View for controlling the minimap view.
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
-		[SerializeField, Required] private RenderTexture _shrinkingCircleRenderTexture;
-		[SerializeField, Required] private Transform _playerRadarPing;
-		[SerializeField, Required] private Camera _camera;
-		[SerializeField, Required] private RectTransform _defaultImageRectTransform;
-		[SerializeField, Required] private RectTransform _circleImageRectTransform;
-		[SerializeField, Required] private Animation _animation;
-		[SerializeField, Required] private AnimationClip _smallMiniMapClip;
-		[SerializeField, Required] private AnimationClip _extendedMiniMapClip;
-		[SerializeField, Required] private UiButtonView _closeButton;
-		[SerializeField, Required] private UiButtonView _toggleMiniMapViewButton;
+		private static readonly int _thicknessPID = Shader.PropertyToID("_Thickness");
 
-		private enum RenderTextureMode
-		{
-			None,
-			Default,
-			ShrinkingCircle
-		}
+		[SerializeField, Required, Title("Minimap")]
+		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
+		private Camera _minimapCamera;
+
+		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
+		[SerializeField] private int _cameraHeight = 10;
+
+		[SerializeField, Required, Title("Shrinking Circle")]
+		private RawImage _minimapImage;
+
+		[SerializeField, Required] private RectTransform _shrinkingCircleRing;
+		[SerializeField, Required] private Image _shrinkingCircleRingImage;
+		[SerializeField, Required] private RectTransform _safeAreaRing;
+		[SerializeField, Required] private Image _safeAreaRingImage;
+		[SerializeField, Range(0f, 1f)] private float _ringWidth = 0.05f;
+
+		[SerializeField, Required, Title("Indicators")]
+		private RectTransform _playerIndicator;
+
+		[SerializeField, Required] private RectTransform _safeAreaArrow;
+		[SerializeField, Required] private RectTransform _airDropArrow;
 
 		private IGameServices _services;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
-		private Transform _cameraTransform;
+		private QuantumShrinkingCircleConfig _config;
+
+		private RectTransform _rectTransform;
 		private EntityView _playerEntityView;
-		private const float CameraHeight = 10;
-		private bool _smallMapActivated = true;
-		private RenderTextureMode _renderTextureMode = RenderTextureMode.None;
+		private Transform _cameraTransform;
+
+		private bool _safeAreaSet;
+
+		private Material _safeAreaRingMat;
+		private Material _shrinkingCircleMat;
+		private Coroutine _airDropCoroutine;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
-			_cameraTransform = _camera.transform;
-
-			_closeButton.onClick.AddListener(ToggleMiniMapView);
-			_toggleMiniMapViewButton.onClick.AddListener(ToggleMiniMapView);
+			_rectTransform = GetComponent<RectTransform>();
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
+			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
+
+			_safeAreaRing.gameObject.SetActive(false);
+
+			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
+			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
+		}
+
+		private void OnEnable()
+		{
+			if (Camera.main != null)
+			{
+				_cameraTransform = Camera.main.transform;
+			}
+		}
+
+		[Button, HideInEditorMode]
+		private void RenderMinimap()
+		{
+			FLog.Verbose("Rendering MiniMap camera.");
+			_minimapCamera.transform.position = new Vector3(0, _cameraHeight, 0);
+			_minimapCamera.Render();
 		}
 
 		private void OnDestroy()
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
-		}
-
-		private void ToggleMiniMapView()
-		{
-			_animation.clip = _smallMapActivated ? _extendedMiniMapClip : _smallMiniMapClip;
-			_animation.Play();
-
-			_smallMapActivated = !_smallMapActivated;
+			QuantumCallback.UnsubscribeListener(this);
+			Destroy(_safeAreaRingMat);
+			Destroy(_shrinkingCircleMat);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
+			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-
-			_services.TickService.SubscribeOnUpdate(UpdateTick);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
 		}
 
-		private void UpdateTick(float deltaTime)
+		private void OnAirDropStarted(EventOnAirDropStarted callback)
 		{
-			_cameraTransform.position = new Vector3(0, CameraHeight, 0);
+			_airDropArrow.gameObject.SetActive(true);
+			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
+		}
 
-			if (_smallMapActivated)
+		private void OnAirDropCollected(EventOnAirDropCollected callback)
+		{
+			StopCoroutine(_airDropCoroutine);
+			_airDropArrow.gameObject.SetActive(false);
+		}
+
+		private void UpdateMinimap(CallbackUpdateView callback)
+		{
+			UpdateViewport();
+			UpdatePlayerIndicator();
+			UpdateShrinkingCircle(callback.Game.Frames.Predicted);
+		}
+
+		private void UpdateViewport()
+		{
+			var viewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
+			_minimapImage.uvRect = new Rect(viewportPoint.x - _viewportSize / 2f,
+			                                viewportPoint.y - _viewportSize / 2f,
+			                                _viewportSize, _viewportSize);
+		}
+
+		private void UpdatePlayerIndicator()
+		{
+			_playerIndicator.rotation =
+				Quaternion.Euler(0, 0, 360f - _playerEntityView.transform.rotation.eulerAngles.y);
+		}
+
+		private void UpdateShrinkingCircle(Frame f)
+		{
+			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
-				var viewportPoint = _camera.WorldToViewportPoint(_playerEntityView.transform.position);
-				var screenDelta = new Vector2(viewportPoint.x, viewportPoint.y);
-
-				screenDelta.Scale(_defaultImageRectTransform.rect.size);
-				screenDelta -= _defaultImageRectTransform.rect.size * 0.5f;
-
-				_defaultImageRectTransform.localPosition = -screenDelta;
-				_circleImageRectTransform.localPosition = -screenDelta;
-
-				_playerRadarPing.localPosition = Vector3.zero;
+				return;
 			}
-			else
-			{
-				_defaultImageRectTransform.localPosition = Vector3.zero;
-				_circleImageRectTransform.localPosition = Vector3.zero;
 
-				SetPingPosition(_playerRadarPing, _playerEntityView.transform.position);
+			circle.GetMovingCircle(f, out var centerFP, out var radiusFP);
+
+			var radius = radiusFP.AsFloat;
+			var center = centerFP.XOY.ToUnityVector3();
+			var safeRadius = circle.TargetRadius.AsFloat;
+			var safeCenter = circle.TargetCircleCenter.XOY.ToUnityVector3();
+
+			var circleViewportPoint = _minimapCamera.WorldToViewportPoint(center);
+			var safeViewportPoint = _minimapCamera.WorldToViewportPoint(safeCenter);
+			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
+
+			var rect = _rectTransform.rect;
+			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
+
+			var cameraOrtoSize = _minimapCamera.orthographicSize;
+			var circleUICenter = (circleViewportPoint - playerViewportPoint) * minimapFullSize;
+			var circleUISize = Vector2.one * radius / cameraOrtoSize * minimapFullSize;
+			var safeUICenter = (safeViewportPoint - playerViewportPoint) * minimapFullSize;
+			var safeUISize = Vector2.one * safeRadius / cameraOrtoSize * minimapFullSize;
+
+			var shrinkingCircleRingWidth = Math.Clamp(_ringWidth * (rect.width / circleUISize.x), 0f, 1f);
+			_shrinkingCircleRingImage.materialForRendering.SetFloat(_thicknessPID, shrinkingCircleRingWidth);
+
+			_shrinkingCircleRing.anchoredPosition = circleUICenter;
+			_shrinkingCircleRing.sizeDelta = circleUISize;
+
+			if (!_safeAreaSet)
+			{
+				if (_config.Step != circle.Step)
+				{
+					_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
+				}
+
+				if (f.Time < circle.ShrinkingStartTime - _config.WarningTime)
+				{
+					return;
+				}
+
+				_safeAreaSet = true;
+				_safeAreaRing.gameObject.SetActive(true);
 			}
 
-			if (_renderTextureMode == RenderTextureMode.Default)
+			var safeAreaRingWidth = Math.Clamp(_ringWidth * (rect.width / safeUISize.x), 0f, 1f);
+			_safeAreaRingImage.materialForRendering.SetFloat(_thicknessPID, safeAreaRingWidth);
+
+			_safeAreaRing.anchoredPosition = safeUICenter;
+			_safeAreaRing.sizeDelta = safeUISize;
+
+			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
+		}
+
+		private void UpdateSafeAreaArrow(Vector3 circleCenter, float circleRadius)
+		{
+			// Calculate and Apply rotation
+			var targetPosLocal = _cameraTransform.InverseTransformPoint(circleCenter);
+			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
+			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
+			var circleRadiusSq = circleRadius * circleRadius;
+			var distanceSqrt = (circleCenter - _cameraTransform.position).sqrMagnitude;
+
+			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);
+
+			if (distanceSqrt < circleRadiusSq && isArrowActive)
 			{
-				_camera.targetTexture = _shrinkingCircleRenderTexture;
-				_camera.cullingMask = LayerMask.GetMask("Mini Map Object");
-				_renderTextureMode = RenderTextureMode.ShrinkingCircle;
+				_safeAreaArrow.gameObject.SetActive(false);
 			}
-			else if (_renderTextureMode == RenderTextureMode.None)
+			else if (distanceSqrt > circleRadiusSq && !isArrowActive)
 			{
-				_renderTextureMode = RenderTextureMode.Default;
+				_safeAreaArrow.gameObject.SetActive(true);
 			}
 		}
 
-		private void SetPingPosition(Transform pingTransform, Vector3 positionWorldSpace)
+		private IEnumerator UpdateAirDropArrow(AirDrop airDrop)
 		{
-			var viewportPoint = _camera.WorldToViewportPoint(positionWorldSpace);
-			var screenDelta = new Vector2(viewportPoint.x, viewportPoint.y);
+			// Calculate and Apply rotation
+			while (true)
+			{
+				var targetPosLocal = _cameraTransform.InverseTransformPoint(airDrop.Position.ToUnityVector3());
+				var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
 
-			screenDelta.Scale(_defaultImageRectTransform.rect.size);
-
-			screenDelta -= _defaultImageRectTransform.rect.size * 0.5f;
-			pingTransform.localPosition = screenDelta;
+				_airDropArrow.eulerAngles = new Vector3(0, 0, targetAngle);
+				yield return null;
+			}
 		}
 	}
 }

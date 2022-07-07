@@ -25,7 +25,6 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public IUiService UiService;
 		}
 
 		public MapSelectionView MapSelectionView;
@@ -42,6 +41,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private Toggle _botsToggle;
+		[SerializeField, Required] private Toggle _spectateToggle;
+		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
+		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -67,37 +69,35 @@ namespace FirstLight.Game.Presenters
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
-			
-			//SceneManager.activeSceneChanged += OnSceneChanged;
 		}
 
 		private void OnDestroy()
 		{
 			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			
-			//SceneManager.activeSceneChanged -= OnSceneChanged;
 		}
 
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			
+
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
 			_botsToggle.isOn = true;
-			_botsToggle.gameObject.SetActive(false);
+			_botsToggleObjectRoot.SetActive(false);
+			_spectateToggle.isOn = false;
+			_spectateToggleObjectRoot.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}" ;
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
-
-			MapSelectionView.SetupMapView(room.GetMapId());
 			_playerListHolder.WipeAllSlots();
+			
+			MapSelectionView.SetupMapView(room.GetMapId());
 
 			if (IsMatchmakingRoom)
 			{
@@ -113,7 +113,7 @@ namespace FirstLight.Game.Presenters
 				_playerListHolder.gameObject.SetActive(true);
 				_playerMatchmakingRootObject.SetActive(false);
 				
-				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, CurrentRoom.Name);
+				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
 				_roomNameRootObject.SetActive(true);
 				
 				foreach (var playerKvp in CurrentRoom.Players)
@@ -150,12 +150,16 @@ namespace FirstLight.Game.Presenters
 			
 			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
 			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom)
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom && 
+			    _services.NetworkService.QuantumClient.CurrentRoom.IsOpen)
 			{
 				status = ScriptLocalization.AdventureMenu.ReadyStatusHost;
 				_lockRoomButton.gameObject.SetActive(true);
-				_botsToggle.gameObject.SetActive(true);
+				_botsToggleObjectRoot.SetActive(true);
 			}
+			
+			_spectateToggle.isOn = false;
+			_spectateToggleObjectRoot.SetActive(true);
 			
 			AddOrUpdatePlayerInListHolder(_services.NetworkService.QuantumClient.LocalPlayer, status);
 			
@@ -223,7 +227,7 @@ namespace FirstLight.Game.Presenters
 			if (!IsMatchmakingRoom && newMasterClient.IsLocal && _loadedCoreMatchAssets)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
-				_botsToggle.gameObject.SetActive(true);
+				_botsToggleObjectRoot.SetActive(true);
 			}
 		}
 		
@@ -280,7 +284,8 @@ namespace FirstLight.Game.Presenters
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
-			_botsToggle.gameObject.SetActive(false);
+			_botsToggleObjectRoot.SetActive(false);
+			_spectateToggleObjectRoot.SetActive(false);
 
 			if (IsMatchmakingRoom)
 			{

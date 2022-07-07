@@ -35,7 +35,8 @@ namespace FirstLight.Game.StateMachines
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
-		
+		private Vector2 _normalizedMapPickedPosition;
+
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
@@ -65,19 +66,20 @@ namespace FirstLight.Game.StateMachines
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
-			
+
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
-			startSimulation.OnExit(PrepareMatch);
-
+			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
+			startSimulation.OnExit(PublishMatchReadyMessage);
+			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
-
+			
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
@@ -123,7 +125,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
-
+		
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
@@ -220,7 +222,7 @@ namespace FirstLight.Game.StateMachines
 				PlayedMatchmakingGame = _services.NetworkService.IsCurrentRoomForMatchmaking
 			});
 		}
-		
+
 		private void SendGameplayDataAnalytics()
 		{
 			SendGameplayData(false);
@@ -262,7 +264,7 @@ namespace FirstLight.Game.StateMachines
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount);
 
 			startParams.NetworkClient = client;
-
+			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
@@ -316,12 +318,12 @@ namespace FirstLight.Game.StateMachines
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
 
-			_uiService.OpenUi<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseResultScreen()
 		{
-			_uiService.CloseUi<ResultsScreenPresenter>();
+			_uiService.CloseUi<ResultsScreenPresenter>(false, true);
 		}
 
 		private void OpenRewardsScreen(IWaitActivity activity)
@@ -329,7 +331,7 @@ namespace FirstLight.Game.StateMachines
 			var cacheActivity = activity;
 			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
 
-			_uiService.OpenUi<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
@@ -339,7 +341,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseRewardsScreen()
 		{
-			_uiService.CloseUi<RewardsScreenPresenter>();
+			_uiService.CloseUi<RewardsScreenPresenter>(false, true);
 		}
 		
 		private void OpenTrophiesScreen(IWaitActivity activity)
@@ -352,7 +354,7 @@ namespace FirstLight.Game.StateMachines
 				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
 			};
 
-			_uiService.OpenUi<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
@@ -362,27 +364,31 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseTrophiesScreen()
 		{
-			_uiService.CloseUi<TrophiesScreenPresenter>();
+			_uiService.CloseUi<TrophiesScreenPresenter>(false, true);
 		}
 		
 		private void CloseMatchmakingScreen()
 		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			_normalizedMapPickedPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
-		private void PrepareMatch()
+		private void PublishMatchReadyMessage()
 		{
-			MatchStartAnalytics();
-			SetPlayerMatchData();
+			if (_services.NetworkService.IsJoiningNewMatch)
+			{
+				MatchStartAnalytics();
+				SetPlayerMatchData();
+			}
+			
 			CloseMatchmakingScreen();
-
+			
 			_services.MessageBrokerService.Publish(new MatchReadyMessage());
 		}
 
 		private void SetPlayerMatchData()
 		{
 			var game = QuantumRunner.Default.Game;
-			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			
@@ -393,7 +399,7 @@ namespace FirstLight.Game.StateMachines
 				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
-				NormalizedSpawnPosition = position.ToFPVector2(),
+				NormalizedSpawnPosition = _normalizedMapPickedPosition.ToFPVector2(),
 				Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 			});
 		}

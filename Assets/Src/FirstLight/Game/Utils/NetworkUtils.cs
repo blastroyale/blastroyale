@@ -15,17 +15,18 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class NetworkUtils
 	{
+		public const char ROOM_SEPARATOR = '#';
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
 		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
-		                                                  string roomName, int playerTtl)
+		                                                  string roomName)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 			
 			var roomParams = new EnterRoomParams
 			{
-				RoomName = isRandomMatchmaking ? null : roomName + VersionUtils.Commit,
+				RoomName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
@@ -44,11 +45,11 @@ namespace FirstLight.Game.Utils
 					SuppressPlayerInfo = false,
 					PublishUserId = false,
 					DeleteNullProperties = true,
-					EmptyRoomTtl = 0,
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = (byte) mapConfig.PlayersLimit,
-					PlayerTtl = playerTtl
+					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
 				}
 			};
 
@@ -62,11 +63,15 @@ namespace FirstLight.Game.Utils
 		{
 			return new EnterRoomParams
 			{
-				RoomName = roomName + VersionUtils.Commit,
+				RoomName = roomName + ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
-				RoomOptions = null
+				RoomOptions = new RoomOptions
+				{
+					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS,
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS
+				}
 			};
 		}
 
@@ -82,7 +87,7 @@ namespace FirstLight.Game.Utils
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
-				TypedLobby = TypedLobby.Default
+				TypedLobby = TypedLobby.Default,
 			};
 		}
 

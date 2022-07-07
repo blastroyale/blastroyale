@@ -72,6 +72,9 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IThreadService"/>
 		public IThreadService ThreadService { get; }
+		
+		/// <inheritdoc cref="IHelpdeskService"/>
+		public IHelpdeskService HelpdeskService { get; }
 	}
 
 	public class GameServices : IGameServices
@@ -95,6 +98,7 @@ namespace FirstLight.Game.Services
 		public IPlayfabService PlayfabService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
+		public IHelpdeskService HelpdeskService { get; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
@@ -117,7 +121,7 @@ namespace FirstLight.Game.Services
 			ThreadService = threadService;
 
 			GuidService = new GuidService();
-			PlayfabService = new PlayfabService(gameLogic.AppLogic);
+			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService);
 			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider);
 			PoolService = new PoolService();
 			TickService = new TickService();
@@ -136,6 +140,8 @@ namespace FirstLight.Game.Services
 						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL,
 					                                                    GameConstants.Notifications
 						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL));
+			HelpdeskService = new HelpdeskService();
 		}
+		
 	}
 }

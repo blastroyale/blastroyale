@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			
-			_closeButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(OnClosed);
 			_selectButton.onClick.AddListener(OnSelectedPressed);
 			
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnUpdatePlayerSkinMessage);

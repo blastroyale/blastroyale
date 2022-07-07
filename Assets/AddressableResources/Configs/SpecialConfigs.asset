@@ -26,9 +26,9 @@ MonoBehaviour:
       Radius:
         RawValue: 229376
       SpecialPower:
-        RawValue: 52428
+        RawValue: 45875
       Speed:
-        RawValue: 655360
+        RawValue: 163840
       MinRange:
         RawValue: 0
       MaxRange:
@@ -42,7 +42,7 @@ MonoBehaviour:
       Radius:
         RawValue: 98304
       SpecialPower:
-        RawValue: 65536
+        RawValue: 98304
       Speed:
         RawValue: 98304
       MinRange:
@@ -74,14 +74,14 @@ MonoBehaviour:
       Radius:
         RawValue: 180224
       SpecialPower:
-        RawValue: 19660
+        RawValue: 26214
       Speed:
         RawValue: 45875
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 786432
-      Knockback: 20
+      Knockback: 0
     - Id: 119
       SpecialType: 4
       Indicator: 2
@@ -104,9 +104,9 @@ MonoBehaviour:
       Cooldown:
         RawValue: 98304
       Radius:
-        RawValue: 655360
+        RawValue: 163840
       SpecialPower:
-        RawValue: 32768
+        RawValue: 26214
       Speed:
         RawValue: 65536
       MinRange:

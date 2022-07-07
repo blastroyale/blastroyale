@@ -1,11 +1,12 @@
 using System;
+using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -61,7 +62,7 @@ namespace FirstLight.Game.StateMachines
 			var register = stateFactory.State("Register");
 			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
-			var finalSteps = stateFactory.Wait("Final Authentication Steps");
+			var getServerState = stateFactory.Wait("Get Server State");
 
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
@@ -71,38 +72,52 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
-			login.Event(_goToRegisterClickedEvent).Target(register);
+			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
-			login.OnExit(CloseLoginScreen);
-			
+
 			register.OnEnter(OpenRegisterScreen);
-			register.Event(_goToLoginClickedEvent).Target(login);
+			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
-			register.OnExit(CloseRegisterScreen);
 
 			authLoginDevice.OnEnter(LoginWithDevice);
-			authLoginDevice.Event(_loginCompletedEvent).Target(finalSteps);
+			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
 			
-			authLogin.OnEnter(() => DimLoginScreen(true));
-			authLogin.Event(_loginCompletedEvent).Target(finalSteps);
+			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
+			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
-			authLogin.OnExit(() => DimLoginScreen(false));
+			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
-			finalSteps.OnEnter(OpenLoadingScreen);
-			finalSteps.WaitingFor(FinalStepsAuthentication).Target(final);
+			getServerState.OnEnter(OpenLoadingScreen);
+			getServerState.WaitingFor(FinalStepsAuthentication).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private void SubscribeEvents()
 		{
-			// Subscribe to events
+			_services.MessageBrokerService.Subscribe<ServerHttpError>(OnConnectionError);
 		}
 
 		private void UnsubscribeEvents()
 		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			// TODO: Re-add the unsubscription when we can have global state for the authentication or just the re-login on the connection loss
+			//_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private void OnConnectionError(ServerHttpError msg)
+		{
+			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
+			{
+				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
+			}
+			_services.AnalyticsService.LogEvent("Invalid Session Ticket", new()
+			{
+				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
+			});
+			LoginWithDevice();
+			_services.PlayfabService.CallFunction("GetPlayerData", res => 
+					OnPlayerDataObtained(res, null), OnPlayFabError);
 		}
 		
 		/// <summary>
@@ -111,7 +126,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnCriticalPlayFabError(PlayFabError error) 
 		{
 			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
 			var button = new AlertButton
 			{
 				Callback = Application.Quit,
@@ -145,11 +159,16 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCachedLoginEmail()
 		{
+			if (!FeatureFlags.EMAIL_AUTH)
+			{
+				return true;
+			}
 			return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
 		}
 
 		private void LoginWithDevice()
 		{
+			FLog.Verbose("Logging in with device ID");
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
 				GetUserAccountInfo = true,
@@ -236,6 +255,9 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
+			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+
+			_dataService.SaveData<AppData>();
 		}
 
 		private void LinkDeviceID()
@@ -279,6 +301,7 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess()
 			{
 				_dataService.GetData<AppData>().LinkedDevice = true;
+				FLog.Verbose("Linked account with device in playfab");
 			}
 		}
 
@@ -313,7 +336,8 @@ namespace FirstLight.Game.StateMachines
 			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(data));
-			activity.Complete();
+			FLog.Verbose("Downloaded state from server");
+			activity?.Complete();
 		}
 
 		private void OpenGameUpdateDialog()
@@ -374,13 +398,17 @@ namespace FirstLight.Game.StateMachines
 		private void OnLoginSuccess(LoginResult result)
 		{
 			var appData = _dataService.GetData<AppData>();
+
+			var userId = result.PlayFabId;
+			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+			var userName = result.InfoResultPayload.AccountInfo.Username;
+
+			_services.HelpdeskService.Login(userId, email, userName);
 			
 			if (!appData.LinkedDevice)
 			{
 				LinkDeviceID();
 			}
-			
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			
 			ProcessAuthentication(result);
 
@@ -389,6 +417,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void RegisterClicked(string email, string username, string password)
 		{
+			_statechartTrigger(_loginRegisterTransitionEvent);
+			
 			var register = new RegisterPlayFabUserRequest
 			{
 				Email = email,
@@ -419,10 +449,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<RegisterScreenPresenter>();
 		}
+		
+		private void CloseLoginRegisterScreens()
+		{
+			_uiService.CloseUi<LoginScreenPresenter>();
+			_uiService.CloseUi<RegisterScreenPresenter>();
+		}
 
-		private void DimLoginScreen(bool dimmed)
+		private void DimLoginRegisterScreens(bool dimmed)
 		{
 			_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
 		}
 
 		private void OpenLoginScreen()

@@ -316,7 +316,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			yield return new WaitForSeconds(time);
 
-			RenderersContainerProxy.ResetToOriginalMaterials();
+			// If game disconnects and unloads assets, this async method still runs (CoroutineService
+			// and this script can become null.
+			if (!this.IsDestroyed())
+			{
+				RenderersContainerProxy.ResetToOriginalMaterials();
+			}
 		}
 
 		private IEnumerator StarCoroutine(float time)

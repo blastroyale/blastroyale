@@ -272,7 +272,6 @@ namespace FirstLight.Game.StateMachines
 		private void StopSimulation()
 		{
 			QuantumRunner.ShutdownAll();
-			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = false});
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 		}
 

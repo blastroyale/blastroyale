@@ -83,8 +83,7 @@ namespace Quantum
 			{
 				sorter = new BattleRoyaleSorter();
 			}
-
-			Log.Error(f.PlayerCount);
+			
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
 				playersData.InsertIntoSortedList(new QuantumPlayerMatchData(f, data[i]), sorter);

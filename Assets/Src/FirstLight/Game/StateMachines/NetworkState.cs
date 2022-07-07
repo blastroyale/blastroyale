@@ -128,6 +128,7 @@ namespace FirstLight.Game.StateMachines
 				if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
 				{
 					_networkService.IsJoiningNewMatch.Value = true;
+					SetSpectatePlayerProperty(false);
 				}
 
 				_networkService.QuantumClient.ReconnectAndRejoin();
@@ -355,9 +356,14 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnSpectatorToggleMessage(SpectatorModeToggledMessage message)
 		{
+			SetSpectatePlayerProperty(message.IsSpectator);
+		}
+
+		private void SetSpectatePlayerProperty(bool isSpectator)
+		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.Network.PLAYER_PROPS_SPECTATOR, message.IsSpectator }
+				{ GameConstants.Network.PLAYER_PROPS_SPECTATOR, isSpectator }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -433,6 +439,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.InRoom)
 			{
 				_networkService.IsJoiningNewMatch.Value = true;
+				SetSpectatePlayerProperty(false);
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
@@ -449,6 +456,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.InRoom)
 			{
 				_networkService.IsJoiningNewMatch.Value = true;
+				SetSpectatePlayerProperty(false);
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
@@ -466,6 +474,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.InRoom)
 			{
 				_networkService.IsJoiningNewMatch.Value = true;
+				SetSpectatePlayerProperty(false);
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpCreateRoom(enterParams);
 			}

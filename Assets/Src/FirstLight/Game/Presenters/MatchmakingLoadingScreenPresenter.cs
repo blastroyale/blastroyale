@@ -300,7 +300,6 @@ namespace FirstLight.Game.Presenters
 
 		private void CheckEnableLockRoomButton()
 		{
-			Debug.LogError(CurrentRoom.GetRealPlayerAmount() > 0);
 			_lockRoomButton.interactable = CurrentRoom.GetRealPlayerAmount() > 0;
 		}
 

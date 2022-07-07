@@ -202,6 +202,7 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
 			AddOrUpdatePlayerInList(targetPlayer);
+			CheckEnableLockRoomButton();
 		}
 
 		/// <inheritdoc />
@@ -294,6 +295,13 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SetSpectateInteractable(relevantPlayerAmount < relevantPlayerCapacity);
+			CheckEnableLockRoomButton();
+		}
+
+		private void CheckEnableLockRoomButton()
+		{
+			Debug.LogError(CurrentRoom.GetRealPlayerAmount() > 0);
+			_lockRoomButton.interactable = CurrentRoom.GetRealPlayerAmount() > 0;
 		}
 
 		private void SetSpectateInteractable(bool interactable)

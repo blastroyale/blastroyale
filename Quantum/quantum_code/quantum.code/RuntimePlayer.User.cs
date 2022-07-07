@@ -10,7 +10,6 @@ namespace Quantum
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
 		public FPVector2 NormalizedSpawnPosition;
-		public bool IsSpectator;
 		public Equipment[] Loadout;
 
 		partial void SerializeUserData(BitStream stream)
@@ -24,7 +23,6 @@ namespace Quantum
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
-			stream.Serialize(ref IsSpectator);
 			stream.SerializeArrayLength(ref Loadout);
 
 			for (var i = 0; i < Loadout.Length; i++)

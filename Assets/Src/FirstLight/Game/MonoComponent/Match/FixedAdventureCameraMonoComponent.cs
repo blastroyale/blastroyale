@@ -89,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		private async void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync && !msg.IsSpectator)
 			{
@@ -106,13 +106,14 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			if (msg.IsSpectator)
 			{
+				await Task.Delay(3000);
 				ResetLeaderAndKiller();
 
 				_playerView = _entityViewUpdaterService.GetManualView(_leader);
 				
 				// We place audio listener roughly "in the player character's head"
 				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-				//SetTargetTransform(_playerView.transform);
+				SetTargetTransform(_playerView.transform);
 			}
 			else
 			{

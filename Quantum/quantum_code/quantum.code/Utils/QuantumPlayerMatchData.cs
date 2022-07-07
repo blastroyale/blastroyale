@@ -11,7 +11,6 @@ namespace Quantum
 		public bool IsLocalPlayer;
 		public uint PlayerRank;
 		public int MapId;
-		public bool IsSpectator;
 		public PlayerMatchData Data;
 
 		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.GetSingleton<GameContainer>().PlayersData[player])
@@ -23,7 +22,6 @@ namespace Quantum
 			IsLocalPlayer = f.Context.IsLocalPlayer(data.Player);
 			MapId = f.RuntimeConfig.MapId;
 			Data = data;
-			IsSpectator = data.IsSpectator;
 			PlayerName = data.IsBot ? data.BotNameIndex.ToString() : f.GetPlayerData(data.Player).PlayerName;
 		}
 	}

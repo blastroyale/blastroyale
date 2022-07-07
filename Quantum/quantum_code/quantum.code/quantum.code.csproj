@@ -195,6 +195,7 @@
     <Compile Include="Commands\CheatLocalPlayerKillCommand.cs" />
     <Compile Include="Commands\PlayerQuitCommand.cs" />
     <Compile Include="Commands\PlayerRespawnCommand.cs" />
+    <Compile Include="Commands\SpawnBotsCommand.cs" />
     <Compile Include="Commands\SpecialUsedCommand.cs" />
     <Compile Include="Commands\CollectablePlatformSpawnCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />

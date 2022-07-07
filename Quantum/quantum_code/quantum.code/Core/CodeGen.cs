@@ -2665,35 +2665,33 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public Int32 BotNameIndex;
-    [FieldOffset(16)]
+    [FieldOffset(12)]
     public UInt32 DamageDone;
-    [FieldOffset(20)]
+    [FieldOffset(16)]
     public UInt32 DamageReceived;
-    [FieldOffset(24)]
+    [FieldOffset(20)]
     public UInt32 DeathCount;
     [FieldOffset(56)]
     public EntityRef Entity;
     [FieldOffset(64)]
     public FP FirstDeathTime;
-    [FieldOffset(28)]
+    [FieldOffset(24)]
     public UInt32 HealingDone;
-    [FieldOffset(32)]
+    [FieldOffset(28)]
     public UInt32 HealingReceived;
-    [FieldOffset(12)]
-    public QBoolean IsSpectator;
     [FieldOffset(8)]
     public PlayerRef Player;
-    [FieldOffset(36)]
+    [FieldOffset(32)]
     public UInt32 PlayerLevel;
     [FieldOffset(0)]
     public GameId PlayerSkin;
-    [FieldOffset(40)]
+    [FieldOffset(36)]
     public UInt32 PlayerTrophies;
-    [FieldOffset(44)]
+    [FieldOffset(40)]
     public UInt32 PlayersKilledCount;
-    [FieldOffset(48)]
+    [FieldOffset(44)]
     public UInt32 SpecialsUsedCount;
-    [FieldOffset(52)]
+    [FieldOffset(48)]
     public UInt32 SuicideCount;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2706,7 +2704,6 @@ namespace Quantum {
         hash = hash * 31 + FirstDeathTime.GetHashCode();
         hash = hash * 31 + HealingDone.GetHashCode();
         hash = hash * 31 + HealingReceived.GetHashCode();
-        hash = hash * 31 + IsSpectator.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerLevel.GetHashCode();
         hash = hash * 31 + (Int32)PlayerSkin;
@@ -2722,7 +2719,6 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         PlayerRef.Serialize(&p->Player, serializer);
-        QBoolean.Serialize(&p->IsSpectator, serializer);
         serializer.Stream.Serialize(&p->DamageDone);
         serializer.Stream.Serialize(&p->DamageReceived);
         serializer.Stream.Serialize(&p->DeathCount);
@@ -4769,6 +4765,7 @@ namespace Quantum {
     }
   }
   public unsafe partial class Frame {
+    private ISignalManualBotSpawnRequest[] _ISignalManualBotSpawnRequestSystems;
     private ISignalGameEnded[] _ISignalGameEndedSystems;
     private ISignalPlayerKilledPlayer[] _ISignalPlayerKilledPlayerSystems;
     private ISignalSpecialUsed[] _ISignalSpecialUsedSystems;
@@ -4826,6 +4823,7 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
+      _ISignalManualBotSpawnRequestSystems = BuildSignalsArray<ISignalManualBotSpawnRequest>();
       _ISignalGameEndedSystems = BuildSignalsArray<ISignalGameEnded>();
       _ISignalPlayerKilledPlayerSystems = BuildSignalsArray<ISignalPlayerKilledPlayer>();
       _ISignalSpecialUsedSystems = BuildSignalsArray<ISignalSpecialUsed>();
@@ -4948,6 +4946,15 @@ namespace Quantum {
       return _globals->input.GetPointer(player);
     }
     public unsafe partial struct FrameSignals {
+      public void ManualBotSpawnRequest() {
+        var array = _f._ISignalManualBotSpawnRequestSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.ManualBotSpawnRequest(_f);
+          }
+        }
+      }
       public void GameEnded() {
         var array = _f._ISignalGameEndedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -5837,6 +5844,9 @@ namespace Quantum {
          return _f.FindAsset<QuantumBaseEquipmentStatsConfigs>(assetRef.Id);
       }
     }
+  }
+  public unsafe interface ISignalManualBotSpawnRequest : ISignal {
+    void ManualBotSpawnRequest(Frame f);
   }
   public unsafe interface ISignalGameEnded : ISignal {
     void GameEnded(Frame f);
@@ -9590,7 +9600,6 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class PlayerMatchData_Prototype : StructPrototype {
     public PlayerRef Player;
     public MapEntityId Entity;
-    public QBoolean IsSpectator;
     public UInt32 PlayerLevel;
     public UInt32 PlayerTrophies;
     public GameId_Prototype PlayerSkin;
@@ -9614,7 +9623,6 @@ namespace Quantum.Prototypes {
       result.FirstDeathTime = this.FirstDeathTime;
       result.HealingDone = this.HealingDone;
       result.HealingReceived = this.HealingReceived;
-      result.IsSpectator = this.IsSpectator;
       result.Player = this.Player;
       result.PlayerLevel = this.PlayerLevel;
       result.PlayerSkin = this.PlayerSkin;

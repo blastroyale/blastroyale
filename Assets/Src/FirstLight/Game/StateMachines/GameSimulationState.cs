@@ -253,15 +253,15 @@ namespace FirstLight.Game.StateMachines
 			var client = _services.NetworkService.QuantumClient;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var room = client.CurrentRoom;
-
 			var startPlayersCount = client.CurrentRoom.GetRealPlayerCapacity();
-
+			var isSpectator = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			
 			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) && !(bool)gameHasBots)
 			{
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
 
-			var startParams = configs.GetDefaultStartParameters(startPlayersCount);
+			var startParams = configs.GetDefaultStartParameters(startPlayersCount, isSpectator);
 
 			startParams.NetworkClient = client;
 			
@@ -392,18 +392,20 @@ namespace FirstLight.Game.StateMachines
 			var position = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView.NormalizedSelectionPoint;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
-			
-			game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
+
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-				PlayerName = _gameDataProvider.AppDataProvider.Nickname,
-				Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
-				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
-				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
-				NormalizedSpawnPosition = position.ToFPVector2(),
-				IsSpectator = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator(),
-				Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
-			});
+				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
+				{
+					PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
+					PlayerName = _gameDataProvider.AppDataProvider.Nickname,
+					Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
+					PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
+					PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
+					NormalizedSpawnPosition = position.ToFPVector2(),
+					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+				});
+			}
 		}
 
 		private void MatchStartAnalytics()

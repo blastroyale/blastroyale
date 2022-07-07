@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FirstLight.Game.Presenters;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -42,7 +41,10 @@ namespace FirstLight.UiService
 				AddUiSet(set);
 			}
 
-			_loadingSpinnerType = configs.LoadingSpinner.GetType();
+			if (configs.LoadingSpinner != null)
+			{
+				_loadingSpinnerType = configs.LoadingSpinner.GetType();
+			}
 		}
 
 		/// <inheritdoc />
@@ -121,28 +123,24 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public T RemoveUi<T>() where T : UiPresenter
+		public void RemoveUi<T>() where T : UiPresenter
 		{
-			return RemoveUi(typeof(T)) as T;
+			RemoveUi(typeof(T));
 		}
 
 		/// <inheritdoc />
-		public UiPresenter RemoveUi(Type type)
+		public void RemoveUi(Type type)
 		{
-			var presenter = CloseUi(type);
+			CloseUi(type);
 			
 			_uiViews.Remove(type);
 			_visibleUiList.Remove(type);
-
-			return presenter;
 		}
 
 		/// <inheritdoc />
-		public T RemoveUi<T>(T uiPresenter) where T : UiPresenter
+		public void RemoveUi<T>(T uiPresenter) where T : UiPresenter
 		{
 			RemoveUi(uiPresenter.GetType().UnderlyingSystemType);
-			
-			return uiPresenter;
 		}
 
 		/// <inheritdoc />
@@ -171,7 +169,7 @@ namespace FirstLight.UiService
 			}
 
 			var layer = AddLayer(config.Layer);
-			var timeBefore = Time.time;
+
 			var gameObject = await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
 
 			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
@@ -202,9 +200,11 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public void UnloadUi(Type type)
 		{
-			var gameObject = RemoveUi(type).gameObject;
+			var ui = GetUi(type);
 			
-			_assetLoader.UnloadAsset(gameObject);
+			RemoveUi(type);
+			
+			_assetLoader.UnloadAsset(ui.gameObject);
 		}
 
 		/// <inheritdoc />
@@ -340,13 +340,13 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public T CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter
+		public void CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter
 		{
-			return CloseUi(typeof(T), closedException, destroy) as T;
+			CloseUi(typeof(T), closedException, destroy);
 		}
 
 		/// <inheritdoc />
-		public UiPresenter CloseUi(Type type, bool closedException = false, bool destroy = false)
+		public void CloseUi(Type type, bool closedException = false, bool destroy = false)
 		{
 			var ui = GetUi(type);
 			
@@ -360,16 +360,12 @@ namespace FirstLight.UiService
 			{
 				throw new InvalidOperationException($"Is trying to close the {type.Name} ui but is not open");
 			}
-
-			return ui;
 		}
 
 		/// <inheritdoc />
-		public T CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter
+		public void CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter
 		{
 			CloseUi(uiPresenter.GetType().UnderlyingSystemType, closedException, destroy);
-
-			return uiPresenter;
 		}
 
 		/// <inheritdoc />
@@ -433,12 +429,16 @@ namespace FirstLight.UiService
 
 			for (int i = 0; i < set.UiConfigsType.Count; i++)
 			{
-				if (!HasUiPresenter(set.UiConfigsType[i]))
+				Type uiType = set.UiConfigsType[i];
+				
+				if (!HasUiPresenter(uiType))
 				{
 					continue;
 				}
-				
-				list.Add(RemoveUi(set.UiConfigsType[i]));
+
+				RemoveUi(uiType);
+
+				list.Add(GetUi(uiType));
 			}
 
 			return list;

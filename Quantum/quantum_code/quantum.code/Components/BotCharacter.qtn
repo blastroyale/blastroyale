@@ -79,5 +79,3 @@ synced event OnDummyCharacterKilled
 {
 	entity_ref Entity;
 }
-
-signal ManualBotSpawnRequest();

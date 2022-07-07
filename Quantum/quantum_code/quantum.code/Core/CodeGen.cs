@@ -4765,7 +4765,6 @@ namespace Quantum {
     }
   }
   public unsafe partial class Frame {
-    private ISignalManualBotSpawnRequest[] _ISignalManualBotSpawnRequestSystems;
     private ISignalGameEnded[] _ISignalGameEndedSystems;
     private ISignalPlayerKilledPlayer[] _ISignalPlayerKilledPlayerSystems;
     private ISignalSpecialUsed[] _ISignalSpecialUsedSystems;
@@ -4823,7 +4822,6 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
-      _ISignalManualBotSpawnRequestSystems = BuildSignalsArray<ISignalManualBotSpawnRequest>();
       _ISignalGameEndedSystems = BuildSignalsArray<ISignalGameEnded>();
       _ISignalPlayerKilledPlayerSystems = BuildSignalsArray<ISignalPlayerKilledPlayer>();
       _ISignalSpecialUsedSystems = BuildSignalsArray<ISignalSpecialUsed>();
@@ -4946,15 +4944,6 @@ namespace Quantum {
       return _globals->input.GetPointer(player);
     }
     public unsafe partial struct FrameSignals {
-      public void ManualBotSpawnRequest() {
-        var array = _f._ISignalManualBotSpawnRequestSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.ManualBotSpawnRequest(_f);
-          }
-        }
-      }
       public void GameEnded() {
         var array = _f._ISignalGameEndedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -5844,9 +5833,6 @@ namespace Quantum {
          return _f.FindAsset<QuantumBaseEquipmentStatsConfigs>(assetRef.Id);
       }
     }
-  }
-  public unsafe interface ISignalManualBotSpawnRequest : ISignal {
-    void ManualBotSpawnRequest(Frame f);
   }
   public unsafe interface ISignalGameEnded : ISignal {
     void GameEnded(Frame f);

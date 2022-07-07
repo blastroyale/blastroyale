@@ -10,7 +10,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
 	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
-	                                         ISignalOnPlayerDataSet, ISignalManualBotSpawnRequest
+	                                         ISignalOnPlayerDataSet
 	{
 		public struct BotCharacterFilter
 		{
@@ -19,12 +19,6 @@ namespace Quantum.Systems
 			public BotCharacter* BotCharacter;
 			public PlayerCharacter* PlayerCharacter;
 			public NavMeshPathfinder* NavMeshAgent;
-		}
-
-		/// <inheritdoc />
-		public void ManualBotSpawnRequest(Frame f)
-		{
-			InitializeBots(f, PlayerRef.None);
 		}
 		
 		/// <inheritdoc />

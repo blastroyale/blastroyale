@@ -63,6 +63,7 @@ namespace FirstLight.Game.StateMachines
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
+			var resultsSpectatorCheck = stateFactory.Choice("Results Spectator Choice");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 
@@ -80,20 +81,23 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
 			
-			deathmatch.Nest(_deathmatchState.Setup).Target(gameResults);
+			deathmatch.Nest(_deathmatchState.Setup).Target(resultsSpectatorCheck);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameResults);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(resultsSpectatorCheck);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 			
-			gameEnded.WaitingFor(GameCompleteScreen).Target(gameResults);
+			gameEnded.WaitingFor(GameCompleteScreen).Target(resultsSpectatorCheck);
 			gameEnded.OnExit(CloseCompleteScreen);
+			
+			resultsSpectatorCheck.Transition().Condition(IsSpectator).Target(final);
+			resultsSpectatorCheck.Transition().Target(gameResults);
 			
 			gameResults.OnEnter(GiveMatchRewards);
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
@@ -133,6 +137,11 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
+		
 		private bool HasRewardsToClaim()
 		{
 			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
@@ -230,6 +239,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendGameplayData(bool playerQuit)
 		{
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				return;
+			}
+			
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();

@@ -86,7 +86,14 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-
+			
+			MapSelectionView.SetupMapView(room.GetMapId());
+			
+			if (!_services.NetworkService.IsJoiningNewMatch)
+			{
+				return;
+			}
+			
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
@@ -100,8 +107,6 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
-
-			MapSelectionView.SetupMapView(room.GetMapId());
 
 			if (IsMatchmakingRoom)
 			{
@@ -156,8 +161,7 @@ namespace FirstLight.Game.Presenters
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(true);
 			}
-
-			_spectateToggle.isOn = false;
+			
 			_spectateToggleObjectRoot.SetActive(true);
 
 			AddOrUpdatePlayerInList(_services.NetworkService.QuantumClient.LocalPlayer);
@@ -350,7 +354,12 @@ namespace FirstLight.Game.Presenters
 			yield return new WaitForSeconds(GameConstants.Data.SPECTATOR_TOGGLE_TIMEOUT);
 
 			_spectatorToggleTimeOut = false;
-			CheckEnableSpectatorToggle();
+
+			// The room can null out if we left the matchmaking while this coroutine still hasnt finished
+			if (CurrentRoom != null)
+			{
+				CheckEnableSpectatorToggle();
+			}
 		}
 
 		private void OnLockRoomClicked()

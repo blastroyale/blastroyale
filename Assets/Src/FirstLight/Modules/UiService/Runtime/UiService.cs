@@ -41,10 +41,7 @@ namespace FirstLight.UiService
 				AddUiSet(set);
 			}
 
-			if (configs.LoadingSpinner != null)
-			{
-				_loadingSpinnerType = configs.LoadingSpinner.GetType();
-			}
+			_loadingSpinnerType = configs.LoadingSpinnerType;
 		}
 
 		/// <inheritdoc />
@@ -566,8 +563,7 @@ namespace FirstLight.UiService
 
 		private async Task<UiReference> GetReferenceAsync(Type type)
 		{
-			UiReference uiReference;
-			if (!_uiViews.TryGetValue(type, out uiReference))
+			if (!_uiViews.TryGetValue(type, out var uiReference))
 			{
 				OpenLoadingSpinner();
 				await LoadUiAsync(type);

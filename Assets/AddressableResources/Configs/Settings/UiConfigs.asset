@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0912607e574b4dacb5cee8cd4d10b13, type: 3}
   m_Name: UiConfigs
   m_EditorClassIdentifier: 
-  _loadingSpinner: {fileID: 1331688649254665720, guid: 01d4485620d574249872ae30ba9616a1, type: 3}
+  _loadingSpinnerType: FirstLight.Game.Presenters.LoadingSpinnerPresenter, FirstLight.UiService,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _configs:
   - AddressableAddress: Ui/Adventure World Hud.prefab
     Layer: 0

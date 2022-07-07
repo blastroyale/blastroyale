@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.UiService;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 // ReSharper disable once CheckNamespace
 
@@ -91,8 +93,9 @@ namespace FirstLightEditor.UiService
 		public override void OnInspectorGUI()
 		{
 			serializedObject.Update();
-			_scriptableObject.LoadingSpinner = EditorGUILayout.ObjectField("Loading Spinner Presenter", _scriptableObject.LoadingSpinner,
-			                                                            typeof(UiPresenter), false) as UiPresenter;
+			
+			LoadingSpinnerLayout();
+
 			EditorGUILayout.Space();
 			EditorGUILayout.HelpBox(_uiConfigGuiContent.tooltip, MessageType.Info);
 			_configList.DoLayoutList();
@@ -107,6 +110,30 @@ namespace FirstLightEditor.UiService
 			{
 				OnEnable();
 			}
+		}
+
+		private void LoadingSpinnerLayout()
+		{
+			List<string> uiPresentersNames = new List<string>() {"<None>"};
+			List<string> uiPresentersAssemblyNames = new List<string>() {"<None>"};
+
+			_scriptableObject.Configs.ForEach(uiConfig =>
+			{
+				uiPresentersNames.Add(uiConfig.UiType.Name);
+				uiPresentersAssemblyNames.Add(uiConfig.UiType.AssemblyQualifiedName);
+			});
+			var selectedIndex = 0;
+			if (_scriptableObject.LoadingSpinnerType != null)
+			{
+				selectedIndex = uiPresentersAssemblyNames.FindIndex(uiPresenterName =>
+					                                                    _scriptableObject.LoadingSpinnerTypeString ==
+					                                                    uiPresenterName);
+				selectedIndex = Math.Max(selectedIndex, 0);
+			}
+
+			selectedIndex = EditorGUILayout.Popup("Loading Spinner Presenter", selectedIndex, uiPresentersNames.ToArray());
+			_scriptableObject.LoadingSpinnerTypeString =
+				selectedIndex == 0 ? null : uiPresentersAssemblyNames[selectedIndex];
 		}
 
 		private void InitConfigValues()

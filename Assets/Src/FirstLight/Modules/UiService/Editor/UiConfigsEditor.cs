@@ -117,11 +117,12 @@ namespace FirstLightEditor.UiService
 			List<string> uiPresentersNames = new List<string>() {"<None>"};
 			List<string> uiPresentersAssemblyNames = new List<string>() {"<None>"};
 
-			_scriptableObject.Configs.ForEach(uiConfig =>
+			foreach (var uiConfig in _scriptableObject.Configs)
 			{
 				uiPresentersNames.Add(uiConfig.UiType.Name);
 				uiPresentersAssemblyNames.Add(uiConfig.UiType.AssemblyQualifiedName);
-			});
+			}
+
 			var selectedIndex = 0;
 			if (_scriptableObject.LoadingSpinnerType != null)
 			{

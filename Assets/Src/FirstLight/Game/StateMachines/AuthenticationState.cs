@@ -63,7 +63,6 @@ namespace FirstLight.Game.StateMachines
 			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
 			var getServerState = stateFactory.Wait("Get Server State");
-			var authenticated = stateFactory.Final("Authenticated");
 
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
@@ -90,7 +89,7 @@ namespace FirstLight.Game.StateMachines
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
 			getServerState.OnEnter(OpenLoadingScreen);
-			getServerState.WaitingFor(FinalStepsAuthentication).Target(authenticated);
+			getServerState.WaitingFor(FinalStepsAuthentication).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}

@@ -89,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private async void OnMatchStartedMessage(MatchStartedMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync && !msg.IsSpectator)
 			{
@@ -102,11 +102,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-
+			
 			if (msg.IsSpectator)
 			{
-				await Task.Delay(3000);
 				ResetLeaderAndKiller();
 
 				_playerView = _entityViewUpdaterService.GetManualView(_leader);
@@ -117,6 +115,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			else
 			{
+				var localPlayer = playersData[game.GetLocalPlayers()[0]];
+				
 				if (!localPlayer.Entity.IsAlive(f))
 				{
 					ResetLeaderAndKiller();

@@ -66,16 +66,6 @@ namespace FirstLight.Game.Services
 			_dataProvider = dataProvider;
 			_commandQueue = new Queue<IGameCommand>();
 		}
-		
-		/// <summary>
-		/// Generic PlayFab error that is being called on PlayFab responses.
-		/// Will throw an <see cref="PlayFabException"/> to be shown to the player.
-		/// </summary>
-		public static void OnPlayFabError(PlayFabError error)
-		{
-			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
-			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
-		}
 
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
@@ -150,21 +140,6 @@ namespace FirstLight.Game.Services
 				ExecuteServerCommand(next);
 			}
 		}
-		
-		/// <summary>
-		/// Rolls back client state to the current server state.
-		/// Current implementation it simply closes the game.
-		/// </summary>
-		private void Rollback(string reason = "Server Desync")
-		{
-			var button = new AlertButton
-			{
-				Callback = Application.Quit,
-				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
-			};
-			NativeUiService.ShowAlertPopUp(false, "Game Error", reason, button);
-		}
 
 		/// <summary>
 		/// Sends a command to the server.
@@ -190,8 +165,10 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnCommandError(PlayFabError error)
 		{
-			Rollback(error.ErrorMessage);
-			OnPlayFabError(error);
+#if UNITY_EDITOR
+			_commandQueue.Clear(); 	// clear to make easier for testing
+#endif
+			_playfab.HandleError(error);
 		}
 
 		/// <summary>
@@ -203,13 +180,11 @@ namespace FirstLight.Game.Services
 			var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 			if (logicResult.Result.Command != current.GetType().FullName)
 			{
-				Rollback("Wrong Command Order");
 				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
 			}
 			// Command returned 200 but a expected logic exception happened due
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
-				Rollback("Server Exception");
 				throw new LogicException(logicException);
 			}
 			OnServerExecutionFinished(current);

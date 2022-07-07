@@ -34,7 +34,7 @@ public partial class SROptions
 		{
 			throw new Exception("Not logged in");
 		}
-
+		var services = MainInstaller.Resolve<IGameServices>();
 		var update = new PlayFab.AdminModels.UpdateUserDataRequest()
 		{
 			KeysToRemove = new List<string>()
@@ -48,7 +48,7 @@ public partial class SROptions
 		};
 
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
-		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, GameCommandService.OnPlayFabError);
+		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, services.PlayfabService.HandleError);
 		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =

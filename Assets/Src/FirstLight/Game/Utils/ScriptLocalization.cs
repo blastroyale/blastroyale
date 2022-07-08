@@ -52,6 +52,11 @@ namespace I2.Loc
 			public static string RespawnTime 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/RespawnTime"); } }
 			public static string Revives 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Revives"); } }
 			public static string SpawningEnemies 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpawningEnemies"); } }
+			public static string SpectateCam1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam1"); } }
+			public static string SpectateCam2 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam2"); } }
+			public static string SpectateCam3 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam3"); } }
+			public static string SpectateNextPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateNextPlayer"); } }
+			public static string SpectatePrevPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectatePrevPlayer"); } }
 			public static string Spree 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Spree"); } }
 			public static string Suicide 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Suicide"); } }
 			public static string TimeOver 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/TimeOver"); } }
@@ -862,6 +867,11 @@ namespace I2.Loc
 		    public const string RespawnTime = "AdventureMenu/RespawnTime";
 		    public const string Revives = "AdventureMenu/Revives";
 		    public const string SpawningEnemies = "AdventureMenu/SpawningEnemies";
+		    public const string SpectateCam1 = "AdventureMenu/SpectateCam1";
+		    public const string SpectateCam2 = "AdventureMenu/SpectateCam2";
+		    public const string SpectateCam3 = "AdventureMenu/SpectateCam3";
+		    public const string SpectateNextPlayer = "AdventureMenu/SpectateNextPlayer";
+		    public const string SpectatePrevPlayer = "AdventureMenu/SpectatePrevPlayer";
 		    public const string Spree = "AdventureMenu/Spree";
 		    public const string Suicide = "AdventureMenu/Suicide";
 		    public const string TimeOver = "AdventureMenu/TimeOver";

@@ -23,10 +23,6 @@ MonoBehaviour:
     Layer: 2
     UiType: FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/Battle Royale Spectate Screen.prefab
-    Layer: 2
-    UiType: FirstLight.Game.Presenters.BattleRoyaleSpectateScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Deathmatch Dead Screen.prefab
     Layer: 2
     UiType: FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
@@ -138,6 +134,10 @@ MonoBehaviour:
   - AddressableAddress: Ui/Settings Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/SpectateScreen.prefab
+    Layer: 2
+    UiType: FirstLight.Game.Presenters.SpectateScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/TalkingHeadDialog.prefab
     Layer: 3

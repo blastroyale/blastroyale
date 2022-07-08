@@ -51,8 +51,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenMatchHud);
-			
+
 			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
 			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
 			
@@ -166,19 +165,19 @@ namespace FirstLight.Game.StateMachines
 
 		private async void OpenSpectateScreen()
 		{
-			var data = new BattleRoyaleSpectateScreenPresenter.StateData
+			var data = new SpectateScreenPresenter.StateData
 			{
 				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); }
 			};
 
-			await _uiService.OpenUiAsync<BattleRoyaleSpectateScreenPresenter, BattleRoyaleSpectateScreenPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
 			
 			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
 		}
 
 		private void CloseSpectateScreen()
 		{
-			_uiService.CloseUi<BattleRoyaleSpectateScreenPresenter>();
+			_uiService.CloseUi<SpectateScreenPresenter>();
 		}
 
 		private void PublishMatchStartedMessage()

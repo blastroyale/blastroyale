@@ -2555,6 +2555,41 @@ MonoBehaviour:
       - Hurry Up!
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/SpectateNextPlayer
+      TermType: 0
+      Description: 
+      Languages:
+      - Next Player
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectatePrevPlayer
+      TermType: 0
+      Description: 
+      Languages:
+      - Previous Player
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateCam1
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera 1
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateCam2
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera 2
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateCam3
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera 3
+      Flags: 00
+      Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
       Description: 
@@ -5388,7 +5423,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1656945363175
+    Google_LastUpdatedVersion: 1657289596885
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

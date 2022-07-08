@@ -57,7 +57,7 @@ MonoBehaviour:
         RawValue: 2293760
       CollectableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 39322
       PlayerAliveShieldDuration:

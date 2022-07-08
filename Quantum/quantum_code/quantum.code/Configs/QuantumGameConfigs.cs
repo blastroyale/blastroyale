@@ -25,7 +25,7 @@ namespace Quantum
 		public FP DeathSignificance;
 		public FP CoinsPerFragDeathRatio;
 		public FP XpPerFragDeathRatio;
-		public FP CollectableCollectTime;
+		public QuantumGameModePair<FP> CollectableCollectTime;
 		public FP PlayerAliveShieldDuration;
 		public uint EquipmentLevelToPowerK;
 		public uint EquipmentRarityToPowerK;

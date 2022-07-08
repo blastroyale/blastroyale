@@ -277,7 +277,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 19661
+        RawValue: 32768
     - Id: 60
       Manufacturer: 2
       HpRatioToBase:
@@ -297,7 +297,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 6554
+        RawValue: 13107
     - Id: 78
       Manufacturer: 2
       HpRatioToBase:
@@ -307,7 +307,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 11796
+        RawValue: 9830
     - Id: 79
       Manufacturer: 2
       HpRatioToBase:
@@ -317,7 +317,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 16384
+        RawValue: 21627
     - Id: 84
       Manufacturer: 2
       HpRatioToBase:
@@ -337,7 +337,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 26214
+        RawValue: 32768
     - Id: 87
       Manufacturer: 2
       HpRatioToBase:
@@ -347,7 +347,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 5898
+        RawValue: 9830
     - Id: 88
       Manufacturer: 0
       HpRatioToBase:
@@ -357,7 +357,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 19661
+        RawValue: 22938
     - Id: 90
       Manufacturer: 0
       HpRatioToBase:
@@ -367,7 +367,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 9830
+        RawValue: 13107
     - Id: 91
       Manufacturer: 0
       HpRatioToBase:
@@ -377,7 +377,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 12452
+        RawValue: 13107
     - Id: 92
       Manufacturer: 0
       HpRatioToBase:
@@ -387,7 +387,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 26214
+        RawValue: 21627
     - Id: 93
       Manufacturer: 0
       HpRatioToBase:
@@ -397,7 +397,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 85197
+        RawValue: 114688
     - Id: 94
       Manufacturer: 0
       HpRatioToBase:
@@ -417,7 +417,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 32768
+        RawValue: 26214
     - Id: 96
       Manufacturer: 1
       HpRatioToBase:
@@ -437,7 +437,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 16384
+        RawValue: 13107
     - Id: 98
       Manufacturer: 1
       HpRatioToBase:

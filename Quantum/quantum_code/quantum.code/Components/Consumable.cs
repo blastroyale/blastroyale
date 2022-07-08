@@ -16,7 +16,7 @@ namespace Quantum
 			
 			ConsumableType = config.ConsumableType;
 			Amount = config.Amount;
-			CollectTime = config.ConsumableCollectTime;
+			CollectTime = config.ConsumableCollectTime.Get(f);
 			
 			transform->Position = position;
 			transform->Rotation = rotation;

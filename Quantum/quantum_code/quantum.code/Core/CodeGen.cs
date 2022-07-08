@@ -4481,25 +4481,27 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct ShrinkingCircle : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 88;
+    public const Int32 SIZE = 96;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public FP AirDropChance;
-    [FieldOffset(56)]
+    [FieldOffset(64)]
     public FPVector2 CurrentCircleCenter;
     [FieldOffset(16)]
     public FP CurrentRadius;
     [FieldOffset(24)]
-    public FP ShrinkingDurationTime;
+    public FP Damage;
     [FieldOffset(32)]
-    public FP ShrinkingSizeK;
+    public FP ShrinkingDurationTime;
     [FieldOffset(40)]
+    public FP ShrinkingSizeK;
+    [FieldOffset(48)]
     public FP ShrinkingStartTime;
     [FieldOffset(0)]
     public Int32 Step;
-    [FieldOffset(72)]
+    [FieldOffset(80)]
     public FPVector2 TargetCircleCenter;
-    [FieldOffset(48)]
+    [FieldOffset(56)]
     public FP TargetRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -4507,6 +4509,7 @@ namespace Quantum {
         hash = hash * 31 + AirDropChance.GetHashCode();
         hash = hash * 31 + CurrentCircleCenter.GetHashCode();
         hash = hash * 31 + CurrentRadius.GetHashCode();
+        hash = hash * 31 + Damage.GetHashCode();
         hash = hash * 31 + ShrinkingDurationTime.GetHashCode();
         hash = hash * 31 + ShrinkingSizeK.GetHashCode();
         hash = hash * 31 + ShrinkingStartTime.GetHashCode();
@@ -4521,6 +4524,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->Step);
         FP.Serialize(&p->AirDropChance, serializer);
         FP.Serialize(&p->CurrentRadius, serializer);
+        FP.Serialize(&p->Damage, serializer);
         FP.Serialize(&p->ShrinkingDurationTime, serializer);
         FP.Serialize(&p->ShrinkingSizeK, serializer);
         FP.Serialize(&p->ShrinkingStartTime, serializer);
@@ -9807,6 +9811,7 @@ namespace Quantum.Prototypes {
     public FP ShrinkingStartTime;
     public FP ShrinkingDurationTime;
     public Int32 Step;
+    public FP Damage;
     public FP ShrinkingSizeK;
     public FP AirDropChance;
     partial void MaterializeUser(Frame frame, ref ShrinkingCircle result, in PrototypeMaterializationContext context);
@@ -9819,6 +9824,7 @@ namespace Quantum.Prototypes {
       result.AirDropChance = this.AirDropChance;
       result.CurrentCircleCenter = this.CurrentCircleCenter;
       result.CurrentRadius = this.CurrentRadius;
+      result.Damage = this.Damage;
       result.ShrinkingDurationTime = this.ShrinkingDurationTime;
       result.ShrinkingSizeK = this.ShrinkingSizeK;
       result.ShrinkingStartTime = this.ShrinkingStartTime;

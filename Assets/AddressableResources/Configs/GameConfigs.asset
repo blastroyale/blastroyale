@@ -33,7 +33,7 @@ MonoBehaviour:
         RawValue: 655360
       ShrinkingDamageCooldown:
         RawValue: 65536
-      ShrinkingDamage: 20
+      ShrinkingDamage: 35
       PlayerDefaultHealth:
         BattleRoyale: 800
         Deathmatch: 800

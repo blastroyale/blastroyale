@@ -27,6 +27,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField] private CinemachineVirtualCamera[] _spectateCameras;
 
 		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
 		private EntityView _playerView;
@@ -43,6 +44,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_localInput = new LocalInput();
 			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 
@@ -59,13 +61,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
 
 			_localInput.Enable();
-			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectate);
+			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectateKillerMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			gameObject.SetActive(false);
 		}
@@ -83,6 +85,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 
 		private void OnSpectateNextPlayerMessage(SpectateNextPlayerMessage obj)
+		{
+			SpectateNextPlayer();
+		}
+
+		private void SpectateNextPlayer()
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
@@ -126,19 +133,20 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return;
 			}
-
-			SetActiveCamera(_adventureCamera);
-
+			
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 
+			SetActiveCamera(_adventureCamera);
+			ResetLeaderAndKiller(f);
+			
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				ResetLeaderAndKiller(f);
-
-				_playerView = _entityViewUpdaterService.GetManualView(_leader);
+				_spectating = true;
+				SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+				SpectateNextPlayer();
 			}
 			else
 			{
@@ -146,18 +154,17 @@ namespace FirstLight.Game.MonoComponent.Match
 
 				if (!localPlayer.Entity.IsAlive(f))
 				{
-					ResetLeaderAndKiller(f);
+					_spectating = true;
 					SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
-					OnSpectate();
+					SpectateNextPlayer();
 					return;
 				}
 
 				_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+				
+				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
+				SetTargetTransform(_playerView.transform);
 			}
-			
-			// We place audio listener roughly "in the player character's head"
-			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-			SetTargetTransform(_playerView.transform);
 		}
 		
 		private void ResetLeaderAndKiller(Frame f)
@@ -188,7 +195,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			// We place audio listener back to main camera
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 			SetTargetTransform(_playerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
 
@@ -199,7 +205,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_leader = callback.EntityLeader;
 
-			if (callback.EntityDead == _spectatingPlayer)
+			if (callback.EntityDead == _spectatingPlayer && 
+			    _gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.Deathmatch)
 			{
 				_spectatingPlayer = callback.EntityKiller;
 				RefreshSpectator(callback.Game.Frames.Verified);
@@ -217,30 +224,26 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 		
-		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _playerView != null)
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
 			
 			ResetLeaderAndKiller(callback.Game.Frames.Verified);
-
-			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
-
-			// We place audio listener roughly "in the player character's head"
+			
 			SetActiveCamera(_adventureCamera);
-			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-			SetTargetTransform(_playerView.transform);
+			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+			SpectateNextPlayer();
 		}
-
-		private void OnSpectate()
+		
+		private void OnSpectateKillerMessage(SpectateKillerMessage message)
 		{
-			_spectating = true;
-			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
+			OnSpectate();
 		}
-
-		private void OnSpectate(SpectateKillerMessage message)
+		
+		private void OnSpectate()
 		{
 			_spectating = true;
 			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);

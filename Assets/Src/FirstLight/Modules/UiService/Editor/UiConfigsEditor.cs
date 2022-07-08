@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.UiService;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 // ReSharper disable once CheckNamespace
 
@@ -71,6 +73,7 @@ namespace FirstLightEditor.UiService
 		private ReorderableList _configList;
 		private ReorderableList _setList;
 		private bool _resetValues;
+		private UiConfigs _scriptableObject;
 		
 		private void OnEnable()
 		{
@@ -91,6 +94,9 @@ namespace FirstLightEditor.UiService
 		{
 			serializedObject.Update();
 			
+			LoadingSpinnerLayout();
+
+			EditorGUILayout.Space();
 			EditorGUILayout.HelpBox(_uiConfigGuiContent.tooltip, MessageType.Info);
 			_configList.DoLayoutList();
 			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -106,23 +112,48 @@ namespace FirstLightEditor.UiService
 			}
 		}
 
+		private void LoadingSpinnerLayout()
+		{
+			var uiPresentersNames = new List<string>{"<None>"};
+			var uiPresentersAssemblyNames = new List<string>{"<None>"};
+
+			foreach (var uiConfig in _scriptableObject.Configs)
+			{
+				uiPresentersNames.Add(uiConfig.UiType.Name);
+				uiPresentersAssemblyNames.Add(uiConfig.UiType.AssemblyQualifiedName);
+			}
+
+			var selectedIndex = 0;
+			if (_scriptableObject.LoadingSpinnerType != null)
+			{
+				selectedIndex = uiPresentersAssemblyNames.FindIndex(uiPresenterName =>
+					                                                    _scriptableObject.LoadingSpinnerTypeString ==
+					                                                    uiPresenterName);
+				selectedIndex = Math.Max(selectedIndex, 0);
+			}
+
+			selectedIndex = EditorGUILayout.Popup("Loading Spinner Presenter", selectedIndex, uiPresentersNames.ToArray());
+			_scriptableObject.LoadingSpinnerTypeString =
+				selectedIndex == 0 ? null : uiPresentersAssemblyNames[selectedIndex];
+		}
+
 		private void InitConfigValues()
 		{
 			var assetList = GetAssetList();
 			var gameObjectType = typeof(GameObject);
 			var uiConfigsAddress = new List<string>();
 			var configs = new List<UiConfig>();
-			var scriptableObject = target as UiConfigs;
+			_scriptableObject = target as UiConfigs;
 			
 			_uiConfigsType.Clear();
 			_assetsPath.Clear();
 
-			if (scriptableObject == null)
+			if (_scriptableObject == null)
 			{
 				throw new NullReferenceException($"The Object is not of type {nameof(UiConfigs)}");
 			}
 
-			var configsCache = scriptableObject.Configs;
+			var configsCache = _scriptableObject.Configs;
 			
 			for (int i = 0; i < assetList.Count; i++)
 			{
@@ -163,10 +194,10 @@ namespace FirstLightEditor.UiService
 				configs.Add(config);
 			}
 
-			scriptableObject.Configs = configs;
+			_scriptableObject.Configs = configs;
 			_uiConfigsAddress = uiConfigsAddress.ToArray();
 
-			EditorUtility.SetDirty(scriptableObject);
+			EditorUtility.SetDirty(_scriptableObject);
 			AssetDatabase.SaveAssets();
 			Resources.UnloadUnusedAssets();
 		}

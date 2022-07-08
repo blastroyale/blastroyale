@@ -278,20 +278,24 @@ namespace FirstLight.Game.MonoComponent.Match
 		private List<EntityRef> GetPlayerList(Frame f, out int currentIndex)
 		{
 			var players = new List<EntityRef>();
+			var container = f.GetSingleton<GameContainer>();
+			var playersData = container.PlayersData;
+			currentIndex = -1;
 
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out _);
-
-			foreach (var data in matchData)
+			for (int i = 0; i < playersData.Length; i++)
 			{
-				if (data.Data.IsValid && data.Data.Entity.IsAlive(f))
+				var data = playersData[i];
+				if (data.IsValid && data.Entity.IsAlive(f))
 				{
-					players.Add(data.Data.Entity);
+					players.Add(data.Entity);
+				}
+
+				if (_spectatingPlayer == data.Entity)
+				{
+					currentIndex = players.Count - 1;
 				}
 			}
 
-			currentIndex = players.IndexOf(_spectatingPlayer);
 			return players;
 		}
 	}

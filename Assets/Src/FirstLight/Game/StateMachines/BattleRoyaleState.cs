@@ -46,12 +46,15 @@ namespace FirstLight.Game.StateMachines
 			var spectating = stateFactory.State("Spectate Screen");
 			var spawning = stateFactory.State("Spawning");
 			var resyncCheck = stateFactory.Choice("Resync Check");
+			var spectateCheck = stateFactory.Choice("Spectate Check");
 			var aliveCheck = stateFactory.Choice("Alive Check");
 			
-			initial.Transition().Target(resyncCheck);
+			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenMatchHud);
 
+			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
+			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
+			
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(spawning);
 			resyncCheck.OnExit(PublishMatchStartedMessage);
@@ -99,6 +102,11 @@ namespace FirstLight.Game.StateMachines
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 
 			return localPlayer.Entity.IsAlive(f);
+		}
+		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
 		private bool IsResyncing()
@@ -157,24 +165,27 @@ namespace FirstLight.Game.StateMachines
 
 		private async void OpenSpectateScreen()
 		{
-			var data = new BattleRoyaleSpectateScreenPresenter.StateData
+			var data = new SpectateScreenPresenter.StateData
 			{
 				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); }
 			};
 
-			await _uiService.OpenUiAsync<BattleRoyaleSpectateScreenPresenter, BattleRoyaleSpectateScreenPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
 			
 			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
 		}
 
 		private void CloseSpectateScreen()
 		{
-			_uiService.CloseUi<BattleRoyaleSpectateScreenPresenter>();
+			_uiService.CloseUi<SpectateScreenPresenter>();
 		}
 
 		private void PublishMatchStartedMessage()
 		{
-			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
+			_services.MessageBrokerService.Publish(new MatchStartedMessage()
+			{
+				IsResync = IsResyncing()
+			});
 		}
 	}
 }

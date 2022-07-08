@@ -52,9 +52,14 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerLimit)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerCount, bool isSpectator)
 		{
-			var gameMode = playerLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+			var gameMode = playerCount == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+
+			if (isSpectator)
+			{
+				gameMode = DeterministicGameMode.Spectating;
+			}
 			
 			return new QuantumRunner.StartParameters
 			{
@@ -70,7 +75,7 @@ namespace FirstLight.Game.Configs
 				ResourceManagerOverride = null,
 				InstantReplayConfig = default,
 				HeapExtraCount = 0,
-				PlayerCount =playerLimit
+				PlayerCount = playerCount
 			};
 		}
 	}

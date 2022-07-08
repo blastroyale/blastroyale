@@ -26,7 +26,7 @@ namespace FirstLight.Game.Utils
 			
 			var roomParams = new EnterRoomParams
 			{
-				RoomName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit,
+				RoomName = isRandomMatchmaking ? null : roomName,// + ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Utils
 					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
-					MaxPlayers = (byte) mapConfig.PlayersLimit,
+					MaxPlayers = (byte) (mapConfig.PlayersLimit + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
 					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
 				}
 			};
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Utils
 		{
 			return new EnterRoomParams
 			{
-				RoomName = roomName + ROOM_SEPARATOR + VersionUtils.Commit,
+				RoomName = roomName,// + ROOM_SEPARATOR + VersionUtils.Commit,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,

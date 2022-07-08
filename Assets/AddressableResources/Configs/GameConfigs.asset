@@ -33,7 +33,6 @@ MonoBehaviour:
         RawValue: 655360
       ShrinkingDamageCooldown:
         RawValue: 65536
-      ShrinkingDamage: 20
       PlayerDefaultHealth:
         BattleRoyale: 800
         Deathmatch: 800
@@ -58,7 +57,7 @@ MonoBehaviour:
         RawValue: 2293760
       CollectableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 39322
       PlayerAliveShieldDuration:

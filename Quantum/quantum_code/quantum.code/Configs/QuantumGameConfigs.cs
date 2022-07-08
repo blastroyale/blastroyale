@@ -15,7 +15,6 @@ namespace Quantum
 		public FP PlayerForceRespawnTime;
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingDamageCooldown;
-		public uint ShrinkingDamage;
 		public QuantumGameModePair<int> PlayerDefaultHealth;
 		public QuantumGameModePair<FP> PlayerDefaultSpeed;
 		public QuantumGameModePair<int> PlayerMaxShieldCapacity;

@@ -133,14 +133,14 @@ MonoBehaviour:
         BattleRoyale: 200
         Deathmatch: 70
       AimingMovementSpeed:
-        RawValue: 39322
+        RawValue: 45875
       AimTime:
         RawValue: 8192
       AttackCooldown:
         RawValue: 4915
       AttackHitSpeed:
         RawValue: 1310720
-      MinAttackAngle: 25
+      MinAttackAngle: 5
       MaxAttackAngle: 45
       NumberOfShots: 1
       NumberOfBursts: 1

@@ -13,7 +13,7 @@ namespace Quantum
 		public FP WarningTime;
 		public FP ShrinkingTime;
 		public FP ShrinkingSizeK;
-
+		public FP MaxHealthDamage;
 		public FP AirdropChance;
 		public QuantumPair<FP, FP> AirdropStartTimeRange;
 		public FP AirdropDropDuration;

@@ -1,10 +1,10 @@
-
+root = true
 [*]
 charset = utf-8
 end_of_line = lf
 trim_trailing_whitespace = false
 insert_final_newline = false
-indent_style = tab
+indent_style = space
 tab_width = 4
 
 # Microsoft .NET properties
@@ -13,6 +13,10 @@ csharp_preferred_modifier_order = public, private, protected, internal, new, sta
 csharp_style_var_elsewhere = true:suggestion
 csharp_style_var_for_built_in_types = true:suggestion
 csharp_style_var_when_type_is_apparent = true:suggestion
+dotnet_naming_rule.constants_rule.import_to_resharper = as_predefined
+dotnet_naming_rule.constants_rule.severity = warning
+dotnet_naming_rule.constants_rule.style = all_upper_style
+dotnet_naming_rule.constants_rule.symbols = constants_symbols
 dotnet_naming_rule.private_constants_rule.import_to_resharper = as_predefined
 dotnet_naming_rule.private_constants_rule.severity = warning
 dotnet_naming_rule.private_constants_rule.style = upper_camel_case_style
@@ -27,9 +31,20 @@ dotnet_naming_rule.unity_serialized_field_rule.resharper_guid = 5f0fdb63-c892-4d
 dotnet_naming_rule.unity_serialized_field_rule.severity = none
 dotnet_naming_rule.unity_serialized_field_rule.style = lower_camel_case_style
 dotnet_naming_rule.unity_serialized_field_rule.symbols = unity_serialized_field_symbols
+dotnet_naming_rule.unity_serialized_field_rule_1.import_to_resharper = True
+dotnet_naming_rule.unity_serialized_field_rule_1.resharper_description = Unity serialized field
+dotnet_naming_rule.unity_serialized_field_rule_1.resharper_guid = 5f0fdb63-c892-4d2c-9324-15c80b22a7ef
+dotnet_naming_rule.unity_serialized_field_rule_1.severity = none
+dotnet_naming_rule.unity_serialized_field_rule_1.style = lower_camel_case_style
+dotnet_naming_rule.unity_serialized_field_rule_1.symbols = unity_serialized_field_symbols_1
+dotnet_naming_style.all_upper_style.capitalization = all_upper
+dotnet_naming_style.all_upper_style.word_separator = _
 dotnet_naming_style.lower_camel_case_style.capitalization = camel_case
 dotnet_naming_style.lower_camel_case_style.required_prefix = _
 dotnet_naming_style.upper_camel_case_style.capitalization = pascal_case
+dotnet_naming_symbols.constants_symbols.applicable_accessibilities = public,internal,protected,protected_internal,private_protected
+dotnet_naming_symbols.constants_symbols.applicable_kinds = field
+dotnet_naming_symbols.constants_symbols.required_modifiers = const
 dotnet_naming_symbols.private_constants_symbols.applicable_accessibilities = private
 dotnet_naming_symbols.private_constants_symbols.applicable_kinds = field
 dotnet_naming_symbols.private_constants_symbols.required_modifiers = const
@@ -40,6 +55,10 @@ dotnet_naming_symbols.unity_serialized_field_symbols.applicable_accessibilities 
 dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds = 
 dotnet_naming_symbols.unity_serialized_field_symbols.resharper_applicable_kinds = unity_serialised_field
 dotnet_naming_symbols.unity_serialized_field_symbols.resharper_required_modifiers = instance
+dotnet_naming_symbols.unity_serialized_field_symbols_1.applicable_accessibilities = *
+dotnet_naming_symbols.unity_serialized_field_symbols_1.applicable_kinds = 
+dotnet_naming_symbols.unity_serialized_field_symbols_1.resharper_applicable_kinds = unity_serialised_field
+dotnet_naming_symbols.unity_serialized_field_symbols_1.resharper_required_modifiers = instance
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:none
 dotnet_style_parentheses_in_other_binary_operators = never_if_unnecessary:none
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:none
@@ -63,12 +82,15 @@ resharper_align_multiple_declaration = true
 resharper_align_multline_type_parameter_constrains = true
 resharper_align_multline_type_parameter_list = true
 resharper_align_tuple_components = true
+resharper_apply_auto_detected_rules = false
 resharper_autodetect_indent_settings = true
 resharper_csharp_align_first_arg_by_paren = true
 resharper_csharp_indent_method_decl_pars = none
 resharper_csharp_indent_style = tab
+resharper_csharp_naming_rule.enum_member = AaBb_AaBb
 resharper_csharp_outdent_commas = true
 resharper_csharp_stick_comment = false
+resharper_enforce_line_ending_style = true
 resharper_indent_preprocessor_directives = normal
 resharper_indent_preprocessor_region = no_indent
 resharper_use_indent_from_vs = false
@@ -87,6 +109,7 @@ resharper_suggest_var_or_type_simple_types_highlighting = hint
 resharper_web_config_module_not_resolved_highlighting = warning
 resharper_web_config_type_not_resolved_highlighting = warning
 resharper_web_config_wrong_module_highlighting = warning
+indent_size = 4
 
 [{*.har,*.inputactions,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,jest.config}]
 indent_style = space
@@ -148,4 +171,13 @@ indent_size = 4
 [*.{appxmanifest,asax,ascx,aspx,axaml,build,cg,cginc,compute,cshtml,dtd,fs,fsi,fsscript,fsx,hlsl,hlsli,hlslinc,master,ml,mli,nuspec,paml,razor,resw,resx,shader,skin,usf,ush,vb,xaml,xamlx,xoml,xsd}]
 indent_style = space
 indent_size = 4
+tab_width = 4
+
+[*.asmref]
+indent_style = space
+indent_size = 2
+
+[*.{appxmanifest,asax,ascx,aspx,axaml,build,c,c++,cc,cginc,compute,cp,cpp,cs,cshtml,cu,cuh,cxx,dtd,fs,fsi,fsscript,fsx,fx,fxh,h,hh,hlsl,hlsli,hlslinc,hpp,hxx,inc,inl,ino,ipp,master,ml,mli,mpp,mq4,mq5,mqh,nuspec,paml,razor,resw,resx,shader,skin,tpp,usf,ush,vb,xaml,xamlx,xoml,xsd}]
+indent_style = tab
+indent_size = tab
 tab_width = 4

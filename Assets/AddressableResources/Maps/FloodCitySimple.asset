@@ -21,6 +21,8 @@ MonoBehaviour:
       Id:
         Value: 3155179352711372247
     Scene: FloodCitySimple
+    ScenePath: Assets/AddressableResources/Scenes/FloodCitySimple.unity
+    SceneGuid: 68d74302caef16c4da511dbf610ee11a
     WorldSize: 128
     BucketsCount: 8
     BucketsSubdivisions: 2
@@ -289,6 +291,7 @@ MonoBehaviour:
     MapEntities: []
   Prototypes:
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -307,6 +310,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -357,6 +362,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -375,6 +381,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -425,6 +433,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -443,6 +452,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -493,6 +504,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -511,6 +523,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -561,6 +575,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -579,6 +594,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -629,6 +646,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -647,6 +665,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -697,6 +717,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -715,6 +736,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -765,6 +788,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -783,6 +807,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -833,6 +859,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -851,6 +878,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -901,6 +930,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -919,6 +949,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -969,6 +1001,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -987,6 +1020,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1037,6 +1072,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1055,6 +1091,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1105,6 +1143,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1123,6 +1162,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1173,6 +1214,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1191,6 +1233,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1241,6 +1285,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1259,6 +1304,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1309,6 +1356,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1327,6 +1375,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1377,6 +1427,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1395,6 +1446,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1445,6 +1498,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1463,6 +1517,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1513,6 +1569,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1531,6 +1588,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1581,6 +1640,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1599,6 +1659,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1649,6 +1711,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1667,6 +1730,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1717,6 +1782,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1735,6 +1801,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1785,6 +1853,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1803,6 +1872,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1853,6 +1924,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1871,6 +1943,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1921,6 +1995,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -1939,6 +2014,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -1989,6 +2066,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2007,6 +2085,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -2057,6 +2137,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2075,6 +2156,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -2125,6 +2208,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2143,6 +2227,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -2193,6 +2279,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2211,6 +2298,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -2261,6 +2350,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2279,6 +2369,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner:
@@ -2329,6 +2421,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2357,6 +2450,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2405,6 +2500,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2433,6 +2529,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2481,6 +2579,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2509,6 +2608,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2557,6 +2658,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2585,6 +2687,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2633,6 +2737,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2661,6 +2766,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2709,6 +2816,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2737,6 +2845,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2785,6 +2895,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2813,6 +2924,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2861,6 +2974,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2889,6 +3003,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -2937,6 +3053,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -2965,6 +3082,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3013,6 +3132,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3041,6 +3161,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3089,6 +3211,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3117,6 +3240,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3165,6 +3290,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3193,6 +3319,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3241,6 +3369,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3269,6 +3398,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3317,6 +3448,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3345,6 +3477,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3393,6 +3527,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3421,6 +3556,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3469,6 +3606,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3497,6 +3635,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3545,6 +3685,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3573,6 +3714,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3621,6 +3764,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3649,6 +3793,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3697,6 +3843,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3725,6 +3872,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3773,6 +3922,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3801,6 +3951,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3849,6 +4001,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3877,6 +4030,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -3925,6 +4080,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -3953,6 +4109,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4001,6 +4159,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4029,6 +4188,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4077,6 +4238,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4105,6 +4267,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4153,6 +4317,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4181,6 +4346,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4229,6 +4396,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4257,6 +4425,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4305,6 +4475,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4333,6 +4504,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4381,6 +4554,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4392,10 +4566,10 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 93
+        Value: 21
       RarityModifier: 0
     Consumable: []
     DeadPlayerCharacter: []
@@ -4409,6 +4583,561 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 2316042
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -228720
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 21
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 448266
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1768816
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 21
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 202506
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 2523791
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 21
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -649461
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 1245839
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 21
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1304821
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 2491023
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 21
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -698613
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 98959
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 21
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    Shield: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 956170
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 180879
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 15
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 93
+      RarityModifier: -2
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4457,6 +5186,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4468,11 +5198,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 87
-      RarityModifier: 0
+        Value: 95
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4485,6 +5215,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4533,6 +5265,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4544,11 +5277,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 86
-      RarityModifier: 0
+        Value: 94
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4561,6 +5294,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4609,6 +5344,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4620,11 +5356,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 71
-      RarityModifier: 0
+        Value: 90
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4637,6 +5373,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4685,6 +5423,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4696,11 +5435,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 98
-      RarityModifier: 0
+        Value: 91
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4713,6 +5452,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4761,6 +5502,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4772,11 +5514,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 88
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4789,6 +5531,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4837,6 +5581,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4848,11 +5593,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 95
-      RarityModifier: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4865,6 +5610,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4913,6 +5660,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -4924,11 +5672,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
         Value: 92
-      RarityModifier: 0
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -4941,6 +5689,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -4989,6 +5739,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -5000,11 +5751,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 92
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -5017,6 +5768,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -5065,6 +5818,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -5076,11 +5830,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 92
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -5093,6 +5847,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -5141,6 +5897,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -5152,11 +5909,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 88
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -5169,6 +5926,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []
@@ -5217,6 +5976,7 @@ MonoBehaviour:
     PhysicsJoints2D: []
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
+    AirDrop: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -5228,11 +5988,11 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 10
+      RespawnTimeInSec: 15
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
-      RarityModifier: 0
+        Value: 91
+      RarityModifier: -2
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
@@ -5245,6 +6005,8 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Invisibility: []
+    InvisibilityComponent: []
+    InvisibilitySpot: []
     PlayerCharacter: []
     PlayerCharging: []
     PlayerSpawner: []

@@ -239,7 +239,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendGameplayData(bool playerQuit)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (IsSpectator())
 			{
 				return;
 			}

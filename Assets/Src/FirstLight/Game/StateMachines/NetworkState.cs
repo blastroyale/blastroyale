@@ -114,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = () => { _statechartTrigger(DisconnectedScreenBackEvent);}
 			};
 
-			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void OnAttemptReconnectClicked()
@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseDisconnectedScreen()
 		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>();
+			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
 		}
 		
 		private void DimDisconnectedScreen()

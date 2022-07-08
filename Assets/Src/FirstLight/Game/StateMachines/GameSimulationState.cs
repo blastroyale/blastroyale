@@ -268,7 +268,6 @@ namespace FirstLight.Game.StateMachines
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var room = client.CurrentRoom;
 			var startPlayersCount = client.CurrentRoom.GetRealPlayerCapacity();
-			var isSpectator = _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 
 			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) &&
 			    !(bool) gameHasBots)
@@ -276,7 +275,7 @@ namespace FirstLight.Game.StateMachines
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
 
-			var startParams = configs.GetDefaultStartParameters(startPlayersCount, isSpectator);
+			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 
 			startParams.NetworkClient = client;
 
@@ -408,7 +407,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!IsSpectator())
 			{
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 				{

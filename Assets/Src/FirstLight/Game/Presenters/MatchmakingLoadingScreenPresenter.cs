@@ -191,16 +191,12 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-
 			AddOrUpdatePlayerInList(newPlayer);
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-
 			RemovePlayerInAllLists(otherPlayer);
 		}
 

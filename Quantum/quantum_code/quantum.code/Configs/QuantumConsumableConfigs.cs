@@ -11,7 +11,7 @@ namespace Quantum
 		public AssetRefEntityPrototype AssetRef; 
 		public ConsumableType ConsumableType;
 		public FP Amount;
-		public FP ConsumableCollectTime;
+		public QuantumGameModePair<FP> ConsumableCollectTime;
 	}
 
 	/// <summary>

@@ -59,6 +59,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
@@ -199,10 +200,26 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetActiveCamera(_adventureCamera);
 			}
 		}
+		
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				return;
+			}
+
+			var callbackEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
+			
+			if (_playerView == callbackEntityView)
+			{
+				ResetLeaderAndKiller();
+				RefreshSpectator(callback.Game.Frames.Verified);
+			}
+		}
 
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _playerView != null)
 			{
 				return;
 			}

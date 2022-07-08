@@ -57,6 +57,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				return;
+			}
+			
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var localPlayer = callback.PlayersMatchData[callback.Game.GetLocalPlayers()[0]];
 			

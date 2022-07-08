@@ -52,12 +52,11 @@ namespace FirstLight.Game.StateMachines
 			var spectateCheck = stateFactory.Choice("Spectate Check");
 			var aliveCheck = stateFactory.Choice("Alive Check");
 			
-			initial.Transition().Target(resyncCheck);
+			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenMatchHud);
 			
 			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
-			spectateCheck.Transition().Target(resyncCheck);
+			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
 			
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);

@@ -240,6 +240,24 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(JoinedRoomEvent);
 
+			// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
+			if (_networkService.IsJoiningNewMatch.Value)
+			{
+				var isSpectator = (bool) _networkService.QuantumClient.LocalPlayer.CustomProperties
+						[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+
+				if (!isSpectator && _networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >
+				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
+				{
+					SetSpectatePlayerProperty(true);
+				}
+				else if (isSpectator && _networkService.QuantumClient.CurrentRoom.GetSpectatorAmount() >
+				         _networkService.QuantumClient.CurrentRoom.GetSpectatorCapacity())
+				{
+					SetSpectatePlayerProperty(false);
+				}
+			}
+
 			if (QuantumRunnerConfigs.IsOfflineMode)
 			{
 				LockRoom();

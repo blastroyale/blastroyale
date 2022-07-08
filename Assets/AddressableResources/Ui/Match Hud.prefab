@@ -824,6 +824,7 @@ MonoBehaviour:
   _minimapCamera: {fileID: 5628063902813850639}
   _backgroundImage: {fileID: 5004151283192992960}
   _fullScreenContainer: {fileID: 3557765285291139652}
+  _button: {fileID: 574265280825843266}
   _fullScreenPadding: 50
   _viewportSize: 0.3
   _cameraHeight: 10

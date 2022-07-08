@@ -107,13 +107,9 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				ResetLeaderAndKiller();
+				ResetLeaderAndKiller(f);
 
 				_playerView = _entityViewUpdaterService.GetManualView(_leader);
-
-				// We place audio listener roughly "in the player character's head"
-				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-				SetTargetTransform(_playerView.transform);
 			}
 			else
 			{
@@ -121,24 +117,23 @@ namespace FirstLight.Game.MonoComponent.Match
 
 				if (!localPlayer.Entity.IsAlive(f))
 				{
-					ResetLeaderAndKiller();
+					ResetLeaderAndKiller(f);
 					SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 					OnSpectate();
 					return;
 				}
 
 				_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-
-				// We place audio listener roughly "in the player character's head"
-				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-				SetTargetTransform(_playerView.transform);
 			}
+			
+			// We place audio listener roughly "in the player character's head"
+			SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
+			SetTargetTransform(_playerView.transform);
 		}
 
-		private void ResetLeaderAndKiller()
+		private void ResetLeaderAndKiller(Frame f)
 		{
 			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
@@ -157,7 +152,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
 
 			// We place audio listener roughly "in the player character's head"
 			SetAudioListenerTransform(follow.transform, Vector3.up, Quaternion.identity);
@@ -212,7 +206,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			if (_playerView == callbackEntityView)
 			{
-				ResetLeaderAndKiller();
+				ResetLeaderAndKiller(callback.Game.Frames.Verified);
 				RefreshSpectator(callback.Game.Frames.Verified);
 			}
 		}
@@ -224,7 +218,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			
-			ResetLeaderAndKiller();
+			ResetLeaderAndKiller(callback.Game.Frames.Verified);
 
 			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
 
@@ -250,29 +244,28 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_spectating)
 			{
-				var nextPlayerView = GetNextPlayerView(f);
-
-				if (nextPlayerView != null)
+				if(TryGetNextPlayerView(f, out var entityView))
 				{
-					SetTargetTransform(nextPlayerView.transform);
+					SetTargetTransform(entityView.transform);
 				}
 			}
 		}
 
-		private EntityView GetNextPlayerView(Frame f)
+		private bool TryGetNextPlayerView(Frame f, out EntityView entity)
 		{
-			EntityView nextPlayer = null;
-
 			if (f.Exists(_latestKiller))
 			{
-				nextPlayer = _entityViewUpdaterService.GetManualView(_latestKiller);
+				entity = _entityViewUpdaterService.GetManualView(_latestKiller);
+				return true;
 			}
 			else if (_leader.IsValid)
 			{
-				nextPlayer = _entityViewUpdaterService.GetManualView(_leader);
+				entity = _entityViewUpdaterService.GetManualView(_leader);
+				return true;
 			}
 
-			return nextPlayer;
+			entity = null;
+			return false;
 		}
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)

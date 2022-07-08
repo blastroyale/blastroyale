@@ -12,4 +12,8 @@ namespace FirstLight.Game.Messages
 	public struct StartedFinalPreloadMessage : IMessage { }
 	public struct AssetReloadRequiredMessage : IMessage { }
 	public struct SpectateKillerMessage : IMessage { }
+	public struct SpectateNextPlayerMessage : IMessage { }
+	public struct SpectatePreviousPlayerMessage : IMessage { }
+	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
+
 }

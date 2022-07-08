@@ -76,6 +76,9 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_spectatingPlayer = players[currentIndex - 1 >= 0 ? currentIndex - 1 : players.Count - 1];
 			RefreshSpectator(frame);
+
+			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
+			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
 		}
 
 		private void OnSpectateNextPlayerMessage(SpectateNextPlayerMessage obj)
@@ -85,6 +88,9 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			_spectatingPlayer = players[currentIndex + 1 < players.Count ? currentIndex + 1 : 0];
 			RefreshSpectator(frame);
+
+			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
+			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
 		}
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
@@ -272,7 +278,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		private List<EntityRef> GetPlayerList(Frame f, out int currentIndex)
 		{
 			var players = new List<EntityRef>();
-
 
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();

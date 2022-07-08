@@ -68,7 +68,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e825a725434e94dbb91dbdecdc6572bb, type: 3}
   - {fileID: 21300000, guid: 2a2d40756fab94e739899ed2cf53eb0a, type: 3}
   - {fileID: 21300000, guid: 3b8a9e85985ce4a449bd7f89d4887897, type: 3}
-  - {fileID: 21300000, guid: 649c8bb56447945d988fcbe45b7f5a94, type: 3}
   - {fileID: 21300000, guid: 33cb72d57497e456cbd2b35f73065735, type: 3}
   - {fileID: 21300000, guid: 055d5ef54e3ec4ee6b338a4867b7c641, type: 3}
   - {fileID: 21300000, guid: 6899dd6601172446d9df3f5033afabe6, type: 3}
@@ -93,12 +92,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 97826b1bcd8e6c04ca7aeb7b79cca1f9, type: 3}
   - {fileID: 21300000, guid: 715dca5ba7c7456438d4c122a0801205, type: 3}
   - {fileID: 21300000, guid: 4cdc926b1dcce4247827b4a62daf35d3, type: 3}
+  - {fileID: 21300000, guid: 631b9a8b7ba764792b4e74e6faad59de, type: 3}
   - {fileID: 21300000, guid: 41e813cbb15b2406db58a4022b6efcca, type: 3}
   - {fileID: 21300000, guid: c4fa85fbe87b6f84c9eea5af0eca2341, type: 3}
   - {fileID: 21300000, guid: 523d402cd81de4cdc9fb5aaee7712622, type: 3}
   - {fileID: 21300000, guid: b3cf5e3cdd4314e8ca4f90d654141bc8, type: 3}
   - {fileID: 21300000, guid: f1c8127c6813d4d4ca98d60991269065, type: 3}
   - {fileID: 21300000, guid: 0f00a1acb69574ad2a5863ef52275252, type: 3}
+  - {fileID: 21300000, guid: 5f0dd2bc9d9414af992280a95bf426d8, type: 3}
   - {fileID: 21300000, guid: 00d895ccfbba141c19d851d2646007a6, type: 3}
   - {fileID: 21300000, guid: f335cbcc9213a4dd292ffabe22ccf9c4, type: 3}
   - {fileID: 21300000, guid: c5d752fc5fa5d5b4fa3a069a455059cf, type: 3}
@@ -138,7 +139,6 @@ SpriteAtlas:
   - SmallArrow
   - TimerBase
   - ReviveArrow
-  - MapFade
   - EnemyIndicatorBase
   - SmearSpecial
   - GOCountdown
@@ -163,12 +163,14 @@ SpriteAtlas:
   - BossArrow
   - EnemyRadialIndicator
   - ParachuteIcon
+  - MapFadeBig
   - LootIndicatorBase
   - PowerPill
   - HealthBar
   - EnemyIndicatorFace
   - LootboxIcon
   - CheqFlag
+  - MapBigMask
   - BossIndicatorInside
   - Joystick_Handle_Move
   - PlayerAvatarKO

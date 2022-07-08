@@ -2857,7 +2857,7 @@ MonoBehaviour:
     <Flags>2</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
     </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"8\">\r\n       
     <Data>\r\n          <Name>$default</Name>\r\n          <Value Type=\"Photon.Deterministic.FP,
-    PhotonDeterministic\">983040</Value>\r\n        </Data>\r\n        <Data>\r\n         
+    PhotonDeterministic\">655360</Value>\r\n        </Data>\r\n        <Data>\r\n         
     <Name></Name>\r\n          <Value />\r\n        </Data>\r\n        <Data>\r\n         
     <Name>$hasDefault</Name>\r\n          <Value />\r\n        </Data>\r\n       
     <Data>\r\n          <Name>True</Name>\r\n          <Value />\r\n        </Data>\r\n       

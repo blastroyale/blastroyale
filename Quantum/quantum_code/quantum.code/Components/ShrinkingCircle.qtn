@@ -7,6 +7,7 @@ singleton component ShrinkingCircle
 	FP ShrinkingStartTime;
 	FP ShrinkingDurationTime;
 	Int32 Step;
+    FP Damage;
 	FP ShrinkingSizeK;
 	FP AirDropChance;
 }

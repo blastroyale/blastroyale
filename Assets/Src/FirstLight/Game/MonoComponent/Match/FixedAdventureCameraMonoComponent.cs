@@ -258,12 +258,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
-		private bool IsFollowedPlayerCircleEvent(Spell spell)
-		{
-			return spell.Id == Spell.ShrinkingCircleId &&
-			       spell.Victim == _followedPlayer;
-		}
-
 		private void RefreshSpectator(Frame f)
 		{
 			if (_spectating && TryGetNextPlayerView(f, out var entityView))

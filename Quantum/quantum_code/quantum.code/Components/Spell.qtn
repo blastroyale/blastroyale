@@ -18,3 +18,15 @@ synced event OnSpellHit
 	entity_ref Entity;
 	Spell Spell;
 }
+
+synced event OnSpellAdded
+{
+    entity_ref Entity;
+    Spell Spell;
+}
+
+synced event OnSpellRemoved
+{
+    entity_ref Entity;
+    Spell Spell;
+}

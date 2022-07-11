@@ -97,7 +97,7 @@ namespace FirstLight.Game.Views
 		/// <inheritdoc />
 		public override void OnPointerDown (PointerEventData eventData)
 		{
-			if (!CanAnimate)
+			if (!CanAnimate || !IsInteractable())
 			{
 				return;
 			}
@@ -119,7 +119,7 @@ namespace FirstLight.Game.Views
 		/// <inheritdoc />
 		public override void OnPointerUp(PointerEventData eventData)
 		{
-			if (!CanAnimate)
+			if (!CanAnimate || !IsInteractable())
 			{
 				return;
 			}

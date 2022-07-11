@@ -26,6 +26,7 @@ namespace Quantum.Systems
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
+			
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize;
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);

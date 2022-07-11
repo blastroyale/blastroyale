@@ -20,9 +20,9 @@ namespace Quantum
 		public QuantumPlayerMatchData(Frame f, PlayerMatchData data) : this()
 		{
 			IsLocalPlayer = f.Context.IsLocalPlayer(data.Player);
-			PlayerName = data.IsBot ? data.BotNameIndex.ToString() : f.GetPlayerData(data.Player).PlayerName;
 			MapId = f.RuntimeConfig.MapId;
 			Data = data;
+			PlayerName = data.IsBot ? data.BotNameIndex.ToString() : f.GetPlayerData(data.Player).PlayerName;
 		}
 	}
 }

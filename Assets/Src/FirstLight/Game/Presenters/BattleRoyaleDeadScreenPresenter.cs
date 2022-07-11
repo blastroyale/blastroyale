@@ -43,8 +43,6 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			
-			_spectateButton.gameObject.SetActive(Data.Killer != PlayerRef.None);
-			
 			if (Data.Killer != PlayerRef.None)
 			{
 				var f = QuantumRunner.Default.Game.Frames.Verified;
@@ -55,11 +53,6 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				_killerText.text = ScriptLocalization.AdventureMenu.YouDied;
-				
-				if (!_services.NetworkService.IsJoiningNewMatch)
-				{
-					_spectateButton.gameObject.SetActive(false);
-				}
 			}
 		}
 

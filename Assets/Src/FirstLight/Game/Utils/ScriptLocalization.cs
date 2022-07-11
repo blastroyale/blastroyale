@@ -37,6 +37,8 @@ namespace I2.Loc
 			public static string Killing 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Killing"); } }
 			public static string Kills 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Kills"); } }
 			public static string KillsRemaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KillsRemaining"); } }
+			public static string MatchmakingPlayerTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingPlayerTitle"); } }
+			public static string MatchmakingSpectatorTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingSpectatorTitle"); } }
 			public static string Multi 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Multi"); } }
 			public static string NextWaveIn 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NextWaveIn"); } }
 			public static string NoRewardsCollected 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NoRewardsCollected"); } }
@@ -50,6 +52,11 @@ namespace I2.Loc
 			public static string RespawnTime 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/RespawnTime"); } }
 			public static string Revives 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Revives"); } }
 			public static string SpawningEnemies 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpawningEnemies"); } }
+			public static string SpectateCam1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam1"); } }
+			public static string SpectateCam2 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam2"); } }
+			public static string SpectateCam3 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam3"); } }
+			public static string SpectateNextPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateNextPlayer"); } }
+			public static string SpectatePrevPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectatePrevPlayer"); } }
 			public static string Spree 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Spree"); } }
 			public static string Suicide 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Suicide"); } }
 			public static string TimeOver 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/TimeOver"); } }
@@ -845,6 +852,8 @@ namespace I2.Loc
 		    public const string Killing = "AdventureMenu/Killing";
 		    public const string Kills = "AdventureMenu/Kills";
 		    public const string KillsRemaining = "AdventureMenu/KillsRemaining";
+		    public const string MatchmakingPlayerTitle = "AdventureMenu/MatchmakingPlayerTitle";
+		    public const string MatchmakingSpectatorTitle = "AdventureMenu/MatchmakingSpectatorTitle";
 		    public const string Multi = "AdventureMenu/Multi";
 		    public const string NextWaveIn = "AdventureMenu/NextWaveIn";
 		    public const string NoRewardsCollected = "AdventureMenu/NoRewardsCollected";
@@ -858,6 +867,11 @@ namespace I2.Loc
 		    public const string RespawnTime = "AdventureMenu/RespawnTime";
 		    public const string Revives = "AdventureMenu/Revives";
 		    public const string SpawningEnemies = "AdventureMenu/SpawningEnemies";
+		    public const string SpectateCam1 = "AdventureMenu/SpectateCam1";
+		    public const string SpectateCam2 = "AdventureMenu/SpectateCam2";
+		    public const string SpectateCam3 = "AdventureMenu/SpectateCam3";
+		    public const string SpectateNextPlayer = "AdventureMenu/SpectateNextPlayer";
+		    public const string SpectatePrevPlayer = "AdventureMenu/SpectatePrevPlayer";
 		    public const string Spree = "AdventureMenu/Spree";
 		    public const string Suicide = "AdventureMenu/Suicide";
 		    public const string TimeOver = "AdventureMenu/TimeOver";

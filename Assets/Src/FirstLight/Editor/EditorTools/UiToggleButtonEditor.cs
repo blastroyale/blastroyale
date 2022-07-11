@@ -20,6 +20,7 @@ namespace FirstLight.Editor.EditorTools
 		private SerializedProperty _pressedDuration;
 		private SerializedProperty _pressedScale;
 		private SerializedProperty _anchor;
+		private SerializedProperty _customTargetGraphics;
 		
 		/// <inheritdoc />
 		protected override void OnEnable()
@@ -33,6 +34,7 @@ namespace FirstLight.Editor.EditorTools
 			_pressedDuration = serializedObject.FindProperty(nameof(UiToggleButtonView.PressedDuration));
 			_pressedScale = serializedObject.FindProperty(nameof(UiToggleButtonView.PressedScale));
 			_anchor = serializedObject.FindProperty(nameof(UiToggleButtonView.Anchor));
+			_customTargetGraphics = serializedObject.FindProperty(nameof(UiToggleButtonView.CustomTargetGraphics));
 		}
 		
 		/// <inheritdoc />
@@ -50,6 +52,7 @@ namespace FirstLight.Editor.EditorTools
 			EditorGUILayout.PropertyField(_pressedDuration);
 			EditorGUILayout.PropertyField(_pressedScale);
 			EditorGUILayout.PropertyField(_anchor);
+			EditorGUILayout.PropertyField(_customTargetGraphics);
 			serializedObject.ApplyModifiedProperties();
 		}
 	}

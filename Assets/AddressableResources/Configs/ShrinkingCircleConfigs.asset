@@ -20,13 +20,15 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 1638400
+        RawValue: 655360
       WarningTime:
         RawValue: 983040
       ShrinkingTime:
-        RawValue: 3276800
+        RawValue: 7864320
       ShrinkingSizeK:
-        RawValue: 27853
+        RawValue: 22938
+      MaxHealthDamage:
+        RawValue: 655
       AirdropChance:
         RawValue: 13107
       AirdropStartTimeRange:
@@ -39,13 +41,15 @@ MonoBehaviour:
       AirdropChest: 19
     - Step: 2
       DelayTime:
-        RawValue: 458752
+        RawValue: 0
       WarningTime:
-        RawValue: 458752
-      ShrinkingTime:
         RawValue: 655360
+      ShrinkingTime:
+        RawValue: 1966080
       ShrinkingSizeK:
-        RawValue: 50790
+        RawValue: 6554
+      MaxHealthDamage:
+        RawValue: 3277
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -58,13 +62,15 @@ MonoBehaviour:
       AirdropChest: 13
     - Step: 3
       DelayTime:
-        RawValue: 458752
+        RawValue: 0
       WarningTime:
-        RawValue: 458752
+        RawValue: 655360
       ShrinkingTime:
-        RawValue: 458752
+        RawValue: 983040
       ShrinkingSizeK:
-        RawValue: 50790
+        RawValue: 66
+      MaxHealthDamage:
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -77,13 +83,15 @@ MonoBehaviour:
       AirdropChest: 13
     - Step: 4
       DelayTime:
-        RawValue: 655360
+        RawValue: 0
       WarningTime:
-        RawValue: 2621440
+        RawValue: 0
       ShrinkingTime:
-        RawValue: 983040
+        RawValue: 0
       ShrinkingSizeK:
-        RawValue: 19661
+        RawValue: 66
+      MaxHealthDamage:
+        RawValue: 9830
       AirdropChance:
         RawValue: 22938
       AirdropStartTimeRange:
@@ -93,23 +101,4 @@ MonoBehaviour:
           RawValue: 1638400
       AirdropDropDuration:
         RawValue: 655360
-      AirdropChest: 19
-    - Step: 5
-      DelayTime:
-        RawValue: 655360
-      WarningTime:
-        RawValue: 327680
-      ShrinkingTime:
-        RawValue: 3604480
-      ShrinkingSizeK:
-        RawValue: 66
-      AirdropChance:
-        RawValue: 29491
-      AirdropStartTimeRange:
-        Value1:
-          RawValue: 1310720
-        Value2:
-          RawValue: 1966080
-      AirdropDropDuration:
-        RawValue: 983040
       AirdropChest: 19

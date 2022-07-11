@@ -27,7 +27,7 @@ MonoBehaviour:
         RawValue: 983040
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 4
@@ -39,7 +39,7 @@ MonoBehaviour:
         RawValue: 13107200
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 127
@@ -51,7 +51,7 @@ MonoBehaviour:
         RawValue: 6554
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 128
@@ -63,7 +63,7 @@ MonoBehaviour:
         RawValue: 16384
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 20
@@ -75,7 +75,7 @@ MonoBehaviour:
         RawValue: 6553600
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 21
@@ -87,7 +87,7 @@ MonoBehaviour:
         RawValue: 26214400
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 17
@@ -99,7 +99,7 @@ MonoBehaviour:
         RawValue: 6553600
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107
     - Id: 18
@@ -111,6 +111,6 @@ MonoBehaviour:
         RawValue: 13107200
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 131072
+          RawValue: 65536
         Deathmatch:
           RawValue: 13107

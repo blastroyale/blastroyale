@@ -35,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _minimapHolder;
-
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
 		private IGameServices _services;

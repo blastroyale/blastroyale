@@ -206,6 +206,7 @@
     <Compile Include="Components\GameContainer.cs" />
     <Compile Include="Components\PlayerMatchData.cs" />
     <Compile Include="Components\RaycastShots.cs" />
+    <Compile Include="Components\ShrinkingCircle.cs" />
     <Compile Include="Components\Spawners.cs" />
     <Compile Include="Components\SpecialAirstrike.cs" />
     <Compile Include="Components\Consumable.cs" />

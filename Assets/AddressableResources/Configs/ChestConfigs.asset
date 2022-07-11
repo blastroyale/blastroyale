@@ -19,9 +19,6 @@ MonoBehaviour:
         Value: 4100866902722562598
     QuantumConfigs:
     - Id: 13
-      AssetRef:
-        Id:
-          Value: 4486983998464243699
       ChestType: 0
       RandomEquipment:
       - Value1:
@@ -39,13 +36,10 @@ MonoBehaviour:
           RawValue: 0
         Value2: 0
     - Id: 1
-      AssetRef:
-        Id:
-          Value: 4486983998464243699
       ChestType: 1
       RandomEquipment:
       - Value1:
-          RawValue: 58982
+          RawValue: 65536
         Value2: 1
       SmallConsumable:
       - Value1:
@@ -59,9 +53,6 @@ MonoBehaviour:
           RawValue: 6554
         Value2: 1
     - Id: 16
-      AssetRef:
-        Id:
-          Value: 4486983998464243699
       ChestType: 2
       RandomEquipment:
       - Value1:
@@ -82,16 +73,13 @@ MonoBehaviour:
           RawValue: 6554
         Value2: 1
     - Id: 2
-      AssetRef:
-        Id:
-          Value: 4486983998464243699
       ChestType: 3
       RandomEquipment:
       - Value1:
           RawValue: 65536
         Value2: 1
       - Value1:
-          RawValue: 49152
+          RawValue: 16384
         Value2: 1
       SmallConsumable:
       - Value1:
@@ -103,21 +91,18 @@ MonoBehaviour:
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 1
+        Value2: 2
       - Value1:
           RawValue: 32768
         Value2: 1
     - Id: 19
-      AssetRef:
-        Id:
-          Value: 4486983998464243699
       ChestType: 4
       RandomEquipment:
       - Value1:
           RawValue: 65536
         Value2: 2
       - Value1:
-          RawValue: 16384
+          RawValue: 49152
         Value2: 1
       SmallConsumable:
       - Value1:

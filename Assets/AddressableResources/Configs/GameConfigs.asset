@@ -33,21 +33,20 @@ MonoBehaviour:
         RawValue: 655360
       ShrinkingDamageCooldown:
         RawValue: 65536
-      ShrinkingDamage: 20
       PlayerDefaultHealth:
         BattleRoyale: 800
         Deathmatch: 800
       PlayerDefaultSpeed:
         BattleRoyale:
-          RawValue: 222822
+          RawValue: 183501
         Deathmatch:
-          RawValue: 314573
+          RawValue: 294912
       PlayerMaxShieldCapacity:
         BattleRoyale: 800
-        Deathmatch: 600
+        Deathmatch: 400
       PlayerStartingShieldCapacity:
         BattleRoyale: 100
-        Deathmatch: 600
+        Deathmatch: 400
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:
@@ -57,7 +56,10 @@ MonoBehaviour:
       XpPerFragDeathRatio:
         RawValue: 2293760
       CollectableCollectTime:
-        RawValue: 39322
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 39322
       PlayerAliveShieldDuration:
         RawValue: 196608
       EquipmentLevelToPowerK: 10
@@ -98,9 +100,9 @@ MonoBehaviour:
       StatsArmorGradeStepMultiplier:
         RawValue: 10945
       DeathDropHealthChance:
-        RawValue: 65536
+        RawValue: 26214
       DeathDropLargeShieldChance:
-        RawValue: 655
+        RawValue: 3277
       DeathDropSmallShieldChance:
         RawValue: 16384
       TrophyEloRange: 50

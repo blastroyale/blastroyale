@@ -36,6 +36,9 @@
       <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
       </Reference>
+      <Reference Include="PhotonQuantum, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\PhotonQuantum.dll</HintPath>
+      </Reference>
       <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.code.dll</HintPath>
       </Reference>

@@ -43,7 +43,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			if (!msg.IsResync)
+			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}

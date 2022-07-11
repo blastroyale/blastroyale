@@ -26,44 +26,47 @@ MonoBehaviour:
       Amount:
         RawValue: 983040
       ConsumableCollectTime:
-        RawValue: 14746
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
     - Id: 4
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 0
       Amount:
-        RawValue: 6553600
+        RawValue: 13107200
       ConsumableCollectTime:
-        RawValue: 14746
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
     - Id: 127
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 2
       Amount:
-        RawValue: 3277
+        RawValue: 6554
       ConsumableCollectTime:
-        RawValue: 14746
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
     - Id: 128
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 2
       Amount:
-        RawValue: 4915
+        RawValue: 16384
       ConsumableCollectTime:
-        RawValue: 18432
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
     - Id: 20
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 3
-      Amount:
-        RawValue: 3276800
-      ConsumableCollectTime:
-        RawValue: 14746
-    - Id: 21
       AssetRef:
         Id:
           Value: 240296495379453662
@@ -71,7 +74,22 @@ MonoBehaviour:
       Amount:
         RawValue: 6553600
       ConsumableCollectTime:
-        RawValue: 22118
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
+    - Id: 21
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      ConsumableType: 3
+      Amount:
+        RawValue: 26214400
+      ConsumableCollectTime:
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
     - Id: 17
       AssetRef:
         Id:
@@ -80,13 +98,19 @@ MonoBehaviour:
       Amount:
         RawValue: 6553600
       ConsumableCollectTime:
-        RawValue: 14746
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107
     - Id: 18
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 4
       Amount:
-        RawValue: 16384000
+        RawValue: 13107200
       ConsumableCollectTime:
-        RawValue: 22118
+        BattleRoyale:
+          RawValue: 65536
+        Deathmatch:
+          RawValue: 13107

@@ -149,12 +149,12 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = () => _statechartTrigger(_playerSkinClosedEvent),
 			};
 			
-			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 		
 		private void ClosePlayerSkinMenuUI()
 		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>();
+			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
 		}
 	}
 }

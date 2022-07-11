@@ -46,12 +46,15 @@ namespace FirstLight.Game.StateMachines
 			var spectating = stateFactory.State("Spectate Screen");
 			var spawning = stateFactory.State("Spawning");
 			var resyncCheck = stateFactory.Choice("Resync Check");
+			var spectateCheck = stateFactory.Choice("Spectate Check");
 			var aliveCheck = stateFactory.Choice("Alive Check");
 			
-			initial.Transition().Target(resyncCheck);
+			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenMatchHud);
 
+			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
+			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
+			
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(spawning);
 			resyncCheck.OnExit(PublishMatchStartedMessage);
@@ -101,6 +104,11 @@ namespace FirstLight.Game.StateMachines
 			return localPlayer.Entity.IsAlive(f);
 		}
 		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
+		
 		private bool IsResyncing()
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
@@ -147,34 +155,37 @@ namespace FirstLight.Game.StateMachines
 				OnSpectateClicked = () => { _statechartTrigger(_localPlayerSpectateEvent); }
 			};
 
-			_uiService.OpenUi<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
 		}
 
 		private void CloseKillScreen()
 		{
-			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>();
+			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(false, true);
 		}
 
-		private void OpenSpectateScreen()
+		private async void OpenSpectateScreen()
 		{
-			var data = new BattleRoyaleSpectateScreenPresenter.StateData
+			var data = new SpectateHudPresenter.StateData
 			{
 				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); }
 			};
 
-			_uiService.OpenUi<BattleRoyaleSpectateScreenPresenter, BattleRoyaleSpectateScreenPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<SpectateHudPresenter, SpectateHudPresenter.StateData>(data);
 			
 			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
 		}
 
 		private void CloseSpectateScreen()
 		{
-			_uiService.CloseUi<BattleRoyaleSpectateScreenPresenter>();
+			_uiService.CloseUi<SpectateHudPresenter>();
 		}
 
 		private void PublishMatchStartedMessage()
 		{
-			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
+			_services.MessageBrokerService.Publish(new MatchStartedMessage()
+			{
+				IsResync = IsResyncing()
+			});
 		}
 	}
 }

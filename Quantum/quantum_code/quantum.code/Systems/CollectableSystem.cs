@@ -41,7 +41,7 @@ namespace Quantum.Systems
 				// Otherwise we use global collect time
 				else
 				{
-					endTime = f.Time + f.GameConfig.CollectableCollectTime;
+					endTime = f.Time + f.GameConfig.CollectableCollectTime.Get(f);
 				}
 
 				collectable->CollectorsEndTime[player.Player] = endTime;

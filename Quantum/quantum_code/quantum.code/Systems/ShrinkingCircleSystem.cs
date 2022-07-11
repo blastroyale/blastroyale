@@ -23,10 +23,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f)
 		{
 			var circle = ProcessShrinkingCircle(f);
-			var lerp = FPMath.Max(0, (f.Time - circle->ShrinkingStartTime) / circle->ShrinkingDurationTime);
-			var radius = FPMath.Lerp(circle->CurrentRadius, circle->TargetRadius, lerp);
-			var center = FPVector2.Lerp(circle->CurrentCircleCenter, circle->TargetCircleCenter, lerp);
-			radius *= radius;
+			circle->GetMovingCircle(f, out var center, out var radius);
 
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
@@ -34,7 +31,7 @@ namespace Quantum.Systems
 				var position = transform.Position;
 				var distance = (position.XZ - center).SqrMagnitude;
 
-				if (distance < radius)
+				if (distance < radius * radius)
 				{
 					RemoveShrinkingDamage(f, pair.Entity);
 				}
@@ -81,6 +78,7 @@ namespace Quantum.Systems
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
 			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
+			circle->Damage = config.MaxHealthDamage;
 
 			var randomR = f.RNG->NextInclusive(FP._0, circle->CurrentRadius - circle->TargetRadius);
 			circle->TargetCircleCenter +=
@@ -115,9 +113,10 @@ namespace Quantum.Systems
 
 			var newSpell = f.Create();
 			var circle = f.GetSingleton<ShrinkingCircle>();
+			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue * circle.Damage;
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
-			f.Add(newSpell, new Spell
+			var spell = new Spell
 			{
 				Id = Spell.ShrinkingCircleId,
 				Attacker = newSpell,
@@ -126,10 +125,11 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = f.GameConfig.ShrinkingDamage * (uint) circle.Step,
+				PowerAmount = (uint)damage,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
-			});
+			};
+			f.Add(newSpell, spell);
 		}
 
 		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)

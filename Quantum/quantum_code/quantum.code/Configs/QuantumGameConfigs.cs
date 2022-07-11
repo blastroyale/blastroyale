@@ -15,7 +15,6 @@ namespace Quantum
 		public FP PlayerForceRespawnTime;
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingDamageCooldown;
-		public uint ShrinkingDamage;
 		public QuantumGameModePair<int> PlayerDefaultHealth;
 		public QuantumGameModePair<FP> PlayerDefaultSpeed;
 		public QuantumGameModePair<int> PlayerMaxShieldCapacity;
@@ -25,7 +24,7 @@ namespace Quantum
 		public FP DeathSignificance;
 		public FP CoinsPerFragDeathRatio;
 		public FP XpPerFragDeathRatio;
-		public FP CollectableCollectTime;
+		public QuantumGameModePair<FP> CollectableCollectTime;
 		public FP PlayerAliveShieldDuration;
 		public uint EquipmentLevelToPowerK;
 		public uint EquipmentRarityToPowerK;

@@ -20,9 +20,14 @@ namespace Quantum.Systems
 			public PlayerCharacter* PlayerCharacter;
 			public NavMeshPathfinder* NavMeshAgent;
 		}
-
+		
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
+		{
+			InitializeBots(f, playerRef);
+		}
+
+		private void InitializeBots(Frame f, PlayerRef playerRef)
 		{
 			if (f.ComponentCount<BotCharacter>() > 0)
 			{
@@ -847,7 +852,13 @@ namespace Quantum.Systems
 
 				// Calculate bot trophies
 				var eloRange = f.GameConfig.TrophyEloRange;
-				var playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
+				var playerTrophies = (uint)1000;
+				
+				if (f.GetPlayerData(playerRef) != null)
+				{
+					playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
+				}
+				
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>(), Equipment.None);

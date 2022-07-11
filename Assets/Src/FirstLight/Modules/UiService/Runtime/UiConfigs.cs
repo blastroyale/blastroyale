@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // ReSharper disable CheckNamespace
 
@@ -24,11 +25,23 @@ namespace FirstLight.UiService
 	[CreateAssetMenu(fileName = "UiConfigs", menuName = "ScriptableObjects/Configs/UiConfigs")]
 	public class UiConfigs : ScriptableObject
 	{
+		[SerializeField] private string _loadingSpinnerType;
 		[SerializeField]
 		private List<UiConfigSerializable> _configs = new List<UiConfigSerializable>();
 		[SerializeField]
 		private List<UiSetConfigSerializable> _sets = new List<UiSetConfigSerializable>();
 
+		public Type LoadingSpinnerType
+		{
+			get => String.IsNullOrEmpty(_loadingSpinnerType)?null:Type.GetType(_loadingSpinnerType);
+			set => _loadingSpinnerType = value?.GetType().AssemblyQualifiedName;
+		}
+		
+		public string LoadingSpinnerTypeString
+		{
+			get => _loadingSpinnerType;
+			set => _loadingSpinnerType = value;
+		}
 		public List<UiConfig> Configs
 		{
 			get { return _configs.ConvertAll(element => (UiConfig) element); }

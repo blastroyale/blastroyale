@@ -83,8 +83,6 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
-		public static string DefaultPlayerName = "Player Name";
-		
 		private IObservableField<uint> _level;
 		private IObservableField<uint> _xp;
 		private IObservableField<GameId> _currentSkin;

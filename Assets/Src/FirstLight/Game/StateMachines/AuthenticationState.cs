@@ -409,9 +409,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LinkDeviceID();
 			}
-			
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-			
+
 			ProcessAuthentication(result);
 
 			_statechartTrigger(_loginCompletedEvent);

@@ -169,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasDefaultName()
 		{
-			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.Data.DEFAULT_PLAYER_NAME;
+			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.PlayerName.DEFAULT_PLAYER_NAME;
 		}
 
 		private void SubscribeEvents()
@@ -221,11 +221,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool EnoughNftToPlay()
 		{
-			if (FeatureFlags.NFT_REQ)
-			{
-				return _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
-			}
-			return true;
+			return _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter

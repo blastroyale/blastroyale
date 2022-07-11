@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 			// Just marking the default name to avoid missing names
 			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
 			{
-				_services.PlayfabService.UpdateNickname(PlayerLogic.DefaultPlayerName);
+				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
 		}
 

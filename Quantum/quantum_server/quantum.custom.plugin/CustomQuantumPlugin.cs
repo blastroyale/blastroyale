@@ -20,6 +20,7 @@ namespace Quantum
 
 		public override void OnCloseGame(ICloseGameCallInfo info)
 		{
+			
 			_server.Dispose();
 			base.OnCloseGame(info);
 		}

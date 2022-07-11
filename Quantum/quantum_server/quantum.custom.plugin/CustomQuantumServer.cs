@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data;
@@ -6,6 +6,9 @@ using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Deterministic.Protocol;
 using Photon.Deterministic.Server;
+using Photon.Hive.Plugin;
+using PlayFab.ServerModels;
+using quantum.custom.plugin;
 
 namespace Quantum
 {
@@ -18,11 +21,13 @@ namespace Quantum
 		private DeterministicSessionConfig _config;
 		private RuntimeConfig _runtimeConfig;
 		private readonly Dictionary<String, String> _photonConfig;
-		private readonly PlayfabService _playfab;
-
-		public CustomQuantumServer(Dictionary<String, String> photonConfig) {
+		private readonly PhotonPlayfabSDK _photonPlayfab;
+		private readonly Dictionary<string, SetPlayerData> _clientPlayerDataBytes;
+		
+		public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host) {
 			_photonConfig = photonConfig;
-			_playfab = new PlayfabService(photonConfig);
+			_photonPlayfab = new PhotonPlayfabSDK(photonConfig, host);
+			_clientPlayerDataBytes = new Dictionary<string, SetPlayerData>();
 		}
 
 		/// <summary>
@@ -39,13 +44,36 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Override method that will validate if a given input for the match is valid or not.
-		/// Will work with server-side data to ensure all match data sent by clients are valid.
+		/// Override method that will block adding any player data from to the relay stream by direct client input.
+		/// Will call external services via HTTP to validate if the client input is correct, and only after
+		/// verification it will add the RuntimePlayer serialized object to relay BitStream.
 		/// </summary>
 		public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client, SetPlayerData clientPlayerData)
 		{
 			var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
-			var playfabData = _playfab.GetProfileReadOnlyData(clientPlayer.PlayerId);
+			_clientPlayerDataBytes[clientPlayer.PlayerId] = clientPlayerData;
+			_photonPlayfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+			return false; // denies adding player data to the bitstream when client sends it
+		}
+
+		/// <summary>
+		/// Callback for receiving player data from playfab.
+		/// Will match the data sent from client 
+		/// </summary>
+		private void OnUserDataResponse(IHttpResponse response, object userState)
+		{
+			var playfabResponse = _photonPlayfab.HttpWrapper.DeserializePlayFabResponse<GetUserDataResult>(response);
+			var playfabData = playfabResponse.Data.ToDictionary(
+				entry => entry.Key,
+				entry => entry.Value.Value);
+			var playerId = response.Request.UserState as string;
+			if (playerId == null || !_clientPlayerDataBytes.TryGetValue(playerId, out var setPlayerData))
+			{
+				Log.Error($"Could not find set player data request for player {playerId}");
+				return;
+			}
+			_clientPlayerDataBytes.Remove(playerId);
+			var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
 			var playerNftData = ModelSerializer.DeserializeFromData<NftEquipmentData>(playfabData);
 			var serverHashes = playerNftData.Inventory.Values.Select(e => e.GetHashCode()).ToHashSet();
 			foreach (var clientEquip in clientPlayer.Loadout)
@@ -54,16 +82,18 @@ namespace Quantum
 				if (!serverHashes.Contains(clientEquiphash))
 				{
 					Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own");
-					return false;
-
+					return;
 				}
 			}
-			return true;
+			SetDeterministicPlayerData(setPlayerData);
 		}
 
+		/// <summary>
+		/// Called after a match ends
+		/// </summary>
 		public void Dispose()
 		{
-
+			_clientPlayerDataBytes.Clear();
 		}
 
 	}

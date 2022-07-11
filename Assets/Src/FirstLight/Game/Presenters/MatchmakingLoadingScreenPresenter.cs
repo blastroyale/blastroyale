@@ -128,8 +128,8 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(true);
 
 				_roomNameRootObject.SetActive(false);
-				StartCoroutine(TimeUpdateCoroutine(room.MaxPlayers));
-				UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
+				StartCoroutine(TimeUpdateCoroutine(room.GetRealPlayerCapacity()));
+				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
 			}
 			else
 			{

@@ -176,9 +176,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
-			_airDropArrow.gameObject.SetActive(true);
-			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
+
+			if (this != null)
+			{
+				_airDropArrow.gameObject.SetActive(true);
+				_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
+			}
 		}
 
 		private void OnAirDropCollected(EventOnAirDropCollected callback)

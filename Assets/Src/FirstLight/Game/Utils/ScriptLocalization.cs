@@ -21,6 +21,7 @@ namespace I2.Loc
 			public static string Deaths 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Deaths"); } }
 			public static string Dominating 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Dominating"); } }
 			public static string Double 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Double"); } }
+			public static string Empty 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Empty"); } }
 			public static string FirstToXKills 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FirstToXKills"); } }
 			public static string FraggedBy 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FraggedBy"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FreeSlot"); } }
@@ -836,6 +837,7 @@ namespace I2.Loc
 		    public const string Deaths = "AdventureMenu/Deaths";
 		    public const string Dominating = "AdventureMenu/Dominating";
 		    public const string Double = "AdventureMenu/Double";
+		    public const string Empty = "AdventureMenu/Empty";
 		    public const string FirstToXKills = "AdventureMenu/FirstToXKills";
 		    public const string FraggedBy = "AdventureMenu/FraggedBy";
 		    public const string FreeSlot = "AdventureMenu/FreeSlot";

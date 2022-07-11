@@ -1,4 +1,3 @@
-using System.Numerics;
 using DG.Tweening;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
@@ -15,6 +14,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class AirDropMonoComponent : EntityBase
 	{
+		private const int AIRPLANE_DISTANCE = 150;
+		
 		[SerializeField, Required] private Transform _itemRoot;
 		[SerializeField, Required] private GameObject _parachute;
 		[SerializeField, Required] private Transform _airplane;
@@ -26,7 +27,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
-			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 		}
 
 		private void OnAirDropStarted(EventOnAirDropStarted callback)
@@ -41,10 +41,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var airdropPosition = airDrop.Position.ToUnityVector3();
 			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
 
-			var distance = 150f;
-
-			var startingPosition = airdropPosition - airplaneDirection * distance + Vector3.up * 10f;
-			var targetPosition = airdropPosition + airplaneDirection * distance + Vector3.up * 10f;
+			var startingPosition = airdropPosition - airplaneDirection * AIRPLANE_DISTANCE + Vector3.up * 10f;
+			var targetPosition = airdropPosition + airplaneDirection * AIRPLANE_DISTANCE + Vector3.up * 10f;
 
 			_airplane.gameObject.SetActive(true);
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
@@ -65,13 +63,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			_landingPS.Play();
 			_landingAnim.Play();
-		}
-
-		private void OnAirDropCollected(EventOnAirDropCollected callback)
-		{
-			if (callback.Entity != EntityView.EntityRef) return;
-
-			// TODO ??
 		}
 
 		private void OnChestLoaded(GameId id, GameObject instance, bool instantiated)

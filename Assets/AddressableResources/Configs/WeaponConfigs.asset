@@ -87,7 +87,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 20
+      KnockbackAmount: 0
     - Id: 71
       InitialAmmoFilled:
         BattleRoyale:
@@ -242,7 +242,7 @@ MonoBehaviour:
       AimTime:
         RawValue: 26214
       AttackCooldown:
-        RawValue: 39322
+        RawValue: 52429
       AttackHitSpeed:
         RawValue: 589824
       MinAttackAngle: 10
@@ -332,7 +332,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 10
+      KnockbackAmount: 0
     - Id: 90
       InitialAmmoFilled:
         BattleRoyale:

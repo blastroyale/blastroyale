@@ -160,7 +160,7 @@ namespace Quantum
 				ChestType.Uncommon => -1,
 				ChestType.Rare => 0,
 				ChestType.Epic => 1,
-				ChestType.Legendary => 2,
+				ChestType.Legendary => 10,
 				_ => throw new ArgumentOutOfRangeException(nameof(ChestType), ChestType, null)
 			};
 		}

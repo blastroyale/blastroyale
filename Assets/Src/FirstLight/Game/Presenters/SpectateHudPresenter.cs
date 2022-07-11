@@ -5,6 +5,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.UiService;
+using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -83,9 +84,13 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveClicked()
 		{
-			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = Data.OnLeaveClicked};
-
-			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
+			GenericDialogButton button = new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = ()=> { Data.OnLeaveClicked(); }
+			};
+			
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.General.AreYouSure, true, button);
 		}
 
 		private void OnNextPlayerClicked()

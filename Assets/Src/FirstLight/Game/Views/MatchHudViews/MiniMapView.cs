@@ -172,16 +172,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnAirDropStarted(EventOnAirDropStarted callback)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || this.IsDestroyed())
 			{
 				return;
 			}
 
-			if (this != null)
-			{
-				_airDropArrow.gameObject.SetActive(true);
-				_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
-			}
+			_airDropArrow.gameObject.SetActive(true);
+			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
 		}
 
 		private void OnAirDropCollected(EventOnAirDropCollected callback)

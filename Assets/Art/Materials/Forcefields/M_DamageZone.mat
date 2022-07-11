@@ -70,9 +70,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - EdgeA: 0.75
-    - EdgeB: 1.83
-    - Vector1_682B89C5: -3.29
+    - EdgeA: -0.5
+    - EdgeB: 3
+    - Vector1_682B89C5: -3
     - Vector1_F0DE848C: 0
     - _QueueControl: 0
     - _QueueOffset: 0

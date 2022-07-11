@@ -1,4 +1,5 @@
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Messages
 {
@@ -15,8 +16,16 @@ namespace FirstLight.Game.Messages
 	public struct StartedFinalPreloadMessage : IMessage { }
 	public struct AssetReloadRequiredMessage : IMessage { }
 	public struct SpectateKillerMessage : IMessage { }
+
 	public struct SpectateNextPlayerMessage : IMessage { }
+
 	public struct SpectatePreviousPlayerMessage : IMessage { }
+
+	public struct SpectateTargetSwitchedMessage : IMessage
+	{
+		public PlayerRef PlayerFollowed;
+	}
+
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
 
 }

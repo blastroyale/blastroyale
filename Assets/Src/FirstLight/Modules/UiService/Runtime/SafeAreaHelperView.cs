@@ -28,10 +28,19 @@ namespace FirstLight.UiService
 
 		internal void OnValidate()
 		{
-			_rectTransform = _rectTransform ? _rectTransform : GetComponent<RectTransform>();
-			_refResolution = transform.root.GetComponent<CanvasScaler>().referenceResolution;
-			_initAnchoredPosition = _rectTransform.anchoredPosition;
-			_initSizeDelta = _rectTransform.sizeDelta;
+			try
+			{
+				_rectTransform = _rectTransform ? _rectTransform : GetComponent<RectTransform>();
+				_refResolution = transform.root.GetComponent<CanvasScaler>().referenceResolution;
+				_initAnchoredPosition = _rectTransform.anchoredPosition;
+				_initSizeDelta = _rectTransform.sizeDelta;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+			
 		}
 
 		private void Awake()

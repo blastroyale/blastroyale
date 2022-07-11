@@ -801,7 +801,6 @@ GameObject:
   - component: {fileID: 240111801155390489}
   - component: {fileID: 9032480330766668053}
   - component: {fileID: 6502740685030097562}
-  - component: {fileID: 7648628297475366594}
   m_Layer: 5
   m_Name: KillFeedHolder
   m_TagString: Untagged
@@ -877,21 +876,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _killTrackerRef: {fileID: 2489853285173327543}
---- !u!114 &7648628297475366594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8822493407366911246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f73acb0d58d4450c8ad2dbc043e13be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _checkAreaBounds: 0
-  _rectTransform: {fileID: 7719122369810123776}
-  _ignoreHeight: 0
-  _ignoreWidth: 0
-  _onUpdate: 0
-  _refResolution: {x: 1334, y: 750}

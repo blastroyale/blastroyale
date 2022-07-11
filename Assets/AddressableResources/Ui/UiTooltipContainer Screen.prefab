@@ -212,7 +212,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130999
 --- !u!114 &7243191907527829741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,8 +266,8 @@ MonoBehaviour:
   _animator: {fileID: 3499038254311660803}
   _tooltipText: {fileID: 5975365927925905890}
   _tooltipArrow: {fileID: 3657509902464306503}
-  _arrowYOffset: 8
   _canvasGroup: {fileID: 3657717557327338983}
+  _arrowYOffset: 8
 --- !u!1001 &3593118889836542019
 PrefabInstance:
   m_ObjectHideFlags: 0

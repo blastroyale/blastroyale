@@ -128,8 +128,8 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(true);
 
 				_roomNameRootObject.SetActive(false);
-				StartCoroutine(TimeUpdateCoroutine(room.MaxPlayers));
-				UpdatePlayersWaitingImages(room.MaxPlayers, room.PlayerCount);
+				StartCoroutine(TimeUpdateCoroutine(room.GetRealPlayerCapacity()));
+				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
 			}
 			else
 			{
@@ -163,17 +163,18 @@ namespace FirstLight.Game.Presenters
 				_loadingText.SetActive(false);
 				_leaveRoomButton.gameObject.SetActive(true);
 			}
-
-			var status = ScriptLocalization.AdventureMenu.ReadyStatusReady;
-
+			
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom &&
 			    _services.NetworkService.QuantumClient.CurrentRoom.IsOpen)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(true);
 			}
-			
-			_spectateToggleObjectRoot.SetActive(true);
+
+			if (!IsMatchmakingRoom)
+			{
+				_spectateToggleObjectRoot.SetActive(true);
+			}
 
 			AddOrUpdatePlayerInList(_services.NetworkService.QuantumClient.LocalPlayer);
 

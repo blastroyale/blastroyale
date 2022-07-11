@@ -30,9 +30,10 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameDataProvider _gameDataProvider;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
-		private EntityView _followedPlayerView;
 
-		private EntityRef _followedPlayer;
+		private EntityView _followedPlayerView;
+		private EntityRef _followedPlayerEntity;
+		private PlayerRef _followedPlayerRef;
 		private EntityRef _leaderPlayer;
 
 		private Transform _targetTransform;
@@ -79,11 +80,12 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetFollowedPlayerRef(EntityRef spectatingPlayer)
 		{
-			_followedPlayer = spectatingPlayer;
-			_followedPlayerView = _entityViewUpdaterService.GetManualView(_followedPlayer);
+			_followedPlayerEntity = spectatingPlayer;
+			_followedPlayerView = _entityViewUpdaterService.GetManualView(_followedPlayerEntity);
+			_followedPlayerRef = GetPlayerFromEntity(QuantumRunner.Default.Game.Frames.Verified, _followedPlayerEntity);
 		}
 
-		private void OnSpectatePreviousPlayerMessage(SpectatePreviousPlayerMessage obj)
+		private void OnSpectatePreviousPlayerMessage(SpectatePreviousPlayerMessage msg)
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
@@ -95,7 +97,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
 		}
 
-		private void OnSpectateNextPlayerMessage(SpectateNextPlayerMessage obj)
+		private void OnSpectateNextPlayerMessage(SpectateNextPlayerMessage msg)
 		{
 			SpectateNextPlayer();
 		}
@@ -144,7 +146,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return;
 			}
-			
+
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
@@ -152,7 +154,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			SetActiveCamera(_adventureCamera);
 			ResetLeaderAndKiller(f);
-			
+
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				_spectating = true;
@@ -176,7 +178,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetTargetTransform(_followedPlayerView.transform);
 			}
 		}
-		
+
 		private void ResetLeaderAndKiller(Frame f)
 		{
 			var game = QuantumRunner.Default.Game;
@@ -206,7 +208,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
-			SetTargetTransform(_followedPlayerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
+			SetTargetTransform(_followedPlayerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>()
+			                                      .RootTransform);
 			SetFollowedPlayerRef(callback.EntityKiller);
 		}
 
@@ -214,7 +217,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_leaderPlayer = callback.EntityLeader;
 
-			if (callback.EntityDead == _followedPlayer && 
+			if (callback.EntityDead == _followedPlayerEntity &&
 			    _gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.Deathmatch)
 			{
 				SetFollowedPlayerRef(callback.EntityKiller);
@@ -232,25 +235,25 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetActiveCamera(_adventureCamera);
 			}
 		}
-		
+
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
 			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
-			
+
 			ResetLeaderAndKiller(callback.Game.Frames.Verified);
 			SetActiveCamera(_adventureCamera);
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 			SpectateNextPlayer();
 		}
-		
+
 		private void OnSpectateKillerMessage(SpectateKillerMessage message)
 		{
 			OnSpectate();
 		}
-		
+
 		private void OnSpectate()
 		{
 			_spectating = true;
@@ -261,7 +264,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_spectating)
 			{
-				if(TryGetNextPlayerView(f, out var entityView))
+				if (TryGetNextPlayerView(f, out var entityView))
 				{
 					SetTargetTransform(entityView.transform);
 				}
@@ -270,9 +273,9 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private bool TryGetNextPlayerView(Frame f, out EntityView entity)
 		{
-			if (f.Exists(_followedPlayer))
+			if (f.Exists(_followedPlayerEntity))
 			{
-				entity = _entityViewUpdaterService.GetManualView(_followedPlayer);
+				entity = _entityViewUpdaterService.GetManualView(_followedPlayerEntity);
 				return true;
 			}
 			else if (_leaderPlayer.IsValid)
@@ -313,6 +316,14 @@ namespace FirstLight.Game.MonoComponent.Match
 				cam.LookAt = entityViewTransform;
 				cam.Follow = entityViewTransform;
 			}
+
+			if (_followedPlayerRef != PlayerRef.None)
+			{
+				_services.MessageBrokerService.Publish(new SpectateTargetSwitchedMessage()
+				{
+					PlayerFollowed = _followedPlayerRef
+				});
+			}
 		}
 
 		private void SetAudioListenerTransform(Transform t, Vector3 pos, Quaternion rot)
@@ -338,13 +349,32 @@ namespace FirstLight.Game.MonoComponent.Match
 					players.Add(data.Entity);
 				}
 
-				if (_followedPlayer == data.Entity)
+				if (_followedPlayerEntity == data.Entity)
 				{
 					currentIndex = players.Count - 1;
 				}
 			}
 
 			return players;
+		}
+
+		public PlayerRef GetPlayerFromEntity(Frame f, EntityRef entity)
+		{
+			var players = new List<EntityRef>();
+			var container = f.GetSingleton<GameContainer>();
+			var playersData = container.PlayersData;
+
+			for (int i = 0; i < playersData.Length; i++)
+			{
+				var data = playersData[i];
+
+				if (_followedPlayerEntity == data.Entity)
+				{
+					return i;
+				}
+			}
+
+			return -1;
 		}
 	}
 }

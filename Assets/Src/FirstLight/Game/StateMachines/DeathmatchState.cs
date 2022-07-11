@@ -57,7 +57,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			
 			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
-			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
+			spectateCheck.Transition().Target(resyncCheck);
 			
 			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
@@ -68,7 +68,8 @@ namespace FirstLight.Game.StateMachines
 
 			countdown.OnEnter(ShowCountdownHud);
 			countdown.WaitingFor(Countdown).Target(alive);
-			
+
+			alive.OnEnter(OpenMatchHud);
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(dead);
 			alive.OnExit(CloseControlsHud);

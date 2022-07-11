@@ -83,7 +83,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveClicked()
 		{
-			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = OnLeaveClicked};
+			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = Data.OnLeaveClicked};
 
 			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
 		}

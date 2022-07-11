@@ -59,7 +59,7 @@ namespace FirstLight.Game.Presenters
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
-			
+
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
@@ -67,6 +67,10 @@ namespace FirstLight.Game.Presenters
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
 			_faq.onClick.AddListener(OnFaqButtonPressed);
+
+#if UNITY_IOS
+			_faq.gameObject.SetActive(false);
+#endif
 		}
 		
 		/// <inheritdoc />

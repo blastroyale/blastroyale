@@ -520,7 +520,7 @@ RectTransform:
   - {fileID: 5440086929070938068}
   - {fileID: 2812588505734810542}
   m_Father: {fileID: 4627227877818895305}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1939,11 +1939,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7227992016937888049}
-  - {fileID: 4319683294776734569}
   - {fileID: 3004662912550313838}
   - {fileID: 8198651173539174183}
   - {fileID: 6605741634665117372}
   - {fileID: 6336130037878780064}
+  - {fileID: 4319683294776734569}
   - {fileID: 6438945109200331679}
   m_Father: {fileID: 3562240860520733328}
   m_RootOrder: 0
@@ -2634,7 +2634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4319683294776734569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2650,12 +2650,12 @@ RectTransform:
   - {fileID: 6104290060101556208}
   - {fileID: 3447885176404728574}
   m_Father: {fileID: 4627227877818895305}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -101.1}
-  m_SizeDelta: {x: 500, y: 101.1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1077781657126223957
 CanvasRenderer:
@@ -4210,7 +4210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4359,7 +4359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4509,7 +4509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_AnchorMax.x

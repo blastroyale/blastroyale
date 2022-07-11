@@ -11,7 +11,7 @@ using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
-using I2.Loc;
+using I2.Loc; 
 using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;

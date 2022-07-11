@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventGameEnd);
-			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
+			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 		}
 
 		/// <summary>
@@ -111,9 +111,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 		
-		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
-			// TODO mihak: Add proper localization if this stays here
 			var messageData = new MessageData
 			{
 				TopText = ScriptLocalization.AdventureMenu.AirDropIncomingLine1,

@@ -106,7 +106,7 @@ namespace Quantum.Systems
 
 		private void AddShrinkingDamage(Frame f, EntityRef playerEntity, FPVector3 position)
 		{
-			if (TryGetSpellEntity(f, playerEntity, false, out _, out _))
+			if (TryGetSpellEntity(f, playerEntity, false, out _))
 			{
 				return;
 			}
@@ -130,24 +130,21 @@ namespace Quantum.Systems
 				Victim = playerEntity
 			};
 			f.Add(newSpell, spell);
-			f.Events.OnSpellAdded(newSpell, spell);
 		}
 
 		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)
 		{
-			if (TryGetSpellEntity(f, playerEntity, true, out var spellEntity, out var spell))
+			if (TryGetSpellEntity(f, playerEntity, true, out var spellEntity))
 			{
 				f.Destroy(spellEntity);
-				f.Events.OnSpellRemoved(spellEntity, spell);
 			}
 		}
 
-		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity, out Spell spellOut)
+		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity)
 		{
 			var spellList = f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects);
 
 			spellEntity = EntityRef.None;
-			spellOut = new Spell();
 
 			for (var i = spellList.Count - 1; i > -1; --i)
 			{
@@ -164,8 +161,7 @@ namespace Quantum.Systems
 				}
 
 				spellEntity = spellList[i];
-				spellOut = spell;
-				
+
 				if (removeIfFound)
 				{
 					spellList.RemoveAt(i);

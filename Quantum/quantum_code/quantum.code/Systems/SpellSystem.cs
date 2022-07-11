@@ -5,7 +5,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Spell"/>
 	/// </summary>
-	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>
+	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalOnComponentAdded<Spell>, ISignalOnComponentRemoved<Spell>
 	{
 		public struct SpellFilter
 		{
@@ -67,6 +67,16 @@ namespace Quantum.Systems
 			{
 				stats->ReduceHealth(f, spell);
 			}
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, Spell* component)
+		{
+			f.Events.OnSpellAdded(entity, *component);
+		}
+
+		public void OnRemoved(Frame f, EntityRef entity, Spell* component)
+		{
+			f.Events.OnSpellRemoved(entity, *component);
 		}
 	}
 }

@@ -30,15 +30,20 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameDataProvider _gameDataProvider;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
-		private EntityView _playerView;
+		private EntityView _followedPlayerView;
 
-		private EntityRef _spectatingPlayer;
-		private EntityRef _leader;
+		private EntityRef _followedPlayer;
+		private EntityRef _leaderPlayer;
 
 		private Transform _targetTransform;
 
 		private bool _spectating;
 		private FP _visionRangeRadius;
+
+		/// <summary>
+		/// EntityView for the player that the camera is currently following
+		/// </summary>
+		public EntityView FollowedPlayerView => _followedPlayerView;
 
 		private void Awake()
 		{
@@ -72,12 +77,18 @@ namespace FirstLight.Game.MonoComponent.Match
 			gameObject.SetActive(false);
 		}
 
+		private void SetFollowedPlayerRef(EntityRef spectatingPlayer)
+		{
+			_followedPlayer = spectatingPlayer;
+			_followedPlayerView = _entityViewUpdaterService.GetManualView(_followedPlayer);
+		}
+
 		private void OnSpectatePreviousPlayerMessage(SpectatePreviousPlayerMessage obj)
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
 
-			_spectatingPlayer = players[currentIndex - 1 >= 0 ? currentIndex - 1 : players.Count - 1];
+			SetFollowedPlayerRef(players[currentIndex - 1 >= 0 ? currentIndex - 1 : players.Count - 1]);
 			RefreshSpectator(frame);
 
 			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
@@ -94,7 +105,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
 
-			_spectatingPlayer = players[currentIndex + 1 < players.Count ? currentIndex + 1 : 0];
+			SetFollowedPlayerRef(players[currentIndex + 1 < players.Count ? currentIndex + 1 : 0]);
 			RefreshSpectator(frame);
 
 			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
@@ -160,10 +171,9 @@ namespace FirstLight.Game.MonoComponent.Match
 					return;
 				}
 
-				_playerView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-				
-				SetAudioListenerTransform(_playerView.transform, Vector3.up, Quaternion.identity);
-				SetTargetTransform(_playerView.transform);
+				SetFollowedPlayerRef(localPlayer.Entity);
+				SetAudioListenerTransform(_followedPlayerView.transform, Vector3.up, Quaternion.identity);
+				SetTargetTransform(_followedPlayerView.transform);
 			}
 		}
 		
@@ -175,7 +185,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			gameContainer.GetPlayersMatchData(game.Frames.Verified, out PlayerRef leader);
 			var leaderPlayer = playersData[leader];
 
-			_leader = leaderPlayer.Entity;
+			_leaderPlayer = leaderPlayer.Entity;
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -196,27 +206,26 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
-			SetTargetTransform(_playerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
-
-			_spectatingPlayer = callback.EntityKiller;
+			SetTargetTransform(_followedPlayerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
+			SetFollowedPlayerRef(callback.EntityKiller);
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			_leader = callback.EntityLeader;
+			_leaderPlayer = callback.EntityLeader;
 
-			if (callback.EntityDead == _spectatingPlayer && 
+			if (callback.EntityDead == _followedPlayer && 
 			    _gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.Deathmatch)
 			{
-				_spectatingPlayer = callback.EntityKiller;
+				SetFollowedPlayerRef(callback.EntityKiller);
 				RefreshSpectator(callback.Game.Frames.Verified);
 			}
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			_playerView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			SetTargetTransform(_playerView.transform);
+			SetFollowedPlayerRef(callback.Entity);
+			SetTargetTransform(_followedPlayerView.transform);
 
 			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
 			{
@@ -232,7 +241,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			
 			ResetLeaderAndKiller(callback.Game.Frames.Verified);
-			
 			SetActiveCamera(_adventureCamera);
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 			SpectateNextPlayer();
@@ -262,14 +270,14 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private bool TryGetNextPlayerView(Frame f, out EntityView entity)
 		{
-			if (f.Exists(_spectatingPlayer))
+			if (f.Exists(_followedPlayer))
 			{
-				entity = _entityViewUpdaterService.GetManualView(_spectatingPlayer);
+				entity = _entityViewUpdaterService.GetManualView(_followedPlayer);
 				return true;
 			}
-			else if (_leader.IsValid)
+			else if (_leaderPlayer.IsValid)
 			{
-				entity = _entityViewUpdaterService.GetManualView(_leader);
+				entity = _entityViewUpdaterService.GetManualView(_leaderPlayer);
 				return true;
 			}
 
@@ -330,7 +338,7 @@ namespace FirstLight.Game.MonoComponent.Match
 					players.Add(data.Entity);
 				}
 
-				if (_spectatingPlayer == data.Entity)
+				if (_followedPlayer == data.Entity)
 				{
 					currentIndex = players.Count - 1;
 				}

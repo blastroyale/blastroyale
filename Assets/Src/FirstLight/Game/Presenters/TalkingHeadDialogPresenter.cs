@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
-			_closeButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(() => Close());
 		}
 
 		/// <summary>

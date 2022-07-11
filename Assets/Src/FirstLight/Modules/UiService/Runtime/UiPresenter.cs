@@ -37,9 +37,17 @@ namespace FirstLight.UiService
 		/// <summary>
 		/// Allows the ui presenter implementation to directly close the ui presenter without needing to call the service directly
 		/// </summary>
+		protected virtual void Close(bool destroy = true)
+		{
+			_uiService.CloseUi(this, false, destroy);
+		}
+		
+		/// <summary>
+		/// Allows the ui presenter implementation to directly close the ui presenter without needing to call the service directly
+		/// </summary>
 		protected virtual void Close()
 		{
-			_uiService.CloseUi(this, false, true);
+			Close(true);
 		}
 		
 		internal void Init(IUiService uiService)

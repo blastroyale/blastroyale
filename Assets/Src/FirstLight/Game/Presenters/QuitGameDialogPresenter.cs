@@ -22,13 +22,18 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_confirmButton.onClick.AddListener(OnConfirmClicked);
-			_cancelButton.onClick.AddListener(Close);
-			_blockerButton.onClick.AddListener(Close);
+			_cancelButton.onClick.AddListener(CloseRequested);
+			_blockerButton.onClick.AddListener(CloseRequested);
+		}
+
+		private void CloseRequested()
+		{
+			Close(false);
 		}
 
 		private void OnConfirmClicked()
 		{
-			Close();
+			Close(false);
 
 			Data.ConfirmClicked();
 		}

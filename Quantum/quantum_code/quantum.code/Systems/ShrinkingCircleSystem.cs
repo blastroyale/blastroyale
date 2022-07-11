@@ -116,7 +116,7 @@ namespace Quantum.Systems
 			var damage = f.Get<Stats>(playerEntity).GetStatData(StatType.Health).StatValue * circle.Damage;
 
 			f.ResolveList(f.Unsafe.GetPointer<Stats>(playerEntity)->SpellEffects).Add(newSpell);
-			f.Add(newSpell, new Spell
+			var spell = new Spell
 			{
 				Id = Spell.ShrinkingCircleId,
 				Attacker = newSpell,
@@ -128,7 +128,8 @@ namespace Quantum.Systems
 				PowerAmount = (uint)damage,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
-			});
+			};
+			f.Add(newSpell, spell);
 		}
 
 		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)

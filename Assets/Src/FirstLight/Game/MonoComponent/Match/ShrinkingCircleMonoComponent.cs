@@ -24,36 +24,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleGameEnded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
-			QuantumEvent.Subscribe<EventOnSpellAdded>(this, OnSpellAdded);
-			QuantumEvent.Subscribe<EventOnSpellRemoved>(this, OnSpellRemoved);
-		}
-
-		private void OnSpellRemoved(EventOnSpellRemoved callback)
-		{
-			if (!IsLocalPlayerCircleEvent(callback.Spell, callback.Game))
-			{
-				return;
-			}
-
-			// Turn off red circle visuals
-		}
-
-		private void OnSpellAdded(EventOnSpellAdded callback)
-		{
-			if (!IsLocalPlayerCircleEvent(callback.Spell, callback.Game))
-			{
-				return;
-			}
-
-			// Turn off red circle visuals
-		}
-		
-		private static bool IsLocalPlayerCircleEvent(Spell spell, QuantumGame game)
-		{
-			var f = game.Frames.Verified;
-			return spell.Id == Spell.ShrinkingCircleId &&
-			       f.TryGet<PlayerCharacter>(spell.Victim, out var player) &&
-			       game.PlayerIsLocal(player.Player);;
 		}
 
 		private void HandleGameEnded(EventOnGameEnded callback)

@@ -11,6 +11,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -25,6 +26,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
 		[SerializeField] private CinemachineVirtualCamera[] _spectateCameras;
+		[SerializeField] private Volume _circleDamageZoneVolume;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -70,6 +72,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnSpellAdded>(this, OnSpellAdded);
+			QuantumEvent.Subscribe<EventOnSpellRemoved>(this, OnSpellRemoved);
 
 			_localInput.Enable();
 			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectateKillerMessage);
@@ -255,6 +259,32 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_spectating = true;
 			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
+		}
+		
+		private void OnSpellRemoved(EventOnSpellRemoved callback)
+		{
+			if (_circleDamageZoneVolume == null || !IsFollowedPlayerCircleEvent(callback.Spell))
+			{
+				return;
+			}
+
+			_circleDamageZoneVolume.gameObject.SetActive(false);
+		}
+
+		private void OnSpellAdded(EventOnSpellAdded callback)
+		{
+			if (_circleDamageZoneVolume == null || !IsFollowedPlayerCircleEvent(callback.Spell))
+			{
+				return;
+			}
+
+			_circleDamageZoneVolume.gameObject.SetActive(true);
+		}
+		
+		private bool IsFollowedPlayerCircleEvent(Spell spell)
+		{
+			return spell.Id == Spell.ShrinkingCircleId &&
+			       spell.Victim == _followedPlayer;
 		}
 
 		private void RefreshSpectator(Frame f)

@@ -77,7 +77,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			gameObject.SetActive(false);
 		}
 
-		private void SetSpectatingPlayerRef(EntityRef spectatingPlayer)
+		private void SetFollowedPlayerRef(EntityRef spectatingPlayer)
 		{
 			_followedPlayer = spectatingPlayer;
 			_followedPlayerView = _entityViewUpdaterService.GetManualView(_followedPlayer);
@@ -88,7 +88,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
 
-			SetSpectatingPlayerRef(players[currentIndex - 1 >= 0 ? currentIndex - 1 : players.Count - 1]);
+			SetFollowedPlayerRef(players[currentIndex - 1 >= 0 ? currentIndex - 1 : players.Count - 1]);
 			RefreshSpectator(frame);
 
 			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
@@ -105,7 +105,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
 
-			SetSpectatingPlayerRef(players[currentIndex + 1 < players.Count ? currentIndex + 1 : 0]);
+			SetFollowedPlayerRef(players[currentIndex + 1 < players.Count ? currentIndex + 1 : 0]);
 			RefreshSpectator(frame);
 
 			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
@@ -171,7 +171,7 @@ namespace FirstLight.Game.MonoComponent.Match
 					return;
 				}
 
-				SetSpectatingPlayerRef(localPlayer.Entity);
+				SetFollowedPlayerRef(localPlayer.Entity);
 				SetAudioListenerTransform(_followedPlayerView.transform, Vector3.up, Quaternion.identity);
 				SetTargetTransform(_followedPlayerView.transform);
 			}
@@ -207,7 +207,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 			SetTargetTransform(_followedPlayerView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform);
-			SetSpectatingPlayerRef(callback.EntityKiller);
+			SetFollowedPlayerRef(callback.EntityKiller);
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -217,14 +217,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (callback.EntityDead == _followedPlayer && 
 			    _gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.Deathmatch)
 			{
-				SetSpectatingPlayerRef(callback.EntityKiller);
+				SetFollowedPlayerRef(callback.EntityKiller);
 				RefreshSpectator(callback.Game.Frames.Verified);
 			}
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			SetSpectatingPlayerRef(callback.Entity);
+			SetFollowedPlayerRef(callback.Entity);
 			SetTargetTransform(_followedPlayerView.transform);
 
 			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)

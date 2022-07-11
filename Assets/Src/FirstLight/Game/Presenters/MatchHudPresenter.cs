@@ -54,7 +54,6 @@ namespace FirstLight.Game.Presenters
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
-			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_mapTimerView.gameObject.SetActive(false);

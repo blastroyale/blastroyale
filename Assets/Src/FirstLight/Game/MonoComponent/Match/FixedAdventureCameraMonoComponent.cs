@@ -238,7 +238,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			// Spectator mode - set new player to follow, only once
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && _followedPlayerRef != PlayerRef.None)
 			{
 				return;
 			}

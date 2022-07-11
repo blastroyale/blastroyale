@@ -11,6 +11,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -255,6 +256,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_spectating = true;
 			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
+		}
+
+		private bool IsFollowedPlayerCircleEvent(Spell spell)
+		{
+			return spell.Id == Spell.ShrinkingCircleId &&
+			       spell.Victim == _followedPlayer;
 		}
 
 		private void RefreshSpectator(Frame f)

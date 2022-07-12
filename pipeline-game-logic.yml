@@ -21,7 +21,7 @@ jobs:
     workingDirectory: Backend
     displayName: 'Dotnet Build'
 
-  - script: dotnet test
+  - script: dotnet test TestUnit/TestUnit.csproj
     workingDirectory: Backend
     displayName: 'Dotnet Test'
 

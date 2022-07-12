@@ -26,11 +26,7 @@ public class TestNftSyncPlugin
 	public void Setup()
 	{
 		_app = new TestServer();
-		_app.UpdateDependencies(services =>
-		{
-			services.RemoveAll(typeof(IServerStateService));
-			services.AddSingleton<IServerStateService, InMemoryPlayerState>();
-		});
+		_app.SetupInMemoryServer();
 		var log = _app.GetService<ILogger>();
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);

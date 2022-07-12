@@ -24,7 +24,7 @@ public class TestConfigsProvider
 	}
 	
 	/// <summary>
-	/// Tests the current data in server is serializable as configuration.
+	/// TestUnit the current data in server is serializable as configuration.
 	/// </summary>
 	[Test]
 	public void TestCurrentDevData()

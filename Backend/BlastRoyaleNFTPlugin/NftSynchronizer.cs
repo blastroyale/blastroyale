@@ -174,7 +174,7 @@ public class NftSynchronizer
 	    object? gameId;
 	    try
 	    {
-		    gameId = nft.subCategory;
+		    gameId = (GameId)nft.subCategory;
 	    }
 	    catch (Exception e)
 	    {

@@ -76,7 +76,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
-			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
+			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 
 			_safeAreaRing.gameObject.SetActive(false);
@@ -170,7 +170,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
 		}
 
-		private void OnAirDropStarted(EventOnAirDropStarted callback)
+		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || this.IsDestroyed())
 			{

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: 
-  DevAccountToken: 
-  SelectedStudio: 
-  SdkPath: 
-  EdExPath: 
+  DevAccountEmail: admin@firstlight.games
+  DevAccountToken: ***REMOVED***
+  SelectedStudio: First Light Games
+  SdkPath: Assets/Libs/PlayFabSDK
+  EdExPath: Assets/PlayFabEditorExtensions
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 0
+  curMainMenuIdx: 1
   curSubMenuIdx: 0

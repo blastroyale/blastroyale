@@ -51,7 +51,7 @@ namespace FirstLight.Game.Presenters
 			Close(true);
 		}
 		
-		protected override void Close(bool destroy = default)
+		protected override void Close(bool destroy)
 		{
 			Data.CloseClicked.Invoke();
 		}

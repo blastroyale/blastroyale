@@ -153,19 +153,6 @@ namespace Quantum
 			equipment.Rarity = (EquipmentRarity) chosenRarity;
 		}
 
-/*		private int GetChestRarityModifier()
-		{
-			return ChestType switch
-			{
-				ChestType.Common => -2,
-				ChestType.Uncommon => -1,
-				ChestType.Rare => 0,
-				ChestType.Epic => 1,
-				ChestType.Legendary => 2,
-				_ => throw new ArgumentOutOfRangeException(nameof(ChestType), ChestType, null)
-			};
-		}*/
-
 		private Equipment GetNextLoadoutGearItem(Frame f, PlayerCharacter* playerCharacter, Equipment[] loadout)
 		{
 			var flags = playerCharacter->DroppedLoadoutFlags;

@@ -239,10 +239,10 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
-
-			// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
+			
 			if (_networkService.IsJoiningNewMatch.Value)
 			{
+				// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
 				var isSpectator = (bool) _networkService.QuantumClient.LocalPlayer.CustomProperties
 						[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 
@@ -256,6 +256,11 @@ namespace FirstLight.Game.StateMachines
 				{
 					SetSpectatePlayerProperty(false);
 				}
+
+				// Set the game mode to match the map of the room (can't be set earlier if joining rooms in custom games)
+				int mapId = (int) _networkService.QuantumClient.CurrentRoom.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
+				QuantumMapConfig mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
+				_gameDataProvider.AppDataProvider.SelectedGameMode.Value = mapConfig.GameMode;
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -456,8 +461,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewMatch.Value = true;
 				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
@@ -473,8 +478,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewMatch.Value = true;
 				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
@@ -491,8 +496,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewMatch.Value = true;
 				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpCreateRoom(enterParams);
 			}

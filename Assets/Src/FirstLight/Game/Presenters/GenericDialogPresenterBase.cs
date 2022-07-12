@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 
 		protected virtual void OnAwake() { }
 
-		protected override void Close(bool destroy = true)
+		protected override void Close(bool destroy = default)
 		{
 			if (IsOpenedComplete)
 			{

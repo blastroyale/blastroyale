@@ -112,7 +112,7 @@ namespace FirstLight.Game.Presenters
 			_statSpecialInfoViewPool = new GameObjectPool<EquipmentStatSpecialInfoView>(1, _specialStatInfoViewPoolRef);
 			_showNotifications = new List<UniqueId>();
 
-			_closeButton.onClick.AddListener(() => Close());
+			_closeButton.onClick.AddListener(() => Close(true));
 			_equipUnequipButton.onClick.AddListener(OnEquipButtonClicked);
 			_statInfoViewPoolRef.gameObject.SetActive(false);
 			_specialStatInfoViewPoolRef.gameObject.SetActive(false);

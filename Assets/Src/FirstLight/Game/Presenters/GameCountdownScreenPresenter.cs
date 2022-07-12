@@ -35,7 +35,7 @@ namespace FirstLight.Game.Presenters
 
 			_firstToXKillsText.text =  string.Format(ScriptLocalization.AdventureMenu.FirstToXKills, mapConfig.GameEndTarget.ToString());
 			
-			this.LateCoroutineCall(_animation.clip.length, ()=>Close());
+			this.LateCoroutineCall(_animation.clip.length, ()=>Close(true));
 		}
 	}
 }

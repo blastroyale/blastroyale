@@ -18,7 +18,6 @@ namespace Quantum
 
 			Id = config.Id;
 			ChestType = config.ChestType;
-			RarityMod = f.RNG->NextInclusive(config.RarityModifierRange.Value1, config.RarityModifierRange.Value2);
 
 			transform->Position = position;
 			transform->Rotation = rotation;
@@ -142,7 +141,8 @@ namespace Quantum
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,
 		                                   EquipmentRarity medianRarity)
 		{
-			var chestRarityModifier = RarityMod;
+			var config = f.ChestConfigs.GetConfig(Id);
+			var chestRarityModifier = f.RNG->NextInclusive(config.RarityModifierRange.Value1, config.RarityModifierRange.Value2);
 			var medianModifier = f.RNG->NextInclusive(-1, 1);
 			var medianRarityInt = (int) medianRarity;
 

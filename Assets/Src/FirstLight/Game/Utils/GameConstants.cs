@@ -65,10 +65,17 @@ namespace FirstLight.Game.Utils
 		{
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
-			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
+			
+			// Player properties
+			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
+			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
+			// are used to signal at which point in the loading flow the player is currently during matchmaking screen.
 			public const string PLAYER_PROPS_CORE_LOADED = "propsCoreLoaded";
 			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
+			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
+
+			// Room properties
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";

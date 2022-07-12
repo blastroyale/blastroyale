@@ -13,7 +13,7 @@ namespace FirstLight.Game.Views.MapViews
 	/// <remarks>
 	/// Responsible of hiding the top of a building when a player enters it
 	/// </remarks>
-	public class BuildingTopRemovalView : MonoBehaviour
+	public class BuildingTopRemovalViewMonoComponent : MonoBehaviour
 	{
 		private static readonly int _topAnimatorPlayerInsideParamNameHash = Animator.StringToHash("PlayerInside");
 			

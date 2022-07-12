@@ -320,7 +320,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				_services.MessageBrokerService.Publish(new SpectateTargetSwitchedMessage()
 				{
-					PlayerFollowed = playerRef
+					EntitySpectated = _followedPlayerEntity,
+					PlayerSpectated = playerRef
 				});
 			}
 		}

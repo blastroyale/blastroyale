@@ -170,7 +170,8 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
-			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 		}
@@ -330,7 +331,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
 				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
 
@@ -424,11 +425,21 @@ namespace FirstLight.Game.StateMachines
 			JoinRoom(msg.RoomName);
 		}
 		
-		private void OnMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.Network.PLAYER_PROPS_LOADED, true }
+				{ GameConstants.Network.PLAYER_PROPS_CORE_LOADED, true }
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+		}
+		
+		private void OnAllMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{ GameConstants.Network.PLAYER_PROPS_ALL_LOADED, true }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -438,7 +449,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.Network.PLAYER_PROPS_LOADED, false }
+				{ GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false },
+				{ GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -566,7 +578,8 @@ namespace FirstLight.Game.StateMachines
 			var playerProps = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.Network.PLAYER_PROPS_LOADED, false},
+				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
+				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false}
 			};
 			

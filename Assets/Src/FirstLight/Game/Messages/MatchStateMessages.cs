@@ -23,7 +23,8 @@ namespace FirstLight.Game.Messages
 
 	public struct SpectateTargetSwitchedMessage : IMessage
 	{
-		public PlayerRef PlayerFollowed;
+		public EntityRef EntitySpectated;
+		public PlayerRef PlayerSpectated;
 	}
 
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }

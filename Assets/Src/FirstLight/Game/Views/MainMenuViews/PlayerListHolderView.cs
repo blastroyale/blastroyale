@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -26,34 +27,51 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
-		
-		public uint MaxPlayersForList { get; private set; }
+		private bool _finalPreload = false;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
-		
+
+		/// <summary>
+		/// Initialises the player list with <paramref name="playerLimit"/> amount of player slots
+		/// </summary>
 		public void Init(uint playerLimit)
 		{
+			_finalPreload = false;
+
 			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
 			{
 				_playerNamePool.DespawnAll();
 				_activePlayerEntries.Clear();
 			}
 
-			MaxPlayersForList = playerLimit;
 			_playerNamePool = new GameObjectPool<PlayerNameEntryView>(playerLimit, _nameEntryViewRef);
-			
+
 			for (var i = 0; i < playerLimit; i++)
 			{
 				var newEntry = _playerNamePool.Spawn();
 				_activePlayerEntries.Add(newEntry);
 				newEntry.SetInfo(null, false, false, false);
 			}
-			
+
 			_nameEntryViewRef.gameObject.SetActive(false);
+		}
+
+		/// <summary>
+		/// Forces a refresh of all players, with the new _finalPreload phase value set
+		/// </summary>
+		/// <param name="finalPreload"></param>
+		public void SetFinalPreloadPhase(bool finalPreload)
+		{
+			_finalPreload = finalPreload;
+
+			foreach (var playerNameEntryView in _activePlayerEntries)
+			{
+				AddOrUpdatePlayer(playerNameEntryView.Player);
+			}
 		}
 
 		/// <summary>
@@ -62,8 +80,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void AddOrUpdatePlayer(Player player)
 		{
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
-			var isLoaded = (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_LOADED];
-			
+			var isLoaded = _finalPreload
+				               ? (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_ALL_LOADED]
+				               : (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
+
 			if (existingEntry != null)
 			{
 				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded);
@@ -77,7 +97,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded);
 				}
 			}
-			
+
 			SortPlayerList();
 		}
 
@@ -87,11 +107,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void RemovePlayer(Player player)
 		{
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
-			
+
 			if (existingEntry != null)
 			{
 				existingEntry.SetInfo(null, false, false, false);
-				
+
 				SortPlayerList();
 			}
 		}
@@ -105,7 +125,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				return false;
 			}
-			
+
 			foreach (var playerEntry in _playerNamePool.SpawnedReadOnly)
 			{
 				if (playerEntry.Player == player)
@@ -132,7 +152,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			});
 
 			_activePlayerEntries.Reverse();
-			
+
 			for (int i = 0; i < _activePlayerEntries.Count - 1; i++)
 			{
 				_activePlayerEntries[i].transform.SetSiblingIndex(i);
@@ -142,11 +162,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private PlayerNameEntryView GetNextEmptyPlayerEntrySlot()
 		{
 			return _activePlayerEntries.FirstOrDefault(x => string.IsNullOrEmpty(x.PlayerName));
-		}
-
-		private void OnCloseClicked()
-		{
-			gameObject.SetActive(false);
 		}
 	}
 }

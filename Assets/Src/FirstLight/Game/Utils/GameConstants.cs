@@ -66,7 +66,8 @@ namespace FirstLight.Game.Utils
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
-			public const string PLAYER_PROPS_LOADED = "propsLoaded";
+			public const string PLAYER_PROPS_CORE_LOADED = "propsCoreLoaded";
+			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";

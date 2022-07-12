@@ -3633,7 +3633,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Chest : Quantum.IComponent {
-    public const Int32 SIZE = 8;
+    public const Int32 SIZE = 12;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     [HideInInspector()]
@@ -3641,11 +3641,15 @@ namespace Quantum {
     [FieldOffset(4)]
     [HideInInspector()]
     public GameId Id;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public Int32 RarityMod;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 383;
         hash = hash * 31 + (Int32)ChestType;
         hash = hash * 31 + (Int32)Id;
+        hash = hash * 31 + RarityMod.GetHashCode();
         return hash;
       }
     }
@@ -3653,6 +3657,7 @@ namespace Quantum {
         var p = (Chest*)ptr;
         serializer.Stream.Serialize((Int32*)&p->ChestType);
         serializer.Stream.Serialize((Int32*)&p->Id);
+        serializer.Stream.Serialize(&p->RarityMod);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -9149,6 +9154,8 @@ namespace Quantum.Prototypes {
     public GameId_Prototype Id;
     [HideInInspector()]
     public ChestType_Prototype ChestType;
+    [HideInInspector()]
+    public Int32 RarityMod;
     partial void MaterializeUser(Frame frame, ref Chest result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Chest component = default;
@@ -9158,6 +9165,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Chest result, in PrototypeMaterializationContext context) {
       result.ChestType = this.ChestType;
       result.Id = this.Id;
+      result.RarityMod = this.RarityMod;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

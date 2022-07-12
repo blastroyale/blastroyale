@@ -20,6 +20,9 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 13
       ChestType: 0
+      RarityModifierRange:
+        Value1: -3
+        Value2: -2
       RandomEquipment:
       - Value1:
           RawValue: 32768
@@ -37,6 +40,9 @@ MonoBehaviour:
         Value2: 0
     - Id: 1
       ChestType: 1
+      RarityModifierRange:
+        Value1: -2
+        Value2: -2
       RandomEquipment:
       - Value1:
           RawValue: 65536
@@ -54,6 +60,9 @@ MonoBehaviour:
         Value2: 1
     - Id: 16
       ChestType: 2
+      RarityModifierRange:
+        Value1: -1
+        Value2: 1
       RandomEquipment:
       - Value1:
           RawValue: 65536
@@ -74,6 +83,9 @@ MonoBehaviour:
         Value2: 1
     - Id: 2
       ChestType: 3
+      RarityModifierRange:
+        Value1: 0
+        Value2: 2
       RandomEquipment:
       - Value1:
           RawValue: 65536
@@ -97,13 +109,13 @@ MonoBehaviour:
         Value2: 1
     - Id: 19
       ChestType: 4
+      RarityModifierRange:
+        Value1: 4
+        Value2: 6
       RandomEquipment:
       - Value1:
           RawValue: 65536
-        Value2: 2
-      - Value1:
-          RawValue: 49152
-        Value2: 1
+        Value2: 3
       SmallConsumable:
       - Value1:
           RawValue: 0
@@ -111,7 +123,4 @@ MonoBehaviour:
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 4
-      - Value1:
-          RawValue: 6554
-        Value2: 2
+        Value2: 3

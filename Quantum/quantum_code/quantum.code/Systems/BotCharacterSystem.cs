@@ -307,22 +307,20 @@ namespace Quantum.Systems
 			}
 
 			var playerCharacter = filter.PlayerCharacter;
+			var weaponSlot = playerCharacter->CurrentWeaponSlot;
 
-			for (int i = 0; i < playerCharacter->WeaponSlots.Length; i++)
+			if (TryUseSpecial(f, playerCharacter->WeaponSlots[weaponSlot].Special1Charges,
+			                  playerCharacter->WeaponSlots[weaponSlot].Special1, 0, ref filter))
 			{
-				if (TryUseSpecial(f, playerCharacter->WeaponSlots[i].Special1Charges,
-				                  playerCharacter->WeaponSlots[i].Special1, 0, ref filter))
-				{
-					playerCharacter->WeaponSlots[i].Special1Charges--;
-					return true;
-				}
-				
-				if (TryUseSpecial(f, playerCharacter->WeaponSlots[i].Special2Charges,
-				                  playerCharacter->WeaponSlots[i].Special2, 1, ref filter))
-				{
-					playerCharacter->WeaponSlots[i].Special2Charges--;
-					return true;
-				}
+				playerCharacter->WeaponSlots[weaponSlot].Special1Charges--;
+				return true;
+			}
+			
+			if (TryUseSpecial(f, playerCharacter->WeaponSlots[weaponSlot].Special2Charges,
+			                  playerCharacter->WeaponSlots[weaponSlot].Special2, 1, ref filter))
+			{
+				playerCharacter->WeaponSlots[weaponSlot].Special2Charges--;
+				return true;
 			}
 			
 			return false;

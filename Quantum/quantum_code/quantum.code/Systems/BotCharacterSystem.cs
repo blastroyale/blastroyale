@@ -308,14 +308,30 @@ namespace Quantum.Systems
 
 			var playerCharacter = filter.PlayerCharacter;
 
-			return TryUseSpecial(f, playerCharacter->WeaponSlots[0].Special1, 0, ref filter)
-			       || TryUseSpecial(f, playerCharacter->WeaponSlots[1].Special1, 1, ref filter);
+			for (int i = 0; i < playerCharacter->WeaponSlots.Length; i++)
+			{
+				if (TryUseSpecial(f, playerCharacter->WeaponSlots[i].Special1Charges,
+				                  playerCharacter->WeaponSlots[i].Special1, 0, ref filter))
+				{
+					playerCharacter->WeaponSlots[i].Special1Charges--;
+					return true;
+				}
+				
+				if (TryUseSpecial(f, playerCharacter->WeaponSlots[i].Special2Charges,
+				                  playerCharacter->WeaponSlots[i].Special2, 1, ref filter))
+				{
+					playerCharacter->WeaponSlots[i].Special2Charges--;
+					return true;
+				}
+			}
+			
+			return false;
 		}
 
-		private bool TryUseSpecial(Frame f, Special special, int specialIndex, ref BotCharacterFilter filter)
+		private bool TryUseSpecial(Frame f, int specialCharges, Special special, int specialIndex, ref BotCharacterFilter filter)
 		{
 			var target = filter.BotCharacter->Target;
-			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
+			if (specialCharges > 0 && (target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
 			    special.IsValid && special.TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
 			{
 				return true;

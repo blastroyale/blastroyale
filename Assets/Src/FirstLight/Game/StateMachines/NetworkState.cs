@@ -259,8 +259,8 @@ namespace FirstLight.Game.StateMachines
 				}
 
 				// Set the game mode to match the map of the room (can't be set earlier if joining rooms in custom games)
-				int mapId = (int) _networkService.QuantumClient.CurrentRoom.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
-				QuantumMapConfig mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
+				var mapId = (int) _networkService.QuantumClient.CurrentRoom.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
+				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 				_gameDataProvider.AppDataProvider.SelectedGameMode.Value = mapConfig.GameMode;
 			}
 

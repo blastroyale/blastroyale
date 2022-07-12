@@ -170,7 +170,8 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
-			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 		}
@@ -239,10 +240,10 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
-
-			// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
+			
 			if (_networkService.IsJoiningNewMatch.Value)
 			{
+				// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
 				var isSpectator = (bool) _networkService.QuantumClient.LocalPlayer.CustomProperties
 						[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 
@@ -256,6 +257,11 @@ namespace FirstLight.Game.StateMachines
 				{
 					SetSpectatePlayerProperty(false);
 				}
+
+				// Set the game mode to match the map of the room (can't be set earlier if joining rooms in custom games)
+				var mapId = (int) _networkService.QuantumClient.CurrentRoom.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
+				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
+				_gameDataProvider.AppDataProvider.SelectedGameMode.Value = mapConfig.GameMode;
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -325,7 +331,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			
-			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADED, out var loadedMatch) && (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED, out var loadedMatch) && (bool) loadedMatch)
 			{
 				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
 
@@ -419,11 +425,21 @@ namespace FirstLight.Game.StateMachines
 			JoinRoom(msg.RoomName);
 		}
 		
-		private void OnMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.Network.PLAYER_PROPS_LOADED, true }
+				{ GameConstants.Network.PLAYER_PROPS_CORE_LOADED, true }
+			};
+			
+			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+		}
+		
+		private void OnAllMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{ GameConstants.Network.PLAYER_PROPS_ALL_LOADED, true }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -433,7 +449,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{ GameConstants.Network.PLAYER_PROPS_LOADED, false }
+				{ GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false },
+				{ GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false }
 			};
 			
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -456,8 +473,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewMatch.Value = true;
 				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
 			}
@@ -473,8 +490,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewMatch.Value = true;
 				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
@@ -491,8 +508,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (!_networkService.QuantumClient.InRoom)
 			{
-				_networkService.IsJoiningNewMatch.Value = true;
 				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 				_networkService.QuantumClient.OpCreateRoom(enterParams);
 			}
@@ -561,7 +578,8 @@ namespace FirstLight.Game.StateMachines
 			var playerProps = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.Network.PLAYER_PROPS_LOADED, false},
+				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
+				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false}
 			};
 			

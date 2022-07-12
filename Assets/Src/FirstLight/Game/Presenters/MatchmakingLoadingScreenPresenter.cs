@@ -176,8 +176,6 @@ namespace FirstLight.Game.Presenters
 				_spectateToggleObjectRoot.SetActive(true);
 			}
 
-			AddOrUpdatePlayerInList(_services.NetworkService.QuantumClient.LocalPlayer);
-
 			_loadedCoreMatchAssets = true;
 		}
 
@@ -206,6 +204,12 @@ namespace FirstLight.Game.Presenters
 		{
 			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
+				if (!IsMatchmakingRoom)
+				{
+					_playerListHolder.SetFinalPreloadPhase(true);
+					_spectatorListHolder.SetFinalPreloadPhase(true);
+				}
+				
 				ReadyToPlay();
 			}
 		}
@@ -240,10 +244,7 @@ namespace FirstLight.Game.Presenters
 
 			if (isSpectator)
 			{
-				if (!_spectatorListHolder.Has(player))
-				{
-					_spectatorListHolder.AddOrUpdatePlayer(player);
-				}
+				_spectatorListHolder.AddOrUpdatePlayer(player);
 
 				if (_playerListHolder.Has(player))
 				{
@@ -252,11 +253,8 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				if (!_playerListHolder.Has(player))
-				{
-					_playerListHolder.AddOrUpdatePlayer(player);
-				}
-
+				_playerListHolder.AddOrUpdatePlayer(player);
+				
 				if (_spectatorListHolder.Has(player))
 				{
 					_spectatorListHolder.RemovePlayer(player);

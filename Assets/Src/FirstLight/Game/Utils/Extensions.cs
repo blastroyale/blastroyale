@@ -407,7 +407,7 @@ namespace FirstLight.Game.Utils
 		{
 			foreach (var playerKvp in room.Players)
 			{
-				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADED,
+				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
 				                                                  out var propertyValue) ||
 				    !(bool) propertyValue)
 				{

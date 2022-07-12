@@ -70,15 +70,18 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			foreach (var playerNameEntryView in _activePlayerEntries)
 			{
-				AddOrUpdatePlayer(playerNameEntryView.Player);
+				if (playerNameEntryView.Player != null)
+				{
+					AddOrUpdatePlayer(playerNameEntryView.Player, false);
+				}
 			}
 		}
 
 		/// <summary>
 		/// Adds a player to the list, or updates them if already there
 		/// </summary>
-		public void AddOrUpdatePlayer(Player player)
-		{
+		public void AddOrUpdatePlayer(Player player, bool sortList = true)
+		{ 
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
 			var isLoaded = _finalPreload
 				               ? (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_ALL_LOADED]
@@ -98,7 +101,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 				}
 			}
 
-			SortPlayerList();
+			if (sortList)
+			{
+				SortPlayerList();
+			}
 		}
 
 		/// <summary>

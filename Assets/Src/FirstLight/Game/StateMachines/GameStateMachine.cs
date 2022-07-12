@@ -11,7 +11,7 @@ using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
-using I2.Loc;
+using I2.Loc; 
 using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 			// Just marking the default name to avoid missing names
 			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
 			{
-				_services.PlayfabService.UpdateNickname(PlayerLogic.DefaultPlayerName);
+				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
 		}
 

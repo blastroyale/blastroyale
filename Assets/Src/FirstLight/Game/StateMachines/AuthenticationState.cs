@@ -409,7 +409,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LinkDeviceID();
 			}
-			
+
 			ProcessAuthentication(result);
 
 			_statechartTrigger(_loginCompletedEvent);

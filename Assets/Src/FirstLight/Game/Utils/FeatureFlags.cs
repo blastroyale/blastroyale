@@ -1,10 +1,10 @@
-namespace FirstLight.Game.Configs
+namespace FirstLight.Game.Utils
 {
 	/// <summary>
 	/// Simple class to represent feature flags in the game.
 	/// Not configurable in editor atm.
 	/// </summary>
-	public class FeatureFlags
+	public static class FeatureFlags
 	{
 		/// <summary>
 		/// If true will use email/pass authentication.

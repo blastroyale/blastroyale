@@ -48,10 +48,15 @@ namespace FirstLight.Game.Utils
 			public const string NOTIFICATION_BOXES_CHANNEL = "loot_boxes";
 		}
 
-		public static class Data
+		public static class PlayerName
 		{
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
 			public const int PLAYER_NAME_MAX_LENGTH = 20;
+			public const string DEFAULT_PLAYER_NAME = "Player Name";
+		}
+
+		public static class Data
+		{
 			public const int MATCH_SPECTATOR_SPOTS = 15;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 		}

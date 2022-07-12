@@ -105,15 +105,19 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnNameSet(string newName)
 		{
-			if (newName.Length < GameConstants.Data.PLAYER_NAME_MIN_LENGTH)
+			if (newName.Length < GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooShort, GameConstants.Data.PLAYER_NAME_MIN_LENGTH);
+				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooShort, 
+					GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH);
+				
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}
-			if (newName.Length > GameConstants.Data.PLAYER_NAME_MAX_LENGTH)
+			if (newName.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooLong, GameConstants.Data.PLAYER_NAME_MAX_LENGTH);
+				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooLong, 
+					GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH);
+				
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}

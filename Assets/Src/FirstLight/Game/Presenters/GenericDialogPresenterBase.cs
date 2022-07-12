@@ -23,19 +23,24 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
-			CloseButton.onClick.AddListener(Close);
-			BlockerButton.onClick.AddListener(Close);
+			CloseButton.onClick.AddListener(CloseRequested);
+			BlockerButton.onClick.AddListener(CloseRequested);
 
 			OnAwake();
 		}
 
+		private void CloseRequested()
+		{
+			Close(false);
+		}
+
 		protected virtual void OnAwake() { }
 
-		protected override void Close()
+		protected override void Close(bool destroy)
 		{
 			if (IsOpenedComplete)
 			{
-				base.Close();
+				base.Close(destroy);
 			}
 		}
 
@@ -54,7 +59,7 @@ namespace FirstLight.Game.Presenters
 				
 				ConfirmButton.gameObject.SetActive(true);
 				ConfirmButton.onClick.RemoveAllListeners();
-				ConfirmButton.onClick.AddListener(Close);
+				ConfirmButton.onClick.AddListener(CloseRequested);
 				ConfirmButton.onClick.AddListener(button.ButtonOnClick);
 			}
 			

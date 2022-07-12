@@ -110,15 +110,19 @@ namespace FirstLight.Game.StateMachines
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
+			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
 
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 
 			screenCheck.Transition().Condition(HasUncollectedRewards).Target(claimUnclaimedRewards);
-			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(homeMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
+			
+			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
+			defaultNameCheck.Transition().Target(homeMenu);
 
 			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
@@ -134,8 +138,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
-			playClickedCheck.Transition().Condition(_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay)
-				.OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
+			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
@@ -162,6 +165,11 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
+		}
+
+		private bool HasDefaultName()
+		{
+			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.PlayerName.DEFAULT_PLAYER_NAME;
 		}
 
 		private void SubscribeEvents()

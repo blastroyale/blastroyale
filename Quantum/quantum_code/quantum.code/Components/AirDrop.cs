@@ -27,7 +27,7 @@ namespace Quantum
 			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
 			transform->Position = dropPosition + FPVector3.Up * f.GameConfig.AirdropHeight;
 
-			f.Add(entity, new AirDrop
+			var airDrop = new AirDrop
 			{
 				Delay = f.RNG->NextInclusive(config.AirdropStartTimeRange.Value1, config.AirdropStartTimeRange.Value2),
 				Duration = config.AirdropDropDuration,
@@ -36,7 +36,10 @@ namespace Quantum
 				Position = dropPosition,
 				Direction = FPVector2.Rotate(FPVector2.Up, FP.Pi * f.RNG->Next(FP._0, FP._2)),
 				StartTime = f.Time
-			});
+			};
+			f.Add(entity, airDrop);
+
+			f.Events.OnAirDropStarted(entity, airDrop);
 
 			return entity;
 		}

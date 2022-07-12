@@ -1,15 +1,13 @@
 using System;
-using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Services;
-using UnityEngine;
-using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine;
 using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
 
@@ -43,12 +41,17 @@ namespace FirstLight.Game.Presenters
 			
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Observe((mode, gameMode) => FillMapSelectionList());
 
-			_closeButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(CloseRequested);
 			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 		}
 
-		protected override void Close()
+		private void CloseRequested()
+		{
+			Close(true);
+		}
+		
+		protected override void Close(bool destroy)
 		{
 			Data.CloseClicked.Invoke();
 		}

@@ -35,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
 		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _minimapHolder;
-
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
 		private IGameServices _services;
@@ -55,7 +54,6 @@ namespace FirstLight.Game.Presenters
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
-			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_mapTimerView.gameObject.SetActive(false);

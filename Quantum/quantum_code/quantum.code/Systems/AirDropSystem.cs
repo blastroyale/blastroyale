@@ -24,7 +24,7 @@ namespace Quantum.Systems
 					if (f.Time >= drop->StartTime + drop->Delay)
 					{
 						drop->Stage = AirDropStage.Announcing;
-						f.Events.OnAirDropStarted(filter.Entity, f.Get<AirDrop>(filter.Entity));
+						f.Events.OnAirDropDropped(filter.Entity, f.Get<AirDrop>(filter.Entity));
 					}
 
 					break;
@@ -42,7 +42,7 @@ namespace Quantum.Systems
 						chest->Init(f, filter.Entity, drop->Position, FPQuaternion.Identity,
 						            f.ChestConfigs.GetConfig(drop->Chest));
 
-						f.Events.OnAirDropDropped(filter.Entity, f.Get<AirDrop>(filter.Entity));
+						f.Events.OnAirDropLanded(filter.Entity, f.Get<AirDrop>(filter.Entity));
 					}
 
 					break;

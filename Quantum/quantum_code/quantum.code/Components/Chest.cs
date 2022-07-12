@@ -152,7 +152,6 @@ namespace Quantum
 
 			equipment.Rarity = (EquipmentRarity) chosenRarity;
 		}
-
 		private Equipment GetNextLoadoutGearItem(Frame f, PlayerCharacter* playerCharacter, Equipment[] loadout)
 		{
 			var flags = playerCharacter->DroppedLoadoutFlags;

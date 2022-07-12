@@ -87,7 +87,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 20
+      KnockbackAmount: 0
     - Id: 71
       InitialAmmoFilled:
         BattleRoyale:
@@ -203,7 +203,7 @@ MonoBehaviour:
         BattleRoyale: 25
         Deathmatch: 12
       AimingMovementSpeed:
-        RawValue: 19661
+        RawValue: 26214
       AimTime:
         RawValue: 16384
       AttackCooldown:
@@ -227,7 +227,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 10
+      KnockbackAmount: 0
     - Id: 86
       InitialAmmoFilled:
         BattleRoyale:
@@ -242,7 +242,7 @@ MonoBehaviour:
       AimTime:
         RawValue: 26214
       AttackCooldown:
-        RawValue: 39322
+        RawValue: 52429
       AttackHitSpeed:
         RawValue: 589824
       MinAttackAngle: 10
@@ -262,7 +262,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 5
+      KnockbackAmount: 0
     - Id: 87
       InitialAmmoFilled:
         BattleRoyale:
@@ -332,7 +332,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 10
+      KnockbackAmount: 0
     - Id: 90
       InitialAmmoFilled:
         BattleRoyale:
@@ -507,7 +507,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 5
+      KnockbackAmount: 0
     - Id: 95
       InitialAmmoFilled:
         BattleRoyale:

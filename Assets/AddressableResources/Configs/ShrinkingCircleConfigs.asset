@@ -20,13 +20,13 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 458752
+        RawValue: 655360
       WarningTime:
         RawValue: 983040
       ShrinkingTime:
-        RawValue: 7864320
+        RawValue: 4915200
       ShrinkingSizeK:
-        RawValue: 16384
+        RawValue: 13107
       MaxHealthDamage:
         RawValue: 655
       AirdropChance:
@@ -43,7 +43,7 @@ MonoBehaviour:
       DelayTime:
         RawValue: 0
       WarningTime:
-        RawValue: 2949120
+        RawValue: 1966080
       ShrinkingTime:
         RawValue: 655360
       ShrinkingSizeK:

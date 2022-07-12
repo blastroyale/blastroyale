@@ -27,7 +27,7 @@ MonoBehaviour:
         RawValue: 983040
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 65536
+          RawValue: 131072
         Deathmatch:
           RawValue: 13107
     - Id: 4
@@ -39,7 +39,7 @@ MonoBehaviour:
         RawValue: 26214400
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 163840
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107
     - Id: 127
@@ -48,10 +48,10 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 2
       Amount:
-        RawValue: 6554
+        RawValue: 16384
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 65536
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107
     - Id: 128
@@ -60,10 +60,10 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 2
       Amount:
-        RawValue: 16384
+        RawValue: 32768
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 163840
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107
     - Id: 20
@@ -72,10 +72,10 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 3
       Amount:
-        RawValue: 6553600
+        RawValue: 13107200
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 65536
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107
     - Id: 21
@@ -87,7 +87,7 @@ MonoBehaviour:
         RawValue: 26214400
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 163840
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107
     - Id: 17
@@ -99,7 +99,7 @@ MonoBehaviour:
         RawValue: 13107200
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 163840
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107
     - Id: 18
@@ -111,6 +111,6 @@ MonoBehaviour:
         RawValue: 26214400
       ConsumableCollectTime:
         BattleRoyale:
-          RawValue: 163840
+          RawValue: 32768
         Deathmatch:
           RawValue: 13107

@@ -171,15 +171,20 @@ public class NftSynchronizer
     /// </summary>
     private Equipment NftToGameObject(PolygonNFTMetadata nft)
     {
-	    var equip = new Equipment();
-	    // TODO: Review - currently we are transforming the name into GameID which might missmatch.
-	    // Maybe we would want to add the gameId to the nft metadata in the future
-	    var gameIdName = nft.name.Replace(" ", String.Empty); 
-	    if (!Enum.TryParse(typeof(GameId), gameIdName, true, out var gameId))
+	    object? gameId;
+	    try
 	    {
-		    throw new Exception($"Could not parse {gameIdName} as a GameId");
+		    gameId = nft.subCategory;
 	    }
-
+	    catch (Exception e)
+	    {
+		    // trying for name for backwards compatibility
+		    if (!Enum.TryParse(typeof(GameId), nft.name.Replace(" ", String.Empty), true, out gameId))
+		    {
+			    throw new Exception($"Could not parse {nft.subCategory} or {nft.name} as a GameId");
+		    }
+	    }
+	    var equip = new Equipment();
 	    equip.GameId = (GameId)gameId;
 	    equip.Faction = (EquipmentFaction) nft.faction;
 	    equip.Adjective = (EquipmentAdjective)nft.adjective;
@@ -192,12 +197,10 @@ public class NftSynchronizer
 	    equip.Rarity = (EquipmentRarity) nft.rarity;
 	    equip.Tuning = Convert.ToUInt32(nft.tuning);
 	    equip.InitialReplicationCounter = Convert.ToUInt32(nft.initialReplicationCounter);
-		
-	    // Below unfinished hard-coded equipment variable fields
-	    equip.Level = Convert.ToUInt32(nft.maxLevel); // TODO
-	    equip.MaxLevel = Convert.ToUInt32(nft.maxLevel); // TODO
-	    equip.ReplicationCounter = Convert.ToUInt32(nft.initialReplicationCounter); // TODO
-	    equip.Durability = Convert.ToUInt32(nft.maxDurability); // TODO
+	    equip.Level = 1;
+	    equip.MaxLevel = Convert.ToUInt32(nft.maxLevel);
+	    equip.ReplicationCounter = 0;
+	    equip.Durability = Convert.ToUInt32(nft.maxDurability);
 	    return equip;
     }
 }

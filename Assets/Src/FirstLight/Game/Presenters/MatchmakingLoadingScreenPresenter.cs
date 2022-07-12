@@ -204,8 +204,12 @@ namespace FirstLight.Game.Presenters
 		{
 			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
-				_playerListHolder.SetFinalPreloadPhase(true);
-				_spectatorListHolder.SetFinalPreloadPhase(true);
+				if (!IsMatchmakingRoom)
+				{
+					_playerListHolder.SetFinalPreloadPhase(true);
+					_spectatorListHolder.SetFinalPreloadPhase(true);
+				}
+				
 				ReadyToPlay();
 			}
 		}

@@ -22,13 +22,13 @@ MonoBehaviour:
       DelayTime:
         RawValue: 655360
       WarningTime:
-        RawValue: 983040
+        RawValue: 655360
       ShrinkingTime:
-        RawValue: 4915200
+        RawValue: 5898240
       ShrinkingSizeK:
-        RawValue: 13107
+        RawValue: 22938
       MaxHealthDamage:
-        RawValue: 655
+        RawValue: 2621
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -45,11 +45,11 @@ MonoBehaviour:
       WarningTime:
         RawValue: 1966080
       ShrinkingTime:
-        RawValue: 655360
+        RawValue: 1966080
       ShrinkingSizeK:
-        RawValue: 13107
+        RawValue: 26214
       MaxHealthDamage:
-        RawValue: 3277
+        RawValue: 5243
       AirdropChance:
         RawValue: 13107
       AirdropStartTimeRange:
@@ -64,13 +64,13 @@ MonoBehaviour:
       DelayTime:
         RawValue: 0
       WarningTime:
-        RawValue: 1966080
+        RawValue: 1310720
       ShrinkingTime:
-        RawValue: 655360
+        RawValue: 1310720
       ShrinkingSizeK:
         RawValue: 66
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 9830
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -91,7 +91,7 @@ MonoBehaviour:
       ShrinkingSizeK:
         RawValue: 66
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 13107
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:

@@ -267,7 +267,7 @@ namespace Quantum
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, spell.Attacker, (int) spell.PowerAmount, maxHealth);
+				f.Events.OnHealthIsZero(entity, spell.Attacker, (int) spell.PowerAmount, maxHealth, spell.Id);
 				f.Signals.HealthIsZero(entity, spell.Attacker);
 			}
 		}

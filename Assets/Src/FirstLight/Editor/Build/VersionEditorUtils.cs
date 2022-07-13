@@ -20,9 +20,9 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Set the internal version before building the app.
 		/// </summary>
-		public static void SetAndSaveInternalVersion()
+		public static void SetAndSaveInternalVersion(bool isDevelopmentBuild)
 		{
-			var newVersionData = GenerateInternalVersionSuffix();
+			var newVersionData = GenerateInternalVersionSuffix(isDevelopmentBuild);
 			var newVersionDataSerialized = JsonUtility.ToJson(newVersionData);
 			var oldVersionDataSerialized = VersionEditorUtils.LoadVersionDataSerializedSync();
 			if (newVersionDataSerialized.Equals(oldVersionDataSerialized, StringComparison.Ordinal))
@@ -57,14 +57,12 @@ namespace FirstLight.Editor.Build
 		[InitializeOnLoadMethod]
 		private static void OnEditorLoad()
 		{
-			SetAndSaveInternalVersion();
+			SetAndSaveInternalVersion(true);
 		}
 
-		private static VersionUtils.VersionData GenerateInternalVersionSuffix()
+		private static VersionUtils.VersionData GenerateInternalVersionSuffix(bool isDevelopmentBuild)
 		{
 			var data = new VersionUtils.VersionData();
-
-			data.DayNumber = GetDayNumber();
 			
 			using (var repo = new GitProcess(Application.dataPath))
 			{
@@ -103,23 +101,11 @@ namespace FirstLight.Editor.Build
 					Debug.LogWarning("Could not execute git commands. Internal version not set.");
 				}
 			}
-			
-			data.BuildType = string.Empty;
-			#if DEVELOPMENT_BUILD
-			data.BuildType = "dev";
-			#elif OPTIMIZE_BUILD
-			data.BuildType = "opt";
-			#endif
+
+			data.BuildNumber = PlayerSettings.iOS.buildNumber;
+			data.BuildType = isDevelopmentBuild ? "dev" : "prod";
 
 			return data;
-		}
-
-		private static int GetDayNumber()
-		{
-			var jan1st2020 = new DateTime(2020, 1, 1);
-			var delta = DateTime.UtcNow - jan1st2020;
-			var daysSinceJan1st2020 = (int) delta.TotalDays;
-			return daysSinceJan1st2020;
 		}
 		
 		/// <summary>

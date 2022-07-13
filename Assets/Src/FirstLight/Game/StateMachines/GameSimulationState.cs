@@ -13,7 +13,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -35,7 +34,6 @@ namespace FirstLight.Game.StateMachines
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
-		private Vector2 _normalizedMapPickedPosition;
 
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -383,8 +381,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseMatchmakingScreen()
 		{
-			_normalizedMapPickedPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView
-			                                         .NormalizedSelectionPoint;
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
@@ -406,6 +402,8 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
+			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView
+			                              .NormalizedSelectionPoint;
 
 			if (!IsSpectator())
 			{
@@ -416,7 +414,7 @@ namespace FirstLight.Game.StateMachines
 					Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 					PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 					PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
-					NormalizedSpawnPosition = _normalizedMapPickedPosition.ToFPVector2(),
+					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}

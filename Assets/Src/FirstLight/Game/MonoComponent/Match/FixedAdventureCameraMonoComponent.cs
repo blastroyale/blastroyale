@@ -62,6 +62,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
+			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
 
@@ -209,13 +210,25 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			_leaderPlayer = callback.EntityLeader;
-
-			if (callback.EntityDead == _followedPlayerEntity &&
-			    _gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.Deathmatch)
+			
+			if (callback.EntityDead == _followedPlayerEntity)
 			{
 				_followedPlayerEntity = callback.EntityKiller;
 				
+				if (_spectating && callback.EntityDead == callback.EntityKiller)
+				{
+					_followedPlayerEntity = _leaderPlayer;
+				}
+
 				RefreshSpectator(callback.Game.Frames.Verified);
+			}
+		}
+		
+		private void OnEventOnHealthIsZero(EventOnHealthIsZero callback)
+		{
+			if (callback.Entity == _followedPlayerEntity && callback.SpellID == Spell.ShrinkingCircleId)
+			{
+				SpectateNextPlayer();
 			}
 		}
 
@@ -316,7 +329,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				_services.MessageBrokerService.Publish(new SpectateTargetSwitchedMessage()
 				{
-					PlayerFollowed = playerRef
+					EntitySpectated = _followedPlayerEntity,
+					PlayerSpectated = playerRef
 				});
 			}
 		}

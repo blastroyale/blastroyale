@@ -90,8 +90,10 @@ public class TestServer
 		{
 			services.RemoveAll(typeof(IServerStateService)); 
 			services.RemoveAll(typeof(ITestPlayerSetup));
+			services.RemoveAll(typeof(IServerMutex));
 			services.AddSingleton<IServerStateService, InMemoryPlayerState>();
 			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
+			services.AddSingleton<IServerMutex, InMemoryMutex>();
 		});
 	}
 	

@@ -26,6 +26,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Image _backgroundImage;
 		[SerializeField, Required] private RectTransform _fullScreenContainer;
 		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private Button _fullScreenButton;
 		[SerializeField, Required] private float _fullScreenPadding = 50f;
 		[SerializeField, Range(0f, 1f)] private float _viewportSize = 0.2f;
 		[SerializeField] private int _cameraHeight = 10;
@@ -80,11 +81,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 
 			_safeAreaRing.gameObject.SetActive(false);
-
+			_fullScreenButton.gameObject.SetActive(false);
+			
 			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
 			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
 
 			_button.onClick.AddListener(OnClick);
+			_fullScreenButton.onClick.AddListener(OnClick);
 		}
 
 		private void OnClick()
@@ -103,12 +106,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_opened = true;
 			DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimap).SetEase(_openCloseEase);
+			_fullScreenButton.gameObject.SetActive(true);
 		}
 
 		private void CloseMinimap()
 		{
 			_opened = false;
 			DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimap).SetEase(_openCloseEase);
+			_fullScreenButton.gameObject.SetActive(false);
 		}
 
 		private void UpdateMinimap(float f)
@@ -172,7 +177,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || this.IsDestroyed())
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || !isActiveAndEnabled)
 			{
 				return;
 			}

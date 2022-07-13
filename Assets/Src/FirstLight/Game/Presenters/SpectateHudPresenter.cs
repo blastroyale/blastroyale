@@ -16,6 +16,8 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This is responsible for displaying the screen during spectate mode,
 	/// that follows your killer around.
+	/// TODO: Once some time is put aside, all the rest of MatchHud elements should be made compaitble with spectator mode,
+	/// TODO: and this presenter should only have the spectate buttons.
 	/// </summary>
 	public class SpectateHudPresenter : UiPresenterData<SpectateHudPresenter.StateData>
 	{
@@ -32,8 +34,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _camera3Button;
 		[SerializeField] private Button[] _standingsButtons;
 		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
-		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
-		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
+		[SerializeField, Required] private ContendersLeftView _contendersLeftMessageView;
+		[SerializeField, Required] private ContendersLeftView _contendersLeftHolderView;
 		[SerializeField, Required] private StandingsHolderView _standings;
 		
 		private IGameServices _services;
@@ -55,7 +57,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_scoreHolderView.gameObject.SetActive(false);
-			_contendersLeftHolderMessageView.gameObject.SetActive(false);
+			_contendersLeftMessageView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
 			_standings.gameObject.SetActive(false);
 		}
@@ -65,11 +67,13 @@ namespace FirstLight.Game.Presenters
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
 			
-			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 
 			_standings.Initialise(frame.PlayerCount, false, true);
+			_contendersLeftMessageView.ForceUpdatePlayersAlive();
+			_contendersLeftHolderView.ForceUpdatePlayersAlive();
 		}
 		
 		private void OnStandingsClicked()

@@ -80,9 +80,9 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenControlsHud).Target(respawning);
 			dead.OnExit(CloseKilledHud);
 			
-			spectating.OnEnter(OpenSpectateScreen);
+			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
-			spectating.OnExit(CloseSpectateScreen);
+			spectating.OnExit(CloseSpectateHud);
 
 			respawning.Event(_localPlayerAliveEvent).Target(alive);
 
@@ -163,7 +163,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
 		}
 		
-		private async void OpenSpectateScreen()
+		private async void OpenSpectateHud()
 		{
 			var data = new SpectateHudPresenter.StateData
 			{
@@ -175,7 +175,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
 		}
 
-		private void CloseSpectateScreen()
+		private void CloseSpectateHud()
 		{
 			_uiService.CloseUi<SpectateHudPresenter>();
 		}

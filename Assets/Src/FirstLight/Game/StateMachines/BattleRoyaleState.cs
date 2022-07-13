@@ -74,9 +74,9 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerSpectateEvent).Target(spectating);
 			dead.OnExit(CloseKillScreen);
 
-			spectating.OnEnter(OpenSpectateScreen);
+			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
-			spectating.OnExit(CloseSpectateScreen);
+			spectating.OnExit(CloseSpectateHud);
 
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
@@ -163,7 +163,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(false, true);
 		}
 
-		private async void OpenSpectateScreen()
+		private async void OpenSpectateHud()
 		{
 			var data = new SpectateHudPresenter.StateData
 			{
@@ -175,7 +175,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
 		}
 
-		private void CloseSpectateScreen()
+		private void CloseSpectateHud()
 		{
 			_uiService.CloseUi<SpectateHudPresenter>();
 		}

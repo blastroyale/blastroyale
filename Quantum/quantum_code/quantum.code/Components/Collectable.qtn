@@ -28,6 +28,14 @@ synced event OnLocalCollectableCollected
 	entity_ref PlayerEntity;
 }
 
+synced event OnLocalCollectableBlocked
+{
+	GameId CollectableId;
+	entity_ref CollectableEntity;
+	local player_ref Player;
+	entity_ref PlayerEntity;
+}
+
 synced event OnCollectableCollected
 {
 	GameId CollectableId;

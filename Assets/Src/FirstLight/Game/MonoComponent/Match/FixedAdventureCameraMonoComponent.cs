@@ -209,12 +209,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			_leaderPlayer = callback.EntityLeader;
-
-			if (callback.EntityDead == _followedPlayerEntity &&
-			    _gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.Deathmatch)
+			
+			if (callback.EntityDead == _followedPlayerEntity)
 			{
 				_followedPlayerEntity = callback.EntityKiller;
 				
+				if (_spectating && callback.EntityDead == callback.EntityKiller)
+				{
+					_followedPlayerEntity = _leaderPlayer;
+				}
+
 				RefreshSpectator(callback.Game.Frames.Verified);
 			}
 		}
@@ -316,7 +320,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				_services.MessageBrokerService.Publish(new SpectateTargetSwitchedMessage()
 				{
-					PlayerFollowed = playerRef
+					EntitySpectated = _followedPlayerEntity,
+					PlayerSpectated = playerRef
 				});
 			}
 		}

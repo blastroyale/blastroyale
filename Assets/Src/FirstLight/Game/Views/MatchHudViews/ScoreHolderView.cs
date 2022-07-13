@@ -65,7 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
 		{
-			UpdateFollowedPlayer(msg.PlayerFollowed);
+			UpdateFollowedPlayer(msg.PlayerSpectated);
 		}
 		
 		private void OnDestroy()

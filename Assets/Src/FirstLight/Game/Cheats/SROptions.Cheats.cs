@@ -24,6 +24,16 @@ using Random = UnityEngine.Random;
 
 public partial class SROptions
 {
+#if UNITY_EDITOR
+	[MenuItem("FLG/Take Screenshot #s")]
+#endif
+	[Category("Marketing")]
+	public static void TakeScreenshot()
+	{
+		ScreenCapture.CaptureScreenshot("Screenshot " + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".png");
+		Debug.Log("New Screenhot Done");
+	}
+
 #if DEVELOPMENT_BUILD
 #if ENABLE_PLAYFABADMIN_API
 	[Category("Reset Player")]

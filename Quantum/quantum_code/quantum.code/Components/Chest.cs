@@ -132,6 +132,8 @@ namespace Quantum
 
 				for (uint i = 0; i < count; i++)
 				{
+					//TODO: specifically drop things the player needs
+					
 					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}

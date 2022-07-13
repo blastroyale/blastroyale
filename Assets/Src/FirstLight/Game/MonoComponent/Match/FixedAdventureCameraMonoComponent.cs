@@ -226,7 +226,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnEventOnHealthIsZero(EventOnHealthIsZero callback)
 		{
-			if (callback.Entity == _followedPlayerEntity && callback.DamagedByCircle)
+			if (callback.Entity == _followedPlayerEntity && callback.SpellID == Spell.ShrinkingCircleId)
 			{
 				SpectateNextPlayer();
 			}

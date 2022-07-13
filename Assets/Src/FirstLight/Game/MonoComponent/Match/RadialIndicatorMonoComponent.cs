@@ -58,20 +58,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void SetTransformState(Vector2 direction)
 		{
 			var move = direction * _maxRange;
-			//var move3 = new Vector3(move.x, 0, move.y);
 			var position = _playerTransform.position;
-			// position.y += 0.1f;
-			//
-			// // Testing if we have a blocker in the way
-			// var directionRay = new Ray(position, move3);
-			// if (Physics.Raycast(directionRay, out var directionRestrain, _maxRange))
-			// {
-			// 	var distanceToObstacle = (directionRestrain.point - position).magnitude;
-			// 	if (distanceToObstacle < _maxRange)
-			// 	{
-			// 		move = direction * distanceToObstacle;
-			// 	}
-			// }
 
 			// Getting the position the special is going to drop on
 			position += new Vector3(move.x, 10f, move.y);
@@ -82,6 +69,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			else
 			{
+				// If there's no surface to drop the special on, we just define the y of the player
 				position = new Vector3(position.x, _playerTransform.position.y, position.z);
 			}
 			

@@ -42,7 +42,6 @@ namespace Quantum
 			{
 				aimInput = FPVector2.ClampMagnitude(aimInput, FP._1);
 				targetPosition = attackerPosition + (aimInput * maxRange).XOY;
-				//targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
 			var targetRange = special.MaxRange;

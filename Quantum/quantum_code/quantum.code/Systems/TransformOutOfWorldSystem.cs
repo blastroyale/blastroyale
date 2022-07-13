@@ -22,7 +22,7 @@ namespace Quantum.Systems
 				var currentHealth = stats.CurrentHealth;
 				
 				f.Signals.HealthIsZero(filter.Entity, filter.Entity);
-				f.Events.OnHealthIsZero(filter.Entity, filter.Entity, currentHealth, stats.Values[(int)StatType.Health].StatValue.AsInt);
+				f.Events.OnHealthIsZero(filter.Entity, filter.Entity, currentHealth, stats.Values[(int)StatType.Health].StatValue.AsInt, false);
 			}
 		}
 	}

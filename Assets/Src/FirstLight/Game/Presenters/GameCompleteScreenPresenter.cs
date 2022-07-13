@@ -39,11 +39,13 @@ namespace FirstLight.Game.Presenters
 
 		private EntityRef _playerWinnerEntity;
 		private IEntityViewUpdaterService _entityService;
+		private IGameServices _services;
 		
 		private void Awake()
 		{
 			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
-			
+			_services = MainInstaller.Resolve<IGameServices>();
+
 			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
 			
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
@@ -86,11 +88,18 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				var localPlayerData = playerData[game.GetLocalPlayers()[0]];
-				var placement = ((int)localPlayerData.PlayerRank).GetOrdinalTranslation();
+				if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+				{
+					_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
+				}
+				else
+				{
+					var localPlayerData = playerData[game.GetLocalPlayers()[0]];
+					var placement = ((int)localPlayerData.PlayerRank).GetOrdinalTranslation();
 				
-				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + placement);
+					_emojiImage.sprite = _sickEmojiSprite;
+					_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + placement);
+				}
 			}
 
 			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());

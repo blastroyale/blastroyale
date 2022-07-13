@@ -172,7 +172,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || this.IsDestroyed())
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || !isActiveAndEnabled)
 			{
 				return;
 			}

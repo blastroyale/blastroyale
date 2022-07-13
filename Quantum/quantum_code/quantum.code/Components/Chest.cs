@@ -143,7 +143,8 @@ namespace Quantum
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,
 		                                   EquipmentRarity medianRarity)
 		{
-			var chestRarityModifier = GetChestRarityModifier();
+			var config = f.ChestConfigs.GetConfig(Id);
+			var chestRarityModifier = f.RNG->NextInclusive(config.RarityModifierRange.Value1, config.RarityModifierRange.Value2);
 			var medianModifier = f.RNG->NextInclusive(-1, 1);
 			var medianRarityInt = (int) medianRarity;
 
@@ -153,20 +154,6 @@ namespace Quantum
 
 			equipment.Rarity = (EquipmentRarity) chosenRarity;
 		}
-
-		private int GetChestRarityModifier()
-		{
-			return ChestType switch
-			{
-				ChestType.Common => -2,
-				ChestType.Uncommon => -1,
-				ChestType.Rare => 0,
-				ChestType.Epic => 1,
-				ChestType.Legendary => 10,
-				_ => throw new ArgumentOutOfRangeException(nameof(ChestType), ChestType, null)
-			};
-		}
-
 		private Equipment GetNextLoadoutGearItem(Frame f, PlayerCharacter* playerCharacter, Equipment[] loadout)
 		{
 			var flags = playerCharacter->DroppedLoadoutFlags;

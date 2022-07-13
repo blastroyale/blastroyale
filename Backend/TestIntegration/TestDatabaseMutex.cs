@@ -1,7 +1,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Backend.Game;
 using NUnit.Framework;
 using ServerSDK.Services;
 using Tests.Stubs;

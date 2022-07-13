@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net;
 using System.Net.Http;
 using FirstLight.FLogger;
 using FirstLight.Game;
@@ -14,9 +13,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using PlayFab;
-using PlayFab.CloudScriptModels;
 using Quantum;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -24,16 +21,6 @@ using Random = UnityEngine.Random;
 
 public partial class SROptions
 {
-#if UNITY_EDITOR
-	[MenuItem("FLG/Take Screenshot #s")]
-#endif
-	[Category("Marketing")]
-	public static void TakeScreenshot()
-	{
-		ScreenCapture.CaptureScreenshot("Screenshot " + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".png");
-		Debug.Log("New Screenhot Done");
-	}
-
 #if DEVELOPMENT_BUILD
 #if ENABLE_PLAYFABADMIN_API
 	[Category("Reset Player")]
@@ -70,7 +57,7 @@ public partial class SROptions
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
 #if UNITY_EDITOR
-			if(EditorApplication.isPlaying) 
+			if(UnityEditor.EditorApplication.isPlaying) 
 			{
 				UnityEditor.EditorApplication.isPlaying = false;
 			}

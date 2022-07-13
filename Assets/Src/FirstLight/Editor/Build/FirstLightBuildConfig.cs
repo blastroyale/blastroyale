@@ -69,6 +69,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
@@ -101,6 +102,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
@@ -132,6 +134,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);

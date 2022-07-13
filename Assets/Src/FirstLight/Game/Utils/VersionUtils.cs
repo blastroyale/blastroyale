@@ -19,7 +19,7 @@ namespace FirstLight.Game.Utils
 		public static string VersionExternal => Application.version;
 
 		/// <summary>
-		/// Internal version (M.m.p.day.branch.commit.configuration)
+		/// Internal version (M.m.p-b.branch.commit)
 		/// </summary>
 		public static string VersionInternal => IsLoaded()
 			? FormatInternalVersion(_versionData)
@@ -34,7 +34,12 @@ namespace FirstLight.Game.Utils
 		/// Short hash of the commit this app was built from.
 		/// </summary>
 		public static string Commit => IsLoaded() ? _versionData.Commit : string.Empty;
-		
+
+		/// <summary>
+		/// Build number for this build of the app.
+		/// </summary>
+		public static string BuildNumber => IsLoaded() ? _versionData.BuildNumber : string.Empty;
+
 		private static VersionData _versionData;
 		private static bool _loaded = false;
 
@@ -74,11 +79,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string FormatInternalVersion(VersionData data)
 		{
-			var version = string.Join(".",
-				Application.version,
-				data.DayNumber.ToString(),
-				data.BranchName,
-				data.Commit);
+			string version = $"{Application.version}-{data.BuildNumber}.{data.BranchName}.{data.Commit}";
 
 			if (!string.IsNullOrEmpty(data.BuildType))
 			{
@@ -99,7 +100,7 @@ namespace FirstLight.Game.Utils
 			public string Commit;
 			public string BranchName;
 			public string BuildType;
-			public int DayNumber;
+			public string BuildNumber;
 		}
 	}
 }

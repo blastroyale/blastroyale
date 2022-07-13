@@ -76,7 +76,7 @@ namespace Quantum
 				WeaponSlots[i].Special1Charges = 1;
 				WeaponSlots[i].Special2Charges = 1;
 			}
-			
+
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
 			{
@@ -162,7 +162,7 @@ namespace Quantum
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
-			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+			var slot = GetWeaponEquipSlot(weapon, primary);
 
 			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
@@ -175,7 +175,8 @@ namespace Quantum
 
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()
-			                                                          && (WeaponSlots[slot].Weapon.GameId != weapon.GameId ||
+			                                                          && (WeaponSlots[slot].Weapon.GameId !=
+			                                                              weapon.GameId ||
 			                                                              primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
@@ -185,8 +186,9 @@ namespace Quantum
 			WeaponSlots[slot].Weapon = weapon;
 			CurrentWeaponSlot = slot;
 
-			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e));
-			
+			GainAmmo(f, e,
+			         f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e));
+
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
 
@@ -354,7 +356,7 @@ namespace Quantum
 			{
 				return;
 			}
-			
+
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
@@ -391,6 +393,38 @@ namespace Quantum
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
+		/// <summary>
+		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
+		/// GameId and Rarity (rarity of equipped item has to be higher).
+		/// </summary>
+		internal bool HasBetterWeaponEquipped(Equipment equipment)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				var weapon = WeaponSlots[i].Weapon;
+				if (weapon.GameId == equipment.GameId && weapon.Rarity >= equipment.Rarity)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private int GetWeaponEquipSlot(Equipment weapon, bool primary)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				var equippedWeapon = WeaponSlots[i].Weapon;
+				if (weapon.GameId == equippedWeapon.GameId)
+				{
+					return i;
+				}
+			}
+
+			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+		}
+
 		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
 		{
 			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
@@ -408,7 +442,7 @@ namespace Quantum
 		{
 			// We request stats and store their current base values
 			var previousStats = f.Get<Stats>(e);
-			
+
 			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
 			                                     out var speed,
 			                                     out var power);
@@ -426,10 +460,10 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
-			
+
 			// After the refresh we request updated stats
 			var currentStats = f.Get<Stats>(e);
-			
+
 			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}
 
@@ -447,7 +481,7 @@ namespace Quantum
 				}
 			}
 		}
-		
+
 		private Special GetSpecial(Frame f, GameId specialId)
 		{
 			if (specialId == default)

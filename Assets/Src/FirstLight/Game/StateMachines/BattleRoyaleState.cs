@@ -172,7 +172,7 @@ namespace FirstLight.Game.StateMachines
 
 			await _uiService.OpenUiAsync<SpectateHudPresenter, SpectateHudPresenter.StateData>(data);
 			
-			_services.MessageBrokerService.Publish(new SpectateKillerMessage());
+			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}
 
 		private void CloseSpectateHud()

@@ -9,6 +9,7 @@ namespace Quantum
 	{
 		public GameId Id;
 		public ChestType ChestType;
+		public QuantumPair<int, int> RarityModifierRange;
 
 		public List<QuantumPair<FP, uint>> RandomEquipment;
 		public List<QuantumPair<FP, uint>> SmallConsumable;

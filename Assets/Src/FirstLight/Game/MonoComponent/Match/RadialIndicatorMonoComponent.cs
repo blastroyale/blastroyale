@@ -55,21 +55,25 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 
 		/// <inheritdoc />
-		public void SetTransformState(Vector2 position)
+		public void SetTransformState(Vector2 direction)
 		{
-			var move = position * _maxRange;
-			
-			_position = new Vector3(move.x, _localHeight, move.y);;
-			transform.position = _playerTransform.position + _position;
-			var ray = new Ray(transform.position, Vector3.down);
+			var move = direction * _maxRange;
+			var position = _playerTransform.position;
+
+			// Getting the position the special is going to drop on
+			position += new Vector3(move.x, 10f, move.y);
+			var ray = new Ray(position, Vector3.down);
 			if (Physics.Raycast(ray, out var raycastHit))
 			{
-				_indicator.transform.position = raycastHit.point;
+				position = new Vector3(raycastHit.point.x, raycastHit.point.y, raycastHit.point.z);
 			}
 			else
 			{
-				_indicator.transform.position = Vector3.zero;
+				// If there's no surface to drop the special on, we just define the y of the player
+				position = new Vector3(position.x, _playerTransform.position.y, position.z);
 			}
+			
+			_position = position-_playerTransform.position;
 		}
 	}
 }

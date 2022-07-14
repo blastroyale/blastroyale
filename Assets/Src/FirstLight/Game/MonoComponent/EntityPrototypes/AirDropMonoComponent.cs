@@ -1,5 +1,6 @@
 using DG.Tweening;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -48,6 +49,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
+			
+			Services.AudioFxService.PlayClip2D(AudioId.AirDrop2);
 
 			_parachute.SetActive(true);
 		}

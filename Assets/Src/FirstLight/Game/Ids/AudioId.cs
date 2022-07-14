@@ -177,6 +177,8 @@ namespace FirstLight.Game.Ids
 		SmashingIt,
 		GameOver,
 		ElClassico,
+		// New announcer
+		AirDrop2,
 		None, // TODO: Make an Enum selector
 	}
 	

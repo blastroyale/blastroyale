@@ -32,6 +32,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private LeaderHolderView _leaderHolderView;
 		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
 		[SerializeField, Required] private MapTimerView _mapTimerView;
+		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
+		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _minimapHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
@@ -57,6 +59,8 @@ namespace FirstLight.Game.Presenters
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
+			_contendersLeftHolderMessageView.gameObject.SetActive(false);
+			_contendersLeftHolderView.gameObject.SetActive(false);
 
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
@@ -84,6 +88,8 @@ namespace FirstLight.Game.Presenters
 			_animation.Play();
 
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
+			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 

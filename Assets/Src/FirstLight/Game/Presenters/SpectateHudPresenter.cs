@@ -89,7 +89,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = ()=> { Data.OnLeaveClicked(); }
 			};
 			
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.General.AreYouSure, true, button);
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.AdventureMenu.AreYouSureQuit, true, button);
 		}
 
 		private void OnNextPlayerClicked()

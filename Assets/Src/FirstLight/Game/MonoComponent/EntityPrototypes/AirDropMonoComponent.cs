@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -15,7 +16,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public class AirDropMonoComponent : EntityBase
 	{
 		private const int AIRPLANE_DISTANCE = 150;
-		
+
 		[SerializeField, Required] private Transform _itemRoot;
 		[SerializeField, Required] private GameObject _parachute;
 		[SerializeField, Required] private Transform _airplane;
@@ -24,19 +25,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
-			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
-		}
 
-		private void OnAirDropStarted(EventOnAirDropStarted callback)
-		{
-			if (callback.Entity != EntityView.EntityRef) return;
+			var airDrop = GetComponentData<AirDrop>(game);
 
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(callback.AirDrop.Chest, true, true,
+			Services.AssetResolverService.RequestAsset<GameId, GameObject>(airDrop.Chest, true, true,
 			                                                               OnChestLoaded);
-
-			var airDrop = callback.AirDrop;
 
 			var airdropPosition = airDrop.Position.ToUnityVector3();
 			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
@@ -47,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_airplane.gameObject.SetActive(true);
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
 			_airplane.position = startingPosition;
-			_airplane.DOMove(targetPosition, 10f);
+			_airplane.DOMove(targetPosition, airDrop.Duration.AsFloat / 2f).SetDelay(airDrop.Delay.AsFloat);
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
@@ -72,6 +67,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			if (this.IsDestroyed() || runner == null)
 			{
 				Destroy(instance);
+				FLog.Info("PACO", $"OnChestLoaded Destroy runner({runner}), IsDestroyed({this.IsDestroyed()})");
 				return;
 			}
 

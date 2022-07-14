@@ -107,9 +107,6 @@ namespace Quantum
 				}
 			}
 
-
-
-
 			var stats = f.Get<Stats>(playerEntity);			
 			// Drop Small consumable
 			foreach (var (chance, count) in config.SmallConsumable)
@@ -162,8 +159,6 @@ namespace Quantum
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}
 			}
-
-
 		}
 
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,

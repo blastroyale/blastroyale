@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _camera3Button;
 		[SerializeField] private Button[] _standingsButtons;
 		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
-		[SerializeField, Required] private ContendersLeftView _contendersLeftMessageView;
 		[SerializeField, Required] private ContendersLeftView _contendersLeftHolderView;
 		[SerializeField, Required] private StandingsHolderView _standings;
 		
@@ -57,7 +56,6 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_scoreHolderView.gameObject.SetActive(false);
-			_contendersLeftMessageView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
 			_standings.gameObject.SetActive(false);
 		}
@@ -67,7 +65,6 @@ namespace FirstLight.Game.Presenters
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
 			
-			_contendersLeftMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 

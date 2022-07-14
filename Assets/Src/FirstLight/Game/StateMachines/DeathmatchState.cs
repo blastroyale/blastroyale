@@ -28,6 +28,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new();
 
+		private bool _isMatchEnding;
+		
 		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                       Action<IStatechartEvent> statechartTrigger)
 		{
@@ -46,6 +48,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var countdown = stateFactory.TaskWait("Countdown Hud");
 			var alive = stateFactory.State("Alive Hud");
+			var deadCheck = stateFactory.Choice("Dead Check");
 			var dead = stateFactory.State("Dead Hud");
 			var spectating = stateFactory.State("Spectate Screen");
 			var respawning = stateFactory.State("Respawning");
@@ -71,9 +74,12 @@ namespace FirstLight.Game.StateMachines
 
 			alive.OnEnter(OpenMatchHud);
 			alive.OnEnter(OpenControlsHud);
-			alive.Event(_localPlayerDeadEvent).Target(dead);
+			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.OnExit(CloseControlsHud);
 
+			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
+			deadCheck.Transition().Target(dead);
+			
 			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenKilledHud);
 			dead.Event(_localPlayerAliveEvent).OnTransition(OpenControlsHud).Target(alive);
@@ -100,6 +106,11 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private bool IsMatchEnding()
+		{
+			return _isMatchEnding;
 		}
 		
 		private bool IsLocalPlayerAlive()
@@ -130,6 +141,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
+			var f = callback.Game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersMachData = gameContainer.GetPlayersMatchData(f, out _);
+			var killerData = playersMachData[callback.PlayerKiller];
+			var killsRequired = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(killerData.MapId).GameEndTarget;
+
+			if (killerData.Data.PlayersKilledCount >= killsRequired)
+			{
+				_isMatchEnding = true;
+			}
+			
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 

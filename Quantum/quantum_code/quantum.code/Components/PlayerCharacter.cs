@@ -144,12 +144,11 @@ namespace Quantum
 			}
 
 			f.Add(e, deadPlayer);
-
-			f.Events.OnPlayerDead(Player, e);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
-
 			f.Remove<Targetable>(e);
 			f.Remove<AlivePlayerCharacter>(e);
+			
+			f.Events.OnPlayerDead(Player, e);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);

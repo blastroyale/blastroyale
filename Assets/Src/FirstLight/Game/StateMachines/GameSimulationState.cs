@@ -79,13 +79,13 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
 
-			deathmatch.Nest(_deathmatchState.Setup).Target(resultsSpectatorCheck);
+			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(resultsSpectatorCheck);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);

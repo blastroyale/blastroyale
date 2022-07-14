@@ -82,6 +82,14 @@ namespace Quantum
 						var drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge,
 																GameId.ShieldCapacitySmall);
 
+						//always drop a weapon if you do not have one equipped
+						if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random 
+							&& playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random) 
+						{
+							drop = GameId.Random;
+							Log.Warn("force weapon drop");
+						}
+
 						if (drop == GameId.Random)
 						{
 							var weapon = weaponPool[f.RNG->Next(0, weaponPool.Count)];
@@ -124,11 +132,11 @@ namespace Quantum
 					{
 						drop = GameId.AmmoSmall;
 					}
-					if (stats.CurrentShield < FP._0_20)
+					else if (stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20)
 					{
 						drop = GameId.ShieldSmall;
 					}
-					if (stats.CurrentHealth < FP._0_20)
+					else if (stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20)
 					{
 						drop = GameId.Health;
 					}
@@ -152,7 +160,7 @@ namespace Quantum
 					{
 						drop = GameId.AmmoLarge;
 					}
-					if (stats.CurrentShield < FP._0_20)
+					else if (stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20)
 					{
 						drop = GameId.ShieldLarge;
 					}

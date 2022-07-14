@@ -28,8 +28,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new();
 
-		private bool _isMatchEnding;
-		
 		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                       Action<IStatechartEvent> statechartTrigger)
 		{
@@ -110,7 +108,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsMatchEnding()
 		{
-			return _isMatchEnding;
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			return f.GetSingleton<GameContainer>().IsGameOver;
 		}
 		
 		private bool IsLocalPlayerAlive()
@@ -141,17 +140,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			var f = callback.Game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersMachData = gameContainer.GetPlayersMatchData(f, out _);
-			var killerData = playersMachData[callback.PlayerKiller];
-			var killsRequired = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(killerData.MapId).GameEndTarget;
-
-			if (killerData.Data.PlayersKilledCount >= killsRequired)
-			{
-				_isMatchEnding = true;
-			}
-			
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 

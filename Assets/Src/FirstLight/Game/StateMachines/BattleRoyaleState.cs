@@ -25,7 +25,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private PlayerRef _killer;
-		private int _playersLeft;
 
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
 		                         Action<IStatechartEvent> statechartTrigger)
@@ -91,7 +90,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 		}
 
 		private void UnsubscribeEvents()
@@ -101,7 +99,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsMatchEnding()
 		{
-			return _playersLeft == 1;
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			return f.GetSingleton<GameContainer>().IsGameOver;
 		}
 		
 		private bool IsLocalPlayerAlive()
@@ -127,15 +126,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			_playersLeft = QuantumRunner.Default.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>();
 			_statechartTrigger(_localPlayerAliveEvent);
 		}
 
-		private void OnPlayerDead(EventOnPlayerDead callback)
-		{
-			_playersLeft -= 1;
-		}
-		
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_killer = callback.PlayerKiller;

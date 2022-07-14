@@ -24,7 +24,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Animation _rankChangeAnimation;
 		
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 		private int _fragTarget;
 
 		private PlayerRef _currentlyFollowing;
@@ -32,7 +31,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
@@ -59,24 +57,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Verified);
+			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Predicted);
 		}
 
 		private void OnEventOnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Verified);
+			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Predicted);
 		}
 
 		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
 		{
-			UpdateFollowedPlayer(msg.PlayerSpectated, QuantumRunner.Default.Game.Frames.Verified);
+			UpdateFollowedPlayer(msg.PlayerSpectated, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			if (callback.PlayerDead == _currentlyFollowing && _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				UpdateFollowedPlayer(callback.PlayerKiller, callback.Game.Frames.Verified);
+				UpdateFollowedPlayer(callback.PlayerKiller, callback.Game.Frames.Predicted);
 			}
 			else
 			{

@@ -40,12 +40,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
 		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Predicted.ComponentCount<AlivePlayerCharacter>());
+			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Predicted.ComponentCount<AlivePlayerCharacter>());
+			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
 		}
 		
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -54,18 +54,20 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_animation.Rewind();
 			_animation.Play();
 			
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Predicted.ComponentCount<AlivePlayerCharacter>());
+			UpdatePlayersAlive(callback.Game.Frames.Verified);
 		}
 
-		private void UpdatePlayersAlive(int aliveAmount)
+		private void UpdatePlayersAlive(Frame f)
 		{
+			var playersLeft = (f.GetSingleton<GameContainer>().TargetProgress+1) - f.GetSingleton<GameContainer>().CurrentProgress;
+			
 			if (_displayNumberOnly)
 			{
-				_contendersLeftText.text = aliveAmount.ToString();
+				_contendersLeftText.text = playersLeft.ToString();
 			}
 			else
 			{
-				_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, aliveAmount);
+				_contendersLeftText.text = string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining, playersLeft);
 			}
 			
 		}

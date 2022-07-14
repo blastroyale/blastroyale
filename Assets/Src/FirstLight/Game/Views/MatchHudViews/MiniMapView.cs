@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -74,6 +75,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_rectTransform = GetComponent<RectTransform>();
+			
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
@@ -151,16 +154,45 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Button, HideInEditorMode]
 		private void RenderMinimap()
 		{
+			try
+			{
+
+			
 			FLog.Verbose("Rendering MiniMap camera.");
 			_minimapCamera.transform.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
 			Destroy(_safeAreaRingMat);
 			Destroy(_shrinkingCircleMat);
+		}
+		
+		private void OnMatchStarted(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				return;
+			}
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			
+			RenderMinimap();
+			_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)

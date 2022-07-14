@@ -21,6 +21,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private bool _displayNumberOnly;
 		
 		private IGameServices _services;
+		private int _playerLeftAlive;
 
 		private void Awake()
 		{
@@ -38,14 +39,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		public void ForceUpdatePlayersAlive()
-		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>());
-		}
-		
 		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
 		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>());
+			if (_playerLeftAlive == 0)
+			{
+				UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>());
+			}
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)
@@ -59,11 +58,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_animation.Rewind();
 			_animation.Play();
 			
-			UpdatePlayersAlive(callback.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>());
+			UpdatePlayersAlive(_playerLeftAlive - 1);
 		}
 
 		private void UpdatePlayersAlive(int aliveAmount)
 		{
+			_playerLeftAlive = aliveAmount;
+			
 			if (_displayNumberOnly)
 			{
 				_contendersLeftText.text = aliveAmount.ToString();

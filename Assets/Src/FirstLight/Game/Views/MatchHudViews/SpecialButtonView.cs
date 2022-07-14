@@ -35,6 +35,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private IGameServices _services;
 		private Coroutine _cooldownCoroutine;
+		private bool _isAiming;
 
 		private void Awake()
 		{
@@ -54,6 +55,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
+
+			_buttonView.interactable = false;
+			_isAiming = true;
 			
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
@@ -62,7 +66,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (!_isAiming)
 			{
 				return;
 			}
@@ -73,10 +77,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (!_isAiming)
 			{
 				return;
 			}
+
+			_isAiming = false;
 			
 			SetInputData(eventData);
 			_specialPointerDownAdapter.SendValueToControl(0f);

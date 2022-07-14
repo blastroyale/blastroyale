@@ -40,7 +40,7 @@ MonoBehaviour:
       NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 196608
+        RawValue: 163840
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -240,7 +240,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 26214
       AimTime:
-        RawValue: 26214
+        RawValue: 32768
       AttackCooldown:
         RawValue: 52429
       AttackHitSpeed:
@@ -310,7 +310,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 45875
       AimTime:
-        RawValue: 8192
+        RawValue: 6554
       AttackCooldown:
         RawValue: 26214
       AttackHitSpeed:

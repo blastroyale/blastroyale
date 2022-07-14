@@ -116,6 +116,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 26ba52ed9051d423dbfe823488a7abfc, type: 3}
   - {fileID: 21300000, guid: 113fd59e86fa6524a972547df6cc8459, type: 3}
   - {fileID: 21300000, guid: 16af00de8cfad4fefb09acb32ea6e68c, type: 3}
+  - {fileID: 21300000, guid: 5abba8fe7cf9d48a8b95b6f82d82773d, type: 3}
   - {fileID: 21300000, guid: bd5d2d0f52715473ca58a463cc941357, type: 3}
   - {fileID: 21300000, guid: 23beb82f33697664a8e8e12ace7b93f5, type: 3}
   - {fileID: 21300000, guid: ddaf3b2f1f5294775bf485c5459fd521, type: 3}
@@ -193,6 +194,7 @@ SpriteAtlas:
   - SpecialButton
   - PlayerLeft
   - SmearNewShadow
+  - RaritiesNameTemp
   - PlayerIndicatorFaceKO
   - HUD_AdventureCoin
   - RadiusDirectionLine

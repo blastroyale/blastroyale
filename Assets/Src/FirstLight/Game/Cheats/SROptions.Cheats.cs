@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net;
 using System.Net.Http;
 using FirstLight.FLogger;
 using FirstLight.Game;
@@ -14,9 +13,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using PlayFab;
-using PlayFab.CloudScriptModels;
 using Quantum;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -60,7 +57,7 @@ public partial class SROptions
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
 #if UNITY_EDITOR
-			if(EditorApplication.isPlaying) 
+			if(UnityEditor.EditorApplication.isPlaying) 
 			{
 				UnityEditor.EditorApplication.isPlaying = false;
 			}

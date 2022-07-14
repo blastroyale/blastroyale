@@ -12,7 +12,7 @@ namespace Quantum
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config, bool makeCollectable = true)
+						   QuantumChestConfig config, bool makeCollectable = true)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
@@ -33,13 +33,13 @@ namespace Quantum
 		/// </summary>
 		internal void MakeCollectable(Frame f, EntityRef e)
 		{
-			f.Add(e, new Collectable {GameId = Id});
+			f.Add(e, new Collectable { GameId = Id });
 		}
 
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
-			
+
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
@@ -80,7 +80,7 @@ namespace Quantum
 					{
 						// For GameId.Random we drop equipment
 						var drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge,
-						                                        GameId.ShieldCapacitySmall);
+																GameId.ShieldCapacitySmall);
 
 						if (drop == GameId.Random)
 						{
@@ -107,6 +107,10 @@ namespace Quantum
 				}
 			}
 
+
+
+
+			var stats = f.Get<Stats>(playerEntity);			
 			// Drop Small consumable
 			foreach (var (chance, count) in config.SmallConsumable)
 			{
@@ -118,6 +122,19 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
+					//modify the drop based on whether or not the player needs specific items
+					if (playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP._0_20)
+					{
+						drop = GameId.AmmoSmall;
+					}
+					if (stats.CurrentShield < FP._0_20)
+					{
+						drop = GameId.ShieldSmall;
+					}
+					if (stats.CurrentHealth < FP._0_20)
+					{
+						drop = GameId.Health;
+					}
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}
 			}
@@ -132,12 +149,21 @@ namespace Quantum
 
 				for (uint i = 0; i < count; i++)
 				{
-					//TODO: specifically drop things the player needs
-					
 					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
+					//modify the drop baeed on whether or not the player needs certain items
+					if(playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP._0_20)
+					{
+						drop = GameId.AmmoLarge;
+					}
+					if (stats.CurrentShield < FP._0_20)
+					{
+						drop = GameId.ShieldLarge;
+					}
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}
 			}
+
+
 		}
 
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,

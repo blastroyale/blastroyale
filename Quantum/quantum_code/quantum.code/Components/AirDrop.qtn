@@ -16,12 +16,6 @@ enum AirDropStage
 	Dropped
 }
 
-synced event OnAirDropStarted
-{
-	entity_ref Entity;
-	AirDrop AirDrop;
-}
-
 synced event OnAirDropDropped
 {
 	entity_ref Entity;

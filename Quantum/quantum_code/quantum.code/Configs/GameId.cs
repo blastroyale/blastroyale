@@ -520,16 +520,14 @@ namespace Quantum
 					GameId.AmmoSmall, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
-						GameIdGroup.Collectable,
-						GameIdGroup.Ammo
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.AmmoLarge, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
-						GameIdGroup.Collectable,
-						GameIdGroup.Ammo
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
@@ -877,13 +875,6 @@ namespace Quantum
 						GameId.ChestRare,
 						GameId.ChestEpic,
 						GameId.ChestLegendary
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Ammo, new List<GameId>
-					{
-						GameId.AmmoSmall,
-						GameId.AmmoLarge
 					}.AsReadOnly()
 				},
 				{

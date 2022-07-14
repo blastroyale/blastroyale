@@ -406,10 +406,6 @@ MonoBehaviour:
     m_Address: Assets/Art/Textures/Ui/Home Screen/IconHome.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 388f5070d8df04c05ac878003ea3a704
-    m_Address: Assets/Art/Textures/Ui/LootScreen/WeaponNameBg.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 9bf08770a299242c5b89794ed0a9e198
     m_Address: Assets/Art/Textures/Ui/EquipmentScreen/ItemCardEmpty.png
     m_ReadOnly: 0
@@ -514,10 +510,6 @@ MonoBehaviour:
     m_Address: Assets/Art/Textures/Ui/LootScreen/GunItemIcon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9ccf5dc46a77943c1bf581cbaa659694
-    m_Address: Assets/Art/Textures/Ui/LootScreen/SmearNewWhite.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 920b10e4531fc46ae991cc38293de39d
     m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconHeadgear.png
     m_ReadOnly: 0
@@ -532,10 +524,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: d1f4f5759228b485fb699a7d22761fe4
     m_Address: Assets/Art/Textures/Ui/TopBar/TopBarCellFill.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: efcf9e958d69a4957955f85f86cc38fa
-    m_Address: Assets/Art/Textures/Ui/LootScreen/LightRays.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 54925af58e45742dcaa2c2c96b65598f
@@ -592,10 +580,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: e7a924195237f4712941c803a49eede8
     m_Address: Assets/Art/Textures/Ui/Home Screen/TrophyRoadHolderNew.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a988dd399d737497f8f2a7ffb9814be7
-    m_Address: Assets/Art/Textures/Ui/LootScreen/LightRaysColor.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9908dd794f26c4b92883301da3cf1be7
@@ -728,10 +712,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: e89c739e4b69042788306cd569fa450b
     m_Address: Assets/Art/Textures/Ui/EquipmentScreen/EquippedItem.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 16af00de8cfad4fefb09acb32ea6e68c
-    m_Address: Assets/Art/Textures/Ui/LootScreen/SmearNewShadow.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5ca855de7e12943dc935fc2d85028636

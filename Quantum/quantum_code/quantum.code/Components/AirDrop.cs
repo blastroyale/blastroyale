@@ -39,8 +39,6 @@ namespace Quantum
 			};
 			f.Add(entity, airDrop);
 
-			f.Events.OnAirDropStarted(entity, airDrop);
-
 			return entity;
 		}
 	}

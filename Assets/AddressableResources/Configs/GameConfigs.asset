@@ -38,7 +38,7 @@ MonoBehaviour:
         Deathmatch: 800
       PlayerDefaultSpeed:
         BattleRoyale:
-          RawValue: 203161
+          RawValue: 196608
         Deathmatch:
           RawValue: 294912
       PlayerMaxShieldCapacity:
@@ -57,7 +57,7 @@ MonoBehaviour:
         RawValue: 2293760
       CollectableCollectTime:
         BattleRoyale:
-          RawValue: 32768
+          RawValue: 52429
         Deathmatch:
           RawValue: 39322
       PlayerAliveShieldDuration:
@@ -70,7 +70,7 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 250
+      StatsPowerBaseValue: 200
       StatsPowerRarityMultiplier:
         RawValue: 68813
       StatsPowerLevelStepMultiplier:

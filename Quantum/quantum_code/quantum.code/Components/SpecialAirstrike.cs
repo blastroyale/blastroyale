@@ -41,7 +41,6 @@ namespace Quantum
 			else
 			{
 				targetPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange).XOY;
-				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 
 			var hazardData = new Hazard

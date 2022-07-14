@@ -232,6 +232,7 @@ namespace Quantum {
     BotItem = 4,
     Consumable = 19,
     Collectable = 27,
+    Ammo = 7,
     Chest = 2,
     Special = 21,
     Destructible = 26,

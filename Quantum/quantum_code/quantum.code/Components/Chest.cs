@@ -87,8 +87,7 @@ namespace Quantum
 							&& playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random) 
 						{
 							drop = GameId.Random;
-							Log.Warn("force weapon drop");
-						}
+						}						
 
 						if (drop == GameId.Random)
 						{

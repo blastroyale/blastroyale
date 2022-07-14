@@ -4,7 +4,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.AdventureHudViews
@@ -26,7 +25,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnEventOnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
 
-			_slots.ForEach(i => i.Init());
+			foreach (var slot in _slots)
+			{
+				slot.Init();
+			}
 			_slots[Constants.WEAPON_INDEX_DEFAULT].SetEquipment(new Equipment(GameId.Hammer));
 			_slots[Constants.WEAPON_INDEX_PRIMARY].SetEquipment(Equipment.None);
 			_slots[Constants.WEAPON_INDEX_SECONDARY].SetEquipment(Equipment.None);

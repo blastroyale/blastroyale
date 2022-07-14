@@ -19,12 +19,13 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
 		private readonly IStatechartEvent _localPlayerSpectateEvent = new StatechartEvent("Local Player Spectate");
 		private readonly IStatechartEvent _localPlayerExitEvent = new StatechartEvent("Local Player Exit");
-
+		
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private PlayerRef _killer;
+		private int _playersLeft;
 
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
 		                         Action<IStatechartEvent> statechartTrigger)
@@ -42,6 +43,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var alive = stateFactory.State("Alive Hud");
+			var deadCheck = stateFactory.Choice("Dead Check");
 			var dead = stateFactory.State("Dead Screen");
 			var spectating = stateFactory.State("Spectate Screen");
 			var spawning = stateFactory.State("Spawning");
@@ -51,7 +53,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
-
+			
 			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
 			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
 			
@@ -60,13 +62,16 @@ namespace FirstLight.Game.StateMachines
 			resyncCheck.OnExit(PublishMatchStartedMessage);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
-			aliveCheck.Transition().Target(dead);
+			aliveCheck.Transition().Target(deadCheck);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 
 			alive.OnEnter(OpenControlsHud);
-			alive.Event(_localPlayerDeadEvent).Target(dead);
+			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.OnExit(CloseControlsHud);
+			
+			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
+			deadCheck.Transition().Target(dead);
 
 			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenKillScreen);
@@ -77,7 +82,7 @@ namespace FirstLight.Game.StateMachines
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.OnExit(CloseSpectateHud);
-
+			
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -86,11 +91,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private bool IsMatchEnding()
+		{
+			return _playersLeft == 1;
 		}
 		
 		private bool IsLocalPlayerAlive()
@@ -116,9 +127,15 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
+			_playersLeft = QuantumRunner.Default.Game.Frames.Verified.ComponentCount<AlivePlayerCharacter>();
 			_statechartTrigger(_localPlayerAliveEvent);
 		}
 
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			_playersLeft -= 1;
+		}
+		
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_killer = callback.PlayerKiller;
@@ -159,7 +176,7 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		private void CloseKillScreen()
-		{
+		{ 
 			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(false, true);
 		}
 

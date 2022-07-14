@@ -38,10 +38,11 @@ namespace Quantum.Systems
 				return;
 			}
 
-			//if you are full on the stat the collectable is attempting to refill, then do not collect
-			if (IsCollectableFilled(f, info.Entity, info.Other))
-				return;
-				
+			// If you are full on the stat the collectable is attempting to refill, then do not collect
+			if (IsCollectableFilled(f, info.Entity, info.Other)) return;
+			// We don't allow pickup of identical weapons
+			if (HasPlayerBetterWeapon(f, info.Entity, info.Other)) return;
+
 			var endTime = collectable->CollectorsEndTime[player.Player];
 
 			if (!collectable->IsCollecting(player.Player))
@@ -104,6 +105,18 @@ namespace Quantum.Systems
 					case ConsumableType.Ammo:
 						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
 				}
+			}
+
+			return false;
+		}
+
+		private bool HasPlayerBetterWeapon(Frame f, EntityRef entity, EntityRef player)
+		{
+			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var collectable) &&
+			    collectable->Item.IsWeapon())
+			{
+				var playerCharacter = f.Get<PlayerCharacter>(player);
+				return playerCharacter.HasBetterWeaponEquipped(collectable->Item);
 			}
 
 			return false;

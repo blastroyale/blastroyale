@@ -29,7 +29,6 @@ namespace Quantum
 		internal void Collect(Frame f, EntityRef entity, EntityRef player, PlayerRef playerRef)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
-			var collectable = f.Get<Collectable>(entity);
 			var isBot = f.Has<BotCharacter>(player);
 			var playerData = f.GetPlayerData(playerRef);
 

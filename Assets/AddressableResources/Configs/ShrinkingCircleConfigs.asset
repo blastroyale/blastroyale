@@ -41,7 +41,7 @@ MonoBehaviour:
       AirdropChest: 19
     - Step: 2
       DelayTime:
-        RawValue: 0
+        RawValue: 327680
       WarningTime:
         RawValue: 1966080
       ShrinkingTime:
@@ -62,7 +62,7 @@ MonoBehaviour:
       AirdropChest: 19
     - Step: 3
       DelayTime:
-        RawValue: 0
+        RawValue: 327680
       WarningTime:
         RawValue: 1310720
       ShrinkingTime:

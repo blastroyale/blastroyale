@@ -4012,13 +4012,15 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 2320;
+    public const Int32 SIZE = 2328;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public UInt32 CurrentProgress;
+    [FieldOffset(16)]
+    public FP GameOverTime;
     [FieldOffset(0)]
     public QBoolean IsGameOver;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
     private fixed Byte _PlayersData_[2304];
     [FieldOffset(8)]
@@ -4032,6 +4034,7 @@ namespace Quantum {
       unchecked { 
         var hash = 449;
         hash = hash * 31 + CurrentProgress.GetHashCode();
+        hash = hash * 31 + GameOverTime.GetHashCode();
         hash = hash * 31 + IsGameOver.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(PlayersData);
         hash = hash * 31 + TargetProgress.GetHashCode();
@@ -4043,6 +4046,7 @@ namespace Quantum {
         QBoolean.Serialize(&p->IsGameOver, serializer);
         serializer.Stream.Serialize(&p->CurrentProgress);
         serializer.Stream.Serialize(&p->TargetProgress);
+        FP.Serialize(&p->GameOverTime, serializer);
         FixedArray.Serialize(p->PlayersData, serializer, StaticDelegates.SerializePlayerMatchData);
     }
   }
@@ -9485,6 +9489,7 @@ namespace Quantum.Prototypes {
     public UInt32 CurrentProgress;
     public UInt32 TargetProgress;
     public QBoolean IsGameOver;
+    public FP GameOverTime;
     partial void MaterializeUser(Frame frame, ref GameContainer result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       GameContainer component = default;
@@ -9493,6 +9498,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref GameContainer result, in PrototypeMaterializationContext context) {
       result.CurrentProgress = this.CurrentProgress;
+      result.GameOverTime = this.GameOverTime;
       result.IsGameOver = this.IsGameOver;
       for (int i = 0, count = PrototypeValidator.CheckLength(PlayersData, 32, in context); i < count; ++i) {
         this.PlayersData[i].Materialize(frame, ref *result.PlayersData.GetPointer(i), in context);

@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private LeaderHolderView _leaderHolderView;
 		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
 		[SerializeField, Required] private MapTimerView _mapTimerView;
-		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
+		[SerializeField, Required] private ContendersLeftView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _minimapHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 

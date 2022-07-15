@@ -24,7 +24,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Animation _rankChangeAnimation;
 		
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 		private int _fragTarget;
 
 		private PlayerRef _currentlyFollowing;
@@ -32,40 +31,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
 			_fragTarget = (int) _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
-
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
+			
 			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
 			
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnEventOnLocalPlayerAlive);
-		}
-
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
-		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				return;
-			}
-
-			UpdateFollowedPlayer(callback.Player);
-		}
-
-		private void OnEventOnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
-		{
-			UpdateFollowedPlayer(callback.Player);
-		}
-
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
-		{
-			UpdateFollowedPlayer(msg.PlayerSpectated);
 		}
 		
 		private void OnDestroy()
@@ -73,32 +50,49 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out _);
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _currentlyFollowing != PlayerRef.None)
+			{
+				return;
+			}
+			
+			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Predicted);
+		}
 
-			_currentRankText.text = matchData[game.GetLocalPlayers()[0]].PlayerRank.ToString();
+		private void OnEventOnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		{
+			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Predicted);
+		}
+
+		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
+		{
+			UpdateFollowedPlayer(msg.PlayerSpectated, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (callback.PlayerKiller == _currentlyFollowing)
+			if (callback.PlayerDead == _currentlyFollowing && _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				UpdateValues(callback.PlayersMatchData[_currentlyFollowing]);
+				UpdateFollowedPlayer(callback.PlayerKiller, callback.Game.Frames.Predicted);
+			}
+			else
+			{
+				var frame = callback.Game.Frames.Verified;
+				var gameContainer = frame.GetSingleton<GameContainer>();
+				var data = gameContainer.GetPlayersMatchData(frame, out _);
+			
+				UpdateValues(data[_currentlyFollowing]);
 			}
 		}
 
-		private void UpdateFollowedPlayer(PlayerRef playerRef)
+		private void UpdateFollowedPlayer(PlayerRef playerRef, Frame f)
 		{
 			_currentlyFollowing = playerRef;
 			
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var gameContainer = frame.GetSingleton<GameContainer>();
-			var data = gameContainer.GetPlayersMatchData(frame, out _);
-
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var data = gameContainer.GetPlayersMatchData(f, out _);
+			
 			UpdateValues(data[_currentlyFollowing]);
 		}
 

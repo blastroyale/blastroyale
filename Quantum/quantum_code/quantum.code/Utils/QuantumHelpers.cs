@@ -301,7 +301,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Tries to find a closest position on NavMesh to <paramref name="initialPosition"/>
+		/// Tries to find a random in the circle area with <paramref name="initialPosition"/> and <paramref name="radius"/>
 		/// </summary>
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, FP radius, out FPVector3 correctedPosition)
 		{

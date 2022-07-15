@@ -17,7 +17,14 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
-			component->TargetProgress = f.Context.MapConfig.GameEndTarget;
+			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				component->TargetProgress = f.Context.MapConfig.GameEndTarget;
+			}
+			else
+			{
+				component->TargetProgress = (uint)f.PlayerCount - 1;
+			}
 		}
 
 		/// <inheritdoc />

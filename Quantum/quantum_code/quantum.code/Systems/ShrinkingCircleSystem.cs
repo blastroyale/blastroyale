@@ -80,9 +80,10 @@ namespace Quantum.Systems
 			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
 			circle->Damage = config.MaxHealthDamage;
 
-			var randomR = f.RNG->NextInclusive(FP._0, circle->CurrentRadius - circle->TargetRadius);
-			circle->TargetCircleCenter +=
-				FPVector2.Rotate(FPVector2.Left, f.RNG->NextInclusive(FP._0, FP.PiTimes2)) * randomR;
+			QuantumHelpers.TryFindPosOnNavMesh(f, circle->CurrentCircleCenter.XOY,
+			                                   circle->CurrentRadius - circle->TargetRadius,
+			                                   out var targetPos);
+			circle->TargetCircleCenter = targetPos.XZ;
 
 			// When we change a step of a circle, we need to remove current spell from all players
 			// So in update the up-to-date spell will be added

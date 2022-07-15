@@ -96,7 +96,7 @@ namespace Quantum
 				                ? weaponPool[f.RNG->Next(0, weaponPool.Count)]
 				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
 
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment);
 
 			return entity;
@@ -110,7 +110,7 @@ namespace Quantum
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			var equipment = new Equipment(id);
 
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, transform.Rotation,
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment);
 
 			return entity;

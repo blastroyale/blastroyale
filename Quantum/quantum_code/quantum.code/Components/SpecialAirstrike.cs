@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -50,7 +48,7 @@ namespace Quantum
 				GameId = special.SpecialId,
 				Interval = special.Speed,
 				NextTickTime = f.Time + special.Speed,
-				PowerAmount = (uint)special.SpecialPower,
+				PowerAmount = special.SpecialPower,
 				Radius = special.Radius,
 				StunDuration = FP._0,
 				TeamSource = team,

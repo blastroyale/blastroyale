@@ -6067,6 +6067,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: CraftSpiceHolderImage
       objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412448109043248156, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5534560504630958126, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6173,6 +6205,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6016285604503024097, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594319646241467812, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
+      propertyPath: m_RaycastPadding.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7053202240583333411, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}

@@ -176,6 +176,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 			Destroy(_safeAreaRingMat);
 			Destroy(_shrinkingCircleMat);
 		}

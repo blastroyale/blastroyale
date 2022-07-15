@@ -2334,8 +2334,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1470785653206099668}
   - component: {fileID: 986806972244285231}
+  - component: {fileID: 4885710357091674081}
   - component: {fileID: 6662732554723818281}
-  - component: {fileID: 3940955678726387993}
   - component: {fileID: 2317197403373504221}
   - component: {fileID: 6355836010523659907}
   m_Layer: 5
@@ -2375,6 +2375,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4142327457884023039}
   m_CullTransparentMesh: 1
+--- !u!114 &4885710357091674081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142327457884023039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0aa1f1788764f47940fbd5a8c0a4fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _contendersLeftText: {fileID: 1072175911709060904}
+  _animation: {fileID: 6662732554723818281}
+  _animationClipFadeInOut: {fileID: 7400000, guid: 64423d68d1648a04780281e11caf79fd, type: 2}
+  _displayNumberOnly: 1
 --- !u!111 &6662732554723818281
 Animation:
   m_ObjectHideFlags: 0
@@ -2391,20 +2407,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &3940955678726387993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4142327457884023039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae51c681f7c70fc4186ac9f9f592c071, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _contendersLeftText: {fileID: 1072175911709060904}
-  _animation: {fileID: 6662732554723818281}
 --- !u!114 &2317197403373504221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2624,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1659255524118280802}
   - component: {fileID: 649237590459992950}
-  - component: {fileID: 3743946150324336793}
   - component: {fileID: 7001736815283938465}
   - component: {fileID: 9219105266767919410}
   m_Layer: 5
@@ -2661,36 +2662,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4984574656138942239}
   m_CullTransparentMesh: 1
---- !u!114 &3743946150324336793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4984574656138942239}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &7001736815283938465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2705,8 +2676,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _contendersLeftText: {fileID: 6187386485552011636}
   _animation: {fileID: 9219105266767919410}
-  _animationClipFadeIn: {fileID: 7400000, guid: 815223acf05773e4aa4996eaf195e52b, type: 2}
-  _animationClipFadeOut: {fileID: 7400000, guid: 3f5fcb61fdf6ca447b1426ab982c9627, type: 2}
+  _animationClipFadeInOut: {fileID: 7400000, guid: 815223acf05773e4aa4996eaf195e52b, type: 2}
+  _displayNumberOnly: 0
 --- !u!111 &9219105266767919410
 Animation:
   m_ObjectHideFlags: 0
@@ -2719,7 +2690,6 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 815223acf05773e4aa4996eaf195e52b, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 815223acf05773e4aa4996eaf195e52b, type: 2}
-  - {fileID: 7400000, guid: 3f5fcb61fdf6ca447b1426ab982c9627, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -4037,8 +4007,8 @@ MonoBehaviour:
   - {fileID: 7405158185582212082}
   - {fileID: 6355836010523659907}
   _scoreHolderView: {fileID: 4360360694605530269}
-  _contendersLeftHolderMessageView: {fileID: 7001736815283938465}
-  _contendersLeftHolderView: {fileID: 3940955678726387993}
+  _contendersLeftMessageView: {fileID: 7001736815283938465}
+  _contendersLeftHolderView: {fileID: 4885710357091674081}
   _standings: {fileID: 3165684767591875195}
 --- !u!1 &7232601084870124963
 GameObject:

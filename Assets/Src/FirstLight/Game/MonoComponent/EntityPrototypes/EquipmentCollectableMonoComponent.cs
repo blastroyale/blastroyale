@@ -4,6 +4,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
 {
@@ -15,9 +16,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
 
-		// TODO: Delete this when we have a proper implementation of rarity representation in game
-		[SerializeField, Required] private GameObject _debugContainer;
+		// TODO: Temporary rarity display implementation
 		[SerializeField, Required] private TextMeshProUGUI _debugText;
+		[SerializeField, Required] private Image _debugBg;
+		[SerializeField, Required] private Color[] _debugRarityColors;
 
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
@@ -39,24 +41,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
 
-			// TODO: Delete this when we have a proper implementation of rarity representation in game
-#if DEVELOPMENT_BUILD
-			if (SROptions.Current.EnableEquipmentDebug)
-			{
-				_debugContainer.SetActive(true);
-				var equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
-
-				_debugText.text = equipmentCollectable.Item.Rarity.ToString();
-				if (equipmentCollectable.Owner != PlayerRef.None)
-				{
-					_debugText.text += $"\nOwner: {equipmentCollectable.Owner}";
-				}
-			}
-			else
-			{
-				Destroy(_debugContainer);
-			}
-#endif
+			// TODO: Temporary rarity display implementation
+			var rarity = GetComponentData<EquipmentCollectable>(game).Item.Rarity;
+			_debugText.text = rarity.ToString().Replace("Plus", "+");
+			_debugBg.color = _debugRarityColors[(int) rarity];
 		}
 	}
 }

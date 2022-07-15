@@ -67,7 +67,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
 
 			_localInput.Enable();
-			_services.MessageBrokerService.Subscribe<SpectateKillerMessage>(OnSpectateKillerMessage);
+			_services.MessageBrokerService.Subscribe<SpectateStartedMessage>(OnSpectateStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			gameObject.SetActive(false);
 		}
@@ -260,15 +260,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			SpectateNextPlayer();
 		}
 
-		private void OnSpectateKillerMessage(SpectateKillerMessage message)
-		{
-			OnSpectate();
-		}
-
-		private void OnSpectate()
+		private void OnSpectateStartedMessage(SpectateStartedMessage message)
 		{
 			_spectating = true;
 			RefreshSpectator(QuantumRunner.Default.Game.Frames.Verified);
+			SetActiveCamera(_adventureCamera);
 		}
 
 		private void RefreshSpectator(Frame f)

@@ -351,6 +351,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_safeAreaRing.anchoredPosition = safeUICenter;
 			_safeAreaRing.sizeDelta = safeUISize;
 
+			_minimapCamera.Render();
+			
 			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}
 
@@ -361,7 +363,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
 			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
 			var circleRadiusSq = circleRadius * circleRadius;
-			var distanceSqrt = (circleCenter - _cameraTransform.position).sqrMagnitude;
+			var distanceSqrt = (circleCenter - _playerEntityView.transform.position).sqrMagnitude;
 
 			_safeAreaArrow.anchoredPosition = _playerIndicator.anchoredPosition;
 			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);

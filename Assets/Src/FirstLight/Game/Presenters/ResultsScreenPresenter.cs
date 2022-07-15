@@ -68,8 +68,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-
-			var ts = TimeSpan.FromSeconds(f.Time.AsFloat);
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var time = gameContainer.IsGameOver ? gameContainer.GameOverTime : f.Time;
+			var ts = TimeSpan.FromSeconds(time.AsFloat);
+			
 			_debugTotalMatchTimeText.text =  $"MATCH TIME: { ((uint) ts.TotalSeconds).ToHoursMinutesSeconds()}";
 		}
 		

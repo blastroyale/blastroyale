@@ -21,6 +21,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Transform _itemRoot;
 		[SerializeField, Required] private GameObject _parachute;
 		[SerializeField, Required] private Transform _airplane;
+		[SerializeField, Required] private GameObject _airdropDecal;
 		[SerializeField, Required] private ParticleSystem _landingPS;
 		[SerializeField, Required] private Animation _landingAnim;
 
@@ -53,6 +54,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			Services.AudioFxService.PlayClip2D(AudioId.AirDrop2);
 
 			_parachute.SetActive(true);
+			_airdropDecal.SetActive(true);
 		}
 
 		private void OnAirDropLanded(EventOnAirDropLanded callback)

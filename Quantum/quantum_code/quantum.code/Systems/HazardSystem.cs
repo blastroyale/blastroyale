@@ -67,7 +67,7 @@ namespace Quantum.Systems
 						PowerAmount = (uint)damage,
 						SpellSource = filter.Entity,
 						TeamSource = hazard->TeamSource,
-						Victim = default,
+						Victim = hits[j].Entity,
 						KnockbackAmount = hazard->Knockback
 					};
 
@@ -75,6 +75,7 @@ namespace Quantum.Systems
 					{
 						continue;
 					}
+
 					OnHit(f, spell);
 				}
 			}

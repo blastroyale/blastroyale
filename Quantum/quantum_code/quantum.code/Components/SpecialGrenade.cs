@@ -54,7 +54,7 @@ namespace Quantum
 				GameId = special.SpecialId,
 				Interval = special.Speed,
 				NextTickTime = f.Time + launchTime,
-				PowerAmount = (uint)special.SpecialPower,
+				PowerAmount = special.SpecialPower,
 				Radius = special.Radius,
 				StunDuration = FP._0,
 				TeamSource = team,

@@ -78,9 +78,11 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerSpectateEvent).Target(spectating);
 			dead.OnExit(CloseKillScreen);
 
+			spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.OnExit(CloseSpectateHud);
+			spectating.OnExit(CloseMatchHud);
 			
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);

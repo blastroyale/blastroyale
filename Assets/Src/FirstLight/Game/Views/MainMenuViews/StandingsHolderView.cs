@@ -17,10 +17,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[FormerlySerializedAs("_xpHolder")] [SerializeField, Required] private GameObject _extraInfo;
 		[SerializeField, Required] private RectTransform _contentTransform;
 		[SerializeField] private int _verticalEntrySpacing = 14;
+		[SerializeField, Required] private UnityEngine.UI.Button _blockerButton;
+		
 		private readonly List<PlayerResultEntryView> _playerResultPool = new ();
 
 		private void Awake()
 		{
+			_blockerButton.onClick.AddListener(OnCloseClicked);
 			_resultEntryViewRef.gameObject.SetActive(false);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer,
 			                                                  onlyIfActiveAndEnabled: true);
@@ -33,7 +36,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void Initialise(int playerCount, bool showExtra = false, bool enableBlockerButton = false)
 		{
 			_extraInfo.SetActive(showExtra);
-
+			_blockerButton.gameObject.SetActive(enableBlockerButton);
+			
 			UpdateBoardRows(playerCount);
 		}
 

@@ -25,6 +25,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Animation _mapShrinkingTimerAnimation;
 
 		private IGameServices _services;
+		private DateTime _timerUpdatingUntil;
+
+		private Coroutine _timerCoroutine;
 
 		private void Awake()
 		{
@@ -34,27 +37,56 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_timerOutline.SetActive(false);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 		}
-
+		
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_services?.CoroutineService?.StopCoroutine(_timerCoroutine);
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _timerCoroutine != null)
+			{
+				return;
+			}
+
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+
+			if (frame.TryGetSingleton<ShrinkingCircle>(out _))
+			{
+				StartTimerCoroutine(frame);
+			}
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
-
+			
 			if (frame.TryGetSingleton<ShrinkingCircle>(out _))
 			{
-				StartCoroutine(UpdateShrinkingCircleTimer(frame));
+				StartTimerCoroutine(frame);
 			}
 		}
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			StartCoroutine(UpdateShrinkingCircleTimer(callback.Game.Frames.Verified));
+			StartTimerCoroutine(callback.Game.Frames.Verified);
+		}
+
+		private void StartTimerCoroutine(Frame f)
+		{
+			if (_timerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_timerCoroutine);
+			}
+			
+			_timerCoroutine = _services.CoroutineService.StartCoroutine(UpdateShrinkingCircleTimer(f));
+			
 		}
 
 		private IEnumerator UpdateShrinkingCircleTimer(Frame f)
@@ -69,8 +101,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_mapStatusTextAnimation.Play();
 
 			yield return new WaitForSeconds(time);
-
-
+			
 			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
 

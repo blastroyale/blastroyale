@@ -261,6 +261,7 @@ MonoBehaviour:
   _itemRoot: {fileID: 2757963563846507740}
   _parachute: {fileID: 8384721004492821916}
   _airplane: {fileID: 9056270781774561592}
+  _airdropDecal: {fileID: 8529850289521208082}
   _landingPS: {fileID: 1237357947711941916}
   _landingAnim: {fileID: 4112324407107369492}
 --- !u!1 &4764048967066448840
@@ -379,7 +380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4452720708231567130
 Transform:
   m_ObjectHideFlags: 0

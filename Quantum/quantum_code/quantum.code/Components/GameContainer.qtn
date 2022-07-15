@@ -4,6 +4,7 @@ singleton component GameContainer
 	UInt32 CurrentProgress;
 	UInt32 TargetProgress;
 	bool IsGameOver;
+	FP GameOverTime;
 }
 
 enum GameMode

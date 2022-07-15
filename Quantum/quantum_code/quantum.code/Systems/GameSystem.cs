@@ -1,3 +1,5 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -28,7 +30,10 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void GameEnded(Frame f)
 		{
-			f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver = true;
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+
+			gameContainer->GameOverTime = f.Time;
+			gameContainer->IsGameOver = true;
 			
 			f.Events.OnGameEnded();
 			

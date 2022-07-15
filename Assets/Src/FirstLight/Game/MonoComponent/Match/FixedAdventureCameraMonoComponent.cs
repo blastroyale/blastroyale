@@ -163,10 +163,10 @@ namespace FirstLight.Game.MonoComponent.Match
 
 				_followedPlayerEntity = localPlayer.Entity;
 
-				var entityTransform = _entityViewUpdaterService.GetManualView(_followedPlayerEntity).transform;
+				var entityView = _entityViewUpdaterService.GetManualView(_followedPlayerEntity);
 				
-				SetAudioListenerTransform(entityTransform, Vector3.up, Quaternion.identity);
-				SetTargetTransform(entityTransform, game.GetLocalPlayers()[0]);
+				SetAudioListenerTransform(entityView.transform, Vector3.up, Quaternion.identity);
+				SetTargetTransform(entityView.transform, entityView.EntityRef, game.GetLocalPlayers()[0]);
 			}
 		}
 
@@ -187,7 +187,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			// We place audio listener roughly "in the player character's head"
 			SetAudioListenerTransform(follow.transform, Vector3.up, Quaternion.identity);
-			SetTargetTransform(follow.transform, callback.Player);
+			SetTargetTransform(follow.transform, callback.Entity, callback.Player);
 			SetActiveCamera(_spawnCamera);
 		}
 
@@ -202,6 +202,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
 			SetTargetTransform(entityView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform, 
+			                   entityView.EntityRef,
 			                   PlayerRef.None);
 			
 			_followedPlayerEntity = callback.EntityKiller;
@@ -238,7 +239,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 			
-			SetTargetTransform(follow.transform, callback.Player);
+			SetTargetTransform(follow.transform, callback.Entity, callback.Player);
 
 			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
 			{
@@ -271,7 +272,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_spectating && TryGetNextPlayerView(f, out var entityView))
 			{
-				SetTargetTransform(entityView.transform, f.Get<PlayerCharacter>(entityView.EntityRef).Player);
+				SetTargetTransform(entityView.transform, entityView.EntityRef, f.Get<PlayerCharacter>(entityView.EntityRef).Player);
 			}
 		}
 
@@ -303,8 +304,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			virtualCamera.gameObject.SetActive(true);
 		}
 
-		private void SetTargetTransform(Transform entityViewTransform, PlayerRef playerRef)
+		private void SetTargetTransform(Transform entityViewTransform, EntityRef entityRef, PlayerRef playerRef)
 		{
+			_followedPlayerEntity = entityRef;
+			
 			_targetTransform = entityViewTransform;
 			_spawnCamera.LookAt = entityViewTransform;
 			_spawnCamera.Follow = entityViewTransform;
@@ -325,7 +328,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				_services.MessageBrokerService.Publish(new SpectateTargetSwitchedMessage()
 				{
-					EntitySpectated = _followedPlayerEntity,
+					EntitySpectated = entityRef,
 					PlayerSpectated = playerRef
 				});
 			}

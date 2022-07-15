@@ -84,9 +84,11 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenControlsHud).Target(respawning);
 			dead.OnExit(CloseKilledHud);
 			
+			spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.OnExit(CloseSpectateHud);
+			spectating.OnExit(CloseMatchHud);
 
 			respawning.Event(_localPlayerAliveEvent).Target(alive);
 

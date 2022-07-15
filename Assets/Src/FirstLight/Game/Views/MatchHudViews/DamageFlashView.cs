@@ -13,41 +13,51 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class DamageFlashView : MonoBehaviour
 	{
 		[SerializeField, Required] private Animation _damageFlashAnimation;
-		
-		private EntityRef Entity { get; set; }
+
+		private EntityRef _entityFollowed;
 		
 		private IGameServices _services;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
-			_services.MessageBrokerService.Subscribe<HealthEntityInstantiatedMessage>(OnEntityInstantiated);
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged, onlyIfActiveAndEnabled : true);
-		}
 
+			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
+			
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+		}
+		
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnEntityInstantiated(HealthEntityInstantiatedMessage message)
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			var frame = message.Game.Frames.Verified;
-			var entity = message.Entity.EntityRef;
-
-			frame.TryGet<PlayerCharacter>(entity, out var playerCharacter);
-
-			if (message.Game.PlayerIsLocal(playerCharacter.Player))
-			{
-				Entity = entity;
-			}
+			_entityFollowed = callback.Entity;
 		}
-		
+
+		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage obj)
+		{
+			_entityFollowed = obj.EntitySpectated;
+		}
+
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _entityFollowed != EntityRef.None)
+			{
+				return;
+			}
+
+			_entityFollowed = callback.Entity;
+		}
+
 		private void OnEventOnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != Entity || callback.CurrentHealth >= callback.PreviousHealth)
+			if (callback.Entity != _entityFollowed || callback.CurrentHealth >= callback.PreviousHealth)
 			{
 				return;
 			}

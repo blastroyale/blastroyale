@@ -730,7 +730,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     m_Mesh: {fileID: 0}
-    m_MeshRenderer: {fileID: 2081996427913876008}
+    m_MeshRenderer: {fileID: 0}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 0}
     m_SpriteRenderer: {fileID: 0}
@@ -4966,6 +4966,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fafdf9a4479be944c8e7535404d43e32, type: 2}
+    - target: {fileID: -4780072770720950627, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
       propertyPath: m_Name
       value: DamageZone
@@ -4978,16 +4982,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4253280567622488715, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
 --- !u!4 &914108011930167623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
-  m_PrefabInstance: {fileID: 803093298990468780}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &2081996427913876008 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 7f2467952f2fe494687756b43529b3e5, type: 3}
   m_PrefabInstance: {fileID: 803093298990468780}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &803093299640884382

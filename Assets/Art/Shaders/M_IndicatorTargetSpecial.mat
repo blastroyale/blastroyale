@@ -49,7 +49,7 @@ Material:
     - Vector1_cd047edbde144e149b5ea1510e81c375: 0.8
     - _DecalAngleFadeSupported: 1
     - _DecalMeshBiasType: 0
-    - _DecalMeshDepthBias: 0
+    - _DecalMeshDepthBias: 1
     - _DecalMeshViewBias: 0
     - _DrawOrder: 1
     - _QueueControl: 0

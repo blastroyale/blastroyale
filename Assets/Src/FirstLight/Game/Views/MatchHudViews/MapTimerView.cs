@@ -136,8 +136,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_timerHolder.SetActive(false);
 			_timerOutline.SetActive(false);
 			_mapStatusText.gameObject.SetActive(false);
-
-			_timerCoroutine = null;
 		}
 	}
 }

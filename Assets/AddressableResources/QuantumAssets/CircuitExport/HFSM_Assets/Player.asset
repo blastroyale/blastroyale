@@ -1503,7 +1503,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -65536
+          RawValue: 6553
         Z:
           RawValue: 0
       FunctionRef:

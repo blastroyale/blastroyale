@@ -149,7 +149,7 @@ jobs:
       script: |
         pip install amzqr
         Invoke-Webrequest https://flgbuildstorage.blob.core.windows.net/public/br_small_c.jpg -outfile br_small_c.jpg
-        amzqr https://flgbuildstorage.blob.core.windows.net/android/$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk -c -v 10 -p .\br_small_c.jpg
+        amzqr "https://flgbuildstorage.blob.core.windows.net/android/$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk" -c -v 10 -p .\br_small_c.jpg
     displayName: 'Generate QR code'
 
   - script: |

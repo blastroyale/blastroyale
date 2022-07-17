@@ -5,7 +5,12 @@
 name: $(Rev:r)
 
 trigger:
-- develop
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - Backend
 
 pool:
   vmImage: ubuntu-latest

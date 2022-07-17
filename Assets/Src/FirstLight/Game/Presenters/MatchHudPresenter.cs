@@ -50,11 +50,12 @@ namespace FirstLight.Game.Presenters
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
 
-			_connectionIcon.SetActive(false);
-			_standings.gameObject.SetActive(false);
+			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
-			_services.NetworkService.HasLag.InvokeObserve(OnLag);
+			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
+			_connectionIcon.SetActive(false);
+			_standings.gameObject.SetActive(false);
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);

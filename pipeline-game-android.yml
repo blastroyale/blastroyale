@@ -13,7 +13,7 @@ jobs:
   displayName: Build and pack Android game apk
   timeoutInMinutes: 180
   steps:
-  - checkout: develop
+  - checkout: self
     lfs: true
 
   - script: |

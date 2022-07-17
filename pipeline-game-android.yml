@@ -5,6 +5,7 @@ name: $(Rev:r)
 
 trigger:
 - develop
+pr: none
 
 pool: vmss
 

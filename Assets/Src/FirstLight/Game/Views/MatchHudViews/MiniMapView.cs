@@ -207,6 +207,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
 
+			_airdropPool.DespawnAll();
+			_displayedAirdrops.Clear();
 			foreach (var (entity, airDrop) in f.GetComponentIterator<AirDrop>())
 			{
 				SpawnAirdrop(entity, airDrop);

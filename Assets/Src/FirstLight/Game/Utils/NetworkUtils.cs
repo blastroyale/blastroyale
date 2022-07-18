@@ -16,6 +16,7 @@ namespace FirstLight.Game.Utils
 	public static class NetworkUtils
 	{
 		public const char ROOM_SEPARATOR = '#';
+
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
@@ -23,7 +24,8 @@ namespace FirstLight.Game.Utils
 		                                                  string roomName)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
-			
+			var debugName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit;
+			Debug.LogError("ROOM NAME FOR ENTRY: " + debugName);
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit,
@@ -48,7 +50,9 @@ namespace FirstLight.Game.Utils
 					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
-					MaxPlayers = (byte) (mapConfig.PlayersLimit + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
+					MaxPlayers = isRandomMatchmaking
+						             ? (byte) mapConfig.PlayersLimit
+						             : (byte) (mapConfig.PlayersLimit + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
 					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
 				}
 			};

@@ -446,6 +446,7 @@ namespace Quantum
 			                                     out var speed,
 			                                     out var power);
 
+			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 
@@ -462,6 +463,9 @@ namespace Quantum
 
 			// After the refresh we request updated stats
 			var currentStats = f.Get<Stats>(e);
+
+			var diff = currentStats.GetStatData(StatType.Health).StatValue.AsInt - previousStats.GetStatData(StatType.Health).StatValue.AsInt;
+			stats->SetCurrentHealth(f, e, e, stats->CurrentHealth + diff);
 
 			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}

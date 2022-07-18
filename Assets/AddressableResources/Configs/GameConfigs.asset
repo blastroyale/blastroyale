@@ -61,7 +61,10 @@ MonoBehaviour:
         Deathmatch:
           RawValue: 39322
       PlayerAliveShieldDuration:
-        RawValue: 196608
+        BattleRoyale:
+          RawValue: 0
+        Deathmatch:
+          RawValue: 196608
       EquipmentLevelToPowerK: 10
       EquipmentRarityToPowerK: 50
       LootboxSlotsMaxNumber: 4

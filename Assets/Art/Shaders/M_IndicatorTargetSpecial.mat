@@ -8,19 +8,23 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_IndicatorTargetSpecial
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: -6465566751694194690, guid: 6d37d51f9b3bddf498295bb6e2463865, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2001
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 38b938514f277bf49b97182c2ef4b1c4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: 38b938514f277bf49b97182c2ef4b1c4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -45,13 +49,15 @@ Material:
     - Vector1_cd047edbde144e149b5ea1510e81c375: 0.8
     - _DecalAngleFadeSupported: 1
     - _DecalMeshBiasType: 0
-    - _DecalMeshDepthBias: 0
+    - _DecalMeshDepthBias: 1
     - _DecalMeshViewBias: 0
-    - _DrawOrder: 0
+    - _DrawOrder: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Rotation: -1
     m_Colors:
     - Color_c456f3cd5c7a48ceb6529b327462c057: {r: 1, g: 0.8748697, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.94894445, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &590878465917087383
 MonoBehaviour:

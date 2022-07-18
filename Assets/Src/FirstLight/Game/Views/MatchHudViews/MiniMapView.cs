@@ -65,6 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
+		private bool _subscribedQuantumViewUpdate;
 
 		private Material _safeAreaRingMat;
 		private Material _shrinkingCircleMat;
@@ -77,12 +78,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_rectTransform = GetComponent<RectTransform>();
 			
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-
+			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
+			_services.MessageBrokerService.Subscribe<SpectateStartedMessage>(OnSpectateStartedMessage);
+			
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
-
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			
 			_safeAreaRing.gameObject.SetActive(false);
 			_fullScreenButton.gameObject.SetActive(false);
 			
@@ -151,28 +155,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_smallMapPosition = _rectTransform.anchoredPosition;
 		}
 
+		private void SubscribeToQuantumViewUpdate()
+		{
+			if (!_subscribedQuantumViewUpdate)
+			{
+				_subscribedQuantumViewUpdate = true;
+				QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
+			}
+		}
+
 		[Button, HideInEditorMode]
 		private void RenderMinimap()
 		{
-			try
-			{
-
-			
 			FLog.Verbose("Rendering MiniMap camera.");
 			_minimapCamera.transform.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
 		}
 
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 			Destroy(_safeAreaRingMat);
 			Destroy(_shrinkingCircleMat);
 		}
@@ -192,19 +196,44 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
 		}
-
+		
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _playerEntityView != null)
+			{
+				return;
+			}
+			
+			RenderMinimap();
+			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
+			SubscribeToQuantumViewUpdate();
+		}
+		
+		private void OnSpectateStartedMessage(SpectateStartedMessage obj)
+		{
+			RenderMinimap();
+		}
+		
+		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
+		{
+			if (_entityViewUpdaterService.TryGetView(msg.EntitySpectated, out var spectated))
+			{
+				_playerEntityView = spectated;
+				SubscribeToQuantumViewUpdate();
+			}
+		}
+		
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			QuantumCallback.UnsubscribeListener(this);
+			UpdateMinimap(_duration);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
+			SubscribeToQuantumViewUpdate();
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
@@ -231,6 +260,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateMinimap(CallbackUpdateView callback)
 		{
+			if (_playerEntityView == null)
+			{
+				return;
+			}
+			
 			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
 
 			UpdateViewport(playerViewportPoint);
@@ -318,6 +352,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_safeAreaRing.anchoredPosition = safeUICenter;
 			_safeAreaRing.sizeDelta = safeUISize;
 
+			_minimapCamera.Render();
+			
 			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}
 
@@ -328,7 +364,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
 			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
 			var circleRadiusSq = circleRadius * circleRadius;
-			var distanceSqrt = (circleCenter - _cameraTransform.position).sqrMagnitude;
+			var distanceSqrt = (circleCenter - _playerEntityView.transform.position).sqrMagnitude;
 
 			_safeAreaArrow.anchoredPosition = _playerIndicator.anchoredPosition;
 			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);

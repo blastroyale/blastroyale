@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -28,22 +29,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private GameObject _floatingArmourAndTextRef;
 
 		private IEntityViewUpdaterService _entityViewUpdaterService;
+		private IGameServices _services;
 		private IObjectPool<FloatingTextPoolObject> _pool;
 		private IObjectPool<FloatingTextPoolObject> _poolArmour;
 		private Coroutine _coroutine;
-
+		private PlayerRef _observedPlayer;
+		private EntityRef _observedEntity;
+		
 		private readonly IDictionary<EntityRef, Queue<MessageData>> _queue =
 			new Dictionary<EntityRef, Queue<MessageData>>(7);
 
 		private void Awake()
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
 			_floatingTextRef.gameObject.SetActive(false);
 			_floatingArmourAndTextRef.gameObject.SetActive(false);
 
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_pool = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorNormal);
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
-
+			
+			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
@@ -52,11 +61,33 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 			QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
 		}
+		
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		{
+			_observedPlayer = callback.Player;
+			_observedEntity = callback.Entity;
+		}
 
+		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
+		{
+			_observedPlayer = msg.PlayerSpectated;
+			_observedEntity = msg.EntitySpectated;
+		}
+
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _observedPlayer != PlayerRef.None)
+			{
+				return;
+			}
+
+			_observedPlayer = callback.Player;
+			_observedEntity = callback.Entity;
+		}
 		private void OnLocalCollectableBlocked(EventOnLocalCollectableBlocked callback)
 		{
 			if (!callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable) ||
-			    !_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) ||
+			    !_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				return;
@@ -86,10 +117,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
 		{
-			if (!_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) ||
+			if (!_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				Debug.LogWarning($"The entity {callback.PlayerEntity} is not ready for a losing floating text yet");
+				Debug.LogWarning($"The entity {_observedEntity} is not ready for a losing floating text yet");
 				return;
 			}
 
@@ -99,7 +130,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnShieldUpdate(EventOnShieldChanged callback)
 		{
 			if (callback.PreviousShieldCapacity != callback.ShieldCapacity
-			    && _entityViewUpdaterService.TryGetView(callback.Entity, out var entityView)
+			    && _entityViewUpdaterService.TryGetView(_observedEntity, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				EnqueueValueIfNonZero(entityBase, ScriptLocalization.General.Shield,
@@ -121,7 +152,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			ShowStatDifferenceOnEquipmentChange(callback.Entity, callback.PreviousStats, callback.CurrentStats);
+			ShowStatDifferenceOnEquipmentChange(_observedEntity, callback.PreviousStats, callback.CurrentStats);
 		}
 
 		private void ShowStatDifferenceOnEquipmentChange(EntityRef e, Stats previousStats, Stats currentStats)
@@ -173,9 +204,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			// Checks if the health affected is somehow the local player
 			if ((!frame.TryGet<PlayerCharacter>(attacker, out var attackerPlayer) ||
-			     !game.PlayerIsLocal(attackerPlayer.Player)) &&
+			     _observedPlayer != attackerPlayer.Player) &&
 			    (!frame.TryGet<PlayerCharacter>(victim, out var victimPlayer) ||
-			     !game.PlayerIsLocal(victimPlayer.Player)))
+			     _observedPlayer != victimPlayer.Player))
 			{
 				return;
 			}

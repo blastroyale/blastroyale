@@ -115,7 +115,7 @@ Material:
     - _LightContribution: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opaque: 0
+    - _Opaque: 1
     - _ProceduralFoam: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1

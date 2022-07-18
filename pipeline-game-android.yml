@@ -1,0 +1,167 @@
+# Android build and release pipeline
+# This pipeline is respsonsible for building the game and deploying the APK to Azure Storage
+
+name: $(Rev:r)
+
+trigger:
+- develop
+pr: none
+
+pool: vmss
+
+jobs:
+- job: android_game_build_and_pack
+  displayName: Build and pack Android game apk
+  timeoutInMinutes: 180
+  steps:
+  - checkout: self
+    lfs: true
+
+  - script: |
+      yes | "C:\Progra~1\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin\sdkmanager.bat" --licenses
+    displayName: 'Android SDK License Acceptance'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: inline
+      script: |
+        $path = "C:\Users\AzDevOps\.android\"
+          If(!(test-path -PathType container $path))
+          {
+            New-Item -ItemType Directory -Path $path
+          }
+        $path = "C:\Users\AzDevOps\.android\repositories.cfg"
+          If(!(test-path -PathType Leaf $path))
+          {
+            New-Item -ItemType File -Path $path
+          }
+        $ANDROID_ROOT="$Env:Programfiles\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer"
+        $ANDROID_SDK_ROOT="$ANDROID_ROOT\SDK"
+        $ANDROID_NDK_ROOT="$ANDROID_ROOT\NDK"
+        $newPath="C:\Program Files\dotnet;C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin;C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK;C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin"
+        Write-Host "##vso[task.setvariable variable=PATH;]${env:PATH};$newPath"
+        Write-Host "##vso[task.setvariable variable=JAVA_HOME;]C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK"
+        Write-Host "##vso[task.setvariable variable=ANDROID_SDK_ROOT;]$ANDROID_SDK_ROOT"
+        Write-Host "##vso[task.setvariable variable=ANDROID_NDK_ROOT;]$ANDROID_NDK_ROOT"
+        $Env:PATH += $newPath
+        sdkmanager "platforms;android-29"
+        sdkmanager tools platform-tools "build-tools;29.0.2"
+    displayName: 'Pre-setup'
+
+  - script: |
+      msbuild ^
+      ./Quantum/quantum_code/quantum_code.sln ^
+      -restore ^
+      -p:Configuration=Release ^
+      -p:RestorePackagesConfig=true
+    displayName: 'Quantum Build'
+
+  - script: |
+      "C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -quit -batchmode -buildTarget Android -nographics ^
+      -projectPath . ^
+      -executeMethod FirstLight.Editor.Build.Builder.ConfigureBuild ^
+      -logFile "unity3d_editor.log"
+    displayName: 'Unity Build'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        Get-Content -Path .\unity3d_editor.log
+    condition: always()
+    displayName: 'Build Log'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: 'unity3d_editor.log'
+      artifact: 'unity3d_editor.log'
+      publishLocation: 'pipeline'
+    condition: always()
+    displayName: 'Publish Build Log'
+
+  - script: |
+      "C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -flBuildFileName "app" -quit -batchmode ^
+      -buildTarget Android -nographics -projectPath . ^
+      -executeMethod FirstLight.Editor.Build.Builder.JenkinsBuild ^
+      -flBuildNumber 1 ^
+      -logFile "unity3d_editor_build.log"
+    displayName: 'Unity App Build'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        Get-Content -Path .\unity3d_editor_build.log
+    condition: always()
+    displayName: 'App Build Log'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: 'unity3d_editor_build.log'
+      artifact: 'unity3d_editor_build.log'
+      publishLocation: 'pipeline'
+    condition: always()
+    displayName: 'Publish App Build Log'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        switch -File build-output.properties {
+          default {
+            $name, $value = $_.Trim() -split '=', 2
+            if ($name -and $name[0] -ne '#') { # ignore blank and comment lines.
+              Set-Item "Env:$name" $value
+              Write-Host "##vso[task.setvariable variable=$name;]$value"
+            }
+          }
+        }
+    displayName: 'Load Env Vars from build output'
+
+  - script: |
+      cp -v app.apk $(FL_INTERNAL_VERSION_FILENAME).apk
+    displayName: 'Rename APK'
+
+  - task: AzureFileCopy@4
+    inputs:
+      SourcePath: '$(FL_INTERNAL_VERSION_FILENAME).apk'
+      azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
+      Destination: 'AzureBlob'
+      storage: 'flgbuildstorage'
+      ContainerName: 'android'
+      BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk
+      AdditionalArgumentsForBlobCopy: --content-type=application/vnd.android.package-archive
+    displayName: 'Upload APK'
+
+  - task: AzureFileCopy@4
+    inputs:
+      SourcePath: '*.obb'
+      azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
+      Destination: 'AzureBlob'
+      storage: 'flgbuildstorage'
+      ContainerName: 'android'
+      BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/
+    displayName: 'Upload OBB files'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pip install amzqr
+        Invoke-Webrequest https://flgbuildstorage.blob.core.windows.net/public/br_small_c.jpg -outfile br_small_c.jpg
+        amzqr "https://flgbuildstorage.blob.core.windows.net/android/$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk" -c -v 10 -p .\br_small_c.jpg
+    displayName: 'Generate QR code'
+
+  - script: |
+      cp -v br_small_c_qrcode.png BlastRoyale_QR_Android.png
+    displayName: 'Rename QR Code'
+
+  - task: AzureFileCopy@4
+    inputs:
+      SourcePath: 'BlastRoyale_QR_Android.png'
+      azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
+      Destination: 'AzureBlob'
+      storage: 'flgbuildstorage'
+      ContainerName: 'android'
+      BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale_QR_Android.png
+    displayName: 'Upload QR code'

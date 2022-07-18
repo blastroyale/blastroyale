@@ -273,5 +273,19 @@ public partial class SROptions
 			Data = data
 		});
 	}
+	
+	[Category("Logging")]
+	public void LogNetworkInfo()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		Debug.Log($"-NETWORK INFO-\n" +
+		          $"Lobby Name: {services.NetworkService.QuantumClient.CurrentLobby?.Name}\n" +
+		          $"Room Name: {services.NetworkService.QuantumClient.CurrentRoom?.Name}\n" +
+		          $"Player Count: {services.NetworkService.QuantumClient.CurrentRoom?.Players.Count}\n" +
+		          $"Is Open: {services.NetworkService.QuantumClient.CurrentRoom?.IsOpen}\n" +
+		          $"Is Visible: {services.NetworkService.QuantumClient.CurrentRoom?.IsVisible}\n" + 
+		          $"Commit: {services.NetworkService.QuantumClient.CurrentRoom?.CustomProperties[GameConstants.Network.ROOM_PROPS_COMMIT]}\n");
+	}
 #endif
 }

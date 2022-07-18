@@ -63,7 +63,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
 
-			Services.AudioFxService.PlayClip2D(AudioId.AirDrop2);
+			Services.AudioFxService.PlayClip2D(AudioId.AirDrop4);
 
 			_itemRoot.gameObject.SetActive(true);
 		}

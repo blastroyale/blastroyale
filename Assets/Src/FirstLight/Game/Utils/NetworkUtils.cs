@@ -142,10 +142,10 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id},
+				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id}//,
 
 				// Future proofing, good to know when a room was created
-				{GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks}
+				//{GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks}
 			};
 		}
 

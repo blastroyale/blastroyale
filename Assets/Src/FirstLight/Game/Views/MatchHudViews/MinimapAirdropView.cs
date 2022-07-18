@@ -21,6 +21,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Refs")]
 		private Image _timerImage;
 
+		[SerializeField, Required] private RectTransform _container;
+		[SerializeField, Required] private RectTransform _rectTransform;
+
 		[SerializeField, Required] private Image _timerBackground;
 		[SerializeField, Required] private Image _glow;
 		[SerializeField, Required] private Image _icon;
@@ -34,16 +37,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Ease _hideEase = Ease.InSine;
 		[SerializeField] private float _hideDuration = 0.3f;
 
-		private RectTransform _container;
-		private RectTransform _rectTransform;
-
 		private AirDrop _airDrop;
-
-		private void Awake()
-		{
-			_rectTransform = GetComponent<RectTransform>();
-			_container = _rectTransform.parent.GetComponent<RectTransform>();
-		}
 
 		private void Update()
 		{

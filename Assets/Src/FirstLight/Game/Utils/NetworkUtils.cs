@@ -25,7 +25,7 @@ namespace FirstLight.Game.Utils
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 			var debugName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit;
-			Debug.LogError("ROOM NAME FOR ENTRY: " + debugName);
+
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit,
@@ -126,6 +126,8 @@ namespace FirstLight.Game.Utils
 		{
 			var properties = GetJoinRoomProperties(mapConfig);
 
+			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
+			
 			if (mapConfig.GameMode == GameMode.BattleRoyale && !mapConfig.IsTestMap)
 			{
 				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
@@ -142,10 +144,7 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id}//,
-
-				// Future proofing, good to know when a room was created
-				//{GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks}
+				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id}
 			};
 		}
 

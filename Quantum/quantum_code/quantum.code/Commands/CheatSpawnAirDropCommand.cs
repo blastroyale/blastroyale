@@ -9,12 +9,12 @@ namespace Quantum.Commands
 	/// </summary>
 	public class CheatSpawnAirDropCommand : CommandBase
 	{
-		public FPVector3 Position;
+		public bool OnPlayerPosition;
 		public GameId Chest = GameId.ChestLegendary;
 
 		public override void Serialize(BitStream stream)
 		{
-			stream.Serialize(ref Position);
+			stream.Serialize(ref OnPlayerPosition);
 
 			var chest = (int) Chest;
 			stream.Serialize(ref chest);
@@ -23,10 +23,12 @@ namespace Quantum.Commands
 
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			if (Position == FPVector3.Zero)
+			var position = FPVector3.Zero;
+
+			if (OnPlayerPosition)
 			{
 				var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-				Position = f.Get<Transform3D>(characterEntity).Position;
+				position = f.Get<Transform3D>(characterEntity).Position;
 			}
 
 			AirDrop.Create(f, new QuantumShrinkingCircleConfig
@@ -34,7 +36,7 @@ namespace Quantum.Commands
 				AirdropStartTimeRange = new QuantumPair<FP, FP>(FP._0, FP._0),
 				AirdropDropDuration = FP._10,
 				AirdropChest = Chest
-			}, Position);
+			}, position);
 		}
 	}
 }

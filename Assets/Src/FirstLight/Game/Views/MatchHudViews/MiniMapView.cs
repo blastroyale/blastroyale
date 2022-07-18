@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -47,8 +50,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Indicators")]
 		private RectTransform _playerIndicator;
 
+		[SerializeField, Required] private MinimapAirdropView _airdropIndicatorRef;
 		[SerializeField, Required] private RectTransform _safeAreaArrow;
-		[SerializeField, Required] private RectTransform _airDropArrow;
 
 		private IGameServices _services;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
@@ -71,25 +74,32 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Material _shrinkingCircleMat;
 		private Coroutine _airDropCoroutine;
 
+		private IObjectPool<MinimapAirdropView> _airdropPool;
+		private readonly Dictionary<EntityRef, MinimapAirdropView> _displayedAirdrops = new();
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_rectTransform = GetComponent<RectTransform>();
-			
+
+			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
+			                                                     GameObjectPool<MinimapAirdropView>.Instantiator);
+
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
 			_services.MessageBrokerService.Subscribe<SpectateStartedMessage>(OnSpectateStartedMessage);
-			
+
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
+			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			
+
 			_safeAreaRing.gameObject.SetActive(false);
 			_fullScreenButton.gameObject.SetActive(false);
-			
+
 			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
 			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
 
@@ -180,41 +190,41 @@ namespace FirstLight.Game.Views.MatchHudViews
 			Destroy(_safeAreaRingMat);
 			Destroy(_shrinkingCircleMat);
 		}
-		
+
 		private void OnMatchStarted(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
-			
+
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			
+
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
 		}
-		
+
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
 			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _playerEntityView != null)
 			{
 				return;
 			}
-			
+
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			SubscribeToQuantumViewUpdate();
 		}
-		
+
 		private void OnSpectateStartedMessage(SpectateStartedMessage obj)
 		{
 			RenderMinimap();
 		}
-		
+
 		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
 		{
 			if (_entityViewUpdaterService.TryGetView(msg.EntitySpectated, out var spectated))
@@ -223,7 +233,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				SubscribeToQuantumViewUpdate();
 			}
 		}
-		
+
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			UpdateMinimap(_duration);
@@ -243,8 +253,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			_airDropArrow.gameObject.SetActive(true);
-			_airDropCoroutine = StartCoroutine(UpdateAirDropArrow(callback.AirDrop));
+			var airdropView = _airdropPool.Spawn();
+			airdropView.SetAirdrop(callback.AirDrop,
+			                       _minimapCamera.WorldToViewportPoint(callback.AirDrop.Position.ToUnityVector3()));
+			_displayedAirdrops.Add(callback.Entity, airdropView);
+		}
+
+		private void OnAirDropLanded(EventOnAirDropLanded callback)
+		{
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || !isActiveAndEnabled)
+			{
+				return;
+			}
+
+			_displayedAirdrops[callback.Entity].OnLanded();
 		}
 
 		private void OnAirDropCollected(EventOnAirDropCollected callback)
@@ -253,9 +275,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
-			StopCoroutine(_airDropCoroutine);
-			_airDropArrow.gameObject.SetActive(false);
+
+			_airdropPool.Despawn(_displayedAirdrops[callback.Entity]);
+			_displayedAirdrops.Remove(callback.Entity);
 		}
 
 		private void UpdateMinimap(CallbackUpdateView callback)
@@ -264,12 +286,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
+
 			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
 
 			UpdateViewport(playerViewportPoint);
 			UpdatePlayerIndicator(playerViewportPoint);
-			UpdateShrinkingCircle(callback.Game.Frames.Predicted);
+			UpdateAirdropIndicators(playerViewportPoint, callback.Game.Frames.Predicted.Time);
+			UpdateShrinkingCircle(playerViewportPoint, callback.Game.Frames.Predicted);
 		}
 
 		private void UpdateViewport(Vector3 playerViewportPoint)
@@ -286,14 +309,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				Quaternion.Euler(0, 0, 360f - _playerEntityView.transform.rotation.eulerAngles.y);
 
 			// Position (only relevant in opened map)
-			var containerSize = _rectTransform.sizeDelta;
-			_playerIndicator.anchoredPosition =
-				new Vector2(containerSize.x * playerViewportPoint.x - containerSize.x / 2,
-				            containerSize.y * playerViewportPoint.y - containerSize.y / 2) *
-				_animationModifier;
+			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
 		}
 
-		private void UpdateShrinkingCircle(Frame f)
+		private void UpdateShrinkingCircle(Vector3 playerViewportPoint, Frame f)
 		{
 			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
@@ -309,7 +328,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var circleViewportPoint = _minimapCamera.WorldToViewportPoint(center);
 			var safeViewportPoint = _minimapCamera.WorldToViewportPoint(safeCenter);
-			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
 
 			var rect = _rectTransform.rect;
 			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
@@ -352,8 +370,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_safeAreaRing.anchoredPosition = safeUICenter;
 			_safeAreaRing.sizeDelta = safeUISize;
 
-			_minimapCamera.Render();
-			
 			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}
 
@@ -379,18 +395,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private IEnumerator UpdateAirDropArrow(AirDrop airDrop)
+		private void UpdateAirdropIndicators(Vector3 playerViewportPoint, FP time)
 		{
-			// Calculate and Apply rotation
-			while (true)
+			foreach (var indicator in _airdropPool.SpawnedReadOnly)
 			{
-				var targetPosLocal = _cameraTransform.InverseTransformPoint(airDrop.Position.ToUnityVector3());
-				var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
-
-				_airDropArrow.anchoredPosition = _playerIndicator.anchoredPosition;
-				_airDropArrow.eulerAngles = new Vector3(0, 0, targetAngle);
-				yield return null;
+				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
+				indicator.UpdateTime(time);
 			}
+		}
+
+		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)
+		{
+			var rect = _rectTransform.rect;
+			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
+
+			return (viewportPosition - playerViewportPosition * (1f - _animationModifier)) * minimapFullSize -
+			       minimapFullSize / 2f * _animationModifier;
 		}
 	}
 }

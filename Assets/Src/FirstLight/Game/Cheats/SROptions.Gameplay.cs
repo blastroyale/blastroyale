@@ -83,7 +83,7 @@ public partial class SROptions
 	}
 	
 	[Category("Gameplay")]
-	public void SpawnAirDrop()
+	public void SpawnAirDropHere()
 	{
 		var game = QuantumRunner.Default.Game;
 		if (game == null)
@@ -92,7 +92,20 @@ public partial class SROptions
 			return;
 		}
 		
-		game.SendCommand(new CheatSpawnAirDropCommand());
+		game.SendCommand(new CheatSpawnAirDropCommand {OnPlayerPosition = true});
+	}
+
+	[Category("Gameplay")]
+	public void SpawnAirDropRandom()
+	{
+		var game = QuantumRunner.Default.Game;
+		if (game == null)
+		{
+			Debug.LogWarning("Simulation is not running yet");
+			return;
+		}
+
+		game.SendCommand(new CheatSpawnAirDropCommand {OnPlayerPosition = false});
 	}
 #endif
 	

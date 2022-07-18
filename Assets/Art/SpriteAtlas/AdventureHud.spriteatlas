@@ -141,7 +141,7 @@ SpriteAtlas:
   - HealthBarShine
   - SpecialRing
   - Timer
-  - LootBoxLight
+  - AirdropLight
   - WhiteRound
   - SmearNewWhite
   - 2Countdown
@@ -180,7 +180,7 @@ SpriteAtlas:
   - PowerPill
   - HealthBar
   - EnemyIndicatorFace
-  - LootboxIcon
+  - AirdropIcon
   - CheqFlag
   - MapBigMask
   - BossIndicatorInside

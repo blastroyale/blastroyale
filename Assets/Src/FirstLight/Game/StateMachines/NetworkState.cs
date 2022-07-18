@@ -417,7 +417,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			CreateRoom(msg.MapConfig, msg.RoomName);
+			CreateRoom(msg.MapConfig, msg.RoomName, msg.JoinIfExists);
 		}
 		
 		private void OnPlayJoinRoomClickedMessage(PlayJoinRoomClickedMessage msg)
@@ -497,7 +497,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
+		private void CreateRoom(QuantumMapConfig mapConfig, string roomName, bool joinIfExists)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName);
@@ -511,7 +511,14 @@ namespace FirstLight.Game.StateMachines
 				SetSpectatePlayerProperty(false);
 				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpCreateRoom(enterParams);
+				if (joinIfExists)
+				{
+					_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
+				}
+				else
+				{
+					_networkService.QuantumClient.OpCreateRoom(enterParams);
+				}
 			}
 		}
 		

@@ -53,9 +53,6 @@ public partial class SROptions
 	public bool EnableCommitRoomLock
 	{
 		get => FeatureFlags.COMMIT_VERSION_LOCK;
-		set
-		{
-			FeatureFlags.COMMIT_VERSION_LOCK = !FeatureFlags.COMMIT_VERSION_LOCK;
-		}
+		set => FeatureFlags.COMMIT_VERSION_LOCK = !FeatureFlags.COMMIT_VERSION_LOCK;
 	}
 }

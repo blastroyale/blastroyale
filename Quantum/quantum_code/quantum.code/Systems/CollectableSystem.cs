@@ -68,9 +68,7 @@ namespace Quantum.Systems
 
 			collectable->IsCollected = true;
 
-			Collect(f, info.Entity, info.Other, player.Player);
-			f.Events.OnLocalCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
-			f.Events.OnCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
+			Collect(f, info.Entity, info.Other, player.Player, collectable);
 		}
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
@@ -144,16 +142,22 @@ namespace Quantum.Systems
 			f.Events.OnLocalStoppedCollecting(entity, player, playerEntity);
 		}
 
-		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
+		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
+		                     Collectable* collectable)
 		{
+			var gameId = collectable->GameId;
+			
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
-				equipment->Collect(f, entity, playerEntity, player);
+				equipment->Collect(f, entity, playerEntity, player, out var convertedToAmmo);
+				if (convertedToAmmo)
+				{
+					gameId = GameId.AmmoSmall;
+				}
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
 				consumable->Collect(f, entity, playerEntity, player);
-				f.Events.OnConsumablePicked(entity, *consumable, player, playerEntity);
 			}
 			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
 			{
@@ -167,6 +171,9 @@ namespace Quantum.Systems
 			{
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
+			
+			f.Events.OnLocalCollectableCollected(gameId, entity, player, playerEntity);
+			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 	}
 }

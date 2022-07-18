@@ -446,6 +446,7 @@ namespace Quantum
 			                                     out var speed,
 			                                     out var power);
 
+			var healthIncrease = health;
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 
@@ -459,6 +460,7 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
+			stats->SetCurrentHealth(f, e, e, stats->CurrentHealth + healthIncrease);
 
 			// After the refresh we request updated stats
 			var currentStats = f.Get<Stats>(e);

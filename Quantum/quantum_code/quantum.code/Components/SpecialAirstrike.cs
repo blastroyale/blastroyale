@@ -9,6 +9,11 @@ namespace Quantum
 	{
 		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
+			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
+			{
+				return false;
+			}
+			
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			var team = f.Get<Targetable>(e).Team;

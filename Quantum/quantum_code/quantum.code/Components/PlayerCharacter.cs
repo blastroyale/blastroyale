@@ -113,7 +113,7 @@ namespace Quantum
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
 
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield,
-			                                          f.GameConfig.PlayerAliveShieldDuration);
+			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
 		/// <summary>

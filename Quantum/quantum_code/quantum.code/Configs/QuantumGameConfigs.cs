@@ -25,7 +25,7 @@ namespace Quantum
 		public FP CoinsPerFragDeathRatio;
 		public FP XpPerFragDeathRatio;
 		public QuantumGameModePair<FP> CollectableCollectTime;
-		public FP PlayerAliveShieldDuration;
+		public QuantumGameModePair<FP> PlayerAliveShieldDuration;
 		public uint EquipmentLevelToPowerK;
 		public uint EquipmentRarityToPowerK;
 		public uint LootboxSlotsMaxNumber;

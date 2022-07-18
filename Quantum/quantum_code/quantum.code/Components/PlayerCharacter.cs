@@ -465,7 +465,8 @@ namespace Quantum
 			var currentStats = f.Get<Stats>(e);
 
 			var diff = FPMath.Max(currentStats.GetStatData(StatType.Health).StatValue - previousStats.GetStatData(StatType.Health).StatValue, 0);
-			stats->SetCurrentHealth(f, e, e, stats->CurrentHealth + diff.AsInt);
+			var newHealthValue = FPMath.Min(stats->CurrentHealth + diff, stats->GetStatData(StatType.Health).StatValue);
+			stats->SetCurrentHealth(f, e, e, newHealthValue.AsInt);
 
 			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}

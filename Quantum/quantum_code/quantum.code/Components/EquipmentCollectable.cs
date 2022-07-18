@@ -34,12 +34,22 @@ namespace Quantum
 
 			if (Item.IsWeapon())
 			{
-				var primaryWeapon = isBot || Owner == playerRef ||
-				                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
-				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid());
+				if (playerCharacter->HasBetterWeaponEquipped(Item))
+				{
+					var ammoAmount = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall).Amount;
 
-				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
-				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
+					playerCharacter->GainAmmo(f, player, ammoAmount);
+				}
+				else
+				{
+					var primaryWeapon = isBot || Owner == playerRef ||
+					                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
+					                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
+						                     .IsValid());
+
+					playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
+					playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
+				}
 			}
 			else
 			{

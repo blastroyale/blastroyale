@@ -70,7 +70,7 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 200
+      StatsPowerBaseValue: 250
       StatsPowerRarityMultiplier:
         RawValue: 68813
       StatsPowerLevelStepMultiplier:

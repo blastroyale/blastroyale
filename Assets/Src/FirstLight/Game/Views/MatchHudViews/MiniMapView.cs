@@ -206,6 +206,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			RenderMinimap();
 			_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
+
+			foreach (var (entity, airDrop) in f.GetComponentIterator<AirDrop>())
+			{
+				SpawnAirdrop(entity, airDrop);
+			}
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -253,10 +258,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			var airdropView = _airdropPool.Spawn();
-			airdropView.SetAirdrop(callback.AirDrop,
-			                       _minimapCamera.WorldToViewportPoint(callback.AirDrop.Position.ToUnityVector3()));
-			_displayedAirdrops.Add(callback.Entity, airdropView);
+			SpawnAirdrop(callback.Entity, callback.AirDrop);
 		}
 
 		private void OnAirDropLanded(EventOnAirDropLanded callback)
@@ -402,6 +404,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
 				indicator.UpdateTime(time);
 			}
+		}
+
+		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)
+		{
+			var airdropView = _airdropPool.Spawn();
+			airdropView.SetAirdrop(airDrop, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
+			_displayedAirdrops.Add(entity, airdropView);
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)

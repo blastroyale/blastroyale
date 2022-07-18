@@ -209,7 +209,7 @@ namespace Quantum
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts == 1
 				                    ? 0
-				                    : (weaponConfig.AttackCooldown / 2) / weaponConfig.NumberOfBursts;
+				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) / weaponConfig.NumberOfBursts;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);

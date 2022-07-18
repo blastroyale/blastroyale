@@ -274,7 +274,7 @@ public partial class SROptions
 		});
 	}
 	
-	[Category("Log")]
+	[Category("Logging")]
 	public void LogNetworkInfo()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();

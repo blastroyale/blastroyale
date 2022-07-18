@@ -24,11 +24,17 @@ namespace FirstLight.Game.Utils
 		                                                  string roomName)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
-			var debugName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit;
+
+			var roomNameFinal = isRandomMatchmaking ? null : roomName;
+
+			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
+			{
+				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+			}
 
 			var roomParams = new EnterRoomParams
 			{
-				RoomName = isRandomMatchmaking ? null : roomName + ROOM_SEPARATOR + VersionUtils.Commit,
+				RoomName = roomNameFinal,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
@@ -65,9 +71,16 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static EnterRoomParams GetRoomEnterParams(string roomName)
 		{
+			var roomNameFinal = roomName;
+			
+			if (FeatureFlags.COMMIT_VERSION_LOCK )
+			{
+				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+			}
+			
 			return new EnterRoomParams
 			{
-				RoomName = roomName + ROOM_SEPARATOR + VersionUtils.Commit,
+				RoomName = roomNameFinal,
 				PlayerProperties = null,
 				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,

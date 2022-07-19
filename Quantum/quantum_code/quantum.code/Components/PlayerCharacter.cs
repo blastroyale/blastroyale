@@ -113,7 +113,7 @@ namespace Quantum
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
 
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield,
-			                                          f.GameConfig.PlayerAliveShieldDuration);
+			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
 		/// <summary>
@@ -209,7 +209,7 @@ namespace Quantum
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts == 1
 				                    ? 0
-				                    : (weaponConfig.AttackCooldown / 2) / weaponConfig.NumberOfBursts;
+				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) / weaponConfig.NumberOfBursts;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
@@ -446,6 +446,7 @@ namespace Quantum
 			                                     out var speed,
 			                                     out var power);
 
+			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 
@@ -462,6 +463,10 @@ namespace Quantum
 
 			// After the refresh we request updated stats
 			var currentStats = f.Get<Stats>(e);
+
+			var diff = FPMath.Max(currentStats.GetStatData(StatType.Health).StatValue - previousStats.GetStatData(StatType.Health).StatValue, 0);
+			var newHealthValue = FPMath.Min(stats->CurrentHealth + diff, stats->GetStatData(StatType.Health).StatValue);
+			stats->SetCurrentHealth(f, e, e, newHealthValue.AsInt);
 
 			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}

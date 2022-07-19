@@ -23,6 +23,18 @@ jobs:
 
   - task: PowerShell@2
     inputs:
+      targetType: 'inline'
+      script: |
+        $path = "C:\programdata\Unity\config"
+          If(!(test-path -PathType container $path))
+          {
+            New-Item -ItemType Directory -Path $path
+          }
+        Invoke-Webrequest https://flgbuildstorage.blob.core.windows.net/public/services-config.json -outfile C:\programdata\Unity\config\services-config.json
+    displayName: 'Configure License Server Connection'
+
+  - task: PowerShell@2
+    inputs:
       targetType: inline
       script: |
         $path = "C:\Users\AzDevOps\.android\"

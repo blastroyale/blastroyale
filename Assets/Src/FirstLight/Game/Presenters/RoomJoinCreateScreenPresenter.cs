@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _createDeathmatchRoomButton;
 		[SerializeField, Required] private Button _joinRoomButton;
+		[SerializeField, Required] private Button _playtestButton;
 		[SerializeField, Required] private TMP_Dropdown _mapSelection;
 
 		private IGameDataProvider _gameDataProvider;
@@ -44,6 +45,15 @@ namespace FirstLight.Game.Presenters
 			_closeButton.onClick.AddListener(CloseRequested);
 			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
+			if (Debug.isDebugBuild)
+			{
+				_playtestButton.gameObject.SetActive(true);
+				_playtestButton.onClick.AddListener(PlaytestClicked);
+			}
+			else
+			{
+				Destroy(_playtestButton);
+			}
 		}
 
 		private void CloseRequested()
@@ -71,6 +81,20 @@ namespace FirstLight.Game.Presenters
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
 			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage{ RoomName = roomNameInput });
+			Data.PlayClicked();
+		}
+		
+		private void PlaytestClicked()
+		{
+			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
+			var message = new PlayCreateRoomClickedMessage
+			{
+				RoomName = "PLAYTEST",
+				MapConfig = mapConfig,
+				JoinIfExists = true
+			};
+
+			_services.MessageBrokerService.Publish(message);
 			Data.PlayClicked();
 		}
 

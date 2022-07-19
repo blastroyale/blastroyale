@@ -53,16 +53,6 @@ namespace FirstLight.Game.Services
 		/// If the player is not connected to any room then it return NULL without a value
 		/// </summary>
 		QuantumMapConfig? CurrentRoomMapConfig { get; }
-
-		/// <summary>
-		/// Requests to see if the <paramref name="room"/> is set for matchmaking
-		/// </summary>
-		bool IsMatchmakingRoom(Room room);
-		
-		/// <summary>
-		/// Requests to check if the current room in QuantumClient is set for matchmaking
-		/// </summary>
-		bool IsCurrentRoomForMatchmaking { get; }
 	}
 
 	/// <inheritdoc />
@@ -101,7 +91,6 @@ namespace FirstLight.Game.Services
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
-		public bool IsCurrentRoomForMatchmaking => IsMatchmakingRoom(QuantumClient.CurrentRoom);
 		
 		string IGameNetworkService.UserId => UserId.Value;
 		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
@@ -141,11 +130,6 @@ namespace FirstLight.Game.Services
 			var lastAckCheck = lastTimestamp > 0 && SupportClass.GetTickCount() - lastTimestamp > _lagRoundtripThreshold;
 			
 			HasLag.Value = roundTripCheck || lastAckCheck;*/
-		}
-
-		public bool IsMatchmakingRoom(Room room)
-		{
-			return room.IsVisible;
 		}
 
 		private void SetUserId(string id)

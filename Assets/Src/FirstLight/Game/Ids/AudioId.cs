@@ -179,6 +179,7 @@ namespace FirstLight.Game.Ids
 		ElClassico,
 		// New announcer
 		AirDrop2,
+		AirDrop4,
 		None, // TODO: Make an Enum selector
 	}
 	

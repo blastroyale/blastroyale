@@ -26,31 +26,21 @@ namespace Quantum
 		/// <summary>
 		/// Collects this given <paramref name="entity"/> by the given <paramref name="player"/>
 		/// </summary>
-		internal void Collect(Frame f, EntityRef entity, EntityRef player, PlayerRef playerRef, out bool convertedToAmmo)
+		internal void Collect(Frame f, EntityRef entity, EntityRef player, PlayerRef playerRef)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
 			var isBot = f.Has<BotCharacter>(player);
 			var playerData = f.GetPlayerData(playerRef);
-			convertedToAmmo = false;
 
 			if (Item.IsWeapon())
 			{
-				if (playerCharacter->HasBetterWeaponEquipped(Item))
-				{
-					var ammoAmount = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall).Amount;
-					playerCharacter->GainAmmo(f, player, ammoAmount);
-					convertedToAmmo = true;
-				}
-				else
-				{
-					var primaryWeapon = isBot || Owner == playerRef ||
-					                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
-					                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
-						                     .IsValid());
+				var primaryWeapon = isBot || Owner == playerRef ||
+				                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
+				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
+					                     .IsValid());
 
-					playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
-					playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
-				}
+				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
+				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
 			}
 			else
 			{

@@ -17,7 +17,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
 				f.Events.OnLocalCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
@@ -146,13 +146,19 @@ namespace Quantum.Systems
 		                     Collectable* collectable)
 		{
 			var gameId = collectable->GameId;
-			
+
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
-				equipment->Collect(f, entity, playerEntity, player, out var convertedToAmmo);
-				if (convertedToAmmo)
+				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
+					var ammoAmount = f.ConsumableConfigs.GetConfig(gameId).Amount;
+					playerCharacter->GainAmmo(f, playerEntity, ammoAmount);
+				}
+				else
+				{
+					equipment->Collect(f, entity, playerEntity, player);
 				}
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
@@ -171,7 +177,7 @@ namespace Quantum.Systems
 			{
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
-			
+
 			f.Events.OnLocalCollectableCollected(gameId, entity, player, playerEntity);
 			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}

@@ -36,7 +36,8 @@ namespace Quantum
 			{
 				var primaryWeapon = isBot || Owner == playerRef ||
 				                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
-				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid());
+				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
+					                     .IsValid());
 
 				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
 				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);

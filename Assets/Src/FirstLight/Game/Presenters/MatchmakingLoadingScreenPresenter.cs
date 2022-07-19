@@ -56,7 +56,6 @@ namespace FirstLight.Game.Presenters
 		private bool _spectatorToggleTimeOut;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
-		private bool IsMatchmakingRoom => _services.NetworkService.IsCurrentRoomForMatchmaking;
 
 		private void Awake()
 		{
@@ -121,7 +120,7 @@ namespace FirstLight.Game.Presenters
 			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
 			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
 
-			if (IsMatchmakingRoom)
+			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				_playerListHolder.gameObject.SetActive(false);
 				_spectatorListHolder.gameObject.SetActive(false);
@@ -158,20 +157,20 @@ namespace FirstLight.Game.Presenters
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
 			// For custom games, only show leave room button if we are not loading straight into the match (if host locked room while we were loading)
-			if (!IsMatchmakingRoom && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+			if (!CurrentRoom.IsMatchmakingRoom() && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
 			{
 				_loadingText.SetActive(false);
 				_leaveRoomButton.gameObject.SetActive(true);
 			}
 			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !IsMatchmakingRoom &&
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom() &&
 			    _services.NetworkService.QuantumClient.CurrentRoom.IsOpen)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(true);
 			}
 
-			if (!IsMatchmakingRoom)
+			if (!CurrentRoom.IsMatchmakingRoom())
 			{
 				_spectateToggleObjectRoot.SetActive(true);
 			}
@@ -204,7 +203,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (propertiesThatChanged.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
-				if (!IsMatchmakingRoom)
+				if (!CurrentRoom.IsMatchmakingRoom())
 				{
 					_playerListHolder.SetFinalPreloadPhase(true);
 					_spectatorListHolder.SetFinalPreloadPhase(true);
@@ -226,7 +225,7 @@ namespace FirstLight.Game.Presenters
 		{
 			AddOrUpdatePlayerInList(newMasterClient);
 
-			if (!IsMatchmakingRoom && newMasterClient.IsLocal && _loadedCoreMatchAssets)
+			if (!CurrentRoom.IsMatchmakingRoom() && newMasterClient.IsLocal && _loadedCoreMatchAssets)
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(true);
@@ -235,7 +234,7 @@ namespace FirstLight.Game.Presenters
 
 		private void AddOrUpdatePlayerInList(Player player)
 		{
-			if (IsMatchmakingRoom)
+			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				return;
 			}
@@ -266,7 +265,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RemovePlayerInAllLists(Player player)
 		{
-			if (IsMatchmakingRoom)
+			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				return;
 			}
@@ -387,7 +386,7 @@ namespace FirstLight.Game.Presenters
 			_botsToggleObjectRoot.SetActive(false);
 			_spectateToggleObjectRoot.SetActive(false);
 
-			if (IsMatchmakingRoom)
+			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				_getReadyToRumbleText.gameObject.SetActive(true);
 				_playersFoundText.gameObject.SetActive(false);

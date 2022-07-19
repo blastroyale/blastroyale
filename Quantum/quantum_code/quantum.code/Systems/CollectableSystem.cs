@@ -17,7 +17,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
 				f.Events.OnLocalCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
@@ -40,8 +40,6 @@ namespace Quantum.Systems
 
 			// If you are full on the stat the collectable is attempting to refill, then do not collect
 			if (IsCollectableFilled(f, info.Entity, info.Other)) return;
-			// We don't allow pickup of identical weapons
-			if (HasPlayerBetterWeapon(f, info.Entity, info.Other)) return;
 
 			var endTime = collectable->CollectorsEndTime[player.Player];
 
@@ -70,9 +68,7 @@ namespace Quantum.Systems
 
 			collectable->IsCollected = true;
 
-			Collect(f, info.Entity, info.Other, player.Player);
-			f.Events.OnLocalCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
-			f.Events.OnCollectableCollected(collectable->GameId, info.Entity, player.Player, info.Other);
+			Collect(f, info.Entity, info.Other, player.Player, collectable);
 		}
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
@@ -105,18 +101,6 @@ namespace Quantum.Systems
 					case ConsumableType.Ammo:
 						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
 				}
-			}
-
-			return false;
-		}
-
-		private bool HasPlayerBetterWeapon(Frame f, EntityRef entity, EntityRef player)
-		{
-			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var collectable) &&
-			    collectable->Item.IsWeapon())
-			{
-				var playerCharacter = f.Get<PlayerCharacter>(player);
-				return playerCharacter.HasBetterWeaponEquipped(collectable->Item);
 			}
 
 			return false;
@@ -158,16 +142,28 @@ namespace Quantum.Systems
 			f.Events.OnLocalStoppedCollecting(entity, player, playerEntity);
 		}
 
-		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
+		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
+		                     Collectable* collectable)
 		{
+			var gameId = collectable->GameId;
+
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
-				equipment->Collect(f, entity, playerEntity, player);
+				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
+				{
+					gameId = GameId.AmmoSmall;
+					var ammoAmount = f.ConsumableConfigs.GetConfig(gameId).Amount;
+					playerCharacter->GainAmmo(f, playerEntity, ammoAmount);
+				}
+				else
+				{
+					equipment->Collect(f, entity, playerEntity, player);
+				}
 			}
 			else if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
 				consumable->Collect(f, entity, playerEntity, player);
-				f.Events.OnConsumablePicked(entity, *consumable, player, playerEntity);
 			}
 			else if (f.Unsafe.TryGetPointer<Chest>(entity, out var chest))
 			{
@@ -181,6 +177,9 @@ namespace Quantum.Systems
 			{
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
+
+			f.Events.OnLocalCollectableCollected(gameId, entity, player, playerEntity);
+			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 	}
 }

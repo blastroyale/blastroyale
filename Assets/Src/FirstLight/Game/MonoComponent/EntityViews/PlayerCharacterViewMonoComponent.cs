@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -46,7 +45,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnSpecialUsed>(this, HandleOnSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
+			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnStunGrenadeUsed>(this, HandleOnStunGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnGrenadeUsed>(this, HandleOnGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnSkyBeamUsed>(this, HandleOnSkyBeamUsed);
@@ -166,10 +165,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.VfxService.Spawn(impactVfxId).transform.position = targetPosition;
 		}
 
-		private void HandleOnConsumablePicked(EventOnConsumablePicked callback)
+		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (EntityView.EntityRef != callback.PlayerEntity ||
-			    callback.Consumable.ConsumableType != ConsumableType.Health)
+			if (EntityView.EntityRef != callback.PlayerEntity || callback.CollectableId != GameId.Health)
 			{
 				return;
 			}

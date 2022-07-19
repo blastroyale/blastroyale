@@ -141,7 +141,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconBackgroundImage.fillAmount = 0f;
 			_buttonView.interactable = false;
 
-			Debug.Log(callback.CooldownTime);
 			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, callback.CooldownTime));
 		}
 

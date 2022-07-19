@@ -71,7 +71,8 @@ synced event OnLocalSpecialUsed
 	entity_ref Entity;
 	SpecialType SpecialType;
 	Int32 SpecialIndex;
-    FP CooldownTime;
+    FP StartTime;
+    FP EndTime;
 }
 
 synced event OnLocalSpecialAvailable

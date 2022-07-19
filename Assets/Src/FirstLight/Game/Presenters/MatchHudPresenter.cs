@@ -61,12 +61,14 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
 
+			#if DEVELOPMENT_BUILD
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
 				QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
 			}
 			else
+			#endif
 			{
 				_equippedDebugText.gameObject.SetActive(false);
 			}

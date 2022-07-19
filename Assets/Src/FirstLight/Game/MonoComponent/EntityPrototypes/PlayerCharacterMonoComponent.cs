@@ -143,12 +143,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_shootIndicator?.SetVisualState(shootState, true);
 		}
 
-		private void HandleOnConsumablePicked(EventOnConsumablePicked callback)
+		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			var shootState = _shootIndicator?.VisualState ?? false;
-
-			if (callback.Consumable.ConsumableType == ConsumableType.Ammo)
+			if (callback.CollectableId.IsInGroup(GameIdGroup.Ammo))
 			{
+				var shootState = _shootIndicator?.VisualState ?? false;
 				_shootIndicator?.SetVisualState(shootState);
 			}
 		}
@@ -264,7 +263,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			SetWeaponIndicators(QuantumRunner.Default.Game.Frames.Verified, weapon);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
+			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 

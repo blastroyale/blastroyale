@@ -31,9 +31,9 @@ namespace Quantum.Commands
 				var weaponSlot = playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot];
 				switch (SpecialIndex)
 				{
-					case 0 : weaponSlot.Special1Charges--;
+					case 0 :
 						break;
-					case 1 : weaponSlot.Special2Charges--;
+					case 1 :
 						break;
 				}
 

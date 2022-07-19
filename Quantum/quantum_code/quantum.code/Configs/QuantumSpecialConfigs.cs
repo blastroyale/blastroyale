@@ -11,12 +11,14 @@ namespace Quantum
 		public SpecialType SpecialType;
 		public IndicatorVfxId Indicator;
 		public FP Cooldown;
+		public FP InitialCooldown;
 		public FP Radius;
 		public FP SpecialPower;
 		public FP Speed;
 		public FP MinRange;
 		public FP MaxRange;
 		public uint Knockback;
+		
 
 		public bool IsAimable => MaxRange > FP._0;
 	}

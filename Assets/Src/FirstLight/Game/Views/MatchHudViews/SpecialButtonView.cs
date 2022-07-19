@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Input;
@@ -118,7 +118,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (hasCharge)
 			{
-				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
+				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.InitialCooldown));
 			}
 		}
 
@@ -134,12 +134,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
 				_cooldownCoroutine = null;
 			}
-			
+
 			_specialIconImage.color = _cooldownColor;
 			_specialIconImage.fillAmount = 0f;
 			_specialIconBackgroundImage.color = _cooldownColor;
 			_specialIconBackgroundImage.fillAmount = 0f;
 			_buttonView.interactable = false;
+
+			Debug.Log(callback.CooldownTime);
+			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, callback.CooldownTime));
 		}
 
 		private void HandleLocalSpecialAvailable(EventOnLocalSpecialAvailable callback)

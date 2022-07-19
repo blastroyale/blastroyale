@@ -414,10 +414,17 @@ namespace FirstLight.Game.StateMachines
 			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
 			StartRandomMatchmaking(mapConfig);
 		}
-		
+
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			CreateRoom(msg.MapConfig, msg.RoomName, msg.JoinIfExists);
+			if (msg.JoinIfExists)
+			{
+				JoinOrCreateRoom(msg.MapConfig, msg.RoomName);
+			}
+			else
+			{
+				CreateRoom(msg.MapConfig, msg.RoomName);
+			}
 		}
 		
 		private void OnPlayJoinRoomClickedMessage(PlayJoinRoomClickedMessage msg)
@@ -497,7 +504,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CreateRoom(QuantumMapConfig mapConfig, string roomName, bool joinIfExists)
+		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName);
@@ -511,14 +518,25 @@ namespace FirstLight.Game.StateMachines
 				SetSpectatePlayerProperty(false);
 				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				if (joinIfExists)
-				{
-					_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
-				}
-				else
-				{
-					_networkService.QuantumClient.OpCreateRoom(enterParams);
-				}
+				_networkService.QuantumClient.OpCreateRoom(enterParams);
+			}
+		}
+
+		private void JoinOrCreateRoom(QuantumMapConfig mapConfig, string roomName)
+		{
+			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName);
+
+			QuantumRunnerConfigs.IsOfflineMode = false;
+
+			UpdateQuantumClientProperties();
+
+			if (!_networkService.QuantumClient.InRoom)
+			{
+				SetSpectatePlayerProperty(false);
+				_networkService.IsJoiningNewMatch.Value = true;
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
+				_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
 			}
 		}
 		

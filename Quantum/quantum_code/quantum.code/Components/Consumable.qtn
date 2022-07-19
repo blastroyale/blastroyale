@@ -13,11 +13,3 @@ enum ConsumableType
 	Shield,
 	ShieldCapacity,
 }
-
-synced event OnConsumablePicked
-{
-	entity_ref ConsumableEntity;
-	Consumable Consumable;
-	player_ref Player;
-	entity_ref PlayerEntity;
-}

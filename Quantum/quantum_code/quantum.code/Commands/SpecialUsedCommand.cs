@@ -29,13 +29,6 @@ namespace Quantum.Commands
 			if (HasCharge(playerCharacter) && special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
 			{
 				var weaponSlot = playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot];
-				switch (SpecialIndex)
-				{
-					case 0 :
-						break;
-					case 1 :
-						break;
-				}
 
 				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
 			}

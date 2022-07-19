@@ -53,7 +53,7 @@ namespace Quantum
 			
 			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);
 			f.Events.OnSpecialUsed(player, playerEntity, SpecialType, specialIndex);
-			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex, Cooldown);
+			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex, f.Time + Cooldown);
 
 			return true;
 		}

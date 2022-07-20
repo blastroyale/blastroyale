@@ -51,10 +51,11 @@ public class PluginLoader
 	{
 		// TODO: Make it work for Azure Functions
 		//var loadedPlugins = LoadPlugins(Path.Combine(appPath, "Plugins"));
-		var loadedPlugins = new List<ServerPlugin>()
-		{
-			new BlastRoyaleNftPlugin()
-		};
+		var loadedPlugins = new List<ServerPlugin>();
+		var nftSync = Environment.GetEnvironmentVariable("NFT_SYNC", EnvironmentVariableTarget.Process) ?? "true";
+		if(nftSync == "true")
+			loadedPlugins.Add(new BlastRoyaleNftPlugin());
+		
 		return loadedPlugins;
 	}
 	

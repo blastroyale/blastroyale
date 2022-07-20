@@ -213,16 +213,20 @@ namespace FirstLight.Game.StateMachines
 		private void SetAuthenticationData()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			
-#if RELEASE_BUILD
+
+#if STORE_BUILD
+			// Production
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+#elif RELEASE_BUILD
+			// Staging
+			PlayFabSettings.TitleId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else
-			//Config for "Dev_Backend"
+			// Dev
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
-			
 			_dataService.LoadData<AppData>();
 		}
 

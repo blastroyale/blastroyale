@@ -116,7 +116,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
+			return new List<RewardData>();
 			
+#pragma warning disable 0162
 			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 
 			foreach (var reward in rewards)
@@ -130,6 +132,7 @@ namespace FirstLight.Game.Logic
 			}
 			
 			return rewards;
+#pragma warning restore 0162
 		}
 		
 		/// <inheritdoc />

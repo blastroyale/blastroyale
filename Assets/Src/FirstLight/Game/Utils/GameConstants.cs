@@ -37,9 +37,13 @@ namespace FirstLight.Game.Utils
 		public static class Audio
 		{
 			// The audios default starting volume
-			public const float SFX_2D_DEFFAULT_VOLUME = 0.2f;
-			public const float SFX_3D_DEFAULT_VOLUME = 0.4f;
+			public const float SFX_2D_DEFFAULT_VOLUME_MULTIPLIER = 0.2f;
+			public const float SFX_3D_DEFAULT_VOLUME_MULTIPLIER = 0.4f;
 			public const float BGM_DEFAULT_VOLUME = 0.45f;
+			public const float SFX_2D_SPATIAL_BLEND = 0f;
+			public const float SFX_3D_SPATIAL_BLEND = 1f;
+			public const float SFX_DEFAULT_VOLUME = 1f;
+			public const float SFX_DEFAULT_PITCH = 1f;
 		}
 
 		public static class Notifications

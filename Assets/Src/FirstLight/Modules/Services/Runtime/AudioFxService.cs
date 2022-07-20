@@ -47,13 +47,13 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip3D(T id, AudioObject initProps, Vector3 worldPosition, float delay = 0f);
+		void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps? initProps = null,  float delay = 0f);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip2D(T id, AudioObject initProps, float delay = 0f);
+		void PlayClip2D(T id, AudioInitProps? initProps = null, float delay = 0f);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
@@ -99,6 +99,21 @@ namespace FirstLight.Services
 		private IObjectPool<AudioObject> _pool;
 
 		/// <summary>
+		/// Initialize the audio source of the object with relevant properties
+		/// </summary>
+		public void Init(float volumeMultiplier, Vector3 worldPos, AudioInitProps initProps)
+		{
+			AudioSource.volume = initProps.Volume * volumeMultiplier;
+			AudioSource.spatialBlend = initProps.SpatialBlend;
+			AudioSource.pitch = initProps.Pitch;
+			AudioSource.time = initProps.StartTime;
+			AudioSource.clip = initProps.Clip;
+			AudioSource.mute = initProps.Mute;
+			AudioSource.loop = initProps.Loop;
+			transform.position = worldPos;
+		}
+		
+		/// <summary>
 		/// Marks this AudioFx to despawn back to the given <paramref name="pool"/> after the sound is completed
 		/// </summary>
 		public void StartTimeDespawner(IObjectPool<AudioObject> pool)
@@ -117,12 +132,17 @@ namespace FirstLight.Services
 	}
 
 	/// <summary>
-	/// Class that contains initialization properties for AudioObject instances
+	/// Struct that contains initialization properties for AudioObject instances
 	/// </summary>
-	public struct AudioIniitProps
+	public struct AudioInitProps
 	{
+		public AudioClip Clip;
+		public float StartTime;
+		public float SpatialBlend;
 		public float Volume;
 		public float Pitch;
+		public bool Mute;
+		public bool Loop;
 	}
 		
 	/// <inheritdoc />
@@ -133,8 +153,8 @@ namespace FirstLight.Services
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioObject> _pool;
 		private readonly AudioSource _musicSource;
-		private readonly float _sfx2dVolume;
-		private readonly float _sfx3dVolume;
+		private readonly float _sfx2dVolumeMultiplier;
+		private readonly float _sfx3dVolumeMultiplier;
 		
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
@@ -189,7 +209,7 @@ namespace FirstLight.Services
 			}
 		}
 
-		public AudioFxService(float sfx2dVolume, float sfx3dVolume, float bgmVolume)
+		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolume)
 		{
 			var container = new GameObject("Audio Container");
 			var audioObject = new GameObject("Audio Source").AddComponent<AudioObject>();
@@ -203,8 +223,8 @@ namespace FirstLight.Services
 			_musicSource.playOnAwake = false;
 			_musicSource.loop = true;
 			_musicSource.volume = bgmVolume;
-			_sfx2dVolume = sfx2dVolume;
-			_sfx3dVolume = sfx3dVolume;
+			_sfx2dVolumeMultiplier = sfx2dVolumeMultiplier;
+			_sfx3dVolumeMultiplier = sfx3dVolumeMultiplier;
 			
 			audioObject.gameObject.SetActive(false);
 			audioObject.transform.SetParent(container.transform);
@@ -230,7 +250,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayClip3D(T id, AudioObject initProps, Vector3 worldPosition, float delay = 0f)
+		public void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps? initProps = null, float delay = 0f)
 		{
 			if (!TryGetClip(id, out var clip))
 			{
@@ -238,21 +258,14 @@ namespace FirstLight.Services
 			}
 			
 			var source = _pool.Spawn();
-
-			source.AudioSource.time = delay;
-			source.AudioSource.clip = clip;
-			source.AudioSource.spatialBlend = 1f;
-			source.AudioSource.loop = false;
-			source.transform.position = worldPosition;
-			source.AudioSource.volume = _sfx3dVolume;
-			source.AudioSource.mute = Is3dSfxMuted;
-
+			
+			source.Init();
 			source.AudioSource.Play();
 			source.StartTimeDespawner(_pool);
 		}
 
 		/// <inheritdoc />
-		public void PlayClip2D(T id, AudioObject initProps, float delay = 0f)
+		public void PlayClip2D(T id, AudioInitProps? initProps = null, float delay = 0f)
 		{
 			if (!TryGetClip(id, out var clip))
 			{
@@ -265,7 +278,7 @@ namespace FirstLight.Services
 			source.AudioSource.clip = clip;
 			source.AudioSource.loop = false;
 			source.AudioSource.spatialBlend = 0f;
-			source.AudioSource.volume = _sfx2dVolume;
+			source.AudioSource.volume = _sfx2dVolumeMultiplier;
 			source.AudioSource.mute = Is2dSfxMuted;
 
 			source.AudioSource.Play();

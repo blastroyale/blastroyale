@@ -13,8 +13,8 @@ namespace FirstLight.Game.Services
 		private readonly IAssetResolverService _assetResolver;
 		
 		public GameAudioFxService(IAssetResolverService assetResolver) : 
-			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME, 
-			     GameConstants.Audio.SFX_3D_DEFAULT_VOLUME, 
+			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME_MULTIPLIER, 
+			     GameConstants.Audio.SFX_3D_DEFAULT_VOLUME_MULTIPLIER, 
 				GameConstants.Audio.BGM_DEFAULT_VOLUME)
 		{
 			_assetResolver = assetResolver;
@@ -31,7 +31,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc cref="AudioFxService{T}.PlayClip3D"/>
-		public new async void PlayClip3D(AudioId id, AudioObject initProps, Vector3 worldPosition, float delay = 0f)
+		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioInitProps? initProps = null, float delay = 0f)
 		{
 			if (id == AudioId.None)
 			{
@@ -49,12 +49,12 @@ namespace FirstLight.Game.Services
 
 			if (loadingTime < clip.length)
 			{
-				base.PlayClip3D(id, initProps, worldPosition, delay);
+				base.PlayClip3D(id, worldPosition, initProps, delay);
 			}
 		}
 
 		/// <inheritdoc cref="AudioFxService{T}.PlayClip2D"/>
-		public new async void PlayClip2D(AudioId id, AudioObject initProps, float delay = 0f)
+		public new async void PlayClip2D(AudioId id, AudioInitProps? initProps = null, float delay = 0f)
 		{
 			if (id == AudioId.None)
 			{

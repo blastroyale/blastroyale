@@ -14,25 +14,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private RectTransform _spinnerImage;
 		[SerializeField] private float _anglePerSecond;
 		[SerializeField] private RectTransform _darkOverlay;
-
-		private float _startTime;
+		
 		private bool _started;
-		private Coroutine _activateSpinnerCoroutine;
 
 		private void OnEnable()
 		{
 			_darkOverlay.gameObject.SetActive(false);
 			_spinnerImage.gameObject.SetActive(false);
-			_startTime = Time.time;
-			_activateSpinnerCoroutine = StartCoroutine(ActivateSpinner());
-		}
-
-		private void OnDisable()
-		{
-			if (_activateSpinnerCoroutine != null)
-			{
-				StopCoroutine(_activateSpinnerCoroutine);
-			}
 		}
 
 		private void Update()
@@ -49,7 +37,6 @@ namespace FirstLight.Game.Presenters
 			_started = true;
 			_darkOverlay.gameObject.SetActive(true);
 			_spinnerImage.gameObject.SetActive(true);
-			_activateSpinnerCoroutine = null;
 		} 
 	}
 }

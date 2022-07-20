@@ -11,30 +11,28 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class LoadingSpinnerPresenter : UiPresenter
 	{
+		private const float MIN_DELAY_SHOW_TIME = 0.3f;
 		[SerializeField] private RectTransform _spinnerImage;
 		[SerializeField] private float _anglePerSecond;
 		[SerializeField] private RectTransform _darkOverlay;
-		
-		private bool _started;
 
 		private void OnEnable()
 		{
-			_darkOverlay.gameObject.SetActive(false);
-			_spinnerImage.gameObject.SetActive(false);
+			StartCoroutine(ActivateSpinner());
 		}
-
+		
 		private void Update()
 		{
-			if (!_started) return;
-
 			_spinnerImage.Rotate(0f, 0f, _anglePerSecond * Time.deltaTime);
 		}
 
 		private IEnumerator ActivateSpinner()
 		{
-			yield return new WaitForSeconds(0.3f);
+			_darkOverlay.gameObject.SetActive(false);
+			_spinnerImage.gameObject.SetActive(false);
 			
-			_started = true;
+			yield return new WaitForSeconds(MIN_DELAY_SHOW_TIME);
+
 			_darkOverlay.gameObject.SetActive(true);
 			_spinnerImage.gameObject.SetActive(true);
 		} 

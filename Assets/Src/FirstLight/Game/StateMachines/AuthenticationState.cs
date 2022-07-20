@@ -458,8 +458,15 @@ namespace FirstLight.Game.StateMachines
 
 		private void DimLoginRegisterScreens(bool dimmed)
 		{
-			_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
-			_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			if (_uiService.HasUiPresenter<LoginScreenPresenter>())
+			{
+				_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			}
+
+			if (_uiService.HasUiPresenter<RegisterScreenPresenter>())
+			{
+				_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			}
 		}
 
 		private void OpenLoginScreen()

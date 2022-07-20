@@ -470,7 +470,7 @@ namespace FirstLight.Game.StateMachines
 				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent)
 			};
 			
-			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
 		}
 
 		private void OpenRegisterScreen()
@@ -481,7 +481,7 @@ namespace FirstLight.Game.StateMachines
 				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent)
 			};
 			
-			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
 		}
 
 		private bool IsOutdated(string version)

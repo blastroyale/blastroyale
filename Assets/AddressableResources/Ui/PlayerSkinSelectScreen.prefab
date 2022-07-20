@@ -221,9 +221,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 4575541206904756162}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &591538990335766154
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7394887878180553479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -694,9 +697,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 6157496770329113386}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &1078777535275256318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,9 +1121,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 7433069898489378077}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!222 &1753461172293264005
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1301,9 +1310,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 6739938109033102798}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &2850320535850459458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3400,9 +3412,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 2505799615890111194}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!114 &4290717589665861341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4183,9 +4198,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 1085801050524610027}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!222 &7034373614417155955
 CanvasRenderer:
   m_ObjectHideFlags: 0

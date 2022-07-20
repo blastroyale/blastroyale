@@ -65,6 +65,11 @@ namespace FirstLight.Services
 		/// Stops the music
 		/// </summary>
 		void StopMusic();
+
+		/// <summary>
+		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
+		/// </summary>
+		AudioInitProps GetDefaultAudioInitProps(float spatialBlend, float volumeMultiplier);
 	}
 
 	/// <inheritdoc />
@@ -101,13 +106,14 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
-		public void Init(float volumeMultiplier, Vector3? worldPos, AudioInitProps initProps)
+		public void Init(AudioClip clip, float volumeMultiplier, Vector3? worldPos, AudioInitProps initProps)
 		{
+			AudioSource.clip = clip;
+			
 			AudioSource.volume = initProps.Volume * volumeMultiplier;
 			AudioSource.spatialBlend = initProps.SpatialBlend;
 			AudioSource.pitch = initProps.Pitch;
 			AudioSource.time = initProps.StartTime;
-			AudioSource.clip = initProps.Clip;
 			AudioSource.mute = initProps.Mute;
 			AudioSource.loop = initProps.Loop;
 
@@ -140,7 +146,6 @@ namespace FirstLight.Services
 	/// </summary>
 	public class AudioInitProps
 	{
-		public AudioClip Clip;
 		public float StartTime;
 		public float SpatialBlend;
 		public float Volume;
@@ -152,13 +157,13 @@ namespace FirstLight.Services
 	/// <inheritdoc />
 	public class AudioFxService<T> : IAudioFxInternalService<T> where T : struct, Enum
 	{
-		private const float Sound3dSpacialThreshold = 0.2f;
+		private const float SPACIAL_3D_THRESHOLD = 0.2f;
 		
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioObject> _pool;
 		private readonly AudioSource _musicSource;
-		private readonly float _sfx2dVolumeMultiplier;
-		private readonly float _sfx3dVolumeMultiplier;
+		protected readonly float _sfx2dVolumeMultiplier;
+		protected readonly float _sfx3dVolumeMultiplier;
 		
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
@@ -172,8 +177,7 @@ namespace FirstLight.Services
 			get => _musicSource.mute;
 			set => _musicSource.mute = value;
 		}
-
-		/// <inheritdoc />
+		
 		public bool Is2dSfxMuted
 		{
 			get => _sfx2dEnabled;
@@ -185,7 +189,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].AudioSource.spatialBlend < Sound3dSpacialThreshold)
+					if (audio[i].AudioSource.spatialBlend < SPACIAL_3D_THRESHOLD)
 					{
 						audio[i].AudioSource.mute = value;
 					}
@@ -193,7 +197,7 @@ namespace FirstLight.Services
 			}
 			
 		}
-		/// <inheritdoc />
+		
 		public bool Is3dSfxMuted 
 		{
 			get => _sfx3dEnabled;
@@ -205,7 +209,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].AudioSource.spatialBlend >= Sound3dSpacialThreshold)
+					if (audio[i].AudioSource.spatialBlend >= SPACIAL_3D_THRESHOLD)
 					{
 						audio[i].AudioSource.mute = value;
 					}
@@ -240,95 +244,89 @@ namespace FirstLight.Services
 			pool.DespawnToSampleParent = true;
 			_pool = pool;
 		}
-
-		/// <inheritdoc />
+		
 		public virtual bool TryGetClip(T id, out AudioClip clip)
 		{
 			return _audioClips.TryGetValue(id, out clip);
 		}
-
-		/// <inheritdoc />
+		
 		public void DetachAudioListener()
 		{
 			AudioListener.transform.SetParent(_musicSource.transform.parent);
 		}
-
-		/// <inheritdoc />
+		
 		public void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps initProps = null)
 		{
-			if (initProps == null)
-			{
-				return;
-			}
-			
-			if (!TryGetClip(id, out var clip))
+			if (!TryGetClip(id, out var clip) || initProps == null)
 			{
 				return;
 			}
 
 			var source = _pool.Spawn();
-			source.Init(_sfx3dVolumeMultiplier,worldPosition, initProps);
+			source.Init(clip, _sfx3dVolumeMultiplier,worldPosition, initProps);
 			source.AudioSource.Play();
 			source.StartTimeDespawner(_pool);
 		}
-
-		/// <inheritdoc />
+		
 		public void PlayClip2D(T id, AudioInitProps initProps = null)
 		{
-			if (initProps == null)
-			{
-				return;
-			}
-			
-			// TODO - UNIFY WITH ABOVE - SET CLIP IN INIT PROPS
-			if (!TryGetClip(id, out var clip))
+			if (!TryGetClip(id, out var clip) || initProps == null)
 			{
 				return;
 			}
 			
 			var source = _pool.Spawn();
-			source.Init(_sfx2dVolumeMultiplier, Vector3.zero, initProps);
+			source.Init(clip, _sfx2dVolumeMultiplier, Vector3.zero, initProps);
 			source.AudioSource.Play();
 			source.StartTimeDespawner(_pool);
 		}
-
-		/// <inheritdoc />
+		
 		public void PlayMusic(T id, AudioInitProps initProps = null)
 		{
-			if (initProps == null)
+			if (!TryGetClip(id, out var clip) || initProps == null)
 			{
 				return;
 			}
 			
-			if (!TryGetClip(id, out var clip))
-			{
-				return;
-			}
-			
-			_musicSource.time = initProps.StartTime;
 			_musicSource.clip = clip;
+			_musicSource.volume = initProps.Volume * _sfx2dVolumeMultiplier;
+			_musicSource.spatialBlend = initProps.SpatialBlend;
+			_musicSource.pitch = initProps.Pitch;
+			_musicSource.time = initProps.StartTime;
+			_musicSource.mute = initProps.Mute;
+			_musicSource.loop = initProps.Loop;
+
 			_musicSource.Play();
 		}
-
-		/// <inheritdoc />
+		
 		public void StopMusic()
 		{
 			_musicSource.Stop();
 		}
 
-		/// <inheritdoc />
+		public AudioInitProps GetDefaultAudioInitProps(float spatialBlend, float volumeMultiplier)
+		{
+			return new AudioInitProps()
+			{
+				SpatialBlend = spatialBlend,
+				Pitch = 1f,
+				Volume = volumeMultiplier,
+				Loop = false,
+				Mute = false,
+				StartTime = 0
+			};
+		}
+		
 		public void Add(T id, AudioClip clip)
 		{
 			_audioClips.Add(id, clip);
 		}
-
-		/// <inheritdoc />
+		
 		public void Remove(T id)
 		{
 			_audioClips.Remove(id);
 		}
-
-		/// <inheritdoc />
+		
 		public Dictionary<T, AudioClip> Clear()
 		{
 			var dic = new Dictionary<T, AudioClip>(_audioClips);
@@ -337,8 +335,7 @@ namespace FirstLight.Services
 
 			return dic;
 		}
-
-		/// <inheritdoc />
+		
 		public void Dispose()
 		{
 			_audioClips.Clear();

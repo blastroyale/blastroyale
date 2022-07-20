@@ -19,8 +19,7 @@ namespace FirstLight.Game.Services
 		{
 			_assetResolver = assetResolver;
 		}
-
-		/// <inheritdoc />
+		
 		public override bool TryGetClip(AudioId id, out AudioClip clip)
 		{
 			var task = _assetResolver.RequestAsset<AudioId, AudioClip>(id);
@@ -30,12 +29,16 @@ namespace FirstLight.Game.Services
 			return task.IsCompleted;
 		}
 
-		/// <inheritdoc cref="AudioFxService{T}.PlayClip3D"/>
 		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioInitProps initProps = null)
 		{
 			if (id == AudioId.None)
 			{
 				return;
+			}
+			
+			if (initProps == null)
+			{
+				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, _sfx3dVolumeMultiplier);
 			}
 			
 			var startTime = DateTime.Now;
@@ -49,16 +52,20 @@ namespace FirstLight.Game.Services
 
 			if (loadingTime < clip.length)
 			{
-				base.PlayClip3D(id, worldPosition, initProps, delay);
+				base.PlayClip3D(id, worldPosition, initProps);
 			}
 		}
-
-		/// <inheritdoc cref="AudioFxService{T}.PlayClip2D"/>
+		
 		public new async void PlayClip2D(AudioId id, AudioInitProps initProps = null)
 		{
 			if (id == AudioId.None)
 			{
 				return;
+			}
+			
+			if (initProps == null)
+			{
+				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, _sfx2dVolumeMultiplier);
 			}
 			
 			var startTime = DateTime.Now;
@@ -83,6 +90,11 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
+			if (initProps == null)
+			{
+				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, _sfx2dVolumeMultiplier);
+			}
 			
 			await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 
@@ -92,6 +104,19 @@ namespace FirstLight.Game.Services
 			}
 			
 			base.PlayMusic(id, initProps);
+		}
+		
+		public new AudioInitProps GetDefaultAudioInitProps(float spatialBlend, float volumeMultiplier)
+		{
+			return new AudioInitProps()
+			{
+				SpatialBlend = spatialBlend,
+				Pitch = GameConstants.Audio.SFX_DEFAULT_PITCH,
+				Volume = GameConstants.Audio.SFX_DEFAULT_VOLUME * volumeMultiplier,
+				Loop = false,
+				Mute = false,
+				StartTime = 0
+			};
 		}
 	}
 }

@@ -47,13 +47,13 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip3D(T id, Vector3 worldPosition, float delay = 0f);
+		void PlayClip3D(T id, AudioObject initProps, Vector3 worldPosition, float delay = 0f);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip2D(T id, float delay = 0f);
+		void PlayClip2D(T id, AudioObject initProps, float delay = 0f);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
@@ -114,6 +114,15 @@ namespace FirstLight.Services
 
 			_pool.Despawn(this);
 		}
+	}
+
+	/// <summary>
+	/// Class that contains initialization properties for AudioObject instances
+	/// </summary>
+	public struct AudioIniitProps
+	{
+		public float Volume;
+		public float Pitch;
 	}
 		
 	/// <inheritdoc />
@@ -221,7 +230,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayClip3D(T id, Vector3 worldPosition, float delay = 0f)
+		public void PlayClip3D(T id, AudioObject initProps, Vector3 worldPosition, float delay = 0f)
 		{
 			if (!TryGetClip(id, out var clip))
 			{
@@ -243,7 +252,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayClip2D(T id, float delay = 0f)
+		public void PlayClip2D(T id, AudioObject initProps, float delay = 0f)
 		{
 			if (!TryGetClip(id, out var clip))
 			{

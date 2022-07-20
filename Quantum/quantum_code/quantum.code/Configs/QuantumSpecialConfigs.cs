@@ -11,6 +11,7 @@ namespace Quantum
 		public SpecialType SpecialType;
 		public IndicatorVfxId Indicator;
 		public FP Cooldown;
+		public FP InitialCooldown;
 		public FP Radius;
 		public FP SpecialPower;
 		public FP Speed;

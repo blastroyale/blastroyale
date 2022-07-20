@@ -25,7 +25,7 @@ namespace Quantum
 			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;
 			MaxRange = config.MaxRange;
-			AvailableTime = f.Time + config.Cooldown;
+			AvailableTime = f.Time + config.InitialCooldown;
 			Knockback = config.Knockback;
 		}
 		
@@ -49,11 +49,11 @@ namespace Quantum
 			
 			var player = f.Get<PlayerCharacter>(playerEntity).Player;
 
-			AvailableTime = FP._0;
+			AvailableTime = f.Time  + Cooldown;
 			
 			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);
 			f.Events.OnSpecialUsed(player, playerEntity, SpecialType, specialIndex);
-			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex);
+			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex,f.Time, AvailableTime);
 
 			return true;
 		}

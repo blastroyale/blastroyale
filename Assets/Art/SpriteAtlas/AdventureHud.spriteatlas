@@ -104,7 +104,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b3cf5e3cdd4314e8ca4f90d654141bc8, type: 3}
   - {fileID: 21300000, guid: f1c8127c6813d4d4ca98d60991269065, type: 3}
   - {fileID: 21300000, guid: 0f00a1acb69574ad2a5863ef52275252, type: 3}
-  - {fileID: 21300000, guid: 5f0dd2bc9d9414af992280a95bf426d8, type: 3}
   - {fileID: 21300000, guid: 00d895ccfbba141c19d851d2646007a6, type: 3}
   - {fileID: 21300000, guid: f335cbcc9213a4dd292ffabe22ccf9c4, type: 3}
   - {fileID: 21300000, guid: c5d752fc5fa5d5b4fa3a069a455059cf, type: 3}
@@ -182,7 +181,6 @@ SpriteAtlas:
   - EnemyIndicatorFace
   - AirdropIcon
   - CheqFlag
-  - MapBigMask
   - BossIndicatorInside
   - Joystick_Handle_Move
   - PlayerAvatarKO

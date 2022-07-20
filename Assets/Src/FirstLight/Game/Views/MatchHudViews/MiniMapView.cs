@@ -21,7 +21,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
-		private static readonly int _thicknessPID = Shader.PropertyToID("_Thickness");
+		private static readonly int _widthPID = Shader.PropertyToID("_Width");
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -347,7 +347,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var shrinkingCircleRingWidth =
 				Math.Clamp(_ringWidth * (rect.width / circleUISize.x), 0f, 1f) * _lineWidthModifier;
-			_shrinkingCircleRingImage.materialForRendering.SetFloat(_thicknessPID, shrinkingCircleRingWidth);
+			_shrinkingCircleRingImage.materialForRendering.SetFloat(_widthPID, shrinkingCircleRingWidth);
 
 			_shrinkingCircleRing.anchoredPosition = circleUICenter;
 			_shrinkingCircleRing.sizeDelta = circleUISize;
@@ -369,7 +369,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var safeAreaRingWidth = Math.Clamp(_ringWidth * (rect.width / safeUISize.x), 0f, 1f) * _lineWidthModifier;
-			_safeAreaRingImage.materialForRendering.SetFloat(_thicknessPID, safeAreaRingWidth);
+			_safeAreaRingImage.materialForRendering.SetFloat(_widthPID, safeAreaRingWidth);
 
 			_safeAreaRing.anchoredPosition = safeUICenter;
 			_safeAreaRing.sizeDelta = safeUISize;

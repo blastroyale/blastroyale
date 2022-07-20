@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,25 +17,39 @@ namespace FirstLight.Game.Presenters
 
 		private float _startTime;
 		private bool _started;
+		private Coroutine _activateSpinnerCoroutine;
 
-		private void Start()
+		private void OnEnable()
 		{
 			_darkOverlay.gameObject.SetActive(false);
 			_spinnerImage.gameObject.SetActive(false);
 			_startTime = Time.time;
+			_activateSpinnerCoroutine = StartCoroutine(ActivateSpinner());
 		}
+
+		private void OnDisable()
+		{
+			if (_activateSpinnerCoroutine != null)
+			{
+				StopCoroutine(_activateSpinnerCoroutine);
+			}
+		}
+
 		private void Update()
 		{
-			if (!_started && !(Time.time - _startTime > 0.3f)) return;
+			if (!_started) return;
 
-			if (!_started)
-			{
-				_started = true;
-				_darkOverlay.gameObject.SetActive(true);
-				_spinnerImage.gameObject.SetActive(true);		
-			}
-			
 			_spinnerImage.Rotate(0f, 0f, _anglePerSecond * Time.deltaTime);
 		}
+
+		private IEnumerator ActivateSpinner()
+		{
+			yield return new WaitForSeconds(0.3f);
+			
+			_started = true;
+			_darkOverlay.gameObject.SetActive(true);
+			_spinnerImage.gameObject.SetActive(true);
+			_activateSpinnerCoroutine = null;
+		} 
 	}
 }

@@ -47,19 +47,19 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps? initProps = null,  float delay = 0f);
+		void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps initProps = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip2D(T id, AudioInitProps? initProps = null, float delay = 0f);
+		void PlayClip2D(T id, AudioInitProps initProps = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayMusic(T id, float delay = 0f);
+		void PlayMusic(T id, AudioInitProps initProps = null);
 		
 		/// <summary>
 		/// Stops the music
@@ -101,7 +101,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
-		public void Init(float volumeMultiplier, Vector3 worldPos, AudioInitProps initProps)
+		public void Init(float volumeMultiplier, Vector3? worldPos, AudioInitProps initProps)
 		{
 			AudioSource.volume = initProps.Volume * volumeMultiplier;
 			AudioSource.spatialBlend = initProps.SpatialBlend;
@@ -110,7 +110,11 @@ namespace FirstLight.Services
 			AudioSource.clip = initProps.Clip;
 			AudioSource.mute = initProps.Mute;
 			AudioSource.loop = initProps.Loop;
-			transform.position = worldPos;
+
+			if (worldPos.HasValue)
+			{
+				transform.position = worldPos.Value;
+			}
 		}
 		
 		/// <summary>
@@ -134,7 +138,7 @@ namespace FirstLight.Services
 	/// <summary>
 	/// Struct that contains initialization properties for AudioObject instances
 	/// </summary>
-	public struct AudioInitProps
+	public class AudioInitProps
 	{
 		public AudioClip Clip;
 		public float StartTime;
@@ -250,50 +254,58 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps? initProps = null, float delay = 0f)
+		public void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps initProps = null)
 		{
+			if (initProps == null)
+			{
+				return;
+			}
+			
+			if (!TryGetClip(id, out var clip))
+			{
+				return;
+			}
+
+			var source = _pool.Spawn();
+			source.Init(_sfx3dVolumeMultiplier,worldPosition, initProps);
+			source.AudioSource.Play();
+			source.StartTimeDespawner(_pool);
+		}
+
+		/// <inheritdoc />
+		public void PlayClip2D(T id, AudioInitProps initProps = null)
+		{
+			if (initProps == null)
+			{
+				return;
+			}
+			
+			// TODO - UNIFY WITH ABOVE - SET CLIP IN INIT PROPS
 			if (!TryGetClip(id, out var clip))
 			{
 				return;
 			}
 			
 			var source = _pool.Spawn();
-			
-			source.Init();
+			source.Init(_sfx2dVolumeMultiplier, Vector3.zero, initProps);
 			source.AudioSource.Play();
 			source.StartTimeDespawner(_pool);
 		}
 
 		/// <inheritdoc />
-		public void PlayClip2D(T id, AudioInitProps? initProps = null, float delay = 0f)
+		public void PlayMusic(T id, AudioInitProps initProps = null)
 		{
+			if (initProps == null)
+			{
+				return;
+			}
+			
 			if (!TryGetClip(id, out var clip))
 			{
 				return;
 			}
 			
-			var source = _pool.Spawn();
-
-			source.AudioSource.time = delay;
-			source.AudioSource.clip = clip;
-			source.AudioSource.loop = false;
-			source.AudioSource.spatialBlend = 0f;
-			source.AudioSource.volume = _sfx2dVolumeMultiplier;
-			source.AudioSource.mute = Is2dSfxMuted;
-
-			source.AudioSource.Play();
-			source.StartTimeDespawner(_pool);
-		}
-
-		/// <inheritdoc />
-		public void PlayMusic(T id, float delay = 0f)
-		{
-			if (!TryGetClip(id, out var clip))
-			{
-				return;
-			}
-			
-			_musicSource.time = delay;
+			_musicSource.time = initProps.StartTime;
 			_musicSource.clip = clip;
 			_musicSource.Play();
 		}

@@ -31,7 +31,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc cref="AudioFxService{T}.PlayClip3D"/>
-		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioInitProps? initProps = null, float delay = 0f)
+		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioInitProps initProps = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -54,7 +54,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc cref="AudioFxService{T}.PlayClip2D"/>
-		public new async void PlayClip2D(AudioId id, AudioInitProps? initProps = null, float delay = 0f)
+		public new async void PlayClip2D(AudioId id, AudioInitProps initProps = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -72,12 +72,12 @@ namespace FirstLight.Game.Services
 
 			if (loadingTime < clip.length)
 			{
-				base.PlayClip2D(id, initProps, delay);
+				base.PlayClip2D(id, initProps);
 			}
 		}
 
 		/// <inheritdoc />
-		public new async void PlayMusic(AudioId id, float delay = 0f)
+		public new async void PlayMusic(AudioId id, AudioInitProps initProps = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -91,7 +91,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 			
-			base.PlayMusic(id, delay);
+			base.PlayMusic(id, initProps);
 		}
 	}
 }

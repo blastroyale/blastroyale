@@ -86,6 +86,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 		private void OnLocalCollectableBlocked(EventOnLocalCollectableBlocked callback)
 		{
+			if (callback.PlayerEntity != _observedEntity)
+			{
+				return;
+			}
+			
 			if (!callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable) ||
 			    !_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
@@ -117,6 +122,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
 		{
+			if (callback.PlayerEntity != _observedEntity)
+			{
+				return;
+			}
+			
 			if (!_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
@@ -129,6 +139,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnShieldUpdate(EventOnShieldChanged callback)
 		{
+			if (callback.Entity != _observedEntity)
+			{
+				return;
+			}
+			
 			if (callback.PreviousShieldCapacity != callback.ShieldCapacity
 			    && _entityViewUpdaterService.TryGetView(_observedEntity, out var entityView)
 			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
@@ -280,7 +295,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			floatingTextPoolObject.OverlayWorldView.Follow(position);
 			duration = floatingTextPoolObject.FloatingTextView.Play(text, color);
-
+			
 			this.LateCall(duration, () => closurePool.Despawn(floatingTextPoolObject));
 		}
 

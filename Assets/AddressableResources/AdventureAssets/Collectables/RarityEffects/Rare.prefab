@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7350677305132164298}
   - component: {fileID: 7350677305132164301}
   m_Layer: 7
-  m_Name: RarityFx_Rare
+  m_Name: Rare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

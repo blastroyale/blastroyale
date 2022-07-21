@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -17,12 +18,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
 		[SerializeField, Required] private EquipmentRarityEffectDictionary _rarityEffects;
-
-		// // TODO: Temporary rarity display implementation
-		// [SerializeField, Required] private TextMeshProUGUI _debugText;
-		// [SerializeField, Required] private Image _debugBg;
-		// [SerializeField, Required] private Color[] _debugRarityColors;
-
+		
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
 			_collectableView.SetEntityView(game, EntityView);
@@ -43,13 +39,19 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
 			
+			await ShowRarityEffect(game);
+		}
+
+		private async Task ShowRarityEffect(QuantumGame game)
+		{
 			var rarity = GetComponentData<EquipmentCollectable>(game).Item.Rarity;
-			if (_rarityEffects.TryGetValue(rarity, out var effect))
-			{
-				Instantiate(effect, transform);
-			}
-			// _debugText.text = rarity.ToString().Replace("Plus", "+");
-			// _debugBg.color = _debugRarityColors[(int) rarity];
+			var effect = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
+			var effectTransform = effect.transform;
+
+			effectTransform.SetParent(transform);
+			effectTransform.localPosition = Vector3.zero;
+			effectTransform.localScale = Vector3.one;
+			effectTransform.localRotation = Quaternion.identity;
 		}
 	}
 	

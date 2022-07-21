@@ -22,6 +22,8 @@ MonoBehaviour:
       SpecialType: 0
       Indicator: 6
       Cooldown:
+        RawValue: 983040
+      InitialCooldown:
         RawValue: 98304
       Radius:
         RawValue: 229376
@@ -38,6 +40,8 @@ MonoBehaviour:
       SpecialType: 1
       Indicator: 6
       Cooldown:
+        RawValue: 983040
+      InitialCooldown:
         RawValue: 98304
       Radius:
         RawValue: 98304
@@ -54,6 +58,8 @@ MonoBehaviour:
       SpecialType: 2
       Indicator: 0
       Cooldown:
+        RawValue: 983040
+      InitialCooldown:
         RawValue: 98304
       Radius:
         RawValue: 0
@@ -70,6 +76,8 @@ MonoBehaviour:
       SpecialType: 3
       Indicator: 6
       Cooldown:
+        RawValue: 983040
+      InitialCooldown:
         RawValue: 98304
       Radius:
         RawValue: 180224
@@ -86,6 +94,8 @@ MonoBehaviour:
       SpecialType: 4
       Indicator: 2
       Cooldown:
+        RawValue: 983040
+      InitialCooldown:
         RawValue: 98304
       Radius:
         RawValue: 0
@@ -102,6 +112,8 @@ MonoBehaviour:
       SpecialType: 5
       Indicator: 6
       Cooldown:
+        RawValue: 983040
+      InitialCooldown:
         RawValue: 98304
       Radius:
         RawValue: 163840
@@ -118,6 +130,8 @@ MonoBehaviour:
       SpecialType: 4
       Indicator: 2
       Cooldown:
+        RawValue: 327680
+      InitialCooldown:
         RawValue: 0
       Radius:
         RawValue: 0

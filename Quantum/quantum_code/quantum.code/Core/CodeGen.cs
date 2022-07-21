@@ -5298,7 +5298,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalSpecialUsed OnLocalSpecialUsed(PlayerRef Player, EntityRef Entity, SpecialType SpecialType, Int32 SpecialIndex) {
+      public EventOnLocalSpecialUsed OnLocalSpecialUsed(PlayerRef Player, EntityRef Entity, SpecialType SpecialType, Int32 SpecialIndex, FP StartTime, FP EndTime) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalSpecialUsed>(EventOnLocalSpecialUsed.ID);
@@ -5306,6 +5306,8 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.SpecialType = SpecialType;
         ev.SpecialIndex = SpecialIndex;
+        ev.StartTime = StartTime;
+        ev.EndTime = EndTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6526,6 +6528,8 @@ namespace Quantum {
     public EntityRef Entity;
     public SpecialType SpecialType;
     public Int32 SpecialIndex;
+    public FP StartTime;
+    public FP EndTime;
     protected EventOnLocalSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6547,6 +6551,8 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + SpecialType.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
+        hash = hash * 31 + StartTime.GetHashCode();
+        hash = hash * 31 + EndTime.GetHashCode();
         return hash;
       }
     }

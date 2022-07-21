@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -15,11 +16,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	{
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
+		[SerializeField, Required] private EquipmentRarityEffectDictionary _rarityEffects;
 
-		// TODO: Temporary rarity display implementation
-		[SerializeField, Required] private TextMeshProUGUI _debugText;
-		[SerializeField, Required] private Image _debugBg;
-		[SerializeField, Required] private Color[] _debugRarityColors;
+		// // TODO: Temporary rarity display implementation
+		// [SerializeField, Required] private TextMeshProUGUI _debugText;
+		// [SerializeField, Required] private Image _debugBg;
+		// [SerializeField, Required] private Color[] _debugRarityColors;
 
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
@@ -40,11 +42,19 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
-
-			// TODO: Temporary rarity display implementation
+			
 			var rarity = GetComponentData<EquipmentCollectable>(game).Item.Rarity;
-			_debugText.text = rarity.ToString().Replace("Plus", "+");
-			_debugBg.color = _debugRarityColors[(int) rarity];
+			if (_rarityEffects.TryGetValue(rarity, out var effect))
+			{
+				Instantiate(effect, transform);
+			}
+			// _debugText.text = rarity.ToString().Replace("Plus", "+");
+			// _debugBg.color = _debugRarityColors[(int) rarity];
 		}
+	}
+	
+	[Serializable]
+	public class EquipmentRarityEffectDictionary : UnitySerializedDictionary<EquipmentRarity, GameObject>
+	{
 	}
 }

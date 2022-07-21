@@ -22,6 +22,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class MiniMapView : MonoBehaviour
 	{
 		private static readonly int _widthPID = Shader.PropertyToID("_Width");
+		private static readonly int _offsetPID = Shader.PropertyToID("_Offset");
+		private static readonly int _sizePID = Shader.PropertyToID("_Size");
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -41,6 +43,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
 
+		[SerializeField, Required] private Image _dangerAreaImage;
 		[SerializeField, Required] private RectTransform _shrinkingCircleRing;
 		[SerializeField, Required] private Image _shrinkingCircleRingImage;
 		[SerializeField, Required] private RectTransform _safeAreaRing;
@@ -72,6 +75,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private Material _safeAreaRingMat;
 		private Material _shrinkingCircleMat;
+		private Material _dangerAreaMat;
 		private Coroutine _airDropCoroutine;
 
 		private IObjectPool<MinimapAirdropView> _airdropPool;
@@ -102,6 +106,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
 			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
+			_dangerAreaMat = _dangerAreaImage.material = Instantiate(_dangerAreaImage.material);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
@@ -189,6 +194,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.UnsubscribeListener(this);
 			Destroy(_safeAreaRingMat);
 			Destroy(_shrinkingCircleMat);
+			Destroy(_dangerAreaImage);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage msg)
@@ -351,6 +357,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_shrinkingCircleRing.anchoredPosition = circleUICenter;
 			_shrinkingCircleRing.sizeDelta = circleUISize;
+
+			var dangerCenter = circleViewportPoint - Vector3.one / 2f;
+			var dangerSize = radius / cameraOrtoSize;
+			_dangerAreaImage.materialForRendering.SetFloat(_sizePID, dangerSize);
+			_dangerAreaImage.materialForRendering.SetVector(_offsetPID, dangerCenter);
 
 			if (!_safeAreaSet)
 			{

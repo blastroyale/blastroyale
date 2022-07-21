@@ -47,19 +47,19 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData sourceInitData = null);
+		void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip2D(T id, AudioSourceInitData sourceInitData = null);
+		void PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayMusic(T id, AudioSourceInitData sourceInitData = null);
+		void PlayMusic(T id, AudioSourceInitData? sourceInitData = null);
 		
 		/// <summary>
 		/// Stops the music
@@ -106,7 +106,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
-		public void Init(AudioClip clip, float volumeMultiplier, Vector3? worldPos, AudioSourceInitData sourceInitData)
+		public void Init(AudioClip clip, float volumeMultiplier, Vector3? worldPos, AudioSourceInitData? sourceInitData)
 		{
 			if (sourceInitData == null)
 			{
@@ -114,15 +114,15 @@ namespace FirstLight.Services
 			}
 			
 			AudioSource.clip = clip;
-			AudioSource.volume = sourceInitData.Volume * volumeMultiplier;
-			AudioSource.spatialBlend = sourceInitData.SpatialBlend;
-			AudioSource.pitch = sourceInitData.Pitch;
-			AudioSource.time = sourceInitData.StartTime;
-			AudioSource.mute = sourceInitData.Mute;
-			AudioSource.loop = sourceInitData.Loop;
-			AudioSource.rolloffMode = sourceInitData.RolloffMode;
-			AudioSource.minDistance = sourceInitData.MinDistance;
-			AudioSource.maxDistance = sourceInitData.MaxDistance;
+			AudioSource.volume = sourceInitData.Value.Volume * volumeMultiplier;
+			AudioSource.spatialBlend = sourceInitData.Value.SpatialBlend;
+			AudioSource.pitch = sourceInitData.Value.Pitch;
+			AudioSource.time = sourceInitData.Value.StartTime;
+			AudioSource.mute = sourceInitData.Value.Mute;
+			AudioSource.loop = sourceInitData.Value.Loop;
+			AudioSource.rolloffMode = sourceInitData.Value.RolloffMode;
+			AudioSource.minDistance = sourceInitData.Value.MinDistance;
+			AudioSource.maxDistance = sourceInitData.Value.MaxDistance;
 			
 			if (worldPos.HasValue)
 			{
@@ -151,7 +151,7 @@ namespace FirstLight.Services
 	/// <summary>
 	/// This class contains initialization properties for AudioObject instances
 	/// </summary>
-	public class AudioSourceInitData
+	public struct AudioSourceInitData
 	{
 		public float StartTime;
 		public float SpatialBlend;
@@ -268,7 +268,7 @@ namespace FirstLight.Services
 			AudioListener.transform.SetParent(_musicSource.transform.parent);
 		}
 		
-		public void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData sourceInitData = null)
+		public void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -281,7 +281,7 @@ namespace FirstLight.Services
 			source.StartTimeDespawner(_pool);
 		}
 		
-		public void PlayClip2D(T id, AudioSourceInitData sourceInitData = null)
+		public void PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -294,13 +294,14 @@ namespace FirstLight.Services
 			source.StartTimeDespawner(_pool);
 		}
 		
-		public void PlayMusic(T id, AudioSourceInitData sourceInitData = null)
+		public void PlayMusic(T id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
 				return;
 			}
 			
+			Debug.LogError(sourceInitData.Value.Pitch);
 			_musicSource.Init(clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
 			_musicSource.AudioSource.Play();
 		}

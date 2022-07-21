@@ -46,7 +46,7 @@ namespace FirstLight.Game.Utils
 			public const float SFX_DEFAULT_PITCH = 1f;
 			
 			public const float SFX_WEAPON_PITCH_MIN = 0.8f;
-			public const float SFX_WEAPON_PITCH_MAX = 1.35f;
+			public const float SFX_WEAPON_PITCH_MAX = 1.4f;
 			public const float SFX_WEAPON_VOLUME_MIN = 0.7f;
 			public const float SFX_WEAPON_VOLUME_MAX = 1f;
 			public const float SFX_3D_MIN_DISTANCE = 0f;

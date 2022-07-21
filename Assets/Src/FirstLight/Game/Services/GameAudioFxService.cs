@@ -29,7 +29,7 @@ namespace FirstLight.Game.Services
 			return task.IsCompleted;
 		}
 
-		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData sourceInitData = null)
+		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -40,8 +40,10 @@ namespace FirstLight.Game.Services
 			{
 				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 			}
-			
-			sourceInitData.Mute = Is3dSfxMuted;
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = Is3dSfxMuted;
+			sourceInitData = updatedInitData;
 			
 			var startTime = DateTime.Now;
 			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
@@ -58,7 +60,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 		
-		public new async void PlayClip2D(AudioId id, AudioSourceInitData sourceInitData = null)
+		public new async void PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -69,8 +71,10 @@ namespace FirstLight.Game.Services
 			{
 				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			}
-			
-			sourceInitData.Mute = Is2dSfxMuted;
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = Is2dSfxMuted;
+			sourceInitData = updatedInitData;
 			
 			var startTime = DateTime.Now;
 			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
@@ -88,7 +92,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public new async void PlayMusic(AudioId id, AudioSourceInitData sourceInitData = null)
+		public new async void PlayMusic(AudioId id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -100,8 +104,10 @@ namespace FirstLight.Game.Services
 				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			}
 			
-			sourceInitData.Loop = true;
-			sourceInitData.Mute = IsBgmMuted;
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = IsBgmMuted;
+			updatedInitData.Loop = true;
+			sourceInitData = updatedInitData;
 			
 			await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 

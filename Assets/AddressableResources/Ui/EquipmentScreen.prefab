@@ -2107,9 +2107,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 0
-  TapSoundFx: 18
   Anchor: {fileID: 6739938109033102798}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &2253379299501643645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,9 +3494,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 0
-  TapSoundFx: 18
   Anchor: {fileID: 7766357486075920722}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &3611246960766126054
 GameObject:
   m_ObjectHideFlags: 0
@@ -4236,9 +4242,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 0
-  TapSoundFx: 18
   Anchor: {fileID: 8799533185373238712}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!1 &4073292402343234599
 GameObject:
   m_ObjectHideFlags: 0
@@ -6423,9 +6432,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.95, y: 0.95, z: 1}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 2505799615890111194}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!114 &4290717589665861341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11339,6 +11351,10 @@ PrefabInstance:
     - target: {fileID: 3473280069759442715, guid: e29f91514797c4ee4aaa81da82502e3d, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -1.5650167
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144036124964021924, guid: e29f91514797c4ee4aaa81da82502e3d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7291465828879746554, guid: e29f91514797c4ee4aaa81da82502e3d, type: 3}
       propertyPath: m_Pivot.x

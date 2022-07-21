@@ -18,7 +18,6 @@ namespace FirstLight.Game.MonoComponent
 	{
 		[FormerlySerializedAs("_animator")] [SerializeField] protected Animator Animator;
 		
-		[SerializeField, Required] private Transform _maskTransform;
 		[SerializeField] private Transform[] _weaponAnchors;
 		[SerializeField] private Transform[] _helmetAnchors;
 		[SerializeField] private Transform[] _bootsAnchors;
@@ -64,12 +63,7 @@ namespace FirstLight.Game.MonoComponent
 			{
 				UnequipItem(slot);
 			}
-
-			if (slot == GameIdGroup.Helmet)
-			{
-				_maskTransform.gameObject.SetActive(false);
-			}
-
+			
 			var childCount = instance.transform.childCount;
 			
 			for(var i = 0; i < Mathf.Max(childCount, 1); i++)
@@ -114,12 +108,7 @@ namespace FirstLight.Game.MonoComponent
 				_renderersContainerProxy.RemoveRenderersContainer(items[i].GetComponent<RenderersContainerMonoComponent>());
 				DestroyImmediate(items[i]);
 			}
-			
-			if (slotType == GameIdGroup.Helmet)
-			{
-				_maskTransform.gameObject.SetActive(true);
-			}
-			
+
 			_equipment.Remove(slotType);
 		}
 		

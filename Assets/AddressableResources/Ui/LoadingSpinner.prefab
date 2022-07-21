@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spinnerImage: {fileID: 5079177063412566245}
   _anglePerSecond: 10
+  _darkOverlay: {fileID: 392816766761473095}
 --- !u!1 &7817182784652020434
 GameObject:
   m_ObjectHideFlags: 0

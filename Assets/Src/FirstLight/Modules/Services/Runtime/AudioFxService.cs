@@ -69,7 +69,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
 		/// </summary>
-		AudioInitProps GetDefaultAudioInitProps(float spatialBlend, float volumeMultiplier);
+		AudioInitProps GetDefaultAudioInitProps(float spatialBlend);
 	}
 
 	/// <inheritdoc />
@@ -108,8 +108,12 @@ namespace FirstLight.Services
 		/// </summary>
 		public void Init(AudioClip clip, float volumeMultiplier, Vector3? worldPos, AudioInitProps initProps)
 		{
-			AudioSource.clip = clip;
+			if (initProps == null)
+			{
+				return;
+			}
 			
+			AudioSource.clip = clip;
 			AudioSource.volume = initProps.Volume * volumeMultiplier;
 			AudioSource.spatialBlend = initProps.SpatialBlend;
 			AudioSource.pitch = initProps.Pitch;
@@ -142,7 +146,7 @@ namespace FirstLight.Services
 	}
 
 	/// <summary>
-	/// Struct that contains initialization properties for AudioObject instances
+	/// This class contains initialization properties for AudioObject instances
 	/// </summary>
 	public class AudioInitProps
 	{
@@ -161,9 +165,10 @@ namespace FirstLight.Services
 		
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioObject> _pool;
-		private readonly AudioSource _musicSource;
+		private readonly AudioObject _musicSource;
 		protected readonly float _sfx2dVolumeMultiplier;
 		protected readonly float _sfx3dVolumeMultiplier;
+		protected readonly float _bgmVolumeMultiplier;
 		
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
@@ -174,8 +179,8 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsBgmMuted
 		{
-			get => _musicSource.mute;
-			set => _musicSource.mute = value;
+			get => _musicSource.AudioSource.mute;
+			set => _musicSource.AudioSource.mute = value;
 		}
 		
 		public bool Is2dSfxMuted
@@ -217,28 +222,29 @@ namespace FirstLight.Services
 			}
 		}
 
-		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolume)
+		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolumeMultiplier)
 		{
 			var container = new GameObject("Audio Container");
 			var audioObject = new GameObject("Audio Source").AddComponent<AudioObject>();
-
-			audioObject.AudioSource = audioObject.gameObject.AddComponent<AudioSource>();
-			audioObject.AudioSource.loop = false;
-			audioObject.AudioSource.playOnAwake = false;
-			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListener>();
-			_musicSource = new GameObject("Music Source").AddComponent<AudioSource>();
-			AudioListener.enabled = false;
-			_musicSource.playOnAwake = false;
-			_musicSource.loop = true;
-			_musicSource.volume = bgmVolume;
-			_sfx2dVolumeMultiplier = sfx2dVolumeMultiplier;
-			_sfx3dVolumeMultiplier = sfx3dVolumeMultiplier;
 			
+			audioObject.AudioSource = audioObject.gameObject.AddComponent<AudioSource>();
+			audioObject.AudioSource.playOnAwake = false;
 			audioObject.gameObject.SetActive(false);
 			audioObject.transform.SetParent(container.transform);
+			
+			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListener>();
 			AudioListener.transform.SetParent(container.transform);
+			AudioListener.enabled = false;
+			
+			_musicSource = new GameObject("Music Source").AddComponent<AudioObject>();
+			_musicSource.AudioSource = _musicSource.gameObject.AddComponent<AudioSource>();
+			_musicSource.AudioSource.playOnAwake = false;
 			_musicSource.transform.SetParent(container.transform);
-
+			
+			_sfx2dVolumeMultiplier = sfx2dVolumeMultiplier;
+			_sfx3dVolumeMultiplier = sfx3dVolumeMultiplier;
+			_bgmVolumeMultiplier = bgmVolumeMultiplier;
+			
 			var pool = new GameObjectPool<AudioObject>(10, audioObject);
 
 			pool.DespawnToSampleParent = true;
@@ -288,29 +294,22 @@ namespace FirstLight.Services
 				return;
 			}
 			
-			_musicSource.clip = clip;
-			_musicSource.volume = initProps.Volume * _sfx2dVolumeMultiplier;
-			_musicSource.spatialBlend = initProps.SpatialBlend;
-			_musicSource.pitch = initProps.Pitch;
-			_musicSource.time = initProps.StartTime;
-			_musicSource.mute = initProps.Mute;
-			_musicSource.loop = initProps.Loop;
-
-			_musicSource.Play();
+			_musicSource.Init(clip, _bgmVolumeMultiplier, Vector3.zero, initProps);
+			_musicSource.AudioSource.Play();
 		}
 		
 		public void StopMusic()
 		{
-			_musicSource.Stop();
+			_musicSource.AudioSource.Stop();
 		}
 
-		public AudioInitProps GetDefaultAudioInitProps(float spatialBlend, float volumeMultiplier)
+		public AudioInitProps GetDefaultAudioInitProps(float spatialBlend)
 		{
 			return new AudioInitProps()
 			{
 				SpatialBlend = spatialBlend,
 				Pitch = 1f,
-				Volume = volumeMultiplier,
+				Volume = 1f,
 				Loop = false,
 				Mute = false,
 				StartTime = 0

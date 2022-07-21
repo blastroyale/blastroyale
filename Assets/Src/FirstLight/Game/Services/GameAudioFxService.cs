@@ -38,7 +38,7 @@ namespace FirstLight.Game.Services
 			
 			if (initProps == null)
 			{
-				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, _sfx3dVolumeMultiplier);
+				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 			}
 			
 			var startTime = DateTime.Now;
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Services
 			
 			if (initProps == null)
 			{
-				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, _sfx2dVolumeMultiplier);
+				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			}
 			
 			var startTime = DateTime.Now;
@@ -93,7 +93,8 @@ namespace FirstLight.Game.Services
 
 			if (initProps == null)
 			{
-				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, _sfx2dVolumeMultiplier);
+				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
+				initProps.Loop = true;
 			}
 			
 			await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
@@ -106,13 +107,13 @@ namespace FirstLight.Game.Services
 			base.PlayMusic(id, initProps);
 		}
 		
-		public new AudioInitProps GetDefaultAudioInitProps(float spatialBlend, float volumeMultiplier)
+		public new AudioInitProps GetDefaultAudioInitProps(float spatialBlend)
 		{
 			return new AudioInitProps()
 			{
 				SpatialBlend = spatialBlend,
 				Pitch = GameConstants.Audio.SFX_DEFAULT_PITCH,
-				Volume = GameConstants.Audio.SFX_DEFAULT_VOLUME * volumeMultiplier,
+				Volume = GameConstants.Audio.SFX_DEFAULT_VOLUME,
 				Loop = false,
 				Mute = false,
 				StartTime = 0

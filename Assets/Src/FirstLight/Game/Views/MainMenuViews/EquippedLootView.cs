@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using FirstLight.Game.Services;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using I2.Loc;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
@@ -11,6 +9,7 @@ using TMPro;
 using UnityEngine.Events;
 using FirstLight.Game.Messages;
 using Quantum;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -21,13 +20,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class EquippedLootView : MonoBehaviour
 	{
 		[SerializeField] protected GameIdGroup _slot;
-		[SerializeField] protected Image _iconImage;
-		[SerializeField] protected Image _rarityImage;
-		[SerializeField] protected Image _slotImage;
-		[SerializeField] protected Button _button;
-		[SerializeField] protected TextMeshProUGUI _levelText;
-		[SerializeField] protected NotificationUniqueIdUpgradeView _notificationUniqueIdUpgradeView;
-		
+		[SerializeField, Required] protected Image _iconImage;
+		[SerializeField, Required] protected Image _rarityImage;
+		[SerializeField, Required] protected Image _slotImage;
+		[SerializeField, Required] protected Button _button;
+		[SerializeField, Required] protected TextMeshProUGUI _levelText;
+
 		public UnityEvent<GameIdGroup> OnClick = new UnityEvent<GameIdGroup>();
 
 		private IGameServices _services;
@@ -39,14 +37,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
-			_services.MessageBrokerService.Subscribe<ItemUnequippedMessage>(OnItemUnequipped);
+
 			_button.onClick.AddListener(OnButtonClick);
 		}
 
 		protected void OnDestroy()
 		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this );
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		/// <summary>
@@ -54,26 +51,29 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public async void UpdateItem()
 		{
-			if (_gameDataProvider.EquipmentDataProvider.EquippedItems.TryGetValue(_slot, out var uniqueId))
+			if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(_slot, out var uniqueId))
 			{
-				var info = _gameDataProvider.EquipmentDataProvider.GetEquipmentInfo(uniqueId);
-				
+				var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
+
 				// Don't show Default/Melee weapon
-				if (info.IsWeapon && info.Stats[EquipmentStatType.MaxCapacity] < 0)
+				if (equipment.IsWeapon() && equipment.IsDefaultItem())
 				{
 					ClearSlot();
 				}
 				else
 				{
-					_levelText.text = $"{ScriptLocalization.General.Level} {info.DataInfo.Data.Level.ToString()}";
+					_levelText.text = $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
 					_iconImage.enabled = true;
 					_slotImage.enabled = false;
-					_rarityImage.enabled = true;
-					_rarityImage.sprite = await _services.AssetResolverService.RequestAsset<ItemRarity, Sprite>(info.DataInfo.Data.Rarity);
+					// TODO mihak: Fix this
+					// _rarityImage.enabled = true;
+					// _rarityImage.sprite =
+					// 	await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
 
 					if (ItemId != uniqueId)
 					{
-						_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(info.DataInfo.GameId);
+						_iconImage.sprite =
+							await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
 					}
 
 					ItemId = uniqueId;
@@ -83,8 +83,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				ClearSlot();
 			}
-			
-			_notificationUniqueIdUpgradeView.SetUniqueId(ItemId);
 		}
 
 		private void ClearSlot()
@@ -94,14 +92,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_iconImage.enabled = false;
 			_slotImage.enabled = true;
 			_rarityImage.enabled = false;
-		}
-
-		private void OnItemUnequipped(ItemUnequippedMessage itemMessage)
-		{
-			if (itemMessage.ItemId == ItemId)
-			{
-				UpdateItem();
-			}
 		}
 
 		protected virtual void OnButtonClick()

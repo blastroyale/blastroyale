@@ -1,5 +1,3 @@
-using FirstLight.Services;
-using Quantum;
 using TMPro;
 using UnityEngine;
 

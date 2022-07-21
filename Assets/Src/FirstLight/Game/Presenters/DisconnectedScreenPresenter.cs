@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
-using FirstLight.Services;
 using FirstLight.UiService;
 using I2.Loc;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
@@ -22,54 +22,73 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action ReconnectClicked;
-			public Action MainMenuClicked;
+			public Action BackClicked;
 		}
-		
-		[SerializeField] private Button _reconnectButton;
-		[SerializeField] private Button _leaveButton;
+
+		private const float TIMEOUT_DIM_SECONDS = 5f;
+
+		[SerializeField, Required] private Button _reconnectButton;
+		[SerializeField, Required] private Button _menuButton;
+		[SerializeField, Required] private GameObject _frontDimBlocker;
 
 		private IGameServices _services;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			_reconnectButton.onClick.AddListener(OnReconnectClicked);
-			_leaveButton.onClick.AddListener(OnLeaveClicked);
+			_menuButton.onClick.AddListener(OnLeaveClicked);
 		}
 
 		protected override void OnOpened()
 		{
-			var dictionary = new Dictionary<string, object>
-			{
-				{"disconnected_cause", _services.NetworkService.QuantumClient.DisconnectedCause}
-			};
-			
-			_services.AnalyticsService.LogEvent("disconnected", dictionary);
-			_services.AnalyticsService.CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
+			SetFrontDimBlockerActive(false);
+
+			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
 
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
-				var button = new AlertButton
-				{
-					Callback = Data.ReconnectClicked,
-					Style = AlertButtonStyle.Positive,
-					Text = ScriptLocalization.General.Confirm
-				};
-			
-				NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet, 
-				                               ScriptLocalization.General.NoInternetDescription, button);
+				OpenNoInternetPopup();
 			}
+		}
+
+		/// <summary>
+		/// Sets the activity of the dimmed blocker image that covers the presenter
+		/// </summary>
+		public void SetFrontDimBlockerActive(bool active)
+		{
+			_frontDimBlocker.SetActive(active);
 		}
 
 		private void OnLeaveClicked()
 		{
-			Data.MainMenuClicked.Invoke();
+			Data.BackClicked.Invoke();
 		}
 
 		private void OnReconnectClicked()
 		{
+			if (Application.internetReachability == NetworkReachability.NotReachable)
+			{
+				OpenNoInternetPopup();
+				return;
+			}
+
+			// Just in case reconnect stalls, undim the blocker after X seconds
+			this.LateCoroutineCall(TIMEOUT_DIM_SECONDS, () => { SetFrontDimBlockerActive(false); });
 			Data.ReconnectClicked.Invoke();
+		}
+
+		private void OpenNoInternetPopup()
+		{
+			var button = new AlertButton
+			{
+				Style = AlertButtonStyle.Positive,
+				Text = ScriptLocalization.General.Confirm
+			};
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
+			                               ScriptLocalization.General.NoInternetDescription, button);
 		}
 	}
 }

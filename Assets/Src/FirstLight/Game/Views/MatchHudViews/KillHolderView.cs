@@ -1,10 +1,12 @@
 ﻿using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View handles the Kill Tracker View in the UI:
@@ -12,7 +14,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class KillHolderView : MonoBehaviour
 	{
-		[SerializeField] private KillTrackerView _killTrackerRef;
+		[SerializeField, Required] private KillTrackerView _killTrackerRef;
 
 		private IObjectPool<KillTrackerView> _killTrackerPool;
 		private IGameServices _services;
@@ -30,8 +32,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var view = _killTrackerPool.Spawn();
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var deadData = callback.PlayersMatchData[callback.PlayerDead];
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
+			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 
 			view.transform.SetSiblingIndex(0);
 			view.SetInfo(killerData.GetPlayerName(), killerData.Data.PlayerSkin, 

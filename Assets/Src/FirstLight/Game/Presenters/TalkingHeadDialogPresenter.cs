@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,14 +9,14 @@ namespace FirstLight.Game.Presenters
 	/// <inheritdoc />
 	public class TalkingHeadDialogPresenter : AnimatedUiPresenter
 	{
-		[SerializeField] protected TextMeshProUGUI _titleText;
-		[SerializeField] protected Button _closeButton;
+		[SerializeField, Required] protected TextMeshProUGUI _titleText;
+		[SerializeField, Required] protected Button _closeButton;
 
 		private Action _closeCallback;
 
 		private void Awake()
 		{
-			_closeButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(() => Close(true));
 		}
 
 		/// <summary>

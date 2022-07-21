@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Data.DataTypes;
 using UnityEngine;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Views;
 using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
@@ -25,16 +23,17 @@ namespace FirstLight.Game.Presenters
 			public Action MainMenuClicked;
 		}
 		
-		[SerializeField] private Button _gotoMainMenuButton;
-		[SerializeField] private Button _rewindButton;
-		[SerializeField] private Button _screenButton;
-		[SerializeField] private GameObject _yourLootObject;
-		[SerializeField] private Transform _gridLayout;
-		[SerializeField] private RewardView _rewardRef;
-		[SerializeField] private TextMeshProUGUI _yourLootText;
+		[SerializeField, Required] private Button _gotoMainMenuButton;
+		[SerializeField, Required] private Button _rewindButton;
+		[SerializeField, Required] private Button _screenButton;
+		[SerializeField, Required] private GameObject _yourLootObject;
+		[SerializeField, Required] private Transform _gridLayout;
+		[SerializeField, Required] private RewardView _rewardRef;
+		[SerializeField, Required] private TextMeshProUGUI _yourLootText;
 		
-		private RewardView [] _rewards;
+		private RewardView [] _rewardViews;
 		private IGameDataProvider _gameDataProvider;
+		private Dictionary<GameId, int> _rewards;
 
 		private void Awake()
 		{
@@ -51,30 +50,32 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var rewards = ProcessRewards();
+			_rewards = ProcessRewards();
 			var i = 0;
 			
-			_rewards = new RewardView[rewards.Count];
+			_rewardViews = new RewardView[_rewards.Count];
 
-			foreach (var reward in rewards)
+			foreach (var reward in _rewards)
 			{
-				_rewards[i] = Instantiate(_rewardRef, _rewardRef.transform.parent);
-				_rewards[i].Initialise(reward.Key, (uint) reward.Value);
-				_rewards[i].gameObject.SetActive(false);
+				// Only play unpack animation if its not the last reward in list
+				bool playUnpackAnim = i != _rewards.Count - 1;
+				_rewardViews[i] = Instantiate(_rewardRef, _rewardRef.transform.parent);
+				_rewardViews[i].Initialise(reward.Key, (uint) reward.Value, playUnpackAnim);
+				_rewardViews[i].gameObject.SetActive(false);
 
 				if (i > 0)
 				{
-					_rewards[i - 1].OnRewardAnimationComplete = _rewards[i].StartRewardSequence;
-					_rewards[i - 1].OnSummaryAnimationComplete = _rewards[i].StartSummarySequence;
+					_rewardViews[i - 1].OnRewardAnimationComplete = _rewardViews[i].StartRewardSequence;
+					_rewardViews[i - 1].OnSummaryAnimationComplete = _rewardViews[i].StartSummarySequence;
 				}
 
 				i++;
 			}
 
-			if (_rewards.Length > 0)
+			if (_rewardViews.Length > 0)
 			{
-				_rewards[_rewards.Length - 1].OnRewardAnimationComplete = PlaySummariseSequence;
-				_rewards[_rewards.Length - 1].OnSummaryAnimationComplete = OnSummariseSequenceCompleted;
+				_rewardViews[_rewardViews.Length - 1].OnRewardAnimationComplete = PlaySummariseSequence;
+				_rewardViews[_rewardViews.Length - 1].OnSummaryAnimationComplete = OnSummariseSequenceCompleted;
 				_yourLootText.text = ScriptLocalization.AdventureMenu.YourLoot;
 			}
 			else
@@ -89,7 +90,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_yourLootObject.gameObject.SetActive(true);
 			
-			if (_rewards.Length > 0)
+			if (_rewardViews.Length > 0)
 			{
 				PlayRewardSequence();
 			}
@@ -101,19 +102,19 @@ namespace FirstLight.Game.Presenters
 
 		private void PlayRewardSequence()
 		{
-			_rewards[0].StartRewardSequence();
+			_rewardViews[0].StartRewardSequence();
 		}
 
 		private void PlaySummariseSequence()
 		{
-			foreach (var reward in _rewards)
+			foreach (var reward in _rewardViews)
 			{
 				reward.transform.SetParent(_gridLayout);
 				reward.gameObject.SetActive(false);
 				reward.transform.localPosition = Vector3.zero;
 			}
 
-			_rewards[0].StartSummarySequence();
+			_rewardViews[0].StartSummarySequence();
 		}
 
 		private void OnSummariseSequenceCompleted()
@@ -126,7 +127,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var rectTransform = _rewardRef.GetComponent<RectTransform>();
 			
-			foreach (var reward in _rewards)
+			foreach (var reward in _rewardViews)
 			{
 				reward.Rewind(rectTransform);
 			}
@@ -139,7 +140,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SkipCurrentAnimation()
 		{
-			foreach (var reward in _rewards)
+			foreach (var reward in _rewardViews)
 			{
 				if (reward.IsPlaying)
 				{
@@ -163,7 +164,7 @@ namespace FirstLight.Game.Presenters
 					dictionary.Add(id, 0);
 				}
 
-				dictionary[id] += id.IsInGroup(GameIdGroup.LootBox) ? 1 : rewards[i].Value;
+				dictionary[id] += rewards[i].Value;
 			}
 
 			return dictionary;

@@ -55,11 +55,10 @@ namespace FirstLight.Tests.EditorMode
 		protected IUniqueIdLogic UniqueIdLogic;
 		protected IRngLogic RngLogic;
 		protected ICurrencyLogic CurrencyLogic;
+		protected IResourceLogic ResourceLogic;
 		protected IPlayerLogic PlayerLogic;
 		protected IEquipmentLogic EquipmentLogic;
 		protected IRewardLogic RewardLogic;
-		protected ILootBoxLogic LootBoxLogic;
-		protected IMatchLogic MatchLogic;
 
 		[SetUp]
 		public void InitMocks()
@@ -84,22 +83,20 @@ namespace FirstLight.Tests.EditorMode
 			UniqueIdLogic = Substitute.For<IUniqueIdLogic>();
 			RngLogic = Substitute.For<IRngLogic>();
 			CurrencyLogic = Substitute.For<ICurrencyLogic>();
+			ResourceLogic = Substitute.For<IResourceLogic>();
 			PlayerLogic = Substitute.For<IPlayerLogic>();
 			EquipmentLogic = Substitute.For<IEquipmentLogic>();
 			RewardLogic = Substitute.For<IRewardLogic>();
-			LootBoxLogic = Substitute.For<ILootBoxLogic>();
-			MatchLogic = Substitute.For<IMatchLogic>();
 
 			// Returns
 			GameLogic.AppLogic.Returns(AppLogic);
 			GameLogic.UniqueIdLogic.Returns(UniqueIdLogic);
 			GameLogic.RngLogic.Returns(RngLogic);
 			GameLogic.CurrencyLogic.Returns(CurrencyLogic);
+			GameLogic.ResourceLogic.Returns(ResourceLogic);
 			GameLogic.PlayerLogic.Returns(PlayerLogic);
 			GameLogic.EquipmentLogic.Returns(EquipmentLogic);
 			GameLogic.RewardLogic.Returns(RewardLogic);
-			GameLogic.LootBoxLogic.Returns(LootBoxLogic);
-			GameLogic.MatchLogic.Returns(MatchLogic);
 
 			GameLogic.MessageBrokerService.Returns(MessageBrokerService);
 			GameLogic.TimeService.Returns(TimeService);

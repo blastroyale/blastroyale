@@ -1,5 +1,6 @@
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class TrophiesView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI trophiesText;
+		[SerializeField, Required] private TextMeshProUGUI trophiesText;
 
 		private IGameDataProvider _dataProvider;
 
@@ -18,13 +19,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-			OnTrophiesUpdated(0, _dataProvider.MatchDataProvider.Trophies.Value);
-			_dataProvider.MatchDataProvider.Trophies.Observe(OnTrophiesUpdated);
+			OnTrophiesUpdated(0, _dataProvider.PlayerDataProvider.Trophies.Value);
+			_dataProvider.PlayerDataProvider.Trophies.Observe(OnTrophiesUpdated);
 		}
 
 		private void OnDestroy()
 		{
-			_dataProvider.MatchDataProvider.Trophies.StopObserving(OnTrophiesUpdated);
+			_dataProvider?.PlayerDataProvider?.Trophies.StopObserving(OnTrophiesUpdated);
 		}
 
 		private void OnTrophiesUpdated(uint previous, uint newAmount)

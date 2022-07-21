@@ -78,6 +78,29 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &-2792240432807961863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1614fc811f8f184697d9bee70ab9fe5, type: 3}
+  m_Name: DecalRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  m_Settings:
+    technique: 2
+    maxDrawDistance: 1000
+    dBufferSettings:
+      surfaceData: 2
+    screenSpaceSettings:
+      normalBlend: 0
+      useGBuffer: 1
+  m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
+  m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,10 +120,11 @@ MonoBehaviour:
   - {fileID: 5049321258399068766}
   - {fileID: -8864982382782373109}
   - {fileID: 4747972553312849571}
+  - {fileID: 2089223089298465228}
   - {fileID: -3791164114979841850}
   - {fileID: 6329697942786215620}
-  - {fileID: 2089223089298465228}
-  m_RendererFeatureMap: 9103f3f86eec92645e72b49beeca12460b2329d67d41f984a34e84a3e12fe441c6186be9521463cbc40e4b27be9ad757cce12d9e5469fe1c
+  - {fileID: -2792240432807961863}
+  m_RendererFeatureMap: 9103f3f86eec92645e72b49beeca12460b2329d67d41f984a34e84a3e12fe441cce12d9e5469fe1cc6186be9521463cbc40e4b27be9ad757f99affca1ef83fd9
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -119,10 +143,10 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 4919
+    m_Bits: 70583
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 4919
+    m_Bits: 78775
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 0
@@ -152,7 +176,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Indicator No Depth
-    Event: 600
+    Event: 300
     filterSettings:
       RenderQueueType: 1
       LayerMask:
@@ -161,8 +185,8 @@ MonoBehaviour:
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
-    overrideDepthState: 0
-    depthCompareFunction: 4
+    overrideDepthState: 1
+    depthCompareFunction: 7
     enableWrite: 1
     stencilSettings:
       overrideStencilState: 0

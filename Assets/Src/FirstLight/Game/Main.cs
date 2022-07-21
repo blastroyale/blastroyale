@@ -9,6 +9,8 @@ using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.UiService;
+using PlayFab;
+using UnityEditor;
 using UnityEngine;
 
 namespace FirstLight.Game
@@ -44,11 +46,12 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
+			var threadService = new ThreadService();
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, analyticsService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService, configsProvider,
 			                                    gameLogic, dataService, genericDialogService, assetResolver, analyticsService, 
-			                                    vfxService, audioFxService);
-			
+			                                    vfxService, audioFxService, threadService);
+
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
 
@@ -59,6 +62,18 @@ namespace FirstLight.Game
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService, configsProvider, 
 			                                         assetResolver, dataService, vfxService);
+			
+#if UNITY_EDITOR
+			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
+			{
+				EditorPrefs.SetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY, false);
+			}
+			
+			if (EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
+			{
+				_gameStateMachine.LogsEnabled = EditorPrefs.GetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY);
+			}
+#endif
 		}
 
 		private void Start()
@@ -66,6 +81,7 @@ namespace FirstLight.Game
 			FB.Init(FacebookInit);
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
+			TrySetLocalServer();
 		}
 
 		private void OnApplicationPause(bool isPaused)
@@ -82,7 +98,7 @@ namespace FirstLight.Game
 				_pauseCoroutine = null;
 			}
 			
-			_services.MessageBrokerService.Publish(new ApplicationPausedMessage{ IsPaused = isPaused });
+			_services?.MessageBrokerService.Publish(new ApplicationPausedMessage{ IsPaused = isPaused });
 		}
 		
 		private void OnApplicationQuit()
@@ -100,6 +116,23 @@ namespace FirstLight.Game
 			}
 			
 			FB.ActivateApp();
+		}
+		
+		private void TrySetLocalServer()
+		{
+#if UNITY_EDITOR
+			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
+			{
+				EditorPrefs.SetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY, false);
+			}
+			
+			if (EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
+			{
+				PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			}
+			
+			Debug.Log("Using local server? -" + EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY));
+#endif
 		}
 
 		private IEnumerator EndAppCoroutine()

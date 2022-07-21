@@ -72,7 +72,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-
 		}
 
 		private void UnsubscribeEvents()
@@ -103,23 +102,22 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.GenericDialogService.OpenDialog(_nameInvalidStatus,false, okButton);
 		}
-		
-		private void CloseCurrentDialog()
-		{
-			_services.GenericDialogService.CloseDialog();
-		}
 
 		private void OnNameSet(string newName)
 		{
-			if (newName.Length < GameConstants.PLAYER_NAME_MIN_LENGTH)
+			if (newName.Length < GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooShort, GameConstants.PLAYER_NAME_MIN_LENGTH);
+				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooShort, 
+					GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH);
+				
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}
-			if (newName.Length > GameConstants.PLAYER_NAME_MAX_LENGTH)
+			if (newName.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
 			{
-				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooLong, GameConstants.PLAYER_NAME_MAX_LENGTH);
+				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooLong, 
+					GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH);
+				
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}

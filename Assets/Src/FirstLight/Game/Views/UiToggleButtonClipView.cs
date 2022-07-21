@@ -1,12 +1,5 @@
-using System.Collections;
-using DG.Tweening;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.Services;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 // ReSharper disable CheckNamespace
 
@@ -25,7 +18,7 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		protected override void OnClick()
 		{
-			_gameService.AudioFxService.PlayClip2D(TapSoundFx);
+			_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 			
 			Animation.clip = isOn ? Clip : ToggleOnPressedClip;
 			Animation.Rewind(); 

@@ -1,6 +1,6 @@
 ﻿using System;
 using FirstLight.Game.Services;
-using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +13,8 @@ namespace FirstLight.Game.Presenters
 	/// </remarks>
 	public class GenericDialogIconPresenter : GenericDialogPresenterBase
 	{
-		[SerializeField] private Image _icon;
-		[SerializeField] private TextMeshProUGUI _iconText;
+		[SerializeField, Required] private Image _icon;
+		[SerializeField, Required] private TextMeshProUGUI _iconText;
 		
 		public Transform IconPosition => _icon.transform;
 		

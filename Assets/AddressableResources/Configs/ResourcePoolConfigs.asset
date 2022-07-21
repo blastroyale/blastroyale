@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3a63d6c1f1d47d09a29d76cb5f2b02, type: 3}
+  m_Name: ResourcePoolConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Id: 12
+    PoolCapacity: 300
+    RestockIntervalMinutes: 180
+    TotalRestockIntervalMinutes: 720
+    BaseMaxTake: 16
+    ScaleMultiplier:
+      RawValue: 983040
+    ShapeModifier:
+      RawValue: 98304
+    MaxPoolCapacityDecreaseModifier:
+      RawValue: 58982
+    PoolCapacityDecreaseExponent:
+      RawValue: 19661
+    MaxTakeDecreaseModifier:
+      RawValue: 7209
+    TakeDecreaseExponent:
+      RawValue: 117965
+    PoolCapacityTrophiesModifier:
+      RawValue: 655360000
+  - Id: 15
+    PoolCapacity: 500
+    RestockIntervalMinutes: 180
+    TotalRestockIntervalMinutes: 720
+    BaseMaxTake: 41
+    ScaleMultiplier:
+      RawValue: 1638400
+    ShapeModifier:
+      RawValue: 65536
+    MaxPoolCapacityDecreaseModifier:
+      RawValue: 39322
+    PoolCapacityDecreaseExponent:
+      RawValue: 32768
+    MaxTakeDecreaseModifier:
+      RawValue: 7209
+    TakeDecreaseExponent:
+      RawValue: 117965
+    PoolCapacityTrophiesModifier:
+      RawValue: 655360000

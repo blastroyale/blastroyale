@@ -4,6 +4,8 @@ namespace FirstLight.Game.Ids
 	{
 		InitialLoadUi,
 		MainMenuUi,
-		MatchUi
+		MatchUi,
+		DeathMatchMatchUi,
+		BattleRoyaleMatchUi
 	}
 }

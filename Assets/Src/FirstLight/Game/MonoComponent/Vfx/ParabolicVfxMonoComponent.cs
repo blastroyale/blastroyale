@@ -1,5 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx
@@ -11,7 +12,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	[RequireComponent(typeof(Rigidbody))]
 	public class ParabolicVfxMonoComponent : Vfx<VfxId>
 	{
-		[SerializeField] private Rigidbody _rigidbody;
+		[SerializeField, Required] private Rigidbody _rigidbody;
 
 		private void OnValidate()
 		{

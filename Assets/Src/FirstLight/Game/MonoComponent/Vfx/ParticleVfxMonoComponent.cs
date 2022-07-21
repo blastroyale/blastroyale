@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
 using FirstLight.Services;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Vfx
@@ -12,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	/// </remarks>
 	public class ParticleVfxMonoComponent : Vfx<VfxId>
 	{
-		[SerializeField] private ParticleSystem _particle;
+		[SerializeField, Required] private ParticleSystem _particle;
 
 		private void OnValidate()
 		{

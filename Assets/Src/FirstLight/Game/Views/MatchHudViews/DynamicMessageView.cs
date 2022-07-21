@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -8,8 +7,8 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {
@@ -62,7 +61,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = mapConfig.GameEndTarget;
+			_killTarget = (int) mapConfig.GameEndTarget;
 			_killWarningLimit = (_killTarget / 3) * 2;
 			_playerKillStreak = new int[mapConfig.PlayersLimit];
 			_playerDominating = new bool[mapConfig.PlayersLimit];
@@ -70,21 +69,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventGameEnd);
+			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 		}
-		
-		private void OnEventGameEnd(EventOnGameEnded callback)
-		{
-			StopTimerCoroutine();
-		}
-		
+
 		/// <summary>
 		/// Handles Double Kills, Multi Kills, Killing Sprees.
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var leaderData = callback.PlayersMatchData[callback.PlayerLeader];
-			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
-			var deadData = callback.PlayersMatchData[callback.PlayerDead];
+			var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
+			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
+			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 			
 			// Check to see if we are close to ending the match.
 			if(leaderData.Data.PlayersKilledCount == _killWarningLimit &&  callback.PlayerKiller == callback.PlayerLeader)
@@ -114,6 +109,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				CheckGodlike(callback.PlayerKiller, killerData.PlayerName);
 			}
+		}
+		
+		private void OnAirDropDropped(EventOnAirDropDropped callback)
+		{
+			var messageData = new MessageData
+			{
+				TopText = ScriptLocalization.AdventureMenu.AirDropIncomingLine1,
+				BottomText = ScriptLocalization.AdventureMenu.AirDropIncomingLine2,
+				MessageEntry = _messages[Random.Range(0, _messages.Count)]
+			};
+					
+			EnqueueMessage(messageData);
+		}
+		
+		private void OnEventGameEnd(EventOnGameEnded callback)
+		{
+			StopTimerCoroutine();
 		}
 
 		private void CheckKillingSpree(QuantumPlayerMatchData killerData, QuantumPlayerMatchData deadData)

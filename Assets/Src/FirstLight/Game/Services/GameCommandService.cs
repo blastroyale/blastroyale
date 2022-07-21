@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.CloudScriptModels;
+using PlayFab.SharedModels;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -28,29 +30,41 @@ namespace FirstLight.Game.Services
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand;
 	}
 
+	/// <summary>
+	/// Refers to dictionary keys used in the data sent to server.
+	/// </summary>
+	public static class CommandFields
+	{
+		/// <summary>
+		/// Key where the command data is serialized.
+		/// </summary>
+		public static readonly string Command = nameof(IGameCommand);
+		
+		/// <summary>
+		/// Field containing the client timestamp for when the command was issued.
+		/// </summary>
+		public static readonly string Timestamp = nameof(Timestamp);
+
+		/// <summary>
+		/// Field about the version the game client is currently running
+		/// </summary>
+		public static readonly string ClientVersion = nameof(ClientVersion);
+	}
+
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
-
-		public static readonly string CommandFieldName = nameof(IGameCommand);
+		private readonly Queue<IGameCommand> _commandQueue;
+		private IPlayfabService _playfab;
 		
-		public GameCommandService(IGameLogic gameLogic, IDataProvider dataProvider)
+		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			_playfab = playfabService;
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
-		}
-		
-		/// <summary>
-		/// Generic PlayFab error that is being called on PlayFab responses.
-		/// Will throw an <see cref="PlayFabException"/> to be shown to the player.
-		/// </summary>
-		public static void OnPlayFabError(PlayFabError error)
-		{
-			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
-			
-			throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, descriptiveError);
+			_commandQueue = new Queue<IGameCommand>();
 		}
 
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
@@ -58,7 +72,10 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
-				ExecuteServerCommand(command); 
+				if (command.ExecuteServer)
+				{
+					EnqueueCommandToServer(command);
+				}
 				command.Execute(_gameLogic, _dataProvider);
 			}
 			catch (Exception e)
@@ -90,35 +107,87 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void ForceServerDataUpdate()
 		{
-			ExecuteServerCommand(new ForceUpdateCommand()
+			EnqueueCommandToServer(new ForceUpdateCommand()
 			{
 				IdData = _dataProvider.GetData<IdData>(),
 				RngData = _dataProvider.GetData<RngData>(),
-				PlayerData = _dataProvider.GetData<PlayerData>()
+				PlayerData = _dataProvider.GetData<PlayerData>(),
+				NftEquipmentData = _dataProvider.GetData<NftEquipmentData>()
 			});
+		}
+
+		/// <summary>
+		/// Adds a given command to the "to send to server queue".
+		/// We send one command at a time to server, this queue ensure that.
+		/// </summary>
+		private void EnqueueCommandToServer<TCommand>(TCommand cmd) where TCommand : struct, IGameCommand
+		{
+			_commandQueue.Enqueue(cmd);
+			if (_commandQueue.Count == 1)
+			{
+				ExecuteServerCommand(cmd);
+			}
+		}
+
+		/// <summary>
+		/// Called when server has successfully finished running the given command.
+		/// </summary>
+		private void OnServerExecutionFinished<TCommand>(TCommand cmd)
+		{
+			_commandQueue.Dequeue();
+			if (_commandQueue.TryPeek(out var next))
+			{
+				ExecuteServerCommand(next);
+			}
 		}
 
 		/// <summary>
 		/// Sends a command to the server.
 		/// </summary>
-		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
+		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
-			var request = new ExecuteFunctionRequest
+			var request = new LogicRequest
 			{
-				FunctionName = "ExecuteCommand",
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = new LogicRequest
+				Command = command.GetType().FullName,
+				Platform = Application.platform.ToString(),
+				Data = new Dictionary<string, string>
 				{
-					Command = command.GetType().FullName,
-					Platform = Application.platform.ToString(),
-					Data = new Dictionary<string, string>
-					{
-						{CommandFieldName, ModelSerializer.Serialize(command).Value},
-					}
-				},
-				AuthenticationContext = PlayFabSettings.staticPlayer
+					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
+					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
+					{CommandFields.ClientVersion, VersionUtils.VersionExternal}
+				}
 			};
-			PlayFabCloudScriptAPI.ExecuteFunction(request, null, OnPlayFabError);
+			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
+		}
+		
+		/// <summary>
+		/// Whenever the HTTP request to proccess a command does not return 200
+		/// </summary>
+		private void OnCommandError(PlayFabError error)
+		{
+#if UNITY_EDITOR
+			_commandQueue.Clear(); 	// clear to make easier for testing
+#endif
+			_playfab.HandleError(error);
+		}
+
+		/// <summary>
+		/// Whenever the HTTP request to proccess a command returns 200
+		/// </summary>
+		private void OnCommandSuccess(ExecuteFunctionResult result)
+		{
+			_commandQueue.TryPeek(out var current);
+			var logicResult = JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
+			if (logicResult.Result.Command != current.GetType().FullName)
+			{
+				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
+			}
+			// Command returned 200 but a expected logic exception happened due
+			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
+			{
+				throw new LogicException(logicException);
+			}
+			OnServerExecutionFinished(current);
 		}
 	}
 }

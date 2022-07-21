@@ -85,10 +85,21 @@ synced event OnPlayerWeaponChanged
 	Equipment Weapon;
 }
 
+synced event OnPlayerGearChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	Equipment Gear;
+	Int32 Slot;
+}
+
 synced event OnPlayerAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
+	Equipment Weapon;
+	FP ShotDir;
+	UInt32 AttackAngle;
 }
 
 synced event OnPlayerDamaged
@@ -96,11 +107,12 @@ synced event OnPlayerDamaged
 	player_ref Player;
 	entity_ref Entity;
 	entity_ref Attacker;
-	UInt32 InterimArmourDamage;
-    UInt32 HealthDamage;
-    UInt32 TotalDamage;
-    Int32 MaxHealth;
-    Int32 MaxInterimArmour;
+	UInt32 ShieldDamage; 
+	UInt32 HealthDamage;
+	UInt32 TotalDamage;
+	Int32 MaxHealth;
+	Int32 ShieldCapacity;
+	FPVector3 HitPosition;
 }
 
 synced event OnPlayerAttackHit
@@ -118,6 +130,15 @@ synced event OnPlayerStopAttack
 }
 
 // LOCAL PLAYER EVENTS
+
+synced event OnLocalPlayerAim
+{
+	local player_ref Player;
+	entity_ref PlayerEntity;
+	Equipment Weapon;
+	FP VelocitySqrMagnitude;
+	FP MaxSpeedSqr;
+}
 
 synced event OnLocalPlayerLeft
 {
@@ -194,6 +215,15 @@ synced event OnLocalPlayerWeaponChanged
 	local player_ref Player;
 	entity_ref Entity;
 	Equipment Weapon;
+	Int32 Slot;
+}
+
+synced event OnLocalPlayerStatsChanged
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Quantum.Stats PreviousStats;
+	Quantum.Stats CurrentStats;
 }
 
 synced event OnLocalPlayerDamaged
@@ -201,15 +231,17 @@ synced event OnLocalPlayerDamaged
 	local player_ref Player;
 	entity_ref Entity;
 	entity_ref Attacker;
-	UInt32 InterimArmourDamage;
-    UInt32 HealthDamage;
-    UInt32 TotalDamage;
-    Int32 MaxHealth;
-    Int32 MaxInterimArmour;
+	UInt32 ShieldDamage;
+	UInt32 HealthDamage;
+	UInt32 TotalDamage;
+	Int32 MaxHealth;
+	Int32 ShieldCapacity;
+	FPVector3 HitPosition;
 }
 
 synced event OnLocalPlayerAttack
 {
 	local player_ref Player;
 	entity_ref PlayerEntity;
+	QuantumWeaponConfig WeaponConfig;
 }

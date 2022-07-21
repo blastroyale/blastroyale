@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,27 +19,33 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
 	{
-		[SerializeField] private UiButtonView _buttonView;
-		[SerializeField] private int _specialIndex;
-		[SerializeField] private Image _specialIconImage;
-		[SerializeField] private Image _specialIconBackgroundImage;
-		[SerializeField] private Image _outerRingImage;
+		[SerializeField, Required] private UiButtonView _buttonView;
+		[SerializeField, Required] private int _specialIndex;
+		[SerializeField, Required] private Image _specialIconImage;
+		[SerializeField, Required] private Image _specialIconBackgroundImage;
+		[SerializeField, Required] private Image _outerRingImage;
 		[SerializeField] private Color _activeColor;
 		[SerializeField] private Color _cooldownColor;
-		[SerializeField] private UnityInputScreenControl _specialPointerDownAdapter;
-		[SerializeField] private UnityInputScreenControl _specialAimDirectionAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
 		[SerializeField] private float _rectScale = 1f;
-		[SerializeField] private Sprite _aimableBackgroundSprite;
-		[SerializeField] private Sprite _nonAimableBackgroundSprite;
-		[SerializeField] private Animation _pingAnimation;
+		[SerializeField, Required] private Sprite _aimableBackgroundSprite;
+		[SerializeField, Required] private Sprite _nonAimableBackgroundSprite;
+		[SerializeField, Required] private Animation _pingAnimation;
 		
 		private IGameServices _services;
 		private Coroutine _cooldownCoroutine;
+		private bool _isAiming;
 
 		private void Awake()
 		{
 			QuantumEvent.Subscribe<EventOnLocalSpecialUsed>(this, OnEventOnLocalSpecialUsed);
 			QuantumEvent.Subscribe<EventOnLocalSpecialAvailable>(this, HandleLocalSpecialAvailable);
+		}
+
+		private void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		/// <inheritdoc />
@@ -46,6 +55,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
+
+			_buttonView.interactable = false;
+			_isAiming = true;
 			
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
@@ -54,7 +66,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (!_isAiming)
 			{
 				return;
 			}
@@ -65,10 +77,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (!_isAiming)
 			{
 				return;
 			}
+
+			_isAiming = false;
 			
 			SetInputData(eventData);
 			_specialPointerDownAdapter.SendValueToControl(0f);
@@ -77,7 +91,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(GameId special)
+		public async void Init(GameId special, bool hasCharge)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			
@@ -90,6 +104,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconImage.sprite = await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(config.SpecialType);
 			_specialIconBackgroundImage.sprite = config.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = config.IsAimable;
+			_specialIconImage.fillAmount = 0f;
+			_specialIconBackgroundImage.fillAmount = 0f;
+			_buttonView.interactable = false;
 			
 			gameObject.SetActive(true);
 			
@@ -99,9 +116,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_cooldownCoroutine = null;
 			}
 
-			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
+			if (hasCharge)
+			{
+				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
+			}
 		}
-		
+
 		private void OnEventOnLocalSpecialUsed(EventOnLocalSpecialUsed callback)
 		{
 			if (callback.SpecialIndex != _specialIndex)

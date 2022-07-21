@@ -46,7 +46,7 @@ namespace FirstLight.Editor.Build
 			}
 
 			if (buildSymbol != FirstLightBuildConfig.DevelopmentSymbol &&
-			    buildSymbol != FirstLightBuildConfig.ReleaseSymbol && 
+			    buildSymbol != FirstLightBuildConfig.StagingSymbol && 
 			    buildSymbol !=FirstLightBuildConfig.StoreSymbol)
 			{
 				Debug.LogError($"Build symbol not recognised: {buildSymbol}");

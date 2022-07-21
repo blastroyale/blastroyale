@@ -1,4 +1,3 @@
-
 using FirstLight.Game.Ids;
 
 namespace FirstLight.Game.Views.MainMenuViews

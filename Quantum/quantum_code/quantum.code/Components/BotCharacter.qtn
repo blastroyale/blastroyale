@@ -5,24 +5,21 @@ enum BotBehaviourType
 	Aggressive,
 }
 
-component DummyCharacter
-{
-}
-
 component BotCharacter
 {
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	GameId Skin;
-	Equipment Weapon;
-	array<Equipment>[EQUIPMENT_SLOT_COUNT] Gear;
 	
-	// Settings to prevent a bot from making decisions every frame
+	// General settings and data of a bot
 	FP DecisionInterval;
 	FP LookForTargetsToShootAtInterval;
 	FP NextDecisionTime;
 	FP NextLookForTargetsToShootAtTime;
 	entity_ref Target;
+	entity_ref MoveTarget;
+	FP CurrentEvasionStepEndTime;
+	FPVector3 StuckDetectionPosition;
 	
 	// How far the bot can see (square value)
 	// Set to -1 to allow a bot fully cheat and don't check range
@@ -73,6 +70,9 @@ component BotCharacter
 	// [0;1] where 0 is "try to stay in the center of the shrinking area"
 	// and 1 is "care about shrinking circle only when on the edge of it"
 	FP ShrinkingCircleRiskTolerance;
+	
+	// [0;1] where 0 is "never seek" and 1 is "always seek"
+	FP ChanceToSeekChests;
 }
 
 synced event OnDummyCharacterKilled

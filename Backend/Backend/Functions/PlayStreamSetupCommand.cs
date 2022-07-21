@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
@@ -17,13 +18,11 @@ namespace Backend.Functions;
 /// </summary>
 public class PlayStreamSetupCommand
 {
-	private readonly IPlayerSetupService _setupService;
-	private readonly IServerStateService _stateService;
-	
-	public PlayStreamSetupCommand(IPlayerSetupService service, IServerStateService stateService)
+	private readonly ILogicWebService _gameLogicWebService;
+
+	public PlayStreamSetupCommand(ILogicWebService gameLogicWebService)
 	{
-		_setupService = service;
-		_stateService = stateService;
+		_gameLogicWebService = gameLogicWebService;
 	}
 	
 	/// <summary>
@@ -33,8 +32,6 @@ public class PlayStreamSetupCommand
 	public async Task RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                                  HttpRequestMessage req, ILogger log)
 	{
-		var context = await ContextProcessor.ProcessPlayStreamContext(req);
-		var serverData = _setupService.GetInitialState(context.PlayFabId);
-		_stateService.UpdatePlayerState(context.PlayFabId, serverData);
+		throw new Exception("Playstream not implemented, yet");
 	}
 }

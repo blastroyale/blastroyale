@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -17,7 +19,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
-			ProcessPlayerDisconnect(f, ref filter);
 			ProcessPlayerInput(f, ref filter);
 		}
 
@@ -25,18 +26,21 @@ namespace Quantum.Systems
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
+			
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize;
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
+			
+			spawnTransform.Position = spawnPosition.XOY;
 
-			// TODO: Move this to Spawn Action
-			QuantumHelpers.TryFindPosOnNavMesh(f, spawnPosition.XOY, out var closestPosition);
-
-			spawnTransform.Position = closestPosition;
+			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
+				                        ? Array.Empty<Equipment>()
+				                        : playerData.Loadout;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, playerData.Weapon, playerData.Gear);
+			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment,
+			                      playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		/// <inheritdoc />
@@ -58,70 +62,44 @@ namespace Quantum.Systems
 
 		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
+									   EntityRef entityKiller)
 		{
 			var deathPosition = f.Get<Transform3D>(entityDead).Position;
 			var armourDropChance = f.RNG->Next();
 			var step = 0;
+			var gameMode = f.Context.MapConfig.GameMode;
 
-			// Try to drop Health pack; Otherwise drop Small Ammo
+			//when you kill a player in BR we drop also his/hers weapon
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale &&
+				!f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
+			{
+				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
+				step++;
+			}
+
+			// Try to drop Health pack
 			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
 			{
-				Collectable.DropCollectable(f, GameId.Health, deathPosition, step, false);
-			}
-			else
-			{
-				Collectable.DropCollectable(f, GameId.AmmoSmall, deathPosition, step, false);
-			}
-			step++;
-
-			// Try to drop InterimArmourLarge, if didn't work then try to drop InterimArmourSmall
-			if (armourDropChance <= f.GameConfig.DeathDropInterimArmourLargeChance)
-			{
-				Collectable.DropCollectable(f, GameId.InterimArmourLarge, deathPosition, step, false);
-
+				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
 				step++;
 			}
-			else if (armourDropChance <= f.GameConfig.DeathDropInterimArmourSmallChance +
-			         f.GameConfig.DeathDropInterimArmourLargeChance)
+			else if(gameMode == GameMode.BattleRoyale)
 			{
-				Collectable.DropCollectable(f, GameId.InterimArmourSmall, deathPosition, step, false);
-
+				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
 				step++;
 			}
 
-			// If it's Battle Royale then try to drop Weapon (if it's not Melee)
-			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale &&
-			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead) &&
-			    f.RNG->Next() <= f.GameConfig.DeathDropWeaponChance)
+			// Try to drop ShieldLarge
+			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
 			{
-				Collectable.DropCollectable(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon.GameId, deathPosition,
-				                            step, true);
+				Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
+			}
+			else if (gameMode == GameMode.BattleRoyale && armourDropChance <= f.GameConfig.DeathDropSmallShieldChance)
+			{
+				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
 			}
 		}
-
-		private void ProcessPlayerDisconnect(Frame f, ref PlayerCharacterFilter filter)
-		{
-			if (f.Has<BotCharacter>(filter.Entity))
-			{
-				return;
-			}
-
-			if ((f.GetPlayerInputFlags(filter.Player->Player) & DeterministicInputFlags.PlayerNotPresent) == 0)
-			{
-				filter.Player->DisconnectedDuration = 0;
-
-				return;
-			}
-
-			filter.Player->DisconnectedDuration += f.DeltaTime;
-
-			if (filter.Player->DisconnectedDuration > f.GameConfig.DisconnectedDestroySeconds)
-			{
-				filter.Player->PlayerLeft(f, filter.Entity);
-			}
-		}
-
+			    
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive

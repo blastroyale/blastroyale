@@ -37,11 +37,11 @@ namespace FirstLight.UiService
 		/// <summary>
 		/// Allows the ui presenter implementation to directly close the ui presenter without needing to call the service directly
 		/// </summary>
-		protected virtual void Close()
+		protected virtual void Close(bool destroy)
 		{
-			_uiService.CloseUi(this);
+			_uiService.CloseUi(this, false, destroy);
 		}
-
+		
 		internal void Init(IUiService uiService)
 		{
 			_uiService = uiService;
@@ -54,11 +54,20 @@ namespace FirstLight.UiService
 			OnOpened();
 		}
 
-		internal virtual void InternalClose()
+		internal virtual void InternalClose(bool destroy)
 		{
 			OnClosed();
-			
-			if (gameObject != null)
+
+			if (gameObject == null)
+			{
+				return;
+			}
+
+			if (destroy)
+			{
+				_uiService.UnloadUi(GetType());
+			}
+			else
 			{
 				gameObject.SetActive(false);
 			}
@@ -72,9 +81,16 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenter : UiPresenter
 	{
-		internal override void InternalClose()
+		internal override void InternalClose(bool destroy)
 		{
-			OnClosed();
+			if (destroy)
+			{
+				base.InternalClose(true);
+			}
+			else
+			{
+				OnClosed();
+			}
 		}
 	}
 
@@ -114,9 +130,16 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenterData<T> : UiPresenterData<T> where T : struct
 	{
-		internal override void InternalClose()
+		internal override void InternalClose(bool destroy)
 		{
-			OnClosed();
+			if (destroy)
+			{
+				base.InternalClose(true);
+			}
+			else
+			{
+				OnClosed();
+			}
 		}
 	}
 }

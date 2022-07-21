@@ -7,9 +7,11 @@ component Projectile
 	FPVector3 SpawnPosition;
 	FPVector3 Direction;
 	UInt32 PowerAmount;
+	UInt32 KnockbackAmount;
 	FP Speed;
 	FP Range;
 	FP SplashRadius;
+	FP SplashDamageRatio;
 	FP StunDuration;
 }
 

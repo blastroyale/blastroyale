@@ -23,7 +23,7 @@ MonoBehaviour:
       DoubleKillTimeLimit: 10
       RoomLockKillCount: 14
       MatchmakingTime:
-        RawValue: 524288
+        RawValue: 983040
       BotsNameCount: 200
       PlayerRespawnTime:
         RawValue: 262144
@@ -33,11 +33,20 @@ MonoBehaviour:
         RawValue: 655360
       ShrinkingDamageCooldown:
         RawValue: 65536
-      ShrinkingDamage: 20
-      PlayerDefaultHealth: 800
+      PlayerDefaultHealth:
+        BattleRoyale: 800
+        Deathmatch: 800
       PlayerDefaultSpeed:
-        RawValue: 294912
-      PlayerDefaultInterimArmour: 600
+        BattleRoyale:
+          RawValue: 196608
+        Deathmatch:
+          RawValue: 294912
+      PlayerMaxShieldCapacity:
+        BattleRoyale: 1600
+        Deathmatch: 400
+      PlayerStartingShieldCapacity:
+        BattleRoyale: 200
+        Deathmatch: 400
       CoinsPerRank: 30
       XpPerRank: 20
       DeathSignificance:
@@ -47,9 +56,15 @@ MonoBehaviour:
       XpPerFragDeathRatio:
         RawValue: 2293760
       CollectableCollectTime:
-        RawValue: 39321
+        BattleRoyale:
+          RawValue: 78643
+        Deathmatch:
+          RawValue: 39322
       PlayerAliveShieldDuration:
-        RawValue: 262144
+        BattleRoyale:
+          RawValue: 0
+        Deathmatch:
+          RawValue: 196608
       EquipmentLevelToPowerK: 10
       EquipmentRarityToPowerK: 50
       LootboxSlotsMaxNumber: 4
@@ -58,37 +73,54 @@ MonoBehaviour:
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      FusionBaseWeightPerType: 200
-      FusionWeightIncreasePerItem: 70
-      FusionWeightIncreasePerLevel: 10
-      StatsPowerBaseValue: 400
+      StatsPowerBaseValue: 250
       StatsPowerRarityMultiplier:
-        RawValue: 131072
+        RawValue: 68813
       StatsPowerLevelStepMultiplier:
-        RawValue: 13107
-      StatsHpBaseValue: 100
+        RawValue: 328
+      StatsPowerGradeStepMultiplier:
+        RawValue: 4588
+      StatsHpBaseValue: 300
       StatsHpRarityMultiplier:
-        RawValue: 78643
+        RawValue: 72090
       StatsHpLevelStepMultiplier:
+        RawValue: 328
+      StatsHpGradeStepMultiplier:
         RawValue: 3277
       StatsSpeedBaseValue:
-        RawValue: 6554
+        RawValue: 13107
       StatsSpeedRarityMultiplier:
-        RawValue: 78643
+        RawValue: 68813
       StatsSpeedLevelStepMultiplier:
-        RawValue: 6554
+        RawValue: 2294
+      StatsSpeedGradeStepMultiplier:
+        RawValue: 16384
       StatsArmorBaseValue: 5
       StatsArmorRarityMultiplier:
         RawValue: 78643
       StatsArmorLevelStepMultiplier:
-        RawValue: 6554
+        RawValue: 1507
+      StatsArmorGradeStepMultiplier:
+        RawValue: 10945
       DeathDropHealthChance:
-        RawValue: 65536
-      DeathDropInterimArmourLargeChance:
-        RawValue: 655
-      DeathDropInterimArmourSmallChance:
+        RawValue: 26214
+      DeathDropLargeShieldChance:
+        RawValue: 3277
+      DeathDropSmallShieldChance:
         RawValue: 16384
-      DeathDropWeaponChance:
-        RawValue: 32768
       TrophyEloRange: 50
       TrophyEloK: 5
+      NftAssumedOwned: 40
+      MinNftForEarnings: 0
+      AdjectiveRarityEarningsMod:
+        RawValue: 52429
+      NftUsageCooldownMinutes: 1440
+      NftRequiredEquippedForPlay: 0
+      PlayerVisionRange:
+        RawValue: 1245184
+      AirdropPositionOffsetMultiplier:
+        RawValue: 32768
+      AirdropRandomAreaMultiplier:
+        RawValue: 16384
+      AirdropHeight:
+        RawValue: 1310720

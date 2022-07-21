@@ -29,23 +29,56 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var spell = new Spell
-			{
-				Id = Spell.DefaultId,
-				Attacker = hazard->Attacker,
-				Cooldown = FP._0,
-				EndTime = FP._0,
-				NextHitTime = FP._0,
-				OriginalHitPosition = filter.Transform->Position,
-				PowerAmount = hazard->PowerAmount,
-				SpellSource = filter.Entity,
-				TeamSource = hazard->TeamSource,
-				Victim = default
-			};
-			
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
-			
-			QuantumHelpers.ProcessAreaHit(f, hazard->Radius, spell, hazard->MaxHitCount, OnHit);
+
+			ProcessAreaHazard(f, hazard, filter);
+		}
+
+		private void ProcessAreaHazard(Frame f, Hazard* hazard, HazardFilter filter)
+		{
+
+			if (f.GetSingleton<GameContainer>().IsGameOver)
+			{
+				return;
+			}
+
+			//check the area when the hazard explodes
+			var shape = Shape3D.CreateSphere(hazard->Radius);
+			var hits = f.Physics3D.OverlapShape(filter.Transform->Position, FPQuaternion.Identity, shape,
+												f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			hits.SortCastDistance();
+
+			//loop through each hit, and create a spell to deal damage to each target hit
+			for (var j = 0; j < hits.Count; j++)
+			{
+				if (f.TryGet<Stats>(hits[j].Entity, out var targetStats))
+				{
+					var targetHP = targetStats.GetStatData(StatType.Health).BaseValue;
+					var damage = targetHP * hazard->PowerAmount;
+
+					var spell = new Spell
+					{
+						Id = Spell.DefaultId,
+						Attacker = hazard->Attacker,
+						Cooldown = FP._0,
+						EndTime = FP._0,
+						NextHitTime = FP._0,
+						OriginalHitPosition = filter.Transform->Position,
+						PowerAmount = (uint)damage,
+						SpellSource = filter.Entity,
+						TeamSource = hazard->TeamSource,
+						Victim = hits[j].Entity,
+						KnockbackAmount = hazard->Knockback
+					};
+
+					if (spell.Victim == spell.Attacker || spell.Victim == spell.SpellSource || !QuantumHelpers.ProcessHit(f, spell))
+					{
+						continue;
+					}
+
+					OnHit(f, spell);
+				}
+			}
 		}
 
 		private void OnHit(Frame f, Spell spell)

@@ -1,13 +1,16 @@
+using System;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Services;
-using FirstLight;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using Quantum;
 
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
-	/// This logic provides the necessary behaviour to manage the player's currency
+	/// This logic provides the necessary behaviour to manage the player's currencies
 	/// </summary>
 	public interface ICurrencyDataProvider
 	{
@@ -33,7 +36,7 @@ namespace FirstLight.Game.Logic
 		/// Thrown when the given <paramref name="currency"/> is not part of the <seealso cref="GameIdGroup.Currency"/> group
 		/// </exception>
 		void AddCurrency(GameId currency, ulong amount);
-		
+
 		/// <summary>
 		/// Deducts the given <paramref name="amount"/> from the current <paramref name="currency"/> wallet amount
 		/// </summary>
@@ -43,7 +46,7 @@ namespace FirstLight.Game.Logic
 		/// </exception>
 		void DeductCurrency(GameId currency, ulong amount);
 	}
-	
+
 	/// <inheritdoc cref="ICurrencyLogic"/>
 	public class CurrencyLogic : AbstractBaseLogic<PlayerData>, ICurrencyLogic, IGameLogicInitializer
 	{
@@ -73,7 +76,7 @@ namespace FirstLight.Game.Logic
 			if (!_currencies.TryGetValue(currency, out var amount))
 			{
 				amount = 0;
-				
+
 				_currencies.Add(currency, amount);
 			}
 
@@ -85,7 +88,7 @@ namespace FirstLight.Game.Logic
 		{
 			var oldAmount = GetCurrencyAmount(currency);
 			var newAmount = oldAmount + amount;
-			
+
 			_currencies[currency] = newAmount;
 		}
 
@@ -93,13 +96,14 @@ namespace FirstLight.Game.Logic
 		public void DeductCurrency(GameId currency, ulong amount)
 		{
 			var oldAmount = GetCurrencyAmount(currency);
-			
+
 			if (amount > oldAmount)
 			{
-				throw new LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
-				                         $"and only has {oldAmount.ToString()}");
+				throw new
+					LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
+					               $"and only has {oldAmount.ToString()}");
 			}
-			
+
 			_currencies[currency] = oldAmount - amount;
 		}
 	}

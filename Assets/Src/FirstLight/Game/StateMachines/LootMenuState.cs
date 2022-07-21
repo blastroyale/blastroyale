@@ -1,14 +1,13 @@
 ﻿using System;
-using FirstLight.Game.Configs;
+using System.Collections.Generic;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -71,6 +70,7 @@ namespace FirstLight.Game.StateMachines
 			playerSkinPopupState.Event(_playerSkinClosedEvent).Target(lootMenuState);
 			playerSkinPopupState.OnExit(ClosePlayerSkinMenuUI);
 
+			final.OnEnter(SendLoadoutUpdateCommand);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -92,15 +92,22 @@ namespace FirstLight.Game.StateMachines
 				OnAllGearClicked = () => _statechartTrigger(_allGearClickedEvent),
 				OnSlotButtonClicked = SlotButtonClicked,
 				OnChangeSkinClicked = () => _statechartTrigger(_skinClickedEvent),
-				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent),
+				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent)
 			};
 
-			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<LootScreenPresenter, LootScreenPresenter.StateData>(data);
 		}
 
 		private void CloseLootMenuUI()
 		{
 			_uiService.CloseUi<LootScreenPresenter>();
+		}
+		
+		private void SendLoadoutUpdateCommand()
+		{
+			var loadOut = _gameDataProvider.EquipmentDataProvider.Loadout.ReadOnlyDictionary;
+			
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand { SlotsToUpdate = loadOut });
 		}
 
 		private void SetAllGearSlot()
@@ -124,10 +131,10 @@ namespace FirstLight.Game.StateMachines
 			var data = new EquipmentScreenPresenter.StateData
 			{
 				EquipmentSlot = _equipmentSlotTypePicked,
-				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent),
+				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent)
 			};
 
-			_uiService.OpenUi<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
 		}
 		
 		private void CloseEquipmentMenuUI()
@@ -142,13 +149,12 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = () => _statechartTrigger(_playerSkinClosedEvent),
 			};
 			
-			_uiService.OpenUi<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
-		
 		
 		private void ClosePlayerSkinMenuUI()
 		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>();
+			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
 		}
 	}
 }

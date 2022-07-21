@@ -1,5 +1,5 @@
-using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 
@@ -10,7 +10,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
-		[SerializeField] private ParticleSystem _particleSystem;
+		[SerializeField, Required] private ParticleSystem _particleSystem;
 
 		protected override void OnAwake()
 		{
@@ -48,6 +48,28 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 			_particleSystem.time = 0;
 			_particleSystem.Play();
+
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)callback.Weapon.GameId);
+
+			if (config.IsProjectile)
+			{
+				return;
+			}
+
+			var shape = _particleSystem.shape;
+			var arc = 0;
+			var rotation = -(90f + callback.ShotDir.AsFloat);
+
+			if (config.NumberOfShots > 1)
+			{
+				arc = (int)callback.AttackAngle;
+				rotation = -(90 - (shape.arc / 2));
+			}
+			
+			shape.arc = arc;
+			shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
+			shape.rotation = new Vector3(90, rotation, 0);
+			
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
@@ -71,19 +93,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var main = _particleSystem.main;
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;
-			
-			if (speed < float.Epsilon)
+
+			if (speed < float.Epsilon || config.IsProjectile)
 			{
 				return;
 			}
 
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
-			main.startLifetime = config.AttackRange.AsFloat / speed;
-			main.startSpeed = speed;
+			main.duration = config.AttackCooldown.AsFloat; 
 			main.startDelay = 0;
+			main.maxParticles = 50;
+			emission.rateOverTime = 0;
 			main.loop = false;
-			main.maxParticles = 10;
-			emission.rateOverTime = 0.1f;
+			main.startSpeed = speed;
+			main.startLifetime = config.AttackRange.AsFloat / speed ;
+
+			emission.burstCount = 1;
+			var burst = emission.GetBurst(0);
+			burst.count = config.NumberOfShots;
+			burst.repeatInterval = 1 / config.AttackCooldown.AsFloat;
+			emission.SetBurst(0, burst);
 		}
+
 	}
 }

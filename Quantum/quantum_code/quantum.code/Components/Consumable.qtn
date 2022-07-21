@@ -10,14 +10,6 @@ enum ConsumableType
 	Health,
 	Rage,
 	Ammo,
-	InterimArmour,
-	Stash,
-}
-
-synced event OnConsumablePicked
-{
-	entity_ref ConsumableEntity;
-	Consumable Consumable;
-	player_ref Player;
-	entity_ref PlayerEntity;
+	Shield,
+	ShieldCapacity,
 }

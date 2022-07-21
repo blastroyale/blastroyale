@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -26,55 +27,84 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
+		private bool _finalPreload = false;
 
-		public void Awake()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+		}
 
-			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
+		/// <summary>
+		/// Initialises the player list with <paramref name="playerLimit"/> amount of player slots
+		/// </summary>
+		public void Init(uint playerLimit)
+		{
+			_finalPreload = false;
 
-			_activePlayerEntries = new List<PlayerNameEntryView>();
-			_playerNamePool = new GameObjectPool<PlayerNameEntryView>((uint) mapInfo.PlayersLimit, _nameEntryViewRef);
+			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
+			{
+				_playerNamePool.DespawnAll();
+				_activePlayerEntries.Clear();
+			}
 
-			for (var i = 0; i < mapInfo.PlayersLimit; i++)
+			_playerNamePool = new GameObjectPool<PlayerNameEntryView>(playerLimit, _nameEntryViewRef);
+
+			for (var i = 0; i < playerLimit; i++)
 			{
 				var newEntry = _playerNamePool.Spawn();
 				_activePlayerEntries.Add(newEntry);
-				newEntry.SetInfo("", "", false, false);
+				newEntry.SetInfo(null, false, false, false);
 			}
-			
+
 			_nameEntryViewRef.gameObject.SetActive(false);
 		}
 
 		/// <summary>
-		/// Adds a player to the list, or updates them if already there
+		/// Forces a refresh of all players, with the new _finalPreload phase value set
 		/// </summary>
-		public void WipeAllSlots()
+		/// <param name="finalPreload"></param>
+		public void SetFinalPreloadPhase(bool finalPreload)
 		{
-			foreach (var player in _activePlayerEntries)
+			_finalPreload = finalPreload;
+
+			foreach (var playerNameEntryView in _activePlayerEntries)
 			{
-				player.SetInfo("","", false, false);
+				if (playerNameEntryView.Player != null)
+				{
+					AddOrUpdatePlayer(playerNameEntryView.Player, false);
+				}
 			}
 		}
 
 		/// <summary>
 		/// Adds a player to the list, or updates them if already there
 		/// </summary>
-		public void AddOrUpdatePlayer(string playerName, string status, bool isLocal, bool isHost)
-		{
-			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == playerName);
-			
+		public void AddOrUpdatePlayer(Player player, bool sortList = true)
+		{ 
+			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
+			var isLoaded = _finalPreload
+				               ? (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_ALL_LOADED]
+				               : (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
+
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(playerName,status,isLocal,isHost);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded);
 			}
 			else
 			{
-				GetNextEmptyPlayerEntrySlot().SetInfo(playerName,status,isLocal,isHost);
+				PlayerNameEntryView emptyEntry = GetNextEmptyPlayerEntrySlot();
+
+				if (emptyEntry != null)
+				{
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded);
+				}
 			}
-			
-			SortPlayerList();
+
+			if (sortList)
+			{
+				SortPlayerList();
+			}
 		}
 
 		/// <summary>
@@ -82,20 +112,39 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void RemovePlayer(Player player)
 		{
-			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.PlayerName == player.NickName);
-			
+			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
+
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo("","",false,false);
-				
+				existingEntry.SetInfo(null, false, false, false);
+
 				SortPlayerList();
 			}
 		}
 
+		/// <summary>
+		/// Requests to check if the list holder has Player in it, currently instantiated
+		/// </summary>
+		public bool Has(Player player)
+		{
+			if (_playerNamePool == null || _playerNamePool.SpawnedReadOnly.Count == 0)
+			{
+				return false;
+			}
+
+			foreach (var playerEntry in _playerNamePool.SpawnedReadOnly)
+			{
+				if (playerEntry.Player == player)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		private void SortPlayerList()
 		{
-			//_activePlayerEntries.OrderBy(x => x.IsLocal).ThenBy(x => x.IsHost).ThenBy(x => x.PlayerName);
-			
 			_activePlayerEntries.Sort((a, b) =>
 			{
 				var rank = a.IsLocal.CompareTo(b.IsLocal) + a.IsHost.CompareTo(b.IsHost);
@@ -109,7 +158,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			});
 
 			_activePlayerEntries.Reverse();
-			
+
 			for (int i = 0; i < _activePlayerEntries.Count - 1; i++)
 			{
 				_activePlayerEntries[i].transform.SetSiblingIndex(i);
@@ -119,11 +168,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private PlayerNameEntryView GetNextEmptyPlayerEntrySlot()
 		{
 			return _activePlayerEntries.FirstOrDefault(x => string.IsNullOrEmpty(x.PlayerName));
-		}
-
-		private void OnCloseClicked()
-		{
-			gameObject.SetActive(false);
 		}
 	}
 }

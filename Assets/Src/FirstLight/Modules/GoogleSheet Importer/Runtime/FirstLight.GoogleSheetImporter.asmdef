@@ -1,6 +1,9 @@
 {
     "name": "FirstLight.GoogleSheetImporter",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:22c6cdfa54ae844a9a9eda2f0014b020"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

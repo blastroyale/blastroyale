@@ -1,5 +1,6 @@
 using FirstLight.Game.MonoComponent.EntityViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
@@ -9,7 +10,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class CollectablePlatformSpawnerMonoComponent : EntityBase
 	{
-		[SerializeField] private CollectablePlatformSpawnerViewMonoComponent _collectablePlatformView;
+		[SerializeField, Required] private CollectablePlatformSpawnerViewMonoComponent _collectablePlatformView;
 		
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{

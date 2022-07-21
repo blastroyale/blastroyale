@@ -6,13 +6,10 @@ using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider; 
 using System;
 using System.Collections;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
-using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using TMPro;
-using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
@@ -27,11 +24,11 @@ namespace FirstLight.Game.Presenters
 			public Action HomeButtonClicked;
 		}
 
-		[SerializeField] private Button _gotoMainMenuButton;
-		[SerializeField] private Button _gotoNextButton;
-		[SerializeField] private Slider _goToNextSlider;
-		[SerializeField] private StandingsHolderView _standings;
-		[SerializeField] private TextMeshProUGUI _debugTotalMatchTimeText;
+		[SerializeField, Required] private Button _gotoMainMenuButton;
+		[SerializeField, Required] private Button _gotoNextButton;
+		[SerializeField, Required] private Slider _goToNextSlider;
+		[SerializeField, Required] private StandingsHolderView _standings;
+		[SerializeField, Required] private TextMeshProUGUI _debugTotalMatchTimeText;
 		
 		private IGameServices _services;
 
@@ -45,13 +42,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			var playerData = container.GetPlayersMatchData(frame, out _);
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
 
-			_standings.Initialise(playerData, isBattleRoyale);
+			_standings.Initialise(playerData.Count, isBattleRoyale, true);
+			_standings.UpdateStandings(playerData);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;
@@ -71,8 +68,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-
-			var ts = TimeSpan.FromSeconds(f.Time.AsFloat);
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var time = gameContainer.IsGameOver ? gameContainer.GameOverTime : f.Time;
+			var ts = TimeSpan.FromSeconds(time.AsFloat);
+			
 			_debugTotalMatchTimeText.text =  $"MATCH TIME: { ((uint) ts.TotalSeconds).ToHoursMinutesSeconds()}";
 		}
 		

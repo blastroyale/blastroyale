@@ -64,61 +64,39 @@ namespace Quantum
 				{
 					GameId.RealMoney, new List<GameIdGroup>
 					{
-						GameIdGroup.GameDesign
+						GameIdGroup.Currency
 					}.AsReadOnly()
 				},
 				{
-					GameId.SC, new List<GameIdGroup>
+					GameId.BLST, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
 					}.AsReadOnly()
 				},
 				{
-					GameId.HC, new List<GameIdGroup>
+					GameId.CS, new List<GameIdGroup>
 					{
-						GameIdGroup.Currency
+						GameIdGroup.Currency,
+						GameIdGroup.ResourcePool
 					}.AsReadOnly()
 				},
 				{
 					GameId.XP, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerValue
+						GameIdGroup.Resource
 					}.AsReadOnly()
 				},
 				{
-					GameId.HcBundle1, new List<GameIdGroup>
+					GameId.EquipmentXP, new List<GameIdGroup>
 					{
-						GameIdGroup.IAP
+						GameIdGroup.Resource,
+						GameIdGroup.ResourcePool
 					}.AsReadOnly()
 				},
 				{
-					GameId.HcBundle2, new List<GameIdGroup>
+					GameId.Trophies, new List<GameIdGroup>
 					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.HcBundle3, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.ScBundle1, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.ScBundle2, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.ScBundle3, new List<GameIdGroup>
-					{
-						GameIdGroup.IAP
+						GameIdGroup.Resource
 					}.AsReadOnly()
 				},
 				{
@@ -164,10 +142,9 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.AssaultRifle, new List<GameIdGroup>
+					GameId.TestScene, new List<GameIdGroup>
 					{
-						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Map
 					}.AsReadOnly()
 				},
 				{
@@ -178,48 +155,51 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.GoldenBoots, new List<GameIdGroup>
+					GameId.SoldierHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.SoldierBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.RiotShield, new List<GameIdGroup>
-					{
-						GameIdGroup.Shield,
+						GameIdGroup.Helmet,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.TikTokAmulet, new List<GameIdGroup>
+					GameId.RiotHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Amulet,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.RoadSignArmour, new List<GameIdGroup>
+					GameId.WarriorHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Armor,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.SniperRifle, new List<GameIdGroup>
+					GameId.RoadHelmet, new List<GameIdGroup>
 					{
-						GameIdGroup.Weapon,
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.FootballHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.BaseballHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.HockeyHelmet, new List<GameIdGroup>
+					{
+						GameIdGroup.Helmet,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
@@ -231,42 +211,147 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Laser, new List<GameIdGroup>
+					GameId.ApoCrossbow, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.RPG, new List<GameIdGroup>
+					GameId.ApoShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.Shotgun, new List<GameIdGroup>
+					GameId.ApoSMG, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.AK47, new List<GameIdGroup>
+					GameId.ApoRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.BFG, new List<GameIdGroup>
+					GameId.ApoSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.M60, new List<GameIdGroup>
+					GameId.ApoRPG, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ApoMinigun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModPistol, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModShotgun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModMachineGun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModRifle, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModSniper, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModLauncher, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.ModHeavyMachineGun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciPistol, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciBlaster, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciNeedleGun, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciRifle, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciSniper, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciCannon, new List<GameIdGroup>
+					{
+						GameIdGroup.Weapon,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.SciMelter, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment
@@ -301,6 +386,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TikTokAmulet, new List<GameIdGroup>
+					{
+						GameIdGroup.Amulet,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
 					GameId.MouseArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
@@ -318,59 +410,34 @@ namespace Quantum
 					GameId.SoldierArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.MouseBoots, new List<GameIdGroup>
-					{
-						GameIdGroup.Boots,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.RiotBoots, new List<GameIdGroup>
+					GameId.RoadSignArmour, new List<GameIdGroup>
 					{
-						GameIdGroup.Boots,
+						GameIdGroup.Armor,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.WarriorBoots, new List<GameIdGroup>
+					GameId.BaseballArmor, new List<GameIdGroup>
 					{
-						GameIdGroup.Boots,
+						GameIdGroup.Armor,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
-					GameId.SoldierHelmet, new List<GameIdGroup>
+					GameId.FootballArmor, new List<GameIdGroup>
 					{
-						GameIdGroup.Helmet,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.RiotHelmet, new List<GameIdGroup>
-					{
-						GameIdGroup.Helmet,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.WarriorHelmet, new List<GameIdGroup>
-					{
-						GameIdGroup.Helmet,
+						GameIdGroup.Armor,
 						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
@@ -378,20 +445,32 @@ namespace Quantum
 					GameId.MouseShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment,
-						GameIdGroup.BotItem
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorShield, new List<GameIdGroup>
+					{
+						GameIdGroup.Shield,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.RiotShield, new List<GameIdGroup>
+					{
+						GameIdGroup.Shield,
+						GameIdGroup.Equipment
+					}.AsReadOnly()
+				},
+				{
+					GameId.RoadShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment
@@ -424,81 +503,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.CommonBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.UncommonBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.RareBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.EpicBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.LegendaryBox, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.TimeBox
-					}.AsReadOnly()
-				},
-				{
-					GameId.CommonCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.UncommonCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.RareCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.EpicCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
-					GameId.LegendaryCore, new List<GameIdGroup>
-					{
-						GameIdGroup.LootBox,
-						GameIdGroup.CoreBox,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
 					GameId.Rage, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -527,14 +531,28 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.InterimArmourSmall, new List<GameIdGroup>
+					GameId.ShieldSmall, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.InterimArmourLarge, new List<GameIdGroup>
+					GameId.ShieldLarge, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ShieldCapacitySmall, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ShieldCapacityLarge, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
 						GameIdGroup.Collectable
@@ -543,21 +561,35 @@ namespace Quantum
 				{
 					GameId.ChestCommon, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestUncommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.ChestRare, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestEpic, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.ChestLegendary, new List<GameIdGroup>
 					{
-						GameIdGroup.Consumable,
+						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
@@ -604,36 +636,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.EmojiAngry, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiLove, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiAngel, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiCool, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
-					GameId.EmojiSick, new List<GameIdGroup>
-					{
-						GameIdGroup.Emoji
-					}.AsReadOnly()
-				},
-				{
 					GameId.Barrel, new List<GameIdGroup>
 					{
 						GameIdGroup.Destructible
@@ -665,32 +667,30 @@ namespace Quantum
 				{
 					GameIdGroup.GameDesign, new List<GameId>
 					{
-						GameId.Random,
-						GameId.RealMoney
+						GameId.Random
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Currency, new List<GameId>
 					{
-						GameId.SC,
-						GameId.HC
+						GameId.RealMoney,
+						GameId.BLST,
+						GameId.CS
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.PlayerValue, new List<GameId>
+					GameIdGroup.ResourcePool, new List<GameId>
 					{
-						GameId.XP
+						GameId.CS,
+						GameId.EquipmentXP
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.IAP, new List<GameId>
+					GameIdGroup.Resource, new List<GameId>
 					{
-						GameId.HcBundle1,
-						GameId.HcBundle2,
-						GameId.HcBundle3,
-						GameId.ScBundle1,
-						GameId.ScBundle2,
-						GameId.ScBundle3
+						GameId.XP,
+						GameId.EquipmentXP,
+						GameId.Trophies
 					}.AsReadOnly()
 				},
 				{
@@ -702,58 +702,8 @@ namespace Quantum
 						GameId.SmallWilderness,
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
-						GameId.BRGenesis
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Weapon, new List<GameId>
-					{
-						GameId.AssaultRifle,
-						GameId.SniperRifle,
-						GameId.Hammer,
-						GameId.Laser,
-						GameId.RPG,
-						GameId.Shotgun,
-						GameId.AK47,
-						GameId.BFG,
-						GameId.M60
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Equipment, new List<GameId>
-					{
-						GameId.AssaultRifle,
-						GameId.MausHelmet,
-						GameId.GoldenBoots,
-						GameId.SoldierBoots,
-						GameId.RiotShield,
-						GameId.TikTokAmulet,
-						GameId.RoadSignArmour,
-						GameId.SniperRifle,
-						GameId.Hammer,
-						GameId.Laser,
-						GameId.RPG,
-						GameId.Shotgun,
-						GameId.AK47,
-						GameId.BFG,
-						GameId.M60,
-						GameId.MouseAmulet,
-						GameId.RiotAmulet,
-						GameId.SoldierAmulet,
-						GameId.WarriorAmulet,
-						GameId.MouseArmor,
-						GameId.RiotArmor,
-						GameId.SoldierArmor,
-						GameId.WarriorArmor,
-						GameId.MouseBoots,
-						GameId.RiotBoots,
-						GameId.WarriorBoots,
-						GameId.SoldierHelmet,
-						GameId.RiotHelmet,
-						GameId.WarriorHelmet,
-						GameId.MouseShield,
-						GameId.SoldierShield,
-						GameId.WarriorShield
+						GameId.BRGenesis,
+						GameId.TestScene
 					}.AsReadOnly()
 				},
 				{
@@ -762,63 +712,122 @@ namespace Quantum
 						GameId.MausHelmet,
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
-						GameId.WarriorHelmet
+						GameId.WarriorHelmet,
+						GameId.RoadHelmet,
+						GameId.FootballHelmet,
+						GameId.BaseballHelmet,
+						GameId.HockeyHelmet
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.Boots, new List<GameId>
+					GameIdGroup.Equipment, new List<GameId>
 					{
-						GameId.GoldenBoots,
-						GameId.SoldierBoots,
-						GameId.MouseBoots,
-						GameId.RiotBoots,
-						GameId.WarriorBoots
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.BotItem, new List<GameId>
-					{
-						GameId.GoldenBoots,
-						GameId.SoldierBoots,
-						GameId.TikTokAmulet,
-						GameId.RoadSignArmour,
-						GameId.SoldierArmor,
-						GameId.WarriorArmor,
+						GameId.MausHelmet,
 						GameId.SoldierHelmet,
 						GameId.RiotHelmet,
+						GameId.WarriorHelmet,
+						GameId.RoadHelmet,
+						GameId.FootballHelmet,
+						GameId.BaseballHelmet,
+						GameId.HockeyHelmet,
+						GameId.Hammer,
+						GameId.ApoCrossbow,
+						GameId.ApoShotgun,
+						GameId.ApoSMG,
+						GameId.ApoRifle,
+						GameId.ApoSniper,
+						GameId.ApoRPG,
+						GameId.ApoMinigun,
+						GameId.ModPistol,
+						GameId.ModShotgun,
+						GameId.ModMachineGun,
+						GameId.ModRifle,
+						GameId.ModSniper,
+						GameId.ModLauncher,
+						GameId.ModHeavyMachineGun,
+						GameId.SciPistol,
+						GameId.SciBlaster,
+						GameId.SciNeedleGun,
+						GameId.SciRifle,
+						GameId.SciSniper,
+						GameId.SciCannon,
+						GameId.SciMelter,
+						GameId.MouseAmulet,
+						GameId.RiotAmulet,
+						GameId.SoldierAmulet,
+						GameId.WarriorAmulet,
+						GameId.TikTokAmulet,
+						GameId.MouseArmor,
+						GameId.RiotArmor,
+						GameId.SoldierArmor,
+						GameId.WarriorArmor,
+						GameId.RoadSignArmour,
+						GameId.BaseballArmor,
+						GameId.FootballArmor,
 						GameId.MouseShield,
 						GameId.SoldierShield,
-						GameId.Male02Avatar,
-						GameId.Female01Avatar
+						GameId.WarriorShield,
+						GameId.RiotShield,
+						GameId.RoadShield
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.Shield, new List<GameId>
+					GameIdGroup.Weapon, new List<GameId>
 					{
-						GameId.RiotShield,
-						GameId.MouseShield,
-						GameId.SoldierShield,
-						GameId.WarriorShield
+						GameId.Hammer,
+						GameId.ApoCrossbow,
+						GameId.ApoShotgun,
+						GameId.ApoSMG,
+						GameId.ApoRifle,
+						GameId.ApoSniper,
+						GameId.ApoRPG,
+						GameId.ApoMinigun,
+						GameId.ModPistol,
+						GameId.ModShotgun,
+						GameId.ModMachineGun,
+						GameId.ModRifle,
+						GameId.ModSniper,
+						GameId.ModLauncher,
+						GameId.ModHeavyMachineGun,
+						GameId.SciPistol,
+						GameId.SciBlaster,
+						GameId.SciNeedleGun,
+						GameId.SciRifle,
+						GameId.SciSniper,
+						GameId.SciCannon,
+						GameId.SciMelter
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Amulet, new List<GameId>
 					{
-						GameId.TikTokAmulet,
 						GameId.MouseAmulet,
 						GameId.RiotAmulet,
 						GameId.SoldierAmulet,
-						GameId.WarriorAmulet
+						GameId.WarriorAmulet,
+						GameId.TikTokAmulet
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Armor, new List<GameId>
 					{
-						GameId.RoadSignArmour,
 						GameId.MouseArmor,
 						GameId.RiotArmor,
 						GameId.SoldierArmor,
-						GameId.WarriorArmor
+						GameId.WarriorArmor,
+						GameId.RoadSignArmour,
+						GameId.BaseballArmor,
+						GameId.FootballArmor
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Shield, new List<GameId>
+					{
+						GameId.MouseShield,
+						GameId.SoldierShield,
+						GameId.WarriorShield,
+						GameId.RiotShield,
+						GameId.RoadShield
 					}.AsReadOnly()
 				},
 				{
@@ -831,57 +840,10 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.LootBox, new List<GameId>
+					GameIdGroup.BotItem, new List<GameId>
 					{
-						GameId.CommonBox,
-						GameId.UncommonBox,
-						GameId.RareBox,
-						GameId.EpicBox,
-						GameId.LegendaryBox,
-						GameId.CommonCore,
-						GameId.UncommonCore,
-						GameId.RareCore,
-						GameId.EpicCore,
-						GameId.LegendaryCore
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.TimeBox, new List<GameId>
-					{
-						GameId.CommonBox,
-						GameId.UncommonBox,
-						GameId.RareBox,
-						GameId.EpicBox,
-						GameId.LegendaryBox
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.CoreBox, new List<GameId>
-					{
-						GameId.CommonCore,
-						GameId.UncommonCore,
-						GameId.RareCore,
-						GameId.EpicCore,
-						GameId.LegendaryCore
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Collectable, new List<GameId>
-					{
-						GameId.CommonCore,
-						GameId.UncommonCore,
-						GameId.RareCore,
-						GameId.EpicCore,
-						GameId.LegendaryCore,
-						GameId.Rage,
-						GameId.Health,
-						GameId.AmmoSmall,
-						GameId.AmmoLarge,
-						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge,
-						GameId.ChestCommon,
-						GameId.ChestRare,
-						GameId.ChestLegendary
+						GameId.Male02Avatar,
+						GameId.Female01Avatar
 					}.AsReadOnly()
 				},
 				{
@@ -891,10 +853,37 @@ namespace Quantum
 						GameId.Health,
 						GameId.AmmoSmall,
 						GameId.AmmoLarge,
-						GameId.InterimArmourSmall,
-						GameId.InterimArmourLarge,
+						GameId.ShieldSmall,
+						GameId.ShieldLarge,
+						GameId.ShieldCapacitySmall,
+						GameId.ShieldCapacityLarge
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Collectable, new List<GameId>
+					{
+						GameId.Rage,
+						GameId.Health,
+						GameId.AmmoSmall,
+						GameId.AmmoLarge,
+						GameId.ShieldSmall,
+						GameId.ShieldLarge,
+						GameId.ShieldCapacitySmall,
+						GameId.ShieldCapacityLarge,
 						GameId.ChestCommon,
+						GameId.ChestUncommon,
 						GameId.ChestRare,
+						GameId.ChestEpic,
+						GameId.ChestLegendary
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Chest, new List<GameId>
+					{
+						GameId.ChestCommon,
+						GameId.ChestUncommon,
+						GameId.ChestRare,
+						GameId.ChestEpic,
 						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
@@ -908,16 +897,6 @@ namespace Quantum
 						GameId.SpecialShieldedCharge,
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Emoji, new List<GameId>
-					{
-						GameId.EmojiAngry,
-						GameId.EmojiLove,
-						GameId.EmojiAngel,
-						GameId.EmojiCool,
-						GameId.EmojiSick
 					}.AsReadOnly()
 				},
 				{

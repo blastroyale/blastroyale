@@ -1,29 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FirstLight.AssetImporter;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
-using FirstLight.UiService;
-using I2.Loc;
-using Newtonsoft.Json;
-using PlayFab;
-using PlayFab.ClientModels;
-using SRDebugger;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -38,6 +23,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IVfxInternalService<VfxId> _vfxService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private readonly IConfigsLoader _configsLoader;
 		
 		public InitialLoadingState(IGameServices services, IGameUiServiceInit uiService, 
 		                           IAssetAdderService assetService, IConfigsAdder configsAdder, 
@@ -49,6 +35,7 @@ namespace FirstLight.Game.StateMachines
 			_configsAdder = configsAdder;
 			_vfxService = vfxService;
 			_statechartTrigger = statechartTrigger;
+			_configsLoader = new GameConfigsLoader(_assetService);
 		}
 
 		/// <summary>
@@ -94,17 +81,16 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 
 			tasks.Add(LoadErrorAssets());
-			tasks.AddRange(LoadConfigs());
+			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
 			
 			await Task.WhenAll(tasks);
-
 			LoadVfx();
 		}
 
 		private async Task LoadErrorAssets()
 		{
-			await LoadConfig<CustomAssetConfigs>(AddressableId.Configs_CustomAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset));
+			await _configsLoader.LoadConfig<CustomAssetConfigs>(AddressableId.Configs_CustomAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset));
 			
 			var customConfigs = _configsAdder.GetConfig<CustomAssetConfigs>();
 			var errorSprite = customConfigs.ErrorSprite.LoadAssetAsync();
@@ -121,40 +107,20 @@ namespace FirstLight.Game.StateMachines
 		{
 			return new List<Task>
 			{
-				LoadConfig<AudioAdventureAssetConfigs>(AddressableId.Configs_AudioAdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<VfxAssetConfigs>(AddressableId.Configs_VfxConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<MaterialVfxConfigs>(AddressableId.Configs_MaterialVfxConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				LoadConfig<CardRarityAssetConfigs>(AddressableId.Configs_CardRarityAssetConfigs, asset => _assetService.AddConfigs(asset)),
-			};
-		}
-
-		private IEnumerable<Task> LoadConfigs()
-		{
-			return new List<Task>
-			{
-				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => _configsAdder.AddSingletonConfig(asset.Config)),
-				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
-				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<GearConfigs>(AddressableId.Configs_GearConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<RarityConfigs>(AddressableId.Configs_RarityConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Rarity, asset.Configs)),
-				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
-				LoadConfig<LootBoxConfigs>(AddressableId.Configs_LootBoxConfigs, asset => _configsAdder.AddConfigs(data => data.Id, asset.Configs)),
-				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<ConsumableConfigs>(AddressableId.Configs_ConsumableConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => _configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => _configsAdder.AddConfigs(data => data.Step, asset.Configs)),
+				_configsLoader.LoadConfig<AudioAdventureAssetConfigs>(AddressableId.Configs_AudioAdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<VfxAssetConfigs>(AddressableId.Configs_VfxConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<MaterialVfxConfigs>(AddressableId.Configs_MaterialVfxConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<VideoAssetConfigs>(AddressableId.Configs_VideoAssetConfigs, asset => _assetService.AddConfigs(asset)),
+				_configsLoader.LoadConfig<PlayerRankAssetConfigs>(AddressableId.Configs_PlayerRankAssetConfigs, asset => _assetService.AddConfigs(asset)),
 			};
 		}
 
@@ -170,14 +136,6 @@ namespace FirstLight.Game.StateMachines
 				_vfxService.AddPool(vfxAsset.GetComponent<Vfx<VfxId>>());
 			}
 		}
-		
-		private async Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete)
-		{
-			var asset = await _assetService.LoadAssetAsync<TContainer>(id.GetConfig().Address);
 
-			onLoadComplete(asset);
-
-			_assetService.UnloadAsset(asset);
-		}
 	}
 }

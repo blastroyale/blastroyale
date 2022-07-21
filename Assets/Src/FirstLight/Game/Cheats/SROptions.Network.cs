@@ -38,6 +38,21 @@ public partial class SROptions
 	public void StartMultiClientBR()
 	{
 		IsMultiClient = true;
-		GameObject.FindObjectOfType<HomeScreenPresenter>().SendMessage("OnPlayOfflineClicked");
+		GameObject.FindObjectOfType<HomeScreenPresenter>().SendMessage("OnPlayOnlineClicked");
+	}
+	
+	[Category("Quantum")]
+	public void DisconnectQuantum()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		services.NetworkService.QuantumClient.Disconnect();
+	}
+	
+	
+	[Category("Network")]
+	public bool EnableCommitRoomLock
+	{
+		get => FeatureFlags.COMMIT_VERSION_LOCK;
+		set => FeatureFlags.COMMIT_VERSION_LOCK = !FeatureFlags.COMMIT_VERSION_LOCK;
 	}
 }

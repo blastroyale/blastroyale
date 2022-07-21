@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,8 +18,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[FormerlySerializedAs("_adventureCharacterView")] [SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		public Transform RootTransform;
-
+		
 		private Vector3 _lastPosition;
+
+		/// <summary>
+		/// Indicates if this is the local player
+		/// </summary>
+		public bool IsLocalPlayer
+		{
+			get;
+			private set;
+		}
 
 		private static class PlayerFloats
 		{
@@ -38,16 +45,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnSpecialUsed>(this, HandleOnSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
+			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnStunGrenadeUsed>(this, HandleOnStunGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnGrenadeUsed>(this, HandleOnGrenadeUsed);
 			QuantumEvent.Subscribe<EventOnSkyBeamUsed>(this, HandleOnSkyBeamUsed);
 			QuantumEvent.Subscribe<EventOnShieldedChargeUsed>(this, HandleOnShieldedChargeUsed);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleOnGameEnded);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandlePlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnPlayerGearChanged>(this, HandlePlayerGearChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
+		}
+
+		private void OnDestroy()
+		{
+			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -55,11 +68,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnInit(game);
 
 			var frame = game.Frames.Verified;
-
-			AnimatorWrapper.SetBool(Bools.Flying, frame.RuntimeConfig.GameMode == GameMode.BattleRoyale);
-			AnimatorWrapper.SetTrigger(frame.Has<DeadPlayerCharacter>(EntityView.EntityRef)
-				                           ? Triggers.Die
-				                           : Triggers.Spawn);
+			IsLocalPlayer = frame.Context.IsLocalPlayer(frame.Get<PlayerCharacter>(EntityRef).Player);
+			
+			if (Services.NetworkService.IsJoiningNewMatch)
+			{
+				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+			}
+			else
+			{
+				AnimatorWrapper.SetBool(Bools.Flying, false);
+				
+				if (!EntityView.EntityRef.IsAlive(frame))
+				{
+					AnimatorWrapper.SetTrigger(Triggers.Die);
+				}
+			}
 		}
 
 		/// <summary>
@@ -74,7 +98,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAvatarEliminated(game);
 
-			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath01, transform.position);
+			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath, transform.position);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -141,10 +165,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.VfxService.Spawn(impactVfxId).transform.position = targetPosition;
 		}
 
-		private void HandleOnConsumablePicked(EventOnConsumablePicked callback)
+		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (EntityView.EntityRef != callback.PlayerEntity ||
-			    callback.Consumable.ConsumableType != ConsumableType.Health)
+			if (EntityView.EntityRef != callback.PlayerEntity || callback.CollectableId != GameId.Health)
 			{
 				return;
 			}
@@ -183,7 +206,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
 
-			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnStart1, transform.position);
+			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnStart, transform.position);
 			RenderersContainerProxy.SetRendererState(false);
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
@@ -195,7 +218,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired01, transform.position);
+			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired, transform.position);
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
 		}
 
@@ -239,6 +262,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					entityViewBase.SetEntityView(callback.Game, EntityView);
 				}
 			}
+		}
+
+		private async void HandlePlayerGearChanged(EventOnPlayerGearChanged callback)
+		{
+			if (callback.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+
+			await _characterView.EquipItem(callback.Gear.GameId);
 		}
 
 		private void HandleOnAirstrikeUsed(EventOnAirstrikeUsed callback)
@@ -328,7 +361,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_lastPosition = currentPosition;
 		}
-
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)
 		{

@@ -1,7 +1,7 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
-using Quantum.Commands;
 
 namespace FirstLight.Game.Presenters
 {
@@ -15,20 +15,25 @@ namespace FirstLight.Game.Presenters
 			public Action ConfirmClicked;
 		}
 		
-		[SerializeField] private Button _confirmButton;
-		[SerializeField] private Button _cancelButton;
-		[SerializeField] private Button _blockerButton;
+		[SerializeField, Required] private Button _confirmButton;
+		[SerializeField, Required] private Button _cancelButton;
+		[SerializeField, Required] private Button _blockerButton;
 
 		private void Awake()
 		{
 			_confirmButton.onClick.AddListener(OnConfirmClicked);
-			_cancelButton.onClick.AddListener(Close);
-			_blockerButton.onClick.AddListener(Close);
+			_cancelButton.onClick.AddListener(CloseRequested);
+			_blockerButton.onClick.AddListener(CloseRequested);
+		}
+
+		private void CloseRequested()
+		{
+			Close(false);
 		}
 
 		private void OnConfirmClicked()
 		{
-			Close();
+			Close(false);
 
 			Data.ConfirmClicked();
 		}

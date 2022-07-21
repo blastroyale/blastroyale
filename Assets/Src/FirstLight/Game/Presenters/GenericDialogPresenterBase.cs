@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Services;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,29 +13,34 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public abstract class GenericDialogPresenterBase : AnimatedUiPresenter
 	{
-		[SerializeField] protected TextMeshProUGUI TitleText;
-		[SerializeField] protected TextMeshProUGUI ConfirmButtonText;
-		[SerializeField] protected Button CloseButton;
-		[SerializeField] protected Button ConfirmButton;
-		[SerializeField] protected Button BlockerButton;
+		[SerializeField, Required] protected TextMeshProUGUI TitleText;
+		[SerializeField, Required] protected TextMeshProUGUI ConfirmButtonText;
+		[SerializeField, Required] protected Button CloseButton;
+		[SerializeField, Required] protected Button ConfirmButton;
+		[SerializeField, Required] protected Button BlockerButton;
 
 		private Action _closeCallback;
 
 		private void Awake()
 		{
-			CloseButton.onClick.AddListener(Close);
-			BlockerButton.onClick.AddListener(Close);
+			CloseButton.onClick.AddListener(CloseRequested);
+			BlockerButton.onClick.AddListener(CloseRequested);
 
 			OnAwake();
 		}
 
+		private void CloseRequested()
+		{
+			Close(false);
+		}
+
 		protected virtual void OnAwake() { }
 
-		protected override void Close()
+		protected override void Close(bool destroy)
 		{
 			if (IsOpenedComplete)
 			{
-				base.Close();
+				base.Close(destroy);
 			}
 		}
 
@@ -53,7 +59,7 @@ namespace FirstLight.Game.Presenters
 				
 				ConfirmButton.gameObject.SetActive(true);
 				ConfirmButton.onClick.RemoveAllListeners();
-				ConfirmButton.onClick.AddListener(Close);
+				ConfirmButton.onClick.AddListener(CloseRequested);
 				ConfirmButton.onClick.AddListener(button.ButtonOnClick);
 			}
 			

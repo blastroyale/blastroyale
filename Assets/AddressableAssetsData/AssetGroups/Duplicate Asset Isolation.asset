@@ -1,0 +1,790 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 89c686726f5a74abc9ea6a29403b0273
+  m_SerializeEntries:
+  - m_GUID: 07ff8b0340c7df94f8a4257a1a776eb7
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/CircleWipe.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 88d90665ab6e6bf40bae08f53208bdb9
+    m_Address: Assets/Art/SpriteAtlas/AdventureHud.spriteatlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d533b2002939d42b09f93ea5c5640482
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/DefaultIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a9877810cf8dfcf45a22db5765ea87d1
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 657537604173846308db848529b8e666
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/BossIndicatorOutside.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4f5bb9c04ad71274097f42d6b1bb830a
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUDRankBackground.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8b6bea0173d97c744befc64bceab542e
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/SpeedPill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 04395511ad9f3fa4caca419869ec6ba5
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBarFill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d66d92d1e501e4d12b64f78788cdada0
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFace.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fffcdc323b176c44685847bb11a5ad2b
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/MovementIndicatorStar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 710393722a6aea44a91958ec48faf1df
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickAutoAim.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 015fefd294d197c47a6200192ed61102
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickThumbRight.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d39f12438282f3f4582fc4dbd4bed85d
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Female01Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2ba2d5a3829f2844da9780a46bde1f63
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Male02Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: abae18041ec2b3a4d8d16772af05241d
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUD_Coin.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: eea4c914f098743eb80820aef94b95ac
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/HealthBar/HealthBarShine.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 26a1063432a2745b0a994e82a0bc9845
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialRing.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b4f7eea4c12960a4f8ecb113e57816cd
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/WhiteRound.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a3451f4b261249adbe672242c3c5331
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/2Countdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: af51e505dca254a45a2f80602f9da72b
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Background.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2a2d40756fab94e739899ed2cf53eb0a
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/TimerBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3b8a9e85985ce4a449bd7f89d4887897
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/ReviveArrow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 33cb72d57497e456cbd2b35f73065735
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 055d5ef54e3ec4ee6b338a4867b7c641
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/SmearSpecial.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6899dd6601172446d9df3f5033afabe6
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/GOCountdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 002ac4862f155463fb4d52d5b177e0ce
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e38a2727d5e515f498bf59ce2542bd9e
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickManualAim.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 21a62b37e8f323f479b3a5896e49171b
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/HealthPill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bec95047e2f276844b0419ffbf07b7c4
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/Armour.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b5ab2e571ea004f279c320f066bb3105
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/3Countdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f26621d71421141298a9a8cf0dc80574
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 734058f7d1ddca14da41f2d56d253dd0
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Female02Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0655db597a744f2499c7bf098e161522
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickThumbLeft.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1eebf889d9952494995383a7a0401e09
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/SkullKing.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4358f599f237f4186a501d2d73007520
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialButtonDirectional.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0728f4e9144eb4d108dd24d2c71d79b7
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Handle_Aim.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 21c78af9a15cc1a4191a60ce7e351b1d
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/JoystickAutoAimBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3b67aef998e104d9ba413a8802c6d8d3
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/321Countdown/1Countdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f80be77a76765442ea265f828dea7888
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/SkullKillCount.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ae74559a0e1790b4e8f8019c57128d83
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/Male01Avatar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f399e6aa82350064fbf740f138c0f9c6
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBarQuestFill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 97826b1bcd8e6c04ca7aeb7b79cca1f9
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/BossArrow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 715dca5ba7c7456438d4c122a0801205
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyRadialIndicator.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 41e813cbb15b2406db58a4022b6efcca
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/LootIndicatorBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c4fa85fbe87b6f84c9eea5af0eca2341
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PowerPill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 523d402cd81de4cdc9fb5aaee7712622
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/HealthBar/HealthBar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b3cf5e3cdd4314e8ca4f90d654141bc8
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/EnemyIndicatorFace.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0f00a1acb69574ad2a5863ef52275252
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/CheqFlag.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 00d895ccfbba141c19d851d2646007a6
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/BossIndicatorInside.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f335cbcc9213a4dd292ffabe22ccf9c4
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/Joystick/Joystick_Handle_Move.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c5d752fc5fa5d5b4fa3a069a455059cf
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerAvatarKO.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 25a1920dd444f5a4d9ed9d2530f805fe
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/NearDeathVignette.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 557f203d3134fc043b30d3a5242e9a2a
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/RIP_Icon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 82591b8dbfe25e64b95fd25fd184e568
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerAvatarGeneric.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1ffdc9ad31db7a1488f4e5225bb3f750
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestTitleFrame.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e06afad60bdde94084d77a92cd0f4c7
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/Quests/QuestBar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 26ba52ed9051d423dbfe823488a7abfc
+    m_Address: Assets/Art/Textures/Ui/AdventureControlsHud/SpecialButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 113fd59e86fa6524a972547df6cc8459
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/PlayerStatus/PlayerLeft.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd5d2d0f52715473ca58a463cc941357
+    m_Address: Assets/Art/Textures/Ui/AdventureWorldHud/Indicators/PlayerIndicatorFaceKO.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 23beb82f33697664a8e8e12ace7b93f5
+    m_Address: Assets/Art/Textures/Ui/AdventureHud/HUD_AdventureCoin.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a9a5b541d60c3f46888c3f6f4a121e5
+    m_Address: Assets/Art/Prefabs/Particles/Dustclouds/M_DefaultDustCloud.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f85ef73c9b817964887dfe8e57ad8299
+    m_Address: Assets/Art/Textures/Particles/T_DustClouds.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2d3a3e8105531d74c827dee5b91bc02e
+    m_Address: Assets/Art/Models/Items/M_Items.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 11d1dc8b31de19c449cb43b0465526e1
+    m_Address: Assets/Art/Textures/Shared/T_ColorAtlas_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 76d8254ddca2780438f55ab908910af5
+    m_Address: Assets/Art/Textures/Shared/T_ColorAtlas_E.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d9dfbf9d63b50c84fa42b9f84d42d33e
+    m_Address: Assets/Art/Shaders/SG_CharacterShader.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d54501e0f5d3b354da4b2ae57217d56c
+    m_Address: Assets/Art/Textures/Particles/Spark.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2ff385516f374a64a958be8b16650216
+    m_Address: Assets/Art/Shaders/SG_ParticleAdditiveHDR.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7339c134d001d114685c9b6114514f41
+    m_Address: Assets/Art/Materials/Particles/M_FireAndSmoke.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8231ad0c03ebed04587f1f7bcca99bf7
+    m_Address: Assets/Art/Materials/Particles/M_Beam.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3671925d89a5a29448c64c4d503054f7
+    m_Address: Assets/Art/Textures/Particles/T_SmokeAtlas_6x6.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 95ef4804fe0be4c999ddaa383536cde8
+    m_Address: Assets/Art/Textures/Particles/VignetteMask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b46dfe5e05587f347a64a2315b30791f
+    m_Address: Assets/Art/Shaders/SG_Silhouette.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5958b84300367da48ae1c15242bb7624
+    m_Address: Assets/Art/Models/Items/Lost_Items.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d5eb8b8ebc40d494a9b2fc3c84e051a9
+    m_Address: Assets/Art/VFXGraphs/SpawnOrb.vfx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c1cac0606c3289c48bbe673aaa7a509a
+    m_Address: Assets/Art/Materials/PM_Environment.physicMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f8d89ed4b2cfb2f45a9beff5a2f017b2
+    m_Address: Assets/Art/Models/Environment/Props/Barrels.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 426a817d82c72d1488ebf1acb510329f
+    m_Address: Assets/Art/Models/Environment/Props/T_DomesticJunk_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e05e7c19e5995849b4cab6b60a84a41
+    m_Address: Assets/Art/Animation/Humanoid/place.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c6731df2e787d754bad9f36ed7684f57
+    m_Address: Assets/Art/Animation/Humanoid/idle02.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0439a203d121fa44bb06b6a654a3c9e7
+    m_Address: Assets/Art/Animation/Humanoid/leap.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c7c528b78802ae049a5cfa31237092fc
+    m_Address: Assets/Art/Animation/Humanoid/Inventory_Anims.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b0d8a22ad3c4819458adb78a038f0e88
+    m_Address: Assets/Art/Animation/Humanoid/Humanoid_Anims.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0e2c575a2304afb40a9e04cdf8edac8c
+    m_Address: Assets/Art/Animation/Humanoid/death.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d93fc4b5d3cec834ba31dde84a343798
+    m_Address: Assets/Art/Models/Weapons/M_WeaponAtlas01.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a5adf0ea0d79e4f4a981f23455050aa5
+    m_Address: Assets/Art/Models/Weapons/Rifle_AK.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fab52d07c409e7a4f949a0b07540c115
+    m_Address: Assets/Art/Models/Weapons/T_WeaponAtlas01_C.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d7b331517660d474596db465e3089916
+    m_Address: Assets/Art/Fonts/DynamicDuo/DynamicDuo Heavy Italic SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b83504fa082014114bc4bea2cb0e9cc4
+    m_Address: DynamicDuo Heavy Italic SDF Outline+Drop A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ad6c3a0f91c704f50981705213275a35
+    m_Address: Assets/Art/Textures/Ui/SharedUI/ShadowFade.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e3265ab4bf004d28a9537516768c1c75
+    m_Address: Assets/Libs/TextMesh Pro/Fonts/LiberationSans.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d28addb3dd8d04ac3a54c98a457c0666
+    m_Address: Assets/Art/Animation/UI/Buttons/DefaultButtonSelectPress2.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 54b3ed35361584c0bb6a8d0a8a882451
+    m_Address: Assets/Art/Fonts/DynamicDuo/DynamicDuo Heavy Italic SDF Outline+Drop
+      B.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f8912aed3a89547c5a229120ce3a91a1
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootSelectBButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fdcf40ee8a55b244fb86d5a8c5f8aa6c
+    m_Address: Assets/Art/SpriteAtlas/MainMenuHud.spriteatlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 22e38f00ff5a04a72a805f457518f413
+    m_Address: Assets/Art/Textures/Ui/Home Screen/CrateIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c1414720088cc45de8b9c35661044102
+    m_Address: Assets/Art/Textures/Ui/Home Screen/IconHome.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9bf08770a299242c5b89794ed0a9e198
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/ItemCardEmpty.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6d39279031c4945a4ba6b0fd739bf3e7
+    m_Address: Assets/Art/Textures/Ui/LootScreen/EquipSlotEmpty.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cd6e8f90e3ab8413888f2ba111b7cc03
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarCell.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 681da711b1d8c44a4a388503d2e53390
+    m_Address: Assets/Art/Textures/Ui/LootScreen/EquipSlotSelect@2x.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e8b07d41c40f54a70ba44aa50eea26f7
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarCellEnd.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 58e71c5188f0749f6bc1d71385ab16dd
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/SortArrows.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b54dab9128087489099bd5a7c53e13fc
+    m_Address: Assets/Art/Textures/Ui/Home Screen/CharacterIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e48c86e18b5c248a4b3310314a156f3f
+    m_Address: Assets/Art/Textures/Ui/Home Screen/AreaButtonB.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8c177ee17ace34bf780e3d5b1c5f65a6
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 121e70127efa97640a05ded4b85c4c08
+    m_Address: Assets/Art/Textures/Ui/Home Screen/TrophyBlank.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1a295522adab84a2e9783cff5ccd6409
+    m_Address: Assets/Art/Textures/Ui/MainMenuHUD/MainMenuSelected.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 90de1282c875b420bba67b9dc0bb5779
+    m_Address: Assets/Art/Textures/Ui/LootScreen/BackButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f6bb0382d5196464183dcb7dd0ccb056
+    m_Address: Assets/Art/Textures/Ui/Home Screen/MapButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ee593b8234e9549a9a04605b000f0640
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/EquipmentFrame.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a64b479236b434739844cb58b076909e
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/AimAutoIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bfbe1c92bfa164144bc6a35b9b216efb
+    m_Address: Assets/Art/Textures/Ui/Home Screen/CraftIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fff891c2066ac4ff8b4f1c9cfa26a2c7
+    m_Address: Assets/Art/Textures/Ui/Home Screen/RewardShape.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3097c6c23828a41d386e826c29cefa6a
+    m_Address: Assets/Art/Textures/Ui/LootScreen/EquipSlotEmpty@2x.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bde47713ff6584e57b9f6560e4a8fc9c
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/ItemCardeRare.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8aca8b33e18a34b1792a11a830ad4c16
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarEndReverse.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 673cf4c3e66be41dd872b19fe7599ed3
+    m_Address: Assets/Art/Textures/Ui/Home Screen/HomeButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4d2322e3da8364ea392e314b5a2df575
+    m_Address: Assets/Art/Textures/Ui/Buttons/BurgerButton_Blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f02ada44c471b4c6c94eb4bc8c3dac2c
+    m_Address: Assets/Art/Textures/Ui/Home Screen/RewardsBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4d322164c4dc4484e83ea72154d754bb
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconAmulet.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1f6c5794942e541df979847e0ddb3227
+    m_Address: Assets/Art/Textures/Ui/Home Screen/SettingsCog.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f01b22a4839d84d4db929020131e291b
+    m_Address: Assets/Art/Textures/Ui/LootScreen/GunItemIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 920b10e4531fc46ae991cc38293de39d
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconHeadgear.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ab6d49f4e844d44dba897b0337b3d513
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarPlayerLevelBadge.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0261a3251019e45e7a8cc20ec467e730
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/AimManualIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d1f4f5759228b485fb699a7d22761fe4
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarCellFill.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 54925af58e45742dcaa2c2c96b65598f
+    m_Address: Assets/Art/Textures/Ui/Home Screen/TrophyRoadHolder.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b1f74166aefb42e68e89aeb6f1e9121
+    m_Address: Assets/Art/Textures/Ui/Buttons/CancelButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6dd70d2683b3642a0a1e0e5f163ae5b0
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootSelectAButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dd2a6056112ea4bab8c832db3da8fc6c
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconAll.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6f3abca62f4ec4a1ebceb346d8eddd1b
+    m_Address: Assets/Art/Textures/Ui/LootScreen/ShieldItemIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 15f9c9072515e4f0cb0e34b44f029c4d
+    m_Address: Assets/Art/Textures/Ui/Home Screen/NameHolder.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 42f77f07b67b74f688e2451a78aae5af
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconShield.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 73dade474ef324236a34dc9a9aea935a
+    m_Address: Assets/Art/Textures/Ui/Home Screen/ShopIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 04efde676cce24e8bb5020c07b77e441
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconArmour.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ee4c9a87928dd4893816034c87843b33
+    m_Address: Assets/Art/Textures/Ui/Home Screen/TrophyIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 18693be789ab44e0987f5191ffa96f30
+    m_Address: Assets/Art/Textures/Ui/Buttons/PopUp_Close.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 67e22ef73459147c4bf9cee536304c2c
+    m_Address: Assets/Art/Textures/Ui/Home Screen/AreaButtonA.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cbb60a486856f41fba61e9cf9aa536fd
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/CardShine.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7a924195237f4712941c803a49eede8
+    m_Address: Assets/Art/Textures/Ui/Home Screen/TrophyRoadHolderNew.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9908dd794f26c4b92883301da3cf1be7
+    m_Address: Assets/Art/Textures/Ui/LootScreen/FootwearItemIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ddb047e9ca70740ea9095725e5a41ffb
+    m_Address: Assets/Art/Textures/Ui/LootScreen/ChacterAvatarIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9125a0f9386cf43cfa56a0116406ba38
+    m_Address: Assets/Art/Textures/Ui/Home Screen/RankBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 81484b3a607ae4d1594eaf8e7115324d
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/Group 28@2x.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7390b4a27e4b5445aa6a0c00c8aa8ce
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/XP_Level_Icon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a64289a5c0574f5aafea04c75239693
+    m_Address: Assets/Art/Textures/Ui/LootScreen/GearBag.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f03cefda671a0449ab31a456ac82ea1c
+    m_Address: Assets/Art/Textures/Ui/Home Screen/PlayButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b450d54b20e574463b0fedf0584fb11f
+    m_Address: Assets/Art/Textures/Ui/Buttons/UnavailableButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: daab5a6b6f96740779bad875ad4ae38e
+    m_Address: Assets/Art/Textures/Ui/Home Screen/Settings.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bb3ad77b0bc90458499c94472cd54e54
+    m_Address: Assets/Art/Textures/Ui/Buttons/ToggleOff.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b223d4abdcfaf464a8fdfd8b10a17dbc
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/MovieIconSmall.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a35801fb35e594b1bb5850ad847049bc
+    m_Address: Assets/Art/Textures/Ui/LootScreen/ArmourItemIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 28cf9f0c532562c43935aa6c70394f39
+    m_Address: Assets/Art/Textures/Ui/TopBar/TrophyRoadButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 78ee242c460cb4b9682737777719d866
+    m_Address: Assets/Art/Textures/Ui/Home Screen/SocialIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1e38c93ce7ac5614e880a4d64e111aa5
+    m_Address: Assets/Art/Textures/Ui/Buttons/DiscordButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a453c54c695b44f77a5c8569935baeef
+    m_Address: Assets/Art/Textures/Ui/Home Screen/EnhanceIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63297a4c6881141069c6b6d09d08d6f8
+    m_Address: Assets/Art/Textures/Ui/LootScreen/BackHomeIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a1eb015c3ce284a86918e1efb2e1acde
+    m_Address: Assets/Art/Textures/Ui/LootScreen/BackIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f724445c64dbd4b4ba018c9ee680151f
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/EquipmentFrame 1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1cc537cf120d40e196cbe47930520dd
+    m_Address: Assets/Art/Textures/Ui/Home Screen/FuseIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c463e0bc25e3f4f2db6cc08f6bd72902
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/EquipmentFrameA.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b0c756bc43c294615b4e7e092a5aba15
+    m_Address: Assets/Art/Textures/Ui/Buttons/GreenButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 925c98dcb67de465588c40e9c66afa2c
+    m_Address: Assets/Art/Textures/Ui/LootScreen/ChacterAvatarIcon2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2c8c1fdc8ba4c4788bf242f851c874c7
+    m_Address: Assets/Art/Textures/Ui/Notifications/NotificationUnique.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0cc9241d2d7af45d7bb6aa758adab0bb
+    m_Address: Assets/Art/Textures/Ui/LootScreen/HeadgearItemIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d87ee52d2e4f84bc9a0f4b539673b630
+    m_Address: Assets/Art/Textures/Ui/Home Screen/RewardsSliderGraphic.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 909b134d7287e4618a1901e8563ae3b9
+    m_Address: Assets/Art/Textures/Ui/Home Screen/SquadButton.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b053f3ad592cf4f2eac25ae0095a595b
+    m_Address: Assets/Art/Textures/Ui/LootScreen/ItemCardLootSlot2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a6a9cebdaf25b48078f5860c3f8fd82f
+    m_Address: Assets/Art/Textures/Ui/Notifications/NotificationGroup.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c0b8a8cd4a29844cd8e473220871243e
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/Weapon_AK.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0b4a234e88ae7534dbf3125e851335e4
+    m_Address: Assets/Art/Textures/Ui/Home Screen/HomeButtonFlipped.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4036f65e5fe6a44adbd363b3240eefc2
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconSkills.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e89c739e4b69042788306cd569fa450b
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/EquippedItem.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5ca855de7e12943dc935fc2d85028636
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarEnd.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b9ef66decbd9d47dabb594630c1a1e47
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/Group 28.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ac1339de30ea4456583521d3b1a8e55d
+    m_Address: Assets/Art/Textures/Ui/LootScreen/Smear_Title_Black.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5165576f149e541578fb274049ea0b4d
+    m_Address: Assets/Art/Textures/Ui/EquipmentScreen/ItemDecal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ad0da47f498614568ac1b853c0554c66
+    m_Address: Assets/Art/Textures/Ui/Buttons/ToggleOn.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 96a308af2d4674be5887bed15af88c76
+    m_Address: Assets/Art/Textures/Ui/LootScreen/LootIconWeapon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1f63f2cf6eed54f7a91bfda47fca96bd
+    m_Address: Assets/Art/Textures/Ui/LootScreen/AmuletItemIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a7bac1ffdb6a8414e9ca3c4fdda05ee1
+    m_Address: Assets/Art/Textures/Ui/TopBar/TopBarEnergy_Icon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5c251ae78493745a18e3079e69b4f89d
+    m_Address: Assets/Art/Textures/Ui/SharedUI/DefaultBase.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 81a18bc845e6ed949aeedb66a3810dd9
+    m_Address: Assets/Art/Timelines/UI/Signals/Director Complete Signal.signal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d048311dbfd41084cbbf3ee2a3ec9086
+    m_Address: Assets/Art/Animation/UI/GenericDialog/GenericDialog_Appear.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6e141fcd58e9e624598ffe05aef9546d
+    m_Address: Assets/Art/Animation/UI/GenericDialog/GenericDialog_Unpack.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 09c9f913ec2f5443d8915f51d3cb7eee
+    m_Address: Assets/Art/Textures/Ui/SharedUI/DefaultArrowUp.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c7f93ff50dce7ad4cb897029ac85f594
+    m_Address: Assets/Art/Fonts/JockeyOne/JockeyOne-Regular SDF-InGame.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a925752b1102dc6429c2aca3c75c4339
+    m_Address: Assets/Art/Materials/Particles/M_PickupSpot.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c9564853aff464946a10b7fb1f7fbb53
+    m_Address: Assets/Art/Models/Environment/Terrains/Arena_SkyBase01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 85b70f3b7a4105e4c90d72b9a7f59696
+    m_Address: Assets/Art/Models/Environment/BattleRoyalMaps/RoyaleMap01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a725f504c14a44438a0f453b0c152daf, type: 2}
+    - {fileID: 11400000, guid: 5e7d25aa41ade4a07a35de06197aeb08, type: 2}

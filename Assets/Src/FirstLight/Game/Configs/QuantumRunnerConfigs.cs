@@ -39,76 +39,27 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
-		public void SetRuntimeConfig(MapConfig config)
+		public void SetRuntimeConfig(QuantumMapConfig config)
 		{
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
 			
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
-			_runtimeConfig.BotDifficultyLevel = 1;
 			_runtimeConfig.MapId = config.Id;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
-			_runtimeConfig.GameMode = config.GameMode;
-			_runtimeConfig.GameEndTarget = config.GameEndTarget;
-		}
-
-		/// <inheritdoc cref="EnterRoomParams"/>
-		/// <remarks>
-		/// Default values that can be used or adapted to the custom situation
-		/// </remarks>
-		public EnterRoomParams GetEnterRoomParams(MapConfig mapConfig, string roomName)
-		{
-			var roomParams = new EnterRoomParams
-			{
-				RoomName = roomName,
-				PlayerProperties = null,
-				ExpectedUsers = null,
-				Lobby = TypedLobby.Default,
-				RoomOptions = new RoomOptions
-				{
-					BroadcastPropsChangeToAll = true,
-					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreationRoomProperties(mapConfig),
-					CustomRoomPropertiesForLobby = GetRoomPropertiesToExposeInLobby(),
-					Plugins = null,
-					SuppressRoomEvents = false,
-					SuppressPlayerInfo = false,
-					PublishUserId = false,
-					DeleteNullProperties = true,
-					EmptyRoomTtl = 0,
-					IsOpen = true,
-					IsVisible = string.IsNullOrEmpty(roomName),
-					MaxPlayers = (byte)mapConfig.PlayersLimit,
-					PlayerTtl = _serverSettings.PlayerTtlInSeconds * 1000
-				}
-			};
-			
-			return roomParams;
-		}
-
-		/// <inheritdoc cref="OpJoinRandomRoomParams"/>
-		/// <remarks>
-		/// Default values that can be used or adapted to the custom situation
-		/// </remarks>
-		public OpJoinRandomRoomParams GetJoinRandomRoomParams(MapConfig mapConfig)
-		{
-			return new OpJoinRandomRoomParams
-			{
-				ExpectedCustomRoomProperties = GetMatchMakingRoomProperties(mapConfig),
-				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
-				ExpectedUsers = null,
-				MatchingType = MatchmakingMode.FillRoom,
-				SqlLobbyFilter = "",
-				TypedLobby = TypedLobby.Default
-			};
 		}
 
 		/// <inheritdoc cref="QuantumRunner.StartParameters"/>
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerLimit)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerCount, bool isSpectator)
 		{
-			var gameMode = playerLimit == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+			var gameMode = playerCount == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
+
+			if (isSpectator)
+			{
+				gameMode = DeterministicGameMode.Spectating;
+			}
 			
 			return new QuantumRunner.StartParameters
 			{
@@ -122,45 +73,9 @@ namespace FirstLight.Game.Configs
 				LocalPlayerCount = 1,
 				RecordingFlags = RecordingFlags.All,
 				ResourceManagerOverride = null,
-				InstantReplayConfig = InstantReplaySettings.Default,
+				InstantReplayConfig = default,
 				HeapExtraCount = 0,
-				PlayerCount =playerLimit
-			};
-		}
-
-		private Hashtable GetCreationRoomProperties(MapConfig mapConfig)
-		{
-			var properties = GetMatchMakingRoomProperties(mapConfig);
-			
-			properties.Add(GameConstants.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
-
-			return properties;
-		}
-		
-		private Hashtable GetMatchMakingRoomProperties(MapConfig mapConfig)
-		{
-			var properties = new Hashtable
-			{
-				// The commit should guarantee the same Quantum build version + App version etc.
-				{ GameConstants.ROOM_PROPS_COMMIT, VersionUtils.Commit },
-				
-				// Set the game map Id for the same matchmaking
-				{ GameConstants.ROOM_PROPS_MAP, mapConfig.Id },
-			};
-			
-			return properties;
-		}
-
-		/// <summary>
-		/// These are the room prop keys that will be publicly accessible to other clients for
-		/// matchmaking.
-		/// </summary>
-		private string[] GetRoomPropertiesToExposeInLobby()
-		{
-			return new []
-			{
-				GameConstants.ROOM_PROPS_COMMIT,
-				GameConstants.ROOM_PROPS_MAP
+				PlayerCount = playerCount
 			};
 		}
 	}

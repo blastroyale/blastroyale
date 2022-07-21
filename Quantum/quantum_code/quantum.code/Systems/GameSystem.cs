@@ -1,9 +1,11 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
-	public unsafe class GameSystem : SystemMainThread,
+	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
 	                                 ISignalGameEnded, ISignalHealthIsZero
 	{
 		/// <inheritdoc />
@@ -13,9 +15,25 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
+		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
+		{
+			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				component->TargetProgress = f.Context.MapConfig.GameEndTarget;
+			}
+			else
+			{
+				component->TargetProgress = (uint)f.PlayerCount - 1;
+			}
+		}
+
+		/// <inheritdoc />
 		public void GameEnded(Frame f)
 		{
-			f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver = true;
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+
+			gameContainer->GameOverTime = f.Time;
+			gameContainer->IsGameOver = true;
 			
 			f.Events.OnGameEnded();
 			
@@ -26,13 +44,14 @@ namespace Quantum.Systems
 			f.SystemDisable(typeof(PlayerCharacterSystem));
 			f.SystemDisable(typeof(ProjectileSystem));
 			f.SystemDisable(typeof(HazardSystem));
+			f.SystemDisable(typeof(SpellSystem));
 			f.SystemDisable(typeof(ShrinkingCircleSystem));
 		}
 
 		/// <inheritdoc />
 		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.TryGet<PlayerCharacter>(entity, out var player))
+			if (!f.Has<PlayerCharacter>(entity))
 			{
 				return;
 			}
@@ -40,7 +59,7 @@ namespace Quantum.Systems
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var inc = 0u;
 
-			if (f.RuntimeConfig.GameMode == GameMode.BattleRoyale)
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
 			{
 				inc = 1;
 			}

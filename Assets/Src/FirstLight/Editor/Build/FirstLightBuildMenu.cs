@@ -8,142 +8,144 @@ namespace FirstLight.Editor.Build
 	public static class FirstLightBuildMenu
 	{
 		private const string _defaultAppName = "blast_royale";
-		private const string _apkExtension = "apk";
 		
-		[MenuItem("First Light Games/Build/Android/Local Build")]
+		[MenuItem("FLG/Build/Android/Local Build")]
 		private static void BuildAndroidLocal()
 		{
-			var outputPath = GetAndroidOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
-
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, true, true);
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.LocalSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Development Build")]
+		[MenuItem("FLG/Build/Android/Development Build")]
 		private static void BuildAndroidDevelopment()
 		{
-			var outputPath = GetAndroidOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
+			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
-			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, true);
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.DevelopmentSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Release Build")]
-		public static void BuildAndroidRelease()
+		[MenuItem("FLG/Build/Android/Staging Build")]
+		public static void BuildAndroidStaging()
 		{
-			var outputPath = GetAndroidOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
+			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
 			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, false);
+			FirstLightBuildConfig.SetupStagingConfig();
 			
-			FirstLightBuildConfig.SetupReleaseConfig();
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.StagingSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/Android/Store Build")]
+		[MenuItem("FLG/Build/Android/Store Build")]
 		public static void BuildAndroidStore()
 		{
-			var outputPath = GetAndroidOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
 			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, false);
-			
 			FirstLightBuildConfig.SetupStoreConfig();
+			
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.StoreSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Local Build")]
+		[MenuItem("FLG/Build/iOS/Local Build")]
 		private static void BuildIosLocal()
 		{
-			var outputPath = GetIosOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
-
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true, true);
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.LocalSymbol);
+
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Automatic;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = true;
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Development Build")]
+		[MenuItem("FLG/Build/iOS/Development Build")]
 		private static void BuildIosDevelopment()
 		{
-			var outputPath = GetIosOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
 
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, true);
-			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.DevelopmentSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Release Build")]
-		public static void BuildIosRelease()
+		[MenuItem("FLG/Build/iOS/Staging Build")]
+		public static void BuildIosStaging()
 		{
-			var outputPath = GetIosOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
 			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, false);
+			FirstLightBuildConfig.SetupStagingConfig();
 			
-			FirstLightBuildConfig.SetupReleaseConfig();
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StagingSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("First Light Games/Build/iOS/Store Build")]
+		[MenuItem("FLG/Build/iOS/Store Build")]
 		public static void BuildIosStore()
 		{
-			var outputPath = GetIosOutputPath();
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
 			if (string.IsNullOrWhiteSpace(outputPath))
 			{
 				return;
 			}
 			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, false);
-			
 			FirstLightBuildConfig.SetupStoreConfig();
+			
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StoreSymbol);
+			
 			BuildPipeline.BuildPlayer(options);
-		}
-
-		private static string GetAndroidOutputPath()
-		{
-			return EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, _apkExtension);
-		}
-		
-		private static string GetIosOutputPath()
-		{
-			return EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 		}
 	}
 }

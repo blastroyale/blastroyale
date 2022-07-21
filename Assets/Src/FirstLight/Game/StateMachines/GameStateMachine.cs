@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -10,7 +11,7 @@ using FirstLight.NativeUi;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
-using I2.Loc;
+using I2.Loc; 
 using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -26,6 +27,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechart _statechart;
 		private readonly InitialLoadingState _initialLoadingState;
 		private readonly AuthenticationState _authenticationState;
+		private readonly AudioState _audioState;
 		private readonly NetworkState _networkState;
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
@@ -52,9 +54,10 @@ namespace FirstLight.Game.StateMachines
 			_dataService = dataService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger);
-			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(gameLogic, services, uiService, gameLogic, assetAdderService, Trigger);
+			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger);
+			_audioState = new AudioState(gameLogic, services);
+			_networkState = new NetworkState(gameLogic, services, uiService, networkService, Trigger);
+			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -80,7 +83,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
-			
+
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
 			
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
@@ -89,8 +92,8 @@ namespace FirstLight.Game.StateMachines
 			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(core);
 			initialLoading.OnExit(InitializeGame);
 			
-			core.Split(_networkState.Setup, _coreLoopState.Setup).Target(final);
-			
+			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -114,18 +117,13 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic.Init();
 
 			_services.AudioFxService.AudioListener.enabled = true;
-			_gameLogic.AppLogic.SetResolutionMode(_gameLogic.AppLogic.IsHighResModeEnabled);
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 			
 			// Just marking the default name to avoid missing names
 			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
 			{
-				_services.PlayfabService.UpdateNickname(PlayerLogic.DefaultPlayerName);
+				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
-			
-			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest { CatalogVersion = StoreService.StoreCatalogVersion }, 
-			                                 catalog => _services.StoreService.Init(catalog.Catalog), 
-			                                 _authenticationState.OnPlayFabError);
 		}
 
 		private void OpenNoInternetPopUp()

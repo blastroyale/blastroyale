@@ -2,8 +2,8 @@
 using System.Collections;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,14 +15,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class RewardView : MonoBehaviour
 	{
-		[SerializeField] private Image _image;
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _appearAnimationClip;
-		[SerializeField] private AnimationClip _holdAnimationClip;
-		[SerializeField] private AnimationClip _unpackAnimationClip;
-		[SerializeField] private AnimationClip _summaryAnimationClip;
-		[SerializeField] private TextMeshProUGUI _quantityText;
-		[SerializeField] private TextMeshProUGUI _itemNameText;
+		[SerializeField, Required] private Image _image;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _appearAnimationClip;
+		[SerializeField, Required] private AnimationClip _holdAnimationClip;
+		[SerializeField, Required] private AnimationClip _unpackAnimationClip;
+		[SerializeField, Required] private AnimationClip _summaryAnimationClip;
+		[SerializeField, Required] private TextMeshProUGUI _quantityText;
+		[SerializeField, Required] private TextMeshProUGUI _itemNameText;
 
 		public Action OnRewardAnimationComplete;
 		public Action OnSummaryAnimationComplete;
@@ -30,6 +30,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private IGameServices _services;
 		private Coroutine _rewardCoroutine;
 		private Coroutine _summaryCoroutine;
+
+		private bool _playUnpackAnim = false;
 
 		/// <summary>
 		/// Requests the information if the reward view is playing
@@ -39,12 +41,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Initializes the object with the given <paramref name="gameId"/> & <paramref name="quantity"/> data to show
 		/// </summary>
-		public async void Initialise(GameId gameId, uint quantity)
+		public async void Initialise(GameId gameId, uint quantity, bool playUnpackAnim)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			_image.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(gameId);
 			_image.enabled = true;
-			
+
+			_playUnpackAnim = playUnpackAnim;
 			_itemNameText.SetText(gameId.GetTranslation());
 			_quantityText.SetText($"x{quantity.ToString()}");
 			gameObject.SetActive(true);
@@ -71,8 +74,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		public void StartRewardSequence()
 		{
 			gameObject.SetActive(true);
-			
-			_rewardCoroutine = StartCoroutine(PlayRewardAnimation());
+
+			_rewardCoroutine = _services.CoroutineService.StartCoroutine(PlayRewardAnimation());
 		}
 
 		/// <summary>
@@ -128,11 +131,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			yield return new WaitForSeconds(_animation.clip.length);
 
-			_animation.clip = _unpackAnimationClip;
-			_animation.Play();
+			if (_playUnpackAnim)
+			{
+				_animation.clip = _unpackAnimationClip;
+				_animation.Play();
 
-			yield return new WaitForSeconds(_animation.clip.length);
-
+				yield return new WaitForSeconds(_animation.clip.length);
+			}
+			
 			FinalRewardAnimation();
 		}
 

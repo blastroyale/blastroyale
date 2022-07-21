@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -8,9 +9,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class RadialIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
 	{
-		protected static readonly int _color = Shader.PropertyToID("Color");
-		
-		[SerializeField] protected VisualEffect _indicator;
+		[SerializeField, Required] protected GameObject _indicator;
 		[SerializeField] protected float _localHeight = 0.025f;
 		[SerializeField] protected bool _initiallyEnabled = false;
 		
@@ -19,11 +18,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		protected float _maxRange;
 
 		/// <inheritdoc />
-		public bool VisualState => _indicator.enabled;
+		public bool VisualState => _indicator.activeSelf;
 		
 		protected virtual void Awake()
 		{
-			_indicator.enabled = _initiallyEnabled;
+			_indicator.SetActive(_initiallyEnabled);
 			_playerTransform = transform;
 		}
 
@@ -35,10 +34,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualState(bool isVisible, bool isEmphasized = false)
 		{
-			_indicator.enabled = isVisible;
-
-			var color = isEmphasized ? Color.red : Color.yellow;
-			_indicator.SetVector4(_color, new Vector4(color.r, color.g, color.b, color.a));
+			_indicator.SetActive(isVisible);
 		}
 
 		/// <inheritdoc />
@@ -59,12 +55,25 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 
 		/// <inheritdoc />
-		public void SetTransformState(Vector2 position)
+		public void SetTransformState(Vector2 direction)
 		{
-			var move = position * _maxRange;
+			var move = direction * _maxRange;
+			var position = _playerTransform.position;
+
+			// Getting the position the special is going to drop on
+			position += new Vector3(move.x, 10f, move.y);
+			var ray = new Ray(position, Vector3.down);
+			if (Physics.Raycast(ray, out var raycastHit))
+			{
+				position = new Vector3(raycastHit.point.x, raycastHit.point.y, raycastHit.point.z);
+			}
+			else
+			{
+				// If there's no surface to drop the special on, we just define the y of the player
+				position = new Vector3(position.x, _playerTransform.position.y, position.z);
+			}
 			
-			_position = new Vector3(move.x, _localHeight, move.y);;
-			transform.position = _playerTransform.position + _position;
+			_position = position-_playerTransform.position;
 		}
 	}
 }

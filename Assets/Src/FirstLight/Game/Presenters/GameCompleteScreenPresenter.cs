@@ -4,10 +4,10 @@ using Cinemachine;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
-using FirstLight.Game.TimelinePlayables;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -21,38 +21,43 @@ namespace FirstLight.Game.Presenters
 	/// - Showing the Game Complete info
 	/// - Go to the main menu
 	/// </summary>
-	public class GameCompleteScreenPresenter : AnimatedUiPresenterData<GameCompleteScreenPresenter.StateData>, INotificationReceiver
+	public class GameCompleteScreenPresenter : AnimatedUiPresenterData<GameCompleteScreenPresenter.StateData>,
+	                                           INotificationReceiver
 	{
 		public struct StateData
 		{
 			public Action ContinueClicked;
 		}
-		
-		[SerializeField] private CinemachineVirtualCamera _playerProxyCamera;
-		[SerializeField] protected PlayableDirector _director;
-		[SerializeField] private TextMeshProUGUI _winningPlayerText;
-		[SerializeField] private TextMeshProUGUI _titleText;
-		[SerializeField] private Image _emojiImage;
-		[SerializeField] private Sprite _happyEmojiSprite;
-		[SerializeField] private Sprite _sickEmojiSprite;
-		[SerializeField] private Button _gotoResultsMenuButton;
+
+		[SerializeField, Required] private CinemachineVirtualCamera _playerProxyCamera;
+		[SerializeField, Required] protected PlayableDirector _director;
+		[SerializeField, Required] private GameObject _winningPlayerRoot;
+		[SerializeField, Required] private TextMeshProUGUI _winningPlayerText;
+		[SerializeField, Required] private TextMeshProUGUI _titleText;
+		[SerializeField, Required] private Image _emojiImage;
+		[SerializeField, Required] private Sprite _happyEmojiSprite;
+		[SerializeField, Required] private Sprite _sickEmojiSprite;
+		[SerializeField, Required] private Button _gotoResultsMenuButton;
+		[SerializeField, Required] private GameObject[] _shineAnimObjects;
 
 		private EntityRef _playerWinnerEntity;
 		private IEntityViewUpdaterService _entityService;
-		
+		private IGameServices _services;
+
 		private void Awake()
 		{
 			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
-			
+			_services = MainInstaller.Resolve<IGameServices>();
+
 			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
-			
+
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 		}
-		
+
 		public void OnNotify(Playable origin, INotification notification, object context)
 		{
 			var playVfxMarker = notification as PlayVfxMarker;
-			
+
 			if (playVfxMarker != null)
 			{
 				Services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
@@ -62,9 +67,9 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			
+
 			var cinemachineBrain = Camera.main.gameObject.GetComponent<CinemachineBrain>();
-			
+
 			foreach (var output in _director.playableAsset.outputs)
 			{
 				if (output.outputTargetType == typeof(CinemachineBrain))
@@ -72,14 +77,12 @@ namespace FirstLight.Game.Presenters
 					_director.SetGenericBinding(output.sourceObject, cinemachineBrain);
 				}
 			}
-			
+
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
-			var playerData = new List<QuantumPlayerMatchData>(matchData);
-			playerData.SortByPlayerRank();
-			var playerWinner = matchData[leader];
+			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = playerData[leader];
 
 			if (game.PlayerIsLocal(leader))
 			{
@@ -88,26 +91,55 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				var localPlayerData = playerData.Find(data => game.PlayerIsLocal(data.Data.Player));
-				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage, localPlayerData.PlayerRank + ((int)localPlayerData.PlayerRank).GetOrdinalTranslation());
+				if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+				{
+					_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
+				}
+				else
+				{
+					var localPlayerData = playerData[game.GetLocalPlayers()[0]];
+					var placement = ((int) localPlayerData.PlayerRank).GetOrdinalTranslation();
+
+					_emojiImage.sprite = _sickEmojiSprite;
+					_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage,
+					                                localPlayerData.PlayerRank + placement);
+				}
 			}
 
-			_winningPlayerText.text = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());
-			
-			Services.AudioFxService.PlayClip2D(AudioId.Victory1);
-			
+			if (container.IsGameOver)
+			{
+				_winningPlayerRoot.gameObject.SetActive(true);
+				foreach (var shine in _shineAnimObjects)
+				{
+					shine.SetActive(true);
+				}
+
+				_winningPlayerText.text =
+					string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());
+			}
+			else
+			{
+				foreach (var shine in _shineAnimObjects)
+				{
+					shine.SetActive(false);
+				}
+
+				_winningPlayerRoot.gameObject.SetActive(false);
+			}
+
+			Services.AudioFxService.PlayClip2D(AudioId.Victory);
+
 			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
-				
+
 				_playerProxyCamera.Follow = entityViewTransform;
 				_playerProxyCamera.LookAt = entityViewTransform;
 				_director.time = 0;
-				
+
 				_director.Play();
 			}
-			
+
 			_playerWinnerEntity = playerWinner.Data.Entity;
 		}
 
@@ -123,10 +155,9 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
+
 			_director.Stop();
 			_playerProxyCamera.gameObject.SetActive(false);
 		}
 	}
 }
-

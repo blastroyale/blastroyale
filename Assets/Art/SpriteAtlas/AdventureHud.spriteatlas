@@ -37,6 +37,8 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 24880832516b99b4097c5e0186d88f10, type: 3}
     - {fileID: 102900000, guid: 154453715f16d66419afedfd67420f80, type: 3}
     - {fileID: 102900000, guid: f32c1bd90aa444729b7a70530abfb1af, type: 3}
+    - {fileID: 102900000, guid: 710e2ad723eae42bcaa4adea1b906060, type: 3}
+    - {fileID: 102900000, guid: c8cd3b9167baf4282b5c3d0abb6aa5fc, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -45,12 +47,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d533b2002939d42b09f93ea5c5640482, type: 3}
   - {fileID: 21300000, guid: a9877810cf8dfcf45a22db5765ea87d1, type: 3}
   - {fileID: 21300000, guid: 657537604173846308db848529b8e666, type: 3}
+  - {fileID: 21300000, guid: 388f5070d8df04c05ac878003ea3a704, type: 3}
   - {fileID: 21300000, guid: 4f5bb9c04ad71274097f42d6b1bb830a, type: 3}
   - {fileID: 21300000, guid: 8b6bea0173d97c744befc64bceab542e, type: 3}
   - {fileID: 21300000, guid: 04395511ad9f3fa4caca419869ec6ba5, type: 3}
   - {fileID: 21300000, guid: d66d92d1e501e4d12b64f78788cdada0, type: 3}
   - {fileID: 21300000, guid: fffcdc323b176c44685847bb11a5ad2b, type: 3}
   - {fileID: 21300000, guid: 710393722a6aea44a91958ec48faf1df, type: 3}
+  - {fileID: 21300000, guid: 526a739286f93464497b3041da810a0f, type: 3}
   - {fileID: 21300000, guid: 015fefd294d197c47a6200192ed61102, type: 3}
   - {fileID: 21300000, guid: 07ff8b0340c7df94f8a4257a1a776eb7, type: 3}
   - {fileID: 21300000, guid: d39f12438282f3f4582fc4dbd4bed85d, type: 3}
@@ -58,11 +62,16 @@ SpriteAtlas:
   - {fileID: 21300000, guid: abae18041ec2b3a4d8d16772af05241d, type: 3}
   - {fileID: 21300000, guid: eea4c914f098743eb80820aef94b95ac, type: 3}
   - {fileID: 21300000, guid: 26a1063432a2745b0a994e82a0bc9845, type: 3}
+  - {fileID: 21300000, guid: 65a52d6474f8f414e96c8973ab997b49, type: 3}
+  - {fileID: 21300000, guid: ea89a8a4b3f6c483fb52e25040be2244, type: 3}
   - {fileID: 21300000, guid: b4f7eea4c12960a4f8ecb113e57816cd, type: 3}
+  - {fileID: 21300000, guid: 9ccf5dc46a77943c1bf581cbaa659694, type: 3}
   - {fileID: 21300000, guid: 8a3451f4b261249adbe672242c3c5331, type: 3}
   - {fileID: 21300000, guid: af51e505dca254a45a2f80602f9da72b, type: 3}
+  - {fileID: 21300000, guid: e825a725434e94dbb91dbdecdc6572bb, type: 3}
   - {fileID: 21300000, guid: 2a2d40756fab94e739899ed2cf53eb0a, type: 3}
   - {fileID: 21300000, guid: 3b8a9e85985ce4a449bd7f89d4887897, type: 3}
+  - {fileID: 21300000, guid: efcf9e958d69a4957955f85f86cc38fa, type: 3}
   - {fileID: 21300000, guid: 33cb72d57497e456cbd2b35f73065735, type: 3}
   - {fileID: 21300000, guid: 055d5ef54e3ec4ee6b338a4867b7c641, type: 3}
   - {fileID: 21300000, guid: 6899dd6601172446d9df3f5033afabe6, type: 3}
@@ -73,22 +82,29 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b5ab2e571ea004f279c320f066bb3105, type: 3}
   - {fileID: 21300000, guid: f26621d71421141298a9a8cf0dc80574, type: 3}
   - {fileID: 21300000, guid: 734058f7d1ddca14da41f2d56d253dd0, type: 3}
+  - {fileID: 21300000, guid: 8fb0ec6870d0c4c3f89a81afe077ea90, type: 3}
+  - {fileID: 21300000, guid: a988dd399d737497f8f2a7ffb9814be7, type: 3}
   - {fileID: 21300000, guid: 0655db597a744f2499c7bf098e161522, type: 3}
   - {fileID: 21300000, guid: 1eebf889d9952494995383a7a0401e09, type: 3}
   - {fileID: 21300000, guid: 4358f599f237f4186a501d2d73007520, type: 3}
   - {fileID: 21300000, guid: 0728f4e9144eb4d108dd24d2c71d79b7, type: 3}
   - {fileID: 21300000, guid: 21c78af9a15cc1a4191a60ce7e351b1d, type: 3}
   - {fileID: 21300000, guid: 3b67aef998e104d9ba413a8802c6d8d3, type: 3}
+  - {fileID: 21300000, guid: 2bdca20ab19094317ac8141735f1517f, type: 3}
   - {fileID: 21300000, guid: f80be77a76765442ea265f828dea7888, type: 3}
   - {fileID: 21300000, guid: ae74559a0e1790b4e8f8019c57128d83, type: 3}
   - {fileID: 21300000, guid: f399e6aa82350064fbf740f138c0f9c6, type: 3}
   - {fileID: 21300000, guid: 97826b1bcd8e6c04ca7aeb7b79cca1f9, type: 3}
   - {fileID: 21300000, guid: 715dca5ba7c7456438d4c122a0801205, type: 3}
+  - {fileID: 21300000, guid: 4cdc926b1dcce4247827b4a62daf35d3, type: 3}
+  - {fileID: 21300000, guid: 631b9a8b7ba764792b4e74e6faad59de, type: 3}
   - {fileID: 21300000, guid: 41e813cbb15b2406db58a4022b6efcca, type: 3}
   - {fileID: 21300000, guid: c4fa85fbe87b6f84c9eea5af0eca2341, type: 3}
   - {fileID: 21300000, guid: 523d402cd81de4cdc9fb5aaee7712622, type: 3}
   - {fileID: 21300000, guid: b3cf5e3cdd4314e8ca4f90d654141bc8, type: 3}
+  - {fileID: 21300000, guid: f1c8127c6813d4d4ca98d60991269065, type: 3}
   - {fileID: 21300000, guid: 0f00a1acb69574ad2a5863ef52275252, type: 3}
+  - {fileID: 21300000, guid: 5f0dd2bc9d9414af992280a95bf426d8, type: 3}
   - {fileID: 21300000, guid: 00d895ccfbba141c19d851d2646007a6, type: 3}
   - {fileID: 21300000, guid: f335cbcc9213a4dd292ffabe22ccf9c4, type: 3}
   - {fileID: 21300000, guid: c5d752fc5fa5d5b4fa3a069a455059cf, type: 3}
@@ -99,18 +115,24 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8e06afad60bdde94084d77a92cd0f4c7, type: 3}
   - {fileID: 21300000, guid: 26ba52ed9051d423dbfe823488a7abfc, type: 3}
   - {fileID: 21300000, guid: 113fd59e86fa6524a972547df6cc8459, type: 3}
+  - {fileID: 21300000, guid: 16af00de8cfad4fefb09acb32ea6e68c, type: 3}
+  - {fileID: 21300000, guid: 5abba8fe7cf9d48a8b95b6f82d82773d, type: 3}
   - {fileID: 21300000, guid: bd5d2d0f52715473ca58a463cc941357, type: 3}
   - {fileID: 21300000, guid: 23beb82f33697664a8e8e12ace7b93f5, type: 3}
+  - {fileID: 21300000, guid: ddaf3b2f1f5294775bf485c5459fd521, type: 3}
+  - {fileID: 21300000, guid: f72f4e9f33524419caa8e91fdea624a5, type: 3}
   m_PackedSpriteNamesToIndex:
   - DefaultIndicatorBase
   - LootIndicatorIcon
   - BossIndicatorOutside
+  - WeaponNameBg
   - HUDRankBackground
   - SpeedPill
   - QuestBarFill
   - PlayerIndicatorFace
   - MovementIndicatorStar
   - JoystickAutoAim
+  - AirplaneIcon
   - JoystickThumbRight
   - CircleWipe
   - Female01Avatar
@@ -118,11 +140,16 @@ SpriteAtlas:
   - HUD_Coin
   - HealthBarShine
   - SpecialRing
+  - Timer
+  - AirdropLight
   - WhiteRound
+  - SmearNewWhite
   - 2Countdown
   - Joystick_Background
+  - SmallArrow
   - TimerBase
   - ReviveArrow
+  - LightRays
   - EnemyIndicatorBase
   - SmearSpecial
   - GOCountdown
@@ -133,22 +160,29 @@ SpriteAtlas:
   - 3Countdown
   - DiagonalWiper
   - Female02Avatar
+  - TimerBack
+  - LightRaysColor
   - JoystickThumbLeft
   - SkullKing
   - SpecialButtonDirectional
   - Joystick_Handle_Aim
   - JoystickAutoAimBase
   - 1Countdown
+  - PlayerIndicator
   - SkullKillCount
   - Male01Avatar
   - QuestBarQuestFill
   - BossArrow
   - EnemyRadialIndicator
+  - ParachuteIcon
+  - MapFadeBig
   - LootIndicatorBase
   - PowerPill
   - HealthBar
   - EnemyIndicatorFace
+  - AirdropIcon
   - CheqFlag
+  - MapBigMask
   - BossIndicatorInside
   - Joystick_Handle_Move
   - PlayerAvatarKO
@@ -159,8 +193,12 @@ SpriteAtlas:
   - QuestBar
   - SpecialButton
   - PlayerLeft
+  - SmearNewShadow
+  - RaritiesNameTemp
   - PlayerIndicatorFaceKO
   - HUD_AdventureCoin
+  - RadiusDirectionLine
+  - SmearHighlighted
   m_RenderDataMap: {}
   m_Tag: AdventureHud
   m_IsVariant: 0

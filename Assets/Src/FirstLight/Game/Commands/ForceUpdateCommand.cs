@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -26,6 +27,7 @@ namespace FirstLight.Game.Commands
 		public PlayerData PlayerData;
 		public RngData RngData;
 		public IdData IdData;
+		public NftEquipmentData NftEquipmentData;
 		
 		/// <inheritdoc />
 		public CommandAccessLevel AccessLevel => CommandAccessLevel.Admin;
@@ -35,27 +37,19 @@ namespace FirstLight.Game.Commands
 		{
 			if (PlayerData != null)
 			{
-				CopyPropertiesShallow(PlayerData, dataProvider.GetData<PlayerData>());
+				PlayerData.CopyPropertiesShallowTo(dataProvider.GetData<PlayerData>());
 			}
 			if (RngData != null)
 			{
-				CopyPropertiesShallow(RngData, dataProvider.GetData<RngData>());
+				RngData.CopyPropertiesShallowTo(dataProvider.GetData<RngData>());
 			}
 			if (IdData != null)
 			{
-				CopyPropertiesShallow(IdData, dataProvider.GetData<IdData>());
+				IdData.CopyPropertiesShallowTo(dataProvider.GetData<IdData>());
 			}
-		}
-		
-		/// <summary>
-		/// Copy properties from one model to another.
-		/// Only a shallow copy.
-		/// </summary>
-		private static void CopyPropertiesShallow<T>(T source, T dest)
-		{
-			foreach (var property in typeof(T).GetProperties().Where(p => p.CanWrite))
+			if (NftEquipmentData != null)
 			{
-				property.SetValue(dest, property.GetValue(source, null), null);
+				NftEquipmentData.CopyPropertiesShallowTo(dataProvider.GetData<NftEquipmentData>());
 			}
 		}
 	}

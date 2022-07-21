@@ -1,43 +1,40 @@
-﻿using Photon.Deterministic;
+using Photon.Deterministic;
 
 namespace Quantum 
 {
 	unsafe partial class RuntimePlayer
 	{
+		public string PlayerId;
 		public string PlayerName;
 		public GameId Skin;
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
 		public FPVector2 NormalizedSpawnPosition;
-		public Equipment Weapon;
-		public Equipment[] Gear;
+		public Equipment[] Loadout;
 
 		partial void SerializeUserData(BitStream stream)
 		{
 			var serializer = new FrameSerializer(DeterministicFrameSerializeMode.Serialize, null, stream);
 			var skin = (int) Skin;
-			var localWeapon = Weapon;
-			
+
+			stream.Serialize(ref PlayerId);
 			stream.Serialize(ref PlayerName);
 			stream.Serialize(ref skin);
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
-			stream.SerializeArrayLength(ref Gear);
+			stream.SerializeArrayLength(ref Loadout);
 
-			for (var i = 0; i < Gear.Length; i++)
+			for (var i = 0; i < Loadout.Length; i++)
 			{
-				var localGear = Gear[i];
+				var localGear = Loadout[i];
 				
 				Equipment.Serialize(&localGear, serializer);
 
-				Gear[i] = localGear;
+				Loadout[i] = localGear;
 			}
-			
-			Equipment.Serialize(&localWeapon, serializer);
 
 			Skin = (GameId) skin;
-			Weapon = localWeapon;
 		}
 	}
 }

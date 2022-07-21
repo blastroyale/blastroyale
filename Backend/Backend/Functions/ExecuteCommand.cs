@@ -1,12 +1,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Context;
-using Backend.Game;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using PlayFab;
 
 namespace Backend.Functions;
 
@@ -16,9 +15,9 @@ namespace Backend.Functions;
 /// </summary>
 public class ExecuteCommand
 {
-	private GameServer _server;
+	private ILogicWebService _server;
 	
-	public ExecuteCommand(GameServer server)
+	public ExecuteCommand(ILogicWebService server)
 	{
 		_server = server;
 	}
@@ -30,13 +29,9 @@ public class ExecuteCommand
 	public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
 	                                               HttpRequestMessage req, ILogger log)
 	{
-		// TODO: Player semaphore check for atomicity
 		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 		var playerId = context.AuthenticationContext.PlayFabId;
-		var logicRequest = context.FunctionArgument;
-		return new PlayFabResult<BackendLogicResult>
-		{
-			Result = _server.RunLogic(playerId, logicRequest)
-		};
+		log.LogDebug($"{playerId} running {context.FunctionArgument.Command}");
+		return await _server.RunLogic(playerId, context.FunctionArgument);
 	}
 }

@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 // ReSharper disable once CheckNamespace
 
-namespace FistLightEditor.DataExtensions.Tests
+namespace FirstLightEditor.DataExtensions.Tests
 {
 	[TestFixture]
 	public class ObservableFieldTest

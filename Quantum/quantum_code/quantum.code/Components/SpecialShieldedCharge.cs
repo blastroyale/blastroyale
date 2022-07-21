@@ -71,13 +71,14 @@ namespace Quantum
 			}
 			
 			var chargeDuration = chargeDistance / special.Speed;
+
 			var chargeComponent = new PlayerCharging
 			{
 				ChargeDuration = chargeDuration,
 				ChargeStartPos = attackerPosition,
 				ChargeEndPos = targetPosition,
 				ChargeStartTime = f.Time,
-				PowerAmount = special.PowerAmount
+				PowerAmount = special.SpecialPower,
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);

@@ -31,18 +31,14 @@ namespace FirstLight.Game.Logic
 		IRngDataProvider RngDataProvider { get; }
 		/// <inheritdoc cref="ICurrencyDataProvider"/>
 		ICurrencyDataProvider CurrencyDataProvider { get; }
+		/// <inheritdoc cref="IResourceDataProvider"/>
+		IResourceDataProvider ResourceDataProvider { get; }
 		/// <inheritdoc cref="IPlayerDataProvider"/>
 		IPlayerDataProvider PlayerDataProvider { get; }
-		/// <inheritdoc cref="IMatchDataProvider"/>
-		IMatchDataProvider MatchDataProvider { get; }
 		/// <inheritdoc cref="IEquipmentDataProvider"/>
 		IEquipmentDataProvider EquipmentDataProvider { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardDataProvider RewardDataProvider { get; }
-		/// <inheritdoc cref="ILootBoxDataProvider"/>
-		ILootBoxDataProvider LootBoxDataProvider { get; }
-		/// <inheritdoc cref="ITrophyRoadDataProvider"/>
-		ITrophyRoadDataProvider TrophyRoadDataProvider { get; }
 	}
 
 	/// <summary>
@@ -69,18 +65,14 @@ namespace FirstLight.Game.Logic
 		IRngLogic RngLogic { get; }
 		/// <inheritdoc cref="ICurrencyLogic"/>
 		ICurrencyLogic CurrencyLogic { get; }
+		/// <inheritdoc cref="IResourceLogic"/>
+		IResourceLogic ResourceLogic { get; }
 		/// <inheritdoc cref="IPlayerLogic"/>
 		IPlayerLogic PlayerLogic { get; }
-		/// <inheritdoc cref="IMatchLogic"/>
-		IMatchLogic MatchLogic { get; }
 		/// <inheritdoc cref="IEquipmentLogic"/>
 		IEquipmentLogic EquipmentLogic { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardLogic RewardLogic { get; }
-		/// <inheritdoc cref="ILootBoxLogic"/>
-		ILootBoxLogic LootBoxLogic { get; }
-		/// <inheritdoc cref="ITrophyRoadLogic"/>
-		ITrophyRoadLogic TrophyRoadLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
@@ -105,18 +97,13 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public ICurrencyDataProvider CurrencyDataProvider => CurrencyLogic;
 		/// <inheritdoc />
-		public IPlayerDataProvider PlayerDataProvider => PlayerLogic;
+		public IResourceDataProvider ResourceDataProvider => ResourceLogic;
 		/// <inheritdoc />
-		public IMatchDataProvider MatchDataProvider => MatchLogic;
+		public IPlayerDataProvider PlayerDataProvider => PlayerLogic;
 		/// <inheritdoc />
 		public IEquipmentDataProvider EquipmentDataProvider => EquipmentLogic;
 		/// <inheritdoc />
 		public IRewardDataProvider RewardDataProvider => RewardLogic;
-		/// <inheritdoc />
-		public ILootBoxDataProvider LootBoxDataProvider => LootBoxLogic;
-		/// <inheritdoc />
-		public ITrophyRoadDataProvider TrophyRoadDataProvider => TrophyRoadLogic;
-
 		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
 		/// <inheritdoc />
@@ -126,18 +113,15 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public ICurrencyLogic CurrencyLogic { get; }
 		/// <inheritdoc />
-		public IPlayerLogic PlayerLogic { get; }
+		public IResourceLogic ResourceLogic { get; }
+
 		/// <inheritdoc />
-		public IMatchLogic MatchLogic { get; }
+		public IPlayerLogic PlayerLogic { get; }
 
 		/// <inheritdoc />
 		public IEquipmentLogic EquipmentLogic { get; }
 		/// <inheritdoc />
 		public IRewardLogic RewardLogic { get; }
-		/// <inheritdoc />
-		public ILootBoxLogic LootBoxLogic { get; }
-		/// <inheritdoc />
-		public ITrophyRoadLogic TrophyRoadLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
 		                 IAnalyticsService analyticsService, IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
@@ -151,12 +135,10 @@ namespace FirstLight.Game.Logic
 			UniqueIdLogic = new UniqueIdLogic(this, dataProvider);
 			RngLogic = new RngLogic(this, dataProvider);
 			CurrencyLogic = new CurrencyLogic(this, dataProvider);
+			ResourceLogic = new ResourceLogic(this, dataProvider);
 			PlayerLogic = new PlayerLogic(this, dataProvider);
-			EquipmentLogic = new EquipmentLogic(this, dataProvider);
-			MatchLogic = new MatchLogic(this, dataProvider);
+			EquipmentLogic = new NftEquipmentLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
-			LootBoxLogic = new LootBoxLogic(this, dataProvider);
-			TrophyRoadLogic = new TrophyRoadLogic(this, dataProvider);
 		}
 
 		/// <inheritdoc />
@@ -165,11 +147,12 @@ namespace FirstLight.Game.Logic
 			// ReSharper disable PossibleNullReferenceException
 			
 			(AppLogic as IGameLogicInitializer).Init();
-			(MatchLogic as IGameLogicInitializer).Init();
-			(EquipmentLogic as IGameLogicInitializer).Init();
-			(CurrencyLogic as IGameLogicInitializer).Init();
-			(PlayerLogic as IGameLogicInitializer).Init();
 			(UniqueIdLogic as IGameLogicInitializer).Init();
+			(CurrencyLogic as IGameLogicInitializer).Init();
+			(ResourceLogic as IGameLogicInitializer).Init();
+			(PlayerLogic as IGameLogicInitializer).Init();
+			(EquipmentLogic as IGameLogicInitializer).Init();
+			(RewardLogic as IGameLogicInitializer).Init();
 		}
 	}
 }

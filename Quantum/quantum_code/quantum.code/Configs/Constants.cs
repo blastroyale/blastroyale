@@ -9,6 +9,11 @@ namespace Quantum
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_75;
+		public static readonly int DROP_AMOUNT_ANGLES = 14;
+		public static readonly int BOT_DIFFICULTY_LEVEL = 1;
+		public static readonly int OFFHAND_POOLSIZE = 20;
+		public static readonly FP BOT_STUCK_DETECTION_DISTANCE = FP._0_50;
+		public static readonly int BURST_INTERVAL_DIVIDER = 3;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";
@@ -18,18 +23,10 @@ namespace Quantum
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string MoveDirectionKey = "MoveDirection";
 		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
+		public static readonly string BurstTimeDelay = "BurstTimeDelay";
+		public static readonly string BurstShotCount = "BurstShotCount";
+		public static readonly string RampUpTimeStart = "RampUpTimeStart";
 		public static readonly string IsAimingKey = "IsAiming";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
-		public static readonly FP RaycastAngleSplit = FP._1 * 10;
-		
-		public static readonly GameIdGroup[] EquipmentSlots = new GameIdGroup[Constants.EQUIPMENT_SLOT_COUNT]
-		{
-			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Boots, GameIdGroup.Helmet, GameIdGroup.Shield,
-			GameIdGroup.Weapon
-		};
-		public static readonly GameIdGroup[] GearSlots = new GameIdGroup[Constants.EQUIPMENT_SLOT_COUNT-1]
-		{
-			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Boots, GameIdGroup.Helmet, GameIdGroup.Shield
-		};
 	}
 }

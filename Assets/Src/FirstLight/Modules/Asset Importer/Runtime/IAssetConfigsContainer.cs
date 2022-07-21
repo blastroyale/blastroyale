@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Serialization;
 
 // ReSharper disable once CheckNamespace
 
@@ -13,8 +15,8 @@ namespace FirstLight.AssetImporter
 	/// </summary>
 	public abstract class AssetConfigScriptableObject : ScriptableObject
 	{
-		[SerializeField] private string _assetsFolderPath;
-		
+		[FolderPath] [SerializeField] private string _assetsFolderPath;
+
 		/// <summary>
 		/// Returns the folder path of the assets to be referenced in this container
 		/// </summary>
@@ -24,7 +26,7 @@ namespace FirstLight.AssetImporter
 			set => _assetsFolderPath = value;
 		}
 	}
-	
+
 	/// <inheritdoc cref="AssetConfigsScriptableObject{TKey,TValue}"/>
 	public abstract class AssetConfigsScriptableObject : AssetConfigScriptableObject
 	{
@@ -33,17 +35,18 @@ namespace FirstLight.AssetImporter
 		/// </summary>
 		public abstract Type AssetType { get; }
 	}
-	
+
 	/// <inheritdoc cref="IPairConfigsContainer{TKey,TValue}"/>
 	/// <remarks>
 	/// Use this configs container to hold the configs data of assets of the given <typeparamref name="TAsset"/>
 	/// mapped with the given <typeparamref name="TId"/>
 	/// </remarks>
-	public abstract class AssetConfigsScriptableObject<TId, TAsset> : 
+	public abstract class AssetConfigsScriptableObject<TId, TAsset> :
 		AssetConfigsScriptableObject, IPairConfigsContainer<TId, AssetReference>, ISerializationCallbackReceiver
 		where TId : struct
 	{
-		[SerializeField] private List<Pair<TId, AssetReference>> _configs = new List<Pair<TId, AssetReference>>();
+		[TableList(AlwaysExpanded = true)] [SerializeField]
+		private List<Pair<TId, AssetReference>> _configs = new();
 
 		/// <inheritdoc />
 		public override Type AssetType => typeof(TAsset);
@@ -70,7 +73,7 @@ namespace FirstLight.AssetImporter
 		public virtual void OnAfterDeserialize()
 		{
 			var dictionary = new Dictionary<TId, AssetReference>();
-			
+
 			foreach (var config in Configs)
 			{
 				dictionary.Add(config.Key, config.Value);

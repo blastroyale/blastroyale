@@ -5,28 +5,37 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumWeaponConfig
+	public struct QuantumWeaponConfig
 	{
 		public GameId Id;
-		public AssetRefEntityPrototype AssetRef;
-		public FP InitialAmmoFilled;
-		public int MaxAmmo;
-		public FP PowerRatioToBase;
+		public QuantumGameModePair<FP> InitialAmmoFilled;
+		public QuantumGameModePair<int> MaxAmmo;
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
 		public FP AttackHitSpeed;
-		public uint AttackAngle;
+		public uint MinAttackAngle;
+		public uint MaxAttackAngle;
+		public uint NumberOfShots;
+		public uint NumberOfBursts;
 		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;
+		public FP SplashDamageRatio;
 		public List<GameId> Specials;
+		public FP InitialAttackCooldown;
+		public FP InitialAttackRampUpTime;
+		public uint KnockbackAmount;
 
 		/// <summary>
 		/// Requests if this config is from a melee weapon
+		/// <remarks>
+		/// We check this against the BattleRoyale value, but it's always
+		/// the same for both BR and DM.
+		/// </remarks>
 		/// </summary>
-		public bool IsMeleeWeapon => MaxAmmo < 0;
+		public bool IsMeleeWeapon => MaxAmmo.BattleRoyale < 0;
 	}
 
 	/// <summary>
@@ -40,7 +49,7 @@ namespace Quantum
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
 
 		/// <summary>
-		/// Requests the <see cref="QuantumGearConfig"/> of the given enemy <paramref name="gameId"/>
+		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumWeaponConfig GetConfig(GameId gameId)
 		{

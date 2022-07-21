@@ -1,0 +1,46 @@
+# Game Logic build and release pipeline
+# This pipeline is respsonsible for building the game logic code and pushing it to the artifact repository
+# as a nuget package.
+
+name: $(Rev:r)
+
+trigger:
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - Backend
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: game_logic_build_and_pack
+  displayName: Build and pack game logic
+  steps:
+  - checkout: self
+    lfs: true
+
+  - script: dotnet build
+    workingDirectory: Backend
+    displayName: 'Dotnet Build'
+
+  - script: dotnet test TestUnit/TestUnit.csproj
+    workingDirectory: Backend
+    displayName: 'Dotnet Test'
+
+  - script: dotnet pack /p:IsPackable=True /p:PackageVersion=$(Major).$(Minor).$(Build.BuildNumber)
+    workingDirectory: Backend
+    displayName: 'Dotnet Pack'
+
+  - task: NuGetAuthenticate@0
+    displayName: 'NuGet Authenticate'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet push'
+    inputs:
+      command: push
+      packagesToPush: $(System.DefaultWorkingDirectory)/**/*.nupkg;!$(System.DefaultWorkingDirectory)/**/*.symbols.nupkg
+      publishVstsFeed: 'blast-royale/feed'
+      allowPackageConflicts: true

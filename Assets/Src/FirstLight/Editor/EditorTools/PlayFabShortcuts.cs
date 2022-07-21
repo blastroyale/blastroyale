@@ -1,4 +1,7 @@
 using System;
+using System.Net.Http;
+using FirstLight.FLogger;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEditor;
@@ -30,7 +33,12 @@ namespace FirstLight.Editor.EditorTools
 					}, null, OnPlayFabError);
 				}
 				
-				Debug.Log($"# Deleting {result.PlayerProfiles.Count.ToString()} Players");
+				FLog.Info($"# Deleting {result.PlayerProfiles.Count.ToString()} Players");
+
+				var task = new HttpClient().DeleteAsync("https://devmarketplaceapi.azure-api.net/accounts/admin/unlinkall?key=devkey");
+				task.Wait();
+
+				FLog.Info("Accounts wallets unlinked");
 			}
 		}
 
@@ -126,14 +134,18 @@ namespace FirstLight.Editor.EditorTools
 					}
 				}
 				
-				Debug.Log($"# Obtained {result.Segments.Count.ToString()} Segments");
+				FLog.Info($"# Obtained {result.Segments.Count.ToString()} Segments");
 			}
 		}
 #endif
 
 		private static void OnPlayFabError(PlayFabError result)
 		{
-			Debug.LogError($"PlayFab Error {result.Error} - {result.ErrorMessage}");
+			FLog.Error($"PlayFab Error {result.Error} - {result.ErrorMessage}");
+			if (result.ErrorDetails != null)
+			{
+				FLog.Error(JsonConvert.SerializeObject(result.ErrorDetails));
+			}
 		}
 	}
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Text;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -7,10 +7,10 @@ using Quantum;
 using TMPro;
 using UnityEngine;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum.Commands;
+using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -21,22 +21,20 @@ namespace FirstLight.Game.Presenters
 	/// </summary>		
 	public class MatchHudPresenter : UiPresenter
 	{
-		[SerializeField] private Animation _animation;
-		[SerializeField] private AnimationClip _introAnimationClip;
-		[SerializeField] private GameObject _connectionIcon;
-		[SerializeField] private Button _quitButton;
+		[SerializeField, Required] private Animation _animation;
+		[SerializeField, Required] private AnimationClip _introAnimationClip;
+		[SerializeField, Required] private GameObject _connectionIcon;
+		[SerializeField, Required] private Button _quitButton;
 		[SerializeField] private Button[] _standingsButtons;
-		[SerializeField] private Button _leaderButton;
-		[SerializeField] private StandingsHolderView _standings;
-		[SerializeField] private TextMeshProUGUI _mapStatusText;
-		[SerializeField] private LeaderHolderView _leaderHolderView;
-		[SerializeField] private ScoreHolderView _scoreHolderView;
-		[SerializeField] private MapTimerView _mapTimerView;
-		[SerializeField] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
-		[SerializeField] private ContendersLeftHolderView _contendersLeftHolderView;
-		[SerializeField] private GameObject _weaponSlotsHolder;
-		[SerializeField] private Button[] _weaponSlotButtons;
-		[SerializeField] private GameObject _minimapHolder;
+		[SerializeField, Required] private Button _leaderButton;
+		[SerializeField, Required] private StandingsHolderView _standings;
+		[SerializeField, Required] private TextMeshProUGUI _mapStatusText;
+		[SerializeField, Required] private LeaderHolderView _leaderHolderView;
+		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
+		[SerializeField, Required] private MapTimerView _mapTimerView;
+		[SerializeField, Required] private ContendersLeftView _contendersLeftHolderView;
+		[SerializeField, Required] private GameObject _minimapHolder;
+		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -52,25 +50,28 @@ namespace FirstLight.Game.Presenters
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
 
-			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
-			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
-			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
-
+			_services.NetworkService.HasLag.InvokeObserve(OnLag);
+			_leaderButton.onClick.AddListener(OnStandingsClicked);
+			_quitButton.onClick.AddListener(OnQuitClicked);
+			_quitButton.gameObject.SetActive(Debug.isDebugBuild || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator());
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
-			_leaderButton.onClick.AddListener(OnStandingsClicked);
-			_quitButton.gameObject.SetActive(Debug.isDebugBuild);
-			_quitButton.onClick.AddListener(OnQuitClicked);
-			_services.NetworkService.HasLag.InvokeObserve(OnLag);
-
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle, onlyIfActiveAndEnabled: true);
-
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
-			_contendersLeftHolderMessageView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
+
+			#if DEVELOPMENT_BUILD
+			if (SROptions.Current.EnableEquipmentDebug)
+			{
+				_equippedDebugText.gameObject.SetActive(true);
+				QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
+			}
+			else
+			#endif
+			{
+				_equippedDebugText.gameObject.SetActive(false);
+			}
 		}
 
 		private void OnDestroy()
@@ -81,20 +82,18 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
 
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_leaderHolderView.gameObject.SetActive(!isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
+
+			_standings.Initialise(frame.PlayerCount, false, true);
 		}
 
 		private void OnQuitClicked()
@@ -107,43 +106,52 @@ namespace FirstLight.Game.Presenters
 			_connectionIcon.SetActive(hasLag);
 		}
 
-		private void OnMatchStarted(MatchStartedMessage message)
-		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
-
-			if (isBattleRoyale)
-			{
-				_mapTimerView.UpdateShrinkingCircle(game.Frames.Predicted, frame.GetSingleton<ShrinkingCircle>());
-			}
-		}
-
-		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
-		{
-			_mapTimerView.UpdateShrinkingCircle(callback.Game.Frames.Predicted, callback.ShrinkingCircle);
-		}
-
 		private void OnStandingsClicked()
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(frame, out _));
-			var isBattleRoyale = frame.RuntimeConfig.GameMode == GameMode.BattleRoyale;
+			var playerData = container.GetPlayersMatchData(frame, out _);
 
+			_standings.UpdateStandings(playerData);
 			_standings.gameObject.SetActive(true);
-			_standings.Initialise(playerData, isBattleRoyale);
 		}
 
-		private void OnWeaponSlotClicked(int weaponSlotIndex)
+		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
 		{
-			var command = new WeaponSlotSwitchCommand()
-			{
-				WeaponSlotIndex = weaponSlotIndex
-			};
+			var playerCharacter = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 
-			QuantumRunner.Default.Game.SendCommand(command);
+			var sb = new StringBuilder();
+
+			sb.AppendLine("Weapon:");
+			AppendEquipmentDebugText(sb, playerCharacter.CurrentWeapon);
+
+			sb.AppendLine("\nGear:");
+			for (int i = 0; i < playerCharacter.Gear.Length; i++)
+			{
+				var gear = playerCharacter.Gear[i];
+				if (gear.IsValid())
+				{
+					AppendEquipmentDebugText(sb, gear);
+				}
+			}
+
+			_equippedDebugText.text = sb.ToString();
+		}
+
+		private static void AppendEquipmentDebugText(StringBuilder sb, Equipment equipment)
+		{
+			sb.AppendLine(equipment.GameId.ToString());
+
+			sb.Append(equipment.Adjective.ToString());
+			sb.Append(" Level ");
+			sb.Append(equipment.Level);
+			sb.Append(" ");
+			sb.AppendLine(equipment.Grade.ToString());
+
+			sb.Append(equipment.Faction.ToString());
+			sb.Append(" ");
+			sb.AppendLine(equipment.Rarity.ToString());
+			sb.AppendLine();
 		}
 	}
 }

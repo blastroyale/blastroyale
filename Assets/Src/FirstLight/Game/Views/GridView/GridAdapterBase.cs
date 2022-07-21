@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
-using frame8.Logic.Misc.Other.Extensions;
 using Com.TheFallenGames.OSA.CustomAdapters.GridView;
 using Com.TheFallenGames.OSA.DataHelpers;
 using System.Collections;

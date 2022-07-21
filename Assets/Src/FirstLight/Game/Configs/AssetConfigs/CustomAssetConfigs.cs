@@ -1,6 +1,5 @@
-using System;
-using FirstLight.AssetImporter;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -12,13 +11,12 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	[CreateAssetMenu(fileName = "CustomAssetConfigs", menuName = "ScriptableObjects/AssetConfigs/CustomAssetConfigs")]
 	public class CustomAssetConfigs : QuantumAssetConfigsAsset
 	{
-		public AssetReferenceGameObject ErrorCube;
-		public AssetReferenceSprite ErrorSprite;
-		public AssetReferenceT<AudioClip> ErrorClip;
-		public AssetReferenceT<Material> ErrorMaterial;
-		public AssetRefEntityPrototype ConsumablePrototype;
-		public AssetRefEntityPrototype WeaponPickUpPrototype;
-		
+		[Required] public AssetReferenceGameObject ErrorCube;
+		[Required] public AssetReferenceSprite ErrorSprite;
+		[Required] public AssetReferenceT<AudioClip> ErrorClip;
+		[Required] public AssetReferenceT<Material> ErrorMaterial;
+		[Required] public AssetRefEntityPrototype ConsumablePrototype;
+
 		public QuantumAssetConfigs AssetsConfig
 		{
 			get => Settings;

@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130999
 --- !u!114 &7759819178220615278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,9 +1243,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 0.9}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 4597082287453976392}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!114 &4653538354760085548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,7 +1264,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 635}
 --- !u!222 &5624455960684286865
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2093,9 +2096,12 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 0.9}
   HapticType: 9
-  TapSoundFx: 18
   Anchor: {fileID: 7721676766063524768}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  IsForward: 1
+  OverrideSfx: 0
+  OverrideSfxClip:
+    _selection: MainMenuStart
 --- !u!114 &7721676766767409977
 MonoBehaviour:
   m_ObjectHideFlags: 0

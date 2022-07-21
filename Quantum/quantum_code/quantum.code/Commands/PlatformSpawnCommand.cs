@@ -1,5 +1,3 @@
-
-using System;
 using Photon.Deterministic;
 
 namespace Quantum.Commands
@@ -11,12 +9,12 @@ namespace Quantum.Commands
 	{
 		public FPVector3 Position;
 		public GameId Weapon;
-		
+
 		/// <inheritdoc />
 		public override void Serialize(BitStream stream)
 		{
 			var weapon = (int) Weapon;
-			
+
 			stream.Serialize(ref Position);
 			stream.Serialize(ref weapon);
 
@@ -27,9 +25,10 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var config = f.WeaponConfigs.GetConfig(Weapon);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
-			
-			f.Unsafe.GetPointer<WeaponCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity, config);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
+
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity,
+			                                                        new Equipment(config.Id));
 		}
 	}
 }

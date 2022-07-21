@@ -1,4 +1,3 @@
-using FirstLight.Game.Configs;
 using Quantum;
 using UnityEngine;
 

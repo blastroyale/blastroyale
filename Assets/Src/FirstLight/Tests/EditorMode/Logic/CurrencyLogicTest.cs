@@ -1,6 +1,14 @@
+using System;
+using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
+using NSubstitute;
 using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
 
@@ -23,11 +31,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.SC, 0));
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, 0));
 			
-			_currencyLogic.AddCurrency(GameId.SC, amount);
+			_currencyLogic.AddCurrency(GameId.CS, amount);
 			
-			Assert.AreEqual(amount, _currencyLogic.GetCurrencyAmount(GameId.SC));
+			Assert.AreEqual(amount, _currencyLogic.GetCurrencyAmount(GameId.CS));
 		}
 
 		[Test]
@@ -35,11 +43,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.SC, amount));
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, amount));
 			
-			_currencyLogic.DeductCurrency(GameId.SC, amount);
+			_currencyLogic.DeductCurrency(GameId.CS, amount);
 			
-			Assert.AreEqual(0, _currencyLogic.GetCurrencyAmount(GameId.SC));
+			Assert.AreEqual(0, _currencyLogic.GetCurrencyAmount(GameId.CS));
 		}
 
 		[Test]
@@ -47,9 +55,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			const int amount = 100;
 			
-			SetData(new Pair<GameId, uint>(GameId.SC, amount));
+			SetCurrencyData(new Pair<GameId, uint>(GameId.CS, amount));
 			
-			Assert.Throws<LogicException>(() => _currencyLogic.DeductCurrency(GameId.SC, amount * 3));
+			Assert.Throws<LogicException>(() => _currencyLogic.DeductCurrency(GameId.CS, amount * 3));
 		}
 
 		[Test]
@@ -60,7 +68,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.Throws<LogicException>(() => _currencyLogic.GetCurrencyAmount(GameId.Random));
 		}
 
-		private void SetData(params Pair<GameId, uint>[] currencies)
+		private void SetCurrencyData(params Pair<GameId, uint>[] currencies)
 		{
 			foreach (var pair in currencies)
 			{

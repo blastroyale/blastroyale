@@ -86,7 +86,7 @@ namespace FirstLight.Services
 
 		public CoroutineService()
 		{
-			var gameObject = new GameObject(typeof(CoroutineServiceMonoBehaviour).Name);
+			var gameObject = new GameObject(nameof(CoroutineServiceMonoBehaviour));
 
 			_serviceObject = gameObject.AddComponent<CoroutineServiceMonoBehaviour>();
 			

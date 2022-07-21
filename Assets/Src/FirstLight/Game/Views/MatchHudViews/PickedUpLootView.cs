@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 namespace FirstLight.Game.Views.AdventureHudViews
 {
@@ -10,9 +11,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class PickedUpLootView : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _quantityText;
-		[SerializeField] private DOTweenAnimation _doTweenAnimation;
-		[SerializeField] private Image _lootBoxImage;
+		[SerializeField, Required] private TextMeshProUGUI _quantityText;
+		[SerializeField, Required] private DOTweenAnimation _doTweenAnimation;
+		[SerializeField, Required] private Image _lootBoxImage;
 
 		private int _quantity;
 

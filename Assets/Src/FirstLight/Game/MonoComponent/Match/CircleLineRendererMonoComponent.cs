@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -8,7 +9,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	public class CircleLineRendererMonoComponent : MonoBehaviour
 	{
 		[SerializeField] private float _lineWidth = 1;
-		[SerializeField] private LineRenderer _lineRenderer;
+		[SerializeField, Required] private LineRenderer _lineRenderer;
 	
 		/// <summary>
 		/// Set an overall multiplier that is applied to the LineRenderer.widthCurve to get the final width of the line.

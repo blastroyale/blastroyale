@@ -4944,5 +4944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fba9b3fb7742a1ad7c7df1962b44d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 32
+  _id:
+    _selection: GrenadeStunParabolic
   _rigidbody: {fileID: 9037723210036607422}

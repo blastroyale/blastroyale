@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
+using UnityEngine;
 
 namespace I2.Loc
 {
@@ -37,11 +37,8 @@ namespace I2.Loc
 
         public string GetTranslation (string term, string overrideLanguage = null, string overrideSpecialization = null, bool skipDisabled = false, bool allowCategoryMistmatch = false)
 		{
-			string Translation;
-			if (TryGetTranslation(term, out Translation, overrideLanguage:overrideLanguage, overrideSpecialization:overrideSpecialization, skipDisabled:skipDisabled, allowCategoryMistmatch:allowCategoryMistmatch))
-				return Translation;
-
-			return string.Empty;
+			TryGetTranslation(term, out string translation, overrideLanguage:overrideLanguage, overrideSpecialization:overrideSpecialization, skipDisabled:skipDisabled, allowCategoryMistmatch:allowCategoryMistmatch);
+			return translation;
 		}
 
 		public bool TryGetTranslation (string term, out string Translation, string overrideLanguage=null, string overrideSpecialization=null, bool skipDisabled=false, bool allowCategoryMistmatch=false)
@@ -74,7 +71,8 @@ namespace I2.Loc
 				if (OnMissingTranslation == MissingTranslationAction.ShowWarning)
 				{
 					Translation = $"<!-Missing Translation [{term}]-!>";
-					return true;
+					Debug.LogWarning($"Missing Translation for '{term}'", Localize.CurrentLocalizeComponent);
+					return false;
 				}
 
 				if (OnMissingTranslation == MissingTranslationAction.Fallback && data!=null)
@@ -85,13 +83,13 @@ namespace I2.Loc
 				if (OnMissingTranslation == MissingTranslationAction.Empty)
 				{
 					Translation = string.Empty;
-					return true;
+					return false;
 				}
 
 				if (OnMissingTranslation == MissingTranslationAction.ShowTerm)
 				{
 					Translation = term;
-					return true;
+					return false;
 				}
 
 			}
@@ -106,7 +104,7 @@ namespace I2.Loc
             string baseLanguage = mLanguages[langIndex].Code;
             if (!string.IsNullOrEmpty(baseLanguage))
             {
-                if (baseLanguage.Contains('-'))
+                if (baseLanguage.Contains("-"))
                 {
                     baseLanguage = baseLanguage.Substring(0, baseLanguage.IndexOf('-'));
                 }

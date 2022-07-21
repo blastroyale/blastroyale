@@ -53,6 +53,8 @@ Material:
     - OuterWidth_: 0.4
     - Rotation_: 90
     - Width_: 0.3
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - ColorInner_: {r: 7.9965587, g: 0.82236314, b: 10.058142, a: 0}
     - ColorOuter_: {r: 0.7069155, g: 0.043137252, b: 1, a: 0}

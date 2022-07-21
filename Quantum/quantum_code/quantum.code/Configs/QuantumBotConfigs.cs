@@ -8,6 +8,7 @@ namespace Quantum
 	public struct QuantumBotConfig
 	{
 		public BotBehaviourType BehaviourType;
+		public GameMode GameMode;
 		public uint Difficulty;
 		public FP DecisionInterval;
 		public FP LookForTargetsToShootAtInterval;
@@ -26,6 +27,7 @@ namespace Quantum
 		public FP ChanceToUseSpecial;
 		public FP SpecialAimingDeviation;
 		public FP ShrinkingCircleRiskTolerance;
+		public FP ChanceToSeekChests;
 	}
 	
 	/// <summary>

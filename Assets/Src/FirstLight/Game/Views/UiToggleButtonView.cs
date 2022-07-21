@@ -1,9 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,27 +16,21 @@ namespace FirstLight.UiService
 	/// Custom extension of unity's ui button class that plays a set of legacy
 	/// animations when selected and unselected.
 	/// </summary>
-	/// 
 	[RequireComponent(typeof(UnityEngine.Animation))]
 	public class UiToggleButtonView : Toggle
 	{
-		// Ease for select and unselect scale tween playback
+		public Transform Anchor;
 		public Ease PressedEase = Ease.Linear;
-		// Duration of scale tween animation
 		public float PressedDuration = 0.1f;
-		// Final scale of button when pressed
 		public Vector3 PressedScale = new Vector3(0.9f, 0.9f, 1f);
-		// Legacy animation component 
-		[HideInInspector]
-		public Animation Animation;
 		public GameObject ToggleOn;
 		public GameObject ToggleOff;
 		public AnimationClip ToggleOnPressedClip;
 		public AnimationClip ToggleOffPressedClip;
-		[HideInInspector]
-		public RectTransform RectTransform;
-		public Transform Anchor;
-		public AudioId TapSoundFx;
+		public List<Image> CustomTargetGraphics;
+		
+		[HideInInspector] public Animation Animation;
+		[HideInInspector] public RectTransform RectTransform;
 		
 		private Coroutine _coroutine;
 		protected IGameServices _gameService;
@@ -47,7 +41,7 @@ namespace FirstLight.UiService
 		{
 			RectTransform = RectTransform ? RectTransform : GetComponent<RectTransform>();
 			Animation = Animation ? Animation : GetComponent<Animation>();
-			
+
 			base.OnValidate();
 		}
 #endif	
@@ -79,14 +73,23 @@ namespace FirstLight.UiService
 		
 		public void SetInitialValue(bool valueOn)
 		{
+			SetIsOnWithoutNotify(valueOn);
 			ToggleOff.SetActive(!valueOn);
 			ToggleOn.SetActive(valueOn);
+			Animation.clip = isOn ? ToggleOnPressedClip : ToggleOffPressedClip;
+			Animation.Rewind(); 
+			Animation.Play();
 		}
 
 		/// <inheritdoc />
 		public override void OnPointerDown(PointerEventData eventData)
 		{
 			base.OnPointerDown(eventData);
+
+			if (!IsInteractable())
+			{
+				return;
+			}
 			
 			if (Animation.isPlaying)
 			{
@@ -104,6 +107,11 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public override void OnPointerClick(PointerEventData eventData)
 		{
+			if (!IsInteractable())
+			{
+				return;
+			}
+			
 			OnClick();
 			base.OnPointerClick(eventData);
 		}
@@ -111,6 +119,11 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public override void OnPointerUp(PointerEventData eventData)
 		{
+			if (!IsInteractable())
+			{
+				return;
+			}
+			
 			base.OnPointerUp(eventData);
 			
 			if (_coroutine != null)
@@ -121,9 +134,20 @@ namespace FirstLight.UiService
 			
 			if (!RectTransformUtility.RectangleContainsScreenPoint(RectTransform, eventData.position))
 			{
-				_gameService.AudioFxService.PlayClip2D(TapSoundFx);
+				_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 				
 				_coroutine = _gameService.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(Vector3.one));
+			}
+		}
+
+		/// <summary>
+		/// Sets the color of all 'custom target graphics'
+		/// </summary>
+		public void SetTargetCustomGraphicsColor(Color newColor)
+		{
+			foreach (var customImage in CustomTargetGraphics)
+			{
+				customImage.color = newColor;
 			}
 		}
 
@@ -132,7 +156,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void OnClick()
 		{
-			_gameService.AudioFxService.PlayClip2D(TapSoundFx);
+			_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 			
 			Animation.clip = !isOn ? ToggleOnPressedClip : ToggleOffPressedClip;
 			Animation.Rewind(); 

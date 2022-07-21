@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class handles the Emoji Hub Button. Tapping on it opens up 5 Emoji's the player can select from during
@@ -13,19 +14,18 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class EmojiHubButtonView : MonoBehaviour
 	{
-		[SerializeField] private Button _emojiHubButton;
+		[SerializeField, Required] private Button _emojiHubButton;
 		[SerializeField] private EmojiButtonView [] _emojiButtonViews;
-		
-		[SerializeField] protected Animation _animation;
-		[SerializeField] protected AnimationClip _introAnimationClip;
-		[SerializeField] protected AnimationClip _outroAnimationClip;
+		[SerializeField, Required] protected Animation _animation;
+		[SerializeField, Required] protected AnimationClip _introAnimationClip;
+		[SerializeField, Required] protected AnimationClip _outroAnimationClip;
 
 		private void Awake()
 		{
 			_emojiHubButton.onClick.AddListener(OnEmojiHubButtonPressed);
 		}
 
-		private void Start()
+		/*private void Start()
 		{
 			var emojis = GameIdGroup.Emoji.GetIds();
 
@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				_emojiButtonViews[i].gameObject.SetActive(false);
 				_emojiButtonViews[i].EmojiButton.onClick.AddListener(PlayDisappearAnimations);
 			}
-		}
+		}*/
 		
 		private void OnEmojiHubButtonPressed()
 		{

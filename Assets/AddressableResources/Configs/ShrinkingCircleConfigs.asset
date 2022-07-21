@@ -20,46 +20,106 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 655360
-      WarningTime:
-        RawValue: 983040
-      ShrinkingTime:
-        RawValue: 3276800
-      ShrinkingSizeK:
-        RawValue: 29491
-    - Step: 2
-      DelayTime:
-        RawValue: 131072
-      WarningTime:
-        RawValue: 327680
-      ShrinkingTime:
-        RawValue: 655360
-      ShrinkingSizeK:
-        RawValue: 52429
-    - Step: 3
-      DelayTime:
-        RawValue: 131072
-      WarningTime:
-        RawValue: 327680
-      ShrinkingTime:
-        RawValue: 327680
-      ShrinkingSizeK:
-        RawValue: 52429
-    - Step: 4
-      DelayTime:
-        RawValue: 131072
+        RawValue: 1638400
       WarningTime:
         RawValue: 2949120
       ShrinkingTime:
-        RawValue: 983040
+        RawValue: 3276800
       ShrinkingSizeK:
-        RawValue: 19661
-    - Step: 5
+        RawValue: 22938
+      MaxHealthDamage:
+        RawValue: 3277
+      AirdropChance:
+        RawValue: 52429
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 1966080
+        Value2:
+          RawValue: 3932160
+      AirdropDropDuration:
+        RawValue: 655360
+      AirdropChest: 19
+    - Step: 2
       DelayTime:
-        RawValue: 131072
+        RawValue: 983040
+      WarningTime:
+        RawValue: 1966080
+      ShrinkingTime:
+        RawValue: 1638400
+      ShrinkingSizeK:
+        RawValue: 22938
+      MaxHealthDamage:
+        RawValue: 6554
+      AirdropChance:
+        RawValue: 13107
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 655360
+        Value2:
+          RawValue: 1310720
+      AirdropDropDuration:
+        RawValue: 655360
+      AirdropChest: 19
+    - Step: 3
+      DelayTime:
+        RawValue: 983040
+      WarningTime:
+        RawValue: 983040
+      ShrinkingTime:
+        RawValue: 655360
+      ShrinkingSizeK:
+        RawValue: 22938
+      MaxHealthDamage:
+        RawValue: 13107
+      AirdropChance:
+        RawValue: 0
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 0
+        Value2:
+          RawValue: 0
+      AirdropDropDuration:
+        RawValue: 0
+      AirdropChest: 13
+    - Step: 4
+      DelayTime:
+        RawValue: 983040
       WarningTime:
         RawValue: 0
       ShrinkingTime:
         RawValue: 2949120
       ShrinkingSizeK:
         RawValue: 66
+      MaxHealthDamage:
+        RawValue: 19661
+      AirdropChance:
+        RawValue: 0
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 0
+        Value2:
+          RawValue: 0
+      AirdropDropDuration:
+        RawValue: 0
+      AirdropChest: 13
+    - Step: 5
+      DelayTime:
+        RawValue: 655294464
+      WarningTime:
+        RawValue: 0
+      ShrinkingTime:
+        RawValue: 0
+      ShrinkingSizeK:
+        RawValue: 66
+      MaxHealthDamage:
+        RawValue: 19661
+      AirdropChance:
+        RawValue: 0
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 0
+        Value2:
+          RawValue: 0
+      AirdropDropDuration:
+        RawValue: 0
+      AirdropChest: 13

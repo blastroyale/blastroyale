@@ -1,5 +1,6 @@
 using System.Collections;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	/// </summary>
 	public class CollectableIndicatorVfxMonoComponent : VfxMonoComponent
 	{
-		[SerializeField]
-		private Image _progressIndicator;
+		[SerializeField, Required] private Image _progressIndicator;
 		
 		private EntityRef _entity;
 		private Coroutine _coroutine;

@@ -9,6 +9,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Quantum;
 using Quantum.Commands;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,20 +30,19 @@ namespace FirstLight.Game.Presenters
 			public Action OnRespawnClicked;
 			public Dictionary<PlayerRef, Pair<int, int>> KillerData;
 		}
-
-		[SerializeField] private Button _button;
-		[SerializeField] private Button _respawnButton;
-		[SerializeField] private TextMeshProUGUI _fraggedByText;
-		[SerializeField] private TextMeshProUGUI _reviveTimeLeftText;
-		[SerializeField] private Slider _respawnSlider;
-		[SerializeField] private StandingsHolderView _standings;
-
-		[SerializeField] private GameObject _killTrackerHolder;
-		[SerializeField] private TextMeshProUGUI _playerNameText;
-		[SerializeField] private TextMeshProUGUI _enemyNameText;
-		[SerializeField] private TextMeshProUGUI _playerScoreText;
-		[SerializeField] private TextMeshProUGUI _enemyScoreText;
-
+		
+		[SerializeField, Required] private Button _button;
+		[SerializeField, Required] private Button _respawnButton;
+		[SerializeField, Required] private TextMeshProUGUI _fraggedByText;
+		[SerializeField, Required] private TextMeshProUGUI _reviveTimeLeftText;
+		[SerializeField, Required] private Slider _respawnSlider;
+		[SerializeField, Required] private StandingsHolderView _standings;
+		[SerializeField, Required] private GameObject _killTrackerHolder;
+		[SerializeField, Required] private TextMeshProUGUI _playerNameText;
+		[SerializeField, Required] private TextMeshProUGUI _enemyNameText;
+		[SerializeField, Required] private TextMeshProUGUI _playerScoreText;
+		[SerializeField, Required] private TextMeshProUGUI _enemyScoreText;
+		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
@@ -134,13 +134,15 @@ namespace FirstLight.Game.Presenters
 		private void ProcessResultScreenData(Frame f)
 		{
 			var container = f.GetSingleton<GameContainer>();
-			var playerData = new List<QuantumPlayerMatchData>(container.GetPlayersMatchData(f, out _));
-
-			_standings.Initialise(playerData, false, false);
+			var playerData = container.GetPlayersMatchData(f, out _);
+			
+			_standings.Initialise(playerData.Count, false, false);
+			_standings.UpdateStandings(playerData);
 		}
 
 		private void OnRespawnPressed()
 		{
+			_respawnButton.gameObject.SetActive(false);
 			Data.OnRespawnClicked();
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}

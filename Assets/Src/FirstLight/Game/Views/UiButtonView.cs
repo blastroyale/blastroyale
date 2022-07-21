@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,14 +14,14 @@ namespace FirstLight.Game.Views
 {
 	/// <summary>
 	/// Custom extension of unity's ui button class that plays a legacy
-	/// animation when pressed. u
+	/// animation when pressed. 
 	/// </summary>
 	[RequireComponent(typeof(UnityEngine.Animation))]
 	public class UiButtonView : Button
 	{
 		// Legacy animation component 
-		[HideInInspector] public Animation Animation;
-		[HideInInspector] public RectTransform RectTransform;
+		[HideInInspector, Required] public Animation Animation;
+		[HideInInspector, Required] public RectTransform RectTransform;
 		
 		// Ease for select and unselect scale tween playback
 		public Ease PressedEase = Ease.Linear;
@@ -28,9 +30,15 @@ namespace FirstLight.Game.Views
 		// Final scale of button when pressed
 		public Vector3 PressedScale = new Vector3(0.95f, 0.95f, 1f);
 		public HapticTypes HapticType = HapticTypes.None;
-		public AudioId TapSoundFx;
 		public Transform Anchor;
 		public AnimationClip ClickClip;
+
+		public bool IsForward = true;
+		public bool OverrideSfx = false;
+		public EnumSelector<AudioId> OverrideSfxClip;
+
+		private const AudioId BUTTON_CLICK_FORWARD_SFX = AudioId.ButtonClickForward;
+		private const AudioId BUTTON_CLICK_BACKWAWRD_SFX = AudioId.ButtonClickBackward;
 		
 		private Coroutine _coroutine;
 		private IGameServices _gameService;
@@ -89,7 +97,7 @@ namespace FirstLight.Game.Views
 		/// <inheritdoc />
 		public override void OnPointerDown (PointerEventData eventData)
 		{
-			if (!CanAnimate)
+			if (!CanAnimate || !IsInteractable())
 			{
 				return;
 			}
@@ -111,7 +119,7 @@ namespace FirstLight.Game.Views
 		/// <inheritdoc />
 		public override void OnPointerUp(PointerEventData eventData)
 		{
-			if (!CanAnimate)
+			if (!CanAnimate || !IsInteractable())
 			{
 				return;
 			}
@@ -124,7 +132,16 @@ namespace FirstLight.Game.Views
 			
 			if (RectTransformUtility.RectangleContainsScreenPoint(RectTransform, eventData.position))
 			{
-				_gameService.AudioFxService.PlayClip2D(TapSoundFx);
+				if (OverrideSfx)
+				{
+					_gameService.AudioFxService.PlayClip2D(OverrideSfxClip);
+				}
+				else
+				{
+					_gameService.AudioFxService.PlayClip2D(IsForward
+						                                       ? BUTTON_CLICK_FORWARD_SFX
+						                                       : BUTTON_CLICK_BACKWAWRD_SFX);
+				}
 
 				Anchor.localScale = Vector3.one;
 				Animation.clip = ClickClip;

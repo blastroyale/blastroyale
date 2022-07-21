@@ -16,30 +16,28 @@ namespace FirstLight.Editor.Build
 	public static class FirstLightBuildConfig
 	{
 		/// <summary>
-		/// Scripting define that enables dev builds and SR debugger.
+		/// Scripting define that enables dev builds and allows to profile the game in Xcode and other external tools
+		/// </summary>
+		public const string LocalSymbol = "LOCAL_BUILD";
+		
+		/// <summary>
+		/// Scripting define that enables dev builds
 		/// </summary>
 		public const string DevelopmentSymbol = "DEVELOPMENT_BUILD";
 		
 		/// <summary>
-		/// Scripting define that disables all non-production features in a release ad hoc environment.
+		/// Scripting define that enables all production features in a release ad hoc environment.
+		/// This builds are to stage store builds to test production environments.
+		/// This build is not signed and allows to run the client from any link
 		/// </summary>
-		public const string ReleaseSymbol = "RELEASE_BUILD";
+		public const string StagingSymbol = "RELEASE_BUILD";
 		
 		/// <summary>
 		/// Scripting define the build to publish to the stores.
+		/// This build is signed and is only possible to run the client after downloading from the store
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
-		/// <summary>
-		/// Scripting defines used in every build.
-		/// </summary>
-		public static readonly string[] CommonSymbols = new []
-		{
-			"QUANTUM_ADDRESSABLES",
-			"ENABLE_PLAYFAB_BETA",
-			"TextMeshPro",
-		};
-		
 		private const string _appEnterpriseIdentifier = "com.firstlightgames.blastroyaleenterprise";
 		private const string _appReleaseIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightEnterpriseAppleTeamId = "LR745QRAJR";
@@ -48,24 +46,39 @@ namespace FirstLight.Editor.Build
 		private const string _enterpriseProvisioningProfile = "6573b280-9534-4ec7-83f2-b64ea455239e";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
+		private const string _aabExtension = ".aab";
 		private const int _facebookDevAppIdSelectedIndex = 1;
 		private const int _facebookAppIdSelectedIndex = 0;
-		
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
+		private static readonly string[] CommonSymbols = new []
+		{
+			"QUANTUM_ADDRESSABLES",
+			"ENABLE_PLAYFAB_BETA",
+			"TextMeshPro",
+		};
+		private static readonly string[] DebugSymbols = new []
+		{
+			"QUANTUM_REMOTE_PROFILER",
+		};
 
 		/// <summary>
 		/// Setups the editor for Development build configuration
 		/// </summary>
-		[MenuItem("First Light Games/Configure/Development Build")]
+		[MenuItem("FLG/Configure/Development Build")]
 		public static void SetupDevelopmentConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = true;
+			EditorUserBuildSettings.buildAppBundle = false;
+			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
@@ -81,27 +94,32 @@ namespace FirstLight.Editor.Build
 		}
 
 		/// <summary>
-		/// Setups the editor for Release build configuration
+		/// Setups the editor for Staging build configuration
 		/// Release build means it is a candidate for the store but using development SKUs
 		/// </summary>
-		[MenuItem("First Light Games/Configure/Release Build")]
-		public static void SetupReleaseConfig()
+		[MenuItem("FLG/Configure/Staging Build")]
+		public static void SetupStagingConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;
+			EditorUserBuildSettings.buildAppBundle = false;
+			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
-			PrepareFirebase(ReleaseSymbol);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.iOS);
+			PrepareFirebase(StagingSymbol);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -111,24 +129,29 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the editor for store build configuration
 		/// </summary>
-		[MenuItem("First Light Games/Configure/Store Build")]
+		[MenuItem("FLG/Configure/Store Build")]
 		public static void SetupStoreConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = true;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
 			PlayerSettings.iOS.iOSManualProvisioningProfileID = _appStoreProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;
+			EditorUserBuildSettings.buildAppBundle = true;
+			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.iOS);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -151,7 +174,7 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Setups the Firebase config files to the current system build config
 		/// </summary>
-		[MenuItem("First Light Games/Setup Firebase")]
+		[MenuItem("FLG/Setup Firebase")]
 		public static void SetupFirebase()
 		{
 			SetupDevelopmentConfig();
@@ -162,33 +185,38 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public static void SetScriptingDefineSymbols(string buildSymbol, BuildTargetGroup targetGroup)
 		{
-			var commonSymbolsLength = CommonSymbols.Length;
-			var symbols = new string[commonSymbolsLength + 1];
+			var symbols = new List<string>(CommonSymbols);
+
+			if (buildSymbol == DevelopmentSymbol)
+			{
+				symbols.AddRange(DebugSymbols);
+			}
 			
-			Array.Copy(CommonSymbols, symbols, commonSymbolsLength);
-			symbols[commonSymbolsLength] = buildSymbol;
+			symbols.Add(buildSymbol);
 			
-			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols);
+			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols.ToArray());
 		}
 
 		/// <summary>
 		/// Requests the <see cref="BuildPlayerOptions"/> based on the given data
 		/// </summary>
-		public static BuildPlayerOptions GetBuildPlayerOptions(BuildTarget target, string outputPath, bool isDevelopment, 
-		                                                       bool isLocalBuild = false)
+		public static BuildPlayerOptions GetBuildPlayerOptions(BuildTarget target, string outputPath, string symbol)
 		{
+			var isLocalBuild = symbol == LocalSymbol;
+			var isStoreBuild = !isLocalBuild && symbol == StoreSymbol;
+			
 			if (target == BuildTarget.Android)
 			{
-				outputPath = Path.ChangeExtension(outputPath, _apkExtension);
+				outputPath = Path.ChangeExtension(outputPath, isStoreBuild ? _apkExtension : _aabExtension);
 			}
-			
+
 			var buildConfig = new BuildPlayerOptions
 			{
 				target = target,
 				locationPathName = outputPath
 			};
 
-			if (isDevelopment)
+			if (isLocalBuild || symbol == DevelopmentSymbol)
 			{
 				buildConfig.options = BuildOptions.Development;
 			}
@@ -198,9 +226,9 @@ namespace FirstLight.Editor.Build
 				SetLocalBuildConfig(ref buildConfig);
 			}
 
-			if (target == BuildTarget.iOS)
+			if (target == BuildTarget.iOS && BuildPipeline.BuildCanBeAppended(BuildTarget.iOS, "app") == CanAppendBuild.Yes)
 			{
-				SetCommonIosConfig(ref buildConfig);
+				buildConfig.options |= BuildOptions.AcceptExternalModificationsToPlayer;
 			}
 
 			SetScenesFromEditor(ref buildConfig);
@@ -225,25 +253,10 @@ namespace FirstLight.Editor.Build
 			buildPlayerOptions.scenes = scenesToInclude.ToArray();
 		}
 
-		private static void SetCommonIosConfig(ref BuildPlayerOptions buildConfig)
-		{
-			if (BuildPipeline.BuildCanBeAppended(BuildTarget.iOS, "app") == CanAppendBuild.Yes)
-			{
-				buildConfig.options |= BuildOptions.AcceptExternalModificationsToPlayer;
-			}
-			
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
-			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
-		}
-
 		private static void SetLocalBuildConfig(ref BuildPlayerOptions buildConfig)
 		{
 			buildConfig.options |= BuildOptions.AutoRunPlayer;
-			buildConfig.options |= BuildOptions.ConnectToHost;
-			buildConfig.options |= BuildOptions.ConnectWithProfiler;
 			buildConfig.options |= BuildOptions.DetailedBuildReport;
-			buildConfig.options |= BuildOptions.ShowBuiltPlayer;
-			buildConfig.options |= BuildOptions.SymlinkSources;
 		}
 
 		private static void ConfigureQuantumForDevelopment()
@@ -252,7 +265,7 @@ namespace FirstLight.Editor.Build
 			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
 			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
 			
-			deterministicConfig.Config.ChecksumInterval = 1;
+			deterministicConfig.Config.ChecksumInterval = 60;
 			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = true;
 			
 			EditorUtility.SetDirty(deterministicConfig);

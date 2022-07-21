@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -8,8 +11,10 @@ using FirstLight.UiService;
 using MoreMountains.NiceVibrations;
 using Photon.Deterministic;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -18,22 +23,33 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
-		[SerializeField] private SpecialButtonView _specialButton0;
-		[SerializeField] private SpecialButtonView _specialButton1;
+		[SerializeField, Required] private SpecialButtonView _specialButton0;
+		[SerializeField, Required] private SpecialButtonView _specialButton1;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
-
+		[SerializeField] private Button[] _weaponSlotButtons;
+		[SerializeField, Required] private GameObject _weaponSlotsHolder;
+		
 		private IGameServices _services;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
-		private EntityRef _entity;
+		private int _currentWeaponSlot;
+		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_localInput = new LocalInput();
 
-			_localInput.Gameplay.SetCallbacks(this);
+			_currentWeaponSlot = 0;
 
+			_localInput.Gameplay.SetCallbacks(this);
+			
+			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
+			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
+			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
+
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -48,7 +64,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			
 			_localInput.Enable();
+			
+			_weaponSlotsHolder.gameObject.SetActive(isBattleRoyale);
+			
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -92,7 +114,6 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-
 			SendSpecialUsedCommand(0, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 		}
 
@@ -103,8 +124,33 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-
 			SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+		}
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				return;
+			}
+			
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+
+			if (!localPlayer.Entity.IsAlive(f))
+			{
+				return;
+			}
+
+			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
+			_currentWeaponSlot = 0;
+			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			
+			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -115,10 +161,11 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			_entity = callback.Entity;
-
-			_specialButton0.Init(playerCharacter.Specials[0].SpecialId);
-			_specialButton1.Init(playerCharacter.Specials[1].SpecialId);
+			_currentWeaponSlot = 0;
+			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			
+			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -147,9 +194,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerDamaged(EventOnLocalPlayerDamaged callback)
 		{
-			if (callback.InterimArmourDamage > 0)
+			if (callback.ShieldDamage > 0)
 			{
-				PlayHapticFeedbackForDamage(callback.InterimArmourDamage, callback.MaxInterimArmour);
+				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.ShieldCapacity);
 			}
 			else if (callback.HealthDamage > 0)
 			{
@@ -161,25 +208,28 @@ namespace FirstLight.Game.Presenters
 		{
 			var damagePercentOfStat = damage / maximumOfRelevantStat;
 
-			var intensity = Mathf.Lerp(GameConstants.HAPTIC_DAMAGE_INTENSITY_MIN,
-			                           GameConstants.HAPTIC_DAMAGE_INTENSITY_MAX, damagePercentOfStat);
+			var intensity = Mathf.Lerp(GameConstants.Haptics.DAMAGE_INTENSITY_MIN,
+			                           GameConstants.Haptics.DAMAGE_INTENSITY_MAX, damagePercentOfStat);
 
 			// Sharpness is only used in iOS vibrations
-			var sharpness = Mathf.Lerp(GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MIN,
-			                           GameConstants.HAPTIC_IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
+			var sharpness = Mathf.Lerp(GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MIN,
+			                           GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
 
-			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.HAPTIC_DAMAGE_DURATION);
+			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
+			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 
+			_currentWeaponSlot = callback.Slot;
+			
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
 
-			_specialButton0.Init(config.Specials[0]);
-			_specialButton1.Init(config.Specials[1]);
+			_specialButton0.Init(config.Specials[0], playerCharacter.WeaponSlots[_currentWeaponSlot].Special1Charges > 0);
+			_specialButton1.Init(config.Specials[1], playerCharacter.WeaponSlots[_currentWeaponSlot].Special2Charges > 0);
 
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();
@@ -198,6 +248,16 @@ namespace FirstLight.Game.Presenters
 				AimInput = aimDirection.ToFPVector2(),
 			};
 
+			QuantumRunner.Default.Game.SendCommand(command);
+		}
+		
+		private void OnWeaponSlotClicked(int weaponSlotIndex)
+		{
+			var command = new WeaponSlotSwitchCommand()
+			{
+				WeaponSlotIndex = weaponSlotIndex
+			};
+			
 			QuantumRunner.Default.Game.SendCommand(command);
 		}
 	}

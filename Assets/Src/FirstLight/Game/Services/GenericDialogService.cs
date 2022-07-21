@@ -60,14 +60,6 @@ namespace FirstLight.Game.Services
 		void OpenVideoDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
 			GenericDialogButton button, Action closeCallback = null)
 			where TId : struct, Enum;
-		
-		/// <summary>
-		/// Shows the Generic Dialog box PopUp for the user to spend Hard currency with the given information without
-		/// an option for the user except to click on the close button.
-		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
-		/// </summary>
-		void OpenHcDialog(string title, string cost, bool showCloseButton,
-			GenericDialogButton button,  bool showSC = false, Action closeCallback = null);
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.
@@ -80,11 +72,6 @@ namespace FirstLight.Game.Services
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
-
-		/// <summary>
-		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
-		/// </summary>
-		void OpenLootInfoDialog(GenericDialogButton button, LootBoxInfo boxInfo, Action closeCallback = null);
 
 		/// <summary>
 		/// Opens up a tooltip dialog to show informative text.
@@ -143,17 +130,6 @@ namespace FirstLight.Game.Services
 			
 			ui.SetInfo(title, descriptionText, id, showCloseButton, button, closeCallback);
 		}
-		
-		/// <inheritdoc />
-		public void OpenHcDialog(string title, string cost, bool showCloseButton, GenericDialogButton button, 
-			bool showSC = false, Action closeCallback = null)
-		{
-			var ui = _uiService.OpenUi<GenericDialogHcPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, cost, showCloseButton, button, showSC, closeCallback);
-		}
 
 		/// <inheritdoc />
 		public void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
@@ -164,18 +140,6 @@ namespace FirstLight.Game.Services
 			_openDialogType = ui.GetType();
 			
 			ui.SetInfo(title, initialInputText, button, showCloseButton, contentType, closeCallback);
-		}
-
-		/// <summary>
-		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
-		/// </summary>
-		public void OpenLootInfoDialog(GenericDialogButton button, LootBoxInfo boxInfo, Action closeCallback = null)
-		{
-			var ui = _uiService.OpenUi<GenericDialogLootInfoPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(button, boxInfo, closeCallback);
 		}
 
 		/// <inheritdoc />

@@ -1,14 +1,13 @@
-﻿using System;
-using DG.Tweening;
-using FirstLight.Game.Services;
+﻿using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Quantum.Commands;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This class handles individual Emoji buttons. Tapping on one creates an Emoji above the player's head, which is broadcast
@@ -18,7 +17,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	{
 		public Button EmojiButton;
 		
-		[SerializeField] private Image _emojiImage;
+		[SerializeField, Required] private Image _emojiImage;
 
 		private IGameServices _services;
 		private GameId _emoji;

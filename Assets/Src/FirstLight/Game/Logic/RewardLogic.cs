@@ -1,8 +1,12 @@
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Infos;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using Quantum;
 
@@ -16,12 +20,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
-		IReadOnlyList<RewardData> UnclaimedRewards { get; }
-		
+		IObservableListReader<RewardData> UnclaimedRewards { get; }
+
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
 	}
 
 	/// <inheritdoc />
@@ -35,37 +39,75 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
-		List<RewardData> CollectUnclaimedRewards();
-
-		/// <summary>
-		/// Awards the given <paramref name="reward"/> to the player
-		/// </summary>
-		RewardData GiveReward(RewardData reward);
+		List<RewardData> ClaimUncollectedRewards();
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
-	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic
+	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
+		private IObservableList<RewardData> _unclaimedRewards;
+		
 		/// <inheritdoc />
-		public IReadOnlyList<RewardData> UnclaimedRewards => Data.UncollectedRewards;
+		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
+		
+		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
 
 		/// <inheritdoc />
-		public Dictionary<GameId, int> GetMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public void Init()
 		{
-			var rewards = new Dictionary<GameId, int>();
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var mapConfig = GameLogic.ConfigsProvider.GetConfig<MapConfig>(matchData.MapId);
-			var rankValue = mapConfig.PlayersLimit + 1 - matchData.PlayerRank;
-			var fragValue = Math.Max(0, matchData.Data.PlayersKilledCount - matchData.Data.DeathCount * gameConfig.DeathSignificance.AsFloat);
-			var currency = Math.Ceiling(gameConfig.CoinsPerRank * rankValue + gameConfig.CoinsPerFragDeathRatio.AsFloat * fragValue);
+			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
+		}
+		
+		/// <inheritdoc />
+		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		{
+			var mapConfig = GameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
+			var rewards = new List<RewardData>();
 			
-			if (currency > 0)
+			// Currently, there is no plan on giving rewards on anything but BR mode
+			if (mapConfig.GameMode != GameMode.BattleRoyale || didPlayerQuit)
 			{
-				rewards.Add(GameId.HC, (int) currency);
+				return rewards;
+			}
+			
+			// Always perform ordering operation on the configs.
+			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
+			var gameModeRewardConfigs = GameLogic.ConfigsProvider
+			                                     .GetConfigsList<MatchRewardConfig>()
+			                                     .OrderByDescending(x => x.Placement).ToList();
+			
+			var rewardConfig = gameModeRewardConfigs[0];
+			var rankValue = matchData.PlayerRank;
+			
+			foreach (var config in gameModeRewardConfigs)
+			{
+				if (rankValue > config.Placement)
+				{
+					break;
+				}
+				
+				if (config.Placement == rankValue)
+				{
+					rewardConfig = config;
+					break;
+				}
+			}
+
+			var csRewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
+			var csPercent = csRewardPair.Value / 100d;
+			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
+			
+			var csInfo = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
+			var csTake = (uint) Math.Ceiling(csInfo.WinnerRewardAmount * csPercent);
+			var csWithdrawn = (int) Math.Min(csInfo.CurrentAmount, csTake);
+			
+			if (csWithdrawn > 0)
+			{
+				rewards.Add(new RewardData(GameId.CS, csWithdrawn));
 			}
 
 			return rewards;
@@ -74,48 +116,41 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var rewards = GetMatchRewards(matchData, didPlayerQuit);
-			var rewardsList = new List<RewardData>();
+			return new List<RewardData>();
+			
+#pragma warning disable 0162
+			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
 
 			foreach (var reward in rewards)
 			{
-				var rewardData = new RewardData(reward.Key, reward.Value);
+				if (reward.RewardId.IsInGroup(GameIdGroup.ResourcePool))
+				{
+					GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+				}
 				
-				rewardsList.Add(rewardData);
-				Data.UncollectedRewards.Add(rewardData);
+				Data.UncollectedRewards.Add(reward);
 			}
-
-			return rewardsList;
+			
+			return rewards;
+#pragma warning restore 0162
 		}
-
+		
 		/// <inheritdoc />
-		public List<RewardData> CollectUnclaimedRewards()
+		public List<RewardData> ClaimUncollectedRewards()
 		{
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
 			
-			if (Data.UncollectedRewards.Count == 0)
-			{
-				throw new LogicException("The player does not have any rewards to collect.");
-			}
-
 			foreach (var reward in Data.UncollectedRewards)
 			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.LootBox))
-				{
-					// Loot boxes are already rewarded when the game is over
-					continue;
-				}
-				
-				rewards.Add(GiveReward(reward));
+				rewards.Add(ClaimReward(reward));
 			}
-			
+
 			Data.UncollectedRewards.Clear();
 
 			return rewards;
 		}
 
-		/// <inheritdoc />
-		public RewardData GiveReward(RewardData reward)
+		private RewardData ClaimReward(RewardData reward)
 		{
 			var groups = reward.RewardId.GetGroups();
 
@@ -127,31 +162,12 @@ namespace FirstLight.Game.Logic
 			{
 				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
 			}
-			else if (groups.Contains(GameIdGroup.LootBox))
-			{
-				reward.Value = (int) GameLogic.LootBoxLogic.AddToInventory(reward.Value);
-			}
 			else
 			{
 				throw new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");
 			}
 
 			return reward;
-		}
-
-		private RewardData GetCrateReward(GameId boxId, int tier)
-		{
-			var lootBoxConfigs = GameLogic.ConfigsProvider.GetConfigsList<LootBoxConfig>();
-
-			foreach (var config in lootBoxConfigs)
-			{
-				if (config.LootBoxId == boxId && config.Tier == tier)
-				{
-					return new RewardData(boxId, config.Id);
-				}
-			}
-
-			throw new LogicException($"There is no Loot Box with the given id {boxId} in the given tier {tier}");
 		}
 	}
 }

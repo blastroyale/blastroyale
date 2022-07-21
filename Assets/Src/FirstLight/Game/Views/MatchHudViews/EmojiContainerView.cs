@@ -3,16 +3,17 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View shows any Emoji broadcast from players during the game.
 	/// </summary>
 	public class EmojiContainerView : MonoBehaviour
 	{
-		[SerializeField] private EmojiView _emojiViewRef;
+		[SerializeField, Required] private EmojiView _emojiViewRef;
 		
 		private IGameServices _services;
 		private IEntityViewUpdaterService _entityViewUpdaterService;

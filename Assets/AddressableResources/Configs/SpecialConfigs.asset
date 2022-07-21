@@ -25,13 +25,15 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 229376
-      PowerAmount: 600
+      SpecialPower:
+        RawValue: 45875
       Speed:
         RawValue: 163840
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 655360
+      Knockback: 50
     - Id: 85
       SpecialType: 1
       Indicator: 6
@@ -39,13 +41,15 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 98304
-      PowerAmount: 2
+      SpecialPower:
+        RawValue: 98304
       Speed:
         RawValue: 98304
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 458752
+      Knockback: 10
     - Id: 89
       SpecialType: 2
       Indicator: 0
@@ -53,13 +57,15 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 0
-      PowerAmount: 2
+      SpecialPower:
+        RawValue: 131072
       Speed:
         RawValue: 0
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 0
+      Knockback: 0
     - Id: 110
       SpecialType: 3
       Indicator: 6
@@ -67,13 +73,15 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 180224
-      PowerAmount: 600
+      SpecialPower:
+        RawValue: 26214
       Speed:
         RawValue: 45875
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 786432
+      Knockback: 0
     - Id: 119
       SpecialType: 4
       Indicator: 2
@@ -81,13 +89,15 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 0
-      PowerAmount: 200
+      SpecialPower:
+        RawValue: 13107
       Speed:
         RawValue: 1048576
       MinRange:
         RawValue: 196608
       MaxRange:
         RawValue: 458752
+      Knockback: 10
     - Id: 102
       SpecialType: 5
       Indicator: 6
@@ -95,13 +105,15 @@ MonoBehaviour:
         RawValue: 98304
       Radius:
         RawValue: 163840
-      PowerAmount: 300
+      SpecialPower:
+        RawValue: 26214
       Speed:
         RawValue: 65536
       MinRange:
         RawValue: 0
       MaxRange:
         RawValue: 524288
+      Knockback: 30
     - Id: 141
       SpecialType: 4
       Indicator: 2
@@ -109,10 +121,12 @@ MonoBehaviour:
         RawValue: 0
       Radius:
         RawValue: 0
-      PowerAmount: 200
+      SpecialPower:
+        RawValue: 13107
       Speed:
         RawValue: 1048576
       MinRange:
         RawValue: 196608
       MaxRange:
         RawValue: 458752
+      Knockback: 10

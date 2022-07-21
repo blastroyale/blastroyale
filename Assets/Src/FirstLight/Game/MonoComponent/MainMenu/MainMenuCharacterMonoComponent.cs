@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace FirstLight.Game.MonoComponent.MainMenu
 {
@@ -20,103 +21,82 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private readonly int _equipBodyHash = Animator.StringToHash("equip_body");
 		private readonly int _victoryHash = Animator.StringToHash("victory");
 
-		[SerializeField] private UnityEvent _characterLoadedEvent;
-		[SerializeField] private Transform _frontEndLootCamera;
-		[SerializeField] private Transform _characterAnchor;
-		
+		[SerializeField, Required] private UnityEvent _characterLoadedEvent;
+		[SerializeField, Required] private Transform _frontEndLootCamera;
+		[SerializeField, Required] private Transform _characterAnchor;
+
 		private Quaternion _defaultCharacterRotation;
 		private MainMenuCharacterViewComponent _characterViewComponent;
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		private Animator _animator;
-		private List<GameIdGroup> _equippedSlots;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_equippedSlots = new List<GameIdGroup>();
-			
-			_services.MessageBrokerService.Subscribe<LootScreenOpenedMessage>(OnLootScreenOpenedMessage);
-			_services.MessageBrokerService.Subscribe<LootScreenClosedMessage>(OnLootScreenClosedMessage);
-		
-			_services.MessageBrokerService.Subscribe<CratesScreenOpenedMessage>(OnCratesScreenOpenedMessage);
-			_services.MessageBrokerService.Subscribe<CratesScreenClosedMessage>(OnCratesScreenClosedMessage);
-			
+
 			_defaultCharacterRotation = transform.localRotation;
-			
+
+			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
-			_services.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquippedMessage);
-			_gameDataProvider.EquipmentDataProvider.EquippedItems.Observe(OnEquippedItems);
+			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
 		private void Start()
 		{
 			var skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
-			
+
 			_services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, SkinLoaded);
 		}
-		
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_gameDataProvider?.EquipmentDataProvider?.EquippedItems?.StopObservingAll(this);
-		}
-	
-		private void OnEquippedItems(GameIdGroup slot, UniqueId oldItem, UniqueId newItem, ObservableUpdateType updateType)
-		{
-			switch (updateType)
-			{
-				case ObservableUpdateType.Added:
-					OnEquippedItemsAdded(slot, newItem);
-					break;
-				case ObservableUpdateType.Removed:
-					OnEquippedItemsRemoved(slot, newItem);
-					break;
-			}
-		}
-		
-		private async void OnEquippedItemsAdded(GameIdGroup slot, UniqueId item)
-		{
-			if (!_equippedSlots.Contains(slot))
-			{
-				_equippedSlots.Add(slot);
-			}
-
-			await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[item]); 
+			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
 		}
 
-		private void OnEquippedItemsRemoved(GameIdGroup slot, UniqueId item)
+		private async void EquipDefault()
 		{
-			if (_equippedSlots.Contains(slot))
-			{
-				_equippedSlots.Remove(slot);
-			}
-
-			_characterViewComponent.UnequipItem(slot); 
+			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
-		private void OnItemEquippedMessage(ItemEquippedMessage callback)
+		private async void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
 		{
-			if (_equippedSlots.Count == 1)
+			if (updateType == ObservableUpdateType.Removed)
 			{
-				_animator.SetTrigger(_equippedSlots[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
+				_characterViewComponent.UnequipItem(key);
+			
+				if (key == GameIdGroup.Weapon)
+				{
+					EquipDefault();
+				}
 			}
-			else if (_equippedSlots.Count > 1)
+			else if(updateType == ObservableUpdateType.Added)
+			{
+				await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[newId]);
+			}
+		}
+
+		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
+		{
+			if (msg.SlotsUpdated.Count == 1)
+			{
+				_animator.SetTrigger(msg.SlotsUpdated.Keys.ToArray()[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
+			}
+			else if (msg.SlotsUpdated.Count > 1)
 			{
 				_animator.SetTrigger(_victoryHash);
 			}
-
-			_equippedSlots.Clear();
 		}
-		
+
 		private void OnChangeCharacterSkinMessage(PlayerSkinUpdatedMessage callback)
 		{
 			Destroy(_characterViewComponent.gameObject);
-			
+
 			_services.AssetResolverService.RequestAsset<GameId, GameObject>(callback.SkinId, true, true, SkinLoaded);
 		}
-		
+
 		private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
 		{
 			// Check that the player hasn't changed the skin again while we were loading
@@ -127,48 +107,28 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 
 			instance.SetActive(false);
-			
+
 			var cacheTransform = instance.transform;
-			
+
 			cacheTransform.SetParent(_characterAnchor);
-			
+
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-			
-			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadOutInfo());
+
+			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo());
+
+			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
+			{
+				EquipDefault();
+			}
 			
 			instance.SetActive(true);
-			
+
 			_animator = instance.GetComponent<Animator>();
-			
-			_services.AudioFxService.PlayClip2D(AudioId.ActorSpawnStart1);
+
+			_services.AudioFxService.PlayClip2D(AudioId.ActorSpawnStart);
 			_characterLoadedEvent?.Invoke();
-		}
-		
-		private void OnLootScreenOpenedMessage(LootScreenOpenedMessage callback)
-		{
-			var rotation = transform.rotation.eulerAngles;
-			
-			transform.LookAt(_frontEndLootCamera.position);
-			
-			rotation.y = transform.rotation.eulerAngles.y;
-			transform.rotation = Quaternion.Euler(rotation);
-		}
-
-		private void OnLootScreenClosedMessage(LootScreenClosedMessage callback)
-		{
-			transform.rotation = _defaultCharacterRotation;
-		}
-
-		private void OnCratesScreenOpenedMessage(CratesScreenOpenedMessage callback)
-		{
-			_characterAnchor.gameObject.SetActive(false);
-		}
-
-		private void OnCratesScreenClosedMessage(CratesScreenClosedMessage callback)
-		{
-			_characterAnchor.gameObject.SetActive(true);
 		}
 	}
 }

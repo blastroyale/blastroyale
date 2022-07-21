@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
+using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This Mono Component controls the display of floating text objects using a queue or
@@ -23,67 +25,181 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Color _neutralTextColor = Color.white;
 		[SerializeField] private Color _armourLossTextColor = Color.white;
 		[SerializeField] private Color _armourGainTextColor = Color.cyan;
-		[SerializeField] private GameObject _floatingTextRef;
-		[SerializeField] private GameObject _floatingArmourAndTextRef;
-		
-		private IGameServices _services;
+		[SerializeField, Required] private GameObject _floatingTextRef;
+		[SerializeField, Required] private GameObject _floatingArmourAndTextRef;
+
 		private IEntityViewUpdaterService _entityViewUpdaterService;
+		private IGameServices _services;
 		private IObjectPool<FloatingTextPoolObject> _pool;
 		private IObjectPool<FloatingTextPoolObject> _poolArmour;
 		private Coroutine _coroutine;
+		private PlayerRef _observedPlayer;
+		private EntityRef _observedEntity;
 		
-		private readonly IDictionary<EntityRef, Queue<MessageData>> _queue = new Dictionary<EntityRef, Queue<MessageData>>(7);
-		
+		private readonly IDictionary<EntityRef, Queue<MessageData>> _queue =
+			new Dictionary<EntityRef, Queue<MessageData>>(7);
+
 		private void Awake()
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
 			_floatingTextRef.gameObject.SetActive(false);
 			_floatingArmourAndTextRef.gameObject.SetActive(false);
 
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
-			_services = MainInstaller.Resolve<IGameServices>();
 			_pool = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorNormal);
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
+			
+			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
-			QuantumEvent.Subscribe<EventOnInterimArmourChanged>(this, OnInterimArmourUpdate);
+			QuantumEvent.Subscribe<EventOnLocalCollectableBlocked>(this, OnLocalCollectableBlocked);
+			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
+			QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
+		}
+		
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		{
+			_observedPlayer = callback.Player;
+			_observedEntity = callback.Entity;
+		}
+
+		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
+		{
+			_observedPlayer = msg.PlayerSpectated;
+			_observedEntity = msg.EntitySpectated;
+		}
+
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _observedPlayer != PlayerRef.None)
+			{
+				return;
+			}
+
+			_observedPlayer = callback.Player;
+			_observedEntity = callback.Entity;
+		}
+		private void OnLocalCollectableBlocked(EventOnLocalCollectableBlocked callback)
+		{
+			if (callback.PlayerEntity != _observedEntity)
+			{
+				return;
+			}
+			
+			if (!callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable) ||
+			    !_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
+			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			{
+				return;
+			}
+
+			var textColor = consumable.ConsumableType switch
+			{
+				ConsumableType.Health => _healTextColor,
+				ConsumableType.Ammo => _neutralTextColor,
+				ConsumableType.Shield => _armourGainTextColor,
+				ConsumableType.ShieldCapacity => _armourGainTextColor,
+				_ => throw new ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
+			};
+
+			EnqueueText(_pool, entityBase, "MAX", textColor);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
 			_queue.Remove(callback.Entity);
 		}
-		
+
 		private void OnEventOnPlayerLeft(EventOnPlayerLeft callback)
 		{
 			_queue.Remove(callback.Entity);
 		}
-		
+
 		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
 		{
-			if (!_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) || 
-			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			if (callback.PlayerEntity != _observedEntity)
 			{
-				Debug.LogWarning($"The entity {callback.PlayerEntity} is not ready for a losing floating text yet");
 				return;
 			}
 			
+			if (!_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
+			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			{
+				Debug.LogWarning($"The entity {_observedEntity} is not ready for a losing floating text yet");
+				return;
+			}
+
 			EnqueueText(_pool, entityBase, callback.CollectableId.GetTranslation(), _neutralTextColor);
 		}
 
-		private void OnInterimArmourUpdate(EventOnInterimArmourChanged callback)
+		private void OnShieldUpdate(EventOnShieldChanged callback)
 		{
-			if (callback.PreviousInterimArmour == callback.CurrentInterimArmour)
+			if (callback.Entity != _observedEntity)
+			{
+				return;
+			}
+			
+			if (callback.PreviousShieldCapacity != callback.ShieldCapacity
+			    && _entityViewUpdaterService.TryGetView(_observedEntity, out var entityView)
+			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			{
+				EnqueueValueIfNonZero(entityBase, ScriptLocalization.General.Shield,
+				                      callback.ShieldCapacity - callback.PreviousShieldCapacity);
+			}
+
+			if (callback.PreviousShield != callback.CurrentShield)
+			{
+				OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousShield,
+				               callback.CurrentShield, _poolArmour, _armourLossTextColor, _armourGainTextColor);
+			}
+		}
+
+		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
+		{
+			// Don't show stat changes in Deathmatch game mode
+			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
 			{
 				return;
 			}
 
-			OnValueUpdated(callback.Game, callback.Entity, callback.Attacker, callback.PreviousInterimArmour,
-			               callback.CurrentInterimArmour, _poolArmour, _armourLossTextColor, _armourGainTextColor);
+			ShowStatDifferenceOnEquipmentChange(_observedEntity, callback.PreviousStats, callback.CurrentStats);
 		}
-		
+
+		private void ShowStatDifferenceOnEquipmentChange(EntityRef e, Stats previousStats, Stats currentStats)
+		{
+			if (_entityViewUpdaterService.TryGetView(e, out var entityView)
+			    && entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
+			{
+				for (int i = 0; i < Constants.TOTAL_STATS; i++)
+				{
+					var difference = currentStats.Values[i].BaseValue.AsFloat -
+					                 previousStats.Values[i].BaseValue.AsFloat;
+					var statName = currentStats.Values[i].Type.GetTranslation();
+
+					EnqueueValueIfNonZero(entityBase, statName, Mathf.RoundToInt(difference));
+				}
+			}
+		}
+
+		private void EnqueueValueIfNonZero(HealthEntityBase entityBase, string valueName, int value)
+		{
+			if (value == 0)
+			{
+				return;
+			}
+
+			var valueSign = value > 0 ? " +" : " ";
+			var messageText = valueName + valueSign + value;
+			var messageColor = value > 0 ? _neutralTextColor : _hitTextColor;
+
+			EnqueueText(_pool, entityBase, messageText, messageColor);
+		}
+
 		private void OnHealthUpdate(EventOnHealthChanged callback)
 		{
 			if (callback.PreviousHealth == callback.CurrentHealth || callback.PreviousHealth == 0)
@@ -95,19 +211,22 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			               callback.CurrentHealth, _pool, _hitTextColor, _healTextColor);
 		}
 
-		private void OnValueUpdated(QuantumGame game, EntityRef victim, EntityRef attacker, int previousValue, int currentValue,
+		private void OnValueUpdated(QuantumGame game, EntityRef victim, EntityRef attacker, int previousValue,
+		                            int currentValue,
 		                            IObjectPool<FloatingTextPoolObject> pool, Color loseColor, Color gainColor)
 		{
 			var frame = game.Frames.Verified;
 
 			// Checks if the health affected is somehow the local player
-			if ((!frame.TryGet<PlayerCharacter>(attacker, out var attackerPlayer) || !game.PlayerIsLocal(attackerPlayer.Player)) &&
-				(!frame.TryGet<PlayerCharacter>(victim, out var victimPlayer) || !game.PlayerIsLocal(victimPlayer.Player)))
+			if ((!frame.TryGet<PlayerCharacter>(attacker, out var attackerPlayer) ||
+			     _observedPlayer != attackerPlayer.Player) &&
+			    (!frame.TryGet<PlayerCharacter>(victim, out var victimPlayer) ||
+			     _observedPlayer != victimPlayer.Player))
 			{
 				return;
 			}
 
-			if (!_entityViewUpdaterService.TryGetView(victim, out var entityView) || 
+			if (!_entityViewUpdaterService.TryGetView(victim, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				Debug.LogWarning($"The entity {victim} is not ready for a losing floating text yet");
@@ -116,45 +235,48 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			if (previousValue > currentValue)
 			{
-				SpawnText(pool,(previousValue - currentValue).ToString(), loseColor, entityBase.HealthBarAnchor.position);
+				SpawnText(pool, (previousValue - currentValue).ToString(), loseColor,
+				          entityBase.HealthBarAnchor.position);
 			}
 			else
 			{
-				SpawnText(pool,(currentValue - previousValue).ToString(), gainColor, entityBase.HealthBarAnchor.position);
+				SpawnText(pool, (currentValue - previousValue).ToString(), gainColor,
+				          entityBase.HealthBarAnchor.position);
 			}
 		}
 
-		private void EnqueueText(IObjectPool<FloatingTextPoolObject> pool, HealthEntityBase entityBase, string message, Color color)
+		private void EnqueueText(IObjectPool<FloatingTextPoolObject> pool, HealthEntityBase entityBase, string message,
+		                         Color color)
 		{
 			var messageData = new MessageData
 			{
 				Anchor = entityBase.HealthBarAnchor,
-				MessageText = message, 
+				MessageText = message,
 				Color = color,
 				Pool = pool
 			};
-			
+
 			if (!_queue.TryGetValue(entityBase.EntityView.EntityRef, out var queue))
 			{
 				queue = new Queue<MessageData>();
-				
+
 				_queue.Add(entityBase.EntityView.EntityRef, queue);
 			}
-			
+
 			queue.Enqueue(messageData);
-			
+
 			if (_coroutine == null)
 			{
 				_coroutine = StartCoroutine(SpawnTextCoroutine(queue));
 			}
 		}
-		
+
 		private IEnumerator SpawnTextCoroutine(Queue<MessageData> queue)
 		{
 			while (queue.Count > 0)
 			{
 				var messageData = queue.Peek();
-				
+
 				SpawnText(messageData.Pool, messageData.MessageText, messageData.Color, messageData.Anchor.position);
 
 				yield return new WaitForSeconds(_queueWaitTime);
@@ -164,29 +286,29 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 			_coroutine = null;
 		}
-		
+
 		private void SpawnText(IObjectPool<FloatingTextPoolObject> pool, string text, Color color, Vector3 position)
 		{
 			var closurePool = pool;
 			var floatingTextPoolObject = pool.Spawn();
 			var duration = 0f;
-			
+
 			floatingTextPoolObject.OverlayWorldView.Follow(position);
 			duration = floatingTextPoolObject.FloatingTextView.Play(text, color);
 			
 			this.LateCall(duration, () => closurePool.Despawn(floatingTextPoolObject));
 		}
-		
+
 		private FloatingTextPoolObject InstantiatorNormal()
 		{
 			return Instantiator(_floatingTextRef);
 		}
-		
+
 		private FloatingTextPoolObject InstantiatorArmour()
 		{
 			return Instantiator(_floatingArmourAndTextRef);
 		}
-		
+
 		private FloatingTextPoolObject Instantiator(GameObject refObject)
 		{
 			var instance = Instantiate(refObject, transform.parent, true);
@@ -197,12 +319,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				FloatingTextView = instance.GetComponent<FloatingTextView>(),
 				OverlayWorldView = instance.GetComponent<OverlayWorldView>()
 			};
-			
+
 			instanceTransform.localScale = Vector3.one;
 			instanceTransform.localPosition = Vector3.zero;
-			
+
 			instance.SetActive(false);
-			
+
 			return poolObject;
 		}
 
@@ -210,13 +332,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			public FloatingTextView FloatingTextView;
 			public OverlayWorldView OverlayWorldView;
-			
+
 			/// <inheritdoc />
 			public void OnSpawn()
 			{
 				FloatingTextView.gameObject.SetActive(true);
 			}
-			
+
 			/// <inheritdoc />
 			public void OnDespawn()
 			{
@@ -226,7 +348,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private struct MessageData
 		{
-			public Transform Anchor; 
+			public Transform Anchor;
 			public string MessageText;
 			public Color Color;
 			public IObjectPool<FloatingTextPoolObject> Pool;

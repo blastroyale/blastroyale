@@ -78,8 +78,9 @@ namespace FirstLightEditor.AssetImporter
 				{
 					var scriptableObject = GetScriptableObject(importer);
 
-					scriptableObject.AssetsFolderPath = AssetConfigsScriptableObjectEditor.GetFilterFolder(
-						EditorUtility.OpenFolderPanel("Select Folder Path", scriptableObject.AssetsFolderPath, ""));
+					var path = EditorUtility.OpenFolderPanel("Select Folder Path", scriptableObject.AssetsFolderPath,
+					                                         "");
+					scriptableObject.AssetsFolderPath = path.Substring(path.IndexOf("Assets/", StringComparison.Ordinal));
 					
 					importer.Importer.Import();
 					AssetDatabase.SaveAssets();

@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -10,6 +9,21 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class QuantumHelpers
 	{
+		/// <summary>
+		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
+		/// </summary>
+		public static FP PowFp(FP baseValue, FP power)
+		{
+			var ret = FP._1;
+
+			for (var i = 0; i < power; i++)
+			{
+				ret *= baseValue;
+			}
+
+			return ret;
+		}
+		
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
@@ -98,20 +112,21 @@ namespace Quantum
 			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(spell.OriginalHitPosition, FPQuaternion.Identity, shape, 
-			                                    f.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
+			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
+			
 
 			for (var j = 0; j < hits.Count; j++)
 			{
 				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
-				                                   spell.PowerAmount, hits[j].Point, spell.TeamSource);
+				                                   spell.PowerAmount, spell.KnockbackAmount, hits[j].Point, spell.TeamSource);
 
 				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
 				{
 					continue;
 				}
-				
+
 				hitCount++;
 					
 				onHitCallback?.Invoke(f, hitSpell);
@@ -136,9 +151,21 @@ namespace Quantum
 				return false;
 			}
 
+
+			if (spell.KnockbackAmount > 0 &&
+			    f.Unsafe.TryGetPointer<CharacterController3D>(spell.Victim, out var kcc) &&
+			    f.TryGet<Transform3D>(spell.Victim, out var victimTransform))
+			{
+				var kick = (victimTransform.Position - spell.OriginalHitPosition).Normalized *
+				           spell.KnockbackAmount;
+				kick.Y = FP._0;
+				kcc->Velocity += kick;
+			}
+			
+
 			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
 			{
-				stats->ReduceHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);
+				stats->ReduceHealth(f, spell);
 
 				return true;
 			}
@@ -270,6 +297,15 @@ namespace Quantum
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, out FPVector3 correctedPosition)
 		{
 			var radius = FP._1_50;
+			return TryFindPosOnNavMesh(f, initialPosition, radius, out correctedPosition);
+		}
+
+		/// <summary>
+		/// Tries to find a random in the circle area with <paramref name="initialPosition"/> and <paramref name="radius"/>
+		/// </summary>
+		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, FP radius, out FPVector3 correctedPosition)
+		{
+			
 			var navMesh = f.NavMesh;
 
 			if (navMesh.FindRandomPointOnNavmesh(initialPosition, radius, f.RNG, NavMeshRegionMask.Default, 
@@ -285,6 +321,14 @@ namespace Quantum
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Returns a random item from <paramref name="items"/>, with equal chance for each.
+		/// </summary>
+		public static T GetRandomItem<T>(Frame f, params T[] items)
+		{
+			return items[f.RNG->Next(0, items.Length)];
 		}
 	}
 }

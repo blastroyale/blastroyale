@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Ftue;
-using FirstLight.Game.Utils;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
-using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 
@@ -48,27 +44,48 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Is high res mode on device enabled?
 		/// </summary>
-		bool IsHighResModeEnabled { get; set; }
-		
-		/// <summary>
-		/// Marks the date when the game was last time reviewed
-		/// </summary>
-		void MarkGameAsReviewed();
+		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
 
 		/// <summary>
 		/// Requests the player's Nickname
 		/// </summary>
 		string Nickname { get; }
+
+		/// <summary>
+		/// Obtains the player unique id
+		/// </summary>
+		string PlayerId { get; }
 		
 		/// <summary>
 		/// Requests the player's Nickname
 		/// </summary>
 		IObservableFieldReader<string> NicknameId { get; }
+		
+		/// <summary>
+		/// Requests current status device if has a linked account already configured or not
+		/// </summary>
+		IObservableFieldReader<bool> AccountLinkedStatus { get; }
+		
+		/// <summary>
+		/// Requests current linked account's email with this device
+		/// </summary>
+		IObservableFieldReader<string> LinkedEmail { get; }
+		
+		/// <summary>
+		/// Requests current selected game mode
+		/// Marks the date when the game was last time reviewed
+		/// </summary>
+		IObservableField<GameMode> SelectedGameMode { get; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
-		void SetResolutionMode(bool highRes);
+		void SetDetailLevel(GraphicsConfig.DetailLevel highRes);
+		
+		/// <summary>
+		/// Marks the date when the game was last time reviewed
+		/// </summary>
+		void MarkGameAsReviewed();
 	}
 
 	/// <inheritdoc />
@@ -78,6 +95,16 @@ namespace FirstLight.Game.Logic
 		/// Requests and sets player nickname
 		/// </summary>
 		new IObservableField<string> NicknameId { get; }
+		
+		/// <summary>
+		/// Requests and sets current status device if has a linked account already configured or not
+		/// </summary>
+		new IObservableField<bool> AccountLinkedStatus { get; }
+		
+		/// <summary>
+		/// Requests and sets current linked account's email with this device
+		/// </summary>
+		new IObservableField<string> LinkedEmail { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -85,6 +112,8 @@ namespace FirstLight.Game.Logic
 	{
 		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
+		private readonly IObservableField<string> _lastLoginEmail;
+		private readonly IObservableField<bool> _linkedDevice;
 
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
@@ -127,13 +156,13 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool IsHighResModeEnabled
+		public GraphicsConfig.DetailLevel CurrentDetailLevel
 		{
-			get => Data.HighResModeEnabled;
+			get => Data.CurrentDetailLevel;
 			set
 			{
-				Data.HighResModeEnabled = value;
-				SetResolutionMode(value);
+				Data.CurrentDetailLevel = value;
+				SetDetailLevel(value);
 			}
 		}
 
@@ -142,10 +171,23 @@ namespace FirstLight.Game.Logic
 			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
 
 		/// <inheritdoc />
-		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+		public string PlayerId => Data.PlayerId;
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
+
+		/// <inheritdoc />
+		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		/// <inheritdoc />
+		public IObservableField<bool> AccountLinkedStatus { get; private set; }
+		/// <inheritdoc />
+		public IObservableField<string> LinkedEmail { get; private set; }
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+		/// <inheritdoc />
+		IObservableFieldReader<bool> IAppDataProvider.AccountLinkedStatus => AccountLinkedStatus;
+		/// <inheritdoc />
+		IObservableFieldReader<string> IAppDataProvider.LinkedEmail => LinkedEmail;
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -158,7 +200,10 @@ namespace FirstLight.Game.Logic
 		{
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
-			NicknameId = new ObservableField<string>(Data.NickNameId);
+			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
+			LinkedEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, name => Data.LastLoginEmail = name);
+			AccountLinkedStatus = new ObservableResolverField<bool>(() => Data.LinkedDevice, linked => Data.LinkedDevice = linked);
+			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 		}
 
 		/// <inheritdoc />
@@ -173,11 +218,13 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
-		public void SetResolutionMode(bool highRes)
+		public void SetDetailLevel(GraphicsConfig.DetailLevel detailLevel)
 		{
-			var resolution = highRes ? GameConstants.DYNAMIC_RES_HIGH : GameConstants.DYNAMIC_RES_LOW;
+			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
+			                        .Find(detailLevelConf => detailLevelConf.Name == detailLevel);
 
-			ScalableBufferManager.ResizeBuffers(resolution,resolution);
+			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
+			Application.targetFrameRate = detailLevelConf.Fps;
 		}
 	}
 }

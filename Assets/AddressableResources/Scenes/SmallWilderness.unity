@@ -1043,7 +1043,7 @@ Transform:
   - {fileID: 635767395}
   - {fileID: 1627947062}
   m_Father: {fileID: 1924151956}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &293085649
 PrefabInstance:
@@ -1102,11 +1102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 30
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -1638,11 +1642,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 23
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -1659,140 +1667,6 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
   m_PrefabInstance: {fileID: 430658236}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &447882285
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1924151956}
-    m_Modifications:
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -13.78224
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.2602262
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.GameId.Value
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.RespawnTimeInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.InitialSpawnDelayInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_Name
-      value: ConsumablePlatformSpawner (4)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
---- !u!4 &447882286 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 447882285}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &447882287 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 447882285}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &454001644
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1924151956}
-    m_Modifications:
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.021505833
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.594519
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.GameId.Value
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.RespawnTimeInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.InitialSpawnDelayInSec
-      value: 15
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
---- !u!4 &454001645 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 454001644}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &454001646 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 454001644}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -2053,11 +1927,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 35
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -2138,11 +2016,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 34
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -2159,75 +2041,6 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
   m_PrefabInstance: {fileID: 567798363}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &584412542
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1924151956}
-    m_Modifications:
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.0622127
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -18.94009
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.GameId.Value
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.RespawnTimeInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.InitialSpawnDelayInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_Name
-      value: ConsumablePlatformSpawner (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
---- !u!4 &584412543 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 584412542}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &584412544 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 584412542}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -3598,75 +3411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1017511411
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1924151956}
-    m_Modifications:
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.616632
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 15.020318
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.GameId.Value
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.RespawnTimeInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.InitialSpawnDelayInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_Name
-      value: ConsumablePlatformSpawner (3)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
---- !u!4 &1017511412 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 1017511411}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1017511413 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 1017511411}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1032757017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3799,11 +3543,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 35
+      value: 79
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -6014,75 +5762,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8310850734332821569, guid: 6b04f1b8dcdf45f40aa1873b5c93b4e4, type: 3}
---- !u!1001 &1497726776
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1924151956}
-    m_Modifications:
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.0729485
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.9227858
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.GameId.Value
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.RespawnTimeInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: Prototype.InitialSpawnDelayInSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-      propertyPath: m_Name
-      value: ConsumablePlatformSpawner (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
---- !u!4 &1497726777 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 1497726776}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1497726778 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7757663921541325714, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
-  m_PrefabInstance: {fileID: 1497726776}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1512695465
 GameObject:
   m_ObjectHideFlags: 0
@@ -6421,11 +6100,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 32
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -7380,11 +7063,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 33
+      value: 86
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -7965,11 +7652,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 23
+      value: 79
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
@@ -8259,11 +7950,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 454001646}
-  - {fileID: 1497726778}
-  - {fileID: 584412544}
-  - {fileID: 1017511413}
-  - {fileID: 447882287}
   - {fileID: 1561414651}
   - {fileID: 380231987}
   - {fileID: 984420450}
@@ -8344,11 +8030,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 454001645}
-  - {fileID: 1497726777}
-  - {fileID: 584412543}
-  - {fileID: 1017511412}
-  - {fileID: 447882286}
   - {fileID: 233663567}
   m_Father: {fileID: 90687327}
   m_RootOrder: 1
@@ -9091,11 +8772,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 37
+      value: 87
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
+      propertyPath: Prototype.RarityModifier
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7331633484137446179, guid: 5f9ce14d8c057d044bcc7ea98d1d3fe6, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec

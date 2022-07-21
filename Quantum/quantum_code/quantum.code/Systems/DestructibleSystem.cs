@@ -26,7 +26,7 @@ namespace Quantum.Systems
 			}
 			
 			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
-			var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, power,
+			var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, power, 0,
 			                                filter.Transform->Position);
 
 			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);

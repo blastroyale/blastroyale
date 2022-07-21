@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -11,6 +9,11 @@ namespace Quantum
 	{
 		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
+			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
+			{
+				return false;
+			}
+			
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			var team = f.Get<Targetable>(e).Team;
@@ -41,9 +44,8 @@ namespace Quantum
 			else
 			{
 				targetPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange).XOY;
-				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
-			
+
 			var hazardData = new Hazard
 			{
 				Attacker = e,
@@ -51,11 +53,12 @@ namespace Quantum
 				GameId = special.SpecialId,
 				Interval = special.Speed,
 				NextTickTime = f.Time + special.Speed,
-				PowerAmount = special.PowerAmount,
+				PowerAmount = special.SpecialPower,
 				Radius = special.Radius,
 				StunDuration = FP._0,
 				TeamSource = team,
-				MaxHitCount = uint.MaxValue
+				MaxHitCount = uint.MaxValue,
+				Knockback = special.Knockback,
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

@@ -1,8 +1,11 @@
+using System;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -11,8 +14,9 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		private readonly IGameServices _services; 
+		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
+		private IEntityViewUpdaterService _entityViewUpdaterService;
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services)
 		{
@@ -47,19 +51,39 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
+			// TODO - FIND BETTER SOLUTION FOR THIS PLS
+			if (_entityViewUpdaterService == null)
+			{
+				_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			}
+			
 			var game = callback.Game;
+			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
+
+			var randomVol = Random.Range(GameConstants.Audio.SFX_RAND_VOLUME_MIN,
+			                             GameConstants.Audio.SFX_RAND_VOLUME_MAX);
+			var randomPitch = Random.Range(GameConstants.Audio.SFX_RAND_PITCH_MIN,
+			                               GameConstants.Audio.SFX_RAND_PITCH_MAX);
+
+			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+			initProps.Volume = randomVol;
+			initProps.Pitch = randomPitch;
+
+			var audio = AudioId.None;
+
 			if (game.PlayerIsLocal(callback.Player))
 			{
-				var audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
-				
-				_services.AudioFxService.PlayClip2D(audio);
+				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 			}
 			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
 			         game.PlayerIsLocal(player.Player))
 			{
-				var audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-				
-				_services.AudioFxService.PlayClip2D(audio);
+				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
+			}
+
+			if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps);
 			}
 		}
 	}

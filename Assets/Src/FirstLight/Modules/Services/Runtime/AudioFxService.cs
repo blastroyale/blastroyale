@@ -39,7 +39,7 @@ namespace FirstLight.Services
 		bool TryGetClip(T id, out AudioClip clip);
 
 		/// <summary>
-		/// Detaches the current main <see cref="AudioListener"/> from it's current parent
+		/// Removes follow target from the current <see cref="AudioListenerMonoComponent"/> 
 		/// </summary>
 		void DetachAudioListener();
 
@@ -102,12 +102,13 @@ namespace FirstLight.Services
 	{
 		public AudioListener Listener;
 		private Transform _followTarget;
+		private Vector3 _followOffset;
 		
 		private void Update()
 		{
 			if (_followTarget != null)
 			{
-				transform.position = _followTarget.position;
+				transform.position = _followTarget.position + _followOffset;
 			}
 			else
 			{
@@ -119,9 +120,10 @@ namespace FirstLight.Services
 		/// Sets the follow target for this audio listener
 		/// If null, the listener will zero out it's position every frame instead
 		/// </summary>
-		public void SetFollowTarget(Transform newTarget, Quaternion rotation)
+		public void SetFollowTarget(Transform newTarget, Vector3 followOffset, Quaternion rotation)
 		{
 			_followTarget = newTarget;
+			_followOffset = followOffset;
 			transform.rotation = rotation;
 		}
 	}
@@ -202,7 +204,7 @@ namespace FirstLight.Services
 	/// <inheritdoc />
 	public class AudioFxService<T> : IAudioFxInternalService<T> where T : struct, Enum
 	{
-		private const float SPACIAL_3D_THRESHOLD = 0.2f;
+		private const float SPATIAL_3D_THRESHOLD = 0.1f;
 		
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
@@ -237,7 +239,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].Source.spatialBlend < SPACIAL_3D_THRESHOLD)
+					if (audio[i].Source.spatialBlend < SPATIAL_3D_THRESHOLD)
 					{
 						audio[i].Source.mute = value;
 					}
@@ -258,7 +260,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].Source.spatialBlend >= SPACIAL_3D_THRESHOLD)
+					if (audio[i].Source.spatialBlend >= SPATIAL_3D_THRESHOLD)
 					{
 						audio[i].Source.mute = value;
 					}
@@ -272,19 +274,19 @@ namespace FirstLight.Services
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
 			
 			audioPlayer.Source = audioPlayer.gameObject.AddComponent<AudioSource>();
+			audioPlayer.transform.SetParent(container.transform);
 			audioPlayer.Source.playOnAwake = false;
 			audioPlayer.gameObject.SetActive(false);
-			audioPlayer.transform.SetParent(container.transform);
-			
+
 			_musicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
+			_musicSource.transform.SetParent(container.transform);
 			_musicSource.Source = _musicSource.gameObject.AddComponent<AudioSource>();
 			_musicSource.Source.playOnAwake = false;
-			_musicSource.transform.SetParent(container.transform);
 			
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();
-			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
 			AudioListener.transform.SetParent(container.transform);
-			AudioListener.SetFollowTarget(null, Quaternion.identity);
+			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
+			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			_sfx2dVolumeMultiplier = sfx2dVolumeMultiplier;
 			_sfx3dVolumeMultiplier = sfx3dVolumeMultiplier;
@@ -305,7 +307,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void DetachAudioListener()
 		{
-			AudioListener.SetFollowTarget(null, Quaternion.identity);
+			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 		}
 		
 		/// <inheritdoc />

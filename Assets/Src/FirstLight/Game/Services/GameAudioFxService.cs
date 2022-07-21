@@ -129,9 +129,9 @@ namespace FirstLight.Game.Services
 				Loop = false,
 				Mute = false,
 				StartTime = 0,
-				RolloffMode = AudioRolloffMode.Logarithmic,
-				MinDistance = 0f,
-				MaxDistance = 75f
+				RolloffMode = AudioRolloffMode.Linear,
+				MinDistance = GameConstants.Audio.SFX_3D_MIN_DISTANCE,
+				MaxDistance = GameConstants.Audio.SFX_3D_MAX_DISTANCE
 			};
 		}
 	}

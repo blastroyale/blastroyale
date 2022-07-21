@@ -339,9 +339,9 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			Vector3 eulerAngles = t.rotation.eulerAngles;
 			Quaternion flatRotation = Quaternion.Euler(0, eulerAngles.y, 0);
-
+			
 			var audioListener = _services.AudioFxService.AudioListener;
-			audioListener.SetFollowTarget(t, flatRotation);
+			audioListener.SetFollowTarget(t, Vector3.up, flatRotation);
 		}
 
 		private List<EntityRef> GetPlayerList(Frame f, out int currentIndex)

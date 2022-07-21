@@ -22,7 +22,7 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			
-			if (!playerCharacter->WeaponSlots[WeaponSlotIndex].Weapon.IsValid())
+			if (!playerCharacter->WeaponSlots[WeaponSlotIndex].Weapon.IsValid() || WeaponSlotIndex == playerCharacter->CurrentWeaponSlot)
 			{
 				return;
 			}

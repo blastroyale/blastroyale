@@ -49,7 +49,7 @@ namespace Quantum
 			
 			var player = f.Get<PlayerCharacter>(playerEntity).Player;
 
-			AvailableTime = f.Time  + Cooldown;
+			AvailableTime = f.Time + Cooldown;
 			
 			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);
 			f.Events.OnSpecialUsed(player, playerEntity, SpecialType, specialIndex);

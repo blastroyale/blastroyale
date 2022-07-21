@@ -396,6 +396,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSpectatorToggle(bool isOn)
 		{
+			// Set lock room button to be inactive immediately - gets enabled when player properties change
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				_lockRoomButton.interactable = false;
+			}
+			
 			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = isOn});
 			_services.CoroutineService.StartCoroutine(TimeoutSpectatorToggleCoroutine());
 		}

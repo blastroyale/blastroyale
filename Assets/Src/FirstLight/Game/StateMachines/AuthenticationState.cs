@@ -240,15 +240,15 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 
-			if (IsOutdated(titleData[nameof(Application.version)]))
-			{
-				OpenGameUpdateDialog();
-				return;
-			}
-			
 			if (titleData.TryGetValue($"{nameof(Application.version)} block", out var version) && IsOutdated(version))
 			{
 				OpenGameBlockedDialog();
+				return;
+			}
+			
+			if (IsOutdated(titleData[nameof(Application.version)]))
+			{
+				OpenGameUpdateDialog();
 				return;
 			}
 			

@@ -50,7 +50,7 @@ namespace FirstLight.Game.Utils
 			public const float SFX_WEAPON_VOLUME_MIN = 0.7f;
 			public const float SFX_WEAPON_VOLUME_MAX = 1f;
 			public const float SFX_3D_MIN_DISTANCE = 0f;
-			public const float SFX_3D_MAX_DISTANCE = 50f;
+			public const float SFX_3D_MAX_DISTANCE = 100f;
 		}
 
 		public static class Notifications

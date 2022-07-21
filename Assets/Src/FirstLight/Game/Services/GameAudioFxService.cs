@@ -129,7 +129,7 @@ namespace FirstLight.Game.Services
 				Loop = false,
 				Mute = false,
 				StartTime = 0,
-				RolloffMode = AudioRolloffMode.Linear,
+				RolloffMode = AudioRolloffMode.Logarithmic,
 				MinDistance = 0f,
 				MaxDistance = 75f
 			};

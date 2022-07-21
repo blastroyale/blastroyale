@@ -146,7 +146,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				_spectating = true;
-				SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+				SetAudioListenerTransform(Camera.main.transform);
 				SpectateNextPlayer();
 			}
 			else
@@ -156,7 +156,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				if (!localPlayer.Entity.IsAlive(f))
 				{
 					_spectating = true;
-					SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+					SetAudioListenerTransform(Camera.main.transform);
 					SpectateNextPlayer();
 					return;
 				}
@@ -165,7 +165,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 				var entityView = _entityViewUpdaterService.GetManualView(_followedPlayerEntity);
 				
-				SetAudioListenerTransform(entityView.transform, Vector3.up, Quaternion.identity);
+				SetAudioListenerTransform(entityView.transform);
 				SetTargetTransform(entityView.transform, entityView.EntityRef, game.GetLocalPlayers()[0]);
 			}
 		}
@@ -186,7 +186,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var follow = _entityViewUpdaterService.GetManualView(callback.Entity);
 
 			// We place audio listener roughly "in the player character's head"
-			SetAudioListenerTransform(follow.transform, Vector3.up, Quaternion.identity);
+			SetAudioListenerTransform(follow.transform);
 			SetTargetTransform(follow.transform, callback.Entity, callback.Player);
 			SetActiveCamera(_spawnCamera);
 		}
@@ -200,7 +200,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			var entityView = _entityViewUpdaterService.GetManualView(_followedPlayerEntity);
 			
-			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+			SetAudioListenerTransform(Camera.main.transform);
 			SetTargetTransform(entityView.GetComponentInChildren<PlayerCharacterViewMonoComponent>().RootTransform, 
 			                   entityView.EntityRef,
 			                   PlayerRef.None);
@@ -257,7 +257,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			ResetLeaderAndKiller(callback.Game.Frames.Verified);
 			SetActiveCamera(_adventureCamera);
-			SetAudioListenerTransform(Camera.main.transform, Vector3.zero, Quaternion.identity);
+			SetAudioListenerTransform(Camera.main.transform);
 			SpectateNextPlayer();
 		}
 
@@ -272,6 +272,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_spectating && TryGetNextPlayerView(f, out var entityView))
 			{
+				SetAudioListenerTransform(entityView.transform);
 				SetTargetTransform(entityView.transform, entityView.EntityRef, f.Get<PlayerCharacter>(entityView.EntityRef).Player);
 			}
 		}
@@ -334,12 +335,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
-		private void SetAudioListenerTransform(Transform t, Vector3 pos, Quaternion rot)
+		private void SetAudioListenerTransform(Transform t)
 		{
-			var audioListenerTransform = _services.AudioFxService.AudioListener.transform;
-			audioListenerTransform.SetParent(t);
-			audioListenerTransform.localPosition = pos;
-			audioListenerTransform.rotation = rot;
+			Vector3 eulerAngles = t.rotation.eulerAngles;
+			Quaternion flatRotation = Quaternion.Euler(0, eulerAngles.y, 0);
+
+			var audioListener = _services.AudioFxService.AudioListener;
+			audioListener.SetFollowTarget(t, flatRotation);
 		}
 
 		private List<EntityRef> GetPlayerList(Frame f, out int currentIndex)

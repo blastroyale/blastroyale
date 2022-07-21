@@ -47,19 +47,19 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps initProps = null);
+		void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip2D(T id, AudioInitProps initProps = null);
+		void PlayClip2D(T id, AudioSourceInitData sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayMusic(T id, AudioInitProps initProps = null);
+		void PlayMusic(T id, AudioSourceInitData sourceInitData = null);
 		
 		/// <summary>
 		/// Stops the music
@@ -69,7 +69,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
 		/// </summary>
-		AudioInitProps GetDefaultAudioInitProps(float spatialBlend);
+		AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend);
 	}
 
 	/// <inheritdoc />
@@ -106,23 +106,23 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
-		public void Init(AudioClip clip, float volumeMultiplier, Vector3? worldPos, AudioInitProps initProps)
+		public void Init(AudioClip clip, float volumeMultiplier, Vector3? worldPos, AudioSourceInitData sourceInitData)
 		{
-			if (initProps == null)
+			if (sourceInitData == null)
 			{
 				return;
 			}
 			
 			AudioSource.clip = clip;
-			AudioSource.volume = initProps.Volume * volumeMultiplier;
-			AudioSource.spatialBlend = initProps.SpatialBlend;
-			AudioSource.pitch = initProps.Pitch;
-			AudioSource.time = initProps.StartTime;
-			AudioSource.mute = initProps.Mute;
-			AudioSource.loop = initProps.Loop;
-			AudioSource.rolloffMode = initProps.RolloffMode;
-			AudioSource.minDistance = initProps.MinDistance;
-			AudioSource.maxDistance = initProps.MaxDistance;
+			AudioSource.volume = sourceInitData.Volume * volumeMultiplier;
+			AudioSource.spatialBlend = sourceInitData.SpatialBlend;
+			AudioSource.pitch = sourceInitData.Pitch;
+			AudioSource.time = sourceInitData.StartTime;
+			AudioSource.mute = sourceInitData.Mute;
+			AudioSource.loop = sourceInitData.Loop;
+			AudioSource.rolloffMode = sourceInitData.RolloffMode;
+			AudioSource.minDistance = sourceInitData.MinDistance;
+			AudioSource.maxDistance = sourceInitData.MaxDistance;
 			
 			if (worldPos.HasValue)
 			{
@@ -151,7 +151,7 @@ namespace FirstLight.Services
 	/// <summary>
 	/// This class contains initialization properties for AudioObject instances
 	/// </summary>
-	public class AudioInitProps
+	public class AudioSourceInitData
 	{
 		public float StartTime;
 		public float SpatialBlend;
@@ -268,40 +268,40 @@ namespace FirstLight.Services
 			AudioListener.transform.SetParent(_musicSource.transform.parent);
 		}
 		
-		public void PlayClip3D(T id, Vector3 worldPosition, AudioInitProps initProps = null)
+		public void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData sourceInitData = null)
 		{
-			if (!TryGetClip(id, out var clip) || initProps == null)
+			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
 				return;
 			}
 
 			var source = _pool.Spawn();
-			source.Init(clip, _sfx3dVolumeMultiplier,worldPosition, initProps);
+			source.Init(clip, _sfx3dVolumeMultiplier,worldPosition, sourceInitData);
 			source.AudioSource.Play();
 			source.StartTimeDespawner(_pool);
 		}
 		
-		public void PlayClip2D(T id, AudioInitProps initProps = null)
+		public void PlayClip2D(T id, AudioSourceInitData sourceInitData = null)
 		{
-			if (!TryGetClip(id, out var clip) || initProps == null)
+			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
 				return;
 			}
 			
 			var source = _pool.Spawn();
-			source.Init(clip, _sfx2dVolumeMultiplier, Vector3.zero, initProps);
+			source.Init(clip, _sfx2dVolumeMultiplier, Vector3.zero, sourceInitData);
 			source.AudioSource.Play();
 			source.StartTimeDespawner(_pool);
 		}
 		
-		public void PlayMusic(T id, AudioInitProps initProps = null)
+		public void PlayMusic(T id, AudioSourceInitData sourceInitData = null)
 		{
-			if (!TryGetClip(id, out var clip) || initProps == null)
+			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
 				return;
 			}
 			
-			_musicSource.Init(clip, _bgmVolumeMultiplier, Vector3.zero, initProps);
+			_musicSource.Init(clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
 			_musicSource.AudioSource.Play();
 		}
 		
@@ -310,9 +310,9 @@ namespace FirstLight.Services
 			_musicSource.AudioSource.Stop();
 		}
 
-		public AudioInitProps GetDefaultAudioInitProps(float spatialBlend)
+		public AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend)
 		{
-			return new AudioInitProps()
+			return new AudioSourceInitData()
 			{
 				SpatialBlend = spatialBlend,
 				Pitch = 1f,

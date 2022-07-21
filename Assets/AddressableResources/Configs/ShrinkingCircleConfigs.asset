@@ -37,7 +37,7 @@ MonoBehaviour:
         Value2:
           RawValue: 1638400
       AirdropDropDuration:
-        RawValue: 1310720
+        RawValue: 983040
       AirdropChest: 19
     - Step: 2
       DelayTime:
@@ -58,7 +58,7 @@ MonoBehaviour:
         Value2:
           RawValue: 983040
       AirdropDropDuration:
-        RawValue: 1310720
+        RawValue: 983040
       AirdropChest: 19
     - Step: 3
       DelayTime:

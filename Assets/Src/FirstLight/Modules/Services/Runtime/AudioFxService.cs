@@ -207,6 +207,7 @@ namespace FirstLight.Services
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioPlayerMonoComponent> _sfxPlayerPool;
 		private readonly AudioPlayerMonoComponent _musicPlayer;
+		
 		protected readonly float _sfx2dVolumeMultiplier;
 		protected readonly float _sfx3dVolumeMultiplier;
 		protected readonly float _bgmVolumeMultiplier;
@@ -214,6 +215,7 @@ namespace FirstLight.Services
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
 		
+		/// <inheritdoc />
 		public AudioListenerMonoComponent AudioListener { get; }
 
 		/// <inheritdoc />
@@ -223,6 +225,7 @@ namespace FirstLight.Services
 			set => _musicPlayer.Source.mute = value;
 		}
 		
+		/// <inheritdoc />
 		public bool Is2dSfxMuted
 		{
 			get => _sfx2dEnabled;
@@ -243,6 +246,7 @@ namespace FirstLight.Services
 			
 		}
 		
+		/// <inheritdoc />
 		public bool Is3dSfxMuted 
 		{
 			get => _sfx3dEnabled;
@@ -291,16 +295,19 @@ namespace FirstLight.Services
 			_sfxPlayerPool = pool;
 		}
 		
+		/// <inheritdoc />
 		public virtual bool TryGetClip(T id, out AudioClip clip)
 		{
 			return _audioClips.TryGetValue(id, out clip);
 		}
 		
+		/// <inheritdoc />
 		public void DetachAudioListener()
 		{
 			AudioListener.SetFollowTarget(null, Quaternion.identity);
 		}
 		
+		/// <inheritdoc />
 		public void PlayClip3D(T id, Vector3 worldPosition, AudioPlayerInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
@@ -313,6 +320,7 @@ namespace FirstLight.Services
 			source.StartTimeDespawner(_sfxPlayerPool);
 		}
 		
+		/// <inheritdoc />
 		public void PlayClip2D(T id, AudioPlayerInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
@@ -325,6 +333,7 @@ namespace FirstLight.Services
 			source.StartTimeDespawner(_sfxPlayerPool);
 		}
 		
+		/// <inheritdoc />
 		public void PlayMusic(T id, AudioPlayerInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
@@ -335,26 +344,31 @@ namespace FirstLight.Services
 			_musicPlayer.Play(clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
 		}
 		
+		/// <inheritdoc />
 		public void StopMusic()
 		{
 			_musicPlayer.Source.Stop();
 		}
 
+		/// <inheritdoc />
 		public AudioPlayerInitData GetDefaultAudioInitProps(float spatialBlend)
 		{
 			return default;
 		}
 		
+		/// <inheritdoc />
 		public void Add(T id, AudioClip clip)
 		{
 			_audioClips.Add(id, clip);
 		}
 		
+		/// <inheritdoc />
 		public void Remove(T id)
 		{
 			_audioClips.Remove(id);
 		}
 		
+		/// <inheritdoc />
 		public Dictionary<T, AudioClip> Clear()
 		{
 			var dic = new Dictionary<T, AudioClip>(_audioClips);
@@ -364,6 +378,7 @@ namespace FirstLight.Services
 			return dic;
 		}
 		
+		/// <inheritdoc />
 		public void Dispose()
 		{
 			_audioClips.Clear();

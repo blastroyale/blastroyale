@@ -122,7 +122,10 @@ namespace FirstLight.Game.Services
 				Volume = GameConstants.Audio.SFX_DEFAULT_VOLUME,
 				Loop = false,
 				Mute = false,
-				StartTime = 0
+				StartTime = 0,
+				RolloffMode = AudioRolloffMode.Linear,
+				MinDistance = 0f,
+				MaxDistance = 75f
 			};
 		}
 	}

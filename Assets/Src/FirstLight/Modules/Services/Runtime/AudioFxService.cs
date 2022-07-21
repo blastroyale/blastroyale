@@ -120,7 +120,10 @@ namespace FirstLight.Services
 			AudioSource.time = initProps.StartTime;
 			AudioSource.mute = initProps.Mute;
 			AudioSource.loop = initProps.Loop;
-
+			AudioSource.rolloffMode = initProps.RolloffMode;
+			AudioSource.minDistance = initProps.MinDistance;
+			AudioSource.maxDistance = initProps.MaxDistance;
+			
 			if (worldPos.HasValue)
 			{
 				transform.position = worldPos.Value;
@@ -156,6 +159,10 @@ namespace FirstLight.Services
 		public float Pitch;
 		public bool Mute;
 		public bool Loop;
+
+		public AudioRolloffMode RolloffMode;
+		public float MinDistance;
+		public float MaxDistance;
 	}
 		
 	/// <inheritdoc />
@@ -312,7 +319,10 @@ namespace FirstLight.Services
 				Volume = 1f,
 				Loop = false,
 				Mute = false,
-				StartTime = 0
+				StartTime = 0,
+				RolloffMode = AudioRolloffMode.Linear,
+				MinDistance = 0f,
+				MaxDistance = 50f
 			};
 		}
 		

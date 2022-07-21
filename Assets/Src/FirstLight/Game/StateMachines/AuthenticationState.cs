@@ -215,11 +215,8 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			
 #if RELEASE_BUILD
-// TODO: Revert this before 0.2.0 release
-			//PlayFabSettings.TitleId = "***REMOVED***";
-			//quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #else
 			//Config for "Dev_Backend"
 			PlayFabSettings.TitleId = "***REMOVED***";

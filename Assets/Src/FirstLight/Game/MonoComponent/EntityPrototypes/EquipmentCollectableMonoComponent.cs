@@ -4,9 +4,7 @@ using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
 {
@@ -17,34 +15,83 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	{
 		[SerializeField, Required] private Transform _itemTransform;
 		[SerializeField, Required] private CollectableViewMonoComponent _collectableView;
-		[SerializeField, Required] private EquipmentRarityEffectDictionary _rarityEffects;
+		[SerializeField, Required] private GameObject _higherRarityArrow;
+
+		private QuantumGame _game;
+		private EquipmentCollectable _equipmentCollectable;
 		
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
+			_game = game;
 			_collectableView.SetEntityView(game, EntityView);
-
 			var collectable = GetComponentData<Collectable>(game);
 			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId);
-			var cacheTransform = instance.transform;
-
+			
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
 				return;
 			}
+			
+			_equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 
+			var cacheTransform = instance.transform;
 			cacheTransform.SetParent(_itemTransform);
-
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
 			
-			await ShowRarityEffect(game);
+			await ShowRarityEffect(game, _equipmentCollectable);
+
+			ShowHigherRarityArrow(game, _equipmentCollectable);
 		}
 
-		private async Task ShowRarityEffect(QuantumGame game)
+		private void HandleOnPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			var rarity = GetComponentData<EquipmentCollectable>(game).Item.Rarity;
+			ShowHigherRarityArrow(_game, _equipmentCollectable);
+		}
+
+		private void ShowHigherRarityArrow(QuantumGame game, EquipmentCollectable collectable)
+		{
+			if (!collectable.Item.IsWeapon())
+			{
+				return;
+			}
+			
+			var f = game.Frames.Verified;
+			var playersData = f.GetSingleton<GameContainer>().PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
+			
+			var numOfSlots = playerCharacter.WeaponSlots.Length;
+			for (int slotIndex = 0; slotIndex < numOfSlots; slotIndex++)
+			{
+				var weaponSlot = playerCharacter.WeaponSlots[slotIndex];
+
+				// If we already have the weapon, we would use that slot
+				if (weaponSlot.Weapon.GameId == collectable.Item.GameId)
+				{
+					_higherRarityArrow.SetActive(weaponSlot.Weapon.Rarity < collectable.Item.Rarity);
+					return;
+				}
+
+				// If there's an empty slot starting on a lower index, we would use that slot
+				if (!weaponSlot.Weapon.IsValid())
+				{
+					_higherRarityArrow.SetActive(true);
+					return;
+				}
+			}
+			
+			// If no other criteria selected a slot, we use the secondary slot
+			var secondaryWeaponSlot = playerCharacter.WeaponSlots[Constants.WEAPON_INDEX_SECONDARY];
+			_higherRarityArrow.SetActive(secondaryWeaponSlot.Weapon.Rarity < collectable.Item.Rarity);
+		}
+
+		private async Task ShowRarityEffect(QuantumGame game, EquipmentCollectable collectable)
+		{
+			var rarity = collectable.Item.Rarity;
 			var effect = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
 			var effectTransform = effect.transform;
 

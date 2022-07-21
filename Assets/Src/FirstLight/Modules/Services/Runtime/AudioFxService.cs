@@ -129,11 +129,11 @@ namespace FirstLight.Services
 	/// <summary>
 	/// A simple class wrapper for the <see cref="Source"/> objects
 	/// </summary>
-	public class AudioPlayerMonoComponent : MonoBehaviour
+	public class AudioSourceMonoComponent : MonoBehaviour
 	{
 		public AudioSource Source;
 			
-		private IObjectPool<AudioPlayerMonoComponent> _pool;
+		private IObjectPool<AudioSourceMonoComponent> _pool;
 
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
@@ -167,7 +167,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Marks this AudioFx to despawn back to the given <paramref name="pool"/> after the sound is completed
 		/// </summary>
-		public void StartTimeDespawner(IObjectPool<AudioPlayerMonoComponent> pool)
+		public void StartTimeDespawner(IObjectPool<AudioSourceMonoComponent> pool)
 		{
 			_pool = pool;
 				
@@ -205,8 +205,8 @@ namespace FirstLight.Services
 		private const float SPACIAL_3D_THRESHOLD = 0.2f;
 		
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
-		private readonly IObjectPool<AudioPlayerMonoComponent> _sfxPlayerPool;
-		private readonly AudioPlayerMonoComponent _musicPlayer;
+		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
+		private readonly AudioSourceMonoComponent _musicSource;
 		
 		protected readonly float _sfx2dVolumeMultiplier;
 		protected readonly float _sfx3dVolumeMultiplier;
@@ -221,8 +221,8 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsBgmMuted
 		{
-			get => _musicPlayer.Source.mute;
-			set => _musicPlayer.Source.mute = value;
+			get => _musicSource.Source.mute;
+			set => _musicSource.Source.mute = value;
 		}
 		
 		/// <inheritdoc />
@@ -269,19 +269,20 @@ namespace FirstLight.Services
 		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolumeMultiplier)
 		{
 			var container = new GameObject("Audio Container");
-			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioPlayerMonoComponent>();
+			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
 			
 			audioPlayer.Source = audioPlayer.gameObject.AddComponent<AudioSource>();
 			audioPlayer.Source.playOnAwake = false;
 			audioPlayer.gameObject.SetActive(false);
 			audioPlayer.transform.SetParent(container.transform);
 			
-			_musicPlayer = new GameObject("Music Source").AddComponent<AudioPlayerMonoComponent>();
-			_musicPlayer.Source = _musicPlayer.gameObject.AddComponent<AudioSource>();
-			_musicPlayer.Source.playOnAwake = false;
-			_musicPlayer.transform.SetParent(container.transform);
+			_musicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
+			_musicSource.Source = _musicSource.gameObject.AddComponent<AudioSource>();
+			_musicSource.Source.playOnAwake = false;
+			_musicSource.transform.SetParent(container.transform);
 			
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();
+			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
 			AudioListener.transform.SetParent(container.transform);
 			AudioListener.SetFollowTarget(null, Quaternion.identity);
 
@@ -289,7 +290,7 @@ namespace FirstLight.Services
 			_sfx3dVolumeMultiplier = sfx3dVolumeMultiplier;
 			_bgmVolumeMultiplier = bgmVolumeMultiplier;
 			
-			var pool = new GameObjectPool<AudioPlayerMonoComponent>(10, audioPlayer);
+			var pool = new GameObjectPool<AudioSourceMonoComponent>(10, audioPlayer);
 
 			pool.DespawnToSampleParent = true;
 			_sfxPlayerPool = pool;
@@ -341,13 +342,13 @@ namespace FirstLight.Services
 				return;
 			}
 
-			_musicPlayer.Play(clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+			_musicSource.Play(clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
 		}
 		
 		/// <inheritdoc />
 		public void StopMusic()
 		{
-			_musicPlayer.Source.Stop();
+			_musicSource.Source.Stop();
 		}
 
 		/// <inheritdoc />
@@ -383,9 +384,9 @@ namespace FirstLight.Services
 		{
 			_audioClips.Clear();
 
-			if (_musicPlayer != null && _musicPlayer.transform.parent.gameObject != null)
+			if (_musicSource != null && _musicSource.transform.parent.gameObject != null)
 			{
-				UnityEngine.Object.Destroy(_musicPlayer.transform.parent.gameObject);
+				UnityEngine.Object.Destroy(_musicSource.transform.parent.gameObject);
 			}
 		}
 	}

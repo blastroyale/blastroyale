@@ -41,6 +41,8 @@ namespace FirstLight.Game.Services
 				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 			}
 			
+			initProps.Mute = Is3dSfxMuted;
+			
 			var startTime = DateTime.Now;
 			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
@@ -68,6 +70,8 @@ namespace FirstLight.Game.Services
 				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			}
 			
+			initProps.Mute = Is2dSfxMuted;
+			
 			var startTime = DateTime.Now;
 			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
@@ -94,8 +98,10 @@ namespace FirstLight.Game.Services
 			if (initProps == null)
 			{
 				initProps = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-				initProps.Loop = true;
 			}
+			
+			initProps.Loop = true;
+			initProps.Mute = IsBgmMuted;
 			
 			await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 

@@ -110,7 +110,7 @@ namespace FirstLight.Game.StateMachines
 				_configsLoader.LoadConfig<AudioAdventureAssetConfigs>(AddressableId.Configs_AudioAdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
-				_configsLoader.LoadConfig<EquipmentCollectableEffectsAssetConfigs>(AddressableId.Configs_EquipmentCollectableEffectsAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<EquipmentRarityAssetConfigs>(AddressableId.Configs_EquipmentRarityAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),

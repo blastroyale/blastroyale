@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f9d5edd179940f5a954e879b7481a3a, type: 3}
-  m_Name: EquipmentCollectableEffectsAssetConfigs
+  m_Name: EquipmentRarityAssetConfigs
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/AdventureAssets/Collectables/RarityEffects
   _configs:

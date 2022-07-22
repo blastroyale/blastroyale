@@ -262,6 +262,7 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 
 			_dataService.SaveData<AppData>();
+			FLog.Verbose("Saved AppData");
 		}
 
 		private void LinkDeviceID()
@@ -305,12 +306,14 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess()
 			{
 				_dataService.GetData<AppData>().LinkedDevice = true;
+				_dataService.SaveData<AppData>();
 				FLog.Verbose("Linked account with device in playfab");
 			}
 		}
 
 		private void FinalStepsAuthentication(IWaitActivity activity)
 		{
+			FLog.Verbose("Obtaining player data");
 			_services.PlayfabService.CallFunction("GetPlayerData", res => OnPlayerDataObtained(res, activity), 
 			                                      OnPlayFabError);
 			

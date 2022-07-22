@@ -1,7 +1,13 @@
 {
     "version": "2.0",
     "logging": {
-        "applicationInsights": {
+      "logLevel": {
+        "default": "Information",
+        "Host.Results": "Error",
+        "Function": "Trace",
+        "Host.Aggregator": "Trace"
+       },
+       "applicationInsights": {
             "samplingExcludedTypes": "Request",
             "samplingSettings": {
                 "isEnabled": true

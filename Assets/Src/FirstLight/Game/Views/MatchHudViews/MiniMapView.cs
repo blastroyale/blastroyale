@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -21,7 +19,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
-		private static readonly int _thicknessPID = Shader.PropertyToID("_Thickness");
+		private static readonly int _safeAreaOffsetPID = Shader.PropertyToID("_SafeAreaOffset");
+		private static readonly int _safeAreaSizePID = Shader.PropertyToID("_SafeAreaSize");
+		private static readonly int _dangerAreaOffsetPID = Shader.PropertyToID("_DangerAreaOffset");
+		private static readonly int _dangerAreaSizePID = Shader.PropertyToID("_DangerAreaSize");
+		private static readonly int _uvRectPID = Shader.PropertyToID("_UvRect");
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -41,10 +43,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
 
-		[SerializeField, Required] private RectTransform _shrinkingCircleRing;
-		[SerializeField, Required] private Image _shrinkingCircleRingImage;
-		[SerializeField, Required] private RectTransform _safeAreaRing;
-		[SerializeField, Required] private Image _safeAreaRingImage;
 		[SerializeField, Range(0f, 1f)] private float _ringWidth = 0.05f;
 
 		[SerializeField, Required, Title("Indicators")]
@@ -64,14 +62,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private bool _safeAreaSet;
 		private bool _opened;
 		private float _animationModifier = 0f;
-		private float _lineWidthModifier = 1f;
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
 		private bool _subscribedQuantumViewUpdate;
 
-		private Material _safeAreaRingMat;
-		private Material _shrinkingCircleMat;
+		private Material _minimapMat;
 		private Coroutine _airDropCoroutine;
 
 		private IObjectPool<MinimapAirdropView> _airdropPool;
@@ -97,11 +93,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 
-			_safeAreaRing.gameObject.SetActive(false);
-			_fullScreenButton.gameObject.SetActive(false);
-
-			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
-			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
+			_minimapMat = _minimapImage.material = Instantiate(_minimapImage.material);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
@@ -123,14 +115,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_opened = true;
 			DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimap).SetEase(_openCloseEase);
-			_fullScreenButton.gameObject.SetActive(true);
+			_backgroundImage.raycastTarget = true;
 		}
 
 		private void CloseMinimap()
 		{
 			_opened = false;
 			DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimap).SetEase(_openCloseEase);
-			_fullScreenButton.gameObject.SetActive(false);
+			_backgroundImage.raycastTarget = false;
 		}
 
 		private void UpdateMinimap(float f)
@@ -147,7 +139,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
 
 			_viewportSize = Mathf.Lerp(0.3f, 1f, f);
-			_lineWidthModifier = Mathf.Lerp(1f, _smallMapSize / _fullScreenMapSize, f);
 		}
 
 		private void OnEnable()
@@ -187,8 +178,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
-			Destroy(_safeAreaRingMat);
-			Destroy(_shrinkingCircleMat);
+			Destroy(_minimapMat);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage msg)
@@ -293,17 +283,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
 
-			UpdateViewport(playerViewportPoint);
 			UpdatePlayerIndicator(playerViewportPoint);
 			UpdateAirdropIndicators(playerViewportPoint, callback.Game.Frames.Predicted.Time);
 			UpdateShrinkingCircle(playerViewportPoint, callback.Game.Frames.Predicted);
-		}
-
-		private void UpdateViewport(Vector3 playerViewportPoint)
-		{
-			_minimapImage.uvRect = new Rect((playerViewportPoint.x - _viewportSize / 2f) * (1f - _animationModifier),
-			                                (playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
-			                                _viewportSize, _viewportSize);
 		}
 
 		private void UpdatePlayerIndicator(Vector3 playerViewportPoint)
@@ -323,35 +305,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			circle.GetMovingCircle(f, out var centerFP, out var radiusFP);
+			circle.GetMovingCircle(f, out var centerFp, out var radiusFp);
 
-			var radius = radiusFP.AsFloat;
-			var center = centerFP.XOY.ToUnityVector3();
-			var safeRadius = circle.TargetRadius.AsFloat;
-			var safeCenter = circle.TargetCircleCenter.XOY.ToUnityVector3();
+			var dangerRadius = radiusFp.AsFloat / _minimapCamera.orthographicSize;
+			var dangerCenter = _minimapCamera.WorldToViewportPoint(centerFp.XOY.ToUnityVector3()) - Vector3.one / 2f;
+			var safeRadius = circle.TargetRadius.AsFloat / _minimapCamera.orthographicSize;
+			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
+			                 Vector3.one / 2f;
 
-			var circleViewportPoint = _minimapCamera.WorldToViewportPoint(center);
-			var safeViewportPoint = _minimapCamera.WorldToViewportPoint(safeCenter);
-
-			var rect = _rectTransform.rect;
-			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
-
-			var cameraOrtoSize = _minimapCamera.orthographicSize;
-			var circleUICenter =
-				(circleViewportPoint - playerViewportPoint * (1f - _animationModifier)) * minimapFullSize -
-				minimapFullSize / 2f * _animationModifier;
-			var circleUISize = Vector2.one * radius / cameraOrtoSize * minimapFullSize;
-			var safeUICenter = (safeViewportPoint - playerViewportPoint * (1f - _animationModifier)) * minimapFullSize -
-			                   minimapFullSize / 2f * _animationModifier;
-			var safeUISize = Vector2.one * safeRadius / cameraOrtoSize * minimapFullSize;
-
-			var shrinkingCircleRingWidth =
-				Math.Clamp(_ringWidth * (rect.width / circleUISize.x), 0f, 1f) * _lineWidthModifier;
-			_shrinkingCircleRingImage.materialForRendering.SetFloat(_thicknessPID, shrinkingCircleRingWidth);
-
-			_shrinkingCircleRing.anchoredPosition = circleUICenter;
-			_shrinkingCircleRing.sizeDelta = circleUISize;
-
+			// Check to only draw safe area after the first warning / announcement
 			if (!_safeAreaSet)
 			{
 				if (_config.Step != circle.Step)
@@ -359,20 +321,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 				}
 
-				if (f.Time < circle.ShrinkingStartTime - _config.WarningTime)
+				if (f.Time > circle.ShrinkingStartTime - _config.WarningTime)
 				{
-					return;
+					_safeAreaSet = true;
 				}
-
-				_safeAreaSet = true;
-				_safeAreaRing.gameObject.SetActive(true);
 			}
 
-			var safeAreaRingWidth = Math.Clamp(_ringWidth * (rect.width / safeUISize.x), 0f, 1f) * _lineWidthModifier;
-			_safeAreaRingImage.materialForRendering.SetFloat(_thicknessPID, safeAreaRingWidth);
+			// Danger ring / area
+			_minimapImage.materialForRendering.SetFloat(_dangerAreaSizePID, dangerRadius);
+			_minimapImage.materialForRendering.SetVector(_dangerAreaOffsetPID, dangerCenter);
 
-			_safeAreaRing.anchoredPosition = safeUICenter;
-			_safeAreaRing.sizeDelta = safeUISize;
+			// Safe area ring
+			_minimapImage.materialForRendering.SetFloat(_safeAreaSizePID, _safeAreaSet ? safeRadius : 100);
+			_minimapImage.materialForRendering.SetVector(_safeAreaOffsetPID, safeCenter);
+
+			// UV Rect
+			var uvRect = new Vector4((playerViewportPoint.x - _viewportSize / 2f) * (1f - _animationModifier),
+			                         (playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
+			                         _viewportSize, _viewportSize);
+			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
 			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}

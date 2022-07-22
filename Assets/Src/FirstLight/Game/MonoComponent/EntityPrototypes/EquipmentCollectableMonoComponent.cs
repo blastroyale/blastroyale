@@ -21,50 +21,72 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
 			_collectableView.SetEntityView(game, EntityView);
+			
+			if (await ShowEquipment(game)) return;
+
+			await ShowRarityEffect(game);
+			
+			InitArrow(game);
+		}
+
+		private async Task<bool> ShowEquipment(QuantumGame game)
+		{
 			var collectable = GetComponentData<Collectable>(game);
 			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId);
-			
+
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
-				return;
+				return true;
 			}
-			
-			var equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
 
 			var cacheTransform = instance.transform;
 			cacheTransform.SetParent(_itemTransform);
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
+			
+			return false;
+		}
+		
+		private async Task ShowRarityEffect(QuantumGame game)
+		{
+			var equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
+			
+			var rarity = equipmentCollectable.Item.Rarity;
+			var effect = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
+			var effectTransform = effect.transform;
 
-			StartCoroutine(ShowArrowWhenPlayerReady(game, equipmentCollectable));
-
-			await ShowRarityEffect(equipmentCollectable);
+			effectTransform.SetParent(transform);
+			effectTransform.localPosition = Vector3.zero;
+			effectTransform.localScale = Vector3.one;
+			effectTransform.localRotation = Quaternion.identity;
 		}
 
-		private IEnumerator ShowArrowWhenPlayerReady(QuantumGame game, EquipmentCollectable equipmentCollectable)
+		private void InitArrow(QuantumGame game)
 		{
-			// We wait for 1s because this might be instantiated in the beginning of the game
-			// and we might not have the player data right away
-			yield return new WaitForSeconds(1);
-			
 			var f = game.Frames.Verified;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			
+
+			if (!localPlayer.IsValid)
+			{
+				QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
+			}
+			else
+			{
+				StartShowArrow(game);
+			}
+		}
+		
+		private void StartShowArrow(QuantumGame game)
+		{
+			var equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
 			ShowHigherRarityArrow(game, equipmentCollectable);
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 		}
-
-		private void HandleOnPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			var game = callback.Game;
-			var equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
-			ShowHigherRarityArrow(game, equipmentCollectable);
-		}
-
+		
 		private void ShowHigherRarityArrow(QuantumGame game, EquipmentCollectable collectable)
 		{
 			if (!collectable.Item.IsWeapon())
@@ -101,17 +123,20 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var secondaryWeaponSlot = playerCharacter.WeaponSlots[Constants.WEAPON_INDEX_SECONDARY];
 			_higherRarityArrow.SetActive(secondaryWeaponSlot.Weapon.Rarity < collectable.Item.Rarity);
 		}
-
-		private async Task ShowRarityEffect(EquipmentCollectable collectable)
+		
+		private void HandleOnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			var rarity = collectable.Item.Rarity;
-			var effect = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
-			var effectTransform = effect.transform;
-
-			effectTransform.SetParent(transform);
-			effectTransform.localPosition = Vector3.zero;
-			effectTransform.localScale = Vector3.one;
-			effectTransform.localRotation = Quaternion.identity;
+			if (callback.Game.PlayerIsLocal(callback.Player))
+			{
+				QuantumEvent.UnsubscribeListener<EventOnPlayerSpawned>(this);
+				
+				StartShowArrow(callback.Game);
+			}
+		}
+		
+		private void HandleOnPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			ShowHigherRarityArrow(callback.Game, GetComponentData<EquipmentCollectable>(callback.Game));
 		}
 	}
 	

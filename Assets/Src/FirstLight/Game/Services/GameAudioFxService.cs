@@ -119,7 +119,8 @@ namespace FirstLight.Game.Services
 			base.PlayMusic(id, sourceInitData);
 		}
 		
-		public new AudioPlayerInitData GetDefaultAudioInitProps(float spatialBlend)
+		/// <inheritdoc />
+		public override AudioPlayerInitData GetDefaultAudioInitProps(float spatialBlend)
 		{
 			return new AudioPlayerInitData()
 			{

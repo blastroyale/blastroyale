@@ -354,7 +354,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public AudioPlayerInitData GetDefaultAudioInitProps(float spatialBlend)
+		public virtual AudioPlayerInitData GetDefaultAudioInitProps(float spatialBlend)
 		{
 			return default;
 		}

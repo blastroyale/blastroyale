@@ -32,6 +32,7 @@ Material:
     - _ColorMask: 15
     - _DangerAreaSize: 1
     - _OuterRindWidth: 0.01
+    - _PlayersSize: 0.01
     - _RingWidth: 0.01
     - _SafeAreaSize: 1
     - _Stencil: 0
@@ -46,6 +47,7 @@ Material:
     - _DangerAreaOffset: {r: 0, g: 0, b: 0, a: 0}
     - _DangerRingColor: {r: 1, g: 0, b: 0, a: 1}
     - _OuterRingColor: {r: 1, g: 1, b: 1, a: 0.29803923}
+    - _PlayersColor: {r: 1, g: 0.30254513, b: 0, a: 1}
     - _SafeAreaColor: {r: 1, g: 1, b: 1, a: 1}
     - _SafeAreaOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvRect: {r: 0, g: 0, b: 1, a: 1}

@@ -3,7 +3,7 @@ inline float circle(in float2 st, in float radius)
 	return step(distance(st, float2(0.5, 0.5)), radius / 2.0);
 }
 
-// This one does is not unform
+// This one does is not uniform
 inline float circleDot(in float2 st, in float radius)
 {
 	float2 dist = st - float2(0.5, 0.5);

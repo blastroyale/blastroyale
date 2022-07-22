@@ -9,6 +9,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -24,6 +25,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _dangerAreaOffsetPID = Shader.PropertyToID("_DangerAreaOffset");
 		private static readonly int _dangerAreaSizePID = Shader.PropertyToID("_DangerAreaSize");
 		private static readonly int _uvRectPID = Shader.PropertyToID("_UvRect");
+		private static readonly int _playersPID = Shader.PropertyToID("_Players");
+		private static readonly int _playersCountPID = Shader.PropertyToID("_PlayersCount");
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -72,6 +75,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IObjectPool<MinimapAirdropView> _airdropPool;
 		private readonly Dictionary<EntityRef, MinimapAirdropView> _displayedAirdrops = new();
+		private readonly List<Vector4> _playerPositions = new(30);
 
 		private void Awake()
 		{
@@ -340,6 +344,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			                         (playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
 			                         _viewportSize, _viewportSize);
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
+
+			// Players
+			if (Shader.IsKeywordEnabled("MINIMAP_DRAW_PLAYERS"))
+			{
+				_playerPositions.Clear();
+				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
+				{
+					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
+					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
+
+					_playerPositions.Add(new Vector4(viewportPos.x, viewportPos.y, 0, 0));
+				}
+
+				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
+				_minimapImage.materialForRendering.SetInteger(_playersCountPID, _playerPositions.Count);
+			}
 
 			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}

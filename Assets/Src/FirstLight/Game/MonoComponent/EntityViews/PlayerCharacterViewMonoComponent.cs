@@ -218,7 +218,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired, transform.position);
+			var initProps = Services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+			initProps.Volume = Random.Range(GameConstants.Audio.SFX_RAND_VOLUME_MIN,
+			                               GameConstants.Audio.SFX_RAND_VOLUME_MAX);
+			initProps.Pitch = Random.Range(GameConstants.Audio.SFX_RAND_PITCH_MIN,
+			                               GameConstants.Audio.SFX_RAND_PITCH_MAX);
+			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired, transform.position, initProps);
+			
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
 		}
 

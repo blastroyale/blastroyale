@@ -45,6 +45,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private IEnumerator ShowArrowWhenPlayerReady(QuantumGame game, EquipmentCollectable equipmentCollectable)
 		{
+			// We wait for 1s because this might be instantiated in the beginning of the game
+			// and we might not have the player data right away
 			yield return new WaitForSeconds(1);
 			
 			var f = game.Frames.Verified;

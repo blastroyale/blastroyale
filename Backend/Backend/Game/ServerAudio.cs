@@ -28,24 +28,19 @@ public class ServerAudio : IAudioFxService<AudioId>
 	
 	}
 
-	public void PlayClip3D(AudioId id, Vector3 worldPosition, float delay)
+	public void PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
 	{
-		
-	}
-	
-	public void PlayClip3D(AudioId id, Vector3 worldPosition)
-	{
-		
+
 	}
 
-	public void PlayClip2D(AudioId id, float delay = 0)
+	public void PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 	{
-		
+
 	}
 
-	public void PlayMusic(AudioId id, float delay = 0)
+	public void PlayMusic(AudioId id, AudioSourceInitData? sourceInitData = null)
 	{
-		
+
 	}
 
 	public void StopMusic()
@@ -53,7 +48,12 @@ public class ServerAudio : IAudioFxService<AudioId>
 		
 	}
 
-	public AudioListener AudioListener => null;
+	public AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend)
+	{
+		return default;
+	}
+
+	public AudioListenerMonoComponent AudioListener { get; }
 
 	public bool IsBgmMuted
 	{

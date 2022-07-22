@@ -224,6 +224,7 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
+			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(config);
 
 			tasks.Add(sceneTask);
@@ -267,6 +268,8 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
+
 			Resources.UnloadUnusedAssets();
 
 			_arePlayerAssetsLoaded = false;

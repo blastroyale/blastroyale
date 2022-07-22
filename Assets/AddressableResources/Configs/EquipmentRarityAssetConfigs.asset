@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9d5edd179940f5a954e879b7481a3a, type: 3}
+  m_Name: EquipmentRarityAssetConfigs
+  m_EditorClassIdentifier: 
+  _assetsFolderPath: Assets/AddressableResources/AdventureAssets/Collectables/RarityEffects
+  _configs:
+  - Key: 0
+    Value:
+      m_AssetGUID: 7aeefb73e22388c49941906ea4c0f9a5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 1
+    Value:
+      m_AssetGUID: d0758511544bc95458d5427c1298da5e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 2
+    Value:
+      m_AssetGUID: 9e6270ee5fa5052498a79f4bfdb5d72c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 3
+    Value:
+      m_AssetGUID: 94435eebf93f6994aaf3e4a868996d39
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 4
+    Value:
+      m_AssetGUID: 1c31f763639c1084885943c5cc7e6c13
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 5
+    Value:
+      m_AssetGUID: cfafc6a2647f87c45b74357d964edcee
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 6
+    Value:
+      m_AssetGUID: 30e942f4d780d0d4694e5ea77116b935
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 7
+    Value:
+      m_AssetGUID: 4b497ac4ff4ff0e4e895fbf155113100
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 8
+    Value:
+      m_AssetGUID: db1f1ef6ab0f3864d8d9efa0384bb551
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 9
+    Value:
+      m_AssetGUID: b80bfe058a84b624da181b6d63ad3590
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

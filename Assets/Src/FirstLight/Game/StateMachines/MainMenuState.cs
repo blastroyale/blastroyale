@@ -390,8 +390,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-
-			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
+			
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);

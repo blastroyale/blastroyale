@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: eb035252551f6433984df6a0b567232f
-  m_SerializeEntries:
-  - m_GUID: 68e6db2ebdc24f95958faec2be5558d6
-    m_Address: Assets/AddressableResources/TMP Pro/Shaders/TMP_SDF.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
-    m_Address: Assets/AddressableResources/TMP Pro/Shaders/TMP_SDF-Mobile.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI_Minimap
+  m_Shader: {fileID: 4800000, guid: 54df1fdcce8e40639be43b4768a30db1, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 2800000, guid: 631b9a8b7ba764792b4e74e6faad59de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _DangerAreaSize: 1
+    - _OuterRindWidth: 0.01
+    - _RingWidth: 0.01
+    - _SafeAreaSize: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DangerAreaColor: {r: 1, g: 0.43867922, b: 0.43867922, a: 1}
+    - _DangerAreaOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _DangerRingColor: {r: 1, g: 0, b: 0, a: 1}
+    - _OuterRingColor: {r: 1, g: 1, b: 1, a: 0.29803923}
+    - _SafeAreaColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SafeAreaOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _UvRect: {r: 0, g: 0, b: 1, a: 1}
+  m_BuildTextureStacks: []

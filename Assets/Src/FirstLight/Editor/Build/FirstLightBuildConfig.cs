@@ -207,7 +207,7 @@ namespace FirstLight.Editor.Build
 			
 			if (target == BuildTarget.Android)
 			{
-				outputPath = Path.ChangeExtension(outputPath, isStoreBuild ? _apkExtension : _aabExtension);
+				outputPath = Path.ChangeExtension(outputPath, isStoreBuild ? _aabExtension : _apkExtension);
 			}
 
 			var buildConfig = new BuildPlayerOptions

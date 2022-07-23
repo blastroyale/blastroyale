@@ -107,6 +107,13 @@ public partial class SROptions
 
 		game.SendCommand(new CheatSpawnAirDropCommand {OnPlayerPosition = false});
 	}
+
+	[Category("Gameplay")]
+	public void ShowPlayersOnMinimap()
+	{
+		Shader.EnableKeyword("MINIMAP_DRAW_PLAYERS");
+	}
+
 #endif
 	
 	

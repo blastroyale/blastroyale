@@ -213,16 +213,20 @@ namespace FirstLight.Game.StateMachines
 		private void SetAuthenticationData()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			
-#if RELEASE_BUILD
+
+#if STORE_BUILD
+			// Production
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+#elif RELEASE_BUILD
+			// Staging
+			PlayFabSettings.TitleId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else
-			//Config for "Dev_Backend"
+			// Dev
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
-			
 			_dataService.LoadData<AppData>();
 		}
 
@@ -258,6 +262,7 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 
 			_dataService.SaveData<AppData>();
+			FLog.Verbose("Saved AppData");
 		}
 
 		private void LinkDeviceID()
@@ -301,12 +306,14 @@ namespace FirstLight.Game.StateMachines
 			void OnLinkSuccess()
 			{
 				_dataService.GetData<AppData>().LinkedDevice = true;
+				_dataService.SaveData<AppData>();
 				FLog.Verbose("Linked account with device in playfab");
 			}
 		}
 
 		private void FinalStepsAuthentication(IWaitActivity activity)
 		{
+			FLog.Verbose("Obtaining player data");
 			_services.PlayfabService.CallFunction("GetPlayerData", res => OnPlayerDataObtained(res, activity), 
 			                                      OnPlayFabError);
 			
@@ -458,8 +465,15 @@ namespace FirstLight.Game.StateMachines
 
 		private void DimLoginRegisterScreens(bool dimmed)
 		{
-			_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
-			_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			if (_uiService.HasUiPresenter<LoginScreenPresenter>())
+			{
+				_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			}
+
+			if (_uiService.HasUiPresenter<RegisterScreenPresenter>())
+			{
+				_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
+			}
 		}
 
 		private void OpenLoginScreen()
@@ -470,7 +484,7 @@ namespace FirstLight.Game.StateMachines
 				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent)
 			};
 			
-			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
 		}
 
 		private void OpenRegisterScreen()
@@ -481,7 +495,7 @@ namespace FirstLight.Game.StateMachines
 				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent)
 			};
 			
-			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
 		}
 
 		private bool IsOutdated(string version)

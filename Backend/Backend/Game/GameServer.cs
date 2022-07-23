@@ -45,7 +45,6 @@ public class GameServer
 		try
 		{
 			_mutex.Lock(playerId);
-			_log.Log(LogLevel.Information, $"Player {playerId} running server command {cmdType}");
 			var commandInstance = _cmdHandler.BuildCommandInstance(cmdData, cmdType);
 			var currentPlayerState = _state.GetPlayerState(playerId);
 			ValidateCommand(currentPlayerState, commandInstance, cmdData);

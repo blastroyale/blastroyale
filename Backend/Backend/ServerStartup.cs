@@ -5,6 +5,7 @@ using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
 using FirstLight;
+using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace Backend;
 /// </summary>
 public static class ServerStartup
 {
-	public static void Setup(IServiceCollection services, ILogger log, string appPath)
+	public static void Setup(IServiceCollection services, string appPath)
 	{
 		ServerConfiguration.LoadConfiguration(appPath);
 		DbSetup.Setup(services);
@@ -31,7 +32,10 @@ public static class ServerStartup
 		services.AddSingleton<IPlayerSetupService, PlayerSetupService>();
 		services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 		services.AddSingleton<IServerStateService, PlayfabGameStateService>();
-		services.AddSingleton<ILogger, ILogger>(l => log);
+		services.AddSingleton<ILogger, ILogger>(l =>
+		{
+			return l.GetService<ILoggerFactory>().CreateLogger(LogCategories.CreateFunctionUserCategory("Common"));
+		});
 		services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 		services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 		services.AddSingleton<JsonConverter, StringEnumConverter>();
@@ -40,7 +44,7 @@ public static class ServerStartup
 		services.AddSingleton<IStateMigrator<ServerState>, StateMigrations>();
 		services.AddSingleton<IEventManager, PluginEventManager>(p =>
 		{
-			var eventManager = new PluginEventManager(log);
+			var eventManager = new PluginEventManager(p.GetService<ILogger>());
 			var pluginSetup = new PluginContext(eventManager, p);
 			var pluginLoader = new PluginLoader(p);
 			pluginLoader.LoadServerPlugins(pluginSetup, appPath);

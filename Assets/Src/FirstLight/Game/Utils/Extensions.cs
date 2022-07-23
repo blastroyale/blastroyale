@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Infos;
+using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;

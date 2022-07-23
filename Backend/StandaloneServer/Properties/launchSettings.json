@@ -1,4 +1,4 @@
-{
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -23,7 +23,6 @@
         "API_URL": "https://devmarketplaceapi.azure-api.net",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_SECRET": "devkey"
-        
       }
     },
     "Docker": {

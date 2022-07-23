@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_gameLogic.Init();
 
-			_services.AudioFxService.AudioListener.enabled = true;
+			_services.AudioFxService.AudioListener.Listener.enabled = true;
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 			
 			// Just marking the default name to avoid missing names

@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
+			public Action OnMarketplaceButtonClicked;
 		}
 
 		[SerializeField] private Button _playOnlineButton;
@@ -42,6 +43,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private VisualStateButtonView _lootButton;
 		[SerializeField] private VisualStateButtonView _heroesButton;
 		[SerializeField] private VisualStateButtonView _shopButton;
+		[SerializeField] private Button _marketplaceButton;
 		[SerializeField] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
@@ -63,6 +65,7 @@ namespace FirstLight.Game.Presenters
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
+			_marketplaceButton.onClick.AddListener(OpenMarketplaceLink);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
@@ -111,6 +114,18 @@ namespace FirstLight.Game.Presenters
 		private void OpenHeroesMenuUI()
 		{
 			Data.OnHeroesButtonClicked();
+		}
+
+		private void OpenMarketplaceLink()
+		{
+			if (Debug.isDebugBuild)
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_DEV_URL);
+			}
+			else
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_PROD_URL);
+			}
 		}
 
 		private void OpenGameModeClicked()

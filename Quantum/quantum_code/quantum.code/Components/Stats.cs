@@ -135,37 +135,35 @@ namespace Quantum
 			var shield = Values[(int)StatType.Shield];
 			var currentShieldCapacity = shield.StatValue;
 			var maxShieldCapacity = shield.BaseValue;
-
-			if (currentShieldCapacity.AsInt == maxShieldCapacity.AsInt)
-			{
-				return;
-			}
-
-			var modifierId = ++f.Global->ModifierIdCount;
-			var modifierPower = (FP) amount / maxShieldCapacity;
+			var modifierPower = (FP)amount / maxShieldCapacity;
 			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
-			if (newCapacityValue > maxShieldCapacity)
+
+			if (currentShieldCapacity.AsInt < maxShieldCapacity.AsInt)
 			{
-				newCapacityValue = maxShieldCapacity;
-				modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
+				var modifierId = ++f.Global->ModifierIdCount;
+				if (newCapacityValue > maxShieldCapacity)
+				{
+					newCapacityValue = maxShieldCapacity;
+					modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
+				}
+
+				var capacityModifer = new Modifier
+				{
+					Id = modifierId,
+					Type = StatType.Shield,
+					Power = modifierPower,
+					Duration = FP.MaxValue,
+					StartTime = FP._0,
+					IsNegative = false
+				};
+
+				AddModifier(f, capacityModifer);
+				f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
+									 currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 			}
 
-			var capacityModifer = new Modifier
-			{
-				Id = modifierId,
-				Type = StatType.Shield,
-				Power = modifierPower,
-				Duration = FP.MaxValue,
-				StartTime = FP._0,
-				IsNegative = false
-			};
-
-			AddModifier(f, capacityModifer);
 			//once you have gained shield capacity, fill your shields for the same amount
 			GainShields(f, entity, attacker, amount);
-
-			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
-			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
 
 		/// <summary>

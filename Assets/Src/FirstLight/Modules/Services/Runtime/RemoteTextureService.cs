@@ -32,10 +32,12 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class RemoteTextureService : IRemoteTextureService
 	{
+		private const bool FORCE_DOWNLOAD = false; // Use true for debug only
+
 		private const string TEXTURE_HASHES_KEY = "RemoteTextureService.Hashes";
 		private const string FILE_URI_PREFIX = "file://";
 		private const int TEXTURES_TO_KEEP = 20;
-		private string TEXTURES_FOLDER = Path.Combine(Application.persistentDataPath, "RemoteTextures");
+		private readonly string TEXTURES_FOLDER = Path.Combine(Application.persistentDataPath, "RemoteTextures");
 
 		private readonly ICoroutineService _coroutineService;
 		private readonly IThreadService _threadService;
@@ -155,7 +157,7 @@ namespace FirstLight.Game.Services
 		{
 			var hash = GetHashString(url);
 
-			if (_cachedTextures.Contains(hash))
+			if (!FORCE_DOWNLOAD && _cachedTextures.Contains(hash))
 			{
 				return GetLocalImageUri(hash);
 			}

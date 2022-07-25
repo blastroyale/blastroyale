@@ -1,9 +1,10 @@
+using System.Web.DynamicData;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,23 +15,52 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class EquipmentIconItemView : MonoBehaviour
 	{
-		[SerializeField, Required] private TextMeshProUGUI _levelText;
-		[SerializeField, Required] private Image _iconImage;
-		[SerializeField, Required] private Image _rarityImage;
+		[SerializeField, Required] private RawImage _iconImage;
+		[SerializeField, Required] private GameObject _loadingView;
 
-		private IGameServices _services;
+		private IMainMenuServices _mainMenuServices;
+		private IGameDataProvider _gameDataProvider;
+
+		private int _textureRequestHandle = -1;
+		private UniqueId _loadedId = UniqueId.Invalid;
+
+		private void Awake()
+		{
+			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+		}
 
 		/// <summary>
 		/// Sets the information for this view
 		/// </summary>
-		public async void SetInfo(Equipment equipment)
+		public void SetInfo(UniqueId uniqueId, Equipment equipment)
 		{
-			_services ??= MainInstaller.Resolve<IGameServices>();
-			_levelText.text = $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
-			_iconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
-			// TODO mihak: Fix this
-			// _rarityImage.sprite =
-			// 	await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
+			if (_textureRequestHandle >= 0)
+			{
+				_mainMenuServices.RemoteTextureService.CancelRequest(_textureRequestHandle);
+			}
+
+			if (_loadedId != uniqueId)
+			{
+				_loadedId = uniqueId;
+				var url = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId).CardUrl;
+
+				_iconImage.gameObject.SetActive(false);
+				_textureRequestHandle = _mainMenuServices.RemoteTextureService.RequestTexture(url, tex =>
+				{
+					if (_iconImage == null) return;
+					
+					_iconImage.texture = tex;
+
+					_loadingView.SetActive(false);
+					_iconImage.gameObject.SetActive(true);
+
+					_textureRequestHandle = -1;
+				}, () =>
+				{
+					// TODO: Error texture?
+				});
+			}
 		}
 	}
 }

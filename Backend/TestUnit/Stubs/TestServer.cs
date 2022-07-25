@@ -116,11 +116,12 @@ public class TestServer
 	private IServiceCollection SetupServices()
 	{
 		var services = new ServiceCollection();
-		var logger = new LoggerFactory().CreateLogger("Log");
 		var testAppPath = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
-		ServerStartup.Setup(services, logger, testAppPath);
+		ServerStartup.Setup(services, testAppPath);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
+		services.RemoveAll<ILogger>();
+		services.AddSingleton<ILogger>(p => new LoggerFactory().CreateLogger("Log"));
 		return services;
 	}
 	

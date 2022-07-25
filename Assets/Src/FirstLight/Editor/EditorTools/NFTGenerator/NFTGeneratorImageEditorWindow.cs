@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -111,7 +112,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				}
 			}
 
-			await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+			await Addressables.LoadAssetsAsync<GameObject>(keys as IEnumerable, addressable =>
 			{
 				if (Enum.TryParse(addressable.name, out GameId gameId))
 				{
@@ -227,7 +228,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				}
 			}
 
-			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys, addressable =>
+			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys as IEnumerable, addressable =>
 			{
 				if (Enum.TryParse(addressable.name, out GameId gameId))
 				{

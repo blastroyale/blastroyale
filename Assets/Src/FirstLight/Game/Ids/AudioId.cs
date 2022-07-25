@@ -26,7 +26,7 @@ namespace FirstLight.Game.Ids
 		PlaCrossbowWeaponShot,
 		PlaShotgunWeaponShot,
 		PlaMachineGunWeaponShot,
-		PlaRiffleWeaponShot,
+		PlaRifleWeaponShot,
 		PlaSniperWeaponShot,
 		PlaRocketLauncherWeaponShot,
 		PlaRocketLauncherFlyingTrailLoop,
@@ -35,7 +35,7 @@ namespace FirstLight.Game.Ids
 		MmsPistolWeaponShot,
 		MmsShotgunWeaponShot,
 		MmsMachineGunWeaponShot,
-		MmsRiffleWeaponShot,
+		MmsRifleWeaponShot,
 		MmsSniperRifleWeaponShot,
 		MmsGrenadeLauncherWeaponShot,
 		MmsGrenadeLauncherFlyingTrailLoop,
@@ -49,7 +49,7 @@ namespace FirstLight.Game.Ids
 		EdiPlasmaCannonWeaponShot,
 		EdiPlasmaCannonFlyingTrailLoop,
 		EdiElectronThrowerWeaponStreamLoop,
-		
+
 		//Weapon Misc
 		ReloadPlaLoop,
 		ReloadMmsLoop,

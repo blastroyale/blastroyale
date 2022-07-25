@@ -4776,7 +4776,6 @@ namespace Quantum {
   public unsafe partial class Frame {
     private ISignalGameEnded[] _ISignalGameEndedSystems;
     private ISignalPlayerKilledPlayer[] _ISignalPlayerKilledPlayerSystems;
-    private ISignalPlayerQuit[] _ISignalPlayerQuitSystems;
     private ISignalSpecialUsed[] _ISignalSpecialUsedSystems;
     private ISignalHealthChanged[] _ISignalHealthChangedSystems;
     private ISignalHealthIsZero[] _ISignalHealthIsZeroSystems;
@@ -4834,7 +4833,6 @@ namespace Quantum {
       Initialize(this, this.SimulationConfig.Entities);
       _ISignalGameEndedSystems = BuildSignalsArray<ISignalGameEnded>();
       _ISignalPlayerKilledPlayerSystems = BuildSignalsArray<ISignalPlayerKilledPlayer>();
-      _ISignalPlayerQuitSystems = BuildSignalsArray<ISignalPlayerQuit>();
       _ISignalSpecialUsedSystems = BuildSignalsArray<ISignalSpecialUsed>();
       _ISignalHealthChangedSystems = BuildSignalsArray<ISignalHealthChanged>();
       _ISignalHealthIsZeroSystems = BuildSignalsArray<ISignalHealthIsZero>();
@@ -4970,15 +4968,6 @@ namespace Quantum {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.PlayerKilledPlayer(_f, playerDead, entityDead, playerKiller, entityKiller);
-          }
-        }
-      }
-      public void PlayerQuit(PlayerRef player) {
-        var array = _f._ISignalPlayerQuitSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.PlayerQuit(_f, player);
           }
         }
       }
@@ -5881,9 +5870,6 @@ namespace Quantum {
   }
   public unsafe interface ISignalPlayerKilledPlayer : ISignal {
     void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller, EntityRef entityKiller);
-  }
-  public unsafe interface ISignalPlayerQuit : ISignal {
-    void PlayerQuit(Frame f, PlayerRef player);
   }
   public unsafe interface ISignalSpecialUsed : ISignal {
     void SpecialUsed(Frame f, PlayerRef player, EntityRef entity, SpecialType specialType, Int32 specialIndex);

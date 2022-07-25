@@ -56,3 +56,4 @@ component PlayerCharging
 }
 
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
+signal PlayerQuit(player_ref player);

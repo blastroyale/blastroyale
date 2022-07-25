@@ -6,7 +6,7 @@ namespace Quantum.Systems
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
 	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
-	                                 ISignalGameEnded, ISignalHealthIsZero
+	                                 ISignalGameEnded, ISignalHealthIsZero, ISignalPlayerQuit
 	{
 		/// <inheritdoc />
 		public override void Update(Frame f)
@@ -71,6 +71,12 @@ namespace Quantum.Systems
 			}
 			
 			container->UpdateGameProgress(f, inc);
+		}
+
+		public void PlayerQuit(Frame f, PlayerRef player)
+		{
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+			container->UpdateGameProgress(f, 1);
 		}
 	}
 }

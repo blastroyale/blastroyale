@@ -17,6 +17,8 @@ namespace Quantum
 		public void PlayerLeft(Frame f, EntityRef e)
 		{
 			f.Add<EntityDestroyer>(e);
+			
+			f.Signals.PlayerQuit(Player);
 
 			f.Events.OnPlayerLeft(Player, e);
 			f.Events.OnLocalPlayerLeft(Player);

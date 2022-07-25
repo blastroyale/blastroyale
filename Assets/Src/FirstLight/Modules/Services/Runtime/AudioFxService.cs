@@ -59,7 +59,7 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayMusic(T id, AudioSourceInitData? sourceInitData = null);
+		void PlayMusic(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Stops the music
@@ -137,7 +137,8 @@ namespace FirstLight.Services
 
 		private IObjectPool<AudioSourceMonoComponent> _pool;
 		private bool _canDespawn;
-		private Coroutine _coroutine;
+		private float _currentVolumeMultiplier;
+		private Coroutine _playSoundCoroutine;
 
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
@@ -152,6 +153,7 @@ namespace FirstLight.Services
 			}
 
 			_pool = pool;
+			_currentVolumeMultiplier = volumeMultiplier;
 
 			Source.clip = clip;
 			Source.volume = sourceInitData.Value.Volume * volumeMultiplier;
@@ -168,10 +170,19 @@ namespace FirstLight.Services
 			{
 				transform.position = worldPos.Value;
 			}
-			
+
 			_canDespawn = !sourceInitData.Value.Loop;
 
-			_coroutine = StartCoroutine(PlaySoundSequence());
+			_playSoundCoroutine = StartCoroutine(PlaySoundCoroutine());
+		}
+
+		/// <summary>
+		/// Starts a coroutine that fades the volume of the audio from X to Y
+		/// </summary>
+		public void FadeVolume(float fromVolume, float toVolume, float fadeDuration,
+		                       Action<AudioSourceMonoComponent> callbackFadeFinished = null)
+		{
+			StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration, callbackFadeFinished));
 		}
 
 		/// <summary>
@@ -183,20 +194,41 @@ namespace FirstLight.Services
 		}
 
 		/// <summary>
-		/// Despawns this audio source immediately
+		/// Instantly stops the playing sound, and despawns component back to pool if possible
 		/// </summary>
-		public void Despawn()
+		public void StopAndDespawn()
 		{
-			if (_coroutine != null)
+			Source.Stop();
+
+			if (_playSoundCoroutine != null)
 			{
-				StopCoroutine(_coroutine);
-				_coroutine = null;
+				StopCoroutine(_playSoundCoroutine);
+				_playSoundCoroutine = null;
 			}
-			
-			_pool.Despawn(this);
+
+			_pool?.Despawn(this);
 		}
 
-		private IEnumerator PlaySoundSequence()
+		private IEnumerator FadeVolumeCoroutine(float fromVolume, float toVolume, float fadeDuration,
+		                                        Action<AudioSourceMonoComponent> callbackFadeFinished = null)
+		{
+			float currentTimeProgress = 0;
+
+			while (currentTimeProgress < fadeDuration)
+			{
+				yield return null;
+
+				currentTimeProgress += Time.deltaTime;
+
+				var fadePercent = currentTimeProgress / fadeDuration;
+				Source.volume = Mathf.Lerp(fromVolume * _currentVolumeMultiplier, toVolume * _currentVolumeMultiplier,
+				                           fadePercent);
+			}
+
+			callbackFadeFinished?.Invoke(this);
+		}
+
+		private IEnumerator PlaySoundCoroutine()
 		{
 			Source.Play();
 
@@ -205,7 +237,7 @@ namespace FirstLight.Services
 				yield return new WaitForSeconds(Source.clip.length);
 			} while (!_canDespawn);
 
-			_pool.Despawn(this);
+			StopAndDespawn();
 		}
 	}
 
@@ -233,14 +265,15 @@ namespace FirstLight.Services
 
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
-		private readonly AudioSourceMonoComponent _musicSource;
-
 		protected readonly float _sfx2dVolumeMultiplier;
 		protected readonly float _sfx3dVolumeMultiplier;
 		protected readonly float _bgmVolumeMultiplier;
 
+		private AudioSourceMonoComponent _activeMusicSource;
+		private AudioSourceMonoComponent _transitionMusicSource;
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
+		
 
 		/// <inheritdoc />
 		public AudioListenerMonoComponent AudioListener { get; }
@@ -248,8 +281,8 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsBgmMuted
 		{
-			get => _musicSource.Source.mute;
-			set => _musicSource.Source.mute = value;
+			get => _activeMusicSource.Source.mute;
+			set => _activeMusicSource.Source.mute = value;
 		}
 
 		/// <inheritdoc />
@@ -302,10 +335,15 @@ namespace FirstLight.Services
 			audioPlayer.Source.playOnAwake = false;
 			audioPlayer.gameObject.SetActive(false);
 
-			_musicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
-			_musicSource.transform.SetParent(container.transform);
-			_musicSource.Source = _musicSource.gameObject.AddComponent<AudioSource>();
-			_musicSource.Source.playOnAwake = false;
+			_activeMusicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
+			_activeMusicSource.transform.SetParent(container.transform);
+			_activeMusicSource.Source = _activeMusicSource.gameObject.AddComponent<AudioSource>();
+			_activeMusicSource.Source.playOnAwake = false;
+
+			_transitionMusicSource = new GameObject("Music Transition Source").AddComponent<AudioSourceMonoComponent>();
+			_transitionMusicSource.transform.SetParent(container.transform);
+			_transitionMusicSource.Source = _transitionMusicSource.gameObject.AddComponent<AudioSource>();
+			_transitionMusicSource.Source.playOnAwake = false;
 
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();
 			AudioListener.transform.SetParent(container.transform);
@@ -359,20 +397,39 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayMusic(T id, AudioSourceInitData? sourceInitData = null)
+		public void PlayMusic(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
 				return;
 			}
 
-			_musicSource.Play(_sfxPlayerPool, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+			if (_activeMusicSource.Source.isPlaying)
+			{
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, transitionDuration, CallbackAudioFadeFinished);
+				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_transitionMusicSource.FadeVolume(0,sourceInitData.Value.Volume,transitionDuration,CallbackAudioFadeFinished);
+				
+			}
+			else
+			{
+				_activeMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+			}
+		}
+
+		private void CallbackAudioFadeFinished(AudioSourceMonoComponent audioSource)
+		{
+			if (audioSource == _transitionMusicSource)
+			{
+				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
+				_transitionMusicSource.StopAndDespawn();
+			}
 		}
 
 		/// <inheritdoc />
 		public void StopMusic()
 		{
-			_musicSource.Source.Stop();
+			_activeMusicSource.Source.Stop();
 		}
 
 		/// <inheritdoc />
@@ -408,9 +465,9 @@ namespace FirstLight.Services
 		{
 			_audioClips.Clear();
 
-			if (_musicSource != null && _musicSource.transform.parent.gameObject != null)
+			if (_activeMusicSource != null && _activeMusicSource.transform.parent.gameObject != null)
 			{
-				UnityEngine.Object.Destroy(_musicSource.transform.parent.gameObject);
+				UnityEngine.Object.Destroy(_activeMusicSource.transform.parent.gameObject);
 			}
 		}
 	}

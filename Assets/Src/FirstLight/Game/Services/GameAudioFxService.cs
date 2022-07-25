@@ -79,7 +79,9 @@ namespace FirstLight.Game.Services
 			var startTime = DateTime.Now;
 			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
-
+	
+			Debug.LogError(loadingTime);
+			
 			if (!Application.isPlaying)
 			{
 				return;
@@ -92,7 +94,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public new async void PlayMusic(AudioId id, AudioSourceInitData? sourceInitData = null)
+		public new async void PlayMusic(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -116,7 +118,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 			
-			base.PlayMusic(id, sourceInitData);
+			base.PlayMusic(id, transitionDuration, sourceInitData);
 		}
 		
 		/// <inheritdoc />

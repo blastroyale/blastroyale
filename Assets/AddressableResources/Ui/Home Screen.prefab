@@ -5981,11 +5981,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 760325910646758196, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_Name
-      value: ResourcePoolWidget
+      value: ResourcePoolWidget_CS
       objectReference: {fileID: 0}
     - target: {fileID: 760325910646758196, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1257257405583313601, guid: 58823532f5b90486499c32fa542e5f6d, type: 3}
       propertyPath: m_Pivot.x

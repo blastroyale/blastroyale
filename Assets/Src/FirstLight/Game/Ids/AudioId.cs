@@ -49,8 +49,7 @@ namespace FirstLight.Game.Ids
 		EdiPlasmaCannonWeaponShot,
 		EdiPlasmaCannonFlyingTrailLoop,
 		EdiElectronThrowerWeaponStreamLoop,
-		PlaHammerWeaponShot,
-		
+
 		//Weapon Misc
 		ReloadPlaLoop,
 		ReloadMmsLoop,

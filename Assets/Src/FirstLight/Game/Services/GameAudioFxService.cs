@@ -79,9 +79,7 @@ namespace FirstLight.Game.Services
 			var startTime = DateTime.Now;
 			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
 			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
-	
-			Debug.LogError(loadingTime);
-			
+
 			if (!Application.isPlaying)
 			{
 				return;

@@ -135,35 +135,35 @@ namespace Quantum
 			var shield = Values[(int)StatType.Shield];
 			var currentShieldCapacity = shield.StatValue;
 			var maxShieldCapacity = shield.BaseValue;
-			var modifierPower = (FP)amount / maxShieldCapacity;
-			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
 
-			if (currentShieldCapacity.AsInt < maxShieldCapacity.AsInt)
+			if (currentShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
-				var modifierId = ++f.Global->ModifierIdCount;
-				if (newCapacityValue > maxShieldCapacity)
-				{
-					newCapacityValue = maxShieldCapacity;
-					modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
-				}
-
-				var capacityModifer = new Modifier
-				{
-					Id = modifierId,
-					Type = StatType.Shield,
-					Power = modifierPower,
-					Duration = FP.MaxValue,
-					StartTime = FP._0,
-					IsNegative = false
-				};
-
-				AddModifier(f, capacityModifer);
-				f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
-									 currentShieldCapacity.AsInt, newCapacityValue.AsInt);
+				return;
 			}
 
-			//once you have gained shield capacity, fill your shields for the same amount
-			GainShields(f, entity, attacker, amount);
+			var modifierPower = (FP)amount / maxShieldCapacity;
+			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
+			var modifierId = ++f.Global->ModifierIdCount;
+			
+			if (newCapacityValue > maxShieldCapacity)
+			{
+				newCapacityValue = maxShieldCapacity;
+				modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
+			}
+
+			var capacityModifer = new Modifier
+			{
+				Id = modifierId,
+				Type = StatType.Shield,
+				Power = modifierPower,
+				Duration = FP.MaxValue,
+				StartTime = FP._0,
+				IsNegative = false
+			};
+
+			AddModifier(f, capacityModifer);
+			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
+			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
 
 		/// <summary>
@@ -295,8 +295,26 @@ namespace Quantum
 		{
 			var statData = Values[(int) modifier.Type];
 			var multiplier = modifier.IsNegative ? -1 : 1;
+			var ceilToInt = false;
+			var additiveValue = statData.BaseValue * modifier.Power * multiplier;
 
-			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
+			switch (modifier.Type)
+			{
+				case StatType.Armour:
+				case StatType.Health:
+				case StatType.Power:
+				case StatType.Shield:
+					ceilToInt = true;
+					break;
+				case StatType.Speed:
+					ceilToInt = false;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(modifier.Type), modifier.Type, null);
+			}
+
+			statData.StatValue += ceilToInt ? FPMath.CeilToInt(additiveValue) : additiveValue;
+
 			Values[(int) modifier.Type] = statData;
 		}
 	}

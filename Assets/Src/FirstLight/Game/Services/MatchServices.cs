@@ -32,20 +32,26 @@ namespace FirstLight.Game.Services
 	{
 		public ISpectateService SpectateService { get; }
 
+		private readonly IMessageBrokerService _messageBrokerService;
+
 		private readonly List<IMatchService> _services = new();
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService,
 		                     IMessageBrokerService messageBrokerService, IGameNetworkService networkService,
 		                     IConfigsProvider configsProvider)
 		{
+			_messageBrokerService = messageBrokerService;
+
 			SpectateService = Configure(new SpectateService(entityViewUpdaterService, networkService, configsProvider));
 
-			messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
-			messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
+			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
+			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
 		}
 
 		private void OnMatchStart(MatchStartedMessage message)
 		{
+			_messageBrokerService.Unsubscribe<MatchStartedMessage>(OnMatchStart);
+
 			foreach (var service in _services)
 			{
 				service.OnMatchStarted(message.IsResync);
@@ -54,6 +60,8 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchEnd(MatchEndedMessage message)
 		{
+			_messageBrokerService.Unsubscribe<MatchEndedMessage>(OnMatchEnd);
+
 			foreach (var service in _services)
 			{
 				service.OnMatchEnded();

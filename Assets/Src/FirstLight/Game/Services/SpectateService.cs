@@ -64,7 +64,7 @@ namespace FirstLight.Game.Services
 			_playerVisionRange = configsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 		}
 
-		public void OnMatchStarted()
+		public void OnMatchStarted(bool isReconnect)
 		{
 			if (_networkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
@@ -79,13 +79,21 @@ namespace FirstLight.Game.Services
 
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 
-				SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
+				if (isReconnect && !localPlayer.Entity.IsAlive(f))
+				{
+					SwipeRight();
+				}
+				else
+				{
+					SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
+				}
 			}
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
+			QuantumEvent.SubscribeManual<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -141,6 +149,15 @@ namespace FirstLight.Game.Services
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);
+		}
+
+
+		private void OnEventOnHealthIsZero(EventOnHealthIsZero callback)
+		{
+			if (callback.Entity == _spectatedPlayer.Value.Entity && callback.SpellID == Spell.ShrinkingCircleId)
+			{
+				SwipeRight();
+			}
 		}
 
 		private void SetSpectatedEntity(EntityRef entity, PlayerRef player)

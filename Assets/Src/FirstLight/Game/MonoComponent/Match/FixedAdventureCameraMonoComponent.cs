@@ -12,8 +12,6 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// <summary>
 	/// This Mono Component controls the main camera behaviour throughout the game
 	/// </summary>
-	/// TODO: Refactor this MonoComponent to work with the state machine instead. This Component is controlling the game
-	/// TODO: state flow with other Views (ScoreHolderView) and that is dangerous
 	public class FixedAdventureCameraMonoComponent : MonoBehaviour
 	{
 		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
@@ -101,12 +99,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			SetActiveCamera(_adventureCamera);
 		}
-		//
-		// private void OnSpectateStartedMessage(SpectateStartedMessage message)
-		// {
-		// 	// TODO: Probably not needed
-		// 	SetActiveCamera(_adventureCamera);
-		// }
 
 		private void RefreshSpectator(Transform t)
 		{
@@ -145,8 +137,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetAudioListenerTransform(Transform t)
 		{
-			Vector3 eulerAngles = t.rotation.eulerAngles;
-			Quaternion flatRotation = Quaternion.Euler(0, eulerAngles.y, 0);
+			var eulerAngles = t.rotation.eulerAngles;
+			var flatRotation = Quaternion.Euler(0, eulerAngles.y, 0);
 
 			var audioListener = _services.AudioFxService.AudioListener;
 			audioListener.SetFollowTarget(t, Vector3.up, flatRotation);

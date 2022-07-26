@@ -20,7 +20,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Triggered when <see cref="MatchStartedMessage"/> has been published.
 		/// </summary>
-		void OnMatchStarted();
+		void OnMatchStarted(bool isReconnect);
 
 		/// <summary>
 		/// Triggered when <see cref="MatchEndedMessage"/> has been published.
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Services
 		{
 			foreach (var service in _services)
 			{
-				service.OnMatchStarted();
+				service.OnMatchStarted(message.IsResync);
 			}
 		}
 

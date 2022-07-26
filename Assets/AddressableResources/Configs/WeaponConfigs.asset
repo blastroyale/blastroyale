@@ -75,7 +75,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -110,7 +110,7 @@ MonoBehaviour:
       NumberOfShots: 6
       NumberOfBursts: 2
       AttackRange:
-        RawValue: 262144
+        RawValue: 327680
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -145,7 +145,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 262144
+        RawValue: 327680
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -180,7 +180,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
-        RawValue: 393216
+        RawValue: 458752
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -215,7 +215,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 655360
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -250,7 +250,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 4
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
@@ -285,7 +285,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -320,7 +320,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -355,7 +355,7 @@ MonoBehaviour:
       NumberOfShots: 8
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 393216
+        RawValue: 458752
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -390,7 +390,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 393216
+        RawValue: 458752
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -425,7 +425,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 524288
+        RawValue: 589824
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -460,7 +460,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 720896
+        RawValue: 786432
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -495,7 +495,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 655360
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
@@ -530,7 +530,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 655360
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -565,7 +565,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 2
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -600,7 +600,7 @@ MonoBehaviour:
       NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 393216
+        RawValue: 458752
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -635,7 +635,7 @@ MonoBehaviour:
       NumberOfShots: 3
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 393216
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -670,7 +670,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 524288
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -705,7 +705,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 655360
+        RawValue: 720896
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -740,7 +740,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 524288
+        RawValue: 589824
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
@@ -775,7 +775,7 @@ MonoBehaviour:
       NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 393216
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:

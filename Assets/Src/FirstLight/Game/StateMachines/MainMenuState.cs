@@ -413,9 +413,10 @@ namespace FirstLight.Game.StateMachines
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 
 			_services.VfxService.DespawnAll();
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
-			
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioMainMenuAssetConfigs>());
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
+
 			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();

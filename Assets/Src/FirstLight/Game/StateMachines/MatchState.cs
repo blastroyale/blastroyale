@@ -266,6 +266,7 @@ namespace FirstLight.Game.StateMachines
 			Object.Destroy(((EntityViewUpdaterService) entityService).gameObject);
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary);
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
 

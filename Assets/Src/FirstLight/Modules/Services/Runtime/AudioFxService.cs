@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -112,9 +113,9 @@ namespace FirstLight.Services
 		void RemoveAudioClip(T id);
 
 		/// <summary>
-		/// Clears the container of clips
+		/// Requests the currently loaded audio clips
 		/// </summary>
-		void ClearAudioClips();
+		List<T> GetLoadedAudioClips();
 	}
 
 	/// <summary>
@@ -503,9 +504,9 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void ClearAudioClips()
+		public List<T> GetLoadedAudioClips()
 		{
-			_audioClips.Clear();
+			return _audioClips.Keys.ToList();
 		}
 
 		/// <inheritdoc />

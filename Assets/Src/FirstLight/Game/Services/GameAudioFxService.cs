@@ -30,33 +30,46 @@ namespace FirstLight.Game.Services
 
 			foreach (var convClip in convertedClips)
 			{
-				var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(convClip.Key);
-				AddAudioClip(convClip.Key, clip);
+				await LoadAudioClip(convClip.Key);
 			}
-		}
 
-		public override async Task LoadAudioClip(AudioId id)
-		{
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			AddAudioClip(id, clip);
+			string loadedClips = "";
+			foreach (var clipId in GetLoadedAudioClips())
+			{
+				loadedClips += clipId + "\n";
+			}
+			Debug.LogError($"LOADED {convertedClips.Count} CLIPS. CURRENT:\n" + loadedClips);
 		}
 
 		/// <inheritdoc />
 		public override void UnloadAudioClips(IEnumerable clips)
 		{
-			var convertedClips = clips as Dictionary<AudioId, AudioClip>;
+			var convertedClips = clips as IReadOnlyDictionary<AudioId, AssetReference>;
 
 			foreach (var convClip in convertedClips)
 			{
 				UnloadAudioClip(convClip.Key);
-				RemoveAudioClip(convClip.Key);
 			}
+			
+			string loadedClips = "";
+			foreach (var clipId in GetLoadedAudioClips())
+			{
+				loadedClips += clipId + "\n";
+			}
+			Debug.LogError($"UNLOADED {convertedClips.Count} CLIPS. CURRENT:\n" + loadedClips);
 		}
 
 		/// <inheritdoc />
+		public override async Task LoadAudioClip(AudioId id)
+		{
+			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
+			AddAudioClip(id, clip);
+			
+		}
+		/// <inheritdoc />
 		public override void UnloadAudioClip(AudioId id)
 		{
-			_assetResolver.UnloadAsset(id);
+			RemoveAudioClip(id);
 		}
 
 		/// <inheritdoc />

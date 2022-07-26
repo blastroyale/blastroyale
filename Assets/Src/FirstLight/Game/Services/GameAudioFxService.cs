@@ -6,6 +6,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Services
 {
@@ -25,7 +26,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public override async Task LoadAudioClips(IEnumerable clips)
 		{
-			var convertedClips = clips as Dictionary<AudioId, AudioClip>;
+			var convertedClips = clips as IReadOnlyDictionary<AudioId, AssetReference>;
 
 			foreach (var convClip in convertedClips)
 			{

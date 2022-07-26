@@ -385,6 +385,7 @@ namespace FirstLight.Game.StateMachines
 
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
 			
+			_assetAdderService.AddConfigs(configProvider.GetConfig<AudioMainMenuAssetConfigs>());
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 

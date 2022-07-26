@@ -496,7 +496,6 @@ namespace FirstLight.Services
 			{
 				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
 				_transitionMusicSource.StopAndDespawn();
-				// TODO - UNLOAD MUSIC THAT WAS TRANSITIONED FROM
 			}
 		}
 

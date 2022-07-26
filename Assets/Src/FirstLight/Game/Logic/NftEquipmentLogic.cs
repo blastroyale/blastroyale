@@ -239,6 +239,10 @@ namespace FirstLight.Game.Logic
 
 			_inventory.Remove(equipment);
 			Data.InsertionTimestamps.Remove(equipment);
+			Data.TokenIds.Remove(equipment);
+			Data.ImageUrls.Remove(equipment);
+			Data.ExpireTimestamps.Remove(equipment);
+			Data.LastUpdateTimestamp = 0;
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
 			
 			return true;

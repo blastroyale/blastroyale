@@ -20,15 +20,17 @@ namespace FirstLight.Game.Views.MapViews
 		[SerializeField] private Animator _topRemovalAnimator;
 
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private EntityRef _currentlyObservedPlayer;
 		private List<EntityRef> _currentlyCollidingEntities;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingEntities = new List<EntityRef>();
 			
-			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -54,9 +56,9 @@ namespace FirstLight.Game.Views.MapViews
 			_currentlyObservedPlayer = callback.Entity;
 		}
 
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
+		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
 		{
-			_currentlyObservedPlayer = msg.EntitySpectated;
+			_currentlyObservedPlayer = next.Entity;
 			CheckUpdateBuildingTop();
 		}
 

@@ -30,6 +30,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private IObjectPool<FloatingTextPoolObject> _pool;
 		private IObjectPool<FloatingTextPoolObject> _poolArmour;
 		private Coroutine _coroutine;
@@ -42,6 +43,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_floatingTextRef.gameObject.SetActive(false);
 			_floatingArmourAndTextRef.gameObject.SetActive(false);
 
@@ -49,7 +51,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_pool = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorNormal);
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
 			
-			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
+			
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			
@@ -68,10 +71,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_observedEntity = callback.Entity;
 		}
 
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
+		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
 		{
-			_observedPlayer = msg.PlayerSpectated;
-			_observedEntity = msg.EntitySpectated;
+			_observedPlayer = next.Player;
+			_observedEntity = next.Entity;
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)

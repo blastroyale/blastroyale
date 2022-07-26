@@ -15,62 +15,45 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private const float NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD = 0.4f;
 		private const float MAX_ALPHA_HEALTH_RATIO_THRESHOLD = 0.15f;
 		private const float STARTING_ALPHA = 0.25f;
+
 		private const float ALPHA_CHANGE = (1f - STARTING_ALPHA) /
 		                                   (NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD -
 		                                    MAX_ALPHA_HEALTH_RATIO_THRESHOLD);
-		
+
 		[SerializeField] private Image _vignetteImage;
-		
-		private IEntityViewUpdaterService _entityViewUpdaterService;
+
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private EntityRef _entityFollowed;
 
 		private void Awake()
 		{
 			_vignetteImage.enabled = false;
 			_services = MainInstaller.Resolve<IGameServices>();
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
-			
-			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
-			
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 		}
-		
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _entityFollowed != EntityRef.None)
-			{
-				return;
-			}
-			
-			_entityFollowed = callback.Entity;
-		}
+			_entityFollowed = next.Entity;
 
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage obj)
-		{
-			_entityFollowed = obj.EntitySpectated;
-			
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var stats = frame.Get<Stats>(_entityFollowed);
-			
-			SetVignetteIntensity(stats.CurrentHealth,  stats.Values[(int) StatType.Health].StatValue.AsInt);
+
+			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 		}
 
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
-		{
-			_entityFollowed = callback.Entity;
-			_vignetteImage.enabled = false;
-		}
-		
 		private void OnEventOnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (callback.Entity != _entityFollowed)
@@ -94,10 +77,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void SetVignetteIntensity(float currentHealth, float maxHealth)
 		{
 			var healthRatio = currentHealth / (float) maxHealth;
-			var newAlpha = Mathf.Clamp01(STARTING_ALPHA + (NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD - healthRatio) * ALPHA_CHANGE);
+			var newAlpha = Mathf.Clamp01(STARTING_ALPHA +
+			                             (NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD - healthRatio) * ALPHA_CHANGE);
 
 			_vignetteImage.enabled = healthRatio < NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD;
-			_vignetteImage.color = new Color(1f,1f,1f, newAlpha);
+			_vignetteImage.color = new Color(1f, 1f, 1f, newAlpha);
 		}
 	}
 }

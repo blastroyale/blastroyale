@@ -163,13 +163,15 @@ namespace FirstLight.Services
 		private bool _canDespawn;
 		private float _currentVolumeMultiplier;
 		private Coroutine _playSoundCoroutine;
+		private Transform _followTarget;
+		private Vector3 _followOffset;
 
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
 		/// /// <remarks>Note: if initialized with Loop as true, the audio source must be despawned manually.</remarks>
 		public void Play(IObjectPool<AudioSourceMonoComponent> pool, AudioClip clip, float volumeMultiplier,
-		                 Vector3? worldPos, AudioSourceInitData? sourceInitData)
+		                 Vector3? worldPos, AudioSourceInitData? sourceInitData = null)
 		{
 			if (sourceInitData == null)
 			{
@@ -198,6 +200,25 @@ namespace FirstLight.Services
 			_canDespawn = !sourceInitData.Value.Loop;
 
 			_playSoundCoroutine = StartCoroutine(PlaySoundCoroutine());
+		}
+		
+		private void Update()
+		{
+			if (_followTarget != null)
+			{
+				transform.position = _followTarget.position + _followOffset;
+			}
+		}
+
+		/// <summary>
+		/// Sets the follow target for this audio listener
+		/// If null, the listener will zero out it's position every frame instead
+		/// </summary>
+		public void SetFollowTarget(Transform newTarget, Vector3 followOffset, Quaternion rotation)
+		{
+			_followTarget = newTarget;
+			_followOffset = followOffset;
+			transform.rotation = rotation;
 		}
 
 		/// <summary>

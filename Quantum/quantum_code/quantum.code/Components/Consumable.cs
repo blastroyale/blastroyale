@@ -47,6 +47,8 @@ namespace Quantum
 					break;
 				case ConsumableType.ShieldCapacity:
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShieldCapacity(f, playerEntity, entity, consumable.Amount.AsInt);
+					//once you have gained shield capacity, fill your shields for the same amount
+					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShields(f, playerEntity, entity, consumable.Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

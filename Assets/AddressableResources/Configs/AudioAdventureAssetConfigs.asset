@@ -16,13 +16,13 @@ MonoBehaviour:
   _configs:
   - Key: 2
     Value:
-      m_AssetGUID: d7502159a4f2c4a91a1a7c2b44a946ae
+      m_AssetGUID: d5c6ca05fa0874642b71d2f0bda232af
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - Key: 3
     Value:
-      m_AssetGUID: f9ee59f107e6b4dc8955b1cd06b3e105
+      m_AssetGUID: 4ae69896534324afd9662b8714eeeb53
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -58,31 +58,13 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
   - Key: 9
     Value:
-      m_AssetGUID: 47f530c05058149a2bb277ab0357197c
+      m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - Key: 10
     Value:
       m_AssetGUID: 714d4fea0ca2241ec8f0a0c94ce0f98b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 11
-    Value:
-      m_AssetGUID: d1192489d25d36f4a9b29007465bd9c4
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 12
-    Value:
-      m_AssetGUID: 098291abc98e8cf4f83c0af497798c49
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 13
-    Value:
-      m_AssetGUID: 435c991532e31d14bacd19702f677210
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

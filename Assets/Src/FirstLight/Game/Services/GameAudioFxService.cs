@@ -32,13 +32,6 @@ namespace FirstLight.Game.Services
 			{
 				await LoadAudioClip(convClip.Key);
 			}
-
-			string loadedClips = "";
-			foreach (var clipId in GetLoadedAudioClips())
-			{
-				loadedClips += clipId + "\n";
-			}
-			Debug.LogError($"LOADED {convertedClips.Count} CLIPS. CURRENT:\n" + loadedClips);
 		}
 
 		/// <inheritdoc />
@@ -50,13 +43,6 @@ namespace FirstLight.Game.Services
 			{
 				UnloadAudioClip(convClip.Key);
 			}
-			
-			string loadedClips = "";
-			foreach (var clipId in GetLoadedAudioClips())
-			{
-				loadedClips += clipId + "\n";
-			}
-			Debug.LogError($"UNLOADED {convertedClips.Count} CLIPS. CURRENT:\n" + loadedClips);
 		}
 
 		/// <inheritdoc />

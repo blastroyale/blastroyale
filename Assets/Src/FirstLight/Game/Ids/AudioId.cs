@@ -16,6 +16,7 @@ namespace FirstLight.Game.Ids
 		DefeatJingle,
 		PostMatchLoop,
 		FinalDuelTransitionJingle,
+		
 		//Old Music
 		AdventureBossLoop,
 		AdventureMainLoop,

@@ -16,11 +16,16 @@ namespace FirstLight.Game.Services
 	public interface IRemoteTextureService
 	{
 		/// <summary>
+		/// Sets the texture that's passed when an error occurs.
+		/// </summary>
+		void SetErrorTexture(Texture2D errorTexture);
+
+		/// <summary>
 		/// Requests a new texture to either be downloaded from <paramref name="url"/>,
 		/// or be retrieved from the local cache.
 		/// </summary>
 		/// <returns>A handle ID that can be used in <see cref="CancelRequest"/></returns>
-		int RequestTexture(string url, Action<Texture2D> success, Action error);
+		int RequestTexture(string url, Action<Texture2D> success, Action<Texture2D> error);
 
 		/// <summary>
 		/// Cancels a texture request. After this is called, the request callbacks
@@ -42,6 +47,7 @@ namespace FirstLight.Game.Services
 		private readonly ICoroutineService _coroutineService;
 		private readonly IThreadService _threadService;
 
+		private Texture2D _errorTexture;
 		private int _handle;
 		private readonly Dictionary<int, Coroutine> _requests = new();
 		private readonly List<string> _cachedTextures = new();
@@ -67,7 +73,13 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public int RequestTexture(string url, Action<Texture2D> callback, Action error)
+		public void SetErrorTexture(Texture2D errorTexture)
+		{
+			_errorTexture = errorTexture;
+		}
+
+		/// <inheritdoc />
+		public int RequestTexture(string url, Action<Texture2D> callback, Action<Texture2D> error)
 		{
 			var handle = _handle++;
 
@@ -88,7 +100,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle)
+		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action<Texture2D> error, int handle)
 		{
 			var request = UnityWebRequestTexture.GetTexture(uri);
 			yield return request.SendWebRequest();
@@ -104,7 +116,7 @@ namespace FirstLight.Game.Services
 
 			if (request.result != UnityWebRequest.Result.Success)
 			{
-				error();
+				error(_errorTexture);
 			}
 			else
 			{

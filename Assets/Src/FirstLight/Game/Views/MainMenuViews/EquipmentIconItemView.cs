@@ -46,21 +46,21 @@ namespace FirstLight.Game.Views.MainMenuViews
 				var url = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId).CardUrl;
 
 				_iconImage.gameObject.SetActive(false);
-				_textureRequestHandle = _mainMenuServices.RemoteTextureService.RequestTexture(url, tex =>
-				{
-					if (_iconImage == null) return;
-					
-					_iconImage.texture = tex;
-
-					_loadingView.SetActive(false);
-					_iconImage.gameObject.SetActive(true);
-
-					_textureRequestHandle = -1;
-				}, () =>
-				{
-					// TODO: Error texture?
-				});
+				_textureRequestHandle =
+					_mainMenuServices.RemoteTextureService.RequestTexture(url, OnTextureReceived, OnTextureReceived);
 			}
+		}
+
+		private void OnTextureReceived(Texture2D tex)
+		{
+			if (_iconImage == null) return;
+
+			_iconImage.texture = tex;
+
+			_loadingView.SetActive(false);
+			_iconImage.gameObject.SetActive(true);
+
+			_textureRequestHandle = -1;
 		}
 	}
 }

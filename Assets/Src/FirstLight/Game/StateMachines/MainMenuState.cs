@@ -397,7 +397,8 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
 			uiVfxService.Init(_uiService);
-			_services.AudioFxService.PlayMusic(AudioId.MenuMainLoop);
+			
+			_services.AudioFxService.PlayMusic(AudioId.MainMenuLoopNew);
 		}
 
 		private async Task UnloadMainMenu()

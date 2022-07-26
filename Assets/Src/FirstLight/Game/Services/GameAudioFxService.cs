@@ -99,7 +99,7 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public override async void PlayMusic(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public override void PlayMusic(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -116,8 +116,6 @@ namespace FirstLight.Game.Services
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 			
-			await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-
 			if (!Application.isPlaying)
 			{
 				return;

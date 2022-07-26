@@ -141,10 +141,9 @@ namespace Quantum
 				return;
 			}
 
-			var modifierPower = (FP)amount / maxShieldCapacity;
-			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
 			var modifierId = ++f.Global->ModifierIdCount;
-			
+			var modifierPower = (FP) amount / maxShieldCapacity;
+			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
 			if (newCapacityValue > maxShieldCapacity)
 			{
 				newCapacityValue = maxShieldCapacity;

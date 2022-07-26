@@ -83,6 +83,7 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(LoadErrorAssets());
 			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
+			tasks.Add(_services.AudioFxService.LoadAudioClips(_configsAdder.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
 			
 			await Task.WhenAll(tasks);
 			LoadVfx();

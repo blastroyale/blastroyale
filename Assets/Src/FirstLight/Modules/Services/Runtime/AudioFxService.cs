@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -10,7 +11,7 @@ namespace FirstLight.Services
 	/// <summary>
 	/// This service allows to manage multiple <see cref="T"/> of the defined <typeparamref name="T"/> enum type.
 	/// </summary>
-	public interface IAudioFxService<in T> : IDisposable where T : struct, Enum
+	public interface IAudioFxService<T> : IDisposable where T : struct, Enum
 	{
 		/// <summary>
 		/// Request main game's <see cref="AudioListenerMonoComponent"/>
@@ -33,6 +34,28 @@ namespace FirstLight.Services
 		bool Is3dSfxMuted { get; set; }
 
 		/// <summary>
+		/// Load a set of audio clips into memory, and into the loaded clips collection
+		/// </summary>
+		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
+		Task LoadAudioClips(IEnumerable clips);
+
+		/// <summary>
+		/// Load a single audio clip intoo memory, and into the loaded clips collection
+		/// </summary>
+		Task LoadAudioClip(T id);
+
+		/// <summary>
+		/// Unload a set of audio clips from memory, and remove al references from loaded clips collection
+		/// </summary>
+		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
+		void UnloadAudioClips(IEnumerable clips);
+
+		/// <summary>
+		/// Unload a single audio clip from memory, and remove reference from loaded clips collection
+		/// </summary>
+		void UnloadAudioClip(T id);
+
+		/// <summary>
 		/// Tries to return the <see cref="AudioClip"/> mapped to the given <paramref name="id"/>.
 		/// Returns true if the audio service currently has the <paramref name="clip"/> for the given <paramref name="id"/>.
 		/// </summary>
@@ -47,13 +70,13 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns true if successfully has the audio to play.
 		/// </summary>
-		void PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
@@ -81,17 +104,17 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Add the given <paramref name="id"/> <paramref name="clip"/> to the service
 		/// </summary>
-		void Add(T id, AudioClip clip);
+		void AddAudioClip(T id, AudioClip clip);
 
 		/// <summary>
 		/// Removes the given <paramref name="id"/>'s <see cref="AudioClip"/> from the service
 		/// </summary>
-		void Remove(T id);
+		void RemoveAudioClip(T id);
 
 		/// <summary>
-		/// Clears the container of clips currently held by this service and returns a copy of clips cleared.
+		/// Clears the container of clips
 		/// </summary>
-		Dictionary<T, AudioClip> Clear();
+		void ClearAudioClips();
 	}
 
 	/// <summary>
@@ -263,17 +286,16 @@ namespace FirstLight.Services
 	{
 		private const float SPATIAL_3D_THRESHOLD = 0.1f;
 
+		private GameObject _audioPoolParent;
 		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
-		protected readonly float _sfx2dVolumeMultiplier;
-		protected readonly float _sfx3dVolumeMultiplier;
-		protected readonly float _bgmVolumeMultiplier;
-
+		private readonly float _sfx2dVolumeMultiplier;
+		private readonly float _sfx3dVolumeMultiplier;
+		private readonly float _bgmVolumeMultiplier;
 		private AudioSourceMonoComponent _activeMusicSource;
 		private AudioSourceMonoComponent _transitionMusicSource;
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
-		
 
 		/// <inheritdoc />
 		public AudioListenerMonoComponent AudioListener { get; }
@@ -327,26 +349,26 @@ namespace FirstLight.Services
 
 		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolumeMultiplier)
 		{
-			var container = new GameObject("Audio Container");
+			_audioPoolParent = new GameObject("Audio Container");
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
 
 			audioPlayer.Source = audioPlayer.gameObject.AddComponent<AudioSource>();
-			audioPlayer.transform.SetParent(container.transform);
+			audioPlayer.transform.SetParent(_audioPoolParent.transform);
 			audioPlayer.Source.playOnAwake = false;
 			audioPlayer.gameObject.SetActive(false);
 
 			_activeMusicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
-			_activeMusicSource.transform.SetParent(container.transform);
+			_activeMusicSource.transform.SetParent(_audioPoolParent.transform);
 			_activeMusicSource.Source = _activeMusicSource.gameObject.AddComponent<AudioSource>();
 			_activeMusicSource.Source.playOnAwake = false;
 
 			_transitionMusicSource = new GameObject("Music Transition Source").AddComponent<AudioSourceMonoComponent>();
-			_transitionMusicSource.transform.SetParent(container.transform);
+			_transitionMusicSource.transform.SetParent(_audioPoolParent.transform);
 			_transitionMusicSource.Source = _transitionMusicSource.gameObject.AddComponent<AudioSource>();
 			_transitionMusicSource.Source.playOnAwake = false;
 
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();
-			AudioListener.transform.SetParent(container.transform);
+			AudioListener.transform.SetParent(_audioPoolParent.transform);
 			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
 			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
@@ -360,10 +382,35 @@ namespace FirstLight.Services
 			_sfxPlayerPool = pool;
 		}
 
+		public virtual Task LoadAudioClips(IEnumerable clips)
+		{
+			return default;
+		}
+
+		public virtual Task LoadAudioClip(T id)
+		{
+			return default;
+		}
+
+		public virtual void UnloadAudioClips(IEnumerable clips)
+		{
+		}
+
+		public virtual void UnloadAudioClip(T id)
+		{
+		}
+
 		/// <inheritdoc />
 		public virtual bool TryGetClip(T id, out AudioClip clip)
 		{
-			return _audioClips.TryGetValue(id, out clip);
+			if (!_audioClips.TryGetValue(id, out clip))
+			{
+				throw new
+					MissingMemberException($"The {nameof(AudioFxService<T>)} does not have an audio clip with ID " +
+					                       $"'{nameof(id)}' loaded in memory for playback. ");
+			}
+
+			return true;
 		}
 
 		/// <inheritdoc />
@@ -373,31 +420,34 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		public virtual AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition,
+		                                                   AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
-				return;
+				return null;
 			}
 
 			var source = _sfxPlayerPool.Spawn();
 			source.Play(_sfxPlayerPool, clip, _sfx3dVolumeMultiplier, worldPosition, sourceInitData);
+			return source;
 		}
 
 		/// <inheritdoc />
-		public void PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
+		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
-				return;
+				return null;
 			}
 
 			var source = _sfxPlayerPool.Spawn();
 			source.Play(_sfxPlayerPool, clip, _sfx2dVolumeMultiplier, Vector3.zero, sourceInitData);
+			return source;
 		}
 
 		/// <inheritdoc />
-		public void PlayMusic(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public virtual void PlayMusic(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -406,10 +456,11 @@ namespace FirstLight.Services
 
 			if (_activeMusicSource.Source.isPlaying)
 			{
-				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, transitionDuration, CallbackAudioFadeFinished);
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, transitionDuration,
+				                              CallbackAudioFadeFinished);
 				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
-				_transitionMusicSource.FadeVolume(0,sourceInitData.Value.Volume,transitionDuration,CallbackAudioFadeFinished);
-				
+				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, transitionDuration,
+				                                  CallbackAudioFadeFinished);
 			}
 			else
 			{
@@ -423,6 +474,7 @@ namespace FirstLight.Services
 			{
 				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
 				_transitionMusicSource.StopAndDespawn();
+				// TODO - UNLOAD MUSIC THAT WAS TRANSITIONED FROM
 			}
 		}
 
@@ -439,25 +491,21 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void Add(T id, AudioClip clip)
+		public void AddAudioClip(T id, AudioClip clip)
 		{
 			_audioClips.Add(id, clip);
 		}
 
 		/// <inheritdoc />
-		public void Remove(T id)
+		public void RemoveAudioClip(T id)
 		{
 			_audioClips.Remove(id);
 		}
 
 		/// <inheritdoc />
-		public Dictionary<T, AudioClip> Clear()
+		public void ClearAudioClips()
 		{
-			var dic = new Dictionary<T, AudioClip>(_audioClips);
-
 			_audioClips.Clear();
-
-			return dic;
 		}
 
 		/// <inheritdoc />

@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -19,21 +21,49 @@ namespace FirstLight.Game.Services
 		{
 			_assetResolver = assetResolver;
 		}
-		
-		public override bool TryGetClip(AudioId id, out AudioClip clip)
-		{
-			var task = _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			
-			clip = task.Result;
 
-			return task.IsCompleted;
+		/// <inheritdoc />
+		public override async Task LoadAudioClips(IEnumerable clips)
+		{
+			var convertedClips = clips as Dictionary<AudioId, AudioClip>;
+
+			foreach (var convClip in convertedClips)
+			{
+				var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(convClip.Key);
+				AddAudioClip(convClip.Key, clip);
+			}
 		}
 
-		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		public override async Task LoadAudioClip(AudioId id)
+		{
+			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
+			AddAudioClip(id, clip);
+		}
+
+		/// <inheritdoc />
+		public override void UnloadAudioClips(IEnumerable clips)
+		{
+			var convertedClips = clips as Dictionary<AudioId, AudioClip>;
+
+			foreach (var convClip in convertedClips)
+			{
+				UnloadAudioClip(convClip.Key);
+				RemoveAudioClip(convClip.Key);
+			}
+		}
+
+		/// <inheritdoc />
+		public override void UnloadAudioClip(AudioId id)
+		{
+			_assetResolver.UnloadAsset(id);
+		}
+
+		/// <inheritdoc />
+		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
-				return;
+				return null;
 			}
 			
 			if (sourceInitData == null)
@@ -44,27 +74,16 @@ namespace FirstLight.Game.Services
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = Is3dSfxMuted;
 			sourceInitData = updatedInitData;
-			
-			var startTime = DateTime.Now;
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
 
-			if (!Application.isPlaying)
-			{
-				return;
-			}
-
-			if (loadingTime < clip.length)
-			{
-				base.PlayClip3D(id, worldPosition, sourceInitData);
-			}
+			return base.PlayClip3D(id, worldPosition, sourceInitData);
 		}
 		
-		public new async void PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		/// <inheritdoc />
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
-				return;
+				return null;
 			}
 			
 			if (sourceInitData == null)
@@ -75,24 +94,12 @@ namespace FirstLight.Game.Services
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = Is2dSfxMuted;
 			sourceInitData = updatedInitData;
-			
-			var startTime = DateTime.Now;
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
 
-			if (!Application.isPlaying)
-			{
-				return;
-			}
-
-			if (loadingTime < clip.length)
-			{
-				base.PlayClip2D(id, sourceInitData);
-			}
+			return base.PlayClip2D(id, sourceInitData);
 		}
-
+		
 		/// <inheritdoc />
-		public new async void PlayMusic(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public override async void PlayMusic(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{

@@ -30,7 +30,7 @@ namespace FirstLight.Game.Views.MapViews
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingEntities = new List<EntityRef>();
 			
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -56,7 +56,7 @@ namespace FirstLight.Game.Views.MapViews
 			_currentlyObservedPlayer = callback.Entity;
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			_currentlyObservedPlayer = next.Entity;
 			CheckUpdateBuildingTop();

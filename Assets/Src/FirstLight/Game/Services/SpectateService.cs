@@ -17,7 +17,7 @@ namespace FirstLight.Game.Services
 		/// The currently spectated player, providing it's <see cref="EntityRef"/>, <see cref="PlayerRef"/> and
 		/// <see cref="Transform"/>.
 		/// </summary>
-		IObservableFieldReader<ObservedPlayer> SpectatedPlayer { get; }
+		IObservableFieldReader<SpectatedPlayer> SpectatedPlayer { get; }
 
 		/// <summary>
 		/// Starts spectating the next player.
@@ -30,13 +30,13 @@ namespace FirstLight.Game.Services
 		public void SwipeRight();
 	}
 
-	public struct ObservedPlayer
+	public struct SpectatedPlayer
 	{
 		public EntityRef Entity;
 		public PlayerRef Player;
 		public Transform Transform;
 
-		public ObservedPlayer(EntityRef entity, PlayerRef player, Transform transform)
+		public SpectatedPlayer(EntityRef entity, PlayerRef player, Transform transform)
 		{
 			Entity = entity;
 			Player = player;
@@ -46,14 +46,14 @@ namespace FirstLight.Game.Services
 
 	public class SpectateService : ISpectateService, IMatchService
 	{
-		public IObservableFieldReader<ObservedPlayer> SpectatedPlayer => _spectatedPlayer;
+		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 
 		private readonly IEntityViewUpdaterService _entityViewUpdaterService;
 		private readonly IGameNetworkService _networkService;
 
 		private readonly FP _playerVisionRange;
 
-		private readonly IObservableField<ObservedPlayer> _spectatedPlayer = new ObservableField<ObservedPlayer>();
+		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
 
 		public SpectateService(IEntityViewUpdaterService entityViewUpdaterService, IGameNetworkService networkService,
 		                       IConfigsProvider configsProvider)
@@ -148,7 +148,7 @@ namespace FirstLight.Game.Services
 			if (_spectatedPlayer.Value.Entity == entity) return;
 
 			var transform = _entityViewUpdaterService.GetManualView(entity).transform;
-			_spectatedPlayer.Value = new ObservedPlayer(entity, player, transform);
+			_spectatedPlayer.Value = new SpectatedPlayer(entity, player, transform);
 		}
 
 		private List<Pair<EntityRef, PlayerRef>> GetPlayerList(Frame f, out int currentIndex)

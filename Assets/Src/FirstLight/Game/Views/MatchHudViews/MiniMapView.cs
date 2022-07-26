@@ -89,7 +89,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
@@ -204,7 +204,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			_spectatedTransform = next.Transform;
 			SubscribeToQuantumViewUpdate();

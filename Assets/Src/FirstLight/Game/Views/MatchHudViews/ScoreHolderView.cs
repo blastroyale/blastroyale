@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_fragTarget = (int) _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
 		private void OnDestroy()
@@ -44,7 +44,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}

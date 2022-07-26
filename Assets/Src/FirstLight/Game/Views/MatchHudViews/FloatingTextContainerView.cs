@@ -50,9 +50,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_pool = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorNormal);
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
+
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			
-			
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_observedEntity = callback.Entity;
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			_observedPlayer = next.Player;
 			_observedEntity = next.Entity;

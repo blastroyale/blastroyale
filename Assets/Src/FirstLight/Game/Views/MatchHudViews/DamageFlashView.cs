@@ -24,7 +24,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 		}
@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			_entityFollowed = next.Entity;
 		}

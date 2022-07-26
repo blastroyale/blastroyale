@@ -30,7 +30,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_contendersLeftText.text = "0";
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 		}
@@ -40,7 +40,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			// TODO: Why is this subscribing to spectated player?
 			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);

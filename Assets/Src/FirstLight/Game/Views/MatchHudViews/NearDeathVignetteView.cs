@@ -32,7 +32,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateTargetSwitchedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
@@ -44,7 +44,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnSpectateTargetSwitchedMessage(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			_entityFollowed = next.Entity;
 

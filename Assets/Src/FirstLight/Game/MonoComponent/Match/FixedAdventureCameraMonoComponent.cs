@@ -48,7 +48,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedTransformChanged);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			_localInput.Enable();
 			// _services.MessageBrokerService.Subscribe<SpectateStartedMessage>(OnSpectateStartedMessage);
@@ -56,7 +56,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			gameObject.SetActive(false);
 		}
 
-		private void OnSpectatedTransformChanged(ObservedPlayer previous, ObservedPlayer next)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			RefreshSpectator(next.Transform);
 

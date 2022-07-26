@@ -40,6 +40,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAim>(this, OnLocalPlayerAim);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
+		}
+
+		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
+		{
+			var frame = callback.Game.Frames.Verified;
+
+			InitiateGear(callback.Game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -214,8 +222,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(EntityView, weapon, gear);
-
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
@@ -224,6 +230,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
+		}
+
+		private async void InitiateGear(QuantumGame quantumGame, PlayerRef player)
+		{
+			var frame = quantumGame.Frames.Verified;
+			GetPlayerEquipmentSet(frame, player, out var skin, out var weapon, out var gear);
+			await _playerView.GetComponent<MatchCharacterViewMonoComponent>().Init(EntityView, weapon, gear);
 		}
 
 		private async void InstantiatePlayerIndicators(GameId weapon)

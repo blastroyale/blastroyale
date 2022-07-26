@@ -48,10 +48,10 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public override async Task LoadAudioClip(AudioId id)
 		{
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
+			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id, false);
 			AddAudioClip(id, clip);
-			
 		}
+		
 		/// <inheritdoc />
 		public override void UnloadAudioClip(AudioId id)
 		{

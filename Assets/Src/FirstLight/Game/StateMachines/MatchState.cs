@@ -228,7 +228,7 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
-			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary));
+			
 			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
 			{
 				case GameMode.Deathmatch : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
@@ -335,10 +335,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Preload Audio
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureMainLoop, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureStart, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.ActorSpawnEnd1, true, false));
-
+			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary));
+			
 			return tasks;
 		}
 

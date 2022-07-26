@@ -20,7 +20,7 @@
         "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
         "PLAYFAB_TITLE": "***REMOVED***",
         "DEV_MODE": "true",
-        "API_URL": "https://devmarketplaceapi.azure-api.net",
+        "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_SECRET": "devkey"
       }
@@ -37,7 +37,7 @@
         "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
         "PLAYFAB_TITLE": "***REMOVED***",
         "DEV_MODE": "true",
-        "API_URL": "https://devmarketplaceapi.azure-api.net",
+        "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain",
         "API_SECRET": "devkey"
       },

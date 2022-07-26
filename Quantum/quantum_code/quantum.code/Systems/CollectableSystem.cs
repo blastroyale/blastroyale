@@ -96,13 +96,12 @@ namespace Quantum.Systems
 					case ConsumableType.Shield:
 						return stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.ShieldCapacity:
-						return stats.GetStatData(StatType.Shield).BaseValue ==
-						       stats.GetStatData(StatType.Shield).StatValue;
+						return stats.GetStatData(StatType.Shield).BaseValue == stats.GetStatData(StatType.Shield).StatValue &&
+							stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
 						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
 				}
 			}
-
 			return false;
 		}
 

@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using Quantum;
 using ServerSDK.Models;
 
@@ -62,10 +63,17 @@ public class PlayerSetupService : IPlayerSetupService
 	/// <inheritdoc />
 	public bool IsSetup(ServerState state)
 	{
-		var playerData = state.DeserializeModel<PlayerData>();
-		if (playerData == null || playerData.Level == 0)
+		try
+		{
+			var playerData = state.DeserializeModel<PlayerData>();
+			if (playerData == null || playerData.Level == 0)
+				return false;
+			return true;
+		}
+		catch (JsonSerializationException e)
+		{
 			return false;
-		return true;
+		}
 	}
 
 	/// <summary>

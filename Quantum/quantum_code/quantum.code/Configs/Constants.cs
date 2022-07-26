@@ -14,6 +14,7 @@ namespace Quantum
 		public static readonly int OFFHAND_POOLSIZE = 20;
 		public static readonly FP BOT_STUCK_DETECTION_DISTANCE = FP._0_50;
 		public static readonly int BURST_INTERVAL_DIVIDER = 3;
+		public static readonly FP SELF_DAMAGE_MODIFIER= FP._0_50;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";

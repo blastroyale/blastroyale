@@ -176,7 +176,22 @@ namespace FirstLight.Services
 		private Coroutine _playSoundCoroutine;
 		private Transform _followTarget;
 		private Vector3 _followOffset;
+		private Action<AudioSourceMonoComponent> _fadeVolumeCallback;
+		
+		private void Update()
+		{
+			if (_followTarget != null)
+			{
+				transform.position = _followTarget.position + _followOffset;
+			}
+		}
 
+		private void OnDestroy()
+		{
+			_fadeVolumeCallback?.Invoke(this);
+			_fadeVolumeCallback = null;
+		}
+		
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
@@ -212,14 +227,6 @@ namespace FirstLight.Services
 
 			_playSoundCoroutine = StartCoroutine(PlaySoundCoroutine());
 		}
-		
-		private void Update()
-		{
-			if (_followTarget != null)
-			{
-				transform.position = _followTarget.position + _followOffset;
-			}
-		}
 
 		/// <summary>
 		/// Sets the follow target for this audio listener
@@ -230,15 +237,6 @@ namespace FirstLight.Services
 			_followTarget = newTarget;
 			_followOffset = followOffset;
 			transform.rotation = rotation;
-		}
-
-		/// <summary>
-		/// Starts a coroutine that fades the volume of the audio from X to Y
-		/// </summary>
-		public void FadeVolume(float fromVolume, float toVolume, float fadeDuration,
-		                       Action<AudioSourceMonoComponent> callbackFadeFinished = null)
-		{
-			StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration, callbackFadeFinished));
 		}
 
 		/// <summary>
@@ -264,11 +262,20 @@ namespace FirstLight.Services
 
 			_pool?.Despawn(this);
 		}
-
-		private IEnumerator FadeVolumeCoroutine(float fromVolume, float toVolume, float fadeDuration,
-		                                        Action<AudioSourceMonoComponent> callbackFadeFinished = null)
+		
+		/// <summary>
+		/// Starts a coroutine that fades the volume of the audio from X to Y
+		/// </summary>
+		public void FadeVolume(float fromVolume, float toVolume, float fadeDuration,
+		                       Action<AudioSourceMonoComponent> callbackFadeFinished = null)
 		{
-			float currentTimeProgress = 0;
+			_fadeVolumeCallback = callbackFadeFinished;
+			StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration));
+		}
+
+		private IEnumerator FadeVolumeCoroutine(float fromVolume, float toVolume, float fadeDuration)
+		{
+			var currentTimeProgress = 0f;
 
 			while (currentTimeProgress < fadeDuration)
 			{
@@ -281,7 +288,8 @@ namespace FirstLight.Services
 				                           fadePercent);
 			}
 
-			callbackFadeFinished?.Invoke(this);
+			_fadeVolumeCallback?.Invoke(this);
+			_fadeVolumeCallback = null;
 		}
 
 		private IEnumerator PlaySoundCoroutine()

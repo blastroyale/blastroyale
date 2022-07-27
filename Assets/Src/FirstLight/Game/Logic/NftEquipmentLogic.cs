@@ -112,6 +112,10 @@ namespace FirstLight.Game.Logic
 				url = "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
 			}
 
+			// Because old jsons didn't had SSL, making it backwards compatible
+			// we need SSL for iOS because <random Apple rant>
+			url = url.Replace("http:", "https:");
+			
 			return new EquipmentInfo
 			{
 				Id = id,

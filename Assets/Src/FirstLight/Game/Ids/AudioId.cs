@@ -186,7 +186,6 @@ namespace FirstLight.Game.Ids
 		
 		BrSkydiveLoop,
 		PlaHammerWeaponShot,
-		PlaMinigunWeaponShot,
 		EdiElectronThrowerWeaponShot,
 	}
 	

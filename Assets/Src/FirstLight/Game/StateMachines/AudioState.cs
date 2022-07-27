@@ -94,6 +94,7 @@ namespace FirstLight.Game.StateMachines
 
 			var audio = AudioId.None;
 
+			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
 			if (game.PlayerIsLocal(callback.Player))
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;

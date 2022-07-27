@@ -40,14 +40,15 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAim>(this, OnLocalPlayerAim);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLanded);
 		}
 
-		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
+		private void OnPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
 		{
-			var frame = callback.Game.Frames.Verified;
+			if (callback.Entity != EntityView.EntityRef)
+				return;
 
-			InitiateGear(callback.Game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
+			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -222,21 +223,23 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
+			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
+			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear);
+
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
+			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+			if (isSkydiving)
+			{
+				matchCharacterViewMonoComponent.HideAllEquipment();
+			}
+			
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
 				var time = stats.CurrentStatusModifierEndTime - frame.Time;
 
 				_playerView.SetStatusModifierEffect(stats.CurrentStatusModifierType, time.AsFloat);
 			}
-		}
-
-		private async void InitiateGear(QuantumGame quantumGame, PlayerRef player)
-		{
-			var frame = quantumGame.Frames.Verified;
-			GetPlayerEquipmentSet(frame, player, out var skin, out var weapon, out var gear);
-			await _playerView.GetComponent<MatchCharacterViewMonoComponent>().Init(EntityView, weapon, gear);
 		}
 
 		private async void InstantiatePlayerIndicators(GameId weapon)

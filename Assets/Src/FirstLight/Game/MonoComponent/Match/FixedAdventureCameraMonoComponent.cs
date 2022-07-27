@@ -23,7 +23,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private LocalInput _localInput;
 
 		private bool _spectating;
@@ -31,7 +30,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_localInput = new LocalInput();
 

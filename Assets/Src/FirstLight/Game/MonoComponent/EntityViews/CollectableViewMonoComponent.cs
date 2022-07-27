@@ -123,6 +123,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEntityDestroyed(QuantumGame game)
 		{
+			if (_collectingVfx != null)
+			{
+				_collectingVfx.Despawn();
+			}
+			
 			transform.parent = null;
 
 			QuantumEvent.UnsubscribeListener(this);

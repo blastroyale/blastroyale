@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			
 			_assetService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>());
 			await _services.AudioFxService.LoadAudioClips(_configsAdder.GetConfig<AudioSharedAssetConfigs>()
-			                                                           .ConfigsDictionary);
+			                                                           .ConfigsDictionary, false);
 			LoadVfx();
 		}
 

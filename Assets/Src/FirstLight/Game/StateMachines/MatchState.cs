@@ -335,7 +335,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Preload Audio
-			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary));
+			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary, false));
 			
 			return tasks;
 		}

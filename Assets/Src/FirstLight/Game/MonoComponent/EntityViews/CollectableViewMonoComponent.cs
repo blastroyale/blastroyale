@@ -13,7 +13,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class CollectableViewMonoComponent : EntityMainViewBase
 	{
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
-		[SerializeField] private AudioId _collectSfxId;
 		[SerializeField, Required] private Animation _animation;
 		[SerializeField, Required] private AnimationClip _spawnClip;
 		[SerializeField, Required] private AnimationClip _idleClip;
@@ -27,7 +26,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnLocalStartedCollecting>(this, OnLocalStartedCollecting);
-			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -40,15 +38,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			this.LateCoroutineCall(_animation.clip.length, () => PlayAnimation(_idleClip));
 		}
 
-		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
-		{
-			if (EntityView.EntityRef != callback.CollectableEntity)
-			{
-				return;
-			}
-			
-			Services.AudioFxService.PlayClip3D(_collectSfxId, transform.position);
-		}
+
 
 		private void OnLocalStartedCollecting(EventOnLocalStartedCollecting callback)
 		{

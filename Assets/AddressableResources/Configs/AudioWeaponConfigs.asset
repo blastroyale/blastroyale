@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2560ac1643d64386b006f1fc52dde62, type: 3}
+  m_Name: AudioWeaponConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+  - Id: 31
+    WeaponShotAudioId: 159
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 60
+    WeaponShotAudioId: 15
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 71
+    WeaponShotAudioId: 16
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 78
+    WeaponShotAudioId: 17
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 79
+    WeaponShotAudioId: 18
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 84
+    WeaponShotAudioId: 19
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 86
+    WeaponShotAudioId: 20
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 87
+    WeaponShotAudioId: 160
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 88
+    WeaponShotAudioId: 24
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 90
+    WeaponShotAudioId: 25
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 91
+    WeaponShotAudioId: 26
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 92
+    WeaponShotAudioId: 27
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 93
+    WeaponShotAudioId: 28
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 94
+    WeaponShotAudioId: 29
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 95
+    WeaponShotAudioId: 31
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 96
+    WeaponShotAudioId: 32
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 97
+    WeaponShotAudioId: 33
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 98
+    WeaponShotAudioId: 34
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 99
+    WeaponShotAudioId: 35
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 100
+    WeaponShotAudioId: 36
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 101
+    WeaponShotAudioId: 38
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3
+  - Id: 103
+    WeaponShotAudioId: 161
+    BaseVolume: 1
+    BasePitch: 1
+    VolumeRandDeviation: 0.3
+    PitchRandDeviation: 0.3

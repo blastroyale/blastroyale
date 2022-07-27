@@ -24,13 +24,13 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override async Task LoadAudioClips(IEnumerable clips)
+		public override async Task LoadAudioClips(IEnumerable clips, bool loadAsync)
 		{
 			var convertedClips = clips as IReadOnlyDictionary<AudioId, AssetReference>;
 
 			foreach (var convClip in convertedClips)
 			{
-				await LoadAudioClip(convClip.Key);
+				await LoadAudioClip(convClip.Key, loadAsync);
 			}
 		}
 
@@ -46,9 +46,14 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override async Task LoadAudioClip(AudioId id)
+		public override async Task LoadAudioClip(AudioId id, bool loadAsync)
 		{
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id, false);
+			if (_audioClips.ContainsKey(id))
+			{
+				return;
+			}
+			
+			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id, loadAsync);
 			AddAudioClip(id, clip);
 		}
 		
@@ -66,10 +71,7 @@ namespace FirstLight.Game.Services
 				return null;
 			}
 			
-			if (sourceInitData == null)
-			{
-				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
-			}
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = Is3dSfxMuted;
@@ -86,10 +88,7 @@ namespace FirstLight.Game.Services
 				return null;
 			}
 			
-			if (sourceInitData == null)
-			{
-				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-			}
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = Is2dSfxMuted;
@@ -106,16 +105,71 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			if (sourceInitData == null)
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
+			
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = IsBgmMuted;
+			updatedInitData.Loop = true;
+			sourceInitData = updatedInitData;
+
+			base.PlayMusic(id, transitionDuration, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override async Task<AudioSourceMonoComponent> PlayClipAsync3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None)
 			{
-				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
+				return null;
 			}
+			
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = Is3dSfxMuted;
+			sourceInitData = updatedInitData;
+			
+			await LoadAudioClip(id, true);
+
+			return !Application.isPlaying ? null : base.PlayClip3D(id, worldPosition, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override async Task<AudioSourceMonoComponent> PlayClipAsync2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None)
+			{
+				return null;
+			}
+			
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = Is2dSfxMuted;
+			sourceInitData = updatedInitData;
+			
+			await LoadAudioClip(id, true);
+
+			return !Application.isPlaying ? null : base.PlayClip2D(id, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override async Task PlayMusicAsync(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None)
+			{
+				return;
+			}
+
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = IsBgmMuted;
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 			
+			await LoadAudioClip(id, true);
+
 			if (!Application.isPlaying)
 			{
 				return;

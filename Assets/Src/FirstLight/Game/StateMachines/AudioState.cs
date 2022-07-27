@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -42,11 +43,33 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void OnPlayerAttack(EventOnPlayerAttack callback)
+		{
+			// TODO - FIND BETTER SOLUTION FOR THIS PLS
+			if (_entityViewUpdaterService == null)
+			{
+				_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			}
+
+			var audioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int)callback.Weapon.GameId);
+			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
+			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+			
+			initProps.Volume = Random.Range(audioConfig.BaseVolume - audioConfig.VolumeRandDeviation,
+			                                audioConfig.BaseVolume + audioConfig.VolumeRandDeviation);
+			
+			initProps.Pitch = Random.Range(audioConfig.BasePitch - audioConfig.PitchRandDeviation,
+			                               audioConfig.BasePitch + audioConfig.PitchRandDeviation);
+			
+			_services.AudioFxService.PlayClip3D(audioConfig.WeaponShotAudioId, entityView.transform.position, initProps);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
@@ -60,10 +83,10 @@ namespace FirstLight.Game.StateMachines
 			var game = callback.Game;
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 
-			var randomVol = Random.Range(GameConstants.Audio.SFX_RAND_VOLUME_MIN,
-			                             GameConstants.Audio.SFX_RAND_VOLUME_MAX);
-			var randomPitch = Random.Range(GameConstants.Audio.SFX_RAND_PITCH_MIN,
-			                               GameConstants.Audio.SFX_RAND_PITCH_MAX);
+			var randomVol = Random.Range(GameConstants.Audio.SFX_DEFAULT_VOLUME - GameConstants.Audio.SFX_VOLUME_DEVIATION,
+			                             GameConstants.Audio.SFX_DEFAULT_VOLUME + GameConstants.Audio.SFX_VOLUME_DEVIATION);
+			var randomPitch = Random.Range(GameConstants.Audio.SFX_DEFAULT_PITCH - GameConstants.Audio.SFX_PITCH_DEVIATION,
+			                               GameConstants.Audio.SFX_DEFAULT_PITCH + GameConstants.Audio.SFX_PITCH_DEVIATION);
 
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 			initProps.Volume = randomVol;

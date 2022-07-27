@@ -184,7 +184,10 @@ namespace FirstLight.Game.Ids
 		AirDrop4,
 		None, // TODO: Make an Enum selector
 		
-		BrSkydiveLoop
+		BrSkydiveLoop,
+		PlaHammerWeaponShot,
+		PlaMinigunWeaponShot,
+		EdiElectronThrowerWeaponShot,
 	}
 	
 	/// <summary>

@@ -389,7 +389,7 @@ namespace FirstLight.Game.StateMachines
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
-			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
+			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary, false);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
 			
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
@@ -413,6 +413,8 @@ namespace FirstLight.Game.StateMachines
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 
+			_services.AudioFxService.StopMusic();
+			
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioMainMenuAssetConfigs>());

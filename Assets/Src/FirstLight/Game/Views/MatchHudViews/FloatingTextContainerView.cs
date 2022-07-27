@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FirstLight.Game.Messages;
+using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -52,23 +52,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-			
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			
+
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
-			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
-			QuantumEvent.Subscribe<EventOnLocalCollectableBlocked>(this, OnLocalCollectableBlocked);
+			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
+			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 			QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
-		}
-		
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
-		{
-			_observedPlayer = callback.Player;
-			_observedEntity = callback.Entity;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -77,17 +68,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_observedEntity = next.Entity;
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
-		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _observedPlayer != PlayerRef.None)
-			{
-				return;
-			}
-
-			_observedPlayer = callback.Player;
-			_observedEntity = callback.Entity;
-		}
-		private void OnLocalCollectableBlocked(EventOnLocalCollectableBlocked callback)
+		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
 		{
 			if (callback.PlayerEntity != _observedEntity)
 			{
@@ -123,7 +104,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_queue.Remove(callback.Entity);
 		}
 
-		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
+		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
 			if (callback.PlayerEntity != _observedEntity)
 			{
@@ -133,7 +114,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				Debug.LogWarning($"The entity {_observedEntity} is not ready for a losing floating text yet");
+				FLog.Warn($"The entity {_observedEntity} is not ready for a losing floating text yet");
 				return;
 			}
 

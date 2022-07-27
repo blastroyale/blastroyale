@@ -216,6 +216,7 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 Slot;
+    uint CameraHeightMod;
 }
 
 synced event OnLocalPlayerStatsChanged

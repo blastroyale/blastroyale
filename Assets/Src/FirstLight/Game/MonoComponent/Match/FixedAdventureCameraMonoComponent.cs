@@ -38,6 +38,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private Transform _targetTransform;
 		private bool _spectating;
 		private FP _visionRangeRadius;
+		private float _defaultCameraHeight;
 
 		private void Awake()
 		{
@@ -46,6 +47,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_localInput = new LocalInput();
 			_visionRangeRadius = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+			_defaultCameraHeight = _adventureCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
 
 			_localInput.Gameplay.SpecialButton0.started += ctx => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton0.canceled += ctx => SetActiveCamera(_adventureCamera);
@@ -64,6 +66,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnLocalPlayerWeaponChanged);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnQuantumUpdateView, onlyIfActiveAndEnabled: true);
 
 			_localInput.Enable();
@@ -194,6 +197,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
 			SetActiveCamera(_adventureCamera);
+		}
+		
+		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			var newHeight = Mathf.Max(_defaultCameraHeight, (_defaultCameraHeight + callback.CameraHeightMod)/2);
+			_adventureCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = newHeight;
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)

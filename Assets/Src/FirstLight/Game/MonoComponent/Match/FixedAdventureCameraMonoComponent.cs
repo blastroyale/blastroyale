@@ -201,7 +201,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			var newHeight = Mathf.Max(_defaultCameraHeight, (_defaultCameraHeight + callback.CameraHeightMod)/2);
+			var newHeight = Math.Max(_adventureCamera.m_Lens.FieldOfView,
+				_defaultCameraHeight - (_defaultCameraHeight / callback.CameraHeightMod) + callback.CameraHeightMod);
 			_adventureCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = newHeight;
 		}
 

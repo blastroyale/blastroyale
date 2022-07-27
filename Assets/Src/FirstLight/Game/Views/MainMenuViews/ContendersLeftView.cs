@@ -1,4 +1,3 @@
-using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -21,16 +20,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private bool _displayNumberOnly;
 		
 		private IGameServices _services;
-		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_contendersLeftText.text = "0";
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 		}
@@ -38,12 +34,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
-		{
-			// TODO: Why is this subscribing to spectated player?
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)

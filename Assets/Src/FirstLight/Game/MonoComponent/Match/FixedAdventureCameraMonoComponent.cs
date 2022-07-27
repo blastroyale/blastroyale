@@ -58,8 +58,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			RefreshSpectator(next.Transform);
 
-			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
-			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
+			SnapCamera();
 		}
 
 		private void OnDestroy()
@@ -82,12 +81,17 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			if (!msg.IsResync)
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				return;
+				SetActiveCamera(_spectateCameras[0]);
+				SnapCamera();
 			}
 
-			SetActiveCamera(_adventureCamera);
+			if (msg.IsResync)
+			{
+				SetActiveCamera(_adventureCamera);
+				SnapCamera();
+			}
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -142,6 +146,12 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			var audioListener = _services.AudioFxService.AudioListener;
 			audioListener.SetFollowTarget(t, Vector3.up, flatRotation);
+		}
+
+		private void SnapCamera()
+		{
+			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
+			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
 		}
 	}
 }

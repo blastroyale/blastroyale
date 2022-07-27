@@ -1,6 +1,10 @@
 {
     "name": "FirstLight.Services",
-    "references": ["FirstLight.DataExtensions"],
+    "rootNamespace": "",
+    "references": [
+        "FirstLight.DataExtensions",
+        "FirstLight.FLogger"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

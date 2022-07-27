@@ -82,7 +82,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
 		/// </summary>
-		void PlayMusic(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null);
+		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
@@ -99,7 +99,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
 		/// </summary>
-		Task PlayMusicAsync(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null);
+		Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
 		
 		/// <summary>
 		/// Stops the music
@@ -110,6 +110,11 @@ namespace FirstLight.Services
 		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
 		/// </summary>
 		AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend);
+
+		/// <summary>
+		/// Requests the current playback time of the currently playing music track, in seconds
+		/// </summary>
+		float GetCurrentMusicPlaybackTime();
 	}
 
 	/// <inheritdoc />
@@ -493,7 +498,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual void PlayMusic(T id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public virtual void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -502,10 +507,10 @@ namespace FirstLight.Services
 
 			if (_activeMusicSource.Source.isPlaying)
 			{
-				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, transitionDuration,
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration,
 				                              CallbackAudioFadeFinished);
 				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
-				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, transitionDuration,
+				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration,
 				                                  CallbackAudioFadeFinished);
 			}
 			else
@@ -527,7 +532,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual Task PlayMusicAsync(T id, float transitionDuration = 0, AudioSourceInitData? sourceInitData = null)
+		public virtual Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			return default;
 		}
@@ -551,6 +556,12 @@ namespace FirstLight.Services
 		public virtual AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend)
 		{
 			return default;
+		}
+
+		/// <inheritdoc />
+		public float GetCurrentMusicPlaybackTime()
+		{
+			return _activeMusicSource.Source.time;
 		}
 
 		/// <inheritdoc />

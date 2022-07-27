@@ -98,7 +98,7 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public override void PlayMusic(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -112,7 +112,7 @@ namespace FirstLight.Game.Services
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 
-			base.PlayMusic(id, transitionDuration, sourceInitData);
+			base.PlayMusic(id,  fadeInDuration, fadeOutDuration, sourceInitData);
 		}
 		
 		/// <inheritdoc />
@@ -154,7 +154,7 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public override async Task PlayMusicAsync(AudioId id, float transitionDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public override async Task PlayMusicAsync(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -175,7 +175,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 			
-			base.PlayMusic(id, transitionDuration, sourceInitData);
+			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData);
 		}
 		
 		/// <inheritdoc />

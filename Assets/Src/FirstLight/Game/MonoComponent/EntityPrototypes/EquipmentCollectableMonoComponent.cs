@@ -29,6 +29,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			InitArrow(game);
 		}
 
+		protected override void OnEntityDestroyed(QuantumGame game)
+		{
+			QuantumEvent.UnsubscribeListener<EventOnLocalPlayerWeaponChanged>(this);
+			base.OnEntityDestroyed(game);
+		}
+
 		private async Task<bool> ShowEquipment(QuantumGame game)
 		{
 			var collectable = GetComponentData<Collectable>(game);

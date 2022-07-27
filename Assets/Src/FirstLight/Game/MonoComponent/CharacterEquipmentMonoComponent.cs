@@ -111,6 +111,28 @@ namespace FirstLight.Game.MonoComponent
 
 			_equipment.Remove(slotType);
 		}
+
+		public void HideAllEquipment()
+		{
+			foreach (var items in _equipment.Values)
+			{
+				for (var i = 0; i < items.Count; i++)
+				{
+					items[i].SetActive(false);
+				}
+			}
+		}
+
+		public void ShowAllEquipment()
+		{
+			foreach (var items in _equipment.Values)
+			{
+				for (var i = 0; i < items.Count; i++)
+				{
+					items[i].SetActive(true);
+				}
+			}
+		}
 		
 		/// <summary>
 		/// Equip a weapon using a GameId

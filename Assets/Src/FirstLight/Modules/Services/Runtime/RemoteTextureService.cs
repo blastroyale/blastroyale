@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using FirstLight.FLogger;
 using FirstLight.Services;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -81,6 +82,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public int RequestTexture(string url, Action<Texture2D> callback, Action<Texture2D> error)
 		{
+			FLog.Info($"Requested texture: {url}");
+			
 			var handle = _handle++;
 
 			var downloadRequest = LoadImage(GetImageUri(url), callback, error, handle);
@@ -102,6 +105,8 @@ namespace FirstLight.Game.Services
 
 		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action<Texture2D> error, int handle)
 		{
+			FLog.Verbose($"Loading texture URI: {uri}");
+
 			var request = UnityWebRequestTexture.GetTexture(uri);
 			yield return request.SendWebRequest();
 
@@ -116,6 +121,7 @@ namespace FirstLight.Game.Services
 
 			if (request.result != UnityWebRequest.Result.Success)
 			{
+				FLog.Warn($"Error loading texture from {uri}: {request.error}");
 				error(_errorTexture);
 			}
 			else
@@ -123,6 +129,7 @@ namespace FirstLight.Game.Services
 				var tex = ((DownloadHandlerTexture) request.downloadHandler).texture;
 				if (uri.StartsWith(FILE_URI_PREFIX))
 				{
+					FLog.Verbose($"Loaded texture URI from cache: {uri}");
 					callback(tex);
 				}
 				else
@@ -157,10 +164,13 @@ namespace FirstLight.Game.Services
 				PlayerPrefs.SetString(TEXTURE_HASHES_KEY, string.Join(';', _cachedTextures.ToArray()));
 				PlayerPrefs.Save();
 
+				FLog.Verbose($"Cached texture URI: {uri}");
+
 				callback(tex);
-			}, _ =>
+			}, ex =>
 			{
 				// If an error occurs we log it and return the texture as normal
+				FLog.Warn($"Error caching texture: {ex.Message}");
 				callback(tex);
 			});
 		}

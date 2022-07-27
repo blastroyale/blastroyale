@@ -57,6 +57,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnDestroy()
 		{
+			_gameDataProvider.EquipmentDataProvider.Loadout.StopObserving(OnLoadoutUpdated);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 

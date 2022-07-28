@@ -56,6 +56,8 @@ public class PluginLoader
 		if(nftSync == "true")
 			loadedPlugins.Add(new BlastRoyaleNftPlugin());
 		
+		loadedPlugins.Add(new TrophyLadderPlugin());
+		
 		return loadedPlugins;
 	}
 	

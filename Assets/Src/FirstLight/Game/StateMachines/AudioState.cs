@@ -151,28 +151,28 @@ namespace FirstLight.Game.StateMachines
 		{
 			var game = callback.Game;
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-
-			var randomVol =
-				Random.Range(GameConstants.Audio.SFX_DEFAULT_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
-				             GameConstants.Audio.SFX_DEFAULT_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);
-			var randomPitch =
-				Random.Range(GameConstants.Audio.SFX_DEFAULT_PITCH - GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION,
-				             GameConstants.Audio.SFX_DEFAULT_PITCH + GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION);
+			
+			var pitch = Random.Range(GameConstants.Audio.SFX_DEFAULT_PITCH - GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION,
+			                         GameConstants.Audio.SFX_DEFAULT_PITCH + GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION);
 
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
-			initProps.Volume = randomVol;
-			initProps.Pitch = randomPitch;
+			
+			initProps.Pitch = pitch;
 
 			var audio = AudioId.None;
 
 			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
 			if (game.PlayerIsLocal(callback.Player))
 			{
+				initProps.Volume = Random.Range(GameConstants.Audio.SFX_DEFAULT_TAKE_DAMAGE_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
+				                                GameConstants.Audio.SFX_DEFAULT_TAKE_DAMAGE_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);;
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 			}
 			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
 			         game.PlayerIsLocal(player.Player))
 			{
+				initProps.Volume = Random.Range(GameConstants.Audio.SFX_DEFAULT_HIT_DAMAGE_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
+				                                GameConstants.Audio.SFX_DEFAULT_HIT_DAMAGE_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);;
 				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
 			}
 

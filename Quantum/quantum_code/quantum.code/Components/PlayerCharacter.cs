@@ -221,7 +221,7 @@ namespace Quantum
 			if (triggerEvents)
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot, (uint)weaponConfig.AttackRange);
+				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
 			}
 
 			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);

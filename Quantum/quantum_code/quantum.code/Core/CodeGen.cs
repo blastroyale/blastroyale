@@ -5714,7 +5714,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot, UInt32 CameraHeightMod) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
@@ -5722,7 +5722,6 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.Weapon = Weapon;
         ev.Slot = Slot;
-        ev.CameraHeightMod = CameraHeightMod;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7806,7 +7805,6 @@ namespace Quantum {
     public EntityRef Entity;
     public Equipment Weapon;
     public Int32 Slot;
-    public UInt32 CameraHeightMod;
     protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7828,7 +7826,6 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
         hash = hash * 31 + Slot.GetHashCode();
-        hash = hash * 31 + CameraHeightMod.GetHashCode();
         return hash;
       }
     }

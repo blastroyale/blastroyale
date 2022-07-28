@@ -1,4 +1,5 @@
 using Cinemachine;
+using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -42,20 +43,24 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			_localInput.Enable();
-			// _services.MessageBrokerService.Subscribe<SpectateStartedMessage>(OnSpectateStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			gameObject.SetActive(false);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !previous.Entity.IsValid)
+			{
+				// This sets the initial camera when we get the first spectated player in spectate mode
+				SetActiveCamera(_spectateCameras[0]);
+			}
 			RefreshSpectator(next.Transform);
-
 			SnapCamera();
 		}
 
@@ -79,12 +84,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				SetActiveCamera(_spectateCameras[0]);
-				SnapCamera();
-			}
-
 			if (msg.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);
@@ -95,6 +94,14 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			SetActiveCamera(_spawnCamera);
+		}
+		
+		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		{
+			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				SetActiveCamera(_adventureCamera);
+			}
 		}
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)

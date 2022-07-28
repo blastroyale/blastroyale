@@ -85,8 +85,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_collectors.Remove(callback.PlayerEntity);
 			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
-
-			Services.AudioFxService.PlayClip3D(_collectSfxId, transform.position);
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)

@@ -99,6 +99,7 @@ namespace FirstLight.Game.Services
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -193,6 +194,11 @@ namespace FirstLight.Game.Services
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		{
+			SetSpectatedEntity(callback.Entity, callback.Player);
+		}
+		
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);
 		}

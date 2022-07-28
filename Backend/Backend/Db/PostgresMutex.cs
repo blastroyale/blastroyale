@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Backend.Db;
 using Medallion.Threading.Postgres;
 using ServerSDK.Services;
@@ -11,24 +12,28 @@ namespace Backend.Game;
 /// </summary>
 public class PostgresMutex : IServerMutex
 {
-	private PostgresDistributedLockHandle _handle;
+	private Dictionary<string, PostgresDistributedLockHandle> _handles = new ();
 
 	/// <inheritdoc />
 	public void Lock(string userId)
 	{
 		var mutex = new PostgresDistributedLock(new PostgresAdvisoryLockKey(userId, allowHashing: true), DbSetup.ConnectionString);
-		_handle = mutex.Acquire();
+		_handles[userId] = mutex.Acquire();
 	}
 
 	/// <inheritdoc />
 	public void Unlock(string userId)
 	{
-		_handle?.Dispose();
+		_handles[userId].Dispose();
 	}
 
 	/// <inheritdoc />
 	public void Dispose()
 	{
-		_handle?.Dispose();
+		foreach (var l in _handles.Values)
+		{
+			l.Dispose();
+		}
+		_handles.Clear();
 	}
 }

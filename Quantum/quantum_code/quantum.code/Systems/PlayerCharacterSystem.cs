@@ -26,12 +26,16 @@ namespace Quantum.Systems
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
 			var playerData = f.GetPlayerData(playerRef);
-			
-			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize;
+
+			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
+			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
+			                    new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
+			                                  f.RNG->Next(-gridSquareSize, gridSquareSize));
+
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			
+
 			spawnTransform.Position = spawnPosition.XOY;
 
 			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
@@ -62,7 +66,7 @@ namespace Quantum.Systems
 
 		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-									   EntityRef entityKiller)
+		                               EntityRef entityKiller)
 		{
 			var deathPosition = f.Get<Transform3D>(entityDead).Position;
 			var armourDropChance = f.RNG->Next();
@@ -71,7 +75,7 @@ namespace Quantum.Systems
 
 			//when you kill a player in BR we drop also his/hers weapon
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale &&
-				!f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
+			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
 			{
 				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
 				step++;
@@ -83,7 +87,7 @@ namespace Quantum.Systems
 				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
 				step++;
 			}
-			else if(gameMode == GameMode.BattleRoyale)
+			else if (gameMode == GameMode.BattleRoyale)
 			{
 				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
 				step++;
@@ -99,7 +103,7 @@ namespace Quantum.Systems
 				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
 			}
 		}
-			    
+
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive

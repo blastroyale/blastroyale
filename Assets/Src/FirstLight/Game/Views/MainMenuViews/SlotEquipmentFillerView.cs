@@ -63,7 +63,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var equipment = _dataProvider.EquipmentDataProvider.Inventory[itemId];
 			
 			_equipmentIconView.gameObject.SetActive(true);
-			_equipmentIconView.SetInfo(equipment);
+			_equipmentIconView.SetInfo(itemId, equipment);
 		}
 
 		private void OnSlotClicked()

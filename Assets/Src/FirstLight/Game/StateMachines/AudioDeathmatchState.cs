@@ -41,14 +41,18 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{
-			var initial = stateFactory.Initial("AUDIO BR - Initial");
-			var final = stateFactory.Final("AUDIO BR - Final");
-			var matchStateCheck = stateFactory.Choice("AUDIO BR - Match State Check");
-			var midIntensity = stateFactory.State("AUDIO BR - Mid Intensity");
-			var highIntensity = stateFactory.State("AUDIO BR - High Intensity");
+			var initial = stateFactory.Initial("AUDIO DM - Initial");
+			var final = stateFactory.Final("AUDIO DM - Final");
+			var resyncCheck = stateFactory.Choice("AUDIO DM - Resync Check");
+			var matchStateCheck = stateFactory.Choice("AUDIO DM - Match State Check");
+			var midIntensity = stateFactory.State("AUDIO DM - Mid Intensity");
+			var highIntensity = stateFactory.State("AUDIO DM - High Intensity");
 			
-			initial.Transition().Target(matchStateCheck);
+			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
+			
+			resyncCheck.Transition().Condition(IsResyncing).Target(matchStateCheck);
+			resyncCheck.Transition().Target(midIntensity);
 			
 			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(midIntensity);
 			matchStateCheck.Transition().Target(highIntensity);
@@ -71,6 +75,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private bool IsResyncing()
+		{
+			return !_services.NetworkService.IsJoiningNewMatch;
 		}
 
 		private bool IsMidIntensityPhase()

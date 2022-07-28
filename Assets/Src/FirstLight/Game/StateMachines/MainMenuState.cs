@@ -391,8 +391,8 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
 			uiVfxService.Init(_uiService);
-			
-			_services.AudioFxService.PlayMusic(AudioId.MainMenuLoopNew);
+
+			_statechartTrigger(AudioState.EnteredMainMenuEvent);
 		}
 
 		private async Task UnloadMainMenu()
@@ -407,7 +407,7 @@ namespace FirstLight.Game.StateMachines
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 
-			_services.AudioFxService.StopMusic();
+			_statechartTrigger(AudioState.LeftMainMenuEvent);
 			
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);

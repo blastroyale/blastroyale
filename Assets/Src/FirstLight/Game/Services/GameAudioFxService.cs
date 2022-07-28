@@ -112,7 +112,7 @@ namespace FirstLight.Game.Services
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 
-			base.PlayMusic(id,  fadeInDuration, fadeOutDuration, sourceInitData);
+			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData);
 		}
 		
 		/// <inheritdoc />

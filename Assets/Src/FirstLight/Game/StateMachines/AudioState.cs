@@ -15,12 +15,12 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		private readonly IStatechartEvent
-			_battleRoyaleStartedEvent = new StatechartEvent("Battle Royale Started Event");
-
-		private readonly IStatechartEvent _deathmatchStartedEvent = new StatechartEvent("Deathmatch Started Event");
-		private readonly IStatechartEvent _leftMatchEvent = new StatechartEvent("Left Match Event");
-
+		public static readonly IStatechartEvent BattleRoyaleStartedEvent = new StatechartEvent("Battle Royale Started Event");
+		public static readonly IStatechartEvent DeathmatchStartedEvent = new StatechartEvent("Deathmatch Started Event");
+		public static readonly IStatechartEvent EnteredMainMenuEvent = new StatechartEvent("Main Menu Entered Event");
+		public static readonly IStatechartEvent LeftMatchEvent = new StatechartEvent("Left Match Event");
+		public static readonly IStatechartEvent LeftMainMenuEvent = new StatechartEvent("Left Main Menu Event");
+		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly AudioBattleRoyaleState _audioBrState;
@@ -35,6 +35,7 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider = gameLogic;
 			_statechartTrigger = statechartTrigger;
 			_audioBrState = new AudioBattleRoyaleState(services, gameLogic, statechartTrigger);
+			_audioDmState = new AudioDeathmatchState(services, gameLogic, statechartTrigger);
 		}
 
 		/// <summary>
@@ -45,6 +46,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("AUDIO - Initial");
 			var final = stateFactory.Final("AUDIO - Final");
 			var audioBase = stateFactory.State("AUDIO - Audio Base");
+			var mainMenu = stateFactory.State("AUDIO - Main Menu");
 			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
 			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
@@ -52,16 +54,20 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
 
-			audioBase.OnEnter(PlayMainMenuMusic);
-			audioBase.Event(_battleRoyaleStartedEvent).Target(battleRoyale);
-			audioBase.Event(_deathmatchStartedEvent).Target(deathmatch);
-			audioBase.OnExit(GetEntityViewUpdaterService);
+			audioBase.Event(EnteredMainMenuEvent).Target(mainMenu);
+			
+			mainMenu.OnEnter(PlayMainMenuMusic);
+			mainMenu.Event(BattleRoyaleStartedEvent).Target(battleRoyale);
+			mainMenu.Event(DeathmatchStartedEvent).Target(deathmatch);
+			mainMenu.OnExit(GetEntityViewUpdaterService);
+			mainMenu.OnExit(StopMusicInstant);
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
+			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
 
 			postGame.OnEnter(PlayPostGameMusic);
-			postGame.Event(_leftMatchEvent).Target(audioBase);
+			postGame.Event(LeftMatchEvent).Target(audioBase);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -84,13 +90,23 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMainMenuMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MainMenuLoopNew);
+			_services.AudioFxService.PlayMusic(AudioId.MainMenuLoopNew, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
 		}
 
 		private void PlayPostGameMusic()
 		{
 			_services.AudioFxService.PlayMusic(AudioId.PostMatchLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
+		}
+		
+		private void StopMusicInstant()
+		{
+			_services.AudioFxService.StopMusic();
+		}
+		
+		private void StopMusicFadeOut()
+		{
+			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)

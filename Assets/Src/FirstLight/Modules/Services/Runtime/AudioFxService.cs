@@ -104,7 +104,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Stops the music
 		/// </summary>
-		void StopMusic();
+		void StopMusic(float fadeOutDuration = 0f);
 
 		/// <summary>
 		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
@@ -179,6 +179,7 @@ namespace FirstLight.Services
 		private bool _canDespawn;
 		private float _currentVolumeMultiplier;
 		private Coroutine _playSoundCoroutine;
+		private Coroutine _fadeVolumeCoroutine;
 		private Transform _followTarget;
 		private Vector3 _followOffset;
 		private Action<AudioSourceMonoComponent> _fadeVolumeCallback;
@@ -262,20 +263,29 @@ namespace FirstLight.Services
 			if (_playSoundCoroutine != null)
 			{
 				StopCoroutine(_playSoundCoroutine);
-				_playSoundCoroutine = null;
+			}
+			
+			if (_fadeVolumeCoroutine != null)
+			{
+				StopCoroutine(_fadeVolumeCoroutine);
 			}
 
 			_pool?.Despawn(this);
 		}
-		
+
 		/// <summary>
 		/// Starts a coroutine that fades the volume of the audio from X to Y
 		/// </summary>
 		public void FadeVolume(float fromVolume, float toVolume, float fadeDuration,
 		                       Action<AudioSourceMonoComponent> callbackFadeFinished = null)
 		{
+			if (_fadeVolumeCoroutine != null)
+			{
+				StopCoroutine(_fadeVolumeCoroutine);
+			}
+			
 			_fadeVolumeCallback = callbackFadeFinished;
-			StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration));
+			_fadeVolumeCoroutine = StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration));
 		}
 
 		private IEnumerator FadeVolumeCoroutine(float fromVolume, float toVolume, float fadeDuration)
@@ -291,6 +301,11 @@ namespace FirstLight.Services
 				var fadePercent = currentTimeProgress / fadeDuration;
 				Source.volume = Mathf.Lerp(fromVolume * _currentVolumeMultiplier, toVolume * _currentVolumeMultiplier,
 				                           fadePercent);
+			}
+
+			if (toVolume <= 0)
+			{
+				Source.Stop();
 			}
 
 			_fadeVolumeCallback?.Invoke(this);
@@ -458,7 +473,7 @@ namespace FirstLight.Services
 			{
 				throw new
 					MissingMemberException($"The {nameof(AudioFxService<T>)} does not have an audio clip with ID " +
-					                       $"'{nameof(id)}' loaded in memory for playback. ");
+					                       $"'{id}' loaded in memory for playback. ");
 			}
 
 			return true;
@@ -507,15 +522,43 @@ namespace FirstLight.Services
 
 			if (_activeMusicSource.Source.isPlaying)
 			{
-				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration,
-				                              CallbackAudioFadeFinished);
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration, MusicTransitionFinished);
 				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
-				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration,
-				                                  CallbackAudioFadeFinished);
+				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, MusicTransitionFinished);
 			}
 			else
 			{
 				_activeMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
+			}
+		}
+
+		private void MusicTransitionFinished(AudioSourceMonoComponent audioSource)
+		{
+			if (audioSource == _transitionMusicSource)
+			{
+				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
+				_transitionMusicSource.Source.Stop();
+			}
+		}
+		
+		/// <inheritdoc />
+		public void StopMusic(float fadeOutDuration = 0f)
+		{
+			if (!_activeMusicSource.Source.isPlaying)
+			{
+				return;
+			}
+			
+			if (fadeOutDuration <= 0)
+			{
+				_activeMusicSource.Source.Stop();
+				_transitionMusicSource.Source.Stop();
+			}
+			else
+			{
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
+				_transitionMusicSource.FadeVolume(_transitionMusicSource.Source.volume, 0, fadeOutDuration);
 			}
 		}
 		
@@ -535,21 +578,6 @@ namespace FirstLight.Services
 		public virtual Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			return default;
-		}
-
-		private void CallbackAudioFadeFinished(AudioSourceMonoComponent audioSource)
-		{
-			if (audioSource == _transitionMusicSource)
-			{
-				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
-				_transitionMusicSource.StopAndDespawn();
-			}
-		}
-
-		/// <inheritdoc />
-		public void StopMusic()
-		{
-			_activeMusicSource.Source.Stop();
 		}
 
 		/// <inheritdoc />

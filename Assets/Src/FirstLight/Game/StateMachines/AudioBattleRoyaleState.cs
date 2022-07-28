@@ -130,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 				                     : 0;
 			
 			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_DEFAULT_FADE_OUT_SECONDS, GetInitDataForPlayback(1.05f));
+			                                   GameConstants.Audio.MUSIC_DEFAULT_FADE_OUT_SECONDS, GetInitDataForPlayback(1.025f));
 		}
 
 		// TODO - REVERT THE PITCH PARAM WHEN ALL PROPER MUSIC TRACKS ARE IN
@@ -138,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var sourceInitData = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			sourceInitData.StartTime = CurrentMusicPlaybackTime;
-			sourceInitData.Pitch = 1.025f;
+			sourceInitData.Pitch = pitch;
 			
 			return sourceInitData;
 		}

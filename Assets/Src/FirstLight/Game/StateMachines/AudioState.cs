@@ -153,8 +153,8 @@ namespace FirstLight.Game.StateMachines
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 
 			var randomVol =
-				Random.Range(GameConstants.Audio.SFX_DEFAULT_VOLUME - GameConstants.Audio.SFX_DEAULT_VOLUME_DEVIATION,
-				             GameConstants.Audio.SFX_DEFAULT_VOLUME + GameConstants.Audio.SFX_DEAULT_VOLUME_DEVIATION);
+				Random.Range(GameConstants.Audio.SFX_DEFAULT_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
+				             GameConstants.Audio.SFX_DEFAULT_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);
 			var randomPitch =
 				Random.Range(GameConstants.Audio.SFX_DEFAULT_PITCH - GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION,
 				             GameConstants.Audio.SFX_DEFAULT_PITCH + GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION);

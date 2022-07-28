@@ -14,7 +14,7 @@ using UnityEngine;
 namespace FirstLight.Game.StateMachines
 {
 	/// <summary>
-	/// This object contains the behaviour logic for the settings menu in the <seealso cref="MainMenuState"/>
+	/// This object contains music layering logic for the battle royale game mode
 	/// </summary>
 	public class AudioBattleRoyaleState
 	{

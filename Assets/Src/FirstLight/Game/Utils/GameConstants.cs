@@ -50,7 +50,7 @@ namespace FirstLight.Game.Utils
 			public const float SFX_DEFAULT_VOLUME = 1f;
 			public const float SFX_DEFAULT_PITCH = 1f;
 			
-			public const float SFX_DEAULT_VOLUME_DEVIATION = 0.2f;
+			public const float SFX_DEFAULT_VOLUME_DEVIATION = 0.2f;
 			public const float SFX_DEFAULT_PITCH_DEVIATION = 0.2f;
 			public const float SFX_3D_MIN_DISTANCE = 5f;
 			public const float SFX_3D_MAX_DISTANCE = 20f;

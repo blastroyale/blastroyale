@@ -68,7 +68,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetAuthenticationData);
 			
-			autoAuthCheck.Transition().Condition(HasCachedLoginEmail).Target(authLoginDevice);
+			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
@@ -157,13 +157,9 @@ namespace FirstLight.Game.StateMachines
 			OnPlayFabError(error);
 		}
 
-		private bool HasCachedLoginEmail()
+		private bool HasLinkedDevice()
 		{
-			if (!FeatureFlags.EMAIL_AUTH)
-			{
-				return true;
-			}
-			return !string.IsNullOrEmpty(_dataService.GetData<AppData>().LastLoginEmail);
+			return !FeatureFlags.EMAIL_AUTH || _dataService.GetData<AppData>().LinkedDevice;
 		}
 
 		private void LoginWithDevice()
@@ -259,7 +255,6 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");

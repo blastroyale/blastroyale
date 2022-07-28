@@ -18,6 +18,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent BattleRoyaleStartedEvent = new StatechartEvent("Battle Royale Started Event");
 		public static readonly IStatechartEvent DeathmatchStartedEvent = new StatechartEvent("Deathmatch Started Event");
 		public static readonly IStatechartEvent EnteredMainMenuEvent = new StatechartEvent("Main Menu Entered Event");
+		public static readonly IStatechartEvent FinishedMatchEvent = new StatechartEvent("Finished Match Event");
 		public static readonly IStatechartEvent LeftMatchEvent = new StatechartEvent("Left Match Event");
 		public static readonly IStatechartEvent LeftMainMenuEvent = new StatechartEvent("Left Main Menu Event");
 		
@@ -47,6 +48,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("AUDIO - Final");
 			var audioBase = stateFactory.State("AUDIO - Audio Base");
 			var mainMenu = stateFactory.State("AUDIO - Main Menu");
+			var matchmaking = stateFactory.State("AUDIO - Matchmaking");
 			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
 			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
@@ -57,18 +59,23 @@ namespace FirstLight.Game.StateMachines
 			audioBase.Event(EnteredMainMenuEvent).Target(mainMenu);
 			
 			mainMenu.OnEnter(PlayMainMenuMusic);
-			mainMenu.Event(BattleRoyaleStartedEvent).Target(battleRoyale);
-			mainMenu.Event(DeathmatchStartedEvent).Target(deathmatch);
+			mainMenu.Event(LeftMainMenuEvent).Target(matchmaking);
 			mainMenu.OnExit(GetEntityViewUpdaterService);
 			mainMenu.OnExit(StopMusicInstant);
 			
+			matchmaking.Event(BattleRoyaleStartedEvent).Target(battleRoyale);
+			matchmaking.Event(DeathmatchStartedEvent).Target(deathmatch);
+			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
+			battleRoyale.Event(FinishedMatchEvent).Target(postGame);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
-
+			deathmatch.Event(FinishedMatchEvent).Target(postGame);
+			
 			postGame.OnEnter(PlayPostGameMusic);
 			postGame.Event(LeftMatchEvent).Target(audioBase);
-
+			mainMenu.OnExit(StopMusicInstant);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 

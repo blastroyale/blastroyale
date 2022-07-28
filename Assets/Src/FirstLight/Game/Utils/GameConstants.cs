@@ -57,6 +57,8 @@ namespace FirstLight.Game.Utils
 
 			public const float MUSIC_DEFAULT_FADE_IN_SECONDS = 4f;
 			public const float MUSIC_DEFAULT_FADE_OUT_SECONDS = 2f;
+			public const float MUSIC_SHORT_FADE_IN_SECONDS = 2f;
+			public const float MUSIC_SHORT_FADE_OUT_SECONDS = 1f;
 		}
 
 		public static class Notifications

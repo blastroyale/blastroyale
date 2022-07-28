@@ -23,25 +23,19 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-
 		private readonly IStatechartEvent _currentTabButtonClickedEvent =
 			new StatechartEvent("Current Tab Button Clicked Event");
-
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-
 		private readonly IStatechartEvent _settingsMenuClickedEvent =
 			new StatechartEvent("Settings Menu Button Clicked Event");
-
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
 			new StatechartEvent("Room Join Create Button Clicked Event");
-
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
 			new StatechartEvent("Room Join Create Close Button Clicked Event");
-
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
+		
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;

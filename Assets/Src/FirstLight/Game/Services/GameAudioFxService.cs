@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
-using Quantum;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Services
 {
@@ -19,104 +22,160 @@ namespace FirstLight.Game.Services
 		{
 			_assetResolver = assetResolver;
 		}
-		
-		public override bool TryGetClip(AudioId id, out AudioClip clip)
-		{
-			var task = _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			
-			clip = task.Result;
 
-			return task.IsCompleted;
+		/// <inheritdoc />
+		public override async Task LoadAudioClips(IEnumerable clips, bool loadAsync)
+		{
+			var convertedClips = clips as IReadOnlyDictionary<AudioId, AssetReference>;
+
+			foreach (var convClip in convertedClips)
+			{
+				await LoadAudioClip(convClip.Key, loadAsync);
+			}
 		}
 
-		public new async void PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		/// <inheritdoc />
+		public override void UnloadAudioClips(IEnumerable clips)
+		{
+			var convertedClips = clips as IReadOnlyDictionary<AudioId, AssetReference>;
+
+			foreach (var convClip in convertedClips)
+			{
+				UnloadAudioClip(convClip.Key);
+			}
+		}
+
+		/// <inheritdoc />
+		public override async Task LoadAudioClip(AudioId id, bool loadAsync)
+		{
+			if (_audioClips.ContainsKey(id))
+			{
+				return;
+			}
+			
+			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id, loadAsync);
+			AddAudioClip(id, clip);
+		}
+		
+		/// <inheritdoc />
+		public override void UnloadAudioClip(AudioId id)
+		{
+			RemoveAudioClip(id);
+		}
+
+		/// <inheritdoc />
+		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None)
+			{
+				return null;
+			}
+			
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = Is3dSfxMuted;
+			sourceInitData = updatedInitData;
+
+			return base.PlayClip3D(id, worldPosition, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None)
+			{
+				return null;
+			}
+			
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = Is2dSfxMuted;
+			sourceInitData = updatedInitData;
+
+			return base.PlayClip2D(id, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
 				return;
 			}
+
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			
-			if (sourceInitData == null)
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.Mute = IsBgmMuted;
+			updatedInitData.Loop = true;
+			sourceInitData = updatedInitData;
+
+			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override async Task<AudioSourceMonoComponent> PlayClipAsync3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None)
 			{
-				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+				return null;
 			}
+			
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = Is3dSfxMuted;
 			sourceInitData = updatedInitData;
 			
-			var startTime = DateTime.Now;
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
+			await LoadAudioClip(id, true);
 
-			if (!Application.isPlaying)
-			{
-				return;
-			}
-
-			if (loadingTime < clip.length)
-			{
-				base.PlayClip3D(id, worldPosition, sourceInitData);
-			}
+			return !Application.isPlaying ? null : base.PlayClip3D(id, worldPosition, sourceInitData);
 		}
 		
-		public new async void PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		/// <inheritdoc />
+		public override async Task<AudioSourceMonoComponent> PlayClipAsync2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
-				return;
+				return null;
 			}
 			
-			if (sourceInitData == null)
-			{
-				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-			}
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = Is2dSfxMuted;
 			sourceInitData = updatedInitData;
 			
-			var startTime = DateTime.Now;
-			var clip = await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
-			var loadingTime = (float) (DateTime.Now - startTime).TotalSeconds;
+			await LoadAudioClip(id, true);
 
-			if (!Application.isPlaying)
-			{
-				return;
-			}
-
-			if (loadingTime < clip.length)
-			{
-				base.PlayClip2D(id, sourceInitData);
-			}
+			return !Application.isPlaying ? null : base.PlayClip2D(id, sourceInitData);
 		}
-
+		
 		/// <inheritdoc />
-		public new async void PlayMusic(AudioId id, AudioSourceInitData? sourceInitData = null)
+		public override async Task PlayMusicAsync(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
 				return;
 			}
 
-			if (sourceInitData == null)
-			{
-				sourceInitData = GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-			}
+			sourceInitData ??= GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
 			
 			var updatedInitData = sourceInitData.Value;
 			updatedInitData.Mute = IsBgmMuted;
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 			
-			await _assetResolver.RequestAsset<AudioId, AudioClip>(id);
+			await LoadAudioClip(id, true);
 
 			if (!Application.isPlaying)
 			{
 				return;
 			}
 			
-			base.PlayMusic(id, sourceInitData);
+			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData);
 		}
 		
 		/// <inheritdoc />

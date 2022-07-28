@@ -289,13 +289,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.AdventureMainLoop);
-			_services.AudioFxService.PlayClip2D(AudioId.AdventureStart);
+			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop);
 		}
 
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
+			_statechartTrigger(AudioState.FinishedMatchEvent);
 		}
 
 		private void OpenAdventureWorldHud()

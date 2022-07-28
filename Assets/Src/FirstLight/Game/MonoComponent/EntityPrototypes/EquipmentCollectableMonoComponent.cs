@@ -36,8 +36,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
+			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
 			QuantumEvent.UnsubscribeListener<EventOnLocalPlayerWeaponChanged>(this);
-			base.OnEntityDestroyed(game);
 		}
 
 		private async Task<bool> ShowEquipment(QuantumGame game)
@@ -76,6 +76,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (!next.Entity.IsValid) return; // In case where we spawn Equipment Collectables with the map
+
 			RefreshArrow(next.Entity);
 		}
 

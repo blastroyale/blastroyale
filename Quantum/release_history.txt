@@ -178,6 +178,198 @@ The navigation agent will move on the navmesh by default. But for better visual 
 
 ## RC2N
 
+### Build 1083 (Jul 26, 2022)
+
+**Bug Fixes**
+
+- Fixed: Not working interpolation of Transform2DVertical
+
+### Build 1082 (Jul 23, 2022)
+
+**Bug Fixes**
+
+- Fixed: Issue in the 3D Hinge Joint that could cause the hinge axis constraints to not be correctly solved in some conditions, causing the hinge to slowly deviate from its anchor axis
+
+### Build 1081 (Jul 22, 2022)
+
+**Bug Fixes**
+
+- Fixed: Race condition in the 2D and 3D Physics Engines when having dynamic bodies with compound shapes and running the simulation in multiple threads, which could also cause desyncs
+- Fixed: Code-generated extention method for DSL flags enum `HasFlag` is now named `IsFlagSet`, preventing a fallback to `System.Enum.HasFlag` instead of the extension method, which should be used to prevent the generation of boxing allocation
+- Fixed: Missing `using UnityEngine` statement on `QuantumUtils.cs` when using Unity 2019.2 or newer
+
+### Build 1080 (Jul 20, 2022)
+
+**What's New**
+
+- `EnterPlayModeOptionsHandler` editor script - clears static fields upon entering Play Mode (Unity 2019.2+)
+- Support for `Reload Domain` being turned off in `Enter Play Mode Options`
+
+**Removed**
+
+- `QuantumRunner.ClearSimulationStatics`
+
+**Bug Fixes**
+
+- Fixed: Scene not being activated after being loaded in some cases
+- Fixed: Bug introduced on build RC2N 1076 that could cause temporary mismatch in the component counts and assert exceptions in Debug mode when committing remove-component or destroy-entity commands
+
+### Build 1078 (Jul 19, 2022)
+
+**Changes**
+
+- By default, `Frame.ComponentCount` overloads now do not include entries with pending removal, i.e. removing a component or destroying an entity now have an immediate effect over the component count
+
+### Build 1075 (Jul 14, 2022)
+
+**Bug Fixes**
+
+- Fixed: Compilation errors when activating the `DISABLE_QUANTUM_ASSET_INSPECTOR` define and introducing a new name for it: `QUANTUM_DISABLE_ASSET_EDITORS` (the old name will be removed in a later version)
+
+### Build 1074 (Jul 13, 2022)
+
+**Changes**
+
+- Updated the xml docs NavMeshSignals
+
+### Build 1073 (Jul 13, 2022)
+
+**What's New**
+
+- `ColorRGBA` property drawer
+
+**Bug Fixes**
+
+- Fixed: Navmesh related bug introcuded by last build (1072)
+
+### Build 1072 (Jul 12, 2022)
+
+**Changes**
+
+- Marking `ColorRGBA` struct [Serializable] to be editable in the Unity inspector
+
+**Bug Fixes**
+
+- Fixed: OnEnabled being called on nested systems when disabling parent
+
+### Build 1071 (Jul 11, 2022)
+
+**Bug Fixes**
+
+- Fixed: A couple of `string.Format()` allocation in debug quantum.code.dll
+- Fixed: An issue with Navmesh Link baking while using `Quantum_XY`
+
+### Build 1070 (Jul 07, 2022)
+
+**Changes**
+
+- New 2D and 3D KCC config asset instances created will now have the same settings as the respective default configs
+- Default `QuantumTaskRunnerJobs` now has the `Schedule` method marked as virtual, so custom extensions can be more easily created
+
+**Bug Fixes**
+
+- Fixed: Issue in the 2D and 3D physics engines that could corrupt pointers internally when having colliders with compound shapes and expanding the physics entries buffer
+
+### Build 1069 (Jul 06, 2022)
+
+**What's New**
+
+- `QuantumRunner.ClearSimulationStatics` - clears all static variables on the simulation side. This is intended to be used when addressing Domain Reloading issues
+
+**Bug Fixes**
+
+- Fixed: `DebugSystem._commandExecuted` not being defined in Release
+- Fixed: An issues that could cause Navmesh agents using default KCC3D and traversing a link to have problems detecting the link end waypoint
+
+### Build 1068 (Jul 05, 2022)
+
+**Bug Fixes**
+
+- Fixed: QString printers being stripped from iOS and Android builds
+
+### Build 1067 (Jul 01, 2022)
+
+**Bug Fixes**
+
+- Fixed: Removed drawn sphere and ray by the 3D KCC  in Debug mode that could not be disabled
+
+### Build 1066 (Jun 30, 2022)
+
+**Bug Fixes**
+
+- Fixed: Inconsistent line endings for Unity scripts (QuantumProfilingClient.cs, QuantumRunner.cs, UIMains.cs)
+
+### Build 1064 (Jun 28, 2022)
+
+**Changes**
+
+- Moved the `CreateAssetMenu` entries of navmesh related scripts to Quantum>Navigation
+
+### Build 1063 (Jun 27, 2022)
+
+**What's New**
+
+- 2D and 3D KCC `SetConfig` methods, which can be used to change the KCC config without resetting other fields' values like done on `Init`
+
+**Changes**
+
+- DumpFlag_PrintRawValues dump flag also makes collections print raw pointer values
+
+**Bug Fixes**
+
+- Fixed: An AOT compiler issue that caused a `ExecutionEngineException` during desync error dumps (QBoolean was stripped)
+
+### Build 1061 (Jun 23, 2022)
+
+**Bug Fixes**
+
+- Fixed: Handle exceptions on protocol messages gracefully by calling the `OnPluginDisconnect` callback and destroying the session
+
+### Build 1060 (Jun 22, 2022)
+
+**Improvements**
+
+- 2D and 3D KCC de-penetration algorithm, preventing overshoots in certain conditions and range of contact angles
+
+**Bug Fixes**
+
+- Fixed: MacOS build freezing when quitting app
+- Fixed: An issue in the navmesh baking that could cause an `IndexOutOfRangeException` during `GenerateTriangleGrid()` when triangle vertices are located exactly on the grid edge
+
+### Build 1059 (Jun 21, 2022)
+
+**Changes**
+
+- `QuantumEditorSettings` toggles `Use XY As 2D Plane` and `Disable Modules ...` now affect all platforms instead of only the current one
+
+### Build 1058 (Jun 20, 2022)
+
+**What's New**
+
+- Inspector tooltips for `Map` asset properties
+
+### Build 1057 (Jun 17, 2022)
+
+**Changes**
+
+- WebGL builds are now forced to run in single-thread, regardless of the Thread Count in the Simulation Config. Clients in other platforms can still run the simulation in multiple threads and cross-play with WebGL clients
+
+### Build 1056 (Jun 17, 2022)
+
+**Bug Fixes**
+
+- Fixed: 2D and 3D Physics engines now always reset force and torque on physics bodies, even when they are sleeping, preventing accumulation when `IsAwakenbyForces` is disabled on the body configs
+- Fixed: Backslash in string giving error CS1009 on `LoadbalancingPeer.cs` when WebGL is the target platform
+
+### Build 1053 (Jun 15, 2022)
+
+- Upgraded the version of Photon Realtime shipped with the Quantum SDK to 4.1.6.14
+- Updates to `quantum.console.runner` and `quantum.console.spectator` projects are not included in `upgrade/quantum_code.zip`. In order for existing projects to benefit from recent fixes to `QuantumJsonSerializer` enable `Allow unsafe code` and copy `QuantumJsonSerializer.cs` from SDK's `quantum_code/quantum.console.runner` and `quantum_code/quantum.console.spectator`
+
+**Bug Fixes**
+
+- Fixed: QuantumJsonSerializer in spectator and custom plugin not handling fixed buffers of booleans/chars
+
 ### Build 1052 (Jun 13, 2022)
 
 **Bug Fixes**

@@ -285,7 +285,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumRunner.ShutdownAll();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
-			_statechartTrigger(AudioState.LeftMatchEvent);
 		}
 
 		private void PlayMusic()

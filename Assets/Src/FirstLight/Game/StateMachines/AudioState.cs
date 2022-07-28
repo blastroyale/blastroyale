@@ -16,11 +16,11 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
+		// TODO - BIND ALL EVENTS TO MESSAGES/CALLBACKS, RATHER THAN CALLING THEM IN OTHER SCRIPTS
 		public static readonly IStatechartEvent EnteredMainMenuEvent = new StatechartEvent("Main Menu Entered Event");
 		public static readonly IStatechartEvent FinishedMatchEvent = new StatechartEvent("Finished Match Event");
 		public static readonly IStatechartEvent LeftMatchEvent = new StatechartEvent("Left Match Event");
 		public static readonly IStatechartEvent LeftMainMenuEvent = new StatechartEvent("Left Main Menu Event");
-		
 		private static readonly IStatechartEvent MatchStartedEvent = new StatechartEvent("Match Started Event");
 		
 		private readonly IGameServices _services;
@@ -88,6 +88,12 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
+		}
+
+		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage obj)
+		{
+			_statechartTrigger(LeftMatchEvent);
 		}
 
 		private void OnMatchStartedMessage(MatchStartedMessage obj)

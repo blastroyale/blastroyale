@@ -6,7 +6,7 @@ namespace FirstLight.Game.Ids
 	{
 		//Music
 		MainMenuStart,
-		MainMenuLoopNew,
+		MainMenuLoop,
 		BrLowLoop,
 		BrMidLoop,
 		BrFinalDuelLoop,
@@ -21,7 +21,7 @@ namespace FirstLight.Game.Ids
 		AdventureBossLoop,
 		AdventureMainLoop,
 		AdventureRelaxedLoop,
-		MenuMainLoop,
+		OldMainMenuLoop,
 		
 		//Weapons
 		PlaCrossbowWeaponShot,

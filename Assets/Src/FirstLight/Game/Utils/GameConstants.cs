@@ -50,8 +50,8 @@ namespace FirstLight.Game.Utils
 			public const float SFX_DEFAULT_VOLUME = 1f;
 			public const float SFX_DEFAULT_PITCH = 1f;
 			
-			public const float SFX_DEAULT_VOLUME_DEVIATION = 0.3f;
-			public const float SFX_DEFAULT_PITCH_DEVIATION = 0.3f;
+			public const float SFX_DEAULT_VOLUME_DEVIATION = 0.2f;
+			public const float SFX_DEFAULT_PITCH_DEVIATION = 0.2f;
 			public const float SFX_3D_MIN_DISTANCE = 5f;
 			public const float SFX_3D_MAX_DISTANCE = 20f;
 
@@ -60,9 +60,10 @@ namespace FirstLight.Game.Utils
 			public const float MUSIC_SHORT_FADE_IN_SECONDS = 2f;
 			public const float MUSIC_SHORT_FADE_OUT_SECONDS = 1f;
 			
-			
-			public const float BR_LOW_PHASE_THRESHOLD = 8f;
-			public const float BR_MID_PHASE_THRESHOLD = 90f;
+			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
+			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
+
+			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 		}
 
 		public static class Notifications

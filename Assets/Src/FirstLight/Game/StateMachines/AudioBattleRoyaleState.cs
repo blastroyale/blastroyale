@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
 using PlayFab;
@@ -17,19 +18,16 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioBattleRoyaleState
 	{
-		private static readonly IStatechartEvent IncreaseIntensityEvent =
-			new StatechartEvent("Increase Music Intensity Event");
-		private static readonly IStatechartEvent IncreaseMaxIntensityEvent =
-			new StatechartEvent("Increase Max Music Intensity Event");
+		private static readonly IStatechartEvent IncreaseIntensityEvent = new StatechartEvent("Increase Music Intensity Event");
+		private static readonly IStatechartEvent IncreaseMaxIntensityEvent = new StatechartEvent("Increase Max Music Intensity Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private float _lastRecordedIntensityIncreaseTime = 0;
-
-		public float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Verified.Time.AsFloat;
-		public float CurrentMusicPlaybackTime => _services.AudioFxService.GetCurrentMusicPlaybackTime();
+		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Verified.Time.AsFloat;
+		private float CurrentMusicPlaybackTime => _services.AudioFxService.GetCurrentMusicPlaybackTime();
 		
 		public AudioBattleRoyaleState(IGameServices services, IGameDataProvider gameLogic,
 		                              Action<IStatechartEvent> statechartTrigger)
@@ -83,10 +81,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void TickIntensityCheck(float deltaTime)
 		{
-			if ((CurrentMatchTime > GameConstants.Audio.BR_LOW_PHASE_THRESHOLD &&
-			    _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_LOW_PHASE_THRESHOLD) || 
-			    (CurrentMatchTime > GameConstants.Audio.BR_MID_PHASE_THRESHOLD &&
-			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_THRESHOLD))
+			if ((CurrentMatchTime > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
+			    _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD) || 
+			    (CurrentMatchTime > GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD &&
+			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD))
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
 			}
@@ -94,12 +92,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsSkyDivePhase()
 		{
-			return CurrentMatchTime < GameConstants.Audio.BR_LOW_PHASE_THRESHOLD;
+			return CurrentMatchTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD;
 		}
 		
 		private bool IsLowIntensityPhase()
 		{
-			return CurrentMatchTime < GameConstants.Audio.BR_MID_PHASE_THRESHOLD;
+			return CurrentMatchTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD;
 		}
 
 		private void PlaySkydiveMusic()
@@ -113,26 +111,18 @@ namespace FirstLight.Game.StateMachines
 		{
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 			
-			var sourceInitData = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-			sourceInitData.StartTime = CurrentMusicPlaybackTime;
-
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
 				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS
 				                     : 0;
 			
 			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS, sourceInitData);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS, GetInitDataForPlayback(1f));
 		}
 		
 		private void PlayMidIntensityMusic()
 		{
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
-			
-			// TODO - REVERT THE PITCH CHANGE WHEN ALL PROPER MUSIC TRACKS ARE IN
-			var sourceInitData = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-			sourceInitData.StartTime = CurrentMusicPlaybackTime;
-			sourceInitData.Pitch = 1.025f;
 			
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
@@ -140,7 +130,17 @@ namespace FirstLight.Game.StateMachines
 				                     : 0;
 			
 			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_DEFAULT_FADE_OUT_SECONDS, sourceInitData);
+			                                   GameConstants.Audio.MUSIC_DEFAULT_FADE_OUT_SECONDS, GetInitDataForPlayback(1.05f));
+		}
+
+		// TODO - REVERT THE PITCH PARAM WHEN ALL PROPER MUSIC TRACKS ARE IN
+		private AudioSourceInitData? GetInitDataForPlayback(float pitch = 1f)
+		{
+			var sourceInitData = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
+			sourceInitData.StartTime = CurrentMusicPlaybackTime;
+			sourceInitData.Pitch = 1.025f;
+			
+			return sourceInitData;
 		}
 	}
 }

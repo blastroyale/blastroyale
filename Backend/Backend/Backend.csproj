@@ -68,6 +68,7 @@
       <None Remove="Plugins\TestPlugin.dll" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleNFTPlugin\BlastRoyaleNFTPlugin.csproj" />
       <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
     </ItemGroup>

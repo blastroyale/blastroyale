@@ -19,7 +19,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class DynamicMessageView : MonoBehaviour
 	{
 		[SerializeField] private List<DynamicMessageEntryView> _messages;
-		[SerializeField] private AudioId[] _killedEnemyAudioIds; 
 		
 		private const int _doubleKillCount = 2;
 		private const int _multiKillCount = 3;
@@ -159,11 +158,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 					message.BottomText = ScriptLocalization.AdventureMenu.Spree;
 					
 					_services.AudioFxService.PlayClip2D(AudioId.KillingSpree);
-				}
-				else if (!deadData.IsLocalPlayer)
-				{
-					int randAudioClip = Random.Range(0, _killedEnemyAudioIds.Length);
-					_services.AudioFxService.PlayClip2D(_killedEnemyAudioIds[randAudioClip]);
 				}
 
 				if (_killCounter > 1)

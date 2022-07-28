@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Backend.Game.Services;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using Microsoft.Extensions.Logging;
+using ServerSDK;
+using ServerSDK.Events;
 using ServerSDK.Models;
 using ServerSDK.Services;
+using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 
 namespace Backend.Game;
 
@@ -21,18 +23,20 @@ public class GameServer
 	private ILogger _log;
 	private IServerStateService _state;
 	private IServerMutex _mutex;
+	private IEventManager _eventManager;
 
 	/// <summary>
 	/// Returns if the server is setup to run dev-mode. In dev-mode all players are admin and cheating will be enabled.
 	/// </summary>
 	public bool DevMode => Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
 	
-	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex)
+	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager)
 	{
 		_cmdHandler = cmdHandler;
 		_log = log;
 		_state = state;
 		_mutex = mutex;
+		_eventManager = eventManager;
 	}
 	
 	/// <summary>
@@ -49,6 +53,7 @@ public class GameServer
 			var currentPlayerState = _state.GetPlayerState(playerId);
 			ValidateCommand(currentPlayerState, commandInstance, cmdData);
 			var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
+			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState));
 			_state.UpdatePlayerState(playerId, newState);
 			return new BackendLogicResult()
 			{

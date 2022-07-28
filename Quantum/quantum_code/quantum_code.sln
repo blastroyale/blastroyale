@@ -12,6 +12,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		ReleaseProfiler|Any CPU = ReleaseProfiler|Any CPU
+		ReleaseProfiler|x64 = ReleaseProfiler|x64
+		ReleaseProfiler|x86 = ReleaseProfiler|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,6 +29,12 @@ Global
 		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.Release|x64.Build.0 = Release|Any CPU
 		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.Release|x86.ActiveCfg = Release|Any CPU
 		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.Release|x86.Build.0 = Release|Any CPU
+		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.ReleaseProfiler|Any CPU.ActiveCfg = ReleaseProfiler|Any CPU
+		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.ReleaseProfiler|Any CPU.Build.0 = ReleaseProfiler|Any CPU
+		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.ReleaseProfiler|x64.ActiveCfg = Release|Any CPU
+		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.ReleaseProfiler|x64.Build.0 = Release|Any CPU
+		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.ReleaseProfiler|x86.ActiveCfg = Release|Any CPU
+		{FBF32099-B197-4AB9-8E5A-B44D9D3750BD}.ReleaseProfiler|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

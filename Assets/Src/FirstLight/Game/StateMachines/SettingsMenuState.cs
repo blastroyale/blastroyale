@@ -148,7 +148,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private void UnlinkComplete()
 		{
-			_appLogic.LinkedEmail.Value = "";
 			_appLogic.AccountLinkedStatus.Value = false;
 
 #if UNITY_EDITOR

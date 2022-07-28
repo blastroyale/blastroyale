@@ -65,12 +65,7 @@ namespace FirstLight.Game.Logic
 		/// Requests current status device if has a linked account already configured or not
 		/// </summary>
 		IObservableFieldReader<bool> AccountLinkedStatus { get; }
-		
-		/// <summary>
-		/// Requests current linked account's email with this device
-		/// </summary>
-		IObservableFieldReader<string> LinkedEmail { get; }
-		
+
 		/// <summary>
 		/// Requests current selected game mode
 		/// Marks the date when the game was last time reviewed
@@ -100,11 +95,6 @@ namespace FirstLight.Game.Logic
 		/// Requests and sets current status device if has a linked account already configured or not
 		/// </summary>
 		new IObservableField<bool> AccountLinkedStatus { get; }
-		
-		/// <summary>
-		/// Requests and sets current linked account's email with this device
-		/// </summary>
-		new IObservableField<string> LinkedEmail { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -112,7 +102,6 @@ namespace FirstLight.Game.Logic
 	{
 		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
-		private readonly IObservableField<string> _lastLoginEmail;
 		private readonly IObservableField<bool> _linkedDevice;
 
 		/// <inheritdoc />
@@ -181,13 +170,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<bool> AccountLinkedStatus { get; private set; }
 		/// <inheritdoc />
-		public IObservableField<string> LinkedEmail { get; private set; }
-		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
 		/// <inheritdoc />
 		IObservableFieldReader<bool> IAppDataProvider.AccountLinkedStatus => AccountLinkedStatus;
-		/// <inheritdoc />
-		IObservableFieldReader<string> IAppDataProvider.LinkedEmail => LinkedEmail;
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -201,7 +186,6 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
-			LinkedEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, name => Data.LastLoginEmail = name);
 			AccountLinkedStatus = new ObservableResolverField<bool>(() => Data.LinkedDevice, linked => Data.LinkedDevice = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 		}

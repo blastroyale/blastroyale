@@ -2,6 +2,8 @@ Shader "UI/Circle"
 {
 	Properties
 	{
+		_MainTex ("Sprite Texture", 2D) = "white" {}
+
 		[HideInInspector]_Color ("Tint", Color) = (1,1,1,1)
 		_Size ("Size", Float) = 1
 		_Offset("Offset", Vector) = (0,0,0,0)

@@ -67,14 +67,21 @@ namespace Quantum.Systems
 						PowerAmount = (uint)damage,
 						SpellSource = filter.Entity,
 						TeamSource = hazard->TeamSource,
-						Victim = default,
+						Victim = hits[j].Entity,
 						KnockbackAmount = hazard->Knockback
 					};
 
-					if (spell.Victim == spell.Attacker || spell.Victim == spell.SpellSource || !QuantumHelpers.ProcessHit(f, spell))
+					if(spell.Victim == spell.Attacker)
+					{
+						spell.TeamSource = 0;
+						spell.PowerAmount = (uint)(spell.PowerAmount * Constants.SELF_DAMAGE_MODIFIER);
+					}
+
+					if (!QuantumHelpers.ProcessHit(f, spell))
 					{
 						continue;
 					}
+
 					OnHit(f, spell);
 				}
 			}

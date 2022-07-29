@@ -12,7 +12,7 @@ namespace Quantum
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config, bool makeCollectable = true)
+						   QuantumChestConfig config, bool makeCollectable = true)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
@@ -33,25 +33,27 @@ namespace Quantum
 		/// </summary>
 		internal void MakeCollectable(Frame f, EntityRef e)
 		{
-			f.Add(e, new Collectable {GameId = Id});
+			f.Add(e, new Collectable { GameId = Id });
 		}
 
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
+			var angleStep = 0;
 			var playerData = f.GetPlayerData(playerRef);
-			
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
-			var config = f.ChestConfigs.GetConfig(ChestType);
 			var hasPrimaryWeaponEquipped = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var nextGearItem = isBot ? Equipment.None : GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
 			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
-
-			var angleStep = 0;
+			var config = f.ChestConfigs.GetConfig(ChestType);
+			var stats = f.Get<Stats>(playerEntity);
+			var ammoCheck = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP._0_20;
+			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
+			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 
 			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
 			{
@@ -69,45 +71,18 @@ namespace Quantum
 			else
 			{
 				// Drop "PowerUps" (equipment / shield upgrade)
-				foreach (var (chance, count) in config.RandomEquipment)
-				{
-					if (f.RNG->Next() > chance)
-					{
-						continue;
-					}
-
-					for (uint i = 0; i < count; i++)
-					{
-						// For GameId.Random we drop equipment
-						var drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge,
-						                                        GameId.ShieldCapacitySmall);
-
-						if (drop == GameId.Random)
-						{
-							var weapon = weaponPool[f.RNG->Next(0, weaponPool.Count)];
-
-							// TODO: This should happen when we pick up a weapon, not when we drop it 
-							// I think this is silly, but "When a player picks up a weapon we inherit all NFT
-							// attributes (except for the rarity) from the Record".
-							if (hasLoadoutWeapon)
-							{
-								var originalGameId = weapon.GameId;
-								weapon = loadoutWeapon;
-								weapon.GameId = originalGameId;
-							}
-
-							ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
-							Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
-						}
-						else
-						{
-							Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
-						}
-					}
-				}
+				DropPowerUps(f, config, playerCharacter, playerEntity, weaponPool,
+					minimumRarity, medianRarity, loadoutWeapon, chestPosition, ref angleStep);
 			}
 
 			// Drop Small consumable
+			DropSmallConsumable(f, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep);
+			DropLargeConsumable(f, config, ammoCheck, shieldCheck, chestPosition, ref angleStep);
+		}
+
+		private void DropSmallConsumable(Frame f, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,
+			FPVector3 chestPosition, ref int angleStep)
+		{
 			foreach (var (chance, count) in config.SmallConsumable)
 			{
 				if (f.RNG->Next() > chance)
@@ -117,12 +92,33 @@ namespace Quantum
 
 				for (uint i = 0; i < count; i++)
 				{
-					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
+					var drop = GameId.Random;
+
+					//modify the drop based on whether or not the player needs specific items
+					if (ammoCheck)
+					{
+						drop = GameId.AmmoSmall;
+					}
+					else if (shieldCheck)
+					{
+						drop = GameId.ShieldSmall;
+					}
+					else if (healthCheck)
+					{
+						drop = GameId.Health;
+					}
+					else
+					{
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
+					}
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}
 			}
+		}
 
-			// Drop Large consumable
+		private void DropLargeConsumable(Frame f, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, 
+			FPVector3 chestPosition, ref int angleStep)
+		{
 			foreach (var (chance, count) in config.LargeConsumable)
 			{
 				if (f.RNG->Next() > chance)
@@ -132,8 +128,68 @@ namespace Quantum
 
 				for (uint i = 0; i < count; i++)
 				{
-					var drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
+					var drop = GameId.Random;
+
+					if (ammoCheck)
+					{
+						drop = GameId.AmmoLarge;
+					}
+					else if (shieldCheck)
+					{
+						drop = GameId.ShieldLarge;
+					}
+					else
+					{
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
+					}
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+				}
+			}
+		}
+
+		private void DropPowerUps(Frame f, QuantumChestConfig config, PlayerCharacter* playerCharacter, EntityRef playerEntity,
+			IReadOnlyList<Equipment> weaponPool, EquipmentRarity minimumRarity, EquipmentRarity medianRarity, 
+			Equipment loadoutWeapon, FPVector3 chestPosition, ref int angleStep)
+		{
+			var hasLoadoutWeapon = loadoutWeapon.IsValid();
+			var noWeaponsEquipped = playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random &&
+										playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random;
+
+			foreach (var (chance, count) in config.RandomEquipment)
+			{
+				if (f.RNG->Next() > chance)
+				{
+					continue;
+				}
+
+				for (uint i = 0; i < count; i++)
+				{
+					// For GameId.Random we drop equipment
+					var drop = noWeaponsEquipped ?
+						GameId.Random :
+						QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+
+					if (drop == GameId.Random)
+					{
+						var weapon = weaponPool[f.RNG->Next(0, weaponPool.Count)];
+
+						// TODO: This should happen when we pick up a weapon, not when we drop it 
+						// I think this is silly, but "When a player picks up a weapon we inherit all NFT
+						// attributes (except for the rarity) from the Record".
+						if (hasLoadoutWeapon)
+						{
+							var originalGameId = weapon.GameId;
+							weapon = loadoutWeapon;
+							weapon.GameId = originalGameId;
+						}
+
+						ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
+						Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
+					}
+					else
+					{
+						Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+					}
 				}
 			}
 		}

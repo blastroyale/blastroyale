@@ -10,6 +10,7 @@ namespace I2.Loc
 			public static string AdventureCompleted 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AdventureCompleted"); } }
 			public static string AirDropIncomingLine1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AirDropIncomingLine1"); } }
 			public static string AirDropIncomingLine2 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AirDropIncomingLine2"); } }
+			public static string AreYouSureQuit 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AreYouSureQuit"); } }
 			public static string AreaShrinking 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AreaShrinking"); } }
 			public static string AskForHelp 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/AskForHelp"); } }
 			public static string BossAngry 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/BossAngry"); } }
@@ -21,6 +22,7 @@ namespace I2.Loc
 			public static string Deaths 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Deaths"); } }
 			public static string Dominating 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Dominating"); } }
 			public static string Double 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Double"); } }
+			public static string Empty 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Empty"); } }
 			public static string FirstToXKills 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FirstToXKills"); } }
 			public static string FraggedBy 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FraggedBy"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/FreeSlot"); } }
@@ -825,6 +827,7 @@ namespace I2.Loc
 		    public const string AdventureCompleted = "AdventureMenu/AdventureCompleted";
 		    public const string AirDropIncomingLine1 = "AdventureMenu/AirDropIncomingLine1";
 		    public const string AirDropIncomingLine2 = "AdventureMenu/AirDropIncomingLine2";
+		    public const string AreYouSureQuit = "AdventureMenu/AreYouSureQuit";
 		    public const string AreaShrinking = "AdventureMenu/AreaShrinking";
 		    public const string AskForHelp = "AdventureMenu/AskForHelp";
 		    public const string BossAngry = "AdventureMenu/BossAngry";
@@ -836,6 +839,7 @@ namespace I2.Loc
 		    public const string Deaths = "AdventureMenu/Deaths";
 		    public const string Dominating = "AdventureMenu/Dominating";
 		    public const string Double = "AdventureMenu/Double";
+		    public const string Empty = "AdventureMenu/Empty";
 		    public const string FirstToXKills = "AdventureMenu/FirstToXKills";
 		    public const string FraggedBy = "AdventureMenu/FraggedBy";
 		    public const string FreeSlot = "AdventureMenu/FreeSlot";

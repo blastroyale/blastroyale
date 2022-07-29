@@ -1,4 +1,4 @@
-using FirstLight.Game.Messages;
+using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -13,17 +13,20 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	public class DamageFlashView : MonoBehaviour
 	{
 		[SerializeField, Required] private Animation _damageFlashAnimation;
-		
-		private EntityRef Entity { get; set; }
-		
+
+		private EntityRef _entityFollowed;
+
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
-			_services.MessageBrokerService.Subscribe<HealthEntityInstantiatedMessage>(OnEntityInstantiated);
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged, onlyIfActiveAndEnabled : true);
+
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 		}
 
 		private void OnDestroy()
@@ -32,26 +35,18 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnEntityInstantiated(HealthEntityInstantiatedMessage message)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			var frame = message.Game.Frames.Verified;
-			var entity = message.Entity.EntityRef;
-
-			frame.TryGet<PlayerCharacter>(entity, out var playerCharacter);
-
-			if (message.Game.PlayerIsLocal(playerCharacter.Player))
-			{
-				Entity = entity;
-			}
+			_entityFollowed = next.Entity;
 		}
-		
+
 		private void OnEventOnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != Entity || callback.CurrentHealth >= callback.PreviousHealth)
+			if (callback.Entity != _entityFollowed || callback.CurrentHealth >= callback.PreviousHealth)
 			{
 				return;
 			}
-			
+
 			if (callback.CurrentHealth <= 0)
 			{
 				// THis code is like that because sometimes Rewind() doesn't put animation back to the first frame
@@ -59,7 +54,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				_damageFlashAnimation.clip.SampleAnimation(_damageFlashAnimation.gameObject, 0f);
 				return;
 			}
-			
+
 			_damageFlashAnimation.Rewind();
 			_damageFlashAnimation.Play();
 		}

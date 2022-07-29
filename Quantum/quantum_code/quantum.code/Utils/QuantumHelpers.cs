@@ -122,7 +122,14 @@ namespace Quantum
 				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
 				                                   spell.PowerAmount, spell.KnockbackAmount, hits[j].Point, spell.TeamSource);
 
-				if (hitSpell.Victim == spell.Attacker || hitSpell.Victim == spell.SpellSource || !ProcessHit(f, hitSpell))
+				if (hitSpell.Victim == spell.Attacker)
+				{
+					hitSpell.TeamSource = 0;
+					//TODO: this self damage modifier should take into account equipment modifiers once we have it, for now it's just a constant
+					hitSpell.PowerAmount = (uint)(spell.PowerAmount * Constants.SELF_DAMAGE_MODIFIER); 
+				}
+
+				if (!ProcessHit(f, hitSpell))
 				{
 					continue;
 				}
@@ -148,6 +155,7 @@ namespace Quantum
 		{
 			if (!IsAttackable(f, spell.Victim, spell.TeamSource))
 			{
+
 				return false;
 			}
 
@@ -301,7 +309,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Tries to find a closest position on NavMesh to <paramref name="initialPosition"/>
+		/// Tries to find a random in the circle area with <paramref name="initialPosition"/> and <paramref name="radius"/>
 		/// </summary>
 		public static bool TryFindPosOnNavMesh(Frame f, FPVector3 initialPosition, FP radius, out FPVector3 correctedPosition)
 		{

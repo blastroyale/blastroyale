@@ -29,7 +29,6 @@ namespace Quantum
 		internal void Collect(Frame f, EntityRef entity, EntityRef player, PlayerRef playerRef)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
-			var collectable = f.Get<Collectable>(entity);
 			var isBot = f.Has<BotCharacter>(player);
 			var playerData = f.GetPlayerData(playerRef);
 
@@ -37,7 +36,8 @@ namespace Quantum
 			{
 				var primaryWeapon = isBot || Owner == playerRef ||
 				                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
-				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid());
+				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
+					                     .IsValid());
 
 				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
 				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);

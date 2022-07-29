@@ -215,10 +215,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var cacheTransform = transform;
 
-			Services.VfxService.Spawn(_projectileHitVfx).transform
-			        .SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
+			Services.VfxService.Spawn(_projectileHitVfx).transform.SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
+			
 			_animatorWrapper.SetTrigger(Triggers.Hit);
-			Services.AudioFxService.PlayClip3D(AudioId.ActorHit, transform.position);
+
 			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.Visuals.HIT_DURATION);
 		}
 

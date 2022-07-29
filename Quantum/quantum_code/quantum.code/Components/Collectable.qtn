@@ -5,30 +5,30 @@ component Collectable
 	[HideInInspector] bool IsCollected;
 }
 
-synced event OnLocalStartedCollecting
+synced event OnStartedCollecting
 {
 	entity_ref CollectableEntity;
 	Collectable Collectable;
-	local player_ref Player;
+	player_ref Player;
 	entity_ref PlayerEntity;
 }
 
-synced event OnLocalStoppedCollecting
+synced event OnStoppedCollecting
 {
 	entity_ref CollectableEntity;
-	local player_ref Player;
-	entity_ref PlayerEntity;
-}
-
-synced event OnLocalCollectableCollected
-{
-	GameId CollectableId;
-	entity_ref CollectableEntity;
-	local player_ref Player;
+	player_ref Player;
 	entity_ref PlayerEntity;
 }
 
 synced event OnCollectableCollected
+{
+	GameId CollectableId;
+	entity_ref CollectableEntity;
+	player_ref Player;
+	entity_ref PlayerEntity;
+}
+
+synced event OnCollectableBlocked
 {
 	GameId CollectableId;
 	entity_ref CollectableEntity;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Input;
@@ -35,6 +35,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private IGameServices _services;
 		private Coroutine _cooldownCoroutine;
+		private bool _isAiming;
 
 		private void Awake()
 		{
@@ -54,6 +55,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
+
+			_buttonView.interactable = false;
+			_isAiming = true;
 			
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
@@ -62,7 +66,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (!_isAiming)
 			{
 				return;
 			}
@@ -73,10 +77,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (!_isAiming)
 			{
 				return;
 			}
+
+			_isAiming = false;
 			
 			SetInputData(eventData);
 			_specialPointerDownAdapter.SendValueToControl(0f);
@@ -112,7 +118,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (hasCharge)
 			{
-				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.Cooldown));
+				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.InitialCooldown));
 			}
 		}
 
@@ -128,12 +134,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
 				_cooldownCoroutine = null;
 			}
-			
+
 			_specialIconImage.color = _cooldownColor;
 			_specialIconImage.fillAmount = 0f;
 			_specialIconBackgroundImage.color = _cooldownColor;
 			_specialIconBackgroundImage.fillAmount = 0f;
 			_buttonView.interactable = false;
+
+			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(callback.StartTime, callback.EndTime));
 		}
 
 		private void HandleLocalSpecialAvailable(EventOnLocalSpecialAvailable callback)

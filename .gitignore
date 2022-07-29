@@ -84,10 +84,24 @@ crashlytics-build.properties
 *.orig.meta
 *.uxf
 
+# Android SDK
+[Aa]ssets/Plugins/Android/FirebaseApp.androidlib
+[Aa]ssets/Plugins/Android/FirebaseApp.androidlib.meta
+[Aa]ssets/Plugins/Android/com.google.firebase.*
+[Aa]ssets/Plugins/Android/com.google.android.gms.*
+[Aa]ssets/Plugins/Android/com.android.support.*
+[Aa]ssets/Plugins/Android/com.google.games.*
+ProjectSettings/AndroidResolverDependencies.xml
+ProjectSettings/GvhProjectSettings.xml
 
-#Project Specific
+# Credential files:
+**/GoogleService-Info*.plist*
+**/google-services*.json*
+[Aa]ssets/StreamingAssets*
 [Aa]ssets/StreamingAssets/
 [Aa]ssets/StreamingAssets.meta
+
+#Project Specific
 [Aa]ssets/BuildReports/
 [Aa]ssets/BuildReports.meta
 [Aa]ssets/Editor Default Resources/
@@ -100,8 +114,6 @@ crashlytics-build.properties
 [Aa]ssets/AddressableAssetsData/Android.meta
 [Aa]ssets/AddressableAssetsData/link.xml
 [Aa]ssets/AddressableAssetsData/link.xml.meta
-[Aa]ssets/Plugins/Android/FirebaseApp.androidlib
-[Aa]ssets/Plugins/Android/FirebaseApp.androidlib.meta
 !Quantum/**/*.csproj
 !Quantum/**/*.pdb
 !Quantum/quantum_code/quantum_code.sln
@@ -116,5 +128,13 @@ Quantum/quantum_server/packages
 UserSettings/EditorUserSettings.asset
 UserSettings/Layouts
 ProjectSettings/RiderScriptEditorPersistedState.asset
-ProjectSettings/GvhProjectSettings.xml
 build-output.properties
+Screenshots
+Backend/Tests/obj
+Assets/Plugins/Android/androidx.*
+Assets/Plugins/Android/com.*
+Assets/Plugins/Android/javax.*
+Assets/Plugins/Android/org.*
+Assets/Plugins/Android/FirebaseCrashlytics.*
+blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
+blast_royale_BurstDebugInformation_DoNotShip

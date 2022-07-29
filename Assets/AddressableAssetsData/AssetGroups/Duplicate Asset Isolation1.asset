@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 4e266ca99164e48fd91d48d2b1eda97c
-  m_SerializeEntries:
-  - m_GUID: 8f586378b4e144a9851e7b34d9b748ee
-    m_Address: Assets/AddressableResources/Fonts/LiberationSans SDF.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 2e498d1c8094910479dc3e1b768306a4
-    m_Address: Assets/AddressableResources/Fonts/LiberationSans SDF - Fallback.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

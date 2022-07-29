@@ -64,6 +64,7 @@ synced event OnHealthIsZero
 	entity_ref Attacker;
 	Int32 DamageAmount;
 	Int32 MaxHealth;
+	uint SpellID;
 }
 
 signal HealthChanged(entity_ref entity, entity_ref attacker, Int32 previousHealth);

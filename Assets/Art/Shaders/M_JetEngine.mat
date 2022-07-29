@@ -65,8 +65,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - ColorA: {r: 3.9242945, g: 0.27756897, b: 0, a: 0}
-    - ColorB: {r: 52.93969, g: 23.36604, b: 0, a: 0}
+    - ColorA: {r: 3.9242945, g: 0.26045325, b: 0, a: 0}
+    - ColorB: {r: 48.00813, g: 21.364874, b: 0, a: 0}
     - NoiseTile: {r: 1, g: 0.2, b: 0, a: 0}
     - PulseSpeed: {r: 0, g: 2, b: 0, a: 0}
     - Vector2: {r: 0, g: -2, b: 0, a: 0}

@@ -16,8 +16,6 @@ namespace Quantum
 		/// </summary>
 		public void PlayerLeft(Frame f, EntityRef e)
 		{
-			f.Add<EntityDestroyer>(e);
-
 			f.Events.OnPlayerLeft(Player, e);
 			f.Events.OnLocalPlayerLeft(Player);
 		}
@@ -76,7 +74,7 @@ namespace Quantum
 				WeaponSlots[i].Special1Charges = 1;
 				WeaponSlots[i].Special2Charges = 1;
 			}
-			
+
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
 			{
@@ -113,7 +111,7 @@ namespace Quantum
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
 
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield,
-			                                          f.GameConfig.PlayerAliveShieldDuration);
+			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
 		/// <summary>
@@ -144,12 +142,11 @@ namespace Quantum
 			}
 
 			f.Add(e, deadPlayer);
-
-			f.Events.OnPlayerDead(Player, e);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
-
 			f.Remove<Targetable>(e);
 			f.Remove<AlivePlayerCharacter>(e);
+			
+			f.Events.OnPlayerDead(Player, e);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
@@ -162,7 +159,7 @@ namespace Quantum
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
-			var slot = primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+			var slot = GetWeaponEquipSlot(weapon, primary);
 
 			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
@@ -175,7 +172,8 @@ namespace Quantum
 
 			// In Battle Royale if there's a different weapon in a slot then we drop it
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()
-			                                                          && (WeaponSlots[slot].Weapon.GameId != weapon.GameId ||
+			                                                          && (WeaponSlots[slot].Weapon.GameId !=
+			                                                              weapon.GameId ||
 			                                                              primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
@@ -185,8 +183,9 @@ namespace Quantum
 			WeaponSlots[slot].Weapon = weapon;
 			CurrentWeaponSlot = slot;
 
-			GainAmmo(f, e, f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e));
-			
+			GainAmmo(f, e,
+			         f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e));
+
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
 
@@ -208,7 +207,7 @@ namespace Quantum
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts == 1
 				                    ? 0
-				                    : (weaponConfig.AttackCooldown / 2) / weaponConfig.NumberOfBursts;
+				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) / weaponConfig.NumberOfBursts;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
@@ -354,7 +353,7 @@ namespace Quantum
 			{
 				return;
 			}
-			
+
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
@@ -391,6 +390,38 @@ namespace Quantum
 			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
+		/// <summary>
+		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
+		/// GameId and Rarity (rarity of equipped item has to be higher).
+		/// </summary>
+		internal bool HasBetterWeaponEquipped(Equipment equipment)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				var weapon = WeaponSlots[i].Weapon;
+				if (weapon.GameId == equipment.GameId && weapon.Rarity >= equipment.Rarity)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private int GetWeaponEquipSlot(Equipment weapon, bool primary)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				var equippedWeapon = WeaponSlots[i].Weapon;
+				if (weapon.GameId == equippedWeapon.GameId)
+				{
+					return i;
+				}
+			}
+
+			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
+		}
+
 		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
 		{
 			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
@@ -408,11 +439,12 @@ namespace Quantum
 		{
 			// We request stats and store their current base values
 			var previousStats = f.Get<Stats>(e);
-			
+
 			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
 			                                     out var speed,
 			                                     out var power);
 
+			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 
@@ -426,10 +458,14 @@ namespace Quantum
 			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			stats->ApplyModifiers(f);
-			
+
 			// After the refresh we request updated stats
 			var currentStats = f.Get<Stats>(e);
-			
+
+			var diff = FPMath.Max(currentStats.GetStatData(StatType.Health).StatValue - previousStats.GetStatData(StatType.Health).StatValue, 0);
+			var newHealthValue = FPMath.Min(stats->CurrentHealth + diff, stats->GetStatData(StatType.Health).StatValue);
+			stats->SetCurrentHealth(f, e, e, newHealthValue.AsInt);
+
 			f.Events.OnLocalPlayerStatsChanged(Player, e, previousStats, currentStats);
 		}
 
@@ -447,7 +483,7 @@ namespace Quantum
 				}
 			}
 		}
-		
+
 		private Special GetSpecial(Frame f, GameId specialId)
 		{
 			if (specialId == default)

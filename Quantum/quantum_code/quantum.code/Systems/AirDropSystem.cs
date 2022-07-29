@@ -31,7 +31,7 @@ namespace Quantum.Systems
 				case AirDropStage.Announcing:
 					var transform = f.Unsafe.GetPointer<Transform3D>(filter.Entity);
 
-					var modifier = FP._1 - (f.Time - drop->StartTime) / (drop->Delay + drop->Duration);
+					var modifier = FP._1 - (f.Time - drop->StartTime - drop->Delay) / (drop->Duration);
 					transform->Position = drop->Position + FPVector3.Up * f.GameConfig.AirdropHeight * modifier;
 
 					if (f.Time >= drop->StartTime + drop->Delay + drop->Duration)

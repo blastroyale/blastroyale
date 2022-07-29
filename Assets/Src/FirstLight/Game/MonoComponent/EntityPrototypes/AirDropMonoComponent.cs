@@ -1,4 +1,7 @@
 using DG.Tweening;
+using FirstLight.FLogger;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -14,47 +17,55 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class AirDropMonoComponent : EntityBase
 	{
-		private const int AIRPLANE_DISTANCE = 150;
-		
-		[SerializeField, Required] private Transform _itemRoot;
-		[SerializeField, Required] private GameObject _parachute;
+
+		[SerializeField, Required, Title("Refs")]
+		private Transform _itemRoot;
+
 		[SerializeField, Required] private Transform _airplane;
-		[SerializeField, Required] private ParticleSystem _landingPS;
+
+		[SerializeField, Required, Title("Animation")]
+		private ParticleSystem _landingPS;
+
 		[SerializeField, Required] private Animation _landingAnim;
+		[SerializeField] private int _airplaneTravelDistance = 150;
+		[SerializeField] private float _airplaneTravelDuration = 10f;
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
-			QuantumEvent.Subscribe<EventOnAirDropStarted>(this, OnAirDropStarted);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
-		}
 
-		private void OnAirDropStarted(EventOnAirDropStarted callback)
-		{
-			if (callback.Entity != EntityView.EntityRef) return;
+			var airDrop = GetComponentData<AirDrop>(game);
+			var airDropHeight = Services.ConfigsProvider.GetConfig<QuantumGameConfig>().AirdropHeight.AsFloat;
 
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(callback.AirDrop.Chest, true, true,
+			Services.AssetResolverService.RequestAsset<GameId, GameObject>(airDrop.Chest, true, true,
 			                                                               OnChestLoaded);
-
-			var airDrop = callback.AirDrop;
 
 			var airdropPosition = airDrop.Position.ToUnityVector3();
 			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
 
-			var startingPosition = airdropPosition - airplaneDirection * AIRPLANE_DISTANCE + Vector3.up * 10f;
-			var targetPosition = airdropPosition + airplaneDirection * AIRPLANE_DISTANCE + Vector3.up * 10f;
+			var startingPosition = airdropPosition - airplaneDirection * _airplaneTravelDistance +
+			                       Vector3.up * airDropHeight;
+			var targetPosition = airdropPosition + airplaneDirection * _airplaneTravelDistance +
+			                     Vector3.up * airDropHeight;
 
-			_airplane.gameObject.SetActive(true);
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
 			_airplane.position = startingPosition;
-			_airplane.DOMove(targetPosition, 10f);
+			_airplane.DOMove(targetPosition, _airplaneTravelDuration)
+			         .SetDelay(Mathf.Max(0, airDrop.Delay.AsFloat - _airplaneTravelDuration / 2f))
+			         .OnStart(() => { _airplane.gameObject.SetActive(true); })
+			         .OnComplete(() => { _airplane.gameObject.SetActive(false); });
+
+			_itemRoot.gameObject.SetActive(false);
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
 
-			_parachute.SetActive(true);
+			Services.AudioFxService.PlayClip2D(AudioId.AirDrop4);
+
+			_itemRoot.gameObject.SetActive(true);
 		}
 
 		private void OnAirDropLanded(EventOnAirDropLanded callback)

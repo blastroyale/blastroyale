@@ -1,3 +1,5 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -15,13 +17,23 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
-			component->TargetProgress = f.Context.MapConfig.GameEndTarget;
+			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				component->TargetProgress = f.Context.MapConfig.GameEndTarget;
+			}
+			else
+			{
+				component->TargetProgress = (uint)f.PlayerCount - 1;
+			}
 		}
 
 		/// <inheritdoc />
 		public void GameEnded(Frame f)
 		{
-			f.Unsafe.GetPointerSingleton<GameContainer>()->IsGameOver = true;
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+
+			gameContainer->GameOverTime = f.Time;
+			gameContainer->IsGameOver = true;
 			
 			f.Events.OnGameEnded();
 			

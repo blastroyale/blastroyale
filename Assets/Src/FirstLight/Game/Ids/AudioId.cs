@@ -6,7 +6,7 @@ namespace FirstLight.Game.Ids
 	{
 		//Music
 		MainMenuStart,
-		MainMenuLoopNew,
+		MainMenuLoop,
 		BrLowLoop,
 		BrMidLoop,
 		BrFinalDuelLoop,
@@ -16,17 +16,18 @@ namespace FirstLight.Game.Ids
 		DefeatJingle,
 		PostMatchLoop,
 		FinalDuelTransitionJingle,
+		
 		//Old Music
 		AdventureBossLoop,
 		AdventureMainLoop,
 		AdventureRelaxedLoop,
-		MenuMainLoop,
+		OldMainMenuLoop,
 		
 		//Weapons
 		PlaCrossbowWeaponShot,
 		PlaShotgunWeaponShot,
 		PlaMachineGunWeaponShot,
-		PlaRiffleWeaponShot,
+		PlaRifleWeaponShot,
 		PlaSniperWeaponShot,
 		PlaRocketLauncherWeaponShot,
 		PlaRocketLauncherFlyingTrailLoop,
@@ -35,7 +36,7 @@ namespace FirstLight.Game.Ids
 		MmsPistolWeaponShot,
 		MmsShotgunWeaponShot,
 		MmsMachineGunWeaponShot,
-		MmsRiffleWeaponShot,
+		MmsRifleWeaponShot,
 		MmsSniperRifleWeaponShot,
 		MmsGrenadeLauncherWeaponShot,
 		MmsGrenadeLauncherFlyingTrailLoop,
@@ -49,7 +50,7 @@ namespace FirstLight.Game.Ids
 		EdiPlasmaCannonWeaponShot,
 		EdiPlasmaCannonFlyingTrailLoop,
 		EdiElectronThrowerWeaponStreamLoop,
-		
+
 		//Weapon Misc
 		ReloadPlaLoop,
 		ReloadMmsLoop,
@@ -177,7 +178,15 @@ namespace FirstLight.Game.Ids
 		SmashingIt,
 		GameOver,
 		ElClassico,
+		
+		// New announcer
+		AirDrop2,
+		AirDrop4,
 		None, // TODO: Make an Enum selector
+		
+		BrSkydiveLoop,
+		PlaHammerWeaponShot,
+		EdiElectronThrowerWeaponShot,
 	}
 	
 	/// <summary>

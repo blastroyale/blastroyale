@@ -13,7 +13,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -35,7 +34,6 @@ namespace FirstLight.Game.StateMachines
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
-		private Vector2 _normalizedMapPickedPosition;
 
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
@@ -81,13 +79,13 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 			modeCheck.OnExit(PlayMusic);
 
-			deathmatch.Nest(_deathmatchState.Setup).Target(resultsSpectatorCheck);
+			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
 			deathmatch.Event(_gameQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(resultsSpectatorCheck);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
 			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
 			battleRoyale.Event(_gameQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
@@ -228,7 +226,7 @@ namespace FirstLight.Game.StateMachines
 				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
 				LocalPlayerRef = game.GetLocalPlayers()[0],
 				DidPlayerQuit = false,
-				PlayedMatchmakingGame = _services.NetworkService.IsCurrentRoomForMatchmaking
+				PlayedMatchmakingGame = _services.NetworkService.QuantumClient.CurrentRoom.IsMatchmakingRoom()
 			});
 		}
 
@@ -291,13 +289,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.AdventureMainLoop);
-			_services.AudioFxService.PlayClip2D(AudioId.AdventureStart);
+			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop);
 		}
 
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
+			_statechartTrigger(AudioState.FinishedMatchEvent);
 		}
 
 		private void OpenAdventureWorldHud()
@@ -383,8 +381,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseMatchmakingScreen()
 		{
-			_normalizedMapPickedPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView
-			                                         .NormalizedSelectionPoint;
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
@@ -406,6 +402,8 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
+			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView
+			                              .NormalizedSelectionPoint;
 
 			if (!IsSpectator())
 			{
@@ -416,7 +414,7 @@ namespace FirstLight.Game.StateMachines
 					Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
 					PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 					PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
-					NormalizedSpawnPosition = _normalizedMapPickedPosition.ToFPVector2(),
+					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}

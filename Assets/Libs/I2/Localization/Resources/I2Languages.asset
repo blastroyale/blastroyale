@@ -2590,6 +2590,20 @@ MonoBehaviour:
       - Camera 3
       Flags: 00
       Languages_Touch: []
+    - Term: AdventureMenu/Empty
+      TermType: 0
+      Description: 
+      Languages:
+      - EMPTY
+      Flags: 00
+      Languages_Touch: []
+    - Term: AdventureMenu/AreYouSureQuit
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to quit?
+      Flags: 00
+      Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
       Description: 
@@ -5411,6 +5425,13 @@ MonoBehaviour:
       - STEEL CORE
       Flags: 00
       Languages_Touch: []
+    - Term: General/Marketplace
+      TermType: 0
+      Description: 
+      Languages:
+      - Marketplace
+      Flags: 00
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -5423,7 +5444,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1657289596885
+    Google_LastUpdatedVersion: 1657807483934
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

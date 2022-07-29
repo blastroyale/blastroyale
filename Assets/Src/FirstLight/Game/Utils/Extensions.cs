@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Infos;
+using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -335,6 +336,14 @@ namespace FirstLight.Game.Utils
 		}
 		
 		/// <summary>
+		/// Obtains info on whether the room is used for matchmaking
+		/// </summary>
+		public static bool IsMatchmakingRoom(this Room room)
+		{
+			return room.IsVisible;
+		}
+		
+		/// <summary>
 		/// Obtains amount of non-spectator players currently in room
 		/// </summary>
 		public static int GetRealPlayerAmount(this Room room)
@@ -379,7 +388,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetRealPlayerCapacity(this Room room)
 		{
-			return room.MaxPlayers - GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			return room.MaxPlayers - room.GetSpectatorCapacity();
 		}
 		
 		/// <summary>
@@ -387,7 +396,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetSpectatorCapacity(this Room room)
 		{
-			return GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
 
 		/// <summary>

@@ -87,11 +87,8 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
-		private IObservableDictionary<UniqueId, long> _insertionTimestamps;
-		
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
-		public IObservableDictionaryReader<UniqueId, long> InsertionTimestamps => _insertionTimestamps;
 
 		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -101,13 +98,12 @@ namespace FirstLight.Game.Logic
 		{
 			_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
-			_insertionTimestamps = new ObservableDictionary<UniqueId, long>(Data.InsertionTimestamps);
 		}
 		
 		public EquipmentInfo GetInfo(UniqueId id)
 		{
 			var cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
-			var cooldownFinishTime = new DateTime(_insertionTimestamps[id]).AddMinutes(cooldownMinutes);
+			var cooldownFinishTime = new DateTime(Data.InsertionTimestamps[id]).AddMinutes(cooldownMinutes);
 			var equipment = _inventory[id];
 			
 			if (!Data.ImageUrls.TryGetValue(id, out var url))
@@ -116,6 +112,10 @@ namespace FirstLight.Game.Logic
 				url = "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
 			}
 
+			// Because old jsons didn't had SSL, making it backwards compatible
+			// we need SSL for iOS because <random Apple rant>
+			url = url.Replace("http:", "https:");
+			
 			return new EquipmentInfo
 			{
 				Id = id,
@@ -211,15 +211,14 @@ namespace FirstLight.Game.Logic
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
 			
 			_inventory.Add(id, equipment);
-
+			
 			if (overrideTimestamp >= 0)
 			{
-				_insertionTimestamps.Add(id, overrideTimestamp);
-				
+				Data.InsertionTimestamps.Add(id, overrideTimestamp);
 			}
 			else
 			{
-				_insertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
+				Data.InsertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
 			}
 			
 			return id;
@@ -243,7 +242,11 @@ namespace FirstLight.Game.Logic
 			}
 
 			_inventory.Remove(equipment);
-			_insertionTimestamps.Remove(equipment);
+			Data.InsertionTimestamps.Remove(equipment);
+			Data.TokenIds.Remove(equipment);
+			Data.ImageUrls.Remove(equipment);
+			Data.ExpireTimestamps.Remove(equipment);
+			Data.LastUpdateTimestamp = 0;
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
 			
 			return true;

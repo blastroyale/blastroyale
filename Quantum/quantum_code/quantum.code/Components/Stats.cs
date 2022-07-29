@@ -161,9 +161,6 @@ namespace Quantum
 			};
 
 			AddModifier(f, capacityModifer);
-			//once you have gained shield capacity, fill your shields for the same amount
-			GainShields(f, entity, attacker, amount);
-
 			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
 			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
@@ -267,7 +264,7 @@ namespace Quantum
 
 			if (CurrentHealth == 0)
 			{
-				f.Events.OnHealthIsZero(entity, spell.Attacker, (int) spell.PowerAmount, maxHealth);
+				f.Events.OnHealthIsZero(entity, spell.Attacker, (int) spell.PowerAmount, maxHealth, spell.Id);
 				f.Signals.HealthIsZero(entity, spell.Attacker);
 			}
 		}
@@ -297,8 +294,26 @@ namespace Quantum
 		{
 			var statData = Values[(int) modifier.Type];
 			var multiplier = modifier.IsNegative ? -1 : 1;
+			var ceilToInt = false;
+			var additiveValue = statData.BaseValue * modifier.Power * multiplier;
 
-			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
+			switch (modifier.Type)
+			{
+				case StatType.Armour:
+				case StatType.Health:
+				case StatType.Power:
+				case StatType.Shield:
+					ceilToInt = true;
+					break;
+				case StatType.Speed:
+					ceilToInt = false;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(modifier.Type), modifier.Type, null);
+			}
+
+			statData.StatValue += ceilToInt ? FPMath.CeilToInt(additiveValue) : additiveValue;
+
 			Values[(int) modifier.Type] = statData;
 		}
 	}

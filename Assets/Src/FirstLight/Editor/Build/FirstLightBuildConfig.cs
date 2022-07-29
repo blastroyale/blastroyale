@@ -16,17 +16,25 @@ namespace FirstLight.Editor.Build
 	public static class FirstLightBuildConfig
 	{
 		/// <summary>
-		/// Scripting define that enables dev builds and SR debugger.
+		/// Scripting define that enables dev builds and allows to profile the game in Xcode and other external tools
+		/// </summary>
+		public const string LocalSymbol = "LOCAL_BUILD";
+		
+		/// <summary>
+		/// Scripting define that enables dev builds
 		/// </summary>
 		public const string DevelopmentSymbol = "DEVELOPMENT_BUILD";
 		
 		/// <summary>
-		/// Scripting define that disables all non-production features in a release ad hoc environment.
+		/// Scripting define that enables all production features in a release ad hoc environment.
+		/// This builds are to stage store builds to test production environments.
+		/// This build is not signed and allows to run the client from any link
 		/// </summary>
-		public const string ReleaseSymbol = "RELEASE_BUILD";
+		public const string StagingSymbol = "RELEASE_BUILD";
 		
 		/// <summary>
 		/// Scripting define the build to publish to the stores.
+		/// This build is signed and is only possible to run the client after downloading from the store
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
@@ -38,6 +46,7 @@ namespace FirstLight.Editor.Build
 		private const string _enterpriseProvisioningProfile = "6573b280-9534-4ec7-83f2-b64ea455239e";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
+		private const string _aabExtension = ".aab";
 		private const int _facebookDevAppIdSelectedIndex = 1;
 		private const int _facebookAppIdSelectedIndex = 0;
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
@@ -50,6 +59,7 @@ namespace FirstLight.Editor.Build
 		private static readonly string[] DebugSymbols = new []
 		{
 			"QUANTUM_REMOTE_PROFILER",
+			"LOG_LEVEL_VERBOSE"
 		};
 
 		/// <summary>
@@ -69,6 +79,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
@@ -84,11 +95,11 @@ namespace FirstLight.Editor.Build
 		}
 
 		/// <summary>
-		/// Setups the editor for Release build configuration
+		/// Setups the editor for Staging build configuration
 		/// Release build means it is a candidate for the store but using development SKUs
 		/// </summary>
-		[MenuItem("FLG/Configure/Release Build")]
-		public static void SetupReleaseConfig()
+		[MenuItem("FLG/Configure/Staging Build")]
+		public static void SetupStagingConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
@@ -101,14 +112,15 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
-			PrepareFirebase(ReleaseSymbol);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.iOS);
+			PrepareFirebase(StagingSymbol);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -132,14 +144,15 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			FacebookSettings.SelectedAppIndex = _facebookAppIdSelectedIndex;
 			
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.iOS);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
+			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -188,21 +201,23 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Requests the <see cref="BuildPlayerOptions"/> based on the given data
 		/// </summary>
-		public static BuildPlayerOptions GetBuildPlayerOptions(BuildTarget target, string outputPath, bool isDevelopment, 
-		                                                       bool isLocalBuild = false)
+		public static BuildPlayerOptions GetBuildPlayerOptions(BuildTarget target, string outputPath, string symbol)
 		{
+			var isLocalBuild = symbol == LocalSymbol;
+			var isStoreBuild = !isLocalBuild && symbol == StoreSymbol;
+			
 			if (target == BuildTarget.Android)
 			{
-				outputPath = Path.ChangeExtension(outputPath, _apkExtension);
+				outputPath = Path.ChangeExtension(outputPath, isStoreBuild ? _aabExtension : _apkExtension);
 			}
-			
+
 			var buildConfig = new BuildPlayerOptions
 			{
 				target = target,
 				locationPathName = outputPath
 			};
 
-			if (isDevelopment)
+			if (isLocalBuild || symbol == DevelopmentSymbol)
 			{
 				buildConfig.options = BuildOptions.Development;
 			}

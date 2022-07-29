@@ -32,8 +32,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private LeaderHolderView _leaderHolderView;
 		[SerializeField, Required] private ScoreHolderView _scoreHolderView;
 		[SerializeField, Required] private MapTimerView _mapTimerView;
-		[SerializeField, Required] private ContendersLeftHolderMessageView _contendersLeftHolderMessageView;
-		[SerializeField, Required] private ContendersLeftHolderView _contendersLeftHolderView;
+		[SerializeField, Required] private ContendersLeftView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _minimapHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
@@ -51,23 +50,25 @@ namespace FirstLight.Game.Presenters
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
 
-			_connectionIcon.SetActive(false);
-			_standings.gameObject.SetActive(false);
+			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
-			_services.NetworkService.HasLag.InvokeObserve(OnLag);
+			_quitButton.gameObject.SetActive(Debug.isDebugBuild || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator());
+			_connectionIcon.SetActive(false);
+			_standings.gameObject.SetActive(false);
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
-			_contendersLeftHolderMessageView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
 
+			#if DEVELOPMENT_BUILD
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
 				QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
 			}
 			else
+			#endif
 			{
 				_equippedDebugText.gameObject.SetActive(false);
 			}
@@ -88,7 +89,6 @@ namespace FirstLight.Game.Presenters
 			_animation.Play();
 
 			_mapTimerView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderMessageView.gameObject.SetActive(isBattleRoyale);
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);

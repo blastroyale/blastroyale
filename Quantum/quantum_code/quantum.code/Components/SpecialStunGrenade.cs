@@ -11,6 +11,11 @@ namespace Quantum
 	{
 		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
 		{
+			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
+			{
+				return false;
+			}
+			
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
@@ -42,7 +47,6 @@ namespace Quantum
 			{
 				aimInput = FPVector2.ClampMagnitude(aimInput, FP._1);
 				targetPosition = attackerPosition + (aimInput * maxRange).XOY;
-				targetPosition = QuantumHelpers.TryFindPosOnNavMesh(f, targetPosition, out var newPos) ? newPos : targetPosition;
 			}
 			
 			var targetRange = special.MaxRange;

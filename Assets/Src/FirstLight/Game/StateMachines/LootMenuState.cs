@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent)
 			};
 
-			_uiService.OpenUi<LootScreenPresenter, LootScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<LootScreenPresenter, LootScreenPresenter.StateData>(data);
 		}
 
 		private void CloseLootMenuUI()
@@ -134,7 +134,7 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent)
 			};
 
-			_uiService.OpenUi<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
 		}
 		
 		private void CloseEquipmentMenuUI()

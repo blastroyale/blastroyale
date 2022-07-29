@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BlastRoyaleLeaderboardPlugin</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="FirstLight.DataExtensions, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.DataExtensions.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonQuantum, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\PhotonQuantum.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

@@ -40,6 +40,15 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAim>(this, OnLocalPlayerAim);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLanded);
+		}
+
+		private void OnPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
+		{
+			if (callback.Entity != EntityView.EntityRef)
+				return;
+
+			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
@@ -143,12 +152,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_shootIndicator?.SetVisualState(shootState, true);
 		}
 
-		private void HandleOnConsumablePicked(EventOnConsumablePicked callback)
+		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			var shootState = _shootIndicator?.VisualState ?? false;
-
-			if (callback.Consumable.ConsumableType == ConsumableType.Ammo)
+			if (callback.CollectableId.IsInGroup(GameIdGroup.Ammo))
 			{
+				var shootState = _shootIndicator?.VisualState ?? false;
 				_shootIndicator?.SetVisualState(shootState);
 			}
 		}
@@ -215,10 +223,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			await instance.GetComponent<MatchCharacterViewMonoComponent>().Init(EntityView, weapon, gear);
+			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
+			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear);
 
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
+			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+			if (isSkydiving)
+			{
+				matchCharacterViewMonoComponent.HideAllEquipment();
+			}
+			
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
 				var time = stats.CurrentStatusModifierEndTime - frame.Time;
@@ -264,7 +279,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			SetWeaponIndicators(QuantumRunner.Default.Game.Frames.Verified, weapon);
 
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnConsumablePicked>(this, HandleOnConsumablePicked);
+			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 

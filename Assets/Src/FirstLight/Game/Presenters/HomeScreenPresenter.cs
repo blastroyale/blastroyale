@@ -7,6 +7,7 @@ using I2.Loc;
 using FirstLight.Game.Services;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
+using Quantum;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
@@ -42,11 +43,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private VisualStateButtonView _lootButton;
 		[SerializeField] private VisualStateButtonView _heroesButton;
 		[SerializeField] private VisualStateButtonView _shopButton;
+		[SerializeField] private Button _marketplaceButton;
 		[SerializeField] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		
+
 		// TODO - remove when appropriate
 		private IMainMenuServices _mainMenuServices;
 
@@ -63,10 +65,13 @@ namespace FirstLight.Game.Presenters
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
+			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
-			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 			
+			// TODO: Replace with OpenGameModeClicked when we want to use the popup again
+			_gameModeButton.onClick.AddListener(GameModeClicked);
+
 			_newFeaturesView.gameObject.SetActive(false);
 		}
 
@@ -78,11 +83,10 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeText,
-				_gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString());
+
+			RefreshGameModeButton();
 		}
-		
+
 		private void OnPlayOnlineClicked()
 		{
 			Data.OnPlayButtonClicked();
@@ -113,11 +117,35 @@ namespace FirstLight.Game.Presenters
 			Data.OnHeroesButtonClicked();
 		}
 
+		private void OpenMarketplaceLink()
+		{
+			if (Debug.isDebugBuild)
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_DEV_URL);
+			}
+			else
+			{
+				Application.OpenURL(GameConstants.Links.MARKETPLACE_PROD_URL);
+			}
+		}
+		
 		private void OpenGameModeClicked()
 		{
 			Data.OnGameModeClicked();
 		}
-		
+
+		private void GameModeClicked()
+		{
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value =
+				_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch
+					? GameMode.BattleRoyale
+					: GameMode.Deathmatch;
+
+			_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
+			
+			RefreshGameModeButton();
+		}
+
 		private void OpenSocialMenuUI()
 		{
 			Data.OnSocialButtonClicked();
@@ -131,6 +159,13 @@ namespace FirstLight.Game.Presenters
 		private void OpenDiscordLink()
 		{
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
+		}
+
+		private void RefreshGameModeButton()
+		{
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeText,
+			                                           _gameDataProvider.AppDataProvider.SelectedGameMode.Value
+			                                                            .ToString());
 		}
 
 		private void UnlockSystemButton(UnlockSystem system)

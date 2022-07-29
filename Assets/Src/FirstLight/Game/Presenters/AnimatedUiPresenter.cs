@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 		protected bool IsOpenedComplete;
 		protected bool IsClosedComplete;
 
-		private Coroutine _coroutine; 
+		private Coroutine _coroutine;
 
 		private void OnValidate()
 		{
@@ -60,11 +60,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			_animation.gameObject.SetActive(true);
+			
 			if (_coroutine != null)
 			{
 				StopCoroutine(_coroutine);
 			}
-
+			
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
 			IsOpenedComplete = false;
@@ -161,6 +163,9 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			_animation.gameObject.SetActive(true);
+			
+			
 			if (_coroutine != null)
 			{
 				StopCoroutine(_coroutine);

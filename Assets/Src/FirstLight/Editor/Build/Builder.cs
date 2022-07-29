@@ -25,6 +25,8 @@ namespace FirstLight.Editor.Build
 				EditorApplication.Exit(1);
 			}
 			
+			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
+
 			switch (buildSymbol)
 			{
 				case FirstLightBuildConfig.DevelopmentSymbol:
@@ -32,9 +34,9 @@ namespace FirstLight.Editor.Build
 					FirstLightBuildConfig.SetupDevelopmentConfig();
 					break;
 				}
-				case FirstLightBuildConfig.ReleaseSymbol:
+				case FirstLightBuildConfig.StagingSymbol:
 				{
-					FirstLightBuildConfig.SetupReleaseConfig();
+					FirstLightBuildConfig.SetupStagingConfig();
 					break;
 				}
 				case FirstLightBuildConfig.StoreSymbol:
@@ -85,10 +87,8 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.SplashScreen.showUnityLogo = false;
 			
 			AddressableAssetSettings.BuildPlayerContent();
-			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
 			
-			var isDevelopmentBuild = buildSymbol == FirstLightBuildConfig.DevelopmentSymbol;
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, isDevelopmentBuild);
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);
 			
 			LogBuildReport(buildReport);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net;
 using System.Net.Http;
 using FirstLight.FLogger;
 using FirstLight.Game;
@@ -14,9 +13,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using PlayFab;
-using PlayFab.CloudScriptModels;
 using Quantum;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -60,7 +57,7 @@ public partial class SROptions
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
 #if UNITY_EDITOR
-			if(EditorApplication.isPlaying) 
+			if(UnityEditor.EditorApplication.isPlaying) 
 			{
 				UnityEditor.EditorApplication.isPlaying = false;
 			}
@@ -275,6 +272,20 @@ public partial class SROptions
 			Command = "CheatAddXpCommand",
 			Data = data
 		});
+	}
+	
+	[Category("Logging")]
+	public void LogNetworkInfo()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		Debug.Log($"-NETWORK INFO-\n" +
+		          $"Lobby Name: {services.NetworkService.QuantumClient.CurrentLobby?.Name}\n" +
+		          $"Room Name: {services.NetworkService.QuantumClient.CurrentRoom?.Name}\n" +
+		          $"Player Count: {services.NetworkService.QuantumClient.CurrentRoom?.Players.Count}\n" +
+		          $"Is Open: {services.NetworkService.QuantumClient.CurrentRoom?.IsOpen}\n" +
+		          $"Is Visible: {services.NetworkService.QuantumClient.CurrentRoom?.IsVisible}\n" + 
+		          $"Commit: {services.NetworkService.QuantumClient.CurrentRoom?.CustomProperties[GameConstants.Network.ROOM_PROPS_COMMIT]}\n");
 	}
 #endif
 }

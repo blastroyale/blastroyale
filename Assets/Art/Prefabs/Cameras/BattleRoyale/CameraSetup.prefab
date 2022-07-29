@@ -57,18 +57,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 3, y: 3, z: 3}
-  ShoulderOffset: {x: 0, y: 0.5, z: 0}
+  Damping: {x: 1, y: 1, z: 3}
+  ShoulderOffset: {x: 0, y: 0.75, z: 0}
   VerticalArmLength: 0.6
-  CameraSide: 1
-  CameraDistance: 3
+  CameraSide: 0.5
+  CameraDistance: 2
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
   IgnoreTag: 
-  CameraRadius: 0.2
-  DampingIntoCollision: 1
-  DampingFromCollision: 2
+  CameraRadius: 1
+  DampingIntoCollision: 3
+  DampingFromCollision: 3
 --- !u!1 &525865041982756757
 GameObject:
   m_ObjectHideFlags: 0

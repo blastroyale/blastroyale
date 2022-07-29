@@ -130,7 +130,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var button = new AlertButton
 			{
-				Callback = Application.Quit,
+				Callback = () =>
+				{
+					MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing no internet popup");
+				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.General.ExitGame
 			};

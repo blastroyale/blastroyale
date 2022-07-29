@@ -128,7 +128,10 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.CrashLog(error.ErrorMessage);
 			var button = new AlertButton
 			{
-				Callback = Application.Quit,
+				Callback = () =>
+				{
+					MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing playfab critical error alert");
+				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton
 			};
@@ -370,7 +373,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				Text = ScriptLocalization.General.Confirm,
 				Style = AlertButtonStyle.Default,
-				Callback = Application.Quit
+				Callback = () =>
+				{
+					MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing game blocked dialog");
+				}
 			};
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, 

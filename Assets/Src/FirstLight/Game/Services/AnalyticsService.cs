@@ -6,17 +6,39 @@ using Firebase.Analytics;
 using UnityEngine.Analytics;
 using AppsFlyerSDK;
 using Facebook.Unity;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ClientModels;
 
 namespace FirstLight.Game.Services
 {
+	public static class AnalyticsEvents
+	{
+		public static readonly string SessionStart = "session_start";
+		public static readonly string SessionEnd = "session_end";
+		public static readonly string SessionHeartbeat = "session_heartbeat";
+		public static readonly string GameLoad = "game_load";
+		public static readonly string PlayerRegister = "player_register";
+		public static readonly string PlayerLogin = "player_login";
+		public static readonly string MatchInitiate = "match_initiate";
+		public static readonly string MatchStart = "match_start";
+		public static readonly string MatchEnd = "match_end";
+		public static readonly string MatchKillAction = "match_kill_action";
+		public static readonly string MatchPickupAction = "match_pickup_action";
+		public static readonly string MatchLootboxOpenAction = "match_lootbox_open_action";
+		public static readonly string Error = "error";
+	}
+	
 	/// <summary>
 	/// The analytics service is an endpoint in the game to log custom events to Game's analytics console
 	/// </summary>
 	public interface IAnalyticsService
 	{
+		public AnalyticsCallsSession SessionCalls { get; }
+		public AnalyticsCallsMatch MatchCalls { get; }
+		public AnalyticsCallsErrors ErrorsCalls { get; }
+		
 		/// <summary>
 		/// Logs the first login Event with the given user <paramref name="id"/>
 		/// </summary>
@@ -25,7 +47,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Logs an analytics event with the given <paramref name="eventName"/>
 		/// </summary>
-		void LogEvent(string eventName, Dictionary<string, object> parameters);
+		void LogEvent(string eventName, Dictionary<string, object> parameters = null);
 		
 		/// <summary>
 		/// Logs a crash with the given <paramref name="message"/>
@@ -36,16 +58,14 @@ namespace FirstLight.Game.Services
 		/// Logs a crash with the given <paramref name="exception"/>
 		/// </summary>
 		void CrashLog(Exception exception);
-
-		/// <summary>
-		/// Sends the mark of ending a game session
-		/// </summary>
-		void SessionEnd();
 	}
 	
 	/// <inheritdoc />
 	public class AnalyticsService : IAnalyticsService
 	{
+		public AnalyticsCallsSession SessionCalls { get; set; }
+		public AnalyticsCallsMatch MatchCalls { get; set; }
+		public AnalyticsCallsErrors ErrorsCalls { get; set; }
 		
 		/// <summary>
 		/// Requests the information if the current device model playing the game is a tablet or 
@@ -100,6 +120,13 @@ namespace FirstLight.Game.Services
 			//{"max_textures_size", SystemInfo.maxTextureSize.ToString()},
 		};
 
+		public AnalyticsService()
+		{
+			SessionCalls = new AnalyticsCallsSession(this);
+			MatchCalls = new AnalyticsCallsMatch(this);
+			ErrorsCalls = new AnalyticsCallsErrors(this);
+		}
+
 		/// <inheritdoc />
 		public void LoginEvent(string id)
 		{
@@ -152,20 +179,6 @@ namespace FirstLight.Game.Services
 			}
 			
 			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
-		}
-
-		/// <inheritdoc />
-		public void SessionEnd()
-		{
-			var dic = new Dictionary<string, object> {{"time", Time.realtimeSinceStartup}};
-			
-			if (PlayerPrefs.GetInt("first_session", 0) == 0)
-			{
-				LogEvent("first_session_end", dic);
-				PlayerPrefs.SetInt("first_session", 1);
-			}
-			
-			LogEvent("session_end", dic);
 		}
 
 		/// <inheritdoc />

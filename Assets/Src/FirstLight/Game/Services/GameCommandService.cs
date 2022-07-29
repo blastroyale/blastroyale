@@ -83,7 +83,10 @@ namespace FirstLight.Game.Services
 				var title = "Game Exception";
 				var button = new AlertButton
 				{
-					Callback = Application.Quit,
+					Callback = () =>
+					{
+						MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing game exception popup");
+					},
 					Style = AlertButtonStyle.Negative,
 					Text = "Quit Game"
 				};

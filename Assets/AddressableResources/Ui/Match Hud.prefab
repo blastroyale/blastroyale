@@ -725,7 +725,6 @@ MonoBehaviour:
   _openCloseEase: 3
   _duration: 0.1
   _minimapImage: {fileID: 8415855882996343762}
-  _ringWidth: 0.05
   _playerIndicator: {fileID: 5279995862025689972}
   _airdropIndicatorRef: {fileID: 2579124126100097745}
   _safeAreaArrow: {fileID: 3946227000982972255}
@@ -3713,7 +3712,7 @@ GameObject:
   - component: {fileID: 5628063902813850639}
   - component: {fileID: 5628063902813850637}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Minimap Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

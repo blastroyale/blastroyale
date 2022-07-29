@@ -27,19 +27,20 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public override async Task LoadAudioClips(IEnumerable clips, bool loadAsync)
 		{
-			var convertedClips = clips as IReadOnlyDictionary<AudioId, AudioClipConfig>;
-			var tasks = new List<Task<AudioClip>>();
-
-			foreach (var convClip in convertedClips)
+			var clipConfigs = clips as IReadOnlyDictionary<AudioId, AudioClipConfig>;
+			
+			foreach (var clipConfig in clipConfigs)
 			{
-				foreach (var assetReference in convClip.Value.AudioClips)
+				var tasks = new List<Task<AudioClip>>();
+				
+				foreach (var assetReference in clipConfig.Value.AudioClips)
 				{
 					tasks.Add(assetReference.LoadAssetAsync().Task);
 				}
 				
 				await Task.WhenAll(tasks);
 
-				AddAudioClips(convClip.Key, tasks.ConvertAll(task => task.Result));
+				AddAudioClips(clipConfig.Key, tasks.ConvertAll(task => task.Result));
 			}
 		}
 
@@ -55,7 +56,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
 		{
 			if (id == AudioId.None)
 			{
@@ -68,11 +69,11 @@ namespace FirstLight.Game.Services
 			updatedInitData.Mute = Is3dSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip3D(id, worldPosition, sourceInitData);
+			return base.PlayClip3D(id, worldPosition, sourceInitData, clipIndex);
 		}
 		
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
 		{
 			if (id == AudioId.None)
 			{
@@ -85,11 +86,11 @@ namespace FirstLight.Game.Services
 			updatedInitData.Mute = Is2dSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip2D(id, sourceInitData);
+			return base.PlayClip2D(id, sourceInitData, clipIndex);
 		}
 		
 		/// <inheritdoc />
-		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
 		{
 			if (id == AudioId.None)
 			{
@@ -103,7 +104,7 @@ namespace FirstLight.Game.Services
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 
-			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData);
+			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData, clipIndex);
 		}
 
 		/// <inheritdoc />

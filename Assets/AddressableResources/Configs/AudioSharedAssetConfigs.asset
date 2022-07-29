@@ -22,6 +22,10 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      - m_AssetGUID: 2c04dbedb19714c89a1e1fc4a80c4feb
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0

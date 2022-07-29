@@ -13,4 +13,16 @@ MonoBehaviour:
   m_Name: AudioMainMenuAssetConfigs
   m_EditorClassIdentifier: 
   _assetsFolderPath: 
-  _configs: []
+  _configs:
+  - Key: 2
+    Value:
+      AudioId: 0
+      AudioClips:
+      - m_AssetGUID: 4259503e6044347f0a22e342be877e73
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0

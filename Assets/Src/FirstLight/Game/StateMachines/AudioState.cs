@@ -158,7 +158,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
-			var audioConfig = _services.ConfigsProvider.GetConfig<AudioClipConfig>((int) weaponConfig.WeaponShot);
+			var audioConfig = _services.ConfigsProvider.GetConfig<AudioClipConfig>((int) weaponConfig.WeaponShotId);
 			
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);

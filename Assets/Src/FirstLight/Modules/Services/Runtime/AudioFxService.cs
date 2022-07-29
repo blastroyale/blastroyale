@@ -61,18 +61,20 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null,
+		                                    int clipIndex = 0);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null, int clipIndex = 0);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
 		/// </summary>
-		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
+		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
+		               AudioSourceInitData? sourceInitData = null, int clipIndex = 0);
 
 		/// <summary>
 		/// Stops the music
@@ -99,7 +101,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Add the given <paramref name="id"/> <paramref name="clip"/> to the service
 		/// </summary>
-		void AddAudioClips(T id, List<AudioClip> clip);
+		void AddAudioClips(T id, List<AudioClip> clips);
 
 		/// <summary>
 		/// Removes the given <paramref name="id"/>'s <see cref="AudioClip"/> from the service
@@ -156,7 +158,7 @@ namespace FirstLight.Services
 		private Transform _followTarget;
 		private Vector3 _followOffset;
 		private Action<AudioSourceMonoComponent> _fadeVolumeCallback;
-		
+
 		private void Update()
 		{
 			if (_followTarget != null)
@@ -170,7 +172,7 @@ namespace FirstLight.Services
 			_fadeVolumeCallback?.Invoke(this);
 			_fadeVolumeCallback = null;
 		}
-		
+
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
@@ -237,7 +239,7 @@ namespace FirstLight.Services
 			{
 				StopCoroutine(_playSoundCoroutine);
 			}
-			
+
 			if (_fadeVolumeCoroutine != null)
 			{
 				StopCoroutine(_fadeVolumeCoroutine);
@@ -256,7 +258,7 @@ namespace FirstLight.Services
 			{
 				StopCoroutine(_fadeVolumeCoroutine);
 			}
-			
+
 			_fadeVolumeCallback = callbackFadeFinished;
 			_fadeVolumeCoroutine = StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration));
 		}
@@ -321,7 +323,7 @@ namespace FirstLight.Services
 		private const float SPATIAL_3D_THRESHOLD = 0.1f;
 
 		protected readonly IDictionary<T, List<AudioClip>> _audioClips = new Dictionary<T, List<AudioClip>>();
-		
+
 		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
 		private readonly float _sfx2dVolumeMultiplier;
@@ -447,7 +449,7 @@ namespace FirstLight.Services
 				clip = null;
 				return false;
 			}
-			
+
 			clip = _audioClips[id][index];
 			return true;
 		}
@@ -460,7 +462,8 @@ namespace FirstLight.Services
 
 		/// <inheritdoc />
 		public virtual AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition,
-		                                                   AudioSourceInitData? sourceInitData = null)
+		                                                   AudioSourceInitData? sourceInitData = null,
+		                                                   int clipIndex = 0)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -473,7 +476,8 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
+		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null,
+		                                                   int clipIndex = 0)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -486,7 +490,8 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		public virtual void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
+		                              AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
@@ -495,9 +500,11 @@ namespace FirstLight.Services
 
 			if (_activeMusicSource.Source.isPlaying)
 			{
-				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration, MusicTransitionFinished);
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration,
+				                              MusicTransitionFinished);
 				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
-				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, MusicTransitionFinished);
+				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration,
+				                                  MusicTransitionFinished);
 			}
 			else
 			{
@@ -514,7 +521,7 @@ namespace FirstLight.Services
 				_transitionMusicSource.Source.Stop();
 			}
 		}
-		
+
 		/// <inheritdoc />
 		public void StopMusic(float fadeOutDuration = 0f)
 		{
@@ -522,7 +529,7 @@ namespace FirstLight.Services
 			{
 				return;
 			}
-			
+
 			if (fadeOutDuration <= 0)
 			{
 				_activeMusicSource.Source.Stop();
@@ -548,9 +555,17 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void AddAudioClips(T id, List<AudioClip> clip)
+		public void AddAudioClips(T id, List<AudioClip> clips)
 		{
-			_audioClips.Add(id, clip);
+			var meme = "LOADING CLIP CONFIG - " + id + "\n--\n";
+
+			foreach (var clip in clips)
+			{
+				meme += clip.name + "\n";
+			}
+			
+			Debug.LogError(meme);
+			_audioClips.Add(id, clips);
 		}
 
 		/// <inheritdoc />

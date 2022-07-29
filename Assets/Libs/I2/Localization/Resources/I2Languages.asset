@@ -5958,8 +5958,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Machinegun
-      - 
+      - 'Deadalus '
+      - 'Deadalus '
       Flags: 0000
       Languages_Touch: []
     - Term: GameIds/ModRifle
@@ -6217,7 +6217,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1659090609562
+    Google_LastUpdatedVersion: 1659103746746
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

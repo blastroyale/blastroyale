@@ -16,11 +16,10 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		// TODO - BIND ALL EVENTS TO MESSAGES/CALLBACKS, RATHER THAN CALLING THEM IN OTHER SCRIPTS
-		public static readonly IStatechartEvent EnteredMainMenuEvent = new StatechartEvent("Main Menu Entered Event");
-		public static readonly IStatechartEvent FinishedMatchEvent = new StatechartEvent("Finished Match Event");
-		public static readonly IStatechartEvent LeftMatchEvent = new StatechartEvent("Left Match Event");
-		public static readonly IStatechartEvent LeftMainMenuEvent = new StatechartEvent("Left Main Menu Event");
+		private static readonly IStatechartEvent LoadedMainMenuEvent = new StatechartEvent("Loaded Main Menu Event");
+		private static readonly IStatechartEvent UnloadedMainMenuEvent = new StatechartEvent("Unloaded Main Menu Event");
+		private static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Finished Match Event");
+		private static readonly IStatechartEvent SimulationEndedMessage = new StatechartEvent("Left Match Event");
 		private static readonly IStatechartEvent MatchStartedEvent = new StatechartEvent("Match Started Event");
 		
 		private readonly IGameServices _services;
@@ -58,10 +57,10 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
 
-			audioBase.Event(EnteredMainMenuEvent).Target(mainMenu);
+			audioBase.Event(LoadedMainMenuEvent).Target(mainMenu);
 			
 			mainMenu.OnEnter(PlayMainMenuMusic);
-			mainMenu.Event(LeftMainMenuEvent).Target(matchmaking);
+			mainMenu.Event(UnloadedMainMenuEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
 			
 			matchmaking.Event(MatchStartedEvent).Target(gameModeCheck);
@@ -71,13 +70,13 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.Transition().Target(battleRoyale);
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
-			battleRoyale.Event(FinishedMatchEvent).Target(postGame);
+			battleRoyale.Event(MatchEndedEvent).Target(postGame);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
-			deathmatch.Event(FinishedMatchEvent).Target(postGame);
+			deathmatch.Event(MatchEndedEvent).Target(postGame);
 			
 			postGame.OnEnter(PlayPostGameMusic);
-			postGame.Event(LeftMatchEvent).Target(audioBase);
+			postGame.Event(SimulationEndedMessage).Target(audioBase);
 			mainMenu.OnExit(StopMusicInstant);
 			
 			final.OnEnter(UnsubscribeEvents);
@@ -87,18 +86,37 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
+			
+			_services.MessageBrokerService.Subscribe<LoadedMainMenuMessage>(OnLoadedMainMenuMessage);
+			_services.MessageBrokerService.Subscribe<UnloadedMainMenuMessage>(OnUnloadedMainMenuMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEndedMessage);
 		}
 
-		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage obj)
+		private void OnLoadedMainMenuMessage(LoadedMainMenuMessage obj)
 		{
-			_statechartTrigger(LeftMatchEvent);
+			_statechartTrigger(LoadedMainMenuEvent);
+		}
+		
+		private void OnUnloadedMainMenuMessage(UnloadedMainMenuMessage obj)
+		{
+			_statechartTrigger(UnloadedMainMenuEvent);
 		}
 
 		private void OnMatchStartedMessage(MatchStartedMessage obj)
 		{
 			_statechartTrigger(MatchStartedEvent);
+		}
+		
+		private void OnMatchEndedMessage(MatchEndedMessage obj)
+		{
+			_statechartTrigger(MatchEndedEvent);
+		}
+
+		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage obj)
+		{
+			_statechartTrigger(SimulationEndedMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -134,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StopMusicFadeOut()
 		{
-			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
+			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)

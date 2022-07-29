@@ -7,6 +7,8 @@ using Quantum;
 
 namespace FirstLight.Game.Messages
 {
+	public struct LoadedMainMenuMessage : IMessage { }
+	public struct UnloadedMainMenuMessage : IMessage { }
 	public struct PlayScreenOpenedMessage : IMessage { }
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage

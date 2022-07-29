@@ -121,11 +121,11 @@ namespace FirstLight.Game.StateMachines
 			
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_DEFAULT_FADE_IN_SECONDS
+				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
 				                     : 0;
 			
 			_services.AudioFxService.PlayMusic(AudioId.DmFinalDuelLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_DEFAULT_FADE_OUT_SECONDS, GetInitDataForPlayback(1.025f));
+			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, GetInitDataForPlayback(1.025f));
 		}
 		
 		// TODO - REVERT THE PITCH PARAM WHEN ALL PROPER MUSIC TRACKS ARE IN

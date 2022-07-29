@@ -23,17 +23,13 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-		private readonly IStatechartEvent _currentTabButtonClickedEvent =
-			new StatechartEvent("Current Tab Button Clicked Event");
+		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-		private readonly IStatechartEvent _settingsMenuClickedEvent =
-			new StatechartEvent("Settings Menu Button Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
-			new StatechartEvent("Room Join Create Button Clicked Event");
+		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
-			new StatechartEvent("Room Join Create Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		
 		private readonly IGameUiService _uiService;
@@ -392,7 +388,7 @@ namespace FirstLight.Game.StateMachines
 
 			uiVfxService.Init(_uiService);
 
-			_statechartTrigger(AudioState.EnteredMainMenuEvent);
+			_services.MessageBrokerService.Publish(new LoadedMainMenuMessage());
 		}
 
 		private async Task UnloadMainMenu()
@@ -406,8 +402,6 @@ namespace FirstLight.Game.StateMachines
 
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-
-			_statechartTrigger(AudioState.LeftMainMenuEvent);
 			
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
@@ -417,6 +411,8 @@ namespace FirstLight.Game.StateMachines
 			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();
+			
+			_services.MessageBrokerService.Publish(new UnloadedMainMenuMessage());
 		}
 	}
 }

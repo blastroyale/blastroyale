@@ -163,6 +163,7 @@ namespace FirstLight.Game.Logic
 			var baseStatsConfig =
 				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
 			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
+			var statsMaterialConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentMaterialStatsConfigs>().GetConfig(equipment);
 
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -177,18 +178,18 @@ namespace FirstLight.Game.Logic
 
 			stats.Add(EquipmentStatType.Hp,
 			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Health).AsFloat);
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Health).AsFloat);
 			stats.Add(EquipmentStatType.Speed,
 			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Speed)
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Speed)
 				          .AsFloat);
 			stats.Add(EquipmentStatType.Armor,
 			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Armour)
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Armour)
 				          .AsFloat);
 			stats.Add(EquipmentStatType.Damage,
 			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, equipment, StatType.Power)
+				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Power)
 				          .AsFloat);
 
 			return stats;

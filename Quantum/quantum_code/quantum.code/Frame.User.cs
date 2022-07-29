@@ -33,6 +33,9 @@ namespace Quantum
 		internal QuantumEquipmentStatsConfigs EquipmentStatsConfigs =>
 			FindAsset<QuantumEquipmentStatsConfigs>(RuntimeConfig.EquipmentStatsConfigs.Id);
 
+		internal QuantumEquipmentMaterialStatsConfigs EquipmentMaterialStatsConfigs =>
+			FindAsset<QuantumEquipmentMaterialStatsConfigs>(RuntimeConfig.EquipmentMaterialStatsConfigs.Id);
+		
 		internal QuantumConsumableConfigs ConsumableConfigs =>
 			FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);
 

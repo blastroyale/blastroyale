@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuantumRunnerConfigs
   m_EditorClassIdentifier: 
   _runtimeConfig:
-    Seed: 741117028
+    Seed: 371201108
     Map:
       Id:
         Value: 581929196288820183
@@ -56,5 +56,8 @@ MonoBehaviour:
     BaseEquipmentStatsConfigs:
       Id:
         Value: 1461361185191240749
+    EquipmentMaterialStatsConfigs:
+      Id:
+        Value: 2931657409906099456
   _deterministicConfigAsset: {fileID: 11400000, guid: f751724b9805d468883f1b6feb3bc2de, type: 2}
   _serverSettings: {fileID: 11400000, guid: 36ac09ddba67042d388dbb80f6fa2ccb, type: 2}

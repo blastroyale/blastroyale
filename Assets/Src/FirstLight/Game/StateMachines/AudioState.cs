@@ -136,12 +136,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMainMenuMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MainMenuLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
+			_services.AudioFxService.PlayMusic(AudioId.MusicMainMenuLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
 		}
 
 		private void PlayPostGameMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.PostMatchLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
+			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
 		}
 		
@@ -157,7 +157,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			var audioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
+			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
+			var audioConfig = _services.ConfigsProvider.GetConfig<AudioClipConfig>((int) weaponConfig.WeaponShot);
+			
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
@@ -167,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 			initProps.Pitch = Random.Range(audioConfig.BasePitch - audioConfig.PitchRandDeviation,
 			                               audioConfig.BasePitch + audioConfig.PitchRandDeviation);
 
-			_services.AudioFxService.PlayClip3D(audioConfig.WeaponShotAudioId, entityView.transform.position,
+			_services.AudioFxService.PlayClip3D(audioConfig.AudioId, entityView.transform.position,
 			                                    initProps);
 		}
 

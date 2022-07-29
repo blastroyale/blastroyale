@@ -142,22 +142,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 				{
 					message.TopText = ScriptLocalization.AdventureMenu.Double;
 					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
-					
-					_services.AudioFxService.PlayClip2D(AudioId.DoubleKill);
 				}
 				else if (_killCounter == _multiKillCount)
 				{
 					message.TopText = ScriptLocalization.AdventureMenu.Multi;
 					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
-					
-					_services.AudioFxService.PlayClip2D(AudioId.MultiKill);
 				}
 				else if (_killCounter > _killingSpreeCount)
 				{
 					message.TopText = ScriptLocalization.AdventureMenu.Killing;
 					message.BottomText = ScriptLocalization.AdventureMenu.Spree;
-					
-					_services.AudioFxService.PlayClip2D(AudioId.KillingSpree);
 				}
 
 				if (_killCounter > 1)
@@ -180,8 +174,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (deadData.IsLocalPlayer)
 			{
 				_killCounter = 0;
-				_services.AudioFxService.PlayClip2D(AudioId.YouTasteDeath);
-				
+
 				StopTimerCoroutine();
 			}
 		}

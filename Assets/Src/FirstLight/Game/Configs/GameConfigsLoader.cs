@@ -49,7 +49,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => configsAdder.AddConfigs(data => data.Step, asset.Configs)),
 				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
-				LoadConfig<AudioWeaponConfigs>(AddressableId.Configs_AudioWeaponConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
+				LoadConfig<AudioClipConfigs>(AddressableId.Configs_AudioWeaponConfigs, asset => configsAdder.AddConfigs(data => (int)data.AudioId, asset.Configs)),
 				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.Placement, asset.Configs)),
 				LoadConfig<ChestConfigs>(AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<EquipmentStatsConfigs>(AddressableId.Configs_EquipmentStatsConfigs, asset => configsAdder.AddSingletonConfig(asset)),

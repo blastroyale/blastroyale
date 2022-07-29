@@ -35,6 +35,11 @@ namespace FirstLightEditor.AssetImporter
 		/// <inheritdoc />
 		public Type ScriptableObjectType => typeof(TScriptableObject);
 
+		/// <summary>
+		/// TODO:
+		/// </summary>
+		public virtual Type AssetType => typeof(TAsset);
+
 		/// <inheritdoc />
 		public void Import()
 		{
@@ -49,7 +54,7 @@ namespace FirstLightEditor.AssetImporter
 				AssetDatabase.CreateAsset(scriptableObject, $"Assets/{type.Name}.asset");
 			}
 
-			var assetGuids = new List<string>(AssetDatabase.FindAssets($"t:{typeof(TAsset).Name}", new[]
+			var assetGuids = new List<string>(AssetDatabase.FindAssets($"t:{AssetType.Name}", new[]
 			{
 				scriptableObject.AssetsFolderPath
 			}));
@@ -60,7 +65,7 @@ namespace FirstLightEditor.AssetImporter
 			OnImportComplete(scriptableObject);
 			EditorUtility.SetDirty(scriptableObject);
 			
-			Debug.Log($"Finished importing asset data of '{typeof(TAsset).Name}' type with '{typeof(TId).Name}' as identifier.\n" +
+			Debug.Log($"Finished importing asset data of '{AssetType.Name}' type with '{typeof(TId).Name}' as identifier.\n" +
 			          $"To: '{typeof(TScriptableObject).Name}' - From '{scriptableObject.AssetsFolderPath}' ");
 		}
 		

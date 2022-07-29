@@ -41,26 +41,16 @@ namespace FirstLight.Services
 		Task LoadAudioClips(IEnumerable clips, bool loadAsync);
 
 		/// <summary>
-		/// Load a single audio clip intoo memory, and into the loaded clips collection
-		/// </summary>
-		Task LoadAudioClip(T id, bool loadAsync);
-
-		/// <summary>
 		/// Unload a set of audio clips from memory, and remove al references from loaded clips collection
 		/// </summary>
 		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
 		void UnloadAudioClips(IEnumerable clips);
 
 		/// <summary>
-		/// Unload a single audio clip from memory, and remove reference from loaded clips collection
-		/// </summary>
-		void UnloadAudioClip(T id);
-
-		/// <summary>
 		/// Tries to return the <see cref="AudioClip"/> mapped to the given <paramref name="id"/>.
 		/// Returns true if the audio service currently has the <paramref name="clip"/> for the given <paramref name="id"/>.
 		/// </summary>
-		bool TryGetClip(T id, out AudioClip clip);
+		bool TryGetClip(T id, out AudioClip clip, int index = 0);
 
 		/// <summary>
 		/// Removes follow target from the current <see cref="AudioListenerMonoComponent"/> 
@@ -84,23 +74,6 @@ namespace FirstLight.Services
 		/// </summary>
 		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
 
-		/// <summary>
-		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
-		/// Returns a task with the audio mono component that is playing the sound.
-		/// </summary>
-		Task<AudioSourceMonoComponent> PlayClipAsync3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
-		
-		/// <summary>
-		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
-		/// Returns the audio mono component that is playing the sound.
-		/// </summary>
-		Task<AudioSourceMonoComponent> PlayClipAsync2D(T id, AudioSourceInitData? sourceInitData = null);
-		
-		/// <summary>
-		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
-		/// </summary>
-		Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
-		
 		/// <summary>
 		/// Stops the music
 		/// </summary>
@@ -126,7 +99,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Add the given <paramref name="id"/> <paramref name="clip"/> to the service
 		/// </summary>
-		void AddAudioClip(T id, AudioClip clip);
+		void AddAudioClips(T id, List<AudioClip> clip);
 
 		/// <summary>
 		/// Removes the given <paramref name="id"/>'s <see cref="AudioClip"/> from the service
@@ -347,7 +320,7 @@ namespace FirstLight.Services
 	{
 		private const float SPATIAL_3D_THRESHOLD = 0.1f;
 
-		protected readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
+		protected readonly IDictionary<T, List<AudioClip>> _audioClips = new Dictionary<T, List<AudioClip>>();
 		
 		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
@@ -467,15 +440,15 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual bool TryGetClip(T id, out AudioClip clip)
+		public virtual bool TryGetClip(T id, out AudioClip clip, int index = 0)
 		{
-			if (!_audioClips.TryGetValue(id, out clip))
+			if (_audioClips.ContainsKey(id))
 			{
-				throw new
-					MissingMemberException($"The {nameof(AudioFxService<T>)} does not have an audio clip with ID " +
-					                       $"'{id}' loaded in memory for playback. ");
+				clip = null;
+				return false;
 			}
-
+			
+			clip = _audioClips[id][index];
 			return true;
 		}
 
@@ -561,24 +534,6 @@ namespace FirstLight.Services
 				_transitionMusicSource.FadeVolume(_transitionMusicSource.Source.volume, 0, fadeOutDuration);
 			}
 		}
-		
-		/// <inheritdoc />
-		public virtual Task<AudioSourceMonoComponent> PlayClipAsync3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
-		{
-			return default;
-		}
-
-		/// <inheritdoc />
-		public virtual Task<AudioSourceMonoComponent> PlayClipAsync2D(T id, AudioSourceInitData? sourceInitData = null)
-		{
-			return default;
-		}
-
-		/// <inheritdoc />
-		public virtual Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
-		{
-			return default;
-		}
 
 		/// <inheritdoc />
 		public virtual AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend)
@@ -593,7 +548,7 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void AddAudioClip(T id, AudioClip clip)
+		public void AddAudioClips(T id, List<AudioClip> clip)
 		{
 			_audioClips.Add(id, clip);
 		}

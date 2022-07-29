@@ -78,17 +78,17 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadInitialAssets()
 		{
+			var configProvider = _services.ConfigsProvider;
+			
 			var tasks = new List<Task>();
 
 			tasks.Add(LoadErrorAssets());
 			tasks.AddRange(_configsLoader.LoadConfigTasks(_configsAdder));
 			tasks.AddRange(LoadAssetConfigs());
+			tasks.Add(_services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary, false));
 			
 			await Task.WhenAll(tasks);
-			
-			_assetService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>());
-			await _services.AudioFxService.LoadAudioClips(_configsAdder.GetConfig<AudioSharedAssetConfigs>()
-			                                                           .ConfigsDictionary, false);
+
 			LoadVfx();
 		}
 
@@ -112,7 +112,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return new List<Task>
 			{
-				_configsLoader.LoadConfig<AudioAdventureAssetConfigs>(AddressableId.Configs_AudioAdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),

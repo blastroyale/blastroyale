@@ -375,10 +375,9 @@ namespace FirstLight.Game.StateMachines
 
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
 			
-			_assetAdderService.AddConfigs(configProvider.GetConfig<AudioMainMenuAssetConfigs>());
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
-
+			
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary, false);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
 			
@@ -405,7 +404,6 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioMainMenuAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
 
 			mainMenuServices.Dispose();

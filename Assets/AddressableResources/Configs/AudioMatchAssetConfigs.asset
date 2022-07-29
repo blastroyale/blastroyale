@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338cb64fade84fa5af85b935ee7d352a, type: 3}
-  m_Name: AudioMainMenuAssetConfigs
+  m_Script: {fileID: 11500000, guid: 25275af141e6244afb1e6257762106c2, type: 3}
+  m_Name: AudioMatchAssetConfigs
   m_EditorClassIdentifier: 
   _assetsFolderPath: 
   _configs: []

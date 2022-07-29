@@ -98,7 +98,13 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
 			where TId : struct;
-
+		
+		/// <summary>
+		/// TODO:
+		/// </summary>
+		void AddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs)
+			where TId : struct;
+		
 		/// <summary>
 		/// Adds the debug assets when errors occur
 		/// </summary>
@@ -229,8 +235,9 @@ namespace FirstLight.Game.Services
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
-				throw new MissingMemberException($"The {nameof(AssetResolverService)} does not have the {nameof(AssetReference)}" +
-				                                 $"config to load the scene with the given {id} id of {typeof(TId)} type");
+				throw new
+					MissingMemberException($"The {nameof(AssetResolverService)} does not have the {nameof(AssetReference)}" +
+					                       $"config to load the scene with the given {id} id of {typeof(TId)} type");
 			}
 
 			var sceneOperation = assetReference.OperationHandle.Convert<SceneInstance>();
@@ -317,9 +324,13 @@ namespace FirstLight.Game.Services
 		public void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
 			where TId : struct
 		{
+			AddConfigs<TId, TAsset>(assetConfigs.AssetType, assetConfigs.Configs);
+		}
+
+		/// <inheritdoc />
+		public void AddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs) where TId : struct
+		{
 			var idType = typeof(TId);
-			var assetType = assetConfigs.AssetType;
-			var configs = assetConfigs.Configs;
 			var assetReferences = new Dictionary<TId, AssetReference>(configs.Count);
 
 			for (var i = 0; i < configs.Count; i++)

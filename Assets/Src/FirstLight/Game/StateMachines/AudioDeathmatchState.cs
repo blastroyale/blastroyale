@@ -112,7 +112,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMidIntensityMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.DmLoop);
+			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop);
 		}
 
 		private void PlayHighIntensityMusic()
@@ -124,7 +124,7 @@ namespace FirstLight.Game.StateMachines
 				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
 				                     : 0;
 			
-			_services.AudioFxService.PlayMusic(AudioId.DmFinalDuelLoop, fadeInDuration,
+			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop, fadeInDuration,
 			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, GetInitDataForPlayback(1.025f));
 		}
 		

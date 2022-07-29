@@ -61,10 +61,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
-			if (callback.Entity != EntityView.EntityRef) return;
-
-			Services.AudioFxService.PlayClip2D(AudioId.AirDrop4);
-
+			if (callback.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+			
 			_itemRoot.gameObject.SetActive(true);
 		}
 

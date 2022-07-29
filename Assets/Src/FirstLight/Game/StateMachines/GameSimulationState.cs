@@ -289,7 +289,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop);
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop);
 		}
 
 		private void PublishMatchEnded()

@@ -104,7 +104,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 			
-			_services.AudioFxService.PlayMusic(AudioId.BrSkydiveLoop);
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrSkydiveLoop);
 		}
 
 		private void PlayLowIntensityMusic()
@@ -116,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
 				                     : 0;
 			
-			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop, fadeInDuration,
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop, fadeInDuration,
 			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, GetInitDataForPlayback(1f));
 		}
 		
@@ -129,7 +129,7 @@ namespace FirstLight.Game.StateMachines
 				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
 				                     : 0;
 			
-			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop, fadeInDuration,
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop, fadeInDuration,
 			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, GetInitDataForPlayback(1.025f));
 		}
 

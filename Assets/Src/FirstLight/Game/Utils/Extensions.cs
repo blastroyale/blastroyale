@@ -3,6 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
@@ -10,6 +11,7 @@ using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Playables;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
 {
@@ -249,7 +251,7 @@ namespace FirstLight.Game.Utils
 
 			return groups[0];
 		}
-		
+
 		/// <summary>
 		/// Requests the alive/dead status of the player entity (exists? alive?)
 		/// </summary>
@@ -264,7 +266,7 @@ namespace FirstLight.Game.Utils
 			{
 				return false;
 			}
-			
+
 			var stats = f.Get<Stats>(entity);
 			return stats.CurrentHealth > 0;
 		}
@@ -334,7 +336,7 @@ namespace FirstLight.Game.Utils
 		{
 			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
 		}
-		
+
 		/// <summary>
 		/// Obtains info on whether the room is used for matchmaking
 		/// </summary>
@@ -342,14 +344,14 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
-		
+
 		/// <summary>
 		/// Obtains amount of non-spectator players currently in room
 		/// </summary>
 		public static int GetRealPlayerAmount(this Room room)
 		{
 			int playerAmount = 0;
-			
+
 			foreach (var kvp in room.Players)
 			{
 				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
@@ -362,14 +364,14 @@ namespace FirstLight.Game.Utils
 
 			return playerAmount;
 		}
-		
+
 		/// <summary>
 		/// Obtains amount of spectators players currently in room
 		/// </summary>
 		public static int GetSpectatorAmount(this Room room)
 		{
 			int playerAmount = 0;
-			
+
 			foreach (var kvp in room.Players)
 			{
 				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
@@ -382,7 +384,7 @@ namespace FirstLight.Game.Utils
 
 			return playerAmount;
 		}
-		
+
 		/// <summary>
 		/// Obtains room capacity for non-spectator players
 		/// </summary>
@@ -390,7 +392,7 @@ namespace FirstLight.Game.Utils
 		{
 			return room.MaxPlayers - room.GetSpectatorCapacity();
 		}
-		
+
 		/// <summary>
 		/// Obtains room capacity for non-spectator players
 		/// </summary>
@@ -425,6 +427,20 @@ namespace FirstLight.Game.Utils
 			}
 
 			return true;
+		}
+
+		/// <summary>
+		/// Generates data for audio playback, from an audio config
+		/// </summary>
+		public static AudioClipPlaybackData GenerateAudioConfigForPlayback(AudioClipConfig audioConfig)
+		{
+			var playbackData = new AudioClipPlaybackData();
+			playbackData.Volume = Random.Range(audioConfig.BaseVolume - audioConfig.VolumeRandDeviation, 
+			                                   audioConfig.BaseVolume + audioConfig.VolumeRandDeviation);
+			playbackData.Pitch = Random.Range(audioConfig.BasePitch - audioConfig.PitchRandDeviation, 
+			                                   audioConfig.BasePitch + audioConfig.PitchRandDeviation);
+			playbackData.AudioClipIndex = Random.Range(0, audioConfig.AudioClips.Count);
+			return playbackData;
 		}
 
 		/// <summary>

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FirstLight.Game.Messages;
+using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -30,6 +30,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private IObjectPool<FloatingTextPoolObject> _pool;
 		private IObjectPool<FloatingTextPoolObject> _poolArmour;
 		private Coroutine _coroutine;
@@ -42,49 +43,32 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_floatingTextRef.gameObject.SetActive(false);
 			_floatingArmourAndTextRef.gameObject.SetActive(false);
 
 			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_pool = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorNormal);
 			_poolArmour = new ObjectPool<FloatingTextPoolObject>(7, InstantiatorArmour);
-			
-			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			
+
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
-			QuantumEvent.Subscribe<EventOnLocalCollectableCollected>(this, OnLocalCollectableCollected);
-			QuantumEvent.Subscribe<EventOnLocalCollectableBlocked>(this, OnLocalCollectableBlocked);
+			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
+			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 			QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
 		}
-		
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			_observedPlayer = callback.Player;
-			_observedEntity = callback.Entity;
+			_observedPlayer = next.Player;
+			_observedEntity = next.Entity;
 		}
 
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
-		{
-			_observedPlayer = msg.PlayerSpectated;
-			_observedEntity = msg.EntitySpectated;
-		}
-
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
-		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _observedPlayer != PlayerRef.None)
-			{
-				return;
-			}
-
-			_observedPlayer = callback.Player;
-			_observedEntity = callback.Entity;
-		}
-		private void OnLocalCollectableBlocked(EventOnLocalCollectableBlocked callback)
+		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
 		{
 			if (callback.PlayerEntity != _observedEntity)
 			{
@@ -120,7 +104,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_queue.Remove(callback.Entity);
 		}
 
-		private void OnLocalCollectableCollected(EventOnLocalCollectableCollected callback)
+		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
 			if (callback.PlayerEntity != _observedEntity)
 			{
@@ -130,7 +114,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) ||
 			    !entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
-				Debug.LogWarning($"The entity {_observedEntity} is not ready for a losing floating text yet");
+				FLog.Warn($"The entity {_observedEntity} is not ready for a losing floating text yet");
 				return;
 			}
 

@@ -215,7 +215,10 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var map = config.Map.ToString();
-			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var entityService =
+				new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			MainInstaller.Bind<IMatchServices>(new MatchServices(entityService, _services.MessageBrokerService, _services.NetworkService, _services.ConfigsProvider));
+			
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 
@@ -258,6 +261,7 @@ namespace FirstLight.Game.StateMachines
 			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			MainInstaller.Clean<IEntityViewUpdaterService>();
+			MainInstaller.Clean<IMatchServices>();
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 

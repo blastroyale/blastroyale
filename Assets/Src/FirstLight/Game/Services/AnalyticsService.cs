@@ -18,7 +18,7 @@ namespace FirstLight.Game.Services
 		public static readonly string SessionStart = "session_start";
 		public static readonly string SessionEnd = "session_end";
 		public static readonly string SessionHeartbeat = "session_heartbeat";
-		public static readonly string GameLoad = "game_load";
+		public static readonly string GameLoadStart = "game_load_start";
 		public static readonly string PlayerRegister = "player_register";
 		public static readonly string PlayerLogin = "player_login";
 		public static readonly string MatchInitiate = "match_initiate";

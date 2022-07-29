@@ -14,13 +14,19 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void SessionEnd(string reason)
 		{
-			var dic = new Dictionary<string, object> {{"time", Time.realtimeSinceStartup}};
+			var dic = new Dictionary<string, object> {{"reason", reason}};
 			_analyticsService.LogEvent(AnalyticsEvents.SessionEnd, dic);
 		}
 
 		public void Heartbeat()
 		{
 			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat);
+		}
+
+		public void GameLoadStart()
+		{
+			var dic = new Dictionary<string, object> {{"client_version", Application.version}};
+			_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
 		}
 	}
 }

@@ -89,6 +89,8 @@ namespace FirstLight.Game
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
 			TrySetLocalServer();
+
+			StartCoroutine(HeartbeatCoroutine());
 		}
 
 		private void OnApplicationPause(bool isPaused)
@@ -151,6 +153,15 @@ namespace FirstLight.Game
 			yield return new WaitForSeconds(30);
 
 			MainInstaller.Resolve<IGameFlowService>().QuitGame("App closed after 30 sec of being unused");
+		}
+
+		private IEnumerator HeartbeatCoroutine()
+		{
+			while (true)
+			{
+				yield return new WaitForSeconds(30);
+				_services?.AnalyticsService.SessionCalls.Heartbeat();
+			}
 		}
 	}
 }

@@ -49,6 +49,7 @@ namespace FirstLight.Game.StateMachines
 			var assetLoading = stateFactory.TaskWait("Asset loading");
 
 			initial.Transition().Target(downloadData);
+			initial.OnExit(GameLoadAnalyticsEvent);
 			initial.OnExit(SubscribeEvents);
 			
 			downloadData.WaitingFor(DownloadData).Target(assetLoading);
@@ -61,6 +62,11 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			// Subscribe to events
+		}
+
+		private void GameLoadAnalyticsEvent()
+		{
+			_services?.AnalyticsService.SessionCalls.GameLoadStart();
 		}
 
 		private void UnsubscribeEvents()

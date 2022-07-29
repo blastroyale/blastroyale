@@ -91,7 +91,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(GameId special, bool hasCharge)
+		public async void Init(GameId special, bool hasCharge, FP cooldownTime)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			
@@ -118,7 +118,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (hasCharge)
 			{
-				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, config.InitialCooldown));
+				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, cooldownTime));
 			}
 		}
 

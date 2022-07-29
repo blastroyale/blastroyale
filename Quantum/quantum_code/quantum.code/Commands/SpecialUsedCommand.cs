@@ -30,6 +30,20 @@ namespace Quantum.Commands
 			{
 				var weaponSlot = playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot];
 
+				switch (SpecialIndex)
+				{
+					case 0:
+					{
+						weaponSlot.Special1AvailableTime = f.Time + special.Cooldown;
+						break;
+					}
+					case 1:
+					{
+						weaponSlot.Special2AvailableTime = f.Time + special.Cooldown;
+						break;
+					}
+				}
+
 				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
 			}
 		}

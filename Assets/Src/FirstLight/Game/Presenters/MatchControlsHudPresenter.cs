@@ -150,7 +150,7 @@ namespace FirstLight.Game.Presenters
 			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
 			
 			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);
-			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0, currentWeaponSlot.Special2.AvailableTime - f.Time);
 		}
 
 		private void OnPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -166,7 +166,7 @@ namespace FirstLight.Game.Presenters
 			var f = callback.Game.Frames.Verified;
 			
 			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);
-			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);
+			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0, currentWeaponSlot.Special2.AvailableTime - f.Time);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)

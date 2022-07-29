@@ -215,11 +215,9 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var map = config.Map.ToString();
-			var entityService =
-				new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var sceneTask =
-				_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
@@ -230,6 +228,7 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
+			
 			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
 			{
 				case GameMode.Deathmatch : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
@@ -266,6 +265,7 @@ namespace FirstLight.Game.StateMachines
 
 			Object.Destroy(((EntityViewUpdaterService) entityService).gameObject);
 			_services.VfxService.DespawnAll();
+			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
@@ -335,10 +335,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Preload Audio
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureMainLoop, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureStart, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.ActorSpawnEnd1, true, false));
-
+			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary, false));
+			
 			return tasks;
 		}
 

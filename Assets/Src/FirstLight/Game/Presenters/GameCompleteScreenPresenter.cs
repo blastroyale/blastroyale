@@ -126,8 +126,7 @@ namespace FirstLight.Game.Presenters
 
 				_winningPlayerRoot.gameObject.SetActive(false);
 			}
-
-			Services.AudioFxService.PlayClip2D(AudioId.Victory);
+			
 
 			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{

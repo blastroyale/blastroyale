@@ -45,9 +45,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
-
-		[SerializeField, Range(0f, 1f)] private float _ringWidth = 0.05f;
-
+		
 		[SerializeField, Required, Title("Indicators")]
 		private RectTransform _playerIndicator;
 

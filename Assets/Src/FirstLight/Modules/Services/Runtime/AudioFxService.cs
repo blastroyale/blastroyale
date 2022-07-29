@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -10,7 +12,7 @@ namespace FirstLight.Services
 	/// <summary>
 	/// This service allows to manage multiple <see cref="T"/> of the defined <typeparamref name="T"/> enum type.
 	/// </summary>
-	public interface IAudioFxService<in T> : IDisposable where T : struct, Enum
+	public interface IAudioFxService<T> : IDisposable where T : struct, Enum
 	{
 		/// <summary>
 		/// Request main game's <see cref="AudioListenerMonoComponent"/>
@@ -33,6 +35,28 @@ namespace FirstLight.Services
 		bool Is3dSfxMuted { get; set; }
 
 		/// <summary>
+		/// Load a set of audio clips into memory, and into the loaded clips collection
+		/// </summary>
+		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
+		Task LoadAudioClips(IEnumerable clips, bool loadAsync);
+
+		/// <summary>
+		/// Load a single audio clip intoo memory, and into the loaded clips collection
+		/// </summary>
+		Task LoadAudioClip(T id, bool loadAsync);
+
+		/// <summary>
+		/// Unload a set of audio clips from memory, and remove al references from loaded clips collection
+		/// </summary>
+		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
+		void UnloadAudioClips(IEnumerable clips);
+
+		/// <summary>
+		/// Unload a single audio clip from memory, and remove reference from loaded clips collection
+		/// </summary>
+		void UnloadAudioClip(T id);
+
+		/// <summary>
 		/// Tries to return the <see cref="AudioClip"/> mapped to the given <paramref name="id"/>.
 		/// Returns true if the audio service currently has the <paramref name="clip"/> for the given <paramref name="id"/>.
 		/// </summary>
@@ -45,31 +69,52 @@ namespace FirstLight.Services
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
-		/// Returns true if successfully has the audio to play.
+		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
-		/// Returns true if successfully has the audio to play.
+		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		void PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
-		/// Plays the given <paramref name="id"/> music forever and replaces any old music currently playing.
-		/// Returns true if successfully has the audio to play.
+		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
 		/// </summary>
-		void PlayMusic(T id, AudioSourceInitData? sourceInitData = null);
+		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
 
+		/// <summary>
+		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
+		/// Returns a task with the audio mono component that is playing the sound.
+		/// </summary>
+		Task<AudioSourceMonoComponent> PlayClipAsync3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
+		
+		/// <summary>
+		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
+		/// Returns the audio mono component that is playing the sound.
+		/// </summary>
+		Task<AudioSourceMonoComponent> PlayClipAsync2D(T id, AudioSourceInitData? sourceInitData = null);
+		
+		/// <summary>
+		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
+		/// </summary>
+		Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
+		
 		/// <summary>
 		/// Stops the music
 		/// </summary>
-		void StopMusic();
+		void StopMusic(float fadeOutDuration = 0f);
 
 		/// <summary>
 		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
 		/// </summary>
 		AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend);
+
+		/// <summary>
+		/// Requests the current playback time of the currently playing music track, in seconds
+		/// </summary>
+		float GetCurrentMusicPlaybackTime();
 	}
 
 	/// <inheritdoc />
@@ -81,17 +126,12 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Add the given <paramref name="id"/> <paramref name="clip"/> to the service
 		/// </summary>
-		void Add(T id, AudioClip clip);
+		void AddAudioClip(T id, AudioClip clip);
 
 		/// <summary>
 		/// Removes the given <paramref name="id"/>'s <see cref="AudioClip"/> from the service
 		/// </summary>
-		void Remove(T id);
-
-		/// <summary>
-		/// Clears the container of clips currently held by this service and returns a copy of clips cleared.
-		/// </summary>
-		Dictionary<T, AudioClip> Clear();
+		void RemoveAudioClip(T id);
 	}
 
 	/// <summary>
@@ -137,14 +177,33 @@ namespace FirstLight.Services
 
 		private IObjectPool<AudioSourceMonoComponent> _pool;
 		private bool _canDespawn;
-		private Coroutine _coroutine;
+		private float _currentVolumeMultiplier;
+		private Coroutine _playSoundCoroutine;
+		private Coroutine _fadeVolumeCoroutine;
+		private Transform _followTarget;
+		private Vector3 _followOffset;
+		private Action<AudioSourceMonoComponent> _fadeVolumeCallback;
+		
+		private void Update()
+		{
+			if (_followTarget != null)
+			{
+				transform.position = _followTarget.position + _followOffset;
+			}
+		}
 
+		private void OnDestroy()
+		{
+			_fadeVolumeCallback?.Invoke(this);
+			_fadeVolumeCallback = null;
+		}
+		
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
 		/// /// <remarks>Note: if initialized with Loop as true, the audio source must be despawned manually.</remarks>
 		public void Play(IObjectPool<AudioSourceMonoComponent> pool, AudioClip clip, float volumeMultiplier,
-		                 Vector3? worldPos, AudioSourceInitData? sourceInitData)
+		                 Vector3? worldPos, AudioSourceInitData? sourceInitData = null)
 		{
 			if (sourceInitData == null)
 			{
@@ -152,6 +211,7 @@ namespace FirstLight.Services
 			}
 
 			_pool = pool;
+			_currentVolumeMultiplier = volumeMultiplier;
 
 			Source.clip = clip;
 			Source.volume = sourceInitData.Value.Volume * volumeMultiplier;
@@ -168,10 +228,21 @@ namespace FirstLight.Services
 			{
 				transform.position = worldPos.Value;
 			}
-			
+
 			_canDespawn = !sourceInitData.Value.Loop;
 
-			_coroutine = StartCoroutine(PlaySoundSequence());
+			_playSoundCoroutine = StartCoroutine(PlaySoundCoroutine());
+		}
+
+		/// <summary>
+		/// Sets the follow target for this audio listener
+		/// If null, the listener will zero out it's position every frame instead
+		/// </summary>
+		public void SetFollowTarget(Transform newTarget, Vector3 followOffset, Quaternion rotation)
+		{
+			_followTarget = newTarget;
+			_followOffset = followOffset;
+			transform.rotation = rotation;
 		}
 
 		/// <summary>
@@ -183,20 +254,65 @@ namespace FirstLight.Services
 		}
 
 		/// <summary>
-		/// Despawns this audio source immediately
+		/// Instantly stops the playing sound, and despawns component back to pool if possible
 		/// </summary>
-		public void Despawn()
+		public void StopAndDespawn()
 		{
-			if (_coroutine != null)
+			Source.Stop();
+
+			if (_playSoundCoroutine != null)
 			{
-				StopCoroutine(_coroutine);
-				_coroutine = null;
+				StopCoroutine(_playSoundCoroutine);
 			}
 			
-			_pool.Despawn(this);
+			if (_fadeVolumeCoroutine != null)
+			{
+				StopCoroutine(_fadeVolumeCoroutine);
+			}
+
+			_pool?.Despawn(this);
 		}
 
-		private IEnumerator PlaySoundSequence()
+		/// <summary>
+		/// Starts a coroutine that fades the volume of the audio from X to Y
+		/// </summary>
+		public void FadeVolume(float fromVolume, float toVolume, float fadeDuration,
+		                       Action<AudioSourceMonoComponent> callbackFadeFinished = null)
+		{
+			if (_fadeVolumeCoroutine != null)
+			{
+				StopCoroutine(_fadeVolumeCoroutine);
+			}
+			
+			_fadeVolumeCallback = callbackFadeFinished;
+			_fadeVolumeCoroutine = StartCoroutine(FadeVolumeCoroutine(fromVolume, toVolume, fadeDuration));
+		}
+
+		private IEnumerator FadeVolumeCoroutine(float fromVolume, float toVolume, float fadeDuration)
+		{
+			var currentTimeProgress = 0f;
+
+			while (currentTimeProgress < fadeDuration)
+			{
+				yield return null;
+
+				currentTimeProgress += Time.deltaTime;
+
+				var fadePercent = currentTimeProgress / fadeDuration;
+				Source.volume = Mathf.Lerp(fromVolume * _currentVolumeMultiplier, toVolume * _currentVolumeMultiplier,
+				                           fadePercent);
+			}
+
+			if (toVolume <= 0)
+			{
+				Source.Stop();
+			}
+
+			_fadeVolumeCallback?.Invoke(this);
+			_fadeVolumeCallback = null;
+		}
+
+		private IEnumerator PlaySoundCoroutine()
 		{
 			Source.Play();
 
@@ -205,7 +321,7 @@ namespace FirstLight.Services
 				yield return new WaitForSeconds(Source.clip.length);
 			} while (!_canDespawn);
 
-			_pool.Despawn(this);
+			StopAndDespawn();
 		}
 	}
 
@@ -231,14 +347,15 @@ namespace FirstLight.Services
 	{
 		private const float SPATIAL_3D_THRESHOLD = 0.1f;
 
-		private readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
+		protected readonly IDictionary<T, AudioClip> _audioClips = new Dictionary<T, AudioClip>();
+		
+		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
-		private readonly AudioSourceMonoComponent _musicSource;
-
-		protected readonly float _sfx2dVolumeMultiplier;
-		protected readonly float _sfx3dVolumeMultiplier;
-		protected readonly float _bgmVolumeMultiplier;
-
+		private readonly float _sfx2dVolumeMultiplier;
+		private readonly float _sfx3dVolumeMultiplier;
+		private readonly float _bgmVolumeMultiplier;
+		private AudioSourceMonoComponent _activeMusicSource;
+		private AudioSourceMonoComponent _transitionMusicSource;
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
 
@@ -248,8 +365,8 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsBgmMuted
 		{
-			get => _musicSource.Source.mute;
-			set => _musicSource.Source.mute = value;
+			get => _activeMusicSource.Source.mute;
+			set => _activeMusicSource.Source.mute = value;
 		}
 
 		/// <inheritdoc />
@@ -294,21 +411,26 @@ namespace FirstLight.Services
 
 		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolumeMultiplier)
 		{
-			var container = new GameObject("Audio Container");
+			_audioPoolParent = new GameObject("Audio Container");
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
 
 			audioPlayer.Source = audioPlayer.gameObject.AddComponent<AudioSource>();
-			audioPlayer.transform.SetParent(container.transform);
+			audioPlayer.transform.SetParent(_audioPoolParent.transform);
 			audioPlayer.Source.playOnAwake = false;
 			audioPlayer.gameObject.SetActive(false);
 
-			_musicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
-			_musicSource.transform.SetParent(container.transform);
-			_musicSource.Source = _musicSource.gameObject.AddComponent<AudioSource>();
-			_musicSource.Source.playOnAwake = false;
+			_activeMusicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
+			_activeMusicSource.transform.SetParent(_audioPoolParent.transform);
+			_activeMusicSource.Source = _activeMusicSource.gameObject.AddComponent<AudioSource>();
+			_activeMusicSource.Source.playOnAwake = false;
+
+			_transitionMusicSource = new GameObject("Music Transition Source").AddComponent<AudioSourceMonoComponent>();
+			_transitionMusicSource.transform.SetParent(_audioPoolParent.transform);
+			_transitionMusicSource.Source = _transitionMusicSource.gameObject.AddComponent<AudioSource>();
+			_transitionMusicSource.Source.playOnAwake = false;
 
 			AudioListener = new GameObject("Audio Listener").AddComponent<AudioListenerMonoComponent>();
-			AudioListener.transform.SetParent(container.transform);
+			AudioListener.transform.SetParent(_audioPoolParent.transform);
 			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
 			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
@@ -323,9 +445,38 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
+		public virtual Task LoadAudioClips(IEnumerable clips, bool loadAsync)
+		{
+			return default;
+		}
+
+		/// <inheritdoc />
+		public virtual Task LoadAudioClip(T id, bool loadAsync)
+		{
+			return default;
+		}
+
+		/// <inheritdoc />
+		public virtual void UnloadAudioClips(IEnumerable clips)
+		{
+		}
+
+		/// <inheritdoc />
+		public virtual void UnloadAudioClip(T id)
+		{
+		}
+
+		/// <inheritdoc />
 		public virtual bool TryGetClip(T id, out AudioClip clip)
 		{
-			return _audioClips.TryGetValue(id, out clip);
+			if (!_audioClips.TryGetValue(id, out clip))
+			{
+				throw new
+					MissingMemberException($"The {nameof(AudioFxService<T>)} does not have an audio clip with ID " +
+					                       $"'{id}' loaded in memory for playback. ");
+			}
+
+			return true;
 		}
 
 		/// <inheritdoc />
@@ -335,44 +486,98 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		public virtual AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition,
+		                                                   AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
-				return;
+				return null;
 			}
 
 			var source = _sfxPlayerPool.Spawn();
 			source.Play(_sfxPlayerPool, clip, _sfx3dVolumeMultiplier, worldPosition, sourceInitData);
+			return source;
 		}
 
 		/// <inheritdoc />
-		public void PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
+		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
-				return;
+				return null;
 			}
 
 			var source = _sfxPlayerPool.Spawn();
 			source.Play(_sfxPlayerPool, clip, _sfx2dVolumeMultiplier, Vector3.zero, sourceInitData);
+			return source;
 		}
 
 		/// <inheritdoc />
-		public void PlayMusic(T id, AudioSourceInitData? sourceInitData = null)
+		public virtual void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (!TryGetClip(id, out var clip) || sourceInitData == null)
 			{
 				return;
 			}
 
-			_musicSource.Play(_sfxPlayerPool, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+			if (_activeMusicSource.Source.isPlaying)
+			{
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration, MusicTransitionFinished);
+				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, MusicTransitionFinished);
+			}
+			else
+			{
+				_activeMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
+			}
+		}
+
+		private void MusicTransitionFinished(AudioSourceMonoComponent audioSource)
+		{
+			if (audioSource == _transitionMusicSource)
+			{
+				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
+				_transitionMusicSource.Source.Stop();
+			}
+		}
+		
+		/// <inheritdoc />
+		public void StopMusic(float fadeOutDuration = 0f)
+		{
+			if (!_activeMusicSource.Source.isPlaying)
+			{
+				return;
+			}
+			
+			if (fadeOutDuration <= 0)
+			{
+				_activeMusicSource.Source.Stop();
+				_transitionMusicSource.Source.Stop();
+			}
+			else
+			{
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
+				_transitionMusicSource.FadeVolume(_transitionMusicSource.Source.volume, 0, fadeOutDuration);
+			}
+		}
+		
+		/// <inheritdoc />
+		public virtual Task<AudioSourceMonoComponent> PlayClipAsync3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
+		{
+			return default;
 		}
 
 		/// <inheritdoc />
-		public void StopMusic()
+		public virtual Task<AudioSourceMonoComponent> PlayClipAsync2D(T id, AudioSourceInitData? sourceInitData = null)
 		{
-			_musicSource.Source.Stop();
+			return default;
+		}
+
+		/// <inheritdoc />
+		public virtual Task PlayMusicAsync(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
+		{
+			return default;
 		}
 
 		/// <inheritdoc />
@@ -382,25 +587,21 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void Add(T id, AudioClip clip)
+		public float GetCurrentMusicPlaybackTime()
+		{
+			return _activeMusicSource.Source.time;
+		}
+
+		/// <inheritdoc />
+		public void AddAudioClip(T id, AudioClip clip)
 		{
 			_audioClips.Add(id, clip);
 		}
 
 		/// <inheritdoc />
-		public void Remove(T id)
+		public void RemoveAudioClip(T id)
 		{
 			_audioClips.Remove(id);
-		}
-
-		/// <inheritdoc />
-		public Dictionary<T, AudioClip> Clear()
-		{
-			var dic = new Dictionary<T, AudioClip>(_audioClips);
-
-			_audioClips.Clear();
-
-			return dic;
 		}
 
 		/// <inheritdoc />
@@ -408,9 +609,9 @@ namespace FirstLight.Services
 		{
 			_audioClips.Clear();
 
-			if (_musicSource != null && _musicSource.transform.parent.gameObject != null)
+			if (_audioPoolParent != null)
 			{
-				UnityEngine.Object.Destroy(_musicSource.transform.parent.gameObject);
+				UnityEngine.Object.Destroy(_audioPoolParent.gameObject);
 			}
 		}
 	}

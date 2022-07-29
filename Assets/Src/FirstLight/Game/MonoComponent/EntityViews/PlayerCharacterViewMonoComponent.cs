@@ -97,8 +97,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
 			base.OnAvatarEliminated(game);
-
-			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath, transform.position);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -191,7 +189,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			AnimatorWrapper.SetTrigger(Triggers.Revive);
 			RenderersContainerProxy.SetRendererState(true);
-			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnEnd1, transform.position);
 		}
 
 		private void HandleOnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -205,8 +202,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
-
-			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnStart, transform.position);
+			
 			RenderersContainerProxy.SetRendererState(false);
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
@@ -217,13 +213,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
-			var initProps = Services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
-			initProps.Volume = Random.Range(GameConstants.Audio.SFX_RAND_VOLUME_MIN,
-			                               GameConstants.Audio.SFX_RAND_VOLUME_MAX);
-			initProps.Pitch = Random.Range(GameConstants.Audio.SFX_RAND_PITCH_MIN,
-			                               GameConstants.Audio.SFX_RAND_PITCH_MAX);
-			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired, transform.position, initProps);
 			
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
 		}

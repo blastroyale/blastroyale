@@ -124,6 +124,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
+			
+			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 
 		private void OpenNoInternetPopUp()
@@ -132,7 +134,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing no internet popup");
+					MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing no internet popup");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.General.ExitGame

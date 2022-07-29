@@ -114,7 +114,7 @@ namespace FirstLight.Game
 		{
 			_services?.DataSaver?.SaveAllData();
 
-			var quitReason = MainInstaller.Resolve<IGameFlowService>().QuitReason;
+			var quitReason = MainInstaller.Resolve<IGameServices>().GameFlowService.QuitReason;
 			
 			_services?.AnalyticsService.SessionCalls.SessionEnd(quitReason);
 		}
@@ -152,7 +152,7 @@ namespace FirstLight.Game
 			// The app is closed after 30 sec of being unused
 			yield return new WaitForSeconds(30);
 
-			MainInstaller.Resolve<IGameFlowService>().QuitGame("App closed after 30 sec of being unused");
+			MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("App closed after 30 sec of being unused");
 		}
 
 		private IEnumerator HeartbeatCoroutine()

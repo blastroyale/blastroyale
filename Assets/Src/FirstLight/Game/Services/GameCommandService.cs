@@ -85,7 +85,7 @@ namespace FirstLight.Game.Services
 				{
 					Callback = () =>
 					{
-						MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing game exception popup");
+						MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing game exception popup");
 					},
 					Style = AlertButtonStyle.Negative,
 					Text = "Quit Game"

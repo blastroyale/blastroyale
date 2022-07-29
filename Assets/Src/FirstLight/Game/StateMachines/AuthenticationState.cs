@@ -130,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing playfab critical error alert");
+					MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing playfab critical error alert");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton
@@ -235,7 +235,7 @@ namespace FirstLight.Game.StateMachines
 			var appData = _dataService.GetData<AppData>();
 			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
-			_services.AnalyticsService.LoginEvent(result.PlayFabId);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId);
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 
@@ -375,7 +375,7 @@ namespace FirstLight.Game.StateMachines
 				Style = AlertButtonStyle.Default,
 				Callback = () =>
 				{
-					MainInstaller.Resolve<IGameFlowService>().QuitGame("Closing game blocked dialog");
+					MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing game blocked dialog");
 				}
 			};
 

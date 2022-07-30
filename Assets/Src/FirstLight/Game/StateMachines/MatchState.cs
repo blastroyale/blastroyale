@@ -146,6 +146,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchmakingLoadingScreenPresenter.StateData();
 
+			_services.AnalyticsService.MatchCalls.MatchInitiate();
 			_uiService.OpenUiAsync<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
 		}
 

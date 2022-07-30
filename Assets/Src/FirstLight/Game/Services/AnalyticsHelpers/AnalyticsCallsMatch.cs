@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using PlayFab;
 using Quantum;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
@@ -13,7 +14,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 		public void MatchInitiate()
 		{
+			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			var services = MainInstaller.Resolve<IGameServices>();
 			
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", services.NetworkService.QuantumClient.CurrentRoom.Name},
+				{"match_type",gameDataProvider.AppDataProvider.SelectedGameMode.Value},
+				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
+			};
+			
+			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 		}
 		
 		public void MatchStart()

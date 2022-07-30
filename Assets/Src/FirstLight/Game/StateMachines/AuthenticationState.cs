@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 				Style = AlertButtonStyle.Default,
 				Callback = () =>
 				{
-					MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing game blocked dialog");
+					_services.GameFlowService.QuitGame("Closing game blocked dialog");
 				}
 			};
 

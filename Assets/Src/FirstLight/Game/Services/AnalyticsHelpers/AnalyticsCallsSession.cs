@@ -4,6 +4,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -15,7 +16,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsSession : AnalyticsCalls
 	{
-		private IGameServices _services;
+		private IDataProvider _dataProvider;
 		private IGameDataProvider _gameData;
 		
 		/// <summary>
@@ -44,11 +45,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		}
 
 		public AnalyticsCallsSession(IAnalyticsService analyticsService,
-		                             IGameServices services,
+		                             IDataProvider dataProvider,
 		                             IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
 			_gameData = gameDataProvider;
-			_services = services;
+			_dataProvider = dataProvider;
 		}
 
 		/// <summary>
@@ -117,12 +118,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoaded()
 		{
-			var dataService = _services.DataProvider;
 			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo();
 
 			var data = new Dictionary<string, object>
 			{
-				{"nfts_owned", dataService.GetData<NftEquipmentData>().Inventory.Keys.Count},
+				{"nfts_owned", _dataProvider.GetData<NftEquipmentData>().Inventory.Keys.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
 				{"total_power", loadout.GetTotalStat(EquipmentStatType.Damage)}

@@ -73,6 +73,8 @@ namespace Quantum
 			{
 				WeaponSlots[i].Special1Charges = 1;
 				WeaponSlots[i].Special2Charges = 1;
+				WeaponSlots[i].Special1AvailableTime = FP._0;
+				WeaponSlots[i].Special2AvailableTime = FP._0;
 			}
 
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
@@ -216,16 +218,25 @@ namespace Quantum
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 
+			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
+			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
+
+			if (weaponSlot.Special1AvailableTime > FP._0)
+			{
+				weaponSlot.Special1.AvailableTime = weaponSlot.Special1AvailableTime;
+			}
+			if (weaponSlot.Special2AvailableTime > FP._0)
+			{
+				weaponSlot.Special2.AvailableTime = weaponSlot.Special2AvailableTime;
+			}
+
+			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
+			
 			if (triggerEvents)
 			{
 				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
 				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
 			}
-
-			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
-			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
-
-			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
 		}
 
 		/// <summary>

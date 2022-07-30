@@ -30,6 +30,8 @@ struct WeaponSlot
 	Int32 Special2Charges;
 	Special Special1;
 	Special Special2;
+	FP Special1AvailableTime;
+	FP Special2AvailableTime;
 }
 
 component PlayerCharacter

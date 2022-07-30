@@ -28,9 +28,6 @@ namespace FirstLight.Game.Data
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel;
-		public string PresentedMapPath;
-		public Vector2IntSerializable DefaultDropPosition;
-		public Vector2IntSerializable SelectedDropPosition;
 
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();

@@ -49,7 +49,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
+			var totalPlayers = room.PlayerCount;
 
 			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
 			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);

@@ -74,7 +74,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_rank", matchData.PlayerRank},
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
 		}
 	}
 }

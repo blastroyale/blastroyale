@@ -3,85 +3,102 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using PlayFab;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
+	/// <summary>
+	/// Analytics helper class regarding match events
+	/// </summary>
 	public class AnalyticsCallsMatch : AnalyticsCalls
 	{
-		public AnalyticsCallsMatch(IAnalyticsService analyticsService) : base(analyticsService)
+		private IGameServices _services;
+		private IGameDataProvider _gameData;
+		
+		public string PresentedMapPath { get; set; }
+		public Vector2Int DefaultDropPosition { get; set; }
+		public Vector2Int SelectedDropPosition { get; set; }
+
+		public AnalyticsCallsMatch(IAnalyticsService analyticsService,
+		                           IGameServices services,
+		                           IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
+			_gameData = gameDataProvider;
+			_services = services;
 		}
 
+		/// <summary>
+		/// Logs when we entered the matchmaking room
+		/// </summary>
 		public void MatchInitiate()
 		{
-			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var services = MainInstaller.Resolve<IGameServices>();
-			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type",gameDataProvider.AppDataProvider.SelectedGameMode.Value},
+				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
+				{"match_type",_gameData.AppDataProvider.SelectedGameMode.Value},
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 		}
 		
+		/// <summary>
+		/// Logs when we start the match
+		/// </summary>
 		public void MatchStart()
 		{
-			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var services = MainInstaller.Resolve<IGameServices>();
-			var room = services.NetworkService.QuantumClient.CurrentRoom;
-			var config = services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var totalPlayers = services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
 
-			gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
-			gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
-			gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
-			gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
-			gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
+			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
+			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
+			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
+			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
+			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
 			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"player_level", gameDataProvider.PlayerDataProvider.Level.Value},
+				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
+				{"player_level", _gameData.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
 				{"total_bots", config.PlayersLimit - totalPlayers},
 				{"map_id", config.Id},
 				{"map_name", config.Map},
-				{"trophies_start", gameDataProvider.PlayerDataProvider.Trophies.Value},
+				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value},
 				{"item_weapon", weaponId},
 				{"item_helmet", helmetId},
 				{"item_shield", shieldId},
 				{"item_armour", armorId},
 				{"item_amulet", amuletId},
-				{"drop_open_grid",gameDataProvider.AppDataProvider.PresentedMapPath},
-				{"drop_location_default", gameDataProvider.AppDataProvider.DefaultDropPosition},
-				{"drop_location_final", gameDataProvider.AppDataProvider.SelectedDropPosition},
-				{"match_type",gameDataProvider.AppDataProvider.SelectedGameMode.Value}
+				{"drop_open_grid", PresentedMapPath},
+				{"drop_location_default", DefaultDropPosition},
+				{"drop_location_final", SelectedDropPosition},
+				{"match_type",_gameData.AppDataProvider.SelectedGameMode.Value}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 		}
 
+		/// <summary>
+		/// Logs when finish the match
+		/// </summary>
 		public void MatchEnd(int totalPlayers, bool playerQuit)
 		{
 			var game = QuantumRunner.Default.Game;
-			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			var f = game.Frames.Verified;
-			var services = MainInstaller.Resolve<IGameServices>();
-			var room = services.NetworkService.QuantumClient.CurrentRoom;
-			var config = services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var matchData = gameContainer.GetPlayersMatchData(f, out _)[game.GetLocalPlayers()[0]];
 
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type",gameDataProvider.AppDataProvider.SelectedGameMode.Value},
+				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
+				{"match_type",_gameData.AppDataProvider.SelectedGameMode.Value},
 				{"map_id", config.Id},
 				{"map_name", config.Map},
-				{"trophies_end", gameDataProvider.PlayerDataProvider.Trophies.Value},
+				{"trophies_end", _gameData.PlayerDataProvider.Trophies.Value},
 				{"players_left", totalPlayers},
 				{"suicide",matchData.Data.SuicideCount},
 				{"kills", matchData.Data.PlayersKilledCount},

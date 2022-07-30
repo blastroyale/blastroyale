@@ -110,12 +110,12 @@ namespace FirstLight.Game.Services
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic, IDataProvider dataProvider,
 		                    IGenericDialogService genericDialogService,
-		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService,
+		                    IAssetResolverService assetResolverService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
 		                    IThreadService threadService, IGameFlowService gameFlowService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = analyticsService;
+			AnalyticsService = new AnalyticsService(this, gameLogic);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataSaver;

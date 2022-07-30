@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using AppsFlyerSDK;
-using Facebook.Unity;
 using Firebase.Analytics;
 using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
@@ -13,12 +10,18 @@ using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
+	/// <summary>
+	/// Analytics helper class regarding session events
+	/// </summary>
 	public class AnalyticsCallsSession : AnalyticsCalls
 	{
+		private IGameServices _services;
+		private IGameDataProvider _gameData;
+		
 		/// <summary>
 		/// Requests the information if the current device model playing the game is a tablet or 
 		/// </summary>
-		public static bool IsTablet
+		private static bool IsTablet
 		{
 			get
 			{
@@ -39,31 +42,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 #endif
 			}
 		}
-		
-		/// <summary>
-		/// Requests the player login data
-		/// </summary>
-		public static Dictionary<string, object> LoginData => new Dictionary<string, object>
+
+		public AnalyticsCallsSession(IAnalyticsService analyticsService,
+		                             IGameServices services,
+		                             IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
-			{"client_version", VersionUtils.VersionExternal },
-			{"platform", Application.platform.ToString()},
-			{"device", SystemInfo.deviceModel},
-			{"tablet", IsTablet},
-#if UNITY_IOS
-			{"ios_generation", UnityEngine.iOS.Device.generation.ToString()},
-			{"ios_att_enabled", UnityEngine.iOS.Device.advertisingTrackingEnabled},
-#else
-			{"cpu", SystemInfo.processorType},
-			{"gpu_api", SystemInfo.graphicsDeviceType.ToString()},
-#endif
-			{"language", Application.systemLanguage.ToString()},
-			{"os", SystemInfo.operatingSystem},
-			{"battery_status", SystemInfo.batteryStatus},
-			{"memory_readable", SRFileUtil.GetBytesReadable((long) SystemInfo.systemMemorySize*1024*1024)},
-		};
-		
-		public AnalyticsCallsSession(IAnalyticsService analyticsService) : base(analyticsService)
-		{
+			_gameData = gameDataProvider;
+			_services = services;
 		}
 
 		/// <summary>
@@ -75,11 +60,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_analyticsService.LogEvent(AnalyticsEvents.SessionEnd, dic);
 		}
 
+		/// <summary>
+		/// Sends a heartbeat analytics event
+		/// </summary>
 		public void Heartbeat()
 		{
 			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat);
 		}
 
+		/// <summary>
+		/// Logs when we start doing the initial loading of the app
+		/// </summary>
 		public void GameLoadStart()
 		{
 			var dic = new Dictionary<string, object> {{"client_version", Application.version}};
@@ -93,30 +84,47 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
-			AppsFlyer.setCustomerUserId(id);
+			// AppsFlyer.setCustomerUserId(id);
 			
-			var loginData = LoginData;
+			var loginData = new Dictionary<string, object> 		{
+				{"client_version", VersionUtils.VersionExternal },
+				{"platform", Application.platform.ToString()},
+				{"device", SystemInfo.deviceModel},
+				{"tablet", IsTablet},
+#if UNITY_IOS
+			{"ios_generation", UnityEngine.iOS.Device.generation.ToString()},
+			{"ios_att_enabled", UnityEngine.iOS.Device.advertisingTrackingEnabled},
+#else
+				{"cpu", SystemInfo.processorType},
+				{"gpu_api", SystemInfo.graphicsDeviceType.ToString()},
+#endif
+				{"language", Application.systemLanguage.ToString()},
+				{"os", SystemInfo.operatingSystem},
+				{"battery_status", SystemInfo.batteryStatus},
+				{"memory_readable", SRFileUtil.GetBytesReadable((long) SystemInfo.systemMemorySize*1024*1024)},
+			};
 			
-			var appsFlyerData = loginData.ToDictionary(key => key.Key, value => value.ToString());
-			AppsFlyer.sendEvent(AnalyticsEvents.PlayerLogin, appsFlyerData);
-			
-			FB.LogAppEvent(AnalyticsEvents.PlayerLogin, null, loginData);
+			// var appsFlyerData = loginData.ToDictionary(key => key.Key, value => value.ToString());
+			// AppsFlyer.sendEvent(AnalyticsEvents.PlayerLogin, appsFlyerData);
+			//
+			// FB.LogAppEvent(AnalyticsEvents.PlayerLogin, null, loginData);
 			
 			_analyticsService.LogEvent(AnalyticsEvents.PlayerLogin, loginData);
 		}
 
+		/// <summary>
+		/// Logs when we end doing the initial loading of the app
+		/// </summary>
 		public void GameLoaded()
 		{
-			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var loadout = gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo();
-			var dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var dataService = MainInstaller.Resolve<IGameServices>().DataProvider;
+			var dataService = _services.DataProvider;
+			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo();
 
 			var data = new Dictionary<string, object>
 			{
 				{"nfts_owned", dataService.GetData<NftEquipmentData>().Inventory.Keys.Count},
-				{"blst_token_balance", (int) dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
-				{"cs_token_balance", (int) dataProvider.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
+				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
+				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
 				{"total_power", loadout.GetTotalStat(EquipmentStatType.Damage)}
 			};
 			

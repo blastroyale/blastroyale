@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using Newtonsoft.Json;
 using PlayFab;
@@ -10,6 +11,9 @@ using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Services
 {
+	/// <summary>
+	/// Static class that defines all the event types names
+	/// </summary>
 	public static class AnalyticsEvents
 	{
 		public static readonly string SessionStart = "session_start";
@@ -56,14 +60,15 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class AnalyticsService : IAnalyticsService
 	{
-		public AnalyticsCallsSession SessionCalls { get; set; }
-		public AnalyticsCallsMatch MatchCalls { get; set; }
-		public AnalyticsCallsErrors ErrorsCalls { get; set; }
+		public AnalyticsCallsSession SessionCalls { get; private set; }
+		public AnalyticsCallsMatch MatchCalls { get; private set; }
+		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
 
-		public AnalyticsService()
+		public AnalyticsService(IGameServices services,
+		                        IGameDataProvider gameDataProvider)
 		{
-			SessionCalls = new AnalyticsCallsSession(this);
-			MatchCalls = new AnalyticsCallsMatch(this);
+			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
+			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 		}
 

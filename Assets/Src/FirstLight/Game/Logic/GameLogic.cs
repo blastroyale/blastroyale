@@ -52,8 +52,6 @@ namespace FirstLight.Game.Logic
 		IMessageBrokerService MessageBrokerService { get; }
 		/// <inheritdoc cref="ITimeService"/>
 		ITimeService TimeService { get; }
-		/// <inheritdoc cref="IAnalyticsService"/>
-		IAnalyticsService AnalyticsService { get; }
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
 		
@@ -124,12 +122,11 @@ namespace FirstLight.Game.Logic
 		public IRewardLogic RewardLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
-		                 IAnalyticsService analyticsService, IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
+		                 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
 		{
 			MessageBrokerService = messageBroker;
 			TimeService = timeService;
 			ConfigsProvider = configsProvider;
-			AnalyticsService = analyticsService;
 
 			AppLogic = new AppLogic(this, dataProvider, audioFxService);
 			UniqueIdLogic = new UniqueIdLogic(this, dataProvider);

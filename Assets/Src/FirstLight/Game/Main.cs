@@ -36,7 +36,6 @@ namespace FirstLight.Game
 			FLog.Init();
 
 			var messageBroker = new MessageBrokerService();
-			var analyticsService = new AnalyticsService();
 			var timeService = new TimeService();
 			var dataService = new DataService();
 			var configsProvider = new ConfigsProvider();
@@ -49,12 +48,12 @@ namespace FirstLight.Game
 			var threadService = new ThreadService();
 			var gameFlowService = new GameFlowService();
 			
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, analyticsService, configsProvider,
+			
+			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider,
 			                              audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 			                                    configsProvider,
 			                                    gameLogic, dataService, genericDialogService, assetResolver,
-			                                    analyticsService,
 			                                    vfxService, audioFxService, threadService, gameFlowService);
 
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
@@ -114,7 +113,7 @@ namespace FirstLight.Game
 		{
 			_services?.DataSaver?.SaveAllData();
 
-			var quitReason = MainInstaller.Resolve<IGameServices>().GameFlowService.QuitReason;
+			var quitReason = _services?.GameFlowService.QuitReason;
 			
 			_services?.AnalyticsService.SessionCalls.SessionEnd(quitReason);
 		}
@@ -152,7 +151,7 @@ namespace FirstLight.Game
 			// The app is closed after 30 sec of being unused
 			yield return new WaitForSeconds(30);
 
-			MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("App closed after 30 sec of being unused");
+			_services?.GameFlowService.QuitGame("App closed after 30 sec of being unused");
 		}
 
 		private IEnumerator HeartbeatCoroutine()

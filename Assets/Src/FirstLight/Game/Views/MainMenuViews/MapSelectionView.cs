@@ -70,7 +70,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (_selectionEnabled)
 			{
 				var gridPosition = GetRandomGridPosition();
-				_dataProvider.AppDataProvider.DefaultDropPosition = gridPosition;
+				_services.AnalyticsService.MatchCalls.DefaultDropPosition = gridPosition;
 				SetGridPosition(gridPosition, false);
 			}
 
@@ -107,7 +107,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				gridPath += ")";
 				
-				_dataProvider.AppDataProvider.PresentedMapPath = gridPath;
+				_services.AnalyticsService.MatchCalls.PresentedMapPath = gridPath;
 			}
 		}
 
@@ -134,7 +134,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 
-			_dataProvider.AppDataProvider.SelectedDropPosition = pos;
+			_services.AnalyticsService.MatchCalls.SelectedDropPosition = pos;
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 

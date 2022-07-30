@@ -129,7 +129,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing playfab critical error alert");
+					_services.GameFlowService.QuitGame("Closing playfab critical error alert");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton

@@ -134,7 +134,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					MainInstaller.Resolve<GameServices>().GameFlowService.QuitGame("Closing no internet popup");
+					_services.GameFlowService.QuitGame("Closing no internet popup");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.General.ExitGame

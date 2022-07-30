@@ -1,5 +1,8 @@
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
+	/// <summary>
+	/// Analytics helper class regarding error events
+	/// </summary>
 	public class AnalyticsCallsErrors : AnalyticsCalls
 	{
 		public enum ErrorType

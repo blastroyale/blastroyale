@@ -46,7 +46,7 @@ namespace FirstLight.Game.Services
 		}
 	}
 
-	public class SpectateService : ISpectateService, IMatchService
+	public class SpectateService : ISpectateService, MatchServices.IMatchService
 	{
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 

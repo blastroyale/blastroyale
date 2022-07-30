@@ -9,6 +9,7 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
@@ -111,10 +112,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
 			}
-			_services.AnalyticsService.LogEvent("Invalid Session Ticket", new()
-			{
-				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
-			});
+
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket");
 			LoginWithDevice();
 			_services.PlayfabService.CallFunction("GetPlayerData", res => 
 					OnPlayerDataObtained(res, null), OnPlayFabError);
@@ -128,7 +127,10 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.CrashLog(error.ErrorMessage);
 			var button = new AlertButton
 			{
-				Callback = Application.Quit,
+				Callback = () =>
+				{
+					_services.GameFlowService.QuitGame("Closing playfab critical error alert");
+				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton
 			};
@@ -232,7 +234,7 @@ namespace FirstLight.Game.StateMachines
 			var appData = _dataService.GetData<AppData>();
 			
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
-			_services.AnalyticsService.LoginEvent(result.PlayFabId);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId);
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 
@@ -370,7 +372,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				Text = ScriptLocalization.General.Confirm,
 				Style = AlertButtonStyle.Default,
-				Callback = Application.Quit
+				Callback = () =>
+				{
+					_services.GameFlowService.QuitGame("Closing game blocked dialog");
+				}
 			};
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, 

@@ -245,19 +245,19 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
+			var matchData = gameContainer.GetPlayersMatchData(f, out _);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 			var totalPlayers = 0;
 
-			for (var i = 0; i < playersData.Length; i++)
+			for (var i = 0; i < matchData.Count; i++)
 			{
-				if (playersData[i].IsValid && !f.Has<BotCharacter>(playersData[i].Entity))
+				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
 				{
 					totalPlayers++;
 				}
 			}
-
-			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
+			
+			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, f.Time.AsFloat, localPlayerData);
 		}
 
 		private void StartSimulation()
@@ -276,7 +276,7 @@ namespace FirstLight.Game.StateMachines
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 
 			startParams.NetworkClient = client;
-
+			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
@@ -295,7 +295,7 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
-			_statechartTrigger(AudioState.FinishedMatchEvent);
+			//_statechartTrigger(AudioState.FinishedMatchEvent);
 		}
 
 		private void OpenAdventureWorldHud()
@@ -388,7 +388,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
-				MatchStartAnalytics();
+				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData();
 			}
 
@@ -418,45 +418,6 @@ namespace FirstLight.Game.StateMachines
 					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}
-		}
-
-		private void MatchStartAnalytics()
-		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
-
-			var dictionary = new Dictionary<string, object>
-			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"total_players", totalPlayers},
-				{"total_bots", config.PlayersLimit - totalPlayers},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
-			};
-
-			_services.AnalyticsService.LogEvent("match_start", dictionary);
-		}
-
-		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
-		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
-
-			var analytics = new Dictionary<string, object>
-			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"total_players", totalPlayers},
-				{"total_kills_amount", matchData.Data.PlayersKilledCount},
-				{"total_specials_used", matchData.Data.SpecialsUsedCount},
-				{"total_deaths_amount", matchData.Data.DeathCount},
-				{"suicides_amount", matchData.Data.SuicideCount},
-				{"player_rank", matchData.PlayerRank},
-				{"map_id", config.Id},
-				{"end_state", isQuitGame ? "quit" : "ended"},
-				{"match_time", f.Time.AsFloat}
-			};
-
-			_services.AnalyticsService.LogEvent("match_end", analytics);
 		}
 	}
 }

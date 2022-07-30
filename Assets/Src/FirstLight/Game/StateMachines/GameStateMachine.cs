@@ -124,13 +124,18 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
+			
+			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 
 		private void OpenNoInternetPopUp()
 		{
 			var button = new AlertButton
 			{
-				Callback = Application.Quit,
+				Callback = () =>
+				{
+					_services.GameFlowService.QuitGame("Closing no internet popup");
+				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.General.ExitGame
 			};

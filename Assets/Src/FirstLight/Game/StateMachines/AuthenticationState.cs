@@ -9,6 +9,7 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
@@ -111,10 +112,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
 			}
-			_services.AnalyticsService.LogEvent("Invalid Session Ticket", new()
-			{
-				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
-			});
+
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket");
 			LoginWithDevice();
 			_services.PlayfabService.CallFunction("GetPlayerData", res => 
 					OnPlayerDataObtained(res, null), OnPlayFabError);

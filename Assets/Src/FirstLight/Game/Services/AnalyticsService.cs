@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using Firebase.Analytics;
-using UnityEngine.Analytics;
-using AppsFlyerSDK;
-using Facebook.Unity;
 using FirstLight.Game.Services.AnalyticsHelpers;
-using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Services
 {
@@ -106,6 +103,8 @@ namespace FirstLight.Game.Services
 			}
 			
 			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
+			
+			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
 		}
 
 		/// <inheritdoc />

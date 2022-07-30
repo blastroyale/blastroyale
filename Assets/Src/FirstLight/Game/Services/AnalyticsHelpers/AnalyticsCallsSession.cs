@@ -7,7 +7,6 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Analytics;

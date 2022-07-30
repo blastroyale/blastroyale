@@ -71,6 +71,21 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
+		
+		/// <summary>
+		/// Stores the droppable path on the map on a string
+		/// </summary>
+		string PresentedMapPath { get; set; }
+		
+		/// <summary>
+		/// Stores the initial presented drop position on the map
+		/// </summary>
+		Vector2IntSerializable DefaultDropPosition { get; set; }
+		
+		/// <summary>
+		/// Stores player selected drop position on the map
+		/// </summary>
+		Vector2IntSerializable SelectedDropPosition { get; set; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
@@ -167,6 +182,25 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+
+		public string PresentedMapPath
+		{
+			get => Data.PresentedMapPath;
+			set => Data.PresentedMapPath = value;
+		}
+
+		public Vector2IntSerializable DefaultDropPosition
+		{
+			get => Data.DefaultDropPosition;
+			set => Data.DefaultDropPosition = value;
+		}
+
+		public Vector2IntSerializable SelectedDropPosition
+		{
+			get => Data.SelectedDropPosition;
+			set => Data.SelectedDropPosition = value;
+		}
+
 		/// <inheritdoc />
 		public IObservableField<bool> AccountLinkedStatus { get; private set; }
 		/// <inheritdoc />

@@ -69,7 +69,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (_selectionEnabled)
 			{
-				SetGridPosition(GetRandomGridPosition(), false);
+				var gridPosition = GetRandomGridPosition();
+				_dataProvider.AppDataProvider.DefaultDropPosition = gridPosition;
+				SetGridPosition(gridPosition, false);
 			}
 
 			if (TryGetDropPattern(out var pattern))
@@ -77,11 +79,16 @@ namespace FirstLight.Game.Views.MainMenuViews
 				var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 				var containerSize = _gridOverlay.rect.size;
 				var gridSize = gridConfigs.GetSize();
+				string gridPath = "(";
 				for (int y = 0; y < gridSize.y; y++)
 				{
 					for (int x = 0; x < gridSize.x; x++)
 					{
-						if (pattern[x][y]) continue;
+						if (pattern[x][y])
+						{
+							gridPath += "(" + x + "," + y + "),";
+							continue;
+						}
 
 						var go = new GameObject($"[{x},{y}]");
 						go.transform.parent = _gridOverlay.transform;
@@ -97,6 +104,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 						rt.sizeDelta = containerSize / gridSize;
 					}
 				}
+
+				gridPath += ")";
+				
+				_dataProvider.AppDataProvider.PresentedMapPath = gridPath;
 			}
 		}
 
@@ -123,6 +134,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 
+			_dataProvider.AppDataProvider.SelectedDropPosition = pos;
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var gridConfig = mapGridConfigs.GetConfig(pos.x, pos.y);
 

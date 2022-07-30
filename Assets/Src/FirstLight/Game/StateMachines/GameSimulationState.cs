@@ -276,7 +276,7 @@ namespace FirstLight.Game.StateMachines
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 
 			startParams.NetworkClient = client;
-
+			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
@@ -388,7 +388,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
-				MatchStartAnalytics();
+				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData();
 			}
 
@@ -419,24 +419,7 @@ namespace FirstLight.Game.StateMachines
 				});
 			}
 		}
-
-		private void MatchStartAnalytics()
-		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
-
-			var dictionary = new Dictionary<string, object>
-			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"total_players", totalPlayers},
-				{"total_bots", config.PlayersLimit - totalPlayers},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
-			};
-
-			_services.AnalyticsService.LogEvent("match_start", dictionary);
-		}
+		
 
 		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
 		{

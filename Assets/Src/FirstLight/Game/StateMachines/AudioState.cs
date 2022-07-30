@@ -85,9 +85,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
-			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			//QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			//QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
+			//_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
 		private void OnMatchStartedMessage(MatchStartedMessage obj)

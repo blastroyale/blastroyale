@@ -245,20 +245,19 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
+			var matchData = gameContainer.GetPlayersMatchData(f, out _);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 			var totalPlayers = 0;
 
-			for (var i = 0; i < playersData.Length; i++)
+			for (var i = 0; i < matchData.Count; i++)
 			{
-				if (playersData[i].IsValid && !f.Has<BotCharacter>(playersData[i].Entity))
+				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
 				{
 					totalPlayers++;
 				}
 			}
 			
-			var matchData = gameContainer.GetPlayersMatchData(f, out _)[game.GetLocalPlayers()[0]];
-			
-			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, matchData);
+			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, f.Time.AsFloat, localPlayerData);
 		}
 
 		private void StartSimulation()

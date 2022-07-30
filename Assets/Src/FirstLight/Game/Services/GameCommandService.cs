@@ -54,19 +54,19 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
-		private readonly IGameServices _services;
+		private readonly IGameFlowService _gameFlowService;
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
 		private readonly Queue<IGameCommand> _commandQueue;
 		private IPlayfabService _playfab;
 		
 		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataProvider dataProvider,
-									IGameServices services)
+		                          IGameFlowService gameFlowService)
 		{
 			_playfab = playfabService;
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
-			_services = services;
+			_gameFlowService = gameFlowService;
 			_commandQueue = new Queue<IGameCommand>();
 		}
 
@@ -88,7 +88,7 @@ namespace FirstLight.Game.Services
 				{
 					Callback = () =>
 					{
-						_services.GameFlowService.QuitGame("Closing game exception popup");
+						_gameFlowService.QuitGame("Closing game exception popup");
 					},
 					Style = AlertButtonStyle.Negative,
 					Text = "Quit Game"

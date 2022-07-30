@@ -50,16 +50,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var totalPlayers = room.PlayerCount;
+			var loadout = _gameData.EquipmentDataProvider.Loadout;
 
-			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
-			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
-			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
-			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
-			_gameData.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
+			loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
+			loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
+			loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
+			loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
+			loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
 			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
+				{"match_id", room.Name},
 				{"player_level", _gameData.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
 				{"total_bots", config.PlayersLimit - totalPlayers},
@@ -83,16 +84,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEnd(int totalPlayers, bool playerQuit, QuantumPlayerMatchData matchData)
+		public void MatchEnd(int totalPlayers, bool playerQuit, float matchTime, QuantumPlayerMatchData matchData)
 		{
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
+				{"match_id", room.Name},
 				{"match_type",_gameData.AppDataProvider.SelectedGameMode.Value},
 				{"map_id", config.Id},
 				{"map_name", config.Map},
@@ -100,7 +99,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"suicide",matchData.Data.SuicideCount},
 				{"kills", matchData.Data.PlayersKilledCount},
 				{"end_state", playerQuit ? "quit" : "ended"},
-				{"match_time", f.Time.AsFloat},
+				{"match_time", matchTime},
 				{"player_rank", matchData.PlayerRank},
 			};
 			

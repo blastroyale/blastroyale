@@ -92,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnMatchStartedMessage(MatchStartedMessage obj)
 		{
-			_statechartTrigger(MatchStartedEvent);
+			//_statechartTrigger(MatchStartedEvent);
 		}
 
 		private void UnsubscribeEvents()

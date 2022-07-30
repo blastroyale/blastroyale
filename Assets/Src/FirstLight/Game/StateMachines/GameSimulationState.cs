@@ -294,7 +294,7 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
-			_statechartTrigger(AudioState.FinishedMatchEvent);
+			//_statechartTrigger(AudioState.FinishedMatchEvent);
 		}
 
 		private void OpenAdventureWorldHud()

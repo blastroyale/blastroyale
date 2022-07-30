@@ -10,6 +10,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public AnalyticsCallsMatch(IAnalyticsService analyticsService) : base(analyticsService)
 		{
 		}
+
+		public void MatchInitiate()
+		{
+			
+		}
 		
 		public void MatchStart()
 		{
@@ -27,6 +32,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			var data = new Dictionary<string, object>
 			{
+				{"match_id", services.NetworkService.QuantumClient.CurrentRoom.Name},
 				{"player_level", gameDataProvider.PlayerDataProvider.Level.Value},
 				{"total_players", totalPlayers},
 				{"total_bots", config.PlayersLimit - totalPlayers},
@@ -57,11 +63,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var config = services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var matchData = gameContainer.GetPlayersMatchData(f, out _)[game.GetLocalPlayers()[0]];
-			
 
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", 0},
+				{"match_id", services.NetworkService.QuantumClient.CurrentRoom.Name},
 				{"match_type",gameDataProvider.AppDataProvider.SelectedGameMode.Value},
 				{"map_id", config.Id},
 				{"map_name", config.Map},

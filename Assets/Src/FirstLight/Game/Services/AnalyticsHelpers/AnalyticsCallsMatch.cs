@@ -16,8 +16,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private IGameDataProvider _gameData;
 		
 		public string PresentedMapPath { get; set; }
-		public Vector2Int DefaultDropPosition { get; set; }
-		public Vector2Int SelectedDropPosition { get; set; }
+		public Vector2IntSerializable DefaultDropPosition { get; set; }
+		public Vector2IntSerializable SelectedDropPosition { get; set; }
 
 		public AnalyticsCallsMatch(IAnalyticsService analyticsService,
 		                           IGameServices services,

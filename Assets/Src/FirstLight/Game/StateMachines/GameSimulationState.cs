@@ -255,8 +255,10 @@ namespace FirstLight.Game.StateMachines
 					totalPlayers++;
 				}
 			}
-
-			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit);
+			
+			var matchData = gameContainer.GetPlayersMatchData(f, out _)[game.GetLocalPlayers()[0]];
+			
+			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, matchData);
 		}
 
 		private void StartSimulation()

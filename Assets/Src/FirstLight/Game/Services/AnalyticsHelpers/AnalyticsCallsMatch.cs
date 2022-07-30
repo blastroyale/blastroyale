@@ -39,7 +39,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
 		}
 		
 		/// <summary>
@@ -83,22 +83,19 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEnd(int totalPlayers, bool playerQuit)
+		public void MatchEnd(int totalPlayers, bool playerQuit, QuantumPlayerMatchData matchData)
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _)[game.GetLocalPlayers()[0]];
-
+			
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
 				{"match_type",_gameData.AppDataProvider.SelectedGameMode.Value},
 				{"map_id", config.Id},
 				{"map_name", config.Map},
-				{"trophies_end", _gameData.PlayerDataProvider.Trophies.Value},
 				{"players_left", totalPlayers},
 				{"suicide",matchData.Data.SuicideCount},
 				{"kills", matchData.Data.PlayersKilledCount},

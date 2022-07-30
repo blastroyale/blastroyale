@@ -78,7 +78,6 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IGameFlowService"/>
 		public IGameFlowService GameFlowService { get; }
-		public IDataProvider DataProvider { get; }
 	}
 
 	public class GameServices : IGameServices
@@ -104,7 +103,6 @@ namespace FirstLight.Game.Services
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
 		public IGameFlowService GameFlowService { get; }
-		public IDataProvider DataProvider { get; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
@@ -126,11 +124,10 @@ namespace FirstLight.Game.Services
 			VfxService = vfxService;
 			ThreadService = threadService;
 			GameFlowService = gameFlowService;
-			DataProvider = dataProvider;
 
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

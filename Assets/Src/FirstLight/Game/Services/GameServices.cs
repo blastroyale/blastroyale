@@ -113,7 +113,7 @@ namespace FirstLight.Game.Services
 		                    IThreadService threadService, IGameFlowService gameFlowService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataSaver;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Firebase.Analytics;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -65,9 +66,10 @@ namespace FirstLight.Game.Services
 		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
 
 		public AnalyticsService(IGameServices services,
-		                        IGameDataProvider gameDataProvider)
+		                        IGameDataProvider gameDataProvider,
+		                        IDataProvider dataProvider)
 		{
-			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
+			SessionCalls = new AnalyticsCallsSession(this, dataProvider, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 		}

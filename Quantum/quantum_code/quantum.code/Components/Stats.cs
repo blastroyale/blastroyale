@@ -186,6 +186,11 @@ namespace Quantum
 			CurrentHealth = Math.Min(maxHealth, amount);
 			CurrentHealth = Math.Max(CurrentHealth, 0);
 
+			if (CurrentHealth == previousHealth && attacker != EntityRef.None)
+			{
+				f.Events.OnDamageBlocked(entity);
+			}
+
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{
 				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);

@@ -126,6 +126,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 
 		private void OnDamageBlocked(EventOnDamageBlocked callback)
 		{
+			if (callback.Entity != Entity) return;
+
 			_damageBlockedIcon.DOKill();
 
 			_damageBlockedIcon.color = Color.white;

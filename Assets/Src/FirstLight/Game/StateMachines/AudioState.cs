@@ -16,12 +16,6 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		private static readonly IStatechartEvent LoadedMainMenuEvent = new StatechartEvent("Loaded Main Menu Event");
-		private static readonly IStatechartEvent UnloadedMainMenuEvent = new StatechartEvent("Unloaded Main Menu Event");
-		private static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Finished Match Event");
-		private static readonly IStatechartEvent SimulationEndedMessage = new StatechartEvent("Left Match Event");
-		private static readonly IStatechartEvent MatchStartedEvent = new StatechartEvent("Match Started Event");
-		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly AudioBattleRoyaleState _audioBrState;
@@ -57,26 +51,26 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
 
-			audioBase.Event(LoadedMainMenuEvent).Target(mainMenu);
+			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			
 			mainMenu.OnEnter(PlayMainMenuMusic);
-			mainMenu.Event(UnloadedMainMenuEvent).Target(matchmaking);
+			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
 			
-			matchmaking.Event(MatchStartedEvent).Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
 			matchmaking.OnExit(GetEntityViewUpdaterService);
 			
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
-			battleRoyale.Event(MatchEndedEvent).Target(postGame);
+			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
-			deathmatch.Event(MatchEndedEvent).Target(postGame);
+			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			
 			postGame.OnEnter(PlayPostGameMusic);
-			postGame.Event(SimulationEndedMessage).Target(audioBase);
+			postGame.Event(GameSimulationState.SimulationEndedEvent).Target(audioBase);
 			mainMenu.OnExit(StopMusicInstant);
 			
 			final.OnEnter(UnsubscribeEvents);
@@ -86,37 +80,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
-			
-			_services.MessageBrokerService.Subscribe<LoadedMainMenuMessage>(OnLoadedMainMenuMessage);
-			_services.MessageBrokerService.Subscribe<UnloadedMainMenuMessage>(OnUnloadedMainMenuMessage);
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
-			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEndedMessage);
-		}
-
-		private void OnLoadedMainMenuMessage(LoadedMainMenuMessage obj)
-		{
-			_statechartTrigger(LoadedMainMenuEvent);
-		}
-		
-		private void OnUnloadedMainMenuMessage(UnloadedMainMenuMessage obj)
-		{
-			_statechartTrigger(UnloadedMainMenuEvent);
-		}
-
-		private void OnMatchStartedMessage(MatchStartedMessage obj)
-		{
-			_statechartTrigger(MatchStartedEvent);
-		}
-		
-		private void OnMatchEndedMessage(MatchEndedMessage obj)
-		{
-			_statechartTrigger(MatchEndedEvent);
-		}
-
-		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage obj)
-		{
-			_statechartTrigger(SimulationEndedMessage);
 		}
 
 		private void UnsubscribeEvents()

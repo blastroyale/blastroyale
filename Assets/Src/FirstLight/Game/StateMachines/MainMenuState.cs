@@ -22,6 +22,9 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class MainMenuState
 	{
+		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
+		public static readonly IStatechartEvent MainMenuUnloadedEvent = new StatechartEvent("Main Menu Unloaded Event");
+		
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
 		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");

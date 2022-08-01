@@ -21,7 +21,10 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class GameSimulationState
 	{
-		private readonly IStatechartEvent _simulationReadyEvent = new StatechartEvent("Simulation Ready Event");
+		public static readonly IStatechartEvent SimulationEndedEvent = new StatechartEvent("Simulation Ended Event");
+		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
+		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
+		
 		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
 		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
 
@@ -70,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
-			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
+			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.OnExit(PublishMatchReadyMessage);
 
@@ -166,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 
-			_statechartTrigger(_simulationReadyEvent);
+			_statechartTrigger(SimulationStartedEvent);
 		}
 
 
@@ -175,7 +178,7 @@ namespace FirstLight.Game.StateMachines
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 
-			_statechartTrigger(_simulationReadyEvent);
+			_statechartTrigger(SimulationStartedEvent);
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -285,6 +288,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumRunner.ShutdownAll();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
+			_statechartTrigger(SimulationEndedEvent);
 		}
 
 		private void PlayMusic()
@@ -295,6 +299,7 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
+			_statechartTrigger(MatchEndedEvent);
 		}
 
 		private void OpenAdventureWorldHud()

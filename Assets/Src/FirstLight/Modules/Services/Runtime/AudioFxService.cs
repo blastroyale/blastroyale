@@ -551,28 +551,12 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void AddAudioClips(T id, List<AudioClip> clips)
 		{
-			var meme = "LOADING CLIP CONFIGS - " + id + "\n--\n";
-
-			foreach (var clip in clips)
-			{
-				meme += clip.name + "\n";
-			}
-			
-			Debug.LogError(meme);
 			_audioClips.Add(id, clips);
 		}
 
 		/// <inheritdoc />
 		public void RemoveAudioClip(T id)
 		{
-			var meme = "UNLOADING CLIP CONFIGS - " + id + "\n--\n";
-
-			foreach (var clip in _audioClips[id])
-			{
-				meme += clip.name + "\n";
-			}
-			
-			Debug.LogError(meme);
 			_audioClips.Remove(id);
 		}
 

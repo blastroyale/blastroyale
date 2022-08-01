@@ -21,8 +21,7 @@ namespace FirstLight.Editor.EditorTools
 		private SerializedProperty _anchor;
 		private SerializedProperty _clickClip;
 		private SerializedProperty _isForward;
-		private SerializedProperty _overrideSfx;
-		private SerializedProperty _overrideSfxAudioId;
+		private SerializedProperty _overrideClickSfxAudioId;
 		private SerializedProperty _hapticType;
 		
 		/// <inheritdoc />
@@ -35,8 +34,7 @@ namespace FirstLight.Editor.EditorTools
 			_anchor = serializedObject.FindProperty(nameof(UiButtonView.Anchor));
 			_clickClip = serializedObject.FindProperty(nameof(UiButtonView.ClickClip));
 			_isForward = serializedObject.FindProperty(nameof(UiButtonView.IsForward));
-			_overrideSfx = serializedObject.FindProperty(nameof(UiButtonView.OverrideSfx));
-			_overrideSfxAudioId = serializedObject.FindProperty(nameof(UiButtonView.OverrideSfxClip));
+			_overrideClickSfxAudioId = serializedObject.FindProperty(nameof(UiButtonView.OverrideClickSfxId));
 			_hapticType = serializedObject.FindProperty(nameof(UiButtonView.HapticType));
 		}
 		
@@ -53,8 +51,7 @@ namespace FirstLight.Editor.EditorTools
 			EditorGUILayout.PropertyField(_anchor);
 			EditorGUILayout.PropertyField(_clickClip);
 			EditorGUILayout.PropertyField(_isForward);
-			EditorGUILayout.PropertyField(_overrideSfx);
-			EditorGUILayout.PropertyField(_overrideSfxAudioId);
+			EditorGUILayout.PropertyField(_overrideClickSfxAudioId);
 			EditorGUILayout.PropertyField(_hapticType);
 			serializedObject.ApplyModifiedProperties();
 		}

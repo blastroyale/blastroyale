@@ -213,9 +213,16 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 
 #if STORE_BUILD
-			// Production
-			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			if (!FeatureFlags.TEMP_PRODUCTION_PLAYFAB)
+			{
+				PlayFabSettings.TitleId = "***REMOVED***";
+				quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			} 
+			else 
+			{
+				PlayFabSettings.TitleId = "302CF";
+				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			}
 #elif RELEASE_BUILD
 			// Staging
 			PlayFabSettings.TitleId = "***REMOVED***";
@@ -237,19 +244,24 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId);
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
+			
+			if(!titleData.TryGetValue(nameof(Application.version), out var titleVersion))
+			{
+				throw new Exception($"{nameof(Application.version)} not set in title data");
+			}
+				
+			if (IsOutdated(titleVersion))
+			{
+				OpenGameUpdateDialog();
+				return;
+			}
 
 			if (titleData.TryGetValue($"{nameof(Application.version)} block", out var version) && IsOutdated(version))
 			{
 				OpenGameBlockedDialog();
 				return;
 			}
-			
-			if (IsOutdated(titleData[nameof(Application.version)]))
-			{
-				OpenGameUpdateDialog();
-				return;
-			}
-			
+
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;

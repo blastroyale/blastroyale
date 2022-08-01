@@ -80,7 +80,6 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
-			modeCheck.OnExit(PlayMusic);
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
 			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
@@ -289,11 +288,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumRunner.ShutdownAll();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			_statechartTrigger(SimulationEndedEvent);
-		}
-
-		private void PlayMusic()
-		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop);
 		}
 
 		private void PublishMatchEnded()

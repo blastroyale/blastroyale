@@ -73,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 
 			postGame.OnEnter(PlayPostGameMusic);
 			postGame.Event(GameSimulationState.SimulationEndedEvent).Target(audioBase);
-			mainMenu.OnExit(StopMusicInstant);
+			postGame.OnExit(StopMusicInstant);
 
 			final.OnEnter(UnsubscribeEvents);
 		}

@@ -24,7 +24,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
-		private Dictionary<AudioId, AudioClipConfig> _currentAudioClipConfigs = new Dictionary<AudioId, AudioClipConfig>();
+		private Dictionary<AudioId, AudioClipConfig> _audioClipConfigs = new Dictionary<AudioId, AudioClipConfig>();
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
@@ -94,37 +94,37 @@ namespace FirstLight.Game.StateMachines
 
 		private void UpdateAudioClipConfigsMenu()
 		{
-			_currentAudioClipConfigs.Clear();
+			_audioClipConfigs.Clear();
 
 			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
 			var menuConfigs = _services.ConfigsProvider.GetConfig<AudioMainMenuAssetConfigs>().Configs;
 
 			foreach (var sharedConfig in sharedConfigs)
 			{
-				_currentAudioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
+				_audioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
 			}
 			
 			foreach (var menuConfig in menuConfigs)
 			{
-				_currentAudioClipConfigs.Add(menuConfig.Key, menuConfig.Value);
+				_audioClipConfigs.Add(menuConfig.Key, menuConfig.Value);
 			}
 		}
 		
 		private void UpdateAudioClipConfigsMatch()
 		{
-			_currentAudioClipConfigs.Clear();
+			_audioClipConfigs.Clear();
 
 			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
 			var matchConfigs = _services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().Configs;
 
 			foreach (var sharedConfig in sharedConfigs)
 			{
-				_currentAudioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
+				_audioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
 			}
 			
 			foreach (var matchConfig in matchConfigs)
 			{
-				_currentAudioClipConfigs.Add(matchConfig.Key, matchConfig.Value);
+				_audioClipConfigs.Add(matchConfig.Key, matchConfig.Value);
 			}
 		}
 		
@@ -163,7 +163,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
-			var audioConfig = _currentAudioClipConfigs[weaponConfig.WeaponShotId];
+			var audioConfig = _audioClipConfigs[weaponConfig.WeaponShotId];
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
 			initProps.Volume = audioConfig.PlaybackVolume;
@@ -193,7 +193,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (audio != AudioId.None)
 			{
-				var audioConfig = _currentAudioClipConfigs[audio];
+				var audioConfig = _audioClipConfigs[audio];
 				initProps.Volume = audioConfig.PlaybackVolume;
 				initProps.Pitch = audioConfig.PlaybackPitch;
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps, audioConfig.PlaybackClipIndex);

@@ -100,7 +100,8 @@ namespace FirstLight.Game.Services
 			where TId : struct;
 		
 		/// <summary>
-		/// TODO:
+		/// Adds the given <paramref name="assetType"/> type to the asset reference list with <typeparamref name="TId"/> as
+		/// the identifier type and <typeref name="AssetReference"/> as asset type
 		/// </summary>
 		void AddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs)
 			where TId : struct;

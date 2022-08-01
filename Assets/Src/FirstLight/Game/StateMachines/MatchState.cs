@@ -260,7 +260,7 @@ namespace FirstLight.Game.StateMachines
 			var configProvider = _services.ConfigsProvider;
 			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
-			MainMenuInstaller.Resolve<IMatchServices>().Dispose();
+			MainInstaller.Resolve<IMatchServices>().Dispose();
 			MainInstaller.Clean<IEntityViewUpdaterService>();
 			MainInstaller.Clean<IMatchServices>();
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);

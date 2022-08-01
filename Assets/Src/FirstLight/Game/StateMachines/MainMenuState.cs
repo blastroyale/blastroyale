@@ -381,7 +381,7 @@ namespace FirstLight.Game.StateMachines
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 			
-			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary, false);
+			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
 			
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);

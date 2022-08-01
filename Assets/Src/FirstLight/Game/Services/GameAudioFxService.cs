@@ -25,23 +25,32 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public override async Task LoadAudioClips(IEnumerable clips, bool loadAsync)
+		public override async Task LoadAudioClips(IEnumerable clips)
 		{
 			var clipConfigs = clips as IReadOnlyDictionary<AudioId, AudioClipConfig>;
+			var tasks = new List<Task>();
 			
 			foreach (var clipConfig in clipConfigs)
 			{
-				var tasks = new List<Task<AudioClip>>();
-				
+				var clipLoadTasks = new List<Task<AudioClip>>();
+					
 				foreach (var assetReference in clipConfig.Value.AudioClips)
 				{
-					tasks.Add(assetReference.LoadAssetAsync().Task);
+					clipLoadTasks.Add(assetReference.LoadAssetAsync().Task);
 				}
 				
-				await Task.WhenAll(tasks);
-
-				AddAudioClips(clipConfig.Key, tasks.ConvertAll(task => task.Result));
+				tasks.Add(LoadAudioClipsForId(clipConfig.Key, clipLoadTasks));
 			}
+			
+			await Task.WhenAll(tasks);
+		}
+
+		/// <inheritdoc />
+		public override async Task LoadAudioClipsForId(AudioId id, List<Task<AudioClip>> clipTasks)
+		{
+			await Task.WhenAll(clipTasks);
+			
+			AddAudioClips(id, clipTasks.ConvertAll(task => task.Result));
 		}
 
 		/// <inheritdoc />

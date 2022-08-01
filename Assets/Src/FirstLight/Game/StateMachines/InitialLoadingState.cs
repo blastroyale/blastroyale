@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 			await Task.WhenAll(tasks);
 
 			await _services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary, false);
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary);
 			
 			LoadVfx();
 		}

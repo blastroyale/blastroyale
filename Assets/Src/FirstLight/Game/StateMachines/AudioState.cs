@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -22,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
+		private Dictionary<AudioId, AudioClipConfig> _currentAudioClipConfigs = new Dictionary<AudioId, AudioClipConfig>();
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
@@ -54,6 +57,7 @@ namespace FirstLight.Game.StateMachines
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			
 			mainMenu.OnEnter(PlayMainMenuMusic);
+			mainMenu.OnEnter(UpdateAudioClipConfigsMenu);
 			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
 			
@@ -62,6 +66,7 @@ namespace FirstLight.Game.StateMachines
 			
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
+			gameModeCheck.OnExit(UpdateAudioClipConfigsMatch);
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
@@ -85,6 +90,42 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void UpdateAudioClipConfigsMenu()
+		{
+			_currentAudioClipConfigs.Clear();
+
+			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
+			var menuConfigs = _services.ConfigsProvider.GetConfig<AudioMainMenuAssetConfigs>().Configs;
+
+			foreach (var sharedConfig in sharedConfigs)
+			{
+				_currentAudioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
+			}
+			
+			foreach (var menuConfig in menuConfigs)
+			{
+				_currentAudioClipConfigs.Add(menuConfig.Key, menuConfig.Value);
+			}
+		}
+		
+		private void UpdateAudioClipConfigsMatch()
+		{
+			_currentAudioClipConfigs.Clear();
+
+			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
+			var matchConfigs = _services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().Configs;
+
+			foreach (var sharedConfig in sharedConfigs)
+			{
+				_currentAudioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
+			}
+			
+			foreach (var matchConfig in matchConfigs)
+			{
+				_currentAudioClipConfigs.Add(matchConfig.Key, matchConfig.Value);
+			}
 		}
 		
 		private bool IsDeathmatch()
@@ -121,8 +162,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
-			var audioConfig = _services.ConfigsProvider.GetConfig<AudioClipConfig>((int) weaponConfig.WeaponShotId);
-			
+			var audioConfig = _currentAudioClipConfigs[weaponConfig.WeaponShotId];
+
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 

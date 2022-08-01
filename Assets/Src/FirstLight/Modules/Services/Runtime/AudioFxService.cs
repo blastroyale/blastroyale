@@ -38,7 +38,12 @@ namespace FirstLight.Services
 		/// Load a set of audio clips into memory, and into the loaded clips collection
 		/// </summary>
 		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
-		Task LoadAudioClips(IEnumerable clips, bool loadAsync);
+		Task LoadAudioClips(IEnumerable clips);
+		
+		/// <summary>
+		/// Loads a set of audio clips, using tasks <paramref name="clipTasks"/> for a given <paramref name="id"/>
+		/// </summary>
+		Task LoadAudioClipsForId(T id, List<Task<AudioClip>> clipTasks);
 
 		/// <summary>
 		/// Unload a set of audio clips from memory, and remove al references from loaded clips collection
@@ -420,24 +425,18 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual Task LoadAudioClips(IEnumerable clips, bool loadAsync)
+		public virtual Task LoadAudioClips(IEnumerable clips)
 		{
 			return default;
 		}
 
-		/// <inheritdoc />
-		public virtual Task LoadAudioClip(T id, bool loadAsync)
+		public virtual Task LoadAudioClipsForId(T id, List<Task<AudioClip>> clipTasks)
 		{
 			return default;
 		}
-
+		
 		/// <inheritdoc />
 		public virtual void UnloadAudioClips(IEnumerable clips)
-		{
-		}
-
-		/// <inheritdoc />
-		public virtual void UnloadAudioClip(T id)
 		{
 		}
 

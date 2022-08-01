@@ -269,9 +269,9 @@ namespace FirstLight.Game.StateMachines
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
 			Object.Destroy(((EntityViewUpdaterService) entityService).gameObject);
+			
 			_services.VfxService.DespawnAll();
-			// TODO ROB _services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioAdventureAssetConfigs>().ConfigsDictionary);
-			// TODO ROB _services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
+			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
 
@@ -340,7 +340,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Preload Audio
-			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary, false));
+			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
 			
 			return tasks;
 		}

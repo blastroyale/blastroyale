@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -10,7 +9,6 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -55,7 +53,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private QuantumShrinkingCircleConfig _config;
 
 		private RectTransform _rectTransform;
@@ -80,7 +77,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_rectTransform = GetComponent<RectTransform>();
 
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
@@ -336,6 +332,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateSafeAreaArrow(Vector3 circleCenter, float circleRadius)
 		{
+			if (!_safeAreaSet) return;
+			
 			// Calculate and Apply rotation
 			var targetPosLocal = _cameraTransform.InverseTransformPoint(circleCenter);
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;

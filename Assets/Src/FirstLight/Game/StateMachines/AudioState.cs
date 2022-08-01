@@ -53,11 +53,11 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(UnpackAudioClipConfigs);
 
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			
 			mainMenu.OnEnter(PlayMainMenuMusic);
-			mainMenu.OnEnter(UpdateAudioClipConfigsMenu);
 			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
 			
@@ -66,7 +66,6 @@ namespace FirstLight.Game.StateMachines
 			
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
-			gameModeCheck.OnExit(UpdateAudioClipConfigsMatch);
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
@@ -91,40 +90,28 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
-
-		private void UpdateAudioClipConfigsMenu()
+		
+		private void UnpackAudioClipConfigs()
 		{
 			_audioClipConfigs.Clear();
 
 			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
 			var menuConfigs = _services.ConfigsProvider.GetConfig<AudioMainMenuAssetConfigs>().Configs;
-
-			foreach (var sharedConfig in sharedConfigs)
-			{
-				_audioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
-			}
-			
-			foreach (var menuConfig in menuConfigs)
-			{
-				_audioClipConfigs.Add(menuConfig.Key, menuConfig.Value);
-			}
-		}
-		
-		private void UpdateAudioClipConfigsMatch()
-		{
-			_audioClipConfigs.Clear();
-
-			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
 			var matchConfigs = _services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().Configs;
 
-			foreach (var sharedConfig in sharedConfigs)
+			foreach (var config in sharedConfigs)
 			{
-				_audioClipConfigs.Add(sharedConfig.Key, sharedConfig.Value);
+				_audioClipConfigs.Add(config.Key, config.Value);
 			}
 			
-			foreach (var matchConfig in matchConfigs)
+			foreach (var config in menuConfigs)
 			{
-				_audioClipConfigs.Add(matchConfig.Key, matchConfig.Value);
+				_audioClipConfigs.Add(config.Key, config.Value);
+			}
+			
+			foreach (var config in matchConfigs)
+			{
+				_audioClipConfigs.Add(config.Key, config.Value);
 			}
 		}
 		

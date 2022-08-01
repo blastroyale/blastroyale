@@ -389,8 +389,7 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
 			uiVfxService.Init(_uiService);
-
-			_services.MessageBrokerService.Publish(new LoadedMainMenuMessage());
+			
 			_statechartTrigger(MainMenuLoadedEvent);
 		}
 
@@ -413,8 +412,7 @@ namespace FirstLight.Game.StateMachines
 			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();
-			
-			_services.MessageBrokerService.Publish(new UnloadedMainMenuMessage());
+
 			_statechartTrigger(MainMenuUnloadedEvent);
 		}
 	}

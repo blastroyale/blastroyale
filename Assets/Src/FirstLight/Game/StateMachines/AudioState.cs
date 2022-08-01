@@ -67,10 +67,12 @@ namespace FirstLight.Game.StateMachines
 
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-
+			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-
+			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			
 			postGame.OnEnter(PlayPostGameMusic);
 			postGame.Event(GameSimulationState.SimulationEndedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);

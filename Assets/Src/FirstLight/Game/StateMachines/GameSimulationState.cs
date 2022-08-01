@@ -21,12 +21,10 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class GameSimulationState
 	{
-		public static readonly IStatechartEvent SimulationEndedEvent = new StatechartEvent("Simulation Ended Event");
-		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Match Ended Event");
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
-		
-		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
-		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
+		public static readonly IStatechartEvent SimulationEndedEvent = new StatechartEvent("Simulation Ended Event");
+		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Game Ended Event");
+		public static readonly IStatechartEvent MatchQuitEvent = new StatechartEvent("Game Quit Event");
 
 		private readonly DeathmatchState _deathmatchState;
 		private readonly BattleRoyaleState _battleRoyaleState;
@@ -82,14 +80,14 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
-			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
-			deathmatch.Event(_gameQuitEvent).Target(final);
+			deathmatch.Event(MatchEndedEvent).Target(gameEnded);
+			deathmatch.Event(MatchQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
-			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
-			battleRoyale.Event(_gameQuitEvent).Target(final);
+			battleRoyale.Event(MatchEndedEvent).Target(gameEnded);
+			battleRoyale.Event(MatchQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 
@@ -182,7 +180,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
-			_statechartTrigger(_gameEndedEvent);
+			_statechartTrigger(MatchEndedEvent);
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
@@ -202,14 +200,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			SendGameplayData(false);
 
-			_statechartTrigger(_gameQuitEvent);
+			_statechartTrigger(MatchQuitEvent);
 		}
 
 		private void QuitGameConfirmedClicked()
 		{
 			SendGameplayData(true);
 			QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
-			_statechartTrigger(_gameQuitEvent);
+			_statechartTrigger(MatchQuitEvent);
 		}
 
 		private void GiveMatchRewards()
@@ -247,19 +245,19 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var data = new QuantumPlayerMatchData(f, playersData[game.GetLocalPlayers()[0]]);
+			var matchData = gameContainer.GetPlayersMatchData(f, out _);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 			var totalPlayers = 0;
 
-			for (var i = 0; i < playersData.Length; i++)
+			for (var i = 0; i < matchData.Count; i++)
 			{
-				if (playersData[i].IsValid && !f.Has<BotCharacter>(playersData[i].Entity))
+				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
 				{
 					totalPlayers++;
 				}
 			}
-
-			MatchEndAnalytics(f, data, totalPlayers, playerQuit);
+   
+			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, f.Time.AsFloat, localPlayerData);
 		}
 
 		private void StartSimulation()
@@ -293,7 +291,6 @@ namespace FirstLight.Game.StateMachines
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
-			_statechartTrigger(MatchEndedEvent);
 		}
 
 		private void OpenAdventureWorldHud()
@@ -420,41 +417,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void MatchStartAnalytics()
 		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var totalPlayers = _services.NetworkService.QuantumClient.CurrentRoom.PlayerCount;
-
-			var dictionary = new Dictionary<string, object>
-			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"total_players", totalPlayers},
-				{"total_bots", config.PlayersLimit - totalPlayers},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
-			};
-
-			_services.AnalyticsService.LogEvent("match_start", dictionary);
-		}
-
-		private void MatchEndAnalytics(Frame f, QuantumPlayerMatchData matchData, int totalPlayers, bool isQuitGame)
-		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
-
-			var analytics = new Dictionary<string, object>
-			{
-				{"player_level", _gameDataProvider.PlayerDataProvider.Level.Value},
-				{"total_players", totalPlayers},
-				{"total_kills_amount", matchData.Data.PlayersKilledCount},
-				{"total_specials_used", matchData.Data.SpecialsUsedCount},
-				{"total_deaths_amount", matchData.Data.DeathCount},
-				{"suicides_amount", matchData.Data.SuicideCount},
-				{"player_rank", matchData.PlayerRank},
-				{"map_id", config.Id},
-				{"end_state", isQuitGame ? "quit" : "ended"},
-				{"match_time", f.Time.AsFloat}
-			};
-
-			_services.AnalyticsService.LogEvent("match_end", analytics);
+			_services.AnalyticsService.MatchCalls.MatchStart();
 		}
 	}
 }

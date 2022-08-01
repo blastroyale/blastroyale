@@ -129,6 +129,14 @@ synced event OnPlayerStopAttack
 	entity_ref PlayerEntity;
 }
 
+synced event OnPlayerStatsChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	Quantum.Stats PreviousStats;
+	Quantum.Stats CurrentStats;
+}
+
 // LOCAL PLAYER EVENTS
 
 synced event OnLocalPlayerAim
@@ -216,14 +224,6 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 Slot;
-}
-
-synced event OnLocalPlayerStatsChanged
-{
-	local player_ref Player;
-	entity_ref Entity;
-	Quantum.Stats PreviousStats;
-	Quantum.Stats CurrentStats;
 }
 
 synced event OnLocalPlayerDamaged

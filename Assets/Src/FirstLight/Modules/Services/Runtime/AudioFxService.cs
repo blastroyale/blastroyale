@@ -560,7 +560,7 @@ namespace FirstLight.Services
 		{
 			_audioClips.Add(id, playbackData);
 		}
-		
+
 		/// <inheritdoc />
 		public void RemoveAudioClip(T id)
 		{

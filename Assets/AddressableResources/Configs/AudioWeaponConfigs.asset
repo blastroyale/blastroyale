@@ -12,4 +12,136 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce477d97eb034302ad9d762ff7efeb1, type: 3}
   m_Name: AudioWeaponConfigs
   m_EditorClassIdentifier: 
-  _configs: []
+  _configs:
+  - GameId: 31
+    WeaponShotId: 13
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 60
+    WeaponShotId: 14
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 71
+    WeaponShotId: 15
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 78
+    WeaponShotId: 16
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 79
+    WeaponShotId: 17
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 84
+    WeaponShotId: 18
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 86
+    WeaponShotId: 19
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 87
+    WeaponShotId: 22
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 88
+    WeaponShotId: 23
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 90
+    WeaponShotId: 24
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 91
+    WeaponShotId: 25
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 92
+    WeaponShotId: 26
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 93
+    WeaponShotId: 27
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 94
+    WeaponShotId: 28
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 95
+    WeaponShotId: 30
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 96
+    WeaponShotId: 31
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 97
+    WeaponShotId: 32
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 98
+    WeaponShotId: 33
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 99
+    WeaponShotId: 34
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 100
+    WeaponShotId: 35
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 101
+    WeaponShotId: 37
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0
+  - GameId: 103
+    WeaponShotId: 39
+    WeaponShotWindUpId: 0
+    WeaponShotWindDownId: 0
+    ProjectileFlyTrailId: 0
+    ProjectileImpactId: 0

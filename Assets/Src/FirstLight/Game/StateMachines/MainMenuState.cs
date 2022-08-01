@@ -391,6 +391,7 @@ namespace FirstLight.Game.StateMachines
 			uiVfxService.Init(_uiService);
 
 			_services.MessageBrokerService.Publish(new LoadedMainMenuMessage());
+			_statechartTrigger(MainMenuLoadedEvent);
 		}
 
 		private async Task UnloadMainMenu()
@@ -404,7 +405,7 @@ namespace FirstLight.Game.StateMachines
 
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-			
+
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
@@ -414,6 +415,7 @@ namespace FirstLight.Game.StateMachines
 			MainMenuInstaller.Clean();
 			
 			_services.MessageBrokerService.Publish(new UnloadedMainMenuMessage());
+			_statechartTrigger(MainMenuUnloadedEvent);
 		}
 	}
 }

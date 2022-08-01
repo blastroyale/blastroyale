@@ -444,7 +444,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public virtual bool TryGetClip(T id, out AudioClip clip, int index = 0)
 		{
-			if (_audioClips.ContainsKey(id))
+			if (!_audioClips.ContainsKey(id))
 			{
 				clip = null;
 				return false;
@@ -557,7 +557,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void AddAudioClips(T id, List<AudioClip> clips)
 		{
-			var meme = "LOADING CLIP CONFIG - " + id + "\n--\n";
+			var meme = "LOADING CLIP CONFIGS - " + id + "\n--\n";
 
 			foreach (var clip in clips)
 			{
@@ -571,6 +571,14 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void RemoveAudioClip(T id)
 		{
+			var meme = "UNLOADING CLIP CONFIGS - " + id + "\n--\n";
+
+			foreach (var clip in _audioClips[id])
+			{
+				meme += clip.name + "\n";
+			}
+			
+			Debug.LogError(meme);
 			_audioClips.Remove(id);
 		}
 

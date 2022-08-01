@@ -16,7 +16,7 @@ MonoBehaviour:
   _configs:
   - Key: 92
     Value:
-      AudioId: 92
+      AudioId: 93
       AudioClips:
       - m_AssetGUID: be96e6020b2e04a06a3b3ce98b175fe2
         m_SubObjectName: 
@@ -32,7 +32,7 @@ MonoBehaviour:
       PitchRandDeviation: 0
   - Key: 93
     Value:
-      AudioId: 93
+      AudioId: 94
       AudioClips:
       - m_AssetGUID: 6bc042600be9644b696ae92e02047b95
         m_SubObjectName: 

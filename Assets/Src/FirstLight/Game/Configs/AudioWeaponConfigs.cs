@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
+using Quantum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -10,6 +11,7 @@ namespace FirstLight.Game.Configs
 	[IgnoreServerSerialization]
 	public struct AudioWeaponConfig
 	{
+		public GameId GameId;
 		public AudioId WeaponShotId;
 		public AudioId WeaponShotWindUpId;
 		public AudioId WeaponShotWindDownId;

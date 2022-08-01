@@ -23,7 +23,7 @@ namespace FirstLight.Game.Services
 		{
 			_assetResolver = assetResolver;
 		}
-
+		
 		/// <inheritdoc />
 		public override async Task LoadAudioClips(IEnumerable clips, bool loadAsync)
 		{

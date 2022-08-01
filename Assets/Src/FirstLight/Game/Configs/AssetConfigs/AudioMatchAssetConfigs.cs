@@ -7,8 +7,8 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	/// <summary>
 	/// Scriptable object containing all MainMenu audio assets configurations
 	/// </summary>
-	[CreateAssetMenu(fileName = "AudioSharedAssetConfigs", menuName = "ScriptableObjects/AssetConfigs/AudioSharedAssetConfigs")]
-	public class AudioSharedAssetConfigs : AssetConfigsScriptableObjectSimple<AudioId, AudioClipConfig>
+	[CreateAssetMenu(fileName = "AudioMatchAssetConfigs", menuName = "ScriptableObjects/AssetConfigs/AudioMatchAssetConfigs")]
+	public class AudioMatchAssetConfigs : AssetConfigsScriptableObjectSimple<AudioId, AudioClipConfig>
 	{
 	}
 }

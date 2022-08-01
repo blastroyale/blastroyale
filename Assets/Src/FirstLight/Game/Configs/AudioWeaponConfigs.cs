@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
-using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Configs
 {
@@ -11,12 +11,12 @@ namespace FirstLight.Game.Configs
 	[IgnoreServerSerialization]
 	public struct AudioWeaponConfig
 	{
-		public GameId Id;
-		public AudioId WeaponShotAudioId;
-		public float BaseVolume;
-		public float BasePitch;
-		public float VolumeRandDeviation;
-		public float PitchRandDeviation;
+		public GameId GameId;
+		public AudioId WeaponShotId;
+		public AudioId WeaponShotWindUpId;
+		public AudioId WeaponShotWindDownId;
+		public AudioId ProjectileFlyTrailId;
+		public AudioId ProjectileImpactId;
 	}
 	
 	/// <summary>
@@ -36,4 +36,5 @@ namespace FirstLight.Game.Configs
 			set => _configs = value;
 		}
 	}
+
 }

@@ -21,9 +21,10 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class GameSimulationState
 	{
-		private readonly IStatechartEvent _simulationReadyEvent = new StatechartEvent("Simulation Ready Event");
-		private readonly IStatechartEvent _gameEndedEvent = new StatechartEvent("Game Ended Event");
-		private readonly IStatechartEvent _gameQuitEvent = new StatechartEvent("Game Quit Event");
+		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
+		public static readonly IStatechartEvent SimulationEndedEvent = new StatechartEvent("Simulation Ended Event");
+		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Game Ended Event");
+		public static readonly IStatechartEvent MatchQuitEvent = new StatechartEvent("Game Quit Event");
 
 		private readonly DeathmatchState _deathmatchState;
 		private readonly BattleRoyaleState _battleRoyaleState;
@@ -70,24 +71,23 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			startSimulation.OnEnter(StartSimulation);
-			startSimulation.Event(_simulationReadyEvent).Target(modeCheck);
+			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.OnExit(PublishMatchReadyMessage);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
-			modeCheck.OnExit(PlayMusic);
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
-			deathmatch.Event(_gameEndedEvent).Target(gameEnded);
-			deathmatch.Event(_gameQuitEvent).Target(final);
+			deathmatch.Event(MatchEndedEvent).Target(gameEnded);
+			deathmatch.Event(MatchQuitEvent).Target(final);
 			deathmatch.OnExit(SendGameplayDataAnalytics);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
-			battleRoyale.Event(_gameEndedEvent).Target(gameEnded);
-			battleRoyale.Event(_gameQuitEvent).Target(final);
+			battleRoyale.Event(MatchEndedEvent).Target(gameEnded);
+			battleRoyale.Event(MatchQuitEvent).Target(final);
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 
@@ -166,7 +166,7 @@ namespace FirstLight.Game.StateMachines
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 
-			_statechartTrigger(_simulationReadyEvent);
+			_statechartTrigger(SimulationStartedEvent);
 		}
 
 
@@ -175,12 +175,12 @@ namespace FirstLight.Game.StateMachines
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 
-			_statechartTrigger(_simulationReadyEvent);
+			_statechartTrigger(SimulationStartedEvent);
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
-			_statechartTrigger(_gameEndedEvent);
+			_statechartTrigger(MatchEndedEvent);
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
@@ -200,14 +200,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			SendGameplayData(false);
 
-			_statechartTrigger(_gameQuitEvent);
+			_statechartTrigger(MatchQuitEvent);
 		}
 
 		private void QuitGameConfirmedClicked()
 		{
 			SendGameplayData(true);
 			QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
-			_statechartTrigger(_gameQuitEvent);
+			_statechartTrigger(MatchQuitEvent);
 		}
 
 		private void GiveMatchRewards()
@@ -256,7 +256,7 @@ namespace FirstLight.Game.StateMachines
 					totalPlayers++;
 				}
 			}
-			
+   
 			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, f.Time.AsFloat, localPlayerData);
 		}
 
@@ -276,7 +276,7 @@ namespace FirstLight.Game.StateMachines
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 
 			startParams.NetworkClient = client;
-			
+
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
@@ -285,17 +285,12 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumRunner.ShutdownAll();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
-		}
-
-		private void PlayMusic()
-		{
-			_services.AudioFxService.PlayMusic(AudioId.BrLowLoop);
+			_statechartTrigger(SimulationEndedEvent);
 		}
 
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());
-			//_statechartTrigger(AudioState.FinishedMatchEvent);
 		}
 
 		private void OpenAdventureWorldHud()
@@ -388,7 +383,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
-				_services.AnalyticsService.MatchCalls.MatchStart();
+				MatchStartAnalytics();
 				SetPlayerMatchData();
 			}
 
@@ -418,6 +413,11 @@ namespace FirstLight.Game.StateMachines
 					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}
+		}
+
+		private void MatchStartAnalytics()
+		{
+			_services.AnalyticsService.MatchCalls.MatchStart();
 		}
 	}
 }

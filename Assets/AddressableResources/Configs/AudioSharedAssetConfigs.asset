@@ -9,122 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75020815be2441b892e69fd9e3ab07f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 940a423bb7d994f9bb5c362d75613032, type: 3}
   m_Name: AudioSharedAssetConfigs
   m_EditorClassIdentifier: 
-  _assetsFolderPath: Assets/AddressableResources/Audio/Shared
+  _assetsFolderPath: 
   _configs:
-  - Key: 70
+  - Key: 93
     Value:
-      m_AssetGUID: ab55cd3d925d04234bee21658bdf039d
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 99
+      AudioId: 93
+      AudioClips:
+      - m_AssetGUID: be96e6020b2e04a06a3b3ce98b175fe2
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 94
     Value:
-      m_AssetGUID: be96e6020b2e04a06a3b3ce98b175fe2
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 100
-    Value:
-      m_AssetGUID: 6bc042600be9644b696ae92e02047b95
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 101
-    Value:
-      m_AssetGUID: 9269cf43502c2487ba7568963dc8a77d
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 102
-    Value:
-      m_AssetGUID: 8229e911d6b264cb0bce7c72f2909c32
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 103
-    Value:
-      m_AssetGUID: 8b9c0ffbe66a6455897492c3c13ff192
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 104
-    Value:
-      m_AssetGUID: 6c92f4c74b86848ed917e342b8ea63c1
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 105
-    Value:
-      m_AssetGUID: 3d27b68f5a54746f690702906bb5f9fc
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 106
-    Value:
-      m_AssetGUID: 58d1274d3ed394e259fc115aec7dfc64
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 107
-    Value:
-      m_AssetGUID: 11774080f17334f0e9abee6b57be0335
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 108
-    Value:
-      m_AssetGUID: 8b86227b14a76459697a3ceb0812bba0
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 109
-    Value:
-      m_AssetGUID: 480df297bb64f4793a7f2b3382b24042
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 110
-    Value:
-      m_AssetGUID: ee79e16f8b9f844b783ac09354aaab7b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 111
-    Value:
-      m_AssetGUID: 02e45072a3b9b43a7bdce5d8a74d933a
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 112
-    Value:
-      m_AssetGUID: bee1320a1d0e74a8687ea69bd5342a23
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 113
-    Value:
-      m_AssetGUID: 0be3d4aa133354805b7144b04262f072
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 114
-    Value:
-      m_AssetGUID: f471e990e90dd4c0ba0d92c0f48d9523
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 115
-    Value:
-      m_AssetGUID: c032529dfbddf42a99cdbdada6f2bf6c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 116
-    Value:
-      m_AssetGUID: 02e45072a3b9b43a7bdce5d8a74d933a
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+      AudioId: 94
+      AudioClips:
+      - m_AssetGUID: 6bc042600be9644b696ae92e02047b95
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0

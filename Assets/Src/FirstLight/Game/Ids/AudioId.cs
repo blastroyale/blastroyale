@@ -4,26 +4,24 @@ namespace FirstLight.Game.Ids
 {
 	public enum AudioId
 	{
+		None, 
+		
 		//Music
-		MainMenuStart,
-		MainMenuLoop,
-		BrLowLoop,
-		BrMidLoop,
-		BrFinalDuelLoop,
-		DmLoop,
-		DmFinalDuelLoop,
-		VictoryJingle,
-		DefeatJingle,
-		PostMatchLoop,
-		FinalDuelTransitionJingle,
-		
-		//Old Music
-		AdventureBossLoop,
-		AdventureMainLoop,
-		AdventureRelaxedLoop,
-		OldMainMenuLoop,
-		
-		//Weapons
+		MusicMainMenuStart,
+		MusicMainMenuLoop,
+		MusicBrSkydiveLoop,
+		MusicBrLowLoop,
+		MusicBrMidLoop,
+		MusicBrFinalDuelLoop,
+		MusicDmLoop,
+		MusicDmFinalDuelLoop,
+		MusicVictoryJingle,
+		MusicDefeatJingle,
+		MusicPostMatchLoop,
+		MusicFinalDuelTransitionJingle,
+
+		// Weapons
+		PlaHammerWeaponShot,
 		PlaCrossbowWeaponShot,
 		PlaShotgunWeaponShot,
 		PlaMachineGunWeaponShot,
@@ -49,15 +47,16 @@ namespace FirstLight.Game.Ids
 		EdiPulseRifleWeaponChargeUp,
 		EdiPlasmaCannonWeaponShot,
 		EdiPlasmaCannonFlyingTrailLoop,
+		EdiElectronThrowerWeaponShot,
 		EdiElectronThrowerWeaponStreamLoop,
 
-		//Weapon Misc
+		// Weapon Misc
 		ReloadPlaLoop,
 		ReloadMmsLoop,
 		ReloadEdiLoop,
 		AmmoEmpty,
 		
-		//Combat sounds
+		// Combat
 		TakeHealthDamage,
 		TakeShieldDamage,
 		HitHealthDamage,
@@ -82,15 +81,8 @@ namespace FirstLight.Game.Ids
 		SdLoop,
 		SdStart,
 		SdEnd,
-		//Old sounds 
-		PlayerRevived1,
-		ActorSpawnStart,
-		ActorSpawnEnd1,
-		ProjectileFired,
-		ActorDeath,
-		ActorHit,
-		
-		//GameplaySounds
+
+		// Gameplay
 		AmmoPickup,
 		LargeAmmoPickup,
 		ShieldPickup,
@@ -116,7 +108,7 @@ namespace FirstLight.Game.Ids
 		PlayerRespawnShine,
 		PlayerRespawnLightningBolt,
 		
-		//UI sounds
+		// UI
 		ButtonClickForward,
 		ButtonClickBackward,
 		SettingsToggle,
@@ -136,7 +128,7 @@ namespace FirstLight.Game.Ids
 		DisconnectScreenAppear,
 		MarketplaceJingle,
 		
-		//Ambient sounds
+		// Ambients
 		ForestAmbientLoop,
 		DesertAmbientLoop,
 		CentralAmbientLoop,
@@ -144,49 +136,6 @@ namespace FirstLight.Game.Ids
 		FrostAmbientLoop,
 		LavaAmbientLoop,
 		WaterAmbientLoop,
-		
-		//Old announcer
-		AdventureStart,
-		DoubleKill,
-		Groovy,
-		HastaLaVista,
-		KillingSpree,
-		LetsGo,
-		LetsRock,
-		LockAndLoad,
-		MultiKill,
-		OhYeah,
-		PentaKill,
-		Perfect,
-		Victory,
-		WelcomeToTheWasteland,
-		YouTasteDeath,
-		//Recently added old announcers
-		DamnYoureGood,
-		Faultless,
-		FlawlessVictory,
-		GetThisPartyStarted,
-		Headshot,
-		MissionStart,
-		Perfection, 
-		PlayerWasted,
-		ShallWePlayAGame,
-		TotalVictory,
-		Victorious,
-		WinnerWinner,
-		YouWin,
-		SmashingIt,
-		GameOver,
-		ElClassico,
-		
-		// New announcer
-		AirDrop2,
-		AirDrop4,
-		None, // TODO: Make an Enum selector
-		
-		BrSkydiveLoop,
-		PlaHammerWeaponShot,
-		EdiElectronThrowerWeaponShot,
 	}
 	
 	/// <summary>

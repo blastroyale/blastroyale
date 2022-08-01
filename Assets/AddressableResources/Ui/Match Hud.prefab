@@ -1737,6 +1737,8 @@ MonoBehaviour:
   _mapStatusTextAnimation: {fileID: 3402958375897187188}
   _timerOutline: {fileID: 4503063824058546109}
   _mapShrinkingTimerAnimation: {fileID: 9104190827324187223}
+  _safeZoneStatusColor: {r: 1, g: 1, b: 1, a: 1}
+  _areaShrinkingStatusColor: {r: 1, g: 0.2, b: 0, a: 1}
 --- !u!1 &3313823507753431687
 GameObject:
   m_ObjectHideFlags: 0
@@ -4664,7 +4666,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _messages:
   - {fileID: 3989433733541484056}
-  _killedEnemyAudioIds: 190000001a0000001c0000001d0000001f0000001b000000
 --- !u!223 &1323861124612334937
 Canvas:
   m_ObjectHideFlags: 0

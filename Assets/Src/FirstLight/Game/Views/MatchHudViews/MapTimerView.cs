@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -23,6 +22,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Animation _mapStatusTextAnimation;
 		[SerializeField, Required] private GameObject _timerOutline;
 		[SerializeField, Required] private Animation _mapShrinkingTimerAnimation;
+
+		[SerializeField, Title("Colors")] private Color _safeZoneStatusColor = Color.white;
+		[SerializeField, Title("Colors")] private Color _areaShrinkingStatusColor = Color.red;
 
 		private IGameServices _services;
 		private DateTime _timerUpdatingUntil;
@@ -97,6 +99,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_mapStatusText.gameObject.SetActive(true);
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GetReady;
+			_mapStatusText.color = _safeZoneStatusColor;
 			_mapStatusTextAnimation.Rewind();
 			_mapStatusTextAnimation.Play();
 
@@ -117,6 +120,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.AreaShrinking;
+			_mapStatusText.color = _areaShrinkingStatusColor;
 			time = Time.time + (circle.ShrinkingStartTime + circle.ShrinkingDurationTime -
 			                    QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 

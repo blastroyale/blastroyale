@@ -24,7 +24,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IEntityViewUpdaterService _entityViewUpdaterService;
-		private Dictionary<AudioId, AudioClipConfig> _audioClipConfigs = new Dictionary<AudioId, AudioClipConfig>();
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
@@ -53,30 +52,29 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(UnpackAudioClipConfigs);
 
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
-			
+
 			mainMenu.OnEnter(PlayMainMenuMusic);
 			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
-			
+
 			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
 			matchmaking.OnExit(GetEntityViewUpdaterService);
-			
+
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
-			
+
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-			
+
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-			
+
 			postGame.OnEnter(PlayPostGameMusic);
 			postGame.Event(GameSimulationState.SimulationEndedEvent).Target(audioBase);
 			mainMenu.OnExit(StopMusicInstant);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -90,31 +88,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
-		private void UnpackAudioClipConfigs()
-		{
-			_audioClipConfigs.Clear();
 
-			var sharedConfigs = _services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>().Configs;
-			var menuConfigs = _services.ConfigsProvider.GetConfig<AudioMainMenuAssetConfigs>().Configs;
-			var matchConfigs = _services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().Configs;
-
-			foreach (var config in sharedConfigs)
-			{
-				_audioClipConfigs.Add(config.Key, config.Value);
-			}
-			
-			foreach (var config in menuConfigs)
-			{
-				_audioClipConfigs.Add(config.Key, config.Value);
-			}
-			
-			foreach (var config in matchConfigs)
-			{
-				_audioClipConfigs.Add(config.Key, config.Value);
-			}
-		}
-		
 		private bool IsDeathmatch()
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
@@ -127,20 +101,22 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMainMenuMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicMainMenuLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
+			_services.AudioFxService.PlayMusic(AudioId.MusicMainMenuLoop,
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
 		}
 
 		private void PlayPostGameMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
+			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop,
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
 		}
-		
+
 		private void StopMusicInstant()
 		{
 			_services.AudioFxService.StopMusic();
 		}
-		
+
 		private void StopMusicFadeOut()
 		{
 			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
@@ -150,22 +126,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
-			var audioConfig = _audioClipConfigs[weaponConfig.WeaponShotId];
-			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
-			initProps.ClipIndex = audioConfig.PlaybackClipIndex;
-			initProps.Volume = audioConfig.PlaybackVolume;
-			initProps.Pitch = audioConfig.PlaybackPitch;
-
-			_services.AudioFxService.PlayClip3D(audioConfig.AudioId, entityView.transform.position,
-			                                    initProps);
+			_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			var game = callback.Game;
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 			var audio = AudioId.None;
 
 			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
@@ -181,11 +149,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (audio != AudioId.None)
 			{
-				var audioConfig = _audioClipConfigs[audio];
-				initProps.ClipIndex = audioConfig.PlaybackClipIndex;
-				initProps.Volume = audioConfig.PlaybackVolume;
-				initProps.Pitch = audioConfig.PlaybackPitch;
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps);
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 	}

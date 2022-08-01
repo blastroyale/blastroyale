@@ -11,20 +11,13 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct AudioClipConfig
 	{
-		public AudioId AudioId;
 		public List<AssetReferenceT<AudioClip>> AudioClips;
 		public float BaseVolume;
 		public float BasePitch;
 		public float VolumeRandDeviation;
 		public float PitchRandDeviation;
-		
-		public float PlaybackVolume => UnityEngine.Random.Range(BaseVolume - VolumeRandDeviation, 
-		                                                        BaseVolume + VolumeRandDeviation);
-		public float PlaybackPitch => UnityEngine.Random.Range(BasePitch - PitchRandDeviation, 
-		                                                       BasePitch + PitchRandDeviation);
-		public int PlaybackClipIndex => UnityEngine.Random.Range(0, AudioClips.Count);
 	}
-	
+
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="QuantumWeaponConfig"/> sheet data
 	/// </summary>

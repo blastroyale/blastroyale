@@ -19,13 +19,14 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioDeathmatchState
 	{
-		private static readonly IStatechartEvent IncreaseIntensityEvent = new StatechartEvent("Increase Music Intensity Event");
+		private static readonly IStatechartEvent IncreaseIntensityEvent =
+			new StatechartEvent("Increase Music Intensity Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private bool _isHighIntensityPhase = false;
-		
+
 		private float CurrentMusicPlaybackTime => _services.AudioFxService.GetCurrentMusicPlaybackTime();
 
 		public AudioDeathmatchState(IGameServices services, IGameDataProvider gameLogic,
@@ -47,13 +48,13 @@ namespace FirstLight.Game.StateMachines
 			var matchStateCheck = stateFactory.Choice("AUDIO DM - Match State Check");
 			var midIntensity = stateFactory.State("AUDIO DM - Mid Intensity");
 			var highIntensity = stateFactory.State("AUDIO DM - High Intensity");
-			
+
 			initial.Transition().Target(resyncCheck);
 			initial.OnExit(SubscribeEvents);
-			
+
 			resyncCheck.Transition().Condition(IsResyncing).Target(matchStateCheck);
 			resyncCheck.Transition().Target(midIntensity);
-			
+
 			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(midIntensity);
 			matchStateCheck.Transition().Target(highIntensity);
 
@@ -62,10 +63,10 @@ namespace FirstLight.Game.StateMachines
 
 			highIntensity.OnEnter(PlayHighIntensityMusic);
 			highIntensity.Event(IncreaseIntensityEvent).Target(final);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
@@ -76,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
+
 		private bool IsResyncing()
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
@@ -91,10 +92,10 @@ namespace FirstLight.Game.StateMachines
 			var leaderPlayerData = playerData[leader];
 
 			var killsLeftForLeader = container.TargetProgress - leaderPlayerData.Data.PlayersKilledCount;
-			
+
 			return killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD;
 		}
-		
+
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var frame = callback.Game.Frames.Verified;
@@ -118,24 +119,14 @@ namespace FirstLight.Game.StateMachines
 		private void PlayHighIntensityMusic()
 		{
 			_isHighIntensityPhase = true;
-			
+
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
 				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
 				                     : 0;
-			
+
 			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, GetInitDataForPlayback(1.025f));
-		}
-		
-		// TODO - REVERT THE PITCH PARAM WHEN ALL PROPER MUSIC TRACKS ARE IN
-		private AudioSourceInitData? GetInitDataForPlayback(float pitch = 1f)
-		{
-			var sourceInitData = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND);
-			sourceInitData.StartTime = CurrentMusicPlaybackTime;
-			sourceInitData.Pitch = pitch;
-			
-			return sourceInitData;
+			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, true);
 		}
 	}
 }

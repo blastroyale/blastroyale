@@ -39,11 +39,6 @@ namespace FirstLight.Services
 		/// </summary>
 		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
 		Task LoadAudioClips(IEnumerable clips);
-		
-		/// <summary>
-		/// Loads a set of audio clips, using tasks <paramref name="clipTasks"/> for a given <paramref name="id"/>
-		/// </summary>
-		Task LoadAudioClipsForId(T id, List<Task<AudioClip>> clipTasks);
 
 		/// <summary>
 		/// Unload a set of audio clips from memory, and remove al references from loaded clips collection
@@ -55,7 +50,7 @@ namespace FirstLight.Services
 		/// Tries to return the <see cref="AudioClip"/> mapped to the given <paramref name="id"/>.
 		/// Returns true if the audio service currently has the <paramref name="clip"/> for the given <paramref name="id"/>.
 		/// </summary>
-		bool TryGetClip(T id, out AudioClip clip, int index = 0);
+		bool TryGetClipPlaybackData(T id, out AudioClipPlaybackData clip);
 
 		/// <summary>
 		/// Removes follow target from the current <see cref="AudioListenerMonoComponent"/> 
@@ -77,17 +72,13 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
 		/// </summary>
-		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
+		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
+		               bool continueFromCurrentTime = false, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Stops the music
 		/// </summary>
 		void StopMusic(float fadeOutDuration = 0f);
-
-		/// <summary>
-		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
-		/// </summary>
-		AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend);
 
 		/// <summary>
 		/// Requests the current playback time of the currently playing music track, in seconds
@@ -104,12 +95,17 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Add the given <paramref name="id"/> <paramref name="clip"/> to the service
 		/// </summary>
-		void AddAudioClips(T id, List<AudioClip> clips);
+		void AddAudioClips(T id, AudioClipPlaybackData clips);
 
 		/// <summary>
 		/// Removes the given <paramref name="id"/>'s <see cref="AudioClip"/> from the service
 		/// </summary>
 		void RemoveAudioClip(T id);
+
+		/// <summary>
+		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
+		/// </summary>
+		AudioSourceInitData GetAudioInitProps(float spatialBlend, AudioClipPlaybackData playbackData);
 	}
 
 	/// <summary>
@@ -180,7 +176,7 @@ namespace FirstLight.Services
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
 		/// /// <remarks>Note: if initialized with Loop as true, the audio source must be despawned manually.</remarks>
-		public void Play(IObjectPool<AudioSourceMonoComponent> pool, AudioClip clip, float volumeMultiplier,
+		public void Play(IObjectPool<AudioSourceMonoComponent> pool, float volumeMultiplier,
 		                 Vector3? worldPos, AudioSourceInitData? sourceInitData = null)
 		{
 			if (sourceInitData == null)
@@ -191,7 +187,7 @@ namespace FirstLight.Services
 			_pool = pool;
 			_currentVolumeMultiplier = volumeMultiplier;
 
-			Source.clip = clip;
+			Source.clip = sourceInitData.Value.Clip;
 			Source.volume = sourceInitData.Value.Volume * volumeMultiplier;
 			Source.spatialBlend = sourceInitData.Value.SpatialBlend;
 			Source.pitch = sourceInitData.Value.Pitch;
@@ -308,7 +304,7 @@ namespace FirstLight.Services
 	/// </summary>
 	public struct AudioSourceInitData
 	{
-		public int ClipIndex;
+		public AudioClip Clip;
 		public float StartTime;
 		public float SpatialBlend;
 		public float Volume;
@@ -321,12 +317,29 @@ namespace FirstLight.Services
 		public float MaxDistance;
 	}
 
+	/// <summary>
+	/// This class stores audio clips, and contains crucial playback data for them
+	/// </summary>
+	public struct AudioClipPlaybackData
+	{
+		public List<AudioClip> AudioClips;
+		public float MinVol;
+		public float MaxVol;
+		public float MinPitch;
+		public float MaxPitch;
+
+		public float PlaybackVolume => UnityEngine.Random.Range(MinVol, MaxVol);
+		public float PlaybackPitch => UnityEngine.Random.Range(MinPitch, MaxPitch);
+		public AudioClip PlaybackClip => AudioClips[UnityEngine.Random.Range(0, AudioClips.Count)];
+	}
+
 	/// <inheritdoc />
 	public class AudioFxService<T> : IAudioFxInternalService<T> where T : struct, Enum
 	{
 		private const float SPATIAL_3D_THRESHOLD = 0.1f;
 
-		protected readonly IDictionary<T, List<AudioClip>> _audioClips = new Dictionary<T, List<AudioClip>>();
+		protected readonly IDictionary<T, AudioClipPlaybackData> _audioClips =
+			new Dictionary<T, AudioClipPlaybackData>();
 
 		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
@@ -429,26 +442,21 @@ namespace FirstLight.Services
 			return default;
 		}
 
-		public virtual Task LoadAudioClipsForId(T id, List<Task<AudioClip>> clipTasks)
-		{
-			return default;
-		}
-		
 		/// <inheritdoc />
 		public virtual void UnloadAudioClips(IEnumerable clips)
 		{
 		}
 
 		/// <inheritdoc />
-		public virtual bool TryGetClip(T id, out AudioClip clip, int index = 0)
+		public virtual bool TryGetClipPlaybackData(T id, out AudioClipPlaybackData clipData)
 		{
 			if (!_audioClips.ContainsKey(id))
 			{
-				clip = null;
+				clipData = default;
 				return false;
 			}
 
-			clip = _audioClips[id][index];
+			clipData = _audioClips[id];
 			return true;
 		}
 
@@ -462,34 +470,35 @@ namespace FirstLight.Services
 		public virtual AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition,
 		                                                   AudioSourceInitData? sourceInitData = null)
 		{
-			if (sourceInitData == null || !TryGetClip(id, out var clip, sourceInitData.Value.ClipIndex))
+			if (sourceInitData == null || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return null;
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, clip, _sfx3dVolumeMultiplier, worldPosition, sourceInitData);
+			source.Play(_sfxPlayerPool, _sfx3dVolumeMultiplier, worldPosition, sourceInitData);
 			return source;
 		}
 
 		/// <inheritdoc />
 		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
 		{
-			if (sourceInitData == null || !TryGetClip(id, out var clip, sourceInitData.Value.ClipIndex))
+			if (sourceInitData == null || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return null;
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, clip, _sfx2dVolumeMultiplier, Vector3.zero, sourceInitData);
+			source.Play(_sfxPlayerPool, _sfx2dVolumeMultiplier, Vector3.zero, sourceInitData);
 			return source;
 		}
 
 		/// <inheritdoc />
 		public virtual void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
+		                              bool continueFromCurrentTime = false,
 		                              AudioSourceInitData? sourceInitData = null)
 		{
-			if (sourceInitData == null || !TryGetClip(id, out var clip, sourceInitData.Value.ClipIndex))
+			if (sourceInitData == null || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return;
 			}
@@ -497,12 +506,12 @@ namespace FirstLight.Services
 			if (_activeMusicSource.Source.isPlaying)
 			{
 				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
-				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_transitionMusicSource.Play(null, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
 				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, SwapMusicSources);
 			}
 			else
 			{
-				_activeMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_activeMusicSource.Play(null, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
 				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
 			}
 		}
@@ -534,7 +543,8 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual AudioSourceInitData GetDefaultAudioInitProps(float spatialBlend)
+		public virtual AudioSourceInitData GetAudioInitProps(float spatialBlend,
+		                                                            AudioClipPlaybackData playbackData)
 		{
 			return default;
 		}
@@ -546,11 +556,11 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public void AddAudioClips(T id, List<AudioClip> clips)
+		public void AddAudioClips(T id, AudioClipPlaybackData playbackData)
 		{
-			_audioClips.Add(id, clips);
+			_audioClips.Add(id, playbackData);
 		}
-
+		
 		/// <inheritdoc />
 		public void RemoveAudioClip(T id)
 		{

@@ -17,13 +17,12 @@ namespace FirstLight.Game.Configs
 		public float BasePitch;
 		public float VolumeRandDeviation;
 		public float PitchRandDeviation;
-	}
-	
-	public struct AudioClipPlaybackData
-	{
-		public int AudioClipIndex;
-		public float Volume;
-		public float Pitch;
+		
+		public float PlaybackVolume => UnityEngine.Random.Range(BaseVolume - VolumeRandDeviation, 
+		                                                        BaseVolume + VolumeRandDeviation);
+		public float PlaybackPitch => UnityEngine.Random.Range(BasePitch - PitchRandDeviation, 
+		                                                       BasePitch + PitchRandDeviation);
+		public int PlaybackClipIndex => UnityEngine.Random.Range(0, AudioClips.Count);
 	}
 	
 	/// <summary>

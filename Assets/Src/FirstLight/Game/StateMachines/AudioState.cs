@@ -161,54 +161,42 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
+			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 			var audioConfig = _currentAudioClipConfigs[weaponConfig.WeaponShotId];
-
-			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
-			initProps.Volume = Random.Range(audioConfig.BaseVolume - audioConfig.VolumeRandDeviation,
-			                                audioConfig.BaseVolume + audioConfig.VolumeRandDeviation);
-
-			initProps.Pitch = Random.Range(audioConfig.BasePitch - audioConfig.PitchRandDeviation,
-			                               audioConfig.BasePitch + audioConfig.PitchRandDeviation);
+			initProps.Volume = audioConfig.PlaybackVolume;
+			initProps.Pitch = audioConfig.PlaybackPitch;
 
 			_services.AudioFxService.PlayClip3D(audioConfig.AudioId, entityView.transform.position,
-			                                    initProps);
+			                                    initProps, audioConfig.PlaybackClipIndex);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			var game = callback.Game;
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			
-			var pitch = Random.Range(GameConstants.Audio.SFX_DEFAULT_PITCH - GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION,
-			                         GameConstants.Audio.SFX_DEFAULT_PITCH + GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION);
-
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
-			
-			initProps.Pitch = pitch;
-
 			var audio = AudioId.None;
 
 			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
 			if (game.PlayerIsLocal(callback.Player))
 			{
-				initProps.Volume = Random.Range(GameConstants.Audio.SFX_DEFAULT_TAKE_DAMAGE_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
-				                                GameConstants.Audio.SFX_DEFAULT_TAKE_DAMAGE_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);;
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 			}
 			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
 			         game.PlayerIsLocal(player.Player))
 			{
-				initProps.Volume = Random.Range(GameConstants.Audio.SFX_DEFAULT_HIT_DAMAGE_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
-				                                GameConstants.Audio.SFX_DEFAULT_HIT_DAMAGE_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);;
 				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
 			}
 
 			if (audio != AudioId.None)
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps);
+				var audioConfig = _currentAudioClipConfigs[audio];
+				initProps.Volume = audioConfig.PlaybackVolume;
+				initProps.Pitch = audioConfig.PlaybackPitch;
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps, audioConfig.PlaybackClipIndex);
 			}
 		}
 	}

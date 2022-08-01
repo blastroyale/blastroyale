@@ -399,12 +399,12 @@ namespace FirstLight.Services
 			audioPlayer.Source.playOnAwake = false;
 			audioPlayer.gameObject.SetActive(false);
 
-			_activeMusicSource = new GameObject("Music Source").AddComponent<AudioSourceMonoComponent>();
+			_activeMusicSource = new GameObject("Music Source 1").AddComponent<AudioSourceMonoComponent>();
 			_activeMusicSource.transform.SetParent(_audioPoolParent.transform);
 			_activeMusicSource.Source = _activeMusicSource.gameObject.AddComponent<AudioSource>();
 			_activeMusicSource.Source.playOnAwake = false;
 
-			_transitionMusicSource = new GameObject("Music Transition Source").AddComponent<AudioSourceMonoComponent>();
+			_transitionMusicSource = new GameObject("Music Source 2").AddComponent<AudioSourceMonoComponent>();
 			_transitionMusicSource.transform.SetParent(_audioPoolParent.transform);
 			_transitionMusicSource.Source = _transitionMusicSource.gameObject.AddComponent<AudioSource>();
 			_transitionMusicSource.Source.playOnAwake = false;
@@ -499,11 +499,9 @@ namespace FirstLight.Services
 
 			if (_activeMusicSource.Source.isPlaying)
 			{
-				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration,
-				                              MusicTransitionFinished);
+				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
 				_transitionMusicSource.Play(null, clip, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
-				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration,
-				                                  MusicTransitionFinished);
+				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, SwapMusicSources);
 			}
 			else
 			{
@@ -512,13 +510,10 @@ namespace FirstLight.Services
 			}
 		}
 
-		private void MusicTransitionFinished(AudioSourceMonoComponent audioSource)
+		private void SwapMusicSources(AudioSourceMonoComponent audioSource)
 		{
-			if (audioSource == _transitionMusicSource)
-			{
-				(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
-				_transitionMusicSource.Source.Stop();
-			}
+			(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
+			_transitionMusicSource.Source.Stop();
 		}
 
 		/// <inheritdoc />

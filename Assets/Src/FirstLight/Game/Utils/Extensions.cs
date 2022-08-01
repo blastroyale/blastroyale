@@ -428,21 +428,7 @@ namespace FirstLight.Game.Utils
 
 			return true;
 		}
-
-		/// <summary>
-		/// Generates data for audio playback, from an audio config
-		/// </summary>
-		public static AudioClipPlaybackData GenerateAudioConfigForPlayback(AudioClipConfig audioConfig)
-		{
-			var playbackData = new AudioClipPlaybackData();
-			playbackData.Volume = Random.Range(audioConfig.BaseVolume - audioConfig.VolumeRandDeviation, 
-			                                   audioConfig.BaseVolume + audioConfig.VolumeRandDeviation);
-			playbackData.Pitch = Random.Range(audioConfig.BasePitch - audioConfig.PitchRandDeviation, 
-			                                   audioConfig.BasePitch + audioConfig.PitchRandDeviation);
-			playbackData.AudioClipIndex = Random.Range(0, audioConfig.AudioClips.Count);
-			return playbackData;
-		}
-
+		
 		/// <summary>
 		/// Copy properties from one model to another.
 		/// Only a shallow copy.

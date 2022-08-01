@@ -96,10 +96,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void ShowHigherRarityArrow(QuantumGame game, EntityRef playerEntity, EquipmentCollectable collectable)
 		{
-			if (!collectable.Item.IsWeapon())
-			{
-				return;
-			}
+			if (!collectable.Item.IsWeapon() || !game.Frames.Verified.Exists(playerEntity)) return;
 
 			var playerCharacter = game.Frames.Verified.Get<PlayerCharacter>(playerEntity);
 

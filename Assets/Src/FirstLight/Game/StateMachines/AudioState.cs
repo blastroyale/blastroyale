@@ -153,11 +153,12 @@ namespace FirstLight.Game.StateMachines
 			var audioConfig = _audioClipConfigs[weaponConfig.WeaponShotId];
 			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
 
+			initProps.ClipIndex = audioConfig.PlaybackClipIndex;
 			initProps.Volume = audioConfig.PlaybackVolume;
 			initProps.Pitch = audioConfig.PlaybackPitch;
 
 			_services.AudioFxService.PlayClip3D(audioConfig.AudioId, entityView.transform.position,
-			                                    initProps, audioConfig.PlaybackClipIndex);
+			                                    initProps);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
@@ -181,9 +182,10 @@ namespace FirstLight.Game.StateMachines
 			if (audio != AudioId.None)
 			{
 				var audioConfig = _audioClipConfigs[audio];
+				initProps.ClipIndex = audioConfig.PlaybackClipIndex;
 				initProps.Volume = audioConfig.PlaybackVolume;
 				initProps.Pitch = audioConfig.PlaybackPitch;
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps, audioConfig.PlaybackClipIndex);
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps);
 			}
 		}
 	}

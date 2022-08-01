@@ -65,7 +65,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
+		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -78,11 +78,11 @@ namespace FirstLight.Game.Services
 			updatedInitData.Mute = Is3dSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip3D(id, worldPosition, sourceInitData, clipIndex);
+			return base.PlayClip3D(id, worldPosition, sourceInitData);
 		}
 		
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -95,11 +95,11 @@ namespace FirstLight.Game.Services
 			updatedInitData.Mute = Is2dSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip2D(id, sourceInitData, clipIndex);
+			return base.PlayClip2D(id, sourceInitData);
 		}
 		
 		/// <inheritdoc />
-		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
+		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null)
 		{
 			if (id == AudioId.None)
 			{
@@ -113,7 +113,7 @@ namespace FirstLight.Game.Services
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 
-			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData, clipIndex);
+			base.PlayMusic(id, fadeInDuration, fadeOutDuration, sourceInitData);
 		}
 
 		/// <inheritdoc />
@@ -121,6 +121,7 @@ namespace FirstLight.Game.Services
 		{
 			return new AudioSourceInitData()
 			{
+				ClipIndex = 0,
 				SpatialBlend = spatialBlend,
 				Pitch = GameConstants.Audio.SFX_DEFAULT_PITCH,
 				Volume = GameConstants.Audio.SFX_DEFAULT_VOLUME,

@@ -66,20 +66,18 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null,
-		                                    int clipIndex = 0);
+		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null, int clipIndex = 0);
+		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on <paramref name="transitionDuration"/>
 		/// </summary>
-		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
-		               AudioSourceInitData? sourceInitData = null, int clipIndex = 0);
+		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f, AudioSourceInitData? sourceInitData = null);
 
 		/// <summary>
 		/// Stops the music
@@ -310,6 +308,7 @@ namespace FirstLight.Services
 	/// </summary>
 	public struct AudioSourceInitData
 	{
+		public int ClipIndex;
 		public float StartTime;
 		public float SpatialBlend;
 		public float Volume;
@@ -461,10 +460,9 @@ namespace FirstLight.Services
 
 		/// <inheritdoc />
 		public virtual AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition,
-		                                                   AudioSourceInitData? sourceInitData = null,
-		                                                   int clipIndex = 0)
+		                                                   AudioSourceInitData? sourceInitData = null)
 		{
-			if (!TryGetClip(id, out var clip) || sourceInitData == null)
+			if (sourceInitData == null || !TryGetClip(id, out var clip, sourceInitData.Value.ClipIndex))
 			{
 				return null;
 			}
@@ -475,10 +473,9 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null,
-		                                                   int clipIndex = 0)
+		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
 		{
-			if (!TryGetClip(id, out var clip) || sourceInitData == null)
+			if (sourceInitData == null || !TryGetClip(id, out var clip, sourceInitData.Value.ClipIndex))
 			{
 				return null;
 			}
@@ -490,9 +487,9 @@ namespace FirstLight.Services
 
 		/// <inheritdoc />
 		public virtual void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
-		                              AudioSourceInitData? sourceInitData = null, int clipIndex = 0)
+		                              AudioSourceInitData? sourceInitData = null)
 		{
-			if (!TryGetClip(id, out var clip) || sourceInitData == null)
+			if (sourceInitData == null || !TryGetClip(id, out var clip, sourceInitData.Value.ClipIndex))
 			{
 				return;
 			}

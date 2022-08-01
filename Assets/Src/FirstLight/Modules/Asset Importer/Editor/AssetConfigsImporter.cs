@@ -36,7 +36,7 @@ namespace FirstLightEditor.AssetImporter
 		public Type ScriptableObjectType => typeof(TScriptableObject);
 
 		/// <summary>
-		/// TODO:
+		/// AssetType being referenced in the configs importer to be serialized
 		/// </summary>
 		public virtual Type AssetType => typeof(TAsset);
 

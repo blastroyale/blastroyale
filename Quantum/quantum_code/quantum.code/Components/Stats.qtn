@@ -48,6 +48,11 @@ synced event OnHealthChanged
 	Int32 MaxHealth;
 }
 
+synced event OnDamageBlocked
+{
+	entity_ref Entity;
+}
+
 synced event OnShieldChanged
 {
 	entity_ref Entity;

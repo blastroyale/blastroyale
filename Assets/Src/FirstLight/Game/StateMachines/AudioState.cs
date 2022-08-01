@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -16,13 +18,6 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		public static readonly IStatechartEvent EnteredMainMenuEvent = new StatechartEvent("Main Menu Entered Event");
-		public static readonly IStatechartEvent FinishedMatchEvent = new StatechartEvent("Finished Match Event");
-		public static readonly IStatechartEvent LeftMatchEvent = new StatechartEvent("Left Match Event");
-		public static readonly IStatechartEvent LeftMainMenuEvent = new StatechartEvent("Left Main Menu Event");
-		
-		private static readonly IStatechartEvent MatchStartedEvent = new StatechartEvent("Match Started Event");
-		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly AudioBattleRoyaleState _audioBrState;
@@ -58,28 +53,30 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
 
-			audioBase.Event(EnteredMainMenuEvent).Target(mainMenu);
-			
+			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
+
 			mainMenu.OnEnter(PlayMainMenuMusic);
-			mainMenu.Event(LeftMainMenuEvent).Target(matchmaking);
+			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
-			
-			matchmaking.Event(MatchStartedEvent).Target(gameModeCheck);
+
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
 			matchmaking.OnExit(GetEntityViewUpdaterService);
-			
+
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
-			
+
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
-			battleRoyale.Event(FinishedMatchEvent).Target(postGame);
+			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
+			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
-			deathmatch.Event(FinishedMatchEvent).Target(postGame);
+			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
+			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
 			
 			postGame.OnEnter(PlayPostGameMusic);
-			postGame.Event(LeftMatchEvent).Target(audioBase);
-			mainMenu.OnExit(StopMusicInstant);
-			
+			postGame.Event(GameSimulationState.SimulationEndedEvent).Target(audioBase);
+			postGame.OnExit(StopMusicInstant);
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -87,19 +84,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-		}
-
-		private void OnMatchStartedMessage(MatchStartedMessage obj)
-		{
-			_statechartTrigger(MatchStartedEvent);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
+
 		private bool IsDeathmatch()
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
@@ -112,57 +103,39 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMainMenuMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MainMenuLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
+			_services.AudioFxService.PlayMusic(AudioId.MusicMainMenuLoop,
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
 		}
 
 		private void PlayPostGameMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.PostMatchLoop, GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
+			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop,
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
 		}
-		
+
 		private void StopMusicInstant()
 		{
 			_services.AudioFxService.StopMusic();
 		}
-		
+
 		private void StopMusicFadeOut()
 		{
-			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
+			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			var audioConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
-			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
+			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
-			initProps.Volume = Random.Range(audioConfig.BaseVolume - audioConfig.VolumeRandDeviation,
-			                                audioConfig.BaseVolume + audioConfig.VolumeRandDeviation);
-
-			initProps.Pitch = Random.Range(audioConfig.BasePitch - audioConfig.PitchRandDeviation,
-			                               audioConfig.BasePitch + audioConfig.PitchRandDeviation);
-
-			_services.AudioFxService.PlayClip3D(audioConfig.WeaponShotAudioId, entityView.transform.position,
-			                                    initProps);
+			_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			var game = callback.Game;
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-
-			var randomVol =
-				Random.Range(GameConstants.Audio.SFX_DEFAULT_VOLUME - GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION,
-				             GameConstants.Audio.SFX_DEFAULT_VOLUME + GameConstants.Audio.SFX_DEFAULT_VOLUME_DEVIATION);
-			var randomPitch =
-				Random.Range(GameConstants.Audio.SFX_DEFAULT_PITCH - GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION,
-				             GameConstants.Audio.SFX_DEFAULT_PITCH + GameConstants.Audio.SFX_DEFAULT_PITCH_DEVIATION);
-
-			var initProps = _services.AudioFxService.GetDefaultAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND);
-			initProps.Volume = randomVol;
-			initProps.Pitch = randomPitch;
-
 			var audio = AudioId.None;
 
 			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
@@ -178,7 +151,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (audio != AudioId.None)
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position, initProps);
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 	}

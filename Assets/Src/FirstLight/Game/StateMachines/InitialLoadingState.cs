@@ -49,6 +49,7 @@ namespace FirstLight.Game.StateMachines
 			var assetLoading = stateFactory.TaskWait("Asset loading");
 
 			initial.Transition().Target(downloadData);
+			initial.OnExit(GameLoadStartAnalyticsEvent);
 			initial.OnExit(SubscribeEvents);
 			
 			downloadData.WaitingFor(DownloadData).Target(assetLoading);
@@ -61,6 +62,11 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			// Subscribe to events
+		}
+
+		private void GameLoadStartAnalyticsEvent()
+		{
+			_services?.AnalyticsService.SessionCalls.GameLoadStart();
 		}
 
 		private void UnsubscribeEvents()
@@ -78,6 +84,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadInitialAssets()
 		{
+			var configProvider = _services.ConfigsProvider;
+			
 			var tasks = new List<Task>();
 
 			tasks.Add(LoadErrorAssets());
@@ -85,10 +93,10 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(LoadAssetConfigs());
 			
 			await Task.WhenAll(tasks);
+
+			await _services.AudioFxService
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary);
 			
-			_assetService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioSharedAssetConfigs>());
-			await _services.AudioFxService.LoadAudioClips(_configsAdder.GetConfig<AudioSharedAssetConfigs>()
-			                                                           .ConfigsDictionary, false);
 			LoadVfx();
 		}
 
@@ -112,7 +120,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return new List<Task>
 			{
-				_configsLoader.LoadConfig<AudioAdventureAssetConfigs>(AddressableId.Configs_AudioAdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),

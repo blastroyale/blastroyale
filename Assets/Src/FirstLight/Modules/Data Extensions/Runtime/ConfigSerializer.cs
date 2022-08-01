@@ -40,7 +40,7 @@ namespace FirstLight
 	/// This attribute can be added to config structs so they are ignored by the serializer.
 	/// This way they won't be sent to server when they are not needed.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Struct)]
+	[AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
 	public class IgnoreServerSerialization : Attribute { }
 
 	/// <summary>
@@ -69,15 +69,16 @@ namespace FirstLight
 			};
 			foreach (var (type, configList) in configs)
 			{
+				if (type.CustomAttributes.Any(c => c.AttributeType == typeof(IgnoreServerSerialization)))
+				{
+					continue;
+				}
 				if (!type.IsSerializable)
 				{
-					continue;
+					throw new Exception(@$"Config {type} could not be serialized.
+						 If this is not used in game logic please add [IgnoreServerSerialization]");
 				}
 
-				if (type.CustomAttributes.Any(c => c.GetType() == typeof(IgnoreServerSerialization)))
-				{
-					continue;
-				}
 				serializedConfig.Configs[type] = configList;
 			}
 			return JsonConvert.SerializeObject(serializedConfig, settings);

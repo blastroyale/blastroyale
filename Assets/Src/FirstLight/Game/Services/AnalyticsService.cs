@@ -1,31 +1,51 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using Firebase.Analytics;
-using UnityEngine.Analytics;
-using AppsFlyerSDK;
-using Facebook.Unity;
-using FirstLight.Game.Utils;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Services;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace FirstLight.Game.Services
 {
+	/// <summary>
+	/// Static class that defines all the event types names
+	/// </summary>
+	public static class AnalyticsEvents
+	{
+		public static readonly string SessionStart = "session_start";
+		public static readonly string SessionEnd = "session_end";
+		public static readonly string SessionHeartbeat = "session_heartbeat";
+		public static readonly string GameLoadStart = "game_load_start";
+		public static readonly string PlayerRegister = "player_register";
+		public static readonly string PlayerLogin = "player_login";
+		public static readonly string GameLoaded = "game_loaded";
+		public static readonly string MatchInitiate = "match_initiate";
+		public static readonly string MatchStart = "match_start";
+		public static readonly string MatchEnd = "match_end";
+		public static readonly string MatchKillAction = "match_kill_action";
+		public static readonly string MatchPickupAction = "match_pickup_action";
+		public static readonly string MatchLootboxOpenAction = "match_lootbox_open_action";
+		public static readonly string Error = "error";
+	}
+	
 	/// <summary>
 	/// The analytics service is an endpoint in the game to log custom events to Game's analytics console
 	/// </summary>
 	public interface IAnalyticsService
 	{
-		/// <summary>
-		/// Logs the first login Event with the given user <paramref name="id"/>
-		/// </summary>
-		void LoginEvent(string id);
+		public AnalyticsCallsSession SessionCalls { get; }
+		public AnalyticsCallsMatch MatchCalls { get; }
+		public AnalyticsCallsErrors ErrorsCalls { get; }
 
 		/// <summary>
 		/// Logs an analytics event with the given <paramref name="eventName"/>
 		/// </summary>
-		void LogEvent(string eventName, Dictionary<string, object> parameters);
+		void LogEvent(string eventName, Dictionary<string, object> parameters = null);
 		
 		/// <summary>
 		/// Logs a crash with the given <paramref name="message"/>
@@ -36,84 +56,22 @@ namespace FirstLight.Game.Services
 		/// Logs a crash with the given <paramref name="exception"/>
 		/// </summary>
 		void CrashLog(Exception exception);
-
-		/// <summary>
-		/// Sends the mark of ending a game session
-		/// </summary>
-		void SessionEnd();
 	}
 	
 	/// <inheritdoc />
 	public class AnalyticsService : IAnalyticsService
 	{
-		
-		/// <summary>
-		/// Requests the information if the current device model playing the game is a tablet or 
-		/// </summary>
-		public static bool IsTablet
-		{
-			get
-			{
-#if UNITY_IOS
-				return SystemInfo.deviceModel.Contains("iPad");
-#elif UNITY_ANDROID
-				var screenWidth = Screen.width;
-				var screenHeight = Screen.height;
-				var screenWidthDpi = screenWidth / Screen.dpi;
-				var screenHeightDpi = screenHeight / Screen.dpi;
-				var diagonalInchesSqrt =Mathf.Pow (screenWidthDpi, 2) + Mathf.Pow (screenHeightDpi, 2);
-				var aspectRatio = Mathf.Max(screenWidth, screenHeight) / Mathf.Min(screenWidth, screenHeight);
+		public AnalyticsCallsSession SessionCalls { get; private set; }
+		public AnalyticsCallsMatch MatchCalls { get; private set; }
+		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
 
-				// This are physical size device checks with aspect ratio double confirmation
-				return diagonalInchesSqrt > 42f && aspectRatio < 2f;
-#else
-				return false;
-#endif
-			}
-		}
-		
-		/// <summary>
-		/// Requests the player login data
-		/// </summary>
-		public static Dictionary<string, object> LoginData => new Dictionary<string, object>
+		public AnalyticsService(IGameServices services,
+		                        IGameDataProvider gameDataProvider,
+		                        IDataProvider dataProvider)
 		{
-			{"version", VersionUtils.VersionExternal },
-			{"platform", Application.platform.ToString()},
-			{"device", SystemInfo.deviceModel},
-			{"tablet", IsTablet},
-#if UNITY_IOS
-			{"ios_generation", UnityEngine.iOS.Device.generation.ToString()},
-			{"ios_att_enabled", UnityEngine.iOS.Device.advertisingTrackingEnabled},
-			//{"ios_low_power_enabled", UnityEngine.iOS.Device.lowPowerModeEnabled},
-#else
-			{"cpu", SystemInfo.processorType},
-			//{"gpu", SystemInfo.graphicsDeviceName},
-			//{"gpu_vendor", SystemInfo.graphicsDeviceVendor},
-			{"gpu_api", SystemInfo.graphicsDeviceType.ToString()},
-#endif
-			{"language", Application.systemLanguage.ToString()},
-			{"os", SystemInfo.operatingSystem},
-			{"battery_status", SystemInfo.batteryStatus},
-			//{"cpu_count", SystemInfo.processorCount},
-			//{"memory", SystemInfo.systemMemorySize},
-			{"memory_readable", SRFileUtil.GetBytesReadable((long) SystemInfo.systemMemorySize*1024*1024)},
-			//{"max_textures_size", SystemInfo.maxTextureSize.ToString()},
-		};
-
-		/// <inheritdoc />
-		public void LoginEvent(string id)
-		{
-			var loginData = LoginData;
-			var loginEventName = "player_login";
-			var appsFlyerData = loginData.ToDictionary(key => key.Key, value => value.ToString());
-			
-			Analytics.SetUserId(id);
-			FirebaseAnalytics.SetUserId(id);
-			AppsFlyer.setCustomerUserId(id);
-			
-			FB.LogAppEvent(loginEventName, null, loginData);
-			AppsFlyer.sendEvent(loginEventName, appsFlyerData);
-			LogEvent(loginEventName, loginData);
+			SessionCalls = new AnalyticsCallsSession(this, dataProvider, gameDataProvider);
+			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
+			ErrorsCalls = new AnalyticsCallsErrors(this);
 		}
 
 		/// <inheritdoc />
@@ -152,20 +110,8 @@ namespace FirstLight.Game.Services
 			}
 			
 			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
-		}
-
-		/// <inheritdoc />
-		public void SessionEnd()
-		{
-			var dic = new Dictionary<string, object> {{"time", Time.realtimeSinceStartup}};
 			
-			if (PlayerPrefs.GetInt("first_session", 0) == 0)
-			{
-				LogEvent("first_session_end", dic);
-				PlayerPrefs.SetInt("first_session", 1);
-			}
-			
-			LogEvent("session_end", dic);
+			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
 		}
 
 		/// <inheritdoc />

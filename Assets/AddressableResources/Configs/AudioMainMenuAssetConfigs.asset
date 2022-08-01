@@ -9,26 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead4663886b24d23ad047a392a47b528, type: 3}
+  m_Script: {fileID: 11500000, guid: 338cb64fade84fa5af85b935ee7d352a, type: 3}
   m_Name: AudioMainMenuAssetConfigs
   m_EditorClassIdentifier: 
-  _assetsFolderPath: Assets/AddressableResources/Audio/MainMenu
+  _assetsFolderPath: 
   _configs:
-  - Key: 0
+  - Key: 2
     Value:
-      m_AssetGUID: 8c772de2bd9964474a737c04908b0be8
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 1
-    Value:
-      m_AssetGUID: 4259503e6044347f0a22e342be877e73
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 14
-    Value:
-      m_AssetGUID: d5c6ca05fa0874642b71d2f0bda232af
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+      AudioId: 2
+      AudioClips:
+      - m_AssetGUID: 4259503e6044347f0a22e342be877e73
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0

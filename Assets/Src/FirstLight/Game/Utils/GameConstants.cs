@@ -44,20 +44,19 @@ namespace FirstLight.Game.Utils
 			// Audio defaults
 			public const float SFX_2D_DEFFAULT_VOLUME_MULTIPLIER = 0.4f;
 			public const float SFX_3D_DEFAULT_VOLUME_MULTIPLIER = 0.5f;
-			public const float BGM_DEFAULT_VOLUME = 0.3f;
-			public const float SFX_2D_SPATIAL_BLEND = 0f;
-			public const float SFX_3D_SPATIAL_BLEND = 1f;
+			public const float BGM_DEFAULT_VOLUME = 0.35f;
 			public const float SFX_DEFAULT_VOLUME = 1f;
 			public const float SFX_DEFAULT_PITCH = 1f;
 			
-			public const float SFX_DEFAULT_VOLUME_DEVIATION = 0.2f;
-			public const float SFX_DEFAULT_PITCH_DEVIATION = 0.2f;
+			public const float SFX_2D_SPATIAL_BLEND = 0f;
+			public const float SFX_3D_SPATIAL_BLEND = 1f;
+			
 			public const float SFX_3D_MIN_DISTANCE = 5f;
 			public const float SFX_3D_MAX_DISTANCE = 20f;
 
-			public const float MUSIC_DEFAULT_FADE_IN_SECONDS = 3f;
-			public const float MUSIC_DEFAULT_FADE_OUT_SECONDS = 1.5f;
-			public const float MUSIC_SHORT_FADE_IN_SECONDS = 2f;
+			public const float MUSIC_REGULAR_FADE_IN_SECONDS = 3f;
+			public const float MUSIC_REGULAR_FADE_OUT_SECONDS = 2f;
+			public const float MUSIC_SHORT_FADE_IN_SECONDS = 1.5f;
 			public const float MUSIC_SHORT_FADE_OUT_SECONDS = 1f;
 			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;

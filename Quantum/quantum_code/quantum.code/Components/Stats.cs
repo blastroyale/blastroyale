@@ -186,6 +186,13 @@ namespace Quantum
 			CurrentHealth = Math.Min(maxHealth, amount);
 			CurrentHealth = Math.Max(CurrentHealth, 0);
 
+			// RefreshStats in PlayerCharacter sets the player as the entity and attacker, which seems wrong,
+			// but I don't want to break something before going on vacation so I'm checking for it here.
+			if (CurrentHealth == previousHealth && attacker != EntityRef.None && attacker != entity)
+			{
+				f.Events.OnDamageBlocked(entity);
+			}
+
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{
 				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
@@ -225,6 +232,7 @@ namespace Quantum
 
 			if (IsImmune)
 			{
+				f.Events.OnDamageBlocked(entity);
 				return;
 			}
 

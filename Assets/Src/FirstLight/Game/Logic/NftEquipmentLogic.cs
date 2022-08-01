@@ -162,8 +162,8 @@ namespace FirstLight.Game.Logic
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var baseStatsConfig =
 				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentStatsConfigs>().GetConfig(equipment);
-			var statsMaterialConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentMaterialStatsConfigs>().GetConfig(equipment);
+			var statsConfig = GameLogic.ConfigsProvider.GetConfig<QuantumEquipmentStatsConfig>(equipment.GetStatsKey());
+			var statsMaterialConfig = GameLogic.ConfigsProvider.GetConfig<QuantumEquipmentMaterialStatsConfigs>(equipment.GetStatsKey());
 
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{

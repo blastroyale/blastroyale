@@ -71,6 +71,10 @@ namespace PlayFab
                 AndroidJavaObject contentResolver = currentActivity.Call<AndroidJavaObject> ("getContentResolver");
                 AndroidJavaClass secure = new AndroidJavaClass ("android.provider.Settings$Secure");
                 deviceId = secure.CallStatic<string> ("getString", contentResolver, "android_id");
+#elif UNITY_IOS
+                // iOS deviceUniqueIdentifier if app signature changes (reinstalls) 
+                // so we need to use the identifier per vendor as we don't have access to device UID.
+                deviceId = UnityEngine.iOS.Device.vendorIdentifier;
 #else
                 deviceId = SystemInfo.deviceUniqueIdentifier;
 #endif

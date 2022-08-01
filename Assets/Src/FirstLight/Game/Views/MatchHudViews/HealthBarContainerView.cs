@@ -17,7 +17,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	{
 		[SerializeField, Required] private OverlayWorldView _healthBarLocalPlayerRef;
 		[SerializeField, Required] private OverlayWorldView _healthBarPlayerRef;
-		[SerializeField, Required] private OverlayWorldView _healthBarEnemyRef;
 
 		private IGameServices _services;
 		private IObjectPool<PlayerHealthBarPoolObject> _healthBarPlayerPool;
@@ -35,7 +34,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			
 			_healthBarLocalPlayerRef.gameObject.SetActive(false);
 			_healthBarPlayerRef.gameObject.SetActive(false);
-			_healthBarEnemyRef.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()

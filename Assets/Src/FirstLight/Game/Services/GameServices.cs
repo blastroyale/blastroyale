@@ -75,6 +75,9 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IHelpdeskService"/>
 		public IHelpdeskService HelpdeskService { get; }
+		
+		/// <inheritdoc cref="IGameFlowService"/>
+		public IGameFlowService GameFlowService { get; }
 	}
 
 	public class GameServices : IGameServices
@@ -99,17 +102,18 @@ namespace FirstLight.Game.Services
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
+		public IGameFlowService GameFlowService { get; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic, IDataProvider dataProvider,
 		                    IGenericDialogService genericDialogService,
-		                    IAssetResolverService assetResolverService, IAnalyticsService analyticsService,
+		                    IAssetResolverService assetResolverService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
-		                    IThreadService threadService)
+		                    IThreadService threadService, IGameFlowService gameFlowService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = analyticsService;
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataSaver;
@@ -119,10 +123,11 @@ namespace FirstLight.Game.Services
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
 			ThreadService = threadService;
+			GameFlowService = gameFlowService;
 
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider, gameFlowService);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

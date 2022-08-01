@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public partial struct QuantumEquipmentStatsConfig
+	public struct QuantumEquipmentStatsConfig
 	{
 		public GameIdGroup Category;
 		public EquipmentAdjective Adjective;
@@ -24,10 +24,8 @@ namespace Quantum
 	{
 		public List<QuantumEquipmentStatsConfig> QuantumConfigs = new List<QuantumEquipmentStatsConfig>();
 
-		private Dictionary<EquipmentStatsKey, QuantumEquipmentStatsConfig> _dictionary =
+		private readonly Dictionary<EquipmentStatsKey, QuantumEquipmentStatsConfig> _dictionary =
 			new Dictionary<EquipmentStatsKey, QuantumEquipmentStatsConfig>();
-
-		private HashSet<GameIdGroup> _validGroups = new HashSet<GameIdGroup>();
 
 		/// <summary>
 		/// Requests the <see cref="QuantumEquipmentStatsConfig"/> of the given <paramref name="equipment"/>
@@ -41,29 +39,17 @@ namespace Quantum
 					_dictionary
 						.Add(new EquipmentStatsKey(statsConfig.Category, statsConfig.Adjective, statsConfig.Faction),
 						     statsConfig);
-
-					_validGroups.Add(statsConfig.Category);
 				}
 			}
 
-			return _dictionary
-				[new EquipmentStatsKey(GetEquipmentGroup(equipment), equipment.Adjective, equipment.Faction)];
-		}
-
-		private GameIdGroup GetEquipmentGroup(Equipment equipment)
-		{
-			foreach (var group in _validGroups)
-			{
-				if (equipment.GameId.IsInGroup(group))
-				{
-					return group;
-				}
-			}
-
-			throw new NotSupportedException($"GameIdGroup for Equipment with GameId({equipment.GameId}) not found.");
+			return _dictionary[equipment.GetStatsKey()];
 		}
 	}
 
+	/// <summary>
+	/// A "unique" key that represents a set of <see cref="GameIdGroup"/>, <see cref="EquipmentAdjective"/>,
+	/// and <see cref="EquipmentFaction"/>.
+	/// </summary>
 	public readonly struct EquipmentStatsKey : IEquatable<EquipmentStatsKey>
 	{
 		public readonly GameIdGroup Category;
@@ -76,6 +62,8 @@ namespace Quantum
 			Category = category;
 			Adjective = adjective;
 		}
+
+		public static implicit operator int(EquipmentStatsKey key) => key.GetHashCode();
 
 		public bool Equals(EquipmentStatsKey other)
 		{
@@ -96,6 +84,50 @@ namespace Quantum
 				hashCode = (hashCode * 397) ^ (int) Faction;
 				return hashCode;
 			}
+		}
+	}
+
+	/// <summary>
+	/// Helper methods to work with <see cref="QuantumEquipmentStatsConfig"/> and <see cref="EquipmentStatsKey"/>.
+	/// </summary>
+	public static class EquipmentStatsHelpers
+	{
+		private static readonly HashSet<GameIdGroup> _validGroups = new HashSet<GameIdGroup>
+		{
+			GameIdGroup.Weapon,
+			GameIdGroup.Helmet,
+			GameIdGroup.Armor,
+			GameIdGroup.Amulet,
+			GameIdGroup.Shield
+		};
+
+		/// <summary>
+		/// Gets a unique <see cref="EquipmentStatsKey"/> for this config.
+		/// </summary>
+		public static EquipmentStatsKey GetKey(this QuantumEquipmentStatsConfig config)
+		{
+			return new EquipmentStatsKey(config.Category, config.Adjective, config.Faction);
+		}
+
+		/// <summary>
+		/// Gets a unique <see cref="EquipmentStatsKey"/> for this <see cref="Equipment"/>.
+		/// </summary>
+		public static EquipmentStatsKey GetStatsKey(this Equipment equipment)
+		{
+			return new EquipmentStatsKey(GetEquipmentGroup(equipment), equipment.Adjective, equipment.Faction);
+		}
+
+		private static GameIdGroup GetEquipmentGroup(Equipment equipment)
+		{
+			foreach (var group in _validGroups)
+			{
+				if (equipment.GameId.IsInGroup(group))
+				{
+					return group;
+				}
+			}
+
+			throw new NotSupportedException($"GameIdGroup for Equipment with GameId({equipment.GameId}) not found.");
 		}
 	}
 }

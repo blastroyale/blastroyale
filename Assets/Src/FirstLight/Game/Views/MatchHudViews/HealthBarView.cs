@@ -22,7 +22,9 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		[SerializeField] private Color _secondaryHitColor = Color.yellow;
 		[SerializeField] private Color _tertiaryHitColor = Color.red;
 		[SerializeField, Required] private UnityEvent _healthIncreasedEvent;
-		
+		[SerializeField, Required] private Image _damageBlockedIcon;
+		[SerializeField] private float _damageBlockedDuration = 2f;
+
 		/// <summary>
 		/// Requests the entity that this health bar represents
 		/// </summary>
@@ -31,8 +33,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Event invoked everytime the health is updated for this health bar
 		/// </summary>
-		public UnityEvent<int, int, int> OnHealthUpdatedEvent { get; } = new UnityEvent<int, int, int>();
-		
+		public UnityEvent<int, int, int> OnHealthUpdatedEvent { get; } = new();
+
 		private void OnValidate()
 		{
 			_slider = GetComponent<Slider>();
@@ -46,24 +48,25 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			Entity = entity;
 			_fillImage.color = _primaryHitColor;
-			
+
 			gameObject.SetActive(true);
 			HealthBarUpdate((float) currentHealth / maxHealth);
 			DamageDoneUpdate((float) currentHealth / maxHealth);
-			
+
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, OnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, OnStatusModifierFinished);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, OnStatusModifierCancelled);
+			QuantumEvent.Subscribe<EventOnDamageBlocked>(this, OnDamageBlocked);
 		}
 
 		/// <inheritdoc />
 		public void OnDespawn()
 		{
 			Entity = EntityRef.None;
-			
+
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
@@ -73,10 +76,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			HealthBarUpdate((float) callback.CurrentHealth / callback.MaxHealth);
 			DamageDoneUpdate((float) callback.CurrentHealth / callback.MaxHealth);
-			
+
 			gameObject.SetActive(true);
 		}
 
@@ -86,10 +89,10 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			gameObject.SetActive(false);
 		}
-		
+
 		private void OnStatusModifierSet(EventOnStatusModifierSet callback)
 		{
 			TryHandleInvisibility(callback.Game.Frames.Verified, callback.Entity, callback.Type, false);
@@ -99,7 +102,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			TryHandleInvisibility(callback.Game.Frames.Verified, callback.Entity, callback.Type, true);
 		}
-		
+
 		private void OnStatusModifierCancelled(EventOnStatusModifierCancelled callback)
 		{
 			TryHandleInvisibility(callback.Game.Frames.Verified, callback.Entity, callback.Type, true);
@@ -111,14 +114,26 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
-			DOVirtual.Float(_fillImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 0.1f, HealthBarUpdate);
-			DOVirtual.Float(_damageDealtImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 1f, DamageDoneUpdate);
-			
+
+			DOVirtual.Float(_fillImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 0.1f,
+			                HealthBarUpdate);
+			DOVirtual.Float(_damageDealtImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 1f,
+			                DamageDoneUpdate);
+
 			OnHealthUpdatedEvent.Invoke(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 			_healthIncreasedEvent?.Invoke();
 		}
-		
+
+		private void OnDamageBlocked(EventOnDamageBlocked callback)
+		{
+			if (callback.Entity != Entity) return;
+
+			_damageBlockedIcon.DOKill();
+
+			_damageBlockedIcon.color = Color.white;
+			_damageBlockedIcon.DOFade(0, 0.3f).SetDelay(_damageBlockedDuration);
+		}
+
 		// We switch HealthBar on/off only for enemies affected by Invisibility status modifier
 		private void TryHandleInvisibility(Frame f, EntityRef entity, StatusModifierType statusModType, bool newState)
 		{
@@ -127,7 +142,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			{
 				return;
 			}
-			
+
 			gameObject.SetActive(newState);
 		}
 

@@ -1,9 +1,5 @@
-﻿using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.Match;
-using FirstLight.Game.Services;
+﻿using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Realtime;
 using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -22,8 +18,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private TextMeshProUGUI _targetFragsText;
 		[SerializeField, Required] private Slider _progressSlider;
 		[SerializeField, Required] private Animation _rankChangeAnimation;
-		
+
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private int _fragTarget;
 
 		private PlayerRef _currentlyFollowing;
@@ -31,84 +28,48 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			_currentRankText.text = "1";
 			_currentFragsText.text = "0";
 			_progressSlider.value = 0;
 			_fragTarget = (int) _services.NetworkService.CurrentRoomMapConfig.Value.GameEndTarget;
 			_targetFragsText.text = _fragTarget.ToString();
-			
-			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
-			
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
-			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnEventOnLocalPlayerAlive);
+
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
-		
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _currentlyFollowing != PlayerRef.None)
-			{
-				return;
-			}
-			
-			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Predicted);
-		}
-
-		private void OnEventOnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
-		{
-			UpdateFollowedPlayer(callback.Player, callback.Game.Frames.Predicted);
-		}
-
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
-		{
-			UpdateFollowedPlayer(msg.PlayerSpectated, QuantumRunner.Default.Game.Frames.Predicted);
-		}
-
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
-		{
-			if (callback.PlayerDead == _currentlyFollowing && _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				UpdateFollowedPlayer(callback.PlayerKiller, callback.Game.Frames.Predicted);
-			}
-			else
-			{
-				var frame = callback.Game.Frames.Verified;
-				var gameContainer = frame.GetSingleton<GameContainer>();
-				var data = gameContainer.GetPlayersMatchData(frame, out _);
-			
-				UpdateValues(data[_currentlyFollowing]);
-			}
+			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 
 		private void UpdateFollowedPlayer(PlayerRef playerRef, Frame f)
 		{
 			_currentlyFollowing = playerRef;
-			
+
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var data = gameContainer.GetPlayersMatchData(f, out _);
-			
+
 			UpdateValues(data[_currentlyFollowing]);
 		}
 
 		private void UpdateValues(QuantumPlayerMatchData playerMatchData)
 		{
 			_currentRankText.text = playerMatchData.PlayerRank.ToString();
-			
+
 			_rankChangeAnimation.Rewind();
 			_rankChangeAnimation.Play();
 
 			var kills = playerMatchData.Data.PlayersKilledCount;
-			
-			_currentFragsText.text = kills.ToString();
-			_progressSlider.value = kills / (float)_fragTarget;
-		}
 
+			_currentFragsText.text = kills.ToString();
+			_progressSlider.value = kills / (float) _fragTarget;
+		}
 	}
 }
-

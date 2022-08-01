@@ -8,6 +8,7 @@ using UnityEngine;
 namespace FirstLight.Game.Configs
 {
 	[Serializable]
+	[IgnoreServerSerialization]
 	public struct AudioWeaponConfig
 	{
 		public GameId Id;
@@ -22,6 +23,7 @@ namespace FirstLight.Game.Configs
 	/// Scriptable Object tool to import the <seealso cref="QuantumWeaponConfig"/> sheet data
 	/// </summary>
 	[CreateAssetMenu(fileName = "AudioWeaponConfigs", menuName = "ScriptableObjects/Configs/AudioWeaponConfigs")]
+	[IgnoreServerSerialization]
 	public class AudioWeaponConfigs : ScriptableObject, IConfigsContainer<AudioWeaponConfig>
 	{
 		[SerializeField] private List<AudioWeaponConfig> _configs = new List<AudioWeaponConfig>();

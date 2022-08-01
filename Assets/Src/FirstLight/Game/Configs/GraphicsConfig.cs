@@ -5,6 +5,7 @@ using UnityEngine;
 namespace FirstLight.Game.Configs
 {
 	[CreateAssetMenu(fileName = "GraphicsConfig", menuName = "ScriptableObjects/Configs/GraphicsConfig")]
+	[IgnoreServerSerialization]
 	public class GraphicsConfig : ScriptableObject
 	{
 		[Serializable]

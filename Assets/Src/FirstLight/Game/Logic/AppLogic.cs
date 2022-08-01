@@ -167,6 +167,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+
 		/// <inheritdoc />
 		public IObservableField<bool> AccountLinkedStatus { get; private set; }
 		/// <inheritdoc />

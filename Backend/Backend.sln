@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIntegration", "TestInte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleTrophyLadderPlugin", "BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj", "{A3953A68-EF34-4A8B-81D4-0A1EA0999458}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerScripts", "ServerScripts\ServerScripts.csproj", "{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{A3953A68-EF34-4A8B-81D4-0A1EA0999458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3953A68-EF34-4A8B-81D4-0A1EA0999458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3953A68-EF34-4A8B-81D4-0A1EA0999458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

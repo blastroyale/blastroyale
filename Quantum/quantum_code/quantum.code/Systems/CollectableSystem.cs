@@ -20,7 +20,7 @@ namespace Quantum.Systems
 
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
-				f.Events.OnLocalCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace Quantum.Systems
 
 				collectable->CollectorsEndTime[player.Player] = endTime;
 
-				f.Events.OnLocalStartedCollecting(info.Entity, *collectable, player.Player, info.Other);
+				f.Events.OnStartedCollecting(info.Entity, *collectable, player.Player, info.Other);
 			}
 
 			if (f.Time < endTime)
@@ -138,7 +138,7 @@ namespace Quantum.Systems
 
 			collectable->CollectorsEndTime[player] = FP._0;
 
-			f.Events.OnLocalStoppedCollecting(entity, player, playerEntity);
+			f.Events.OnStoppedCollecting(entity, player, playerEntity);
 		}
 
 		private void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
@@ -177,7 +177,6 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
-			f.Events.OnLocalCollectableCollected(gameId, entity, player, playerEntity);
 			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 	}

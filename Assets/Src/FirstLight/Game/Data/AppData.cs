@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using Quantum;

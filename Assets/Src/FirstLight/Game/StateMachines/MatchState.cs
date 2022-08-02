@@ -94,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
-			unloading.OnEnter(() => { UnloadAllMatchAssets(); });
+			unloading.OnEnter(UnloadAllMatchAssets);
 			unloading.Event(MatchUnloadedEvent).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);
@@ -258,7 +258,7 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
-		private async Task UnloadAllMatchAssets()
+		private async void UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;

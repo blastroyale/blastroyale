@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_ItemCard2D
   m_Shader: {fileID: -6465566751694194690, guid: 5d50a418b1581544db563aee1145ef5a, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AdjectivePattern:
-        m_Texture: {fileID: 2800000, guid: 9b7f69386bc76224e9331243ca35342c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7919558afc032974cb53994e8fe03496, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Back:
@@ -28,11 +29,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FX:
-        m_Texture: {fileID: 2800000, guid: 3fd55e3e3764e4f488a29e76918e51f7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8993f78c58e5bbb409b8e0da275e100e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Frame:
-        m_Texture: {fileID: 2800000, guid: bc93978a131765449af0b3ff597749ca, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2003aecdbea57424cb443660d2e841ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrameShapeMask:
@@ -44,19 +45,47 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a50d8da0637a640dda5e2018b972cade, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0d6550da60d0fac4d8bb6a5a42df383b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NameTag:
-        m_Texture: {fileID: 2800000, guid: 097ad6d332f3cfe4fbbba753a12e4445, type: 3}
+        m_Texture: {fileID: 2800000, guid: 506c65fed5c8c7344a0c713df7cafb79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PlusIndicator:
         m_Texture: {fileID: 2800000, guid: fe70cb0acb23a0242827b985c1d0e490, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Plus_Image:
+        m_Texture: {fileID: 2800000, guid: 94ac4b276c3d89d4b96cf55b0a499fad, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_48cadbb9084f4d1d9e22a8129e005c38_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 0d6550da60d0fac4d8bb6a5a42df383b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_0e3260f7159a476b8fe0d283c3c6f5b7_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d6550da60d0fac4d8bb6a5a42df383b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_4d61330ca2c24d59b6073bf9ce4d570d_Out_0:
         m_Texture: {fileID: 2800000, guid: 2ee593a5048e74f4c8685609e8adcd2e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_c2bae30f58c549daba48f09f243a4090_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d6550da60d0fac4d8bb6a5a42df383b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_ff0517f807774f54b04978ec5f8e369b_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d6550da60d0fac4d8bb6a5a42df383b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _card_back:
+        m_Texture: {fileID: 2800000, guid: 0d6550da60d0fac4d8bb6a5a42df383b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -73,9 +102,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Adjective_Amount: 0.2
+    - _Adjective_Amount: 0.5
     - _FX_Amount: 0.5
-    - _Grade_Amount: 1
+    - _FX_Size: 1.64
+    - _Grade_Amount: -5
+    - _PlusIndicator: 1
     - _Plus_Amount: 2
+    - _Plus_Indicator: 1
     m_Colors: []
   m_BuildTextureStacks: []

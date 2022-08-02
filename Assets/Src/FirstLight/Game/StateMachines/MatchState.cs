@@ -24,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 	public class MatchState
 	{
 		public static readonly IStatechartEvent AllPlayersReadyEvent = new StatechartEvent("All Players Ready");
+		public static readonly IStatechartEvent MatchUnloadedEvent = new StatechartEvent("Match Unloaded Ready");
 		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
@@ -31,10 +32,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IAssetAdderService _assetAdderService;
 		private bool _arePlayerAssetsLoaded = false;
+		private Action<IStatechartEvent> _statechartTrigger;
 		
 		public MatchState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
+			_statechartTrigger = statechartTrigger;
 			_services = services;
 			_networkService = networkService;
 			_uiService = uiService;
@@ -58,7 +61,7 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyCheck = stateFactory.Choice("Player Ready Check");
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
-			var unloading = stateFactory.TaskWait("Unloading");
+			var unloading = stateFactory.State("Unloading");
 			var disconnectCheck = stateFactory.Choice("Disconnect Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectReloadCheck = stateFactory.Choice("Post Reload Check");
@@ -91,7 +94,8 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
-			unloading.WaitingFor(UnloadAllMatchAssets).Target(disconnectCheck);
+			unloading.OnEnter(UnloadAllMatchAssets);
+			unloading.Event(MatchUnloadedEvent).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);
 			disconnectCheck.Transition().Target(disconnected);
@@ -254,7 +258,7 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
-		private async Task UnloadAllMatchAssets()
+		private async void UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
@@ -278,6 +282,8 @@ namespace FirstLight.Game.StateMachines
 			Resources.UnloadUnusedAssets();
 
 			_arePlayerAssetsLoaded = false;
+
+			_statechartTrigger(MatchUnloadedEvent);
 		}
 
 		private IEnumerable<Task> PreloadMapAssets()

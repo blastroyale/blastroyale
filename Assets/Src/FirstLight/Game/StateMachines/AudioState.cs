@@ -66,15 +66,17 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.Transition().Target(battleRoyale);
 
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
+			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
+			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
 			
 			postGame.OnEnter(PlayPostGameMusic);
-			postGame.Event(GameSimulationState.SimulationEndedEvent).Target(audioBase);
+			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
 
 			final.OnEnter(UnsubscribeEvents);
@@ -104,14 +106,14 @@ namespace FirstLight.Game.StateMachines
 		private void PlayMainMenuMusic()
 		{
 			_services.AudioFxService.PlayMusic(AudioId.MusicMainMenuLoop,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 		}
 
 		private void PlayPostGameMusic()
 		{
 			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_OUT_SECONDS);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS,
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 		}
 
 		private void StopMusicInstant()
@@ -121,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopMusicFadeOut()
 		{
-			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_IN_SECONDS);
+			_services.AudioFxService.StopMusic(GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)

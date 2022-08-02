@@ -27,8 +27,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private bool _isHighIntensityPhase = false;
 
-		private float CurrentMusicPlaybackTime => _services.AudioFxService.GetCurrentMusicPlaybackTime();
-
 		public AudioDeathmatchState(IGameServices services, IGameDataProvider gameLogic,
 		                            Action<IStatechartEvent> statechartTrigger)
 		{
@@ -122,11 +120,11 @@ namespace FirstLight.Game.StateMachines
 
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
+				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
 				                     : 0;
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, true);
+			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
 		}
 	}
 }

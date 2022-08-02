@@ -86,10 +86,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var leaderPlayerData = playerData[leader];
-
-			var killsLeftForLeader = container.TargetProgress - leaderPlayerData.Data.PlayersKilledCount;
+			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 
 			return killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD;
 		}
@@ -98,10 +95,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var frame = callback.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var leaderPlayerData = playerData[leader];
-
-			var killsLeftForLeader = container.TargetProgress - leaderPlayerData.Data.PlayersKilledCount;
+			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 
 			if (killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{

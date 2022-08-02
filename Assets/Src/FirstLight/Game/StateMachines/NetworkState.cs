@@ -558,9 +558,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void LockRoom()
 		{
-			if (_networkService.QuantumClient.CurrentRoom.IsOpen)
+			var room = _networkService?.QuantumClient?.CurrentRoom;
+			
+			if (room != null && room.IsOpen)
 			{
-				_networkService.QuantumClient.CurrentRoom.IsOpen = false;
+				room.IsOpen = false;
 			}
 		}
 

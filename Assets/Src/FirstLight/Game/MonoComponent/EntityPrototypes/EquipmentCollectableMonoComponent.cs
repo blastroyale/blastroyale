@@ -37,7 +37,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
 			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
-			QuantumEvent.UnsubscribeListener<EventOnLocalPlayerWeaponChanged>(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private async Task<bool> ShowEquipment(QuantumGame game)

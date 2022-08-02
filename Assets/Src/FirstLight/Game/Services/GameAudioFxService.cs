@@ -30,16 +30,16 @@ namespace FirstLight.Game.Services
 			var clipConfigs = clips as IReadOnlyDictionary<AudioId, AudioClipConfig>;
 			var tasks = new List<Task>();
 
-			foreach (var clipConfig in clipConfigs)
+			foreach (var configKvp in clipConfigs)
 			{
 				var clipLoadTasks = new List<Task<AudioClip>>();
 
-				foreach (var assetReference in clipConfig.Value.AudioClips)
+				foreach (var assetReference in configKvp.Value.AudioClips)
 				{
 					clipLoadTasks.Add(assetReference.LoadAssetAsync().Task);
 				}
 
-				tasks.Add(LoadAudioClipsForId(clipConfig.Key, clipLoadTasks, clipConfig.Value));
+				tasks.Add(LoadAudioClipsForId(configKvp.Key, clipLoadTasks, configKvp.Value));
 			}
 
 			await Task.WhenAll(tasks);
@@ -66,9 +66,17 @@ namespace FirstLight.Game.Services
 		{
 			var convertedClips = clips as IReadOnlyDictionary<AudioId, AudioClipConfig>;
 
-			foreach (var convClip in convertedClips)
+			foreach (var configKvp in convertedClips)
 			{
-				RemoveAudioClip(convClip.Key);
+				foreach (var clipAssetRef in configKvp.Value.AudioClips)
+				{
+					if (clipAssetRef.IsValid())
+					{
+						clipAssetRef.ReleaseAsset();
+					}
+				}
+				
+				RemoveAudioClip(configKvp.Key);
 			}
 		}
 

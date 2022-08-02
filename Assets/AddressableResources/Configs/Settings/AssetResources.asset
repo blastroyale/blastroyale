@@ -478,6 +478,11 @@ MonoBehaviour:
         Id:
           Value: 2910023184910884450
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardBool_14]
+    - Path: AddressableResources/Configs/EquipmentMaterialStatsConfigs
+      AssetRef:
+        Id:
+          Value: 2931657409906099456
+      Address: Configs/EquipmentMaterialStatsConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerMoveAction_2
       AssetRef:
         Id:

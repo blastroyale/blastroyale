@@ -32,11 +32,12 @@ namespace Quantum
 
 				var baseStatConfig = f.BaseEquipmentStatsConfigs.GetConfig(item.GameId);
 				var statConfig = f.EquipmentStatsConfigs.GetConfig(item);
+				var statMaterialConfig = f.EquipmentMaterialStatsConfigs.GetConfig(item);
 
-				health += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Health).AsInt;
-				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Speed);
-				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Armour).AsInt;
-				power += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Power);
+				health += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Health).AsInt;
+				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Speed);
+				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Armour).AsInt;
+				power += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Power);
 			}
 		}
 
@@ -59,11 +60,12 @@ namespace Quantum
 			{
 				var baseStatConfig = f.BaseEquipmentStatsConfigs.GetConfig(weapon.GameId);
 				var statConfig = f.EquipmentStatsConfigs.GetConfig(weapon);
+				var statMaterialConfig = f.EquipmentMaterialStatsConfigs.GetConfig(weapon);
 
-				health += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Health).AsInt;
-				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Speed);
-				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Armour).AsInt;
-				power += CalculateStat(gameConfig, baseStatConfig, statConfig, weapon, StatType.Power);
+				health += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Health).AsInt;
+				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Speed);
+				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Armour).AsInt;
+				power += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Power);
 			}
 
 			for (int i = 0; i < gear.Length; i++)
@@ -76,11 +78,12 @@ namespace Quantum
 
 				var baseStatConfig = f.BaseEquipmentStatsConfigs.GetConfig(item.GameId);
 				var statConfig = f.EquipmentStatsConfigs.GetConfig(item);
+				var statMaterialConfig = f.EquipmentMaterialStatsConfigs.GetConfig(item);
 
-				health += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Health).AsInt;
-				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Speed);
-				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Armour).AsInt;
-				power += CalculateStat(gameConfig, baseStatConfig, statConfig, item, StatType.Power);
+				health += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Health).AsInt;
+				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Speed);
+				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Armour).AsInt;
+				power += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, item, StatType.Power);
 			}
 		}
 
@@ -88,10 +91,12 @@ namespace Quantum
 		/// Calculates the weapon power based on weapon stats and NFT config.
 		/// </summary>
 		public static FP CalculateStat(QuantumGameConfig gameConfig, QuantumBaseEquipmentStatsConfig baseStatsConfig,
-		                               QuantumEquipmentStatsConfig statsConfig, Equipment equipment, StatType stat)
+		                               QuantumEquipmentStatsConfig statsConfig, QuantumEquipmentMaterialStatsConfig materialStatsConfig,
+		                               Equipment equipment, StatType stat)
 		{
 			GetBaseValues(baseStatsConfig, gameConfig, stat, out var baseValue, out var baseRatio);
 			var statRatio = GetStatRatioK(statsConfig, stat);
+			statRatio += GetMaterialStatRatioK(materialStatsConfig, stat);
 
 			return ApplyModifiers(baseValue, baseRatio, statRatio, equipment, gameConfig, stat);
 		}
@@ -165,6 +170,23 @@ namespace Quantum
 			}
 		}
 
+		private static FP GetMaterialStatRatioK(QuantumEquipmentMaterialStatsConfig statsConfig, StatType stat)
+		{
+			switch (stat)
+			{
+				case StatType.Health:
+					return statsConfig.HpRatioToBaseK;
+				case StatType.Power:
+					return statsConfig.PowerRatioToBaseK;
+				case StatType.Speed:
+					return statsConfig.SpeedRatioToBaseK;
+				case StatType.Armour:
+					return statsConfig.ArmorRatioToBaseK;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(stat), stat, null);
+			}
+		}
+		
 		/// <summary>
 		/// Fetches the base stat value and ratio. 
 		/// </summary>

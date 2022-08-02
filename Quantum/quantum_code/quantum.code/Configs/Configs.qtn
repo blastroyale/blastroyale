@@ -10,3 +10,4 @@ asset QuantumAssetConfigs;
 asset QuantumShrinkingCircleConfigs;
 asset QuantumEquipmentStatsConfigs;
 asset QuantumBaseEquipmentStatsConfigs;
+asset QuantumEquipmentMaterialStatsConfigs;

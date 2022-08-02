@@ -31,119 +31,119 @@ MonoBehaviour:
     - Category: 13
       Material: 1
       HpRatioToBaseK:
-        RawValue: 13107
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
       Material: 2
       HpRatioToBaseK:
-        RawValue: 13107
-      ArmorRatioToBaseK:
-        RawValue: 3277
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 13107
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
       Material: 3
       HpRatioToBaseK:
-        RawValue: 16384
-      ArmorRatioToBaseK:
         RawValue: 6554
-      SpeedRatioToBaseK:
+      ArmorRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 13107
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
       Material: 4
       HpRatioToBaseK:
-        RawValue: 16384
-      ArmorRatioToBaseK:
         RawValue: 6554
-      SpeedRatioToBaseK:
-        RawValue: 6554
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 11
-      Material: 0
-      HpRatioToBaseK:
-        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 11
-      Material: 1
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 3277
-    - Category: 11
-      Material: 2
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 6554
-    - Category: 11
-      Material: 3
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 3277
-      PowerRatioToBaseK:
-        RawValue: 6554
-    - Category: 11
-      Material: 4
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 6554
-      PowerRatioToBaseK:
-        RawValue: 6554
-    - Category: 17
-      Material: 0
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 1
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 3277
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 2
-      HpRatioToBaseK:
         RawValue: 13107
+      PowerRatioToBaseK:
+        RawValue: 13107
+    - Category: 11
+      Material: 0
+      HpRatioToBaseK:
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 3277
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 11
+      Material: 1
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 6291
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 11
+      Material: 2
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 10486
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 11
+      Material: 3
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 10486
+      PowerRatioToBaseK:
+        RawValue: 10486
+    - Category: 11
+      Material: 4
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 13107
+      PowerRatioToBaseK:
+        RawValue: 13107
+    - Category: 17
+      Material: 0
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 1
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 15729
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 2
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 26214
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -151,21 +151,21 @@ MonoBehaviour:
     - Category: 17
       Material: 3
       HpRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 3277
+        RawValue: 26214
       SpeedRatioToBaseK:
-        RawValue: 6554
+        RawValue: 13107
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Material: 4
       HpRatioToBaseK:
-        RawValue: 16384
-      ArmorRatioToBaseK:
-        RawValue: 9830
-      SpeedRatioToBaseK:
         RawValue: 6554
+      ArmorRatioToBaseK:
+        RawValue: 26214
+      SpeedRatioToBaseK:
+        RawValue: 13107
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -187,37 +187,37 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 3277
+        RawValue: 7864
     - Category: 16
       Material: 2
       HpRatioToBaseK:
-        RawValue: 9830
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 3277
+        RawValue: 13107
     - Category: 16
       Material: 3
       HpRatioToBaseK:
-        RawValue: 9830
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 13107
       PowerRatioToBaseK:
-        RawValue: 3277
+        RawValue: 13107
     - Category: 16
       Material: 4
       HpRatioToBaseK:
-        RawValue: 9830
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 6554
+        RawValue: 26214
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 13107
       PowerRatioToBaseK:
-        RawValue: 3277
+        RawValue: 13107
     - Category: 15
       Material: 0
       HpRatioToBaseK:
@@ -231,7 +231,7 @@ MonoBehaviour:
     - Category: 15
       Material: 1
       HpRatioToBaseK:
-        RawValue: 13107
+        RawValue: 3932
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -241,7 +241,7 @@ MonoBehaviour:
     - Category: 15
       Material: 2
       HpRatioToBaseK:
-        RawValue: 19661
+        RawValue: 6554
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -251,20 +251,20 @@ MonoBehaviour:
     - Category: 15
       Material: 3
       HpRatioToBaseK:
-        RawValue: 19661
-      ArmorRatioToBaseK:
         RawValue: 6554
-      SpeedRatioToBaseK:
+      ArmorRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 13107
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Material: 4
       HpRatioToBaseK:
-        RawValue: 19661
+        RawValue: 6554
       ArmorRatioToBaseK:
-        RawValue: 13107
+        RawValue: 26214
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 13107
       PowerRatioToBaseK:
         RawValue: 0

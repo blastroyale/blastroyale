@@ -18,12 +18,11 @@ namespace FirstLight.Game.Views
 		}
 		
 		public Sprite[] _factionSprites;
-		public SpriteDimensional[] _backSprites;
-		public SpriteDimensional[] _frameSprites;
+		public Sprite[] _frameSprites;
 		public Sprite[] _frameShapeMasks;
 		public Sprite[] _NameTagSprites;
 		public Sprite[] _adjectivePatternSprites;
-		public Sprite[] _plusAmountGradePatternSprites;
+
 		
 		[SerializeField] private TextMeshProUGUI _nameText;
 		[SerializeField] private TextMeshProUGUI _gradeText;
@@ -33,12 +32,11 @@ namespace FirstLight.Game.Views
 
 		private MaterialPropertyBlock _propBlock;
 		private readonly string[] _gradeRomanNumerals = new[] { "I", "II", "III", "IV", "V" };
-		private readonly int _backId = Shader.PropertyToID("_Back");
 		private readonly int _frameId = Shader.PropertyToID("_Frame");
 		private readonly int _frameShapeMaskId = Shader.PropertyToID("_FrameShapeMask");
 		private readonly int _nameTagId = Shader.PropertyToID("_NameTag");
 		private readonly int _adjectivePatternId = Shader.PropertyToID("_AdjectivePattern");
-		private readonly int _plusAmountGradePatternId = Shader.PropertyToID("_PlusIndicator");
+		private readonly int _plusIndicatorId = Shader.PropertyToID("_Plus_Indicator");
 		
 		private void Awake()
 		{
@@ -70,12 +68,11 @@ namespace FirstLight.Game.Views
 			_propBlock.Clear();
 			_renderer.GetPropertyBlock(_propBlock);
 			
-			_propBlock.SetTexture(_backId, _backSprites[materialId].Array[rarityId].texture);
-			_propBlock.SetTexture(_frameId, _frameSprites[materialId].Array[rarityId].texture);
+			_propBlock.SetFloat(_plusIndicatorId, ((rarityId + 1) % 2) == 0 ? 1f : 0f);
+			_propBlock.SetTexture(_frameId, _frameSprites[rarityId].texture);
 			_propBlock.SetTexture(_frameShapeMaskId, _frameShapeMasks[rarityId].texture);
 			_propBlock.SetTexture(_nameTagId, _NameTagSprites[materialId].texture);
 			_propBlock.SetTexture(_adjectivePatternId, _adjectivePatternSprites[adjectiveId].texture);
-			_propBlock.SetTexture(_plusAmountGradePatternId, _plusAmountGradePatternSprites[rarityId].texture);
 			
 			_renderer.SetPropertyBlock(_propBlock, 0);
 		}

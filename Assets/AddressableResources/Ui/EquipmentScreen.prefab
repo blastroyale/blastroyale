@@ -2110,9 +2110,7 @@ MonoBehaviour:
   Anchor: {fileID: 6739938109033102798}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &2253379299501643645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,9 +2737,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3142346876714135847}
-  - component: {fileID: 3142346876714135840}
-  - component: {fileID: 3142346876714135842}
-  - component: {fileID: 4774403699962747029}
   - component: {fileID: 1495638868318986492}
   - component: {fileID: 3346747568189197973}
   m_Layer: 5
@@ -2772,67 +2767,6 @@ RectTransform:
   m_AnchoredPosition: {x: -420, y: 0}
   m_SizeDelta: {x: 420, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!223 &3142346876714135840
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142346876714135843}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 5
-  m_TargetDisplay: 0
---- !u!114 &3142346876714135842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142346876714135843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 130999
---- !u!114 &4774403699962747029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142346876714135843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1334, y: 750}
-  m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 1
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!222 &1495638868318986492
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3424,9 +3358,7 @@ MonoBehaviour:
   Anchor: {fileID: 7766357486075920722}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &3611246960766126054
 GameObject:
   m_ObjectHideFlags: 0
@@ -4172,9 +4104,7 @@ MonoBehaviour:
   Anchor: {fileID: 8799533185373238712}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &4073292402343234599
 GameObject:
   m_ObjectHideFlags: 0
@@ -6361,9 +6291,7 @@ MonoBehaviour:
   Anchor: {fileID: 2505799615890111194}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &4290717589665861341
 MonoBehaviour:
   m_ObjectHideFlags: 0

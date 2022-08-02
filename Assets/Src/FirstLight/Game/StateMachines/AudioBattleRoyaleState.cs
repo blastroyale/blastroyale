@@ -131,7 +131,7 @@ namespace FirstLight.Game.StateMachines
 				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
 				                     : 0;
 
-			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop, fadeInDuration,
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrMidLoop, fadeInDuration,
 			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, true);
 		}
 	}

@@ -27,8 +27,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private bool _isHighIntensityPhase = false;
 
-		private float CurrentMusicPlaybackTime => _services.AudioFxService.GetCurrentMusicPlaybackTime();
-
 		public AudioDeathmatchState(IGameServices services, IGameDataProvider gameLogic,
 		                            Action<IStatechartEvent> statechartTrigger)
 		{

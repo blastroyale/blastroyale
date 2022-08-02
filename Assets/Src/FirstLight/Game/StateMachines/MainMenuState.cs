@@ -65,15 +65,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
-			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
+			var mainMenuLoading = stateFactory.State("Main Menu Loading");
+			var mainMenuUnloading = stateFactory.State("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
-			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
+			mainMenuLoading.OnEnter(()=> { LoadMainMenu(); });
+			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
 			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
@@ -82,7 +83,8 @@ namespace FirstLight.Game.StateMachines
 			mainMenuTransition.Transition().Target(mainMenu);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
-			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
+			mainMenuUnloading.OnEnter(()=> { UnloadMainMenu(); });
+			mainMenuUnloading.Event(MainMenuUnloadedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}

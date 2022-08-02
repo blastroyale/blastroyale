@@ -61,7 +61,7 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyCheck = stateFactory.Choice("Player Ready Check");
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
-			var unloading = stateFactory.TaskWait("Unloading");
+			var unloading = stateFactory.State("Unloading");
 			var disconnectCheck = stateFactory.Choice("Disconnect Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectReloadCheck = stateFactory.Choice("Post Reload Check");
@@ -94,7 +94,8 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
-			unloading.WaitingFor(UnloadAllMatchAssets).Target(disconnectCheck);
+			unloading.OnEnter(() => { UnloadAllMatchAssets(); });
+			unloading.Event(MatchUnloadedEvent).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);
 			disconnectCheck.Transition().Target(disconnected);

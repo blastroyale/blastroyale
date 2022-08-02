@@ -120,11 +120,11 @@ namespace FirstLight.Game.StateMachines
 
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_IN_SECONDS
+				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
 				                     : 0;
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_OUT_SECONDS, true);
+			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
 		}
 	}
 }

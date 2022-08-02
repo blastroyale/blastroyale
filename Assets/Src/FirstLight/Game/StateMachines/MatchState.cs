@@ -24,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 	public class MatchState
 	{
 		public static readonly IStatechartEvent AllPlayersReadyEvent = new StatechartEvent("All Players Ready");
+		public static readonly IStatechartEvent MatchUnloadedEvent = new StatechartEvent("Match Unloaded Ready");
 		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
@@ -31,10 +32,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IAssetAdderService _assetAdderService;
 		private bool _arePlayerAssetsLoaded = false;
+		private Action<IStatechartEvent> _statechartTrigger;
 		
 		public MatchState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
+			_statechartTrigger = statechartTrigger;
 			_services = services;
 			_networkService = networkService;
 			_uiService = uiService;
@@ -278,6 +281,8 @@ namespace FirstLight.Game.StateMachines
 			Resources.UnloadUnusedAssets();
 
 			_arePlayerAssetsLoaded = false;
+
+			_statechartTrigger(MatchUnloadedEvent);
 		}
 
 		private IEnumerable<Task> PreloadMapAssets()

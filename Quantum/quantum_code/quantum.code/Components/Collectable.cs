@@ -23,6 +23,12 @@ namespace Quantum
 		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep,
 		                                 PlayerRef owner = new PlayerRef())
 		{
+			if (equipment.IsDefaultItem())
+			{
+				Log.Error($"Trying to drop a default item, skipping: {equipment.GameId}!");
+				return;
+			}
+			
 			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));

@@ -22,7 +22,7 @@ namespace FirstLight.Game.StateMachines
 	public class GameSimulationState
 	{
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
-		public static readonly IStatechartEvent SimulationEndedEvent = new StatechartEvent("Simulation Ended Event");
+		public static readonly IStatechartEvent GameCompleteExitEvent = new StatechartEvent("Game Complete Exit Event");
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Game Ended Event");
 		public static readonly IStatechartEvent MatchQuitEvent = new StatechartEvent("Game Quit Event");
 
@@ -59,7 +59,7 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
-			var gameEnded = stateFactory.Wait("Game Ended Screen");
+			var gameEnded = stateFactory.State("Game Ended Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
@@ -91,7 +91,8 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.OnExit(SendGameplayDataAnalytics);
 			battleRoyale.OnExit(PublishMatchEnded);
 
-			gameEnded.WaitingFor(GameCompleteScreen).Target(resultsSpectatorCheck);
+			gameEnded.OnEnter(OpenGameCompleteScreen);
+			gameEnded.Event(GameCompleteExitEvent).Target(resultsSpectatorCheck);
 			gameEnded.OnExit(CloseCompleteScreen);
 
 			resultsSpectatorCheck.Transition().Condition(IsSpectator).Target(final);
@@ -283,9 +284,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopSimulation()
 		{
-			QuantumRunner.ShutdownAll();
+
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
-			_statechartTrigger(SimulationEndedEvent);
+			
+			QuantumRunner.ShutdownAll();
 		}
 
 		private void PublishMatchEnded()
@@ -298,16 +300,15 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<AdventureWorldHudPresenter>();
 		}
 
-		private void GameCompleteScreen(IWaitActivity activity)
+		private void OpenGameCompleteScreen()
 		{
-			var cacheActivity = activity;
 			var data = new GameCompleteScreenPresenter.StateData {ContinueClicked = ContinueClicked};
 
 			_uiService.OpenUi<GameCompleteScreenPresenter, GameCompleteScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
-				cacheActivity.Complete();
+				_statechartTrigger(GameCompleteExitEvent);
 			}
 		}
 

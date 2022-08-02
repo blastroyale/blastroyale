@@ -54,13 +54,11 @@ namespace FirstLight.Game.Utils
 			public const float SFX_3D_MIN_DISTANCE = 5f;
 			public const float SFX_3D_MAX_DISTANCE = 20f;
 
-			public const float MUSIC_REGULAR_FADE_IN_SECONDS = 3f;
-			public const float MUSIC_REGULAR_FADE_OUT_SECONDS = 2f;
-			public const float MUSIC_SHORT_FADE_IN_SECONDS = 1.5f;
-			public const float MUSIC_SHORT_FADE_OUT_SECONDS = 1f;
+			public const float MUSIC_REGULAR_FADE_SECONDS = 3f;
+			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
 			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
-			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 120f;
+			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
 
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 		}

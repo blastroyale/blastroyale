@@ -36,6 +36,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		bool IsJoiningNewMatch { get; }
 		
+		// TODO: Replace Player to our own struct RoomPlayer to main player data after the match is over
+		// TODO: Replace list with observable list
 		/// <summary>
 		/// Requests the list of players that the last match was started with
 		/// </summary>

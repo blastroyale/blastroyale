@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Views;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
@@ -342,6 +343,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				Adjective = (EquipmentAdjective) metadata.attibutesDictionary["adjective"],
 				Rarity = (EquipmentRarity) metadata.attibutesDictionary["rarity"],
 			});
+			
 
 			var bounds = GetBounds(go);
 			go.transform.position = -bounds.center;
@@ -361,6 +363,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			backgroundErcRenderable?.Initialise(new Equipment()
 			{
+				GameId = gameId,
 				Faction = (EquipmentFaction) metadata.attibutesDictionary["faction"],
 				Material = (EquipmentMaterial) metadata.attibutesDictionary["material"],
 				Adjective = (EquipmentAdjective) metadata.attibutesDictionary["adjective"],

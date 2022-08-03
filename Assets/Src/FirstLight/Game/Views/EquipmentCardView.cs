@@ -1,5 +1,6 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.MonoComponent;
+using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
@@ -42,17 +43,15 @@ namespace FirstLight.Game.Views
 		{
 			_propBlock = new MaterialPropertyBlock();
 		}
-
-		public string Name
-		{
-			set => _nameText.text = value;
-		}
+		
 
 		/// <summary>
 		/// Initialise material and visual elements based on metadata object 
 		/// </summary>
 		public void Initialise(Equipment metadata)
 		{
+			_nameText.text = LocalizationManager.GetTranslation($"GameIds/{metadata.GameId.ToString()}");
+			
 			_propBlock ??= new MaterialPropertyBlock();
 			
 			_gradeText.text = _gradeRomanNumerals[(int)metadata.Grade];

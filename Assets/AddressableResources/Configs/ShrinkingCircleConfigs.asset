@@ -66,11 +66,11 @@ MonoBehaviour:
       WarningTime:
         RawValue: 983040
       ShrinkingTime:
-        RawValue: 655360
+        RawValue: 983040
       ShrinkingSizeK:
         RawValue: 26214
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 9830
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:

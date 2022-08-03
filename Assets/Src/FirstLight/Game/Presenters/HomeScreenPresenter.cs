@@ -68,9 +68,10 @@ namespace FirstLight.Game.Presenters
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
-			
+
 			// TODO: Replace with OpenGameModeClicked when we want to use the popup again
 			_gameModeButton.onClick.AddListener(GameModeClicked);
+			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
 
 			_newFeaturesView.gameObject.SetActive(false);
 		}
@@ -136,7 +137,7 @@ namespace FirstLight.Game.Presenters
 
 		private void GameModeClicked()
 		{
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value =
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = 
 				_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch
 					? GameMode.BattleRoyale
 					: GameMode.Deathmatch;

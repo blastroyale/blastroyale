@@ -259,16 +259,17 @@ namespace FirstLight.Game.Logic
 
 			foreach (var slot in slots)
 			{
-				if (newLoadout.TryGetValue(slot, out var id))
+				var isEquippingSlot = newLoadout.TryGetValue(slot, out var equipAddToSlot);
+				if (isEquippingSlot)
 				{
-					if (!_loadout.TryGetValue(slot, out var equippedId) || id != equippedId)
+					if (!_loadout.TryGetValue(slot, out var equippedId) || equipAddToSlot != equippedId)
 					{
-						Equip(id);
+						Equip(equipAddToSlot);
 					}
 				}
 				else if(_loadout.ContainsKey(slot))
 				{
-					Unequip(id);
+					Unequip(_loadout[slot]);
 				}
 			}
 		}

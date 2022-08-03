@@ -137,7 +137,7 @@ namespace FirstLight.Game.Presenters
 
 		private void GameModeClicked()
 		{
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = 
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value =
 				_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch
 					? GameMode.BattleRoyale
 					: GameMode.Deathmatch;

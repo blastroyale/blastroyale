@@ -95,9 +95,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 			
+			gameObject.SetActive(false);
+			
 			if(!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) special, out var config))
 			{
-				gameObject.SetActive(false);
 				return;
 			}
 			

@@ -409,8 +409,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_networkService.LastMatchPlayers.Add(player);
 			}
-			
-			Debug.LogError(_networkService.LastMatchPlayers.Count);
 		}
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)

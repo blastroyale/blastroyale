@@ -205,7 +205,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnDisconnected " + cause);
 			
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection, _services.NetworkService.QuantumClient.DisconnectedCause.ToString());
-			_services.AnalyticsService.CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
 
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}

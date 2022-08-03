@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 			_battleRoyaleButton.onClick.AddListener(BattleRoyaleClicked);
 			_deathmatchButton.onClick.AddListener(DeathmatchClicked);
 			_backButton.onClick.AddListener(OnBlockerButtonPressed);
-			_deathmatchButton.gameObject.SetActive(Debug.isDebugBuild);
 		}
 
 		private void DeathmatchClicked()

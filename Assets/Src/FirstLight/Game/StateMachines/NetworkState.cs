@@ -74,6 +74,7 @@ namespace FirstLight.Game.StateMachines
 			
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 			
+			disconnectedScreen.OnEnter(UpdateDisconnectionLocation);
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
 			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnecting);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
@@ -85,7 +86,6 @@ namespace FirstLight.Game.StateMachines
 			reconnecting.OnExit(UndimDisconnectedScreen);
 			reconnecting.OnExit(CloseDisconnectedScreen);
 			
-			disconnected.OnEnter(UpdateDisconnectionLocation);
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
@@ -99,6 +99,7 @@ namespace FirstLight.Game.StateMachines
 			if (!CurrentSceneIsMatch())
 			{
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Menu;
+				_networkService.LastMatchPlayedSolo.Value = false;
 			}
 		}
 
@@ -164,6 +165,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
 			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
@@ -176,6 +178,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 		}
+
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -397,6 +400,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage msg)
 		{
 			LeaveRoom();
+		}
+		
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
+		{
+			_networkService.LastMatchPlayedSolo.Value = _networkService.QuantumClient.CurrentRoom.PlayerCount == 1;
 		}
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)

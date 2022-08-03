@@ -137,6 +137,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
+			if (_entityViewUpdaterService == null)
+			{
+				return;
+			}
+			
 			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
@@ -145,6 +150,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
+			if (_entityViewUpdaterService == null)
+			{
+				return;
+			}
+
 			var game = callback.Game;
 			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
 			var audio = AudioId.None;

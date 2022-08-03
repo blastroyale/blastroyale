@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;

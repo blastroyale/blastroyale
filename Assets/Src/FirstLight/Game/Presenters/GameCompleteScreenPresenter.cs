@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Cinemachine;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.Utils;

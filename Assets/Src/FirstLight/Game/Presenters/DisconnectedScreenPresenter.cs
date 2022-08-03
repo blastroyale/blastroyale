@@ -8,7 +8,6 @@ using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters

@@ -71,12 +71,14 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			
 			postGame.OnEnter(PlayPostGameMusic);
@@ -142,10 +144,12 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 			
-			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
-			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
+			if(_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			{
+				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
-			_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
+				_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
+			}
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
@@ -154,26 +158,29 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-
-			var game = callback.Game;
-			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			var audio = AudioId.None;
-
-			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
-			if (game.PlayerIsLocal(callback.Player))
+			
+			if(_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
-				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
-			}
-			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
-			         game.PlayerIsLocal(player.Player))
-			{
-				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-			}
+				var game = callback.Game;
+				var audio = AudioId.None;
 
-			if (audio != AudioId.None)
-			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
+				if (game.PlayerIsLocal(callback.Player))
+				{
+					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
+				}
+				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
+				         game.PlayerIsLocal(player.Player))
+				{
+					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
+				}
+
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
 			}
+		
 		}
 	}
 }

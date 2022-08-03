@@ -49,7 +49,8 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
 			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
-
+			var disonnected = stateFactory.State("AUDIO - Disconnected");
+			
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
 
@@ -58,10 +59,11 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(PlayMainMenuMusic);
 			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 			mainMenu.OnExit(StopMusicInstant);
-
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
-			matchmaking.OnExit(GetEntityViewUpdaterService);
-
+			
+			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetEntityViewUpdaterService).Target(gameModeCheck);
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
+			
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
 
@@ -69,16 +71,23 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			
 			postGame.OnEnter(PlayPostGameMusic);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
-
+			
+			disonnected.OnEnter(StopMusicInstant);
+			disonnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
+			disonnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			disonnected.Event(NetworkState.JoinRoomFailedEvent).Target(mainMenu);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 

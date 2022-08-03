@@ -40,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
 			Data.GameModeChosen();
+			_deathmatchButton.gameObject.SetActive(Debug.isDebugBuild);
 		}
 
 		private void BattleRoyaleClicked()
@@ -52,7 +53,5 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.GameModeChosen();
 		}
-		
-		
 	}
 }

@@ -198,7 +198,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void QuitGameConfirmedClicked()
 		{
-			QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
+			}
+			
 			_statechartTrigger(MatchQuitEvent);
 		}
 

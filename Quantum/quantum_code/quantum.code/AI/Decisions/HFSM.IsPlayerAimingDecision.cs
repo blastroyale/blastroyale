@@ -13,7 +13,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override unsafe bool Decide(Frame f, EntityRef e)
 		{
-			return f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).SqrMagnitude > FP._0;
+			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.IsAimingKey);
 		}
 	}
 }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Xml: "<?xml version=\"1.0\" encoding=\"utf-16\"?>\n<Document>\n  <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\n 
-    <Version>1</Version>\n  <Meta>false</Meta>\n  <Graph>49a283f8-9dd4-465d-a105-27062bbf1b41</Graph>\n 
+    <Version>1</Version>\n  <Meta>false</Meta>\n  <Graph>81c127e5-06a3-438f-9f4f-2ac9d758fd05</Graph>\n 
     <DebugKey>9b7b8ed6-a985-4648-9ac7-2a011893c978</DebugKey>\n  <Flags>0</Flags>\n 
     <Parent>$statemachine</Parent>\n  <Error Count=\"0\" />\n  <Comments Count=\"0\"
-    />\n  <HiddenActionsDecisions Count=\"0\" />\n  <Vars Count=\"25\">\n    <Key>02a9fef5-d66b-4c45-bcb1-68e02c109d83</Key>\n   
+    />\n  <HiddenActionsDecisions Count=\"0\" />\n  <Vars Count=\"26\">\n    <Key>02a9fef5-d66b-4c45-bcb1-68e02c109d83</Key>\n   
     <Var>\n      <Id>02a9fef5-d66b-4c45-bcb1-68e02c109d83</Id>\n      <Name>AttackCooldown</Name>\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\n      <Default></Default>\n     
     <Flags>0</Flags>\n      <VarMode>MetaField</VarMode>\n      <TypeMode>Value</TypeMode>\n     
@@ -30,6 +30,10 @@ MonoBehaviour:
     <Flags>0</Flags>\n      <VarMode>MetaField</VarMode>\n      <TypeMode>Value</TypeMode>\n     
     <Scope>Blackboard</Scope>\n    </Var>\n    <Key>2031e385-2225-48dd-94c4-d9021c8372e4</Key>\n   
     <Var>\n      <Id>2031e385-2225-48dd-94c4-d9021c8372e4</Id>\n      <Name>HasMeleeWeapon</Name>\n     
+    <Type>@boolean</Type>\n      <Default></Default>\n      <Flags>0</Flags>\n     
+    <VarMode>MetaField</VarMode>\n      <TypeMode>Value</TypeMode>\n      <Scope>Blackboard</Scope>\n   
+    </Var>\n    <Key>326d7ea0-4283-4b79-b4eb-fabe8e87578f</Key>\n    <Var>\n     
+    <Id>326d7ea0-4283-4b79-b4eb-fabe8e87578f</Id>\n      <Name>IsAimPressed</Name>\n     
     <Type>@boolean</Type>\n      <Default></Default>\n      <Flags>0</Flags>\n     
     <VarMode>MetaField</VarMode>\n      <TypeMode>Value</TypeMode>\n      <Scope>Blackboard</Scope>\n   
     </Var>\n    <Key>40ffe378-0eb8-4527-b969-685f2c1a8d00</Key>\n    <Var>\n     
@@ -116,7 +120,7 @@ MonoBehaviour:
     <Var>\n      <Id>ffabdba4-3842-45d9-abc0-a31ea7d0310f</Id>\n      <Name>OnStunned</Name>\n     
     <Type>$event</Type>\n      <Default></Default>\n      <Flags>0</Flags>\n     
     <VarMode>Event</VarMode>\n      <TypeMode>Value</TypeMode>\n      <Scope>Document</Scope>\n   
-    </Var>\n  </Vars>\n  <Nodes Count=\"173\">\n    <Key>00167e44-7633-441a-adae-328d4dbc1d03</Key>\n   
+    </Var>\n  </Vars>\n  <Nodes Count=\"174\">\n    <Key>00167e44-7633-441a-adae-328d4dbc1d03</Key>\n   
     <Node>\n      <Id>00167e44-7633-441a-adae-328d4dbc1d03</Id>\n      <Name>SkydivePLFAction</Name>\n     
     <Comment></Comment>\n      <Graph>631a53aa-a22e-48c4-bf43-ea20fdda072c</Graph>\n     
     <Parent>SkydivePLFAction</Parent>\n      <DebugIndex>-1</DebugIndex>\n      <Flags>0</Flags>\n     
@@ -292,8 +296,23 @@ MonoBehaviour:
     <Data>\n          <Name>$default</Name>\n          <Value Type=\"@boolean\">False</Value>\n       
     </Data>\n        <Data>\n          <Name>Guid</Name>\n          <Value Type=\"System.Int64,
     mscorlib\">344788493933926436</Value>\n        </Data>\n      </Data>\n    </Node>\n   
-    <Key>13b98888-dc9b-4b15-88ce-c34e616b744f</Key>\n    <Node>\n      <Id>13b98888-dc9b-4b15-88ce-c34e616b744f</Id>\n     
-    <Name>Spawn</Name>\n      <Comment></Comment>\n      <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\n     
+    <Key>13240618-2d31-42b0-b790-922fc288a35c</Key>\n    <Node>\n      <Id>13240618-2d31-42b0-b790-922fc288a35c</Id>\n     
+    <Name>BlackboardVar</Name>\n      <Comment></Comment>\n      <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\n     
+    <Parent>$blackboardVarData</Parent>\n      <DebugIndex>-1</DebugIndex>\n     
+    <Flags>8</Flags>\n      <Position>275|174||0</Position>\n      <StaticIn Count=\"0\"
+    />\n      <StaticOut Count=\"0\" />\n      <Groups Count=\"0\" />\n      <Data
+    Count=\"8\">\n        <Data>\n          <Name>$default</Name>\n          <Value
+    Type=\"@boolean\">False</Value>\n        </Data>\n        <Data>\n          <Name></Name>\n         
+    <Value />\n        </Data>\n        <Data>\n          <Name>$hasDefault</Name>\n         
+    <Value Type=\"@boolean\">False</Value>\n        </Data>\n        <Data>\n         
+    <Name>True</Name>\n          <Value />\n        </Data>\n        <Data>\n         
+    <Name>$bbType</Name>\n          <Value Type=\"@string\">Boolean</Value>\n       
+    </Data>\n        <Data>\n          <Name>Boolean</Name>\n          <Value />\n       
+    </Data>\n        <Data>\n          <Name>$varId</Name>\n          <Value Type=\"@string\">326d7ea0-4283-4b79-b4eb-fabe8e87578f</Value>\n       
+    </Data>\n        <Data>\n          <Name></Name>\n          <Value />\n       
+    </Data>\n      </Data>\n    </Node>\n    <Key>13b98888-dc9b-4b15-88ce-c34e616b744f</Key>\n   
+    <Node>\n      <Id>13b98888-dc9b-4b15-88ce-c34e616b744f</Id>\n      <Name>Spawn</Name>\n     
+    <Comment></Comment>\n      <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\n     
     <Parent>$state</Parent>\n      <DebugIndex>-1</DebugIndex>\n      <Flags>32</Flags>\n     
     <Position>-910|363||0</Position>\n      <StaticIn Count=\"1\">\n        <Slot>\n         
     <Id>$in</Id>\n          <Name>In</Name>\n          <Value />\n          <Type>$transition</Type>\n         
@@ -3246,8 +3265,8 @@ MonoBehaviour:
     <Id>6ec7df5c-c4fa-4755-b22a-464e7535b364</Id>\n      <ZoomLevel>1</ZoomLevel>\n     
     <ZoomOffset>0|0||0</ZoomOffset>\n      <PanOffset>267|156||0</PanOffset>\n   
     </GraphData>\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\n    <GraphData>\n     
-    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\n      <ZoomLevel>0.94</ZoomLevel>\n     
-    <ZoomOffset>-734|-605||0</ZoomOffset>\n      <PanOffset>881|960||0</PanOffset>\n   
+    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\n      <ZoomLevel>0.5790008</ZoomLevel>\n     
+    <ZoomOffset>-449|-421||0</ZoomOffset>\n      <PanOffset>881|960||0</PanOffset>\n   
     </GraphData>\n    <Key>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Key>\n    <GraphData>\n     
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\n      <ZoomLevel>1</ZoomLevel>\n     
     <ZoomOffset>7|-23||0</ZoomOffset>\n      <PanOffset>124|168||0</PanOffset>\n   
@@ -3262,7 +3281,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\n      <PanOffset>600|172||0</PanOffset>\n   
     </GraphData>\n    <Key>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Key>\n    <GraphData>\n     
     <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\n      <ZoomLevel>0.7657018</ZoomLevel>\n     
-    <ZoomOffset>-260|-69||0</ZoomOffset>\n      <PanOffset>1200|-165||0</PanOffset>\n   
+    <ZoomOffset>-260|-69||0</ZoomOffset>\n      <PanOffset>759|-134||0</PanOffset>\n   
     </GraphData>\n    <Key>99a4033d-0bed-4345-90c0-ed620778943f</Key>\n    <GraphData>\n     
     <Id>99a4033d-0bed-4345-90c0-ed620778943f</Id>\n      <ZoomLevel>1</ZoomLevel>\n     
     <ZoomOffset>0|0||0</ZoomOffset>\n      <PanOffset>220|208||0</PanOffset>\n   
@@ -3286,7 +3305,7 @@ MonoBehaviour:
     <ZoomOffset>46|30||0</ZoomOffset>\n      <PanOffset>72|182||0</PanOffset>\n   
     </GraphData>\n    <Key>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Key>\n    <GraphData>\n     
     <Id>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Id>\n      <ZoomLevel>1</ZoomLevel>\n     
-    <ZoomOffset>0|0||0</ZoomOffset>\n      <PanOffset>302|145||0</PanOffset>\n   
+    <ZoomOffset>4|6||0</ZoomOffset>\n      <PanOffset>417|152||0</PanOffset>\n   
     </GraphData>\n    <Key>d30bb036-e154-4643-80ab-20adcba18723</Key>\n    <GraphData>\n     
     <Id>d30bb036-e154-4643-80ab-20adcba18723</Id>\n      <ZoomLevel>1</ZoomLevel>\n     
     <ZoomOffset>-14|-11||0</ZoomOffset>\n      <PanOffset>445|126||0</PanOffset>\n   

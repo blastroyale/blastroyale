@@ -99,7 +99,7 @@ namespace FirstLight.Game.StateMachines
 			if (!CurrentSceneIsMatch())
 			{
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Menu;
-				_networkService.LastMatchPlayedSolo.Value = false;
+				_networkService.LastMatchPlayers.Value = new List<Player>();
 			}
 		}
 
@@ -404,7 +404,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
 		{
-			_networkService.LastMatchPlayedSolo.Value = _networkService.QuantumClient.CurrentRoom.PlayerCount == 1;
+			_networkService.LastMatchPlayers.Value.AddRange(_networkService.QuantumClient.CurrentRoom.Players.Values);
 		}
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)

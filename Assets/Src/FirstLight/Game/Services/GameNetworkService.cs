@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Infos;
 using FirstLight;
@@ -36,9 +37,9 @@ namespace FirstLight.Game.Services
 		bool IsJoiningNewMatch { get; }
 		
 		/// <summary>
-		/// Requests the check if the last match was played offline (solo)
+		/// Requests the list of players that the last match was started with
 		/// </summary>
-		bool LastMatchPlayedSolo { get; }
+		List<Player> LastMatchPlayers { get; }
 		
 		/// <summary>
 		/// Requests the check if the last disconnection was in matchmaking, before the match started
@@ -75,7 +76,7 @@ namespace FirstLight.Game.Services
 		new IObservableField<bool> IsJoiningNewMatch { get; }
 		
 		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
-		new IObservableField<bool> LastMatchPlayedSolo { get; }
+		new IObservableField<List<Player>> LastMatchPlayers { get; }
 		
 		/// <inheritdoc cref="IGameNetworkService.LastDisconnectLocation" />
 		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
@@ -96,14 +97,14 @@ namespace FirstLight.Game.Services
 		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
-		public IObservableField<bool> LastMatchPlayedSolo { get; }
+		public IObservableField<List<Player>> LastMatchPlayers { get; }
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
 		
 		string IGameNetworkService.UserId => UserId.Value;
 		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
-		bool IGameNetworkService.LastMatchPlayedSolo => LastMatchPlayedSolo.Value;
+		List<Player> IGameNetworkService.LastMatchPlayers => LastMatchPlayers.Value;
 		LastDisconnectionLocation IGameNetworkService.LastDisconnectLocation => LastDisconnectLocation.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
@@ -126,7 +127,7 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
-			LastMatchPlayedSolo = new ObservableField<bool>(false);
+			LastMatchPlayers = new ObservableField<List<Player>>(new List<Player>());
 			LastDisconnectLocation = new ObservableField<LastDisconnectionLocation>(LastDisconnectionLocation.None);
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);

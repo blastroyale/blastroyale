@@ -55,8 +55,8 @@ namespace FirstLight.Game.Presenters
 
 			// If disconnected in offline mode (playing solo), can't reconnect due to quantum simulation not running
 			// without at least 1 player connected in match at all times
-			if ( _services.NetworkService.LastMatchPlayedSolo &&
-			     _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
+			if (_services.NetworkService.LastMatchPlayers.Count <= 1 &&
+			    _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
 				_reconnectButton.gameObject.SetActive(false);
 				

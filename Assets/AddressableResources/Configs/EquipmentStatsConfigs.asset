@@ -33,9 +33,9 @@ MonoBehaviour:
       Adjective: 1
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 2458
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -46,31 +46,31 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 39322
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 4915
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
     - Category: 13
       Adjective: 4
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1638
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -79,55 +79,55 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 1966
     - Category: 13
       Adjective: 6
       Faction: 0
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 7
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5734
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2294
     - Category: 13
       Adjective: 9
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1147
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 983
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 1
@@ -143,11 +143,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -158,40 +158,40 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 3277
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2458
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
     - Category: 13
       Adjective: 5
       Faction: 1
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2949
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -200,44 +200,44 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2949
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 13
       Adjective: 7
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 4588
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3277
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1147
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3277
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 983
     - Category: 13
       Adjective: 0
       Faction: 2
@@ -253,7 +253,7 @@ MonoBehaviour:
       Adjective: 1
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 614
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -264,90 +264,90 @@ MonoBehaviour:
       Adjective: 2
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1024
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 1229
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1229
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 1638
     - Category: 13
       Adjective: 5
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 13
       Adjective: 7
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5734
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2294
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1638
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4588
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 983
     - Category: 13
       Adjective: 0
       Faction: 3
@@ -363,13 +363,13 @@ MonoBehaviour:
       Adjective: 1
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 13
       Adjective: 2
       Faction: 3
@@ -380,84 +380,84 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2048
     - Category: 13
       Adjective: 3
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 39322
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 3277
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 13
       Adjective: 4
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1638
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 13
       Adjective: 5
       Faction: 3
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 2949
     - Category: 13
       Adjective: 6
       Faction: 3
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2949
     - Category: 13
       Adjective: 7
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2867
     - Category: 13
       Adjective: 8
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 4588
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3277
     - Category: 13
       Adjective: 9
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1147
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 983
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3277
     - Category: 13
       Adjective: 0
       Faction: 4
@@ -473,13 +473,13 @@ MonoBehaviour:
       Adjective: 1
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1843
     - Category: 13
       Adjective: 2
       Faction: 4
@@ -488,199 +488,89 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3072
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3994
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2150
     - Category: 13
       Adjective: 4
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2150
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3994
     - Category: 13
       Adjective: 5
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4792
+      PowerRatioToBaseK:
+        RawValue: 2580
     - Category: 13
       Adjective: 6
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2580
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4792
     - Category: 13
       Adjective: 7
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4301
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4301
     - Category: 13
       Adjective: 8
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4424
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4424
     - Category: 13
       Adjective: 9
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4424
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4424
     - Category: 13
       Adjective: 0
       Faction: 5
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 13
-      Adjective: 1
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 13
-      Adjective: 2
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 6554
-    - Category: 13
-      Adjective: 3
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 39322
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 13
-      Adjective: 4
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 13
-      Adjective: 5
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 13
-      Adjective: 6
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 5243
-    - Category: 13
-      Adjective: 7
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 5243
-    - Category: 13
-      Adjective: 8
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
-        RawValue: 5243
-    - Category: 13
-      Adjective: 9
-      Faction: 5
-      HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
-        RawValue: 5243
-    - Category: 13
-      Adjective: 0
-      Faction: 6
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
@@ -691,13 +581,123 @@ MonoBehaviour:
         RawValue: 0
     - Category: 13
       Adjective: 1
-      Faction: 6
+      Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 3686
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 2
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 1536
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 3
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 1997
+      ArmorRatioToBaseK:
+        RawValue: 4301
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 4
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 1075
+      ArmorRatioToBaseK:
+        RawValue: 7987
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 5
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 2396
+      ArmorRatioToBaseK:
+        RawValue: 5161
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 6
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 1290
+      ArmorRatioToBaseK:
+        RawValue: 9585
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 7
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 2150
+      ArmorRatioToBaseK:
+        RawValue: 8602
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 8
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 2212
+      ArmorRatioToBaseK:
+        RawValue: 8847
+      SpeedRatioToBaseK:
+        RawValue: 983
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 9
+      Faction: 5
+      HpRatioToBaseK:
+        RawValue: 2212
+      ArmorRatioToBaseK:
+        RawValue: 8847
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 983
+    - Category: 13
+      Adjective: 0
+      Faction: 6
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
+      Adjective: 1
+      Faction: 6
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -706,42 +706,42 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 6554
-    - Category: 13
-      Adjective: 3
-      Faction: 6
-      HpRatioToBaseK:
-        RawValue: 39322
-      ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 8192
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
+      Adjective: 3
+      Faction: 6
+      HpRatioToBaseK:
+        RawValue: 1229
+      ArmorRatioToBaseK:
+        RawValue: 11469
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+    - Category: 13
       Adjective: 4
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 5734
     - Category: 13
       Adjective: 5
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 13763
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -750,44 +750,44 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 6881
     - Category: 13
       Adjective: 7
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 13763
+      SpeedRatioToBaseK:
+        RawValue: 4588
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 6
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 5243
+      PowerRatioToBaseK:
+        RawValue: 4588
     - Category: 13
       Adjective: 9
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1638
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 9175
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 5243
+      PowerRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 0
@@ -809,7 +809,7 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 11
       Adjective: 2
       Faction: 0
@@ -820,7 +820,7 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2048
     - Category: 11
       Adjective: 3
       Faction: 0
@@ -829,9 +829,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 410
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3686
     - Category: 11
       Adjective: 4
       Faction: 0
@@ -840,9 +840,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 819
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3277
     - Category: 11
       Adjective: 5
       Faction: 0
@@ -851,9 +851,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 492
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 4424
     - Category: 11
       Adjective: 6
       Faction: 0
@@ -862,9 +862,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 11
       Adjective: 7
       Faction: 0
@@ -873,9 +873,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1720
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4014
     - Category: 11
       Adjective: 8
       Faction: 0
@@ -884,9 +884,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2294
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4260
     - Category: 11
       Adjective: 9
       Faction: 0
@@ -895,9 +895,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1638
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4915
     - Category: 11
       Adjective: 0
       Faction: 1
@@ -917,7 +917,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -928,9 +928,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 1
@@ -939,9 +939,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3686
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 410
     - Category: 11
       Adjective: 4
       Faction: 1
@@ -950,9 +950,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3277
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 819
     - Category: 11
       Adjective: 5
       Faction: 1
@@ -961,9 +961,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4424
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
     - Category: 11
       Adjective: 6
       Faction: 1
@@ -972,9 +972,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 983
     - Category: 11
       Adjective: 7
       Faction: 1
@@ -983,9 +983,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 4014
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1720
     - Category: 11
       Adjective: 8
       Faction: 1
@@ -994,9 +994,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4260
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2294
     - Category: 11
       Adjective: 9
       Faction: 1
@@ -1005,9 +1005,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4915
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1638
     - Category: 11
       Adjective: 0
       Faction: 2
@@ -1027,7 +1027,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1038,9 +1038,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 2
@@ -1049,9 +1049,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 11
       Adjective: 4
       Faction: 2
@@ -1060,9 +1060,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2662
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1434
     - Category: 11
       Adjective: 5
       Faction: 2
@@ -1071,9 +1071,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3441
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
     - Category: 11
       Adjective: 6
       Faction: 2
@@ -1082,9 +1082,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3195
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1720
     - Category: 11
       Adjective: 7
       Faction: 2
@@ -1093,9 +1093,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 4301
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1434
     - Category: 11
       Adjective: 8
       Faction: 2
@@ -1104,9 +1104,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 5243
+      PowerRatioToBaseK:
+        RawValue: 1311
     - Category: 11
       Adjective: 9
       Faction: 2
@@ -1115,9 +1115,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 5571
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 983
     - Category: 11
       Adjective: 0
       Faction: 3
@@ -1139,7 +1139,7 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 11
       Adjective: 2
       Faction: 3
@@ -1150,7 +1150,7 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2048
     - Category: 11
       Adjective: 3
       Faction: 3
@@ -1159,9 +1159,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2867
     - Category: 11
       Adjective: 4
       Faction: 3
@@ -1170,9 +1170,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1434
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2662
     - Category: 11
       Adjective: 5
       Faction: 3
@@ -1181,9 +1181,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1475
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3441
     - Category: 11
       Adjective: 6
       Faction: 3
@@ -1192,9 +1192,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1720
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3195
     - Category: 11
       Adjective: 7
       Faction: 3
@@ -1203,9 +1203,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1434
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4301
     - Category: 11
       Adjective: 8
       Faction: 3
@@ -1214,7 +1214,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1311
       PowerRatioToBaseK:
         RawValue: 5243
     - Category: 11
@@ -1225,9 +1225,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 983
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 5571
     - Category: 11
       Adjective: 0
       Faction: 4
@@ -1247,7 +1247,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1843
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1260,7 +1260,7 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 3072
     - Category: 11
       Adjective: 3
       Faction: 4
@@ -1269,9 +1269,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3686
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 11
       Adjective: 4
       Faction: 4
@@ -1280,9 +1280,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3379
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2765
     - Category: 11
       Adjective: 5
       Faction: 4
@@ -1291,9 +1291,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4424
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2949
     - Category: 11
       Adjective: 6
       Faction: 4
@@ -1302,9 +1302,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 4055
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3318
     - Category: 11
       Adjective: 7
       Faction: 4
@@ -1313,9 +1313,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 5591
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3011
     - Category: 11
       Adjective: 8
       Faction: 4
@@ -1324,9 +1324,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 5898
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 11
       Adjective: 9
       Faction: 4
@@ -1335,9 +1335,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 6390
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3441
     - Category: 11
       Adjective: 0
       Faction: 5
@@ -1359,7 +1359,7 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1843
     - Category: 11
       Adjective: 2
       Faction: 5
@@ -1368,9 +1368,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3072
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 5
@@ -1379,9 +1379,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3686
     - Category: 11
       Adjective: 4
       Faction: 5
@@ -1390,9 +1390,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2765
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3379
     - Category: 11
       Adjective: 5
       Faction: 5
@@ -1401,9 +1401,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2949
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 4424
     - Category: 11
       Adjective: 6
       Faction: 5
@@ -1412,9 +1412,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3318
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4055
     - Category: 11
       Adjective: 7
       Faction: 5
@@ -1423,9 +1423,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3011
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 5591
     - Category: 11
       Adjective: 8
       Faction: 5
@@ -1434,9 +1434,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 5898
     - Category: 11
       Adjective: 9
       Faction: 5
@@ -1445,22 +1445,11 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3441
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 6390
     - Category: 11
       Adjective: 0
-      Faction: 6
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-    - Category: 11
-      Adjective: 1
       Faction: 6
       HpRatioToBaseK:
         RawValue: 0
@@ -1471,7 +1460,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
-      Adjective: 2
+      Adjective: 1
       Faction: 6
       HpRatioToBaseK:
         RawValue: 0
@@ -1480,7 +1469,18 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2458
+    - Category: 11
+      Adjective: 2
+      Faction: 6
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4096
+      PowerRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 6
@@ -1489,9 +1489,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
     - Category: 11
       Adjective: 4
       Faction: 6
@@ -1500,9 +1500,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 410
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 7782
     - Category: 11
       Adjective: 5
       Faction: 6
@@ -1511,9 +1511,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4915
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
     - Category: 11
       Adjective: 6
       Faction: 6
@@ -1522,9 +1522,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 9339
     - Category: 11
       Adjective: 7
       Faction: 6
@@ -1533,9 +1533,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 10322
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1147
     - Category: 11
       Adjective: 8
       Faction: 6
@@ -1544,9 +1544,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2621
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 10486
     - Category: 11
       Adjective: 9
       Faction: 6
@@ -1555,9 +1555,9 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 11141
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 17
       Adjective: 0
       Faction: 0
@@ -1573,9 +1573,9 @@ MonoBehaviour:
       Adjective: 1
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 2458
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -1586,18 +1586,18 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 614
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 5734
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -1606,68 +1606,68 @@ MonoBehaviour:
       Adjective: 4
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 717
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 5325
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 737
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6881
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 860
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6390
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1147
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6881
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 1638
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
-      SpeedRatioToBaseK:
+      ArmorRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 655
     - Category: 17
       Adjective: 0
       Faction: 1
@@ -1683,11 +1683,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1698,86 +1698,86 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 614
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2867
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 717
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2662
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 737
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3441
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 860
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 3195
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1147
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 3441
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1638
     - Category: 17
       Adjective: 9
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 1311
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 17
       Adjective: 0
       Faction: 2
@@ -1793,7 +1793,7 @@ MonoBehaviour:
       Adjective: 1
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 614
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -1804,20 +1804,20 @@ MonoBehaviour:
       Adjective: 2
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1024
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -1826,68 +1826,68 @@ MonoBehaviour:
       Adjective: 4
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1331
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 2867
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1720
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 2949
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1597
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3441
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1720
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 4588
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1638
     - Category: 17
       Adjective: 9
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1966
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 655
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 17
       Adjective: 0
       Faction: 3
@@ -1903,13 +1903,13 @@ MonoBehaviour:
       Adjective: 1
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 17
       Adjective: 2
       Faction: 3
@@ -1920,84 +1920,84 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2048
     - Category: 17
       Adjective: 3
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 614
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2867
     - Category: 17
       Adjective: 4
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 717
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 2662
     - Category: 17
       Adjective: 5
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 737
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 3441
     - Category: 17
       Adjective: 6
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 860
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3195
     - Category: 17
       Adjective: 7
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1147
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3441
     - Category: 17
       Adjective: 8
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1638
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 17
       Adjective: 9
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 1311
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 17
       Adjective: 0
       Faction: 4
@@ -2013,13 +2013,13 @@ MonoBehaviour:
       Adjective: 1
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1843
     - Category: 17
       Adjective: 2
       Faction: 4
@@ -2028,86 +2028,86 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3072
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 4608
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1536
     - Category: 17
       Adjective: 4
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1229
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
     - Category: 17
       Adjective: 5
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 5530
+      PowerRatioToBaseK:
+        RawValue: 1843
     - Category: 17
       Adjective: 6
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 1475
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 5898
     - Category: 17
       Adjective: 7
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4301
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4301
     - Category: 17
       Adjective: 8
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 17
       Adjective: 9
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 983
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 17
       Adjective: 0
       Faction: 5
@@ -2123,9 +2123,9 @@ MonoBehaviour:
       Adjective: 1
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 3686
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -2134,20 +2134,20 @@ MonoBehaviour:
       Adjective: 2
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1536
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 2304
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 3072
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -2156,68 +2156,68 @@ MonoBehaviour:
       Adjective: 4
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 614
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 9830
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2765
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3686
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 737
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 11796
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2150
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 8602
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 17
       Adjective: 9
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 6
@@ -2233,11 +2233,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2246,42 +2246,42 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 6554
-    - Category: 17
-      Adjective: 3
-      Faction: 6
-      HpRatioToBaseK:
-        RawValue: 39322
-      ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 8192
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
-      Adjective: 4
+      Adjective: 3
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2253
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
+    - Category: 17
+      Adjective: 4
+      Faction: 6
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 13926
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 1229
     - Category: 17
       Adjective: 5
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2703
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 4424
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2290,44 +2290,44 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 16712
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1475
     - Category: 17
       Adjective: 7
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 4014
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 3441
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2949
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 5243
+      PowerRatioToBaseK:
+        RawValue: 1966
     - Category: 17
       Adjective: 9
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2621
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 13107
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1311
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 0
@@ -2343,9 +2343,9 @@ MonoBehaviour:
       Adjective: 1
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 2458
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -2356,31 +2356,31 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 819
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2389,55 +2389,55 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 5734
+      SpeedRatioToBaseK:
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 655
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1311
     - Category: 16
       Adjective: 9
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 655
       ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 1311
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 1
@@ -2453,11 +2453,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2468,29 +2468,29 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
     - Category: 16
       Adjective: 4
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 819
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2499,55 +2499,55 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2949
+      PowerRatioToBaseK:
+        RawValue: 1966
     - Category: 16
       Adjective: 6
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2949
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2867
     - Category: 16
       Adjective: 8
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 655
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 2621
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 655
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1311
     - Category: 16
       Adjective: 0
       Faction: 2
@@ -2563,7 +2563,7 @@ MonoBehaviour:
       Adjective: 1
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 614
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -2574,90 +2574,90 @@ MonoBehaviour:
       Adjective: 2
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1024
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 1229
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
     - Category: 16
       Adjective: 4
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1229
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 3277
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 1966
     - Category: 16
       Adjective: 6
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2867
     - Category: 16
       Adjective: 8
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 2621
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1311
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 2621
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1311
     - Category: 16
       Adjective: 0
       Faction: 3
@@ -2673,13 +2673,13 @@ MonoBehaviour:
       Adjective: 1
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 16
       Adjective: 2
       Faction: 3
@@ -2690,84 +2690,84 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2048
     - Category: 16
       Adjective: 3
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 16
       Adjective: 4
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 819
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 2458
     - Category: 16
       Adjective: 5
       Faction: 3
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 1966
+      PowerRatioToBaseK:
+        RawValue: 2949
     - Category: 16
       Adjective: 6
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2949
     - Category: 16
       Adjective: 7
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2867
     - Category: 16
       Adjective: 8
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 655
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 2621
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 16
       Adjective: 9
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 655
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1311
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 16
       Adjective: 0
       Faction: 4
@@ -2783,11 +2783,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1843
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2800,84 +2800,84 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 3072
     - Category: 16
       Adjective: 3
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3686
     - Category: 16
       Adjective: 4
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3686
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 16
       Adjective: 5
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2949
+      PowerRatioToBaseK:
+        RawValue: 4424
     - Category: 16
       Adjective: 6
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4424
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2949
     - Category: 16
       Adjective: 7
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4301
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4301
     - Category: 16
       Adjective: 8
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 16
       Adjective: 9
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 16
       Adjective: 0
       Faction: 5
@@ -2893,7 +2893,7 @@ MonoBehaviour:
       Adjective: 1
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 922
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -2906,18 +2906,18 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 6144
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 1229
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 7373
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -2926,68 +2926,68 @@ MonoBehaviour:
       Adjective: 4
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1843
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 8847
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2212
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2150
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 8602
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 16
       Adjective: 0
       Faction: 6
@@ -3003,101 +3003,101 @@ MonoBehaviour:
       Adjective: 1
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 16
       Adjective: 2
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 12288
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1024
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 6144
     - Category: 16
       Adjective: 5
       Faction: 6
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 14746
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 7373
     - Category: 16
       Adjective: 7
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2580
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 12616
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2294
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 4588
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2294
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 9175
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 15
       Adjective: 0
       Faction: 0
@@ -3113,9 +3113,9 @@ MonoBehaviour:
       Adjective: 1
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 2458
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -3126,18 +3126,18 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 819
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -3146,22 +3146,22 @@ MonoBehaviour:
       Adjective: 4
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 1638
     - Category: 15
       Adjective: 5
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3170,44 +3170,44 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5898
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 15
       Adjective: 7
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5734
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2867
     - Category: 15
       Adjective: 8
       Faction: 0
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2294
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 983
     - Category: 15
       Adjective: 9
       Faction: 0
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 492
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2294
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 1
@@ -3223,11 +3223,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3238,40 +3238,40 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 819
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 3277
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2949
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3280,44 +3280,44 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 2949
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 5734
+      SpeedRatioToBaseK:
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 1
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3277
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2294
     - Category: 15
       Adjective: 9
       Faction: 1
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 492
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3277
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2294
     - Category: 15
       Adjective: 0
       Faction: 2
@@ -3333,7 +3333,7 @@ MonoBehaviour:
       Adjective: 1
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 614
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -3344,20 +3344,20 @@ MonoBehaviour:
       Adjective: 2
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1024
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 1229
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 3277
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -3366,68 +3366,68 @@ MonoBehaviour:
       Adjective: 4
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1229
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 1638
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1475
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1434
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 2867
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 983
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2294
     - Category: 15
       Adjective: 9
       Faction: 2
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1638
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2294
     - Category: 15
       Adjective: 0
       Faction: 3
@@ -3443,13 +3443,13 @@ MonoBehaviour:
       Adjective: 1
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 1229
     - Category: 15
       Adjective: 2
       Faction: 3
@@ -3460,84 +3460,84 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 2048
     - Category: 15
       Adjective: 3
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 819
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 15
       Adjective: 4
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 3277
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 2458
     - Category: 15
       Adjective: 5
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 983
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 2949
     - Category: 15
       Adjective: 6
       Faction: 3
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2949
     - Category: 15
       Adjective: 7
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 5734
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 2867
     - Category: 15
       Adjective: 8
       Faction: 3
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2294
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3277
     - Category: 15
       Adjective: 9
       Faction: 3
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 492
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2294
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3277
     - Category: 15
       Adjective: 0
       Faction: 4
@@ -3553,11 +3553,11 @@ MonoBehaviour:
       Adjective: 1
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 1843
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3570,84 +3570,84 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 3072
     - Category: 15
       Adjective: 3
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 3379
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2765
     - Category: 15
       Adjective: 4
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2765
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 3379
     - Category: 15
       Adjective: 5
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4055
+      PowerRatioToBaseK:
+        RawValue: 3318
     - Category: 15
       Adjective: 6
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 3318
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4055
     - Category: 15
       Adjective: 7
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
-      ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 4301
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4301
     - Category: 15
       Adjective: 8
       Faction: 4
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 15
       Adjective: 9
       Faction: 4
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 983
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 3932
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 15
       Adjective: 0
       Faction: 5
@@ -3663,7 +3663,7 @@ MonoBehaviour:
       Adjective: 1
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 922
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
@@ -3676,18 +3676,18 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 6144
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 1690
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 5530
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -3696,68 +3696,68 @@ MonoBehaviour:
       Adjective: 4
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1382
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 6758
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2028
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 6636
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1659
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 8110
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2150
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 8602
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 1966
     - Category: 15
       Adjective: 9
       Faction: 5
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 1966
       ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
         RawValue: 7864
+      SpeedRatioToBaseK:
+        RawValue: 1966
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 6
@@ -3773,98 +3773,98 @@ MonoBehaviour:
       Adjective: 1
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 0
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 0
+        RawValue: 2458
     - Category: 15
       Adjective: 2
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2048
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 6554
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 39322
+        RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 4096
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2253
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
-      PowerRatioToBaseK:
         RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 3686
     - Category: 15
       Adjective: 5
       Faction: 6
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 2703
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 4424
     - Category: 15
       Adjective: 7
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2294
       ArmorRatioToBaseK:
-        RawValue: 16384
-      SpeedRatioToBaseK:
         RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 6881
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 0
+        RawValue: 1638
       ArmorRatioToBaseK:
-        RawValue: 16384
+        RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 5898
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 3932
     - Category: 15
       Adjective: 9
       Faction: 6
       HpRatioToBaseK:
-        RawValue: 26214
+        RawValue: 2949
       ArmorRatioToBaseK:
-        RawValue: 0
+        RawValue: 9175
       SpeedRatioToBaseK:
-        RawValue: 7864
+        RawValue: 2621
       PowerRatioToBaseK:
-        RawValue: 5243
+        RawValue: 0

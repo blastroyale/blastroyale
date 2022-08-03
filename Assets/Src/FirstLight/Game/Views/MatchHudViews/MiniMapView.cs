@@ -169,7 +169,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			FLog.Verbose("Rendering MiniMap camera.");
 			var ct = _minimapCamera.transform;
-			ct.parent = null;
+			ct.SetParent(null);
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
 		}

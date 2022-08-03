@@ -114,11 +114,11 @@ namespace FirstLight.Game.StateMachines
 
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
+				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
 		}
 
 		private void PlayMidIntensityMusic()
@@ -127,11 +127,11 @@ namespace FirstLight.Game.StateMachines
 
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
+				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrMidLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
 		}
 	}
 }

@@ -227,7 +227,7 @@ namespace FirstLight.Game.StateMachines
 			
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
-			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
+	
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(config);

@@ -365,6 +365,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)
 		{
+			if (_displayedAirdrops.ContainsKey(entity))
+			{
+				return;
+			}
+			
 			var airdropView = _airdropPool.Spawn();
 			airdropView.SetAirdrop(airDrop, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
 			_displayedAirdrops.Add(entity, airdropView);

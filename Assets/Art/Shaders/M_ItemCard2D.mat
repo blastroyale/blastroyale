@@ -105,10 +105,10 @@ Material:
     - _Adjective_Amount: 0.5
     - _FX_Amount: 0.5
     - _FX_Size: 1.64
-    - _Grade_Amount: -5
+    - _Grade_Amount: -0.25
     - _PlusIndicator: 1
-    - _Plus_Amount: 1.2
-    - _Plus_Indicator: 1
+    - _Plus_Amount: 1.5
+    - _Plus_Indicator: 0
     m_Colors:
     - _FX_Offset: {r: 0.25, g: 0.15, b: 0, a: 0}
     - _FX_Scale: {r: 0.6, g: 0.6, b: 0, a: 0}

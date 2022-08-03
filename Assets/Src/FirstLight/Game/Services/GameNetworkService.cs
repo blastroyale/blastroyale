@@ -37,11 +37,10 @@ namespace FirstLight.Game.Services
 		bool IsJoiningNewMatch { get; }
 		
 		// TODO: Replace Player to our own struct RoomPlayer to main player data after the match is over
-		// TODO: Replace list with observable list
 		/// <summary>
 		/// Requests the list of players that the last match was started with
 		/// </summary>
-		List<Player> LastMatchPlayers { get; }
+		IObservableListReader<Player> LastMatchPlayers { get; }
 		
 		/// <summary>
 		/// Requests the check if the last disconnection was in matchmaking, before the match started
@@ -78,7 +77,7 @@ namespace FirstLight.Game.Services
 		new IObservableField<bool> IsJoiningNewMatch { get; }
 		
 		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
-		new IObservableField<List<Player>> LastMatchPlayers { get; }
+		new IObservableList<Player> LastMatchPlayers { get; }
 		
 		/// <inheritdoc cref="IGameNetworkService.LastDisconnectLocation" />
 		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
@@ -99,14 +98,14 @@ namespace FirstLight.Game.Services
 		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
-		public IObservableField<List<Player>> LastMatchPlayers { get; }
+		public IObservableList<Player> LastMatchPlayers { get; }
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
 		
 		string IGameNetworkService.UserId => UserId.Value;
 		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
-		List<Player> IGameNetworkService.LastMatchPlayers => LastMatchPlayers.Value;
+		IObservableListReader<Player> IGameNetworkService.LastMatchPlayers => LastMatchPlayers;
 		LastDisconnectionLocation IGameNetworkService.LastDisconnectLocation => LastDisconnectLocation.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
@@ -129,7 +128,7 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
-			LastMatchPlayers = new ObservableField<List<Player>>(new List<Player>());
+			LastMatchPlayers = new ObservableList<Player>(new List<Player>());
 			LastDisconnectLocation = new ObservableField<LastDisconnectionLocation>(LastDisconnectionLocation.None);
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);

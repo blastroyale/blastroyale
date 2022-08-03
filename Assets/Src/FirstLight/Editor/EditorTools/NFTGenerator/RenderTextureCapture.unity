@@ -1118,10 +1118,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9776ead14e47dde45b1bf84e6fe412bf, type: 3}
   - {fileID: 21300000, guid: 4093f2d5e59b1724a8c0513d7ab44715, type: 3}
   _frameSprites:
-  - {fileID: 21300000, guid: 2b0b50e2a022ca54dacd30be7980bc63, type: 3}
-  - {fileID: 21300000, guid: 2b0b50e2a022ca54dacd30be7980bc63, type: 3}
   - {fileID: 21300000, guid: 2003aecdbea57424cb443660d2e841ab, type: 3}
   - {fileID: 21300000, guid: 2003aecdbea57424cb443660d2e841ab, type: 3}
+  - {fileID: 21300000, guid: 2b0b50e2a022ca54dacd30be7980bc63, type: 3}
+  - {fileID: 21300000, guid: 2b0b50e2a022ca54dacd30be7980bc63, type: 3}
   - {fileID: 21300000, guid: 1c67d5d3813e7cd4aa11e7dbc09aab6c, type: 3}
   - {fileID: 21300000, guid: 1c67d5d3813e7cd4aa11e7dbc09aab6c, type: 3}
   - {fileID: 21300000, guid: e5c0231d4b7ac77409ed92aa7751112c, type: 3}

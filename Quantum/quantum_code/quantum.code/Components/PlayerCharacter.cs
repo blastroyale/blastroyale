@@ -119,58 +119,47 @@ namespace Quantum
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
-		internal void Dead(Frame f, EntityRef killedEntity, EntityRef attacker)
+		internal void Dead(Frame f, EntityRef e, EntityRef attacker)
 		{
-			PlayerRef killerPlayer = PlayerRef.None;
-			PlayerRef killedPlayer = PlayerRef.None;
+			f.TryGet<PlayerCharacter>(attacker, out var killerPlayer);
 			
-			if (f.TryGet<PlayerCharacter>(killedEntity, out var killed))
-			{
-				killedPlayer = killed.Player;
-			}
-			
-			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
-			{
-				killerPlayer = killer.Player;
-			}
-			
-			f.Unsafe.GetPointer<PhysicsCollider3D>(killedEntity)->Enabled = false;
+			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 
 			var deadPlayer = new DeadPlayerCharacter
 			{
 				TimeOfDeath = f.Time,
-				Killer = killerPlayer,
+				Killer = killerPlayer.Player,
 				KillerEntity = attacker
 			};
 
-			f.Unsafe.GetPointer<Stats>(killedEntity)->SetCurrentHealthPercentage(f, killedEntity, attacker, FP._0);
+			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealthPercentage(f, e, attacker, FP._0);
 
 			// If an entity has NavMeshPathfinder then we stop the movement in case an entity was moving
-			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(killedEntity, out var navMeshPathfinder))
+			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(e, out var navMeshPathfinder))
 			{
-				navMeshPathfinder->Stop(f, killedEntity, true);
+				navMeshPathfinder->Stop(f, e, true);
 			}
 
 			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
 			{
-				f.Add<EntityDestroyer>(killedEntity);
+				f.Add<EntityDestroyer>(e);
 			}
 
-			f.Add(killedEntity, deadPlayer);
-			f.Remove<Targetable>(killedEntity);
-			f.Remove<AlivePlayerCharacter>(killedEntity);
+			f.Add(e, deadPlayer);
+			f.Remove<Targetable>(e);
+			f.Remove<AlivePlayerCharacter>(e);
 			
-			if (killerPlayer != PlayerRef.None)
+			if (killerPlayer.Player.IsValid)
 			{
-				f.Signals.PlayerKilledPlayer(killedPlayer, killedEntity, killer.Player, attacker);
-				f.Events.OnPlayerKilledPlayer(killedPlayer, killer.Player);
+				f.Signals.PlayerKilledPlayer(Player, e, killerPlayer.Player, attacker);
+				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
 			
-			f.Events.OnPlayerDead(Player, killedEntity);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
+			f.Events.OnPlayerDead(Player, e);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
 
-			var agent = f.Unsafe.GetPointer<HFSMAgent>(killedEntity);
-			HFSMManager.TriggerEvent(f, &agent->Data, killedEntity, Constants.DeadEvent);
+			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
+			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
 		}
 
 		/// <summary>

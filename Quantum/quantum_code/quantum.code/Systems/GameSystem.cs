@@ -6,7 +6,7 @@ namespace Quantum.Systems
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
 	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
-	                                 ISignalGameEnded, ISignalPlayerKilledPlayer
+	                                 ISignalGameEnded, ISignalHealthIsZero
 	{
 		/// <inheritdoc />
 		public override void Update(Frame f)
@@ -49,10 +49,9 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
+		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.Has<PlayerCharacter>(entityDead))
+			if (!f.Has<PlayerCharacter>(entity))
 			{
 				return;
 			}
@@ -64,7 +63,7 @@ namespace Quantum.Systems
 			{
 				inc = 1;
 			}
-			else if(entityDead != entityKiller && f.TryGet<PlayerCharacter>(entityKiller, out var killer))
+			else if(entity != attacker && f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
 				var killerData = container->PlayersData[killer.Player];
 				

@@ -57,7 +57,7 @@ namespace FirstLight.Game.Presenters
 			_respawnButton.gameObject.SetActive(false);
 		}
 
-		protected override async void OnOpened()
+		protected override void OnOpened()
 		{
 			base.OnOpened();
 
@@ -77,12 +77,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				await Task.Delay(200);
 				var killerPlayerName = killerMatchData.GetPlayerName();
 				_fraggedByText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerPlayerName);
 				_playerNameText.text = localName;
 				_enemyNameText.text = killerPlayerName;
-				_playerScoreText.text = Data.KillerData[killerMatchData.Data.Player].Value.ToString();
+				_playerScoreText.text = Data.KillerData[killerMatchData.Data.Player].Key.ToString();
 				_enemyScoreText.text = Data.KillerData[killerMatchData.Data.Player].Value.ToString();
 			}
 

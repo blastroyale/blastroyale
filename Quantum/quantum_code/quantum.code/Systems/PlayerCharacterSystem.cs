@@ -55,13 +55,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
-			{
-				f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
-				f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
-			}
-
-			player->Dead(f, entity, killer.Player, attacker);
+			player->Dead(f, entity, player->Player, attacker);
 		}
 
 		/// <inheritdoc />

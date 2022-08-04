@@ -188,12 +188,10 @@ namespace FirstLight.Game.Services
 				}
 				else
 				{
-					var killerStats = callback.Game.Frames.Verified.Get<Stats>((callback.EntityKiller));
-
-					// Killer also died on the same frame
-					if (killerStats.Values[(int) StatType.Health].StatValue.AsInt <= 0)
+					// Check if killer also died on the same frame
+					if (callback.Game.Frames.Verified.Has<DeadPlayerCharacter>(callback.EntityKiller))
 					{
-						SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
+						SwipeRight();
 					}
 					else
 					{

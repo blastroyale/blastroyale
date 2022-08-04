@@ -119,8 +119,15 @@ namespace Quantum
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
-		internal void Dead(Frame f, EntityRef e, PlayerRef killerPlayer, EntityRef attacker)
+		internal void Dead(Frame f, EntityRef e, PlayerRef killedPlayer, EntityRef attacker)
 		{
+			PlayerRef killerPlayer = PlayerRef.None;
+			
+			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
+			{
+				killerPlayer = killer.Player;
+			}
+			
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
 
 			var deadPlayer = new DeadPlayerCharacter
@@ -149,6 +156,12 @@ namespace Quantum
 
 			f.Events.OnPlayerDead(Player, e);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
+			
+			if (killerPlayer != PlayerRef.None)
+			{
+				f.Signals.PlayerKilledPlayer(killedPlayer, e, killer.Player, attacker);
+				f.Events.OnPlayerKilledPlayer(killedPlayer, killer.Player);
+			}
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);

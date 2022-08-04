@@ -172,7 +172,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_queues[type].Enqueue(new MessageData(playerEntity, message, color, icon));
 
-			if (!_coroutines.ContainsKey(type))
+			if (!_coroutines.ContainsKey(type) && isActiveAndEnabled)
 			{
 				_coroutines[type] = StartCoroutine(SpawnTextCoroutine(type));
 			}

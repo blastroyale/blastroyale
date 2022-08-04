@@ -46,6 +46,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			StopAllCoroutines();
 		}
 
 		/// <inheritdoc />
@@ -183,6 +184,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			while (Time.time < end)
 			{
+				if (this.IsDestroyed())
+				{
+					yield break;
+				}
+
 				var fill = Mathf.InverseLerp(start, end, Time.time);
 				_specialIconImage.fillAmount = fill;
 				_specialIconBackgroundImage.fillAmount = fill;

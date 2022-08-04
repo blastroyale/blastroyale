@@ -25,12 +25,12 @@ namespace FirstLight.Game.Utils
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
-			#if UNITY_EDITOR
-				public const string MARKETPLACE_DEV_URL = "https://marketplace-dev.blastroyale.com/";
-				public const string MARKETPLACE_PROD_URL = "https://marketplace.blastroyale.com";
+			#if UNITY_EDITOR || DEVELOPMENT_BUILD
+				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
+			#elif RELEASE_BUILD
+				public const string MARKETPLACE_URL = "https://marketplace-staging.blastroyale.com/";
 			#else
-            	public const string MARKETPLACE_DEV_URL = "dapp://marketplace-dev.blastroyale.com";
-            	public const string MARKETPLACE_PROD_URL = "dapp://marketplace.blastroyale.com";
+				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
 			#endif
 		}
 

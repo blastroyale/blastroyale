@@ -18,7 +18,7 @@ jobs:
     lfs: true
 
   - script: |
-      yes | "C:\Progra~1\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin\sdkmanager.bat" --licenses
+      yes | "C:\Progra~1\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin\sdkmanager.bat" --licenses
     displayName: 'Android SDK License Acceptance'
 
   - task: PowerShell@2
@@ -47,12 +47,12 @@ jobs:
           {
             New-Item -ItemType File -Path $path
           }
-        $ANDROID_ROOT="$Env:Programfiles\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer"
+        $ANDROID_ROOT="$Env:Programfiles\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer"
         $ANDROID_SDK_ROOT="$ANDROID_ROOT\SDK"
         $ANDROID_NDK_ROOT="$ANDROID_ROOT\NDK"
-        $newPath="C:\Program Files\dotnet;C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin;C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK;C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin"
+        $newPath="C:\Program Files\dotnet;C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin;C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK;C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin"
         Write-Host "##vso[task.setvariable variable=PATH;]${env:PATH};$newPath"
-        Write-Host "##vso[task.setvariable variable=JAVA_HOME;]C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK"
+        Write-Host "##vso[task.setvariable variable=JAVA_HOME;]C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK"
         Write-Host "##vso[task.setvariable variable=ANDROID_SDK_ROOT;]$ANDROID_SDK_ROOT"
         Write-Host "##vso[task.setvariable variable=ANDROID_NDK_ROOT;]$ANDROID_NDK_ROOT"
         $Env:PATH += $newPath
@@ -69,7 +69,7 @@ jobs:
     displayName: 'Quantum Build'
 
   - script: |
-      "C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -quit -batchmode -buildTarget Android -nographics ^
+      "C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -quit -batchmode -buildTarget Android -nographics ^
       -projectPath . ^
       -executeMethod FirstLight.Editor.Build.Builder.ConfigureBuild ^
       -logFile "unity3d_editor.log"
@@ -92,7 +92,7 @@ jobs:
     displayName: 'Publish Build Log'
 
   - script: |
-      "C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -flBuildFileName "app" -quit -batchmode ^
+      "C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -flBuildFileName "app" -quit -batchmode ^
       -buildTarget Android -nographics -projectPath . ^
       -executeMethod FirstLight.Editor.Build.Builder.JenkinsBuild ^
       -flBuildNumber 1 ^

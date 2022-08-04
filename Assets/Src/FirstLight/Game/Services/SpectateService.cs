@@ -188,7 +188,17 @@ namespace FirstLight.Game.Services
 				}
 				else
 				{
-					SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
+					var killerStats = callback.Game.Frames.Verified.Get<Stats>((callback.EntityKiller));
+
+					// Killer also died on the same frame
+					if (killerStats.Values[(int) StatType.Health].StatValue.AsInt <= 0)
+					{
+						SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
+					}
+					else
+					{
+						SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
+					}
 				}
 			}
 		}

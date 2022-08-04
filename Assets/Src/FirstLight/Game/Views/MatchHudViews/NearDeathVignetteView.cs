@@ -49,9 +49,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_entityFollowed = next.Entity;
 
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var stats = frame.Get<Stats>(_entityFollowed);
-
-			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
+			
+			if (frame.Has<Stats>(_entityFollowed))
+			{
+				var stats = frame.Get<Stats>(_entityFollowed);
+				SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
+			}
 		}
 
 		private void OnEventOnHealthChanged(EventOnHealthChanged callback)

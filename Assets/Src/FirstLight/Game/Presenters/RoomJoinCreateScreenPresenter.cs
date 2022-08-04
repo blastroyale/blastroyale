@@ -89,7 +89,7 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
 			var message = new PlayCreateRoomClickedMessage
 			{
-				RoomName = "PLAYTEST",
+				RoomName = GameConstants.Network.ROOM_NAME_PLAYTEST,
 				MapConfig = mapConfig,
 				JoinIfExists = true
 			};

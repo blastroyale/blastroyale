@@ -634,7 +634,7 @@ namespace I2.Loc
 			public static string DefeatedBossXTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DefeatedBossXTimes"); } }
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DetailLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DetailLevel"); } }
-			public static string DisconnectedOfflineInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedOfflineInfo"); } }
+			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
 			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
@@ -1452,7 +1452,7 @@ namespace I2.Loc
 		    public const string DefeatedBossXTimes = "MainMenu/DefeatedBossXTimes";
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DetailLevel = "MainMenu/DetailLevel";
-		    public const string DisconnectedOfflineInfo = "MainMenu/DisconnectedOfflineInfo";
+		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
 		    public const string EmailTitle = "MainMenu/EmailTitle";

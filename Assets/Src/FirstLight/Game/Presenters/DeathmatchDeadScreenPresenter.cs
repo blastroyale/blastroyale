@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -56,7 +57,7 @@ namespace FirstLight.Game.Presenters
 			_respawnButton.gameObject.SetActive(false);
 		}
 
-		protected override void OnOpened()
+		protected override async void OnOpened()
 		{
 			base.OnOpened();
 
@@ -76,11 +77,12 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				await Task.Delay(200);
 				var killerPlayerName = killerMatchData.GetPlayerName();
 				_fraggedByText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, killerPlayerName);
 				_playerNameText.text = localName;
 				_enemyNameText.text = killerPlayerName;
-				_playerScoreText.text = Data.KillerData[killerMatchData.Data.Player].Key.ToString();
+				_playerScoreText.text = Data.KillerData[killerMatchData.Data.Player].Value.ToString();
 				_enemyScoreText.text = Data.KillerData[killerMatchData.Data.Player].Value.ToString();
 			}
 

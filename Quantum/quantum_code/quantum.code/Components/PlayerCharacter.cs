@@ -119,9 +119,15 @@ namespace Quantum
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
-		internal void Dead(Frame f, EntityRef killedEntity, PlayerRef killedPlayer, EntityRef attacker)
+		internal void Dead(Frame f, EntityRef killedEntity, EntityRef attacker)
 		{
 			PlayerRef killerPlayer = PlayerRef.None;
+			PlayerRef killedPlayer = PlayerRef.None;
+			
+			if (f.TryGet<PlayerCharacter>(killedEntity, out var killed))
+			{
+				killedPlayer = killed.Player;
+			}
 			
 			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
 			{
@@ -153,15 +159,15 @@ namespace Quantum
 			f.Add(killedEntity, deadPlayer);
 			f.Remove<Targetable>(killedEntity);
 			f.Remove<AlivePlayerCharacter>(killedEntity);
-
-			f.Events.OnPlayerDead(Player, killedEntity);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
 			
 			if (killerPlayer != PlayerRef.None)
 			{
 				f.Signals.PlayerKilledPlayer(killedPlayer, killedEntity, killer.Player, attacker);
 				f.Events.OnPlayerKilledPlayer(killedPlayer, killer.Player);
 			}
+			
+			f.Events.OnPlayerDead(Player, killedEntity);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer, attacker);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(killedEntity);
 			HFSMManager.TriggerEvent(f, &agent->Data, killedEntity, Constants.DeadEvent);

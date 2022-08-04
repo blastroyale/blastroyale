@@ -55,7 +55,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			player->Dead(f, entity, player->Player, attacker);
+			player->Dead(f, entity, attacker);
 		}
 
 		/// <inheritdoc />

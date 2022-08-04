@@ -36,6 +36,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
+			
+			SetVignetteIntensity(1f, 1f);
 		}
 
 		private void OnDestroy()

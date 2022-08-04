@@ -34,7 +34,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
-		private readonly IDataService _dataService;
 
 		/// <inheritdoc cref="IStatechart.LogsEnabled"/>
 		public bool LogsEnabled
@@ -51,7 +50,6 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic = gameLogic;
 			_services = services;
 			_uiService = uiService;
-			_dataService = dataService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger);

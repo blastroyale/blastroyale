@@ -132,7 +132,6 @@ namespace FirstLight.Game.Services
 			LastDisconnectLocation = new ObservableField<LastDisconnectionLocation>(LastDisconnectionLocation.None);
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
-			UserId.Value = PlayFabSettings.DeviceUniqueIdentifier;
 		}
 
 		/// <inheritdoc />

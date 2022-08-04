@@ -30,6 +30,7 @@ namespace FirstLight.Game.Presenters
 
 		public MapSelectionView MapSelectionView;
 
+		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
 		[SerializeField, Required] private Button _leaveRoomButton;
 		[SerializeField, Required] private Image[] _playersWaitingImage;
@@ -84,6 +85,8 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
+			_rootObject.SetActive(true);
+			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
 			

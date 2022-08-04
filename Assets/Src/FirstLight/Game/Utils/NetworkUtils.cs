@@ -26,10 +26,22 @@ namespace FirstLight.Game.Utils
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
-
+			var emptyTtl = 0;
+			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
 				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+			}
+
+			if (!isRandomMatchmaking)
+			{
+				emptyTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
+					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+					           : GameConstants.Network.EMPTY_ROOM_TTL_MS;
+			}
+			else
+			{
+				emptyTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS;
 			}
 
 			var roomParams = new EnterRoomParams
@@ -53,9 +65,7 @@ namespace FirstLight.Game.Utils
 					SuppressPlayerInfo = false,
 					PublishUserId = false,
 					DeleteNullProperties = true,
-					EmptyRoomTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
-						               ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-						               : GameConstants.Network.EMPTY_ROOM_TTL_MS,
+					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking

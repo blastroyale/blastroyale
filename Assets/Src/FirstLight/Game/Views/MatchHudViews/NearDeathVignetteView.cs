@@ -50,9 +50,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			
-			if (frame.Has<Stats>(_entityFollowed))
+			if(frame.TryGet<Stats>(_entityFollowed, out var stats))
 			{
-				var stats = frame.Get<Stats>(_entityFollowed);
 				SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 			}
 		}

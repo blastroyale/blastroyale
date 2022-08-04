@@ -180,23 +180,25 @@ namespace FirstLight.Game.Services
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (callback.EntityDead == _spectatedPlayer.Value.Entity)
+			if (callback.EntityDead != _spectatedPlayer.Value.Entity)
 			{
-				if (callback.EntityDead == callback.EntityKiller)
+				return;
+			}
+			
+			if (callback.EntityDead == callback.EntityKiller)
+			{
+				SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
+			}
+			else
+			{
+				// Check if killer also died on the same frame
+				if (callback.Game.Frames.Verified.Has<DeadPlayerCharacter>(callback.EntityKiller))
 				{
-					SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
+					SwipeRight();
 				}
 				else
 				{
-					// Check if killer also died on the same frame
-					if (callback.Game.Frames.Verified.Has<DeadPlayerCharacter>(callback.EntityKiller))
-					{
-						SwipeRight();
-					}
-					else
-					{
-						SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
-					}
+					SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
 				}
 			}
 		}
@@ -205,7 +207,7 @@ namespace FirstLight.Game.Services
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);
 		}
-		
+
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);

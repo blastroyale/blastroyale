@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters
 					ButtonOnClick = () => _services.GenericDialogService.CloseDialog()
 				};
 
-				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedOfflineInfo, false, confirmButton);
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo, false, confirmButton);
 			}
 		}
 

@@ -2482,11 +2482,11 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: MainMenu/DisconnectedOfflineInfo
+    - Term: MainMenu/DisconnectedMatchEndInfo
       TermType: 0
       Description: 
       Languages:
-      - Offline match ended by disconnection.
+      - Match ended by disconnection.
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6217,7 +6217,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1659520363146
+    Google_LastUpdatedVersion: 1659625567453
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

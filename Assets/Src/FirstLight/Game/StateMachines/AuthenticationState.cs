@@ -225,8 +225,10 @@ namespace FirstLight.Game.StateMachines
 			}
 #elif RELEASE_BUILD
 			// Staging
-			PlayFabSettings.TitleId = "***REMOVED***";
+			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			//PlayFabSettings.TitleId = "***REMOVED***";
+			//quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else
 			// Dev
 			PlayFabSettings.TitleId = "***REMOVED***";

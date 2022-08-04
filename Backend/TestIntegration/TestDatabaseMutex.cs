@@ -21,10 +21,10 @@ public class TestServerMutex
 	public void TestMutexBlock()
 	{
 		var mutex = _server.GetService<IServerMutex>();
-		var task = Task.Run(() =>
+		var task = Task.Run(async () =>
 		{	
-			mutex.Lock("AnyUser");
-			mutex.Lock("AnyUser");
+			await mutex.Lock("AnyUser");
+			await mutex.Lock("AnyUser");
 		});
 		var completedInTime = task.Wait(TimeSpan.FromSeconds(2));
 		Assert.IsFalse(completedInTime);
@@ -34,11 +34,11 @@ public class TestServerMutex
 	public void TestUnlocking()
 	{
 		var mutex = _server.GetService<IServerMutex>();
-		var task = Task.Run(() =>
+		var task = Task.Run(async () =>
 		{	
-			mutex.Lock("SomeUser");
+			await mutex.Lock("SomeUser");
 			mutex.Unlock("SomeUser");
-			mutex.Lock("SomeUser");
+			await mutex.Lock("SomeUser");
 		});
 		var completedInTime = task.Wait(TimeSpan.FromSeconds(3));
 		Assert.IsTrue(completedInTime);
@@ -48,10 +48,10 @@ public class TestServerMutex
 	public void TestMutexNotBlockDifferentKeys()
 	{
 		var mutex = _server.GetService<IServerMutex>();
-		var task = Task.Run(() =>
+		var task = Task.Run(async () =>
 		{	
-			mutex.Lock("AnyUser_1");
-			mutex.Lock("AnyUser_2");
+			await mutex.Lock("AnyUser_1");
+			await mutex.Lock("AnyUser_2");
 		});
 		var completedInTime = task.Wait(TimeSpan.FromSeconds(2));
 		Assert.IsTrue(completedInTime);

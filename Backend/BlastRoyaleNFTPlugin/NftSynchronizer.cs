@@ -35,7 +35,7 @@ public class NftSynchronizer
 	    try
 	    {
 		    _ctx.PlayerMutex.Lock(playfabId);
-		    var serverState = _ctx.ServerState.GetPlayerState(playfabId);
+		    var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
 		    var equipmentData = serverState.DeserializeModel<NftEquipmentData>();
 		    var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
 		    if (equipmentData.LastUpdateTimestamp > lastBlockchainUpdate)
@@ -82,7 +82,7 @@ public class NftSynchronizer
 		    serverState.SetModel(equipmentData);
 		    serverState.SetModel(idData);
 		    serverState.SetModel(playerData);
-		    _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
+		    await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
 	    }
 	    finally
 	    {

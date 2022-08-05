@@ -36,6 +36,19 @@
       <Reference Include="quantum.core">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.AudioModule">
+        <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.SharedInternalsModule">
+        <HintPath>..\UnityLib\UnityEngine.SharedInternalsModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
     </ItemGroup>
 
 </Project>

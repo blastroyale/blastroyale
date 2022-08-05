@@ -145,7 +145,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
-			_currentWeaponSlot = 0;
+			_currentWeaponSlot = f.Get<PlayerCharacter>(localPlayer.Entity).CurrentWeaponSlot;
 			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
 			
 			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);

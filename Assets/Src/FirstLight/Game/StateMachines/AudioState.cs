@@ -88,7 +88,6 @@ namespace FirstLight.Game.StateMachines
 			disonnected.OnEnter(StopMusicInstant);
 			disonnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disonnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
-			disonnected.Event(NetworkState.JoinRoomFailedEvent).Target(mainMenu);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}

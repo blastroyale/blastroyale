@@ -46,6 +46,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+
+			if (_cooldownCoroutine != null)
+			{
+				_services?.CoroutineService.StopCoroutine(_cooldownCoroutine);
+			}
 		}
 
 		/// <inheritdoc />
@@ -142,7 +147,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconBackgroundImage.fillAmount = 0f;
 			_buttonView.interactable = false;
 
-			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(callback.StartTime, callback.EndTime));
+			_cooldownCoroutine = _services?.CoroutineService.StartCoroutine(SpecialCooldown(callback.StartTime, callback.EndTime));
 		}
 
 		private void HandleLocalSpecialAvailable(EventOnLocalSpecialAvailable callback)

@@ -32,7 +32,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Sprite _aimableBackgroundSprite;
 		[SerializeField, Required] private Sprite _nonAimableBackgroundSprite;
 		[SerializeField, Required] private Animation _pingAnimation;
-		
+
 		private IGameServices _services;
 		private Coroutine _cooldownCoroutine;
 		private bool _isAiming;
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_buttonView.interactable = false;
 			_isAiming = true;
-			
+
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
 		}
@@ -75,10 +75,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
+
 			SetInputData(eventData);
 		}
-		
+
 		/// <inheritdoc />
 		public void OnPointerUp(PointerEventData eventData)
 		{
@@ -88,7 +88,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_isAiming = false;
-			
+
 			SetInputData(eventData);
 			_specialPointerDownAdapter.SendValueToControl(0f);
 		}
@@ -99,23 +99,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public async void Init(GameId special, bool hasCharge, FP cooldownTime)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
-			
+
 			gameObject.SetActive(false);
-			
-			if(!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) special, out var config))
+
+			if (!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) special, out var config))
 			{
 				return;
 			}
-			
-			_specialIconImage.sprite = await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(config.SpecialType);
-			_specialIconBackgroundImage.sprite = config.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
+
+			_specialIconImage.sprite =
+				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(config.SpecialType);
+			_specialIconBackgroundImage.sprite =
+				config.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = config.IsAimable;
 			_specialIconImage.fillAmount = 0f;
 			_specialIconBackgroundImage.fillAmount = 0f;
 			_buttonView.interactable = false;
-			
+
 			gameObject.SetActive(true);
-			
+
 			if (_cooldownCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
@@ -124,7 +126,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (hasCharge)
 			{
-				_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(FP._0, cooldownTime));
+				if (cooldownTime > FP._0)
+				{
+					var cooldownEndTime = QuantumRunner.Default.Game.Frames.Verified.Time + cooldownTime;
+					var cooldownStartTime = cooldownEndTime - config.Cooldown;
+					var currentCooldownTime = cooldownEndTime - cooldownTime;
+
+					_cooldownCoroutine =
+						_services.CoroutineService.StartCoroutine(SpecialCooldown(cooldownStartTime.AsFloat,
+							                                          cooldownEndTime.AsFloat,
+							                                          currentCooldownTime.AsFloat));
+				}
+				else
+				{
+					FillButton();
+				}
 			}
 		}
 
@@ -147,7 +163,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconBackgroundImage.fillAmount = 0f;
 			_buttonView.interactable = false;
 
-			_cooldownCoroutine = _services?.CoroutineService.StartCoroutine(SpecialCooldown(callback.StartTime, callback.EndTime));
+			_cooldownCoroutine =
+				_services?.CoroutineService.StartCoroutine(SpecialCooldown(callback.StartTime.AsFloat,
+				                                                           callback.EndTime.AsFloat,
+				                                                           callback.StartTime.AsFloat));
 		}
 
 		private void HandleLocalSpecialAvailable(EventOnLocalSpecialAvailable callback)
@@ -156,7 +175,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
+
 			if (_cooldownCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
@@ -168,31 +187,34 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void SetInputData(PointerEventData eventData)
 		{
 			var rectTransform = _specialIconBackgroundImage.rectTransform;
-			
+
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position,
-				eventData.pressEventCamera, out var position);
-			
+			                                                        eventData.pressEventCamera, out var position);
+
 			var radius = (rectTransform.rect.size.x / 2f) * rectTransform.localScale.x * _rectScale;
 			var delta = Vector2.ClampMagnitude(position, radius);
-			
+
 			_specialAimDirectionAdapter.SendValueToControl(delta / radius);
 		}
-		
-		private IEnumerator SpecialCooldown(FP startFixed, FP endFixed)
+
+		private IEnumerator SpecialCooldown(float startSeconds, float endSeconds, float currentSeconds)
 		{
-			var start = Time.time;
-			var end = start + endFixed.AsFloat - startFixed.AsFloat;
-			
+			var start = startSeconds;
+			var current = currentSeconds;
+			var end = endSeconds;
+
 			_specialIconImage.color = _cooldownColor;
 			_specialIconBackgroundImage.color = _cooldownColor;
-			
-			while (Time.time < end)
+
+			while (current < end)
 			{
-				var fill = Mathf.InverseLerp(start, end, Time.time);
+				var fill = Mathf.InverseLerp(start, end, current);
 				_specialIconImage.fillAmount = fill;
 				_specialIconBackgroundImage.fillAmount = fill;
-				
+
 				yield return null;
+
+				current += Time.deltaTime;
 			}
 
 			FillButton();
@@ -202,7 +224,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_pingAnimation.Rewind();
 			_pingAnimation.Play();
-			
+
 			_specialIconImage.color = _activeColor;
 			_specialIconImage.fillAmount = 1f;
 			_specialIconBackgroundImage.color = _activeColor;
@@ -212,4 +234,3 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 	}
 }
-

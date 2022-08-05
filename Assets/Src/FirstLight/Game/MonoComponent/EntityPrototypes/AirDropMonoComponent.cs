@@ -38,9 +38,16 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var airDrop = GetComponentData<AirDrop>(game);
 			var airDropHeight = Services.ConfigsProvider.GetConfig<QuantumGameConfig>().AirdropHeight.AsFloat;
 
+			_itemRoot.gameObject.SetActive(false);
+			
 			Services.AssetResolverService.RequestAsset<GameId, GameObject>(airDrop.Chest, true, true,
 			                                                               OnChestLoaded);
-
+			
+			if (airDrop.Stage  == AirDropStage.Dropped)
+			{
+				return;
+			}
+			
 			var airdropPosition = airDrop.Position.ToUnityVector3();
 			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
 
@@ -55,8 +62,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			         .SetDelay(Mathf.Max(0, airDrop.Delay.AsFloat - _airplaneTravelDuration / 2f))
 			         .OnStart(() => { _airplane.gameObject.SetActive(true); })
 			         .OnComplete(() => { _airplane.gameObject.SetActive(false); });
-
-			_itemRoot.gameObject.SetActive(false);
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
@@ -71,8 +76,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnAirDropLanded(EventOnAirDropLanded callback)
 		{
-			if (callback.Entity != EntityView.EntityRef) return;
-
+			if (callback.Entity != EntityView.EntityRef)
+			{
+				return;
+			}
+			
 			_landingPS.Play();
 			_landingAnim.Play();
 		}
@@ -96,6 +104,19 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.SetParent(_itemRoot);
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
+			
+			var airDrop = GetComponentData<AirDrop>(QuantumRunner.Default.Game);
+			
+			if (airDrop.Stage  != AirDropStage.Waiting)
+			{
+				_itemRoot.gameObject.SetActive(true);
+				
+				if (airDrop.Stage == AirDropStage.Dropped)
+				{
+					_landingPS.Play();
+					_landingAnim.Play();
+				}
+			}
 		}
 	}
 }

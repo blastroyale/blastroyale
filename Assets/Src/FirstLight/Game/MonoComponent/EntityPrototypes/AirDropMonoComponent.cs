@@ -30,28 +30,26 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		[SerializeField] private int _airplaneTravelDistance = 150;
 		[SerializeField] private float _airplaneTravelDuration = 10f;
 
-		private AirDrop _airDrop;
-
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 
-			_airDrop = GetComponentData<AirDrop>(game);
+			var airDrop = GetComponentData<AirDrop>(game);
 			var airDropHeight = Services.ConfigsProvider.GetConfig<QuantumGameConfig>().AirdropHeight.AsFloat;
 
 			_itemRoot.gameObject.SetActive(false);
 			
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(_airDrop.Chest, true, true,
+			Services.AssetResolverService.RequestAsset<GameId, GameObject>(airDrop.Chest, true, true,
 			                                                               OnChestLoaded);
 			
-			if (_airDrop.Stage  == AirDropStage.Dropped)
+			if (airDrop.Stage  == AirDropStage.Dropped)
 			{
 				return;
 			}
 			
-			var airdropPosition = _airDrop.Position.ToUnityVector3();
-			var airplaneDirection = _airDrop.Direction.XOY.ToUnityVector3();
+			var airdropPosition = airDrop.Position.ToUnityVector3();
+			var airplaneDirection = airDrop.Direction.XOY.ToUnityVector3();
 
 			var startingPosition = airdropPosition - airplaneDirection * _airplaneTravelDistance +
 			                       Vector3.up * airDropHeight;
@@ -61,7 +59,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
 			_airplane.position = startingPosition;
 			_airplane.DOMove(targetPosition, _airplaneTravelDuration)
-			         .SetDelay(Mathf.Max(0, _airDrop.Delay.AsFloat - _airplaneTravelDuration / 2f))
+			         .SetDelay(Mathf.Max(0, airDrop.Delay.AsFloat - _airplaneTravelDuration / 2f))
 			         .OnStart(() => { _airplane.gameObject.SetActive(true); })
 			         .OnComplete(() => { _airplane.gameObject.SetActive(false); });
 		}
@@ -107,11 +105,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
 			
-			if (_airDrop.Stage  != AirDropStage.Waiting)
+			var airDrop = GetComponentData<AirDrop>(QuantumRunner.Default.Game);
+			
+			if (airDrop.Stage  != AirDropStage.Waiting)
 			{
 				_itemRoot.gameObject.SetActive(true);
 				
-				if (_airDrop.Stage == AirDropStage.Dropped)
+				if (airDrop.Stage == AirDropStage.Dropped)
 				{
 					_landingPS.Play();
 					_landingAnim.Play();

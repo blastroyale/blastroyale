@@ -41,12 +41,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject[] _shineAnimObjects;
 
 		private EntityRef _playerWinnerEntity;
-		private IEntityViewUpdaterService _entityService;
+		private IMatchServices _matchService;
 		private IGameServices _services;
 
 		private void Awake()
 		{
-			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			_matchService = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
@@ -128,7 +128,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 
-			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
+			if (_matchService.EntityViewUpdaterService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
 

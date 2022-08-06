@@ -48,27 +48,24 @@ namespace FirstLight.Game.Services
 
 	public class SpectateService : ISpectateService, MatchServices.IMatchService
 	{
+		private readonly IGameServices _gameServices;
+		private readonly IMatchServices _matchServices;
+		private readonly FP _playerVisionRange;
+		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
+		
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 
-		private readonly IEntityViewUpdaterService _entityViewUpdaterService;
-		private readonly IGameNetworkService _networkService;
-
-		private readonly FP _playerVisionRange;
-
-		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
-
-		public SpectateService(IEntityViewUpdaterService entityViewUpdaterService, IGameNetworkService networkService,
-		                       IConfigsProvider configsProvider)
+		public SpectateService(IGameServices gameServices, IMatchServices matchServices)
 		{
-			_entityViewUpdaterService = entityViewUpdaterService;
-			_networkService = networkService;
+			_gameServices = gameServices;
+			_matchServices = matchServices;
 
-			_playerVisionRange = configsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 		}
 
 		public void OnMatchStarted(bool isReconnect)
 		{
-			if (_networkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				if (isReconnect)
 				{
@@ -169,7 +166,7 @@ namespace FirstLight.Game.Services
 		private void TrySetSpectateModePlayer()
 		{
 			// Spectator mode - set new player to follow, only once
-			if (_networkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid)
+			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid)
 			{
 				if (TryGetNextPlayer(out var player))
 				{
@@ -215,7 +212,7 @@ namespace FirstLight.Game.Services
 		{
 			if (_spectatedPlayer.Value.Entity == entity) return;
 
-			if (_entityViewUpdaterService.TryGetView(entity, out var view))
+			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
 				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, view.transform);
 			}

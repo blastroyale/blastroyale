@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void Awake()
 		{
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 

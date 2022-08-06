@@ -297,7 +297,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenAdventureWorldHud()
 		{
-			_uiService.OpenUi<AdventureWorldHudPresenter>();
+			_uiService.OpenUi<MatchWorldHudPresenter>();
 		}
 
 		private void OpenGameCompleteScreen()

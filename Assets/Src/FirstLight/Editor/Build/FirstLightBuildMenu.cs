@@ -60,6 +60,23 @@ namespace FirstLight.Editor.Build
 			BuildPipeline.BuildPlayer(options);
 		}
 		
+		[MenuItem("FLG/Build/Android/Release Build")]
+		public static void BuildRelease()
+		{
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
+			
+			if (string.IsNullOrWhiteSpace(outputPath))
+			{
+				return;
+			}
+			
+			FirstLightBuildConfig.SetupReleaseConfig();
+			
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.ReleaseSymbol);
+			
+			BuildPipeline.BuildPlayer(options);
+		}
+		
 		[MenuItem("FLG/Build/Android/Store Build")]
 		public static void BuildAndroidStore()
 		{
@@ -127,6 +144,23 @@ namespace FirstLight.Editor.Build
 			FirstLightBuildConfig.SetupStagingConfig();
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StagingSymbol);
+			
+			BuildPipeline.BuildPlayer(options);
+		}
+		
+		[MenuItem("FLG/Build/iOS/Release Build")]
+		public static void BuildIosRelease()
+		{
+			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
+			
+			if (string.IsNullOrWhiteSpace(outputPath))
+			{
+				return;
+			}
+			
+			FirstLightBuildConfig.SetupReleaseConfig();
+			
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.ReleaseSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}

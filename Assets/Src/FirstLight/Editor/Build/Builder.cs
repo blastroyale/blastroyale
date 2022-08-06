@@ -39,6 +39,11 @@ namespace FirstLight.Editor.Build
 					FirstLightBuildConfig.SetupStagingConfig();
 					break;
 				}
+				case FirstLightBuildConfig.ReleaseSymbol:
+				{
+					FirstLightBuildConfig.SetupReleaseConfig();
+					break;
+				}
 				case FirstLightBuildConfig.StoreSymbol:
 				{
 					FirstLightBuildConfig.SetupStoreConfig();

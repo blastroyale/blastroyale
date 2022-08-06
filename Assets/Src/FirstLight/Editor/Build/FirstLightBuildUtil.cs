@@ -36,9 +36,7 @@ namespace FirstLight.Editor.Build
 			return true;
 		}
 
-		public static bool TryGetBuildSymbolFromCommandLineArgs(
-			out string buildSymbol,
-			params string[] args)
+		public static bool TryGetBuildSymbolFromCommandLineArgs(out string buildSymbol, params string[] args)
 		{
 			if (!TryGetCommandLineOption(_buildSymbolOption, out buildSymbol, args))
 			{
@@ -47,6 +45,7 @@ namespace FirstLight.Editor.Build
 
 			if (buildSymbol != FirstLightBuildConfig.DevelopmentSymbol &&
 			    buildSymbol != FirstLightBuildConfig.StagingSymbol && 
+			    buildSymbol != FirstLightBuildConfig.ReleaseSymbol && 
 			    buildSymbol !=FirstLightBuildConfig.StoreSymbol)
 			{
 				Debug.LogError($"Build symbol not recognised: {buildSymbol}");

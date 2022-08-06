@@ -32,14 +32,14 @@ namespace FirstLight.Game.Logic
 		EquipmentInfo GetInfo(UniqueId id);
 
 		/// <summary>
-		/// Requests the <see cref="EquipmentInfo"/> for all the loadout
+		/// Requests the <see cref="EquipmentInfo"/> for all the loadout with the option to filter for only NFTs
 		/// </summary>
-		List<EquipmentInfo> GetLoadoutEquipmentInfo();
+		List<EquipmentInfo> GetLoadoutEquipmentInfo(bool isNftOnly);
 
 		/// <summary>
-		/// Requests the <see cref="EquipmentInfo"/> for all the inventory
+		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the option to filter for only NFTs
 		/// </summary>
-		List<EquipmentInfo> GetInventoryEquipmentInfo();
+		List<EquipmentInfo> GetInventoryEquipmentInfo(bool isNftOnly);
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has
@@ -120,6 +120,7 @@ namespace FirstLight.Game.Logic
 			{
 				Id = id,
 				Equipment = equipment,
+				IsNft = Data.TokenIds.ContainsKey(id),
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				NftCooldown = cooldownFinishTime - DateTime.UtcNow,
 				CardUrl = url,
@@ -127,30 +128,35 @@ namespace FirstLight.Game.Logic
 			};
 		}
 
-		public List<EquipmentInfo> GetLoadoutEquipmentInfo()
+		public List<EquipmentInfo> GetLoadoutEquipmentInfo(bool isNftOnly)
 		{
 			var ret = new List<EquipmentInfo>();
 
 			foreach (var (slot, id) in _loadout)
 			{
+				if (isNftOnly && !Data.TokenIds.ContainsKey(id))
+				{
+					continue;
+				}
+				
 				ret.Add(GetInfo(id));
 			}
 
 			return ret;
 		}
 
-		public List<EquipmentInfo> GetInventoryEquipmentInfo()
+		public List<EquipmentInfo> GetInventoryEquipmentInfo(bool isNftOnly)
 		{
 			var ret = new List<EquipmentInfo>();
 
 			foreach (var (id, equipment) in _inventory)
 			{
-				var info = GetInfo(id);
-
-				if (!info.IsOnCooldown)
+				if (isNftOnly && !Data.TokenIds.ContainsKey(id))
 				{
-					ret.Add(info);
+					continue;
 				}
+				
+				ret.Add(GetInfo(id));
 			}
 
 			return ret;

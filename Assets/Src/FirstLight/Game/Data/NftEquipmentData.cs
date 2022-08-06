@@ -12,8 +12,12 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class NftEquipmentData
 	{
+		/// <summary>
+		/// Maps each equipment <see cref="UniqueId"/> to it's <see cref="Equipment"/> data
+		/// </summary>
 		public readonly Dictionary<UniqueId, Equipment> Inventory = new();
 		
+		//TODO: Do we need all the data separate below? Can we just create some sort of NftEquipment and aggregate all data?
 		/// <summary>
 		/// Maps player specific ids to blockchain token ids
 		/// </summary>
@@ -35,7 +39,6 @@ namespace FirstLight.Game.Data
 		/// </summary>
 		public readonly Dictionary<UniqueId, string> ImageUrls = new();
 
-		
 		/// <summary>
 		/// Field that holds the timestamp when nfts were last updated
 		/// </summary>

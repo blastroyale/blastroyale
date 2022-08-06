@@ -105,7 +105,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 		private void SetupPoolConfigs()
 		{
-			var list = new List<EquipmentInfo>
+			var nftList = new List<EquipmentInfo>
 			{
 				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.RarePlus, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 50, maxDurability: 100 )},
 				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, durability: 70, maxDurability: 100 )},
@@ -113,6 +113,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, durability: 34, maxDurability: 100 )},
 				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, durability: 97, maxDurability: 100 )},
 			};
+			
+			// TODO: Have also NON-NFT list
 			
 			_poolConfig = new ResourcePoolConfig
 			{
@@ -131,9 +133,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 			};
 
 			GameLogic.PlayerLogic.Trophies.Returns(new ObservableField<uint>(1000));
-			GameLogic.EquipmentLogic.Loadout.Count.Returns(list.Count);
-			EquipmentLogic.GetInventoryEquipmentInfo().Returns(list);
-			EquipmentLogic.GetLoadoutEquipmentInfo().Returns(list);
+			GameLogic.EquipmentLogic.Loadout.Count.Returns(nftList.Count);
+			EquipmentLogic.GetInventoryEquipmentInfo(true).Returns(nftList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(true).Returns(nftList);
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3 });
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP._0});

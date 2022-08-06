@@ -118,11 +118,12 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoaded()
 		{
-			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo();
+			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(false);
+			var inventory = _gameData.EquipmentDataProvider.GetInventoryEquipmentInfo(true);
 
 			var data = new Dictionary<string, object>
 			{
-				{"nfts_owned", _dataProvider.GetData<NftEquipmentData>().Inventory.Keys.Count},
+				{"nfts_owned", inventory.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
 				{"total_power", loadout.GetTotalStat(EquipmentStatType.Damage)}

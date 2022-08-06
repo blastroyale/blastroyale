@@ -30,14 +30,10 @@ namespace FirstLight.Game.Infos
 		public UniqueId Id;
 		public Equipment Equipment;
 		public bool IsEquipped;
+		public bool IsNft;
 		public TimeSpan NftCooldown;
 		public string CardUrl;
 		public Dictionary<EquipmentStatType, float> Stats;
-
-		/// <summary>
-		/// Requests the info if this equipment is of NFT type
-		/// </summary>
-		public bool IsNft => true;
 
 		/// <summary>
 		/// Requests if this equipment's NFT is on cooldown or not

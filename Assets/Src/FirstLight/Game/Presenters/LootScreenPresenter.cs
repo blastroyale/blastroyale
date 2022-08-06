@@ -95,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetBasicPlayerInformation()
 		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo();
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(false);
 
 			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;

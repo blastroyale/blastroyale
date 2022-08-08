@@ -113,7 +113,7 @@ namespace FirstLight.Game.Logic
 			// Test calculations for this algorithm can be found at the bottom of this spreadsheet:
 			// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
 
-			var inventory = GameLogic.EquipmentLogic.GetInventoryEquipmentInfo();
+			var inventory = GameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly);
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
 			var nftOwned = inventory.Count;
 			var poolCapacity = (double) 0;
@@ -155,7 +155,7 @@ namespace FirstLight.Game.Logic
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 
-			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutEquipmentInfo();
+			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
 			var maxTake = poolConfig.BaseMaxTake;
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;

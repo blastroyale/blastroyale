@@ -158,41 +158,7 @@ namespace FirstLight.Game.Logic
 
 		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
 		{
-			var stats = new Dictionary<EquipmentStatType, float>();
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var baseStatsConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = GameLogic.ConfigsProvider.GetConfig<QuantumEquipmentStatsConfig>(equipment.GetStatsKey());
-			var statsMaterialConfig = GameLogic.ConfigsProvider.GetConfig<QuantumEquipmentMaterialStatsConfig>(equipment.GetMaterialStatsKey());
-
-			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
-			{
-				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
-
-				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
-				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.Get(GameMode.BattleRoyale));
-				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
-				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
-			}
-
-			stats.Add(EquipmentStatType.Hp,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Health).AsFloat);
-			stats.Add(EquipmentStatType.Speed,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Speed)
-				          .AsFloat);
-			stats.Add(EquipmentStatType.Armor,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Armour)
-				          .AsFloat);
-			stats.Add(EquipmentStatType.Damage,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Power)
-				          .AsFloat);
-
-			return stats;
+			return equipment.GetStats(GameLogic.ConfigsProvider);
 		}
 
 		public bool EnoughLoadoutEquippedToPlay()

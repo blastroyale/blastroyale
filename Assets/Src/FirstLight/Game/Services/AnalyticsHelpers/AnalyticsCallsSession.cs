@@ -118,8 +118,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoaded()
 		{
-			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(false);
-			var inventory = _gameData.EquipmentDataProvider.GetInventoryEquipmentInfo(true);
+			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var inventory = _gameData.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly);
 
 			var data = new Dictionary<string, object>
 			{

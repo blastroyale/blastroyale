@@ -109,6 +109,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			instance.SetActive(false);
 
 			var cacheTransform = instance.transform;
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 
 			cacheTransform.SetParent(_characterAnchor);
 
@@ -116,7 +117,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			cacheTransform.localRotation = Quaternion.identity;
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
-			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(false));
+			await _characterViewComponent.Init(loadout);
 
 			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
 			{

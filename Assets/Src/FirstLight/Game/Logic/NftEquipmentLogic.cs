@@ -11,6 +11,13 @@ using Quantum;
 
 namespace FirstLight.Game.Logic
 {
+	public enum EquipmentFilter
+	{
+		Both,
+		NftOnly,
+		NoNftOnly
+	}
+	
 	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's equipment
 	/// </summary>
@@ -34,12 +41,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for all the loadout with the option to filter for only NFTs
 		/// </summary>
-		List<EquipmentInfo> GetLoadoutEquipmentInfo(bool isNftOnly);
+		List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter);
 
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the option to filter for only NFTs
 		/// </summary>
-		List<EquipmentInfo> GetInventoryEquipmentInfo(bool isNftOnly);
+		List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter);
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has
@@ -128,30 +135,34 @@ namespace FirstLight.Game.Logic
 			};
 		}
 
-		public List<EquipmentInfo> GetLoadoutEquipmentInfo(bool isNftOnly)
+		public List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
 
 			foreach (var (slot, id) in _loadout)
 			{
-				if (isNftOnly && !Data.TokenIds.ContainsKey(id))
+				var contains = Data.TokenIds.ContainsKey(id);
+				
+				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
 				{
 					continue;
 				}
-				
+
 				ret.Add(GetInfo(id));
 			}
 
 			return ret;
 		}
 
-		public List<EquipmentInfo> GetInventoryEquipmentInfo(bool isNftOnly)
+		public List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
 
 			foreach (var (id, equipment) in _inventory)
 			{
-				if (isNftOnly && !Data.TokenIds.ContainsKey(id))
+				var contains = Data.TokenIds.ContainsKey(id);
+				
+				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
 				{
 					continue;
 				}

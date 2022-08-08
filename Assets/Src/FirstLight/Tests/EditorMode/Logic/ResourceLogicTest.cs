@@ -134,8 +134,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			GameLogic.PlayerLogic.Trophies.Returns(new ObservableField<uint>(1000));
 			GameLogic.EquipmentLogic.Loadout.Count.Returns(nftList.Count);
-			EquipmentLogic.GetInventoryEquipmentInfo(true).Returns(nftList);
-			EquipmentLogic.GetLoadoutEquipmentInfo(true).Returns(nftList);
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly).Returns(nftList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly).Returns(nftList);
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3 });
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP._0});

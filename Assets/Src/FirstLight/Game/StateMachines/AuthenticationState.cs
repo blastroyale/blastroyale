@@ -217,13 +217,13 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 
 #if LIVE_SERVER
-			PlayFabSettings.TitleId = "***REMOVED***";
+			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #elif OFFCHAIN_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #elif STAGE_SERVER
-			PlayFabSettings.TitleId = "302CF";
+			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else
 			// Dev

@@ -378,7 +378,7 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
 			var configProvider = _services.ConfigsProvider;
 
-			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
+			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 			
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
@@ -397,7 +397,6 @@ namespace FirstLight.Game.StateMachines
 
 		private async void UnloadMainMenu()
 		{
-			var mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			var configProvider = _services.ConfigsProvider;
 
 			Camera.main.gameObject.SetActive(false);
@@ -411,9 +410,8 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
 
-			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
-			MainMenuInstaller.Clean();
+			MainInstaller.CleanDispose<IMainMenuServices>();
 
 			_statechartTrigger(MainMenuUnloadedEvent);
 		}

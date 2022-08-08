@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.Services
 {
@@ -12,6 +14,9 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="ISpectateService"/>
 		public ISpectateService SpectateService { get; }
+		
+		/// <inheritdoc cref="IEntityViewUpdaterService"/>
+		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -36,19 +41,21 @@ namespace FirstLight.Game.Services
 			/// </summary>
 			void OnMatchEnded();
 		}
-		
-		public ISpectateService SpectateService { get; }
 
 		private readonly IMessageBrokerService _messageBrokerService;
-
 		private readonly List<IMatchService> _services = new();
+		
+		/// <inheritdoc />
+		public ISpectateService SpectateService { get; }
+		/// <inheritdoc />
+		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services)
 		{
 			_messageBrokerService = services.MessageBrokerService;
 
-			SpectateService = Configure(new SpectateService(entityViewUpdaterService, services.NetworkService, 
-			                                                services.ConfigsProvider));
+			EntityViewUpdaterService = entityViewUpdaterService;
+			SpectateService = Configure(new SpectateService(services, this));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
@@ -56,6 +63,7 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
+			Object.Destroy(((EntityViewUpdaterService) EntityViewUpdaterService).gameObject);
 			_messageBrokerService?.UnsubscribeAll(this);
 		}
 

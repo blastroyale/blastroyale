@@ -5,11 +5,10 @@ using UnityEngine;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// This Presenter handles the Adventure World HUD UI by:
+	/// This Presenter handles the Match World HUD UI by:
 	/// - Showing the World entities HUD visual status
 	/// </summary>
-	public class AdventureWorldHudPresenter : UiPresenter
+	public class MatchWorldHudPresenter : UiPresenter
 	{
-		[SerializeField, Required] public Transform _healthBarContainer;
 	}
 }

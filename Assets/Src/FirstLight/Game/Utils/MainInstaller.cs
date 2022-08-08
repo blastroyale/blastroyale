@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Utils
@@ -26,6 +27,14 @@ namespace FirstLight.Game.Utils
 		/// <inheritdoc cref="IInstaller.Clean"/>
 		public static bool Clean<T>() where T : class
 		{
+			return _installer.Clean<T>();
+		}
+
+		/// <inheritdoc cref="IInstaller.Clean"/>
+		public static bool CleanDispose<T>() where T : class, IDisposable
+		{
+			_installer.Resolve<T>().Dispose();
+			
 			return _installer.Clean<T>();
 		}
 

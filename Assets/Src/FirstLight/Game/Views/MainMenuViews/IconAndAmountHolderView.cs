@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 			_button.onClick.AddListener(OnClicked);
 			_services.MessageBrokerService.Subscribe<PlayUiVfxMessage>(OnPlayUiVfxMessage);
 			UpdateAmountText(GetAmount());

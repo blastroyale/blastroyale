@@ -43,7 +43,7 @@ namespace FirstLight.Game.Utils
 		{
 			public const string MIXER_MAIN_SNAPSHOT_KEY = "Main";
 			public const string MIXER_LOBBY_SNAPSHOT_KEY = "Lobby";
-			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 1f;
+			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
 			
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;

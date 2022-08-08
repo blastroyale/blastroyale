@@ -32,9 +32,9 @@ public class TestDataService
 		{
 			{"test_key", "test_value"}
 		};
-		_service?.UpdatePlayerState(playerId, data);
+		_service?.UpdatePlayerState(playerId, data).Wait();
 		
-		var readData = _service.GetPlayerState(playerId);
+		var readData = _service.GetPlayerState(playerId).Result;
 		Assert.AreEqual(data["test_key"], readData["test_key"]);
 	}
 

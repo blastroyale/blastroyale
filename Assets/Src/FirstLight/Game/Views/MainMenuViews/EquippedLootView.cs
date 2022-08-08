@@ -2,12 +2,9 @@
 using UnityEngine.UI;
 using FirstLight.Game.Services;
 using FirstLight.Game.Ids;
-using I2.Loc;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using TMPro;
 using UnityEngine.Events;
-using FirstLight.Game.Messages;
 using Quantum;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
@@ -20,13 +17,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class EquippedLootView : MonoBehaviour
 	{
 		[SerializeField] protected GameIdGroup _slot;
-		[SerializeField, Required] protected Image _iconImage;
-		[SerializeField, Required] protected Image _rarityImage;
+		[SerializeField, Required] protected EquipmentIconItemView _iconView;
 		[SerializeField, Required] protected Image _slotImage;
 		[SerializeField, Required] protected Button _button;
-		[SerializeField, Required] protected TextMeshProUGUI _levelText;
 
-		public UnityEvent<GameIdGroup> OnClick = new UnityEvent<GameIdGroup>();
+		public UnityEvent<GameIdGroup> OnClick = new();
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -49,7 +44,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Updates the icon state view
 		/// </summary>
-		public async void UpdateItem()
+		public void UpdateItem()
 		{
 			if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(_slot, out var uniqueId))
 			{
@@ -62,18 +57,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 				}
 				else
 				{
-					_levelText.text = $"{ScriptLocalization.General.Level} {equipment.Level.ToString()}";
-					_iconImage.enabled = true;
 					_slotImage.enabled = false;
-					// TODO mihak: Fix this
-					// _rarityImage.enabled = true;
-					// _rarityImage.sprite =
-					// 	await _services.AssetResolverService.RequestAsset<EquipmentRarity, Sprite>(equipment.Rarity);
+					_iconView.gameObject.SetActive(true);
 
 					if (ItemId != uniqueId)
 					{
-						_iconImage.sprite =
-							await _services.AssetResolverService.RequestAsset<GameId, Sprite>(equipment.GameId);
+						_iconView.SetInfo(uniqueId, equipment);
 					}
 
 					ItemId = uniqueId;
@@ -88,10 +77,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void ClearSlot()
 		{
 			ItemId = UniqueId.Invalid;
-			_levelText.text = "";
-			_iconImage.enabled = false;
 			_slotImage.enabled = true;
-			_rarityImage.enabled = false;
+			_iconView.gameObject.SetActive(false);
 		}
 
 		protected virtual void OnButtonClick()

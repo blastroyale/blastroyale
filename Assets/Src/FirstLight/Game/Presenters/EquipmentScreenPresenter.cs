@@ -313,7 +313,7 @@ namespace FirstLight.Game.Presenters
 		private void OnEquipButtonClicked()
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
-			var loadout = dataProvider.GetLoadoutEquipmentInfo();
+			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 			var previousDamage = loadout.GetTotalStat(EquipmentStatType.Damage);
 			var item = loadout.Find(infoItem => infoItem.Id == _selectedId);
 
@@ -322,7 +322,7 @@ namespace FirstLight.Game.Presenters
 				var isWeapon = item.Equipment.IsWeapon();
 
 				// Can't unequip your last weapon.
-				if (isWeapon && dataProvider.GetInventoryEquipmentInfo()
+				if (isWeapon && dataProvider.GetInventoryEquipmentInfo(EquipmentFilter.Both)
 				                            .FindAll(info => info.Equipment.GameId.IsInGroup(GameIdGroup.Weapon)).Count == 1)
 				{
 					var confirmButton = new GenericDialogButton
@@ -356,7 +356,7 @@ namespace FirstLight.Game.Presenters
 				EquipItem(_selectedId);
 			}
 			
-			var damageDiff =  dataProvider.GetLoadoutEquipmentInfo().GetTotalStat(EquipmentStatType.Damage) - previousDamage;
+			var damageDiff =  dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both).GetTotalStat(EquipmentStatType.Damage) - previousDamage;
 			var postfix = damageDiff < 0 ? "-" : "+";
 
 			_powerChangeText.color = damageDiff < 0 ? Color.red : Color.green;

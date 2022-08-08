@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.ServerModels;
@@ -24,7 +25,7 @@ public class PlayfabGameStateService : IServerStateService
 	}
 
 	/// <inheritdoc />
-	public UpdateUserDataResult UpdatePlayerState(string playerId, ServerState state)
+	public async Task<UpdateUserDataResult> UpdatePlayerState(string playerId, ServerState state)
 	{
 		var request = new UpdateUserDataRequest()
 		{
@@ -32,9 +33,7 @@ public class PlayfabGameStateService : IServerStateService
 			PlayFabId = playerId
 		};
 		var server = _server.CreateServer(playerId);
-		var req = server.UpdateUserReadOnlyDataAsync(request);
-		req.Wait();
-		var result = req.Result;
+		var result = await server.UpdateUserReadOnlyDataAsync(request);
 		if (result.Error != null)
 		{
 			throw _errorService.HandleError(result.Error);
@@ -43,15 +42,13 @@ public class PlayfabGameStateService : IServerStateService
 	}
 	
 	/// <inheritdoc />
-	public ServerState GetPlayerState(string playfabId)
+	public async Task<ServerState> GetPlayerState(string playfabId)
 	{
 		var server = _server.CreateServer(playfabId);
-		var task = server.GetUserReadOnlyDataAsync(new GetUserDataRequest()
+		var result =  await server.GetUserReadOnlyDataAsync(new GetUserDataRequest()
 		{
 			PlayFabId = playfabId
 		});
-		task.Wait();
-		var result = task.Result;
 		if (result.Error != null)
 		{
 			throw _errorService.HandleError(result.Error);

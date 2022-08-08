@@ -65,13 +65,13 @@ public class GameLogicWebWebService : ILogicWebService
 	{
 		return new PlayFabResult<BackendLogicResult>
 		{
-			Result = _server.RunLogic(playerId, request)
+			Result = await _server.RunLogic(playerId, request)
 		};
 	}
 
 	public async Task<PlayFabResult<BackendLogicResult>> GetPlayerData(string playerId)
 	{
-		var state = _stateService.GetPlayerState(playerId);
+		var state = await _stateService.GetPlayerState(playerId);
 		if (!_setupService.IsSetup(state))
 		{
 			await SetupPlayer(playerId);
@@ -81,7 +81,7 @@ public class GameLogicWebWebService : ILogicWebService
 			var versionUpdates = _migrator.RunMigrations(state);
 			if (versionUpdates > 0)
 			{
-				_stateService.UpdatePlayerState(playerId, state);
+				await _stateService.UpdatePlayerState(playerId, state);
 				_log.LogDebug($"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
 			}
 		}
@@ -92,7 +92,7 @@ public class GameLogicWebWebService : ILogicWebService
 			Result = new BackendLogicResult()
 			{
 				PlayFabId = playerId,
-				Data = _stateService.GetPlayerState(playerId)
+				Data = await _stateService.GetPlayerState(playerId)
 			}
 		};
 	}
@@ -100,7 +100,7 @@ public class GameLogicWebWebService : ILogicWebService
 	public async Task<PlayFabResult<BackendLogicResult>> SetupPlayer(string playerId)
 	{
 		var serverData = _setupService.GetInitialState(playerId);
-		_stateService.UpdatePlayerState(playerId, serverData);
+		await _stateService.UpdatePlayerState(playerId, serverData);
 		return new PlayFabResult<BackendLogicResult>
 		{
 			Result = new BackendLogicResult

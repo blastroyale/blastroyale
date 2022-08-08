@@ -63,7 +63,7 @@ public class WipeInvalidDataPlayers : PlayfabScript
 		try
 		{
 			ModelSerializer.DeserializeFromData<PlayerData>(userDataJson);
-			ModelSerializer.DeserializeFromData<NftEquipmentData>(userDataJson);
+			ModelSerializer.DeserializeFromData<EquipmentData>(userDataJson);
 			ModelSerializer.DeserializeFromData<RngData>(userDataJson);
 			ModelSerializer.DeserializeFromData<IdData>(userDataJson);
 			Console.WriteLine($"{profile.PlayerId} had valid data");
@@ -76,8 +76,9 @@ public class WipeInvalidDataPlayers : PlayfabScript
 				PlayFabId = profile.PlayerId,
 				KeysToRemove = new List<string>()
 				{
+					"NftEquipmentData",
 					typeof(PlayerData).FullName,
-					typeof(NftEquipmentData).FullName,
+					typeof(EquipmentData).FullName,
 					typeof(RngData).FullName,
 					typeof(IdData).FullName,
 				}

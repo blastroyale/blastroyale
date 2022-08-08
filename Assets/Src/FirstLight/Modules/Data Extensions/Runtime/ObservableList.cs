@@ -22,7 +22,7 @@ namespace FirstLight
 	/// <remarks>
 	/// Read only observable list interface
 	/// </remarks>
-	public interface IObservableListReader<T> :IObservableListReader, IEnumerable<T> where T : struct
+	public interface IObservableListReader<T> :IObservableListReader, IEnumerable<T>
 	{
 		/// <summary>
 		/// Looks up and return the data that is associated with the given <paramref name="index"/>
@@ -63,7 +63,7 @@ namespace FirstLight
 	}
 
 	/// <inheritdoc />
-	public interface IObservableList<T> : IObservableListReader<T> where T : struct
+	public interface IObservableList<T> : IObservableListReader<T>
 	{
 		/// <summary>
 		/// Changes the given <paramref name="index"/> in the list. If the data does not exist it will be added.
@@ -80,6 +80,9 @@ namespace FirstLight
 		/// <inheritdoc cref="List{T}.RemoveAt"/>
 		void RemoveAt(int index);
 		
+		/// <inheritdoc cref="List{T}.Clear"/>
+		void Clear();
+		
 		/// <remarks>
 		/// It invokes any update method that is observing to the given <paramref name="index"/> on this list
 		/// </remarks>
@@ -87,7 +90,7 @@ namespace FirstLight
 	}
 	
 	/// <inheritdoc />
-	public class ObservableList<T> : IObservableList<T> where T : struct
+	public class ObservableList<T> : IObservableList<T>
 	{
 		private readonly IList<Action<int, T, T, ObservableUpdateType>> _updateActions = new List<Action<int, T, T, ObservableUpdateType>>();
 
@@ -185,6 +188,22 @@ namespace FirstLight
 		}
 
 		/// <inheritdoc />
+		public void Clear()
+		{
+			var data = new List<T>(List);
+			
+			List.Clear();
+			
+			for (var i = 0; i < _updateActions.Count; i++)
+			{
+				for (var j = 0; j < data.Count; j++)
+				{
+					_updateActions[i](j, data[j], default, ObservableUpdateType.Removed);
+				}
+			}
+		}
+
+		/// <inheritdoc />
 		public void InvokeUpdate(int index)
 		{
 			InvokeUpdate(index, List[index]);
@@ -239,7 +258,7 @@ namespace FirstLight
 	}
 
 	/// <inheritdoc />
-	public class ObservableResolverList<T> : ObservableList<T> where T : struct
+	public class ObservableResolverList<T> : ObservableList<T>
 	{
 		private readonly Func<List<T>> _listResolver;
 

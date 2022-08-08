@@ -161,9 +161,6 @@ namespace Quantum
 			};
 
 			AddModifier(f, capacityModifer);
-			//once you have gained shield capacity, fill your shields for the same amount
-			GainShields(f, entity, attacker, amount);
-
 			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
 			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
@@ -188,6 +185,13 @@ namespace Quantum
 
 			CurrentHealth = Math.Min(maxHealth, amount);
 			CurrentHealth = Math.Max(CurrentHealth, 0);
+
+			// RefreshStats in PlayerCharacter sets the player as the entity and attacker, which seems wrong,
+			// but I don't want to break something before going on vacation so I'm checking for it here.
+			if (CurrentHealth == previousHealth && attacker != EntityRef.None && attacker != entity)
+			{
+				f.Events.OnDamageBlocked(entity);
+			}
 
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{
@@ -228,6 +232,7 @@ namespace Quantum
 
 			if (IsImmune)
 			{
+				f.Events.OnDamageBlocked(entity);
 				return;
 			}
 
@@ -297,8 +302,26 @@ namespace Quantum
 		{
 			var statData = Values[(int) modifier.Type];
 			var multiplier = modifier.IsNegative ? -1 : 1;
+			var ceilToInt = false;
+			var additiveValue = statData.BaseValue * modifier.Power * multiplier;
 
-			statData.StatValue += statData.BaseValue * modifier.Power * multiplier;
+			switch (modifier.Type)
+			{
+				case StatType.Armour:
+				case StatType.Health:
+				case StatType.Power:
+				case StatType.Shield:
+					ceilToInt = true;
+					break;
+				case StatType.Speed:
+					ceilToInt = false;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(modifier.Type), modifier.Type, null);
+			}
+
+			statData.StatValue += ceilToInt ? FPMath.CeilToInt(additiveValue) : additiveValue;
+
 			Values[(int) modifier.Type] = statData;
 		}
 	}

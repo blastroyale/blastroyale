@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Facebook.Unity.Editor;
 using Facebook.Unity.Settings;
 using Photon.Deterministic;
@@ -16,25 +17,28 @@ namespace FirstLight.Editor.Build
 	public static class FirstLightBuildConfig
 	{
 		/// <summary>
-		/// Scripting define that enables dev builds and allows to profile the game in Xcode and other external tools
+		/// Scripting define that enables development builds and allows to profile the game in Xcode and other external tools
+		/// Uses development SKU
 		/// </summary>
 		public const string LocalSymbol = "LOCAL_BUILD";
 		
 		/// <summary>
 		/// Scripting define that enables dev builds
+		/// Uses development SKU
 		/// </summary>
 		public const string DevelopmentSymbol = "DEVELOPMENT_BUILD";
 		
 		/// <summary>
-		/// Scripting define that enables all production features in a release ad hoc environment.
-		/// This builds are to stage store builds to test production environments.
-		/// This build is not signed and allows to run the client from any link
+		/// Scripting define the build to publish to the NON-stores distribution channels.
+		/// This build is signed and is possible to download and run from anywhere the link is available.
+		/// Uses development SKU
 		/// </summary>
-		public const string StagingSymbol = "RELEASE_BUILD";
+		public const string ReleaseSymbol = "RELEASE_BUILD";
 		
 		/// <summary>
-		/// Scripting define the build to publish to the stores.
-		/// This build is signed and is only possible to run the client after downloading from the store
+		/// Scripting define the build to publish to the stores distribution channels.
+		/// This build is signed and is only possible to run the client after downloading from the store.
+		/// Uses Production SKU
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
@@ -59,11 +63,15 @@ namespace FirstLight.Editor.Build
 		private static readonly string[] DebugSymbols = new []
 		{
 			"QUANTUM_REMOTE_PROFILER",
+			"LOG_LEVEL_VERBOSE"
 		};
 
 		/// <summary>
-		/// Setups the editor for Development build configuration
+		/// <inheritdoc cref="DevelopmentSymbol"/>
 		/// </summary>
+		/// <remarks>
+		/// Setups the editor for Development build configuration
+		/// </remarks>
 		[MenuItem("FLG/Configure/Development Build")]
 		public static void SetupDevelopmentConfig()
 		{
@@ -85,8 +93,6 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForDevelopment();
 			SetAndroidKeystore();
 			PrepareFirebase(DevelopmentSymbol);
-			SetScriptingDefineSymbols(DevelopmentSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(DevelopmentSymbol, BuildTargetGroup.iOS);
 			
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -94,11 +100,13 @@ namespace FirstLight.Editor.Build
 		}
 
 		/// <summary>
-		/// Setups the editor for Staging build configuration
-		/// Release build means it is a candidate for the store but using development SKUs
+		/// <inheritdoc cref="ReleaseSymbol"/>
 		/// </summary>
-		[MenuItem("FLG/Configure/Staging Build")]
-		public static void SetupStagingConfig()
+		/// <remarks>
+		/// Setups the editor for Release build configuration
+		/// </remarks>
+		[MenuItem("FLG/Configure/ReleaseConfig")]
+		public static void SetupReleaseConfig()
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
@@ -117,9 +125,7 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
-			PrepareFirebase(StagingSymbol);
-			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
+			PrepareFirebase(ReleaseSymbol);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -127,8 +133,11 @@ namespace FirstLight.Editor.Build
 		}
 
 		/// <summary>
-		/// Setups the editor for store build configuration
+		/// <inheritdoc cref="StoreSymbol"/>
 		/// </summary>
+		/// <remarks>
+		/// Setups the editor for Store build configuration
+		/// </remarks>
 		[MenuItem("FLG/Configure/Store Build")]
 		public static void SetupStoreConfig()
 		{
@@ -150,8 +159,6 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);
-			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -183,16 +190,16 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Sets the defining symbols defined by this build in the player settings mapping list
 		/// </summary>
-		public static void SetScriptingDefineSymbols(string buildSymbol, BuildTargetGroup targetGroup)
+		public static void SetScriptingDefineSymbols(BuildTargetGroup targetGroup, params string[] buildSymbols)
 		{
 			var symbols = new List<string>(CommonSymbols);
 
-			if (buildSymbol == DevelopmentSymbol)
+			if (buildSymbols.Contains(DevelopmentSymbol))
 			{
 				symbols.AddRange(DebugSymbols);
 			}
 			
-			symbols.Add(buildSymbol);
+			symbols.AddRange(buildSymbols);
 			
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols.ToArray());
 		}

@@ -17,12 +17,15 @@ namespace Quantum
 			var dropPosition = positionOverride;
 			if (dropPosition == FPVector3.Zero)
 			{
-				var initialPos = (circle.CurrentCircleCenter - circle.TargetCircleCenter).Normalized *
-				                 circle.CurrentRadius * f.GameConfig.AirdropPositionOffsetMultiplier;
-				var radius = circle.CurrentRadius * f.GameConfig.AirdropRandomAreaMultiplier;
-				QuantumHelpers.TryFindPosOnNavMesh(f, initialPos.XOY, radius, out dropPosition);
-			}
+				var radialDir = f.RNG->Next(0, FP.Rad_180 * 2);
+				var radius = circle.TargetRadius * (1 + f.GameConfig.AirdropPositionOffsetMultiplier);
+				var x = radius * FPMath.Sin(radialDir) + circle.TargetCircleCenter.X;
+				var y = radius * FPMath.Cos(radialDir) + circle.TargetCircleCenter.Y;
+				FPVector3 pos = new FPVector3(x, 0, y);
 
+				QuantumHelpers.TryFindPosOnNavMesh(f, pos, circle.TargetRadius * f.GameConfig.AirdropRandomAreaMultiplier, out dropPosition);
+			}
+			
 			// Move entity to the drop position at a predetermined height
 			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
 			transform->Position = dropPosition + FPVector3.Up * f.GameConfig.AirdropHeight;

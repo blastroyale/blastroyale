@@ -57,6 +57,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnDestroy()
 		{
+			_gameDataProvider.EquipmentDataProvider.Loadout.StopObserving(OnLoadoutUpdated);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
@@ -79,7 +80,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_equipmentIconView.SetInfo(data.Equipment);
+			_equipmentIconView.SetInfo(data.Id, data.Equipment);
 			_uniqueId = data.Id;
 		}
 

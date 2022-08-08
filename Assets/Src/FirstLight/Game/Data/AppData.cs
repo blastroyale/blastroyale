@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using Quantum;
@@ -19,8 +20,7 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 		
-		public string LastLoginEmail;
-		public bool LinkedDevice;
+		public string DeviceId;
 		
 		public DateTime GameReviewDate;
 

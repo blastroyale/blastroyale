@@ -148,8 +148,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void UnlinkComplete()
 		{
-			_appLogic.LinkedEmail.Value = "";
-			_appLogic.AccountLinkedStatus.Value = false;
+			_appLogic.UnlinkDevice();
 
 #if UNITY_EDITOR
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
@@ -164,7 +163,10 @@ namespace FirstLight.Game.StateMachines
 #else
 				var button = new FirstLight.NativeUi.AlertButton
 				{
-					Callback = Application.Quit,
+					Callback = () =>
+					{
+						_services.GameFlowService.QuitGame("Closing unlink complete alert");
+					},
 					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
 					Text = ScriptLocalization.MainMenu.QuitGameButton
 				};

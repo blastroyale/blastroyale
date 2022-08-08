@@ -6,10 +6,8 @@ using FirstLight.UiService;
 using Quantum;
 using TMPro;
 using UnityEngine;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
-using Quantum.Commands;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
@@ -37,12 +35,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
+		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_mapStatusText.text = "";
 
 			foreach (var standingsButton in _standingsButtons)
@@ -65,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnLocalPlayerStatsChanged>(this, OnLocalPlayerStatsChanged);
+				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
 			}
 			else
 			#endif
@@ -116,8 +114,10 @@ namespace FirstLight.Game.Presenters
 			_standings.gameObject.SetActive(true);
 		}
 
-		private void OnLocalPlayerStatsChanged(EventOnLocalPlayerStatsChanged callback)
+		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
 		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			
 			var playerCharacter = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 
 			var sb = new StringBuilder();

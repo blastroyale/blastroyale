@@ -27,6 +27,7 @@ namespace FirstLight.Game.Configs
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="MapConfig"/> sheet data
 	/// </summary>
+	[IgnoreServerSerialization]
 	[CreateAssetMenu(fileName = "MapGridConfigs", menuName = "ScriptableObjects/Configs/MapGridConfigs")]
 	public class MapGridConfigs : ScriptableObject
 	{

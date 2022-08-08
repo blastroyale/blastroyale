@@ -52,7 +52,5 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.GameModeChosen();
 		}
-		
-		
 	}
 }

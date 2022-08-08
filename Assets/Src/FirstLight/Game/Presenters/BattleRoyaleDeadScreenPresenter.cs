@@ -6,7 +6,6 @@ using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters

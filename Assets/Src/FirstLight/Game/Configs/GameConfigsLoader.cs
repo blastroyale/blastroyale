@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
@@ -49,9 +50,11 @@ namespace FirstLight.Game.Configs
 				LoadConfig<DestructibleConfigs>(AddressableId.Configs_DestructibleConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => configsAdder.AddConfigs(data => data.Step, asset.Configs)),
 				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
+				LoadConfig<AudioWeaponConfigs>(AddressableId.Configs_AudioWeaponConfigs, asset => configsAdder.AddConfigs(data => (int)data.GameId, asset.Configs)),
 				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.Placement, asset.Configs)),
 				LoadConfig<ChestConfigs>(AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
-				LoadConfig<EquipmentStatsConfigs>(AddressableId.Configs_EquipmentStatsConfigs, asset => configsAdder.AddSingletonConfig(asset)),
+				LoadConfig<EquipmentStatsConfigs>(AddressableId.Configs_EquipmentStatsConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
+				LoadConfig<EquipmentMaterialStatsConfigs>(AddressableId.Configs_EquipmentMaterialStatsConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
 				LoadConfig<BaseEquipmentStatsConfigs>(AddressableId.Configs_BaseEquipmentStatsConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<GraphicsConfig>(AddressableId.Configs_GraphicsConfig, asset => configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<RarityDataConfigs>(AddressableId.Configs_RarityDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Rarity, asset.Configs)),

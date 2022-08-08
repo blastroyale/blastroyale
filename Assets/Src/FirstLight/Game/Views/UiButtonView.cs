@@ -34,8 +34,7 @@ namespace FirstLight.Game.Views
 		public AnimationClip ClickClip;
 
 		public bool IsForward = true;
-		public bool OverrideSfx = false;
-		public EnumSelector<AudioId> OverrideSfxClip;
+		public AudioId OverrideClickSfxId = AudioId.None;
 
 		private const AudioId BUTTON_CLICK_FORWARD_SFX = AudioId.ButtonClickForward;
 		private const AudioId BUTTON_CLICK_BACKWAWRD_SFX = AudioId.ButtonClickBackward;
@@ -132,9 +131,9 @@ namespace FirstLight.Game.Views
 			
 			if (RectTransformUtility.RectangleContainsScreenPoint(RectTransform, eventData.position))
 			{
-				if (OverrideSfx)
+				if (OverrideClickSfxId != AudioId.None)
 				{
-					_gameService.AudioFxService.PlayClip2D(OverrideSfxClip);
+					_gameService.AudioFxService.PlayClip2D(OverrideClickSfxId);
 				}
 				else
 				{

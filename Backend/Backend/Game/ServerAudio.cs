@@ -1,4 +1,5 @@
-
+using System.Collections;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Services;
 using UnityEngine;
@@ -11,49 +12,53 @@ namespace Backend.Game;
 /// </summary>
 public class ServerAudio : IAudioFxService<AudioId>
 {
-
 	public void Dispose()
 	{
-		
 	}
 
-	public bool TryGetClip(AudioId id, out AudioClip clip)
+	public Task LoadAudioClips(IEnumerable clips) => null;
+
+	public void UnloadAudioClips(IEnumerable clips)
 	{
-		clip = null;
-		return false;
+	}
+
+	public bool TryGetClipPlaybackData(AudioId id, out AudioClipPlaybackData clip)
+	{
+		clip = default;
+		return true;
 	}
 
 	public void DetachAudioListener()
 	{
-	
 	}
 
-	public void PlayClip3D(AudioId id, Vector3 worldPosition, float delay)
+	public AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition,
+	                                           AudioSourceInitData? sourceInitData = null)
 	{
-		
-	}
-	
-	public void PlayClip3D(AudioId id, Vector3 worldPosition)
-	{
-		
+		return null;
 	}
 
-	public void PlayClip2D(AudioId id, float delay = 0)
+	public AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 	{
-		
+		return null;
 	}
 
-	public void PlayMusic(AudioId id, float delay = 0)
+	public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0,
+	                      bool continueFromCurrentTime = false,
+	                      AudioSourceInitData? sourceInitData = null)
 	{
-		
 	}
 
-	public void StopMusic()
+	public void StopMusic(float fadeOutDuration = 0)
 	{
-		
 	}
 
-	public AudioListener AudioListener => null;
+	public float GetCurrentMusicPlaybackTime()
+	{
+		return 0f;
+	}
+
+	public AudioListenerMonoComponent AudioListener { get; }
 
 	public bool IsBgmMuted
 	{

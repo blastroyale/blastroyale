@@ -71,7 +71,13 @@ namespace Quantum.Systems
 						KnockbackAmount = hazard->Knockback
 					};
 
-					if (spell.Victim == spell.Attacker || spell.Victim == spell.SpellSource || !QuantumHelpers.ProcessHit(f, spell))
+					if(spell.Victim == spell.Attacker)
+					{
+						spell.TeamSource = 0;
+						spell.PowerAmount = (uint)(spell.PowerAmount * Constants.SELF_DAMAGE_MODIFIER);
+					}
+
+					if (!QuantumHelpers.ProcessHit(f, spell))
 					{
 						continue;
 					}

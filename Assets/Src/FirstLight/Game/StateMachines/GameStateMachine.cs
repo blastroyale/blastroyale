@@ -34,7 +34,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
-		private readonly IDataService _dataService;
 
 		/// <inheritdoc cref="IStatechart.LogsEnabled"/>
 		public bool LogsEnabled
@@ -51,11 +50,10 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic = gameLogic;
 			_services = services;
 			_uiService = uiService;
-			_dataService = dataService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger);
-			_audioState = new AudioState(gameLogic, services);
+			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, uiService, networkService, Trigger);
 			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
@@ -116,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_gameLogic.Init();
 
-			_services.AudioFxService.AudioListener.enabled = true;
+			_services.AudioFxService.AudioListener.Listener.enabled = true;
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 			
 			// Just marking the default name to avoid missing names
@@ -124,13 +122,18 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
+			
+			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 
 		private void OpenNoInternetPopUp()
 		{
 			var button = new AlertButton
 			{
-				Callback = Application.Quit,
+				Callback = () =>
+				{
+					_services.GameFlowService.QuitGame("Closing no internet popup");
+				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.General.ExitGame
 			};

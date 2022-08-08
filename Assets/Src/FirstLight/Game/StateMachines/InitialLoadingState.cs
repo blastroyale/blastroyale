@@ -49,6 +49,7 @@ namespace FirstLight.Game.StateMachines
 			var assetLoading = stateFactory.TaskWait("Asset loading");
 
 			initial.Transition().Target(downloadData);
+			initial.OnExit(GameLoadStartAnalyticsEvent);
 			initial.OnExit(SubscribeEvents);
 			
 			downloadData.WaitingFor(DownloadData).Target(assetLoading);
@@ -61,6 +62,11 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			// Subscribe to events
+		}
+
+		private void GameLoadStartAnalyticsEvent()
+		{
+			_services?.AnalyticsService.SessionCalls.GameLoadStart();
 		}
 
 		private void UnsubscribeEvents()
@@ -78,6 +84,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadInitialAssets()
 		{
+			var configProvider = _services.ConfigsProvider;
+			
 			var tasks = new List<Task>();
 
 			tasks.Add(LoadErrorAssets());
@@ -85,6 +93,10 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(LoadAssetConfigs());
 			
 			await Task.WhenAll(tasks);
+
+			await _services.AudioFxService
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary);
+			
 			LoadVfx();
 		}
 
@@ -101,21 +113,23 @@ namespace FirstLight.Game.StateMachines
 			await Task.WhenAll(errorSprite.Task, errorCube.Task, errorMaterial.Task, errorClip.Task);
 			
 			_assetService.AddDebugConfigs(errorSprite.Result, errorCube.Result, errorMaterial.Result, errorClip.Result);
+			_services.RemoteTextureService.SetErrorTexture(errorSprite.Result.texture);
 		}
 
 		private IEnumerable<Task> LoadAssetConfigs()
 		{
 			return new List<Task>
 			{
-				_configsLoader.LoadConfig<AudioAdventureAssetConfigs>(AddressableId.Configs_AudioAdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AdventureAssetConfigs>(AddressableId.Configs_AdventureAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
+				_configsLoader.LoadConfig<EquipmentRarityAssetConfigs>(AddressableId.Configs_EquipmentRarityAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<MainMenuAssetConfigs>(AddressableId.Configs_MainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<DummyAssetConfigs>(AddressableId.Configs_DummyAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<SceneAssetConfigs>(AddressableId.Configs_SceneAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpriteAssetConfigs>(AddressableId.Configs_SpriteAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<SpecialMoveAssetConfigs>(AddressableId.Configs_SpecialMoveAssetConfigs, asset => _assetService.AddConfigs(asset)),
-				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<VfxAssetConfigs>(AddressableId.Configs_VfxConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<MaterialVfxConfigs>(AddressableId.Configs_MaterialVfxConfigs, asset => _assetService.AddConfigs(asset)),
 				_configsLoader.LoadConfig<IndicatorVfxAssetConfigs>(AddressableId.Configs_IndicatorVfxAssetConfigs, asset => _assetService.AddConfigs(asset)),

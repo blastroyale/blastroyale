@@ -26,10 +26,22 @@ namespace FirstLight.Game.Utils
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
-
+			var emptyTtl = 0;
+			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
 				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+			}
+
+			if (!isRandomMatchmaking)
+			{
+				emptyTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
+					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+					           : GameConstants.Network.EMPTY_ROOM_TTL_MS;
+			}
+			else
+			{
+				emptyTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS;
 			}
 
 			var roomParams = new EnterRoomParams
@@ -53,7 +65,7 @@ namespace FirstLight.Game.Utils
 					SuppressPlayerInfo = false,
 					PublishUserId = false,
 					DeleteNullProperties = true,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS,
+					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking
@@ -72,12 +84,12 @@ namespace FirstLight.Game.Utils
 		public static EnterRoomParams GetRoomEnterParams(string roomName)
 		{
 			var roomNameFinal = roomName;
-			
-			if (FeatureFlags.COMMIT_VERSION_LOCK )
+
+			if (FeatureFlags.COMMIT_VERSION_LOCK)
 			{
 				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
 			}
-			
+
 			return new EnterRoomParams
 			{
 				RoomName = roomNameFinal,
@@ -140,7 +152,7 @@ namespace FirstLight.Game.Utils
 			var properties = GetJoinRoomProperties(mapConfig);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
-			
+
 			if (mapConfig.GameMode == GameMode.BattleRoyale && !mapConfig.IsTestMap)
 			{
 				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));

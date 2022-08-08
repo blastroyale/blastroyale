@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Cinemachine;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.Utils;
@@ -126,8 +124,7 @@ namespace FirstLight.Game.Presenters
 
 				_winningPlayerRoot.gameObject.SetActive(false);
 			}
-
-			Services.AudioFxService.PlayClip2D(AudioId.Victory);
+			
 
 			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{

@@ -25,8 +25,13 @@ namespace FirstLight.Game.Utils
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
-			public const string MARKETPLACE_DEV_URL = "http://flgmarketplacestorage.z33.web.core.windows.net";
-			public const string MARKETPLACE_PROD_URL = "https://marketplace.blastroyale.com";
+			#if UNITY_EDITOR
+				public const string MARKETPLACE_DEV_URL = "https://marketplace-dev.blastroyale.com/";
+				public const string MARKETPLACE_PROD_URL = "https://marketplace.blastroyale.com";
+			#else
+            	public const string MARKETPLACE_DEV_URL = "dapp://marketplace-dev.blastroyale.com";
+            	public const string MARKETPLACE_PROD_URL = "dapp://marketplace.blastroyale.com";
+			#endif
 		}
 
 		public static class Balance
@@ -36,10 +41,26 @@ namespace FirstLight.Game.Utils
 
 		public static class Audio
 		{
-			// The audios default starting volume
-			public const float SFX_2D_DEFFAULT_VOLUME = 0.2f;
-			public const float SFX_3D_DEFAULT_VOLUME = 0.4f;
-			public const float BGM_DEFAULT_VOLUME = 0.45f;
+			// Audio defaults
+			public const float SFX_2D_DEFFAULT_VOLUME_MULTIPLIER = 0.4f;
+			public const float SFX_3D_DEFAULT_VOLUME_MULTIPLIER = 0.5f;
+			public const float BGM_DEFAULT_VOLUME = 0.35f;
+			public const float SFX_DEFAULT_VOLUME = 1f;
+			public const float SFX_DEFAULT_PITCH = 1f;
+			
+			public const float SFX_2D_SPATIAL_BLEND = 0f;
+			public const float SFX_3D_SPATIAL_BLEND = 1f;
+			
+			public const float SFX_3D_MIN_DISTANCE = 5f;
+			public const float SFX_3D_MAX_DISTANCE = 20f;
+
+			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
+			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
+			
+			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
+			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
+
+			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 		}
 
 		public static class Notifications
@@ -63,8 +84,10 @@ namespace FirstLight.Game.Utils
 
 		public static class Network
 		{
+			// Time control values
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
 			
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -76,6 +99,7 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 
 			// Room properties
+			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";

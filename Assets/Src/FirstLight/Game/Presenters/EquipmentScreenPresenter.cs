@@ -14,7 +14,6 @@ using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
-using FirstLight.Game.Messages;
 using Quantum;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
@@ -73,7 +72,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _equipButtonText;
 		[SerializeField, Required] private TextMeshProUGUI _upgradeCostText;
 		[SerializeField, Required] private Animation _itemLevelHolderAnimation;
-		[SerializeField, Required] private RawImage _nftIcon;
 
 		[SerializeField, Required] private Image _upgradeCoinImage;
 		[SerializeField, Required] private Image _upgradeButtonImage;
@@ -93,7 +91,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Color _autoFireColor;
 		[SerializeField] private Color _manualFireColor;
 
-		private IMainMenuServices _mainMenuServices;
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		private EquipmentSorter.EquipmentSortState _equipmentSortState;
@@ -101,13 +98,11 @@ namespace FirstLight.Game.Presenters
 		private IObjectPool<EquipmentStatSpecialInfoView> _statSpecialInfoViewPool;
 		private UniqueId _selectedId = UniqueId.Invalid;
 		private List<UniqueId> _showNotifications;
-		private int _textureRequestHandle = -1;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_statInfoViewPool = new GameObjectPool<EquipmentStatInfoView>(4, _statInfoViewPoolRef);
 			_statSpecialInfoViewPool = new GameObjectPool<EquipmentStatSpecialInfoView>(1, _specialStatInfoViewPoolRef);
 			_showNotifications = new List<UniqueId>();
@@ -163,7 +158,6 @@ namespace FirstLight.Game.Presenters
 			_movieButton.gameObject.SetActive(false);
 			_itemLevelObject.SetActive(false);
 			_actionButtonHolder.SetActive(false);
-			_nftIcon.gameObject.SetActive(false);
 			_equipmentCooldownViewRef.SetVisualsActive(false);
 			_powerRatingText.text = "";
 		}
@@ -216,10 +210,6 @@ namespace FirstLight.Game.Presenters
 				                  ? $"{ScriptLocalization.General.MaxLevel}"
 				                  : $"{ScriptLocalization.General.Level} {equipment.Equipment.Level.ToString()}";
 
-			_nftIcon.gameObject.SetActive(false);
-
-			RequestNftTexture(equipment.CardUrl);
-
 			_upgradeCostHolder.SetActive(!equipment.Equipment.IsMaxLevel());
 
 			if (equipment.Equipment.Level < equipment.Equipment.MaxLevel)
@@ -245,27 +235,6 @@ namespace FirstLight.Game.Presenters
 			_equipmentAttributesHolder.SetActive(true);
 			_itemLevelObject.SetActive(true);
 			_actionButtonHolder.SetActive(true);
-		}
-
-		private void RequestNftTexture(string url)
-		{
-			_nftIcon.gameObject.SetActive(false);
-
-			if (_textureRequestHandle >= 0)
-			{
-				_mainMenuServices.RemoteTextureService.CancelRequest(_textureRequestHandle);
-			}
-
-			_textureRequestHandle = _mainMenuServices.RemoteTextureService.RequestTexture(url, tex =>
-			{
-				_nftIcon.gameObject.SetActive(true);
-				_nftIcon.texture = tex;
-				_textureRequestHandle = -1;
-			}, () =>
-			{
-				// TODO: Error texture?
-				_nftIcon.gameObject.SetActive(false);
-			});
 		}
 
 		private void SetStatInfoData(EquipmentInfo equipment)
@@ -392,7 +361,7 @@ namespace FirstLight.Game.Presenters
 
 			_powerChangeText.color = damageDiff < 0 ? Color.red : Color.green;
 
-			if (damageDiff > float.Epsilon)
+			if (Mathf.Abs(damageDiff) > float.Epsilon)
 			{
 				_powerChangeText.text = $"{ScriptLocalization.MainMenu.Power} {postfix} {Mathf.Abs(damageDiff).ToString()}";
 				_powerChangeText.enabled = true;

@@ -9,8 +9,7 @@ public class GameServerLogic : GameLogic // WIP
 	public GameServerLogic(IConfigsProvider cfg, IDataProvider data) : base(
 	                                                           new MessageBrokerService(),
 	                                                           new ServerTime(), 
-	                                                           data, 
-	                                                           null,
+	                                                           data,
 	                                                           cfg, 
 	                                                           new ServerAudio()
 	                                                          )

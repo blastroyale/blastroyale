@@ -600,6 +600,7 @@ namespace Quantum {
     /// <param name="offset"></param>
     /// <param name="allocOutput"></param>
     /// <returns>Segment of <paramref name="buffer"/> where the serialized frame is stored</returns>
+    /// <remarks>Do not serialize during GameStart callback because systems have not been initialized, yet. Rather use CallbackSimulateFinished to wait for the first update.</remarks>
     public ArraySegment<byte> Serialize(DeterministicFrameSerializeMode mode, byte[] buffer, int offset = 0, bool allocOutput = false) {
       offset = ByteUtils.AddValueBlock((int)mode, buffer, offset);
       offset = ByteUtils.AddValueBlock(Number, buffer, offset);
@@ -1640,7 +1641,7 @@ namespace Quantum
     /// <param name="entity">The entity the navmesh agent component belongs to</param>
     /// <param name="waypoint">The current waypoint position</param>
     /// <param name="waypointFlags">The current waypoint flags</param>
-    /// <param name="resetAgent">Set this to true if the agent should reset its internal state (default is false). Required when a new target was set during the callback.</param>
+    /// <param name="resetAgent">If set to true the NavMeshPathfinder component will be cleared and stopped. Set to false if NavMeshPathfinder.SetTarget() was called inside the callback.</param>
     void OnNavMeshWaypointReached(Frame f, EntityRef entity, FPVector3 waypoint, Navigation.WaypointFlag waypointFlags, ref bool resetAgent);
   }
 
@@ -4736,7 +4737,7 @@ namespace Quantum {
 namespace Quantum {
   public class SessionContainer {
     public static Boolean _loadedAllStatics = false;
-    public static Object _lock = new Object();
+    public static readonly Object _lock = new Object();
 
     DeterministicSessionConfig _sessionConfig;
     RuntimeConfig _runtimeConfig;
@@ -5147,7 +5148,7 @@ namespace Quantum.Task {
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       var slicesCount = Math.Max(1, Math.Min(SlicesCount, MAX_SLICES_COUNT));
-      return f.Context.TaskContext.AddArrayTask(_arrayTaskDelegateHandle, null, f.ComponentCount<T>(), taskHandle, slicesCount);
+      return f.Context.TaskContext.AddArrayTask(_arrayTaskDelegateHandle, null, f.ComponentCount<T>(includePendingRemoval: true), taskHandle, slicesCount);
     }
 
     private void TaskArrayComponent(FrameThreadSafe f, int start, int count, void* arg) {
@@ -5194,10 +5195,10 @@ namespace Quantum.Task {
 
     protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       // figure out smallest block iterator
-      var taskSize = f.ComponentCount(_filterMeta.ComponentTypes[0]);
+      var taskSize = f.ComponentCount(_filterMeta.ComponentTypes[0], includePendingRemoval: true);
 
       for (var i = 1; i < _filterMeta.ComponentCount; ++i) {
-        var otherCount = f.ComponentCount(_filterMeta.ComponentTypes[i]);
+        var otherCount = f.ComponentCount(_filterMeta.ComponentTypes[i], includePendingRemoval: true);
         if (otherCount < taskSize) {
           taskSize = otherCount;
         }
@@ -5369,7 +5370,7 @@ namespace Quantum {
 
       for (int i = 0; i < _children.Length; ++i) {
         if (f.SystemIsEnabledSelf(_children[i])) {
-          _children[i].OnEnabled(f);
+          _children[i].OnDisabled(f);
         }
       }
     }
@@ -5656,10 +5657,14 @@ namespace Quantum.Core {
   }
 
   public static partial class DebugCommand {
-
+    
     public static event Action<Payload, Exception> CommandExecuted
 #if DEBUG && !QUANTUM_DEBUG_COMMAND_DISABLED
-      ;
+    {
+      add => _commandExecuted += value;
+      remove => _commandExecuted -= value;
+    }
+    private static Action<Payload, Exception> _commandExecuted;
 #else
     { add { } remove { } }
 #endif
@@ -5681,6 +5686,13 @@ namespace Quantum.Core {
 #endif
     }
 
+    public static void Reset() {
+#if DEBUG && !QUANTUM_DEBUG_COMMAND_DISABLED
+      _commandExecuted = null;
+#endif
+    }
+
+
     public partial struct Payload {
       public long Id;
       public int Type;
@@ -5688,6 +5700,7 @@ namespace Quantum.Core {
       public ComponentSet Components;
       public byte[] Data;
     }
+
 
     public static Payload CreateDestroyPayload(EntityRef entityRef) {
       return new Payload() {
@@ -5749,7 +5762,7 @@ namespace Quantum.Core {
       } catch (Exception ex) {
         error = ex;
       }
-      CommandExecuted?.Invoke(payload, error);
+      _commandExecuted?.Invoke(payload, error);
     }
 
     private static void ExecuteDestroy(Frame f, EntityRef entity, ComponentSet components) {

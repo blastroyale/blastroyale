@@ -24,6 +24,7 @@ namespace FirstLight.Game.StateMachines
 	public class MatchState
 	{
 		public static readonly IStatechartEvent AllPlayersReadyEvent = new StatechartEvent("All Players Ready");
+		public static readonly IStatechartEvent MatchUnloadedEvent = new StatechartEvent("Match Unloaded Ready");
 		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
@@ -31,10 +32,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IAssetAdderService _assetAdderService;
 		private bool _arePlayerAssetsLoaded = false;
+		private Action<IStatechartEvent> _statechartTrigger;
 		
 		public MatchState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
+			_statechartTrigger = statechartTrigger;
 			_services = services;
 			_networkService = networkService;
 			_uiService = uiService;
@@ -58,7 +61,7 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyCheck = stateFactory.Choice("Player Ready Check");
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
-			var unloading = stateFactory.TaskWait("Unloading");
+			var unloading = stateFactory.State("Unloading");
 			var disconnectCheck = stateFactory.Choice("Disconnect Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectReloadCheck = stateFactory.Choice("Post Reload Check");
@@ -91,7 +94,8 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
-			unloading.WaitingFor(UnloadAllMatchAssets).Target(disconnectCheck);
+			unloading.OnEnter(UnloadAllMatchAssets);
+			unloading.Event(MatchUnloadedEvent).Target(disconnectCheck);
 			
 			disconnectCheck.Transition().Condition(IsPhotonConnected).Target(final);
 			disconnectCheck.Transition().Target(disconnected);
@@ -146,6 +150,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchmakingLoadingScreenPresenter.StateData();
 
+			_services.AnalyticsService.MatchCalls.MatchInitiate();
 			_uiService.OpenUiAsync<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
 		}
 
@@ -215,20 +220,22 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var map = config.Map.ToString();
-			var entityService =
-				new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
+			var matchServices = new MatchServices(entityService, _services);
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var sceneTask =
-				_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
-
+			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			
+			MainInstaller.Bind<IMatchServices>(matchServices);
 			MainInstaller.Bind<IEntityViewUpdaterService>(entityService);
-			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
+	
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
+			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(config);
 
 			tasks.Add(sceneTask);
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
+			
 			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
 			{
 				case GameMode.Deathmatch : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
@@ -251,25 +258,32 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 
-		private async Task UnloadAllMatchAssets()
+		private async void UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 			var entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
+			MainInstaller.Resolve<IMatchServices>().Dispose();
 			MainInstaller.Clean<IEntityViewUpdaterService>();
+			MainInstaller.Clean<IMatchServices>();
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
 			Object.Destroy(((EntityViewUpdaterService) entityService).gameObject);
+			
 			_services.VfxService.DespawnAll();
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioAdventureAssetConfigs>());
+			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
+
 			Resources.UnloadUnusedAssets();
 
 			_arePlayerAssetsLoaded = false;
+
+			_statechartTrigger(MatchUnloadedEvent);
 		}
 
 		private IEnumerable<Task> PreloadMapAssets()
@@ -332,10 +346,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Preload Audio
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureMainLoop, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.AdventureStart, true, false));
-			tasks.Add(_services.AssetResolverService.RequestAsset<AudioId, AudioClip>(AudioId.ActorSpawnEnd1, true, false));
-
+			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
+			
 			return tasks;
 		}
 

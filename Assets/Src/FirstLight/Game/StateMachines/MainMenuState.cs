@@ -22,26 +22,19 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class MainMenuState
 	{
+		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
+		public static readonly IStatechartEvent MainMenuUnloadedEvent = new StatechartEvent("Main Menu Unloaded Event");
+		
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-
-		private readonly IStatechartEvent _currentTabButtonClickedEvent =
-			new StatechartEvent("Current Tab Button Clicked Event");
-
+		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
 		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-
-		private readonly IStatechartEvent _settingsMenuClickedEvent =
-			new StatechartEvent("Settings Menu Button Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
-			new StatechartEvent("Room Join Create Button Clicked Event");
-
+		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
-			new StatechartEvent("Room Join Create Close Button Clicked Event");
-
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
+		
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -72,15 +65,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var mainMenuLoading = stateFactory.TaskWait("Main Menu Loading");
-			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
+			var mainMenuLoading = stateFactory.State("Main Menu Loading");
+			var mainMenuUnloading = stateFactory.State("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
-			mainMenuLoading.WaitingFor(LoadMainMenu).Target(mainMenu);
+			mainMenuLoading.OnEnter(LoadMainMenu);
+			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
 			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
@@ -89,7 +83,8 @@ namespace FirstLight.Game.StateMachines
 			mainMenuTransition.Transition().Target(mainMenu);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
-			mainMenuUnloading.WaitingFor(UnloadMainMenu).Target(final);
+			mainMenuUnloading.OnEnter(UnloadMainMenu);
+			mainMenuUnloading.Event(MainMenuUnloadedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -377,30 +372,30 @@ namespace FirstLight.Game.StateMachines
 			_currentScreen = typeof(T);
 		}
 
-		private async Task LoadMainMenu()
+		private async void LoadMainMenu()
 		{
 			var uiVfxService = new UiVfxService(_services.AssetResolverService);
 			var mainMenuServices = new MainMenuServices(uiVfxService, _services.RemoteTextureService);
 			var configProvider = _services.ConfigsProvider;
 
 			MainMenuInstaller.Bind<IMainMenuServices>(mainMenuServices);
-
-			_assetAdderService.AddConfigs(configProvider.GetConfig<AudioMainMenuAssetConfigs>());
+			
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
-
+			
+			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-
-			_services.AudioFxService.AudioListener.transform.SetParent(Camera.main.transform);
+			
 			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
 			uiVfxService.Init(_uiService);
-			_services.AudioFxService.PlayMusic(AudioId.MenuMainLoop);
+			
+			_statechartTrigger(MainMenuLoadedEvent);
 		}
 
-		private async Task UnloadMainMenu()
+		private async void UnloadMainMenu()
 		{
 			var mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			var configProvider = _services.ConfigsProvider;
@@ -413,11 +408,14 @@ namespace FirstLight.Game.StateMachines
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
 
 			_services.VfxService.DespawnAll();
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AudioMainMenuAssetConfigs>());
+			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
+
 			mainMenuServices.Dispose();
 			Resources.UnloadUnusedAssets();
 			MainMenuInstaller.Clean();
+
+			_statechartTrigger(MainMenuUnloadedEvent);
 		}
 	}
 }

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Scripts</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CsvHelper" Version="28.0.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="PlayFabAllSDK" Version="1.127.220718" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="FirstLight.DataExtensions">
+        <HintPath>..\Lib\FirstLight.DataExtensions.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Services">
+        <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonDeterministic">
+        <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonQuantum">
+        <HintPath>..\Lib\PhotonQuantum.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.core">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

@@ -61,6 +61,7 @@
     <Compile Include="AI\Actions\PlayerActivateAction.cs" />
     <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
     <Compile Include="AI\Actions\PlayerTeleportSpawnAction.cs" />
+    <Compile Include="AI\Actions\SetBlackboardBool.cs" />
     <Compile Include="AI\Actions\SkydivePLFAction.cs" />
     <Compile Include="AI\Actions\SkydiveStartAction.cs" />
     <Compile Include="AI\Actions\SkydiveStopAction.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Configs\IndicatorVfxId.cs" />
     <Compile Include="Configs\QuantumBaseEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumChestConfigs.cs" />
+    <Compile Include="Configs\QuantumEquipmentMaterialStatsConfig.cs" />
     <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatsConfig.cs" />
     <Compile Include="Configs\QuantumPair.cs" />

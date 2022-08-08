@@ -2,11 +2,7 @@ using System;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MainMenuViews;
-using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.UiService;
-using I2.Loc;
-using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
@@ -34,10 +30,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _camera3Button;
 
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			
 			_nextPlayerButton.onClick.AddListener(OnNextPlayerClicked);
 			_previousPlayerButton.onClick.AddListener(OnPreviousPlayerClicked);
@@ -48,12 +46,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnNextPlayerClicked()
 		{
-			_services.MessageBrokerService.Publish(new SpectateNextPlayerMessage());
+			_matchServices.SpectateService.SwipeRight();
 		}
 
 		private void OnPreviousPlayerClicked()
 		{
-			_services.MessageBrokerService.Publish(new SpectatePreviousPlayerMessage());
+			_matchServices.SpectateService.SwipeLeft();
 		}
 
 		private void OnCamera1Clicked()

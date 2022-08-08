@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -21,7 +19,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class MiniMapView : MonoBehaviour
 	{
-		private static readonly int _thicknessPID = Shader.PropertyToID("_Thickness");
+		private static readonly int _safeAreaOffsetPID = Shader.PropertyToID("_SafeAreaOffset");
+		private static readonly int _safeAreaSizePID = Shader.PropertyToID("_SafeAreaSize");
+		private static readonly int _dangerAreaOffsetPID = Shader.PropertyToID("_DangerAreaOffset");
+		private static readonly int _dangerAreaSizePID = Shader.PropertyToID("_DangerAreaSize");
+		private static readonly int _uvRectPID = Shader.PropertyToID("_UvRect");
+		private static readonly int _playersPID = Shader.PropertyToID("_Players");
+		private static readonly int _playersCountPID = Shader.PropertyToID("_PlayersCount");
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -41,12 +45,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
 
-		[SerializeField, Required] private RectTransform _shrinkingCircleRing;
-		[SerializeField, Required] private Image _shrinkingCircleRingImage;
-		[SerializeField, Required] private RectTransform _safeAreaRing;
-		[SerializeField, Required] private Image _safeAreaRingImage;
-		[SerializeField, Range(0f, 1f)] private float _ringWidth = 0.05f;
-
 		[SerializeField, Required, Title("Indicators")]
 		private RectTransform _playerIndicator;
 
@@ -54,54 +52,47 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private RectTransform _safeAreaArrow;
 
 		private IGameServices _services;
-		private IEntityViewUpdaterService _entityViewUpdaterService;
+		private IMatchServices _matchServices;
 		private QuantumShrinkingCircleConfig _config;
 
 		private RectTransform _rectTransform;
-		private EntityView _playerEntityView;
+		private Transform _spectatedTransform;
 		private Transform _cameraTransform;
 
 		private bool _safeAreaSet;
 		private bool _opened;
 		private float _animationModifier = 0f;
-		private float _lineWidthModifier = 1f;
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
 		private bool _subscribedQuantumViewUpdate;
 
-		private Material _safeAreaRingMat;
-		private Material _shrinkingCircleMat;
+		private Material _minimapMat;
 		private Coroutine _airDropCoroutine;
 
 		private IObjectPool<MinimapAirdropView> _airdropPool;
 		private readonly Dictionary<EntityRef, MinimapAirdropView> _displayedAirdrops = new();
+		private readonly List<Vector4> _playerPositions = new(30);
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 			_rectTransform = GetComponent<RectTransform>();
 
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
 			                                                     GameObjectPool<MinimapAirdropView>.Instantiator);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			_services.MessageBrokerService.Subscribe<SpectateTargetSwitchedMessage>(OnSpectateTargetSwitchedMessage);
-			_services.MessageBrokerService.Subscribe<SpectateStartedMessage>(OnSpectateStartedMessage);
 
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 
-			_safeAreaRing.gameObject.SetActive(false);
-			_fullScreenButton.gameObject.SetActive(false);
-
-			_safeAreaRingMat = _safeAreaRingImage.material = Instantiate(_safeAreaRingImage.material);
-			_shrinkingCircleMat = _shrinkingCircleRingImage.material = Instantiate(_shrinkingCircleRingImage.material);
+			_minimapMat = _minimapImage.material = Instantiate(_minimapImage.material);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
@@ -123,14 +114,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_opened = true;
 			DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimap).SetEase(_openCloseEase);
-			_fullScreenButton.gameObject.SetActive(true);
+			_backgroundImage.raycastTarget = true;
 		}
 
 		private void CloseMinimap()
 		{
 			_opened = false;
 			DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimap).SetEase(_openCloseEase);
-			_fullScreenButton.gameObject.SetActive(false);
+			_backgroundImage.raycastTarget = false;
 		}
 
 		private void UpdateMinimap(float f)
@@ -147,7 +138,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
 
 			_viewportSize = Mathf.Lerp(0.3f, 1f, f);
-			_lineWidthModifier = Mathf.Lerp(1f, _smallMapSize / _fullScreenMapSize, f);
 		}
 
 		private void OnEnable()
@@ -178,7 +168,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void RenderMinimap()
 		{
 			FLog.Verbose("Rendering MiniMap camera.");
-			_minimapCamera.transform.position = new Vector3(0, _cameraHeight, 0);
+			var ct = _minimapCamera.transform;
+			ct.SetParent(null);
+			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
 		}
 
@@ -187,12 +179,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
-			Destroy(_safeAreaRingMat);
-			Destroy(_shrinkingCircleMat);
+			Destroy(_minimapMat);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage msg)
 		{
+			RenderMinimap();
+
 			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
@@ -200,12 +193,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-
-			RenderMinimap();
-			_playerEntityView = _entityViewUpdaterService.GetManualView(localPlayer.Entity);
 
 			_airdropPool.DespawnAll();
 			_displayedAirdrops.Clear();
@@ -215,42 +202,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _playerEntityView != null)
-			{
-				return;
-			}
-
-			RenderMinimap();
-			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
+			_spectatedTransform = next.Transform;
 			SubscribeToQuantumViewUpdate();
-		}
-
-		private void OnSpectateStartedMessage(SpectateStartedMessage obj)
-		{
-			RenderMinimap();
-		}
-
-		private void OnSpectateTargetSwitchedMessage(SpectateTargetSwitchedMessage msg)
-		{
-			if (_entityViewUpdaterService.TryGetView(msg.EntitySpectated, out var spectated))
-			{
-				_playerEntityView = spectated;
-				SubscribeToQuantumViewUpdate();
-			}
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			UpdateMinimap(_duration);
-		}
-
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
-		{
-			RenderMinimap();
-			_playerEntityView = _entityViewUpdaterService.GetManualView(callback.Entity);
-			SubscribeToQuantumViewUpdate();
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
@@ -286,105 +246,94 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateMinimap(CallbackUpdateView callback)
 		{
-			if (_playerEntityView == null)
+			if (_spectatedTransform == null)
 			{
 				return;
 			}
 
-			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_playerEntityView.transform.position);
+			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_spectatedTransform.position);
 
-			UpdateViewport(playerViewportPoint);
 			UpdatePlayerIndicator(playerViewportPoint);
 			UpdateAirdropIndicators(playerViewportPoint, callback.Game.Frames.Predicted.Time);
-			UpdateShrinkingCircle(playerViewportPoint, callback.Game.Frames.Predicted);
-		}
-
-		private void UpdateViewport(Vector3 playerViewportPoint)
-		{
-			_minimapImage.uvRect = new Rect((playerViewportPoint.x - _viewportSize / 2f) * (1f - _animationModifier),
-			                                (playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
-			                                _viewportSize, _viewportSize);
+			UpdateMap(playerViewportPoint, callback.Game.Frames.Predicted);
 		}
 
 		private void UpdatePlayerIndicator(Vector3 playerViewportPoint)
 		{
 			// Rotation
 			_playerIndicator.rotation =
-				Quaternion.Euler(0, 0, 360f - _playerEntityView.transform.rotation.eulerAngles.y);
+				Quaternion.Euler(0, 0, 360f - _spectatedTransform.rotation.eulerAngles.y);
 
 			// Position (only relevant in opened map)
 			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
 		}
 
-		private void UpdateShrinkingCircle(Vector3 playerViewportPoint, Frame f)
+		private void UpdateMap(Vector3 playerViewportPoint, Frame f)
 		{
 			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
 				return;
 			}
 
-			circle.GetMovingCircle(f, out var centerFP, out var radiusFP);
+			circle.GetMovingCircle(f, out var centerFp, out var radiusFp);
 
-			var radius = radiusFP.AsFloat;
-			var center = centerFP.XOY.ToUnityVector3();
-			var safeRadius = circle.TargetRadius.AsFloat;
-			var safeCenter = circle.TargetCircleCenter.XOY.ToUnityVector3();
+			var dangerRadius = radiusFp.AsFloat / _minimapCamera.orthographicSize;
+			var dangerCenter = _minimapCamera.WorldToViewportPoint(centerFp.XOY.ToUnityVector3()) - Vector3.one / 2f;
+			var safeRadius = circle.TargetRadius.AsFloat / _minimapCamera.orthographicSize;
+			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
+			                 Vector3.one / 2f;
 
-			var circleViewportPoint = _minimapCamera.WorldToViewportPoint(center);
-			var safeViewportPoint = _minimapCamera.WorldToViewportPoint(safeCenter);
-
-			var rect = _rectTransform.rect;
-			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
-
-			var cameraOrtoSize = _minimapCamera.orthographicSize;
-			var circleUICenter =
-				(circleViewportPoint - playerViewportPoint * (1f - _animationModifier)) * minimapFullSize -
-				minimapFullSize / 2f * _animationModifier;
-			var circleUISize = Vector2.one * radius / cameraOrtoSize * minimapFullSize;
-			var safeUICenter = (safeViewportPoint - playerViewportPoint * (1f - _animationModifier)) * minimapFullSize -
-			                   minimapFullSize / 2f * _animationModifier;
-			var safeUISize = Vector2.one * safeRadius / cameraOrtoSize * minimapFullSize;
-
-			var shrinkingCircleRingWidth =
-				Math.Clamp(_ringWidth * (rect.width / circleUISize.x), 0f, 1f) * _lineWidthModifier;
-			_shrinkingCircleRingImage.materialForRendering.SetFloat(_thicknessPID, shrinkingCircleRingWidth);
-
-			_shrinkingCircleRing.anchoredPosition = circleUICenter;
-			_shrinkingCircleRing.sizeDelta = circleUISize;
-
-			if (!_safeAreaSet)
+			if (_config.Step != circle.Step)
 			{
-				if (_config.Step != circle.Step)
-				{
-					_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
-				}
-
-				if (f.Time < circle.ShrinkingStartTime - _config.WarningTime)
-				{
-					return;
-				}
-
-				_safeAreaSet = true;
-				_safeAreaRing.gameObject.SetActive(true);
+				_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 			}
+			
+			// Check to only draw safe area after the warning / announcement
+			_safeAreaSet = f.Time > circle.ShrinkingStartTime - _config.WarningTime;
 
-			var safeAreaRingWidth = Math.Clamp(_ringWidth * (rect.width / safeUISize.x), 0f, 1f) * _lineWidthModifier;
-			_safeAreaRingImage.materialForRendering.SetFloat(_thicknessPID, safeAreaRingWidth);
+			// Danger ring / area
+			_minimapImage.materialForRendering.SetFloat(_dangerAreaSizePID, dangerRadius);
+			_minimapImage.materialForRendering.SetVector(_dangerAreaOffsetPID, dangerCenter);
 
-			_safeAreaRing.anchoredPosition = safeUICenter;
-			_safeAreaRing.sizeDelta = safeUISize;
+			// Safe area ring
+			_minimapImage.materialForRendering.SetFloat(_safeAreaSizePID, _safeAreaSet ? safeRadius : 100);
+			_minimapImage.materialForRendering.SetVector(_safeAreaOffsetPID, safeCenter);
+
+			// UV Rect
+			var uvRect = new Vector4((playerViewportPoint.x - _viewportSize / 2f) * (1f - _animationModifier),
+			                         (playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
+			                         _viewportSize, _viewportSize);
+			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
+
+			// Players
+			if (Shader.IsKeywordEnabled("MINIMAP_DRAW_PLAYERS"))
+			{
+				_playerPositions.Clear();
+				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
+				{
+					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
+					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
+
+					_playerPositions.Add(new Vector4(viewportPos.x, viewportPos.y, 0, 0));
+				}
+
+				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
+				_minimapImage.materialForRendering.SetInteger(_playersCountPID, _playerPositions.Count);
+			}
 
 			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}
 
 		private void UpdateSafeAreaArrow(Vector3 circleCenter, float circleRadius)
 		{
+			if (!_safeAreaSet) return;
+			
 			// Calculate and Apply rotation
 			var targetPosLocal = _cameraTransform.InverseTransformPoint(circleCenter);
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
 			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
 			var circleRadiusSq = circleRadius * circleRadius;
-			var distanceSqrt = (circleCenter - _playerEntityView.transform.position).sqrMagnitude;
+			var distanceSqrt = (circleCenter - _spectatedTransform.position).sqrMagnitude;
 
 			_safeAreaArrow.anchoredPosition = _playerIndicator.anchoredPosition;
 			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);
@@ -410,6 +359,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)
 		{
+			if (_displayedAirdrops.ContainsKey(entity))
+			{
+				return;
+			}
+			
 			var airdropView = _airdropPool.Spawn();
 			airdropView.SetAirdrop(airDrop, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
 			_displayedAirdrops.Add(entity, airdropView);

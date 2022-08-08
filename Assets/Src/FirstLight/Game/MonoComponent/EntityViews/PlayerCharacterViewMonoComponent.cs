@@ -97,8 +97,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
 			base.OnAvatarEliminated(game);
-
-			Services.AudioFxService.PlayClip3D(AudioId.ActorDeath, transform.position);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -191,7 +189,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			AnimatorWrapper.SetTrigger(Triggers.Revive);
 			RenderersContainerProxy.SetRendererState(true);
-			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnEnd1, transform.position);
 		}
 
 		private void HandleOnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -205,8 +202,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
-
-			Services.AudioFxService.PlayClip3D(AudioId.ActorSpawnStart, transform.position);
+			
 			RenderersContainerProxy.SetRendererState(false);
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
@@ -217,8 +213,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
-			Services.AudioFxService.PlayClip3D(AudioId.ProjectileFired, transform.position);
+			
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
 		}
 

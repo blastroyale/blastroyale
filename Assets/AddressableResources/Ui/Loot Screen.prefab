@@ -614,9 +614,7 @@ MonoBehaviour:
   Anchor: {fileID: 2206151208667733753}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &3884332305383019963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1457,9 +1455,7 @@ MonoBehaviour:
   Anchor: {fileID: 4943465808599915181}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &384746928910595772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2922,9 +2918,7 @@ MonoBehaviour:
   Anchor: {fileID: 5974629191855003452}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &7642605848807954847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3274,9 +3268,7 @@ MonoBehaviour:
   Anchor: {fileID: 4037716821984458173}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &3781609592172951588
 GameObject:
   m_ObjectHideFlags: 0
@@ -4513,9 +4505,7 @@ MonoBehaviour:
   Anchor: {fileID: 3364934182260049591}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &6984360215254691188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4840,9 +4830,7 @@ MonoBehaviour:
   Anchor: {fileID: 3937597886730497401}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &6343548030534758161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6123,9 +6111,7 @@ MonoBehaviour:
   Anchor: {fileID: 2593398972639899805}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &5224530404899694999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6340,9 +6326,7 @@ MonoBehaviour:
   Anchor: {fileID: 5370612676790757682}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &6656725548108961369
 GameObject:
   m_ObjectHideFlags: 0
@@ -6899,8 +6883,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 35.139, y: -135}
-  m_SizeDelta: {x: 259.7213, y: 47.7622}
+  m_AnchoredPosition: {x: 21.444, y: -203.39}
+  m_SizeDelta: {x: 242.2, y: 70.1848}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8873744790824761738
 CanvasRenderer:
@@ -6993,7 +6977,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 1.8686523, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7188,8 +7172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 26, y: 171}
-  m_SizeDelta: {x: 200, y: 36}
+  m_AnchoredPosition: {x: 21.4445, y: 256.6}
+  m_SizeDelta: {x: 209.5334, y: 57.327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4943112307428798482
 CanvasRenderer:
@@ -7456,9 +7440,7 @@ MonoBehaviour:
   Anchor: {fileID: 5521835711523357893}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &2008692583863366622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7704,9 +7686,7 @@ MonoBehaviour:
   Anchor: {fileID: 165631068559299081}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &1588899383242780086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7876,9 +7856,7 @@ MonoBehaviour:
   Anchor: {fileID: 6906655030506380680}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &1750067365915286387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8335,9 +8313,7 @@ MonoBehaviour:
   Anchor: {fileID: 1983034304319236473}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &8039447050906972788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9475,9 +9451,7 @@ MonoBehaviour:
   Anchor: {fileID: 4777768349037592641}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &5143838176153519339
 MonoBehaviour:
   m_ObjectHideFlags: 0

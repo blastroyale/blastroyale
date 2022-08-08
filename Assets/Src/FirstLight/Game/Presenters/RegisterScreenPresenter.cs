@@ -1,14 +1,7 @@
 using System;
-using FirstLight.Game.Services;
 using UnityEngine;
-using FirstLight.Game.Utils;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using I2.Loc;
-using Quantum;
 using TMPro;
 using Button = UnityEngine.UI.Button;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {

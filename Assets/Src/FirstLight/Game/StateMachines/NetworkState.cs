@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Statechart;
@@ -73,6 +74,7 @@ namespace FirstLight.Game.StateMachines
 			
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 			
+			disconnectedScreen.OnEnter(UpdateDisconnectionLocation);
 			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
 			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnecting);
 			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
@@ -84,7 +86,6 @@ namespace FirstLight.Game.StateMachines
 			reconnecting.OnExit(UndimDisconnectedScreen);
 			reconnecting.OnExit(CloseDisconnectedScreen);
 			
-			disconnected.OnEnter(UpdateDisconnectionLocation);
 			disconnected.OnEnter(ConnectPhoton);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
@@ -163,6 +164,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
 			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
@@ -175,6 +177,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 		}
+
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -201,12 +204,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnDisconnected " + cause);
 			
-			var dictionary = new Dictionary<string, object>
-			{
-				{"disconnected_cause", _services.NetworkService.QuantumClient.DisconnectedCause}
-			};
-			
-			_services.AnalyticsService.LogEvent("disconnected", dictionary);
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection, _services.NetworkService.QuantumClient.DisconnectedCause.ToString());
 			_services.AnalyticsService.CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
 
 			_statechartTrigger(PhotonDisconnectedEvent);
@@ -402,6 +400,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			LeaveRoom();
 		}
+		
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
+		{
+			_networkService.LastMatchPlayers.Clear();
+			
+			foreach (var player in _networkService.QuantumClient.CurrentRoom.Players.Values)
+			{
+				_networkService.LastMatchPlayers.Add(player);
+			}
+		}
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
@@ -562,9 +570,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void LockRoom()
 		{
-			if (_networkService.QuantumClient.CurrentRoom.IsOpen)
+			var room = _networkService?.QuantumClient?.CurrentRoom;
+			
+			if (room != null && room.IsOpen)
 			{
-				_networkService.QuantumClient.CurrentRoom.IsOpen = false;
+				room.IsOpen = false;
 			}
 		}
 

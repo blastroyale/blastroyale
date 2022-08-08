@@ -11,6 +11,7 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	public struct AudioMixerConfig
 	{
 		public AssetReference AudioMixer;
+		public string[] SnapshotKeys;
 		public string MixerMasterKey;
 		public string MixerSfx2dKey;
 		public string MixerSfx3dKey;

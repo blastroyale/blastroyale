@@ -32,11 +32,17 @@ namespace FirstLight.Game.Services
 			var mixerObject = await mainMixerConfig.AudioMixer.LoadAssetAsync<AudioMixer>().Task;
 
 			_audioMixer = mixerObject;
-			_2dMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerSfx2dKey).First();
-			_3dMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerSfx3dKey).First();
-			_bgmMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerBgmKey).First();
-			_ancrMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerAncrKey).First();
-			_ambMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerAmbKey).First();
+			_mixerMasterGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerMasterKey).First();
+			_mixer2dGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerSfx2dKey).First();
+			_mixer3dGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerSfx3dKey).First();
+			_mixerBgmGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerBgmKey).First();
+			_mixerAncrGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerAncrKey).First();
+			_mixerAmbGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerAmbKey).First();
+
+			foreach (var snapshotKey in mainMixerConfig.SnapshotKeys)
+			{
+				_mixerSnapshots.Add(snapshotKey, _audioMixer.FindSnapshot(snapshotKey));
+			}
 		}
 
 		/// <inheritdoc />
@@ -107,7 +113,7 @@ namespace FirstLight.Game.Services
 			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, _audioClips[id]);
 
 			var updatedInitData = sourceInitData.Value;
-			updatedInitData.Mute = Is3dSfxMuted;
+			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
 			return base.PlayClip3D(id, worldPosition, sourceInitData);
@@ -124,7 +130,7 @@ namespace FirstLight.Game.Services
 			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, _audioClips[id]);
 
 			var updatedInitData = sourceInitData.Value;
-			updatedInitData.Mute = Is2dSfxMuted;
+			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
 			return base.PlayClip2D(id, sourceInitData);

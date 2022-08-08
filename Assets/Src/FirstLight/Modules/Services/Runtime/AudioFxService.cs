@@ -28,13 +28,13 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Sets the 2D Sfx muting state across the game
 		/// </summary>
-		bool Is2dSfxMuted { get; set; }
+		bool IsSfxMuted { get; set; }
 
 		/// <summary>
-		/// Sets the 3D Sfx muting state across the game
+		/// Requests check to see if any music is currently playing
 		/// </summary>
-		bool Is3dSfxMuted { get; set; }
-
+		bool IsMusicPlaying { get; }
+		
 		/// <summary>
 		/// Loads audio mixer and initializes the mixer groups
 		/// </summary>
@@ -52,6 +52,11 @@ namespace FirstLight.Services
 		/// <param name="clips">Enumerable collection of audio clips and their associated IDs</param>
 		void UnloadAudioClips(IEnumerable clips);
 
+		/// <summary>
+		/// Transitions the belonging audio mixer, to a snapshot over a transition
+		/// </summary>
+		void TransitionAudioMixer(string snapshotName, float transitionDuration);
+		
 		/// <summary>
 		/// Tries to return the <see cref="AudioClip"/> mapped to the given <paramref name="id"/>.
 		/// Returns true if the audio service currently has the <paramref name="clip"/> for the given <paramref name="id"/>.
@@ -348,16 +353,22 @@ namespace FirstLight.Services
 
 		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
+		
+		// Music sources
 		private AudioSourceMonoComponent _activeMusicSource;
 		private AudioSourceMonoComponent _transitionMusicSource;
+		
+		// Audio mixer elements
 		protected AudioMixer _audioMixer;
-		protected AudioMixerGroup _2dMixerGroup;
-		protected AudioMixerGroup _3dMixerGroup;
-		protected AudioMixerGroup _bgmMixerGroup;
-		protected AudioMixerGroup _ancrMixerGroup;
-		protected AudioMixerGroup _ambMixerGroup;
-		private bool _sfx2dEnabled;
-		private bool _sfx3dEnabled;
+		protected AudioMixerGroup _mixerMasterGroup;
+		protected AudioMixerGroup _mixer2dGroup;
+		protected AudioMixerGroup _mixer3dGroup;
+		protected AudioMixerGroup _mixerBgmGroup;
+		protected AudioMixerGroup _mixerAncrGroup;
+		protected AudioMixerGroup _mixerAmbGroup;
+		protected Dictionary<string, AudioMixerSnapshot> _mixerSnapshots;
+		
+		private bool _sfxEnabled;
 
 		/// <inheritdoc />
 		public AudioListenerMonoComponent AudioListener { get; }
@@ -365,19 +376,23 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsBgmMuted
 		{
-			get => _activeMusicSource.Source.mute;
-			set => _activeMusicSource.Source.mute = value;
+			get => _activeMusicSource.Source.mute && _transitionMusicSource.Source.mute;
+			set
+			{
+				_activeMusicSource.Source.mute = value;
+				_transitionMusicSource.Source.mute = value;
+			}
 		}
 
 		/// <inheritdoc />
-		public bool Is2dSfxMuted
+		public bool IsSfxMuted
 		{
-			get => _sfx2dEnabled;
+			get => _sfxEnabled;
 			set
 			{
 				var audio = _sfxPlayerPool.SpawnedReadOnly;
 
-				_sfx2dEnabled = value;
+				_sfxEnabled = value;
 
 				for (var i = 0; i < audio.Count; i++)
 				{
@@ -390,30 +405,14 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public bool Is3dSfxMuted
-		{
-			get => _sfx3dEnabled;
-			set
-			{
-				var audio = _sfxPlayerPool.SpawnedReadOnly;
-
-				_sfx3dEnabled = value;
-
-				for (var i = 0; i < audio.Count; i++)
-				{
-					if (audio[i].Source.spatialBlend >= SPATIAL_3D_THRESHOLD)
-					{
-						audio[i].Source.mute = value;
-					}
-				}
-			}
-		}
+		public bool IsMusicPlaying => _activeMusicSource.Source.isPlaying || _transitionMusicSource.Source.isPlaying;
 
 		public AudioFxService()
 		{
+			_mixerSnapshots = new Dictionary<string, AudioMixerSnapshot>();
 			_audioPoolParent = new GameObject("Audio Container");
+			
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
-
 			audioPlayer.Source = audioPlayer.gameObject.AddComponent<AudioSource>();
 			audioPlayer.transform.SetParent(_audioPoolParent.transform);
 			audioPlayer.Source.playOnAwake = false;
@@ -458,6 +457,17 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
+		public void TransitionAudioMixer(string snapshotKey, float transitionDuration)
+		{
+			if (!_mixerSnapshots.TryGetValue(snapshotKey, out AudioMixerSnapshot snapshot))
+			{
+				return;
+			}
+			
+			snapshot.TransitionTo(transitionDuration);
+		}
+
+		/// <inheritdoc />
 		public virtual bool TryGetClipPlaybackData(T id, out AudioClipPlaybackData clipData)
 		{
 			if (!_audioClips.ContainsKey(id))
@@ -486,7 +496,7 @@ namespace FirstLight.Services
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, _3dMixerGroup, worldPosition, sourceInitData);
+			source.Play(_sfxPlayerPool, _mixer3dGroup, worldPosition, sourceInitData);
 			return source;
 		}
 
@@ -499,7 +509,7 @@ namespace FirstLight.Services
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, _2dMixerGroup, Vector3.zero, sourceInitData);
+			source.Play(_sfxPlayerPool, _mixer2dGroup, Vector3.zero, sourceInitData);
 			return source;
 		}
 
@@ -516,12 +526,12 @@ namespace FirstLight.Services
 			if (_activeMusicSource.Source.isPlaying)
 			{
 				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
-				_transitionMusicSource.Play(null, _bgmMixerGroup, Vector3.zero, sourceInitData);
+				_transitionMusicSource.Play(null, _mixerBgmGroup, Vector3.zero, sourceInitData);
 				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, SwapMusicSources);
 			}
 			else
 			{
-				_activeMusicSource.Play(null, _bgmMixerGroup, Vector3.zero, sourceInitData);
+				_activeMusicSource.Play(null, _mixerBgmGroup, Vector3.zero, sourceInitData);
 				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
 			}
 		}

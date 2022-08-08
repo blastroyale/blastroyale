@@ -21,6 +21,9 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      SnapshotKeys:
+      - Main
+      - Lobby
       MixerMasterKey: Master
       MixerSfx2dKey: SFX2D
       MixerSfx3dKey: SFX3D

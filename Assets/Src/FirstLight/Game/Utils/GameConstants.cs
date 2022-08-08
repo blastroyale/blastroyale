@@ -41,8 +41,15 @@ namespace FirstLight.Game.Utils
 
 		public static class Audio
 		{
-			public const string MIXER_MAIN_SNAPSHOT_KEY = "Main";
-			public const string MIXER_LOBBY_SNAPSHOT_KEY = "Lobby";
+			public const string MIXER_MAIN_SNAPSHOT_ID = "Main";
+			public const string MIXER_LOBBY_SNAPSHOT_ID = "Lobby";
+			public const string MIXER_GROUP_MASTER_ID = "Master";
+			public const string MIXER_GROUP_MUSIC_ID = "Music";
+			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
+			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
+			public const string MIXER_GROUP_VOICE_ID = "Voice";
+			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
+			
 			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
 			
 			public const float SFX_2D_SPATIAL_BLEND = 0f;

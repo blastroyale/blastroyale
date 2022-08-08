@@ -25,8 +25,8 @@ MonoBehaviour:
       - Main
       - Lobby
       MixerMasterKey: Master
-      MixerSfx2dKey: SFX2D
-      MixerSfx3dKey: SFX3D
-      MixerBgmKey: BGM
-      MixerAncrKey: ANCR
-      MixerAmbKey: AMB
+      MixerSfx2dKey: Sfx2d
+      MixerSfx3dKey: Sfx3d
+      MixerMusicKey: Music
+      MixerVoiceKey: Voice
+      MixerAmbientKey: Ambient

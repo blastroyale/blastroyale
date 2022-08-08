@@ -22,7 +22,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ANCR
+  m_Name: Voice
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 4b5ca752aa2ed084ca84f566445e077a
   m_Children: []
@@ -41,7 +41,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BGM
+  m_Name: Music
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 0da387d2c34b0e94fa5e41abb9fa0c92
   m_Children: []
@@ -75,7 +75,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SFX2D
+  m_Name: Sfx2d
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: a03e1aad46c198a4091229e6b605d6e9
   m_Children: []
@@ -129,7 +129,7 @@ AudioMixerController:
     - e789305c9b014024e81236ea252be1fa
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 1105285674184585787}
+  m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AMB
+  m_Name: Ambient
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: e789305c9b014024e81236ea252be1fa
   m_Children: []
@@ -318,7 +318,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SFX3D
+  m_Name: Sfx3d
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: afa5c160f8ad4e648a8e1d680fa3994a
   m_Children: []

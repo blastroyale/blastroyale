@@ -15,9 +15,9 @@ namespace FirstLight.Game.Configs.AssetConfigs
 		public string MixerMasterKey;
 		public string MixerSfx2dKey;
 		public string MixerSfx3dKey;
-		public string MixerBgmKey;
-		public string MixerAncrKey;
-		public string MixerAmbKey;
+		public string MixerMusicKey;
+		public string MixerVoiceKey;
+		public string MixerAmbientKey;
 	}
 	
 	/// <summary>

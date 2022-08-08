@@ -94,8 +94,14 @@ namespace FirstLight.Game.StateMachines
 			
 			await Task.WhenAll(tasks);
 
-			await _services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary);
+			var audioTasks = new List<Task>();
+			
+			audioTasks.Add(_services.AudioFxService
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
+			audioTasks.Add(_services.AudioFxService
+			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
+			
+			await Task.WhenAll(audioTasks);
 			
 			LoadVfx();
 		}

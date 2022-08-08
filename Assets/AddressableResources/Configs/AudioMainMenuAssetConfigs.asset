@@ -16,9 +16,8 @@ MonoBehaviour:
   _configs:
   - Key: 2
     Value:
-      AudioId: 2
       AudioClips:
-      - m_AssetGUID: 4259503e6044347f0a22e342be877e73
+      - m_AssetGUID: 9e37b63c532ce5c41a4beca9fd3d9d9b
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

@@ -115,7 +115,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayMainMenuMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicMainMenuLoop,
+			_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 		}
 

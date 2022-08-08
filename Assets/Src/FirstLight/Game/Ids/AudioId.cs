@@ -7,8 +7,8 @@ namespace FirstLight.Game.Ids
 		None, 
 		
 		//Music
-		MusicMainMenuStart,
-		MusicMainMenuLoop,
+		MusicMainStart,
+		MusicMainLoop,
 		MusicBrSkydiveLoop,
 		MusicBrLowLoop,
 		MusicBrMidLoop,

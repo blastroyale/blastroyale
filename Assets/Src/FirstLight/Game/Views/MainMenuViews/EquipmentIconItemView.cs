@@ -42,7 +42,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (_loadedId != uniqueId)
 			{
 				_loadedId = uniqueId;
-				var url = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId).CardUrl;
+				var url = _gameDataProvider.EquipmentDataProvider.GetNftInfo(uniqueId).SafeImageUrl;
 
 				_iconImage.gameObject.SetActive(false);
 				_textureRequestHandle =

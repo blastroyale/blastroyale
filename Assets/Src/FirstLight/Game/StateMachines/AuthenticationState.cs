@@ -351,7 +351,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(data));
+			_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(data));
 			FLog.Verbose("Downloaded state from server");
 			activity?.Complete();
 		}

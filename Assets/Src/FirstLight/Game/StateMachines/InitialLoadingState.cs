@@ -120,6 +120,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return new List<Task>
 			{
+				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),

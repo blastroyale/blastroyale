@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Audio;
 
 // ReSharper disable once CheckNamespace
 
@@ -34,6 +35,11 @@ namespace FirstLight.Services
 		/// </summary>
 		bool Is3dSfxMuted { get; set; }
 
+		/// <summary>
+		/// Loads audio mixer and initializes the mixer groups
+		/// </summary>
+		Task LoadAudioMixers(IEnumerable audioMixers);
+		
 		/// <summary>
 		/// Load a set of audio clips into memory, and into the loaded clips collection
 		/// </summary>
@@ -151,7 +157,6 @@ namespace FirstLight.Services
 
 		private IObjectPool<AudioSourceMonoComponent> _pool;
 		private bool _canDespawn;
-		private float _currentVolumeMultiplier;
 		private Coroutine _playSoundCoroutine;
 		private Coroutine _fadeVolumeCoroutine;
 		private Transform _followTarget;
@@ -176,7 +181,7 @@ namespace FirstLight.Services
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
 		/// /// <remarks>Note: if initialized with Loop as true, the audio source must be despawned manually.</remarks>
-		public void Play(IObjectPool<AudioSourceMonoComponent> pool, float volumeMultiplier,
+		public void Play(IObjectPool<AudioSourceMonoComponent> pool, AudioMixerGroup mixerGroup,
 		                 Vector3? worldPos, AudioSourceInitData? sourceInitData = null)
 		{
 			if (sourceInitData == null)
@@ -185,10 +190,10 @@ namespace FirstLight.Services
 			}
 
 			_pool = pool;
-			_currentVolumeMultiplier = volumeMultiplier;
-
+			
+			Source.outputAudioMixerGroup = mixerGroup;
 			Source.clip = sourceInitData.Value.Clip;
-			Source.volume = sourceInitData.Value.Volume * volumeMultiplier;
+			Source.volume = sourceInitData.Value.Volume;
 			Source.spatialBlend = sourceInitData.Value.SpatialBlend;
 			Source.pitch = sourceInitData.Value.Pitch;
 			Source.time = sourceInitData.Value.StartTime;
@@ -273,7 +278,7 @@ namespace FirstLight.Services
 				currentTimeProgress += Time.deltaTime;
 
 				var fadePercent = currentTimeProgress / fadeDuration;
-				Source.volume = Mathf.Lerp(fromVolume * _currentVolumeMultiplier, toVolume * _currentVolumeMultiplier,
+				Source.volume = Mathf.Lerp(fromVolume, toVolume,
 				                           fadePercent);
 			}
 
@@ -343,11 +348,14 @@ namespace FirstLight.Services
 
 		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
-		private readonly float _sfx2dVolumeMultiplier;
-		private readonly float _sfx3dVolumeMultiplier;
-		private readonly float _bgmVolumeMultiplier;
 		private AudioSourceMonoComponent _activeMusicSource;
 		private AudioSourceMonoComponent _transitionMusicSource;
+		protected AudioMixer _audioMixer;
+		protected AudioMixerGroup _2dMixerGroup;
+		protected AudioMixerGroup _3dMixerGroup;
+		protected AudioMixerGroup _bgmMixerGroup;
+		protected AudioMixerGroup _ancrMixerGroup;
+		protected AudioMixerGroup _ambMixerGroup;
 		private bool _sfx2dEnabled;
 		private bool _sfx3dEnabled;
 
@@ -401,7 +409,7 @@ namespace FirstLight.Services
 			}
 		}
 
-		public AudioFxService(float sfx2dVolumeMultiplier, float sfx3dVolumeMultiplier, float bgmVolumeMultiplier)
+		public AudioFxService()
 		{
 			_audioPoolParent = new GameObject("Audio Container");
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
@@ -426,14 +434,16 @@ namespace FirstLight.Services
 			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
 			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
-			_sfx2dVolumeMultiplier = sfx2dVolumeMultiplier;
-			_sfx3dVolumeMultiplier = sfx3dVolumeMultiplier;
-			_bgmVolumeMultiplier = bgmVolumeMultiplier;
-
 			var pool = new GameObjectPool<AudioSourceMonoComponent>(10, audioPlayer);
 
 			pool.DespawnToSampleParent = true;
 			_sfxPlayerPool = pool;
+		}
+
+		/// <inheritdoc />
+		public virtual Task LoadAudioMixers(IEnumerable audioMixers)
+		{
+			return default;
 		}
 
 		/// <inheritdoc />
@@ -476,7 +486,7 @@ namespace FirstLight.Services
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, _sfx3dVolumeMultiplier, worldPosition, sourceInitData);
+			source.Play(_sfxPlayerPool, _3dMixerGroup, worldPosition, sourceInitData);
 			return source;
 		}
 
@@ -489,7 +499,7 @@ namespace FirstLight.Services
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, _sfx2dVolumeMultiplier, Vector3.zero, sourceInitData);
+			source.Play(_sfxPlayerPool, _2dMixerGroup, Vector3.zero, sourceInitData);
 			return source;
 		}
 
@@ -506,12 +516,12 @@ namespace FirstLight.Services
 			if (_activeMusicSource.Source.isPlaying)
 			{
 				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
-				_transitionMusicSource.Play(null, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_transitionMusicSource.Play(null, _bgmMixerGroup, Vector3.zero, sourceInitData);
 				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, SwapMusicSources);
 			}
 			else
 			{
-				_activeMusicSource.Play(null, _bgmVolumeMultiplier, Vector3.zero, sourceInitData);
+				_activeMusicSource.Play(null, _bgmMixerGroup, Vector3.zero, sourceInitData);
 				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
 			}
 		}

@@ -41,10 +41,6 @@ namespace FirstLight.Game.Utils
 
 		public static class Audio
 		{
-			// Audio defaults
-			public const float SFX_2D_DEFFAULT_VOLUME_MULTIPLIER = 0.4f;
-			public const float SFX_3D_DEFAULT_VOLUME_MULTIPLIER = 0.5f;
-			public const float BGM_DEFAULT_VOLUME = 0.35f;
 			public const float SFX_DEFAULT_VOLUME = 1f;
 			public const float SFX_DEFAULT_PITCH = 1f;
 			

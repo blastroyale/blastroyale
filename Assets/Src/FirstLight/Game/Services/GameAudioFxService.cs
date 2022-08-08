@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Audio;
 
 namespace FirstLight.Game.Services
 {
@@ -16,12 +19,24 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IAssetResolverService _assetResolver;
 
-		public GameAudioFxService(IAssetResolverService assetResolver) :
-			base(GameConstants.Audio.SFX_2D_DEFFAULT_VOLUME_MULTIPLIER,
-			     GameConstants.Audio.SFX_3D_DEFAULT_VOLUME_MULTIPLIER,
-			     GameConstants.Audio.BGM_DEFAULT_VOLUME)
+		public GameAudioFxService(IAssetResolverService assetResolver) : base()
 		{
 			_assetResolver = assetResolver;
+		}
+
+		public override async Task LoadAudioMixers(IEnumerable audioMixers)
+		{
+			var mixerConfigs = audioMixers as IReadOnlyDictionary<int, AudioMixerConfig>;
+			var mainMixerConfig = mixerConfigs.Values.ToList().First();
+			
+			var mixerObject = await mainMixerConfig.AudioMixer.LoadAssetAsync<AudioMixer>().Task;
+
+			_audioMixer = mixerObject;
+			_2dMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerSfx2dKey).First();
+			_3dMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerSfx3dKey).First();
+			_bgmMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerBgmKey).First();
+			_ancrMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerAncrKey).First();
+			_ambMixerGroup = _audioMixer.FindMatchingGroups(mainMixerConfig.MixerAmbKey).First();
 		}
 
 		/// <inheritdoc />
@@ -75,7 +90,7 @@ namespace FirstLight.Game.Services
 						clipAssetRef.ReleaseAsset();
 					}
 				}
-				
+
 				RemoveAudioClip(configKvp.Key);
 			}
 		}

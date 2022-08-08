@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Facebook.Unity.Editor;
 using Facebook.Unity.Settings;
 using Photon.Deterministic;
@@ -26,14 +27,6 @@ namespace FirstLight.Editor.Build
 		/// Uses development SKU
 		/// </summary>
 		public const string DevelopmentSymbol = "DEVELOPMENT_BUILD";
-		
-		/// <summary>
-		/// Scripting define that enables all production features in a release ad hoc environment.
-		/// This builds are to stage store builds to test production environments.
-		/// This build is not signed and allows to run the client from any link.
-		/// Uses development SKU
-		/// </summary>
-		public const string StagingSymbol = "STAGING_BUILD";
 		
 		/// <summary>
 		/// Scripting define the build to publish to the NON-stores distribution channels.
@@ -100,44 +93,7 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForDevelopment();
 			SetAndroidKeystore();
 			PrepareFirebase(DevelopmentSymbol);
-			SetScriptingDefineSymbols(DevelopmentSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(DevelopmentSymbol, BuildTargetGroup.iOS);
 			
-#if UNITY_ANDROID
-			ManifestMod.GenerateManifest();
-#endif
-		}
-
-		/// <summary>
-		/// <inheritdoc cref="StagingSymbol"/>
-		/// </summary>
-		/// <remarks>
-		/// Setups the editor for Staging build configuration
-		/// </remarks>
-		[MenuItem("FLG/Configure/Staging Build")]
-		public static void SetupStagingConfig()
-		{
-			PlayerSettings.Android.useAPKExpansionFiles = false;
-			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
-			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
-			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
-			EditorUserBuildSettings.development = false;
-			EditorUserBuildSettings.buildAppBundle = false;
-			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
-			
-			VersionEditorUtils.SetAndSaveInternalVersion(false);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
-			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
-			ConfigureQuantumForRelease();
-			SetAndroidKeystore();
-			PrepareFirebase(StagingSymbol);
-			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(StagingSymbol, BuildTargetGroup.iOS);
-
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
 #endif
@@ -170,8 +126,6 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(ReleaseSymbol);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(ReleaseSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -205,8 +159,6 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);
-			SetScriptingDefineSymbols(StoreSymbol, BuildTargetGroup.Android);
-			SetScriptingDefineSymbols(StoreSymbol, BuildTargetGroup.iOS);
 
 #if UNITY_ANDROID
 			ManifestMod.GenerateManifest();
@@ -238,16 +190,16 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Sets the defining symbols defined by this build in the player settings mapping list
 		/// </summary>
-		public static void SetScriptingDefineSymbols(string buildSymbol, BuildTargetGroup targetGroup)
+		public static void SetScriptingDefineSymbols(BuildTargetGroup targetGroup, params string[] buildSymbols)
 		{
 			var symbols = new List<string>(CommonSymbols);
 
-			if (buildSymbol == DevelopmentSymbol)
+			if (buildSymbols.Contains(DevelopmentSymbol))
 			{
 				symbols.AddRange(DebugSymbols);
 			}
 			
-			symbols.Add(buildSymbol);
+			symbols.AddRange(buildSymbols);
 			
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols.ToArray());
 		}

@@ -10,10 +10,11 @@ namespace FirstLight.Editor.Build
 	{
 		private const string _buildNumberOption = "-flBuildNumber";
 		private const string _buildSymbolOption = "-flBuildSymbol";
-		private const string _appFileNameOption = "-flBuildFileName";
+		private const string _buildServerOption = "-flBuildServer";
+		private const string _buildFileNameOption = "-flBuildFileName";
 
 		/// <summary>
-		/// If unity has been started from batch mode see if we have passed in a build number.
+		/// Requests the build number from the batch mode command with the flag -flBuildNumber
 		/// </summary>
 		public static bool TryGetBuildNumberFromCommandLineArgs(out int buildNumber, params string[] args)
 		{
@@ -36,6 +37,9 @@ namespace FirstLight.Editor.Build
 			return true;
 		}
 
+		/// <summary>
+		/// Requests the build number from the batch mode command with the flag -flBuildSymbol
+		/// </summary>
 		public static bool TryGetBuildSymbolFromCommandLineArgs(out string buildSymbol, params string[] args)
 		{
 			if (!TryGetCommandLineOption(_buildSymbolOption, out buildSymbol, args))
@@ -44,7 +48,6 @@ namespace FirstLight.Editor.Build
 			}
 
 			if (buildSymbol != FirstLightBuildConfig.DevelopmentSymbol &&
-			    buildSymbol != FirstLightBuildConfig.StagingSymbol && 
 			    buildSymbol != FirstLightBuildConfig.ReleaseSymbol && 
 			    buildSymbol !=FirstLightBuildConfig.StoreSymbol)
 			{
@@ -55,11 +58,20 @@ namespace FirstLight.Editor.Build
 			return true;
 		}
 		
-		public static bool TryGetBuildFileNameFromCommandLineArgs(
-			out string buildFileName,
-			params string[] args)
+		/// <summary>
+		/// Requests the build number from the batch mode command with the flag -flBuildFileName
+		/// </summary>
+		public static bool TryGetBuildFileNameFromCommandLineArgs(out string buildFileName, params string[] args)
 		{
-			return TryGetCommandLineOption(_appFileNameOption, out buildFileName, args);
+			return TryGetCommandLineOption(_buildFileNameOption, out buildFileName, args);
+		}
+		
+		/// <summary>
+		/// Requests the build number from the batch mode command with the flag -flBuildServer
+		/// </summary>
+		public static bool TryGetBuildServerSymbolFromCommandLineArgs(out string buildServer, params string[] args)
+		{
+			return TryGetCommandLineOption(_buildServerOption, out buildServer, args);
 		}
 
 		private static bool TryGetCommandLineOption(string option, out string result, params string[] args)

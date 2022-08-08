@@ -24,19 +24,22 @@ namespace FirstLight.Editor.Build
 				Debug.LogError("Could not get build symbol from command line args.");
 				EditorApplication.Exit(1);
 			}
+
+			if (!FirstLightBuildUtil.TryGetBuildServerSymbolFromCommandLineArgs(out var serverSymbol, arguments))
+			{
+				Debug.LogError("Could not get the server symbol from command line args.");
+				EditorApplication.Exit(1);
+			}
 			
 			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, buildSymbol, serverSymbol);
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, buildSymbol, serverSymbol);
 
 			switch (buildSymbol)
 			{
 				case FirstLightBuildConfig.DevelopmentSymbol:
 				{
 					FirstLightBuildConfig.SetupDevelopmentConfig();
-					break;
-				}
-				case FirstLightBuildConfig.StagingSymbol:
-				{
-					FirstLightBuildConfig.SetupStagingConfig();
 					break;
 				}
 				case FirstLightBuildConfig.ReleaseSymbol:

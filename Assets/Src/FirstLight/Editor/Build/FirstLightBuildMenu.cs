@@ -20,6 +20,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.DevelopmentSymbol);
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.LocalSymbol);
 			
@@ -37,25 +38,9 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.DevelopmentSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.DevelopmentSymbol);
-			
-			BuildPipeline.BuildPlayer(options);
-		}
-		
-		[MenuItem("FLG/Build/Android/Staging Build")]
-		public static void BuildAndroidStaging()
-		{
-			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
-			
-			if (string.IsNullOrWhiteSpace(outputPath))
-			{
-				return;
-			}
-			
-			FirstLightBuildConfig.SetupStagingConfig();
-			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.StagingSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}
@@ -71,6 +56,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupReleaseConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.ReleaseSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.ReleaseSymbol);
 			
@@ -88,6 +74,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupStoreConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.StoreSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.StoreSymbol);
 			
@@ -105,6 +92,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.DevelopmentSymbol);
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.LocalSymbol);
 
@@ -125,25 +113,9 @@ namespace FirstLight.Editor.Build
 			}
 
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.DevelopmentSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.DevelopmentSymbol);
-			
-			BuildPipeline.BuildPlayer(options);
-		}
-		
-		[MenuItem("FLG/Build/iOS/Staging Build")]
-		public static void BuildIosStaging()
-		{
-			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
-			
-			if (string.IsNullOrWhiteSpace(outputPath))
-			{
-				return;
-			}
-			
-			FirstLightBuildConfig.SetupStagingConfig();
-			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StagingSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}
@@ -159,6 +131,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupReleaseConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.ReleaseSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.ReleaseSymbol);
 			
@@ -176,6 +149,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupStoreConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.StoreSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StoreSymbol);
 			

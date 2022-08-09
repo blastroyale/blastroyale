@@ -8,10 +8,10 @@ using UnityEngine.UI;
 namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
-	/// This View handles the Health Bar View in the UI:
-	/// - Showing the current Health status of the actor
+	/// This View handles the Resource Bar View in the UI for the player:
+	/// - Showing the current resource status of the actor
 	/// </summary>
-	public class ReloadBarView : MonoBehaviour, IPoolEntityDespawn
+	public class ResourceBarView : MonoBehaviour, IPoolEntityDespawn
 	{
 		[SerializeField, Required] private Slider _slider;
 		[SerializeField, Required] private GameObject _separatorRef;

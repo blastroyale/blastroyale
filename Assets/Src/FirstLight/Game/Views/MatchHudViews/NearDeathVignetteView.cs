@@ -1,11 +1,10 @@
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.MainMenuViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// Used to display the vignette that indicates to a player about low health
@@ -15,7 +14,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private const float NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD = 0.4f;
 		private const float MAX_ALPHA_HEALTH_RATIO_THRESHOLD = 0.15f;
 		private const float STARTING_ALPHA = 0.25f;
-
 		private const float ALPHA_CHANGE = (1f - STARTING_ALPHA) /
 		                                   (NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD -
 		                                    MAX_ALPHA_HEALTH_RATIO_THRESHOLD);
@@ -50,7 +48,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_entityFollowed = next.Entity;
 
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var frame = QuantumRunner.Default.Game.Frames.Predicted;
 			var stats = frame.Get<Stats>(_entityFollowed);
 			
 			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);

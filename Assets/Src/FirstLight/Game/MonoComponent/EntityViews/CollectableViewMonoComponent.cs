@@ -129,7 +129,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			transform.parent = null;
 
 			QuantumEvent.UnsubscribeListener(this);
-			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
+			_matchServices?.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 			PlayAnimation(_collectClip);
 
 			this.LateCoroutineCall(_animation.clip.length, () => { Destroy(gameObject); });

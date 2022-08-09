@@ -166,27 +166,31 @@ namespace FirstLight.Game.Services
 		private void TrySetSpectateModePlayer()
 		{
 			// Spectator mode - set new player to follow, only once
-			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid)
+			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&
+			    TryGetNextPlayer(out var player))
 			{
-				if (TryGetNextPlayer(out var player))
-				{
-					SetSpectatedEntity(player.Key, player.Value, true);
-				}
+				SetSpectatedEntity(player.Key, player.Value, true);
 			}
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (callback.EntityDead == _spectatedPlayer.Value.Entity)
+			if (callback.EntityDead != _spectatedPlayer.Value.Entity)
 			{
-				if (callback.EntityDead == callback.EntityKiller)
-				{
-					SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
-				}
-				else
-				{
-					SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
-				}
+				return;
+			}
+
+			if (callback.EntityDead == callback.EntityKiller)
+			{
+				SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
+			}
+			else if (callback.Game.Frames.Verified.Has<DeadPlayerCharacter>(callback.EntityKiller))
+			{
+				SwipeRight();
+			}
+			else
+			{
+				SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
 			}
 		}
 
@@ -194,7 +198,7 @@ namespace FirstLight.Game.Services
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);
 		}
-		
+
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);

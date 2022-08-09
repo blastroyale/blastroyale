@@ -56,7 +56,7 @@ namespace FirstLight.Editor.Build
 			plist.root.SetString("NSUserTrackingUsageDescription", ScriptLocalization.General.ATTDescription);
 			plist.WriteToFile(plistPath);
 
-#if RELEASE_BUILD
+#if !DEVELOPMENT_BUILD
 			bitCode = "YES";
 #endif
 

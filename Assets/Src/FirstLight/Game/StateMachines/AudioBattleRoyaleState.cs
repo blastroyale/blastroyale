@@ -9,6 +9,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -21,15 +22,12 @@ namespace FirstLight.Game.StateMachines
 		private static readonly IStatechartEvent IncreaseIntensityEvent =
 			new StatechartEvent("Increase Music Intensity Event");
 
-		private static readonly IStatechartEvent IncreaseMaxIntensityEvent =
-			new StatechartEvent("Increase Max Music Intensity Event");
-
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private float _lastRecordedIntensityIncreaseTime = 0;
-		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Verified.Time.AsFloat;
+		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat;
 
 		public AudioBattleRoyaleState(IGameServices services, IGameDataProvider gameLogic,
 		                              Action<IStatechartEvent> statechartTrigger)
@@ -72,20 +70,21 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickIntensityCheck, 1f);
+			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
 		}
 
 		private void UnsubscribeEvents()
 		{
-			_services?.MessageBrokerService.UnsubscribeAll(this);
-			_services?.TickService.UnsubscribeAll(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void TickIntensityCheck(float deltaTime)
+		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
-			if ((CurrentMatchTime > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
+			var time = callback.Game.Frames.Predicted.Time.AsFloat;
+			
+			if ((time > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
 			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD) ||
-			    (CurrentMatchTime > GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD &&
+			    (time > GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD &&
 			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD))
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
@@ -115,11 +114,11 @@ namespace FirstLight.Game.StateMachines
 
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
+				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrLowLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
 		}
 
 		private void PlayMidIntensityMusic()
@@ -128,11 +127,11 @@ namespace FirstLight.Game.StateMachines
 
 			// If resync, skip fading
 			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
+				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrMidLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
+			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
 		}
 	}
 }

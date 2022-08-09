@@ -13,6 +13,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -81,16 +82,15 @@ namespace FirstLight.Game.StateMachines
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
 			deathmatch.Event(MatchEndedEvent).Target(gameEnded);
-			deathmatch.Event(MatchQuitEvent).Target(final);
-			deathmatch.OnExit(SendGameplayDataAnalytics);
+			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(final);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
 			battleRoyale.Event(MatchEndedEvent).Target(gameEnded);
-			battleRoyale.Event(MatchQuitEvent).Target(final);
-			battleRoyale.OnExit(SendGameplayDataAnalytics);
+			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(final);
 			battleRoyale.OnExit(PublishMatchEnded);
 
+			gameEnded.OnEnter(() => MatchEndAnalytics(false));
 			gameEnded.OnEnter(OpenGameCompleteScreen);
 			gameEnded.Event(GameCompleteExitEvent).Target(resultsSpectatorCheck);
 			gameEnded.OnExit(CloseCompleteScreen);
@@ -122,7 +122,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
-			_services.MessageBrokerService.Subscribe<FtueEndedMessage>(OnFtueEndedMessage);
 
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
@@ -197,17 +196,13 @@ namespace FirstLight.Game.StateMachines
 			_trophiesBeforeLastChange = message.TrophiesBeforeChange;
 		}
 
-		private void OnFtueEndedMessage(FtueEndedMessage message)
-		{
-			SendGameplayData(false);
-
-			_statechartTrigger(MatchQuitEvent);
-		}
-
 		private void QuitGameConfirmedClicked()
 		{
-			SendGameplayData(true);
-			QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
+			}
+			
 			_statechartTrigger(MatchQuitEvent);
 		}
 
@@ -231,12 +226,7 @@ namespace FirstLight.Game.StateMachines
 			});
 		}
 
-		private void SendGameplayDataAnalytics()
-		{
-			SendGameplayData(false);
-		}
-
-		private void SendGameplayData(bool playerQuit)
+		private void MatchEndAnalytics(bool playerQuit)
 		{
 			if (IsSpectator())
 			{
@@ -277,16 +267,14 @@ namespace FirstLight.Game.StateMachines
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 
 			startParams.NetworkClient = client;
-
+			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
 
 		private void StopSimulation()
 		{
-
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
-			
 			QuantumRunner.ShutdownAll();
 		}
 

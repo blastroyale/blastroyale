@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8dfc1b838045a6a0a05f7c25dd9974, type: 3}
+  m_Name: GameConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+    QuantumConfig:
+      DisconnectedDestroySeconds:
+        RawValue: 0
+      DoubleKillTimeLimit: 0
+      RoomLockKillCount: 0
+      MatchmakingTime:
+        RawValue: 0
+      BotsNameCount: 0
+      PlayerRespawnTime:
+        RawValue: 0
+      PlayerForceRespawnTime:
+        RawValue: 0
+      GoToNextMatchForceTime:
+        RawValue: 0
+      ShrinkingDamageCooldown:
+        RawValue: 0
+      PlayerDefaultHealth:
+        BattleRoyale: 0
+        Deathmatch: 0
+      PlayerDefaultSpeed:
+        BattleRoyale:
+          RawValue: 0
+        Deathmatch:
+          RawValue: 0
+      PlayerMaxShieldCapacity:
+        BattleRoyale: 0
+        Deathmatch: 0
+      PlayerStartingShieldCapacity:
+        BattleRoyale: 0
+        Deathmatch: 0
+      CoinsPerRank: 0
+      XpPerRank: 0
+      DeathSignificance:
+        RawValue: 0
+      CoinsPerFragDeathRatio:
+        RawValue: 0
+      XpPerFragDeathRatio:
+        RawValue: 0
+      CollectableCollectTime:
+        BattleRoyale:
+          RawValue: 0
+        Deathmatch:
+          RawValue: 0
+      PlayerAliveShieldDuration:
+        BattleRoyale:
+          RawValue: 0
+        Deathmatch:
+          RawValue: 0
+      EquipmentLevelToPowerK: 0
+      EquipmentRarityToPowerK: 0
+      LootboxSlotsMaxNumber: 0
+      MinuteCostInHardCurrency:
+        RawValue: 0
+      MaxPlayerRanks: 0
+      RageStatusDamageMultiplier:
+        RawValue: 0
+      StatsPowerBaseValue: 0
+      StatsPowerRarityMultiplier:
+        RawValue: 0
+      StatsPowerLevelStepMultiplier:
+        RawValue: 0
+      StatsPowerGradeStepMultiplier:
+        RawValue: 0
+      StatsHpBaseValue: 0
+      StatsHpRarityMultiplier:
+        RawValue: 0
+      StatsHpLevelStepMultiplier:
+        RawValue: 0
+      StatsHpGradeStepMultiplier:
+        RawValue: 0
+      StatsSpeedBaseValue:
+        RawValue: 0
+      StatsSpeedRarityMultiplier:
+        RawValue: 0
+      StatsSpeedLevelStepMultiplier:
+        RawValue: 0
+      StatsSpeedGradeStepMultiplier:
+        RawValue: 0
+      StatsArmorBaseValue: 0
+      StatsArmorRarityMultiplier:
+        RawValue: 0
+      StatsArmorLevelStepMultiplier:
+        RawValue: 0
+      StatsArmorGradeStepMultiplier:
+        RawValue: 0
+      DeathDropHealthChance:
+        RawValue: 0
+      DeathDropLargeShieldChance:
+        RawValue: 0
+      DeathDropSmallShieldChance:
+        RawValue: 0
+      TrophyEloRange: 0
+      TrophyEloK: 0
+      NftAssumedOwned: 0
+      MinNftForEarnings: 0
+      AdjectiveRarityEarningsMod:
+        RawValue: 0
+      NftUsageCooldownMinutes: 0
+      NftRequiredEquippedForPlay: 0
+      PlayerVisionRange:
+        RawValue: 0
+      AirdropPositionOffsetMultiplier:
+        RawValue: 0
+      AirdropRandomAreaMultiplier:
+        RawValue: 0
+      AirdropHeight:
+        RawValue: 0

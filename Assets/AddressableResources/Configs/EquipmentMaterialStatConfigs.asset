@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a53465a2f68437cb9881516e0e475f5, type: 3}
-  m_Name: EquipmentMaterialStatsConfigs
+  m_Name: EquipmentMaterialStatConfigs
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/Configs/EquipmentMaterialStatsConfigs
+      Path: AddressableResources/Configs/EquipmentMaterialStatConfigs
       Guid:
         Value: 2931657409906099456
     QuantumConfigs:

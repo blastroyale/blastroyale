@@ -82,16 +82,16 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// This re-applies all stored modifiers from <see cref="Modifiers"/>. Note that
-		/// calling this multiple times will apply all the modifiers multiple times.
+		/// Sets modifiers to the stats data
 		/// </summary>
-		internal void ApplyModifiers(Frame f)
+		internal void SetModifiers(QList<Modifier> modifiers)
 		{
-			var modifiers = f.ResolveList(Modifiers);
-			foreach (var modifier in modifiers)
+			for (var i = 0; i < modifiers.Count; i++)
 			{
-				ApplyModifier(modifier);
+				ApplyModifier(modifiers[i]);
 			}
+
+			Modifiers = modifiers;
 		}
 
 		/// <summary>
@@ -236,7 +236,6 @@ namespace Quantum
 				return;
 			}
 
-			//reduce incoming damage by armour amount
 			currentDamageAmount = Math.Max(currentDamageAmount - armour, 0);
 
 			// If there's shields then we reduce it first

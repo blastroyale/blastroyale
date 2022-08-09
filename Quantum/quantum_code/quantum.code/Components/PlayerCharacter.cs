@@ -54,9 +54,9 @@ namespace Quantum
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
 
-			InitStats(f, e, startingEquipment);
 			InitEquipment(f, e, startingEquipment);
-
+			InitStats(f, e);
+			
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 
@@ -170,7 +170,6 @@ namespace Quantum
 			Assert.Check(weapon.IsWeapon(), weapon);
 
 			var slot = GetWeaponEquipSlot(weapon, primary);
-
 			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
@@ -442,53 +441,26 @@ namespace Quantum
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 		}
 
-		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
-		{
-			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
-			                                     out var speed, out var power);
-
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth.Get(f) + health,
-			                   f.GameConfig.StatsPowerBaseValue + power,
-			                   f.GameConfig.PlayerDefaultSpeed.Get(f) + speed,
-			                   armour,
-			                   f.GameConfig.PlayerMaxShieldCapacity.Get(f),
-			                   f.GameConfig.PlayerStartingShieldCapacity.Get(f)));
-		}
-
 		private void RefreshStats(Frame f, EntityRef e)
 		{
 			// We request stats and store their current base values
 			var previousStats = f.Get<Stats>(e);
+			var modifiers = f.ResolveList(previousStats.Modifiers);
 
-			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
-			                                     out var speed,
-			                                     out var power);
+			InitStats(f, e);
+			
+			var newStats = f.Unsafe.GetPointer<Stats>(e);
 
-
-			health += f.GameConfig.PlayerDefaultHealth.Get(f);
-			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-
-			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
-			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
-
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
-			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
-			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
-			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
-			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
-			stats->ApplyModifiers(f);
+			newStats->SetModifiers(modifiers);
 
 			// After the refresh we request updated stats
-			var currentStats = f.Get<Stats>(e);
+			var diff = newStats->GetStatData(StatType.Health).StatValue -
+			           previousStats.GetStatData(StatType.Health).StatValue;
+			var newHealthValue = FPMath.Min(newStats->CurrentHealth + FPMath.Max(diff, 0), 
+			                                newStats->GetStatData(StatType.Health).StatValue);
+			newStats->SetCurrentHealth(f, e, e, newHealthValue.AsInt);
 
-			var diff =
-				FPMath.Max(currentStats.GetStatData(StatType.Health).StatValue - previousStats.GetStatData(StatType.Health).StatValue,
-				           0);
-			var newHealthValue = FPMath.Min(stats->CurrentHealth + diff, stats->GetStatData(StatType.Health).StatValue);
-			stats->SetCurrentHealth(f, e, e, newHealthValue.AsInt);
-
-			f.Events.OnPlayerStatsChanged(Player, e, previousStats, currentStats);
+			f.Events.OnPlayerStatsChanged(Player, e, previousStats, *newStats);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
@@ -504,6 +476,21 @@ namespace Quantum
 					Gear[GetGearSlot(item)] = item;
 				}
 			}
+		}
+
+		private void InitStats(Frame f, EntityRef e)
+		{
+			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
+			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
+			
+			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
+			                                     out var speed, out var power);
+			
+			health += f.GameConfig.PlayerDefaultHealth.Get(f);
+			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
+
+			f.Remove<Stats>(e);
+			f.Add(e, new Stats(health, power, speed, armour, maxShields, startingShields));
 		}
 
 		private Special GetSpecial(Frame f, GameId specialId)

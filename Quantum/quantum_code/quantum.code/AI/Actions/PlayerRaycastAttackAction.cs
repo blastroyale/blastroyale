@@ -23,11 +23,8 @@ namespace Quantum
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var powerBase = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
-			var powerRatio = QuantumStatCalculator.GetScaledPowerRatio(f, playerCharacter->CurrentWeapon);
-			var finalPower = powerBase * powerRatio;
+			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
 			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
-
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
 
@@ -41,13 +38,13 @@ namespace Quantum
 			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
 
 			//only do attackSpeed ramping if the weapon has it
-			var RampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
+			var rampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
 			if (weaponConfig.InitialAttackRampUpTime != FP._0)
 			{
-				var timeDiff = f.Time - RampUpStartTime;
-				var CurrentAttackCooldown = FPMath.Lerp(weaponConfig.InitialAttackCooldown, weaponConfig.AttackCooldown, 
+				var timeDiff = f.Time - rampUpStartTime;
+				var currentAttackCooldown = FPMath.Lerp(weaponConfig.InitialAttackCooldown, weaponConfig.AttackCooldown, 
 					timeDiff / weaponConfig.InitialAttackRampUpTime);
-				bb->Set(f, nameof(weaponConfig.AttackCooldown), CurrentAttackCooldown);
+				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
 			}
 
 			var raycastShot = new RaycastShots
@@ -59,7 +56,7 @@ namespace Quantum
 				Direction = aimingDirection,
 				StartTime = f.Time,
 				PreviousTime = f.Time,
-				PowerAmount = (uint)finalPower,
+				PowerAmount = (uint)power.AsInt,
 				KnockbackAmount = weaponConfig.KnockbackAmount,
 				AttackAngle = (uint)targetAttackAngle,
 				Range = weaponConfig.AttackRange,

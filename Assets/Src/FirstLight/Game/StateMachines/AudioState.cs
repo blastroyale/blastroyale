@@ -23,8 +23,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioBattleRoyaleState _audioBrState;
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private IEntityViewUpdaterService _entityViewUpdaterService;
-
+		private IMatchServices _matchServices;
+		
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
 		{
@@ -63,7 +63,7 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetEntityViewUpdaterService).Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetMatchServices).Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			matchmaking.OnExit(StopMusicInstant);
 			matchmaking.OnExit(TransitionAudioMixerMain);
@@ -112,9 +112,9 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
 		}
 
-		private void GetEntityViewUpdaterService()
+		private void GetMatchServices()
 		{
-			_entityViewUpdaterService = MainInstaller.Resolve<IMatchServices>().EntityViewUpdaterService;
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
 		private void TryPlayMainMenuMusic()
@@ -166,12 +166,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_entityViewUpdaterService == null)
+			if (_matchServices.EntityViewUpdaterService == null)
 			{
 				return;
 			}
 
-			if (_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
 				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
@@ -181,18 +181,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (_entityViewUpdaterService == null)
+			if (_matchServices.EntityViewUpdaterService == null)
 			{
 				return;
 			}
 
-			if (_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				var game = callback.Game;
 				var audio = AudioId.None;
-
-				// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
-				if (game.PlayerIsLocal(callback.Player))
+				
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 				}

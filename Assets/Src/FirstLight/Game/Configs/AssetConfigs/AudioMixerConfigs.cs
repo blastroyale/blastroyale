@@ -7,6 +7,11 @@ using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Configs.AssetConfigs
 {
+	public enum AudioMixerID
+	{
+		Default
+	}
+	
 	[Serializable]
 	public struct AudioMixerConfig
 	{
@@ -24,7 +29,7 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	/// Scriptable object containing all MainMenu audio assets configurations
 	/// </summary>
 	[CreateAssetMenu(fileName = "AudioMixerConfigs", menuName = "ScriptableObjects/AssetConfigs/AudioMixerConfigs")]
-	public class AudioMixerConfigs : AssetConfigsScriptableObjectSimple<int, AudioMixerConfig>
+	public class AudioMixerConfigs : AssetConfigsScriptableObjectSimple<AudioMixerID, AudioMixerConfig>
 	{
 	}
 }

@@ -33,8 +33,8 @@ namespace FirstLight.Game.Services
 
 		public override async Task LoadAudioMixers(IEnumerable audioMixers)
 		{
-			var mixerConfigs = audioMixers as IReadOnlyDictionary<int, AudioMixerConfig>;
-			var mainMixerConfig = mixerConfigs.Values.ToList().First();
+			var mixerConfigs = audioMixers as IReadOnlyDictionary<AudioMixerID, AudioMixerConfig>;
+			var mainMixerConfig = mixerConfigs[AudioMixerID.Default];
 			
 			var mixerObject = await mainMixerConfig.AudioMixer.LoadAssetAsync<AudioMixer>().Task;
 

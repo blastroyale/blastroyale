@@ -26,7 +26,7 @@ namespace FirstLight.Game.Services
 		protected string _mixerVoiceGroupId;
 		protected string _mixerAmbientGroupId;
 		
-		public GameAudioFxService(IAssetResolverService assetResolver) : base()
+		public GameAudioFxService(IAssetResolverService assetResolver) : base(GameConstants.Audio.SPATIAL_3D_THRESHOLD, GameConstants.Audio.SOUND_QUEUE_BREAK_MS)
 		{
 			_assetResolver = assetResolver;
 		}

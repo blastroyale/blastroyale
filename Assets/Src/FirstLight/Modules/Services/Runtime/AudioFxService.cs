@@ -373,11 +373,10 @@ namespace FirstLight.Services
 	/// <inheritdoc />
 	public class AudioFxService<T> : IAudioFxInternalService<T> where T : struct, Enum
 	{
-		private const float SPATIAL_3D_THRESHOLD = 0.1f;
-		private const int SOUND_QUEUE_BREAK_DELAY_MS = 250;
+		protected float _spatial3dThreshold;
+		protected int _soundQueueBreakMs;
 		
-		protected readonly IDictionary<T, AudioClipPlaybackData> _audioClips =
-			new Dictionary<T, AudioClipPlaybackData>();
+		protected readonly IDictionary<T, AudioClipPlaybackData> _audioClips = new Dictionary<T, AudioClipPlaybackData>();
 
 		private readonly GameObject _audioPoolParent;
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
@@ -421,7 +420,7 @@ namespace FirstLight.Services
 
 				for (var i = 0; i < audio.Count; i++)
 				{
-					if (audio[i].Source.spatialBlend < SPATIAL_3D_THRESHOLD)
+					if (audio[i].Source.spatialBlend < _spatial3dThreshold)
 					{
 						audio[i].Source.mute = value;
 					}
@@ -432,13 +431,16 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsMusicPlaying => _activeMusicSource.Source.isPlaying || _transitionMusicSource.Source.isPlaying;
 
-		public AudioFxService()
+		public AudioFxService(float spatial3DThreshold, int soundQueueBreakMs)
 		{
 			_mixerSnapshots = new Dictionary<string, AudioMixerSnapshot>();
 			_mixerGroups = new Dictionary<string, AudioMixerGroup>();
 			_soundQueue = new Queue<AudioSourceMonoComponent>();
 			_audioPoolParent = new GameObject("Audio Container");
 
+			_spatial3dThreshold = spatial3DThreshold;
+			_soundQueueBreakMs = soundQueueBreakMs;
+			
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
 			audioPlayer.Source = audioPlayer.gameObject.AddComponent<AudioSource>();
 			audioPlayer.transform.SetParent(_audioPoolParent.transform);
@@ -563,7 +565,7 @@ namespace FirstLight.Services
 
 			_soundQueue.Dequeue();
 
-			await Task.Delay(SOUND_QUEUE_BREAK_DELAY_MS);
+			await Task.Delay(_soundQueueBreakMs);
 
 			if (_soundQueue.Count > 0)
 			{

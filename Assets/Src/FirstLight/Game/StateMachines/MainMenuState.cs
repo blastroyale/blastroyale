@@ -249,7 +249,7 @@ namespace FirstLight.Game.StateMachines
 					cacheActivity.Complete();
 				}
 			};
-
+			
 			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 

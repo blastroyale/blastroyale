@@ -1272,6 +1272,23 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: Tooltips/ToolTip_Casual
+      TermType: 0
+      Description: 
+      Languages:
+      - You cannot earn rewards, or gain trophies in casual matches. Play for fun!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_Ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - You can earn rewards in ranked matches, and your trophies are on the line.
+        Play for glory!
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: MainMenu/Abilties
       TermType: 0
       Description: 
@@ -2351,11 +2368,21 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: MainMenu/SelectedGameModeText
+    - Term: MainMenu/SelectedGameModeTitle
       TermType: 0
       Description: 
       Languages:
-      - "Game Mode: \n{0}"
+      - 'Game Mode:'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SelectedGameModeValue
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}
+
+        {1}'
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2487,6 +2514,38 @@ MonoBehaviour:
       Description: 
       Languages:
       - Match ended by disconnection.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeBr
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeDm
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeCasual
+      TermType: 0
+      Description: 
+      Languages:
+      - Casual
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeRanked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6217,7 +6276,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1659625567453
+    Google_LastUpdatedVersion: 1660061376204
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

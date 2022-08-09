@@ -676,6 +676,10 @@ namespace I2.Loc
 			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
+			public static string ModeBr 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeBr"); } }
+			public static string ModeCasual 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeCasual"); } }
+			public static string ModeDm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeDm"); } }
+			public static string ModeRanked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeRanked"); } }
 			public static string NameHeroTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameHeroTitle"); } }
 			public static string NameTooLong 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooLong"); } }
 			public static string NameTooShort 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooShort"); } }
@@ -727,7 +731,8 @@ namespace I2.Loc
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }
 			public static string Selected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Selected"); } }
-			public static string SelectedGameModeText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeText"); } }
+			public static string SelectedGameModeTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeTitle"); } }
+			public static string SelectedGameModeValue 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeValue"); } }
 			public static string Settings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Settings"); } }
 			public static string SettingsFaqButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsFaqButton"); } }
 			public static string SettingsHelpSupport 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsHelpSupport"); } }
@@ -815,7 +820,9 @@ namespace I2.Loc
 		{
 			public static string ToolTip_BLST 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_BLST"); } }
 			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
+			public static string ToolTip_Casual 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Casual"); } }
 			public static string ToolTip_NftCooldown 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_NftCooldown"); } }
+			public static string ToolTip_Ranked 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Ranked"); } }
 			public static string ToolTip_Trophies 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Trophies"); } }
 		}
 	}
@@ -1494,6 +1501,10 @@ namespace I2.Loc
 		    public const string MainMenuButton = "MainMenu/MainMenuButton";
 		    public const string ManualFire = "MainMenu/ManualFire";
 		    public const string Meters = "MainMenu/Meters";
+		    public const string ModeBr = "MainMenu/ModeBr";
+		    public const string ModeCasual = "MainMenu/ModeCasual";
+		    public const string ModeDm = "MainMenu/ModeDm";
+		    public const string ModeRanked = "MainMenu/ModeRanked";
 		    public const string NameHeroTitle = "MainMenu/NameHeroTitle";
 		    public const string NameTooLong = "MainMenu/NameTooLong";
 		    public const string NameTooShort = "MainMenu/NameTooShort";
@@ -1545,7 +1556,8 @@ namespace I2.Loc
 		    public const string SelectGameMap = "MainMenu/SelectGameMap";
 		    public const string SelectGameMode = "MainMenu/SelectGameMode";
 		    public const string Selected = "MainMenu/Selected";
-		    public const string SelectedGameModeText = "MainMenu/SelectedGameModeText";
+		    public const string SelectedGameModeTitle = "MainMenu/SelectedGameModeTitle";
+		    public const string SelectedGameModeValue = "MainMenu/SelectedGameModeValue";
 		    public const string Settings = "MainMenu/Settings";
 		    public const string SettingsFaqButton = "MainMenu/SettingsFaqButton";
 		    public const string SettingsHelpSupport = "MainMenu/SettingsHelpSupport";
@@ -1633,7 +1645,9 @@ namespace I2.Loc
 		{
 		    public const string ToolTip_BLST = "Tooltips/ToolTip_BLST";
 		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
+		    public const string ToolTip_Casual = "Tooltips/ToolTip_Casual";
 		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
+		    public const string ToolTip_Ranked = "Tooltips/ToolTip_Ranked";
 		    public const string ToolTip_Trophies = "Tooltips/ToolTip_Trophies";
 		}
 	}

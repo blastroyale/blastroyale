@@ -8,7 +8,6 @@ using MoreMountains.NiceVibrations;
 using Quantum;
 using UnityEngine;
 
-
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
@@ -76,6 +75,11 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
+		
+		/// <summary>
+		/// Requests current selected match type
+		/// </summary>
+		IObservableField<MatchType> SelectedMatchType { get; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
@@ -175,6 +179,9 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		
+		/// <inheritdoc />
+		public IObservableField<MatchType> SelectedMatchType { get; private set; }
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
@@ -195,6 +202,7 @@ namespace FirstLight.Game.Logic
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
+			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
 		}
 
 		/// <inheritdoc />

@@ -62,11 +62,10 @@ namespace Quantum
 				var statConfig = f.EquipmentStatsConfigs.GetConfig(weapon);
 				var statMaterialConfig = f.EquipmentMaterialStatsConfigs.GetConfig(weapon);
 
+				//we don't add the power of the weapon to the power stat
 				health += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Health).AsInt;
 				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Speed);
 				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Armour).AsInt;
-				//power shoud be left out of weapon calculation
-				//power += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Power);
 			}
 
 			for (int i = 0; i < gear.Length; i++)
@@ -102,6 +101,9 @@ namespace Quantum
 			return ApplyModifiers(baseValue, baseRatio, statRatio, equipment, gameConfig, stat);
 		}
 
+		/// <summary>
+		/// Calculates the weapon power ratio scaled with rarity, grade and level
+		/// </summary>
 		public static FP GetScaledPowerRatio(Frame f, Equipment equipment)
 		{
 
@@ -112,8 +114,6 @@ namespace Quantum
 
 			//first we grab the base ratio
 			var statRatio = baseStatConfig.PowerRatioToBase;
-			Log.Warn("Base ratio = " + statRatio);
-
 
 			//then we scale it
 			var baseValueForRarity = statRatio * QuantumHelpers.PowFp(gameConfig.StatsPowerRarityMultiplier, (uint)equipment.Rarity);

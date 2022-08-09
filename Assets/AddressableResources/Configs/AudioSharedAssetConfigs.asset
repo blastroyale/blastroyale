@@ -25,7 +25,7 @@ MonoBehaviour:
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
-  - Key: 93
+  - Key: 92
     Value:
       AudioClips:
       - m_AssetGUID: be96e6020b2e04a06a3b3ce98b175fe2

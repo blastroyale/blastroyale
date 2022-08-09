@@ -448,7 +448,7 @@ namespace Quantum
 			                                     out var speed, out var power);
 
 			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth.Get(f) + health,
-			                   power,
+			                   f.GameConfig.StatsPowerBaseValue + power,
 			                   f.GameConfig.PlayerDefaultSpeed.Get(f) + speed,
 			                   armour,
 			                   f.GameConfig.PlayerMaxShieldCapacity.Get(f),

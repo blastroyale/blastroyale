@@ -33,11 +33,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Frame:
-        m_Texture: {fileID: 2800000, guid: a1c4dbd488fd56e43b8980b132023406, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1c67d5d3813e7cd4aa11e7dbc09aab6c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrameShapeMask:
-        m_Texture: {fileID: 2800000, guid: 055d4960e036e60419fe4e26dbd07fdf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1205ace403332fe4b91e1d88037ccd35, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradeTag:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Plus_Image:
-        m_Texture: {fileID: 2800000, guid: 896fe4bbfdf62a744bc9e28b16844070, type: 3}
+        m_Texture: {fileID: 2800000, guid: 94ac4b276c3d89d4b96cf55b0a499fad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_48cadbb9084f4d1d9e22a8129e005c38_Texture_1:
@@ -105,10 +105,10 @@ Material:
     - _Adjective_Amount: 0.5
     - _FX_Amount: 0.5
     - _FX_Size: 1.64
-    - _Grade_Amount: -0.25
+    - _Grade_Amount: -0.3
     - _PlusIndicator: 1
     - _Plus_Amount: 1.5
-    - _Plus_Indicator: 0
+    - _Plus_Indicator: 1
     m_Colors:
     - _FX_Offset: {r: 0.25, g: 0.15, b: 0, a: 0}
     - _FX_Scale: {r: 0.6, g: 0.6, b: 0, a: 0}

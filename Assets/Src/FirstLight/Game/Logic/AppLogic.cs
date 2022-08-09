@@ -126,8 +126,7 @@ namespace FirstLight.Game.Logic
 			set
 			{
 				Data.SfxEnabled = value;
-				_audioFxService.Is2dSfxMuted = !value;
-				_audioFxService.Is3dSfxMuted = !value;
+				_audioFxService.IsSfxMuted = !value;
 			}
 		}
 

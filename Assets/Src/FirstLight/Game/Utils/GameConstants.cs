@@ -41,12 +41,19 @@ namespace FirstLight.Game.Utils
 
 		public static class Audio
 		{
-			// Audio defaults
-			public const float SFX_2D_DEFFAULT_VOLUME_MULTIPLIER = 0.4f;
-			public const float SFX_3D_DEFAULT_VOLUME_MULTIPLIER = 0.5f;
-			public const float BGM_DEFAULT_VOLUME = 0.35f;
-			public const float SFX_DEFAULT_VOLUME = 1f;
-			public const float SFX_DEFAULT_PITCH = 1f;
+			public const string MIXER_MAIN_SNAPSHOT_ID = "Main";
+			public const string MIXER_LOBBY_SNAPSHOT_ID = "Lobby";
+			public const string MIXER_GROUP_MASTER_ID = "Master";
+			public const string MIXER_GROUP_MUSIC_ID = "Music";
+			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
+			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
+			public const string MIXER_GROUP_VOICE_ID = "Voice";
+			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
+			
+			public const int SOUND_QUEUE_BREAK_MS = 250;
+			public const float SPATIAL_3D_THRESHOLD = 0.1f;
+			
+			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
 			
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;

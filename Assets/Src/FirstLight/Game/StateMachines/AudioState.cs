@@ -23,7 +23,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioBattleRoyaleState _audioBrState;
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private IEntityViewUpdaterService _entityViewUpdaterService;
+		
+		private IMatchServices _matchServices;
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
@@ -100,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetEntityViewUpdaterService()
 		{
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
 		private void PlayMainMenuMusic()
@@ -128,7 +129,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			var entityView = _entityViewUpdaterService.GetManualView(callback.PlayerEntity);
+			var entityView = _matchServices.EntityViewUpdaterService.GetManualView(callback.PlayerEntity);
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
 			_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
@@ -137,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			var game = callback.Game;
-			var entityView = _entityViewUpdaterService.GetManualView(callback.Entity);
+			var entityView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
 			var audio = AudioId.None;
 
 			// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY

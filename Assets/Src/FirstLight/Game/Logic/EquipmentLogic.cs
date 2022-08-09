@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
@@ -11,6 +12,13 @@ using Quantum;
 
 namespace FirstLight.Game.Logic
 {
+	public enum EquipmentFilter
+	{
+		Both,
+		NftOnly,
+		NoNftOnly
+	}
+	
 	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's equipment
 	/// </summary>
@@ -22,9 +30,14 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout { get; }
 
 		/// <summary>
-		/// Requests the player's inventory.
+		/// Requests the player's non NFT inventory.
 		/// </summary>
 		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
+
+		/// <summary>
+		/// Requests the player's non NFT inventory.
+		/// </summary>
+		IObservableDictionaryReader<UniqueId, NftEquipmentData> NftInventory { get; }
 
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
@@ -32,14 +45,25 @@ namespace FirstLight.Game.Logic
 		EquipmentInfo GetInfo(UniqueId id);
 
 		/// <summary>
-		/// Requests the <see cref="EquipmentInfo"/> for all the loadout
+		/// Requests the <see cref="NftEquipmentInfo"/> for the given <paramref name="id"/>
 		/// </summary>
-		List<EquipmentInfo> GetLoadoutEquipmentInfo();
+		/// <exception cref="LogicException"> Thrown when the given <paramref name="id"/> is not of a NFT equipment type </exception>
+		NftEquipmentInfo GetNftInfo(UniqueId id);
 
 		/// <summary>
-		/// Requests the <see cref="EquipmentInfo"/> for all the inventory
+		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
 		/// </summary>
-		List<EquipmentInfo> GetInventoryEquipmentInfo();
+		bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo);
+
+		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for all the loadout with the given <paramref name="filter"/>
+		/// </summary>
+		List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter);
+
+		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the given <paramref name="filter"/>
+		/// </summary>
+		List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter);
 
 		/// <summary>
 		/// Request the stats a specific piece of equipment has
@@ -58,7 +82,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
-		UniqueId AddToInventory(Equipment equipment, long overrideTimestamp = -1);
+		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
 		/// Tries to remove an item from inventory, and returns true if a removal was successful
@@ -83,14 +107,16 @@ namespace FirstLight.Game.Logic
 	}
 	
 	/// <inheritdoc cref="IEquipmentLogic"/>
-	public class NftEquipmentLogic : AbstractBaseLogic<NftEquipmentData>, IEquipmentLogic, IGameLogicInitializer
+	public class EquipmentLogic : AbstractBaseLogic<EquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
 		private IObservableDictionary<UniqueId, Equipment> _inventory;
+		private IObservableDictionary<UniqueId, NftEquipmentData> _nftInventory;
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
 		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
+		public IObservableDictionaryReader<UniqueId, NftEquipmentData> NftInventory => _nftInventory;
 
-		public NftEquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
+		public EquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
 
@@ -98,59 +124,85 @@ namespace FirstLight.Game.Logic
 		{
 			_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
+			_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
 		}
 		
 		public EquipmentInfo GetInfo(UniqueId id)
 		{
-			var cooldownMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes;
-			var cooldownFinishTime = new DateTime(Data.InsertionTimestamps[id]).AddMinutes(cooldownMinutes);
 			var equipment = _inventory[id];
-			
-			if (!Data.ImageUrls.TryGetValue(id, out var url))
-			{
-				// TODO: Remove this once everything is working
-				url = "https://flgmarketplacestorage.z33.web.core.windows.net/nftimages/0/1/0a7d0c215b6abbb3a0c4c9964b136f0f2ba36c1b4ba8fb797223415539af4e69.png";
-			}
-
-			// Because old jsons didn't had SSL, making it backwards compatible
-			// we need SSL for iOS because <random Apple rant>
-			url = url.Replace("http:", "https:");
 			
 			return new EquipmentInfo
 			{
 				Id = id,
 				Equipment = equipment,
+				IsNft = _nftInventory.ContainsKey(id),
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
-				NftCooldown = cooldownFinishTime - DateTime.UtcNow,
-				CardUrl = url,
 				Stats = GetEquipmentStats(equipment)
 			};
 		}
 
-		public List<EquipmentInfo> GetLoadoutEquipmentInfo()
+		public NftEquipmentInfo GetNftInfo(UniqueId id)
+		{
+			if (!TryGetNftInfo(id, out var info))
+			{
+				throw new LogicException($"The given '{id}' id is not an equipment of NFT type");
+			}
+
+			return info;
+		}
+
+		public bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo)
+		{
+			if (!_nftInventory.TryGetValue(id, out var nftData))
+			{
+				nftEquipmentInfo = default;
+				
+				return false;
+			}
+
+			nftEquipmentInfo = new NftEquipmentInfo
+			{
+				EquipmentInfo = GetInfo(id),
+				NftData = nftData,
+				NftCooldownInMinutes = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftUsageCooldownMinutes,
+			};
+			
+			return true;
+		}
+
+		public List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
 
 			foreach (var (slot, id) in _loadout)
 			{
+				var contains = Data.NftInventory.ContainsKey(id);
+				
+				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
+				{
+					continue;
+				}
+
 				ret.Add(GetInfo(id));
 			}
 
 			return ret;
 		}
 
-		public List<EquipmentInfo> GetInventoryEquipmentInfo()
+		public List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
 
 			foreach (var (id, equipment) in _inventory)
 			{
-				var info = GetInfo(id);
-
-				if (!info.IsOnCooldown)
+				var contains = Data.NftInventory.ContainsKey(id);
+				
+				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
 				{
-					ret.Add(info);
+					continue;
 				}
+				
+				ret.Add(GetInfo(id));
 			}
 
 			return ret;
@@ -158,41 +210,7 @@ namespace FirstLight.Game.Logic
 
 		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
 		{
-			var stats = new Dictionary<EquipmentStatType, float>();
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var baseStatsConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = GameLogic.ConfigsProvider.GetConfig<QuantumEquipmentStatsConfig>(equipment.GetStatsKey());
-			var statsMaterialConfig = GameLogic.ConfigsProvider.GetConfig<QuantumEquipmentMaterialStatsConfig>(equipment.GetMaterialStatsKey());
-
-			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
-			{
-				var weaponConfig = GameLogic.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
-
-				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
-				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.Get(GameMode.BattleRoyale));
-				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
-				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
-			}
-
-			stats.Add(EquipmentStatType.Hp,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Health).AsFloat);
-			stats.Add(EquipmentStatType.Speed,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Speed)
-				          .AsFloat);
-			stats.Add(EquipmentStatType.Armor,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Armour)
-				          .AsFloat);
-			stats.Add(EquipmentStatType.Damage,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Power)
-				          .AsFloat);
-
-			return stats;
+			return equipment.GetStats(GameLogic.ConfigsProvider);
 		}
 
 		public bool EnoughLoadoutEquippedToPlay()
@@ -200,8 +218,7 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
-		// TODO: Remove method and refactor cheats
-		public UniqueId AddToInventory(Equipment equipment, long overrideTimestamp = -1)
+		public UniqueId AddToInventory(Equipment equipment)
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
@@ -213,19 +230,9 @@ namespace FirstLight.Game.Logic
 			
 			_inventory.Add(id, equipment);
 			
-			if (overrideTimestamp >= 0)
-			{
-				Data.InsertionTimestamps.Add(id, overrideTimestamp);
-			}
-			else
-			{
-				Data.InsertionTimestamps.Add(id, DateTime.UtcNow.Ticks);
-			}
-			
 			return id;
 		}
 
-		// TODO: Remove method and refactor cheats
 		public bool RemoveFromInventory(UniqueId equipment)
 		{
 			if (!_inventory.ContainsKey(equipment))
@@ -243,11 +250,7 @@ namespace FirstLight.Game.Logic
 			}
 
 			_inventory.Remove(equipment);
-			Data.InsertionTimestamps.Remove(equipment);
-			Data.TokenIds.Remove(equipment);
-			Data.ImageUrls.Remove(equipment);
-			Data.ExpireTimestamps.Remove(equipment);
-			Data.LastUpdateTimestamp = 0;
+			
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
 			
 			return true;

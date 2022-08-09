@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);

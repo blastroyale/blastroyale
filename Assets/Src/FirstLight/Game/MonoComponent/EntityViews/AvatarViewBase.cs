@@ -180,7 +180,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var direction = Vector3.zero;
 
-			if (EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
+			if (MatchServices.EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
 			{
 				direction = (transform.position - attackerView.transform.position).normalized;
 			}

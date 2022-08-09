@@ -198,9 +198,9 @@ public class NftSynchronizer
 	    equip.Rarity = (EquipmentRarity) nft.rarity;
 	    equip.Tuning = Convert.ToUInt32(nft.tuning);
 	    equip.InitialReplicationCounter = Convert.ToUInt32(nft.initialReplicationCounter);
-	    equip.Level = 1;
+	    equip.Level = Convert.ToUInt32(nft.level);
 	    equip.MaxLevel = Convert.ToUInt32(nft.maxLevel);
-	    equip.ReplicationCounter = 0;
+	    equip.ReplicationCounter = Convert.ToUInt32(nft.replicationCount);
 	    equip.Durability = Convert.ToUInt32(nft.maxDurability);
 	    return equip;
     }

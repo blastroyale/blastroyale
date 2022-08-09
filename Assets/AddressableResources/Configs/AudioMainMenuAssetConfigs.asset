@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: 
   _configs:
-  - Key: 2
+  - Key: 104
     Value:
-      AudioId: 2
       AudioClips:
-      - m_AssetGUID: 4259503e6044347f0a22e342be877e73
+      - m_AssetGUID: 02e45072a3b9b43a7bdce5d8a74d933a
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

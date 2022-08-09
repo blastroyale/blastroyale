@@ -7,8 +7,8 @@ namespace FirstLight.Game.Ids
 		None, 
 		
 		//Music
-		MusicMainMenuStart,
-		MusicMainMenuLoop,
+		MusicMainStart,
+		MusicMainLoop,
 		MusicBrSkydiveLoop,
 		MusicBrLowLoop,
 		MusicBrMidLoop,
@@ -94,17 +94,16 @@ namespace FirstLight.Game.Ids
 		WeaponSwitch,
 		SkydiveJetpackDiveLoop,
 		SkydiveEnd,
-		ChestProgressLoop,
 		ChestLootDrop,
 		PlayerHeartBeatLoop,
 		PlayerEnterLava,
 		PlayerEnterWater,
-		PlayerWalkGrassLoop,
-		PlayerWalkRoadLoop,
-		PlayerWalkTilesLoop,
-		PlayerWalkSandLoop,
-		PlayerWalkWaterLoop,
-		PlayerWalkLavaLoop,
+		PlayerWalkGrass,
+		PlayerWalkRoad,
+		PlayerWalkTiles,
+		PlayerWalkSand,
+		PlayerWalkWater,
+		PlayerWalkLava,
 		PlayerRespawnShine,
 		PlayerRespawnLightningBolt,
 		
@@ -128,7 +127,7 @@ namespace FirstLight.Game.Ids
 		DisconnectScreenAppear,
 		MarketplaceJingle,
 		
-		// Ambients
+		// Ambience
 		ForestAmbientLoop,
 		DesertAmbientLoop,
 		CentralAmbientLoop,

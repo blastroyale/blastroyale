@@ -62,6 +62,10 @@ public class WipeInvalidDataPlayers : PlayfabScript
 		                                                           entry => entry.Value.Value);
 		try
 		{
+			// Deprecated field from 0.3 to 0.4
+			if (userDataJson.ContainsKey("FirstLight.Game.Data.NftEquipmentData"))
+				throw new Exception("Deprecated");
+			
 			ModelSerializer.DeserializeFromData<PlayerData>(userDataJson);
 			ModelSerializer.DeserializeFromData<EquipmentData>(userDataJson);
 			ModelSerializer.DeserializeFromData<RngData>(userDataJson);

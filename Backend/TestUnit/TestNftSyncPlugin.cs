@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlastRoyaleNFTPlugin;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -50,11 +51,10 @@ public class TestNftSyncPlugin
 		_events.CallEvent(new PlayerDataLoadEvent("yolo"));
 		
 		var nftDataAfter = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
-		
 		Assert.AreEqual(0, nftDataBefore.Inventory.Keys.Count);
 		Assert.AreEqual(0, nftDataBefore.NftInventory.Keys.Count);
 		Assert.AreEqual(1, nftDataAfter.Inventory.Keys.Count);
-		Assert.AreEqual(1, nftDataBefore.NftInventory.Keys.Count);
+		Assert.AreEqual(1, nftDataAfter.NftInventory.Keys.Count);
 	}
 	
 	[Test]

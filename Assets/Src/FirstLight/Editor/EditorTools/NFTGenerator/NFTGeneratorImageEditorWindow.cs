@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Views;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
@@ -175,10 +176,15 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			var asset = await Addressables
 			                  .LoadAssetAsync<GameObject>($"AdventureAssets/items/{gameId.ToString()}.prefab").Task;
-
+			
+			
 			var go = Instantiate(asset, _markerTransform);
+			_assetDictionary.Add(gameId, go);
+			
 			ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
 
+			_assetDictionary.Clear();
+			
 			DestroyPool();
 		}
 
@@ -332,11 +338,12 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			var ercRenderable = go.GetComponent<IErcRenderable>();
 			ercRenderable?.Initialise(new Equipment()
 			{
-				Faction = (EquipmentFaction) metadata.attibutesDictionary["Faction"],
-				Material = (EquipmentMaterial) metadata.attibutesDictionary["Material"],
-				Adjective = (EquipmentAdjective) metadata.attibutesDictionary["Adjective"],
-				Rarity = (EquipmentRarity) metadata.attibutesDictionary["Rarity"],
+				Faction = (EquipmentFaction) metadata.attibutesDictionary["faction"],
+				Material = (EquipmentMaterial) metadata.attibutesDictionary["material"],
+				Adjective = (EquipmentAdjective) metadata.attibutesDictionary["adjective"],
+				Rarity = (EquipmentRarity) metadata.attibutesDictionary["rarity"],
 			});
+			
 
 			var bounds = GetBounds(go);
 			go.transform.position = -bounds.center;
@@ -356,10 +363,12 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			backgroundErcRenderable?.Initialise(new Equipment()
 			{
-				Faction = (EquipmentFaction) metadata.attibutesDictionary["Faction"],
-				Material = (EquipmentMaterial) metadata.attibutesDictionary["Material"],
-				Adjective = (EquipmentAdjective) metadata.attibutesDictionary["Adjective"],
-				Rarity = (EquipmentRarity) metadata.attibutesDictionary["Rarity"],
+				GameId = gameId,
+				Faction = (EquipmentFaction) metadata.attibutesDictionary["faction"],
+				Material = (EquipmentMaterial) metadata.attibutesDictionary["material"],
+				Adjective = (EquipmentAdjective) metadata.attibutesDictionary["adjective"],
+				Rarity = (EquipmentRarity) metadata.attibutesDictionary["rarity"],
+				Grade = (EquipmentGrade)metadata.attibutesDictionary["grade"],
 			});
 
 			if (_renderTextureMode == RenderTextureMode.Standard || _renderTextureMode == RenderTextureMode.Both)
@@ -372,7 +381,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
 			{
 				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone",
-				                         _renderTextureStandalone);
+				                         _renderTextureStandalone, true);
 			}
 
 			go.SetActive(false);
@@ -405,8 +414,12 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 		/// <summary>
 		///  Write render texture image to disk given a file path and render texture object
 		/// </summary>
-		private void WriteRenderTextureToDisk(string filename, RenderTexture renderTexture)
+		private void WriteRenderTextureToDisk(string filename, RenderTexture renderTexture, bool crop = false)
 		{
+			var ext = _textureMode == TextureMode.Png ? ".png" : ".jpg";
+
+			var path = Path.Combine(_exportFolderPath, filename + ext);
+			
 			_canvasRoot.transform.localScale = new Vector3(renderTexture.width / _referenceResolution.x,
 			                                               renderTexture.height / _referenceResolution.y, 1);
 			_camera.targetTexture = renderTexture;
@@ -415,19 +428,101 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			_camera.Render();
 
-			Texture2D image = new Texture2D(_camera.targetTexture.width, _camera.targetTexture.height);
-			image.ReadPixels(new Rect(0, 0, _camera.targetTexture.width, _camera.targetTexture.height), 0, 0);
+			var width = _camera.targetTexture.width;
+			var height = _camera.targetTexture.height;
+
+			Texture2D image = new Texture2D(width, height);
+			image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
 			image.Apply();
-			RenderTexture.active = null;
-			_camera.targetTexture = null;
 
-			byte[] bytes = _textureMode == TextureMode.Png ? image.EncodeToPNG() : image.EncodeToJPG();
-			DestroyImmediate(image);
+			if (crop)
+			{
+				var pixels = image.GetPixels(0, 0, width, height);
 
-			var ext = _textureMode == TextureMode.Png ? ".png" : ".jpg";
+				var minCroppedWidth = -1;
+				var maxCroppedWidth = -1;
 
-			var path = Path.Combine(_exportFolderPath, filename + ext);
-			File.WriteAllBytes(path, bytes);
+				for (var i = 0; i < height; i++)
+				{
+					for (var j = 0; j < width; j++)
+					{
+						if (pixels[j + (i * width)].a > 0)
+						{
+							if (j < minCroppedWidth || minCroppedWidth == -1)
+							{
+								minCroppedWidth = j;
+							}
+						}
+
+						var index = (width - 1) - j;
+						if (pixels[index + (i * width)].a > 0)
+						{
+							if (index > maxCroppedWidth || maxCroppedWidth == -1)
+							{
+								maxCroppedWidth = index;
+							}
+						}
+					}
+				}
+
+				var minCroppedHeight = -1;
+				var maxCroppedHeight = -1;
+
+				for (var i = 0; i < width; i++)
+				{
+					for (var j = 0; j < height; j++)
+					{
+						if (pixels[i + (j * width)].a > 0)
+						{
+							if (j < minCroppedHeight || minCroppedHeight == -1)
+							{
+								minCroppedHeight = j;
+							}
+						}
+
+						var index = (height - 1) - j;
+
+						if (pixels[i + (index * width)].a > 0)
+						{
+							if (index > maxCroppedHeight || maxCroppedHeight == -1)
+							{
+								maxCroppedHeight = index;
+							}
+						}
+					}
+				}
+
+				maxCroppedHeight = image.height - maxCroppedHeight;
+				minCroppedHeight = image.height - minCroppedHeight;
+
+				var copyWidth = Math.Abs(maxCroppedWidth - minCroppedWidth);
+				var copyHeight = Math.Abs(maxCroppedHeight - minCroppedHeight);
+
+				Texture2D copyTexture = new Texture2D(copyWidth, copyHeight);
+				copyTexture.ReadPixels(new Rect(minCroppedWidth, maxCroppedHeight, copyWidth, copyHeight), 0, 0);
+				copyTexture.Apply();
+
+				RenderTexture.active = null;
+				_camera.targetTexture = null;
+
+				byte[] bytes = _textureMode == TextureMode.Png ? copyTexture.EncodeToPNG() : copyTexture.EncodeToJPG();
+
+				DestroyImmediate(copyTexture);
+				DestroyImmediate(image);
+				
+				File.WriteAllBytes(path, bytes);
+			}
+			else
+			{
+				RenderTexture.active = null;
+				_camera.targetTexture = null;
+
+				byte[] bytes = _textureMode == TextureMode.Png ? image.EncodeToPNG() : image.EncodeToJPG();
+				
+				DestroyImmediate(image);
+				
+				File.WriteAllBytes(path, bytes);
+			}
 		}
 
 

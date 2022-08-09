@@ -1,5 +1,8 @@
 using System.Net;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Views.MainMenuViews;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quantum;
@@ -35,8 +38,8 @@ public class NftSynchronizer
 	    try
 	    {
 		    _ctx.PlayerMutex.Lock(playfabId);
-		    var serverState = _ctx.ServerState.GetPlayerState(playfabId);
-		    var equipmentData = serverState.DeserializeModel<NftEquipmentData>();
+		    var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
+		    var equipmentData = serverState.DeserializeModel<EquipmentData>();
 		    var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
 		    if (equipmentData.LastUpdateTimestamp > lastBlockchainUpdate)
 		    {
@@ -47,15 +50,20 @@ public class NftSynchronizer
 		    var playerData = serverState.DeserializeModel<PlayerData>();
 		    var idData = serverState.DeserializeModel<IdData>();
 		    var ownedNftsInBlockchain = await RequestBlockchainIndexedNfts(playfabId);
-		    var ownedTokensInGame = new HashSet<string>(equipmentData.TokenIds.Values);
+		    var ownedNftsInGame = new Dictionary<string, UniqueId>();
 		    var ownedTokensInBlockchain = new HashSet<string>(ownedNftsInBlockchain.Select(nft => nft.token_id));
+
+		    foreach (var (id, nftEquipmentData) in equipmentData.NftInventory)
+		    {
+			    ownedNftsInGame.Add(nftEquipmentData.TokenId, id);
+		    }
 
 		    // Adding missing NFTS
 		    foreach (var nft in ownedNftsInBlockchain)
 		    {
 			    try
 			    {
-				    if (!ownedTokensInGame.Contains(nft.token_id))
+				    if (!ownedNftsInGame.ContainsKey(nft.token_id))
 				    {
 					    AddEquipment(nft, idData, equipmentData);
 					    _ctx.Log.LogInformation($"Added item {nft.token_id}({nft.name}) to user {playfabId}");
@@ -69,12 +77,12 @@ public class NftSynchronizer
 		    }
 
 		    // Removing unowned NFTS
-		    foreach (var ownedTokenId in ownedTokensInGame)
+		    foreach (var ownedTokenId in ownedNftsInGame)
 		    {
-			    if (!ownedTokensInBlockchain.Contains(ownedTokenId))
+			    if (!ownedTokensInBlockchain.Contains(ownedTokenId.Key))
 			    {
 				    _ctx.Log.LogInformation($"Removed item {ownedTokenId} from user {playfabId}");
-				    RemoveEquipment(ownedTokenId, equipmentData, playerData, idData);
+				    RemoveEquipment(ownedTokenId.Value, equipmentData, playerData, idData);
 			    }
 		    }
 
@@ -82,7 +90,7 @@ public class NftSynchronizer
 		    serverState.SetModel(equipmentData);
 		    serverState.SetModel(idData);
 		    serverState.SetModel(playerData);
-		    _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
+		    await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
 	    }
 	    finally
 	    {
@@ -125,51 +133,44 @@ public class NftSynchronizer
     /// <summary>
     /// Adds NFT equipment to game data models. Perform a conversion to game data models from NFT model.
     /// </summary>
-    private void AddEquipment(PolygonNFTMetadata nft, IdData idData, NftEquipmentData equipmentData)
+    private void AddEquipment(PolygonNFTMetadata nft, IdData idData, EquipmentData equipmentData)
     {
-        var equipment = NftToGameObject(nft);
+	    var equipment = NftToGameEquipment(nft);
+	    var nftEquipment = NftToGameNftEquipment(nft);
         var nextId = ++idData.UniqueIdCounter;
+        
+        nftEquipment.InsertionTimestamp = DateTime.UtcNow.Ticks;
+        
         equipmentData.Inventory.Add(nextId, equipment);
+        equipmentData.NftInventory.Add(nextId, nftEquipment);
         idData.GameIds.Add(nextId, equipment.GameId);
-        equipmentData.TokenIds[nextId] = nft.token_id;
-        equipmentData.ImageUrls[nextId] = nft.image;
-        equipmentData.InsertionTimestamps[nextId] = DateTime.UtcNow.Ticks;
     }
 
     /// <summary>
     /// Removes a given token from the given player.
     /// Also removes all references from the generated internal unique id for that token.
     /// </summary>
-    private void RemoveEquipment(string tokenId, NftEquipmentData nftEquipment, PlayerData playerData, IdData idData)
+    private void RemoveEquipment(UniqueId uniqueId, EquipmentData nftEquipment, PlayerData playerData, IdData idData)
     {
-        var uniqueIds = nftEquipment.TokenIds.Keys.ToList();
-        foreach (var uniqueId in uniqueIds)
-        {
-            var ownedTokenId = nftEquipment.TokenIds[uniqueId];
-            if (ownedTokenId == tokenId)
-            {
-                nftEquipment.Inventory.Remove(uniqueId);
-                idData.GameIds.Remove(uniqueId);
-                nftEquipment.ExpireTimestamps.Remove(uniqueId);
-                nftEquipment.TokenIds.Remove(uniqueId);
-                nftEquipment.InsertionTimestamps.Remove(uniqueId);
-                var equippedGroups = playerData.Equipped.Keys.ToList();
-                foreach (var group in equippedGroups)
-                {
-                    var equippedUniqueId = playerData.Equipped[group];
-                    if (equippedUniqueId == uniqueId)
-                    {
-                        playerData.Equipped.Remove(group);
-                    }
-                }
-            }
-        }
+	    nftEquipment.Inventory.Remove(uniqueId);
+	    nftEquipment.NftInventory.Remove(uniqueId);
+	    idData.GameIds.Remove(uniqueId);
+	    
+	    var equippedGroups = playerData.Equipped.Keys.ToList();
+	    foreach (var group in equippedGroups)
+	    {
+		    var equippedUniqueId = playerData.Equipped[group];
+		    if (equippedUniqueId == uniqueId)
+		    {
+			    playerData.Equipped.Remove(group);
+		    }
+	    }
     }
     
     /// <summary>
-    /// Main function responsible for converting NFT's into game objects
+    /// Main function responsible for converting NFT's into game <see cref="Equipment"/>
     /// </summary>
-    private Equipment NftToGameObject(PolygonNFTMetadata nft)
+    private Equipment NftToGameEquipment(PolygonNFTMetadata nft)
     {
 	    object? gameId;
 	    try
@@ -197,10 +198,22 @@ public class NftSynchronizer
 	    equip.Rarity = (EquipmentRarity) nft.rarity;
 	    equip.Tuning = Convert.ToUInt32(nft.tuning);
 	    equip.InitialReplicationCounter = Convert.ToUInt32(nft.initialReplicationCounter);
-	    equip.Level = 1;
+	    equip.Level = Convert.ToUInt32(nft.level);
 	    equip.MaxLevel = Convert.ToUInt32(nft.maxLevel);
-	    equip.ReplicationCounter = 0;
+	    equip.ReplicationCounter = Convert.ToUInt32(nft.replicationCount);
 	    equip.Durability = Convert.ToUInt32(nft.maxDurability);
 	    return equip;
+    }
+    
+    /// <summary>
+    /// Main function responsible for converting NFT's into game <see cref="NftEquipmentData"/>
+    /// </summary>
+    private NftEquipmentData NftToGameNftEquipment(PolygonNFTMetadata nft)
+    {
+	    return new NftEquipmentData
+	    {
+		    TokenId = nft.token_id,
+		    ImageUrl = nft.image
+	    };
     }
 }

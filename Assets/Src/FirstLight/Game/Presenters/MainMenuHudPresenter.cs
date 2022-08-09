@@ -11,20 +11,5 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MainMenuHudPresenter : UiPresenter
 	{
-		private IGameDataProvider _dataProvider;
-		private IGameServices _services;
-		private IMainMenuServices _mainMenuServices;
-
-		private void Awake()
-		{
-			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_services = MainInstaller.Resolve<IGameServices>();
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
-		}
-
-		private void OnDestroy()
-		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-		}
 	}
 }

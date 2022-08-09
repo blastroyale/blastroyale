@@ -68,10 +68,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
-			var info = equipmentDataProvider.GetInfo(data.Id);
+			var info = equipmentDataProvider.GetNftInfo(data.Id);
 			
 			_selectedFrameImage.SetActive(data.IsSelected);
-			_equippedImage.enabled = info.IsEquipped;
+			_equippedImage.enabled = info.EquipmentInfo.IsEquipped;
 			_cooldownImage.enabled = info.IsOnCooldown;
 
 			if (data.IsSelected)

@@ -33,7 +33,7 @@ public class TestDataProvider
 		var serverData = new ServerState();
 		serverData.Add(serializedModel.Key, serializedModel.Value);
 		var service = _server?.GetService<IServerStateService>();
-		service?.UpdatePlayerState(_playerId, serverData);
+		service?.UpdatePlayerState(_playerId, serverData).Wait();
 	}
 	
 	/// <summary>
@@ -43,7 +43,7 @@ public class TestDataProvider
 	[Test]
 	public void TestPlayerDataProvider()
 	{
-		var readData = _server?.GetService<IServerStateService>()?.GetPlayerState(_playerId);
+		var readData = _server?.GetService<IServerStateService>()?.GetPlayerState(_playerId).Result;
 
 		var dataProvider = new ServerPlayerDataProvider(readData);
 		var readPlayerData = dataProvider.GetData<PlayerData>();

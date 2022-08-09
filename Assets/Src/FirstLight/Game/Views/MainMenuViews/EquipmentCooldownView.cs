@@ -59,7 +59,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_uniqueId = id;
 			
-			var cooldown = _gameDataProvider.EquipmentDataProvider.GetInfo(_uniqueId).NftCooldown;
+			var cooldown = _gameDataProvider.EquipmentDataProvider.GetNftInfo(_uniqueId).Cooldown;
 
 			if (cooldown.TotalSeconds > 0)
 			{

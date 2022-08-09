@@ -30,12 +30,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Refs")]
 		private GameObject _infoTextRef;
 
-		[SerializeField, Required] private GameObject _statChangeTextRef;
+		[SerializeField, Required] 
+		private GameObject _statChangeTextRef;
 
 		[SerializeField, Required, Title("Animation")]
 		private MessageTypeFlotDictionary _delays;
 
-		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IMatchServices _matchServices;
 		private Coroutine _coroutine;
 		private EntityRef _observedEntity;
@@ -47,7 +47,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			_queues.Add(MessageType.Info, new Queue<MessageData>());
 			_queues.Add(MessageType.StatChange, new Queue<MessageData>());
@@ -235,7 +234,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private bool TryGetSpawnPosition(EntityRef entity, out Vector3 position)
 		{
-			if (_entityViewUpdaterService.TryGetView(entity, out var entityView) &&
+			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) &&
 			    entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				position = entityBase.HealthBarAnchor.position;

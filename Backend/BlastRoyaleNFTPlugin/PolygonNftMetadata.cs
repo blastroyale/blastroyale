@@ -18,10 +18,15 @@ public class PolygonNFTMetadata
 	public DateTime createdAt { get; set; } 
 	public string image { get; set; }
 	public string description { get; set; }
+	public long level { get; set; }
+	public long replicationCount { get; set; }
 	public long maxLevel { get; set; }
 	public long material { get; set; }
 	public long adjective { get; set; }
 	public long rarity { get; set; }
+	public long durabilityRemaining { get; set; }
+	public long repairCount { get; set; }
+
 	public long maxDurability { get; set; }
 	public long manufacturer { get; set; }
 	public long initialReplicationCounter { get; set; }

@@ -110,7 +110,7 @@ public class TestServer
 		{
 			Command = cmd.GetType().FullName,
 			Data = commandData,
-		});
+		}).Result;
 	}
 
 	private IServiceCollection SetupServices()

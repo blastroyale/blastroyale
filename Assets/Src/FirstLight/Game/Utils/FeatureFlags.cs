@@ -10,7 +10,7 @@ namespace FirstLight.Game.Utils
 		/// If true will use email/pass authentication.
 		/// If false will only use device id authentication.
 		/// </summary>
-		public static readonly bool EMAIL_AUTH = false;
+		public static readonly bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit

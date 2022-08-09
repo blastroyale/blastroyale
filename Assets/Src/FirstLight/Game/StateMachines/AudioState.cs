@@ -63,8 +63,7 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetEntityViewUpdaterService)
-			           .Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetEntityViewUpdaterService).Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			matchmaking.OnExit(StopMusicInstant);
 			matchmaking.OnExit(TransitionAudioMixerMain);
@@ -115,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetEntityViewUpdaterService()
 		{
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			_entityViewUpdaterService = MainInstaller.Resolve<IMatchServices>().EntityViewUpdaterService;
 		}
 
 		private void TryPlayMainMenuMusic()

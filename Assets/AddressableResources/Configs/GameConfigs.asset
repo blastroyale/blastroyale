@@ -115,12 +115,12 @@ MonoBehaviour:
       AdjectiveRarityEarningsMod:
         RawValue: 52429
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 3
+      NftRequiredEquippedForPlay: 0
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
-        RawValue: 19660
+        RawValue: 19661
       AirdropRandomAreaMultiplier:
-        RawValue: 6553
+        RawValue: 6554
       AirdropHeight:
         RawValue: 1310720

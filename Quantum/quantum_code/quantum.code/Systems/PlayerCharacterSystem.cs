@@ -55,13 +55,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (f.TryGet<PlayerCharacter>(attacker, out var killer))
-			{
-				f.Signals.PlayerKilledPlayer(player->Player, entity, killer.Player, attacker);
-				f.Events.OnPlayerKilledPlayer(player->Player, killer.Player);
-			}
-
-			player->Dead(f, entity, killer.Player, attacker);
+			player->Dead(f, entity, attacker);
 		}
 
 		/// <inheritdoc />
@@ -124,12 +118,14 @@ namespace Quantum.Systems
 				movedirection = rotation;
 			}
 
-			if (input->AimingDirection.SqrMagnitude > FP._0)
+			var isAiming = input->AimingDirection.SqrMagnitude > FP._0;
+			if (isAiming)
 			{
 				rotation = input->AimingDirection;
 			}
 
-			bb->Set(f, Constants.IsAimingKey, input->IsShootButtonDown);
+			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
+			bb->Set(f, Constants.IsAimingKey, isAiming);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 		}

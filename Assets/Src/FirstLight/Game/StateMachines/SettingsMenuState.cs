@@ -148,7 +148,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void UnlinkComplete()
 		{
-			_appLogic.AccountLinkedStatus.Value = false;
+			_appLogic.UnlinkDevice();
 
 #if UNITY_EDITOR
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);

@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
-using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;

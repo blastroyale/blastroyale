@@ -36,6 +36,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
+			
+			SetVignetteIntensity(1f, 1f);
 		}
 
 		private void OnDestroy()
@@ -50,7 +52,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
 			var stats = frame.Get<Stats>(_entityFollowed);
-
+			
 			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 		}
 

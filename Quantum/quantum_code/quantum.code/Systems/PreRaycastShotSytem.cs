@@ -19,7 +19,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref RaycastShotsFilter filter)
 		{
 			var shot = filter.RaycastShot;
-			var linecastList = f.ResolveList(shot->LinecastQueries);
+			var linecastList = f.ResolveList(filter.RaycastShot->LinecastQueries);
 			var speed = shot->Speed;
 			var deltaTime = f.Time - shot->StartTime;
 			var previousTime = shot->PreviousTime - shot->StartTime;
@@ -36,6 +36,8 @@ namespace Quantum.Systems
 				
 				f.Add<EntityDestroyer>(filter.Entity);
 			}
+			
+			linecastList.Clear();
 			
 			for (var i = 0; i < shot->NumberOfShots; i++)
 			{

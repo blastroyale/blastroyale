@@ -28,9 +28,11 @@ namespace FirstLight.Game.Views
 		private void LateUpdate()
 		{
 			var position = _isTargetFollow ? _target.position : _position;
-			
-			if(_camera != null)
-			transform.position = _camera.WorldToScreenPoint(position) + (Vector3) _screenOffset;
+
+			if (_camera != null)
+			{
+				transform.position = _camera.WorldToScreenPoint(position) + (Vector3) _screenOffset;
+			}
 		}
 
 		/// <inheritdoc />

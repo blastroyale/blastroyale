@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
@@ -7,7 +8,6 @@ using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
@@ -44,12 +44,28 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			SetFrontDimBlockerActive(false);
-
-			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
-
+			
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
 				OpenNoInternetPopup();
+			}
+			
+			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
+
+			// If disconnected in offline mode (playing solo), can't reconnect due to quantum simulation not running
+			// without at least 1 player connected in match at all times
+			if (_services.NetworkService.LastMatchPlayers.Count <= 1 &&
+			    _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
+			{
+				_reconnectButton.gameObject.SetActive(false);
+				
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = () => _services.GenericDialogService.CloseDialog()
+				};
+
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo, false, confirmButton);
 			}
 		}
 

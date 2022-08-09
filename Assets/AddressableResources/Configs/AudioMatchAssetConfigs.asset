@@ -387,3 +387,14 @@ MonoBehaviour:
       BasePitch: 1
       VolumeRandDeviation: 0.25
       PitchRandDeviation: 0.25
+  - Key: 77
+    Value:
+      AudioClips:
+      - m_AssetGUID: 710c73fef6120fe42a87cede6df37fb8
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0.1

@@ -23,7 +23,9 @@ namespace Quantum
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var powerAmount = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
+			var powerBase = (uint) f.Get<Stats>(e).GetStatData(StatType.Power).StatValue.AsInt;
+			var powerRatio = QuantumStatCalculator.GetScaledPowerRatio(f, playerCharacter->CurrentWeapon);
+			var finalPower = powerBase * powerRatio;
 			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
 
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
@@ -57,7 +59,7 @@ namespace Quantum
 				Direction = aimingDirection,
 				StartTime = f.Time,
 				PreviousTime = f.Time,
-				PowerAmount = powerAmount,
+				PowerAmount = (uint)finalPower,
 				KnockbackAmount = weaponConfig.KnockbackAmount,
 				AttackAngle = (uint)targetAttackAngle,
 				Range = weaponConfig.AttackRange,

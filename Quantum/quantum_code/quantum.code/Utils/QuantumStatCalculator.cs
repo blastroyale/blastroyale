@@ -65,7 +65,8 @@ namespace Quantum
 				health += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Health).AsInt;
 				speed += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Speed);
 				armour += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Armour).AsInt;
-				power += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Power);
+				//power shoud be left out of weapon calculation
+				//power += CalculateStat(gameConfig, baseStatConfig, statConfig, statMaterialConfig, weapon, StatType.Power);
 			}
 
 			for (int i = 0; i < gear.Length; i++)
@@ -99,6 +100,39 @@ namespace Quantum
 			statRatio += GetMaterialStatRatioK(materialStatsConfig, stat);
 
 			return ApplyModifiers(baseValue, baseRatio, statRatio, equipment, gameConfig, stat);
+		}
+
+		public static FP GetScaledPowerRatio(Frame f, Equipment equipment)
+		{
+
+			var baseStatConfig = f.BaseEquipmentStatsConfigs.GetConfig(equipment.GameId);
+			var statConfig = f.EquipmentStatsConfigs.GetConfig(equipment);
+			var statMaterialConfig = f.EquipmentMaterialStatsConfigs.GetConfig(equipment);
+			var gameConfig = f.GameConfig;
+
+			//first we grab the base ratio
+			var statRatio = baseStatConfig.PowerRatioToBase;
+			Log.Warn("Base ratio = " + statRatio);
+
+
+			//then we scale it
+			var baseValueForRarity = statRatio * QuantumHelpers.PowFp(gameConfig.StatsPowerRarityMultiplier, (uint)equipment.Rarity);
+
+			// Apply rarity
+			statRatio += baseValueForRarity;
+
+			// Apply grade (keep in mind that the first in order, GradeI, is the most powerful one, so it's reversed to levels and rarities)
+			statRatio += baseValueForRarity * gameConfig.StatsPowerGradeStepMultiplier *
+							 ((uint)EquipmentGrade.TOTAL - (uint)equipment.Grade - 1);
+
+			// Apply level step (equipment.level starts at 0 so we don't need to do -1 like we do in design data)
+			statRatio += baseValueForRarity * gameConfig.StatsPowerLevelStepMultiplier * equipment.Level;
+
+			//and lastly add the extra modfiers
+			statRatio += statMaterialConfig.PowerRatioToBaseK;
+			statRatio += statConfig.PowerRatioToBaseK;
+
+			return statRatio;
 		}
 
 		/// <summary>

@@ -25,7 +25,9 @@ namespace Quantum
 			var transform = f.Get<Transform3D>(e);
 			var position = transform.Position + (transform.Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
-			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
+			var powerBase = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
+			var powerRatio = QuantumStatCalculator.GetScaledPowerRatio(f, playerCharacter->CurrentWeapon);
+			var finalPower = powerBase * powerRatio;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
@@ -45,7 +47,7 @@ namespace Quantum
 			{
 				Attacker = e,
 				Direction = newAngleVector,
-				PowerAmount = (uint) power.AsInt,
+				PowerAmount = (uint)finalPower,
 				KnockbackAmount = weaponConfig.KnockbackAmount,
 				SourceId = weaponConfig.Id,
 				Range = weaponConfig.AttackRange,

@@ -21,7 +21,7 @@ namespace FirstLight.Game.Utils
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
 		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
-		                                                  string roomName)
+		                                                  string roomName, bool isRankedMatch)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
@@ -54,7 +54,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs),
+					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs, isRankedMatch),
 					CustomRoomPropertiesForLobby = new[]
 					{
 						GameConstants.Network.ROOM_PROPS_COMMIT,
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Utils
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = null,
+				ExpectedUsers = null,	
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -107,11 +107,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig, bool isRankedMatch)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig),
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig, isRankedMatch),
 				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
@@ -147,9 +147,9 @@ namespace FirstLight.Game.Utils
 			return compatibleMaps[timeSegmentIndex];
 		}
 
-		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs)
+		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch)
 		{
-			var properties = GetJoinRoomProperties(mapConfig);
+			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
 
@@ -161,7 +161,7 @@ namespace FirstLight.Game.Utils
 			return properties;
 		}
 
-		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig)
+		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig, bool isRankedMatch)
 		{
 			return new Hashtable
 			{
@@ -169,7 +169,10 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id}
+				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id},
+				
+				// For matchmaking, rooms are segregated by casual/ranked.
+				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch}
 			};
 		}
 

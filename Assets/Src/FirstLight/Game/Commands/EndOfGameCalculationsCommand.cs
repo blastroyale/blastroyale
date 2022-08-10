@@ -15,7 +15,7 @@ namespace FirstLight.Game.Commands
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public PlayerRef LocalPlayerRef;
 		public bool DidPlayerQuit;
-		public bool PlayedMatchmakingGame;
+		public bool PlayedRankedMatch;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
@@ -23,11 +23,9 @@ namespace FirstLight.Game.Commands
 			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			var trophyChange = 0;
 			var rewards = new List<RewardData>();
-			var gameMode = gameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(PlayersMatchData[0].MapId).GameMode;
 
-			if (PlayedMatchmakingGame && gameMode == GameMode.BattleRoyale
-			                          // TODO: Remove this check when server plugin is running
-			                          && gameLogic.EquipmentLogic.EnoughLoadoutEquippedToPlay())
+			// TODO: Remove EnoughLoadoutEquippedToPlay check when server plugin is running
+			if (PlayedRankedMatch && gameLogic.EquipmentLogic.EnoughLoadoutEquippedToPlay())
 			{
 				trophyChange = gameLogic.PlayerLogic.UpdateTrophies(PlayersMatchData, LocalPlayerRef);
 				rewards = gameLogic.RewardLogic.GiveMatchRewards(PlayersMatchData[LocalPlayerRef], DidPlayerQuit);

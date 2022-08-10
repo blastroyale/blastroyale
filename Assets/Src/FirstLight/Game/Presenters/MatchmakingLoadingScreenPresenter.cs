@@ -53,8 +53,7 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		private float _rndWaitingTimeLowest;
-		private float _rndWaitingTimeBiggest;
+		private float _playerFillWaitTime;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
 
@@ -125,8 +124,7 @@ namespace FirstLight.Game.Presenters
 			_spectateToggleObjectRoot.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
-			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
-			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
+			_playerFillWaitTime = GameConstants.Network.CASUAL_MATCHMAKING_TIME / room.GetRealPlayerCapacity();
 			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
 			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString().ToUpper();
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
@@ -212,14 +210,24 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
 			AddOrUpdatePlayerInList(newPlayer);
-			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
+
+			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
+			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
+			}
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			RemovePlayerInAllLists(otherPlayer);
-			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
+			
+			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
+			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
+			}
 		}
 
 		/// <inheritdoc />
@@ -370,7 +378,7 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
 			{
 				UpdatePlayersWaitingImages(maxPlayers, i + 1);
-				yield return new WaitForSeconds(Random.Range(_rndWaitingTimeLowest, _rndWaitingTimeBiggest));
+				yield return new WaitForSeconds(_playerFillWaitTime);
 			}
 
 			yield return new WaitForSeconds(0.5f);

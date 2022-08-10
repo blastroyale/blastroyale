@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Facebook.Unity;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -84,7 +83,6 @@ namespace FirstLight.Game
 
 		private void Start()
 		{
-			FB.Init(FacebookInit);
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
 			TrySetLocalServer();
@@ -116,17 +114,6 @@ namespace FirstLight.Game
 			var quitReason = _services?.GameFlowService.QuitReason;
 			
 			_services?.AnalyticsService.SessionCalls.SessionEnd(quitReason);
-		}
-
-		private static void FacebookInit()
-		{
-			if (!FB.IsInitialized)
-			{
-				Debug.LogException(new UnityException("Facebook failed to initialized"));
-				return;
-			}
-
-			FB.ActivateApp();
 		}
 
 		private void TrySetLocalServer()

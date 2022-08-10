@@ -41,6 +41,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private Coroutine _matchmakingCoroutine;
+		
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
 		public NetworkState(IGameLogic gameLogic, IGameServices services, IGameUiService uiService,
@@ -303,6 +306,11 @@ namespace FirstLight.Game.StateMachines
 		public void OnLeftRoom()
 		{
 			FLog.Info("OnLeftRoom");
+
+			if (_matchmakingCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_matchmakingCoroutine);
+			}
 			
 			_statechartTrigger(LeftRoomEvent);
 		}
@@ -567,13 +575,13 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartMatchmakingLockRoomTimer()
 		{
-			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
-
-			IEnumerator LockRoomCoroutine()
+			if (_networkService.QuantumClient.CurrentRoom.IsRankedRoom())
 			{
-				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
-
-				LockRoom();
+				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(RankedMatchmakingCoroutine());
+			}
+			else
+			{
+				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(CasualMatchmakingCoroutine());
 			}
 		}
 
@@ -585,6 +593,59 @@ namespace FirstLight.Game.StateMachines
 			{
 				room.IsOpen = false;
 			}
+		}
+		
+		// TODO - USE QUANTUM GAME CONFIGS FOR METHODS BELOW
+		// TODO _services.ConfigsProvider.GetConfig<QuantumGameConfig>().
+		private IEnumerator CasualMatchmakingCoroutine()
+		{
+			var currentMatchmakingTime = 0f;
+			var oneSecond = new WaitForSeconds(1f);
+			
+			// Wait until casual matchmaking time has finished, or match is full
+			while (currentMatchmakingTime < GameConstants.Network.CASUAL_MATCHMAKING_TIME)
+			{
+				currentMatchmakingTime += Time.deltaTime;
+
+				if (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >=
+				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
+				{
+					break;
+				}
+				
+				yield return oneSecond;
+			}
+
+			LockRoom();
+		}
+			
+		private IEnumerator RankedMatchmakingCoroutine()
+		{
+			var currentMatchmakingTime = 0f;
+			var oneSecond = new WaitForSeconds(1f);
+			
+			// Wait until ranked matchmaking time has finished, or match is full
+			while (currentMatchmakingTime < GameConstants.Network.RANKED_MATCHMAKING_TIME)
+			{
+				currentMatchmakingTime += Time.deltaTime;
+
+				if (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >=
+				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
+				{
+					break;
+				}
+				
+				yield return oneSecond;
+			}
+			
+			// If match still does not have required played amount, ALWAYS wait until it does
+			// Ranked matches affect earnings, and must be played with minimum X players
+			while (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() < GameConstants.Network.RANKED_MATCHMAKING_MIN_PLAYERS)
+			{
+				yield return oneSecond;
+			}
+
+			LockRoom();
 		}
 
 		private void ConnectPhoton()

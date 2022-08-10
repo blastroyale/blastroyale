@@ -138,7 +138,12 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(true);
 
 				_roomNameRootObject.SetActive(false);
-				StartCoroutine(TimeUpdateCoroutine(room.GetRealPlayerCapacity()));
+				
+				if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual)
+				{
+					StartCoroutine(MatchmakingTimeUpdateCoroutine(room.GetRealPlayerCapacity()));
+				}
+
 				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
 			}
 			else
@@ -207,12 +212,14 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
 			AddOrUpdatePlayerInList(newPlayer);
+			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			RemovePlayerInAllLists(otherPlayer);
+			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 		}
 
 		/// <inheritdoc />
@@ -345,6 +352,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayersWaitingImages(int maxPlayers, int playerAmount)
 		{
+			if (!CurrentRoom.IsMatchmakingRoom())
+			{
+				return;
+			}
+			
 			for (var i = 0; i < _playersWaitingImage.Length; i++)
 			{
 				_playersWaitingImage[i].gameObject.SetActive((i + 1) <= playerAmount);
@@ -353,7 +365,7 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{playerAmount.ToString()}/{maxPlayers.ToString()}";
 		}
 
-		private IEnumerator TimeUpdateCoroutine(int maxPlayers)
+		private IEnumerator MatchmakingTimeUpdateCoroutine(int maxPlayers)
 		{
 			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
 			{

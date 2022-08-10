@@ -8,7 +8,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero
+	                                            ISignalOnPlayerDataSet, ISignalHealthIsZeroFromAttacker
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -48,30 +48,23 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
 			{
 				return;
 			}
-
-			player->Dead(f, entity, attacker);
-		}
-
-		/// <inheritdoc />
-		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
-		{
-			var deathPosition = f.Get<Transform3D>(entityDead).Position;
-			var armourDropChance = f.RNG->Next();
+			
+			var deathPosition = f.Get<Transform3D>(entity).Position;
 			var step = 0;
 			var gameMode = f.Context.MapConfig.GameMode;
 
+			playerDead->Dead(f, entity, attacker);
+
 			//when you kill a player in BR we drop also his/hers weapon
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale &&
-			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && !playerDead->HasMeleeWeapon(f, entity))
 			{
-				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
+				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
 			}
 
@@ -86,6 +79,8 @@ namespace Quantum.Systems
 				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
 				step++;
 			}
+			
+			var armourDropChance = f.RNG->Next();
 
 			// Try to drop ShieldLarge
 			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)

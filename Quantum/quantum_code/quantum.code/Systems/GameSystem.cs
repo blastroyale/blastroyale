@@ -6,7 +6,7 @@ namespace Quantum.Systems
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
 	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
-	                                 ISignalGameEnded, ISignalHealthIsZero
+	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer
 	{
 		/// <inheritdoc />
 		public override void Update(Frame f)
@@ -49,26 +49,29 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
+		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
-			if (!f.Has<PlayerCharacter>(entity))
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+
+			if (f.Context.MapConfig.GameMode != GameMode.BattleRoyale)
 			{
 				return;
 			}
 			
-			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			var inc = 0u;
+			container->UpdateGameProgress(f, 1);
+		}
 
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
+		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
+		                               EntityRef entityKiller)
+		{
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+
+			if (f.Context.MapConfig.GameMode != GameMode.Deathmatch)
 			{
-				inc = 1;
+				return;
 			}
-			else if(entity != attacker && f.TryGet<PlayerCharacter>(attacker, out var killer))
-			{
-				var killerData = container->PlayersData[killer.Player];
-				
-				inc = killerData.PlayersKilledCount - container->CurrentProgress;
-			}
+
+			var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
 			
 			container->UpdateGameProgress(f, inc);
 		}

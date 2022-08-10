@@ -6,7 +6,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the changes in a <see cref="Destructible"/> entity
 	/// </summary>
 	public unsafe class DestructibleSystem : SystemMainThreadFilter<DestructibleSystem.DestructibleFilter>,
-	                                         ISignalHealthIsZero
+	                                         ISignalHealthIsZeroFromAttacker
 	{
 		public struct DestructibleFilter
 		{
@@ -35,7 +35,7 @@ namespace Quantum.Systems
 		}
 		
 		/// <inheritdoc />
-		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
 			if (!f.Unsafe.TryGetPointer<Destructible>(entity, out var destructible) || destructible->IsDestructing)
 			{

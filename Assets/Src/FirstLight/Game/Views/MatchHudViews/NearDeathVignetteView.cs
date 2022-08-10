@@ -24,7 +24,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private EntityRef _entityFollowed;
 
 		private void Awake()
 		{
@@ -35,7 +34,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
-			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
 			
 			SetVignetteIntensity(1f, 1f);
 		}
@@ -48,17 +47,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			_entityFollowed = next.Entity;
-
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var stats = frame.Get<Stats>(_entityFollowed);
+			var frame = QuantumRunner.Default.Game.Frames.Predicted;
+			var stats = frame.Get<Stats>(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			
 			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 		}
 
 		private void OnEventOnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != _entityFollowed)
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
 				return;
 			}
@@ -66,9 +63,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			SetVignetteIntensity(callback.CurrentHealth, callback.MaxHealth);
 		}
 
-		private void OnEventOnHealthIsZero(EventOnHealthIsZero callback)
+		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			if (callback.Entity != _entityFollowed)
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
 				return;
 			}

@@ -4710,10 +4710,11 @@ namespace Quantum {
   }
   public unsafe partial class Frame {
     private ISignalGameEnded[] _ISignalGameEndedSystems;
+    private ISignalPlayerDead[] _ISignalPlayerDeadSystems;
     private ISignalPlayerKilledPlayer[] _ISignalPlayerKilledPlayerSystems;
     private ISignalSpecialUsed[] _ISignalSpecialUsedSystems;
-    private ISignalHealthChanged[] _ISignalHealthChangedSystems;
-    private ISignalHealthIsZero[] _ISignalHealthIsZeroSystems;
+    private ISignalHealthChangedFromAttacker[] _ISignalHealthChangedFromAttackerSystems;
+    private ISignalHealthIsZeroFromAttacker[] _ISignalHealthIsZeroFromAttackerSystems;
     private ISignalStatusModifierCancelled[] _ISignalStatusModifierCancelledSystems;
     private ISignalTargetChanged[] _ISignalTargetChangedSystems;
     partial void AllocGen() {
@@ -4767,10 +4768,11 @@ namespace Quantum {
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
       _ISignalGameEndedSystems = BuildSignalsArray<ISignalGameEnded>();
+      _ISignalPlayerDeadSystems = BuildSignalsArray<ISignalPlayerDead>();
       _ISignalPlayerKilledPlayerSystems = BuildSignalsArray<ISignalPlayerKilledPlayer>();
       _ISignalSpecialUsedSystems = BuildSignalsArray<ISignalSpecialUsed>();
-      _ISignalHealthChangedSystems = BuildSignalsArray<ISignalHealthChanged>();
-      _ISignalHealthIsZeroSystems = BuildSignalsArray<ISignalHealthIsZero>();
+      _ISignalHealthChangedFromAttackerSystems = BuildSignalsArray<ISignalHealthChangedFromAttacker>();
+      _ISignalHealthIsZeroFromAttackerSystems = BuildSignalsArray<ISignalHealthIsZeroFromAttacker>();
       _ISignalStatusModifierCancelledSystems = BuildSignalsArray<ISignalStatusModifierCancelled>();
       _ISignalTargetChangedSystems = BuildSignalsArray<ISignalTargetChanged>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
@@ -4897,6 +4899,15 @@ namespace Quantum {
           }
         }
       }
+      public void PlayerDead(PlayerRef playerDead, EntityRef entityDead) {
+        var array = _f._ISignalPlayerDeadSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.PlayerDead(_f, playerDead, entityDead);
+          }
+        }
+      }
       public void PlayerKilledPlayer(PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller, EntityRef entityKiller) {
         var array = _f._ISignalPlayerKilledPlayerSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -4915,21 +4926,21 @@ namespace Quantum {
           }
         }
       }
-      public void HealthChanged(EntityRef entity, EntityRef attacker, Int32 previousHealth) {
-        var array = _f._ISignalHealthChangedSystems;
+      public void HealthChangedFromAttacker(EntityRef entity, EntityRef attacker, Int32 previousHealth) {
+        var array = _f._ISignalHealthChangedFromAttackerSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.HealthChanged(_f, entity, attacker, previousHealth);
+            s.HealthChangedFromAttacker(_f, entity, attacker, previousHealth);
           }
         }
       }
-      public void HealthIsZero(EntityRef entity, EntityRef attacker) {
-        var array = _f._ISignalHealthIsZeroSystems;
+      public void HealthIsZeroFromAttacker(EntityRef entity, EntityRef attacker) {
+        var array = _f._ISignalHealthIsZeroFromAttackerSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.HealthIsZero(_f, entity, attacker);
+            s.HealthIsZeroFromAttacker(_f, entity, attacker);
           }
         }
       }
@@ -4990,7 +5001,7 @@ namespace Quantum {
           case EventOnHealthChanged.ID: return typeof(EventOnHealthChanged);
           case EventOnDamageBlocked.ID: return typeof(EventOnDamageBlocked);
           case EventOnShieldChanged.ID: return typeof(EventOnShieldChanged);
-          case EventOnHealthIsZero.ID: return typeof(EventOnHealthIsZero);
+          case EventOnHealthIsZeroFromAttacker.ID: return typeof(EventOnHealthIsZeroFromAttacker);
           case EventOnStatusModifierSet.ID: return typeof(EventOnStatusModifierSet);
           case EventOnStatusModifierCancelled.ID: return typeof(EventOnStatusModifierCancelled);
           case EventOnStatusModifierFinished.ID: return typeof(EventOnStatusModifierFinished);
@@ -5267,11 +5278,10 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHealthChanged OnHealthChanged(EntityRef Entity, EntityRef Attacker, Int32 PreviousHealth, Int32 CurrentHealth, Int32 MaxHealth) {
+      public EventOnHealthChanged OnHealthChanged(EntityRef Entity, Int32 PreviousHealth, Int32 CurrentHealth, Int32 MaxHealth) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnHealthChanged>(EventOnHealthChanged.ID);
         ev.Entity = Entity;
-        ev.Attacker = Attacker;
         ev.PreviousHealth = PreviousHealth;
         ev.CurrentHealth = CurrentHealth;
         ev.MaxHealth = MaxHealth;
@@ -5297,14 +5307,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHealthIsZero OnHealthIsZero(EntityRef Entity, EntityRef Attacker, Int32 DamageAmount, Int32 MaxHealth, UInt32 SpellID) {
+      public EventOnHealthIsZeroFromAttacker OnHealthIsZeroFromAttacker(EntityRef Entity, EntityRef Attacker, Int32 DamageAmount, Int32 MaxHealth) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnHealthIsZero>(EventOnHealthIsZero.ID);
+        var ev = _f.Context.AcquireEvent<EventOnHealthIsZeroFromAttacker>(EventOnHealthIsZeroFromAttacker.ID);
         ev.Entity = Entity;
         ev.Attacker = Attacker;
         ev.DamageAmount = DamageAmount;
         ev.MaxHealth = MaxHealth;
-        ev.SpellID = SpellID;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5419,11 +5428,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerDead OnPlayerDead(PlayerRef Player, EntityRef Entity) {
+      public EventOnPlayerDead OnPlayerDead(PlayerRef Player, EntityRef Entity, EntityRef EntityKiller, QBoolean IsPlayerKiller) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerDead>(EventOnPlayerDead.ID);
         ev.Player = Player;
         ev.Entity = Entity;
+        ev.EntityKiller = EntityKiller;
+        ev.IsPlayerKiller = IsPlayerKiller;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5801,17 +5812,20 @@ namespace Quantum {
   public unsafe interface ISignalGameEnded : ISignal {
     void GameEnded(Frame f);
   }
+  public unsafe interface ISignalPlayerDead : ISignal {
+    void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead);
+  }
   public unsafe interface ISignalPlayerKilledPlayer : ISignal {
     void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller, EntityRef entityKiller);
   }
   public unsafe interface ISignalSpecialUsed : ISignal {
     void SpecialUsed(Frame f, PlayerRef player, EntityRef entity, SpecialType specialType, Int32 specialIndex);
   }
-  public unsafe interface ISignalHealthChanged : ISignal {
-    void HealthChanged(Frame f, EntityRef entity, EntityRef attacker, Int32 previousHealth);
+  public unsafe interface ISignalHealthChangedFromAttacker : ISignal {
+    void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, Int32 previousHealth);
   }
-  public unsafe interface ISignalHealthIsZero : ISignal {
-    void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker);
+  public unsafe interface ISignalHealthIsZeroFromAttacker : ISignal {
+    void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker);
   }
   public unsafe interface ISignalStatusModifierCancelled : ISignal {
     void StatusModifierCancelled(Frame f, EntityRef entity, StatusModifierType type);
@@ -6574,7 +6588,6 @@ namespace Quantum {
   public unsafe partial class EventOnHealthChanged : EventBase {
     public new const Int32 ID = 26;
     public EntityRef Entity;
-    public EntityRef Attacker;
     public Int32 PreviousHealth;
     public Int32 CurrentHealth;
     public Int32 MaxHealth;
@@ -6596,7 +6609,6 @@ namespace Quantum {
       unchecked {
         var hash = 163;
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + PreviousHealth.GetHashCode();
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
@@ -6664,17 +6676,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnHealthIsZero : EventBase {
+  public unsafe partial class EventOnHealthIsZeroFromAttacker : EventBase {
     public new const Int32 ID = 29;
     public EntityRef Entity;
     public EntityRef Attacker;
     public Int32 DamageAmount;
     public Int32 MaxHealth;
-    public UInt32 SpellID;
-    protected EventOnHealthIsZero(Int32 id, EventFlags flags) : 
+    protected EventOnHealthIsZeroFromAttacker(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnHealthIsZero() : 
+    public EventOnHealthIsZeroFromAttacker() : 
         base(29, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6692,7 +6703,6 @@ namespace Quantum {
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + DamageAmount.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();
-        hash = hash * 31 + SpellID.GetHashCode();
         return hash;
       }
     }
@@ -7064,6 +7074,8 @@ namespace Quantum {
     public new const Int32 ID = 43;
     public PlayerRef Player;
     public EntityRef Entity;
+    public EntityRef EntityKiller;
+    public QBoolean IsPlayerKiller;
     protected EventOnPlayerDead(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7083,6 +7095,8 @@ namespace Quantum {
         var hash = 257;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + EntityKiller.GetHashCode();
+        hash = hash * 31 + IsPlayerKiller.GetHashCode();
         return hash;
       }
     }

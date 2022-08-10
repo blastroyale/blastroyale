@@ -9,6 +9,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
@@ -175,7 +176,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
-				_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
+				var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
+				audio.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
 			}
 		}
 

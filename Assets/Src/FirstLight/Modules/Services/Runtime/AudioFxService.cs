@@ -586,13 +586,13 @@ namespace FirstLight.Services
 			if (_activeMusicSource.Source.isPlaying)
 			{
 				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
-				_transitionMusicSource.Play(null, Vector3.zero, sourceInitData);
 				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, SwapMusicSources);
+				_transitionMusicSource.Play(null, Vector3.zero, sourceInitData);
 			}
 			else
 			{
-				_activeMusicSource.Play(null, Vector3.zero, sourceInitData);
 				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
+				_activeMusicSource.Play(null, Vector3.zero, sourceInitData);
 			}
 		}
 

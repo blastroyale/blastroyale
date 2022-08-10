@@ -268,6 +268,8 @@ namespace FirstLight.Services
 		public void StopAndDespawn()
 		{
 			Source.Stop();
+			
+			SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			if (_playSoundCoroutine != null)
 			{

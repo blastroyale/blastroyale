@@ -612,8 +612,6 @@ namespace FirstLight.Game.StateMachines
 			// Wait until casual matchmaking time has finished, or match is full
 			while (currentMatchmakingTime < GameConstants.Network.CASUAL_MATCHMAKING_TIME)
 			{
-				currentMatchmakingTime += Time.deltaTime;
-
 				if (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >=
 				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
 				{
@@ -621,6 +619,8 @@ namespace FirstLight.Game.StateMachines
 				}
 				
 				yield return oneSecond;
+				
+				currentMatchmakingTime += 1f;
 			}
 
 			LockRoom();
@@ -634,8 +634,6 @@ namespace FirstLight.Game.StateMachines
 			// Wait until ranked matchmaking time has finished, or match is full
 			while (currentMatchmakingTime < GameConstants.Network.RANKED_MATCHMAKING_TIME)
 			{
-				currentMatchmakingTime += Time.deltaTime;
-
 				if (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >=
 				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
 				{
@@ -643,6 +641,8 @@ namespace FirstLight.Game.StateMachines
 				}
 				
 				yield return oneSecond;
+				
+				currentMatchmakingTime += 1f;
 			}
 			
 			// If match still does not have required played amount, ALWAYS wait until it does

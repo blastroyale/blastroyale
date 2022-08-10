@@ -188,12 +188,6 @@ namespace FirstLight.Services
 			}
 		}
 
-		private void OnDestroy()
-		{
-			_fadeVolumeCallback?.Invoke(this);
-			_fadeVolumeCallback = null;
-		}
-
 		/// <summary>
 		/// Initialize the audio source of the object with relevant properties
 		/// </summary>
@@ -206,6 +200,8 @@ namespace FirstLight.Services
 			{
 				return;
 			}
+			
+			SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			_pool = pool;
 			_soundPlayedCallback = soundPlayedCallback;

@@ -197,7 +197,7 @@ namespace FirstLight.Game.Services
 
 		private bool SetSpectatedEntity(EntityRef entity, PlayerRef player, bool safe = false)
 		{
-			if (_spectatedPlayer.Value.Entity == entity) return false;
+			if (_spectatedPlayer.Value.Entity == entity || !entity.IsValid) return false;
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{

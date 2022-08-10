@@ -21,7 +21,7 @@ namespace Quantum
 		/// <summary>
 		/// Requests the list of <see cref="GameIdGroup"/> slots ready to be equipped
 		/// </summary>
-		public static List<GameIdGroup> EquipmentSlots => _slots;
+		public static IReadOnlyList<GameIdGroup> EquipmentSlots => _slots;
 
 		/// <summary>
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
@@ -32,7 +32,7 @@ namespace Quantum
 		                 EquipmentGrade grade = EquipmentGrade.GradeV,
 		                 EquipmentFaction faction = EquipmentFaction.Order,
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
-		                 EquipmentMaterial material = EquipmentMaterial.Bronze,
+		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
 		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
 		                 uint maxDurability = 100,
 		                 uint maxLevel = 10,

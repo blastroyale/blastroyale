@@ -26,11 +26,11 @@ namespace Quantum
 				case StatType.Health:
 					return HpRatioToBase;
 				case StatType.Power:
-					return ArmorRatioToBase;
+					return PowerRatioToBase;
 				case StatType.Speed:
 					return SpeedRatioToBase;
 				case StatType.Armour:
-					return PowerRatioToBase;
+					return ArmorRatioToBase;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(statType), statType, null);
 			}

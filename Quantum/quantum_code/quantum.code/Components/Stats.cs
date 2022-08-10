@@ -52,7 +52,7 @@ namespace Quantum
 			CurrentStatusModifierType = StatusModifierType.None;
 			IsImmune = false;
 			CurrentHealth = int.MaxValue;
-			CurrentShield = int.MaxValue;
+			CurrentShield = 0;
 			
 			f.ResolveList(Modifiers).Clear();
 			RefreshStats(f, weapon, gear);

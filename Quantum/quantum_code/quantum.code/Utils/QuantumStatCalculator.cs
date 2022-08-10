@@ -31,11 +31,12 @@ namespace Quantum
 			for (var i = 0; i < gear.Length; i++)
 			{
 				var item = gear[i];
+				
 				if (!item.IsValid())
 				{
 					continue;
 				}
-
+				
 				health += CalculateStat(f, item, StatType.Health).AsInt;
 				speed += CalculateStat(f, item, StatType.Speed);
 				armour += CalculateStat(f, item, StatType.Armour).AsInt;

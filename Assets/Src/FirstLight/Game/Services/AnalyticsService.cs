@@ -110,8 +110,6 @@ namespace FirstLight.Game.Services
 			}
 			
 			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
-			
-			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
 		}
 
 		/// <inheritdoc />

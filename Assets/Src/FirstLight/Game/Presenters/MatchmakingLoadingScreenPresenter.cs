@@ -1,4 +1,5 @@
 using System.Collections;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -30,6 +31,7 @@ namespace FirstLight.Game.Presenters
 
 		public MapSelectionView MapSelectionView;
 
+		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
 		[SerializeField, Required] private Button _leaveRoomButton;
 		[SerializeField, Required] private Image[] _playersWaitingImage;
@@ -56,6 +58,7 @@ namespace FirstLight.Game.Presenters
 		private bool _spectatorToggleTimeOut;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
+		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
 
 		private void Awake()
 		{
@@ -84,12 +87,14 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
+			_rootObject.SetActive(true);
+			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
 			
 			MapSelectionView.SetupMapView(room.GetMapId());
 			
-			if (!_services.NetworkService.IsJoiningNewMatch)
+			if (RejoiningRoom)
 			{
 				_playerListHolder.Init((uint) mapInfo.PlayersLimit);
 				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
@@ -97,7 +102,9 @@ namespace FirstLight.Game.Presenters
 				_spectateToggleObjectRoot.SetActive(false);
 				_botsToggleObjectRoot.SetActive(false);
 				_lockRoomButton.gameObject.SetActive(false);
-				
+				_leaveRoomButton.gameObject.SetActive(false);
+				_loadingText.SetActive(true);
+
 				foreach (var playerKvp in CurrentRoom.Players)
 				{
 					AddOrUpdatePlayerInList(playerKvp.Value);
@@ -152,10 +159,16 @@ namespace FirstLight.Game.Presenters
 		protected override void OnClosed()
 		{
 			MapSelectionView.CleanupMapView();
+			_rootObject.SetActive(true);
 		}
 
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
+			if (RejoiningRoom)
+			{
+				return;
+			}
+
 			// For custom games, only show leave room button if we are not loading straight into the match (if host locked room while we were loading)
 			if (!CurrentRoom.IsMatchmakingRoom() && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
 			{
@@ -174,7 +187,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_spectateToggleObjectRoot.SetActive(true);
 			}
-
+			
 			_loadedCoreMatchAssets = true;
 		}
 

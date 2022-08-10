@@ -5,6 +5,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -68,8 +69,10 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetAuthenticationData);
+			initial.OnExit(() => _dataService.LoadData<AppData>());
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
+			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(OnLinkSuccess).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
@@ -161,12 +164,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasLinkedDevice()
 		{
-			return !FeatureFlags.EMAIL_AUTH || _dataService.GetData<AppData>().LinkedDevice;
+			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
 		}
 
 		private void LoginWithDevice()
 		{
 			FLog.Verbose("Logging in with device ID");
+			var deviceId = _dataService.GetData<AppData>().DeviceId;
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
 				GetUserAccountInfo = true,
@@ -177,7 +181,7 @@ namespace FirstLight.Game.StateMachines
 			var login = new LoginWithCustomIDRequest
 			{
 				CreateAccount = true,
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
@@ -189,7 +193,7 @@ namespace FirstLight.Game.StateMachines
 				CreateAccount = true,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				AndroidDeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
@@ -200,7 +204,7 @@ namespace FirstLight.Game.StateMachines
 				CreateAccount = true,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				DeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
@@ -212,19 +216,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 
-#if STORE_BUILD
-			if (!FeatureFlags.TEMP_PRODUCTION_PLAYFAB)
-			{
-				PlayFabSettings.TitleId = "***REMOVED***";
-				quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
-			} 
-			else 
-			{
-				PlayFabSettings.TitleId = "302CF";
-				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			}
-#elif RELEASE_BUILD
-			// Staging
+#if LIVE_SERVER
+			PlayFabSettings.TitleId = "302CF";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+#elif OFFCHAIN_SERVER
+			PlayFabSettings.TitleId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+#elif STAGE_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else
@@ -232,7 +230,6 @@ namespace FirstLight.Game.StateMachines
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
-			_dataService.LoadData<AppData>();
 		}
 
 		private void ProcessAuthentication(LoginResult result)
@@ -283,7 +280,7 @@ namespace FirstLight.Game.StateMachines
 				ForceLink = true
 			};
 			
-			PlayFabClientAPI.LinkCustomID(link, _ => OnLinkSuccess(), OnLinkFail);
+			PlayFabClientAPI.LinkCustomID(link, _ => OnLinkSuccess(), OnPlayFabError);
 #elif UNITY_ANDROID
 			var link = new LinkAndroidDeviceIDRequest
 			{
@@ -293,7 +290,7 @@ namespace FirstLight.Game.StateMachines
 				ForceLink = true
 			};
 			
-			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnLinkSuccess(), OnLinkFail);
+			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnLinkSuccess(), OnPlayFabError);
 
 #elif UNITY_IOS
 			var link = new LinkIOSDeviceIDRequest
@@ -304,20 +301,15 @@ namespace FirstLight.Game.StateMachines
 				ForceLink = true
 			};
 			
-			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnLinkSuccess(), OnLinkFail);
+			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnLinkSuccess(), OnPlayFabError);
 #endif
-			
-			void OnLinkFail(PlayFabError error)
-			{
-				OnPlayFabError(error);
-			}
-			
-			void OnLinkSuccess()
-			{
-				_dataService.GetData<AppData>().LinkedDevice = true;
-				_dataService.SaveData<AppData>();
-				FLog.Verbose("Linked account with device in playfab");
-			}
+		}
+		
+		private void OnLinkSuccess()
+		{
+			_dataService.GetData<AppData>().DeviceId = PlayFabSettings.DeviceUniqueIdentifier;
+			_dataService.SaveData<AppData>();
+			FLog.Verbose("Linked account with device in playfab");
 		}
 
 		private void FinalStepsAuthentication(IWaitActivity activity)
@@ -417,14 +409,13 @@ namespace FirstLight.Game.StateMachines
 		private void OnLoginSuccess(LoginResult result)
 		{
 			var appData = _dataService.GetData<AppData>();
-
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 
 			_services.HelpdeskService.Login(userId, email, userName);
 			
-			if (!appData.LinkedDevice)
+			if (string.IsNullOrWhiteSpace(appData.DeviceId))
 			{
 				LinkDeviceID();
 			}

@@ -71,7 +71,6 @@ namespace Quantum.Systems
 			}
 			
 			linecastList.Clear();
-			
 		}
 	}
 }

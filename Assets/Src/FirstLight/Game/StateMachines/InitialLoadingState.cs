@@ -94,8 +94,14 @@ namespace FirstLight.Game.StateMachines
 			
 			await Task.WhenAll(tasks);
 
-			await _services.AudioFxService
-			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary);
+			var audioTasks = new List<Task>();
+			
+			audioTasks.Add(_services.AudioFxService
+			                        .LoadAudioMixers(configProvider.GetConfig<AudioMixerConfigs>().ConfigsDictionary));
+			audioTasks.Add(_services.AudioFxService
+			               .LoadAudioClips(configProvider.GetConfig<AudioSharedAssetConfigs>().ConfigsDictionary));
+			
+			await Task.WhenAll(audioTasks);
 			
 			LoadVfx();
 		}
@@ -120,6 +126,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return new List<Task>
 			{
+				_configsLoader.LoadConfig<AudioMixerConfigs>(AddressableId.Configs_AudioMixerConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMatchAssetConfigs>(AddressableId.Configs_AudioMatchAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioMainMenuAssetConfigs>(AddressableId.Configs_AudioMainMenuAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),
 				_configsLoader.LoadConfig<AudioSharedAssetConfigs>(AddressableId.Configs_AudioSharedAssetConfigs, asset => _configsAdder.AddSingletonConfig(asset)),

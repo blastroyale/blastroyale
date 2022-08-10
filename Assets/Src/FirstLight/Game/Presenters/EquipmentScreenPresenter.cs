@@ -14,7 +14,6 @@ using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
-using FirstLight.Game.Messages;
 using Quantum;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
@@ -362,7 +361,7 @@ namespace FirstLight.Game.Presenters
 
 			_powerChangeText.color = damageDiff < 0 ? Color.red : Color.green;
 
-			if (damageDiff > float.Epsilon)
+			if (Mathf.Abs(damageDiff) > float.Epsilon)
 			{
 				_powerChangeText.text = $"{ScriptLocalization.MainMenu.Power} {postfix} {Mathf.Abs(damageDiff).ToString()}";
 				_powerChangeText.enabled = true;

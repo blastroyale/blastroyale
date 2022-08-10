@@ -1,5 +1,4 @@
 using System;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using UnityEngine;
 using FirstLight.Game.Utils;
@@ -53,7 +52,5 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.GameModeChosen();
 		}
-		
-		
 	}
 }

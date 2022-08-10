@@ -75,11 +75,11 @@ MonoBehaviour:
         RawValue: 196608
       StatsPowerBaseValue: 250
       StatsPowerRarityMultiplier:
-        RawValue: 68813
+        RawValue: 66191
       StatsPowerLevelStepMultiplier:
         RawValue: 328
       StatsPowerGradeStepMultiplier:
-        RawValue: 4588
+        RawValue: 3277
       StatsHpBaseValue: 300
       StatsHpRarityMultiplier:
         RawValue: 72090
@@ -119,8 +119,8 @@ MonoBehaviour:
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
-        RawValue: 19660
+        RawValue: 19661
       AirdropRandomAreaMultiplier:
-        RawValue: 6553
+        RawValue: 6554
       AirdropHeight:
         RawValue: 1310720

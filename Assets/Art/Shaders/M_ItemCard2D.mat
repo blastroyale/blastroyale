@@ -105,7 +105,7 @@ Material:
     - _Adjective_Amount: 0.5
     - _FX_Amount: 0.5
     - _FX_Size: 1.64
-    - _Grade_Amount: -5
+    - _Grade_Amount: -0.3
     - _PlusIndicator: 1
     - _Plus_Amount: 1.5
     - _Plus_Indicator: 1

@@ -169,7 +169,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			FLog.Verbose("Rendering MiniMap camera.");
 			var ct = _minimapCamera.transform;
-			ct.parent = null;
+			ct.SetParent(null);
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
 		}
@@ -255,7 +255,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			UpdatePlayerIndicator(playerViewportPoint);
 			UpdateAirdropIndicators(playerViewportPoint, callback.Game.Frames.Predicted.Time);
-			UpdateShrinkingCircle(playerViewportPoint, callback.Game.Frames.Predicted);
+			UpdateMap(playerViewportPoint, callback.Game.Frames.Predicted);
 		}
 
 		private void UpdatePlayerIndicator(Vector3 playerViewportPoint)
@@ -268,7 +268,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
 		}
 
-		private void UpdateShrinkingCircle(Vector3 playerViewportPoint, Frame f)
+		private void UpdateMap(Vector3 playerViewportPoint, Frame f)
 		{
 			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
@@ -283,19 +283,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
 			                 Vector3.one / 2f;
 
-			// Check to only draw safe area after the first warning / announcement
-			if (!_safeAreaSet)
+			if (_config.Step != circle.Step)
 			{
-				if (_config.Step != circle.Step)
-				{
-					_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
-				}
-
-				if (f.Time > circle.ShrinkingStartTime - _config.WarningTime)
-				{
-					_safeAreaSet = true;
-				}
+				_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 			}
+			
+			// Check to only draw safe area after the warning / announcement
+			_safeAreaSet = f.Time > circle.ShrinkingStartTime - _config.WarningTime;
 
 			// Danger ring / area
 			_minimapImage.materialForRendering.SetFloat(_dangerAreaSizePID, dangerRadius);
@@ -365,6 +359,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)
 		{
+			if (_displayedAirdrops.ContainsKey(entity))
+			{
+				return;
+			}
+			
 			var airdropView = _airdropPool.Spawn();
 			airdropView.SetAirdrop(airDrop, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
 			_displayedAirdrops.Add(entity, airdropView);

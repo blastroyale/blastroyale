@@ -20,7 +20,7 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 		
-		public bool LinkedDevice;
+		public string DeviceId;
 		
 		public DateTime GameReviewDate;
 

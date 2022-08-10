@@ -1,5 +1,8 @@
+using System;
+
 namespace FirstLight.Game.Data.DataTypes
 {
+	[Serializable]
 	public struct NftEquipmentData
 	{
 		public string TokenId;

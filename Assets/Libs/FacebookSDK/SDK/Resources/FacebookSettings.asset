@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: -2115301841, guid: c49f2b3ca212b47fc9cd8ce655177c89, type: 3}
   m_Name: FacebookSettings
   m_EditorClassIdentifier: 
-  selectedAppIndex: 0
+  selectedAppIndex: 1
   clientTokens:
-  - 
-  - 
+  - ***REMOVED***
+  - ***REMOVED***
   appIds:
-  - 215637290123578
-  - 157194919704900
+  - 1198360504059483
+  - 1198360504059483
   appLabels:
-  - Boss Hunt Heroes
-  - Boss Hunt Heroes Dev
+  - Blast Royale
+  - Blast Royale
   cookie: 1
   logging: 1
   status: 1

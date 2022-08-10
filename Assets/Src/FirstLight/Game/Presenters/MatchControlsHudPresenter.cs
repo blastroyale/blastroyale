@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -146,7 +145,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
-			_currentWeaponSlot = 0;
+			_currentWeaponSlot = playerCharacter.CurrentWeaponSlot;
 			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
 			
 			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);

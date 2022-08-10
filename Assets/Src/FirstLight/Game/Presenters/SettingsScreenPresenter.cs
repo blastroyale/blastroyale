@@ -1,6 +1,5 @@
 using System;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +9,6 @@ using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
-using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
 
@@ -67,6 +65,7 @@ namespace FirstLight.Game.Presenters
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
 			_faq.onClick.AddListener(OnFaqButtonPressed);
+			_logoutButton.gameObject.SetActive(FeatureFlags.EMAIL_AUTH);
 
 #if UNITY_IOS
 			_faq.gameObject.SetActive(false);

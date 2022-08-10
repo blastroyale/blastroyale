@@ -1,6 +1,5 @@
 using UnityEngine;
 using FirstLight.Game.Utils;
-using System.Collections.Generic;
 using Quantum;
 using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider; 

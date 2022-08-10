@@ -21,7 +21,7 @@ namespace FirstLight.Game.Utils
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
 		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
-		                                                  string roomName, bool isRankedMatch)
+		                                                  string roomName, bool isRankedMatch, bool gameHasBots)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
@@ -54,7 +54,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs, isRankedMatch),
+					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs, isRankedMatch, gameHasBots),
 					CustomRoomPropertiesForLobby = new[]
 					{
 						GameConstants.Network.ROOM_PROPS_COMMIT,
@@ -147,7 +147,7 @@ namespace FirstLight.Game.Utils
 			return compatibleMaps[timeSegmentIndex];
 		}
 
-		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch)
+		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch, bool gameHasBots)
 		{
 			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch);
 
@@ -157,6 +157,8 @@ namespace FirstLight.Game.Utils
 			{
 				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
 			}
+			
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 
 			return properties;
 		}

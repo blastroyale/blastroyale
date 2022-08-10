@@ -100,7 +100,7 @@ namespace FirstLight.Game.Utils
 			// Matchmaking
 			public const float CASUAL_MATCHMAKING_TIME = 15;
 			public const float RANKED_MATCHMAKING_TIME = 120;
-			public const float RANKED_MATCHMAKING_MIN_PLAYERS = 2; // 20
+			public const float RANKED_MATCHMAKING_MIN_PLAYERS = 2; // 19
 			
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because

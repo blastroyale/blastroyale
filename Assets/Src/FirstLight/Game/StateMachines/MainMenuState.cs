@@ -12,6 +12,7 @@ using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -216,7 +217,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool EnoughNftToPlay()
 		{
-			return _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch
+			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter

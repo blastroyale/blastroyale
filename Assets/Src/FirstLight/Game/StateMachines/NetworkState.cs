@@ -385,7 +385,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRoomLockClicked(RoomLockClickedMessage message)
 		{
-			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable{{GameConstants.Network.ROOM_PROPS_BOTS, message.AddBots}});
+			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable
+			{
+				{GameConstants.Network.ROOM_PROPS_BOTS, message.AddBots}
+			});
+			
 			LockRoom();
 		}
 		

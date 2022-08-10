@@ -940,6 +940,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
+      propertyPath: _matchType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _tooltipLocalizationKey
       value: ToolTip_Ranked
       objectReference: {fileID: 0}

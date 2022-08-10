@@ -8,11 +8,11 @@
     <package>com.android.support:support-v4:25.3.1</package>
     <package>com.appsflyer:af-android-sdk:6.5.2</package>
     <package>com.appsflyer:unity-wrapper:6.5.2</package>
-    <package>com.facebook.android:facebook-applinks:[11.0, 12)</package>
-    <package>com.facebook.android:facebook-core:[11.0, 12)</package>
-    <package>com.facebook.android:facebook-gamingservices:[11.0, 12)</package>
-    <package>com.facebook.android:facebook-login:[11.0, 12)</package>
-    <package>com.facebook.android:facebook-share:[11.0, 12)</package>
+    <package>com.facebook.android:facebook-applinks:[14.1, 15)</package>
+    <package>com.facebook.android:facebook-core:[14.1, 15)</package>
+    <package>com.facebook.android:facebook-gamingservices:[14.1, 15)</package>
+    <package>com.facebook.android:facebook-login:[14.1, 15)</package>
+    <package>com.facebook.android:facebook-share:[14.1, 15)</package>
     <package>com.google.android.gms:play-services-base:18.1.0</package>
     <package>com.google.firebase:firebase-analytics:21.1.0</package>
     <package>com.google.firebase:firebase-analytics-unity:9.3.0</package>
@@ -23,12 +23,13 @@
     <package>com.parse.bolts:bolts-android:1.4.0</package>
   </packages>
   <files>
-    <file>Assets/Plugins/Android/androidx.activity.activity-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.activity.activity-1.2.0.aar</file>
     <file>Assets/Plugins/Android/androidx.annotation.annotation-1.1.0.jar</file>
+    <file>Assets/Plugins/Android/androidx.annotation.annotation-experimental-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.appcompat.appcompat-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.appcompat.appcompat-resources-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.arch.core.core-common-2.1.0.jar</file>
-    <file>Assets/Plugins/Android/androidx.arch.core.core-runtime-2.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.arch.core.core-runtime-2.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.asynclayoutinflater.asynclayoutinflater-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.browser.browser-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.cardview.cardview-1.0.0.aar</file>
@@ -40,24 +41,26 @@
     <file>Assets/Plugins/Android/androidx.customview.customview-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.documentfile.documentfile-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.drawerlayout.drawerlayout-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.fragment.fragment-1.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.fragment.fragment-1.3.0.aar</file>
     <file>Assets/Plugins/Android/androidx.interpolator.interpolator-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-core-ui-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-core-utils-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-v4-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-common-2.1.0.jar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-common-2.3.0.jar</file>
     <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-livedata-2.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-livedata-core-2.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-runtime-2.1.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-viewmodel-2.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-livedata-core-2.3.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-runtime-2.3.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-viewmodel-2.3.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-viewmodel-savedstate-2.3.0.aar</file>
     <file>Assets/Plugins/Android/androidx.loader.loader-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.localbroadcastmanager.localbroadcastmanager-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.media.media-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.multidex.multidex-2.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.print.print-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.savedstate.savedstate-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.savedstate.savedstate-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.slidingpanelayout.slidingpanelayout-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.swiperefreshlayout.swiperefreshlayout-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.tracing.tracing-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-animated-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.0.aar</file>
@@ -66,12 +69,13 @@
     <file>Assets/Plugins/Android/com.appsflyer.af-android-sdk-6.5.2.aar</file>
     <file>Assets/Plugins/Android/com.appsflyer.oaid-6.2.4.aar</file>
     <file>Assets/Plugins/Android/com.appsflyer.unity-wrapper-6.5.2.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.facebook-applinks-11.3.0.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.facebook-common-11.3.0.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.facebook-core-11.3.0.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.facebook-gamingservices-11.3.0.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.facebook-login-11.3.0.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.facebook-share-11.3.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-applinks-14.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-bolts-14.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-common-14.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-core-14.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-gamingservices-14.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-login-14.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.facebook-share-14.1.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.datatransport.transport-api-3.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.datatransport.transport-backend-cct-3.1.5.aar</file>
     <file>Assets/Plugins/Android/com.google.android.datatransport.transport-runtime-3.1.5.aar</file>
@@ -86,6 +90,7 @@
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-sdk-api-21.1.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-stats-17.0.2.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-18.0.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.8.jar</file>
     <file>Assets/Plugins/Android/com.google.firebase.firebase-analytics-21.1.0.aar</file>
     <file>Assets/Plugins/Android/com.google.firebase.firebase-analytics-unity-9.3.0.aar</file>
     <file>Assets/Plugins/Android/com.google.firebase.firebase-annotations-16.0.0.jar</file>

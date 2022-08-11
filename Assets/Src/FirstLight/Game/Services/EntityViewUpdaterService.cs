@@ -121,9 +121,7 @@ namespace FirstLight.Game.Services
 				
 				if (playerData.DeathCount > 0)
 				{
-					var marker = f.GetSingleton<GameContainer>().PlayersData[playerData.Player].PlayerDeathMarker;
-					
-					SpawnDeathMarker(marker, playerData.LastDeathPosition.ToUnityVector3());
+					SpawnDeathMarker(playerData.PlayerDeathMarker, playerData.LastDeathPosition.ToUnityVector3());
 				}
 			}
 		}

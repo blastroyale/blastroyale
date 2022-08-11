@@ -16,6 +16,7 @@ namespace FirstLight.Game.Data
 		public uint Xp;
 		public uint Trophies;
 		public GameId PlayerSkinId;
+		public GameId DeathMarker;
 		public readonly Dictionary<GameId, ulong> Currencies = new(new GameIdComparer());
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer());

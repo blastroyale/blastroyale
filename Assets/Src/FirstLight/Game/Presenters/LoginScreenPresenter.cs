@@ -37,10 +37,10 @@ namespace FirstLight.Game.Presenters
 			
 			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
-
 			_goToDevRegisterButton.onClick.AddListener(GoToDevRegisterClicked);
-			_goToDevRegisterButton.gameObject.SetActive(Debug.isDebugBuild);
 			_forgotPasswordButton.onClick.AddListener(GoToForgotYourPassword);
+			
+			_goToDevRegisterButton.gameObject.SetActive(Debug.isDebugBuild);
 		}
 
 		private void OnEnable()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -40,6 +41,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private Coroutine _matchmakingCoroutine;
+		
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
 		public NetworkState(IGameLogic gameLogic, IGameServices services, IGameUiService uiService,
@@ -260,6 +264,10 @@ namespace FirstLight.Game.StateMachines
 				var mapId = (int) _networkService.QuantumClient.CurrentRoom.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
 				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 				_gameDataProvider.AppDataProvider.SelectedGameMode.Value = mapConfig.GameMode;
+				
+				// Update ranked match status upon joining the room, just in case 
+				var isRankedMatch = (bool) _networkService.QuantumClient.CurrentRoom.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+				_gameDataProvider.AppDataProvider.SelectedMatchType.Value = isRankedMatch ? MatchType.Ranked : MatchType.Casual;
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -298,6 +306,11 @@ namespace FirstLight.Game.StateMachines
 		public void OnLeftRoom()
 		{
 			FLog.Info("OnLeftRoom");
+
+			if (_matchmakingCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_matchmakingCoroutine);
+			}
 			
 			_statechartTrigger(LeftRoomEvent);
 		}
@@ -372,7 +385,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRoomLockClicked(RoomLockClickedMessage message)
 		{
-			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable{{GameConstants.Network.ROOM_PROPS_BOTS, message.AddBots}});
+			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable
+			{
+				{GameConstants.Network.ROOM_PROPS_BOTS, message.AddBots}
+			});
+			
 			LockRoom();
 		}
 		
@@ -478,9 +495,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(QuantumMapConfig mapConfig)
 		{
+			var isRankedMatch = _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked;
+			var gameHasBots = !isRankedMatch;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, null);
-			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig);
+			var createParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, null, isRankedMatch, gameHasBots);
+			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig, isRankedMatch, gameHasBots);
 
 			QuantumRunnerConfigs.IsOfflineMode = mapConfig.PlayersLimit == 1;
 
@@ -491,7 +510,7 @@ namespace FirstLight.Game.StateMachines
 				SetSpectatePlayerProperty(false);
 				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, enterParams);
+				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
 			}
 		}
 
@@ -515,7 +534,7 @@ namespace FirstLight.Game.StateMachines
 		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName);
+			var createParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName, false, false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -526,14 +545,14 @@ namespace FirstLight.Game.StateMachines
 				SetSpectatePlayerProperty(false);
 				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpCreateRoom(enterParams);
+				_networkService.QuantumClient.OpCreateRoom(createParams);
 			}
 		}
 
 		private void JoinOrCreateRoom(QuantumMapConfig mapConfig, string roomName)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var enterParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName);
+			var createParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName, false, false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -544,7 +563,7 @@ namespace FirstLight.Game.StateMachines
 				SetSpectatePlayerProperty(false);
 				_networkService.IsJoiningNewMatch.Value = true;
 				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpJoinOrCreateRoom(enterParams);
+				_networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
 			}
 		}
 		
@@ -558,13 +577,18 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartMatchmakingLockRoomTimer()
 		{
-			_services.CoroutineService.StartCoroutine(LockRoomCoroutine());
-
-			IEnumerator LockRoomCoroutine()
+			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
-				yield return new WaitForSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().MatchmakingTime.AsFloat);
-
-				LockRoom();
+				return;
+			}
+			
+			if (_networkService.QuantumClient.CurrentRoom.IsRankedRoom())
+			{
+				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(RankedMatchmakingCoroutine());
+			}
+			else
+			{
+				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(CasualMatchmakingCoroutine());
 			}
 		}
 
@@ -576,6 +600,36 @@ namespace FirstLight.Game.StateMachines
 			{
 				room.IsOpen = false;
 			}
+		}
+
+		private IEnumerator CasualMatchmakingCoroutine()
+		{
+			var oneSecond = new WaitForSeconds(1f);
+			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat;
+			var room = _networkService.QuantumClient.CurrentRoom;
+			
+			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
+			{
+				yield return oneSecond;
+			}
+
+			LockRoom();
+		}
+			
+		private IEnumerator RankedMatchmakingCoroutine()
+		{
+			var oneSecond = new WaitForSeconds(1f);
+			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat;
+			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
+			var room = _networkService.QuantumClient.CurrentRoom;
+
+			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) || 
+			       (Time.time >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
+			{
+				yield return oneSecond;
+			}
+
+			LockRoom();
 		}
 
 		private void ConnectPhoton()

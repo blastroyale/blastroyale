@@ -19,9 +19,9 @@ namespace FirstLight.Game.Utils
 			var stats = new Dictionary<EquipmentStatType, float>();
 			var gameConfig = configs.GetConfig<QuantumGameConfig>();
 			var baseStatsConfig =
-				configs.GetConfig<QuantumBaseEquipmentStatsConfig>((int) equipment.GameId);
-			var statsConfig = configs.GetConfig<QuantumEquipmentStatsConfig>(equipment.GetStatsKey());
-			var statsMaterialConfig = configs.GetConfig<QuantumEquipmentMaterialStatsConfig>(equipment.GetMaterialStatsKey());
+				configs.GetConfig<QuantumBaseEquipmentStatConfig>((int) equipment.GameId);
+			var statsConfig = configs.GetConfig<QuantumEquipmentStatConfig>(equipment.GetStatsKey());
+			var statsMaterialConfig = configs.GetConfig<QuantumEquipmentMaterialStatConfig>(equipment.GetMaterialStatsKey());
 			if (equipment.GameId.IsInGroup(GameIdGroup.Weapon))
 			{
 				var weaponConfig = configs.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
@@ -33,21 +33,18 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 			}
 
-			stats.Add(EquipmentStatType.Hp,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Health).AsFloat);
+			stats.Add(EquipmentStatType.Hp, 
+			          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Health),
+			                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 			stats.Add(EquipmentStatType.Speed,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Speed)
-				          .AsFloat);
+			          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Speed), 
+			                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 			stats.Add(EquipmentStatType.Armor,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Armour)
-				          .AsFloat);
+			          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Armour), 
+			                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 			stats.Add(EquipmentStatType.Damage,
-			          QuantumStatCalculator
-				          .CalculateStat(gameConfig, baseStatsConfig, statsConfig, statsMaterialConfig, equipment, StatType.Power)
-				          .AsFloat);
+			          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Power), 
+			                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 			return stats;
 		}
 	}

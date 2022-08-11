@@ -50,13 +50,16 @@ MonoBehaviour:
     ShrinkingCircleConfigs:
       Id:
         Value: 3083889286552435639
-    EquipmentStatsConfigs:
+    EquipmentStatConfigs:
       Id:
         Value: 2044373238692490151
-    BaseEquipmentStatsConfigs:
+    BaseEquipmentStatConfigs:
       Id:
         Value: 1461361185191240749
-    EquipmentMaterialStatsConfigs:
+    StatConfigs:
+      Id:
+        Value: 654199445895457431
+    EquipmentMaterialStatConfigs:
       Id:
         Value: 2931657409906099456
   _deterministicConfigAsset: {fileID: 11400000, guid: f751724b9805d468883f1b6feb3bc2de, type: 2}

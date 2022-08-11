@@ -57,7 +57,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 		[SerializeField] private RenderTexture _renderTextureStandalone;
 		[SerializeField] private int _subFolderId;
 		[SerializeField] private int _collectionId = 1;
-		[SerializeField] private BaseEquipmentStatsConfigs _baseEquipmentStatsConfigs;
+		[SerializeField] private BaseEquipmentStatConfigs baseEquipmentStatConfigs;
 		[SerializeField] private Vector2 _referenceResolution = new(1600, 2048);
 		[SerializeField] private string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
 
@@ -285,7 +285,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 											(int) gameIdGroups.ElementAt(categoryIndex);
 										metadata.attibutesDictionary["subCategory"] = (int) gameId;
 
-										var config = _baseEquipmentStatsConfigs.Configs.First(c => c.Id == gameId);
+										var config = baseEquipmentStatConfigs.Configs.First(c => c.Id == gameId);
 										metadata.attibutesDictionary["manufacturer"] = (int) config.Manufacturer;
 
 										metadata.attibutesDictionary["rarity"] = rarityIndex;

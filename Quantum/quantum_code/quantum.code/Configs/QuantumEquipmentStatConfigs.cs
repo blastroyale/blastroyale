@@ -5,7 +5,7 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
-	public struct QuantumEquipmentStatsConfig
+	public struct QuantumEquipmentStatConfig
 	{
 		public GameIdGroup Category;
 		public EquipmentAdjective Adjective;
@@ -14,26 +14,49 @@ namespace Quantum
 		public FP ArmorRatioToBaseK;
 		public FP SpeedRatioToBaseK;
 		public FP PowerRatioToBaseK;
+
+		/// <summary>
+		/// Requests the stat value for the given <paramref name="statType"/>
+		/// </summary>
+		/// <exception cref="ArgumentOutOfRangeException">Throws when the given <paramref name="statType"/> is not defined
+		/// as part of <see cref="StatType"/> group</exception>
+		public FP GetValue(StatType statType)
+		{
+			switch (statType)
+			{
+				case StatType.Health:
+					return HpRatioToBaseK;
+				case StatType.Power:
+					return PowerRatioToBaseK;
+				case StatType.Speed:
+					return SpeedRatioToBaseK;
+				case StatType.Armour:
+					return ArmorRatioToBaseK;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(statType), statType, null);
+			}
+		}
 	}
 
 	/// <summary>
-	/// This is the quantum's asset config container for <see cref="QuantumEquipmentStatsConfig"/>
+	/// This is the quantum's asset config container for <see cref="QuantumEquipmentStatConfig"/>
 	/// </summary>
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
-	public partial class QuantumEquipmentStatsConfigs
+	public partial class QuantumEquipmentStatConfigs
 	{
-		public List<QuantumEquipmentStatsConfig> QuantumConfigs = new List<QuantumEquipmentStatsConfig>();
+		public List<QuantumEquipmentStatConfig> QuantumConfigs = new List<QuantumEquipmentStatConfig>();
 
-		private readonly Dictionary<EquipmentStatsKey, QuantumEquipmentStatsConfig> _dictionary =
-			new Dictionary<EquipmentStatsKey, QuantumEquipmentStatsConfig>();
+		private Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig> _dictionary = null;
 
 		/// <summary>
-		/// Requests the <see cref="QuantumEquipmentStatsConfig"/> of the given <paramref name="equipment"/>
+		/// Requests the <see cref="QuantumEquipmentStatConfig"/> of the given <paramref name="equipment"/>
 		/// </summary>
-		public QuantumEquipmentStatsConfig GetConfig(Equipment equipment)
+		public QuantumEquipmentStatConfig GetConfig(Equipment equipment)
 		{
-			if (_dictionary.Count == 0)
+			if (_dictionary == null)
 			{
+				_dictionary = new Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig>();
+			
 				foreach (var statsConfig in QuantumConfigs)
 				{
 					_dictionary
@@ -88,7 +111,7 @@ namespace Quantum
 	}
 
 	/// <summary>
-	/// Helper methods to work with <see cref="QuantumEquipmentStatsConfig"/> and <see cref="EquipmentStatsKey"/>.
+	/// Helper methods to work with <see cref="QuantumEquipmentStatConfig"/> and <see cref="EquipmentStatsKey"/>.
 	/// </summary>
 	public static class EquipmentStatsHelpers
 	{
@@ -104,7 +127,7 @@ namespace Quantum
 		/// <summary>
 		/// Gets a unique <see cref="EquipmentStatsKey"/> for this config.
 		/// </summary>
-		public static EquipmentStatsKey GetKey(this QuantumEquipmentStatsConfig config)
+		public static EquipmentStatsKey GetKey(this QuantumEquipmentStatConfig config)
 		{
 			return new EquipmentStatsKey(config.Category, config.Adjective, config.Faction);
 		}

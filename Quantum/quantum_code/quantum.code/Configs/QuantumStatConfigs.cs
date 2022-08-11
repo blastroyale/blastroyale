@@ -20,7 +20,7 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = true)]
 	public partial class QuantumStatConfigs
 	{
-		public List<QuantumStatConfig> QuantumConfigs = new ();
+		public List<QuantumStatConfig> QuantumConfigs = new List<QuantumStatConfig>();
 
 		private IDictionary<StatType, QuantumStatConfig> _dictionary = null;
 

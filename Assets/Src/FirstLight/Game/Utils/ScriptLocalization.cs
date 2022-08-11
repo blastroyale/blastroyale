@@ -644,7 +644,6 @@ namespace I2.Loc
 			public static string EnhanceResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceResults"); } }
 			public static string EventsComingSoon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EventsComingSoon"); } }
 			public static string FirstVictoryRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstVictoryRewards"); } }
-			public static string ForgotPassword 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ForgotPassword"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FreeSlot"); } }
 			public static string Fuse 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Fuse"); } }
 			public static string FuseDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseDescription"); } }
@@ -718,6 +717,7 @@ namespace I2.Loc
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
 			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
 			public static string RememberMe 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RememberMe"); } }
+			public static string ResetPassword 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResetPassword"); } }
 			public static string ResoucePoolFull 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResoucePoolFull"); } }
 			public static string ResourceAmount 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceAmount"); } }
 			public static string ResourceRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceRestockTime"); } }
@@ -733,8 +733,11 @@ namespace I2.Loc
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }
 			public static string Selected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Selected"); } }
+			public static string SelectedGameModeText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeText"); } }
 			public static string SelectedGameModeTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeTitle"); } }
 			public static string SelectedGameModeValue 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeValue"); } }
+			public static string SendPasswordEmail 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmail"); } }
+			public static string SendPasswordEmailConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmailConfirm"); } }
 			public static string Settings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Settings"); } }
 			public static string SettingsFaqButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsFaqButton"); } }
 			public static string SettingsHelpSupport 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsHelpSupport"); } }
@@ -1471,7 +1474,6 @@ namespace I2.Loc
 		    public const string EnhanceResults = "MainMenu/EnhanceResults";
 		    public const string EventsComingSoon = "MainMenu/EventsComingSoon";
 		    public const string FirstVictoryRewards = "MainMenu/FirstVictoryRewards";
-		    public const string ForgotPassword = "MainMenu/ForgotPassword";
 		    public const string FreeSlot = "MainMenu/FreeSlot";
 		    public const string Fuse = "MainMenu/Fuse";
 		    public const string FuseDescription = "MainMenu/FuseDescription";
@@ -1545,6 +1547,7 @@ namespace I2.Loc
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
 		    public const string RegisterTitle = "MainMenu/RegisterTitle";
 		    public const string RememberMe = "MainMenu/RememberMe";
+		    public const string ResetPassword = "MainMenu/ResetPassword";
 		    public const string ResoucePoolFull = "MainMenu/ResoucePoolFull";
 		    public const string ResourceAmount = "MainMenu/ResourceAmount";
 		    public const string ResourceRestockTime = "MainMenu/ResourceRestockTime";
@@ -1560,8 +1563,11 @@ namespace I2.Loc
 		    public const string SelectGameMap = "MainMenu/SelectGameMap";
 		    public const string SelectGameMode = "MainMenu/SelectGameMode";
 		    public const string Selected = "MainMenu/Selected";
+		    public const string SelectedGameModeText = "MainMenu/SelectedGameModeText";
 		    public const string SelectedGameModeTitle = "MainMenu/SelectedGameModeTitle";
 		    public const string SelectedGameModeValue = "MainMenu/SelectedGameModeValue";
+		    public const string SendPasswordEmail = "MainMenu/SendPasswordEmail";
+		    public const string SendPasswordEmailConfirm = "MainMenu/SendPasswordEmailConfirm";
 		    public const string Settings = "MainMenu/Settings";
 		    public const string SettingsFaqButton = "MainMenu/SettingsFaqButton";
 		    public const string SettingsHelpSupport = "MainMenu/SettingsHelpSupport";

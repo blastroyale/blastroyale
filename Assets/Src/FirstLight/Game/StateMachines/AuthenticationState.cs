@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -22,6 +23,7 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -41,6 +43,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private string _passwordRecoveryEmailTemplateId = "";
 		
 		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
 		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
@@ -219,16 +223,20 @@ namespace FirstLight.Game.StateMachines
 #if LIVE_SERVER
 			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = F4F93EEA134BE503;
 #elif OFFCHAIN_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif STAGE_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #else
 			// Dev
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #endif
 		}
 
@@ -484,7 +492,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new LoginScreenPresenter.StateData
 			{
 				LoginClicked = LoginClicked,
-				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent)
+				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
+				ForgotPasswordClicked = SendRecoveryEmail
 			};
 			
 			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
@@ -499,6 +508,33 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+		}
+
+		private void SendRecoveryEmail(string email)
+		{
+			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
+			{
+				TitleId = PlayFabSettings.TitleId,
+				Email = email,
+				EmailTemplateId = _passwordRecoveryEmailTemplateId,
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
+			
+			PlayFabClientAPI.SendAccountRecoveryEmail(request,OnAccountRecoveryResult,OnPlayFabError);
+		}
+		
+		private void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
+		{
+			_services.GenericDialogService.CloseDialog();
+			
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
+			                                         confirmButton);
 		}
 
 		private bool IsOutdated(string version)

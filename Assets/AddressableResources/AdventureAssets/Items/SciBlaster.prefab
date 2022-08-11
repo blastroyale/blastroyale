@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2172211131155602904}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7051377031830156335}
   - component: {fileID: 8088875132934883829}
   - component: {fileID: 2181167724731558742}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4914,7 +4914,7 @@ GameObject:
   - component: {fileID: 5938312200775596703}
   - component: {fileID: 7512925357370578769}
   - component: {fileID: 3751875820184280881}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9782,7 +9782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7575196687074294540}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Uncommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9814,7 +9814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3471825922483006814}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Legendary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9848,7 +9848,7 @@ GameObject:
   - component: {fileID: 1123474291811679549}
   - component: {fileID: 3271619749760519990}
   - component: {fileID: 8087979617494011885}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9931,7 +9931,7 @@ GameObject:
   - component: {fileID: 3615866652899676120}
   - component: {fileID: 6427768418680848791}
   - component: {fileID: 7963442875506634205}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14801,7 +14801,7 @@ GameObject:
   - component: {fileID: 707454647765981410}
   - component: {fileID: 1000237834519440539}
   - component: {fileID: 7651110050403353396}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14884,7 +14884,7 @@ GameObject:
   - component: {fileID: 688252677627555849}
   - component: {fileID: 8114207960171386773}
   - component: {fileID: 3176864360956579058}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14967,7 +14967,7 @@ GameObject:
   - component: {fileID: 3804111193195907867}
   - component: {fileID: 445939897546572784}
   - component: {fileID: 3338595611939939903}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15048,7 +15048,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SciBlaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15082,7 +15082,7 @@ GameObject:
   - component: {fileID: 3623352492173274120}
   - component: {fileID: 7210211133398604247}
   - component: {fileID: 7063879399400624230}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15165,7 +15165,7 @@ GameObject:
   - component: {fileID: 4980232665958087446}
   - component: {fileID: 682224066900046127}
   - component: {fileID: 3695090314510313125}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20063,7 +20063,7 @@ GameObject:
   - component: {fileID: 7767845496381016292}
   - component: {fileID: 6056100245204631296}
   - component: {fileID: 7225982141456834087}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wep_Laser_Blaster_Scfi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20159,7 +20159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9017895756178161001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Epic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20193,7 +20193,7 @@ GameObject:
   - component: {fileID: 139385777752717531}
   - component: {fileID: 1089102402059683415}
   - component: {fileID: 4524013284511127294}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OORGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25063,7 +25063,7 @@ GameObject:
   - component: {fileID: 3835654266066494778}
   - component: {fileID: 4428545013032125981}
   - component: {fileID: 4006616757315066954}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29933,7 +29933,7 @@ GameObject:
   - component: {fileID: 853990291509022453}
   - component: {fileID: 7873287748407062836}
   - component: {fileID: 7384814895479126169}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

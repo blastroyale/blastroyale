@@ -508,10 +508,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			var emailTemplateId = "";
 			
-			// TODO - ADD LIVE TEMPLATE ID
 #if LIVE_SERVER
 			PlayFabSettings.TitleId = "302CF";
-			
+			emailTemplateId = F4F93EEA134BE503;
 #elif OFFCHAIN_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			emailTemplateId = "***REMOVED***";

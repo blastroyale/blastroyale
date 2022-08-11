@@ -317,7 +317,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Obtaining player data");
 			_services.PlayfabService.CallFunction("GetPlayerData", res => OnPlayerDataObtained(res, activity), 
 			                                      OnPlayFabError);
-			
+
 			PhotonAuthentication(activity.Split());
 		}
 

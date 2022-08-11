@@ -32,7 +32,7 @@ public class TestBlastRoyaleCommands
 		{
 			DidPlayerQuit = false,
 			LocalPlayerRef = playerRef,
-			PlayedMatchmakingGame = true,
+			PlayedRankedMatch = true,
 			PlayersMatchData = new ()
 			{
 				new QuantumPlayerMatchData()

@@ -344,6 +344,14 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether the room is used for matchmaking
+		/// </summary>
+		public static bool IsRankedRoom(this Room room)
+		{
+			return (bool) room.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+		}
 
 		/// <summary>
 		/// Obtains amount of non-spectator players currently in room
@@ -399,6 +407,22 @@ namespace FirstLight.Game.Utils
 		public static int GetSpectatorCapacity(this Room room)
 		{
 			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its player slots full
+		/// </summary>
+		public static bool IsAtFullPlayerCapacity(this Room room)
+		{
+			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
+		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its spectator slots full
+		/// </summary>
+		public static bool IsAtFullSpectatorCapacity(this Room room)
+		{
+			return room.GetSpectatorAmount() >= room.GetSpectatorCapacity();
 		}
 
 		/// <summary>

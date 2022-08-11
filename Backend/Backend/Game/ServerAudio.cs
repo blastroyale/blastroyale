@@ -16,10 +16,20 @@ public class ServerAudio : IAudioFxService<AudioId>
 	{
 	}
 
+	public Task LoadAudioMixers(IEnumerable audioMixers)
+	{
+		return default;
+	}
+
 	public Task LoadAudioClips(IEnumerable clips) => null;
 
 	public void UnloadAudioClips(IEnumerable clips)
 	{
+	}
+
+	public void TransitionAudioMixer(string snapshotName, float transitionDuration)
+	{
+		throw new System.NotImplementedException();
 	}
 
 	public bool TryGetClipPlaybackData(AudioId id, out AudioClipPlaybackData clip)
@@ -41,6 +51,10 @@ public class ServerAudio : IAudioFxService<AudioId>
 	public AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
 	{
 		return null;
+	}
+
+	public void PlayClipQueued2D(AudioId id, string mixerGroupId, AudioSourceInitData? sourceInitData = null)
+	{
 	}
 
 	public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0,
@@ -65,6 +79,9 @@ public class ServerAudio : IAudioFxService<AudioId>
 		get => true;
 		set  { }
 	}
+
+	public bool IsSfxMuted { get; set; }
+	public bool IsMusicPlaying { get; }
 
 	public bool Is2dSfxMuted
 	{

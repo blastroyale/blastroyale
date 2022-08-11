@@ -24,7 +24,7 @@ namespace Quantum
 	{
 		public List<QuantumChestConfig> QuantumConfigs = new List<QuantumChestConfig>();
 
-		private IDictionary<GameId, QuantumChestConfig> _dictionary;
+		private IDictionary<GameId, QuantumChestConfig> _dictionary = null;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumChestConfig"/> defined by the given <paramref name="id"/>

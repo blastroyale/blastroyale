@@ -16,8 +16,9 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
 
-			f.Signals.HealthIsZero(characterEntity, characterEntity);
+			stats->AttackerSetCurrentHealth(f, characterEntity, characterEntity, 0);
 		}
 	}
 }

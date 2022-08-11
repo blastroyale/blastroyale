@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View handles the Health Bar View in the UI:
@@ -49,7 +49,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			Entity = entity;
 			_fillImage.color = _primaryHitColor;
 
-			gameObject.SetActive(true);
 			HealthBarUpdate((float) currentHealth / maxHealth);
 			DamageDoneUpdate((float) currentHealth / maxHealth);
 

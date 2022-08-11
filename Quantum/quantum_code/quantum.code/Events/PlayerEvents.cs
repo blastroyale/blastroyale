@@ -16,6 +16,11 @@ namespace Quantum
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 	}
 	
+	public unsafe partial class EventOnPlayerDead
+	{
+		public bool IsSuicide => Entity == EntityKiller;
+	}
+	
 	public partial class Frame 
 	{
 		public unsafe partial struct FrameEvents 

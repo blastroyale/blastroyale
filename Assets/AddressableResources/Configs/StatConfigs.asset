@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efefe8df0702478486bac59fd68c37e2, type: 3}
+  m_Name: StatConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/StatConfigs
+      Guid:
+        Value: 654199445895457431
+    QuantumConfigs:
+    - StatType: 0
+      BaseValue:
+        RawValue: 19660800
+      RarityMultiplier:
+        RawValue: 72090
+      LevelStepMultiplier:
+        RawValue: 328
+      GradeStepMultiplier:
+        RawValue: 3277
+    - StatType: 1
+      BaseValue:
+        RawValue: 16384000
+      RarityMultiplier:
+        RawValue: 66191
+      LevelStepMultiplier:
+        RawValue: 328
+      GradeStepMultiplier:
+        RawValue: 3277
+    - StatType: 2
+      BaseValue:
+        RawValue: 13107
+      RarityMultiplier:
+        RawValue: 68813
+      LevelStepMultiplier:
+        RawValue: 2294
+      GradeStepMultiplier:
+        RawValue: 16384
+    - StatType: 3
+      BaseValue:
+        RawValue: 327680
+      RarityMultiplier:
+        RawValue: 78643
+      LevelStepMultiplier:
+        RawValue: 1507
+      GradeStepMultiplier:
+        RawValue: 10945

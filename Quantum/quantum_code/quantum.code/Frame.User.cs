@@ -27,14 +27,17 @@ namespace Quantum
 		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
 		internal QuantumMapConfigs MapConfigs => FindAsset<QuantumMapConfigs>(RuntimeConfig.MapConfigs.Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
-		internal QuantumBaseEquipmentStatsConfigs BaseEquipmentStatsConfigs =>
-			FindAsset<QuantumBaseEquipmentStatsConfigs>(RuntimeConfig.BaseEquipmentStatsConfigs.Id);
 		
-		internal QuantumEquipmentStatsConfigs EquipmentStatsConfigs =>
-			FindAsset<QuantumEquipmentStatsConfigs>(RuntimeConfig.EquipmentStatsConfigs.Id);
+		internal QuantumStatConfigs StatConfigs =>
+			FindAsset<QuantumStatConfigs>(RuntimeConfig.StatConfigs.Id);
+		internal QuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs =>
+			FindAsset<QuantumBaseEquipmentStatConfigs>(RuntimeConfig.BaseEquipmentStatConfigs.Id);
+		
+		internal QuantumEquipmentStatConfigs EquipmentStatConfigs =>
+			FindAsset<QuantumEquipmentStatConfigs>(RuntimeConfig.EquipmentStatConfigs.Id);
 
-		internal QuantumEquipmentMaterialStatsConfigs EquipmentMaterialStatsConfigs =>
-			FindAsset<QuantumEquipmentMaterialStatsConfigs>(RuntimeConfig.EquipmentMaterialStatsConfigs.Id);
+		internal QuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs =>
+			FindAsset<QuantumEquipmentMaterialStatConfigs>(RuntimeConfig.EquipmentMaterialStatConfigs.Id);
 		
 		internal QuantumConsumableConfigs ConsumableConfigs =>
 			FindAsset<QuantumConsumableConfigs>(RuntimeConfig.ConsumableConfigs.Id);

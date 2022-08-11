@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20801db680b149b1a9ef45dec7913306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBarContainer: {fileID: 1277865584023240925}
 --- !u!1 &1284699591621832583
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +400,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 4062706691230122243}
   _screenOffset: {x: 0, y: 0}
+  _graphics:
+  - {fileID: 2067446365661798435}
+  - {fileID: 1644565506787566715}
 --- !u!1 &4533397224165858350
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,8 +590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a04174de31f5a45a7e697777fe3bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBarLocalPlayerRef: {fileID: 191066972371587183}
-  _healthBarPlayerRef: {fileID: 2157419299715184644}
+  _healthBarSpectateRef: {fileID: 191066972371587183}
+  _healthBarRef: {fileID: 2157419299715184644}
 --- !u!223 &2614656580074276911
 Canvas:
   m_ObjectHideFlags: 0
@@ -972,6 +974,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 5465818442283689917}
   _screenOffset: {x: 0, y: 0}
+  _graphics:
+  - {fileID: 1088974917273122269}
+  - {fileID: 5349255592942236612}
 --- !u!1 &7584291550149163886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6141457868737774336, guid: 81ed11acbbabb6a46afab42547ad06eb, type: 3}
       propertyPath: m_Name
-      value: HealthBarLocalPlayer
+      value: HealthBarSpectatorPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 7151369485134356516, guid: 81ed11acbbabb6a46afab42547ad06eb, type: 3}
       propertyPath: m_AnchorMax.y

@@ -140,6 +140,7 @@ namespace FirstLight.Game.Utils
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
+			public const float HUD_GAMEPLAY_FADE_DURATION = 2f;
 		}
 
 		public static class Haptics

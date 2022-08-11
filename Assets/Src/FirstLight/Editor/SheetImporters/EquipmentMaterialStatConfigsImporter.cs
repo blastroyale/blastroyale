@@ -3,9 +3,9 @@ using Quantum;
 
 namespace FirstLight.Editor.SheetImporters
 {
-	public class
-		EquipmentMaterialStatsConfigImporter : GoogleSheetQuantumConfigsImporter<QuantumEquipmentMaterialStatsConfig,
-			EquipmentMaterialStatsConfigs>
+	/// <inheritdoc />
+	public class EquipmentMaterialStatConfigImporter : GoogleSheetQuantumConfigsImporter<QuantumEquipmentMaterialStatConfig,
+			EquipmentMaterialStatConfigs>
 	{
 		public override string GoogleSheetUrl =>
 			"***REMOVED***/edit#gid=47068316";

@@ -5,19 +5,14 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the signal to process player's <seealso cref="PlayerMatchData"/> statistics
 	/// </summary>
-	public unsafe class MatchDataSystem : SystemSignalsOnly, ISignalHealthIsZero, ISignalHealthChanged, 
+	public unsafe class MatchDataSystem : SystemSignalsOnly, ISignalPlayerDead, ISignalHealthChangedFromAttacker, 
 	                                      ISignalPlayerKilledPlayer, ISignalSpecialUsed
 	{
 		/// <inheritdoc />
-		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
+		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
-			if (!f.TryGet<PlayerCharacter>(entity, out var deadPlayer))
-			{
-				return;
-			}
-			
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			var pointer = gameContainer->PlayersData.GetPointer(deadPlayer.Player);
+			var pointer = gameContainer->PlayersData.GetPointer(playerDead);
 			
 			pointer->DeathCount++;
 
@@ -25,28 +20,26 @@ namespace Quantum.Systems
 			{
 				pointer->FirstDeathTime = f.Time;
 			}
-
-			if (entity == attacker)
-			{
-				pointer->SuicideCount++;
-			}
 		}
 
 		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
 		                               EntityRef entityKiller)
 		{
-
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			
 			if (playerDead != playerKiller)
 			{
 				gameContainer->PlayersData.GetPointer(playerKiller)->PlayersKilledCount++;
 			}
+			else
+			{
+				gameContainer->PlayersData.GetPointer(playerDead)->SuicideCount++;
+			}
 		}
 		
 		/// <inheritdoc />
-		public void HealthChanged(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
+		public void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, int previousHealth)
 		{
 			if (entity == attacker)
 			{

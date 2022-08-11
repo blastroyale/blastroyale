@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8537224956428586792}
   - component: {fileID: 2217473627588548663}
   - component: {fileID: 7607160571680733301}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TikTokAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

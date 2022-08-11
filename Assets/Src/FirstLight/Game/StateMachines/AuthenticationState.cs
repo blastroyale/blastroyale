@@ -43,6 +43,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private string _passwordRecoveryEmailTemplateId = "";
 		
 		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
 		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
@@ -221,16 +223,20 @@ namespace FirstLight.Game.StateMachines
 #if LIVE_SERVER
 			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = F4F93EEA134BE503;
 #elif OFFCHAIN_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif STAGE_SERVER
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #else
 			// Dev
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #endif
 		}
 
@@ -506,23 +512,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendRecoveryEmail(string email)
 		{
-			var emailTemplateId = "";
-			
-#if LIVE_SERVER
-			emailTemplateId = F4F93EEA134BE503;
-#elif OFFCHAIN_SERVER
-			emailTemplateId = "***REMOVED***";
-#elif STAGE_SERVER
-			emailTemplateId = "***REMOVED***";
-#else
-			emailTemplateId = "***REMOVED***";
-#endif
-			
 			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
 			{
 				TitleId = PlayFabSettings.TitleId,
 				Email = email,
-				EmailTemplateId = emailTemplateId,
+				EmailTemplateId = _passwordRecoveryEmailTemplateId,
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
 			

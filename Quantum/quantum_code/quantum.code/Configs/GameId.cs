@@ -669,7 +669,7 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Thumbstone, new List<GameIdGroup>
+					GameId.Tombstone, new List<GameIdGroup>
 					{
 						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
@@ -945,14 +945,14 @@ namespace Quantum
 					GameIdGroup.Collection, new List<GameId>
 					{
 						GameId.Flag,
-						GameId.Thumbstone
+						GameId.Tombstone
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
 						GameId.Flag,
-						GameId.Thumbstone
+						GameId.Tombstone
 					}.AsReadOnly()
 				},
 			};

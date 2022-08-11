@@ -383,6 +383,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SetPlayerMatchData()
 		{
+			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var game = QuantumRunner.Default.Game;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
@@ -395,9 +396,10 @@ namespace FirstLight.Game.StateMachines
 				{
 					PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 					PlayerName = _gameDataProvider.AppDataProvider.Nickname,
-					Skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value,
-					PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
-					PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
+					Skin = info.Skin,
+					DeathMarker = info.DeathMarker,
+					PlayerLevel = info.Level,
+					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});

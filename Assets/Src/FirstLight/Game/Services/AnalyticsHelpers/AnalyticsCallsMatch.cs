@@ -61,7 +61,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"player_level", _gameData.PlayerDataProvider.Level.Value},
+				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
 				{"total_players", totalPlayers},
 				{"total_bots", config.PlayersLimit - totalPlayers},
 				{"map_id", config.Id},

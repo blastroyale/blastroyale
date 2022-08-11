@@ -216,7 +216,7 @@ namespace Quantum {
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
     Flag = 25,
-    Thumbstone = 26,
+    Tombstone = 37,
   }
   public enum GameIdGroup : int {
     GameDesign = 0,

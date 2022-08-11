@@ -662,7 +662,7 @@ namespace FirstLight.Game.StateMachines
 				preloadIds.Add((int) equipmentDataInfo.GameId);
 			}
 
-			preloadIds.Add((int) _gameDataProvider.PlayerDataProvider.CurrentSkin.Value);
+			preloadIds.Add((int) _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin);
 			
 			var playerProps = new Hashtable
 			{

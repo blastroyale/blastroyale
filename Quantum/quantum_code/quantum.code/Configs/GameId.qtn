@@ -92,7 +92,7 @@ enum GameId
 	WeaponPlatformSpawner = 138,
 	ConsumablePlatformSpawner = 140,
 	Flag = 25,
-	Thumbstone = 26,
+	Tombstone = 37,
 }
 
 enum GameIdGroup

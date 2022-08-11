@@ -4,6 +4,18 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+	public enum IndicatorVfxId
+	{
+		None,
+		Movement,
+		ScalableLine,
+		Line,
+		Cone,
+		Range,
+		Radial,
+		TOTAL,            // Used to know the total amount of this type without the need of reflection
+	}
+	
 	[Serializable]
 	public partial struct QuantumSpecialConfig
 	{

@@ -44,7 +44,7 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = false)]
 	public partial class QuantumEquipmentStatConfigs
 	{
-		public List<QuantumEquipmentStatConfig> QuantumConfigs = new ();
+		public List<QuantumEquipmentStatConfig> QuantumConfigs = new List<QuantumEquipmentStatConfig>();
 
 		private readonly Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig> _dictionary = new ();
 

@@ -43,7 +43,7 @@ namespace Quantum
 	[AssetObjectConfig(GenerateAssetCreateMenu = true)]
 	public partial class QuantumBaseEquipmentStatConfigs
 	{
-		public List<QuantumBaseEquipmentStatConfig> QuantumConfigs = new ();
+		public List<QuantumBaseEquipmentStatConfig> QuantumConfigs = new List<QuantumBaseEquipmentStatConfig>();
 
 		private IDictionary<GameId, QuantumBaseEquipmentStatConfig> _dictionary = null;
 

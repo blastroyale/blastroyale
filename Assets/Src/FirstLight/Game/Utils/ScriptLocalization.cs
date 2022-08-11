@@ -644,6 +644,7 @@ namespace I2.Loc
 			public static string EnhanceResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceResults"); } }
 			public static string EventsComingSoon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EventsComingSoon"); } }
 			public static string FirstVictoryRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstVictoryRewards"); } }
+			public static string ForgotPassword 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ForgotPassword"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FreeSlot"); } }
 			public static string Fuse 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Fuse"); } }
 			public static string FuseDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseDescription"); } }
@@ -1470,6 +1471,7 @@ namespace I2.Loc
 		    public const string EnhanceResults = "MainMenu/EnhanceResults";
 		    public const string EventsComingSoon = "MainMenu/EventsComingSoon";
 		    public const string FirstVictoryRewards = "MainMenu/FirstVictoryRewards";
+		    public const string ForgotPassword = "MainMenu/ForgotPassword";
 		    public const string FreeSlot = "MainMenu/FreeSlot";
 		    public const string Fuse = "MainMenu/Fuse";
 		    public const string FuseDescription = "MainMenu/FuseDescription";

@@ -12,6 +12,11 @@ using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	/// <summary>
+	/// This class is responsible for presenting player with various info of a given game mode
+	/// Currently customised on-prefab, but in future iteration, would be initialized dynamically with a list
+	/// of currently available game modes.
+	/// </summary>
 	public class GameModeButtonView : MonoBehaviour
 	{
 		[SerializeField, Required] private Button _tooltipButton;

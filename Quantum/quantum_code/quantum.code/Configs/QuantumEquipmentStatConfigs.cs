@@ -46,15 +46,17 @@ namespace Quantum
 	{
 		public List<QuantumEquipmentStatConfig> QuantumConfigs = new List<QuantumEquipmentStatConfig>();
 
-		private readonly Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig> _dictionary = new ();
+		private Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig> _dictionary = null;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumEquipmentStatConfig"/> of the given <paramref name="equipment"/>
 		/// </summary>
 		public QuantumEquipmentStatConfig GetConfig(Equipment equipment)
 		{
-			if (_dictionary.Count == 0)
+			if (_dictionary == null)
 			{
+				_dictionary = new Dictionary<EquipmentStatsKey, QuantumEquipmentStatConfig>();
+			
 				foreach (var statsConfig in QuantumConfigs)
 				{
 					_dictionary

@@ -1,4 +1,5 @@
 using System;
+using Codice.Utils;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using TMPro;
@@ -23,6 +24,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _goToDevRegisterButton;
 		[SerializeField] private Button _loginButton;
 		[SerializeField] private GameObject _frontDimBlocker;
+		[SerializeField] private Button _goToForgotPassword;
 
 		private void Awake()
 		{
@@ -31,6 +33,7 @@ namespace FirstLight.Game.Presenters
 
 			_goToDevRegisterButton.onClick.AddListener(GoToDevRegisterClicked);
 			_goToDevRegisterButton.gameObject.SetActive(Debug.isDebugBuild);
+			_goToForgotPassword.onClick.AddListener(GoToForgotYourPassword);
 		}
 
 		private void OnEnable()
@@ -59,6 +62,11 @@ namespace FirstLight.Game.Presenters
 		private void GoToDevRegisterClicked()
 		{
 			Data.GoToRegisterClicked();
+		}
+
+		private void GoToForgotYourPassword()
+		{
+			Application.OpenURL();
 		}
 	}
 }

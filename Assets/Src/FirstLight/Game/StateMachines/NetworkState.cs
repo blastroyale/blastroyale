@@ -601,26 +601,16 @@ namespace FirstLight.Game.StateMachines
 				room.IsOpen = false;
 			}
 		}
-		
-		// TODO - USE QUANTUM GAME CONFIGS FOR METHODS BELOW
-		// TODO _services.ConfigsProvider.GetConfig<QuantumGameConfig>().
+
 		private IEnumerator CasualMatchmakingCoroutine()
 		{
-			var currentMatchmakingTime = 0f;
 			var oneSecond = new WaitForSeconds(1f);
+			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat;
+			var room = _networkService.QuantumClient.CurrentRoom;
 			
-			// Wait until casual matchmaking time has finished, or match is full
-			while (currentMatchmakingTime < GameConstants.Network.CASUAL_MATCHMAKING_TIME)
+			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
 			{
-				if (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >=
-				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
-				{
-					break;
-				}
-				
 				yield return oneSecond;
-				
-				currentMatchmakingTime += 1f;
 			}
 
 			LockRoom();
@@ -628,26 +618,13 @@ namespace FirstLight.Game.StateMachines
 			
 		private IEnumerator RankedMatchmakingCoroutine()
 		{
-			var currentMatchmakingTime = 0f;
 			var oneSecond = new WaitForSeconds(1f);
-			
-			// Wait until ranked matchmaking time has finished, or match is full
-			while (currentMatchmakingTime < GameConstants.Network.RANKED_MATCHMAKING_TIME)
-			{
-				if (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >=
-				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
-				{
-					break;
-				}
-				
-				yield return oneSecond;
-				
-				currentMatchmakingTime += 1f;
-			}
-			
-			// If match still does not have required played amount, ALWAYS wait until it does
-			// Ranked matches affect earnings, and must be played with minimum X players
-			while (_networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() < GameConstants.Network.RANKED_MATCHMAKING_MIN_PLAYERS)
+			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat;
+			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
+			var room = _networkService.QuantumClient.CurrentRoom;
+
+			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) || 
+			       (Time.time >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
 			{
 				yield return oneSecond;
 			}

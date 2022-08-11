@@ -8,6 +8,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
 using Photon.Realtime;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -124,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			_spectateToggleObjectRoot.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
-			_playerFillWaitTime = GameConstants.Network.CASUAL_MATCHMAKING_TIME / room.GetRealPlayerCapacity();
+			_playerFillWaitTime = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat / room.GetRealPlayerCapacity();
 			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
 			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString().ToUpper();
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);

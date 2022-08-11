@@ -408,6 +408,22 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its player slots full
+		/// </summary>
+		public static bool IsAtFullPlayerCapacity(this Room room)
+		{
+			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
+		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its spectator slots full
+		/// </summary>
+		public static bool IsAtFullSpectatorCapacity(this Room room)
+		{
+			return room.GetSpectatorAmount() >= room.GetSpectatorCapacity();
+		}
 
 		/// <summary>
 		/// Obtains spectator/player status for player

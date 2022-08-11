@@ -95,13 +95,7 @@ namespace FirstLight.Game.Utils
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
-			
-			// TODO - REPLACE WITH QUANTUM GAME CONFIGS VARS
-			// Matchmaking
-			public const float CASUAL_MATCHMAKING_TIME = 15;
-			public const float RANKED_MATCHMAKING_TIME = 120;
-			public const float RANKED_MATCHMAKING_MIN_PLAYERS = 2; // 19
-			
+
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
 			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties

@@ -12,17 +12,15 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public Transform3D* Transform;
+			public AlivePlayerCharacter* AlivePlayer;
+			public Stats* Stats;
 		}
 
 		public override void Update(Frame f, ref TransformFilter filter)
 		{
-			if (filter.Transform->Position.Y < Constants.OUT_OF_WORLD_Y_THRESHOLD && f.Has<AlivePlayerCharacter>(filter.Entity))
+			if (filter.Transform->Position.Y < Constants.OUT_OF_WORLD_Y_THRESHOLD)
 			{
-				var stats = f.Get<Stats>(filter.Entity);
-				var currentHealth = stats.CurrentHealth;
-				
-				f.Signals.HealthIsZero(filter.Entity, filter.Entity);
-				f.Events.OnHealthIsZero(filter.Entity, filter.Entity, currentHealth, stats.Values[(int)StatType.Health].StatValue.AsInt, Spell.DefaultId);
+				filter.Stats->AttackerSetCurrentHealth(f, filter.Entity, filter.Entity, 0);
 			}
 		}
 	}

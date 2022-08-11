@@ -1,6 +1,4 @@
 using FirstLight.UiService;
-using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace FirstLight.Game.Presenters
 {

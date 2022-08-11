@@ -44,6 +44,8 @@ synced event OnPlayerDead
 {
 	player_ref Player;
 	entity_ref Entity;
+	entity_ref EntityKiller;
+	bool IsPlayerKiller;
 }
 
 synced event OnPlayerEmojiSent

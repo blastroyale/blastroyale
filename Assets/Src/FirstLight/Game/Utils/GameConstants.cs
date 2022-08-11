@@ -95,7 +95,7 @@ namespace FirstLight.Game.Utils
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
-			
+
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
 			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
@@ -112,6 +112,7 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
+			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
 		}
 
 		public static class Visuals

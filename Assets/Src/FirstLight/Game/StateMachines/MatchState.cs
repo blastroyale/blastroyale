@@ -132,7 +132,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringMatchmaking()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Matchmaking;
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			CloseMatchmakingScreen();
 		}
 		
 		private void OnDisconnectDuringFinalPreload()

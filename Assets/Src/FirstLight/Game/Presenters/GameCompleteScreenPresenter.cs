@@ -56,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var playVfxMarker = notification as PlayVfxMarker;
 
-			if (playVfxMarker != null)
+			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
 			{
 				Services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
 			}

@@ -34,7 +34,7 @@ namespace Quantum
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainHealth(f, playerEntity, entity, (uint) consumable.Amount.AsInt);
+					f.Unsafe.GetPointer<Stats>(playerEntity)->GainHealth(f, playerEntity, (uint) consumable.Amount.AsInt);
 					break;
 				case ConsumableType.Rage:
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, consumable.Amount.AsInt);

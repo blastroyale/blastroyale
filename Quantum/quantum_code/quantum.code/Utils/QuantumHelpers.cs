@@ -154,7 +154,6 @@ namespace Quantum
 		{
 			if (!IsAttackable(f, spell.Victim, spell.TeamSource))
 			{
-
 				return false;
 			}
 

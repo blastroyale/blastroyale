@@ -17,7 +17,8 @@ namespace Quantum.Commands
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			
-			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->PlayerLeft(f, characterEntity);
+			f.Events.OnPlayerLeft(playerRef, characterEntity);
+			f.Events.OnLocalPlayerLeft(playerRef);
 		}
 	}
 }

@@ -43,6 +43,51 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Removes all modifiers, removes immunity, resets health and shields
+		/// </summary>
+		internal void ResetStats(Frame f, Equipment weapon, FixedArray<Equipment> gear)
+		{
+			CurrentStatusModifierDuration = FP._0;
+			CurrentStatusModifierEndTime = FP._0;
+			CurrentStatusModifierType = StatusModifierType.None;
+			IsImmune = false;
+			CurrentHealth = int.MaxValue;
+			CurrentShield = 0;
+			
+			f.ResolveList(Modifiers).Clear();
+			RefreshStats(f, weapon, gear);
+		}
+
+		/// <summary>
+		/// Refresh the player stats with the given data
+		/// </summary>
+		internal void RefreshStats(Frame f, Equipment weapon, FixedArray<Equipment> gear)
+		{
+			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
+			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
+			var modifiers = f.ResolveList(Modifiers);
+			
+			QuantumStatCalculator.CalculateStats(f, weapon, gear, out var armour, out var health,
+			                                     out var speed, out var power);
+			
+			health += f.GameConfig.PlayerDefaultHealth.Get(f);
+			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
+			
+			CurrentHealth = Math.Min(CurrentHealth, health);
+			CurrentShield = Math.Min(CurrentShield, maxShields);
+			Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
+			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
+			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
+			Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
+			Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+
+			foreach (var modifier in modifiers)
+			{
+				ApplyModifier(modifier);
+			}
+		}
+
+		/// <summary>
 		/// Removes an effect of modifier from the stats data
 		/// </summary>
 		internal void RemoveModifier(Frame f, Modifier modifier)
@@ -79,19 +124,6 @@ namespace Quantum
 		{
 			ApplyModifier(modifier);
 			f.ResolveList(Modifiers).Add(modifier);
-		}
-
-		/// <summary>
-		/// This re-applies all stored modifiers from <see cref="Modifiers"/>. Note that
-		/// calling this multiple times will apply all the modifiers multiple times.
-		/// </summary>
-		internal void ApplyModifiers(Frame f)
-		{
-			var modifiers = f.ResolveList(Modifiers);
-			foreach (var modifier in modifiers)
-			{
-				ApplyModifier(modifier);
-			}
 		}
 
 		/// <summary>
@@ -168,17 +200,51 @@ namespace Quantum
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="percentage"/> (between 0 - 1)
 		/// </summary>
-		internal void SetCurrentHealthPercentage(Frame f, EntityRef entity, EntityRef attacker, FP percentage)
+		/// <remarks>
+		/// IMPORTANT: Only use this call to update player health values without killing the player.
+		/// To kill the player call <see cref="AttackerSetCurrentHealth"/> instead
+		/// </remarks>
+		internal void SetCurrentHealthPercentage(Frame f, EntityRef entity, FP percentage)
 		{
 			var maxHealth = GetStatData(StatType.Health).StatValue;
 
-			SetCurrentHealth(f, entity, attacker, FPMath.RoundToInt(maxHealth * FPMath.Clamp01(percentage)));
+			SetCurrentHealth(f, entity, FPMath.RoundToInt(maxHealth * FPMath.Clamp01(percentage)));
 		}
 
 		/// <summary>
 		/// Sets the entity health based on the given <paramref name="amount"/> (between 0 - max health)
 		/// </summary>
-		internal void SetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		internal void AttackerSetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		{
+			var previousHealth = CurrentHealth;
+
+			SetCurrentHealth(f, entity, amount);
+
+			if (CurrentHealth == previousHealth && attacker != EntityRef.None)
+			{
+				f.Events.OnDamageBlocked(entity);
+			}
+
+			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
+			{
+				f.Signals.HealthChangedFromAttacker(entity, attacker, previousHealth);
+			}
+
+			if (CurrentHealth == 0)
+			{
+				f.Signals.HealthIsZeroFromAttacker(entity, attacker);
+				f.Events.OnHealthIsZeroFromAttacker(entity, attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
+			}
+		}
+
+		/// <summary>
+		/// Sets the entity health based on the given <paramref name="amount"/> (between 0 - max health)
+		/// </summary>
+		/// <remarks>
+		/// IMPORTANT: Only use this call to update player health values without killing the player.
+		/// To kill the player call <see cref="AttackerSetCurrentHealth"/> instead
+		/// </remarks>
+		internal void SetCurrentHealth(Frame f, EntityRef e, int amount)
 		{
 			var previousHealth = CurrentHealth;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
@@ -186,17 +252,9 @@ namespace Quantum
 			CurrentHealth = Math.Min(maxHealth, amount);
 			CurrentHealth = Math.Max(CurrentHealth, 0);
 
-			// RefreshStats in PlayerCharacter sets the player as the entity and attacker, which seems wrong,
-			// but I don't want to break something before going on vacation so I'm checking for it here.
-			if (CurrentHealth == previousHealth && attacker != EntityRef.None && attacker != entity)
+			if (CurrentHealth != previousHealth)
 			{
-				f.Events.OnDamageBlocked(entity);
-			}
-
-			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
-			{
-				f.Events.OnHealthChanged(entity, attacker, previousHealth, CurrentHealth, maxHealth);
-				f.Signals.HealthChanged(entity, attacker, previousHealth);
+				f.Events.OnHealthChanged(e, previousHealth, CurrentHealth, maxHealth);
 			}
 		}
 
@@ -205,16 +263,16 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, Spell spell)
 		{
-			GainHealth(f, spell.Victim, spell.Attacker, spell.PowerAmount);
+			SetCurrentHealth(f, spell.Victim, (int) (CurrentHealth + spell.PowerAmount));
 		}
 
 		/// <summary>
 		/// Gives the given health <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change
 		/// based on the given data
 		/// </summary>
-		internal void GainHealth(Frame f, EntityRef entity, EntityRef attacker, uint amount)
+		internal void GainHealth(Frame f, EntityRef entity, uint amount)
 		{
-			SetCurrentHealth(f, entity, attacker, (int) (CurrentHealth + amount));
+			SetCurrentHealth(f, entity, (int) (CurrentHealth + amount));
 		}
 
 		/// <summary>
@@ -224,10 +282,10 @@ namespace Quantum
 		{
 			var entity = spell.Victim;
 			var previousHealth = CurrentHealth;
-			var maxHealth = Values[(int) StatType.Health].StatValue.AsInt;
 			var previousShield = CurrentShield;
-			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
-			var armour = Values[(int)StatType.Armour].StatValue.AsInt;
+			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
+			var currentShieldCapacity = GetStatData(StatType.Shield).StatValue.AsInt;
+			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 			var currentDamageAmount = Math.Max((int)spell.PowerAmount, 0);
 
 			if (IsImmune)
@@ -236,7 +294,6 @@ namespace Quantum
 				return;
 			}
 
-			//reduce incoming damage by armour amount
 			currentDamageAmount = Math.Max(currentDamageAmount - armour, 0);
 
 			// If there's shields then we reduce it first
@@ -268,34 +325,7 @@ namespace Quantum
 				return;
 			}
 
-			SetCurrentHealth(f, entity, spell.Attacker, previousHealth - currentDamageAmount);
-
-			if (CurrentHealth == 0)
-			{
-				f.Events.OnHealthIsZero(entity, spell.Attacker, (int) spell.PowerAmount, maxHealth, spell.Id);
-				f.Signals.HealthIsZero(entity, spell.Attacker);
-			}
-		}
-
-		/// <summary>
-		/// Removes all modifiers, removes immunity, resets health and shields
-		/// </summary>
-		internal void ResetStats(Frame f, EntityRef entity)
-		{
-			CurrentStatusModifierDuration = FP._0;
-			CurrentStatusModifierEndTime = FP._0;
-			CurrentStatusModifierType = StatusModifierType.None;
-			IsImmune = false;
-			
-			var list = f.ResolveList(Modifiers);
-			for (var i = list.Count - 1; i > -1; i--)
-			{
-				RemoveModifier(f, list[i]);
-			}
-			list.Clear();
-			
-			SetCurrentHealthPercentage(f, entity, EntityRef.None, FP._1);
-			SetShields(f, entity, EntityRef.None, 0);
+			AttackerSetCurrentHealth(f, entity, spell.Attacker, previousHealth - currentDamageAmount);
 		}
 
 		private void ApplyModifier(Modifier modifier)

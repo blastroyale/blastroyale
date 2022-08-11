@@ -2567,11 +2567,11 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: MainMenu/ForgotPassword
+    - Term: MainMenu/ResetPassword
       TermType: 0
       Description: 
       Languages:
-      - Forgot your password?
+      - Reset Password
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2579,7 +2579,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Send Recovery Email
+      - Send Password Recovery Email
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6318,7 +6318,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1660218088746
+    Google_LastUpdatedVersion: 1660226780247
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

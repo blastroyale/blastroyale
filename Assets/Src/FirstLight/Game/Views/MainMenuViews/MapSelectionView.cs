@@ -72,42 +72,42 @@ namespace FirstLight.Game.Views.MainMenuViews
 				var gridPosition = GetRandomGridPosition();
 				_services.AnalyticsService.MatchCalls.DefaultDropPosition = gridPosition;
 				SetGridPosition(gridPosition, false);
-			}
-
-			if (TryGetDropPattern(out var pattern))
-			{
-				var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-				var containerSize = _gridOverlay.rect.size;
-				var gridSize = gridConfigs.GetSize();
-				string gridPath = "(";
-				for (int y = 0; y < gridSize.y; y++)
-				{
-					for (int x = 0; x < gridSize.x; x++)
-					{
-						if (pattern[x][y])
-						{
-							gridPath += "(" + x + "," + y + "),";
-							continue;
-						}
-
-						var go = new GameObject($"[{x},{y}]");
-						go.transform.parent = _gridOverlay.transform;
-						go.transform.localScale = Vector3.one;
-
-						var image = go.AddComponent<RawImage>();
-						image.color = _unavailableGridColor;
-
-						var rt = go.GetComponent<RectTransform>();
-						rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
-						                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
-						                      containerSize / 2f + (containerSize / gridSize / 2);
-						rt.sizeDelta = containerSize / gridSize;
-					}
-				}
-
-				gridPath += ")";
 				
-				_services.AnalyticsService.MatchCalls.PresentedMapPath = gridPath;
+				if (TryGetDropPattern(out var pattern))
+				{
+					var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+					var containerSize = _gridOverlay.rect.size;
+					var gridSize = gridConfigs.GetSize();
+					string gridPath = "(";
+					for (int y = 0; y < gridSize.y; y++)
+					{
+						for (int x = 0; x < gridSize.x; x++)
+						{
+							if (pattern[x][y])
+							{
+								gridPath += "(" + x + "," + y + "),";
+								continue;
+							}
+
+							var go = new GameObject($"[{x},{y}]");
+							go.transform.parent = _gridOverlay.transform;
+							go.transform.localScale = Vector3.one;
+
+							var image = go.AddComponent<RawImage>();
+							image.color = _unavailableGridColor;
+
+							var rt = go.GetComponent<RectTransform>();
+							rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
+							                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
+							                      containerSize / 2f + (containerSize / gridSize / 2);
+							rt.sizeDelta = containerSize / gridSize;
+						}
+					}
+
+					gridPath += ")";
+				
+					_services.AnalyticsService.MatchCalls.PresentedMapPath = gridPath;
+				}
 			}
 		}
 

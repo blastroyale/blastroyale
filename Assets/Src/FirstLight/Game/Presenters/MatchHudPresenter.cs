@@ -1,4 +1,6 @@
 using System.Text;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -35,23 +37,26 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
 			_mapStatusText.text = "";
 
 			foreach (var standingsButton in _standingsButtons)
 			{
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
-
+			
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
-			_quitButton.gameObject.SetActive(Debug.isDebugBuild || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator());
+			_equippedDebugText.gameObject.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_mapTimerView.gameObject.SetActive(false);
@@ -59,16 +64,31 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
 
-			#if DEVELOPMENT_BUILD
-			if (SROptions.Current.EnableEquipmentDebug)
+			// TODO - QUIT BUTTON VISIBILITY BEHAVIOR
+			// TODO - CHECK IF ERRORS OUT ON SPECTATOR MODE
+			var game = QuantumRunner.Default.Game;
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayerEntity = _matchServices.EntityViewUpdaterService.GetManualView(localPlayer.Entity);
+			var canQuitMatch = false;
+
+			if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				
+			}
+			else
+			{
+				canQuitMatch = true;
+			}
+			
+			_quitButton.gameObject.SetActive(Debug.isDebugBuild || canQuitMatch);
+			
+			if (Debug.isDebugBuild && SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
 				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
-			}
-			else
-			#endif
-			{
-				_equippedDebugText.gameObject.SetActive(false);
 			}
 		}
 

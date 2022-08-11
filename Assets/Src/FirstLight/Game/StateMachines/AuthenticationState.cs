@@ -509,16 +509,12 @@ namespace FirstLight.Game.StateMachines
 			var emailTemplateId = "";
 			
 #if LIVE_SERVER
-			PlayFabSettings.TitleId = "302CF";
 			emailTemplateId = F4F93EEA134BE503;
 #elif OFFCHAIN_SERVER
-			PlayFabSettings.TitleId = "***REMOVED***";
 			emailTemplateId = "***REMOVED***";
 #elif STAGE_SERVER
-			PlayFabSettings.TitleId = "***REMOVED***";
 			emailTemplateId = "***REMOVED***";
 #else
-			PlayFabSettings.TitleId = "***REMOVED***";
 			emailTemplateId = "***REMOVED***";
 #endif
 			
@@ -533,7 +529,7 @@ namespace FirstLight.Game.StateMachines
 			PlayFabClientAPI.SendAccountRecoveryEmail(request,OnAccountRecoveryResult,OnPlayFabError);
 		}
 		
-		void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
+		private void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
 		{
 			_services.GenericDialogService.CloseDialog();
 			

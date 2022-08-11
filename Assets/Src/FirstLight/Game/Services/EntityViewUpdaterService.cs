@@ -45,7 +45,7 @@ namespace FirstLight.Game.Services
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			QuantumCallback.Subscribe<CallbackGameStarted>(this, OnGameResynced);
+			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResynced);
 		}
 
 		private void LateUpdate()
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 			base.DestroyEntityView(game, view);
 		}
 
-		private void OnGameResynced(CallbackGameStarted callback)
+		private void OnGameResynced(CallbackGameResynced callback)
 		{
 			var f = callback.Game.Frames.Verified;
 			
@@ -121,9 +121,7 @@ namespace FirstLight.Game.Services
 				
 				if (playerData.DeathCount > 0)
 				{
-					var marker = f.TryGet<BotCharacter>(playerData.Entity, out var bot)
-						             ? bot.DeathMarker
-						             : f.GetPlayerData(playerData.Player).DeathMarker;
+					var marker = f.GetSingleton<GameContainer>().PlayersData[playerData.Player].PlayerDeathMarker;
 					
 					SpawnDeathMarker(marker, playerData.LastDeathPosition.ToUnityVector3());
 				}

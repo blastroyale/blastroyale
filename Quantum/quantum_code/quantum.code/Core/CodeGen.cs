@@ -2595,37 +2595,39 @@ namespace Quantum {
   public unsafe partial struct PlayerMatchData {
     public const Int32 SIZE = 96;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public Int32 BotNameIndex;
-    [FieldOffset(12)]
-    public UInt32 DamageDone;
     [FieldOffset(16)]
-    public UInt32 DamageReceived;
+    public UInt32 DamageDone;
     [FieldOffset(20)]
+    public UInt32 DamageReceived;
+    [FieldOffset(24)]
     public UInt32 DeathCount;
     [FieldOffset(56)]
     public EntityRef Entity;
     [FieldOffset(64)]
     public FP FirstDeathTime;
-    [FieldOffset(24)]
-    public UInt32 HealingDone;
     [FieldOffset(28)]
+    public UInt32 HealingDone;
+    [FieldOffset(32)]
     public UInt32 HealingReceived;
     [FieldOffset(72)]
     public FPVector3 LastDeathPosition;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public PlayerRef Player;
-    [FieldOffset(32)]
-    public UInt32 PlayerLevel;
     [FieldOffset(0)]
-    public GameId PlayerSkin;
+    public GameId PlayerDeathMarker;
     [FieldOffset(36)]
-    public UInt32 PlayerTrophies;
+    public UInt32 PlayerLevel;
+    [FieldOffset(4)]
+    public GameId PlayerSkin;
     [FieldOffset(40)]
-    public UInt32 PlayersKilledCount;
+    public UInt32 PlayerTrophies;
     [FieldOffset(44)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayersKilledCount;
     [FieldOffset(48)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(52)]
     public UInt32 SuicideCount;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2640,6 +2642,7 @@ namespace Quantum {
         hash = hash * 31 + HealingReceived.GetHashCode();
         hash = hash * 31 + LastDeathPosition.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + (Int32)PlayerDeathMarker;
         hash = hash * 31 + PlayerLevel.GetHashCode();
         hash = hash * 31 + (Int32)PlayerSkin;
         hash = hash * 31 + PlayerTrophies.GetHashCode();
@@ -2651,6 +2654,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerMatchData*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->PlayerDeathMarker);
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         PlayerRef.Serialize(&p->Player, serializer);
@@ -9653,6 +9657,7 @@ namespace Quantum.Prototypes {
     public UInt32 PlayerLevel;
     public UInt32 PlayerTrophies;
     public GameId_Prototype PlayerSkin;
+    public GameId_Prototype PlayerDeathMarker;
     public Int32 BotNameIndex;
     public FPVector3 LastDeathPosition;
     public FP FirstDeathTime;
@@ -9676,6 +9681,7 @@ namespace Quantum.Prototypes {
       result.HealingReceived = this.HealingReceived;
       result.LastDeathPosition = this.LastDeathPosition;
       result.Player = this.Player;
+      result.PlayerDeathMarker = this.PlayerDeathMarker;
       result.PlayerLevel = this.PlayerLevel;
       result.PlayerSkin = this.PlayerSkin;
       result.PlayerTrophies = this.PlayerTrophies;

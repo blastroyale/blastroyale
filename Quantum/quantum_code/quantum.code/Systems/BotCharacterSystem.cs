@@ -876,7 +876,8 @@ namespace Quantum.Systems
 				
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
-				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>(), Equipment.None);
+				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
+				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}
 		}
 

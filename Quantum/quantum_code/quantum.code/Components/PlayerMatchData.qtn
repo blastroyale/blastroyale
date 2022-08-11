@@ -5,6 +5,7 @@ struct PlayerMatchData
 	UInt32 PlayerLevel;
 	UInt32 PlayerTrophies;
 	GameId PlayerSkin;
+	GameId PlayerDeathMarker;
 	Int32 BotNameIndex;
 	
 	FPVector3 LastDeathPosition;

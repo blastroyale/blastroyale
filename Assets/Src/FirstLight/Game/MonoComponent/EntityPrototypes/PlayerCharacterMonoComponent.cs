@@ -61,9 +61,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
 			var f = game.Frames.Verified;
-			var entity = EntityView.EntityRef;
-			var player = f.Get<PlayerCharacter>(entity).Player;
-			var marker = f.TryGet<BotCharacter>(entity, out var bot) ? bot.DeathMarker : f.GetPlayerData(player).DeathMarker;
+			var marker = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef].PlayerDeathMarker;
 			
 			_localInput?.Dispose();
 			

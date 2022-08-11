@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8570190705376533865}
   - component: {fileID: 2262908692264606996}
   - component: {fileID: 1247472007981471782}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WarriorHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

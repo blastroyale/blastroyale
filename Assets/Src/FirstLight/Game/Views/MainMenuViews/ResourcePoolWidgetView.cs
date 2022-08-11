@@ -1,6 +1,7 @@
 using System;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -68,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateTimerView(float delta)
 		{
-			if (_dataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.BattleRoyale)
+			if (_dataProvider.AppDataProvider.SelectedMatchType.Value != MatchType.Ranked)
 			{
 				_visualsAnchorRoot.SetActive(false);
 				return;

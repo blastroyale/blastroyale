@@ -55,11 +55,7 @@ namespace FirstLight.Game.Utils
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
 					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs, isRankedMatch, gameHasBots),
-					CustomRoomPropertiesForLobby = new[]
-					{
-						GameConstants.Network.ROOM_PROPS_COMMIT,
-						GameConstants.Network.ROOM_PROPS_MAP
-					},
+					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
@@ -147,6 +143,17 @@ namespace FirstLight.Game.Utils
 			return compatibleMaps[timeSegmentIndex];
 		}
 
+		private static string[] GetCreateRoomPropertiesForLobby()
+		{
+			return new[]
+			{
+				GameConstants.Network.ROOM_PROPS_COMMIT,
+				GameConstants.Network.ROOM_PROPS_MAP,
+				GameConstants.Network.ROOM_PROPS_RANKED_MATCH,
+				GameConstants.Network.ROOM_PROPS_BOTS
+			};
+		}
+		
 		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch, bool gameHasBots)
 		{
 			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots);

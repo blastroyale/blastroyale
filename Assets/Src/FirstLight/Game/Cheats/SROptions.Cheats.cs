@@ -273,7 +273,7 @@ public partial class SROptions
 	}
 	
 	[Category("Logging")]
-	public void LogNetworkInfo()
+	public void LogCurrentRoomInfo()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 

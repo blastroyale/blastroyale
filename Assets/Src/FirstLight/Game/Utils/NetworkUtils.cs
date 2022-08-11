@@ -107,11 +107,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig, bool isRankedMatch)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig, bool isRankedMatch, bool gameHasBots)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig, isRankedMatch),
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots),
 				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
@@ -149,7 +149,7 @@ namespace FirstLight.Game.Utils
 
 		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch, bool gameHasBots)
 		{
-			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch);
+			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
 
@@ -157,13 +157,11 @@ namespace FirstLight.Game.Utils
 			{
 				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
 			}
-			
-			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 
 			return properties;
 		}
 
-		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig, bool isRankedMatch)
+		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig, bool isRankedMatch, bool gameHasBots)
 		{
 			return new Hashtable
 			{
@@ -174,7 +172,10 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id},
 				
 				// For matchmaking, rooms are segregated by casual/ranked.
-				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch}
+				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
+				
+				// Games always either have bots, or dont. This property needs to be in here
+				{GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots}
 			};
 		}
 

@@ -217,7 +217,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool EnoughNftToPlay()
 		{
-			return _gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch
+			return _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual
 			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 

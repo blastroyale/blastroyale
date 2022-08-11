@@ -66,7 +66,6 @@ namespace FirstLight.Game.Presenters
 
 		private void GoToForgotYourPassword()
 		{
-			Application.OpenURL();
 		}
 	}
 }

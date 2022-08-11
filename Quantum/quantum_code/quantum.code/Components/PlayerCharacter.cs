@@ -12,15 +12,6 @@ namespace Quantum
 		public Equipment CurrentWeapon => WeaponSlots[CurrentWeaponSlot].Weapon;
 
 		/// <summary>
-		/// Marks that the player left the game
-		/// </summary>
-		public void PlayerLeft(Frame f, EntityRef e)
-		{
-			f.Events.OnPlayerLeft(Player, e);
-			f.Events.OnLocalPlayerLeft(Player);
-		}
-
-		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
@@ -54,9 +45,9 @@ namespace Quantum
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
 
-			InitStats(f, e, startingEquipment);
 			InitEquipment(f, e, startingEquipment);
-
+			
+			f.Add<Stats>(e);
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 
@@ -80,10 +71,12 @@ namespace Quantum
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
 			{
-				CurrentWeaponSlot = Constants.WEAPON_INDEX_DEFAULT;
+				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
-
-			EquipSlotWeapon(f, e, CurrentWeaponSlot, isRespawning);
+			else
+			{
+				SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
+			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -99,7 +92,7 @@ namespace Quantum
 			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
-			stats->ResetStats(f, e);
+			stats->ResetStats(f, CurrentWeapon, Gear);
 
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
@@ -132,8 +125,6 @@ namespace Quantum
 				KillerEntity = attacker
 			};
 
-			f.Unsafe.GetPointer<Stats>(e)->SetCurrentHealthPercentage(f, e, attacker, FP._0);
-
 			// If an entity has NavMeshPathfinder then we stop the movement in case an entity was moving
 			if (f.Unsafe.TryGetPointer<NavMeshPathfinder>(e, out var navMeshPathfinder))
 			{
@@ -155,8 +146,9 @@ namespace Quantum
 				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
 			
-			f.Events.OnPlayerDead(Player, e);
+			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker));
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
+			f.Signals.PlayerDead(Player, e);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
@@ -169,8 +161,8 @@ namespace Quantum
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
+			var initialAmmo = f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(weapon, primary);
-
 			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
@@ -193,8 +185,7 @@ namespace Quantum
 			WeaponSlots[slot].Weapon = weapon;
 			CurrentWeaponSlot = slot;
 
-			GainAmmo(f, e,
-			         f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f) - GetAmmoAmountFilled(f, e));
+			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 		}
@@ -202,50 +193,13 @@ namespace Quantum
 		/// <summary>
 		/// Sets the player's weapon to the given <paramref name="slot"/>
 		/// </summary>
-		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot, bool triggerEvents = true)
+		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
-			CurrentWeaponSlot = slot;
-
-			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var weapon = CurrentWeapon;
-			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
-
-			if (triggerEvents)
-			{
-				f.Events.OnPlayerWeaponChanged(Player, e, weapon);
-				f.Events.OnLocalPlayerWeaponChanged(Player, e, weapon, slot);
-			}
-
-			RefreshStats(f, e);
-
-			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			//the total time it takes for a burst to complete should be half of the weapon's cooldown
-			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts == 1
-				                    ? 0
-				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) /
-				                      weaponConfig.NumberOfBursts;
-
-			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
-			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
-			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
-			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
-			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
-			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
-
-			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
-			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
-
-			if (weaponSlot.Special1AvailableTime > FP._0)
-			{
-				weaponSlot.Special1.AvailableTime = weaponSlot.Special1AvailableTime;
-			}
-			if (weaponSlot.Special2AvailableTime > FP._0)
-			{
-				weaponSlot.Special2.AvailableTime = weaponSlot.Special2AvailableTime;
-			}
-
-			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
+			SetSlotWeapon(f, e, slot);
+			RefreshEquipmentStats(f, e);
+			
+			f.Events.OnPlayerWeaponChanged(Player, e, CurrentWeapon);
+			f.Events.OnLocalPlayerWeaponChanged(Player, e, CurrentWeapon, slot);
 		}
 
 		/// <summary>
@@ -260,7 +214,7 @@ namespace Quantum
 
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 
-			RefreshStats(f, e);
+			RefreshEquipmentStats(f, e);
 		}
 
 		/// <summary>
@@ -442,53 +396,21 @@ namespace Quantum
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 		}
 
-		private void InitStats(Frame f, EntityRef e, Equipment[] equipment)
+		private void RefreshEquipmentStats(Frame f, EntityRef e)
 		{
-			QuantumStatCalculator.CalculateStats(f, equipment, out var armour, out var health,
-			                                     out var speed, out var power);
-
-			f.Add(e, new Stats(f.GameConfig.PlayerDefaultHealth.Get(f) + health,
-			                   power,
-			                   f.GameConfig.PlayerDefaultSpeed.Get(f) + speed,
-			                   armour,
-			                   f.GameConfig.PlayerMaxShieldCapacity.Get(f),
-			                   f.GameConfig.PlayerStartingShieldCapacity.Get(f)));
-		}
-
-		private void RefreshStats(Frame f, EntityRef e)
-		{
-			// We request stats and store their current base values
 			var previousStats = f.Get<Stats>(e);
+			var newStats = f.Unsafe.GetPointer<Stats>(e);
+			var previousHeath = previousStats.GetStatData(StatType.Health).StatValue.AsInt;
 
-			QuantumStatCalculator.CalculateStats(f, CurrentWeapon, Gear, out var armour, out var health,
-			                                     out var speed,
-			                                     out var power);
+			newStats->RefreshStats(f, CurrentWeapon, Gear);
+			
+			var newHealth = newStats->GetStatData(StatType.Health).StatValue.AsInt;
+			var diff = Math.Max(newHealth - previousHeath, 0);
 
+			// Adapts the player health if new equipment changes player's HP
+			newStats->SetCurrentHealth(f, e, Math.Min(newStats->CurrentHealth + diff, newHealth));
 
-			health += f.GameConfig.PlayerDefaultHealth.Get(f);
-			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-
-			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
-			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
-
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
-			stats->Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
-			stats->Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
-			stats->Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
-			stats->Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
-			stats->ApplyModifiers(f);
-
-			// After the refresh we request updated stats
-			var currentStats = f.Get<Stats>(e);
-
-			var diff =
-				FPMath.Max(currentStats.GetStatData(StatType.Health).StatValue - previousStats.GetStatData(StatType.Health).StatValue,
-				           0);
-			var newHealthValue = FPMath.Min(stats->CurrentHealth + diff, stats->GetStatData(StatType.Health).StatValue);
-			stats->SetCurrentHealth(f, e, e, newHealthValue.AsInt);
-
-			f.Events.OnPlayerStatsChanged(Player, e, previousStats, currentStats);
+			f.Events.OnPlayerStatsChanged(Player, e, previousStats, *newStats);
 		}
 
 		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
@@ -516,6 +438,43 @@ namespace Quantum
 			var specialConfig = f.SpecialConfigs.GetConfig(specialId);
 
 			return new Special(f, specialConfig);
+		}
+
+		private void SetSlotWeapon(Frame f, EntityRef e, int slot)
+		{
+			CurrentWeaponSlot = slot;
+
+			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
+			var weapon = CurrentWeapon;
+			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			//the total time it takes for a burst to complete should be half of the weapon's cooldown
+			//if we are only firing one shot, burst interval is 0
+			var burstCooldown = weaponConfig.NumberOfBursts == 1
+				                    ? 0
+				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) /
+				                      weaponConfig.NumberOfBursts;
+
+			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
+			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
+			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+
+			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
+			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
+
+			if (weaponSlot.Special1AvailableTime > FP._0)
+			{
+				weaponSlot.Special1.AvailableTime = weaponSlot.Special1AvailableTime;
+			}
+			if (weaponSlot.Special2AvailableTime > FP._0)
+			{
+				weaponSlot.Special2.AvailableTime = weaponSlot.Special2AvailableTime;
+			}
+
+			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
 		}
 	}
 }

@@ -72,7 +72,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 		
 		foreach (var config in equipmentConfigs)
 		{
@@ -106,7 +106,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 		
 		foreach (var config in equipmentConfigs)
 		{
@@ -132,7 +132,7 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 		
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id, rarity: EquipmentRarity.RarePlus,
 		                                                      adjective: EquipmentAdjective.Regular,
@@ -171,7 +171,7 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 
 		for (var i = 0; i < equipmentConfigs.Count; i++)
 		{
@@ -190,7 +190,7 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 
 		var rand = Random.Range(0, equipmentConfigs.Count);
 

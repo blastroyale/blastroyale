@@ -4,8 +4,8 @@ using Quantum;
 namespace FirstLight.Editor.SheetImporters
 {
 	/// <inheritdoc />
-	public class BaseEquipmentStatsConfigsImporter : GoogleSheetQuantumConfigsImporter<QuantumBaseEquipmentStatsConfig,
-		BaseEquipmentStatsConfigs>
+	public class BaseEquipmentStatConfigsImporter : GoogleSheetQuantumConfigsImporter<QuantumBaseEquipmentStatConfig,
+		BaseEquipmentStatConfigs>
 	{
 		/// <inheritdoc />
 		public override string GoogleSheetUrl =>

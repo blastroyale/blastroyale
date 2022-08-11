@@ -7,6 +7,7 @@ struct PlayerMatchData
 	GameId PlayerSkin;
 	Int32 BotNameIndex;
 	
+	FPVector3 LastDeathPosition;
 	FP FirstDeathTime;
 	UInt32 PlayersKilledCount;
 	UInt32 DamageDone;

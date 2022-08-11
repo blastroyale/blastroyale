@@ -91,6 +91,8 @@ enum GameId
 	DummyCharacter = 6,
 	WeaponPlatformSpawner = 138,
 	ConsumablePlatformSpawner = 140,
+	Flag = 25,
+	Thumbstone = 26,
 }
 
 enum GameIdGroup
@@ -116,4 +118,6 @@ enum GameIdGroup
 	Destructible = 26,
 	DummyCharacter = 3,
 	Platform = 37,
+	Collection = 9,
+	DeathMarker = 10,
 }

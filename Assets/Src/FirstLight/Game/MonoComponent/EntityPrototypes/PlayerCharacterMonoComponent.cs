@@ -53,8 +53,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
-			base.OnEntityInstantiated(game);
-
 			var frame = game.Frames.Verified;
 
 			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
@@ -62,9 +60,21 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
+			var f = game.Frames.Verified;
+			var entity = EntityView.EntityRef;
+			var player = f.Get<PlayerCharacter>(entity).Player;
+			var marker = f.TryGet<BotCharacter>(entity, out var bot) ? bot.DeathMarker : f.GetPlayerData(player).DeathMarker;
+			
 			_localInput?.Dispose();
+			
+			SpawnDeathMarker(marker, transform.position);
+		}
 
-			base.OnEntityDestroyed(game);
+		private async void SpawnDeathMarker(GameId marker, Vector3 position)
+		{
+			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
+
+			obj.transform.position = position;
 		}
 
 		/// <inheritdoc />
@@ -154,11 +164,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (callback.CollectableId.IsInGroup(GameIdGroup.Ammo))
+			if (EntityView.EntityRef != callback.PlayerEntity || !callback.CollectableId.IsInGroup(GameIdGroup.Ammo))
 			{
-				var shootState = _shootIndicator?.VisualState ?? false;
-				_shootIndicator?.SetVisualState(shootState);
+				return;
 			}
+			
+			_shootIndicator?.SetVisualState(_shootIndicator?.VisualState ?? false);
 		}
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)

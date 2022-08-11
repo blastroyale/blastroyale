@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using FirstLight.Game.Utils;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -35,6 +38,15 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IDictionary<EntityRef, EntityView> _viewsToDestroy = new Dictionary<EntityRef, EntityView>(256);
 		private readonly List<EntityView> _viewsListToDestroy = new List<EntityView>(256);
+
+		private IGameServices _gameServices;
+
+		private void Start()
+		{
+			_gameServices = MainInstaller.Resolve<IGameServices>();
+
+			QuantumCallback.Subscribe<CallbackGameStarted>(this, OnGameResynced);
+		}
 
 		private void LateUpdate()
 		{
@@ -90,6 +102,39 @@ namespace FirstLight.Game.Services
 			}
 			
 			base.DestroyEntityView(game, view);
+		}
+
+		private void OnGameResynced(CallbackGameStarted callback)
+		{
+			var f = callback.Game.Frames.Verified;
+			
+			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			{
+				return;
+			}
+
+			var data = f.GetSingleton<GameContainer>().PlayersData;
+
+			for(var i = 0; i < data.Length; i++)
+			{
+				var playerData = data[i];
+				
+				if (playerData.DeathCount > 0)
+				{
+					var marker = f.TryGet<BotCharacter>(playerData.Entity, out var bot)
+						             ? bot.DeathMarker
+						             : f.GetPlayerData(playerData.Player).DeathMarker;
+					
+					SpawnDeathMarker(marker, playerData.LastDeathPosition.ToUnityVector3());
+				}
+			}
+		}
+
+		private async void SpawnDeathMarker(GameId marker, Vector3 position)
+		{
+			var obj = await _gameServices.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
+
+			obj.transform.position = position;
 		}
 	}
 }

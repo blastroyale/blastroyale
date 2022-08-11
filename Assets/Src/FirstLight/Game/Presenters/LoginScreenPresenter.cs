@@ -1,8 +1,11 @@
 using System;
 using Codice.Utils;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using I2.Loc;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
@@ -16,6 +19,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action<string, string> LoginClicked;
 			public Action GoToRegisterClicked;
+			public UnityAction<string> ForgotPasswordClicked;
 		}
 
 		[SerializeField] private TMP_InputField _emailInputField;
@@ -24,16 +28,20 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _goToDevRegisterButton;
 		[SerializeField] private Button _loginButton;
 		[SerializeField] private GameObject _frontDimBlocker;
-		[SerializeField] private Button _goToForgotPassword;
+		[SerializeField] private Button _forgotPasswordButton;
+
+		private IGameServices _services;
 
 		private void Awake()
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
+			
 			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
 
 			_goToDevRegisterButton.onClick.AddListener(GoToDevRegisterClicked);
 			_goToDevRegisterButton.gameObject.SetActive(Debug.isDebugBuild);
-			_goToForgotPassword.onClick.AddListener(GoToForgotYourPassword);
+			_forgotPasswordButton.onClick.AddListener(GoToForgotYourPassword);
 		}
 
 		private void OnEnable()
@@ -66,6 +74,14 @@ namespace FirstLight.Game.Presenters
 
 		private void GoToForgotYourPassword()
 		{
+			var confirmButton = new GenericDialogButton<string>
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = Data.ForgotPasswordClicked
+			};
+			
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.SendPasswordEmail, 
+			                                                    "", confirmButton, true);
 		}
 	}
 }

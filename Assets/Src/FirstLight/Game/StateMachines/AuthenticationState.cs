@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -22,6 +23,7 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -484,7 +486,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new LoginScreenPresenter.StateData
 			{
 				LoginClicked = LoginClicked,
-				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent)
+				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
+				ForgotPasswordClicked = SendRecoveryEmail
 			};
 			
 			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
@@ -499,6 +502,50 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+		}
+
+		private void SendRecoveryEmail(string email)
+		{
+			var emailTemplateId = "";
+			
+			// TODO - ADD LIVE TEMPLATE ID
+#if LIVE_SERVER
+			PlayFabSettings.TitleId = "302CF";
+			
+#elif OFFCHAIN_SERVER
+			PlayFabSettings.TitleId = "***REMOVED***";
+			emailTemplateId = "***REMOVED***";
+#elif STAGE_SERVER
+			PlayFabSettings.TitleId = "***REMOVED***";
+			emailTemplateId = "***REMOVED***";
+#else
+			PlayFabSettings.TitleId = "***REMOVED***";
+			emailTemplateId = "***REMOVED***";
+#endif
+			
+			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
+			{
+				TitleId = PlayFabSettings.TitleId,
+				Email = email,
+				EmailTemplateId = emailTemplateId,
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
+			
+			PlayFabClientAPI.SendAccountRecoveryEmail(request,OnAccountRecoveryResult,OnPlayFabError);
+		}
+		
+		void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
+		{
+			_services.GenericDialogService.CloseDialog();
+			
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
+			                                         confirmButton);
 		}
 
 		private bool IsOutdated(string version)

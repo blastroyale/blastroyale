@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 273
+  m_PreferredWidth: 450
   m_PreferredHeight: 100
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
@@ -1420,6 +1420,7 @@ MonoBehaviour:
   _goToDevRegisterButton: {fileID: 2328401095411325239}
   _loginButton: {fileID: 7548042188771319651}
   _frontDimBlocker: {fileID: 7817182784652020434}
+  _forgotPasswordButton: {fileID: 8702992890088072826}
 --- !u!1 &4194012447175886297
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,7 +3022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 9}
+  m_AnchoredPosition: {x: -0.000030517578, y: 8.2}
   m_SizeDelta: {x: -18.7398, y: -7.7302}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2350952369463499017
@@ -3079,12 +3080,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.5
+  m_fontSize: 27.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 42
+  m_fontSizeMax: 27.6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3975,7 +3976,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.75
+  m_fontSize: 26.8
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -122,6 +122,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
+
 				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
 				                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 			}

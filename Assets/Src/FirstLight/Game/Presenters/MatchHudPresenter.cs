@@ -45,14 +45,14 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			_mapStatusText.text = "";
 
 			foreach (var standingsButton in _standingsButtons)
 			{
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
-			
+
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
@@ -63,31 +63,7 @@ namespace FirstLight.Game.Presenters
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
-			
-			var game = QuantumRunner.Default.Game;
-			var f = QuantumRunner.Default.Game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
-			var localPlayerEntity = _matchServices.EntityViewUpdaterService.GetManualView(localPlayer.Entity);
-			var canQuitMatch = false;
-
-			if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
-			{
-				canQuitMatch = !localPlayerEntity.EntityRef.IsAlive(f);
-			}
-			else
-			{
-				canQuitMatch = true;
-			}
-			
-			_quitButton.gameObject.SetActive(Debug.isDebugBuild || canQuitMatch);
-			
-			if (Debug.isDebugBuild && SROptions.Current.EnableEquipmentDebug)
-			{
-				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
-			}
+			_quitButton.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()
@@ -110,6 +86,36 @@ namespace FirstLight.Game.Presenters
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 
 			_standings.Initialise(frame.PlayerCount, false, true);
+
+			var game = QuantumRunner.Default.Game;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var canQuitMatch = false;
+
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				Debug.LogError("SPECTATOR - CAN QUIT");
+				canQuitMatch = true;
+			}
+			else if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				canQuitMatch = !localPlayer.Entity.IsAlive(frame);
+				Debug.LogError("RANKED MATCH - CAN QUIT? " + canQuitMatch);
+			}
+			else
+			{
+				canQuitMatch = true;
+				Debug.LogError("NON-RANKED MATCH - CAN QUIT");
+			}
+
+			_quitButton.gameObject.SetActive(/*Debug.isDebugBuild || */canQuitMatch);
+
+			if (Debug.isDebugBuild && SROptions.Current.EnableEquipmentDebug)
+			{
+				_equippedDebugText.gameObject.SetActive(true);
+				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+			}
 		}
 
 		private void OnQuitClicked()
@@ -135,7 +141,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-			
+
 			var playerCharacter = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 
 			var sb = new StringBuilder();

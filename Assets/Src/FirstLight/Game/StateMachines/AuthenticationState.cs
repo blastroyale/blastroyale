@@ -235,7 +235,9 @@ namespace FirstLight.Game.StateMachines
 #else
 			// Dev
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			// DEV SERVER TEMPORARILY BEING USED FOR QUANTUM SERVER TESTING
+			//quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #endif
 		}

@@ -84,7 +84,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
 			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
 
-			if (f == null || f.Get<AIBlackboardComponent>(player.Entity).GetBoolean(f, Constants.IsSkydiving))
+			if (f == null || !f.TryGet<AIBlackboardComponent>(player.Entity, out var blackboard) || 
+			    blackboard.GetBoolean(f, Constants.IsSkydiving))
 			{
 				_healthBarSpectatePlayer.OnDespawn();
 				return;
@@ -104,6 +105,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) || 
 			    !f.TryGet<Stats>(entity, out var stats))
 			{
+				healthBar.OnDespawn();
 				return;
 			}
 

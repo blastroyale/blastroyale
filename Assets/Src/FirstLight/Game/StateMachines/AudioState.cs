@@ -51,7 +51,7 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
 			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
-			var disonnected = stateFactory.State("AUDIO - Disconnected");
+			var disconnected = stateFactory.State("AUDIO - Disconnected");
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
@@ -62,13 +62,12 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(TransitionAudioMixerMain);
 			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
 
+			// TODO - TEST GameSimulationState.MatchQuitEvent AFTER HEALTH BAR FIXES
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetMatchServices)
-			           .Target(gameModeCheck);
-			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
-			matchmaking.OnExit(StopMusicInstant);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic).Target(gameModeCheck);
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
@@ -79,22 +78,22 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
 			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
 			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
-			postGame.OnEnter(PlayPostGameMusic);
+			postGame.OnEnter(PlayPostMatchMusic);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
 
-			disonnected.OnEnter(StopMusicInstant);
-			disonnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
-			disonnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			disconnected.OnEnter(StopMusicInstant);
+			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -115,8 +114,9 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
 		}
 
-		private void GetMatchServices()
+		private void PrepareForMatchMusic()
 		{
+			StopMusicInstant();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
@@ -128,7 +128,7 @@ namespace FirstLight.Game.StateMachines
 				                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 			}
 		}
-		
+
 		private void PlayMainLoop(AudioSourceMonoComponent source)
 		{
 			_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop);
@@ -143,11 +143,32 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void PlayPostGameMusic()
+		private void PlayPostMatchMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = playerData[leader];
+			var victoryStatusAudio = AudioId.MusicDefeatJingle;
+			
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
+			    _matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
+			{
+				victoryStatusAudio = AudioId.MusicVictoryJingle;
+			}
+			else if (game.PlayerIsLocal(leader))
+			{
+				victoryStatusAudio = AudioId.MusicVictoryJingle;
+			}
+
+			_services.AudioFxService.PlayClip2D(victoryStatusAudio, null, PlayPostMatchLoop,
+			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+		}
+
+		private void PlayPostMatchLoop(AudioSourceMonoComponent source)
+		{
+			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop);
 		}
 
 		private void StopMusicInstant()

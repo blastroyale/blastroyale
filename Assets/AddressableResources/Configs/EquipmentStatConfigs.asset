@@ -70,7 +70,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -92,7 +92,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 5898
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -125,7 +125,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 983
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -147,7 +147,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -158,7 +158,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -169,7 +169,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3277
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -180,7 +180,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 1638
     - Category: 13
@@ -191,7 +191,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -202,7 +202,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 1966
     - Category: 13
@@ -213,7 +213,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -224,7 +224,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 4588
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -235,7 +235,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 983
     - Category: 13
@@ -279,7 +279,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -301,7 +301,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -334,7 +334,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 2294
+        RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -400,7 +400,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 2458
     - Category: 13
@@ -422,7 +422,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 2949
     - Category: 13
@@ -455,7 +455,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 983
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 3277
     - Category: 13
@@ -488,7 +488,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3072
+        RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -499,7 +499,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3994
+        RawValue: 7987
       PowerRatioToBaseK:
         RawValue: 2150
     - Category: 13
@@ -510,7 +510,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2150
+        RawValue: 4301
       PowerRatioToBaseK:
         RawValue: 3994
     - Category: 13
@@ -521,7 +521,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4792
+        RawValue: 9585
       PowerRatioToBaseK:
         RawValue: 2580
     - Category: 13
@@ -532,7 +532,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2580
+        RawValue: 5161
       PowerRatioToBaseK:
         RawValue: 4792
     - Category: 13
@@ -543,7 +543,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4301
+        RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
     - Category: 13
@@ -554,7 +554,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4424
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 4424
     - Category: 13
@@ -565,7 +565,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 4424
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 4424
     - Category: 13
@@ -664,7 +664,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 8847
       SpeedRatioToBaseK:
-        RawValue: 983
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -697,7 +697,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -763,7 +763,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 13763
       SpeedRatioToBaseK:
-        RawValue: 4588
+        RawValue: 9175
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 13
@@ -774,7 +774,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 5243
+        RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 4588
     - Category: 13
@@ -785,7 +785,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 9175
       SpeedRatioToBaseK:
-        RawValue: 5243
+        RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -829,7 +829,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 410
+        RawValue: 819
       PowerRatioToBaseK:
         RawValue: 3686
     - Category: 11
@@ -840,7 +840,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 819
+        RawValue: 1638
       PowerRatioToBaseK:
         RawValue: 3277
     - Category: 11
@@ -851,7 +851,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 492
+        RawValue: 983
       PowerRatioToBaseK:
         RawValue: 4424
     - Category: 11
@@ -862,7 +862,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 983
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 11
@@ -873,7 +873,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1720
+        RawValue: 3441
       PowerRatioToBaseK:
         RawValue: 4014
     - Category: 11
@@ -884,7 +884,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2294
+        RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 4260
     - Category: 11
@@ -895,7 +895,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 4915
     - Category: 11
@@ -917,7 +917,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -928,7 +928,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -939,7 +939,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3686
+        RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 410
     - Category: 11
@@ -950,7 +950,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 819
     - Category: 11
@@ -961,7 +961,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4424
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 492
     - Category: 11
@@ -972,7 +972,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 983
     - Category: 11
@@ -983,7 +983,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4014
+        RawValue: 8028
       PowerRatioToBaseK:
         RawValue: 1720
     - Category: 11
@@ -994,7 +994,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4260
+        RawValue: 8520
       PowerRatioToBaseK:
         RawValue: 2294
     - Category: 11
@@ -1005,7 +1005,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4915
+        RawValue: 9830
       PowerRatioToBaseK:
         RawValue: 1638
     - Category: 11
@@ -1027,7 +1027,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1038,7 +1038,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1049,7 +1049,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 1229
     - Category: 11
@@ -1060,7 +1060,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2662
+        RawValue: 5325
       PowerRatioToBaseK:
         RawValue: 1434
     - Category: 11
@@ -1071,7 +1071,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3441
+        RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 1475
     - Category: 11
@@ -1082,7 +1082,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3195
+        RawValue: 6390
       PowerRatioToBaseK:
         RawValue: 1720
     - Category: 11
@@ -1093,7 +1093,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4301
+        RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 1434
     - Category: 11
@@ -1104,7 +1104,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5243
+        RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 1311
     - Category: 11
@@ -1115,7 +1115,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5571
+        RawValue: 11141
       PowerRatioToBaseK:
         RawValue: 983
     - Category: 11
@@ -1159,7 +1159,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 2867
     - Category: 11
@@ -1170,7 +1170,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1434
+        RawValue: 2867
       PowerRatioToBaseK:
         RawValue: 2662
     - Category: 11
@@ -1181,7 +1181,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1475
+        RawValue: 2949
       PowerRatioToBaseK:
         RawValue: 3441
     - Category: 11
@@ -1192,7 +1192,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1720
+        RawValue: 3441
       PowerRatioToBaseK:
         RawValue: 3195
     - Category: 11
@@ -1203,7 +1203,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1434
+        RawValue: 2867
       PowerRatioToBaseK:
         RawValue: 4301
     - Category: 11
@@ -1214,7 +1214,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1311
+        RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 5243
     - Category: 11
@@ -1225,7 +1225,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 983
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 5571
     - Category: 11
@@ -1247,7 +1247,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1843
+        RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1269,7 +1269,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3686
+        RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 2458
     - Category: 11
@@ -1280,7 +1280,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3379
+        RawValue: 6758
       PowerRatioToBaseK:
         RawValue: 2765
     - Category: 11
@@ -1291,7 +1291,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4424
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 2949
     - Category: 11
@@ -1302,7 +1302,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4055
+        RawValue: 8110
       PowerRatioToBaseK:
         RawValue: 3318
     - Category: 11
@@ -1313,7 +1313,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5591
+        RawValue: 11182
       PowerRatioToBaseK:
         RawValue: 3011
     - Category: 11
@@ -1324,7 +1324,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5898
+        RawValue: 11796
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 11
@@ -1335,7 +1335,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 6390
+        RawValue: 12780
       PowerRatioToBaseK:
         RawValue: 3441
     - Category: 11
@@ -1368,7 +1368,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3072
+        RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1379,7 +1379,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 3686
     - Category: 11
@@ -1390,7 +1390,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2765
+        RawValue: 5530
       PowerRatioToBaseK:
         RawValue: 3379
     - Category: 11
@@ -1401,7 +1401,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 4424
     - Category: 11
@@ -1412,7 +1412,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3318
+        RawValue: 6636
       PowerRatioToBaseK:
         RawValue: 4055
     - Category: 11
@@ -1423,7 +1423,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3011
+        RawValue: 6021
       PowerRatioToBaseK:
         RawValue: 5591
     - Category: 11
@@ -1434,7 +1434,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 5898
     - Category: 11
@@ -1445,7 +1445,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3441
+        RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 6390
     - Category: 11
@@ -1478,7 +1478,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4096
+        RawValue: 8192
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 11
@@ -1489,7 +1489,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4096
+        RawValue: 8192
       PowerRatioToBaseK:
         RawValue: 4096
     - Category: 11
@@ -1500,7 +1500,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 410
+        RawValue: 819
       PowerRatioToBaseK:
         RawValue: 7782
     - Category: 11
@@ -1511,7 +1511,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4915
+        RawValue: 9830
       PowerRatioToBaseK:
         RawValue: 4915
     - Category: 11
@@ -1522,7 +1522,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 492
+        RawValue: 983
       PowerRatioToBaseK:
         RawValue: 9339
     - Category: 11
@@ -1533,7 +1533,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 10322
+        RawValue: 20644
       PowerRatioToBaseK:
         RawValue: 1147
     - Category: 11
@@ -1544,7 +1544,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2621
+        RawValue: 5243
       PowerRatioToBaseK:
         RawValue: 10486
     - Category: 11
@@ -1555,7 +1555,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 11141
+        RawValue: 22282
       PowerRatioToBaseK:
         RawValue: 1966
     - Category: 17
@@ -1654,7 +1654,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1665,7 +1665,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 655
     - Category: 17
@@ -1687,7 +1687,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1698,7 +1698,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1709,7 +1709,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1720,7 +1720,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2662
+        RawValue: 5325
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1731,7 +1731,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3441
+        RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1742,7 +1742,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3195
+        RawValue: 6390
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1753,7 +1753,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3441
+        RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -1764,7 +1764,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 1638
     - Category: 17
@@ -1775,7 +1775,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 1311
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 1966
     - Category: 17
@@ -1885,7 +1885,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 655
+        RawValue: 1311
       PowerRatioToBaseK:
         RawValue: 1966
     - Category: 17
@@ -1984,7 +1984,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 17
@@ -1995,7 +1995,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 1311
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 17
@@ -2028,7 +2028,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3072
+        RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2039,7 +2039,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4608
+        RawValue: 9216
       PowerRatioToBaseK:
         RawValue: 1536
     - Category: 17
@@ -2050,7 +2050,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 4915
     - Category: 17
@@ -2061,7 +2061,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5530
+        RawValue: 11059
       PowerRatioToBaseK:
         RawValue: 1843
     - Category: 17
@@ -2072,7 +2072,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1475
+        RawValue: 2949
       PowerRatioToBaseK:
         RawValue: 5898
     - Category: 17
@@ -2083,7 +2083,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4301
+        RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
     - Category: 17
@@ -2094,7 +2094,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 17
@@ -2105,7 +2105,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 17
@@ -2215,7 +2215,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2237,7 +2237,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2259,7 +2259,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3686
+        RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2281,7 +2281,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4424
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2303,7 +2303,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3441
+        RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 17
@@ -2314,7 +2314,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5243
+        RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 1966
     - Category: 17
@@ -2325,7 +2325,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 13107
       SpeedRatioToBaseK:
-        RawValue: 1311
+        RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2369,7 +2369,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2391,7 +2391,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 5898
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2413,7 +2413,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 5734
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2435,7 +2435,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 1311
+        RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2457,7 +2457,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2468,7 +2468,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2479,7 +2479,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 1638
     - Category: 16
@@ -2490,7 +2490,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2501,7 +2501,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 1966
     - Category: 16
@@ -2512,7 +2512,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2523,7 +2523,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 2867
     - Category: 16
@@ -2534,7 +2534,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 2621
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2545,7 +2545,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 1311
     - Category: 16
@@ -2644,7 +2644,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 2621
       SpeedRatioToBaseK:
-        RawValue: 1311
+        RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2699,7 +2699,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 2458
     - Category: 16
@@ -2721,7 +2721,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 2949
     - Category: 16
@@ -2743,7 +2743,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 2867
     - Category: 16
@@ -2765,7 +2765,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1311
+        RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 16
@@ -2787,7 +2787,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1843
+        RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -2809,7 +2809,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 3686
     - Category: 16
@@ -2820,7 +2820,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3686
+        RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 2458
     - Category: 16
@@ -2831,7 +2831,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 4424
     - Category: 16
@@ -2842,7 +2842,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4424
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 2949
     - Category: 16
@@ -2853,7 +2853,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4301
+        RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
     - Category: 16
@@ -2864,7 +2864,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 16
@@ -2875,7 +2875,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 16
@@ -2974,7 +2974,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -3029,7 +3029,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 12288
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -3051,7 +3051,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 14746
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -3084,7 +3084,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 4588
+        RawValue: 9175
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 16
@@ -3194,7 +3194,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 2294
+        RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 983
     - Category: 15
@@ -3205,7 +3205,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 6554
       SpeedRatioToBaseK:
-        RawValue: 2294
+        RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3227,7 +3227,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1229
+        RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3238,7 +3238,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2048
+        RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3249,7 +3249,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3260,7 +3260,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3277
       SpeedRatioToBaseK:
-        RawValue: 2458
+        RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3271,7 +3271,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3282,7 +3282,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 2949
+        RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3293,7 +3293,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 5734
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3304,7 +3304,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 2294
     - Category: 15
@@ -3315,7 +3315,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3277
+        RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 2294
     - Category: 15
@@ -3370,7 +3370,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1638
+        RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3392,7 +3392,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3403,7 +3403,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2867
+        RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3414,7 +3414,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 983
+        RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 2294
     - Category: 15
@@ -3524,7 +3524,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 1966
       SpeedRatioToBaseK:
-        RawValue: 2294
+        RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 3277
     - Category: 15
@@ -3535,7 +3535,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2294
+        RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 3277
     - Category: 15
@@ -3557,7 +3557,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 1843
+        RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3579,7 +3579,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3379
+        RawValue: 6758
       PowerRatioToBaseK:
         RawValue: 2765
     - Category: 15
@@ -3590,7 +3590,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 2765
+        RawValue: 5530
       PowerRatioToBaseK:
         RawValue: 3379
     - Category: 15
@@ -3601,7 +3601,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4055
+        RawValue: 8110
       PowerRatioToBaseK:
         RawValue: 3318
     - Category: 15
@@ -3612,7 +3612,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3318
+        RawValue: 6636
       PowerRatioToBaseK:
         RawValue: 4055
     - Category: 15
@@ -3623,7 +3623,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 4301
+        RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
     - Category: 15
@@ -3634,7 +3634,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 3932
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 15
@@ -3645,7 +3645,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 3932
+        RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 15
@@ -3755,7 +3755,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 7864
       SpeedRatioToBaseK:
-        RawValue: 1966
+        RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3799,7 +3799,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 4096
       SpeedRatioToBaseK:
-        RawValue: 6144
+        RawValue: 12288
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3821,7 +3821,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 4915
       SpeedRatioToBaseK:
-        RawValue: 7373
+        RawValue: 14746
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3843,7 +3843,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 6881
+        RawValue: 13763
       PowerRatioToBaseK:
         RawValue: 0
     - Category: 15
@@ -3854,7 +3854,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 5898
+        RawValue: 11796
       PowerRatioToBaseK:
         RawValue: 3932
     - Category: 15
@@ -3865,6 +3865,6 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 9175
       SpeedRatioToBaseK:
-        RawValue: 2621
+        RawValue: 5243
       PowerRatioToBaseK:
         RawValue: 0

@@ -18,7 +18,7 @@ namespace FirstLight.Game.Ids
 		MusicVictoryJingle,
 		MusicDefeatJingle,
 		MusicPostMatchLoop,
-		MusicFinalDuelTransitionJingle,
+		MusicFinalDuelTransitionJingleBr,
 
 		// Weapons
 		PlaHammerWeaponShot,
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Ids
 		WeaponSwitch,
 		SkydiveJetpackDiveLoop,
 		SkydiveEnd,
-		ChestLootDrop,
+		ChestPickup,
 		PlayerHeartBeatLoop,
 		PlayerEnterLava,
 		PlayerEnterWater,
@@ -135,6 +135,9 @@ namespace FirstLight.Game.Ids
 		FrostAmbientLoop,
 		LavaAmbientLoop,
 		WaterAmbientLoop,
+		
+		// Late additions
+		MusicFinalDuelTransitionJingleDm,
 	}
 	
 	/// <summary>

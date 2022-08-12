@@ -63,9 +63,7 @@ namespace FirstLight.Game.Presenters
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
-
-			// TODO - QUIT BUTTON VISIBILITY BEHAVIOR
-			// TODO - CHECK IF ERRORS OUT ON SPECTATOR MODE
+			
 			var game = QuantumRunner.Default.Game;
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
@@ -76,7 +74,7 @@ namespace FirstLight.Game.Presenters
 
 			if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
 			{
-				
+				canQuitMatch = !localPlayerEntity.EntityRef.IsAlive(f);
 			}
 			else
 			{

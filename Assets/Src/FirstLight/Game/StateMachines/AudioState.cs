@@ -102,6 +102,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
+			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
+			
 		}
 
 		private void UnsubscribeEvents()
@@ -191,6 +193,48 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_LOBBY_SNAPSHOT_ID,
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
+		}
+
+		private void OnCollectableCollected(EventOnCollectableCollected callback)
+		{
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
+			var audio = AudioId.None;
+
+			switch (callback.CollectableId)
+			{
+				case GameId.AmmoLarge:
+					audio = AudioId.LargeAmmoPickup;
+					break;
+				case GameId.AmmoSmall:
+					audio = AudioId.AmmoPickup;
+					break;
+				case GameId.Health:
+					audio = AudioId.HealthPickup;
+					break;
+				case GameId.ShieldCapacityLarge:
+					audio = AudioId.GearPickup;
+					break;
+				case GameId.ShieldCapacitySmall:
+					audio = AudioId.GearPickup;
+					break;
+				case GameId.ShieldLarge:
+					audio = AudioId.LargeShieldPickup;
+					break;
+				case GameId.ShieldSmall:
+					audio = AudioId.ShieldPickup;
+					break;
+			}
+
+			_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView);
+
+			if (audio != AudioId.None)
+			{
+				Log.Warn(audio);
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)

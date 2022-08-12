@@ -118,7 +118,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition,
-		                                                    AudioSourceInitData? sourceInitData = null)
+		                                                    AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null,  string mixerGroupOverride = null)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
@@ -126,17 +126,18 @@ namespace FirstLight.Game.Services
 			}
 
 			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData);
-
+			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
+			
 			var updatedInitData = sourceInitData.Value;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerSfx3dGroupId);
+			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip3D(id, worldPosition, sourceInitData);
+			return base.PlayClip3D(id, worldPosition, sourceInitData, soundPlayedCallback, mixerGroupOverride);
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null, string mixerGroupOverride = null)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
@@ -144,13 +145,32 @@ namespace FirstLight.Game.Services
 			}
 
 			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
-
+			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
+			
 			var updatedInitData = sourceInitData.Value;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerSfx2dGroupId);
+			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip2D(id, sourceInitData);
+			return base.PlayClip2D(id, sourceInitData, soundPlayedCallback, mixerGroupOverride);
+		}
+		
+		/// <inheritdoc />
+		public override void PlayClipQueued2D(AudioId id, string mixerGroupId, AudioSourceInitData? sourceInitData = null)
+		{
+			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
+			{
+				return;
+			}
+
+			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+
+			var updatedInitData = sourceInitData.Value;
+			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
+			updatedInitData.Mute = IsSfxMuted;
+			sourceInitData = updatedInitData;
+
+			base.PlayClipQueued2D(id, mixerGroupId, sourceInitData);
 		}
 
 		/// <inheritdoc />
@@ -172,24 +192,6 @@ namespace FirstLight.Game.Services
 			sourceInitData = updatedInitData;
 
 			base.PlayMusic(id, fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
-		}
-
-		/// <inheritdoc />
-		public override void PlayClipQueued2D(AudioId id, string mixerGroupId, AudioSourceInitData? sourceInitData = null)
-		{
-			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
-			{
-				return;
-			}
-
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
-
-			var updatedInitData = sourceInitData.Value;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
-			updatedInitData.Mute = IsSfxMuted;
-			sourceInitData = updatedInitData;
-
-			base.PlayClipQueued2D(id, mixerGroupId, sourceInitData);
 		}
 
 		/// <inheritdoc />

@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using Quantum;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IMatchServices _matchServices;
-		
+
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
 		{
@@ -64,7 +65,8 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetMatchServices).Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetMatchServices)
+			           .Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
 			matchmaking.OnExit(StopMusicInstant);
 			matchmaking.OnExit(TransitionAudioMixerMain);
@@ -122,9 +124,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
+				_services.AudioFxService.PlayClip2D(AudioId.MusicMainStart, null, PlayMainLoop,
+				                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 
-				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
-				                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+				void PlayMainLoop(AudioSourceMonoComponent source)
+				{
+					_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
+					                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+				}
 			}
 		}
 
@@ -177,7 +184,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 
-				var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
+				var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId,
+				                                                entityView.transform.position);
 				audio.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
 			}
 		}
@@ -193,7 +201,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				var game = callback.Game;
 				var audio = AudioId.None;
-				
+
 				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;

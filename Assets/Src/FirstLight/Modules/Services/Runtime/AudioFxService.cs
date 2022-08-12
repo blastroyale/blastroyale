@@ -72,13 +72,13 @@ namespace FirstLight.Services
 		/// Plays the given <paramref name="id"/> sound clip in 3D surround in the given <paramref name="worldPosition"/>.
 		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null, string mixerGroupOverride = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> sound clip in 2D mono sound.
 		/// Returns the audio mono component that is playing the sound.
 		/// </summary>
-		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null);
+		AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null, string mixerGroupOverride = null);
 
 		/// <summary>
 		/// Inserts the given <paramref name="id"/> sound clip into the 2D sound queue, where it will be played at the
@@ -178,7 +178,7 @@ namespace FirstLight.Services
 		private Transform _followTarget;
 		private Vector3 _followOffset;
 		private Action<AudioSourceMonoComponent> _fadeVolumeCallback;
-		private Action<AudioSourceMonoComponent> _soundPlayedCallback;
+		public Action<AudioSourceMonoComponent> SoundPlayedCallback;
 
 		private void Update()
 		{
@@ -204,7 +204,8 @@ namespace FirstLight.Services
 			SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			_pool = pool;
-			_soundPlayedCallback = soundPlayedCallback;
+
+			SoundPlayedCallback = soundPlayedCallback;
 			
 			Source.outputAudioMixerGroup = sourceInitData.Value.MixerGroup;
 			Source.clip = sourceInitData.Value.Clip;
@@ -328,7 +329,7 @@ namespace FirstLight.Services
 				yield return new WaitForSeconds(Source.clip.length);
 			} while (!_canDespawn);
 
-			_soundPlayedCallback?.Invoke(this);
+			SoundPlayedCallback?.Invoke(this);
 			StopAndDespawn();
 		}
 	}
@@ -515,7 +516,7 @@ namespace FirstLight.Services
 
 		/// <inheritdoc />
 		public virtual AudioSourceMonoComponent PlayClip3D(T id, Vector3 worldPosition,
-		                                                   AudioSourceInitData? sourceInitData = null)
+		                                                   AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null,  string mixerGroupOverride = null)
 		{
 			if (sourceInitData == null)
 			{
@@ -523,12 +524,12 @@ namespace FirstLight.Services
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, worldPosition, sourceInitData);
+			source.Play(_sfxPlayerPool, worldPosition, sourceInitData, soundPlayedCallback);
 			return source;
 		}
-
+		
 		/// <inheritdoc />
-		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null)
+		public virtual AudioSourceMonoComponent PlayClip2D(T id, AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null,  string mixerGroupOverride = null)
 		{
 			if (sourceInitData == null)
 			{
@@ -536,7 +537,7 @@ namespace FirstLight.Services
 			}
 
 			var source = _sfxPlayerPool.Spawn();
-			source.Play(_sfxPlayerPool, Vector3.zero, sourceInitData);
+			source.Play(_sfxPlayerPool, Vector3.zero, sourceInitData, soundPlayedCallback);
 			return source;
 		}
 

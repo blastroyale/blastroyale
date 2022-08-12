@@ -9,11 +9,24 @@ namespace FirstLight.Game.Utils
 	/// <summary>
 	/// Serializes models to Key Value pairs.
 	/// Keys are defined as the model type name and value the model contents.
+	/// TODO: Move to Server SDK
 	/// </summary>
 	public static class ModelSerializer
 	{
-		private static JsonConverter _formatter = new StringEnumConverter();
-	
+		private static JsonSerializerSettings _settings = new JsonSerializerSettings()
+		{
+			NullValueHandling = NullValueHandling.Ignore,
+			Converters = new List<JsonConverter>()
+			{
+				new StringEnumConverter()
+			}
+		};
+
+		public static void RegisterConverter(JsonConverter converter)
+		{
+			_settings.Converters.Add(converter);
+		}
+		
 		/// <summary>
 		/// Serializes a given object to a key value pair.
 		/// Key is the model type name, value is a string representation of the model.
@@ -21,7 +34,7 @@ namespace FirstLight.Game.Utils
 		public static KeyValuePair<string, string> Serialize(object model)
 		{
 			var key = model.GetType().FullName;
-			var value = JsonConvert.SerializeObject(model, _formatter);
+			var value = JsonConvert.SerializeObject(model, _settings);
 			return new KeyValuePair<string, string>(key, value);
 		}
 
@@ -30,7 +43,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static TModel Deserialize<TModel>(string modelData)
 		{
-			return JsonConvert.DeserializeObject<TModel>(modelData, _formatter);
+			return JsonConvert.DeserializeObject<TModel>(modelData, _settings);
 		}
 		
 		/// <summary>
@@ -42,7 +55,7 @@ namespace FirstLight.Game.Utils
 			{
 				return createIfNeeded ? (TModel) Activator.CreateInstance(typeof(TModel)) : default(TModel);
 			}
-			return JsonConvert.DeserializeObject<TModel>(modelData, _formatter);
+			return JsonConvert.DeserializeObject<TModel>(modelData, _settings);
 		}
 
 		/// <summary>
@@ -63,7 +76,7 @@ namespace FirstLight.Game.Utils
 			{
 				return createIfNeeded ? (TModel) Activator.CreateInstance(typeof(TModel)) : default(TModel);
 			}
-			return JsonConvert.DeserializeObject<TModel>(modelData.Value, _formatter);
+			return JsonConvert.DeserializeObject<TModel>(modelData.Value, _settings);
 		}
 	
 		/// <summary>
@@ -72,7 +85,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static CastType Deserialize<CastType>(string modelData, Type modelType)
 		{
-			return (CastType)JsonConvert.DeserializeObject(modelData, modelType, _formatter);
+			return (CastType)JsonConvert.DeserializeObject(modelData, modelType, _settings);
 		}
 	
 	}

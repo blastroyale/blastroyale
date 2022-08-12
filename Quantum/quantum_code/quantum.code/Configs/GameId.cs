@@ -661,6 +661,20 @@ namespace Quantum
 						GameIdGroup.Platform
 					}.AsReadOnly()
 				},
+				{
+					GameId.Flag, new List<GameIdGroup>
+					{
+						GameIdGroup.Collection,
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Tombstone, new List<GameIdGroup>
+					{
+						GameIdGroup.Collection,
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
 			};
 
 		private static readonly Dictionary<GameIdGroup, ReadOnlyCollection<GameId>> _ids =
@@ -925,6 +939,20 @@ namespace Quantum
 					{
 						GameId.WeaponPlatformSpawner,
 						GameId.ConsumablePlatformSpawner
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Collection, new List<GameId>
+					{
+						GameId.Flag,
+						GameId.Tombstone
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.DeathMarker, new List<GameId>
+					{
+						GameId.Flag,
+						GameId.Tombstone
 					}.AsReadOnly()
 				},
 			};

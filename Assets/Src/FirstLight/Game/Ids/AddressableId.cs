@@ -159,7 +159,7 @@ namespace FirstLight.Game.Ids
 					new AddressableConfig(46, "Configs/AudioMixerConfigs.asset", "Assets/AddressableResources/Configs/AudioMixerConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AudioMixerConfigs), new [] {"Quantum","GenerateIds"}),
 					new AddressableConfig(47, "Configs/AudioMatchAssetConfigs.asset", "Assets/AddressableResources/Configs/AudioMatchAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AudioMatchAssetConfigs), new [] {"Quantum","GenerateIds"}),
 					new AddressableConfig(48, "Configs/AudioMainMenuAssetConfigs.asset", "Assets/AddressableResources/Configs/AudioMainMenuAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AudioMainMenuAssetConfigs), new [] {"Quantum","GenerateIds"}),
-					new AddressableConfig(49, "Configs/AdventureAssetConfigs.asset", "Assets/AddressableResources/Configs/AdventureAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AdventureAssetConfigs), new [] {"Quantum","GenerateIds"}),
+					new AddressableConfig(49, "Configs/AdventureAssetConfigs.asset", "Assets/AddressableResources/Configs/AdventureAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.MatchAssetConfigs), new [] {"Quantum","GenerateIds"}),
 					new AddressableConfig(50, "Configs/AdjectiveDataConfigs.asset", "Assets/AddressableResources/Configs/AdjectiveDataConfigs.asset", typeof(FirstLight.Game.Configs.AdjectiveDataConfigs), new [] {"Quantum","GenerateIds"}),
 				}.AsReadOnly()}
 		});
@@ -167,7 +167,7 @@ namespace FirstLight.Game.Ids
 		private static readonly IList<AddressableConfig> _addressableConfigs = new List<AddressableConfig>
 		{
 			new AddressableConfig(0, "Configs/AdjectiveDataConfigs.asset", "Assets/AddressableResources/Configs/AdjectiveDataConfigs.asset", typeof(FirstLight.Game.Configs.AdjectiveDataConfigs), new [] {"Quantum","GenerateIds"}),
-			new AddressableConfig(1, "Configs/AdventureAssetConfigs.asset", "Assets/AddressableResources/Configs/AdventureAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AdventureAssetConfigs), new [] {"Quantum","GenerateIds"}),
+			new AddressableConfig(1, "Configs/AdventureAssetConfigs.asset", "Assets/AddressableResources/Configs/AdventureAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.MatchAssetConfigs), new [] {"Quantum","GenerateIds"}),
 			new AddressableConfig(2, "Configs/AudioMainMenuAssetConfigs.asset", "Assets/AddressableResources/Configs/AudioMainMenuAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AudioMainMenuAssetConfigs), new [] {"Quantum","GenerateIds"}),
 			new AddressableConfig(3, "Configs/AudioMatchAssetConfigs.asset", "Assets/AddressableResources/Configs/AudioMatchAssetConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AudioMatchAssetConfigs), new [] {"Quantum","GenerateIds"}),
 			new AddressableConfig(4, "Configs/AudioMixerConfigs.asset", "Assets/AddressableResources/Configs/AudioMixerConfigs.asset", typeof(FirstLight.Game.Configs.AssetConfigs.AudioMixerConfigs), new [] {"Quantum","GenerateIds"}),

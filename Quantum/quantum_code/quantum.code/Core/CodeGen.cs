@@ -215,6 +215,8 @@ namespace Quantum {
     DummyCharacter = 6,
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
+    Flag = 25,
+    Tombstone = 37,
   }
   public enum GameIdGroup : int {
     GameDesign = 0,
@@ -238,6 +240,8 @@ namespace Quantum {
     Destructible = 26,
     DummyCharacter = 3,
     Platform = 37,
+    Collection = 9,
+    DeathMarker = 10,
   }
   public enum GameMode : int {
     Tutorial,
@@ -2589,37 +2593,41 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerMatchData {
-    public const Int32 SIZE = 72;
+    public const Int32 SIZE = 96;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public Int32 BotNameIndex;
-    [FieldOffset(12)]
-    public UInt32 DamageDone;
     [FieldOffset(16)]
-    public UInt32 DamageReceived;
+    public UInt32 DamageDone;
     [FieldOffset(20)]
+    public UInt32 DamageReceived;
+    [FieldOffset(24)]
     public UInt32 DeathCount;
     [FieldOffset(56)]
     public EntityRef Entity;
     [FieldOffset(64)]
     public FP FirstDeathTime;
-    [FieldOffset(24)]
-    public UInt32 HealingDone;
     [FieldOffset(28)]
-    public UInt32 HealingReceived;
-    [FieldOffset(8)]
-    public PlayerRef Player;
+    public UInt32 HealingDone;
     [FieldOffset(32)]
-    public UInt32 PlayerLevel;
+    public UInt32 HealingReceived;
+    [FieldOffset(72)]
+    public FPVector3 LastDeathPosition;
+    [FieldOffset(12)]
+    public PlayerRef Player;
     [FieldOffset(0)]
-    public GameId PlayerSkin;
+    public GameId PlayerDeathMarker;
     [FieldOffset(36)]
-    public UInt32 PlayerTrophies;
+    public UInt32 PlayerLevel;
+    [FieldOffset(4)]
+    public GameId PlayerSkin;
     [FieldOffset(40)]
-    public UInt32 PlayersKilledCount;
+    public UInt32 PlayerTrophies;
     [FieldOffset(44)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayersKilledCount;
     [FieldOffset(48)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(52)]
     public UInt32 SuicideCount;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2632,7 +2640,9 @@ namespace Quantum {
         hash = hash * 31 + FirstDeathTime.GetHashCode();
         hash = hash * 31 + HealingDone.GetHashCode();
         hash = hash * 31 + HealingReceived.GetHashCode();
+        hash = hash * 31 + LastDeathPosition.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + (Int32)PlayerDeathMarker;
         hash = hash * 31 + PlayerLevel.GetHashCode();
         hash = hash * 31 + (Int32)PlayerSkin;
         hash = hash * 31 + PlayerTrophies.GetHashCode();
@@ -2644,6 +2654,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerMatchData*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->PlayerDeathMarker);
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         PlayerRef.Serialize(&p->Player, serializer);
@@ -2659,6 +2670,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->SuicideCount);
         EntityRef.Serialize(&p->Entity, serializer);
         FP.Serialize(&p->FirstDeathTime, serializer);
+        FPVector3.Serialize(&p->LastDeathPosition, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3447,61 +3459,63 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 216;
+    public const Int32 SIZE = 224;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(12)]
+    [FieldOffset(16)]
     public UInt32 AccuracySpreadAngle;
     [FieldOffset(0)]
     public BotBehaviourType BehaviourType;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public Int32 BotNameIndex;
-    [FieldOffset(32)]
-    public FP ChanceToAbandonTarget;
     [FieldOffset(40)]
-    public FP ChanceToSeekChests;
+    public FP ChanceToAbandonTarget;
     [FieldOffset(48)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToSeekChests;
     [FieldOffset(56)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(64)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekRage;
     [FieldOffset(72)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(80)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(88)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToUseSpecial;
     [FieldOffset(96)]
-    public FP CurrentEvasionStepEndTime;
+    public FP CloseFightIntolerance;
     [FieldOffset(104)]
-    public FP DecisionInterval;
-    [FieldOffset(112)]
-    public FP LookForTargetsToShootAtInterval;
-    [FieldOffset(120)]
-    public FP LowAmmoSensitivity;
-    [FieldOffset(128)]
-    public FP LowArmourSensitivity;
-    [FieldOffset(136)]
-    public FP LowHealthSensitivity;
-    [FieldOffset(16)]
-    public EntityRef MoveTarget;
-    [FieldOffset(144)]
-    public FP NextDecisionTime;
-    [FieldOffset(152)]
-    public FP NextLookForTargetsToShootAtTime;
-    [FieldOffset(160)]
-    public FP ShrinkingCircleRiskTolerance;
+    public FP CurrentEvasionStepEndTime;
     [FieldOffset(4)]
-    public GameId Skin;
-    [FieldOffset(168)]
-    public FP SpecialAimingDeviation;
-    [FieldOffset(192)]
-    public FPVector3 StuckDetectionPosition;
+    public GameId DeathMarker;
+    [FieldOffset(112)]
+    public FP DecisionInterval;
+    [FieldOffset(120)]
+    public FP LookForTargetsToShootAtInterval;
+    [FieldOffset(128)]
+    public FP LowAmmoSensitivity;
+    [FieldOffset(136)]
+    public FP LowArmourSensitivity;
+    [FieldOffset(144)]
+    public FP LowHealthSensitivity;
     [FieldOffset(24)]
-    public EntityRef Target;
+    public EntityRef MoveTarget;
+    [FieldOffset(152)]
+    public FP NextDecisionTime;
+    [FieldOffset(160)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(168)]
+    public FP ShrinkingCircleRiskTolerance;
+    [FieldOffset(8)]
+    public GameId Skin;
     [FieldOffset(176)]
-    public FP VisionRangeSqr;
+    public FP SpecialAimingDeviation;
+    [FieldOffset(200)]
+    public FPVector3 StuckDetectionPosition;
+    [FieldOffset(32)]
+    public EntityRef Target;
     [FieldOffset(184)]
+    public FP VisionRangeSqr;
+    [FieldOffset(192)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3518,6 +3532,7 @@ namespace Quantum {
         hash = hash * 31 + ChanceToUseSpecial.GetHashCode();
         hash = hash * 31 + CloseFightIntolerance.GetHashCode();
         hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
+        hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
@@ -3539,6 +3554,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (BotCharacter*)ptr;
         serializer.Stream.Serialize((Int32*)&p->BehaviourType);
+        serializer.Stream.Serialize((Int32*)&p->DeathMarker);
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
@@ -3947,7 +3963,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 2328;
+    public const Int32 SIZE = 3096;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public UInt32 CurrentProgress;
@@ -3957,12 +3973,12 @@ namespace Quantum {
     public QBoolean IsGameOver;
     [FieldOffset(24)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
-    private fixed Byte _PlayersData_[2304];
+    private fixed Byte _PlayersData_[3072];
     [FieldOffset(8)]
     public UInt32 TargetProgress;
     public FixedArray<PlayerMatchData> PlayersData {
       get {
-        fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 72, 32); }
+        fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 96, 32); }
       }
     }
     public override Int32 GetHashCode() {
@@ -9000,6 +9016,7 @@ namespace Quantum.Prototypes {
     public BotBehaviourType_Prototype BehaviourType;
     public Int32 BotNameIndex;
     public GameId_Prototype Skin;
+    public GameId_Prototype DeathMarker;
     public FP DecisionInterval;
     public FP LookForTargetsToShootAtInterval;
     public FP NextDecisionTime;
@@ -9043,6 +9060,7 @@ namespace Quantum.Prototypes {
       result.ChanceToUseSpecial = this.ChanceToUseSpecial;
       result.CloseFightIntolerance = this.CloseFightIntolerance;
       result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
+      result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
@@ -9639,7 +9657,9 @@ namespace Quantum.Prototypes {
     public UInt32 PlayerLevel;
     public UInt32 PlayerTrophies;
     public GameId_Prototype PlayerSkin;
+    public GameId_Prototype PlayerDeathMarker;
     public Int32 BotNameIndex;
+    public FPVector3 LastDeathPosition;
     public FP FirstDeathTime;
     public UInt32 PlayersKilledCount;
     public UInt32 DamageDone;
@@ -9659,7 +9679,9 @@ namespace Quantum.Prototypes {
       result.FirstDeathTime = this.FirstDeathTime;
       result.HealingDone = this.HealingDone;
       result.HealingReceived = this.HealingReceived;
+      result.LastDeathPosition = this.LastDeathPosition;
       result.Player = this.Player;
+      result.PlayerDeathMarker = this.PlayerDeathMarker;
       result.PlayerLevel = this.PlayerLevel;
       result.PlayerSkin = this.PlayerSkin;
       result.PlayerTrophies = this.PlayerTrophies;

@@ -10,6 +10,7 @@ component BotCharacter
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	GameId Skin;
+	GameId DeathMarker;
 	
 	// General settings and data of a bot
 	FP DecisionInterval;

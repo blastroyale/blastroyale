@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </remarks>
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
-		[FormerlySerializedAs("_adventureCharacterView")] [SerializeField] private MatchCharacterViewMonoComponent _characterView;
+		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		public Transform RootTransform;
 		
@@ -25,6 +25,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// Indicates if this is the local player
 		/// </summary>
 		public bool IsLocalPlayer
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// Requests the <see cref="PlayerRef"/> of this player
+		/// </summary>
+		public PlayerRef PlayerRef
 		{
 			get;
 			private set;
@@ -68,7 +77,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnInit(game);
 
 			var frame = game.Frames.Verified;
-			IsLocalPlayer = frame.Context.IsLocalPlayer(frame.Get<PlayerCharacter>(EntityRef).Player);
+			
+			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
+			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
 			
 			if (Services.NetworkService.IsJoiningNewMatch)
 			{

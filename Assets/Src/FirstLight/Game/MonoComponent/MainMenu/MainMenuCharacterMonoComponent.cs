@@ -45,7 +45,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void Start()
 		{
-			var skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
+			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 
 			_services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, SkinLoaded);
 		}
@@ -100,7 +100,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
 		{
 			// Check that the player hasn't changed the skin again while we were loading
-			if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.CurrentSkin.Value)
+			if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin)
 			{
 				Destroy(instance);
 				return;

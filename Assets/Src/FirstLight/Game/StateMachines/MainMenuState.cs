@@ -177,7 +177,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_gameDataProvider?.PlayerDataProvider?.Level.StopObservingAll(this);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)

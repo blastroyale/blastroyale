@@ -15,6 +15,7 @@ namespace Quantum.Systems
 			var pointer = gameContainer->PlayersData.GetPointer(playerDead);
 			
 			pointer->DeathCount++;
+			pointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
 
 			if (pointer->FirstDeathTime == FP._0)
 			{

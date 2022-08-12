@@ -62,6 +62,7 @@ namespace FirstLight.Game.Ids
 		HitHealthDamage,
 		HitShieldDamage,
 		ShieldBreak,
+		SelfShieldBreak,
 		PlayerKill,
 		PlayerDeath,
 		ExplosionSmall,

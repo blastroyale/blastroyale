@@ -62,7 +62,7 @@ namespace FirstLight.Game.Ids
 		HitHealthDamage,
 		HitShieldDamage,
 		ShieldBreak,
-		SelfShieldBreak,
+	
 		PlayerKill,
 		PlayerDeath,
 		ExplosionSmall,
@@ -139,6 +139,7 @@ namespace FirstLight.Game.Ids
 		
 		// Late additions
 		MusicFinalDuelTransitionJingleDm,
+		SelfShieldBreak,
 	}
 	
 	/// <summary>

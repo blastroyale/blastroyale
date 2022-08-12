@@ -227,7 +227,7 @@ namespace FirstLight.Game.StateMachines
 			
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
-			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
+			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(config);
 
@@ -268,10 +268,9 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
-			
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
 
 			Resources.UnloadUnusedAssets();

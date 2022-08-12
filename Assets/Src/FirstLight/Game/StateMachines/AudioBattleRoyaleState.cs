@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -27,6 +28,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private float _lastRecordedIntensityIncreaseTime = 0;
+		private bool _isHighIntensityPhase = false;
 		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat;
 
 		public AudioBattleRoyaleState(IGameServices services, IGameDataProvider gameLogic,
@@ -54,6 +56,7 @@ namespace FirstLight.Game.StateMachines
 
 			matchStateCheck.Transition().Condition(IsSkyDivePhase).Target(skydive);
 			matchStateCheck.Transition().Condition(IsLowIntensityPhase).Target(lowIntensity);
+			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(lowIntensity);
 			matchStateCheck.Transition().Target(midIntensity);
 
 			skydive.OnEnter(PlaySkydiveMusic);
@@ -71,11 +74,13 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -85,7 +90,22 @@ namespace FirstLight.Game.StateMachines
 			if ((time > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
 			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD) ||
 			    (time > GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD &&
-			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD))
+			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD) ||
+			    (time > GameConstants.Audio.BR_HIGH_PHASE_SECONDS_THRESHOLD &&
+						    _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD) &&
+			    !_isHighIntensityPhase) 
+			{
+				_statechartTrigger(IncreaseIntensityEvent);
+			}
+		}
+		
+		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			var frame = callback.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playersLeft = container.TargetProgress - container.CurrentProgress;
+
+			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
 			}
@@ -99,6 +119,15 @@ namespace FirstLight.Game.StateMachines
 		private bool IsLowIntensityPhase()
 		{
 			return CurrentMatchTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD;
+		}
+		
+		private bool IsMidIntensityPhase()
+		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playersLeft = container.TargetProgress - container.CurrentProgress;
+			
+			return CurrentMatchTime < GameConstants.Audio.BR_HIGH_PHASE_SECONDS_THRESHOLD && playersLeft > 2;
 		}
 
 		private void PlaySkydiveMusic()
@@ -132,6 +161,23 @@ namespace FirstLight.Game.StateMachines
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrMidLoop, fadeInDuration,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
+		}
+		
+		private void PlayHighIntensityMusic()
+		{
+			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
+			_isHighIntensityPhase = true;
+			
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleBr, null, null,
+			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+
+			_services.CoroutineService.StartCoroutine(PlayBrHighLoopCoroutine());
+		}
+		
+		private IEnumerator PlayBrHighLoopCoroutine()
+		{
+			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop, 0,0, false);
 		}
 	}
 }

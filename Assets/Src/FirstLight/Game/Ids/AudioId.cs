@@ -12,13 +12,13 @@ namespace FirstLight.Game.Ids
 		MusicBrSkydiveLoop,
 		MusicBrLowLoop,
 		MusicBrMidLoop,
-		MusicBrFinalDuelLoop,
+		MusicBrHighLoop,
 		MusicDmLoop,
-		MusicDmFinalDuelLoop,
+		MusicDmHighLoop,
 		MusicVictoryJingle,
 		MusicDefeatJingle,
 		MusicPostMatchLoop,
-		MusicFinalDuelTransitionJingleBr,
+		MusicHighTransitionJingleBr,
 
 		// Weapons
 		PlaHammerWeaponShot,
@@ -138,7 +138,7 @@ namespace FirstLight.Game.Ids
 		WaterAmbientLoop,
 		
 		// Late additions
-		MusicFinalDuelTransitionJingleDm,
+		MusicHighTransitionJingleDm,
 		SelfShieldBreak,
 	}
 	

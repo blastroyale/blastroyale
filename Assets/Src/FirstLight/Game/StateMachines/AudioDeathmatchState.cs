@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -111,14 +112,17 @@ namespace FirstLight.Game.StateMachines
 		private void PlayHighIntensityMusic()
 		{
 			_isHighIntensityPhase = true;
+			
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleDm, null, null,
+			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 
-			// If resync, skip fading
-			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
-				                     : 0;
+			_services.CoroutineService.StartCoroutine(PlayDmHighLoopCoroutine());
+		}
 
-			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
+		private IEnumerator PlayDmHighLoopCoroutine()
+		{
+			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
+			_services.AudioFxService.PlayMusic(AudioId.MusicDmHighLoop, 0,0, false);
 		}
 	}
 }

@@ -126,13 +126,12 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClip2D(AudioId.MusicMainStart, null, PlayMainLoop,
 				                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
-
-				void PlayMainLoop(AudioSourceMonoComponent source)
-				{
-					_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
-					                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
-				}
 			}
+		}
+		
+		private void PlayMainLoop(AudioSourceMonoComponent source)
+		{
+			_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop);
 		}
 
 		private void TryPlayLobbyMusic()

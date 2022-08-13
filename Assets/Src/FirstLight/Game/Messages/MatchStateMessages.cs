@@ -5,9 +5,9 @@ namespace FirstLight.Game.Messages
 {
 	public struct MatchSimulationStartedMessage : IMessage { }
 	public struct MatchSimulationEndedMessage : IMessage { }
-	public struct MatchReadyMessage : IMessage { }
-	public struct MatchStartedMessage : IMessage 
-	{ 
+	public struct MatchStartedMessage : IMessage
+	{
+		public QuantumGame Game;
 		public bool IsResync;
 	}
 	public struct MatchEndedMessage : IMessage { }

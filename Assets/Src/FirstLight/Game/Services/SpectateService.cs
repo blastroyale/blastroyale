@@ -59,11 +59,21 @@ namespace FirstLight.Game.Services
 		{
 			_gameServices = gameServices;
 			_matchServices = matchServices;
-
 			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+
+			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnEventOnPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
 		}
 
-		public void OnMatchStarted(bool isReconnect)
+		public void Dispose()
+		{
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
@@ -74,7 +84,6 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				var game = QuantumRunner.Default.Game;
 				var f = QuantumRunner.Default.Game.Frames.Verified;
 				var gameContainer = f.GetSingleton<GameContainer>();
 				var playersData = gameContainer.PlayersData;
@@ -90,11 +99,6 @@ namespace FirstLight.Game.Services
 					SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
 				}
 			}
-
-			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnEventOnPlayerDead);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)

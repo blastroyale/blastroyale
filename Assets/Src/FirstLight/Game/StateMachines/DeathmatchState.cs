@@ -56,13 +56,14 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(_killsDictionary.Clear);
 			
-			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
-			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
+			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
+			spectateCheck.Transition().Target(resyncCheck);
 			
-			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
+			resyncCheck.OnEnter(OpenMatchHud);
+			resyncCheck.Transition().Condition(IsRejoining).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
-			resyncCheck.OnExit(PublishMatchStartedMessage);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
@@ -130,7 +131,7 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
-		private bool IsResyncing()
+		private bool IsRejoining()
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
 		}
@@ -167,12 +168,6 @@ namespace FirstLight.Game.StateMachines
 
 				_killsDictionary[recordName] = recordPair;
 			}
-		}
-
-		private void PublishMatchStartedMessage()
-		{
-			_killsDictionary.Clear();
-			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
 		}
 		
 		private async void OpenSpectateHud()

@@ -257,17 +257,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsAlive(this EntityRef entity, Frame f)
 		{
-			if (!f.Exists(entity))
+			if (!f.TryGet<Stats>(entity, out var stats))
 			{
 				return false;
 			}
 
-			if (!f.Has<Stats>(entity))
-			{
-				return false;
-			}
-
-			var stats = f.Get<Stats>(entity);
 			return stats.CurrentHealth > 0;
 		}
 

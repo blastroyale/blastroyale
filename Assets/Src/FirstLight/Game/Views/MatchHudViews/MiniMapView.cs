@@ -56,20 +56,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private QuantumShrinkingCircleConfig _config;
-
 		private Transform _cameraTransform;
-
 		private bool _safeAreaSet;
 		private bool _opened;
 		private float _animationModifier = 0f;
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
-		private bool _subscribedQuantumViewUpdate;
 		private Tweener _tweenerSize;
 		private Material _minimapMat;
-		private Coroutine _airDropCoroutine;
-
 		private IObjectPool<MinimapAirdropView> _airdropPool;
 		private readonly List<Vector4> _playerPositions = new(30);
 
@@ -80,6 +75,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void Awake()
 		{
+			var containerSize = _fullScreenContainer.rect.size;
+			var mapSize = _rectTransform.rect.size;
+
+			_fullScreenMapSize = Mathf.Min(containerSize.x, containerSize.y);
+			_smallMapSize = Mathf.Min(mapSize.x, mapSize.y);
+			_smallMapPosition = _rectTransform.anchoredPosition;
+			_minimapMat = _minimapImage.material = Instantiate(_minimapImage.material);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
@@ -91,8 +93,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
 			QuantumCallback.Subscribe<CallbackGameStarted>(this, OnGameStarted);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
-
-			_minimapMat = _minimapImage.material = Instantiate(_minimapImage.material);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
@@ -112,21 +112,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_cameraTransform = Camera.main.transform;
 			}
 			
-			if (_animationModifier > 0)
-			{
-				UpdateMinimapSize(0);
-			}
-
-			var containerSize = _fullScreenContainer.rect.size;
-			var mapSize = _rectTransform.rect.size;
-
-			_fullScreenMapSize = Mathf.Min(containerSize.x, containerSize.y);
-			_smallMapSize = Mathf.Min(mapSize.x, mapSize.y);
-			_smallMapPosition = _rectTransform.anchoredPosition;
 			_opened = false;
 			_backgroundImage.raycastTarget = false;
 			
 			_tweenerSize?.Kill();
+			UpdateMinimapSize(0);
 		}
 
 		private void UpdateView(CallbackUpdateView callback)

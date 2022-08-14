@@ -42,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualProperties(float size, float minRange, float maxRange)
 		{
-			var cacheTransform = transform.transform;
+			var cacheTransform = transform;
 			
 			_maxRange = maxRange;
 			cacheTransform.localScale = new Vector3(size, cacheTransform.localScale.y, size);

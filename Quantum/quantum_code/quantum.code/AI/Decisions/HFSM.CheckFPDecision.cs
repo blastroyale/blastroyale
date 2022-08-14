@@ -19,6 +19,12 @@ namespace Quantum
 
 			var comparisonValue = DesiredValue.Resolve(frame, entity, blackboard, aiConfig);
 			var currentValue = Source.Resolve(frame, entity, blackboard, aiConfig);
+
+			if (frame.TryGet<PlayerCharacter>(entity, out var playerCharacter) &&
+			    frame.Context.IsLocalPlayer(playerCharacter.Player))
+			{
+				Log.Warn(currentValue);
+			}
 			
 			switch (Comparison)
 			{

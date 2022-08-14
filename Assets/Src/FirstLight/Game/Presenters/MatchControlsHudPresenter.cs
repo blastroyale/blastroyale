@@ -49,7 +49,7 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
@@ -89,6 +89,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnAim(InputAction.CallbackContext context)
 		{
+			// TODO: Use mouse position and clicks
 			_quantumInput.AimingDirection = context.ReadValue<Vector2>().ToFPVector2();
 		}
 
@@ -135,37 +136,38 @@ namespace FirstLight.Game.Presenters
 			
 			var localPlayer = msg.Game.GetLocalPlayerData(false, out var f);
 
-			if (!localPlayer.Entity.IsAlive(f))
+			if (!localPlayer.Entity.IsAlive(f) || !f.TryGet<PlayerCharacter>(localPlayer.Entity, out var playerCharacter))
 			{
+				_localInput.Gameplay.Disable();
 				return;
 			}
-
-			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
-			var weaponSlot = playerCharacter.CurrentWeaponSlot;
-			var currentWeaponSlot = playerCharacter.WeaponSlots[weaponSlot];
-
-			_currentWeaponSlot = weaponSlot;
 			
-			_specialButton0.Init(f, currentWeaponSlot.Special1, currentWeaponSlot.Special1Charges > 0);
-			_specialButton1.Init(f, currentWeaponSlot.Special2, currentWeaponSlot.Special2Charges > 0);
+			_currentWeaponSlot = playerCharacter.CurrentWeaponSlot;
+			
+			SetupSpecials(f, localPlayer.Entity);
+
+			if (f.Get<AIBlackboardComponent>(localPlayer.Entity).GetBoolean(f, Constants.IsSkydiving))
+			{
+				OnLocalPlayerSkydiveDrop(null);
+			}
 		}
 
-		private void OnPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var f = callback.Game.Frames.Predicted;
 			
-			if (callback.HasRespawned || !f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
-			{
-				return;
-			}
+			_currentWeaponSlot = 0;
 
-			var weaponSlot = 0;
-			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			SetupSpecials(f, callback.Entity);
+		}
+
+		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			var f = callback.Game.Frames.Predicted;
+
+			_currentWeaponSlot = callback.Slot;
 			
-			_currentWeaponSlot = weaponSlot;
-			
-			_specialButton0.Init(f, currentWeaponSlot.Special1, currentWeaponSlot.Special1Charges > 0);
-			_specialButton1.Init(f, currentWeaponSlot.Special2, currentWeaponSlot.Special2Charges > 0);
+			SetupSpecials(f, callback.Entity);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -183,7 +185,6 @@ namespace FirstLight.Game.Presenters
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
 		{
 			_localInput.Gameplay.SpecialButton0.Enable();
-			_localInput.Gameplay.SpecialButton1.Enable();
 			_localInput.Gameplay.Aim.Enable();
 
 			foreach (var go in _disableWhileParachuting)
@@ -218,29 +219,6 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
-		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{
-			var f = callback.Game.Frames.Predicted;
-
-			_currentWeaponSlot = callback.Slot;
-			
-			_localInput.Gameplay.SpecialButton0.Disable();
-			_localInput.Gameplay.SpecialButton1.Disable();
-
-			if (!f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
-			{
-				return;
-			}
-
-			var weaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
-
-			_specialButton0.Init(f, weaponSlot.Special1, weaponSlot.Special1Charges > 0);
-			_specialButton1.Init(f, weaponSlot.Special2, weaponSlot.Special2Charges > 0);
-
-			_localInput.Gameplay.SpecialButton0.Enable();
-			_localInput.Gameplay.SpecialButton1.Enable();
-		}
-
 		private void PollInput(CallbackPollInput callback)
 		{
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
@@ -265,6 +243,38 @@ namespace FirstLight.Game.Presenters
 			};
 			
 			QuantumRunner.Default.Game.SendCommand(command);
+		}
+
+		private void SetupSpecials(Frame f, EntityRef entity)
+		{
+			if (!f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
+			{
+				_localInput.Gameplay.Disable();
+				return;
+			}
+
+			var weaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			
+			if (weaponSlot.Special1.IsValid)
+			{
+				_localInput.Gameplay.SpecialButton1.Enable();
+				_specialButton0.Init(f, weaponSlot.Special1, weaponSlot.Special1Charges > 0);
+			}
+			else
+			{
+				_localInput.Gameplay.SpecialButton0.Disable();
+				_specialButton0.gameObject.SetActive(false);
+			}
+			if (weaponSlot.Special2.IsValid)
+			{
+				_localInput.Gameplay.SpecialButton0.Enable();
+				_specialButton1.Init(f, weaponSlot.Special2, weaponSlot.Special2Charges > 0);
+			}
+			else
+			{
+				_localInput.Gameplay.SpecialButton1.Disable();
+				_specialButton1.gameObject.SetActive(false);
+			}
 		}
 	}
 }

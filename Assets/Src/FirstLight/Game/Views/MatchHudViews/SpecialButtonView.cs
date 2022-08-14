@@ -62,7 +62,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_buttonView.interactable = false;
 			_isAiming = true;
 
-			_specialAimDirectionAdapter.SendValueToControl(new Pair<int, Vector2>(_specialIndex, Vector2.zero));
+			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
 		}
 
@@ -158,7 +158,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IEnumerator SpecialCooldown(FP currentTime, Special special)
 		{
-			var start = (special.AvailableTime - special.Cooldown).AsFloat;
+			var start = Time.time + (special.AvailableTime - special.Cooldown - currentTime).AsFloat;
 			var end = Time.time + (special.AvailableTime - currentTime).AsFloat;
 
 			_specialIconImage.color = _cooldownColor;

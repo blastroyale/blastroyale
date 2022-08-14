@@ -7,6 +7,7 @@ using FirstLight.AssetImporter;
 using FirstLight.FLogger;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -23,15 +24,6 @@ namespace FirstLight.Game.Services
 		/// given <typeparamref name="TAsset"/> type.
 		/// </summary>
 		bool TryGetAssetReference<TId, TAsset>(TId id, out AssetReference assetReference) where TId : struct;
-
-		/// <summary>
-		/// Loads asynchronously a <see cref="Scene"/> mapped with the given <paramref name="id"/> and the given info.
-		/// It will also return the result in the provided <paramref name="onLoadCallback"/> when the loading is complete
-		/// </summary>
-		Task<SceneInstance> LoadScene<TId>(TId id, LoadSceneMode loadMode = LoadSceneMode.Single,
-		                                   bool activateOnLoad = true,
-		                                   bool setActive = true, Action<TId, SceneInstance> onLoadCallback = null)
-			where TId : struct;
 
 		/// <summary>
 		/// Requests the given <typeparamref name="TAsset"/> of the given <paramref name="id"/>.
@@ -56,6 +48,30 @@ namespace FirstLight.Game.Services
 		                                              Action<TId, TAsset, TData, bool> onLoadCallback = null)
 			where TId : struct
 			where TAsset : Object;
+
+		/// <summary>
+		/// Loads asynchronously a <see cref="Scene"/> mapped with the given <paramref name="id"/> and the given info.
+		/// It will also return the result in the provided <paramref name="onLoadCallback"/> when the loading is complete
+		/// </summary>
+		Task<SceneInstance> LoadScene<TId>(TId id, LoadSceneMode loadMode = LoadSceneMode.Single,
+		                                   bool activateOnLoad = true,
+		                                   bool setActive = true, Action<TId, SceneInstance> onLoadCallback = null)
+			where TId : struct;
+		
+		
+		/// <summary>
+		/// Loads all assets previously added from <seealso cref="IAssetAdderService.AddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
+		/// Has the option from the params to <paramref name="loadAsynchronously"/> and have a <paramref name="onLoadCallback"/>
+		/// for each asset being loaded.
+		/// Returns the full list of assets loaded into memory.
+		/// </summary>
+		/// <remarks>
+		/// Will require to call <see cref="UnloadAssets{TId,TAsset}(bool,FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
+		/// to clean the assets from memory again
+		/// </remarks>
+		Task<List<Pair<TId, TAsset>>> LoadAllAssets<TId, TAsset>(bool loadAsynchronously = true,
+		                                                         Action<TId, TAsset> onLoadCallback = null)
+			where TId : struct;
 
 		/// <summary>
 		/// Unloads asynchronously a <see cref="Scene"/> mapped with the given <paramref name="id"/>.
@@ -101,17 +117,6 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="AddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
 		void AddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs)
-			where TId : struct;
-		
-		/// <inheritdoc cref="AddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
-		/// <remarks>
-		/// It also loads all the assets in the given <paramref name="configs"/> into memory to be used later
-		/// </remarks>
-		Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> configs)
-			where TId : struct;
-		
-		/// <inheritdoc cref="LoadAssetsAddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
-		Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs)
 			where TId : struct;
 		
 		/// <summary>
@@ -182,6 +187,45 @@ namespace FirstLight.Game.Services
 			onLoadCallback?.Invoke(id, sceneOperation.Result);
 
 			return sceneOperation.Result;
+		}
+
+		/// <inheritdoc />
+		public async Task<List<Pair<TId, TAsset>>> LoadAllAssets<TId, TAsset>(bool loadAsynchronously = true, 
+		                                                                      Action<TId, TAsset> onLoadCallback = null) 
+			where TId : struct
+		{
+			var list = new List<Pair<TId, TAsset>>();
+			var tasks = new List<Task<TAsset>>();
+			var dictionary = GetDictionary<TId, TAsset>();
+
+			foreach (var pair in dictionary)
+			{
+				var operation = pair.Value.LoadAssetAsync<TAsset>();
+				var id = pair.Key;
+				
+				tasks.Add(operation.Task);
+
+				operation.Completed += op => OnComplete(id, op);
+				
+				if (!loadAsynchronously)
+				{
+					operation.WaitForCompletion();
+				}
+			}
+
+			await Task.WhenAll(tasks);
+			
+			foreach (var pair in dictionary)
+			{
+				list.Add(new Pair<TId, TAsset>(pair.Key, pair.Value.OperationHandle.Convert<TAsset>().Result));
+			}
+
+			return list;
+
+			void OnComplete(TId id, AsyncOperationHandle<TAsset> asyncOperationHandle)
+			{
+				onLoadCallback?.Invoke(id, asyncOperationHandle.Result);
+			}
 		}
 
 		/// <inheritdoc />
@@ -370,37 +414,6 @@ namespace FirstLight.Game.Services
 			{
 				map.Add(idType, assetReferences);
 			}
-		}
-
-		/// <inheritdoc />
-		public async Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> configs) 
-			where TId : struct
-		{
-			return await LoadAssetsAddConfigs<TId, TAsset>(configs.AssetType, configs.Configs);
-		}
-
-		/// <inheritdoc />
-		public async Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs) 
-			where TId : struct
-		{
-			var list = new List<Pair<TId, TAsset>>();
-			var tasks = new List<Task<TAsset>>();
-			
-			AddConfigs<TId, TAsset>(assetType, configs);
-
-			foreach (var pair in configs)
-			{
-				tasks.Add(pair.Value.LoadAssetAsync<TAsset>().Task);
-			}
-
-			await Task.WhenAll(tasks);
-			
-			foreach (var pair in configs)
-			{
-				list.Add(new Pair<TId, TAsset>(pair.Key, pair.Value.OperationHandle.Convert<TAsset>().Result));
-			}
-
-			return list;
 		}
 
 		/// <inheritdoc />

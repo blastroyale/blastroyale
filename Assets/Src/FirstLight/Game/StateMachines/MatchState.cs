@@ -231,8 +231,8 @@ namespace FirstLight.Game.StateMachines
 			runnerConfigs.SetRuntimeConfig(config);
 
 			tasks.Add(sceneTask);
-			tasks.Add(_assetAdderService.LoadAssetsAddConfigs(_services.ConfigsProvider.GetConfig<IndicatorVfxAssetConfigs>()));
-			tasks.Add(_assetAdderService.LoadAssetsAddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>()));
+			tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
+			tasks.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
 			tasks.AddRange(LoadQuantumAssets(map));
 			tasks.AddRange(PreloadGameAssets());
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));

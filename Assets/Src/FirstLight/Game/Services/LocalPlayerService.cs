@@ -59,6 +59,7 @@ namespace FirstLight.Game.Services
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
+		// TODO: Move all this code below to MatchControlsHudPresenter
 		private void Init(QuantumGame game)
 		{
 			var entity = game.GetLocalPlayerData(false, out var f).Entity;
@@ -79,7 +80,7 @@ namespace FirstLight.Game.Services
 			}
 			
 			_localInput.Enable();
-			SetWeaponIndicators(playerCharacter.CurrentWeapon.GameId);
+			SetWeaponIndicators(playerCharacter.CurrentWeapon.GameId, playerView);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
@@ -136,6 +137,8 @@ namespace FirstLight.Game.Services
 
 		private void OnUpdateSpecials()
 		{
+			var value = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+			
 			if (_localInput.Gameplay.SpecialButton0.WasPressedThisFrame())
 			{
 				_specialIndicators[0].SetVisualState(true);
@@ -153,11 +156,13 @@ namespace FirstLight.Game.Services
 				_specialIndicators[1].SetVisualState(false);
 			}
 
-			if (_localInput.Gameplay.SpecialAim.inProgress)
+			if (_localInput.Gameplay.SpecialButton0.IsPressed())
 			{
-				var value = _localInput.Gameplay.SpecialAim.ReadValue<Pair<int, Vector2>>();
-				
-				_specialIndicators[value.Key].SetTransformState(value.Value);
+				_specialIndicators[0].SetTransformState(value);
+			}
+			else if (_localInput.Gameplay.SpecialButton1.IsPressed())
+			{
+				_specialIndicators[1].SetTransformState(value);
 			}
 		}
 		
@@ -187,7 +192,9 @@ namespace FirstLight.Game.Services
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			SetWeaponIndicators(callback.Weapon.GameId);
+			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
+			
+			SetWeaponIndicators(callback.Weapon.GameId, playerView);
 		}
 
 		private void HandleOnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
@@ -195,7 +202,7 @@ namespace FirstLight.Game.Services
 			Init(callback.Game);
 		}
 
-		private void SetWeaponIndicators(GameId weapon)
+		private void SetWeaponIndicators(GameId weapon, EntityView playerView)
 		{
 			var configProvider = _gameServices.ConfigsProvider;
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
@@ -217,6 +224,7 @@ namespace FirstLight.Game.Services
 					_specialIndicators[i] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
 					                              .GetComponent<IIndicator>();
 					
+					_specialIndicators[i].Init(playerView);
 					_specialIndicators[i].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
 					                                               config.MinRange.AsFloat, config.MaxRange.AsFloat);
 				}

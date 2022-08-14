@@ -512,7 +512,6 @@ GameObject:
   - component: {fileID: 5361272457601393536}
   - component: {fileID: 323115840485055281}
   - component: {fileID: 8467213377424103225}
-  - component: {fileID: 424075208219945079}
   - component: {fileID: 5153671667736018561}
   m_Layer: 5
   m_Name: Movement Joystick Hitbox
@@ -591,19 +590,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controlPath: <OnscreenControlsDevice>/LeftJoystickPointerDown
---- !u!114 &424075208219945079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4543775689126659115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2b88c9d03cb42d385f9310e1c063f21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controlPath: <OnScreenControlsDevice>/LeftJoystickDirection
 --- !u!114 &5153671667736018561
 MonoBehaviour:
   m_ObjectHideFlags: 0

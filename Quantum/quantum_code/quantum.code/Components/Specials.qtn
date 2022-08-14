@@ -57,30 +57,4 @@ synced event OnSkyBeamUsed
 	Hazard HazardData;
 }
 
-synced event OnSpecialUsed
-{
-	local player_ref Player;
-	entity_ref Entity;
-	SpecialType SpecialType;
-	Int32 SpecialIndex;
-}
-
-synced event OnLocalSpecialUsed
-{
-	local player_ref Player;
-	entity_ref Entity;
-	SpecialType SpecialType;
-	Int32 SpecialIndex;
-	FP StartTime;
-	FP EndTime;
-}
-
-synced event OnLocalSpecialAvailable
-{
-	local player_ref Player;
-	entity_ref Entity;
-	SpecialType SpecialType;
-	Int32 SpecialIndex;
-}
-
-signal SpecialUsed(player_ref player, entity_ref entity, SpecialType specialType, Int32 specialIndex);
+signal SpecialUsed(entity_ref entity, Special special, Int32 specialIndex);

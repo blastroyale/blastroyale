@@ -51,7 +51,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
-			QuantumEvent.Subscribe<EventOnSpecialUsed>(this, HandleOnSpecialUsed);
+			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
@@ -205,19 +205,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
 
-		private void HandleOnPlayerAttack(EventOnPlayerAttack evnt)
+		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (evnt.PlayerEntity != EntityRef)
+			if (callback.PlayerEntity != EntityRef)
 			{
 				return;
 			}
 			
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
 		}
-
-		private void HandleOnSpecialUsed(EventOnSpecialUsed evnt)
+		
+		private void HandleOnPlayerSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
-			if (evnt.Entity != EntityView.EntityRef)
+			if (callback.Entity != EntityView.EntityRef)
 			{
 				return;
 			}

@@ -133,11 +133,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var game = msg.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayer = msg.Game.GetLocalPlayerData(false, out var f);
 
 			if (!localPlayer.Entity.IsAlive(f))
 			{
@@ -145,27 +141,31 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
-			_currentWeaponSlot = playerCharacter.CurrentWeaponSlot;
-			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+			var weaponSlot = playerCharacter.CurrentWeaponSlot;
+			var currentWeaponSlot = playerCharacter.WeaponSlots[weaponSlot];
+
+			_currentWeaponSlot = weaponSlot;
 			
-			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);
-			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0, currentWeaponSlot.Special2.AvailableTime - f.Time);
+			_specialButton0.Init(f, currentWeaponSlot.Special1, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(f, currentWeaponSlot.Special2, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			if (callback.HasRespawned)
+			var f = callback.Game.Frames.Predicted;
+			
+			if (callback.HasRespawned || !f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
 			{
 				return;
 			}
 
-			var playerCharacter = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			_currentWeaponSlot = 0;
+			var weaponSlot = 0;
 			var currentWeaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
-			var f = callback.Game.Frames.Verified;
 			
-			_specialButton0.Init(currentWeaponSlot.Special1.SpecialId, currentWeaponSlot.Special1Charges > 0, currentWeaponSlot.Special1.AvailableTime - f.Time);
-			_specialButton1.Init(currentWeaponSlot.Special2.SpecialId, currentWeaponSlot.Special2Charges > 0, currentWeaponSlot.Special2.AvailableTime - f.Time);
+			_currentWeaponSlot = weaponSlot;
+			
+			_specialButton0.Init(f, currentWeaponSlot.Special1, currentWeaponSlot.Special1Charges > 0);
+			_specialButton1.Init(f, currentWeaponSlot.Special2, currentWeaponSlot.Special2Charges > 0);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -220,21 +220,22 @@ namespace FirstLight.Game.Presenters
 
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) callback.Weapon.GameId);
-			var f = callback.Game.Frames.Verified;
-			var playerCharacter = f.Get<PlayerCharacter>(callback.Entity);
+			var f = callback.Game.Frames.Predicted;
 
 			_currentWeaponSlot = callback.Slot;
 			
 			_localInput.Gameplay.SpecialButton0.Disable();
 			_localInput.Gameplay.SpecialButton1.Disable();
 
-			_specialButton0.Init(config.Specials[0],
-			                     playerCharacter.WeaponSlots[_currentWeaponSlot].Special1Charges > 0,
-			                     playerCharacter.WeaponSlots[_currentWeaponSlot].Special1AvailableTime - f.Time);
-			_specialButton1.Init(config.Specials[1],
-			                     playerCharacter.WeaponSlots[_currentWeaponSlot].Special2Charges > 0,
-			                     playerCharacter.WeaponSlots[_currentWeaponSlot].Special2AvailableTime - f.Time);
+			if (!f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
+			{
+				return;
+			}
+
+			var weaponSlot = playerCharacter.WeaponSlots[_currentWeaponSlot];
+
+			_specialButton0.Init(f, weaponSlot.Special1, weaponSlot.Special1Charges > 0);
+			_specialButton1.Init(f, weaponSlot.Special2, weaponSlot.Special2Charges > 0);
 
 			_localInput.Gameplay.SpecialButton0.Enable();
 			_localInput.Gameplay.SpecialButton1.Enable();

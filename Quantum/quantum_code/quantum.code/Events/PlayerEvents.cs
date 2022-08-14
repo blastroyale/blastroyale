@@ -25,10 +25,10 @@ namespace Quantum
 	{
 		public unsafe partial struct FrameEvents 
 		{
-			public void OnLocalPlayerLeft(PlayerRef Player)
+			public void OnLocalPlayerLeft(PlayerRef player)
 			{
-				var matchData = _f.GetSingleton<GameContainer>().PlayersData[Player];
-				var ev = OnLocalPlayerLeft(Player, matchData.Entity);
+				var matchData = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[player];
+				var ev = OnLocalPlayerLeft(player, matchData.Entity);
 
 				if (ev == null)
 				{
@@ -38,12 +38,12 @@ namespace Quantum
 				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
 			}
 			
-			public void OnLocalPlayerDead(PlayerRef Player, PlayerRef killer, EntityRef killerEntity)
+			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
 			{
-				var data = _f.GetSingleton<GameContainer>().PlayersData;
-				var matchData = data[Player];
+				var data = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+				var matchData = data[player];
 				
-				var ev = OnLocalPlayerDead(Player, matchData.Entity, killer, killerEntity);
+				var ev = OnLocalPlayerDead(player, matchData.Entity, killer, killerEntity);
 
 				if (ev == null)
 				{
@@ -53,13 +53,26 @@ namespace Quantum
 				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
 			}
 			
-			public void OnPlayerKilledPlayer(PlayerRef PlayerDead, PlayerRef PlayerKiller)
+			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex)
 			{
-				var container = _f.GetSingleton<GameContainer>();
-				var data = container.PlayersData;
-				var matchData = container.GetPlayersMatchData(_f, out var leader);
-				var ev = OnPlayerKilledPlayer(PlayerDead, data[PlayerDead].Entity, 
-				                              PlayerKiller, data[PlayerKiller].Entity, 
+				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
+				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+
+				if (ev == null || !_f.Context.IsLocalPlayer(playerCharacter->Player))
+				{
+					return;
+				}
+
+				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+			}
+			
+			public void OnPlayerKilledPlayer(PlayerRef playerDead, PlayerRef playerKiller)
+			{
+				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
+				var data = container->PlayersData;
+				var matchData = container->GetPlayersMatchData(_f, out var leader);
+				var ev = OnPlayerKilledPlayer(playerDead, data[playerDead].Entity, 
+				                              playerKiller, data[playerKiller].Entity, 
 				                              leader, data[leader].Entity);
 
 				if (ev == null)

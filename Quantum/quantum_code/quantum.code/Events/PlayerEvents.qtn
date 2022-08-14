@@ -139,6 +139,14 @@ synced event OnPlayerStatsChanged
 	Quantum.Stats CurrentStats;
 }
 
+synced event OnPlayerSpecialUsed
+{
+	player_ref Player;
+	entity_ref Entity;
+	Special Special;
+	Int32 SpecialIndex;
+}
+
 // LOCAL PLAYER EVENTS
 
 synced event OnLocalPlayerLeft
@@ -237,4 +245,12 @@ synced event OnLocalPlayerAttack
 	local player_ref Player;
 	entity_ref PlayerEntity;
 	QuantumWeaponConfig WeaponConfig;
+}
+
+synced event OnLocalPlayerSpecialUsed
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Special Special;
+	Int32 SpecialIndex;
 }

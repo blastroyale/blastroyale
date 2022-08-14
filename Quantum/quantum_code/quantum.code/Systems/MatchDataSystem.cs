@@ -80,11 +80,12 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void SpecialUsed(Frame f, PlayerRef player, EntityRef entity, SpecialType specialType, int specialIndex)
+		public void SpecialUsed(Frame f, EntityRef entity, Special special, int specialIndex)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 
-			gameContainer->PlayersData.GetPointer(player)->SpecialsUsedCount++;
+			gameContainer->PlayersData.GetPointer(playerCharacter->Player)->SpecialsUsedCount++;
 		}
 	}
 }

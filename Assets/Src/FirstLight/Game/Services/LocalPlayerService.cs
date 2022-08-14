@@ -25,7 +25,7 @@ namespace FirstLight.Game.Services
 	}
 	
 	/// <inheritdoc cref="ILocalPlayerService"/>
-	public class LocalPlayerService : ILocalPlayerService, MatchServices.IMatchService
+	public unsafe class LocalPlayerService : ILocalPlayerService, MatchServices.IMatchService
 	{
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;
@@ -47,8 +47,6 @@ namespace FirstLight.Game.Services
 		{
 			_gameServices = gameServices;
 			_matchServices = matchServices;
-
-			InstantiatePlayerIndicators();
 		}
 
 		public void Dispose()
@@ -69,11 +67,11 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+			
+			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
 
 			LocalPlayerRef = playerCharacter.Player;
 			LocalPlayerEntity = entity;
-			
-			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
 
 			foreach (var indicator in _indicators)
 			{
@@ -88,6 +86,8 @@ namespace FirstLight.Game.Services
 		
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
+			InstantiatePlayerIndicators();
+			
 			if (isReconnect)
 			{
 				Init(game);
@@ -105,24 +105,29 @@ namespace FirstLight.Game.Services
 
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
-			var playerData = callback.Game.GetLocalPlayerData(false, out var f);
-
-			if (!f.TryGet<CharacterController3D>(playerData.Entity, out var kcc))
+			var f = callback.Game.Frames.Predicted;
+			
+			if (!f.Unsafe.TryGetPointer<CharacterController3D>(LocalPlayerEntity, out var kcc) ||
+			    !f.Unsafe.TryGetPointer<PlayerCharacter>(LocalPlayerEntity, out var playerCharacter))
 			{
 				return;
 			}
 
-			OnUpdateAim(kcc);
+			var playerInput = f.GetPlayerInput(LocalPlayerRef);
+
+			OnUpdateMove(playerInput);
+			OnUpdateAim(f, playerInput, playerCharacter, kcc);
 		}
 
-		private void OnUpdateAim(CharacterController3D kcc)
+		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
+			var isEmptied = playerCharacter->IsAmmoEmpty(f, LocalPlayerEntity);
+			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
+			var velocity = kcc->Velocity.SqrMagnitude;
 			var range = _weaponConfig.AttackRange.AsFloat;
 			var minAttackAngle = _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
-			var maxSpeedSqrt = kcc.MaxSpeed * kcc.MaxSpeed;
-			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle,
-			                      kcc.Velocity.SqrMagnitude.AsFloat / maxSpeedSqrt.AsFloat);
+			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
 			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;
 			
 			// We use a formula to calculate the scale of a shooting indicator
@@ -135,18 +140,18 @@ namespace FirstLight.Game.Services
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
+			_shootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
+			_shootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
 			_shootIndicator.SetVisualProperties(size, 0, range);
 		}
-/*
-		/// <inheritdoc />
-		public void OnMove(InputAction.CallbackContext context)
+
+		private void OnUpdateMove(Quantum.Input* input)
 		{
-			var direction = context.ReadValue<Vector2>();
-
-			_movementIndicator.SetTransformState(direction);
-			_movementIndicator.SetVisualState(direction.sqrMagnitude > 0);
+			_movementIndicator.SetTransformState(input->Direction.ToUnityVector2());
+			_movementIndicator.SetVisualState(input->IsMoveButtonDown);
 		}
-
+		
+/*
 		/// <inheritdoc />
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
@@ -206,31 +211,6 @@ namespace FirstLight.Game.Services
 		{
 			Init(callback.Game);
 		}
-/*
-		/// <inheritdoc />
-		public void OnAim(InputAction.CallbackContext context)
-		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var direction = context.ReadValue<Vector2>();
-			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) &&
-			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
-
-			_shootIndicator?.SetTransformState(direction);
-			_shootIndicator?.SetVisualState(direction.sqrMagnitude > 0, isEmptied);
-		}
-
-		/// <inheritdoc />
-		public void OnAimButton(InputAction.CallbackContext context)
-		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var isDown = context.ReadValueAsButton();
-			var isEmptied = TryGetComponentData<PlayerCharacter>(game, out var component) &&
-			                component.IsAmmoEmpty(frame, EntityView.EntityRef);
-
-			_shootIndicator.SetVisualState(isDown, isEmptied);
-		}*/
 
 		private void SetWeaponIndicators(GameId weapon)
 		{
@@ -259,26 +239,20 @@ namespace FirstLight.Game.Services
 			}
 		}
 		
-		private async void InstantiatePlayerIndicators()
+		private void InstantiatePlayerIndicators()
 		{
 			var loader = _gameServices.AssetResolverService;
-			var rangeTask = loader.RequestAsset<IndicatorVfxId, GameObject>(IndicatorVfxId.Range);
-			var lineTask = loader.RequestAsset<IndicatorVfxId, GameObject>(IndicatorVfxId.Line);
-			var coneTask = loader.RequestAsset<IndicatorVfxId, GameObject>(IndicatorVfxId.Cone);
-			var radialTask = loader.RequestAsset<IndicatorVfxId, GameObject>(IndicatorVfxId.Radial);
-			var movementTask = loader.RequestAsset<IndicatorVfxId, GameObject>(IndicatorVfxId.Movement);
-			var scalableLineTask = loader.RequestAsset<IndicatorVfxId, GameObject>(IndicatorVfxId.ScalableLine);
 
-			await Task.WhenAll(rangeTask, lineTask, coneTask, radialTask, movementTask, scalableLineTask);
-					
-			_indicators[(int) IndicatorVfxId.Cone] = coneTask.Result.GetComponent<ConeIndicatorMonoComponent>();
-			_indicators[(int) IndicatorVfxId.Line] = lineTask.Result.GetComponent<LineIndicatorMonoComponent>();
-			_indicators[(int) IndicatorVfxId.Movement] =
-				_movementIndicator = movementTask.Result.GetComponent<MovementIndicatorMonoComponent>();
-			_indicators[(int) IndicatorVfxId.None] = null;
-			_indicators[(int) IndicatorVfxId.Radial] = radialTask.Result.GetComponent<RadialIndicatorMonoComponent>();
-			_indicators[(int) IndicatorVfxId.ScalableLine] =
-				scalableLineTask.Result.GetComponent<ScalableLineIndicatorMonoComponent>();
+			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
+			{
+				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
+				{
+					_indicators[i] = null;
+					continue;
+				}
+				
+				_indicators[i] = indicator.OperationHandle.Convert<GameObject>().Result.GetComponent<IIndicator>();
+			}
 		}
 	}
 }

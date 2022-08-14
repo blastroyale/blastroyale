@@ -93,17 +93,25 @@ namespace FirstLight.Game.Services
 	public interface IAssetAdderService : IAssetResolverService
 	{
 		/// <summary>
-		/// Adds the given <paramref name="assetConfigs"/> to the asset reference list with <typeparamref name="TId"/> as
+		/// Adds the given <paramref name="configs"/> to the asset reference list with <typeparamref name="TId"/> as
 		/// the identifier type and <typeparamref name="TAsset"/> as asset type
 		/// </summary>
-		void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
+		void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> configs)
 			where TId : struct;
 		
-		/// <summary>
-		/// Adds the given <paramref name="assetType"/> type to the asset reference list with <typeparamref name="TId"/> as
-		/// the identifier type and <typeref name="AssetReference"/> as asset type
-		/// </summary>
+		/// <inheritdoc cref="AddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
 		void AddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs)
+			where TId : struct;
+		
+		/// <inheritdoc cref="AddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
+		/// <remarks>
+		/// It also loads all the assets in the given <paramref name="configs"/> into memory to be used later
+		/// </remarks>
+		Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> configs)
+			where TId : struct;
+		
+		/// <inheritdoc cref="LoadAssetsAddConfigs{TId,TAsset}(FirstLight.AssetImporter.AssetConfigsScriptableObject{TId,TAsset})"/>
+		Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs)
 			where TId : struct;
 		
 		/// <summary>
@@ -322,10 +330,10 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> assetConfigs)
+		public void AddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> configs)
 			where TId : struct
 		{
-			AddConfigs<TId, TAsset>(assetConfigs.AssetType, assetConfigs.Configs);
+			AddConfigs<TId, TAsset>(configs.AssetType, configs.Configs);
 		}
 
 		/// <inheritdoc />
@@ -362,6 +370,37 @@ namespace FirstLight.Game.Services
 			{
 				map.Add(idType, assetReferences);
 			}
+		}
+
+		/// <inheritdoc />
+		public async Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(AssetConfigsScriptableObject<TId, TAsset> configs) 
+			where TId : struct
+		{
+			return await LoadAssetsAddConfigs<TId, TAsset>(configs.AssetType, configs.Configs);
+		}
+
+		/// <inheritdoc />
+		public async Task<List<Pair<TId, TAsset>>> LoadAssetsAddConfigs<TId, TAsset>(Type assetType, List<Pair<TId, AssetReference>> configs) 
+			where TId : struct
+		{
+			var list = new List<Pair<TId, TAsset>>();
+			var tasks = new List<Task<TAsset>>();
+			
+			AddConfigs<TId, TAsset>(assetType, configs);
+
+			foreach (var pair in configs)
+			{
+				tasks.Add(pair.Value.LoadAssetAsync<TAsset>().Task);
+			}
+
+			await Task.WhenAll(tasks);
+			
+			foreach (var pair in configs)
+			{
+				list.Add(new Pair<TId, TAsset>(pair.Key, pair.Value.OperationHandle.Convert<TAsset>().Result));
+			}
+
+			return list;
 		}
 
 		/// <inheritdoc />

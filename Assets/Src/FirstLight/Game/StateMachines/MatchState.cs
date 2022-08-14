@@ -271,9 +271,9 @@ namespace FirstLight.Game.StateMachines
 
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
+			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<IndicatorVfxAssetConfigs>());
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
 
 			Resources.UnloadUnusedAssets();
 

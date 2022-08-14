@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
 				MatchStartAnalytics();
-				SetPlayerMatchData();
+				SetPlayerMatchData(game);
 			}
 
 			CloseMatchmakingScreen();
@@ -382,10 +382,9 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}
 
-		private void SetPlayerMatchData()
+		private void SetPlayerMatchData(QuantumGame game)
 		{
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
-			var game = QuantumRunner.Default.Game;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView

@@ -332,12 +332,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			const float speedThreshold = 0.5f; // unity units per second
 
 			var f = callback.Game.Frames.Predicted;
+
+			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
+			{
+				return;
+			}
+			
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 			var isMoving = sqrSpeed > speedThreshold * speedThreshold;
-			var isAiming = f.Get<AIBlackboardComponent>(EntityRef).GetBoolean(f, Constants.IsAimPressedKey);
+			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
 
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
 

@@ -58,12 +58,9 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void SetTransformState(Vector2 direction)
 		{
 			var move = direction * _maxRange;
-			var position = _playerTransform.position;
+			var position = _playerTransform.position + new Vector3(move.x, 10f, move.y);
 
-			// Getting the position the special is going to drop on
-			position += new Vector3(move.x, 10f, move.y);
-			var ray = new Ray(position, Vector3.down);
-			if (Physics.Raycast(ray, out var raycastHit))
+			if (Physics.Raycast(new Ray(position, Vector3.down), out var raycastHit))
 			{
 				position = new Vector3(raycastHit.point.x, raycastHit.point.y, raycastHit.point.z);
 			}
@@ -73,7 +70,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				position = new Vector3(position.x, _playerTransform.position.y, position.z);
 			}
 			
-			_position = position-_playerTransform.position;
+			_position = position - _playerTransform.position;
 		}
 	}
 }

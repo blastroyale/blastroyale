@@ -295,7 +295,7 @@ namespace Quantum.Systems
 
 			filter.BotCharacter->Target = target;
 
-			bb->Set(f, Constants.IsAimingKey, target != EntityRef.None);
+			bb->Set(f, Constants.IsAimPressedKey, target != EntityRef.None);
 		}
 
 		// We check specials and try to use them depending on their type if possible

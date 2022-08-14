@@ -379,11 +379,7 @@ namespace FirstLight.Game.StateMachines
 
 			CloseMatchmakingScreen();
 
-			_services.MessageBrokerService.Publish(new MatchStartedMessage
-			{
-				Game = QuantumRunner.Default.Game,
-				IsResync = isResync
-			});
+			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}
 
 		private void SetPlayerMatchData()

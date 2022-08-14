@@ -141,15 +141,6 @@ synced event OnPlayerStatsChanged
 
 // LOCAL PLAYER EVENTS
 
-synced event OnLocalPlayerAim
-{
-	local player_ref Player;
-	entity_ref PlayerEntity;
-	Equipment Weapon;
-	FP VelocitySqrMagnitude;
-	FP MaxSpeedSqr;
-}
-
 synced event OnLocalPlayerLeft
 {
 	local player_ref Player;

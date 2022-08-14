@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var game = QuantumRunner.Default.Game;
+			var game = msg.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
@@ -464,6 +465,16 @@ namespace FirstLight.Game.Utils
 			{
 				property.SetValue(dest, property.GetValue(source));
 			}
+		}
+
+		/// <summary>
+		/// Requests the <see cref="PlayerMatchData"/> of the current local player playing the game
+		/// </summary>
+		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
+		{
+			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
+			
+			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
 		}
 	}
 }

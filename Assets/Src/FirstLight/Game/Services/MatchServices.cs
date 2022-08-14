@@ -63,7 +63,11 @@ namespace FirstLight.Game.Services
 
 			EntityViewUpdaterService = entityViewUpdaterService;
 			SpectateService = Configure(new SpectateService(services, this));
-			LocalPlayerService = Configure(new LocalPlayerService(services, this));
+
+			if (!services.NetworkService.IsSpectorPlayer)
+			{
+				LocalPlayerService = Configure(new LocalPlayerService(services, this));
+			}
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

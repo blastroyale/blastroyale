@@ -97,19 +97,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
-		/// <summary>
-		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
-		/// </summary>
-		public void SetMovingState(bool isAiming)
-		{
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
-		}
-
-		protected override void OnAvatarEliminated(QuantumGame game)
-		{
-			base.OnAvatarEliminated(game);
-		}
-
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
 		{
 			if (callback.HazardData.Attacker != EntityView.EntityRef)
@@ -344,11 +331,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			const float speedThreshold = 0.5f; // unity units per second
 
+			var f = callback.Game.Frames.Predicted;
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
 			deltaPosition.y = 0f; // falling doesn't count
-			var sqrSpeed = (deltaPosition / Time.deltaTime).sqrMagnitude;
+			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 			var isMoving = sqrSpeed > speedThreshold * speedThreshold;
+			var isAiming = f.Get<AIBlackboardComponent>(EntityRef).GetBoolean(f, Constants.IsAimPressedKey);
 
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
 
@@ -364,6 +353,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
 			}
+			
+			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 
 			_lastPosition = currentPosition;
 		}

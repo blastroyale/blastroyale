@@ -113,14 +113,12 @@ namespace Quantum.Systems
 				movedirection = rotation;
 			}
 
-			var isAiming = input->AimingDirection.SqrMagnitude > FP._0;
-			if (isAiming)
+			if (input->AimingDirection.SqrMagnitude > FP._0)
 			{
 				rotation = input->AimingDirection;
 			}
 
 			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
-			bb->Set(f, Constants.IsAimingKey, isAiming);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 		}

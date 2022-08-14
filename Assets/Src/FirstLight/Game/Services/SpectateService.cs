@@ -75,7 +75,7 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (_gameServices.NetworkService.IsSpectorPlayer)
 			{
 				if (isReconnect)
 				{

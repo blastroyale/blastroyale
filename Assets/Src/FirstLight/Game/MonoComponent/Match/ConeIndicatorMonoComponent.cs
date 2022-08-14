@@ -1,3 +1,4 @@
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// <summary>
 	/// Shows the indicator for the local player's attack in a cone of damage.
 	/// </summary>
-	public class ConeIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
+	public class ConeIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		private static readonly int _color = Shader.PropertyToID("_Color");
 		
@@ -18,7 +19,9 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
-		
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Cone;
+
 		private void Awake()
 		{
 			_indicator.enabled = false;

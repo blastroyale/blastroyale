@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using FirstLight.Game.Input;
+﻿using FirstLight.Game.Input;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -29,24 +28,25 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IGameServices _gameServices;
 		private readonly IMatchServices _matchServices;
+		private readonly LocalInput _localInput;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
-		private readonly Pair<ITransformIndicator, QuantumSpecialConfig>[] _specialIndicators =
-			new Pair<ITransformIndicator, QuantumSpecialConfig>[Constants.MAX_SPECIALS];
+		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
 
 		private QuantumWeaponConfig _weaponConfig;
-		private Pair<ITransformIndicator, QuantumSpecialConfig> _specialAimIndicator;
-		private ITransformIndicator _shootIndicator;
-		private ITransformIndicator _movementIndicator;
+		private IndicatorVfxId _shootIndicatorId;
 
 		/// <inheritdoc />
 		public EntityRef LocalPlayerEntity { get; private set; }
 		/// <inheritdoc />
 		public PlayerRef LocalPlayerRef { get; private set; }
 
+		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
+
 		public LocalPlayerService(IGameServices gameServices, IMatchServices matchServices)
 		{
 			_gameServices = gameServices;
 			_matchServices = matchServices;
+			_localInput = new LocalInput();
 		}
 
 		public void Dispose()
@@ -54,7 +54,7 @@ namespace FirstLight.Game.Services
 			LocalPlayerRef = PlayerRef.None;
 			LocalPlayerEntity = EntityRef.None;
 			
-			// TODO: Dispose the indicators
+			_localInput?.Dispose();
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
@@ -78,29 +78,11 @@ namespace FirstLight.Game.Services
 				indicator?.Init(playerView);
 			}
 			
+			_localInput.Enable();
 			SetWeaponIndicators(playerCharacter.CurrentWeapon.GameId);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(this, HandleOnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
-		}
-		
-		public void OnMatchStarted(QuantumGame game, bool isReconnect)
-		{
-			InstantiatePlayerIndicators();
-			
-			if (isReconnect)
-			{
-				Init(game);
-			}
-			else
-			{
-				QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, HandleOnLocalPlayerSpawned);
-			}
-		}
-
-		public void OnMatchEnded()
-		{
-			Dispose();
 		}
 
 		private void OnUpdateView(CallbackUpdateView callback)
@@ -117,6 +99,7 @@ namespace FirstLight.Game.Services
 
 			OnUpdateMove(playerInput);
 			OnUpdateAim(f, playerInput, playerCharacter, kcc);
+			OnUpdateSpecials();
 		}
 
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
@@ -140,66 +123,66 @@ namespace FirstLight.Game.Services
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			_shootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
-			_shootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
-			_shootIndicator.SetVisualProperties(size, 0, range);
+			ShootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
+			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
+			ShootIndicator.SetVisualProperties(size, 0, range);
 		}
 
 		private void OnUpdateMove(Quantum.Input* input)
 		{
-			_movementIndicator.SetTransformState(input->Direction.ToUnityVector2());
-			_movementIndicator.SetVisualState(input->IsMoveButtonDown);
+			_indicators[(int) IndicatorVfxId.Movement].SetTransformState(input->Direction.ToUnityVector2());
+			_indicators[(int) IndicatorVfxId.Movement].SetVisualState(input->IsMoveButtonDown);
+		}
+
+		private void OnUpdateSpecials()
+		{
+			if (_localInput.Gameplay.SpecialButton0.WasPressedThisFrame())
+			{
+				_specialIndicators[0].SetVisualState(true);
+			}
+			else if (_localInput.Gameplay.SpecialButton0.WasReleasedThisFrame())
+			{
+				_specialIndicators[0].SetVisualState(false);
+			}
+			else if (_localInput.Gameplay.SpecialButton1.WasPressedThisFrame())
+			{
+				_specialIndicators[1].SetVisualState(true);
+			}
+			else if (_localInput.Gameplay.SpecialButton1.WasReleasedThisFrame())
+			{
+				_specialIndicators[1].SetVisualState(false);
+			}
+
+			if (_localInput.Gameplay.SpecialAim.inProgress)
+			{
+				var value = _localInput.Gameplay.SpecialAim.ReadValue<Pair<int, Vector2>>();
+				
+				_specialIndicators[value.Key].SetTransformState(value.Value);
+			}
 		}
 		
-/*
-		/// <inheritdoc />
-		public void OnSpecialAim(InputAction.CallbackContext context)
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			_specialAimIndicator.Key?.SetTransformState(context.ReadValue<Vector2>());
+			InstantiatePlayerIndicators();
+			
+			if (isReconnect)
+			{
+				Init(game);
+			}
+			else
+			{
+				QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, HandleOnLocalPlayerSpawned);
+			}
 		}
 
-		/// <inheritdoc />
-		public void OnSpecialButton0(InputAction.CallbackContext context)
+		public void OnMatchEnded()
 		{
-			var isDown = context.ReadValueAsButton();
-			var config = _specialIndicators[0].Value;
-
-			_specialAimIndicator.Key?.SetVisualState(false);
-
-			_specialAimIndicator =
-				isDown ? _specialIndicators[0] : new Pair<ITransformIndicator, QuantumSpecialConfig>();
-
-			_specialAimIndicator.Key?.SetVisualState(true);
-			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key
-			                    ?
-			                    .SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
-			                                         config.MinRange.AsFloat, config.MaxRange.AsFloat);
+			Dispose();
 		}
-
-		/// <inheritdoc />
-		public void OnSpecialButton1(InputAction.CallbackContext context)
-		{
-			var isDown = context.ReadValueAsButton();
-			var config = _specialIndicators[1].Value;
-
-			_specialAimIndicator.Key?.SetVisualState(false);
-
-			_specialAimIndicator =
-				isDown ? _specialIndicators[1] : new Pair<ITransformIndicator, QuantumSpecialConfig>();
-
-
-			_specialAimIndicator.Key?.SetVisualState(true);
-			_specialAimIndicator.Key?.SetTransformState(Vector2.zero);
-			_specialAimIndicator.Key?.SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
-			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
-		}*/
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
-			var shootState = _shootIndicator?.VisualState ?? false;
-
-			_shootIndicator?.SetVisualState(shootState, true);
+			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}
 
 		private void HandleOnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
@@ -216,26 +199,31 @@ namespace FirstLight.Game.Services
 		{
 			var configProvider = _gameServices.ConfigsProvider;
 			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
-			var shootState = _shootIndicator?.VisualState ?? false;
 			
 			_weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weapon);
+			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
-			var indicator = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-
-			_shootIndicator = _indicators[(int) indicator] as ITransformIndicator;
-			_shootIndicator?.SetVisualState(shootState);
+			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 
 			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
 			{
-				var pair = new Pair<ITransformIndicator, QuantumSpecialConfig>();
-
-				if (specialConfigs.TryGetValue((int) _weaponConfig.Specials[i], out var specialConfig))
+				if (_specialIndicators[i] != null)
 				{
-					pair.Key = _indicators[(int) specialConfig.Indicator] as ITransformIndicator;
-					pair.Value = specialConfig;
+					Object.Destroy(((MonoBehaviour) _specialIndicators[i]).gameObject);
 				}
 
-				_specialIndicators[i] = pair;
+				if (specialConfigs.TryGetValue((int) _weaponConfig.Specials[i], out var config))
+				{
+					_specialIndicators[i] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
+					                              .GetComponent<IIndicator>();
+					
+					_specialIndicators[i].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
+					                                               config.MinRange.AsFloat, config.MaxRange.AsFloat);
+				}
+				else
+				{
+					_specialIndicators[i] = null;
+				}
 			}
 		}
 		
@@ -250,8 +238,10 @@ namespace FirstLight.Game.Services
 					_indicators[i] = null;
 					continue;
 				}
+
+				var obj = Object.Instantiate(indicator.OperationHandle.Convert<GameObject>().Result);
 				
-				_indicators[i] = indicator.OperationHandle.Convert<GameObject>().Result.GetComponent<IIndicator>();
+				_indicators[i] = obj.GetComponent<IIndicator>();
 			}
 		}
 	}

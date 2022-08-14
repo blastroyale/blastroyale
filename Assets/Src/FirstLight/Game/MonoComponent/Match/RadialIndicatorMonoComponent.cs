@@ -1,13 +1,13 @@
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// Shows the indicator for the local player's attack with radial area of damage
 	/// </summary>
-	public class RadialIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
+	public class RadialIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		[SerializeField, Required] protected GameObject _indicator;
 		[SerializeField] protected float _localHeight = 0.025f;
@@ -19,8 +19,10 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.activeSelf;
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Radial;
 		
-		protected virtual void Awake()
+		private void Awake()
 		{
 			_indicator.SetActive(_initiallyEnabled);
 			_playerTransform = transform;

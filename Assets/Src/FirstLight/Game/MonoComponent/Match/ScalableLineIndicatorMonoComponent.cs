@@ -1,3 +1,4 @@
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// This line will scale according to the player's target position.
 	/// Use <see cref="LineIndicatorMonoComponent"/> for a static size line indicator functionality.
 	/// </summary>
-	public class ScalableLineIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
+	public class ScalableLineIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		private static readonly int _color = Shader.PropertyToID("_Color");
 		
@@ -22,6 +23,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.ScalableLine;
 		
 		private void Awake()
 		{

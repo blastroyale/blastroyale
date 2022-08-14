@@ -149,12 +149,6 @@ synced event OnPlayerSpecialUsed
 
 // LOCAL PLAYER EVENTS
 
-synced event OnLocalPlayerLeft
-{
-	local player_ref Player;
-	entity_ref Entity;
-}
-
 synced event OnLocalPlayerSpawned
 {
 	local player_ref Player;

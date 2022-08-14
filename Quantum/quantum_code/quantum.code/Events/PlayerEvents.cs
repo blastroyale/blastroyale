@@ -2,10 +2,6 @@ using System.Collections.Generic;
 
 namespace Quantum
 {
-	public unsafe partial class EventOnLocalPlayerLeft
-	{
-		public QuantumPlayerMatchData PlayerData;
-	}
 	public unsafe partial class EventOnLocalPlayerDead
 	{
 		public QuantumPlayerMatchData PlayerData;
@@ -25,19 +21,6 @@ namespace Quantum
 	{
 		public unsafe partial struct FrameEvents 
 		{
-			public void OnLocalPlayerLeft(PlayerRef player)
-			{
-				var matchData = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[player];
-				var ev = OnLocalPlayerLeft(player, matchData.Entity);
-
-				if (ev == null)
-				{
-					return;
-				}
-
-				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
-			}
-			
 			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
 			{
 				var data = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;

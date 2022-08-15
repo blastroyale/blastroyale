@@ -55,17 +55,18 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
-			
-			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 
-			mainMenu.OnEnter(TryPlayMainMenuMusic);
-			mainMenu.OnEnter(TransitionAudioMixerMain);
-			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			
+			mainMenu.OnEnter(TransitionAudioMixerMain);
+			mainMenu.OnEnter(TryPlayMainMenuMusic);
+			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic).Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic)
+			           .Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
@@ -90,8 +91,8 @@ namespace FirstLight.Game.StateMachines
 			postGame.OnEnter(PlayPostMatchMusic);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
-			postGame.OnEnter(StopAllSfx);
-			
+			postGame.OnExit(StopAllSfx);
+
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
@@ -126,23 +127,15 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
-				var transition = _services.AudioFxService.PlayClip2D(AudioId.MusicMainStart,
-				                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
-				transition.SoundPlayedCallback += PlayMainLoop;
+				_services.AudioFxService.PlaySequentialMusicTransition(AudioId.MusicMainStart, AudioId.MusicMainLoop);
 			}
-		}
-
-		private void PlayMainLoop(AudioSourceMonoComponent source)
-		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop);
 		}
 
 		private void TryPlayLobbyMusic()
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
-				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
-				                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop, GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 			}
 		}
 
@@ -164,16 +157,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
 			}
-
-			var transition = _services.AudioFxService.PlayClip2D(victoryStatusAudio, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
-			transition.SoundPlayedCallback += PlayPostMatchLoop;
+			
+			_services.AudioFxService.PlaySequentialMusicTransition(AudioId.MusicVictoryJingle, AudioId.MusicPostMatchLoop);
 		}
 
-		private void PlayPostMatchLoop(AudioSourceMonoComponent source)
-		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop);
-		}
-		
 		private void StopAllSfx()
 		{
 			_services.AudioFxService.StopAllSfx();
@@ -207,6 +194,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
+
 			var audio = AudioId.None;
 
 			switch (callback.CollectableId)
@@ -272,7 +260,11 @@ namespace FirstLight.Game.StateMachines
 				var game = callback.Game;
 				var audio = AudioId.None;
 
-				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
+				if (callback.TotalDamage <= 0)
+				{
+					audio = AudioId.SelfShieldBreak;
+				}
+				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 					if (callback.PreviousShield > 0 && callback.CurrentShield == 0)

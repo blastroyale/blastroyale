@@ -78,7 +78,7 @@ namespace FirstLight.Game.Ids
 		InvLoop,
 		InvStart,
 		InvEnd,
-		InvDamageAbsorb,
+		DamageAbsorb,
 		SdLoop,
 		SdStart,
 		SdEnd,

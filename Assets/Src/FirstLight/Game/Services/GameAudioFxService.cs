@@ -155,7 +155,7 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public override void PlayClipQueued2D(AudioId id, string mixerGroupId)
+		public override void PlayClipQueued2D(AudioId id)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
@@ -165,7 +165,7 @@ namespace FirstLight.Game.Services
 			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
 
 			var updatedInitData = sourceInitData;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
+			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerSfx2dGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
@@ -191,6 +191,16 @@ namespace FirstLight.Game.Services
 			sourceInitData = updatedInitData;
 
 			PlayMusicInternal(fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
+		}
+		
+		/// <inheritdoc />
+		public override void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
+		{
+			var transition = PlayClip2D(transitionClip, _mixerMusicGroupId);
+			transition.SoundPlayedCallback += (source) =>
+			{
+				PlayMusic(musicClip);
+			};
 		}
 
 		/// <inheritdoc />

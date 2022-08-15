@@ -84,13 +84,18 @@ namespace FirstLight.Services
 		/// Inserts the given <paramref name="id"/> sound clip into the 2D sound queue, where it will be played at the
 		/// soonest available opportunity (with the appropriate delay).
 		/// </summary>
-		void PlayClipQueued2D(T id, string mixerGroupId);
+		void PlayClipQueued2D(T id);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on fade in and out durations
 		/// </summary>
 		void PlayMusic(T id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
 		               bool continueFromCurrentTime = false);
+		
+		/// <summary>
+		/// Plays the given <paramref name="id"/> SFX clip on music audio mixer, and switches to a music track after
+		/// </summary>
+		void PlaySequentialMusicTransition(T transitionClip, T musicClip);
 
 		/// <summary>
 		/// Stops all currently playing music
@@ -483,7 +488,7 @@ namespace FirstLight.Services
 			AudioListener.Listener = AudioListener.gameObject.AddComponent<AudioListener>();
 			AudioListener.SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
-			var pool = new GameObjectPool<AudioSourceMonoComponent>(10, audioPlayer);
+			var pool = new GameObjectPool<AudioSourceMonoComponent>(50, audioPlayer);
 
 			pool.DespawnToSampleParent = true;
 			_sfxPlayerPool = pool;
@@ -549,7 +554,7 @@ namespace FirstLight.Services
 		}
 		
 		/// <inheritdoc />
-		public virtual void PlayClipQueued2D(T id, string mixerGroupId)
+		public virtual void PlayClipQueued2D(T id)
 		{
 		}
 		
@@ -558,7 +563,12 @@ namespace FirstLight.Services
 		                              bool continueFromCurrentTime = false)
 		{
 		}
-		
+
+		/// <inheritdoc />
+		public virtual void PlaySequentialMusicTransition(T transitionClip, T musicClip)
+		{
+		}
+
 		/// <inheritdoc />
 		public AudioSourceMonoComponent PlayClipInternal(Vector3 worldPosition, AudioSourceInitData? sourceInitData)
 		{

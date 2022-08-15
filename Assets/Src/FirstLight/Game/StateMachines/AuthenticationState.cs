@@ -218,15 +218,15 @@ namespace FirstLight.Game.StateMachines
 			var environment = "";
 
 #if LIVE_SERVER
-			environment = "live"
+			environment = "live";
 			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #elif OFFCHAIN_SERVER
-			environment = "offchain"
+			environment = "offchain";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #elif STAGE_SERVER
-			environment = "stage"
+			environment = "stage";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else

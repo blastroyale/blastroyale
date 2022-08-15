@@ -586,6 +586,11 @@ namespace I2.Loc
 			public static string Yes 		{ get{ return LocalizationManager.GetTranslation ("General/Yes"); } }
 			public static string YouWereDisconnected 		{ get{ return LocalizationManager.GetTranslation ("General/YouWereDisconnected"); } }
 			public static string character 		{ get{ return LocalizationManager.GetTranslation ("General/character"); } }
+			public static string MaxAttackAngle 		{ get{ return LocalizationManager.GetTranslation ("General/MaxAttackAngle"); } }
+			public static string MinAttackAngle 		{ get{ return LocalizationManager.GetTranslation ("General/MinAttackAngle"); } }
+			public static string Ordinal0 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal0"); } }
+			public static string PowerToDamageRatio 		{ get{ return LocalizationManager.GetTranslation ("General/PowerToDamageRatio"); } }
+			public static string SplashDamageRadius 		{ get{ return LocalizationManager.GetTranslation ("General/SplashDamageRadius"); } }
 		}
 
 		public static class LoadingTips
@@ -705,13 +710,9 @@ namespace I2.Loc
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
 			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
-			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Power"); } }
-			public static string PowerRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerRating"); } }
-			public static string PowerTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerTotal"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
-			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
@@ -749,7 +750,6 @@ namespace I2.Loc
 			public static string Talents 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Talents"); } }
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
-			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
 			public static string Trophies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Trophies"); } }
 			public static string TrophiesGained 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesGained"); } }
 			public static string TrophiesLost 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesLost"); } }
@@ -763,6 +763,9 @@ namespace I2.Loc
 			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
+			public static string MightRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightRating"); } }
+			public static string MightTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightTotal"); } }
+			public static string TotalMight 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalMight"); } }
 		}
 
 		public static class MapDropPoints
@@ -1416,6 +1419,11 @@ namespace I2.Loc
 		    public const string Yes = "General/Yes";
 		    public const string YouWereDisconnected = "General/YouWereDisconnected";
 		    public const string character = "General/character";
+		    public const string MaxAttackAngle = "General/MaxAttackAngle";
+		    public const string MinAttackAngle = "General/MinAttackAngle";
+		    public const string Ordinal0 = "General/Ordinal0";
+		    public const string PowerToDamageRatio = "General/PowerToDamageRatio";
+		    public const string SplashDamageRadius = "General/SplashDamageRadius";
 		}
 
 		public static class LoadingTips
@@ -1535,13 +1543,9 @@ namespace I2.Loc
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
 		    public const string PlayfabError = "MainMenu/PlayfabError";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
-		    public const string Power = "MainMenu/Power";
-		    public const string PowerRating = "MainMenu/PowerRating";
-		    public const string PowerTotal = "MainMenu/PowerTotal";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
-		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
@@ -1579,7 +1583,6 @@ namespace I2.Loc
 		    public const string Talents = "MainMenu/Talents";
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
-		    public const string TotalPower = "MainMenu/TotalPower";
 		    public const string Trophies = "MainMenu/Trophies";
 		    public const string TrophiesGained = "MainMenu/TrophiesGained";
 		    public const string TrophiesLost = "MainMenu/TrophiesLost";
@@ -1593,6 +1596,9 @@ namespace I2.Loc
 		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
+		    public const string MightRating = "MainMenu/MightRating";
+		    public const string MightTotal = "MainMenu/MightTotal";
+		    public const string TotalMight = "MainMenu/TotalMight";
 		}
 
 		public static class MapDropPoints

@@ -659,11 +659,51 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: General/MinAttackAngle
+      TermType: 0
+      Description: 
+      Languages:
+      - Min Angle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/MaxAttackAngle
+      TermType: 0
+      Description: 
+      Languages:
+      - Max Angle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SplashDamageRadius
+      TermType: 0
+      Description: 
+      Languages:
+      - Splash Radius
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/PowerToDamageRatio
+      TermType: 0
+      Description: 
+      Languages:
+      - Attack to Damage
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: General/PlacementMessage
       TermType: 0
       Description: 
       Languages:
       - You finished {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal0
+      TermType: 0
+      Description: 
+      Languages:
+      - th
       - 
       Flags: 0000
       Languages_Touch: []
@@ -847,7 +887,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Damage
+      - Attack
       - 
       Flags: 0000
       Languages_Touch: []
@@ -1878,27 +1918,27 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: MainMenu/Power
+    - Term: MainMenu/MightRating
       TermType: 0
       Description: 
       Languages:
-      - Power
+      - 'Might:'
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: MainMenu/PowerRating
+    - Term: MainMenu/MightTotal
       TermType: 0
       Description: 
       Languages:
-      - 'Power: {0}'
+      - 'TOTAL MIGHT: {0}'
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: MainMenu/PowerTotal
+    - Term: MainMenu/TotalMight
       TermType: 0
       Description: 
       Languages:
-      - 'POWER TOTAL: {0}'
+      - TOTAL MIGHT
       - 
       Flags: 0000
       Languages_Touch: []
@@ -1915,14 +1955,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Reach Player Level {0} to Unlock
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ReccomendedPower
-      TermType: 0
-      Description: 
-      Languages:
-      - Reccomended Power
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2019,14 +2051,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Too Much Loot!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TotalPower
-      TermType: 0
-      Description: 
-      Languages:
-      - TOTAL POWER
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6318,7 +6342,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1660226780247
+    Google_LastUpdatedVersion: 1660560727614
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

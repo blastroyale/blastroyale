@@ -67,8 +67,9 @@ namespace FirstLight.Game.StateMachines
 			lowIntensity.Event(IncreaseIntensityEvent).Target(midIntensity);
 
 			midIntensity.OnEnter(PlayMidIntensityMusic);
-			midIntensity.Event(IncreaseIntensityEvent).Target(final);
+			midIntensity.Event(IncreaseIntensityEvent).Target(highIntensity);
 
+			highIntensity.OnEnter(StopMusicInstant);
 			highIntensity.OnEnter(PlayHighIntensityMusic);
 			highIntensity.Event(IncreaseIntensityEvent).Target(final);
 			
@@ -107,7 +108,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var frame = callback.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playersLeft = container.TargetProgress - container.CurrentProgress;
+			var playersLeft = container.TargetProgress - (container.CurrentProgress + 1);
+			// CurrentProgress+1 because BR always has 1 player left alive at the end
 
 			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
@@ -132,6 +134,11 @@ namespace FirstLight.Game.StateMachines
 			var playersLeft = container.TargetProgress - container.CurrentProgress;
 			
 			return CurrentMatchTime < GameConstants.Audio.BR_HIGH_PHASE_SECONDS_THRESHOLD && playersLeft > 2;
+		}
+		
+		private void StopMusicInstant()
+		{
+			_services.AudioFxService.StopMusic();
 		}
 
 		private void PlaySkydiveMusic()

@@ -766,6 +766,7 @@ namespace I2.Loc
 			public static string MightRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightRating"); } }
 			public static string MightTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightTotal"); } }
 			public static string TotalMight 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalMight"); } }
+			public static string NumberOfShots 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NumberOfShots"); } }
 		}
 
 		public static class MapDropPoints
@@ -1599,6 +1600,7 @@ namespace I2.Loc
 		    public const string MightRating = "MainMenu/MightRating";
 		    public const string MightTotal = "MainMenu/MightTotal";
 		    public const string TotalMight = "MainMenu/TotalMight";
+		    public const string NumberOfShots = "MainMenu/NumberOfShots";
 		}
 
 		public static class MapDropPoints

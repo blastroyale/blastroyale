@@ -26,6 +26,7 @@ namespace FirstLight.Game.Infos
 		MinAttackAngle,
 		MaxAttackAngle,
 		SplashDamageRadius,
+		NumberOfShots,
 		SpecialId0,
 		SpecialId1,
 	}

@@ -32,7 +32,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.Power, 3000 },
 			{ EquipmentStatType.Hp, 400 },
 			{ EquipmentStatType.Speed, 10f },
-			{ EquipmentStatType.AttackCooldown, 150 },
+			{ EquipmentStatType.AttackCooldown, 1.2f },
 			{ EquipmentStatType.Armor, 32 },
 			{ EquipmentStatType.ProjectileSpeed, 50 },
 			{ EquipmentStatType.TargetRange, 16 },
@@ -42,6 +42,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.MaxAttackAngle, 60 },
 			{ EquipmentStatType.SplashDamageRadius, 4 },
 			{ EquipmentStatType.PowerToDamageRatio, 2 },
+			{ EquipmentStatType.NumberOfShots, 10 },
 		};
 
 		/// <summary>

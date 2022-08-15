@@ -247,7 +247,7 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var (stat, value) in equipment.Stats)
 			{
-				if (stat == EquipmentStatType.AttackCooldown || stat == EquipmentStatType.ProjectileSpeed)
+				if (stat == EquipmentStatType.ProjectileSpeed)
 				{
 					continue;
 				}
@@ -275,6 +275,7 @@ namespace FirstLight.Game.Presenters
 					{
 						EquipmentStatType.ReloadSpeed => "N1",
 						EquipmentStatType.PowerToDamageRatio => "N2",
+						EquipmentStatType.AttackCooldown => "N2",
 						_ => "N0"
 					};
 					

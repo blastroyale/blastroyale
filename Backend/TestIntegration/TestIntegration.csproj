@@ -20,4 +20,10 @@
       <ProjectReference Include="..\TestUnit\TestUnit.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="FirstLight.Game">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

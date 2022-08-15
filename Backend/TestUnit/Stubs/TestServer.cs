@@ -16,6 +16,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using ServerSDK;
 using ServerSDK.Services;
 
 namespace Tests.Stubs;
@@ -29,6 +30,7 @@ public class TestServer
 	private IDataProvider _data;
 	private GameServerLogic _logic;
 	private string? _testPlayerId = null;
+	private PluginContext _pluginCtx;
 
 	public TestServer()
 	{
@@ -36,14 +38,22 @@ public class TestServer
 		_services = SetupServices().BuildServiceProvider();
 		var cfg = GetService<IConfigsProvider>();
 		var data = GetService<IDataProvider>();
+		var eventManager = GetService<IEventManager>();
 		_logic = new GameServerLogic(cfg, data);
 		_logic.Init();
+		_pluginCtx = new PluginContext(eventManager, Services);
+	}
+
+	public void RegisterTestPlugin(ServerPlugin plugin)
+	{
+		plugin.OnEnable(_pluginCtx);
 	}
 	
 	public IServerStateService ServerState => GetService<IServerStateService>()!;
 
 	public IServiceProvider Services => _services;
 
+	public PluginContext PluginContext => _pluginCtx;
 	/// <summary>
 	/// Obtains a test player id that is setup to be used in tests.
 	/// The player should already exists and be ready to use.

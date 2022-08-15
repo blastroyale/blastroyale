@@ -10,9 +10,9 @@ using Object = UnityEngine.Object;
 namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
-	/// This view simply contains all the be
+	/// This view simply contains all the local player indicators controller view
 	/// </summary>
-	public unsafe class PlayerIndicatorContainerView : IDisposable
+	public unsafe class LocalPlayerIndicatorContainerView : IDisposable
 	{
 		private readonly IGameServices _services;
 		private EntityRef _localPlayerEntity;
@@ -23,7 +23,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
 		
-		public PlayerIndicatorContainerView(IGameServices services)
+		public LocalPlayerIndicatorContainerView(IGameServices services)
 		{
 			_services = services;
 			

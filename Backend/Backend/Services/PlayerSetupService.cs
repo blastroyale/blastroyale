@@ -50,12 +50,12 @@ public class PlayerSetupService : IPlayerSetupService
 		var rngData = SetupInitialRngData(playFabId.GetHashCode());
 		var idData = new IdData();
 		var playerData = SetupInitialPlayerData(idData, rngData);
-		var equipmentData = new NftEquipmentData();
+		var equipmentData = new EquipmentData();
 		var serverState = new ServerState();
-		serverState.SetModel(idData);
-		serverState.SetModel(rngData);
-		serverState.SetModel(playerData);
-		serverState.SetModel(equipmentData);
+		serverState.UpdateModel(idData);
+		serverState.UpdateModel(rngData);
+		serverState.UpdateModel(playerData);
+		serverState.UpdateModel(equipmentData);
 		return serverState;
 	}
 

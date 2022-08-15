@@ -144,6 +144,8 @@ namespace FirstLight.Game.Utils
 
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
 			public const float HUD_GAMEPLAY_FADE_DURATION = 2f;
+
+			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
 
 		public static class Haptics

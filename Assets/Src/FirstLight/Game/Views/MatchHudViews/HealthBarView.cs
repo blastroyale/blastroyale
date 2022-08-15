@@ -16,7 +16,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	{
 		[SerializeField, Required] private Slider _damageDealtSlider;
 		[SerializeField, Required] private Slider _slider;
-		[SerializeField, Required] private Image _damageDealtImage;
 		[SerializeField, Required] private Image _fillImage;
 		[SerializeField] private Color _primaryHitColor = Color.green;
 		[SerializeField] private Color _secondaryHitColor = Color.yellow;
@@ -40,18 +39,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_slider = GetComponent<Slider>();
 		}
 
-		/// <summary>
-		/// Setups the health bar to be configured to the given <paramref name="entity"/>
-		/// with the given <paramref name="currentHealth"/> & <paramref name="maxHealth"/>
-		/// </summary>
-		public void SetupView(EntityRef entity, int currentHealth, int maxHealth)
+		private void Awake()
 		{
-			Entity = entity;
-			_fillImage.color = _primaryHitColor;
-
-			HealthBarUpdate((float) currentHealth / maxHealth);
-			DamageDoneUpdate((float) currentHealth / maxHealth);
-
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
@@ -61,12 +50,27 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnDamageBlocked>(this, OnDamageBlocked);
 		}
 
+		/// <summary>
+		/// Setups the health bar to be configured to the given <paramref name="entity"/>
+		/// with the given <paramref name="currentHealth"/> & <paramref name="maxHealth"/>
+		/// </summary>
+		public void SetupView(EntityRef entity, int currentHealth, int maxHealth)
+		{
+			Entity = entity;
+			_fillImage.color = _primaryHitColor;
+			_slider.value = (float)currentHealth / maxHealth;
+			_damageDealtSlider.value = (float)currentHealth / maxHealth;
+
+			_damageBlockedIcon.DOKill();
+			_damageDealtSlider.DOKill();
+			_slider.DOKill();
+			HealthBarUpdate();
+		}
+
 		/// <inheritdoc />
 		public void OnDespawn()
 		{
 			Entity = EntityRef.None;
-
-			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
@@ -76,9 +80,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			HealthBarUpdate((float) callback.CurrentHealth / callback.MaxHealth);
-			DamageDoneUpdate((float) callback.CurrentHealth / callback.MaxHealth);
-
+			_slider.value = (float) callback.CurrentHealth / callback.MaxHealth;
+			_damageDealtSlider.value = (float) callback.CurrentHealth / callback.MaxHealth;
+			
+			HealthBarUpdate();
 			gameObject.SetActive(true);
 		}
 
@@ -114,13 +119,26 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			DOVirtual.Float(_fillImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 0.1f,
-			                HealthBarUpdate);
-			DOVirtual.Float(_damageDealtImage.fillAmount, (float) callback.CurrentHealth / callback.MaxHealth, 1f,
-			                DamageDoneUpdate);
-
+			_slider.DOValue((float)callback.CurrentHealth / callback.MaxHealth, 0.1f).OnUpdate(HealthBarUpdate);
+			_damageDealtSlider.DOValue((float)callback.CurrentHealth / callback.MaxHealth, 1f);
 			OnHealthUpdatedEvent.Invoke(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 			_healthIncreasedEvent?.Invoke();
+		}
+
+		private void HealthBarUpdate()
+		{
+			var col = _secondaryHitColor;
+
+			if (_slider.value < 0.33f)
+			{
+				col = _tertiaryHitColor;
+			}
+			else if (_slider.value > 0.66f)
+			{
+				col = _primaryHitColor;
+			}
+
+			_fillImage.color = col;
 		}
 
 		private void OnDamageBlocked(EventOnDamageBlocked callback)
@@ -143,30 +161,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			gameObject.SetActive(newState);
-		}
-
-		private void HealthBarUpdate(float percentage)
-		{
-			var col = _secondaryHitColor;
-
-			if (percentage < 0.33f)
-			{
-				col = _tertiaryHitColor;
-			}
-			else if (percentage > 0.66f)
-			{
-				col = _primaryHitColor;
-			}
-
-			_fillImage.color = col;
-			_fillImage.fillAmount = percentage;
-			_slider.value = percentage;
-		}
-
-		private void DamageDoneUpdate(float percentage)
-		{
-			_damageDealtImage.fillAmount = percentage;
-			_damageDealtSlider.value = percentage;
 		}
 	}
 }

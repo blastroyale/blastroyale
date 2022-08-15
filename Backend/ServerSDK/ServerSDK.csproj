@@ -13,4 +13,10 @@
       <PackageReference Include="PlayFabAllSDK" Version="1.108.220118" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="FirstLight.Game">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

@@ -47,7 +47,7 @@ public class ServerPlayerDataProvider : IDataProvider
 			if (NotSaved.Contains(model.GetType()))
 				continue;
 			
-			newState.SetModel(model); 
+			newState.UpdateModel(model); 
 		}
 		_modelsConsumed.Clear();
 		return newState;

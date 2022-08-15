@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using BlastRoyaleNFTPlugin;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using ServerSDK;
 using ServerSDK.Events;
@@ -18,7 +20,7 @@ namespace Tests;
 
 public class TestNftSyncPlugin
 {
-	private BlastRoyaleNftPlugin _plugin;
+	private BlastRoyalePlugin _plugin;
 	private StubbedNftSync _nftSync;
 	private PluginEventManager _events;
 	private TestServer _app;
@@ -32,7 +34,7 @@ public class TestNftSyncPlugin
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);
 		_nftSync = new StubbedNftSync(pluginCtx);
-		_plugin = new BlastRoyaleNftPlugin();
+		_plugin = new BlastRoyalePlugin();
 		_plugin.OnEnable(pluginCtx);
 		_plugin.NftSync = _nftSync;
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
@@ -43,6 +45,22 @@ public class TestNftSyncPlugin
 		});
 	}
 
+	[Test]
+	public void TestQuantumVector3Serialialization()
+	{
+
+		FP CU = FP.FromRaw(0);
+		
+		var v = new FPVector3(FP._0_01, FP._0_02, FP._0_03);
+
+		var serialized = ModelSerializer.Serialize(v).Value;
+		var deserialized = ModelSerializer.Deserialize<FPVector3>(serialized);
+		
+		Assert.AreEqual(v.X.RawValue, deserialized.X.RawValue);
+		Assert.AreEqual(v.Y.RawValue, deserialized.Y.RawValue);
+		Assert.AreEqual(v.Z.RawValue, deserialized.Z.RawValue);
+	}
+	
 	[Test]
 	public void TestEventTriggersSync()
 	{
@@ -74,7 +92,7 @@ public class TestNftSyncPlugin
         var state = _app.ServerState.GetPlayerState("yolo").Result;
         var equips = state.DeserializeModel<EquipmentData>();
         equips.LastUpdateTimestamp = _nftSync.LastUpdate + 1;
-        state.SetModel(equips);
+        state.UpdateModel(equips);
         _app.ServerState.UpdatePlayerState("yolo", state).Wait();
      
         await _nftSync.SyncAllNfts("yolo");

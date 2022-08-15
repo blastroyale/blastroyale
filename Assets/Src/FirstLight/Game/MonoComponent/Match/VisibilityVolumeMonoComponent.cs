@@ -72,5 +72,3 @@ namespace FirstLight.Game.Views.MapViews
 		}
 	}
 }
-
-}

@@ -21,6 +21,19 @@ namespace Quantum
 	{
 		public unsafe partial struct FrameEvents 
 		{
+			public void OnPlayerWeaponChanged(PlayerRef player, EntityRef entity, int slot)
+			{
+				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
+				var ev = OnPlayerWeaponChanged(player, entity, playerCharacter->CurrentWeapon, slot);
+
+				if (ev == null)
+				{
+					return;
+				}
+
+				OnLocalPlayerWeaponChanged(player, entity, playerCharacter->WeaponSlot, slot);
+			}
+			
 			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
 			{
 				var data = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;

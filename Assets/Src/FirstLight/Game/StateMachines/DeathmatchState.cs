@@ -117,11 +117,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsLocalPlayerAlive()
 		{
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayer = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
 			
 			return localPlayer.Entity.IsAlive(f);
 		}

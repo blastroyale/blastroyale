@@ -9,7 +9,12 @@ namespace Quantum
 		/// <summary>
 		/// Requests the current weapon of player character
 		/// </summary>
-		public Equipment CurrentWeapon => WeaponSlots[CurrentWeaponSlot].Weapon;
+		public Equipment CurrentWeapon => WeaponSlot.Weapon;
+		
+		/// <summary>
+		/// Requests the current weapon slot of player character
+		/// </summary>
+		public WeaponSlot WeaponSlot => WeaponSlots[CurrentWeaponSlot];
 
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
@@ -198,8 +203,7 @@ namespace Quantum
 			SetSlotWeapon(f, e, slot);
 			RefreshEquipmentStats(f, e);
 			
-			f.Events.OnPlayerWeaponChanged(Player, e, CurrentWeapon);
-			f.Events.OnLocalPlayerWeaponChanged(Player, e, CurrentWeapon, slot);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 		}
 
 		/// <summary>

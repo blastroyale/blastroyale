@@ -55,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
-
+			
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 
 			mainMenu.OnEnter(TryPlayMainMenuMusic);
@@ -86,10 +86,12 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
+			postGame.OnEnter(StopMusicInstant);
 			postGame.OnEnter(PlayPostMatchMusic);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
-
+			postGame.OnEnter(StopAllSfx);
+			
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
@@ -102,7 +104,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
-			
 		}
 
 		private void UnsubscribeEvents()
@@ -125,8 +126,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
-				_services.AudioFxService.PlayClip2D(AudioId.MusicMainStart, null, PlayMainLoop,
+				var transition = _services.AudioFxService.PlayClip2D(AudioId.MusicMainStart,
 				                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+				transition.SoundPlayedCallback += PlayMainLoop;
 			}
 		}
 
@@ -163,13 +165,18 @@ namespace FirstLight.Game.StateMachines
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
 			}
 
-			_services.AudioFxService.PlayClip2D(victoryStatusAudio, null, PlayPostMatchLoop,
-			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+			var transition = _services.AudioFxService.PlayClip2D(victoryStatusAudio, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+			transition.SoundPlayedCallback += PlayPostMatchLoop;
 		}
 
 		private void PlayPostMatchLoop(AudioSourceMonoComponent source)
 		{
 			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop);
+		}
+		
+		private void StopAllSfx()
+		{
+			_services.AudioFxService.StopAllSfx();
 		}
 
 		private void StopMusicInstant()

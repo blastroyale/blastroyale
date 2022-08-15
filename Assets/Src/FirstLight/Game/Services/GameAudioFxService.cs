@@ -117,81 +117,80 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition,
-		                                                    AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null,  string mixerGroupOverride = null)
+		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, string mixerGroupOverride = null)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return null;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData);
 			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
 			
-			var updatedInitData = sourceInitData.Value;
+			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip3D(id, worldPosition, sourceInitData, soundPlayedCallback, mixerGroupOverride);
+			return PlayClipInternal(worldPosition, sourceInitData);
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null, Action<AudioSourceMonoComponent> soundPlayedCallback = null, string mixerGroupOverride = null)
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, string mixerGroupOverride = null)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return null;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
 			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
 			
-			var updatedInitData = sourceInitData.Value;
+			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip2D(id, sourceInitData, soundPlayedCallback, mixerGroupOverride);
+			return PlayClipInternal(Vector3.zero, sourceInitData);
 		}
 		
 		/// <inheritdoc />
-		public override void PlayClipQueued2D(AudioId id, string mixerGroupId, AudioSourceInitData? sourceInitData = null)
+		public override void PlayClipQueued2D(AudioId id, string mixerGroupId)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
 
-			var updatedInitData = sourceInitData.Value;
+			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			base.PlayClipQueued2D(id, mixerGroupId, sourceInitData);
+			PlayClipQueued2DInternal(sourceInitData);
 		}
 
 		/// <inheritdoc />
 		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
-		                               bool continueFromCurrentTime = false, AudioSourceInitData? sourceInitData = null)
+		                               bool continueFromCurrentTime = false)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
 
-			var updatedInitData = sourceInitData.Value;
+			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerMusicGroupId);
 			updatedInitData.StartTime = continueFromCurrentTime ? GetCurrentMusicPlaybackTime() : 0;
 			updatedInitData.Mute = IsBgmMuted;
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 
-			base.PlayMusic(id, fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
+			PlayMusicInternal(fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
 		}
 
 		/// <inheritdoc />

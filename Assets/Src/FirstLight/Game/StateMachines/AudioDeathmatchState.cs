@@ -113,8 +113,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_isHighIntensityPhase = true;
 			
-			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleDm, null, null,
-			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleDm, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 
 			_services.CoroutineService.StartCoroutine(PlayDmHighLoopCoroutine());
 		}
@@ -122,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator PlayDmHighLoopCoroutine()
 		{
 			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
-			_services.AudioFxService.PlayMusic(AudioId.MusicDmHighLoop, 0,0, false);
+			_services.AudioFxService.PlayMusic(AudioId.MusicDmHighLoop);
 		}
 	}
 }

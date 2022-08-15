@@ -168,8 +168,7 @@ namespace FirstLight.Game.StateMachines
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 			_isHighIntensityPhase = true;
 			
-			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleBr, null, null,
-			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleBr, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 
 			_services.CoroutineService.StartCoroutine(PlayBrHighLoopCoroutine());
 		}

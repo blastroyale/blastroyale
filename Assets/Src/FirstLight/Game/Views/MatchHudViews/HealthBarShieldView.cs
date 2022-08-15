@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View holds the information to show the actor's interim armour  
@@ -14,9 +14,13 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		public TextMeshProUGUI ShieldText;
 		public GameObject ShieldIcon;
 		public Slider ArmourSlider;
-		public Image FillImage;
 
 		private EntityRef _entity;
+
+		private void Awake()
+		{
+			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
+		}
 
 		/// <summary>
 		/// Setups this view with the given <paramref name="entity"/> & <paramref name="currentShield"/>
@@ -25,15 +29,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		{
 			_entity = entity;
 			UpdateShieldText(currentShield);
-			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 		}
 		
 		/// <inheritdoc />
 		public void OnDespawn()
 		{
 			_entity = EntityRef.None;
-			
-			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnShieldUpdate(EventOnShieldChanged callback)

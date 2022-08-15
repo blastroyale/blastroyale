@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
@@ -42,13 +43,14 @@ public class ServerAudio : IAudioFxService<AudioId>
 	{
 	}
 
-	public AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition,
-	                                           AudioSourceInitData? sourceInitData = null)
+	public AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, AudioSourceInitData? sourceInitData = null,
+	                                           Action<AudioSourceMonoComponent> soundPlayedCallback = null, string mixerGroupOverride = null)
 	{
 		return null;
 	}
 
-	public AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+	public AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null,
+	                                           Action<AudioSourceMonoComponent> soundPlayedCallback = null, string mixerGroupOverride = null)
 	{
 		return null;
 	}

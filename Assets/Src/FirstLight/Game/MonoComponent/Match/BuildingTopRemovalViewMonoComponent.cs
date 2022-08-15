@@ -16,7 +16,7 @@ namespace FirstLight.Game.Views.MapViews
 	public class BuildingTopRemovalViewMonoComponent : MonoBehaviour
 	{
 		private static readonly int _topAnimatorPlayerInsideParamNameHash = Animator.StringToHash("PlayerInside");
-			
+
 		[SerializeField] private Animator _topRemovalAnimator;
 
 		private IGameServices _services;
@@ -28,10 +28,10 @@ namespace FirstLight.Game.Views.MapViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingEntities = new List<EntityRef>();
-			
+
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
-		
+
 		private void OnDestroy()
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
@@ -44,26 +44,23 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
+			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) &&
+			    player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
 				_currentlyCollidingEntities.Add(player.EntityRef);
 				
-				if(player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-				{
-					UpdateBuildingTop(true);
-				}
-			} 
+				UpdateBuildingTop(true);
+			}
 		}
+
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
+			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) &&
+			    player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
 				_currentlyCollidingEntities.Remove(player.EntityRef);
 				
-				if(player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-				{
-					UpdateBuildingTop(false);
-				}
+				UpdateBuildingTop(false);
 			}
 		}
 
@@ -77,7 +74,7 @@ namespace FirstLight.Game.Views.MapViews
 					return;
 				}
 			}
-			
+
 			UpdateBuildingTop(false);
 		}
 

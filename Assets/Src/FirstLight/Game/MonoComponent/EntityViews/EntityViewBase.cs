@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MapViews;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -65,15 +67,26 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		[SerializeField] protected RenderersContainerProxyMonoComponent RenderersContainerProxy;
 		
+		public VisibilityVolumeMonoComponent CurrentVisibilityVolume { get; private set; }
+		
 		protected override void Awake()
 		{
 			base.Awake();
 			QuantumCallback.Subscribe<CallbackGameDestroyed>(this, HandleGameDestroyed);
 		}
+
+		/// <summary>
+		/// Sets the root rendering container object active or inactive
+		/// </summary>
+		public void SetRenderContainerActive(bool active)
+		{
+			RenderersContainerProxy.gameObject.SetActive(active);
+		}
 		
 		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
-			StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay, duration));
+			Services.CoroutineService.StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay,
+			                                                           duration));
 		}
 
 		private IEnumerator DissolveCoroutine(bool destroyGameObject, float startValue, float endValue, float delay, float duration)

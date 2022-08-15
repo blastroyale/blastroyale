@@ -91,16 +91,13 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(PublishMatchEnded);
 
-			quitCheck.Transition().Condition(IsEligibleForResults).Target(gameEnded);
-			quitCheck.Transition().Target(final);
+			quitCheck.Transition().Condition(IsSpectator).Target(final);
+			quitCheck.Transition().Target(gameEnded);
 			
 			gameEnded.OnEnter(OpenGameCompleteScreen);
-			gameEnded.Event(GameCompleteExitEvent).Target(rankedRewardCheck);
+			gameEnded.Event(GameCompleteExitEvent).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-			
-			rankedRewardCheck.Transition().Condition(IsRankedMatch).Target(gameResults);
-			rankedRewardCheck.Transition().Target(final);
-
+	
 			gameResults.OnEnter(GiveMatchRewards);
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
 			gameResults.OnExit(CloseResultScreen);
@@ -157,12 +154,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
 		}
-		
-		private bool IsEligibleForResults()
-		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom() && !IsSpectator();
-		}
-		
+
 		private bool IsRankedMatch()
 		{
 			return _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom();

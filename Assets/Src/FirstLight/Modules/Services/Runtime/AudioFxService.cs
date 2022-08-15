@@ -626,14 +626,12 @@ namespace FirstLight.Services
 
 			if (_activeMusicSource.Source.isPlaying)
 			{
-				Debug.LogError("play music already active");
 				_activeMusicSource.FadeVolume(_activeMusicSource.Source.volume, 0, fadeOutDuration);
 				_transitionMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration, SwapMusicSources);
 				_transitionMusicSource.Play(null, Vector3.zero, sourceInitData);
 			}
 			else
 			{
-				Debug.LogError("play music new active");
 				_activeMusicSource.FadeVolume(0, sourceInitData.Value.Volume, fadeInDuration);
 				_activeMusicSource.Play(null, Vector3.zero, sourceInitData);
 			}
@@ -641,7 +639,6 @@ namespace FirstLight.Services
 
 		private void SwapMusicSources(AudioSourceMonoComponent audioSource)
 		{
-			Debug.LogError("swapped sources");
 			(_activeMusicSource, _transitionMusicSource) = (_transitionMusicSource, _activeMusicSource);
 			_transitionMusicSource.Source.Stop();
 		}

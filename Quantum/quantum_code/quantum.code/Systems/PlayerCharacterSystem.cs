@@ -43,7 +43,7 @@ namespace Quantum.Systems
 				                        : playerData.Loadout;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment,
+			                      playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
 			                      playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 

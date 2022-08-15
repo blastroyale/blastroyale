@@ -54,7 +54,7 @@ public class PluginLoader
 		var loadedPlugins = new List<ServerPlugin>();
 		var nftSync = Environment.GetEnvironmentVariable("NFT_SYNC", EnvironmentVariableTarget.Process) ?? "true";
 		if(nftSync == "true")
-			loadedPlugins.Add(new BlastRoyaleNftPlugin());
+			loadedPlugins.Add(new BlastRoyalePlugin());
 		
 		loadedPlugins.Add(new TrophyLadderPlugin());
 		

@@ -1,6 +1,7 @@
 
 using FirstLight.Game.Commands;
 using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using Tests.Stubs;
 using Assert = NUnit.Framework.Assert;
@@ -40,6 +41,7 @@ public class TestBlastRoyaleCommands
 					Data = new PlayerMatchData()
 					{
 						Player = playerRef,
+						LastDeathPosition = new FPVector3(2,3,4),
 						Entity = new EntityRef()
 						{
 							Index = 0

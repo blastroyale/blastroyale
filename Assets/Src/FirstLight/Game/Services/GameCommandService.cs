@@ -68,6 +68,8 @@ namespace FirstLight.Game.Services
 			_dataProvider = dataProvider;
 			_gameFlowService = gameFlowService;
 			_commandQueue = new Queue<IGameCommand>();
+			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
+			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 		}
 
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />

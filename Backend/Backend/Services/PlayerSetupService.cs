@@ -50,7 +50,7 @@ public class PlayerSetupService : IPlayerSetupService
 		var rngData = SetupInitialRngData(playFabId.GetHashCode());
 		var idData = new IdData();
 		var playerData = SetupInitialPlayerData(idData, rngData);
-		var equipmentData = new NftEquipmentData();
+		var equipmentData = new EquipmentData();
 		var serverState = new ServerState();
 		serverState.SetModel(idData);
 		serverState.SetModel(rngData);
@@ -93,6 +93,7 @@ public class PlayerSetupService : IPlayerSetupService
 		playerData.Level = 1;
 		playerData.PlayerSkinId = _initialSkins[rngSkin];
 		playerData.Trophies = 1000;
+		playerData.DeathMarker = GameId.Tombstone;
 		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
 		playerData.Currencies.Add(GameId.CS, 0);

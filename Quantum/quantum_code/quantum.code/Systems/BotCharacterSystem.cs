@@ -801,9 +801,9 @@ namespace Quantum.Systems
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
-
-			var skinOptions = GameIdGroup.PlayerSkin.GetIds()
-			                             .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
+			var deathMakers = GameIdGroup.DeathMarker.GetIds();
+			var botItems = GameIdGroup.BotItem.GetIds();
+			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
@@ -827,6 +827,7 @@ namespace Quantum.Systems
 				var botCharacter = new BotCharacter
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
+					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
@@ -875,7 +876,8 @@ namespace Quantum.Systems
 				
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
-				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>(), Equipment.None);
+				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
+				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}
 		}
 

@@ -1,4 +1,5 @@
-﻿using ServerSDK;
+﻿using FirstLight.Game.Utils;
+using ServerSDK;
 using ServerSDK.Events;
 
 namespace BlastRoyaleNFTPlugin;
@@ -6,7 +7,7 @@ namespace BlastRoyaleNFTPlugin;
 /// <summary>
 /// Server plugin to sync NFT weapons on the user inventory.
 /// </summary>
-public class BlastRoyaleNftPlugin : ServerPlugin
+public class BlastRoyalePlugin : ServerPlugin
 {
 	public NftSynchronizer NftSync = null!;
 	
@@ -22,6 +23,8 @@ public class BlastRoyaleNftPlugin : ServerPlugin
 		var fullUrl = $"{baseUrl}/{blockchainUrl}";
 		NftSync = new NftSynchronizer(fullUrl, apiSecret, context);
 		context.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnGetPlayerData);
+		context.RegisterCustomConverter(this, new QuantumVector2Converter());
+		context.RegisterCustomConverter(this, new QuantumVector3Converter());
 	}
 
 	/// <summary>

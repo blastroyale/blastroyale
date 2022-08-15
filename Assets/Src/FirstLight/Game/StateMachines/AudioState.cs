@@ -65,8 +65,7 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic)
-			           .Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic).Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
@@ -267,15 +266,16 @@ namespace FirstLight.Game.StateMachines
 				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
-					if (callback.PreviousShield > 0 && callback.CurrentShield == 0)
-						audio = AudioId.SelfShieldBreak;
 				}
 				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
 				         game.PlayerIsLocal(player.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-					if (callback.PreviousShield > 0 && callback.CurrentShield == 0)
-						audio = AudioId.ShieldBreak;
+				}
+				
+				if (callback.PreviousShield > 0 && callback.CurrentShield == 0)
+				{
+					audio = AudioId.ShieldBreak;
 				}
 
 				if (audio != AudioId.None)

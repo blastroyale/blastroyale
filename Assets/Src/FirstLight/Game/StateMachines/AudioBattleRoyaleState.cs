@@ -50,7 +50,8 @@ namespace FirstLight.Game.StateMachines
 			var skydive = stateFactory.State("AUDIO BR - Skydive");
 			var lowIntensity = stateFactory.State("AUDIO BR - Low Intensity");
 			var midIntensity = stateFactory.State("AUDIO BR - Mid Intensity");
-
+			var highIntensity = stateFactory.State("AUDIO BR - High Intensity");
+			
 			initial.Transition().Target(matchStateCheck);
 			initial.OnExit(SubscribeEvents);
 
@@ -68,6 +69,9 @@ namespace FirstLight.Game.StateMachines
 			midIntensity.OnEnter(PlayMidIntensityMusic);
 			midIntensity.Event(IncreaseIntensityEvent).Target(final);
 
+			highIntensity.OnEnter(PlayHighIntensityMusic);
+			highIntensity.Event(IncreaseIntensityEvent).Target(final);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 

@@ -21,7 +21,6 @@ namespace FirstLight.Game.Views.MapViews
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private EntityRef _currentlyObservedPlayer;
 		private List<EntityRef> _currentlyCollidingEntities;
 
 		private void Awake()
@@ -31,9 +30,6 @@ namespace FirstLight.Game.Views.MapViews
 			_currentlyCollidingEntities = new List<EntityRef>();
 			
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-			
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 		}
 		
 		private void OnDestroy()
@@ -41,24 +37,8 @@ namespace FirstLight.Game.Views.MapViews
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
-		{
-			_currentlyObservedPlayer = callback.Entity;
-		}
-		
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
-		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _currentlyObservedPlayer.IsValid)
-			{
-				return;
-			}
-
-			_currentlyObservedPlayer = callback.Entity;
-		}
-
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			_currentlyObservedPlayer = next.Entity;
 			CheckUpdateBuildingTop();
 		}
 
@@ -68,7 +48,7 @@ namespace FirstLight.Game.Views.MapViews
 			{
 				_currentlyCollidingEntities.Add(player.EntityRef);
 				
-				if(player.EntityRef == _currentlyObservedPlayer)
+				if(player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					UpdateBuildingTop(true);
 				}
@@ -80,7 +60,7 @@ namespace FirstLight.Game.Views.MapViews
 			{
 				_currentlyCollidingEntities.Remove(player.EntityRef);
 				
-				if(player.EntityRef == _currentlyObservedPlayer)
+				if(player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					UpdateBuildingTop(false);
 				}
@@ -91,7 +71,7 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			foreach (var entity in _currentlyCollidingEntities)
 			{
-				if (entity == _currentlyObservedPlayer)
+				if (entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					UpdateBuildingTop(true);
 					return;

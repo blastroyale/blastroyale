@@ -60,9 +60,8 @@ namespace FirstLight.Game.StateMachines
 
 			mainMenu.OnEnter(TryPlayMainMenuMusic);
 			mainMenu.OnEnter(TransitionAudioMixerMain);
-			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
-
-			// TODO - TEST GameSimulationState.MatchQuitEvent AFTER HEALTH BAR FIXES
+			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);

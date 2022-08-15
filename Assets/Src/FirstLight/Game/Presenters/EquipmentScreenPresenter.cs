@@ -52,6 +52,7 @@ namespace FirstLight.Game.Presenters
 		// TODO: This should be a view when we properly implement it
 		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
 		[SerializeField, Required] private GameObject _equipmentAttributesHolder;
+		[SerializeField, Required] private GameObject _equipmentStatsHolder;
 
 		[SerializeField, Required] private TextMeshProUGUI _generationText;
 		[SerializeField, Required] private TextMeshProUGUI _editionText;
@@ -153,13 +154,13 @@ namespace FirstLight.Game.Presenters
 			_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
 			_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
 
+			_equipmentStatsHolder.SetActive(false);
 			_equipmentAttributesHolder.SetActive(false);
 			_weaponTypeButton.gameObject.SetActive(false);
 			_movieButton.gameObject.SetActive(false);
 			_itemLevelObject.SetActive(false);
 			_actionButtonHolder.SetActive(false);
 			_equipmentCooldownViewRef.SetVisualsActive(false);
-			_powerRatingText.text = "";
 		}
 
 		private void SetStats()
@@ -202,7 +203,8 @@ namespace FirstLight.Game.Presenters
 			_factionText.text = equipment.Equipment.Faction.ToString();
 			_manufacturerText.text = equipment.Equipment.Manufacturer.ToString();
 			_durabilityText.text = $"Durability {equipment.Equipment.Durability}/{equipment.Equipment.MaxDurability}";
-			_restoredText.text = "??";
+			_restoredText.text = "Restored: 0";
+			_generationText.text = "Genesis";
 			_replicationText.text = $"Replication {equipment.Equipment.ReplicationCounter}/{equipment.Equipment.InitialReplicationCounter}";
 			_screenTitleText.text = equipment.Equipment.GameId.GetSlot().GetTranslation();
 			_descriptionText.text = LocalizationManager.GetTranslation(descriptionID);
@@ -227,12 +229,13 @@ namespace FirstLight.Game.Presenters
 
 			for (int i = 0; i < _rarityImage.Length; i++)
 			{
-				_rarityImage[i].enabled = i == (int) equipment.Equipment.Rarity;
+				_rarityImage[i].enabled = i == Mathf.FloorToInt((float) equipment.Equipment.Rarity / 2f);
 			}
 
 			_movieButton.gameObject.SetActive(false);
 			_weaponTypeButton.gameObject.SetActive(false);
 			_equipmentAttributesHolder.SetActive(true);
+			_equipmentStatsHolder.SetActive(true);
 			_itemLevelObject.SetActive(true);
 			_actionButtonHolder.SetActive(true);
 		}

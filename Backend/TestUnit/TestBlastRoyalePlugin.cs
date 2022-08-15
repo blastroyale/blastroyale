@@ -92,7 +92,7 @@ public class TestNftSyncPlugin
         var state = _app.ServerState.GetPlayerState("yolo").Result;
         var equips = state.DeserializeModel<EquipmentData>();
         equips.LastUpdateTimestamp = _nftSync.LastUpdate + 1;
-        state.SetModel(equips);
+        state.UpdateModel(equips);
         _app.ServerState.UpdatePlayerState("yolo", state).Wait();
      
         await _nftSync.SyncAllNfts("yolo");

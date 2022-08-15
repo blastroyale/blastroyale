@@ -532,6 +532,7 @@ namespace I2.Loc
 			public static string NotEnoughGems 		{ get{ return LocalizationManager.GetTranslation ("General/NotEnoughGems"); } }
 			public static string OK 		{ get{ return LocalizationManager.GetTranslation ("General/OK"); } }
 			public static string Open 		{ get{ return LocalizationManager.GetTranslation ("General/Open"); } }
+			public static string Ordinal0 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal0"); } }
 			public static string Ordinal1 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal1"); } }
 			public static string Ordinal10 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal10"); } }
 			public static string Ordinal11 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal11"); } }
@@ -1362,6 +1363,7 @@ namespace I2.Loc
 		    public const string NotEnoughGems = "General/NotEnoughGems";
 		    public const string OK = "General/OK";
 		    public const string Open = "General/Open";
+		    public const string Ordinal0 = "General/Ordinal0";
 		    public const string Ordinal1 = "General/Ordinal1";
 		    public const string Ordinal10 = "General/Ordinal10";
 		    public const string Ordinal11 = "General/Ordinal11";

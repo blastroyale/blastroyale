@@ -2,6 +2,9 @@
 
 namespace Quantum
 {
+	/// <summary>
+	/// This decision checks if the give FP source matches the desired value in a comparison check
+	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public partial class CheckFPDecision : HFSMDecision
@@ -19,12 +22,6 @@ namespace Quantum
 
 			var comparisonValue = DesiredValue.Resolve(frame, entity, blackboard, aiConfig);
 			var currentValue = Source.Resolve(frame, entity, blackboard, aiConfig);
-
-			if (frame.TryGet<PlayerCharacter>(entity, out var playerCharacter) &&
-			    frame.Context.IsLocalPlayer(playerCharacter.Player))
-			{
-				Log.Warn(currentValue);
-			}
 			
 			switch (Comparison)
 			{

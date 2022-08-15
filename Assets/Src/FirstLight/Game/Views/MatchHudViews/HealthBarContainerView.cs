@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -41,6 +42,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			_healthBarSpectateRef.gameObject.SetActive(false);
 			_healthBarRef.gameObject.SetActive(false);
+		}
+
+		private void OnDestroy()
+		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnPlayerSpectateUpdate);
 		}
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)

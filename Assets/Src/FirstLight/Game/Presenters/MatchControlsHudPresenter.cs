@@ -34,23 +34,16 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchServices;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
-		private EntityRef _localPlayerEntity;
-		private QuantumWeaponConfig _weaponConfig;
-		private IndicatorVfxId _shootIndicatorId;
-		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
-		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
-
-		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
+		private PlayerIndicatorContainerView _indicatorContainerView;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_localInput = new LocalInput();
+			_indicatorContainerView = new PlayerIndicatorContainerView(_services);
 
 			_weaponSlotsHolder.gameObject.SetActive(false);
-			InstantiatePlayerIndicators();
-			
 			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
 			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
@@ -60,12 +53,12 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
-			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 		}
 
 		private void OnDestroy()
 		{
+			_indicatorContainerView?.Dispose();
 			_localInput?.Dispose();
 		}
 
@@ -86,10 +79,11 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnMove(InputAction.CallbackContext context)
 		{
-			_quantumInput.Direction = context.ReadValue<Vector2>().ToFPVector2();
-			
-			_indicators[(int) IndicatorVfxId.Movement].SetTransformState(_quantumInput.Direction.ToUnityVector2());
-			_indicators[(int) IndicatorVfxId.Movement].SetVisualState(_quantumInput.IsMoveButtonDown);
+			var direction = context.ReadValue<Vector2>();
+
+			_quantumInput.Direction = direction.ToFPVector2();
+
+			_indicatorContainerView.OnMoveUpdate(direction, _quantumInput.IsMoveButtonDown);
 		}
 
 		/// <inheritdoc />
@@ -104,11 +98,13 @@ namespace FirstLight.Game.Presenters
 		{
 			if (_localInput.Gameplay.SpecialButton0.IsPressed())
 			{
-				_specialIndicators[0].SetTransformState(_localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetIndicator(0)
+				                       .SetTransformState(_localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 			}
 			else if (_localInput.Gameplay.SpecialButton1.IsPressed())
 			{
-				_specialIndicators[1].SetTransformState(_localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetIndicator(1)
+				                       .SetTransformState(_localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 			}
 		}
 
@@ -122,15 +118,17 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnSpecialButton0(InputAction.CallbackContext context)
 		{
+			var indicator = _indicatorContainerView.GetIndicator(0);
+			
 			if (context.ReadValueAsButton())
 			{
-				_specialIndicators[0].SetVisualState(true);
-				_specialIndicators[0].SetTransformState(Vector2.zero);
+				indicator.SetVisualState(true);
+				indicator.SetTransformState(Vector2.zero);
 			}
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			else if(Math.Abs(context.time - context.startTime) > Mathf.Epsilon)
 			{
-				_specialIndicators[0].SetVisualState(false);
+				indicator.SetVisualState(false);
 				SendSpecialUsedCommand(0, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 			}
 		}
@@ -138,17 +136,36 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnSpecialButton1(InputAction.CallbackContext context)
 		{
+			var indicator = _indicatorContainerView.GetIndicator(1);
+			
 			if (context.ReadValueAsButton())
 			{
-				_specialIndicators[1].SetVisualState(true);
-				_specialIndicators[1].SetTransformState(Vector2.zero);
+				indicator.SetVisualState(true);
+				indicator.SetTransformState(Vector2.zero);
 			}
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			else if(Math.Abs(context.time - context.startTime) > Mathf.Epsilon)
 			{
-				_specialIndicators[1].SetVisualState(false);
+				indicator.SetVisualState(false);
 				SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
 			}
+		}
+		
+		private void Init(Frame f, EntityRef entity)
+		{
+			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
+			var playerCharacter = f.Get<PlayerCharacter>(entity);
+			
+			_weaponSlotsHolder.SetActive(f.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+			_localInput.Gameplay.SetCallbacks(this);
+			_indicatorContainerView.Init(playerView);
+			_indicatorContainerView.SetupWeaponInfo(playerCharacter.WeaponSlot, playerView);
+			SetupSpecialsInput(f.Time, playerCharacter.WeaponSlot);
+		}
+
+		private void OnUpdateView(CallbackUpdateView callback)
+		{
+			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
 		}
 
 		private void OnGameResync(CallbackGameResynced callback)
@@ -172,69 +189,6 @@ namespace FirstLight.Game.Presenters
 				OnLocalPlayerSkydiveDrop(null);
 			}
 		}
-		
-		private void Init(Frame f, EntityRef entity)
-		{
-			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
-			var playerCharacter = f.Get<PlayerCharacter>(entity);
-
-			_localPlayerEntity = entity;
-
-			foreach (var indicator in _indicators)
-			{
-				indicator?.Init(playerView);
-			}
-			
-			_weaponSlotsHolder.SetActive(f.Context.MapConfig.GameMode == GameMode.BattleRoyale);
-			_localInput.Gameplay.SetCallbacks(this);
-			SetupWeaponInfo(f.Time, playerCharacter.WeaponSlot, playerView);
-		}
-
-		private void OnUpdateView(CallbackUpdateView callback)
-		{
-			var f = callback.Game.Frames.Predicted;
-			
-			if (!f.Unsafe.TryGetPointer<CharacterController3D>(_localPlayerEntity, out var kcc) ||
-			    !f.Unsafe.TryGetPointer<PlayerCharacter>(_localPlayerEntity, out var playerCharacter))
-			{
-				return;
-			}
-
-			var playerInput = f.GetPlayerInput(playerCharacter->Player);
-
-			OnUpdateAim(f, playerInput, playerCharacter, kcc);
-		}
-
-		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
-		{
-			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
-			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
-			var velocity = kcc->Velocity.SqrMagnitude;
-			var range = _weaponConfig.AttackRange.AsFloat;
-			var minAttackAngle = _weaponConfig.MinAttackAngle;
-			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
-			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
-			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;
-			
-			// We use a formula to calculate the scale of a shooting indicator
-			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
-
-			// For a melee weapon with a splash damage we use a separate calculation for an indicator
-			if (_weaponConfig.IsMeleeWeapon && _weaponConfig.SplashRadius > FP._0)
-			{
-				range += _weaponConfig.SplashRadius.AsFloat;
-				size = _weaponConfig.SplashRadius.AsFloat * 2f;
-			}
-
-			ShootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
-			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
-			ShootIndicator.SetVisualProperties(size, 0, range);
-		}
-
-		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
-		{
-			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
-		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
@@ -250,7 +204,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
 			
-			SetupWeaponInfo(callback.Game.Frames.Predicted.Time, callback.WeaponSlot, playerView);
+			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot, playerView);
+			SetupSpecialsInput(callback.Game.Frames.Predicted.Time, callback.WeaponSlot);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -288,6 +243,11 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void PollInput(CallbackPollInput callback)
+		{
+			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
+		}
+
 		private void PlayHapticFeedbackForDamage(float damage, float maximumOfRelevantStat)
 		{
 			var damagePercentOfStat = damage / maximumOfRelevantStat;
@@ -300,11 +260,6 @@ namespace FirstLight.Game.Presenters
 			                           GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
 
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
-		}
-
-		private void PollInput(CallbackPollInput callback)
-		{
-			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}
 
 		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
@@ -327,60 +282,6 @@ namespace FirstLight.Game.Presenters
 			
 			QuantumRunner.Default.Game.SendCommand(command);
 		}
-		
-		private void InstantiatePlayerIndicators()
-		{
-			var loader = _services.AssetResolverService;
-
-			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
-			{
-				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
-				{
-					_indicators[i] = null;
-					continue;
-				}
-
-				var obj = Instantiate(indicator.OperationHandle.Convert<GameObject>().Result);
-				
-				_indicators[i] = obj.GetComponent<IIndicator>();
-			}
-		}
-		
-
-		private void SetupWeaponInfo(FP currentTime, WeaponSlot weaponSlot, EntityView playerView)
-		{
-			var configProvider = _services.ConfigsProvider;
-			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
-			
-			_weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weaponSlot.Weapon.GameId);
-			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			
-			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
-
-			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
-			{
-				if (_specialIndicators[i] != null)
-				{
-					Destroy(((MonoBehaviour) _specialIndicators[i]).gameObject);
-				}
-
-				if (specialConfigs.TryGetValue((int) _weaponConfig.Specials[i], out var config))
-				{
-					_specialIndicators[i] = Instantiate((MonoBehaviour) _indicators[(int) config.Indicator]).GetComponent<IIndicator>();
-					
-					_specialIndicators[i].Init(playerView);
-					_specialIndicators[i].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
-					                                          config.MinRange.AsFloat, config.MaxRange.AsFloat);
-				}
-				else
-				{
-					_specialIndicators[i] = null;
-				}
-			}
-
-			SetupSpecialsInput(currentTime, weaponSlot);
-		}
-		
 
 		private void SetupSpecialsInput(FP currentTime, WeaponSlot weaponSlot)
 		{

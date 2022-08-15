@@ -19,7 +19,8 @@ namespace FirstLight.Game.Data
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
 		public bool IsFirstSession;
-		
+
+		public string Environment;
 		public string DeviceId;
 		
 		public DateTime GameReviewDate;
@@ -32,6 +33,17 @@ namespace FirstLight.Game.Data
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();
+
+		public AppData Copy()
+		{
+			return new AppData
+			{
+				SfxEnabled = this.SfxEnabled,
+				BgmEnabled = this.BgmEnabled,
+				HapticEnabled = this.HapticEnabled,
+				CurrentDetailLevel = this.CurrentDetailLevel
+			};
+		}
 	}
 
 

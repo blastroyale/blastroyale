@@ -166,7 +166,7 @@ namespace FirstLight.Game.StateMachines
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
 			}
 			
-			_services.AudioFxService.PlaySequentialMusicTransition(AudioId.MusicVictoryJingle, AudioId.MusicPostMatchLoop);
+			_services.AudioFxService.PlaySequentialMusicTransition(victoryStatusAudio, AudioId.MusicPostMatchLoop);
 		}
 
 		private void StopAllSfx()

@@ -37,40 +37,34 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISUAL_COLLIDER) && 
-			    other.transform.parent.gameObject.TryGetComponent<PlayerCharacterMonoComponent>(out var player))
+			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
-				var view = player.PlayerView;
-				
-				_currentlyCollidingPlayers.Add(view.EntityRef, view);
+				_currentlyCollidingPlayers.Add(player.EntityRef, player);
 		
-				if (view.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
 				else
 				{
-					CheckUpdateOneVisiblePlayer(view);
+					CheckUpdateOneVisiblePlayer(player);
 				}
 			}
 		}
 
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISUAL_COLLIDER) && 
-			    other.transform.parent.TryGetComponent<PlayerCharacterMonoComponent>(out var player))
+			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
-				var view = player.PlayerView;
+				_currentlyCollidingPlayers.Remove(player.EntityRef);
 				
-				_currentlyCollidingPlayers.Remove(view.EntityRef);
-				
-				if (view.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
 				else
 				{
-					CheckUpdateOneVisiblePlayer(view);
+					CheckUpdateOneVisiblePlayer(player);
 				}
 			}
 		}
@@ -99,9 +93,7 @@ namespace FirstLight.Game.Views.MapViews
 			
 			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
-			
-			Debug.LogError(spectatedPlayerWithinVolume + "   " + otherPlayerWithinVolume);
-			
+
 			player.SetRenderContainerActive((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
 			                                (spectatedPlayerWithinVolume));
 		}

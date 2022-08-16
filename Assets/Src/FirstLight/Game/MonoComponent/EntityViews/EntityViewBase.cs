@@ -78,7 +78,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// </summary>
 		public void SetRenderContainerActive(bool active)
 		{
-			RenderersContainerProxy.gameObject.SetActive(active);
+			RenderersContainerProxy.SetRendererState(active);
 		}
 		
 		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)

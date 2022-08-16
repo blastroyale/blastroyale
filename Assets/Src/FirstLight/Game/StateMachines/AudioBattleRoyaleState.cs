@@ -20,8 +20,8 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioBattleRoyaleState
 	{
-		private static readonly IStatechartEvent IncreaseIntensityEvent =
-			new StatechartEvent("Increase Music Intensity Event");
+		private static readonly IStatechartEvent IncreaseIntensityEvent = new StatechartEvent("Increase Music Intensity Event");
+		private static readonly IStatechartEvent MaxIntensityEvent = new StatechartEvent("Max Music Intensity Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -65,10 +65,12 @@ namespace FirstLight.Game.StateMachines
 
 			lowIntensity.OnEnter(PlayLowIntensityMusic);
 			lowIntensity.Event(IncreaseIntensityEvent).Target(midIntensity);
-
+			lowIntensity.Event(MaxIntensityEvent).Target(highIntensity);
+			
 			midIntensity.OnEnter(PlayMidIntensityMusic);
 			midIntensity.Event(IncreaseIntensityEvent).Target(highIntensity);
-
+			midIntensity.Event(MaxIntensityEvent).Target(highIntensity);
+			
 			highIntensity.OnEnter(StopMusicInstant);
 			highIntensity.OnEnter(PlayHighIntensityMusic);
 			highIntensity.Event(IncreaseIntensityEvent).Target(final);
@@ -113,7 +115,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
-				_statechartTrigger(IncreaseIntensityEvent);
+				_statechartTrigger(MaxIntensityEvent);
 			}
 		}
 

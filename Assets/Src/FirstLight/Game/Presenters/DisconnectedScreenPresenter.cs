@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
@@ -32,11 +34,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _frontDimBlocker;
 
 		private IGameServices _services;
-
+		private IGameDataProvider _gameDataProvider;
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
 			_reconnectButton.onClick.AddListener(OnReconnectClicked);
 			_menuButton.onClick.AddListener(OnLeaveClicked);
 		}
@@ -52,6 +56,12 @@ namespace FirstLight.Game.Presenters
 			
 			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
 
+			// Always force reconnect to ranked matches to prevent exploits
+			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				_menuButton.gameObject.SetActive(false);
+			}
+			
 			// If disconnected in offline mode (playing solo), can't reconnect due to quantum simulation not running
 			// without at least 1 player connected in match at all times
 			if (_services.NetworkService.LastMatchPlayers.Count <= 1 &&

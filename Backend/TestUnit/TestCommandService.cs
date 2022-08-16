@@ -48,17 +48,15 @@ public class TestCommandManager
 	}
 	
 	[Test]
-	public void TestCommandFromArgs()
+	public void TestCommandFromString()
 	{
 		var sentCommand = new UpdatePlayerSkinCommand()
 		{
 			SkinId = GameId.Barrel // a skin to look like a barrel !! $_$
 		};
-		var args = new Dictionary<string, string>();
 		var (cmdTypeName, cmdData) = ModelSerializer.Serialize(sentCommand);
-		args[CommandFields.Command] = cmdData;
 		
-		var receivedCommand = (UpdatePlayerSkinCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
+		var receivedCommand = (UpdatePlayerSkinCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(cmdData, cmdTypeName);
 
 		Assert.AreEqual(sentCommand.SkinId, receivedCommand.SkinId);
 	}

@@ -18,6 +18,7 @@ public class TestDataService
 	public void Setup()
 	{
 		_server = new TestServer();
+		_server.SetupInMemoryServer();
 		_service = _server.GetService<IServerStateService>();
 	}
 

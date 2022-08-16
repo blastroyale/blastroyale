@@ -28,7 +28,7 @@ public interface IServerCommahdHandler
 	/// By a given input call, will try to read the command data from input parameters
 	/// and deserialize the data as a IGameCommand instance to be executed.
 	/// </summary>
-	public IGameCommand BuildCommandInstance(Dictionary<string, string> callData, string commandTypeName);
+	public IGameCommand BuildCommandInstance(string commandData, string commandTypeName);
 }
 
 /// <inheritdoc/>
@@ -55,12 +55,8 @@ public class ServerCommandHandler : IServerCommahdHandler
 	}
 
 	/// <inheritdoc/>
-	public IGameCommand BuildCommandInstance(Dictionary<string, string> callData, string commandTypeName)
+	public IGameCommand BuildCommandInstance(string commandData, string commandTypeName)
 	{
-		if (!callData.TryGetValue(CommandFields.Command, out var commandData))
-		{
-			throw new LogicException($"Input dict requires field key for cmd: {CommandFields.Command}");
-		}
 		var commandType = GetCommandType(commandTypeName);
 		if (commandType == null)
 		{

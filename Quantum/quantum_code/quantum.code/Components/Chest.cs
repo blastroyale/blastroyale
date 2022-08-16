@@ -55,6 +55,8 @@ namespace Quantum
 			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 
+			f.Events.OnChestOpened(config.Id, chestPosition);
+
 			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
 			{
 				// Drop primary weapon if it's in loadout and not equipped
@@ -78,6 +80,8 @@ namespace Quantum
 			// Drop Small consumable
 			DropSmallConsumable(f, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep);
 			DropLargeConsumable(f, config, ammoCheck, shieldCheck, chestPosition, ref angleStep);
+
+			
 		}
 
 		private void DropSmallConsumable(Frame f, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,

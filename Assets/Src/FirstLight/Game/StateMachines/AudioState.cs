@@ -107,6 +107,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
 			QuantumEvent.SubscribeManual<EventOnSpecialUsed>(this, OnSpecialUsed);
 			QuantumEvent.SubscribeManual<EventOnAudioExplosion>(this, OnExplosionStart);
+			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 
 		}
 
@@ -190,9 +191,20 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_LOBBY_SNAPSHOT_ID,
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
-		private void OnSpecialUsed(EventOnProjectileSuccessHit callback)
+		private void OnChestOpened(EventOnChestOpened callback)
 		{
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
 
+			var audio = AudioId.ChestPickup;
+
+			if (audio != AudioId.None)
+			{
+				var pos = new Vector3(callback.ChestPosition.X.AsFloat, callback.ChestPosition.Y.AsFloat, callback.ChestPosition.Z.AsFloat);
+				_services.AudioFxService.PlayClip3D(audio, pos);
+			}
 		}
 
 		private void OnExplosionStart(EventOnAudioExplosion callback)

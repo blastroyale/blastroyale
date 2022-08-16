@@ -55,7 +55,6 @@ namespace FirstLight.Editor.Build
 			"QUANTUM_ADDRESSABLES",
 			"ENABLE_PLAYFAB_BETA",
 			"TextMeshPro",
-			"STAGE_SERVER"
 		};
 		private static readonly string[] DebugSymbols = new []
 		{

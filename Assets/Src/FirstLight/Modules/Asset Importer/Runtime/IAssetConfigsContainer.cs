@@ -45,7 +45,7 @@ namespace FirstLight.AssetImporter
 		AssetConfigsScriptableObject, IPairConfigsContainer<TId, AssetReference>, ISerializationCallbackReceiver
 		where TId : struct
 	{
-		[TableList(AlwaysExpanded = true)] [SerializeField]
+		[TableList(AlwaysExpanded = true), Searchable] [SerializeField]
 		private List<Pair<TId, AssetReference>> _configs = new();
 
 		/// <inheritdoc />
@@ -92,7 +92,7 @@ namespace FirstLight.AssetImporter
 		AssetConfigsScriptableObject, IPairConfigsContainer<TId, TAsset>, ISerializationCallbackReceiver
 		where TId : struct
 	{
-		[TableList(AlwaysExpanded = true)] [SerializeField]
+		[TableList(AlwaysExpanded = true), Searchable] [SerializeField]
 		private List<Pair<TId, TAsset>> _configs = new();
 
 		/// <inheritdoc />

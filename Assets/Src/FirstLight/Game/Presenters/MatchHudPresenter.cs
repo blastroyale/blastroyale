@@ -103,29 +103,18 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			var canQuitMatch = false;
-
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				Debug.LogError("SPECTATOR - CAN QUIT");
-				canQuitMatch = true;
-			}
-			else if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			var canQuitMatch = true;
+			
+			if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
-				var alive = false || frame.TryGet<Stats>(_matchServices.SpectateService.SpectatedPlayer.Value.Entity, out Stats value);
+				var valid = localPlayer.IsValid;
+				var exists = frame.Exists(localPlayer.Entity);
 
-				canQuitMatch = !alive;
-				Debug.LogError($"Alive - {alive}");
-				Debug.LogError("RANKED MATCH - CAN QUIT? " + canQuitMatch);
-			}
-			else
-			{
-				canQuitMatch = true;
-				Debug.LogError("NON-RANKED MATCH - CAN QUIT");
+				canQuitMatch = !valid || !exists;
 			}
 
-			_quitButton.gameObject.SetActive(/*Debug.isDebugBuild || */canQuitMatch);
+			_quitButton.gameObject.SetActive(canQuitMatch);
 
 			if (Debug.isDebugBuild && SROptions.Current.EnableEquipmentDebug)
 			{

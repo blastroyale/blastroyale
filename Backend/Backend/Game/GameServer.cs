@@ -5,6 +5,7 @@ using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.Logging;
 using ServerSDK;
 using ServerSDK.Events;
@@ -25,19 +26,21 @@ public class GameServer
 	private IServerStateService _state;
 	private IServerMutex _mutex;
 	private IEventManager _eventManager;
+	private IMetricsService _metrics;
 
 	/// <summary>
 	/// Returns if the server is setup to run dev-mode. In dev-mode all players are admin and cheating will be enabled.
 	/// </summary>
 	public bool DevMode => Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
 	
-	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager)
+	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
 	{
 		_cmdHandler = cmdHandler;
 		_log = log;
 		_state = state;
 		_mutex = mutex;
 		_eventManager = eventManager;
+		_metrics = metrics;
 	}
 	
 	/// <summary>
@@ -46,15 +49,19 @@ public class GameServer
 	public async Task<BackendLogicResult> RunLogic(string playerId, LogicRequest logicRequest)
 	{
 		var cmdType = logicRequest.Command;
-		var cmdData = logicRequest.Data;
+		var requestData = logicRequest.Data;
 		try
 		{
+			if (!requestData.TryGetValue(CommandFields.Command, out var commandData))
+			{
+				throw new LogicException($"Input dict requires field key for cmd: {CommandFields.Command}");
+			}
 			await _mutex.Lock(playerId);
-			var commandInstance = _cmdHandler.BuildCommandInstance(cmdData, cmdType);
+			var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
 			var currentPlayerState = await _state.GetPlayerState(playerId);
-			ValidateCommand(currentPlayerState, commandInstance, cmdData);
+			ValidateCommand(currentPlayerState, commandInstance, requestData);
 			var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
-			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState));
+			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
 			return new BackendLogicResult()
 			{
@@ -70,6 +77,7 @@ public class GameServer
 		finally
 		{
 			_mutex.Unlock(playerId);
+			_metrics.EmitEvent($"Command {logicRequest.Command}");
 		}
 	}
 

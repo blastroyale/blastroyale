@@ -166,5 +166,10 @@ namespace FirstLight.Game.Utils
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
 		}
+
+		public static class ObjectTags
+		{
+			public const string TAG_VISUAL_COLLIDER = "VisualCollider";
+		}
 	}
 }

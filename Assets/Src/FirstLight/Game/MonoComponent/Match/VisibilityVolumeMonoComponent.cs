@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -9,6 +10,9 @@ using UnityEngine;
 
 namespace FirstLight.Game.Views.MapViews
 {
+	/// <summary>
+	/// This class handles showing/hiding player renderers inside and outside of visibility volumes based on various factors
+	/// </summary>
 	public class VisibilityVolumeMonoComponent : MonoBehaviour
 	{
 		private IGameServices _services;
@@ -33,34 +37,40 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
+			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISUAL_COLLIDER) && 
+			    other.transform.parent.gameObject.TryGetComponent<PlayerCharacterMonoComponent>(out var player))
 			{
-				_currentlyCollidingPlayers.Add(player.EntityRef, player);
+				var view = player.PlayerView;
 				
-				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+				_currentlyCollidingPlayers.Add(view.EntityRef, view);
+		
+				if (view.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
 				else
 				{
-					CheckUpdateOneVisiblePlayer(player);
+					CheckUpdateOneVisiblePlayer(view);
 				}
 			}
 		}
 
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
+			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISUAL_COLLIDER) && 
+			    other.transform.parent.TryGetComponent<PlayerCharacterMonoComponent>(out var player))
 			{
-				_currentlyCollidingPlayers.Remove(player.EntityRef);
+				var view = player.PlayerView;
 				
-				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+				_currentlyCollidingPlayers.Remove(view.EntityRef);
+				
+				if (view.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
 				else
 				{
-					CheckUpdateOneVisiblePlayer(player);
+					CheckUpdateOneVisiblePlayer(view);
 				}
 			}
 		}
@@ -71,16 +81,29 @@ namespace FirstLight.Game.Views.MapViews
 			
 			foreach (var player in _currentlyCollidingPlayers)
 			{
-				player.Value.SetRenderContainerActive(!spectatedPlayerWithinVolume);
+				if (player.Key == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+				{
+					continue;
+				}
+				
+				player.Value.SetRenderContainerActive(spectatedPlayerWithinVolume);
 			}
 		}
 
-		private void CheckUpdateOneVisiblePlayer(PlayerCharacterViewMonoComponent otherPlayer)
+		private void CheckUpdateOneVisiblePlayer(PlayerCharacterViewMonoComponent player)
 		{
-			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
-			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(otherPlayer.EntityRef);
+			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
 			
-			otherPlayer.SetRenderContainerActive(!spectatedPlayerWithinVolume && otherPlayerWithinVolume);
+			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
+			
+			Debug.LogError(spectatedPlayerWithinVolume + "   " + otherPlayerWithinVolume);
+			
+			player.SetRenderContainerActive((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
+			                                (spectatedPlayerWithinVolume));
 		}
 	}
 }

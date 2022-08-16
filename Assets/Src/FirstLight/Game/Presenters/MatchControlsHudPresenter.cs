@@ -129,7 +129,8 @@ namespace FirstLight.Game.Presenters
 				// TODO: Check if im.sqrMagnitude > _specialButton0.size
 				
 				// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && aim.sqrMagnitude > 0)
+				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
+				    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 				{
 					SendSpecialUsedCommand(0, aim);
 				}
@@ -155,7 +156,8 @@ namespace FirstLight.Game.Presenters
 				// TODO: Check if im.sqrMagnitude > _specialButton0.size
 				
 				// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && aim.sqrMagnitude > 0)
+				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
+				    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 				{
 					SendSpecialUsedCommand(1, aim);
 				}
@@ -170,8 +172,8 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotsHolder.SetActive(f.Context.MapConfig.GameMode == GameMode.BattleRoyale);
 			_localInput.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
-			_indicatorContainerView.SetupWeaponInfo(playerCharacter.WeaponSlot, playerView);
-			SetupSpecialsInput(f.Time, playerCharacter.WeaponSlot);
+			_indicatorContainerView.SetupWeaponInfo(playerCharacter.WeaponSlot);
+			SetupSpecialsInput(f.Time, playerCharacter.WeaponSlot, playerView);
 		}
 
 		private void OnUpdateView(CallbackUpdateView callback)
@@ -215,8 +217,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
 			
-			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot, playerView);
-			SetupSpecialsInput(callback.Game.Frames.Predicted.Time, callback.WeaponSlot);
+			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot);
+			SetupSpecialsInput(callback.Game.Frames.Predicted.Time, callback.WeaponSlot, playerView);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -294,8 +296,16 @@ namespace FirstLight.Game.Presenters
 			QuantumRunner.Default.Game.SendCommand(command);
 		}
 
-		private void SetupSpecialsInput(FP currentTime, WeaponSlot weaponSlot)
+		private void SetupSpecialsInput(FP currentTime, WeaponSlot weaponSlot, EntityView playerView)
 		{
+			var configProvider = _services.ConfigsProvider;
+				
+			configProvider.TryGetConfig<QuantumSpecialConfig>((int) weaponSlot.Special1.SpecialId, out var configSpecial1);
+			configProvider.TryGetConfig<QuantumSpecialConfig>((int) weaponSlot.Special2.SpecialId, out var configSpecial2);
+			
+			_indicatorContainerView.SetupIndicator(0, configSpecial1, playerView);
+			_indicatorContainerView.SetupIndicator(1, configSpecial2, playerView);
+			
 			if (weaponSlot.Special1.IsValid)
 			{
 				_localInput.Gameplay.SpecialButton1.Enable();
@@ -306,6 +316,7 @@ namespace FirstLight.Game.Presenters
 				_localInput.Gameplay.SpecialButton0.Disable();
 				_specialButton0.gameObject.SetActive(false);
 			}
+			
 			if (weaponSlot.Special2.IsValid)
 			{
 				_localInput.Gameplay.SpecialButton0.Enable();

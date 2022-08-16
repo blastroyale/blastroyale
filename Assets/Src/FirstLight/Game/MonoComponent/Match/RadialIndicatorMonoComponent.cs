@@ -13,9 +13,9 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField] protected float _localHeight = 0.025f;
 		[SerializeField] protected bool _initiallyEnabled = false;
 		
-		protected Transform _playerTransform;
-		protected Vector3 _position;
-		protected float _maxRange;
+		private Transform _playerTransform;
+		private Vector3 _position;
+		private float _maxRange;
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.activeSelf;

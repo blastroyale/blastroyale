@@ -86,36 +86,32 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Setups all the indicators with the given data
 		/// </summary>
-		public void SetupWeaponInfo(WeaponSlot weaponSlot, EntityView playerView)
+		public void SetupWeaponInfo(WeaponSlot weaponSlot)
 		{
 			var configProvider = _services.ConfigsProvider;
-			var specialConfigs = configProvider.GetConfigsDictionary<QuantumSpecialConfig>();
 			
 			_weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weaponSlot.Weapon.GameId);
 			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
+		}
 
-			for (var i = 0; i < Constants.MAX_SPECIALS; i++)
+		/// <summary>
+		/// Setups the indicator configs for the specials
+		/// </summary>
+		public void SetupIndicator(int index, QuantumSpecialConfig config, EntityView playerView)
+		{
+			if (_specialIndicators[index] != null)
 			{
-				if (_specialIndicators[i] != null)
-				{
-					Object.Destroy(((MonoBehaviour) _specialIndicators[i]).gameObject);
-				}
-
-				if (specialConfigs.TryGetValue((int) _weaponConfig.Specials[i], out var config))
-				{
-					_specialIndicators[i] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator]).GetComponent<IIndicator>();
-					
-					_specialIndicators[i].Init(playerView);
-					_specialIndicators[i].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
-					                                          config.MinRange.AsFloat, config.MaxRange.AsFloat);
-				}
-				else
-				{
-					_specialIndicators[i] = null;
-				}
+				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
+			
+			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
+			                                  .GetComponent<IIndicator>();
+					
+			_specialIndicators[index].Init(playerView);
+			_specialIndicators[index].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
+			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)

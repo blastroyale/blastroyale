@@ -76,7 +76,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Sets the root rendering container object active or inactive
 		/// </summary>
-		public virtual void SetRenderContainerActive(bool active)
+		public virtual void SetRenderContainerVisible(bool active)
 		{
 			RenderersContainerProxy.SetRendererState(active);
 		}

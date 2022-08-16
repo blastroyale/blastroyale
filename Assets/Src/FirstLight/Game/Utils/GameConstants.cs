@@ -143,7 +143,7 @@ namespace FirstLight.Game.Utils
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
-			public const float HUD_GAMEPLAY_FADE_DURATION = 2f;
+			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
@@ -169,7 +169,7 @@ namespace FirstLight.Game.Utils
 
 		public static class ObjectTags
 		{
-			public const string TAG_VISUAL_COLLIDER = "VisualCollider";
+			public const string TAG_VISIBILITY_VOLUME = "VisibilityVolume";
 		}
 	}
 }

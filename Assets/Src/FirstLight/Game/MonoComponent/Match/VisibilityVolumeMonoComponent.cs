@@ -80,7 +80,7 @@ namespace FirstLight.Game.Views.MapViews
 					continue;
 				}
 				
-				player.Value.SetRenderContainerActive(spectatedPlayerWithinVolume);
+				player.Value.SetRenderContainerVisible(spectatedPlayerWithinVolume);
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Views.MapViews
 			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
 
-			player.SetRenderContainerActive((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
+			player.SetRenderContainerVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
 			                                (spectatedPlayerWithinVolume));
 		}
 	}

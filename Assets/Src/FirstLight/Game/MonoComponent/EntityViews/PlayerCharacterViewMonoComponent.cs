@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
@@ -21,6 +22,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public Transform RootTransform;
 		
 		private Vector3 _lastPosition;
+
+		private Coroutine _attackHideRendererCoroutine;
+		
+		private bool _isWithinVisibilityVolume;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -72,6 +77,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
+		
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISIBILITY_VOLUME))
+			{
+				_isWithinVisibilityVolume = true;
+			}
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISIBILITY_VOLUME))
+			{
+				_isWithinVisibilityVolume = false;
+			}
+		}
 
 		protected override void OnInit(QuantumGame game)
 		{
@@ -99,9 +120,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		}
 		
 		/// <inheritdoc />
-		public override void SetRenderContainerActive(bool active)
+		public override void SetRenderContainerVisible(bool active)
 		{
-			base.SetRenderContainerActive(active);
+			base.SetRenderContainerVisible(active);
 			
 			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
 			{
@@ -120,6 +141,31 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
 			base.OnAvatarEliminated(game);
+		}
+		
+		private void TryStartAttackWithinVisVolume()
+		{
+			if (_isWithinVisibilityVolume)
+			{
+				if (_attackHideRendererCoroutine != null)
+				{
+					Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
+				}
+			
+				_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
+			}
+		}
+
+		private IEnumerator AttackWithinVisVolumeCoroutine()
+		{
+			SetRenderContainerVisible(true);
+
+			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+
+			if (_isWithinVisibilityVolume)
+			{
+				SetRenderContainerVisible(false);
+			}
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -236,8 +282,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
+			TryStartAttackWithinVisVolume();
 		}
 
 		private void HandleOnSpecialUsed(EventOnSpecialUsed evnt)
@@ -246,8 +293,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
+	
 			AnimatorWrapper.SetTrigger(Triggers.Special);
+			TryStartAttackWithinVisVolume();
 		}
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)

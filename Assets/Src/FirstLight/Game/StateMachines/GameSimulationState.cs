@@ -65,7 +65,6 @@ namespace FirstLight.Game.StateMachines
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
 			var quitCheck = stateFactory.Choice("Quit Check");
-			var rankedRewardCheck = stateFactory.Choice("Ranked Reward Check");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 

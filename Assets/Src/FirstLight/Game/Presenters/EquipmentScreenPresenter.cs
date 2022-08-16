@@ -10,7 +10,6 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
-using Circuit;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Services;

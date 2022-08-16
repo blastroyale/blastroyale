@@ -89,6 +89,7 @@ namespace FirstLight.Game.Presenters
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
+			_quitButton.gameObject.SetActive(true);
 
 			_standings.Initialise(frame.PlayerCount, false, true);
 		}

@@ -25,9 +25,11 @@ public class TestDataService
 	/// This test runs against a real playfab test account.
 	/// Ensures we can save/read data from playfab using our DataService.
 	/// </summary>
-	/*[Test]
+	[Test]
 	public void TestSaveLoadPlayerData()
 	{
+		_server.SetupInMemoryServer();
+		
 		var playerId = _server.GetTestPlayerID();
 		var data = new ServerState()
 		{
@@ -37,7 +39,7 @@ public class TestDataService
 		
 		var readData = _service.GetPlayerState(playerId).Result;
 		Assert.AreEqual(data["test_key"], readData["test_key"]);
-	}*/
+	}
 
 	[Test]
 	public void TestGettingOnlyUpdatedKeys()

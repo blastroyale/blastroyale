@@ -66,11 +66,13 @@ namespace FirstLight.Game.Presenters
 			_contendersLeftHolderView.gameObject.SetActive(false);
 			_quitButton.gameObject.SetActive(false);
 			
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
 		private void OnDestroy()
 		{
+			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
@@ -95,10 +97,14 @@ namespace FirstLight.Game.Presenters
 		{
 			CheckEnableQuitFunctionality();
 		}
-
-		private async void CheckEnableQuitFunctionality()
+		
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			await Task.Delay(300);
+			CheckEnableQuitFunctionality();
+		}
+
+		private void CheckEnableQuitFunctionality()
+		{
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();

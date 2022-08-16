@@ -19,6 +19,7 @@ public class TestDataService
 	{
 		_server = new TestServer();
 		_service = _server.GetService<IServerStateService>();
+		_server.SetupInMemoryServer();
 	}
 
 	/// <summary>
@@ -28,8 +29,6 @@ public class TestDataService
 	[Test]
 	public void TestSaveLoadPlayerData()
 	{
-		_server.SetupInMemoryServer();
-		
 		var playerId = _server.GetTestPlayerID();
 		var data = new ServerState()
 		{

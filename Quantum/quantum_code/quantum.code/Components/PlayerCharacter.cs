@@ -261,14 +261,42 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
-		///
-		/// This does not check if this item is actually in the loadout.
+		/// Requests the weapon's <see cref="Special"/> for the given <paramref name="specialIndex"/>
 		/// </summary>
-		public void SetDroppedLoadoutItem(Equipment equipment)
+		public Special GetSpecial(int specialIndex)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
-			DroppedLoadoutFlags |= 1 << shift;
+			if (specialIndex == 1)
+			{
+				return WeaponSlot.Special1;
+			}
+
+			return WeaponSlot.Special2;
+		}
+
+		/// <summary>
+		/// Requests the current amount charges in the given <paramref name="specialIndex"/>
+		/// </summary>
+		public int GetSpecialCharges(int specialIndex)
+		{
+			if (specialIndex == 1)
+			{
+				return WeaponSlot.Special1Charges;
+			}
+
+			return WeaponSlot.Special2Charges;
+		}
+
+		/// <summary>
+		/// Requests the time the special for the given <paramref name="specialIndex"/> is available to be used
+		/// </summary>
+		public FP GetSpecialAvailableTime(int specialIndex)
+		{
+			if (specialIndex == 1)
+			{
+				return WeaponSlot.Special1AvailableTime;
+			}
+
+			return WeaponSlot.Special2AvailableTime;
 		}
 
 		/// <summary>
@@ -310,6 +338,17 @@ namespace Quantum
 				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
+		}
+
+		/// <summary>
+		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		internal void SetDroppedLoadoutItem(Equipment equipment)
+		{
+			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			DroppedLoadoutFlags |= 1 << shift;
 		}
 
 		/// <summary>
@@ -439,9 +478,7 @@ namespace Quantum
 				return new Special();
 			}
 
-			var specialConfig = f.SpecialConfigs.GetConfig(specialId);
-
-			return new Special(f, specialConfig);
+			return new Special(f.SpecialConfigs.GetConfig(specialId));
 		}
 
 		private void SetSlotWeapon(Frame f, EntityRef e, int slot)
@@ -469,13 +506,13 @@ namespace Quantum
 			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
 			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
 
-			if (weaponSlot.Special1AvailableTime > FP._0)
+			if (weaponSlot.Special1AvailableTime < FP.SmallestNonZero)
 			{
-				weaponSlot.Special1.AvailableTime = weaponSlot.Special1AvailableTime;
+				weaponSlot.Special1AvailableTime = weaponSlot.Special1.InitialCooldown;
 			}
-			if (weaponSlot.Special2AvailableTime > FP._0)
+			if (weaponSlot.Special2AvailableTime < FP.SmallestNonZero)
 			{
-				weaponSlot.Special2.AvailableTime = weaponSlot.Special2AvailableTime;
+				weaponSlot.Special1AvailableTime = weaponSlot.Special2.InitialCooldown;
 			}
 
 			WeaponSlots[CurrentWeaponSlot] = weaponSlot;

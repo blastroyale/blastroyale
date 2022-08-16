@@ -306,32 +306,45 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			var playerCharacter = filter.PlayerCharacter;
-			var weaponSlot = playerCharacter->CurrentWeaponSlot;
-
-			if (TryUseSpecial(f, playerCharacter->WeaponSlots[weaponSlot].Special1Charges,
-			                  playerCharacter->WeaponSlots[weaponSlot].Special1, 0, ref filter))
+			if (TryUseSpecial(f, filter.PlayerCharacter, 0, filter.Entity, filter.BotCharacter->Target))
 			{
-				playerCharacter->WeaponSlots[weaponSlot].Special1Charges--;
 				return true;
 			}
 			
-			if (TryUseSpecial(f, playerCharacter->WeaponSlots[weaponSlot].Special2Charges,
-			                  playerCharacter->WeaponSlots[weaponSlot].Special2, 1, ref filter))
+			if (TryUseSpecial(f, filter.PlayerCharacter, 1, filter.Entity, filter.BotCharacter->Target))
 			{
-				playerCharacter->WeaponSlots[weaponSlot].Special2Charges--;
 				return true;
 			}
 			
 			return false;
 		}
 
-		private bool TryUseSpecial(Frame f, int specialCharges, Special special, int specialIndex, ref BotCharacterFilter filter)
+		private bool TryUseSpecial(Frame f, PlayerCharacter* playerCharacter, int specialIndex, EntityRef entity, EntityRef target)
 		{
-			var target = filter.BotCharacter->Target;
-			if (specialCharges > 0 && (target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
-			    special.IsValid && special.TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
+			var special = playerCharacter->GetSpecial(specialIndex);
+			
+			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
+			    playerCharacter->GetSpecialCharges(specialIndex) > 0 && 
+			    f.Time >= playerCharacter->GetSpecialAvailableTime(specialIndex) &&
+			    special.TryActivate(f, entity, FPVector2.Zero, specialIndex))
 			{
+				var weaponSlot = playerCharacter->WeaponSlot;
+
+				switch (specialIndex)
+				{
+					case 0:
+					{
+						weaponSlot.Special1AvailableTime = f.Time + special.Cooldown;
+						break;
+					}
+					case 1:
+					{
+						weaponSlot.Special2AvailableTime = f.Time + special.Cooldown;
+						break;
+					}
+				}
+
+				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
 				return true;
 			}
 

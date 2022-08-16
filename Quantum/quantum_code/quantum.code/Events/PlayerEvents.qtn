@@ -148,6 +148,8 @@ synced event OnPlayerSpecialUsed
 	entity_ref Entity;
 	Special Special;
 	Int32 SpecialIndex;
+	Int32 RemainingCharges;
+	FP AvailableTime;
 }
 
 // LOCAL PLAYER EVENTS
@@ -250,4 +252,6 @@ synced event OnLocalPlayerSpecialUsed
 	entity_ref Entity;
 	Special Special;
 	Int32 SpecialIndex;
+	Int32 RemainingCharges;
+	FP AvailableTime;
 }

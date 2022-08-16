@@ -52,14 +52,16 @@ namespace Quantum
 			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex)
 			{
 				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
-				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+				var charges = playerCharacter->GetSpecialCharges(specialIndex);
+				var availableTime = playerCharacter->GetSpecialAvailableTime(specialIndex);
+				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, charges, availableTime);
 
 				if (ev == null || !_f.Context.IsLocalPlayer(playerCharacter->Player))
 				{
 					return;
 				}
 
-				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, charges, availableTime);
 			}
 			
 			public void OnPlayerKilledPlayer(PlayerRef playerDead, PlayerRef playerKiller)

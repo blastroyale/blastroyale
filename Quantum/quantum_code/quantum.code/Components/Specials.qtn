@@ -4,13 +4,13 @@ struct Special
 {
 	GameId SpecialId;
 	SpecialType SpecialType;
+	FP InitialCooldown;
 	FP Cooldown;
 	FP Radius;
 	FP SpecialPower;
 	FP Speed;
 	FP MaxRange;
 	UInt32 Knockback;
-	FP AvailableTime;
 }
 
 enum SpecialType

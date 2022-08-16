@@ -133,6 +133,8 @@ namespace FirstLight.Game.Presenters
 				    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 				{
 					SendSpecialUsedCommand(0, aim);
+					// TODO: Check charges:
+					// _localInput.Gameplay.SpecialButton0.Disable();
 				}
 			}
 		}
@@ -146,21 +148,23 @@ namespace FirstLight.Game.Presenters
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
+				return;
 			}
-			else 
+			
+			var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+			
+			indicator.SetVisualState(false);
+			
+			// TODO: Check if im.sqrMagnitude > _specialButton0.size
+			
+			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
+			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
+			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 			{
-				var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+				SendSpecialUsedCommand(1, aim);
 				
-				indicator.SetVisualState(false);
-				
-				// TODO: Check if im.sqrMagnitude > _specialButton0.size
-				
-				// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
-				    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
-				{
-					SendSpecialUsedCommand(1, aim);
-				}
+				// TODO: Check charges:
+				// _localInput.Gameplay.SpecialButton0.Disable();
 			}
 		}
 		
@@ -309,7 +313,8 @@ namespace FirstLight.Game.Presenters
 			if (weaponSlot.Special1.IsValid)
 			{
 				_localInput.Gameplay.SpecialButton1.Enable();
-				_specialButton0.Init(currentTime, weaponSlot.Special1, weaponSlot.Special1Charges > 0);
+				_specialButton0.Init(currentTime, weaponSlot.Special1.SpecialId, weaponSlot.Special1.Cooldown, 
+				                     weaponSlot.Special1AvailableTime, weaponSlot.Special1Charges > 0);
 			}
 			else
 			{
@@ -320,7 +325,8 @@ namespace FirstLight.Game.Presenters
 			if (weaponSlot.Special2.IsValid)
 			{
 				_localInput.Gameplay.SpecialButton0.Enable();
-				_specialButton1.Init(currentTime, weaponSlot.Special2, weaponSlot.Special2Charges > 0);
+				_specialButton1.Init(currentTime, weaponSlot.Special2.SpecialId, weaponSlot.Special2.Cooldown, 
+				                     weaponSlot.Special2AvailableTime, weaponSlot.Special2Charges > 0);
 			}
 			else
 			{

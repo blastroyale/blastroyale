@@ -95,13 +95,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(FP currentTime, Special special, bool hasCharge)
+		public async void Init(FP currentTime, GameId specialId, FP cooldown, FP availableTime, bool hasCharge)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 
 			gameObject.SetActive(false);
 
-			if (!_services.ConfigsProvider.TryGetConfig((int) special.SpecialId, out _specialConfig))
+			if (!_services.ConfigsProvider.TryGetConfig((int) specialId, out _specialConfig))
 			{
 				return;
 			}
@@ -112,19 +112,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = _specialConfig.IsAimable;
 
-			gameObject.SetActive(hasCharge);
-
-			if (_cooldownCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-			}
-
-			if (!hasCharge)
-			{
-				return;
-			}
-			
-			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(currentTime, special));
+			SpecialUpdate(currentTime, availableTime, cooldown, hasCharge);
 		}
 
 		private void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
@@ -133,15 +121,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-
-			if (_cooldownCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-			}
-
-			var time = callback.Game.Frames.Predicted.Time;
-
-			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(time, callback.Special));
+			
+			SpecialUpdate(callback.Game.Frames.Predicted.Time, callback.AvailableTime, 
+			              callback.Special.Cooldown, callback.RemainingCharges > 0);
 		}
 
 		private void SetInputData(PointerEventData eventData)
@@ -157,10 +139,27 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialAimDirectionAdapter.SendValueToControl(delta / radius);
 		}
 
-		private IEnumerator SpecialCooldown(FP currentTime, Special special)
+		private void SpecialUpdate(FP currentTime, FP endTime, FP cooldown, bool hasCharge)
 		{
-			var start = Time.time + (special.AvailableTime - special.Cooldown - currentTime).AsFloat;
-			var end = Time.time + (special.AvailableTime - currentTime).AsFloat;
+			gameObject.SetActive(hasCharge);
+
+			if (_cooldownCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
+			}
+
+			if (!hasCharge)
+			{
+				return;
+			}
+			
+			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(currentTime, endTime, cooldown));
+		}
+
+		private IEnumerator SpecialCooldown(FP currentTime, FP endTime, FP cooldown)
+		{
+			var end = Time.time + (endTime - currentTime).AsFloat;
+			var start = end - cooldown.AsFloat;
 
 			_specialIconImage.color = _cooldownColor;
 			_specialIconBackgroundImage.color = _cooldownColor;

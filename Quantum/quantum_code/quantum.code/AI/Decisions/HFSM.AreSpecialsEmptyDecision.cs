@@ -15,8 +15,8 @@ namespace Quantum
 			var playerCharacter = f.Get<PlayerCharacter>(e);
 			var currentWeaponSlot = playerCharacter.WeaponSlots[playerCharacter.CurrentWeaponSlot];
 
-			return !currentWeaponSlot.Special1.IsSpecialAvailable(f) 
-			       || !currentWeaponSlot.Special2.IsSpecialAvailable(f);
+			return currentWeaponSlot.Special1AvailableTime > f.Time
+			       || currentWeaponSlot.Special2AvailableTime > f.Time;
 		}
 	}
 }

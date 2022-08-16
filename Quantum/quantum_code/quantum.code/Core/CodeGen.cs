@@ -2678,9 +2678,9 @@ namespace Quantum {
     public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
-    public FP AvailableTime;
-    [FieldOffset(24)]
     public FP Cooldown;
+    [FieldOffset(24)]
+    public FP InitialCooldown;
     [FieldOffset(8)]
     public UInt32 Knockback;
     [FieldOffset(32)]
@@ -2698,8 +2698,8 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 311;
-        hash = hash * 31 + AvailableTime.GetHashCode();
         hash = hash * 31 + Cooldown.GetHashCode();
+        hash = hash * 31 + InitialCooldown.GetHashCode();
         hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxRange.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
@@ -2715,8 +2715,8 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->SpecialId);
         serializer.Stream.Serialize((Int32*)&p->SpecialType);
         serializer.Stream.Serialize(&p->Knockback);
-        FP.Serialize(&p->AvailableTime, serializer);
         FP.Serialize(&p->Cooldown, serializer);
+        FP.Serialize(&p->InitialCooldown, serializer);
         FP.Serialize(&p->MaxRange, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->SpecialPower, serializer);
@@ -5532,13 +5532,15 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerSpecialUsed OnPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex) {
+      public EventOnPlayerSpecialUsed OnPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex, Int32 RemainingCharges, FP AvailableTime) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerSpecialUsed>(EventOnPlayerSpecialUsed.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
+        ev.RemainingCharges = RemainingCharges;
+        ev.AvailableTime = AvailableTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5670,7 +5672,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerSpecialUsed OnLocalPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex) {
+      public EventOnLocalPlayerSpecialUsed OnLocalPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex, Int32 RemainingCharges, FP AvailableTime) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSpecialUsed>(EventOnLocalPlayerSpecialUsed.ID);
@@ -5678,6 +5680,8 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
+        ev.RemainingCharges = RemainingCharges;
+        ev.AvailableTime = AvailableTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7344,6 +7348,8 @@ namespace Quantum {
     public EntityRef Entity;
     public Special Special;
     public Int32 SpecialIndex;
+    public Int32 RemainingCharges;
+    public FP AvailableTime;
     protected EventOnPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7365,6 +7371,8 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
+        hash = hash * 31 + RemainingCharges.GetHashCode();
+        hash = hash * 31 + AvailableTime.GetHashCode();
         return hash;
       }
     }
@@ -7739,6 +7747,8 @@ namespace Quantum {
     public EntityRef Entity;
     public Special Special;
     public Int32 SpecialIndex;
+    public Int32 RemainingCharges;
+    public FP AvailableTime;
     protected EventOnLocalPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7760,6 +7770,8 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
+        hash = hash * 31 + RemainingCharges.GetHashCode();
+        hash = hash * 31 + AvailableTime.GetHashCode();
         return hash;
       }
     }
@@ -9786,17 +9798,17 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Special_Prototype : StructPrototype {
     public GameId_Prototype SpecialId;
     public SpecialType_Prototype SpecialType;
+    public FP InitialCooldown;
     public FP Cooldown;
     public FP Radius;
     public FP SpecialPower;
     public FP Speed;
     public FP MaxRange;
     public UInt32 Knockback;
-    public FP AvailableTime;
     partial void MaterializeUser(Frame frame, ref Special result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Special result, in PrototypeMaterializationContext context) {
-      result.AvailableTime = this.AvailableTime;
       result.Cooldown = this.Cooldown;
+      result.InitialCooldown = this.InitialCooldown;
       result.Knockback = this.Knockback;
       result.MaxRange = this.MaxRange;
       result.Radius = this.Radius;

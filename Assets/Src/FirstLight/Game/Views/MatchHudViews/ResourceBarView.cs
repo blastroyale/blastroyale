@@ -82,7 +82,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetSliderValue(Frame f, EntityRef entity)
 		{
-			var player = f.Get<PlayerCharacter>(entity);
+			if (!f.TryGet<PlayerCharacter>(entity, out var player))
+			{
+				return;
+			}
 			
 			_slider.value = player.HasMeleeWeapon(f, entity) ? 1f : player.GetAmmoAmountFilled(f, entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;

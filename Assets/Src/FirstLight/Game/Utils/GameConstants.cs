@@ -66,8 +66,11 @@ namespace FirstLight.Game.Utils
 			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
-
+			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;
+			
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
+			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
+			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 		}
 
 		public static class Notifications
@@ -141,6 +144,8 @@ namespace FirstLight.Game.Utils
 
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
 			public const float HUD_GAMEPLAY_FADE_DURATION = 2f;
+
+			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
 
 		public static class Haptics

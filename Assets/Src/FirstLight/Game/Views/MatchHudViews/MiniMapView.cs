@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -31,6 +32,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
 		private Camera _minimapCamera;
 
+		[SerializeField, Required] private RectTransform _rectTransform;
 		[SerializeField, Required] private Image _backgroundImage;
 		[SerializeField, Required] private RectTransform _fullScreenContainer;
 		[SerializeField, Required] private Button _button;
@@ -54,77 +56,87 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private QuantumShrinkingCircleConfig _config;
-
-		private RectTransform _rectTransform;
-		private Transform _spectatedTransform;
 		private Transform _cameraTransform;
-
 		private bool _safeAreaSet;
 		private bool _opened;
 		private float _animationModifier = 0f;
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
-		private bool _subscribedQuantumViewUpdate;
-
+		private Tweener _tweenerSize;
 		private Material _minimapMat;
-		private Coroutine _airDropCoroutine;
-
 		private IObjectPool<MinimapAirdropView> _airdropPool;
-		private readonly Dictionary<EntityRef, MinimapAirdropView> _displayedAirdrops = new();
 		private readonly List<Vector4> _playerPositions = new(30);
+
+		private void OnValidate()
+		{
+			_rectTransform ??= GetComponent<RectTransform>();
+		}
 
 		private void Awake()
 		{
-			_services = MainInstaller.Resolve<IGameServices>();
-			_rectTransform = GetComponent<RectTransform>();
+			var containerSize = _fullScreenContainer.rect.size;
+			var mapSize = _rectTransform.rect.size;
 
+			_fullScreenMapSize = Mathf.Min(containerSize.x, containerSize.y);
+			_smallMapSize = Mathf.Min(mapSize.x, mapSize.y);
+			_smallMapPosition = _rectTransform.anchoredPosition;
+			_minimapMat = _minimapImage.material = Instantiate(_minimapImage.material);
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_services = MainInstaller.Resolve<IGameServices>();
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
 			                                                     GameObjectPool<MinimapAirdropView>.Instantiator);
 
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-
-			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
-
-			_minimapMat = _minimapImage.material = Instantiate(_minimapImage.material);
+			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
+			QuantumCallback.Subscribe<CallbackGameStarted>(this, OnGameStarted);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
 		}
 
-		private void OnClick()
+		private void OnDestroy()
 		{
-			if (_opened)
-			{
-				CloseMinimap();
-			}
-			else
-			{
-				OpenMinimap();
-			}
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
+			Destroy(_minimapMat);
 		}
 
-		private void OpenMinimap()
+		private void OnEnable()
 		{
-			_opened = true;
-			DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimap).SetEase(_openCloseEase);
-			_backgroundImage.raycastTarget = true;
-		}
-
-		private void CloseMinimap()
-		{
+			if (Camera.main != null)
+			{
+				_cameraTransform = Camera.main.transform;
+			}
+			
 			_opened = false;
-			DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimap).SetEase(_openCloseEase);
 			_backgroundImage.raycastTarget = false;
+			
+			_tweenerSize?.Kill();
+			UpdateMinimapSize(0);
 		}
 
-		private void UpdateMinimap(float f)
+		private void UpdateView(CallbackUpdateView callback)
+		{
+			var f = callback.Game.Frames.Predicted;
+			var spectate = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+
+			if (!f.TryGet<Transform3D>(spectate, out var transform3D))
+			{
+				return;
+			}
+			
+			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(transform3D.Position.ToUnityVector3());
+
+			UpdatePlayerIndicator(playerViewportPoint, transform3D);
+			UpdateAirdropIndicators(playerViewportPoint, f.Time);
+			UpdateMap(f, playerViewportPoint, transform3D);
+		}
+
+		private void UpdateMinimapSize(float f)
 		{
 			_animationModifier = f;
 			_rectTransform.anchorMin = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
@@ -134,141 +146,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 			                                        Vector2.one * _fullScreenMapSize - Vector2.one * _fullScreenPadding,
 			                                        f);
 			_rectTransform.pivot = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
-
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
-
 			_viewportSize = Mathf.Lerp(0.3f, 1f, f);
 		}
 
-		private void OnEnable()
-		{
-			if (Camera.main != null)
-			{
-				_cameraTransform = Camera.main.transform;
-			}
-
-			var containerSize = _fullScreenContainer.rect.size;
-			var mapSize = _rectTransform.rect.size;
-
-			_fullScreenMapSize = Mathf.Min(containerSize.x, containerSize.y);
-			_smallMapSize = Mathf.Min(mapSize.x, mapSize.y);
-			_smallMapPosition = _rectTransform.anchoredPosition;
-		}
-
-		private void SubscribeToQuantumViewUpdate()
-		{
-			if (!_subscribedQuantumViewUpdate)
-			{
-				_subscribedQuantumViewUpdate = true;
-				QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateMinimap);
-			}
-		}
-
-		[Button, HideInEditorMode]
-		private void RenderMinimap()
-		{
-			FLog.Verbose("Rendering MiniMap camera.");
-			var ct = _minimapCamera.transform;
-			ct.SetParent(null);
-			ct.position = new Vector3(0, _cameraHeight, 0);
-			_minimapCamera.Render();
-		}
-
-		private void OnDestroy()
-		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumCallback.UnsubscribeListener(this);
-			QuantumEvent.UnsubscribeListener(this);
-			Destroy(_minimapMat);
-		}
-
-		private void OnMatchStarted(MatchStartedMessage msg)
-		{
-			RenderMinimap();
-
-			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				return;
-			}
-
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-
-			_airdropPool.DespawnAll();
-			_displayedAirdrops.Clear();
-			foreach (var (entity, airDrop) in f.GetComponentIterator<AirDrop>())
-			{
-				SpawnAirdrop(entity, airDrop);
-			}
-		}
-
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
-		{
-			_spectatedTransform = next.Transform;
-			SubscribeToQuantumViewUpdate();
-		}
-
-		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
-		{
-			UpdateMinimap(_duration);
-		}
-
-		private void OnAirDropDropped(EventOnAirDropDropped callback)
-		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || !isActiveAndEnabled)
-			{
-				return;
-			}
-
-			SpawnAirdrop(callback.Entity, callback.AirDrop);
-		}
-
-		private void OnAirDropLanded(EventOnAirDropLanded callback)
-		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || !isActiveAndEnabled)
-			{
-				return;
-			}
-
-			_displayedAirdrops[callback.Entity].OnLanded();
-		}
-
-		private void OnAirDropCollected(EventOnAirDropCollected callback)
-		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				return;
-			}
-
-			_airdropPool.Despawn(_displayedAirdrops[callback.Entity]);
-			_displayedAirdrops.Remove(callback.Entity);
-		}
-
-		private void UpdateMinimap(CallbackUpdateView callback)
-		{
-			if (_spectatedTransform == null)
-			{
-				return;
-			}
-
-			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(_spectatedTransform.position);
-
-			UpdatePlayerIndicator(playerViewportPoint);
-			UpdateAirdropIndicators(playerViewportPoint, callback.Game.Frames.Predicted.Time);
-			UpdateMap(playerViewportPoint, callback.Game.Frames.Predicted);
-		}
-
-		private void UpdatePlayerIndicator(Vector3 playerViewportPoint)
+		private void UpdatePlayerIndicator(Vector3 playerViewportPoint, Transform3D playerTransform)
 		{
 			// Rotation
-			_playerIndicator.rotation =
-				Quaternion.Euler(0, 0, 360f - _spectatedTransform.rotation.eulerAngles.y);
+			_playerIndicator.rotation = Quaternion.Euler(0, 0, 360f - playerTransform.Rotation.AsEuler.Y.AsFloat);
 
 			// Position (only relevant in opened map)
 			_playerIndicator.anchoredPosition = ViewportToMinimapPosition(playerViewportPoint, playerViewportPoint);
 		}
 
-		private void UpdateMap(Vector3 playerViewportPoint, Frame f)
+		private void UpdateMap(Frame f, Vector3 playerViewportPoint, Transform3D playerTransform3D)
 		{
 			if (!f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
@@ -306,7 +197,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
 			// Players
-			if (Shader.IsKeywordEnabled("MINIMAP_DRAW_PLAYERS"))
+			if (Shader.IsKeywordEnabled(GameConstants.Visuals.SHADER_MINIMAP_DRAW_PLAYERS))
 			{
 				_playerPositions.Clear();
 				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
@@ -321,10 +212,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_minimapImage.materialForRendering.SetInteger(_playersCountPID, _playerPositions.Count);
 			}
 
-			UpdateSafeAreaArrow(circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
+			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
 		}
 
-		private void UpdateSafeAreaArrow(Vector3 circleCenter, float circleRadius)
+		private void UpdateSafeAreaArrow(Transform3D playerTransform3D, Vector3 circleCenter, float circleRadius)
 		{
 			if (!_safeAreaSet) return;
 			
@@ -333,7 +224,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
 			var isArrowActive = _safeAreaArrow.gameObject.activeSelf;
 			var circleRadiusSq = circleRadius * circleRadius;
-			var distanceSqrt = (circleCenter - _spectatedTransform.position).sqrMagnitude;
+			var distanceSqrt = (circleCenter - playerTransform3D.Position.ToUnityVector3()).sqrMagnitude;
 
 			_safeAreaArrow.anchoredPosition = _playerIndicator.anchoredPosition;
 			_safeAreaArrow.eulerAngles = new Vector3(0, 0, targetAngle);
@@ -350,23 +241,105 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateAirdropIndicators(Vector3 playerViewportPoint, FP time)
 		{
-			foreach (var indicator in _airdropPool.SpawnedReadOnly)
+			for (var i = 0; i < _airdropPool.SpawnedReadOnly.Count; i++)
 			{
+				var indicator = _airdropPool.SpawnedReadOnly[i];
 				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
 				indicator.UpdateTime(time);
 			}
 		}
 
+		private void OnClick()
+		{
+			if (_opened)
+			{
+				CloseMinimap();
+			}
+			else
+			{
+				OpenMinimap();
+			}
+		}
+
+		private void OpenMinimap()
+		{
+			_tweenerSize?.Kill();
+			
+			_opened = true;
+			_tweenerSize = DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimapSize).SetEase(_openCloseEase);
+			_backgroundImage.raycastTarget = true;
+		}
+
+		private void CloseMinimap()
+		{
+			_tweenerSize?.Kill();
+			
+			_opened = false;
+			_tweenerSize = DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimapSize).SetEase(_openCloseEase);
+			_backgroundImage.raycastTarget = false;
+		}
+
+		[Button, HideInEditorMode]
+		private void RenderMinimap()
+		{
+			var ct = _minimapCamera.transform;
+			ct.SetParent(null);
+			ct.position = new Vector3(0, _cameraHeight, 0);
+			_minimapCamera.Render();
+		}
+
+		private void OnGameStarted(CallbackGameStarted callback)
+		{
+			RenderMinimap();
+		}
+
+		private void OnGameResync(CallbackGameResynced callback)
+		{
+			_airdropPool.DespawnAll();
+			foreach (var (entity, airDrop) in callback.Game.Frames.Predicted.GetComponentIterator<AirDrop>())
+			{
+				SpawnAirdrop(entity, airDrop);
+			}
+		}
+
+		private void OnAirDropDropped(EventOnAirDropDropped callback)
+		{
+			SpawnAirdrop(callback.Entity, callback.AirDrop);
+		}
+
+		private void OnAirDropLanded(EventOnAirDropLanded callback)
+		{
+			var poolSpawnedReadOnly = _airdropPool.SpawnedReadOnly;
+
+			for (var i = 0; i < poolSpawnedReadOnly.Count; i++)
+			{
+				if (poolSpawnedReadOnly[i].Entity == callback.Entity)
+				{
+					poolSpawnedReadOnly[i].OnLanded();
+					break;
+				}
+			}
+		}
+
+		private void OnAirDropCollected(EventOnAirDropCollected callback)
+		{
+			var poolSpawnedReadOnly = _airdropPool.SpawnedReadOnly;
+
+			for (var i = 0; i < poolSpawnedReadOnly.Count; i++)
+			{
+				if (poolSpawnedReadOnly[i].Entity == callback.Entity)
+				{
+					_airdropPool.Despawn(poolSpawnedReadOnly[i]);
+					break;
+				}
+			}
+		}
+
 		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)
 		{
-			if (_displayedAirdrops.ContainsKey(entity))
-			{
-				return;
-			}
-			
 			var airdropView = _airdropPool.Spawn();
-			airdropView.SetAirdrop(airDrop, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
-			_displayedAirdrops.Add(entity, airdropView);
+			
+			airdropView.SetAirdrop(airDrop, entity, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)

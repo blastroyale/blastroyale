@@ -20,8 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public unsafe class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
-		[SerializeField, Required] private SpecialButtonView _specialButton0;
-		[SerializeField, Required] private SpecialButtonView _specialButton1;
+		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
 		[SerializeField] private Button[] _weaponSlotButtons;
 		[SerializeField, Required] private GameObject _weaponSlotsHolder;
@@ -133,8 +132,6 @@ namespace FirstLight.Game.Presenters
 				    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 				{
 					SendSpecialUsedCommand(0, aim);
-					// TODO: Check charges:
-					// _localInput.Gameplay.SpecialButton0.Disable();
 				}
 			}
 		}
@@ -162,9 +159,6 @@ namespace FirstLight.Game.Presenters
 			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 			{
 				SendSpecialUsedCommand(1, aim);
-				
-				// TODO: Check charges:
-				// _localInput.Gameplay.SpecialButton0.Disable();
 			}
 		}
 		
@@ -176,8 +170,8 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotsHolder.SetActive(f.Context.MapConfig.GameMode == GameMode.BattleRoyale);
 			_localInput.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
-			_indicatorContainerView.SetupWeaponInfo(playerCharacter.WeaponSlot);
-			SetupSpecialsInput(f.Time, playerCharacter.WeaponSlot, playerView);
+			_indicatorContainerView.SetupWeaponInfo(playerCharacter.CurrentWeapon.GameId);
+			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 		}
 
 		private void OnUpdateView(CallbackUpdateView callback)
@@ -221,7 +215,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
 			
-			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot);
+			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot.Weapon.GameId);
 			SetupSpecialsInput(callback.Game.Frames.Predicted.Time, callback.WeaponSlot, playerView);
 		}
 
@@ -281,6 +275,9 @@ namespace FirstLight.Game.Presenters
 
 		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
+			// TODO: Check charges:
+			// _localInput.Gameplay.SpecialButton0.Disable();
+			
 			var command = new SpecialUsedCommand
 			{
 				SpecialIndex = specialIndex,
@@ -292,6 +289,14 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnWeaponSlotClicked(int weaponSlotIndex)
 		{
+			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
+
+			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
+			if (!f.Get<PlayerCharacter>(data.Entity).WeaponSlots[weaponSlotIndex].Weapon.IsValid())
+			{
+				return;
+			}
+			
 			var command = new WeaponSlotSwitchCommand()
 			{
 				WeaponSlotIndex = weaponSlotIndex
@@ -302,36 +307,22 @@ namespace FirstLight.Game.Presenters
 
 		private void SetupSpecialsInput(FP currentTime, WeaponSlot weaponSlot, EntityView playerView)
 		{
-			var configProvider = _services.ConfigsProvider;
+			for (var i = 0; i < weaponSlot.Specials.Length; i++)
+			{
+				var special = weaponSlot.Specials[i];
 				
-			configProvider.TryGetConfig<QuantumSpecialConfig>((int) weaponSlot.Special1.SpecialId, out var configSpecial1);
-			configProvider.TryGetConfig<QuantumSpecialConfig>((int) weaponSlot.Special2.SpecialId, out var configSpecial2);
-			
-			_indicatorContainerView.SetupIndicator(0, configSpecial1, playerView);
-			_indicatorContainerView.SetupIndicator(1, configSpecial2, playerView);
-			
-			if (weaponSlot.Special1.IsValid)
-			{
-				_localInput.Gameplay.SpecialButton1.Enable();
-				_specialButton0.Init(currentTime, weaponSlot.Special1.SpecialId, weaponSlot.Special1.Cooldown, 
-				                     weaponSlot.Special1AvailableTime, weaponSlot.Special1Charges > 0);
-			}
-			else
-			{
-				_localInput.Gameplay.SpecialButton0.Disable();
-				_specialButton0.gameObject.SetActive(false);
-			}
-			
-			if (weaponSlot.Special2.IsValid)
-			{
-				_localInput.Gameplay.SpecialButton0.Enable();
-				_specialButton1.Init(currentTime, weaponSlot.Special2.SpecialId, weaponSlot.Special2.Cooldown, 
-				                     weaponSlot.Special2AvailableTime, weaponSlot.Special2Charges > 0);
-			}
-			else
-			{
-				_localInput.Gameplay.SpecialButton1.Disable();
-				_specialButton1.gameObject.SetActive(false);
+				_indicatorContainerView.SetupIndicator(0, weaponSlot.Specials[i].SpecialId, playerView);
+
+				if (special.IsValid)
+				{
+					_localInput.Gameplay.GetSpecialButton(i).Enable();
+					_specialButtons[i].Init(currentTime, special);
+				}
+				else
+				{
+					_localInput.Gameplay.GetSpecialButton(i).Disable();
+					_specialButtons[i].gameObject.SetActive(false);
+				}
 			}
 		}
 	}

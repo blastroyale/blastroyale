@@ -14,17 +14,22 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Special with all the necessary data
 		/// </summary>
-		public Special(QuantumSpecialConfig config) : this()
+		public Special(Frame f, GameId specialId) : this()
 		{
-			SpecialId = config.Id;
+			var config = f.SpecialConfigs.GetConfig(specialId);
+			
+			SpecialId = specialId;
 			SpecialType = config.SpecialType;
 			Cooldown = config.Cooldown;
 			Radius = config.Radius;
 			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;
+			MinRange = config.MinRange;
 			MaxRange = config.MaxRange;
 			InitialCooldown = config.InitialCooldown;
 			Knockback = config.Knockback;
+			AvailableTime = f.Time + InitialCooldown;
+			Charges = 1;
 		}
 
 		/// <summary>
@@ -32,10 +37,12 @@ namespace Quantum
 		/// </summary>
 		public bool TryActivate(Frame f, EntityRef playerEntity, FPVector2 aimInput, int specialIndex)
 		{
-			if (!IsValid || !TryUse(f, playerEntity, aimInput))
+			if (!IsValid || Charges == 0 || f.Time < AvailableTime || !TryUse(f, playerEntity, aimInput))
 			{
 				return false;
 			}
+
+			AvailableTime = f.Time + Cooldown;
 			
 			f.Signals.SpecialUsed(playerEntity, this, specialIndex);
 			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex);

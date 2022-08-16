@@ -31,7 +31,7 @@ namespace Quantum
 					return;
 				}
 
-				OnLocalPlayerWeaponChanged(player, entity, playerCharacter->WeaponSlot, slot);
+				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot);
 			}
 			
 			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
@@ -52,16 +52,14 @@ namespace Quantum
 			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex)
 			{
 				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
-				var charges = playerCharacter->GetSpecialCharges(specialIndex);
-				var availableTime = playerCharacter->GetSpecialAvailableTime(specialIndex);
-				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, charges, availableTime);
+				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
 
 				if (ev == null || !_f.Context.IsLocalPlayer(playerCharacter->Player))
 				{
 					return;
 				}
 
-				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, charges, availableTime);
+				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
 			}
 			
 			public void OnPlayerKilledPlayer(PlayerRef playerDead, PlayerRef playerKiller)

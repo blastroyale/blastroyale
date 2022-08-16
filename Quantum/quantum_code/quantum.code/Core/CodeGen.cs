@@ -2675,33 +2675,42 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Special {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 80;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
-    public FP Cooldown;
-    [FieldOffset(24)]
-    public FP InitialCooldown;
+    public FP AvailableTime;
     [FieldOffset(8)]
-    public UInt32 Knockback;
+    public UInt32 Charges;
+    [FieldOffset(24)]
+    public FP Cooldown;
     [FieldOffset(32)]
-    public FP MaxRange;
+    public FP InitialCooldown;
+    [FieldOffset(12)]
+    public UInt32 Knockback;
     [FieldOffset(40)]
+    public FP MaxRange;
+    [FieldOffset(48)]
+    public FP MinRange;
+    [FieldOffset(56)]
     public FP Radius;
     [FieldOffset(0)]
     public GameId SpecialId;
-    [FieldOffset(48)]
+    [FieldOffset(64)]
     public FP SpecialPower;
     [FieldOffset(4)]
     public SpecialType SpecialType;
-    [FieldOffset(56)]
+    [FieldOffset(72)]
     public FP Speed;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 311;
+        hash = hash * 31 + AvailableTime.GetHashCode();
+        hash = hash * 31 + Charges.GetHashCode();
         hash = hash * 31 + Cooldown.GetHashCode();
         hash = hash * 31 + InitialCooldown.GetHashCode();
         hash = hash * 31 + Knockback.GetHashCode();
         hash = hash * 31 + MaxRange.GetHashCode();
+        hash = hash * 31 + MinRange.GetHashCode();
         hash = hash * 31 + Radius.GetHashCode();
         hash = hash * 31 + (Int32)SpecialId;
         hash = hash * 31 + SpecialPower.GetHashCode();
@@ -2714,10 +2723,13 @@ namespace Quantum {
         var p = (Special*)ptr;
         serializer.Stream.Serialize((Int32*)&p->SpecialId);
         serializer.Stream.Serialize((Int32*)&p->SpecialType);
+        serializer.Stream.Serialize(&p->Charges);
         serializer.Stream.Serialize(&p->Knockback);
+        FP.Serialize(&p->AvailableTime, serializer);
         FP.Serialize(&p->Cooldown, serializer);
         FP.Serialize(&p->InitialCooldown, serializer);
         FP.Serialize(&p->MaxRange, serializer);
+        FP.Serialize(&p->MinRange, serializer);
         FP.Serialize(&p->Radius, serializer);
         FP.Serialize(&p->SpecialPower, serializer);
         FP.Serialize(&p->Speed, serializer);
@@ -2880,44 +2892,30 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponSlot {
-    public const Int32 SIZE = 216;
+    public const Int32 SIZE = 224;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(88)]
-    public Special Special1;
-    [FieldOffset(8)]
-    public FP Special1AvailableTime;
+    [FieldOffset(64)]
+    [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
+    private fixed Byte _Specials_[160];
     [FieldOffset(0)]
-    public Int32 Special1Charges;
-    [FieldOffset(152)]
-    public Special Special2;
-    [FieldOffset(16)]
-    public FP Special2AvailableTime;
-    [FieldOffset(4)]
-    public Int32 Special2Charges;
-    [FieldOffset(24)]
     public Equipment Weapon;
+    public FixedArray<Special> Specials {
+      get {
+        fixed (byte* p = _Specials_) { return new FixedArray<Special>(p, 80, 2); }
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 347;
-        hash = hash * 31 + Special1.GetHashCode();
-        hash = hash * 31 + Special1AvailableTime.GetHashCode();
-        hash = hash * 31 + Special1Charges.GetHashCode();
-        hash = hash * 31 + Special2.GetHashCode();
-        hash = hash * 31 + Special2AvailableTime.GetHashCode();
-        hash = hash * 31 + Special2Charges.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Specials);
         hash = hash * 31 + Weapon.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponSlot*)ptr;
-        serializer.Stream.Serialize(&p->Special1Charges);
-        serializer.Stream.Serialize(&p->Special2Charges);
-        FP.Serialize(&p->Special1AvailableTime, serializer);
-        FP.Serialize(&p->Special2AvailableTime, serializer);
         Quantum.Equipment.Serialize(&p->Weapon, serializer);
-        Quantum.Special.Serialize(&p->Special1, serializer);
-        Quantum.Special.Serialize(&p->Special2, serializer);
+        FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -4099,7 +4097,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 968;
+    public const Int32 SIZE = 992;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -4125,7 +4123,7 @@ namespace Quantum {
     [FieldOffset(320)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
-    private fixed Byte _WeaponSlots_[648];
+    private fixed Byte _WeaponSlots_[672];
     public FixedArray<Equipment> Gear {
       get {
         fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 4); }
@@ -4133,7 +4131,7 @@ namespace Quantum {
     }
     public FixedArray<WeaponSlot> WeaponSlots {
       get {
-        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 216, 3); }
+        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 224, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -5532,15 +5530,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerSpecialUsed OnPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex, Int32 RemainingCharges, FP AvailableTime) {
+      public EventOnPlayerSpecialUsed OnPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerSpecialUsed>(EventOnPlayerSpecialUsed.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
-        ev.RemainingCharges = RemainingCharges;
-        ev.AvailableTime = AvailableTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5672,7 +5668,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerSpecialUsed OnLocalPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex, Int32 RemainingCharges, FP AvailableTime) {
+      public EventOnLocalPlayerSpecialUsed OnLocalPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSpecialUsed>(EventOnLocalPlayerSpecialUsed.ID);
@@ -5680,8 +5676,6 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
-        ev.RemainingCharges = RemainingCharges;
-        ev.AvailableTime = AvailableTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7348,8 +7342,6 @@ namespace Quantum {
     public EntityRef Entity;
     public Special Special;
     public Int32 SpecialIndex;
-    public Int32 RemainingCharges;
-    public FP AvailableTime;
     protected EventOnPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7371,8 +7363,6 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
-        hash = hash * 31 + RemainingCharges.GetHashCode();
-        hash = hash * 31 + AvailableTime.GetHashCode();
         return hash;
       }
     }
@@ -7747,8 +7737,6 @@ namespace Quantum {
     public EntityRef Entity;
     public Special Special;
     public Int32 SpecialIndex;
-    public Int32 RemainingCharges;
-    public FP AvailableTime;
     protected EventOnLocalPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7770,8 +7758,6 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
-        hash = hash * 31 + RemainingCharges.GetHashCode();
-        hash = hash * 31 + AvailableTime.GetHashCode();
         return hash;
       }
     }
@@ -8120,6 +8106,7 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeStatData;
     public static FrameSerializer.Delegate SerializeAssetRefConsideration;
     public static FrameSerializer.Delegate SerializeUTMomentumPack;
+    public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeEntityPair;
     public static FrameSerializer.Delegate SerializeInput;
     static partial void InitGen() {
@@ -8140,6 +8127,7 @@ namespace Quantum {
       SerializeStatData = Quantum.StatData.Serialize;
       SerializeAssetRefConsideration = Quantum.AssetRefConsideration.Serialize;
       SerializeUTMomentumPack = Quantum.UTMomentumPack.Serialize;
+      SerializeSpecial = Quantum.Special.Serialize;
       SerializeEntityPair = Quantum.EntityPair.Serialize;
       SerializeInput = Quantum.Input.Serialize;
     }
@@ -9803,14 +9791,20 @@ namespace Quantum.Prototypes {
     public FP Radius;
     public FP SpecialPower;
     public FP Speed;
+    public FP MinRange;
     public FP MaxRange;
+    public FP AvailableTime;
+    public UInt32 Charges;
     public UInt32 Knockback;
     partial void MaterializeUser(Frame frame, ref Special result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Special result, in PrototypeMaterializationContext context) {
+      result.AvailableTime = this.AvailableTime;
+      result.Charges = this.Charges;
       result.Cooldown = this.Cooldown;
       result.InitialCooldown = this.InitialCooldown;
       result.Knockback = this.Knockback;
       result.MaxRange = this.MaxRange;
+      result.MinRange = this.MinRange;
       result.Radius = this.Radius;
       result.SpecialId = this.SpecialId;
       result.SpecialPower = this.SpecialPower;
@@ -10110,20 +10104,13 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(WeaponSlot))]
   public sealed unsafe partial class WeaponSlot_Prototype : StructPrototype {
     public Equipment_Prototype Weapon;
-    public Int32 Special1Charges;
-    public Int32 Special2Charges;
-    public Special_Prototype Special1;
-    public Special_Prototype Special2;
-    public FP Special1AvailableTime;
-    public FP Special2AvailableTime;
+    [ArrayLengthAttribute(2)]
+    public Special_Prototype[] Specials = new Special_Prototype[2];
     partial void MaterializeUser(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context) {
-      this.Special1.Materialize(frame, ref result.Special1, in context);
-      result.Special1AvailableTime = this.Special1AvailableTime;
-      result.Special1Charges = this.Special1Charges;
-      this.Special2.Materialize(frame, ref result.Special2, in context);
-      result.Special2AvailableTime = this.Special2AvailableTime;
-      result.Special2Charges = this.Special2Charges;
+      for (int i = 0, count = PrototypeValidator.CheckLength(Specials, 2, in context); i < count; ++i) {
+        this.Specials[i].Materialize(frame, ref *result.Specials.GetPointer(i), in context);
+      }
       this.Weapon.Materialize(frame, ref result.Weapon, in context);
       MaterializeUser(frame, ref result, in context);
     }

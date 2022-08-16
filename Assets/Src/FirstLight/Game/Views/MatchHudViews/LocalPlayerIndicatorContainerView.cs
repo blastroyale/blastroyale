@@ -86,11 +86,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Setups all the indicators with the given data
 		/// </summary>
-		public void SetupWeaponInfo(WeaponSlot weaponSlot)
+		public void SetupWeaponInfo(GameId weaponId)
 		{
-			var configProvider = _services.ConfigsProvider;
-			
-			_weaponConfig = configProvider.GetConfig<QuantumWeaponConfig>((int) weaponSlot.Weapon.GameId);
+			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
 			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
@@ -99,8 +97,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Setups the indicator configs for the specials
 		/// </summary>
-		public void SetupIndicator(int index, QuantumSpecialConfig config, EntityView playerView)
+		public void SetupIndicator(int index, GameId specialId, EntityView playerView)
 		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumSpecialConfig>((int)specialId);
+			
 			if (_specialIndicators[index] != null)
 			{
 				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);

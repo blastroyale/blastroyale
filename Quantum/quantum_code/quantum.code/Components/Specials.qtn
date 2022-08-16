@@ -9,7 +9,10 @@ struct Special
 	FP Radius;
 	FP SpecialPower;
 	FP Speed;
+	FP MinRange;
 	FP MaxRange;
+	FP AvailableTime;
+	UInt32 Charges;
 	UInt32 Knockback;
 }
 

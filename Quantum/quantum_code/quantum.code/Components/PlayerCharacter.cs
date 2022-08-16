@@ -9,12 +9,12 @@ namespace Quantum
 		/// <summary>
 		/// Requests the current weapon of player character
 		/// </summary>
-		public Equipment CurrentWeapon => WeaponSlot.Weapon;
+		public Equipment CurrentWeapon => WeaponSlot->Weapon;
 		
 		/// <summary>
 		/// Requests the current weapon slot of player character
 		/// </summary>
-		public WeaponSlot WeaponSlot => WeaponSlots[CurrentWeaponSlot];
+		public WeaponSlot* WeaponSlot => WeaponSlots.GetPointer(CurrentWeaponSlot);
 
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
@@ -38,6 +38,11 @@ namespace Quantum
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
+			
+			foreach (var item in startingEquipment)
+			{
+				Gear[GetGearSlot(item)] = item;
+			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
@@ -49,8 +54,6 @@ namespace Quantum
 
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
-
-			InitEquipment(f, e, startingEquipment);
 			
 			f.Add<Stats>(e);
 			f.Add<HFSMAgent>(e);
@@ -64,13 +67,10 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{
-			// Replenish Special's charges
-			for (var i = 0; i < WeaponSlots.Length; i++)
+			// Replenish weapon slots
+			for (var i = Constants.WEAPON_INDEX_DEFAULT + 1; i < WeaponSlots.Length; i++)
 			{
-				WeaponSlots[i].Special1Charges = 1;
-				WeaponSlots[i].Special2Charges = 1;
-				WeaponSlots[i].Special1AvailableTime = FP._0;
-				WeaponSlots[i].Special2AvailableTime = FP._0;
+				WeaponSlots[i] = default;
 			}
 
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
@@ -81,6 +81,13 @@ namespace Quantum
 			else
 			{
 				SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
+				
+				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
+				
+				for (var i = 0; i < defaultSlot->Specials.Length; i++)
+				{
+					defaultSlot->Specials[i] = new Special(f, defaultSlot->Specials[i].SpecialId);
+				}
 			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
@@ -193,6 +200,8 @@ namespace Quantum
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
+			
+			EquipSlotWeapon(f, e, slot);
 		}
 
 		/// <summary>
@@ -200,8 +209,22 @@ namespace Quantum
 		/// </summary>
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
-			SetSlotWeapon(f, e, slot);
-			RefreshEquipmentStats(f, e);
+			var weaponConfig = SetSlotWeapon(f, e, slot);
+
+			for (var i = 0; i < WeaponSlot->Specials.Length; i++)
+			{
+				var id = weaponConfig.Specials[i];
+				var special	= id == default ? new Special() : new Special(f, id);
+
+				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
+				if (id == WeaponSlot->Specials[i].SpecialId)
+				{
+					special.Charges++;
+					special.AvailableTime = FPMath.Min(WeaponSlot->Specials[i].AvailableTime, special.AvailableTime);
+				}
+
+				WeaponSlot->Specials[i] = special;
+			}
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 		}
@@ -215,10 +238,10 @@ namespace Quantum
 
 			var gearSlot = GetGearSlot(gear);
 			Gear[gearSlot] = gear;
+			
+			RefreshEquipmentStats(f, e);
 
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
-
-			RefreshEquipmentStats(f, e);
 		}
 
 		/// <summary>
@@ -258,45 +281,6 @@ namespace Quantum
 		public bool HasMeleeWeapon(Frame f, EntityRef e)
 		{
 			return f.Get<AIBlackboardComponent>(e).GetBoolean(f, Constants.HasMeleeWeaponKey);
-		}
-
-		/// <summary>
-		/// Requests the weapon's <see cref="Special"/> for the given <paramref name="specialIndex"/>
-		/// </summary>
-		public Special GetSpecial(int specialIndex)
-		{
-			if (specialIndex == 1)
-			{
-				return WeaponSlot.Special1;
-			}
-
-			return WeaponSlot.Special2;
-		}
-
-		/// <summary>
-		/// Requests the current amount charges in the given <paramref name="specialIndex"/>
-		/// </summary>
-		public int GetSpecialCharges(int specialIndex)
-		{
-			if (specialIndex == 1)
-			{
-				return WeaponSlot.Special1Charges;
-			}
-
-			return WeaponSlot.Special2Charges;
-		}
-
-		/// <summary>
-		/// Requests the time the special for the given <paramref name="specialIndex"/> is available to be used
-		/// </summary>
-		public FP GetSpecialAvailableTime(int specialIndex)
-		{
-			if (specialIndex == 1)
-			{
-				return WeaponSlot.Special1AvailableTime;
-			}
-
-			return WeaponSlot.Special2AvailableTime;
 		}
 
 		/// <summary>
@@ -456,45 +440,17 @@ namespace Quantum
 			f.Events.OnPlayerStatsChanged(Player, e, previousStats, *newStats);
 		}
 
-		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
-		{
-			foreach (var item in equipment)
-			{
-				if (item.IsWeapon())
-				{
-					AddWeapon(f, e, item, true);
-				}
-				else
-				{
-					Gear[GetGearSlot(item)] = item;
-				}
-			}
-		}
-
-		private Special GetSpecial(Frame f, GameId specialId)
-		{
-			if (specialId == default)
-			{
-				return new Special();
-			}
-
-			return new Special(f.SpecialConfigs.GetConfig(specialId));
-		}
-
-		private void SetSlotWeapon(Frame f, EntityRef e, int slot)
+		private QuantumWeaponConfig SetSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			CurrentWeaponSlot = slot;
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
-			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			var burstCount = weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER /weaponConfig.NumberOfBursts;
 			//the total time it takes for a burst to complete should be half of the weapon's cooldown
 			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts == 1
-				                    ? 0
-				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) /
-				                      weaponConfig.NumberOfBursts;
+			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 0 : burstCount;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
@@ -502,20 +458,10 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+			
+			RefreshEquipmentStats(f, e);
 
-			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
-			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
-
-			if (weaponSlot.Special1AvailableTime < FP.SmallestNonZero)
-			{
-				weaponSlot.Special1AvailableTime = weaponSlot.Special1.InitialCooldown;
-			}
-			if (weaponSlot.Special2AvailableTime < FP.SmallestNonZero)
-			{
-				weaponSlot.Special1AvailableTime = weaponSlot.Special2.InitialCooldown;
-			}
-
-			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
+			return weaponConfig;
 		}
 	}
 }

@@ -24,29 +24,11 @@ namespace Quantum.Commands
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
-			var special = playerCharacter->GetSpecial(SpecialIndex);
+			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
 
-			if (playerCharacter->GetSpecialCharges(SpecialIndex) > 0 && 
-			    f.Time >= playerCharacter->GetSpecialAvailableTime(SpecialIndex) &&
-			    special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
+			if (special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
 			{
-				var weaponSlot = playerCharacter->WeaponSlot;
-
-				switch (SpecialIndex)
-				{
-					case 0:
-					{
-						weaponSlot.Special1AvailableTime = f.Time + special.Cooldown;
-						break;
-					}
-					case 1:
-					{
-						weaponSlot.Special2AvailableTime = f.Time + special.Cooldown;
-						break;
-					}
-				}
-
-				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
+				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;
 			}
 		}
 	}

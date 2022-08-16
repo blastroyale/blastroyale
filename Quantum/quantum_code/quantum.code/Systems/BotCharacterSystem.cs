@@ -321,30 +321,12 @@ namespace Quantum.Systems
 
 		private bool TryUseSpecial(Frame f, PlayerCharacter* playerCharacter, int specialIndex, EntityRef entity, EntityRef target)
 		{
-			var special = playerCharacter->GetSpecial(specialIndex);
-			
+			var special = playerCharacter->WeaponSlot->Specials[specialIndex];
+
 			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
-			    playerCharacter->GetSpecialCharges(specialIndex) > 0 && 
-			    f.Time >= playerCharacter->GetSpecialAvailableTime(specialIndex) &&
 			    special.TryActivate(f, entity, FPVector2.Zero, specialIndex))
 			{
-				var weaponSlot = playerCharacter->WeaponSlot;
-
-				switch (specialIndex)
-				{
-					case 0:
-					{
-						weaponSlot.Special1AvailableTime = f.Time + special.Cooldown;
-						break;
-					}
-					case 1:
-					{
-						weaponSlot.Special2AvailableTime = f.Time + special.Cooldown;
-						break;
-					}
-				}
-
-				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
+				playerCharacter->WeaponSlot->Specials[specialIndex] = special;
 				return true;
 			}
 

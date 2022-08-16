@@ -87,9 +87,9 @@ public class NftSynchronizer
 		    }
 
 		    equipmentData.LastUpdateTimestamp = lastBlockchainUpdate;
-		    serverState.SetModel(equipmentData);
-		    serverState.SetModel(idData);
-		    serverState.SetModel(playerData);
+		    serverState.UpdateModel(equipmentData);
+		    serverState.UpdateModel(idData);
+		    serverState.UpdateModel(playerData);
 		    await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
 	    }
 	    finally

@@ -17,2577 +17,43 @@ MonoBehaviour:
     UserAgreesToHaveItInsideThePluginsFolder: 0
     GoogleLiveSyncIsUptoDate: 1
     mTerms:
-    - Term: General/ATTDescription
+    - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
       Languages:
-      - This identifier will be used to measure advertising efficiency.
+      - Adventure Completed!
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: General/AWESOME
+    - Term: AdventureMenu/AirDropIncomingLine1
       TermType: 0
       Description: 
       Languages:
-      - AWESOME!
+      - Air Drop Incoming!
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: General/Appearance
+    - Term: AdventureMenu/AirDropIncomingLine2
       TermType: 0
       Description: 
       Languages:
-      - Appearance
+      - Hurry Up!
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: General/AreYouSure
+    - Term: AdventureMenu/AreYouSureQuit
       TermType: 0
       Description: 
       Languages:
-      - Are you Sure?
+      - Are you sure you want to quit?
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: General/Armor
+    - Term: AdventureMenu/AreaShrinking
       TermType: 0
       Description: 
       Languages:
-      - Armor
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/AttackCooldown
-      TermType: 0
-      Description: 
-      Languages:
-      - Cooldown
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/DEFEATED
-      TermType: 0
-      Description: 
-      Languages:
-      - DEFEATED!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Back
-      TermType: 0
-      Description: 
-      Languages:
-      - Back
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/CONTINUE
-      TermType: 0
-      Description: 
-      Languages:
-      - CONTINUE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/CollectItemsFromCrates
-      TermType: 0
-      Description: 
-      Languages:
-      - Collect new equipment from crates and cores found in Adventures!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/CompareEquipment
-      TermType: 0
-      Description: 
-      Languages:
-      - Compare Equipment
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Confirm
-      TermType: 0
-      Description: 
-      Languages:
-      - Confirm
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/ConfirmIAPPurchase
-      TermType: 0
-      Description: 
-      Languages:
-      - Confirm your In-App Purchase
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/ConfirmQuit
-      TermType: 0
-      Description: 
-      Languages:
-      - Are you sure you want to quit? You will lose all of your collected loot!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Damage
-      TermType: 0
-      Description: 
-      Languages:
-      - Damage
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Decline
-      TermType: 0
-      Description: 
-      Languages:
-      - Decline
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/DefeatBoss
-      TermType: 0
-      Description: 
-      Languages:
-      - Defeat {0}!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Disconnected
-      TermType: 0
-      Description: 
-      Languages:
-      - Disconnected
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Equip
-      TermType: 0
-      Description: 
-      Languages:
-      - EQUIP
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/EquipLastWeaponWarning
-      TermType: 0
-      Description: 
-      Languages:
-      - You only have one weapon left, so can't unequip it.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Equipment
-      TermType: 0
-      Description: 
-      Languages:
-      - Equipment
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Equipped
-      TermType: 0
-      Description: 
-      Languages:
-      - EQUIPPED
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/ExitGame
-      TermType: 0
-      Description: 
-      Languages:
-      - EXIT GAME
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/FailureReason1
-      TermType: 0
-      Description: 
-      Languages:
-      - Reason1
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/FailureReason2
-      TermType: 0
-      Description: 
-      Languages:
-      - Reason2
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/FailureReason3
-      TermType: 0
-      Description: 
-      Languages:
-      - Reason3
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Get Ready!
-      TermType: 0
-      Description: 
-      Languages:
-      - Get Ready!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/GoToShop
-      TermType: 0
-      Description: 
-      Languages:
-      - Would you like to go to the shop
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Heroes
-      TermType: 0
-      Description: 
-      Languages:
-      - Heroes
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Home
-      TermType: 0
-      Description: 
-      Languages:
-      - Home
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Spectate
-      TermType: 0
-      Description: 
-      Languages:
-      - Spectate
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Leave
-      TermType: 0
-      Description: 
-      Languages:
-      - Leave
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Hp
-      TermType: 0
-      Description: 
-      Languages:
-      - HP
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/LeaveFeedback
-      TermType: 0
-      Description: 
-      Languages:
-      - Leave Feedback!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Level
-      TermType: 0
-      Description: 
-      Languages:
-      - Level
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Map
-      TermType: 0
-      Description: 
-      Languages:
-      - MAP
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/MaxCapacity
-      TermType: 0
-      Description: 
-      Languages:
-      - Max Capacity
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/MaxLevel
-      TermType: 0
-      Description: 
-      Languages:
-      - MAX LEVEL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/No
-      TermType: 0
-      Description: 
-      Languages:
-      - NO
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/NoInternet
-      TermType: 0
-      Description: 
-      Languages:
-      - No Internet Connection
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/NoInternetDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Unable to connect to the server.
-
-        Check your internet connection.'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/NoItemsCollectedYet
-      TermType: 0
-      Description: 
-      Languages:
-      - No items collected yet
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/NotEnoughCash
-      TermType: 0
-      Description: 
-      Languages:
-      - Not Enough Cash
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/NotEnoughGems
-      TermType: 0
-      Description: 
-      Languages:
-      - You don't have enough Gems!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/OK
-      TermType: 0
-      Description: 
-      Languages:
-      - OK
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Open
-      TermType: 0
-      Description: 
-      Languages:
-      - OPEN
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/PrimarySpecial
-      TermType: 0
-      Description: 
-      Languages:
-      - Primary Special
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/ProjectileArmor
-      TermType: 0
-      Description: 
-      Languages:
-      - Projectile Armor
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/ProjectileSpeed
-      TermType: 0
-      Description: 
-      Languages:
-      - Speed
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/RESULTS
-      TermType: 0
-      Description: 
-      Languages:
-      - RESULTS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/REWARDS
-      TermType: 0
-      Description: 
-      Languages:
-      - REWARDS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ready
-      TermType: 0
-      Description: 
-      Languages:
-      - Ready
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/ReloadSpeed
-      TermType: 0
-      Description: 
-      Languages:
-      - Reload Speed
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Reloading
-      TermType: 0
-      Description: 
-      Languages:
-      - Reloading
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Replace
-      TermType: 0
-      Description: 
-      Languages:
-      - REPLACE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/RequireWeapon
-      TermType: 0
-      Description: 
-      Languages:
-      - You must have a weapon equipped in order to play a game!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/SecondarySpecial
-      TermType: 0
-      Description: 
-      Languages:
-      - Second Special
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Select
-      TermType: 0
-      Description: 
-      Languages:
-      - Select
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Selected
-      TermType: 0
-      Description: 
-      Languages:
-      - Selected
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Sell
-      TermType: 0
-      Description: 
-      Languages:
-      - SELL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/SellItemFor
-      TermType: 0
-      Description: 
-      Languages:
-      - Sell this item for {0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/SellLastWeaponWarning
-      TermType: 0
-      Description: 
-      Languages:
-      - You only have one weapon left, so aren't able to sell this item.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/SlotEmpty
-      TermType: 0
-      Description: 
-      Languages:
-      - Slot Empty
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/SpecialId
-      TermType: 0
-      Description: 
-      Languages:
-      - Special
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Speed
-      TermType: 0
-      Description: 
-      Languages:
-      - Speed
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/TapSkip
-      TermType: 0
-      Description: 
-      Languages:
-      - Tap to Skip
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/TargetRange
-      TermType: 0
-      Description: 
-      Languages:
-      - Range
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Unequip
-      TermType: 0
-      Description: 
-      Languages:
-      - UNEQUIP
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/UnlockAtPlayerLevel
-      TermType: 0
-      Description: 
-      Languages:
-      - Unlock at Player Level {0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/UpdateGame
-      TermType: 0
-      Description: 
-      Languages:
-      - Your game is out of date! Go to the app store to get the latest version.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Upgrade
-      TermType: 0
-      Description: 
-      Languages:
-      - UPGRADE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/UpgradeFor
-      TermType: 0
-      Description: 
-      Languages:
-      - UPGRADE FOR {0} ?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/UserId
-      TermType: 0
-      Description: 
-      Languages:
-      - 'User Id: {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Victory!
-      TermType: 0
-      Description: 
-      Languages:
-      - Victory!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Yes
-      TermType: 0
-      Description: 
-      Languages:
-      - YES
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/YouWereDisconnected
-      TermType: 0
-      Description: 
-      Languages:
-      - You were disconnected from the game
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/character
-      TermType: 0
-      Description: 
-      Languages:
-      - character
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/NewGameUpdate
-      TermType: 0
-      Description: 
-      Languages:
-      - New Game Update
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Maintenance
-      TermType: 0
-      Description: 
-      Languages:
-      - Game in Maintenance
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/MaintenanceDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Game devs are running around like Bored Blast Apes in Royale Club
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/PlacementMessage
-      TermType: 0
-      Description: 
-      Languages:
-      - You finished {0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal1
-      TermType: 0
-      Description: 
-      Languages:
-      - st
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal2
-      TermType: 0
-      Description: 
-      Languages:
-      - nd
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal3
-      TermType: 0
-      Description: 
-      Languages:
-      - rd
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal4
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal5
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal6
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal7
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal8
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal9
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal10
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal11
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal12
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal13
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal14
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal15
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal16
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal17
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal18
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Ordinal19
-      TermType: 0
-      Description: 
-      Languages:
-      - th
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Shield
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Health
-      TermType: 0
-      Description: 
-      Languages:
-      - Health
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Armour
-      TermType: 0
-      Description: 
-      Languages:
-      - Armour
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: General/Power
-      TermType: 0
-      Description: 
-      Languages:
-      - Damage
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_1
-      TermType: 0
-      Description: 
-      Languages:
-      - Defeat Enemies to win
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_2
-      TermType: 0
-      Description: 
-      Languages:
-      - Shoot your shot!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_3
-      TermType: 0
-      Description: 
-      Languages:
-      - I'll never financially recover from this...
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_4
-      TermType: 0
-      Description: 
-      Languages:
-      - They don't think it be - but it do!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_5
-      TermType: 0
-      Description: 
-      Languages:
-      - Collect the same weapon again to refill ammo
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_6
-      TermType: 0
-      Description: 
-      Languages:
-      - Keep movin' keep groovin'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_7
-      TermType: 0
-      Description: 
-      Languages:
-      - You can't win if you can't hit me
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LoadingTips/Loading_Tip_8
-      TermType: 0
-      Description: 
-      Languages:
-      - Every weapon has its own special talent
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Court
-      TermType: 0
-      Description: 
-      Languages:
-      - Court
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Market
-      TermType: 0
-      Description: 
-      Languages:
-      - Market
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Cinema
-      TermType: 0
-      Description: 
-      Languages:
-      - Cinema
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Store
-      TermType: 0
-      Description: 
-      Languages:
-      - Store
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Fountain
-      TermType: 0
-      Description: 
-      Languages:
-      - Fountain
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Motel
-      TermType: 0
-      Description: 
-      Languages:
-      - Motel
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Slum
-      TermType: 0
-      Description: 
-      Languages:
-      - Slum
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/GasStation
-      TermType: 0
-      Description: 
-      Languages:
-      - Gas Station
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/PetShop
-      TermType: 0
-      Description: 
-      Languages:
-      - Pet Shop
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Repairs
-      TermType: 0
-      Description: 
-      Languages:
-      - Repairs
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Liberty
-      TermType: 0
-      Description: 
-      Languages:
-      - Liberty
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Diner
-      TermType: 0
-      Description: 
-      Languages:
-      - Diner
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Cafe
-      TermType: 0
-      Description: 
-      Languages:
-      - Cafe
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Tower
-      TermType: 0
-      Description: 
-      Languages:
-      - Tower
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Church
-      TermType: 0
-      Description: 
-      Languages:
-      - Church
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/MainCamp
-      TermType: 0
-      Description: 
-      Languages:
-      - Main Camp
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/EastCamp
-      TermType: 0
-      Description: 
-      Languages:
-      - East Camp
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Park
-      TermType: 0
-      Description: 
-      Languages:
-      - Park
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/TheIsle
-      TermType: 0
-      Description: 
-      Languages:
-      - The Isle
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/TheCore
-      TermType: 0
-      Description: 
-      Languages:
-      - The Core
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Aircraft
-      TermType: 0
-      Description: 
-      Languages:
-      - Aircraft
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Lighthouse
-      TermType: 0
-      Description: 
-      Languages:
-      - Lighthouse
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Port
-      TermType: 0
-      Description: 
-      Languages:
-      - Port
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MapDropPoints/Ship
-      TermType: 0
-      Description: 
-      Languages:
-      - Ship
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/Welcome
-      TermType: 0
-      Description: 
-      Languages:
-      - Welcome contender. Let us begin your training.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/UseJoystick
-      TermType: 0
-      Description: 
-      Languages:
-      - <color=#85bbfc>Drag Left Joystick to Move</color> to the Marked Area
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/MoveToArea
-      TermType: 0
-      Description: 
-      Languages:
-      - Use your LEFT THUMB to move to the Marked Area
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/CollectWeapon
-      TermType: 0
-      Description: 
-      Languages:
-      - You'll need a better weapon to succeed. <color=#85bbfc>Pick up the rifle!</color>
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/CollectWeaponTip
-      TermType: 0
-      Description: 
-      Languages:
-      - Pick up the rifle
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/UseHammer
-      TermType: 0
-      Description: 
-      Languages:
-      - Good! <color=#ff9700>Drag Right Joystick to Attack</color> the training opponent
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/AttackDummy
-      TermType: 0
-      Description: 
-      Languages:
-      - Use your RIGHT THUMB to aim, drag and hold to attack
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/UseSpecial
-      TermType: 0
-      Description: 
-      Languages:
-      - <color=#ff9700>Use the weapon's special</color> attack to take down multiple
-        opponents
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/EnterDeathmatch
-      TermType: 0
-      Description: 
-      Languages:
-      - <color=#85bbfc>Proceed to the Entrance</color> and join the Death Match!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/KillEnemyWithRangedWeapon
-      TermType: 0
-      Description: 
-      Languages:
-      - Excellent. <color=#ff9700>Shoot the opponent!</color>
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/KillDummy
-      TermType: 0
-      Description: 
-      Languages:
-      - Use your RIGHT THUMB to aim, drag and hold to attack
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/KillDummies
-      TermType: 0
-      Description: 
-      Languages:
-      - Drag and hold the SPECIAL button to aim and nuke the opponents
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/GoToExit
-      TermType: 0
-      Description: 
-      Languages:
-      - Now it's time to play the game for real - <color=#ff9700>Fight to win or
-        die trying!</color>
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/HeadToExit
-      TermType: 0
-      Description: 
-      Languages:
-      - Proceed to the Game!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: FTUE/SpecialAbilities
-      TermType: 0
-      Description: 
-      Languages:
-      - SPECIAL ABILITIES
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_NftCooldown
-      TermType: 0
-      Description: 
-      Languages:
-      - 'This item was transferred recently.
-
-
-        Items on cooldown do not contribute
-        to any in-game earnings.'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_CS
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Gain Craft Spice by placing higher in Battle Royale matches.
-
-
-        Craft
-        Spice is used on the marketplace for upgrading, repairing and replicating
-        equipment.'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_BLST
-      TermType: 0
-      Description: 
-      Languages:
-      - "Blast Tokens are valuable rewards obtained in special ways in-game, or purchased.
-        \n\nUse Blast Tokens to purchase equipment on the marketplace."
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_Trophies
-      TermType: 0
-      Description: 
-      Languages:
-      - "Trophies increase your Craft Spice pool. \n\nPlace higher in Battle Royale
-        matches to earn trophies."
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_Casual
-      TermType: 0
-      Description: 
-      Languages:
-      - You cannot earn rewards, or gain trophies in casual matches. Play for fun!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_Ranked
-      TermType: 0
-      Description: 
-      Languages:
-      - You can earn rewards in ranked matches, and your trophies are on the line.
-        Play for glory!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Abilties
-      TermType: 0
-      Description: 
-      Languages:
-      - ABILITIES
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/All Gear
-      TermType: 0
-      Description: 
-      Languages:
-      - ALL GEAR
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/AutoFire
-      TermType: 0
-      Description: 
-      Languages:
-      - Autofire
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/BattleRoyale
-      TermType: 0
-      Description: 
-      Languages:
-      - Battle Royale
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/BGM
-      TermType: 0
-      Description: 
-      Languages:
-      - Background Music
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/BeatLevelFirst
-      TermType: 0
-      Description: 
-      Languages:
-      - BEAT CHAPTER {0} LEVEL {1} FIRST!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/BeatLevelFirstWithDifficulty
-      TermType: 0
-      Description: 
-      Languages:
-      - BEAT {0} CHAPTER {1} LEVEL {2} FIRST!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/BossKilledTimes
-      TermType: 0
-      Description: 
-      Languages:
-      - DEFEAT THE BOSS ({0}/10)
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/BossLevel
-      TermType: 0
-      Description: 
-      Languages:
-      - LV.{0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Cancel
-      TermType: 0
-      Description: 
-      Languages:
-      - CANCEL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ChooseGameMode
-      TermType: 0
-      Description: 
-      Languages:
-      - CHOOSE GAME MODE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ChangePlayerSkin
-      TermType: 0
-      Description: 
-      Languages:
-      - CHANGE SKIN
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ClaimReward
-      TermType: 0
-      Description: 
-      Languages:
-      - Claim Reward
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Collect
-      TermType: 0
-      Description: 
-      Languages:
-      - COLLECT!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CollectedCrates
-      TermType: 0
-      Description: 
-      Languages:
-      - Collected Crates
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CompleteLowerDifficulty
-      TermType: 0
-      Description: 
-      Languages:
-      - Complete {0} difficulty first
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ContainsAtLeast
-      TermType: 0
-      Description: 
-      Languages:
-      - CONTAINS AT LEAST
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Craft
-      TermType: 0
-      Description: 
-      Languages:
-      - CRAFT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CrateTierType
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}
-
-        TIER {1}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CrateTier
-      TermType: 0
-      Description: 
-      Languages:
-      - TIER {0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Crates
-      TermType: 0
-      Description: 
-      Languages:
-      - Crates
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CurrentXP
-      TermType: 0
-      Description: 
-      Languages:
-      - CURRENT XP {0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Deathmatch
-      TermType: 0
-      Description: 
-      Languages:
-      - Deathmatch
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Demo
-      TermType: 0
-      Description: 
-      Languages:
-      - Demo
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DefeatedBossXTimes
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}DEFEATED{1} X {2}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DetailLevel
-      TermType: 0
-      Description: 
-      Languages:
-      - Detail Level
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DragAndReleaseToFire
-      TermType: 0
-      Description: 
-      Languages:
-      - Drag and Release
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DragAndReleaseToFireDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - This weapon is fired by dragging and releasing the right side joystick.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Enhance
-      TermType: 0
-      Description: 
-      Languages:
-      - ENHANCE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/EnhanceDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - USE PIECES OF THE SAME TYPE OF EQUIPMENT TO CREATE A NEW ITEM OF THE SAME
-        TYPE BUT OF HIGHER RARITY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/EnhanceItemsNeeded
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} ITEMS OF THE SAME TYPE ARE NEEDED TO ENHANCE'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/EnhanceResults
-      TermType: 0
-      Description: 
-      Languages:
-      - ENHANCEMENT RESULTS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/EventsComingSoon
-      TermType: 0
-      Description: 
-      Languages:
-      - EVENTS COMING SOON!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/FirstVictoryRewards
-      TermType: 0
-      Description: 
-      Languages:
-      - 'FIRST VICTORY REWARDS:'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/FreeSlot
-      TermType: 0
-      Description: 
-      Languages:
-      - Free Slot
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Fuse
-      TermType: 0
-      Description: 
-      Languages:
-      - FUSE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/FuseDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - FUSE 5 PIECES OF EQUIPMENT OF THE SAME RARITY TOGETHER TO CREATE A RANDOM
-        ITEM OF HIGHER RARITY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/FuseResults
-      TermType: 0
-      Description: 
-      Languages:
-      - FUSION RESULTS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/FusionWarning
-      TermType: 0
-      Description: 
-      Languages:
-      - ONE OR MORE ITEMS SELECTED HAS ALREADY BEEN UPGRADED. DO YOU WANT TO PROCEED?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/GameMode
-      TermType: 0
-      Description: 
-      Languages:
-      - GAME MODE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HOME
-      TermType: 0
-      Description: 
-      Languages:
-      - HOME
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Haptic
-      TermType: 0
-      Description: 
-      Languages:
-      - Haptic Feedback
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HighResMode
-      TermType: 0
-      Description: 
-      Languages:
-      - High Res Mode
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HoldToFire
-      TermType: 0
-      Description: 
-      Languages:
-      - Hold and Fire
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HoldToFireDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Hold down the button to fire this weapon continuously.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HowToPlay
-      TermType: 0
-      Description: 
-      Languages:
-      - HOW TO PLAY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HowToPlayDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Hurry
-      TermType: 0
-      Description: 
-      Languages:
-      - HURRY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/HurryCrate
-      TermType: 0
-      Description: 
-      Languages:
-      - SPEED UP THIS CRATE?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ItemCraftedText
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}{1}{2} ITEM WILL BE CRAFTED'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ItemEnhancedText
-      TermType: 0
-      Description: 
-      Languages:
-      - '{3} WILL BE ENHANCED TO {0}{1}{2}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Items
-      TermType: 0
-      Description: 
-      Languages:
-      - 'ITEMS: {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Locked
-      TermType: 0
-      Description: 
-      Languages:
-      - LOCKED
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Loot
-      TermType: 0
-      Description: 
-      Languages:
-      - LOOT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ManualFire
-      TermType: 0
-      Description: 
-      Languages:
-      - Manual Fire
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Meters
-      TermType: 0
-      Description: 
-      Languages:
-      - Damage & Healing Meters
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NameHeroTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - What's your name Hero?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NewEnemies
-      TermType: 0
-      Description: 
-      Languages:
-      - NEW ENEMIES
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NewFeatureUnlocked
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} UNLOCKED!'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NewItems
-      TermType: 0
-      Description: 
-      Languages:
-      - NEW ITEMS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NewMap
-      TermType: 0
-      Description: 
-      Languages:
-      - NEW MAP
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NewUnlock
-      TermType: 0
-      Description: 
-      Languages:
-      - NEW FEATURE!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NextArena
-      TermType: 0
-      Description: 
-      Languages:
-      - NEXT ARENA
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NextGoal
-      TermType: 0
-      Description: 
-      Languages:
-      - NEXT GOAL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NoAdventuresAvailable
-      TermType: 0
-      Description: 
-      Languages:
-      - NO {0} ADVENTURES AVAILABLE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NotEnoughSpace
-      TermType: 0
-      Description: 
-      Languages:
-      - You have collected loot, but don't have enough space to store it!\n Do you
-        want to open all new Crates now?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NotEnoughSpaceWarning
-      TermType: 0
-      Description: 
-      Languages:
-      - Are you sure? All extra Loot will be lost!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/OpenCrate
-      TermType: 0
-      Description: 
-      Languages:
-      - OPEN
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/OpenCrateNow
-      TermType: 0
-      Description: 
-      Languages:
-      - Open Now
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/OpenNow
-      TermType: 0
-      Description: 
-      Languages:
-      - Open Now?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PlayGame
-      TermType: 0
-      Description: 
-      Languages:
-      - PLAY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PlayersActiveNumber
-      TermType: 0
-      Description: 
-      Languages:
-      - 'PLAYERS ACTIVE: {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PossibleRewards
-      TermType: 0
-      Description: 
-      Languages:
-      - 'POSSIBLE REWARDS: '
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Power
-      TermType: 0
-      Description: 
-      Languages:
-      - Power
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PowerRating
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Power: {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PowerTotal
-      TermType: 0
-      Description: 
-      Languages:
-      - 'POWER TOTAL: {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ProgressChapter
-      TermType: 0
-      Description: 
-      Languages:
-      - 'CHAPTER {0}: {1}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ReachPlayerLevelAdventure
-      TermType: 0
-      Description: 
-      Languages:
-      - Reach Player Level {0} to Unlock
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ReccomendedPower
-      TermType: 0
-      Description: 
-      Languages:
-      - Reccomended Power
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SFX
-      TermType: 0
-      Description: 
-      Languages:
-      - Sound Effects
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SelectGameMap
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT ADVENTURE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SelectGameMode
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT GAME MODE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Selected
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECTED
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Settings
-      TermType: 0
-      Description: 
-      Languages:
-      - SETTINGS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Shop
-      TermType: 0
-      Description: 
-      Languages:
-      - SHOP
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Social
-      TermType: 0
-      Description: 
-      Languages:
-      - SOCIAL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Sort
-      TermType: 0
-      Description: 
-      Languages:
-      - SORT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/StartUnlock
-      TermType: 0
-      Description: 
-      Languages:
-      - START UNLOCKING {0}?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Talents
-      TermType: 0
-      Description: 
-      Languages:
-      - TALENTS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TapToUnlock
-      TermType: 0
-      Description: 
-      Languages:
-      - TAP TO UNLOCK
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TooMuchLoot
-      TermType: 0
-      Description: 
-      Languages:
-      - Too Much Loot!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TotalPower
-      TermType: 0
-      Description: 
-      Languages:
-      - TOTAL POWER
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TrophyRoad
-      TermType: 0
-      Description: 
-      Languages:
-      - REWARDS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TrophyRoadXP
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} XP'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Unlock
-      TermType: 0
-      Description: 
-      Languages:
-      - UNLOCK
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/UnlockCrateNow
-      TermType: 0
-      Description: 
-      Languages:
-      - UNLOCK {0} CRATE NOW?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/UnlockInProgress
-      TermType: 0
-      Description: 
-      Languages:
-      - IN PROGRESS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/UseCrateSlot
-      TermType: 0
-      Description: 
-      Languages:
-      - You can use this slot to store collected loot crates!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ViewAll
-      TermType: 0
-      Description: 
-      Languages:
-      - VIEW ALL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/WeaponIsAtMaxLevel
-      TermType: 0
-      Description: 
-      Languages:
-      - WEAPON IS AT MAX LEVEL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NameTooShort
-      TermType: 0
-      Description: 
-      Languages:
-      - The name must be at least {0} characters long.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NameTooLong
-      TermType: 0
-      Description: 
-      Languages:
-      - The name must not exceed {0} characters.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchPlayOnline
-      TermType: 0
-      Description: 
-      Languages:
-      - Play Online
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchPlayOffline
-      TermType: 0
-      Description: 
-      Languages:
-      - Play With Bots
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchPlayRoom
-      TermType: 0
-      Description: 
-      Languages:
-      - Custom Game
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Custom Game
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CreateRoom
-      TermType: 0
-      Description: 
-      Languages:
-      - Create
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/JoinRoom
-      TermType: 0
-      Description: 
-      Languages:
-      - Join
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomCreateOrJoin
-      TermType: 0
-      Description: 
-      Languages:
-      - Create or join a room with a code
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCode
-      TermType: 0
-      Description: 
-      Languages:
-      - Enter a valid room code
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Join
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomCurrentName
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Room: {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomLock
-      TermType: 0
-      Description: 
-      Languages:
-      - Lock & Play!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomError
-      TermType: 0
-      Description: 
-      Languages:
-      - "Room Error: \n{0}"
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RoomLeaveButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Leave
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Loading
-      TermType: 0
-      Description: 
-      Languages:
-      - Loading...
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LoginTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Login to an existing account
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RegisterTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Register
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RememberMe
-      TermType: 0
-      Description: 
-      Languages:
-      - Remember Me
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/EmailTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Email
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PasswordTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Password
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/UsernameTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Username
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LoginButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Login
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RegisterButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Register
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LoginOrText
-      TermType: 0
-      Description: 
-      Languages:
-      - Or
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/RegisterSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - Account has been created successfully.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LogoutButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Logout
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LogoutConfirm
-      TermType: 0
-      Description: 
-      Languages:
-      - Are you sure you want to log out?
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LogoutSuccessTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Logged out successfully
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/LogoutSuccessDesc
-      TermType: 0
-      Description: 
-      Languages:
-      - Restart the game to log in to a new account.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/PlayfabError
-      TermType: 0
-      Description: 
-      Languages:
-      - Game Error
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/QuitGameButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Quit
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ResourceRestockTime
-      TermType: 0
-      Description: 
-      Languages:
-      - '+{0} in
-
-        {1}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ResourceAmount
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} / {1}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SelectedGameModeText
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Game Mode:
-
-        {0}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SelectedGameModeTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Game Mode:'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SelectedGameModeValue
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}
-
-        {1}'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ResoucePoolFull
-      TermType: 0
-      Description: 
-      Languages:
-      - Storage is full!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NftCooldownTimerFullText
-      TermType: 0
-      Description: 
-      Languages:
-      - Item on cooldown for {0}
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NftCooldownTimerTooltip
-      TermType: 0
-      Description: 
-      Languages:
-      - 'This item was transferred recently.
-
-        Items on cooldown do no not
-        contribute to any in-game earnings.'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/NftRestrictionText
-      TermType: 0
-      Description: 
-      Languages:
-      - You must have at least 3 items equipped to play online.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/Trophies
-      TermType: 0
-      Description: 
-      Languages:
-      - Trophies
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TrophiesGained
-      TermType: 0
-      Description: 
-      Languages:
-      - Trophies Gained
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TrophiesLost
-      TermType: 0
-      Description: 
-      Languages:
-      - Trophies Lost
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/TrophiesNewTotal
-      TermType: 0
-      Description: 
-      Languages:
-      - New Total
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/MainMenuButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Main Menu
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ReconnectButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Reconnect
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/StatShield
-      TermType: 0
-      Description: 
-      Languages:
-      - Shield
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SettingsHelpSupport
-      TermType: 0
-      Description: 
-      Languages:
-      - HELP & SUPPORT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SettingsFaqButton
-      TermType: 0
-      Description: 
-      Languages:
-      - FAQ
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CustomMatchBotsToggle
-      TermType: 0
-      Description: 
-      Languages:
-      - Bots
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/CustomMatchSpectateToggle
-      TermType: 0
-      Description: 
-      Languages:
-      - Spectate
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/DisconnectedMatchEndInfo
-      TermType: 0
-      Description: 
-      Languages:
-      - Match ended by disconnection.
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ModeBr
-      TermType: 0
-      Description: 
-      Languages:
-      - Battle Royale
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ModeDm
-      TermType: 0
-      Description: 
-      Languages:
-      - Deathmatch
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ModeCasual
-      TermType: 0
-      Description: 
-      Languages:
-      - Casual
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ModeRanked
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/MatchmakingMatchType
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} Match'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/ResetPassword
-      TermType: 0
-      Description: 
-      Languages:
-      - Reset Password
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SendPasswordEmail
-      TermType: 0
-      Description: 
-      Languages:
-      - Send Password Recovery Email
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/SendPasswordEmailConfirm
-      TermType: 0
-      Description: 
-      Languages:
-      - A recovery link has been sent to the email.
+      - Area shrinking!
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2623,6 +89,22 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: AdventureMenu/ChooseDeath
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU TASTE DEATH!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/ContendersRemaining
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} PLAYERS REMAINING'
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: AdventureMenu/Damage
       TermType: 0
       Description: 
@@ -2639,11 +121,35 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: AdventureMenu/FreeSlot
+    - Term: AdventureMenu/Dominating
       TermType: 0
       Description: 
       Languages:
-      - Free Slot
+      - IS DOMINATING!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Double
+      TermType: 0
+      Description: 
+      Languages:
+      - DOUBLE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Empty
+      TermType: 0
+      Description: 
+      Languages:
+      - EMPTY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/FirstToXKills
+      TermType: 0
+      Description: 
+      Languages:
+      - FIRST TO {0} KILLS WINS!
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2655,11 +161,11 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: AdventureMenu/YouDied
+    - Term: AdventureMenu/FreeSlot
       TermType: 0
       Description: 
       Languages:
-      - You Died!
+      - Free Slot
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2679,11 +185,35 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: AdventureMenu/GetReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Get ready!
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: AdventureMenu/Go
       TermType: 0
       Description: 
       Languages:
       - GO!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/GoToArea
+      TermType: 0
+      Description: 
+      Languages:
+      - Go to the safe area!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Godlike
+      TermType: 0
+      Description: 
+      Languages:
+      - IS GODLIKE!
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2711,11 +241,59 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: AdventureMenu/Kill
+      TermType: 0
+      Description: 
+      Languages:
+      - KILL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Killing
+      TermType: 0
+      Description: 
+      Languages:
+      - KILLING
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: AdventureMenu/Kills
       TermType: 0
       Description: 
       Languages:
       - Kills
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/KillsRemaining
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} KILLS'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/MatchmakingPlayerTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Player
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/MatchmakingSpectatorTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectator
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Multi
+      TermType: 0
+      Description: 
+      Languages:
+      - MULTI
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2743,6 +321,62 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: AdventureMenu/PlayerWon
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} WON!'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusHost
+      TermType: 0
+      Description: 
+      Languages:
+      - HOST
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusLoading
+      TermType: 0
+      Description: 
+      Languages:
+      - LOADING...
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusReady
+      TermType: 0
+      Description: 
+      Languages:
+      - READY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/ReadyStatusTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - STATUS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Remaining
+      TermType: 0
+      Description: 
+      Languages:
+      - REMAINING!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/RespawnTime
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Respawning In:'
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: AdventureMenu/Revives
       TermType: 0
       Description: 
@@ -2756,6 +390,62 @@ MonoBehaviour:
       Description: 
       Languages:
       - Spawning Enemies
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateCam1
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera 1
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateCam2
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera 2
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateCam3
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera 3
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectateNextPlayer
+      TermType: 0
+      Description: 
+      Languages:
+      - Next Player
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/SpectatePrevPlayer
+      TermType: 0
+      Description: 
+      Languages:
+      - Previous Player
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Spree
+      TermType: 0
+      Description: 
+      Languages:
+      - SPREE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: AdventureMenu/Suicide
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} TASTED DEATH!'
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2791,131 +481,11 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: AdventureMenu/YourLoot
+    - Term: AdventureMenu/YouDied
       TermType: 0
       Description: 
       Languages:
-      - YOUR LOOT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/AdventureCompleted
-      TermType: 0
-      Description: 
-      Languages:
-      - Adventure Completed!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/RespawnTime
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Respawning In:'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/PlayerWon
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} WON!'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Suicide
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} TASTED DEATH!'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/ChooseDeath
-      TermType: 0
-      Description: 
-      Languages:
-      - YOU TASTE DEATH!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Double
-      TermType: 0
-      Description: 
-      Languages:
-      - DOUBLE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Multi
-      TermType: 0
-      Description: 
-      Languages:
-      - MULTI
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Killing
-      TermType: 0
-      Description: 
-      Languages:
-      - KILLING
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Kill
-      TermType: 0
-      Description: 
-      Languages:
-      - KILL
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Spree
-      TermType: 0
-      Description: 
-      Languages:
-      - SPREE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/KillsRemaining
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} KILLS'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Remaining
-      TermType: 0
-      Description: 
-      Languages:
-      - REMAINING!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Dominating
-      TermType: 0
-      Description: 
-      Languages:
-      - IS DOMINATING!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Godlike
-      TermType: 0
-      Description: 
-      Languages:
-      - IS GODLIKE!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/FirstToXKills
-      TermType: 0
-      Description: 
-      Languages:
-      - FIRST TO {0} KILLS WINS!
+      - You Died!
       - 
       Flags: 0000
       Languages_Touch: []
@@ -2927,155 +497,11 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: AdventureMenu/GoToArea
+    - Term: AdventureMenu/YourLoot
       TermType: 0
       Description: 
       Languages:
-      - Go to the safe area!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/AreaShrinking
-      TermType: 0
-      Description: 
-      Languages:
-      - Area shrinking!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/GetReady
-      TermType: 0
-      Description: 
-      Languages:
-      - Get ready!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/ContendersRemaining
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} PLAYERS REMAINING'
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusLoading
-      TermType: 0
-      Description: 
-      Languages:
-      - LOADING...
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusReady
-      TermType: 0
-      Description: 
-      Languages:
-      - READY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusHost
-      TermType: 0
-      Description: 
-      Languages:
-      - HOST
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/ReadyStatusTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - STATUS
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/MatchmakingPlayerTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Player
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/MatchmakingSpectatorTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Spectator
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/AirDropIncomingLine1
-      TermType: 0
-      Description: 
-      Languages:
-      - Air Drop Incoming!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/AirDropIncomingLine2
-      TermType: 0
-      Description: 
-      Languages:
-      - Hurry Up!
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/SpectateNextPlayer
-      TermType: 0
-      Description: 
-      Languages:
-      - Next Player
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/SpectatePrevPlayer
-      TermType: 0
-      Description: 
-      Languages:
-      - Previous Player
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/SpectateCam1
-      TermType: 0
-      Description: 
-      Languages:
-      - Camera 1
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/SpectateCam2
-      TermType: 0
-      Description: 
-      Languages:
-      - Camera 2
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/SpectateCam3
-      TermType: 0
-      Description: 
-      Languages:
-      - Camera 3
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/Empty
-      TermType: 0
-      Description: 
-      Languages:
-      - EMPTY
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: AdventureMenu/AreYouSureQuit
-      TermType: 0
-      Description: 
-      Languages:
-      - Are you sure you want to quit?
+      - YOUR LOOT
       - 
       Flags: 0000
       Languages_Touch: []
@@ -3087,787 +513,11 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: BotNames/Bot2
-      TermType: 0
-      Description: 
-      Languages:
-      - Salty
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot3
-      TermType: 0
-      Description: 
-      Languages:
-      - Phoenix
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot4
-      TermType: 0
-      Description: 
-      Languages:
-      - James25
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot5
-      TermType: 0
-      Description: 
-      Languages:
-      - Olivia
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot6
-      TermType: 0
-      Description: 
-      Languages:
-      - Emma
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot7
-      TermType: 0
-      Description: 
-      Languages:
-      - Ava
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot8
-      TermType: 0
-      Description: 
-      Languages:
-      - Mia
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot9
-      TermType: 0
-      Description: 
-      Languages:
-      - Harper
-      - 
-      Flags: 0000
-      Languages_Touch: []
     - Term: BotNames/Bot10
       TermType: 0
       Description: 
       Languages:
       - Noah
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot11
-      TermType: 0
-      Description: 
-      Languages:
-      - Elijah
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot12
-      TermType: 0
-      Description: 
-      Languages:
-      - Lucas
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot13
-      TermType: 0
-      Description: 
-      Languages:
-      - Alexander
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot14
-      TermType: 0
-      Description: 
-      Languages:
-      - Ninja
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot15
-      TermType: 0
-      Description: 
-      Languages:
-      - Shadow
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot16
-      TermType: 0
-      Description: 
-      Languages:
-      - Arkham
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot17
-      TermType: 0
-      Description: 
-      Languages:
-      - Rex
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot18
-      TermType: 0
-      Description: 
-      Languages:
-      - ErikVale
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot19
-      TermType: 0
-      Description: 
-      Languages:
-      - Jannis
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot20
-      TermType: 0
-      Description: 
-      Languages:
-      - Piw
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot21
-      TermType: 0
-      Description: 
-      Languages:
-      - Pappy
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot22
-      TermType: 0
-      Description: 
-      Languages:
-      - GODVIN
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot23
-      TermType: 0
-      Description: 
-      Languages:
-      - Starter
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot24
-      TermType: 0
-      Description: 
-      Languages:
-      - Lion
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot25
-      TermType: 0
-      Description: 
-      Languages:
-      - Mystic
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot26
-      TermType: 0
-      Description: 
-      Languages:
-      - Vilka
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot27
-      TermType: 0
-      Description: 
-      Languages:
-      - Moon
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot28
-      TermType: 0
-      Description: 
-      Languages:
-      - BigD2000
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot29
-      TermType: 0
-      Description: 
-      Languages:
-      - Kolbasa
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot30
-      TermType: 0
-      Description: 
-      Languages:
-      - PewPew
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot31
-      TermType: 0
-      Description: 
-      Languages:
-      - Trudy
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot32
-      TermType: 0
-      Description: 
-      Languages:
-      - Banger Man
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot33
-      TermType: 0
-      Description: 
-      Languages:
-      - ITS ME MUM
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot34
-      TermType: 0
-      Description: 
-      Languages:
-      - Mandy Land
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot35
-      TermType: 0
-      Description: 
-      Languages:
-      - Curt Vogel
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot36
-      TermType: 0
-      Description: 
-      Languages:
-      - you fail
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot37
-      TermType: 0
-      Description: 
-      Languages:
-      - Le Fox
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot38
-      TermType: 0
-      Description: 
-      Languages:
-      - VLAD_69
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot39
-      TermType: 0
-      Description: 
-      Languages:
-      - Botticelli
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot40
-      TermType: 0
-      Description: 
-      Languages:
-      - IAN BOT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot41
-      TermType: 0
-      Description: 
-      Languages:
-      - BANGBOT23
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot42
-      TermType: 0
-      Description: 
-      Languages:
-      - Randy
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot43
-      TermType: 0
-      Description: 
-      Languages:
-      - Coconut
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot44
-      TermType: 0
-      Description: 
-      Languages:
-      - UncleDeeDee
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot45
-      TermType: 0
-      Description: 
-      Languages:
-      - Patty
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot46
-      TermType: 0
-      Description: 
-      Languages:
-      - Kitten
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot47
-      TermType: 0
-      Description: 
-      Languages:
-      - 69420
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot48
-      TermType: 0
-      Description: 
-      Languages:
-      - Gandalf
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot49
-      TermType: 0
-      Description: 
-      Languages:
-      - Handyman
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot50
-      TermType: 0
-      Description: 
-      Languages:
-      - HairyPotter
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot51
-      TermType: 0
-      Description: 
-      Languages:
-      - Doctor
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot52
-      TermType: 0
-      Description: 
-      Languages:
-      - Jeremy
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot53
-      TermType: 0
-      Description: 
-      Languages:
-      - WWWWWWW
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot54
-      TermType: 0
-      Description: 
-      Languages:
-      - WWIII
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot55
-      TermType: 0
-      Description: 
-      Languages:
-      - VX IX IV XX
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot56
-      TermType: 0
-      Description: 
-      Languages:
-      - MickeyMouse
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot57
-      TermType: 0
-      Description: 
-      Languages:
-      - Einstein
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot58
-      TermType: 0
-      Description: 
-      Languages:
-      - Gorilla
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot59
-      TermType: 0
-      Description: 
-      Languages:
-      - NETFLIX
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot60
-      TermType: 0
-      Description: 
-      Languages:
-      - NIKE69
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot61
-      TermType: 0
-      Description: 
-      Languages:
-      - Messi
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot62
-      TermType: 0
-      Description: 
-      Languages:
-      - Ronaldo
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot63
-      TermType: 0
-      Description: 
-      Languages:
-      - B0TeB0I
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot64
-      TermType: 0
-      Description: 
-      Languages:
-      - BOOM
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot65
-      TermType: 0
-      Description: 
-      Languages:
-      - FFFFFFF1982
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot66
-      TermType: 0
-      Description: 
-      Languages:
-      - AK-420
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot67
-      TermType: 0
-      Description: 
-      Languages:
-      - ADAM
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot68
-      TermType: 0
-      Description: 
-      Languages:
-      - NFT
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot69
-      TermType: 0
-      Description: 
-      Languages:
-      - Bitcoin
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot70
-      TermType: 0
-      Description: 
-      Languages:
-      - BILLIONAIRE
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot71
-      TermType: 0
-      Description: 
-      Languages:
-      - KK SLIDER
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot72
-      TermType: 0
-      Description: 
-      Languages:
-      - Lightning
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot73
-      TermType: 0
-      Description: 
-      Languages:
-      - Nelson
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot74
-      TermType: 0
-      Description: 
-      Languages:
-      - Napoleon
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot75
-      TermType: 0
-      Description: 
-      Languages:
-      - Montgomery
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot76
-      TermType: 0
-      Description: 
-      Languages:
-      - Boomer
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot77
-      TermType: 0
-      Description: 
-      Languages:
-      - Millenial
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot78
-      TermType: 0
-      Description: 
-      Languages:
-      - Snowflake
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot79
-      TermType: 0
-      Description: 
-      Languages:
-      - Triggered
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot80
-      TermType: 0
-      Description: 
-      Languages:
-      - Woke
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot81
-      TermType: 0
-      Description: 
-      Languages:
-      - GenX
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot82
-      TermType: 0
-      Description: 
-      Languages:
-      - GenZ
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot83
-      TermType: 0
-      Description: 
-      Languages:
-      - Fur Q
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot84
-      TermType: 0
-      Description: 
-      Languages:
-      - Fat Cat
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot85
-      TermType: 0
-      Description: 
-      Languages:
-      - Piggy
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot86
-      TermType: 0
-      Description: 
-      Languages:
-      - Panic
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot87
-      TermType: 0
-      Description: 
-      Languages:
-      - DESTROYER
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot88
-      TermType: 0
-      Description: 
-      Languages:
-      - SimpleDimple
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot89
-      TermType: 0
-      Description: 
-      Languages:
-      - Popit
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot90
-      TermType: 0
-      Description: 
-      Languages:
-      - Nagibator
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot91
-      TermType: 0
-      Description: 
-      Languages:
-      - Cyb0rg
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot92
-      TermType: 0
-      Description: 
-      Languages:
-      - PREDATOR
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot93
-      TermType: 0
-      Description: 
-      Languages:
-      - s1ake
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot94
-      TermType: 0
-      Description: 
-      Languages:
-      - peppa
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot95
-      TermType: 0
-      Description: 
-      Languages:
-      - D33PM1ND
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot96
-      TermType: 0
-      Description: 
-      Languages:
-      - 2Pints
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot97
-      TermType: 0
-      Description: 
-      Languages:
-      - SwiftHalf
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot98
-      TermType: 0
-      Description: 
-      Languages:
-      - CHEEKYNANDO
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: BotNames/Bot99
-      TermType: 0
-      Description: 
-      Languages:
-      - OIOISAVALOY
       - 
       Flags: 0000
       Languages_Touch: []
@@ -3951,6 +601,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: BotNames/Bot11
+      TermType: 0
+      Description: 
+      Languages:
+      - Elijah
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: BotNames/Bot110
       TermType: 0
       Description: 
@@ -4028,6 +686,14 @@ MonoBehaviour:
       Description: 
       Languages:
       - KungPao
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot12
+      TermType: 0
+      Description: 
+      Languages:
+      - Lucas
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4111,6 +777,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: BotNames/Bot13
+      TermType: 0
+      Description: 
+      Languages:
+      - Alexander
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: BotNames/Bot130
       TermType: 0
       Description: 
@@ -4188,6 +862,14 @@ MonoBehaviour:
       Description: 
       Languages:
       - Tyrone
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot14
+      TermType: 0
+      Description: 
+      Languages:
+      - Ninja
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4271,6 +953,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: BotNames/Bot15
+      TermType: 0
+      Description: 
+      Languages:
+      - Shadow
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: BotNames/Bot150
       TermType: 0
       Description: 
@@ -4348,6 +1038,14 @@ MonoBehaviour:
       Description: 
       Languages:
       - Anil
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot16
+      TermType: 0
+      Description: 
+      Languages:
+      - Arkham
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4431,6 +1129,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: BotNames/Bot17
+      TermType: 0
+      Description: 
+      Languages:
+      - Rex
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: BotNames/Bot170
       TermType: 0
       Description: 
@@ -4508,6 +1214,14 @@ MonoBehaviour:
       Description: 
       Languages:
       - Pizza
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot18
+      TermType: 0
+      Description: 
+      Languages:
+      - ErikVale
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4591,6 +1305,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: BotNames/Bot19
+      TermType: 0
+      Description: 
+      Languages:
+      - Jannis
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: BotNames/Bot190
       TermType: 0
       Description: 
@@ -4671,6 +1393,22 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: BotNames/Bot2
+      TermType: 0
+      Description: 
+      Languages:
+      - Salty
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot20
+      TermType: 0
+      Description: 
+      Languages:
+      - Piw
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: BotNames/Bot200
       TermType: 0
       Description: 
@@ -4679,75 +1417,813 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/AdventureUnlocked
+    - Term: BotNames/Bot21
       TermType: 0
       Description: 
       Languages:
-      - '{0} is now open! Defeat the boss and collect awesome rewards!'
+      - Pappy
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/AdventureUnlockedTitle
+    - Term: BotNames/Bot22
       TermType: 0
       Description: 
       Languages:
-      - A New Adventure Awaits!
+      - GODVIN
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/CrateReady
+    - Term: BotNames/Bot23
       TermType: 0
       Description: 
       Languages:
-      - '{0} is ready to open!'
+      - Starter
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/CrateReadyTitle
+    - Term: BotNames/Bot24
       TermType: 0
       Description: 
       Languages:
-      - Crate Unlocked!
+      - Lion
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/GameTitle
+    - Term: BotNames/Bot25
       TermType: 0
       Description: 
       Languages:
-      - BOSS HUNT HEROES
+      - Mystic
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/NoCrateUnlocking
+    - Term: BotNames/Bot26
       TermType: 0
       Description: 
       Languages:
-      - You forgot to unlock a crate!
+      - Vilka
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/NoCrateUnlockingTitle
+    - Term: BotNames/Bot27
       TermType: 0
       Description: 
       Languages:
-      - Crates can be Unlocked
+      - Moon
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/UnopenedCrate
+    - Term: BotNames/Bot28
       TermType: 0
       Description: 
       Languages:
-      - You forgot to open a crate
+      - BigD2000
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Notifications/UnopenedCrateTitle
+    - Term: BotNames/Bot29
       TermType: 0
       Description: 
       Languages:
-      - Claim Your Loot!
+      - Kolbasa
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot3
+      TermType: 0
+      Description: 
+      Languages:
+      - Phoenix
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot30
+      TermType: 0
+      Description: 
+      Languages:
+      - PewPew
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot31
+      TermType: 0
+      Description: 
+      Languages:
+      - Trudy
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot32
+      TermType: 0
+      Description: 
+      Languages:
+      - Banger Man
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot33
+      TermType: 0
+      Description: 
+      Languages:
+      - ITS ME MUM
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot34
+      TermType: 0
+      Description: 
+      Languages:
+      - Mandy Land
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot35
+      TermType: 0
+      Description: 
+      Languages:
+      - Curt Vogel
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot36
+      TermType: 0
+      Description: 
+      Languages:
+      - you fail
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot37
+      TermType: 0
+      Description: 
+      Languages:
+      - Le Fox
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot38
+      TermType: 0
+      Description: 
+      Languages:
+      - VLAD_69
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot39
+      TermType: 0
+      Description: 
+      Languages:
+      - Botticelli
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot4
+      TermType: 0
+      Description: 
+      Languages:
+      - James25
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot40
+      TermType: 0
+      Description: 
+      Languages:
+      - IAN BOT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot41
+      TermType: 0
+      Description: 
+      Languages:
+      - BANGBOT23
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot42
+      TermType: 0
+      Description: 
+      Languages:
+      - Randy
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot43
+      TermType: 0
+      Description: 
+      Languages:
+      - Coconut
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot44
+      TermType: 0
+      Description: 
+      Languages:
+      - UncleDeeDee
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot45
+      TermType: 0
+      Description: 
+      Languages:
+      - Patty
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot46
+      TermType: 0
+      Description: 
+      Languages:
+      - Kitten
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot47
+      TermType: 0
+      Description: 
+      Languages:
+      - 69420
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot48
+      TermType: 0
+      Description: 
+      Languages:
+      - Gandalf
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot49
+      TermType: 0
+      Description: 
+      Languages:
+      - Handyman
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot5
+      TermType: 0
+      Description: 
+      Languages:
+      - Olivia
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot50
+      TermType: 0
+      Description: 
+      Languages:
+      - HairyPotter
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot51
+      TermType: 0
+      Description: 
+      Languages:
+      - Doctor
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot52
+      TermType: 0
+      Description: 
+      Languages:
+      - Jeremy
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot53
+      TermType: 0
+      Description: 
+      Languages:
+      - WWWWWWW
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot54
+      TermType: 0
+      Description: 
+      Languages:
+      - WWIII
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot55
+      TermType: 0
+      Description: 
+      Languages:
+      - VX IX IV XX
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot56
+      TermType: 0
+      Description: 
+      Languages:
+      - MickeyMouse
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot57
+      TermType: 0
+      Description: 
+      Languages:
+      - Einstein
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot58
+      TermType: 0
+      Description: 
+      Languages:
+      - Gorilla
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot59
+      TermType: 0
+      Description: 
+      Languages:
+      - NETFLIX
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot6
+      TermType: 0
+      Description: 
+      Languages:
+      - Emma
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot60
+      TermType: 0
+      Description: 
+      Languages:
+      - NIKE69
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot61
+      TermType: 0
+      Description: 
+      Languages:
+      - Messi
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot62
+      TermType: 0
+      Description: 
+      Languages:
+      - Ronaldo
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot63
+      TermType: 0
+      Description: 
+      Languages:
+      - B0TeB0I
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot64
+      TermType: 0
+      Description: 
+      Languages:
+      - BOOM
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot65
+      TermType: 0
+      Description: 
+      Languages:
+      - FFFFFFF1982
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot66
+      TermType: 0
+      Description: 
+      Languages:
+      - AK-420
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot67
+      TermType: 0
+      Description: 
+      Languages:
+      - ADAM
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot68
+      TermType: 0
+      Description: 
+      Languages:
+      - NFT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot69
+      TermType: 0
+      Description: 
+      Languages:
+      - Bitcoin
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot7
+      TermType: 0
+      Description: 
+      Languages:
+      - Ava
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot70
+      TermType: 0
+      Description: 
+      Languages:
+      - BILLIONAIRE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot71
+      TermType: 0
+      Description: 
+      Languages:
+      - KK SLIDER
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot72
+      TermType: 0
+      Description: 
+      Languages:
+      - Lightning
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot73
+      TermType: 0
+      Description: 
+      Languages:
+      - Nelson
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot74
+      TermType: 0
+      Description: 
+      Languages:
+      - Napoleon
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot75
+      TermType: 0
+      Description: 
+      Languages:
+      - Montgomery
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot76
+      TermType: 0
+      Description: 
+      Languages:
+      - Boomer
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot77
+      TermType: 0
+      Description: 
+      Languages:
+      - Millenial
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot78
+      TermType: 0
+      Description: 
+      Languages:
+      - Snowflake
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot79
+      TermType: 0
+      Description: 
+      Languages:
+      - Triggered
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot8
+      TermType: 0
+      Description: 
+      Languages:
+      - Mia
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot80
+      TermType: 0
+      Description: 
+      Languages:
+      - Woke
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot81
+      TermType: 0
+      Description: 
+      Languages:
+      - GenX
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot82
+      TermType: 0
+      Description: 
+      Languages:
+      - GenZ
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot83
+      TermType: 0
+      Description: 
+      Languages:
+      - Fur Q
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot84
+      TermType: 0
+      Description: 
+      Languages:
+      - Fat Cat
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot85
+      TermType: 0
+      Description: 
+      Languages:
+      - Piggy
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot86
+      TermType: 0
+      Description: 
+      Languages:
+      - Panic
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot87
+      TermType: 0
+      Description: 
+      Languages:
+      - DESTROYER
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot88
+      TermType: 0
+      Description: 
+      Languages:
+      - SimpleDimple
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot89
+      TermType: 0
+      Description: 
+      Languages:
+      - Popit
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot9
+      TermType: 0
+      Description: 
+      Languages:
+      - Harper
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot90
+      TermType: 0
+      Description: 
+      Languages:
+      - Nagibator
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot91
+      TermType: 0
+      Description: 
+      Languages:
+      - Cyb0rg
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot92
+      TermType: 0
+      Description: 
+      Languages:
+      - PREDATOR
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot93
+      TermType: 0
+      Description: 
+      Languages:
+      - s1ake
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot94
+      TermType: 0
+      Description: 
+      Languages:
+      - peppa
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot95
+      TermType: 0
+      Description: 
+      Languages:
+      - D33PM1ND
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot96
+      TermType: 0
+      Description: 
+      Languages:
+      - 2Pints
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot97
+      TermType: 0
+      Description: 
+      Languages:
+      - SwiftHalf
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot98
+      TermType: 0
+      Description: 
+      Languages:
+      - CHEEKYNANDO
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BotNames/Bot99
+      TermType: 0
+      Description: 
+      Languages:
+      - OIOISAVALOY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/AttackDummy
+      TermType: 0
+      Description: 
+      Languages:
+      - Use your RIGHT THUMB to aim, drag and hold to attack
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/CollectWeapon
+      TermType: 0
+      Description: 
+      Languages:
+      - You'll need a better weapon to succeed. <color=#85bbfc>Pick up the rifle!</color>
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/CollectWeaponTip
+      TermType: 0
+      Description: 
+      Languages:
+      - Pick up the rifle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/EnterDeathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - <color=#85bbfc>Proceed to the Entrance</color> and join the Death Match!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/GoToExit
+      TermType: 0
+      Description: 
+      Languages:
+      - Now it's time to play the game for real - <color=#ff9700>Fight to win or
+        die trying!</color>
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/HeadToExit
+      TermType: 0
+      Description: 
+      Languages:
+      - Proceed to the Game!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/KillDummies
+      TermType: 0
+      Description: 
+      Languages:
+      - Drag and hold the SPECIAL button to aim and nuke the opponents
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/KillDummy
+      TermType: 0
+      Description: 
+      Languages:
+      - Use your RIGHT THUMB to aim, drag and hold to attack
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/KillEnemyWithRangedWeapon
+      TermType: 0
+      Description: 
+      Languages:
+      - Excellent. <color=#ff9700>Shoot the opponent!</color>
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/MoveToArea
+      TermType: 0
+      Description: 
+      Languages:
+      - Use your LEFT THUMB to move to the Marked Area
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/SpecialAbilities
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECIAL ABILITIES
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/UseHammer
+      TermType: 0
+      Description: 
+      Languages:
+      - Good! <color=#ff9700>Drag Right Joystick to Attack</color> the training opponent
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/UseJoystick
+      TermType: 0
+      Description: 
+      Languages:
+      - <color=#85bbfc>Drag Left Joystick to Move</color> to the Marked Area
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/UseSpecial
+      TermType: 0
+      Description: 
+      Languages:
+      - <color=#ff9700>Use the weapon's special</color> attack to take down multiple
+        opponents
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FTUE/Welcome
+      TermType: 0
+      Description: 
+      Languages:
+      - Welcome contender. Let us begin your training.
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4767,11 +2243,99 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/ApoCrossbow
+      TermType: 0
+      Description: 
+      Languages:
+      - Crossbow
+      - Hawk
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ApoMinigun
+      TermType: 0
+      Description: 
+      Languages:
+      - Minigun
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ApoRPG
+      TermType: 0
+      Description: 
+      Languages:
+      - RPG
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ApoRifle
+      TermType: 0
+      Description: 
+      Languages:
+      - Assault Rifle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ApoSMG
+      TermType: 0
+      Description: 
+      Languages:
+      - SMG
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ApoShotgun
+      TermType: 0
+      Description: 
+      Languages:
+      - Scattergun
+      - Boomstick
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ApoSniper
+      TermType: 0
+      Description: 
+      Languages:
+      - Hunting Rifle
+      - Falcon
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/Armor
       TermType: 0
       Description: 
       Languages:
       - Armour
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/BRGenesis
+      TermType: 0
+      Description: 
+      Languages:
+      - GENESIS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/BaseballArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - Baseball Armor
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/BaseballHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Baseball Helmet
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/BlimpDeck
+      TermType: 0
+      Description: 
+      Languages:
+      - BLIMP DECK
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4820,14 +2384,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - General Panic
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/BRGenesis
-      TermType: 0
-      Description: 
-      Languages:
-      - GENESIS
       - 
       Flags: 0000
       Languages_Touch: []
@@ -4951,11 +2507,19 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/SmallWilderness
+    - Term: GameIds/FootballArmor
       TermType: 0
       Description: 
       Languages:
-      - OASIS
+      - Footbull Armor
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/FootballHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Footbull Helmet
       - 
       Flags: 0000
       Languages_Touch: []
@@ -5063,6 +2627,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/HockeyHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Hockey Mask
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/Invincible
       TermType: 0
       Description: 
@@ -5119,27 +2691,19 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/MainDeck
-      TermType: 0
-      Description: 
-      Languages:
-      - SKY DECK
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/BlimpDeck
-      TermType: 0
-      Description: 
-      Languages:
-      - BLIMP DECK
-      - 
-      Flags: 0000
-      Languages_Touch: []
     - Term: GameIds/MagicCube
       TermType: 0
       Description: 
       Languages:
       - Magic Cube
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/MainDeck
+      TermType: 0
+      Description: 
+      Languages:
+      - SKY DECK
       - 
       Flags: 0000
       Languages_Touch: []
@@ -5173,6 +2737,62 @@ MonoBehaviour:
       Languages:
       - 
       - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModHeavyMachineGun
+      TermType: 0
+      Description: 
+      Languages:
+      - Heavy MG
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModLauncher
+      TermType: 0
+      Description: 
+      Languages:
+      - Grenade Launcher
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModMachineGun
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Deadalus '
+      - 'Deadalus '
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModPistol
+      TermType: 0
+      Description: 
+      Languages:
+      - Pistol
+      - Mantis
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModRifle
+      TermType: 0
+      Description: 
+      Languages:
+      - Carbine
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModShotgun
+      TermType: 0
+      Description: 
+      Languages:
+      - Shotgun
+      - Bulldog
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ModSniper
+      TermType: 0
+      Description: 
+      Languages:
+      - Sniper
+      - Rhino
       Flags: 0000
       Languages_Touch: []
     - Term: GameIds/MouseAmulet
@@ -5375,6 +2995,22 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/RoadHelmet
+      TermType: 0
+      Description: 
+      Languages:
+      - Road Cone
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/RoadShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Road Shield
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/RoadSignArmour
       TermType: 0
       Description: 
@@ -5423,6 +3059,62 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/SciBlaster
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser Blaster
+      - Nova Blaster
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SciCannon
+      TermType: 0
+      Description: 
+      Languages:
+      - Plasma Cannon
+      - H.Y.P.E Launcher
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SciMelter
+      TermType: 0
+      Description: 
+      Languages:
+      - Electron Thrower
+      - 'Pulsar '
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SciNeedleGun
+      TermType: 0
+      Description: 
+      Languages:
+      - Needle Gun
+      - Comet Slinger
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SciPistol
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser Pistol
+      - Lunar Repeater
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SciRifle
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser Rifle
+      - Solar Carbine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SciSniper
+      TermType: 0
+      Description: 
+      Languages:
+      - Pulse Rifle
+      - Eclipse
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/Shield
       TermType: 0
       Description: 
@@ -5436,6 +3128,14 @@ MonoBehaviour:
       Description: 
       Languages:
       - Sideshot
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SmallWilderness
+      TermType: 0
+      Description: 
+      Languages:
+      - OASIS
       - 
       Flags: 0000
       Languages_Touch: []
@@ -5551,6 +3251,22 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/SpecialAimingGrenade
+      TermType: 0
+      Description: 
+      Languages:
+      - Grenade
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/SpecialAimingGrenadeDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Damages all enemies within the blast radius of a thrown grenade
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/SpecialAimingHealArea
       TermType: 0
       Description: 
@@ -5628,22 +3344,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Stuns all enemies within the blast radius of a thrown grenade
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SpecialAimingGrenade
-      TermType: 0
-      Description: 
-      Languages:
-      - Grenade
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SpecialAimingGrenadeDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Damages all enemies within the blast radius of a thrown grenade
       - 
       Flags: 0000
       Languages_Touch: []
@@ -5991,227 +3691,2539 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ApoCrossbow
+    - Term: General/ATTDescription
       TermType: 0
       Description: 
       Languages:
-      - Crossbow
-      - Hawk
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ApoShotgun
-      TermType: 0
-      Description: 
-      Languages:
-      - Scattergun
-      - Boomstick
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ApoSMG
-      TermType: 0
-      Description: 
-      Languages:
-      - SMG
+      - This identifier will be used to measure advertising efficiency.
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ApoRifle
+    - Term: General/AWESOME
       TermType: 0
       Description: 
       Languages:
-      - Assault Rifle
+      - AWESOME!
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ApoSniper
+    - Term: General/Appearance
       TermType: 0
       Description: 
       Languages:
-      - Hunting Rifle
-      - Falcon
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ApoRPG
-      TermType: 0
-      Description: 
-      Languages:
-      - RPG
+      - Appearance
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ApoMinigun
+    - Term: General/AreYouSure
       TermType: 0
       Description: 
       Languages:
-      - Minigun
+      - Are you Sure?
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ModPistol
+    - Term: General/Armor
       TermType: 0
       Description: 
       Languages:
-      - Pistol
-      - Mantis
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ModShotgun
-      TermType: 0
-      Description: 
-      Languages:
-      - Shotgun
-      - Bulldog
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ModMachineGun
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Deadalus '
-      - 'Deadalus '
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ModRifle
-      TermType: 0
-      Description: 
-      Languages:
-      - Carbine
+      - Armor
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ModSniper
+    - Term: General/Armour
       TermType: 0
       Description: 
       Languages:
-      - Sniper
-      - Rhino
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/ModLauncher
-      TermType: 0
-      Description: 
-      Languages:
-      - Grenade Launcher
+      - Armour
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/ModHeavyMachineGun
+    - Term: General/AttackCooldown
       TermType: 0
       Description: 
       Languages:
-      - Heavy MG
+      - Cooldown
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/SciPistol
+    - Term: General/Back
       TermType: 0
       Description: 
       Languages:
-      - Laser Pistol
-      - Lunar Repeater
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SciBlaster
-      TermType: 0
-      Description: 
-      Languages:
-      - Laser Blaster
-      - Nova Blaster
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SciNeedleGun
-      TermType: 0
-      Description: 
-      Languages:
-      - Needle Gun
-      - Comet Slinger
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SciRifle
-      TermType: 0
-      Description: 
-      Languages:
-      - Laser Rifle
-      - Solar Carbine
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SciSniper
-      TermType: 0
-      Description: 
-      Languages:
-      - Pulse Rifle
-      - Eclipse
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SciCannon
-      TermType: 0
-      Description: 
-      Languages:
-      - Plasma Cannon
-      - H.Y.P.E Launcher
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/SciMelter
-      TermType: 0
-      Description: 
-      Languages:
-      - Electron Thrower
-      - 'Pulsar '
-      Flags: 0000
-      Languages_Touch: []
-    - Term: GameIds/BaseballArmor
-      TermType: 0
-      Description: 
-      Languages:
-      - Baseball Armor
+      - Back
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/FootballArmor
+    - Term: General/CONTINUE
       TermType: 0
       Description: 
       Languages:
-      - Footbull Armor
+      - CONTINUE
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/RoadShield
+    - Term: General/CollectItemsFromCrates
       TermType: 0
       Description: 
       Languages:
-      - Road Shield
+      - Collect new equipment from crates and cores found in Adventures!
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/RoadHelmet
+    - Term: General/CompareEquipment
       TermType: 0
       Description: 
       Languages:
-      - Road Cone
+      - Compare Equipment
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/FootballHelmet
+    - Term: General/Confirm
       TermType: 0
       Description: 
       Languages:
-      - Footbull Helmet
+      - Confirm
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/BaseballHelmet
+    - Term: General/ConfirmIAPPurchase
       TermType: 0
       Description: 
       Languages:
-      - Baseball Helmet
+      - Confirm your In-App Purchase
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: GameIds/HockeyHelmet
+    - Term: General/ConfirmQuit
       TermType: 0
       Description: 
       Languages:
-      - Hockey Mask
+      - Are you sure you want to quit? You will lose all of your collected loot!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/DEFEATED
+      TermType: 0
+      Description: 
+      Languages:
+      - DEFEATED!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Damage
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Decline
+      TermType: 0
+      Description: 
+      Languages:
+      - Decline
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/DefeatBoss
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat {0}!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Disconnected
+      TermType: 0
+      Description: 
+      Languages:
+      - Disconnected
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Equip
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIP
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/EquipLastWeaponWarning
+      TermType: 0
+      Description: 
+      Languages:
+      - You only have one weapon left, so can't unequip it.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Equipped
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPPED
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/ExitGame
+      TermType: 0
+      Description: 
+      Languages:
+      - EXIT GAME
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/FailureReason1
+      TermType: 0
+      Description: 
+      Languages:
+      - Reason1
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/FailureReason2
+      TermType: 0
+      Description: 
+      Languages:
+      - Reason2
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/FailureReason3
+      TermType: 0
+      Description: 
+      Languages:
+      - Reason3
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Get Ready!
+      TermType: 0
+      Description: 
+      Languages:
+      - Get Ready!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/GoToShop
+      TermType: 0
+      Description: 
+      Languages:
+      - Would you like to go to the shop
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Health
+      TermType: 0
+      Description: 
+      Languages:
+      - Health
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Heroes
+      TermType: 0
+      Description: 
+      Languages:
+      - Heroes
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Home
+      TermType: 0
+      Description: 
+      Languages:
+      - Home
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Hp
+      TermType: 0
+      Description: 
+      Languages:
+      - HP
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Leave
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/LeaveFeedback
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave Feedback!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Level
+      TermType: 0
+      Description: 
+      Languages:
+      - Level
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Maintenance
+      TermType: 0
+      Description: 
+      Languages:
+      - Game in Maintenance
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/MaintenanceDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Game devs are running around like Bored Blast Apes in Royale Club
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Map
+      TermType: 0
+      Description: 
+      Languages:
+      - MAP
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/MaxAttackAngle
+      TermType: 0
+      Description: 
+      Languages:
+      - Max Angle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/MaxCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Max Capacity
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/MaxLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX LEVEL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/MinAttackAngle
+      TermType: 0
+      Description: 
+      Languages:
+      - Min Angle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NewGameUpdate
+      TermType: 0
+      Description: 
+      Languages:
+      - New Game Update
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/No
+      TermType: 0
+      Description: 
+      Languages:
+      - NO
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NoInternet
+      TermType: 0
+      Description: 
+      Languages:
+      - No Internet Connection
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NoInternetDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Unable to connect to the server.
+
+        Check your internet connection.'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NoItemsCollectedYet
+      TermType: 0
+      Description: 
+      Languages:
+      - No items collected yet
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NotEnoughCash
+      TermType: 0
+      Description: 
+      Languages:
+      - Not Enough Cash
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NotEnoughGems
+      TermType: 0
+      Description: 
+      Languages:
+      - You don't have enough Gems!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/NumberOfShots
+      TermType: 0
+      Description: 
+      Languages:
+      - Bullets Per Shot
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/OK
+      TermType: 0
+      Description: 
+      Languages:
+      - OK
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Open
+      TermType: 0
+      Description: 
+      Languages:
+      - OPEN
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal0
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal1
+      TermType: 0
+      Description: 
+      Languages:
+      - st
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal10
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal11
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal12
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal13
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal14
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal15
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal16
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal17
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal18
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal19
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal2
+      TermType: 0
+      Description: 
+      Languages:
+      - nd
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal3
+      TermType: 0
+      Description: 
+      Languages:
+      - rd
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal4
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal5
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal6
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal7
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal8
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ordinal9
+      TermType: 0
+      Description: 
+      Languages:
+      - th
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/PlacementMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - You finished {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Power
+      TermType: 0
+      Description: 
+      Languages:
+      - Attack
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/PowerToDamageRatio
+      TermType: 0
+      Description: 
+      Languages:
+      - Attack to Damage
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/PrimarySpecial
+      TermType: 0
+      Description: 
+      Languages:
+      - Primary Special
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/ProjectileArmor
+      TermType: 0
+      Description: 
+      Languages:
+      - Projectile Armor
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/ProjectileSpeed
+      TermType: 0
+      Description: 
+      Languages:
+      - Speed
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/RESULTS
+      TermType: 0
+      Description: 
+      Languages:
+      - RESULTS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/REWARDS
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Ready
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/ReloadSpeed
+      TermType: 0
+      Description: 
+      Languages:
+      - Reload Speed
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Reloading
+      TermType: 0
+      Description: 
+      Languages:
+      - Reloading
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Replace
+      TermType: 0
+      Description: 
+      Languages:
+      - REPLACE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/RequireWeapon
+      TermType: 0
+      Description: 
+      Languages:
+      - You must have a weapon equipped in order to play a game!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SecondarySpecial
+      TermType: 0
+      Description: 
+      Languages:
+      - Second Special
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Select
+      TermType: 0
+      Description: 
+      Languages:
+      - Select
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Selected
+      TermType: 0
+      Description: 
+      Languages:
+      - Selected
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Sell
+      TermType: 0
+      Description: 
+      Languages:
+      - SELL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SellItemFor
+      TermType: 0
+      Description: 
+      Languages:
+      - Sell this item for {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SellLastWeaponWarning
+      TermType: 0
+      Description: 
+      Languages:
+      - You only have one weapon left, so aren't able to sell this item.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SlotEmpty
+      TermType: 0
+      Description: 
+      Languages:
+      - Slot Empty
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SpecialId
+      TermType: 0
+      Description: 
+      Languages:
+      - Special
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Spectate
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectate
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - Speed
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/SplashDamageRadius
+      TermType: 0
+      Description: 
+      Languages:
+      - Splash Radius
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/TapSkip
+      TermType: 0
+      Description: 
+      Languages:
+      - Tap to Skip
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/TargetRange
+      TermType: 0
+      Description: 
+      Languages:
+      - Range
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Unequip
+      TermType: 0
+      Description: 
+      Languages:
+      - UNEQUIP
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/UnlockAtPlayerLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - Unlock at Player Level {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/UpdateGame
+      TermType: 0
+      Description: 
+      Languages:
+      - Your game is out of date! Go to the app store to get the latest version.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Upgrade
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/UpgradeFor
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADE FOR {0} ?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/UserId
+      TermType: 0
+      Description: 
+      Languages:
+      - 'User Id: {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Victory!
+      TermType: 0
+      Description: 
+      Languages:
+      - Victory!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/Yes
+      TermType: 0
+      Description: 
+      Languages:
+      - YES
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/YouWereDisconnected
+      TermType: 0
+      Description: 
+      Languages:
+      - You were disconnected from the game
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General/character
+      TermType: 0
+      Description: 
+      Languages:
+      - character
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_1
+      TermType: 0
+      Description: 
+      Languages:
+      - Defeat Enemies to win
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_2
+      TermType: 0
+      Description: 
+      Languages:
+      - Shoot your shot!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_3
+      TermType: 0
+      Description: 
+      Languages:
+      - I'll never financially recover from this...
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_4
+      TermType: 0
+      Description: 
+      Languages:
+      - They don't think it be - but it do!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_5
+      TermType: 0
+      Description: 
+      Languages:
+      - Collect the same weapon again to refill ammo
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_6
+      TermType: 0
+      Description: 
+      Languages:
+      - Keep movin' keep groovin'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_7
+      TermType: 0
+      Description: 
+      Languages:
+      - You can't win if you can't hit me
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: LoadingTips/Loading_Tip_8
+      TermType: 0
+      Description: 
+      Languages:
+      - Every weapon has its own special talent
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Abilties
+      TermType: 0
+      Description: 
+      Languages:
+      - ABILITIES
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/All Gear
+      TermType: 0
+      Description: 
+      Languages:
+      - ALL GEAR
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/AutoFire
+      TermType: 0
+      Description: 
+      Languages:
+      - Autofire
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/BGM
+      TermType: 0
+      Description: 
+      Languages:
+      - Background Music
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/BeatLevelFirst
+      TermType: 0
+      Description: 
+      Languages:
+      - BEAT CHAPTER {0} LEVEL {1} FIRST!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/BeatLevelFirstWithDifficulty
+      TermType: 0
+      Description: 
+      Languages:
+      - BEAT {0} CHAPTER {1} LEVEL {2} FIRST!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/BossKilledTimes
+      TermType: 0
+      Description: 
+      Languages:
+      - DEFEAT THE BOSS ({0}/10)
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/BossLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - LV.{0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - CANCEL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ChangePlayerSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - CHANGE SKIN
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ChooseGameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - CHOOSE GAME MODE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ClaimReward
+      TermType: 0
+      Description: 
+      Languages:
+      - Claim Reward
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Collect
+      TermType: 0
+      Description: 
+      Languages:
+      - COLLECT!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CollectedCrates
+      TermType: 0
+      Description: 
+      Languages:
+      - Collected Crates
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CompleteLowerDifficulty
+      TermType: 0
+      Description: 
+      Languages:
+      - Complete {0} difficulty first
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ContainsAtLeast
+      TermType: 0
+      Description: 
+      Languages:
+      - CONTAINS AT LEAST
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Craft
+      TermType: 0
+      Description: 
+      Languages:
+      - CRAFT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CrateTier
+      TermType: 0
+      Description: 
+      Languages:
+      - TIER {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CrateTierType
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}
+
+        TIER {1}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Crates
+      TermType: 0
+      Description: 
+      Languages:
+      - Crates
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CreateRoom
+      TermType: 0
+      Description: 
+      Languages:
+      - Create
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CurrentXP
+      TermType: 0
+      Description: 
+      Languages:
+      - CURRENT XP {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CustomMatchBotsToggle
+      TermType: 0
+      Description: 
+      Languages:
+      - Bots
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/CustomMatchSpectateToggle
+      TermType: 0
+      Description: 
+      Languages:
+      - Spectate
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchPlayOffline
+      TermType: 0
+      Description: 
+      Languages:
+      - Play With Bots
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchPlayOnline
+      TermType: 0
+      Description: 
+      Languages:
+      - Play Online
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchPlayRoom
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Game
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DefeatedBossXTimes
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}DEFEATED{1} X {2}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Demo
+      TermType: 0
+      Description: 
+      Languages:
+      - Demo
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DetailLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - Detail Level
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DisconnectedMatchEndInfo
+      TermType: 0
+      Description: 
+      Languages:
+      - Match ended by disconnection.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DragAndReleaseToFire
+      TermType: 0
+      Description: 
+      Languages:
+      - Drag and Release
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/DragAndReleaseToFireDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - This weapon is fired by dragging and releasing the right side joystick.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/EmailTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Email
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Enhance
+      TermType: 0
+      Description: 
+      Languages:
+      - ENHANCE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/EnhanceDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - USE PIECES OF THE SAME TYPE OF EQUIPMENT TO CREATE A NEW ITEM OF THE SAME
+        TYPE BUT OF HIGHER RARITY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/EnhanceItemsNeeded
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} ITEMS OF THE SAME TYPE ARE NEEDED TO ENHANCE'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/EnhanceResults
+      TermType: 0
+      Description: 
+      Languages:
+      - ENHANCEMENT RESULTS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/EventsComingSoon
+      TermType: 0
+      Description: 
+      Languages:
+      - EVENTS COMING SOON!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/FirstVictoryRewards
+      TermType: 0
+      Description: 
+      Languages:
+      - 'FIRST VICTORY REWARDS:'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/FreeSlot
+      TermType: 0
+      Description: 
+      Languages:
+      - Free Slot
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Fuse
+      TermType: 0
+      Description: 
+      Languages:
+      - FUSE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/FuseDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - FUSE 5 PIECES OF EQUIPMENT OF THE SAME RARITY TOGETHER TO CREATE A RANDOM
+        ITEM OF HIGHER RARITY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/FuseResults
+      TermType: 0
+      Description: 
+      Languages:
+      - FUSION RESULTS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/FusionWarning
+      TermType: 0
+      Description: 
+      Languages:
+      - ONE OR MORE ITEMS SELECTED HAS ALREADY BEEN UPGRADED. DO YOU WANT TO PROCEED?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/GameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - GAME MODE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HOME
+      TermType: 0
+      Description: 
+      Languages:
+      - HOME
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Haptic
+      TermType: 0
+      Description: 
+      Languages:
+      - Haptic Feedback
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HighResMode
+      TermType: 0
+      Description: 
+      Languages:
+      - High Res Mode
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HoldToFire
+      TermType: 0
+      Description: 
+      Languages:
+      - Hold and Fire
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HoldToFireDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Hold down the button to fire this weapon continuously.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HowToPlay
+      TermType: 0
+      Description: 
+      Languages:
+      - HOW TO PLAY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HowToPlayDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Hurry
+      TermType: 0
+      Description: 
+      Languages:
+      - HURRY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/HurryCrate
+      TermType: 0
+      Description: 
+      Languages:
+      - SPEED UP THIS CRATE?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ItemCraftedText
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}{1}{2} ITEM WILL BE CRAFTED'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ItemEnhancedText
+      TermType: 0
+      Description: 
+      Languages:
+      - '{3} WILL BE ENHANCED TO {0}{1}{2}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Items
+      TermType: 0
+      Description: 
+      Languages:
+      - 'ITEMS: {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/JoinRoom
+      TermType: 0
+      Description: 
+      Languages:
+      - Join
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Loading
+      TermType: 0
+      Description: 
+      Languages:
+      - Loading...
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Locked
+      TermType: 0
+      Description: 
+      Languages:
+      - LOCKED
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LoginButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Login
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LoginOrText
+      TermType: 0
+      Description: 
+      Languages:
+      - Or
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LoginTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Login to an existing account
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LogoutButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Logout
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LogoutConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to log out?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LogoutSuccessDesc
+      TermType: 0
+      Description: 
+      Languages:
+      - Restart the game to log in to a new account.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/LogoutSuccessTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Logged out successfully
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Loot
+      TermType: 0
+      Description: 
+      Languages:
+      - LOOT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/MainMenuButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Main Menu
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ManualFire
+      TermType: 0
+      Description: 
+      Languages:
+      - Manual Fire
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingMatchType
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} Match'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Meters
+      TermType: 0
+      Description: 
+      Languages:
+      - Damage & Healing Meters
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/MightRating
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Might:'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/MightTotal
+      TermType: 0
+      Description: 
+      Languages:
+      - 'TOTAL MIGHT: {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeBr
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeCasual
+      TermType: 0
+      Description: 
+      Languages:
+      - Casual
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeDm
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ModeRanked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NameHeroTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - What's your name Hero?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NameTooLong
+      TermType: 0
+      Description: 
+      Languages:
+      - The name must not exceed {0} characters.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NameTooShort
+      TermType: 0
+      Description: 
+      Languages:
+      - The name must be at least {0} characters long.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NewEnemies
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW ENEMIES
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NewFeatureUnlocked
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} UNLOCKED!'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NewItems
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW ITEMS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NewMap
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW MAP
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NewUnlock
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW FEATURE!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NextArena
+      TermType: 0
+      Description: 
+      Languages:
+      - NEXT ARENA
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NextGoal
+      TermType: 0
+      Description: 
+      Languages:
+      - NEXT GOAL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NftCooldownTimerFullText
+      TermType: 0
+      Description: 
+      Languages:
+      - Item on cooldown for {0}
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NftCooldownTimerTooltip
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This item was transferred recently.
+
+        Items on cooldown do no not
+        contribute to any in-game earnings.'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NftRestrictionText
+      TermType: 0
+      Description: 
+      Languages:
+      - You must have at least 3 items equipped to play online.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NoAdventuresAvailable
+      TermType: 0
+      Description: 
+      Languages:
+      - NO {0} ADVENTURES AVAILABLE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NotEnoughSpace
+      TermType: 0
+      Description: 
+      Languages:
+      - You have collected loot, but don't have enough space to store it!\n Do you
+        want to open all new Crates now?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/NotEnoughSpaceWarning
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure? All extra Loot will be lost!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/OpenCrate
+      TermType: 0
+      Description: 
+      Languages:
+      - OPEN
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/OpenCrateNow
+      TermType: 0
+      Description: 
+      Languages:
+      - Open Now
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/OpenNow
+      TermType: 0
+      Description: 
+      Languages:
+      - Open Now?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/PasswordTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Password
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/PlayGame
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/PlayersActiveNumber
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PLAYERS ACTIVE: {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/PlayfabError
+      TermType: 0
+      Description: 
+      Languages:
+      - Game Error
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/PossibleRewards
+      TermType: 0
+      Description: 
+      Languages:
+      - 'POSSIBLE REWARDS: '
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ProgressChapter
+      TermType: 0
+      Description: 
+      Languages:
+      - 'CHAPTER {0}: {1}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/QuitGameButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Quit
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ReachPlayerLevelAdventure
+      TermType: 0
+      Description: 
+      Languages:
+      - Reach Player Level {0} to Unlock
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ReconnectButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Reconnect
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Register
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Account has been created successfully.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Register
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RememberMe
+      TermType: 0
+      Description: 
+      Languages:
+      - Remember Me
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ResetPassword
+      TermType: 0
+      Description: 
+      Languages:
+      - Reset Password
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ResoucePoolFull
+      TermType: 0
+      Description: 
+      Languages:
+      - Storage is full!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ResourceAmount
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} / {1}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ResourceRestockTime
+      TermType: 0
+      Description: 
+      Languages:
+      - '+{0} in
+
+        {1}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomCreateOrJoin
+      TermType: 0
+      Description: 
+      Languages:
+      - Create or join a room with a code
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomCurrentName
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Room: {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomError
+      TermType: 0
+      Description: 
+      Languages:
+      - "Room Error: \n{0}"
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Join
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCode
+      TermType: 0
+      Description: 
+      Languages:
+      - Enter a valid room code
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Game
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomLeaveButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/RoomLock
+      TermType: 0
+      Description: 
+      Languages:
+      - Lock & Play!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SFX
+      TermType: 0
+      Description: 
+      Languages:
+      - Sound Effects
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SelectGameMap
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT ADVENTURE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SelectGameMode
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT GAME MODE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Selected
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECTED
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SelectedGameModeText
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Game Mode:
+
+        {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SelectedGameModeTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Game Mode:'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SelectedGameModeValue
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}
+
+        {1}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SendPasswordEmail
+      TermType: 0
+      Description: 
+      Languages:
+      - Send Password Recovery Email
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SendPasswordEmailConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - A recovery link has been sent to the email.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Settings
+      TermType: 0
+      Description: 
+      Languages:
+      - SETTINGS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SettingsFaqButton
+      TermType: 0
+      Description: 
+      Languages:
+      - FAQ
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/SettingsHelpSupport
+      TermType: 0
+      Description: 
+      Languages:
+      - HELP & SUPPORT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Shop
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOP
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Social
+      TermType: 0
+      Description: 
+      Languages:
+      - SOCIAL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Sort
+      TermType: 0
+      Description: 
+      Languages:
+      - SORT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/StartUnlock
+      TermType: 0
+      Description: 
+      Languages:
+      - START UNLOCKING {0}?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/StatShield
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Talents
+      TermType: 0
+      Description: 
+      Languages:
+      - TALENTS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TapToUnlock
+      TermType: 0
+      Description: 
+      Languages:
+      - TAP TO UNLOCK
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TooMuchLoot
+      TermType: 0
+      Description: 
+      Languages:
+      - Too Much Loot!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TotalMight
+      TermType: 0
+      Description: 
+      Languages:
+      - TOTAL MIGHT
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesGained
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Gained
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesLost
+      TermType: 0
+      Description: 
+      Languages:
+      - Trophies Lost
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TrophiesNewTotal
+      TermType: 0
+      Description: 
+      Languages:
+      - New Total
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TrophyRoad
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/TrophyRoadXP
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} XP'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/Unlock
+      TermType: 0
+      Description: 
+      Languages:
+      - UNLOCK
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/UnlockCrateNow
+      TermType: 0
+      Description: 
+      Languages:
+      - UNLOCK {0} CRATE NOW?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/UnlockInProgress
+      TermType: 0
+      Description: 
+      Languages:
+      - IN PROGRESS
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/UseCrateSlot
+      TermType: 0
+      Description: 
+      Languages:
+      - You can use this slot to store collected loot crates!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/UsernameTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Username
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ViewAll
+      TermType: 0
+      Description: 
+      Languages:
+      - VIEW ALL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/WeaponIsAtMaxLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON IS AT MAX LEVEL
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Aircraft
+      TermType: 0
+      Description: 
+      Languages:
+      - Aircraft
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Cafe
+      TermType: 0
+      Description: 
+      Languages:
+      - Cafe
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Church
+      TermType: 0
+      Description: 
+      Languages:
+      - Church
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Cinema
+      TermType: 0
+      Description: 
+      Languages:
+      - Cinema
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Court
+      TermType: 0
+      Description: 
+      Languages:
+      - Court
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Diner
+      TermType: 0
+      Description: 
+      Languages:
+      - Diner
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/EastCamp
+      TermType: 0
+      Description: 
+      Languages:
+      - East Camp
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Fountain
+      TermType: 0
+      Description: 
+      Languages:
+      - Fountain
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/GasStation
+      TermType: 0
+      Description: 
+      Languages:
+      - Gas Station
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Liberty
+      TermType: 0
+      Description: 
+      Languages:
+      - Liberty
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Lighthouse
+      TermType: 0
+      Description: 
+      Languages:
+      - Lighthouse
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/MainCamp
+      TermType: 0
+      Description: 
+      Languages:
+      - Main Camp
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Market
+      TermType: 0
+      Description: 
+      Languages:
+      - Market
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Motel
+      TermType: 0
+      Description: 
+      Languages:
+      - Motel
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Park
+      TermType: 0
+      Description: 
+      Languages:
+      - Park
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/PetShop
+      TermType: 0
+      Description: 
+      Languages:
+      - Pet Shop
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Port
+      TermType: 0
+      Description: 
+      Languages:
+      - Port
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Repairs
+      TermType: 0
+      Description: 
+      Languages:
+      - Repairs
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Ship
+      TermType: 0
+      Description: 
+      Languages:
+      - Ship
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Slum
+      TermType: 0
+      Description: 
+      Languages:
+      - Slum
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Store
+      TermType: 0
+      Description: 
+      Languages:
+      - Store
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/TheCore
+      TermType: 0
+      Description: 
+      Languages:
+      - The Core
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/TheIsle
+      TermType: 0
+      Description: 
+      Languages:
+      - The Isle
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MapDropPoints/Tower
+      TermType: 0
+      Description: 
+      Languages:
+      - Tower
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/AdventureUnlocked
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} is now open! Defeat the boss and collect awesome rewards!'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/AdventureUnlockedTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - A New Adventure Awaits!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/CrateReady
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} is ready to open!'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/CrateReadyTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Crate Unlocked!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/GameTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - BOSS HUNT HEROES
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/NoCrateUnlocking
+      TermType: 0
+      Description: 
+      Languages:
+      - You forgot to unlock a crate!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/NoCrateUnlockingTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Crates can be Unlocked
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/UnopenedCrate
+      TermType: 0
+      Description: 
+      Languages:
+      - You forgot to open a crate
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Notifications/UnopenedCrateTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Claim Your Loot!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shop/ConfirmPurchase
+      TermType: 0
+      Description: 
+      Languages:
+      - PURCHASE {0}?
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shop/com.core.epic.1
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE CORE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shop/com.core.legendary.1
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLDEN CORE
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shop/com.core.legendary.2
+      TermType: 0
+      Description: 
+      Languages:
+      - x5 GOLDEN CORES
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Shop/com.core.rare.1
+      TermType: 0
+      Description: 
+      Languages:
+      - STEEL CORE
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6263,43 +6275,63 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Shop/com.core.epic.1
+    - Term: Tooltips/ToolTip_BLST
       TermType: 0
       Description: 
       Languages:
-      - BRONZE CORE
+      - "Blast Tokens are valuable rewards obtained in special ways in-game, or purchased.
+        \n\nUse Blast Tokens to purchase equipment on the marketplace."
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Shop/com.core.legendary.1
+    - Term: Tooltips/ToolTip_CS
       TermType: 0
       Description: 
       Languages:
-      - GOLDEN CORE
+      - 'Gain Craft Spice by placing higher in Battle Royale matches.
+
+
+        Craft
+        Spice is used on the marketplace for upgrading, repairing and replicating
+        equipment.'
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Shop/com.core.legendary.2
+    - Term: Tooltips/ToolTip_Casual
       TermType: 0
       Description: 
       Languages:
-      - x5 GOLDEN CORES
+      - You cannot earn rewards, or gain trophies in casual matches. Play for fun!
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Shop/ConfirmPurchase
+    - Term: Tooltips/ToolTip_NftCooldown
       TermType: 0
       Description: 
       Languages:
-      - PURCHASE {0}?
+      - 'This item was transferred recently.
+
+
+        Items on cooldown do not contribute
+        to any in-game earnings.'
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Shop/com.core.rare.1
+    - Term: Tooltips/ToolTip_Ranked
       TermType: 0
       Description: 
       Languages:
-      - STEEL CORE
+      - You can earn rewards in ranked matches, and your trophies are on the line.
+        Play for glory!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_Trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - "Trophies increase your Craft Spice pool. \n\nPlace higher in Battle Royale
+        matches to earn trophies."
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6318,7 +6350,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1660226780247
+    Google_LastUpdatedVersion: 1660571778663
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

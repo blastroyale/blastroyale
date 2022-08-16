@@ -29,9 +29,15 @@ public class PlayfabGameStateService : IServerStateService
 	{
 		var request = new UpdateUserDataRequest()
 		{
-			Data = state,
 			PlayFabId = playerId
 		};
+		if(state.UpdatedTypes.Count > 0)
+		{
+			request.Data = state.GetOnlyUpdatedState();
+		} else
+		{
+			request.Data = state;
+		}
 		var server = _server.CreateServer(playerId);
 		var result = await server.UpdateUserReadOnlyDataAsync(request);
 		if (result.Error != null)

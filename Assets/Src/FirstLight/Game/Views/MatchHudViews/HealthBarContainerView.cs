@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -43,6 +44,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_healthBarRef.gameObject.SetActive(false);
 		}
 
+		private void OnDestroy()
+		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnPlayerSpectateUpdate);
+		}
+
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
 			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
@@ -84,7 +91,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
 			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
 
-			if (f == null || f.Get<AIBlackboardComponent>(player.Entity).GetBoolean(f, Constants.IsSkydiving))
+			if (f == null || !f.TryGet<AIBlackboardComponent>(player.Entity, out var blackboard) || 
+			    blackboard.GetBoolean(f, Constants.IsSkydiving))
 			{
 				_healthBarSpectatePlayer.OnDespawn();
 				return;
@@ -104,6 +112,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) || 
 			    !f.TryGet<Stats>(entity, out var stats))
 			{
+				healthBar.OnDespawn();
 				return;
 			}
 

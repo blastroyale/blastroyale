@@ -111,6 +111,8 @@ synced event OnPlayerDamaged
 	entity_ref Entity;
 	entity_ref Attacker;
 	UInt32 ShieldDamage; 
+	UInt32 PreviousShield;
+	UInt32 CurrentShield;
 	UInt32 HealthDamage;
 	UInt32 TotalDamage;
 	Int32 MaxHealth;

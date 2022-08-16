@@ -52,6 +52,7 @@ namespace FirstLight.Game.StateMachines
 			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
 			var disconnected = stateFactory.State("AUDIO - Disconnected");
+			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
@@ -72,20 +73,23 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
 
-			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
-			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
-			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
-			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
-			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
-			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-
+			
+			postGameSpectatorCheck.Transition().Condition(IsSpectator).Target(audioBase);
+			postGameSpectatorCheck.Transition().Target(postGame);
+				
 			postGame.OnEnter(StopMusicInstant);
 			postGame.OnEnter(PlayPostMatchMusic);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
@@ -111,6 +115,11 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
+		
 		private bool IsDeathmatch()
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;

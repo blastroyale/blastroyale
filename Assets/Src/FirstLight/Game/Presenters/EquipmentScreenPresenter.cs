@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
+using Circuit;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
@@ -189,8 +190,12 @@ namespace FirstLight.Game.Presenters
 			var isWeapon = equipment.Equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
-			SetCooldownStatus();
-			
+
+			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(equipment.Id))
+			{
+				SetCooldownStatus();
+			}
+
 			// TODO: Add proper translation logic
 			_equipButtonText.SetText(equipment.IsEquipped ? ScriptLocalization.General.Unequip : ScriptLocalization.General.Equip);
 			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, equipment.Stats[EquipmentStatType.Damage].ToString());

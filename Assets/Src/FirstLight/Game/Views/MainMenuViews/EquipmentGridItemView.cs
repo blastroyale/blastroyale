@@ -68,12 +68,16 @@ namespace FirstLight.Game.Views.MainMenuViews
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
-			var info = equipmentDataProvider.GetNftInfo(data.Id);
-			
-			_selectedFrameImage.SetActive(data.IsSelected);
-			_equippedImage.enabled = info.EquipmentInfo.IsEquipped;
-			_cooldownImage.enabled = info.IsOnCooldown;
 
+			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(data.Id))
+			{
+				var info = equipmentDataProvider.GetNftInfo(data.Id);
+				_equippedImage.enabled = info.EquipmentInfo.IsEquipped;
+				_cooldownImage.enabled = info.IsOnCooldown;
+			}
+
+			_selectedFrameImage.SetActive(data.IsSelected);
+			
 			if (data.IsSelected)
 			{
 				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(data.Id);
@@ -84,13 +88,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_uniqueId = data.Id;
 		}
 
-		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
+		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId,
+		                              ObservableUpdateType updateType)
 		{
 			if (newId != _uniqueId || updateType != ObservableUpdateType.Added)
 			{
 				return;
 			}
-			
+
 			_cardItemAnimation.clip = _equipCardAnimationClip;
 
 			_cardItemAnimation.Rewind();

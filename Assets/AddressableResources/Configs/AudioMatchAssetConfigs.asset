@@ -571,3 +571,80 @@ MonoBehaviour:
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
+  - Key: 53
+    Value:
+      AudioClips:
+      - m_AssetGUID: 082e1702f273d4950b5f3391595fbf3a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 54
+    Value:
+      AudioClips:
+      - m_AssetGUID: 52eb6b66a44334dff972b8954108d649
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 55
+    Value:
+      AudioClips:
+      - m_AssetGUID: 0c444342363824683b406cc05f06cafc
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 56
+    Value:
+      AudioClips:
+      - m_AssetGUID: 3e76ad7bf205d42fda333a1886ae9832
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 61
+    Value:
+      AudioClips:
+      - m_AssetGUID: 3450b610af414401187beeaf084ef893
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 63
+    Value:
+      AudioClips:
+      - m_AssetGUID: f2440af6a32024f76acc45c01fa522d9
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 58
+    Value:
+      AudioClips:
+      - m_AssetGUID: 7a9322fb868cc421a8dc3da9d5dd78ef
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0

@@ -42,6 +42,8 @@ namespace Quantum.Systems
 				return;
 			}
 
+			f.Events.OnHazardLanded(*hazard, filter.Transform->Position);
+
 			//check the area when the hazard explodes
 			var shape = Shape3D.CreateSphere(hazard->Radius);
 			var hits = f.Physics3D.OverlapShape(filter.Transform->Position, FPQuaternion.Identity, shape,

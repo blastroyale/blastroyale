@@ -104,6 +104,10 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
+			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
+			QuantumEvent.SubscribeManual<EventOnSpecialUsed>(this, OnSpecialUsed);
+			QuantumEvent.SubscribeManual<EventOnHazardLanded>(this, OnHazardLanded);
+
 		}
 
 		private void UnsubscribeEvents()
@@ -187,6 +191,67 @@ namespace FirstLight.Game.StateMachines
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
 
+		private void OnHazardLanded(EventOnHazardLanded callback)
+		{
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
+
+			var audio = AudioId.None;
+
+			switch (callback.HazardData.GameId)
+			{
+				case GameId.SpecialAimingGrenade:
+					audio = AudioId.ExplosionMedium;
+					break;
+				case GameId.SpecialAimingAirstrike:
+					audio = AudioId.ExplosionLarge;
+					break;
+				case GameId.SpecialAimingStunGrenade:
+					audio = AudioId.ExplosionFlashBang;
+					break;
+				case GameId.SpecialSkyLaserBeam:
+					audio = AudioId.ExplosionSciFi;
+					break;
+			}
+
+
+			if (audio != AudioId.None)
+			{
+				var pos = new Vector3(callback.LandPosition.X.AsFloat, callback.LandPosition.Y.AsFloat, callback.LandPosition.Z.AsFloat);
+				_services.AudioFxService.PlayClip3D(audio, pos);
+			}
+		}
+
+		private void OnSpecialUsed(EventOnSpecialUsed callback)
+		{
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
+
+			var audio = AudioId.None;
+
+			switch (callback.SpecialType)
+			{
+				case SpecialType.Grenade:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.ShieldedCharge:
+					audio = AudioId.Dash;
+					break;
+			}
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
+			}
+		}
+
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)
@@ -221,12 +286,13 @@ namespace FirstLight.Game.StateMachines
 					break;
 			}
 
-			_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView);
-
-			if (audio != AudioId.None)
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-			}
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
+			}			
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
@@ -246,6 +312,19 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void OnDamageBlocked(EventOnDamageBlocked callback)
+		{
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				var audio = AudioId.DamageAbsorb;
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}
+		}
+
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)
@@ -258,11 +337,7 @@ namespace FirstLight.Game.StateMachines
 				var game = callback.Game;
 				var audio = AudioId.None;
 
-				if (callback.TotalDamage <= 0)
-				{
-					audio = AudioId.DamageAbsorb;
-				}
-				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 				}

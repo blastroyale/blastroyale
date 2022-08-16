@@ -13,6 +13,12 @@ component Hazard
 	UInt32 MaxHitCount;
 }
 
+synced event OnHazardLanded
+{
+ 	Hazard HazardData;
+    FPVector3 LandPosition;
+ }
+
 synced event OnHazardHit
 {
  	entity_ref Hazard;

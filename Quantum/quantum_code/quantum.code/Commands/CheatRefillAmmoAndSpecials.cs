@@ -22,7 +22,9 @@ namespace Quantum.Commands
 			for (var i = 0; i < pc->WeaponSlots.Length; i++)
 			{
 				pc->WeaponSlots[i].Special1Charges = 1;
+				pc->WeaponSlots[i].Special1AvailableTime = f.Time;
 				pc->WeaponSlots[i].Special2Charges = 1;
+				pc->WeaponSlots[i].Special2AvailableTime = f.Time;
 			}
 
 			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->GainAmmo(f, characterEntity, FP._1);

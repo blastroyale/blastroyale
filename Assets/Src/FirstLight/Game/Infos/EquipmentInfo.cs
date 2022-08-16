@@ -13,17 +13,22 @@ namespace FirstLight.Game.Infos
 	/// </summary>
 	public enum EquipmentStatType
 	{
-		AttackCooldown,
-		Damage,
+		Power,
+		PowerToDamageRatio,
 		Hp,
 		Speed,
 		Armor,
+		AttackCooldown,
 		TargetRange,
 		ProjectileSpeed,
+		MaxCapacity,
+		ReloadSpeed,
+		MinAttackAngle,
+		MaxAttackAngle,
+		SplashDamageRadius,
+		NumberOfShots,
 		SpecialId0,
 		SpecialId1,
-		MaxCapacity,
-		ReloadSpeed
 	}
 	
 	public struct EquipmentInfo
@@ -117,7 +122,7 @@ namespace FirstLight.Game.Infos
 		}
 		
 		/// <summary>
-		/// Requests the durability states for all the equipments in the given <paramref name="items"/>
+		/// Requests a specified <paramref name="stat"/> for all the equipments in the given <paramref name="items"/>
 		/// </summary>
 		public static float GetTotalStat(this List<EquipmentInfo> items, EquipmentStatType stat)
 		{
@@ -126,6 +131,24 @@ namespace FirstLight.Game.Infos
 			foreach (var nft in items)
 			{
 				total += nft.Stats[stat];
+			}
+
+			return total;
+		}
+		
+		/// <summary>
+		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
+		/// </summary>
+		public static float GetTotalMight(this List<EquipmentInfo> items)
+		{
+			var total = 0f;
+			
+			foreach (var nft in items)
+			{
+				total += nft.Stats[EquipmentStatType.Power]
+				         + nft.Stats[EquipmentStatType.Hp]
+				         + nft.Stats[EquipmentStatType.Speed] * 100f
+				         + nft.Stats[EquipmentStatType.Armor] * 10f;
 			}
 
 			return total;

@@ -29,15 +29,20 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private readonly Dictionary<EquipmentStatType, float> _maxValuesDictionary = new Dictionary<EquipmentStatType, float>
 		{
-			{ EquipmentStatType.Damage, 3000 },
+			{ EquipmentStatType.Power, 3000 },
 			{ EquipmentStatType.Hp, 400 },
-			{ EquipmentStatType.Speed, 0.8f },
-			{ EquipmentStatType.AttackCooldown, 150 },
+			{ EquipmentStatType.Speed, 10f },
+			{ EquipmentStatType.AttackCooldown, 1.2f },
 			{ EquipmentStatType.Armor, 32 },
 			{ EquipmentStatType.ProjectileSpeed, 50 },
 			{ EquipmentStatType.TargetRange, 16 },
-			{ EquipmentStatType.MaxCapacity, 80 },
+			{ EquipmentStatType.MaxCapacity, 200 },
 			{ EquipmentStatType.ReloadSpeed, 4 },
+			{ EquipmentStatType.MinAttackAngle, 60 },
+			{ EquipmentStatType.MaxAttackAngle, 60 },
+			{ EquipmentStatType.SplashDamageRadius, 4 },
+			{ EquipmentStatType.PowerToDamageRatio, 2 },
+			{ EquipmentStatType.NumberOfShots, 10 },
 		};
 
 		/// <summary>
@@ -50,7 +55,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_statText.text = statText;
 			_valueText.text = value.ToString(format);
 			_valueTextComparison.text = "";
-		
+			
 			if (value > 0 && maxValue > 0)
 			{
 				_slider.value = value / _maxValuesDictionary[statType];
@@ -67,28 +72,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_statText.text = statText;
 			_valueText.text = valueText;
 			
-			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
-			var textString = "";
-		
-			if (delta > 0)
-			{
-				_valueTextComparison.color = _positiveColor;
-				textString = "+" + delta.ToString(format);
-			}
-			else if (delta < 0)
-			{
-				_valueTextComparison.color = _negativeColor;
-				textString = delta.ToString(format);
-			}
-			else
-			{
-				_valueTextComparison.color = _neutralColor;
-				textString = delta.ToString(format);
-			}
-			
-			_valueTextComparison.text = textString;
-			_valueTextComparison.gameObject.SetActive(true);
-			
 			if (value > 0)
 			{
 				_slider.value = value / _maxValuesDictionary[statType];
@@ -98,16 +81,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				_slider.value = 0;
 			}
 			
-			if (comparisonValue > 0)
-			{
-				_comparisonSlider.gameObject.SetActive(true);
-				_comparisonSlider.value = comparisonValue / _maxValuesDictionary[statType];
-				_comparisonSliderFillImage.color = _valueTextComparison.color;
-			}
-			else
-			{
-				_comparisonSlider.value = 0;
-			}
+			_valueTextComparison.gameObject.SetActive(false);
 		}
 
 		private void Awake()

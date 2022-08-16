@@ -108,6 +108,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnSpecialUsed>(this, OnSpecialUsed);
 			QuantumEvent.SubscribeManual<EventOnAudioExplosion>(this, OnExplosionStart);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKillPlayer);
 
 		}
 
@@ -191,6 +192,45 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_LOBBY_SNAPSHOT_ID,
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
+
+		private void OnPlayerKillPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
+
+			var game = callback.Game;
+			var audio = AudioId.None;
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView))
+			{
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.EntityKiller))
+				{
+					audio = AudioId.PlayerKill;
+				}
+				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.EntityDead))
+				{
+					audio = AudioId.PlayerDeath;
+				}
+				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) &&
+						game.PlayerIsLocal(killerPlayer.Player))
+				{
+					audio = AudioId.PlayerKill;
+				}
+				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityDead, out var deadPlayer) &&
+						game.PlayerIsLocal(deadPlayer.Player))
+				{
+					audio = AudioId.PlayerDeath;
+				}
+
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
+			}
+		}
+
 		private void OnChestOpened(EventOnChestOpened callback)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)

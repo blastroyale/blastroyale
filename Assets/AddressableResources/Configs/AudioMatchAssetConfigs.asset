@@ -659,6 +659,48 @@ MonoBehaviour:
       BasePitch: 1
       VolumeRandDeviation: 0.2
       PitchRandDeviation: 0.2
+  - Key: 50
+    Value:
+      AudioClips:
+      - m_AssetGUID: a4d88fef0ce72e942aed00c09d1780bd
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 195a8356cee6b0d438df83f8a102be10
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 38fa4383c156371438f983f1ab4d4d86
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 16d6d6a9f3b315944a03b4f4578c2fec
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: fd04c5238626c114e8c1d2544108247f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 00807fecc7bd8674eac24daf264169b4
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 2
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 51
+    Value:
+      AudioClips:
+      - m_AssetGUID: 121175d44a1c94510bf888cd2190ef65
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 2
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 63
     Value:
       AudioClips:

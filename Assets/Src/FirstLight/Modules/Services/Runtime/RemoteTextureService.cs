@@ -108,8 +108,6 @@ namespace FirstLight.Game.Services
 
 			var request = UnityWebRequestTexture.GetTexture(uri);
 			yield return request.SendWebRequest();
-			
-			// TODO: Why not use Task instead? -> while (!request.isDone) await Task.Yield();
 
 			if (_requests.ContainsKey(handle))
 			{

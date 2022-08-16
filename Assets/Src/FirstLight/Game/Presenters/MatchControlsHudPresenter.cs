@@ -1,8 +1,5 @@
 using System;
 using FirstLight.Game.Input;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -15,7 +12,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Button = UnityEngine.UI.Button;
-using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.Presenters
 {
@@ -34,14 +30,14 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchServices;
 		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
-		private PlayerIndicatorContainerView _indicatorContainerView;
+		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_localInput = new LocalInput();
-			_indicatorContainerView = new PlayerIndicatorContainerView(_services);
+			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
 
 			_weaponSlotsHolder.gameObject.SetActive(false);
 			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
@@ -89,7 +85,6 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnAim(InputAction.CallbackContext context)
 		{
-			// TODO: Had mouse input position and clicks
 			_quantumInput.AimingDirection = context.ReadValue<Vector2>().ToFPVector2();
 		}
 
@@ -125,11 +120,19 @@ namespace FirstLight.Game.Presenters
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
 			}
-			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-			else if(Math.Abs(context.time - context.startTime) > Mathf.Epsilon)
+			else
 			{
+				var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+				
 				indicator.SetVisualState(false);
-				SendSpecialUsedCommand(0, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+				
+				// TODO: Check if im.sqrMagnitude > _specialButton0.size
+				
+				// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
+				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && aim.sqrMagnitude > 0)
+				{
+					SendSpecialUsedCommand(0, aim);
+				}
 			}
 		}
 
@@ -143,11 +146,19 @@ namespace FirstLight.Game.Presenters
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
 			}
-			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-			else if(Math.Abs(context.time - context.startTime) > Mathf.Epsilon)
+			else 
 			{
+				var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+				
 				indicator.SetVisualState(false);
-				SendSpecialUsedCommand(1, _localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+				
+				// TODO: Check if im.sqrMagnitude > _specialButton0.size
+				
+				// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
+				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && aim.sqrMagnitude > 0)
+				{
+					SendSpecialUsedCommand(1, aim);
+				}
 			}
 		}
 		

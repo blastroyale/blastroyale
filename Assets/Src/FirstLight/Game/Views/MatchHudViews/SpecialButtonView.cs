@@ -86,6 +86,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_isAiming = false;
+			_buttonView.interactable = true;
 
 			SetInputData(eventData);
 			_specialPointerDownAdapter.SendValueToControl(0f);

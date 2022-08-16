@@ -334,6 +334,9 @@
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Events\AudioEvents.qtn" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>

@@ -23,7 +23,6 @@ namespace Quantum.Systems
 
 			if (distance.SqrMagnitude > range * range)
 			{
-				f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position);
 				EndProjectile(f,filter.Entity, filter.Entity, *filter.Projectile);
 				return;
 			}
@@ -64,8 +63,10 @@ namespace Quantum.Systems
 			                                projectile.KnockbackAmount, position, projectile.TeamSource);
 
 			f.Add<EntityDestroyer>(hitSource);
-			f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
-
+			if(targetHit == hitSource)
+				f.Events.OnProjectileFailedHit(hitSource, projectile, position);
+			else
+				f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
 
 			if (projectile.SplashRadius > FP._0)	
 			{
@@ -75,6 +76,7 @@ namespace Quantum.Systems
 					projectile.TeamSource);
 
 				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, splashSpell, uint.MaxValue, OnHit);
+				f.Events.OnAudioExplosion(projectile.SourceId, spell.OriginalHitPosition);
 			}
 
 			if (QuantumHelpers.ProcessHit(f, spell))

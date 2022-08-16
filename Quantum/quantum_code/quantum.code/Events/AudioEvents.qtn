@@ -1,0 +1,5 @@
+synced event OnAudioExplosion
+{
+ 	GameId SourceId;
+    FPVector3 LandPosition;
+ }

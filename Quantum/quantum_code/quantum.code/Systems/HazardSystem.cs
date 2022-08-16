@@ -42,7 +42,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			f.Events.OnHazardLanded(*hazard, filter.Transform->Position);
+			f.Events.OnAudioExplosion(filter.Hazard->GameId, filter.Transform->Position);
 
 			//check the area when the hazard explodes
 			var shape = Shape3D.CreateSphere(hazard->Radius);

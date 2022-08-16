@@ -106,7 +106,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
 			QuantumEvent.SubscribeManual<EventOnSpecialUsed>(this, OnSpecialUsed);
-			QuantumEvent.SubscribeManual<EventOnHazardLanded>(this, OnHazardLanded);
+			QuantumEvent.SubscribeManual<EventOnAudioExplosion>(this, OnExplosionStart);
 
 		}
 
@@ -190,8 +190,12 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_LOBBY_SNAPSHOT_ID,
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
+		private void OnSpecialUsed(EventOnProjectileSuccessHit callback)
+		{
 
-		private void OnHazardLanded(EventOnHazardLanded callback)
+		}
+
+		private void OnExplosionStart(EventOnAudioExplosion callback)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)
 			{
@@ -199,9 +203,10 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var audio = AudioId.None;
-
-			switch (callback.HazardData.GameId)
+			Log.Warn(callback.SourceId);
+			switch (callback.SourceId)
 			{
+				//specials
 				case GameId.SpecialAimingGrenade:
 					audio = AudioId.ExplosionMedium;
 					break;
@@ -214,8 +219,17 @@ namespace FirstLight.Game.StateMachines
 				case GameId.SpecialSkyLaserBeam:
 					audio = AudioId.ExplosionSciFi;
 					break;
+				//weapons
+				case GameId.ApoRPG:
+					audio = AudioId.ExplosionSmall;
+					break;
+				case GameId.ModLauncher:
+					audio = AudioId.ExplosionSmall;
+					break;
+				case GameId.SciCannon:
+					audio = AudioId.ExplosionSciFi;
+					break;
 			}
-
 
 			if (audio != AudioId.None)
 			{
@@ -236,6 +250,9 @@ namespace FirstLight.Game.StateMachines
 			switch (callback.SpecialType)
 			{
 				case SpecialType.Grenade:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.StunGrenade:
 					audio = AudioId.Dash;
 					break;
 				case SpecialType.ShieldedCharge:

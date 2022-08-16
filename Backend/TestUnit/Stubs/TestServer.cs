@@ -17,7 +17,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using ServerSDK;
+using ServerSDK.Models;
 using ServerSDK.Services;
+using StackExchange.Redis;
 
 namespace Tests.Stubs;
 
@@ -98,12 +100,14 @@ public class TestServer
 	{
 		UpdateDependencies(services =>
 		{
+			services.RemoveAll(typeof(IServerAnalytics)); 
 			services.RemoveAll(typeof(IServerStateService)); 
 			services.RemoveAll(typeof(ITestPlayerSetup));
 			services.RemoveAll(typeof(IServerMutex));
 			services.AddSingleton<IServerStateService, InMemoryPlayerState>();
 			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
 			services.AddSingleton<IServerMutex, InMemoryMutex>();
+			services.AddSingleton<IServerAnalytics, InMemoryAnalytics>();
 		});
 	}
 	

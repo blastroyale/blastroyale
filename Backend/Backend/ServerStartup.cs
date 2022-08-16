@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Backend.Db;
 using Backend.Game;
@@ -5,6 +6,7 @@ using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
 using FirstLight;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,7 +30,18 @@ public static class ServerStartup
 	{
 		ServerConfiguration.LoadConfiguration(appPath);
 		DbSetup.Setup(services);
-		
+
+		var insightsConnection = Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING", EnvironmentVariableTarget.Process);
+		if (insightsConnection != null)
+		{
+			services.AddApplicationInsightsTelemetry(o => o.ConnectionString = insightsConnection);
+			services.AddSingleton<IMetricsService, AppInsightsMetrics>();
+		}
+		else
+		{
+			services.AddSingleton<IMetricsService, NoMetrics>();
+		}
+		services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
 		services.AddSingleton<IPlayerSetupService, PlayerSetupService>();
 		services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 		services.AddSingleton<IServerStateService, PlayfabGameStateService>();

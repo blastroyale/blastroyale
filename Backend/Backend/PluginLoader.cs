@@ -57,7 +57,7 @@ public class PluginLoader
 			loadedPlugins.Add(new BlastRoyalePlugin());
 		
 		loadedPlugins.Add(new TrophyLadderPlugin());
-		
+		loadedPlugins.Add(new AnalyticsPlugin());
 		return loadedPlugins;
 	}
 	

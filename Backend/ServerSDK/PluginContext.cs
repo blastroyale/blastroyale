@@ -2,6 +2,7 @@ using FirstLight.Game.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using ServerSDK.Models;
 using ServerSDK.Services;
 
 
@@ -18,6 +19,8 @@ public class PluginContext
 	public readonly ILogger Log;
 	public readonly IServerStateService ServerState;
 	public readonly IServerMutex PlayerMutex;
+	public readonly IMetricsService Metrics;
+	public readonly IServerAnalytics Analytics;
 
 	public PluginContext(IEventManager evManager, IServiceProvider services)
 	{
@@ -25,6 +28,8 @@ public class PluginContext
 		Log = services.GetService<ILogger>()!;
 		ServerState = services.GetService<IServerStateService>()!;
 		PlayerMutex = services.GetService<IServerMutex>()!;
+		Metrics = services.GetService<IMetricsService>()!;
+		Analytics = services.GetService<IServerAnalytics>()!;
 	}
 
 	/// <summary>

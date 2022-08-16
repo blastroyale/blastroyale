@@ -225,7 +225,6 @@ namespace FirstLight.Game.StateMachines
 
 			if (audio != AudioId.None)
 			{
-				Log.Warn(audio);
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
@@ -261,7 +260,7 @@ namespace FirstLight.Game.StateMachines
 
 				if (callback.TotalDamage <= 0)
 				{
-					audio = AudioId.SelfShieldBreak;
+					audio = AudioId.DamageAbsorb;
 				}
 				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
